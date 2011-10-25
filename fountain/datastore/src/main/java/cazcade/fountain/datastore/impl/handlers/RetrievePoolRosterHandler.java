@@ -1,0 +1,52 @@
+package cazcade.fountain.datastore.impl.handlers;
+
+import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.liquid.api.handler.RetrievePoolRosterRequestHandler;
+import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.request.RetrievePoolRosterRequest;
+import cazcade.liquid.impl.UUIDFactory;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
+
+import java.util.Collection;
+
+/**
+ * @author neilelliz@cazcade.com
+ */
+public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<RetrievePoolRosterRequest> implements RetrievePoolRosterRequestHandler {
+
+    public RetrievePoolRosterRequest handle(final RetrievePoolRosterRequest request) throws InterruptedException {
+        Node node;
+        final Transaction transaction = fountainNeo.beginTx();
+        try {
+            Collection<LSDEntity> entities;
+            LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
+            entity.timestamp();
+            entity.setID(UUIDFactory.randomUUID());
+            entity.setType(LSDDictionaryTypes.ALIAS_LIST);
+
+            if (request.getUri() != null) {
+                entities = socialDAO.getRosterNoTX(request.getUri(), request.isInternal(), request.getSessionIdentifier(), request.getDetail());
+            } else {
+                entities = socialDAO.getRosterNoTX(request.getTarget(), request.isInternal(), request.getSessionIdentifier(), request.getDetail());
+            }
+            transaction.success();
+            if (entities == null || entities.size() == 0) {
+                return LiquidResponseHelper.forEmptyResultResponse(request);
+
+            } else {
+                entity.addSubEntities(LSDAttribute.CHILD, entities);
+                return LiquidResponseHelper.forServerSuccess(request, entity);
+            }
+        } catch (RuntimeException e) {
+            transaction.failure();
+            throw e;
+        } finally {
+            transaction.finish();
+        }
+
+    }
+}

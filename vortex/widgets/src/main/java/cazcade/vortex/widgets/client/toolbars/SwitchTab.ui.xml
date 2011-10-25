@@ -1,0 +1,40 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .tabOptionLeft        { color:grey;padding-left:10px;padding-top:6px;width:62px;height:24px;background-image: url('./images/SwitchTabOptionUnselectedLeft.png');}
+        .tabOptionMiddleLeft  { color:grey;padding-left:10px;padding-top:6px;width:61px;height:24px;background-image: url('./images/SwitchTabOptionUnselectedMiddle.png');}
+        .tabOptionMiddleRight { color:grey;padding-left:10px;padding-top:6px;width:61px;height:24px;background-image: url('./images/SwitchTabOptionUnselectedMiddle.png');}
+        .tabOptionRight       { color:grey;padding-left:10px;padding-top:6px;width:63px;height:24px;background-image: url('./images/SwitchTabOptionUnselectedRight.png');}
+        .tabContainer {
+
+            white-space: nowrap;
+            left: 50%;
+            text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+            text-align: center;
+            text-overflow: ellipsis;
+            width:100%;
+            margin:5px;
+
+        }
+        .tabInnerContainer {
+           margin:0 auto; 
+        }
+    </ui:style>
+    <g:HorizontalPanel styleName="{style.tabContainer}">
+        <g:HorizontalPanel styleName="{style.tabInnerContainer}">
+            <g:HTMLPanel styleName="{style.tabOptionLeft}">
+                <span ui:field="optionLeftLabel"/>
+            </g:HTMLPanel>
+            <g:HTMLPanel styleName="{style.tabOptionMiddleLeft}">
+                <span ui:field="optionMiddleLeftLabel"/>
+            </g:HTMLPanel>
+            <g:HTMLPanel styleName="{style.tabOptionMiddleRight}">
+                <span ui:field="optionMiddleRightLabel"/>
+            </g:HTMLPanel>
+            <g:HTMLPanel styleName="{style.tabOptionRight}">
+                <span ui:field="optionRightLabel"/>
+            </g:HTMLPanel>
+        </g:HorizontalPanel>
+    </g:HorizontalPanel>
+</ui:UiBinder>

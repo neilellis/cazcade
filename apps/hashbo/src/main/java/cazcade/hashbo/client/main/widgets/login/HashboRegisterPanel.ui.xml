@@ -1,0 +1,58 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:field='urn:import:cazcade.vortex.widgets.client.form.fields'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="register-panel-inner">
+        <g:HTMLPanel styleName="register-panel-lhs">
+            <div>
+                <div class="login-panel-row">
+                    <div class="login-panel-label">Fullname
+                    </div>
+                    <field:RegexTextBox styleName="register-panel-chat login-panel-username"
+                                        regex=".*"
+                                        ui:field="fullname" errorMessage="Invalid Name" visibleLength="30"/>
+                </div>
+                <div class="login-panel-row">
+                    <div class="login-panel-label">Username
+                    </div>
+                    <field:UsernameTextBox showAvailability="true"
+                                           styleName="register-panel-chat login-panel-username"
+                                           ui:field="username" visibleLength="20"/>
+                </div>
+                <div class="login-panel-row">
+                    <div class="login-panel-label">Password</div>
+                    <field:VortexPasswordTextBox styleName="register-panel-chat login-panel-password"
+                                                 ui:field="password"/>
+                </div>
+                <div class="login-panel-row">
+                    <div class="login-panel-label">Confirm</div>
+                    <field:VortexPasswordTextBox
+                            styleName="register-panel-chat login-panel-password"
+                            ui:field="passwordConfirm" visibleLength="20"/>
+                </div>
+                <div class="login-panel-row">
+                    <div class="login-panel-label">Email
+                    </div>
+                    <field:RegexTextBox inputType="email" regex="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                                        errorMessage="Invalid Email"
+                                        styleName="register-panel-chat login-panel-email" ui:field="email" visibleLength="30"/>
+                </div>
+                <div class="login-panel-row">
+
+                </div>
+                <g:Label styleName="login-panel-error-message" ui:field="registerErrorMessage"/>
+            </div>
+
+        </g:HTMLPanel>
+        <g:HTMLPanel styleName="register-panel-rhs">
+            <p>Thanks for signing up to Boardcast, we're a new kid on the block and things might not always go as planned. We ask
+                for your patience during this time, and ask that you let us know of anything we can do to make things better <a href="mailto:info@hashbo.com">info@hashbo.com</a>
+            </p>
+            <br/>
+            <p>If you already have an account please sign in instead.</p>
+        </g:HTMLPanel>
+
+        <g:Button styleName="btn primary large left-button" text="Register" ui:field="registerButton"/>
+        <g:Hyperlink text="Sign In" ui:field="login" styleName=" btn large right-button"/>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

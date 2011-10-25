@@ -1,0 +1,6 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="search-panel-search-box">
+       <g:SuggestBox ui:field="suggestionBox" styleName="search-panel-search-box-input"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

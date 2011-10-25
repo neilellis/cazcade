@@ -1,0 +1,57 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:field='urn:import:cazcade.vortex.widgets.client.form.fields'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <div class="address-panel-lhs">
+            <div class="address-panel-row">
+                <div class="address-panel-label">Address
+                </div>
+                <field:RegexTextBox showValidity="true"
+                                    regex="[\w\s\-'.(),/]+"
+                                    styleName="address-panel-chat address-first-line"
+                                    ui:field="addressFirstLine"/>
+            </div>
+            <div class="address-panel-row">
+                <div class="address-panel-label">
+                </div>
+                <field:RegexTextBox showValidity="true"
+                                    regex="[\w\s\-'.(),/]+"
+                                    styleName="address-panel-chat address-second-line"
+                                    ui:field="addressSecondLine"/>
+            </div>
+            <div class="address-panel-row">
+                <div class="address-panel-label">City
+                </div>
+                <field:RegexTextBox showValidity="true"
+                                    regex="[\w\s\-'.&amp;(),/]+"
+                                    styleName="address-panel-chat address-city"
+                                    ui:field="city"/>
+            </div>
+            <div class="address-panel-row">
+                <div class="address-panel-label">State
+                </div>
+                <field:RegexTextBox showValidity="true"
+                                    regex="[\w\s\-'.(),/]+"
+                                    styleName="address-panel-chat address-state"
+                                    ui:field="state"/>
+            </div>
+            <div class="address-panel-row">
+                <div class="address-panel-label">Postal Code
+                </div>
+                <field:RegexTextBox showValidity="true"
+                                    regex="[\w\s\-'.(),/]+"
+                                    styleName="address-panel-chat address-postal-code"
+                                    ui:field="postalCode"/>
+            </div>
+            <div class="address-panel-row">
+                <div class="address-panel-label">Country
+                </div>
+                <field:VortexListBox showValidity="false"
+                                     styleName="address-panel-chat address-country"
+                                     ui:field="country"/>
+            </div>
+        </div>
+        <g:Image ui:field="validityImage" styleName="form-field-validity-icon"/>
+        <g:Label ui:field="errorMessage" styleName="invisible form-field-error-message"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

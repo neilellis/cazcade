@@ -1,0 +1,10 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
+    <g:HTMLPanel>
+        <g:HTMLPanel styleName="editable-image">
+            <image:CachedImage ui:field="image" styleName="editable-image-display"/>
+            <span class="editable-image-text">Click to edit</span>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

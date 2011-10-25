@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bus/bus.iml" filepath="$PROJECT_DIR$/bus/bus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/comms/comms.iml" filepath="$PROJECT_DIR$/comms/comms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dnd/dnd.iml" filepath="$PROJECT_DIR$/dnd/dnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../fountain/fountain.iml" filepath="$PROJECT_DIR$/../fountain/fountain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gwt-util/gwt-util.iml" filepath="$PROJECT_DIR$/gwt-util/gwt-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/main/main.iml" filepath="$PROJECT_DIR$/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pool/pool.iml" filepath="$PROJECT_DIR$/pool/pool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xmpp/proto/proto.iml" filepath="$PROJECT_DIR$/xmpp/proto/proto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xmpp/strophe/strophe.iml" filepath="$PROJECT_DIR$/xmpp/strophe/strophe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex.iml" filepath="$PROJECT_DIR$/vortex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/widgets/widgets.iml" filepath="$PROJECT_DIR$/widgets/widgets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xmpp/xmpp.iml" filepath="$PROJECT_DIR$/xmpp/xmpp.iml" />
+    </modules>
+  </component>
+</project>
+

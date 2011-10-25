@@ -1,0 +1,8 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
+    <g:HTMLPanel styleName="image-editor">
+        <h3>Change Image</h3>
+        <fields:ChangeImageUrlPanel ui:field="changeImagePanel"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

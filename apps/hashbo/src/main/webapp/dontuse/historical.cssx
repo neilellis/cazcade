@@ -1,0 +1,244 @@
+
+.profile-panel {
+    width: 800px;
+    min-height: 2300px;
+
+}
+
+.profile-header {
+    width: 100%;
+    height: 100px;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+    border-top-left-radiusradius: 6px;
+    border-top-right-radius: 6px;
+    background-color: rgb(240, 240, 240);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.05, rgb(230, 230, 230)), color-stop(0.18, rgb(240, 240, 240)), color-stop(0.88, rgb(245, 245, 245)));
+    background-image: -moz-linear-gradient(center bottom, rgb(230, 230, 230) 5%, rgb(240, 240, 240) 18%, rgb(245, 245, 245) 88%);
+    color: black;
+    border-bottom: 1px solid #aaa;
+
+}
+
+.profile-header h1 {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    font-size: 3em;
+}
+
+.profile-header p {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    font-size: 2em;
+}
+
+.profile-switch {
+    margin-bottom: 1em;
+}
+
+.profile-panel-lhs {
+    width: 100%;
+    height: 100%;
+    float: left;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 30px;
+    display: table;
+}
+
+.profile-panel-rhs {
+    width: 300px;
+    height: 100%;
+    float: right;
+    border-left: 1px solid rgba(161, 222, 62, 0.2);
+    margin-top: 10px;
+}
+
+.profile-panel-section {
+    width: 90%;
+    margin-left: 80px;
+    float: right;
+    margin: 10px;
+    margin-bottom: 20px;
+    padding: 8px;;
+    border: 1px solid rgba(30, 30, 30, 0.05);
+
+}
+
+.profile-panel-row {
+    width: 100%;
+    min-height: 3em;
+    height: 100%;
+    display: table;
+}
+
+.profile-panel-label {
+    width: 40%;
+    min-width: 200px;
+    float: left;
+    min-height: 1.6em;
+    height: 100%;;
+    font-size: 13px;
+    display: table-cell;
+}
+
+.profile-panel-entry {
+    width: 60%;
+    float: right;
+    min-height: 1.6em;
+    height: 100%;;
+    padding-bottom: 8px;
+    display: table-cell;
+}
+
+.profile-panel-entry input.gwt-TextBox {
+    width: 200px;
+    padding: 2px;
+    color: #1d2905;
+}
+
+.profile-panel-entry .gwt-ListBox {
+    max-width: 300px;
+    padding: 2px;
+    color: #1d2905;
+}
+
+.profile-panel-yob input.gwt-TextBox {
+    width: 100px;
+}
+
+.profile-panel-qualifications textarea.gwt-TextArea {
+    width: 400px;
+    height: 100px;
+    padding-bottom: 25px;
+}
+
+.profile-panel-publications textarea.gwt-TextArea {
+    width: 400px;
+    height: 100px;
+    padding-bottom: 25px;
+}
+
+.profile-button {
+    float: right;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 20px;
+    margin-top: 20px;
+}
+
+.profile-personal-spiel {
+    clear: left;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.profile-personal-spiel p {
+    margin-bottom: 0.6em;
+}
+
+
+
+
+
+
+
+
+.vortex-entity-image-uploader .popupContent {
+    background-color: #333;
+    border-radius: 4px;
+    padding: 10px;
+    color: #eee;
+    border: 5px #222 solid;
+}
+
+.vortex-entity-image-uploader .popupContent table {
+    width: 100%;
+}
+
+.vortex-entity-image-uploader .popupContent tr {
+    height: 100%;
+    width: 100%;
+}
+
+.vortex-entity-image-uploader .vortex-image-uploader-loader-area {
+    background-color: #444;
+    color: white;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    padding-right: 4px;
+    margin-top: 4px;
+    border: none;
+
+}
+
+.vortex-entity-image-uploader .filename {
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #ccc;
+    width: 200px;
+}
+
+.vortex-entity-image-uploader table.GWTUpld {
+    width: 100%;
+    height: 100px;
+}
+
+.vortex-entity-image-uploader tr {
+    width: 100%;
+    height: 100%;
+}
+
+.vortex-entity-image-uploader .status {
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #ccc;
+    float: right;
+}
+
+.vortex-entity-image-uploader  .vortex-image-uploader-preview img {
+    width: 64px;
+    background: none;
+}
+
+.vortex-image-uploader-cancel-link {
+    float: left;
+    margin-top: 16px;
+    padding: 4px;
+    color: #666
+}
+
+.vortex-image-uploader-add-button {
+    margin-top: 16px;
+    float: right;
+    padding: 4px;
+}
+
+.vortex-entity-image-uploader .vortex-image-uploader-loader-area .upld-multiple {
+    background-color: #666;
+    color: white;
+    width: 100%;
+    overflow: hidden;
+    border: none;
+
+}
+
+.vortex-entity-image-uploader .vortex-image-uploader-preview {
+    background-color: #444;
+    border: 3px solid #333;
+    box-shadow: inset 0 0 2px 2px #333;
+}
+
+
+
+
+
+
+
+

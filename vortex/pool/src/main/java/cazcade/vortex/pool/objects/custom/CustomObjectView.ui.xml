@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="pool-object-inner">
+
+        <g:HTMLPanel styleName="pool-object-custom">
+            <g:HTMLPanel styleName="pool-object-photo-surround">
+                <g:Image ui:field="image"/>
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

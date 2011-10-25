@@ -1,0 +1,23 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
+             xmlns:date="urn:import:cazcade.vortex.widgets.client.date">
+    <g:HTMLPanel styleName="comment-entry-panel">
+        <g:HTMLPanel ui:field="imageSurround" styleName="comment-entry-user-panel">
+            <image:UserProfileImage ui:field="profileImage"/>
+        </g:HTMLPanel>
+        <div class="comment-entry-main">
+            <strong>
+                <span class="comment-author-fullname-label" ui:field="authorFullname"/>
+                <small>
+                    <span class="comment-author-username-label" ui:field="profileName"/>
+                </small>
+            </strong>
+            <!--<span class="comment-author-follow-badge">Follow</span>-->
+            <span class="comment-entry-message" ui:field="text"/>
+            <div class="comment-entry-details">
+                <date:SelfUpdatingRelativeDate styleName="comment-entry-time" ui:field="dateTime"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,16 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .toolbar {width:100%;height:38px;}
+    </ui:style>
+    <g:HTMLPanel>
+        <g:AbsolutePanel styleName="{style.toolbar}">
+            <g:HTMLPanel styleName="vtx-toolbar">
+                <h1 ui:field="title"></h1>
+            </g:HTMLPanel>
+            <!--<g:HTMLPanel styleName="vtx-glass-overlay">-->
+
+            <!--</g:HTMLPanel>-->
+        </g:AbsolutePanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

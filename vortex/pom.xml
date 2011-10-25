@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cazcade.vortex</groupId>
+    <artifactId>vortex</artifactId>
+    <packaging>pom</packaging>
+    <version>1.1-SNAPSHOT</version>
+    <parent>
+        <groupId>cazcade</groupId>
+        <artifactId>cazcade</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+
+
+    <modules>
+        <module>dnd</module>
+        <module>main</module>
+        <module>widgets</module>
+        <module>comms</module>
+        <module>gwt-util</module>
+        <module>bus</module>
+        <module>common</module>
+        <module>pool</module>
+        <module>plugins</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <artifactId>common</artifactId>
+            <groupId>cazcade</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+    <!--<build>-->
+
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/java</directory>-->
+                <!--<includes>-->
+                    <!--<include>**/*.java</include>-->
+                    <!--<include>**/*.gwt.xml</include>-->
+                    <!--<include>**/*.ui.xml</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
+    <!--</build>-->
+
+  
+</project>

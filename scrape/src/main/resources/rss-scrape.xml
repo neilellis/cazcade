@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="UTF-8">
+    <empty>
+        <var-def name="page">
+            <html-to-xml>
+                <http url="${url}">
+                </http>
+            </html-to-xml>
+        </var-def>
+    </empty>
+    <var-def name="feeds">
+
+        <loop item="link">
+            <list>
+                <xpath expression="//link[@type ='application/atom+xml']/@href">
+                    <var name="page"/>
+                </xpath>
+            </list>
+            <body>
+                <template>atom:${sys.fullUrl(url, link)}</template>
+            </body>
+        </loop>
+        <loop item="link">
+            <list>
+                <xpath expression="//link[@type = 'application/rss+xml' ]/@href">
+                    <var name="page"/>
+                </xpath>
+            </list>
+            <body>
+                <template>rss:${sys.fullUrl(url, link)}</template>
+            </body>
+        </loop>
+        <loop item="link">
+            <!-- list consists of all rows in the main HTML table on the page -->
+            <list>
+                <xpath expression="//a[ends-with(@href, 'xml') or ends-with(@href, 'rss') or ends-with(@href, 'atom')]/@href">
+                    <var name="page"/>
+                </xpath>
+            </list>
+
+
+            <body>
+                <empty>
+                    <var-def name="root">
+                        <xpath expression="/*/name()">
+                            <html-to-xml>
+                                <http url='${sys.fullUrl(url, link)}' method="get"/>
+                            </html-to-xml>
+                        </xpath>
+                    </var-def>
+                </empty>
+                <case>
+                    <if condition='${http.mimeType.equals("application/rss+xml")}'>
+                        <template>rss:${sys.fullUrl(url, link)}</template>
+                    </if>
+                    <if condition='http.mimeType.equals("application/atom+xml") }'>
+                        <template>atom:${sys.fullUrl(url, link)}</template>
+                    </if>
+                    <if condition='${http.mimeType.equals("text/xml") }'>
+                        <case>
+                            <if condition='root.toString().equals("rss")}'>
+                                <template>rss:${sys.fullUrl(url, link)}</template>
+                            </if>
+                            <if condition='root.toString().equals("rss") || root.toString().equals("atom:feed") }'>
+                                <template>atom:${sys.fullUrl(url, link)}</template>
+                            </if>
+                        </case>
+                    </if>
+                </case>
+            </body>
+        </loop>
+    </var-def>
+
+
+</config>

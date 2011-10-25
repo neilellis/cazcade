@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:datastore-client-spring-config.xml"/>
+
+    <bean id="shellLifecycleManager" class="cazcade.fountain.common.app.ApplicationLifecycleManager">
+
+    </bean>
+
+    <bean id="helpCommand" class="cazcade.cli.builtin.HelpCommand"/>
+    <bean id="echoCommand" class="cazcade.cli.builtin.EchoCommand"/>
+    <bean id="logCommand" class="cazcade.cli.builtin.LogCommand"/>
+    <bean id="sleepCommand" class="cazcade.cli.builtin.SleepCommand"/>
+    <bean id="cdCommand" class="cazcade.cli.builtin.ChangePoolCommand"/>
+    <bean id="listPoolCommand" class="cazcade.cli.builtin.ListPoolCommand"/>
+    <bean id="loginCommand" class="cazcade.cli.builtin.LoginCommand"/>
+    <bean id="pwdCommand" class="cazcade.cli.builtin.PwdCommand"/>
+    <bean id="createPoolCommand" class="cazcade.cli.builtin.CreatePoolCommand"/>
+    <bean id="whoamiCommand" class="cazcade.cli.builtin.WhoamiCommand"/>
+    <bean id="descCommand" class="cazcade.cli.builtin.DescCommand"/>
+    <bean id="showCommand" class="cazcade.cli.builtin.ShowCommand"/>
+    <bean id="renameCommand" class="cazcade.cli.builtin.RenamePoolCommand"/>
+    <bean id="deleteCommand" class="cazcade.cli.builtin.DeletePoolCommand"/>
+    <bean id="destrictCommand" class="cazcade.cli.builtin.DestrictUserCommand"/>
+    <bean id="restrictCommand" class="cazcade.cli.builtin.RestrictUserCommand"/>
+    <bean id="setCommand" class="cazcade.cli.builtin.SetCommand"/>
+    <bean id="unsetCommand" class="cazcade.cli.builtin.UnsetCommand"/>
+    <bean id="adminCommand" class="cazcade.cli.builtin.AdminCommand"/>
+
+
+    <!--<bean id="whenCommand" class="cazcade.cli.builtin.WhenCommand"/>-->
+
+    <bean id="commandFactory" class="cazcade.cli.commands.CommandFactory">
+        <constructor-arg index="0" ref="shellLifecycleManager"/>
+        <constructor-arg index="1">
+            <map>
+                <entry key="help" value-ref="helpCommand"/>
+                <entry key="echo" value-ref="echoCommand"/>
+                <entry key="log" value-ref="logCommand"/>
+                <entry key="login" value-ref="loginCommand"/>
+                <entry key="sleep" value-ref="sleepCommand"/>
+                <entry key="cd" value-ref="cdCommand"/>
+                <entry key="ls" value-ref="listPoolCommand"/>
+                <entry key="pwd" value-ref="pwdCommand"/>
+                <entry key="mkdir" value-ref="createPoolCommand"/>
+                <entry key="whoami" value-ref="whoamiCommand"/>
+                <entry key="desc" value-ref="descCommand"/>
+                <entry key="show" value-ref="showCommand"/>
+                <entry key="rename" value-ref="renameCommand"/>
+                <entry key="rm" value-ref="deleteCommand"/>
+                <entry key="destrict" value-ref="destrictCommand"/>
+                <entry key="restrict" value-ref="restrictCommand"/>
+                <entry key="set" value-ref="setCommand"/>
+                <entry key="unset" value-ref="unsetCommand"/>
+                <entry key="admin" value-ref="adminCommand"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+</beans>

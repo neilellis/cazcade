@@ -1,0 +1,32 @@
+package cazcade.fountain.datastore.impl.handlers;
+
+import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.liquid.api.handler.CreateSessionRequestHandler;
+import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.request.CreateSessionRequest;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
+
+/**
+ * @author neilelliz@cazcade.com
+ */
+public class CreateSessionHandler extends AbstractDataStoreHandler<CreateSessionRequest> implements CreateSessionRequestHandler {
+
+
+    public CreateSessionRequest handle(CreateSessionRequest request) throws InterruptedException {
+        final FountainNeo neo = fountainNeo;
+        final Transaction transaction = neo.beginTx();
+        try {
+            Node sessionNode = userDAO.createSession(request.getUri(), request.getClient());
+            final LSDEntity entity = fountainNeo.convertNodeToLSD(sessionNode, request.getDetail(), request.isInternal());
+            transaction.success();
+            return LiquidResponseHelper.forServerSuccess(request, entity);
+        } catch (RuntimeException e) {
+            transaction.failure();
+            return LiquidResponseHelper.forException(e, request);
+        } finally {
+            transaction.finish();
+        }
+    }
+}

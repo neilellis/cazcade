@@ -1,0 +1,15 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:misc='urn:import:cazcade.vortex.widgets.client.misc'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="pool-object-inner">
+
+        <g:HTMLPanel styleName="pool-object-checklist drop-shadow curved curved-vt-2">
+            <h1>Checklist (Alpha)</h1>
+            <g:HTMLPanel styleName="pool-object-checklist-surround">
+                <g:VerticalPanel ui:field="listPanel">
+                </g:VerticalPanel>
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache>
+
+    <!--<cache-->
+            <!--name="Message"-->
+            <!--maxElementsInMemory="10000"-->
+            <!--eternal="false"-->
+            <!--timeToIdleSeconds="300"-->
+            <!--timeToLiveSeconds="600"-->
+            <!--overflowToDisk="false"-->
+            <!--memoryStoreEvictionPolicy="FIFO"-->
+            <!--/>-->
+
+    <cache name="org.hibernate.cache.StandardQueryCache"
+           maxElementsInMemory="50"
+           eternal="false"
+           timeToLiveSeconds="120"
+           overflowToDisk="false"
+            />
+
+    <cache name="nodeauth"
+           maxElementsInMemory="100000"
+           eternal="true"
+           overflowToDisk="false"
+            />
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            maxElementsOnDisk="10000000"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+
+</ehcache>

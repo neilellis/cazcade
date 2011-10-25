@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    transition: opacity ease-in-out 300ms;
+    -o-transition: opacity ease-in-out 300ms;
+    -webkit-transition: opacity ease-in-out 300ms;
+    -moz-transition: opacity ease-in-out 300ms;
+
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px; /*color: #302820;*/
+    background-image: url('../_images/background.png');
+    overflow: hidden;
+
+}
+
+
+.header-logo-container {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.header-logo {
+    width: 303px;
+    height: 127px;
+    /*background: url('../_images/logo.png');*/
+    display: inline-block;
+
+}
+
+.header-container {
+    position: relative;
+    width: 100%;
+    height: 36px;
+    padding-top: 2px;
+    /*border-bottom: 2px #555 solid;*/
+}
+
+.header-container-for-app {
+
+}
+
+.main-content-panel {
+    transition: width ease-in-out 500ms, height ease-in-out 500ms, opacity ease-in-out 500ms;
+    -o-transition: width ease-in-out 500ms, height ease-in-out 500ms, opacity ease-in-out 500ms;
+    -webkit-transition: width ease-in-out 500ms, height ease-in-out 500ms, opacity ease-in-out 500ms;
+
+    -moz-transition: width ease-in-out 500ms;
+    -moz-transition: height ease-in-out 500ms;
+    -moz-transition: opacity ease-in-out 500ms;
+
+    margin: 0 auto;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 4px;
+    border-radius: 6px;
+    margin-top: 0px;
+    margin-bottom: 200px; /*background-color: #447E80;*/
+    /*background-image: -webkit-gradient(radial, 706 64, 1000, 0 44, 40, from(#447E80), to(#3A6D6E), color-stop(.8, #4D9091));*/
+    background-color: rgb(252, 252, 252);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.11, rgb(253, 253, 253)), color-stop(0.56, rgb(251, 251, 251)), color-stop(0.78, rgb(250, 250, 250)));
+
+    background-image: -moz-linear-gradient(center bottom, rgb(253, 253, 253) 11%, rgb(251, 251, 251) 56%, rgb(250, 250, 250) 78%);
+    border: 1px rgb(190, 190, 190) solid;
+
+    -moz-box-shadow: 0 0 80px rgba(160, 160, 160, 0.2);
+    -webkit-box-shadow: 0 0 80px rgba(161, 160, 160, 0.2);
+    box-shadow: 0 0 80px rgba(161, 160, 160, 0.2);
+    color: #444;
+}
+
+#message-block {
+    background-color: #ddd;
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    top: 260px;
+    padding: 20px;
+    font-size: 2em;
+    border-radius: 10px;
+    box-shadow: 0 0 3px #999;
+}
+
+
+
+
+
+
+

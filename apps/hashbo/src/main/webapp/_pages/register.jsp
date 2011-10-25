@@ -1,0 +1,5 @@
+<%--
+
+   Register JSP calls RegisterServlet
+
+--%>

@@ -1,0 +1,17 @@
+<module>
+
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.event.EventBase"/>
+    <inherits name="com.google.gwt.dom.DOM"/>
+    <inherits name="com.google.gwt.resources.Resources"/>
+    <inherits name="cazcade.vortex.dnd.gwt-dnd"/>
+    <inherits name="cazcade.vortex.bus.Bus"/>
+    <inherits name="cazcade.vortex.widgets.Widgets"/>
+    <inherits name="cazcade.vortex.gwt.util.GWTUtil"/>
+    <inherits name="cazcade.vortex.common.VortexCommon"/>
+    <inherits name="cazcade.vortex.comms.datastore.DataStore"/>
+
+    <source path="pool"/>
+
+</module>

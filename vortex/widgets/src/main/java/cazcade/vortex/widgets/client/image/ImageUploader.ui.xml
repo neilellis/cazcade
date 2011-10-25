@@ -1,0 +1,11 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+            <g:HTMLPanel styleName="vortex-image-uploader vortex-profile-image-uploader">
+                <g:HTMLPanel ui:field="imageLoadedPanel" styleName="vortex-image-uploader-single-image-preview">
+
+                </g:HTMLPanel>
+                <g:HTMLPanel ui:field="loaderPanel" styleName="vortex-image-uploader-loader-area">
+
+                </g:HTMLPanel>
+            </g:HTMLPanel>
+</ui:UiBinder>

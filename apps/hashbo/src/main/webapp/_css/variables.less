@@ -1,0 +1,78 @@
+//Font sizes
+@streamFontSize : 13px;
+@streamFontSmallSize: 10px;
+@boardTextFontSize: 13px;
+@captionFontSize: 20px;
+@topBarFontSize: 15px;
+@topTabsFontSize: @topBarFontSize;
+
+@topBarHeight:29px;
+@topBarExpandedHeight: 78px;
+@topBarImageSize:18px;
+@boardImageSize: @topBarImageSize;
+@topToolbarIconSize: 40px;
+@topToolbarIconImageSize: 24px;
+@topBarTabHeight:18px;
+
+@boardToolbarHeight: 50px;
+@boardToolbarIconSize: 36px;
+@boardToolbarIconImageSize: 24px;
+
+@topBarFontColor:#f1f1f1;
+
+
+
+//Magic ratio stuff for pool objects
+
+
+@poolWidth: 1024px;
+@poolObjectPadding: 10px;
+
+//These sizes for the objects, remember that they get padded
+@poolObjectSmallWidth:(@poolWidth - (@poolWidth/1.618)) - ( 2 * @poolObjectPadding );
+@poolObjectSmallHeight:(@poolWidth - (@poolWidth/1.618))/1.618 - ( 2 * @poolObjectPadding );
+@poolObjectMediumWidth:(@poolWidth/1.618) - ( 2 * @poolObjectPadding );
+@poolObjectMediumHeight:(@poolWidth/(1.618*1.618)) - ( 2 * @poolObjectPadding );
+@poolObjectLargeWidth:@poolWidth - ( 2 * @poolObjectPadding );
+@poolObjectLargeHeight:@poolWidth/1.618 - ( 2 * @poolObjectPadding );
+
+
+@highlightColor: #4b8d2d;
+@grayVeryDark:lighten(@black, 15%);
+
+@highlightColorLight: lighten(@highlightColor, 10%);
+@highlightColorLighter: lighten(@highlightColor, 20%);
+@highlightColorVeryLight: lighten(@highlightColor, 40%);
+@highlightColorExtremeLight: lighten(@highlightColor, 62%);
+
+
+@highlightColorDark: darken(@highlightColor, 10%);
+@highlightColorDarker: darken(@highlightColor, 20%);
+@highlightColorVeryDark: darken(@highlightColor, 40%);
+@highlightColorExtremeDark: darken(@highlightColor, 70%);
+
+@highlightColorTransparent:rgba(29%, 55%, 18%, 0.2) ;
+
+
+@whiteLinen:  url('../_images/wallpapers/linen-white.jpg');
+@blackTexture: url('../_images/wallpapers/noise-black.jpg');
+@greyNoise: url('../_images/wallpapers/noise-grey.jpg');
+@lightGreyNoise: url('../_images/wallpapers/noise-light-grey.jpg');
+
+
+
+
+@dialogGlassBackground: @blackTexture;
+@dialogGlassBackgroundColor: black;
+@dialogBackground:  url('../_images/wallpapers/linen-white-light.jpg');
+
+
+
+@toolbarTexture: url('../_images/wallpapers/noise-black.jpg');
+@boardTexture: url('../_images/wallpapers/pattern_diagonal_light_grey.png');
+//@bodyTexture: url('../_images/wallpapers/noise-white.jpg');
+@bodyTexture:  url('../_images/wallpapers/linen-gray.jpg');
+//@backgroundTexture: url('../_images/wallpapers/pattern_diagonal_white.png');
+//@bodyTexture: url('../_images/wallpapers/noise-black.jpg');
+@backgroundTexture:ur l('../_images/wallpapers/pattern_diagonal_dark.png');
+@speckled:url('../_images/wallpapers/speckled-texture.png');

@@ -1,0 +1,4 @@
+<%--<footer>--%>
+    <%--<p>&copy; Company 2011</p>--%>
+<%--</footer>--%>
+<div id="stylesheet-loaded" style="visibility:hidden"></div>

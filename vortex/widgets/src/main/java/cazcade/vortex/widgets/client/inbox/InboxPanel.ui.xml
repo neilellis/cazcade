@@ -1,0 +1,7 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:list="urn:import:cazcade.vortex.widgets.client.panels.list">
+    <g:HTMLPanel styleName="inbox-panel">
+        <list:ScrollableList ui:field="list"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

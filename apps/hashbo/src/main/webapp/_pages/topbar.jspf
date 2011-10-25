@@ -1,0 +1,34 @@
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <a class="logo" href="/">&nbsp;</a>
+            <ul class="nav">
+                <li class="active"><a href="welcome.page">Home</a></li>
+                <li><a href="./!popular">Popular</a></li>
+                <li><a href="./!new">New</a></li>
+                <li><a href="./!history">Visited</a></li>
+                <li><a href="./!my">My</a></li>
+                <li><a href="./?create=listed">Create</a></li>
+                <c:if test="${empty sessionScope.username}">
+                    <li><a href="#@${sessionScope.username}">${sessionScope.fullname}</a></li>
+                </c:if>
+            </ul>
+            <c:if test="${empty sessionScope.username}">
+                <form action="login.action" method="POST" class="pull-right"
+                      onsubmit="document.getElementById('loginNextUrl').value=window.location.href;  window.sessionStorage.setItem('boardcast.identity','');">
+                    <input class="input-small" type="text" name="username" placeholder="Username" value="">
+                    <input class="input-small" type="password" name="password" placeholder="Password">
+                    <input type="hidden" id="loginNextUrl" name="next"/>
+                    <button class="btn" type="submit">Sign in</button>
+                </form>
+            </c:if>
+            <c:if test="${not empty sessionScope.username}">
+                <form action="logout.action" method="POST" class="pull-right"
+                      onsubmit="document.getElementById('logoutNextUrl').value= window.location.href;  window.sessionStorage.setItem('boardcast.identity','');">
+                    <input type="hidden" id="logoutNextUrl" name="next"/>
+                    <button class="btn" type="submit">Sign Out</button>
+                </form>
+            </c:if>
+        </div>
+    </div>
+</div>

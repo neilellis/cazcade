@@ -1,0 +1,254 @@
+.btn {
+    &.primary {
+      .gradientBar(@highlightColor, @highlightColorDark);
+    }
+}
+
+.dark-gray-button(@width:50px) {
+    .button(@width);
+}
+
+.on-white-button-secondary(@width:50px) {
+    .button(@width, #888);
+        float: left;
+
+}
+
+.on-white-button-primary(@width:50px) {
+    .btn;
+    .primary;
+     float: right;
+
+}
+
+.button(@width:50px, @bgcolor: #666, @color: #f5f5f5, @fontsize: 0.8em) {
+    background-color: @bgcolor;
+    .border-radius(2px);
+    color: @color;
+    padding: 3px;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-top: 12px;
+    font-size: @fontsize;
+    text-align: center;
+    width: @width;
+
+}
+
+.tag-style-link(@fontsize: @boardTextFontSize) {
+    background-color: @highlightColorTransparent;
+    color: darken(@highlightColor, 25%);
+    .border-radius(8px);
+    border:  1px solid darken(@highlightColorTransparent, 20%);
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top:1px;
+    padding-bottom:0px;
+    margin-bottom:1px;
+    text-decoration: none;
+    font-size: @fontsize - 2px;
+
+    &:hover {
+        background-color: lighten(@highlightColorTransparent, 20%);
+        text-decoration: none;
+    }
+}
+
+.board-link {
+  .tag-style-link;
+}
+
+.external-link {
+
+}
+
+.person-link {
+  .tag-style-link;
+
+}
+
+.vortex-editable-label {
+    .transition-border;
+    display:block;
+    float:left;
+    position:relative;
+    .hover-edit-button {
+        opacity: 0;
+        display:block;
+        position: absolute;
+        font-size: 8pt;
+        font-color: @grayLight;
+        right:-20px;
+        top:-8px;
+        z-index: 1;
+    }
+    &:hover .hover-edit-button {
+        opacity: 0.8;
+    }
+
+     &:hover .editable {
+        cursor:pointer;
+        background-color: rgba(0,0,0,0.1);
+     }
+
+
+    &:hover .editable &.word-wrap {
+        border: 1px dashed rgba(100,100,100,0.3);
+        &.readonly {
+            border:  none;
+        }
+    }
+}
+
+.editableLabel-button-images {
+    width:12px;
+    height:12px;
+}
+
+.editableLabel-confirm-image {
+    background-image: url('../_images/tick.png');
+}
+
+.editableLabel-cancel-image {
+    background-image: url('../_images/cross.png');
+}
+
+.user-profile-image {
+    position:relative;
+    width: 34px;
+    height: 34px;
+    background-color: white;
+    .border-radius(2px);
+    border: 1px solid #eee;
+
+    img{
+        width: 32px;
+        height: 32px;
+        background-color: white;
+        .border-radius(2px);
+        padding: 1px;
+    }
+
+
+}
+
+
+.vortex-image-uploader-single-image-preview img {
+        width: 192px;
+        height: 192px;
+        background-color: white;
+        .border-radius(2px);
+        padding: 1px;
+}
+
+
+
+
+.image-selection {
+    margin-top: 14px;
+    margin-bottom: 0;
+    .clearfix();
+    text-align:center;
+
+    .image-option {
+        display:inline;
+        line-height:28px;
+        float: left;
+        margin: 1px;
+        border: 1px solid #ddd;
+        .border-radius(4px);
+        &:hover {
+          border-color: @linkColor;
+        }
+        img {
+            width:24px;
+            height:24px;
+            background-color: white;
+            .border-radius(2px);
+            margin: 2 px;
+            display: block;
+        }
+        cursor:pointer;
+    }
+}
+
+
+.image-editor {
+    width:500px;
+    height:300px;
+    background: white;
+    z-index: 1000;
+    padding: 16px;
+    font-size: 16px;
+    .border-radius(6px);
+    .box-shadow(0 0 6px 4px rgba(80,80,80,0.3));
+    background: @dialogBackground;
+
+
+    img {
+        padding: 8px;
+    }
+
+    position:relative;
+
+    .change-image-url-area {
+        top:90px;
+        right:20px;
+        left:250px;
+        bottom:150px;
+        display: block;
+        position: absolute;
+    }
+
+    .vortex-image-uploader-loader-area {
+        top:200px;
+        right:20px;
+        left:250px;
+        bottom:20px;
+        display: block;
+        position: absolute;
+    }
+
+    .vortex-image-uploader-single-image-preview {
+        top:70px;
+        right:20px;
+        left:20px;
+        display: block;
+        position: absolute;
+    }
+
+    h3 {
+        padding-left: 16px;
+    }
+
+    .change-image-text-box {
+        padding-top: 16px;
+    }
+
+
+
+}
+
+
+.editable-image {
+   .editable-image-text {
+            content:"Click to edit";
+            background-color: white;
+            color:black;
+            font-size: 14px;
+            position: absolute;
+            bottom:0;
+            left:0;
+            right:0;
+            opacity: 0.0;
+            display: block;
+            z-index:1000;
+            text-align: center;
+    }
+
+    &:hover .editable-image-text {
+        opacity: 1.0;
+    }
+}
+
+

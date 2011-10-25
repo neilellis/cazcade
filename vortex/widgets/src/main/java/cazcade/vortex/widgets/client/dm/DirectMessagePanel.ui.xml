@@ -1,0 +1,16 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:misc="urn:import:cazcade.vortex.widgets.client.misc"
+             xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
+    <g:HTMLPanel styleName="dm-send-panel">
+            <g:HTMLPanel>
+                <!--<fields:VortexListBox ui:field="listBox"/>-->
+                <g:RichTextArea ui:field="textBox" height="140px" width="100%"/>
+                <g:HTMLPanel  styleName="dm-button-surround">
+                    <g:Label styleName="btn primary" text="Send" ui:field="sendButton"/>
+                    <g:Label styleName="btn" text="Cancel" ui:field="cancelButton"/>
+                </g:HTMLPanel>
+            </g:HTMLPanel>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

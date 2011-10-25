@@ -1,0 +1,10 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:misc="urn:import:cazcade.vortex.widgets.client.misc">
+    <g:HTMLPanel>
+      <g:Label ui:field="checkbox" styleName="checklist-chat-checkbox"/>
+        <misc:EditableLabel ui:field="label" wordWrap="true" styleName="checklist-chat-text"/>
+        <g:Label ui:field="author" styleName="checklist-chat-author"/>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:misc='urn:import:cazcade.vortex.widgets.client.misc'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+        <g:HTMLPanel styleName="pool-object-note">
+            <div class="pool-object-note-inner">
+                <misc:EditableLabel ui:field="label" wordWrap="true" doubleClick="true" placeholder="Double Click to Edit"/>
+                <div class="rich-text-detail" style="visibility:hidden;">
+                    <g:Label styleName="rich-text-author-label" ui:field="authorName"/>
+                    <g:Label styleName="rich-text-chat-location" ui:field="location"/>
+                    <g:Label styleName="rich-text-chat-time" ui:field="dateTime"/>
+                </div>
+            </div>
+        </g:HTMLPanel>
+</ui:UiBinder>

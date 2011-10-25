@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:liquid-spring-config.xml"/>
+    <import resource="classpath:datastore-client-spring-config.xml"/>
+    <import resource="classpath:spring/image-service.xml"/>
+    <import resource="classpath:spring/culvert-service.xml"/>
+
+
+    <bean class="cazcade.fountain.server.rest.RestHandlerFactory" id="restHandlerFactory">
+        <property name="handlers">
+            <map>
+                <entry key="pool" value-ref="poolRestHandler"/>
+                <entry key="comment" value-ref="messageRestHandler"/>
+                <entry key="updates" value-ref="updatesRestHandler"/>
+                <entry key="session" value-ref="sessionRestHandler"/>
+                <entry key="pooltest" value-ref="poolTestRestHandler"/>
+                <entry key="user" value-ref="userRestHandler"/>
+                <entry key="dictionary" value-ref="dictionaryRestHandler"/>
+                <entry key="alias" value-ref="aliasRequestHandler"/>
+                <entry key="web" value-ref="webRequestHandler"/>
+                <entry key="error" value-ref="errorRequestHandler"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <!-- data store -->
+    <bean id="fountainDataStoreProxyFactory" class="cazcade.fountain.datastore.impl.FountainDataStoreFacadeProxyFactory"
+          init-method="init" destroy-method="destroy">
+        <property name="dataStore" ref="remoteDataStore"/>
+        <property name="authorizationService" ref="authorizationService"/>
+        <property name="entityValidator" ref="entityValidator"/>
+    </bean>
+
+    <bean id="fountainDataStoreFacade" factory-bean="fountainDataStoreProxyFactory" factory-method="create"/>
+
+    <!-- rest handlers -->
+    <bean id="poolRestHandler" class="cazcade.fountain.server.rest.pool.PoolRestHandler">
+        <property name="lsdFactory" ref="LSDFactory"/>
+        <property name="dataStore" ref="fountainDataStoreFacade"/>
+        <property name="authorizationService" ref="authorizationService"/>
+    </bean>
+
+    <bean id="messageRestHandler" class="cazcade.fountain.server.rest.message.CommentRestHandler">
+        <property name="dataStore" ref="fountainDataStoreFacade"/>
+    </bean>
+
+    <bean id="updatesRestHandler" class="cazcade.fountain.server.rest.updates.UpdatesRestHandler">
+        <property name="dataStore" ref="fountainDataStoreFacade"/>
+        <property name="authorizationService" ref="authorizationService"/>
+    </bean>
+
+    <bean id="userRestHandler" class="cazcade.fountain.server.rest.user.UserRestHandler">
+        <property name="lsdFactory" ref="LSDFactory"/>
+        <property name="dataStore" ref="fountainDataStoreFacade"/>
+        <property name="authorizationService" ref="authorizationService"/>
+
+    </bean>
+
+    <bean id="aliasRequestHandler" class="cazcade.fountain.server.rest.alias.AliasRestHandler">
+        <property name="lsdFactory" ref="LSDFactory"/>
+        <property name="dataStore" ref="fountainDataStoreFacade"/>
+
+    </bean>
+
+    <bean id="sessionRestHandler" class="cazcade.fountain.server.rest.session.SessionRestHandler">
+        <property name="lsdFactory" ref="LSDFactory"/>
+        <property name="dataStore" ref="fountainDataStoreFacade"/>
+    </bean>
+
+    <bean id="dictionaryRestHandler" class="cazcade.fountain.server.rest.dictionary.DictionaryRestHandler">
+        <property name="lsdFactory" ref="LSDFactory"/>
+    </bean>
+
+    <bean id="poolTestRestHandler" class="cazcade.fountain.server.rest.test.PoolTestRestHandler">
+        <property name="lsdFactory" ref="LSDFactory"/>
+    </bean>
+
+    <bean id="webRequestHandler" class="cazcade.fountain.server.rest.web.WebUtilRestHandler">
+        <property name="imageService" ref="imageService"/>
+        <property name="shortener" ref="shortener"/>
+    </bean>
+
+    <bean id="errorRequestHandler" class="cazcade.fountain.server.rest.error.ErrorRestHandler"/>
+
+</beans>

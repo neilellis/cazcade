@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
+    <g:HTMLPanel styleName="pool-area" width="1024px" height="auto" id="poolContentArea">
+        <!--<img class="pool-area-inset" src="_images/inset_shadow.png" alt="inset"/>-->
+
+        <g:HTMLPanel ui:field="backgroundImage">
+            <g:AbsolutePanel styleName="pool-area-content" ui:field="container" width="100%" height="auto">
+                <!--<g:Image height="100%" width="100%" url="_images/photo-masks/matte-large.png"/>-->
+            </g:AbsolutePanel>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

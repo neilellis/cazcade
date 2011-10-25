@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>fountain</artifactId>
+        <groupId>fountain</groupId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fountain</groupId>
+    <artifactId>rest-server</artifactId>
+    <version>1.1-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>cazcade</groupId>
+            <artifactId>scrape</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>liquid-impl</artifactId>
+            <groupId>fountain</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>liquid-api</artifactId>
+            <groupId>fountain</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>common</artifactId>
+            <groupId>fountain</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>security</artifactId>
+            <groupId>fountain</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>validation</artifactId>
+            <groupId>fountain</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>datastore-client</artifactId>
+            <groupId>fountain</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+        </dependency>
+
+
+        <!--Billabong-->
+
+        <dependency>
+            <groupId>cazcade.billabong</groupId>
+            <artifactId>image</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cazcade.billabong</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+
+
+        <!--Culvert-->
+
+        <dependency>
+            <groupId>cazcade</groupId>
+            <artifactId>culvert</artifactId>
+        </dependency>
+
+
+        <!--The Rest-->
+
+        <!--<dependency>-->
+        <!--<groupId>net.sf.ehcache</groupId>-->
+        <!--<artifactId>ehcache</artifactId>-->
+        <!--<version>2.0.1</version>-->
+        <!--<type>pom</type>-->
+        <!--</dependency>-->
+
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>jstl</groupId>-->
+            <!--<artifactId>jstl</artifactId>-->
+            <!--<version>1.1.2</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-deploy</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-java-client</artifactId>
+            <version>1.40.0.atlassian-2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <!--<version>2.2</version>-->
+                <!-- nothing here -->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>cazcade.fountain.server.rest.cli.FountainRestServerMain</mainClass>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.handlers</resource>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.schemas</resource>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--&lt;!&ndash;<version>2.2-beta-4</version>&ndash;&gt;-->
+                <!--<configuration>-->
+                    <!--<descriptorRefs>-->
+                        <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+                    <!--</descriptorRefs>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<mainClass>cazcade.fountain.server.rest.cli.FountainRestServerMain</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+        </plugins>
+    </build>
+
+
+    <!--<profiles>-->
+    <!--<profile>-->
+    <!--<id>dev</id>-->
+    <!--<build>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<groupId>org.apache.maven.plugins</groupId>-->
+    <!--<artifactId>maven-war-plugin</artifactId>-->
+    <!--<version>2.0.2</version>-->
+    <!--<configuration>-->
+    <!--<warSourceDirectory>war</warSourceDirectory>-->
+    <!--<webXml>src/main/webapp/WEB-INF/web.xml</webXml>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--<plugin>-->
+    <!--<groupId>org.codehaus.cargo</groupId>-->
+    <!--<artifactId>cargo-maven2-plugin</artifactId>-->
+    <!--<configuration>-->
+    <!--<wait>true</wait>-->
+    <!--<container>-->
+    <!--<containerId>tomcat5x</containerId>-->
+    <!--<zipUrlInstaller>-->
+    <!--<url>-->
+    <!--http://www.apache.org/dist/tomcat/tomcat-5/v5.5.29/bin/apache-tomcat-5.5.29.zip-->
+    <!--</url>-->
+    <!--<installDir>/Users/admin/tmp</installDir>-->
+    <!--</zipUrlInstaller>-->
+    <!--</container>-->
+    <!--<configuration>-->
+    <!--<home>-->
+    <!--${project.build.directory}/tomcat5x/container-->
+    <!--</home>-->
+    <!--<properties>-->
+    <!--<cargo.servlet.users>neil:neil:rest-api,dan:dan:rest-api</cargo.servlet.users>-->
+    <!--<cargo.logging>low</cargo.logging>-->
+    <!--</properties>-->
+    <!--</configuration>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+
+    <!--</plugins>-->
+    <!--</build>-->
+    <!--</profile>-->
+    <!--<profile>-->
+    <!--<id>beta</id>-->
+    <!--<activation>-->
+    <!--<activeByDefault>true</activeByDefault>-->
+    <!--</activation>-->
+    <!--<build>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<groupId>org.codehaus.cargo</groupId>-->
+    <!--<artifactId>cargo-maven2-plugin</artifactId>-->
+    <!--<configuration>-->
+    <!--&lt;!&ndash; Container configuration &ndash;&gt;-->
+    <!--<container>-->
+    <!--<containerId>tomcat5x</containerId>-->
+    <!--</container>-->
+    <!--<configuration>-->
+    <!--<type>existing</type>-->
+    <!--<home>/Library/Tomcat</home>-->
+    <!--</configuration>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+    <!--</build>-->
+    <!--</profile>-->
+    <!--</profiles>-->
+
+
+</project>

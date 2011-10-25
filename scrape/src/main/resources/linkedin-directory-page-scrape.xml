@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="UTF-8">
+
+    <empty>
+        <var-def name="page">
+            <html-to-xml>
+                <http url="${url}">
+                </http>
+            </html-to-xml>
+        </var-def>
+        
+        <var-def name="links">
+            <xpath expression="//ul[@class='directory']/li/ul/li/a/@href">
+                <var name="page"/>
+            </xpath>
+            <xpath expression="//p[@class='profilelinks']/a[0]/@href">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+    </empty>
+
+
+</config>

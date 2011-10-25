@@ -1,0 +1,19 @@
+<module rename-to="Vortex">
+
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="cazcade.vortex.widgets.Widgets"/>
+    <inherits name="cazcade.vortex.widgets.Widgets"/>
+    <inherits name="cazcade.vortex.Pool"/>
+    <inherits name="cazcade.vortex.bus.Bus"/>
+    <inherits name="cazcade.vortex.comms.datastore.DataStore"/>
+    <inherits name="cazcade.vortex.gwt.util.GWTUtil"/>
+
+    <!-- Specify the app entry point class.                   -->
+    <entry-point class='cazcade.vortex.client.Vortex'/>
+
+
+    <!-- Specify the app servlets.                   -->
+    <servlet path='/VortexService' class='cazcade.vortex.server.VortexServiceImpl'/>
+
+</module>

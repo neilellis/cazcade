@@ -1,0 +1,16 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <div class="page-header">
+            <fields:VortexEditableLabel styleName="board-title" placeholder="Click to name" ui:field="title"/>
+            <fields:VortexEditableLabel styleName="board-description" placeholder="Click to edit the short description of the board" ui:field="description"/>
+        </div>
+        <div class="row">
+            <div class="span17">
+                <!--Make wordwrap work-->
+                <fields:VortexEditableLabel wordwrap="true" styleName="board-text" placeholder="Click to edit. Why not put some text here to describe what your board is all about." ui:field="text"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

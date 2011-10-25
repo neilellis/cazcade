@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="UTF-8">
+
+    <empty>
+        <var-def name="page">
+            <html-to-xml>
+                <http url="${url}">
+                </http>
+            </html-to-xml>
+        </var-def>
+        <var-def name="summary">
+            <xpath expression="//p[@class='summary']/text()">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="skills">
+            <xpath expression="//p[@class='skills']/text()">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="firstName">
+            <xpath expression="//div[@class='hresume']//span[@class='given-name']/text()">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="secondName">
+            <xpath expression="//div[@class='hresume']//span[@class='family-name']/text()">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="website">
+            <xpath expression="//li[@class='website']/a/@href">
+                <var name="page"/>
+            </xpath>
+            <xpath expression="//div[@class='hresume']//a[@class='url']/@href">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="locality">
+            <xpath expression="//div[@class='hresume']//p[@class='locality']/a/@href">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="id">
+            <regexp>
+                <regexp-pattern>/ppl/webprofile\?action=ctu&amp;id=(\d+)&amp;.*</regexp-pattern>
+                <regexp-source>
+                    <xpath expression="//div[@class='hresume']//li[@id='send-inmail']/a/@href">
+                        <var name="page"/>
+                    </xpath>
+                </regexp-source>
+                <regexp-result>
+                    <template>${_1}</template>
+                </regexp-result>
+            </regexp>
+        </var-def>
+    </empty>
+
+
+</config>

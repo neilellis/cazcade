@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:misc="urn:import:cazcade.vortex.widgets.client.misc">
+    <g:HTMLPanel>
+        <span class="vortex-editable-label" ui:field="container">
+            <span ui:field="prefix"/>
+            <misc:EditableLabel ui:field="label"/>
+            <g:Label styleName="hover-edit-button" ui:field="hoverEdit">edit</g:Label>
+            <g:Image ui:field="validityImage" styleName="invisible form-field-validity-icon"/>
+            <g:Label ui:field="errorMessage" styleName="invisible form-field-error-message"/>
+        </span>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

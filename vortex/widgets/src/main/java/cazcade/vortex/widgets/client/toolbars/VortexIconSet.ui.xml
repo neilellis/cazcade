@@ -1,0 +1,18 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+      <br/>
+                    <br/>
+                    <div class="vtx-toolbar-button-group">
+                    <div class="vtx-toolbar-button vtx-left-toolbar-button"><img src="./images/TabIcons/White/eddit/alarm_clock.png" alt="Alarm"/></div>
+                    <div class="vtx-toolbar-button "><img src="./images/TabIcons/White/eddit/alarm_clock.png" alt="Alarm"/></div>
+                    <div class="vtx-toolbar-button "><img src="./images/TabIcons/White/eddit/alarm_clock.png" alt="Alarm"/></div>
+                    <div class="vtx-toolbar-button vtx-right-toolbar-button"><img src="./images/TabIcons/White/eddit/alarm_clock.png" alt="Alarm"/></div>
+                    <div style="min-width:10px;float:left;"></div>
+                    <div class="vtx-toolbar-button vtx-left-toolbar-button"><img src="./images/TabIcons/White/eddit/alarm_clock.png" alt="Alarm"/></div>
+                    <div class="vtx-toolbar-button vtx-right-toolbar-button"><img src="./images/TabIcons/White/eddit/alarm_clock.png" alt="Alarm"/></div>
+                    </div>
+                    <br/>
+                    <br/>
+    </g:HTMLPanel>
+</ui:UiBinder>

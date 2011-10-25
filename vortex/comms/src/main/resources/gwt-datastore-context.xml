@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <import resource="classpath:datastore-client-spring-config.xml"/>
+
+    <!--<rabbit:topic-exchange name="mainExchange" durable="true">-->
+       <!--<rabbit:bindings>-->
+           <!--<rabbit:binding queue="tempQueue" pattern="session.${session.id}"/>-->
+           <!--<rabbit:binding queue="tempQueue" pattern="device.${client.device}"/>-->
+           <!--<rabbit:binding queue="tempQueue" pattern="user.${client.userid}"/>-->
+           <!--<rabbit:binding queue="tempQueue" pattern="${client.userid}@${client.device}"/>-->
+           <!--<rabbit:binding queue="tempQueue" pattern="${client.userid}@${client.device}/${session.id}"/>-->
+       <!--</rabbit:bindings>-->
+   <!--</rabbit:topic-exchange>-->
+
+    <!--&lt;!&ndash;<rabbit:queue id="permQueue" name="${client.userid}" auto-delete="true" durable="true" exclusive="false"/>&ndash;&gt;-->
+
+    <!--<rabbit:listener-container connection-factory="rabbitConnectionFactory" error-handler="listenerErrorHandler" message-converter="messageConverter">-->
+        <!--<rabbit:listener queues="tempQueue" ref="messageListener"/>-->
+    <!--</rabbit:listener-container>-->
+
+    <!--<bean id="messageListener" class="cazcade.vortex.comms.datastore.messaging.GwtClientMessageListener">-->
+    <!--</bean>-->
+
+
+
+
+</beans>

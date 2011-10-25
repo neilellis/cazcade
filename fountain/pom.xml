@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fountain</groupId>
+    <artifactId>fountain</artifactId>
+    <packaging>pom</packaging>
+    <version>1.1-SNAPSHOT</version>
+    <parent>
+        <groupId>cazcade</groupId>
+        <artifactId>cazcade</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+    <modules>
+        <module>common</module>
+        <module>liquid</module>
+        <module>validation</module>
+        <module>index</module>
+        <module>datastore-api</module>
+        <module>datastore</module>
+        <module>notification</module>
+        <module>datastore-client</module>
+        <module>datastore-server</module>
+        <module>rest-server</module>
+        <module>security</module>
+        <module>dist</module>
+        <module>social</module>
+        <module>test</module>
+        <module>messaging</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <artifactId>common</artifactId>
+            <groupId>cazcade</groupId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

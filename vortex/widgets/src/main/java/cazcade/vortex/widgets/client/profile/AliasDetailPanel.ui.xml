@@ -1,0 +1,37 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
+             xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:dm="urn:import:cazcade.vortex.widgets.client.dm"
+             xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
+    <g:HTMLPanel styleName="view-user-details-inner" visible="false">
+        <g:HTMLPanel ui:field="detailPanel">
+
+            <g:DockLayoutPanel height="180px" width="100%">
+                <g:west size="80">
+                    <g:HTMLPanel>
+                        <div class="view-user-lhs-container">
+                            <image:UserProfileImage ui:field="userImage" styleName="view-user-details-image"/>
+                            <fields:VortexEditableLabel readonly="true" prefix="@" ui:field="userShortName" styleName="view-user-details-username"/>
+                            <g:Label ui:field="followButton" styleName="btn small info view-user-button">Follow</g:Label>
+                            <g:Label ui:field="dmButton" styleName="btn small info view-user-button">DM</g:Label>
+                            <dm:DirectMessagePanel ui:field="directMessagePanel" visible="false"/>
+                        </div>
+                    </g:HTMLPanel>
+                </g:west>
+                <g:center>
+                    <g:HTMLPanel styleName="view-user-rhs-container">
+                        <fields:VortexEditableLabel ui:field="userFullName" styleName="view-user-details-fullname"/>
+                        <g:Label ui:field="roleFullName" styleName="view-user-details-role"/>
+                        <fields:VortexEditableLabel ui:field="description" styleName="view-user-details-description"/>
+                    </g:HTMLPanel>
+                </g:center>
+            </g:DockLayoutPanel>
+            <g:HTMLPanel styleName="view-user-details-bottom">
+                <a ui:field="profileLink" class="view-user-details-board-link">Profile</a>
+                <!--<a ui:field="publicLink" class="view-user-details-board-link">Public</a>-->
+
+                <g:Label ui:field="followersLabel" styleName="view-user-details-followers-label">X Followers</g:Label>
+                <g:Label ui:field="followingLabel" styleName="view-user-details-following-label">Following Y</g:Label>
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

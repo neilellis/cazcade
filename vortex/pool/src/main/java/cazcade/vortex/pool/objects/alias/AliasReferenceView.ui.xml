@@ -1,0 +1,11 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:profile="urn:import:cazcade.vortex.widgets.client.profile">
+    <g:HTMLPanel styleName="pool-object-inner">
+
+        <g:HTMLPanel styleName="drop-shadow curved curved-hz-2 view-user-details pool-object-business-card">
+            <profile:AliasDetailPanel ui:field="aliasDetailPanel"/>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

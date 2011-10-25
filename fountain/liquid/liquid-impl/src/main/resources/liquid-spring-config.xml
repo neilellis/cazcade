@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="LSDFactory" class="cazcade.liquid.api.lsd.LSDSimpleEntityFactory"/>
+
+    <bean id="marshalerFactory" class="cazcade.liquid.impl.LSDMarshallerFactory">
+        <property name="marshalers">
+            <map>
+                <entry key="plist">
+                    <bean class="cazcade.liquid.impl.PListMarshaler"/>
+                </entry>
+                <entry key="xml">
+                    <bean class="cazcade.liquid.impl.XMLMarshaler"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="unmarshalerFactory" class="cazcade.liquid.impl.LSDUnmarshallerFactory">
+        <property name="unmarshalers">
+            <map>
+                <entry key="plist">
+                    <bean class="cazcade.liquid.impl.PListUnmarshaler">
+                        <property name="lsdFactory" ref="LSDFactory"/>
+                    </bean>
+                </entry>
+                <entry key="xml">
+                    <bean class="cazcade.liquid.impl.XMLUnmarshaler">
+                        <property name="lsdFactory" ref="LSDFactory"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="formatValidator" class="cazcade.liquid.impl.LSDPropertyFormatValidatorImpl">
+        <property name="validators">
+            <map>
+                <entry key="text">
+                    <bean class="cazcade.liquid.impl.validation.property.TextPropertyTypeValidator"/>
+                </entry>
+                <entry key="boolean">
+                    <bean class="cazcade.liquid.impl.validation.property.BooleanPropertyTypeValidator"/>
+                </entry>
+                <entry key="int">
+                    <bean class="cazcade.liquid.impl.validation.property.IntegerPropertyTypeValidator"/>
+                </entry>
+                <entry key="mime">
+                    <bean class="cazcade.liquid.impl.validation.property.MimeTypePropertyTypeValidator"/>
+                </entry>
+                <entry key="number">
+                    <bean class="cazcade.liquid.impl.validation.property.NumberPropertyTypeValidator"/>
+                </entry>
+                <entry key="regex">
+                    <bean class="cazcade.liquid.impl.validation.property.RegexPropertyTypeValidator"/>
+                </entry>
+                <entry key="shortname">
+                    <bean class="cazcade.liquid.impl.validation.property.ShortNamePropertyTypeValidator"/>
+                </entry>
+                <entry key="title">
+                    <bean class="cazcade.liquid.impl.validation.property.TitlePropertyTypeValidator"/>
+                </entry>
+                <entry key="uri">
+                    <bean class="cazcade.liquid.impl.validation.property.TitlePropertyTypeValidator"/>
+                </entry>
+                <entry key="uri">
+                    <bean class="cazcade.liquid.impl.validation.property.URIPropertyTypeValidator"/>
+                </entry>
+                <entry key="url">
+                    <bean class="cazcade.liquid.impl.validation.property.URLPropertyTypeValidator"/>
+                </entry>
+                <entry key="uuid">
+                    <bean class="cazcade.liquid.impl.validation.property.UUIDPropertyTypeValidator"/>
+                </entry>
+                <entry key="email">
+                    <bean class="cazcade.liquid.impl.validation.property.EmailPropertyTypeValidator"/>
+                </entry>
+                <entry key="type">
+                    <bean class="cazcade.liquid.impl.validation.property.TypePropertyTypeValidator"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

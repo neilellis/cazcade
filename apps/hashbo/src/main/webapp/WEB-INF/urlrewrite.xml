@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+
+<urlrewrite>
+
+    <!--<rule>-->
+    <!--<from>^/some/olddir/(.*)$</from>-->
+    <!--<to type="redirect">/very/newdir/$1</to>-->
+    <!--</rule>-->
+
+    <!--<rule match-type="wildcard">-->
+    <!--<from>/blog/archive/**</from>-->
+    <!--<to type="redirect">/roller/history/$1</to>-->
+    <!--</rule>-->
+    <!---->
+    <rule>
+        <from>^/([a-zA-Z][0-9a-zA-Z_]*)$</from>
+        <to type="redirect">$1.profile</to>
+    </rule>
+
+    <rule>
+        <from>^/!(.*)$</from>
+        <to type="redirect">$1.list</to>
+    </rule>
+
+
+
+</urlrewrite>

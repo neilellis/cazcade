@@ -1,0 +1,384 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <title>Hashbo - Life is for Sharing</title>
+
+    <link rel="stylesheet" type="text/css" href="_css/loading.css"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <!--<script src="_js/less-1.1.3.min.js" type="text/javascript"></script>-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Metrophobic&v2' rel='stylesheet' type='text/css'>-->
+
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-25104667-1");
+
+        // *** track anchor tags ***
+        pageTracker._setAllowAnchor(true);
+
+        pageTracker._initData();
+        pageTracker._trackPageview();
+        pageTracker._trackPageview('Main Page');
+    </script>
+
+    <script type="text/javascript">var switchTo5x = true;</script>
+
+
+    <script type="text/javascript">stLight.options({publisher:'9441652f-4062-4f40-b09f-404dbad3db50', publisherGA:"UA-25104667-1", onhover:false});</script>
+
+    <script>
+        function loadjs(url) {
+            head = document.getElementsByTagName('head')[0];
+            var fileref = document.createElement('script');
+            fileref.setAttribute("type", "text/javascript");
+            fileref.setAttribute("src", url);
+            if (typeof fileref != "undefined") {
+                document.getElementsByTagName("head")[0].appendChild(fileref);
+            }
+        }
+        function loadcss(url, title, callback) {
+            head = document.getElementsByTagName('head')[0];
+            var link = document.createElement('link');
+            link.rel = "stylesheet";
+            link.href = url;
+            link.title = title;
+
+            head.appendChild(link);
+            var handle = window.setInterval( function(){
+                if( document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth==42 ) {
+                    if (callback) {
+                        callback();
+                    }
+                    window.clearInterval(handle);
+                }
+            }, 30 );
+
+        }
+
+    </script>
+
+</head>
+<body>
+
+<!--[if IE]>
+<script type="text/javascript"
+        src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+
+<style>
+    .chromeFrameInstallDefaultStyle {
+        width: 100%; /* default is 800px */
+        border: 5px solid blue;
+    }
+</style>
+
+<div id="prompt">
+</div>
+
+<script>
+    // The conditional ensures that this code will only execute in IE,
+    // Therefore we can use the IE-specific attachEvent without worry
+    window.attachEvent("onload", function() {
+        CFInstall.check({
+            mode: "inline", // the default
+            node: "prompt"
+        });
+    });
+</script>
+<![endif]-->
+
+<script>
+    //Deferred loading to improve initial load time.
+    loadjs("_prettify/prettify.js");
+    loadcss("_css/hashbo.less", "hashbo", function() {
+        document.getElementById('loading-panel').style.opacity = 0.0;
+        document.getElementById('cache-panel').style.opacity = 1.0;
+    });
+    loadcss("_css/hackabout.css", "hack", null);
+</script>
+
+
+<div id="background"></div>
+
+
+<div id="main-panel-surround">
+<div id="main-panel" style="opacity: 1.0; visibility: hidden;"></div>
+<!--</div>-->
+
+
+<div id="loading-panel"
+        >
+    <div class="loading-bar-outer">
+        <div class="loading-bar">
+            <div class="circle-outer-1">
+                <div class="loading-circle-1 circle"></div>
+            </div>
+            <div class="circle-outer-2">
+                <div class="loading-circle-2 circle"></div>
+            </div>
+            <div class="circle-outer-3">
+                <div class="loading-circle-3 circle"></div>
+            </div>
+            <div class="circle-outer-4">
+                <div class="loading-circle-4 circle"></div>
+            </div>
+            <div class="circle-outer-5">
+                <div class="loading-circle-5 circle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div id="cache-panel-surround">-->
+<div id="cache-panel" style="opacity: 0">
+<div class="hashbo-app">
+<div class="board-top-shadow"></div>
+<div class="hashbo-main">
+    <div class="hashbo-top">
+        <div class="header-container board-north-border">
+            <div class="header-container-inner"><img class="board-image"
+                                                     src="../image.service?url=_images/board-default-small.png&amp;size=CLIPPED_SMALL">
+                <span class="board-title">welcome</span>
+
+                <div class="board-share-this-holder"><span id="sharethis-cache" class="st_sharethis"
+                                                           displaytext="" st_processed="yes"><span
+                        style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
+                        class="stButton"><span class="chicklets sharethis"></span><img
+                        src="http://w.sharethis.com/images/check-small.png"
+                        style="position: absolute; display: none; right: auto; left: 8px; top: -6px; width: 13px; height: 13px; max-width: 13px; max-height: 13px; "></span><span
+                        style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
+                        class="stButton"></span><span
+                        style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
+                        class="stButton"></span><span
+                        style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
+                        class="stButton"></span></span></div>
+                <div class="hashbo-top-username"></div>
+                <img class="board-account-menu-user-image"
+                     src="http://c0021791.cdn1.cloudfiles.rackspacecloud.com/8ef412c0-2b86-4019-946e-1db1e8f5e857.gif">
+            </div>
+        </div>
+        <div class="top-toolbar">
+            <table cellspacing="0" cellpadding="0" class="top-toolbar-inner">
+                <tbody>
+                <tr>
+                    <td align="left" style="vertical-align: top; ">
+                        <div class="toolbar-icon"><img class="toolbar-icon-image"
+                                                       src="_images/toolbar/lock.png">
+
+                            <div class="toolbar-icon-label">Lock</div>
+                        </div>
+                    </td>
+                    <td align="left" style="vertical-align: top; ">
+                        <div class="toolbar-icon"><img class="toolbar-icon-image"
+                                                       src="_images/toolbar/personal.png">
+
+                            <div class="toolbar-icon-label">Personal</div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="board-current-work-area">
+        <iframe class="gwt-Frame" style="width: 100%; height: 0px; display: none; "></iframe>
+        <div style="width: 100%; height: 100%; position: relative; " class="drag-scroll-panel"
+             id="1317832542144-0.048952496610581875">
+            <div style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: hidden; ">
+                <div class="pool-area"
+                     style="height: 2048px; width: 2048px; -webkit-transition-duration: 500ms; -webkit-transform: translate3d(0px, 0px, 0px); ">
+                    <div style="position:relative; width:100%; height:100%; background-color:rgba(200,200,200,0.1)">
+                        <div style="position: relative; overflow-x: hidden; overflow-y: hidden; height: 100%; width: 100%; "
+                             class="pool-area-content"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow-x: hidden; overflow-y: hidden; position: absolute; height: 8px; width: 100%; bottom: 0px; z-index: 100000; "
+                 class="vortex-scroll-bar vortex-horizontal-scroll-bar">
+                <div class="vtx-scrollbar-bar"
+                     style="position: absolute; top: 0px; height: 8px; -webkit-transition-duration: 50ms; -webkit-transform: translate3d(0px, 0px, 0px); width: 374px; "></div>
+            </div>
+            <div style="overflow-x: hidden; overflow-y: hidden; position: absolute; right: 0px; top: 0px; z-index: 100000; height: 100%; width: 8px; "
+                 class="vortex-scroll-bar vortex-vertical-scroll-bar">
+                <div class="vtx-scrollbar-bar"
+                     style="position: absolute; left: 0px; -webkit-transition-duration: 50ms; -webkit-transform: translate3d(0px, 0px, 0px); height: 402px; "></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hashbo-rhs">
+    <div class="board-right-shadow"></div>
+    <div class="hashbo-rhs-inner">
+        <div tabindex="0" class="board-rhs-reveal-hide board-rhs-reveal-hide-up" role="button"
+             aria-pressed="false"><input type="text" tabindex="-1"
+                                         style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; ">
+
+            <div class="html-face"><img src="_images/toolbar/hide-rhs.png"></div>
+        </div>
+        <div style="position: relative; height: 100%; width: 100%; "
+             class="gwt-TabLayoutPanel hashbo-rhs-tab-panel">
+            <div style="position: absolute; z-index: -32767; top: -20ex; width: 10em; height: 10ex; ">
+                &nbsp;</div>
+            <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0px; top: 0px; right: 0px; height: 29px; ">
+                <div style="position: absolute; width: 16384px; left: 0px; right: 0px; bottom: 0px; "
+                     class="gwt-TabLayoutPanelTabs">
+                </div>
+            </div>
+            <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0px; top: 29px; right: 0px; bottom: 0px; ">
+                <div style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; "
+                     class="gwt-TabLayoutPanelContentContainer">
+                    <div style="position: absolute; z-index: -32767; top: -20ex; width: 10em; height: 10ex; ">
+                        &nbsp;</div>
+                    <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0%; top: 0%; width: 100%; height: 100%; ">
+                        <div style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; "
+                             class="hashbo-chat gwt-TabLayoutPanelContent">
+                            <div style="position: absolute; z-index: -32767; top: -20ex; width: 10em; height: 10ex; ">
+                                &nbsp;</div>
+                            <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0px; right: 0px; bottom: 0px; height: 60px; ">
+                                <div class="board-status-panel-create-panel"
+                                     style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">
+                                    <div>
+                                        <div class="vortex-add-comment-box"
+                                             style="overflow-x: hidden; overflow-y: hidden; width: 100%; ">
+                                            <iframe class="gwt-RichTextArea"
+                                                    style="height: 45px; width: 492px; border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; margin-top: 7px; border-top-left-radius: 4px 4px; border-top-right-radius: 4px 4px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; "
+                                                    frameborder="0" marginwidth="0" scrolling="no"></iframe>
+                                        </div>
+                                        <div class="hashbo-add-comment-or-login" style="display: none; ">
+                                            <div><img class="gwt-Image"
+                                                      src="./_images/Sign-in-with-Twitter-darker.png"></div>
+                                            <a href="login.html?userlogin#emptyboard">or with Hashbo.</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0px; top: 0px; right: 0px; bottom: 60px; ">
+                                <div class="board-stream-panel"
+                                     style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">
+                                    <div style="width: 100%; height: 100%; position: relative; "
+                                         class="drag-scroll-panel" id="1317832542148-0.05073760589584708">
+                                        <div style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: hidden; ">
+                                            <table cellspacing="0" cellpadding="0"
+                                                   style="width: 100%; -webkit-transition-duration: 0ms; -webkit-transform: translate3d(0px, -60px, 0px); ">
+                                                <tbody>
+                                                <tr>
+                                                    <td align="left" style="vertical-align: top; ">
+                                                        <table cellspacing="0" cellpadding="0"
+                                                               style="height: 853px; ">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="vertical-align: top; ">
+                                                                    <div class="gwt-Label"></div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left" style="vertical-align: top; ">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div style="overflow-x: hidden; overflow-y: hidden; position: absolute; height: 8px; width: 100%; bottom: 0px; z-index: 100000; display: none; "
+                                             class="vortex-scroll-bar vortex-horizontal-scroll-bar">
+                                            <div class="vtx-scrollbar-bar"
+                                                 style="position: absolute; top: 0px; -webkit-transition-duration: 50ms; -webkit-transform: translate3d(0px, 0px, 0px); width: 100%; height: 0px; "></div>
+                                        </div>
+                                        <div style="overflow-x: hidden; overflow-y: hidden; position: absolute; right: 0px; top: 0px; z-index: 100000; height: 100%; width: 8px; "
+                                             class="vortex-scroll-bar vortex-vertical-scroll-bar">
+                                            <div class="vtx-scrollbar-bar"
+                                                 style="position: absolute; left: 0px; -webkit-transition-duration: 50ms; -webkit-transform: translate3d(0px, 56px, 0px); height: 786px; "></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; display: none; left: 0px; top: 0px; right: 0px; bottom: 0px; ">
+                        <div class="inbox-panel gwt-TabLayoutPanelContent"
+                             style="position: absolute; display: none; left: 0px; right: 0px; top: 0px; bottom: 0px; ">
+                            <div>
+                                <div style="width: 100%; height: 100%; position: relative; "
+                                     class="drag-scroll-panel" id="1317832542148-0.09039735817350447">
+                                    <div style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: hidden; ">
+                                        <table cellspacing="0" cellpadding="0" style="width: 100%; ">
+                                            <tbody>
+                                            <tr>
+                                                <td align="left" style="vertical-align: top; ">
+                                                    <div></div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="overflow-x: hidden; overflow-y: hidden; position: absolute; height: 8px; width: 100%; bottom: 0px; z-index: 100000; display: none; "
+                                         class="vortex-scroll-bar vortex-horizontal-scroll-bar">
+                                        <div class="vtx-scrollbar-bar"
+                                             style="position: absolute; top: 0px; height: 8px; "></div>
+                                    </div>
+                                    <div style="overflow-x: hidden; overflow-y: hidden; position: absolute; right: 0px; top: 0px; z-index: 100000; height: 100%; width: 8px; "
+                                         class="vortex-scroll-bar vortex-vertical-scroll-bar">
+                                        <div class="vtx-scrollbar-bar"
+                                             style="position: absolute; left: 0px; "></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; display: none; left: 0px; top: 0px; right: 0px; bottom: 0px; ">
+                        <div class="activity-panel gwt-TabLayoutPanelContent"
+                             style="position: absolute; display: none; left: 0px; right: 0px; top: 0px; bottom: 0px; ">
+                            <div style="margin:20px"><h3>Coming Very Soon</h3></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div tabindex="0" role="menubar" class="hashbo-add-menu"
+     style="outline-width: 0px; outline-style: initial; outline-color: initial; " hidefocus="true"><input
+        type="text" tabindex="-1"
+        style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; ">
+    <table>
+        <tbody>
+        <tr>
+            <td class="gwt-MenuItem" id="gwt-uid-cached-1" role="menuitem" aria-haspopup="true"><img alt="add"
+                                                                                                     src="_images/add.png">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="board-locked" title="You don't have permission to edit this board."
+     style="visibility: hidden; "></div>
+</div>
+</div>
+</div>
+
+
+<div id="log-panel"></div>
+
+
+<script type="text/javascript" language="javascript"
+        src="cazcade.hashbo.HashBo/cazcade.hashbo.HashBo.nocache.js"></script>
+
+<script type="text/javascript" language="javascript">
+    //Deferred loading to improve initial load time.
+    loadjs("http://w.sharethis.com/button/buttons.js");
+</script>
+
+<span id="sharethis" class='st_sharethis' displayText='' style="visibility: hidden"></span>
+    <div id="stylesheet-loaded" style="visibility:hidden"></div>
+</body>
+</html>

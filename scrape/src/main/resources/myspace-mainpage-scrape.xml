@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="UTF-8">
+
+    <empty>
+        <var-def name="page">
+            <html-to-xml>
+                <http url="${url}">
+                </http>
+            </html-to-xml>
+        </var-def>
+        <var-def name="id">
+            <regexp>
+                <regexp-pattern>var MySpaceClientContext.*"DisplayFriendId":([0-9]+),</regexp-pattern>
+                <regexp-source>
+                    <xpath expression="//script/text()">
+                        <var name="page"/>
+                    </xpath>
+                </regexp-source>
+                <regexp-result>
+                    <template>${_1}</template>
+                </regexp-result>
+            </regexp>
+        </var-def>
+        <var-def name="userProfileTable">
+            <xpath expression="//table[@class='userProfileDetail']//table">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="userInfoTable">
+            <xpath expression="//table[@class='profileInfo']">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+         <var-def name="blurb">
+            <xpath expression="//div[@class='moduleBody']/div[contains(@class, 'blurbAboutMe')]/text()">
+                <var name="page"/>
+            </xpath>
+        </var-def>
+        <var-def name="canonical">
+           <xpath expression="//link[@rel='canonical']/@href">
+               <var name="page"/>
+           </xpath>
+       </var-def>
+        <case>
+            <if condition="${userProfileTable.toString().length() > 0}">
+                <var-def name="occupation">
+                    <xpath expression="//td[@id='ProfileOccupation:']/a/text()">
+                        <var name="userProfileTable"/>
+                    </xpath>
+                </var-def>
+            </if>
+        </case>
+        <case>
+            <if condition="${userInfoTable.toString().length() > 0}">
+                <var-def name="fullName">
+                    <xpath expression="//span[@class='nametext']/text()">
+                        <var name="userInfoTable"/>
+                    </xpath>
+                </var-def>
+                <var-def name="img">
+                    <xpath expression="//td[@class='text']/a[@rel='myspace:photo']/img/@src">
+                        <var name="userInfoTable"/>
+                    </xpath>
+                </var-def>
+                <var-def name="coredata">
+                    <xpath expression="//td[@class='text']/text()">
+                        <var name="userInfoTable"/>
+                    </xpath>
+                </var-def>
+                <case>
+                    <if condition='${coredata.toString().startsWith("Female") || coredata.toString().startsWith("Male")}'>
+                        <regexp>
+                            <regexp-pattern>"([^\n]*)"\n(\d+)[^\n]*\n([^\n]*)\n([^\n]*)\n.*</regexp-pattern>
+                            <regexp-source>
+                                <template>${coredata}</template>
+                            </regexp-source>
+                            <regexp-result>
+                                <var-def name="gender"><template>${_1}</template></var-def>
+                                <var-def name="age"><template>${_2}</template></var-def>
+                                <var-def name="locality"><template>${_3}</template></var-def>
+                                <var-def name="country"><template>${_4}</template></var-def>
+                            </regexp-result>
+                        </regexp>
+
+                    </if>
+                    <else>
+                        <regexp>
+                            <regexp-pattern>"([^\n]*)"\n([^\n]*)\n(\d+)[^\n]*\n([^\n]*)\n([^\n]*)\n.*</regexp-pattern>
+                            <regexp-source>
+                                <template>${coredata}</template>
+                            </regexp-source>
+                            <regexp-result>
+                                <var-def name="strapline"><template>${_1}</template></var-def>
+                                <var-def name="gender"><template>${_2}</template></var-def>
+                                <var-def name="age"><template>${_3}</template></var-def>
+                                <var-def name="locality"><template>${_4}</template></var-def>
+                                <var-def name="country"><template>${_5}</template></var-def>
+                            </regexp-result>
+                        </regexp>
+                    </else>
+                </case>
+            </if>
+        </case>
+    </empty>
+
+
+</config>

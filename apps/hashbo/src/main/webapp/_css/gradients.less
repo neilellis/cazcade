@@ -1,0 +1,159 @@
+.boardcast-green-fade-down {
+ #gradient > .vertical(darken(@highlightColorDark, 2%),darken(@highlightColorDark,6%));
+}
+
+
+
+
+.info-wheel-gradient(@opacity: 0.1) {
+    background-color: rgb(251, 252, 250);
+    background-image: linear-gradient(top, rgba(100, 100, 100, @opacity), rgba(220, 222, 218, @opacity) 0.9%, rgba(243, 245, 242, @opacity) 9.5%, rgba(248, 251, 247, @opacity) 20%, rgba(251, 252, 250, @opacity) 30%, rgba(254, 255, 253, @opacity) 60%, rgba(255, 255, 254, @opacity) 78%, rgba(242, 244, 238, @opacity) 94%, rgba(230, 232, 228, @opacity) 98.5%, rgb(160, 162, 158, @opacity));
+    background-image: -moz-linear-gradient(top, rgba(100, 100, 100, @opacity), rgba(220, 222, 218, @opacity) 0.9%, rgba(243, 245, 242, @opacity) 9.5%, rgba(248, 251, 247, @opacity) 20%, rgba(251, 252, 250, @opacity) 30%, rgba(254, 255, 253, @opacity) 60%, rgba(255, 255, 254, @opacity) 78%, rgba(242, 244, 238, @opacity) 94%, rgba(230, 232, 228, @opacity) 98.5%, rgb(160, 162, 158, @opacity));
+    background-image: -webkit-linear-gradient(top, rgba(100, 100, 100, @opacity), rgba(220, 222, 218, @opacity) 0.9%, rgba(243, 245, 242, @opacity) 9.5%, rgba(248, 251, 247, @opacity) 20%, rgba(251, 252, 250, @opacity) 30%, rgba(254, 255, 253, @opacity) 60%, rgba(255, 255, 254, @opacity) 78%, rgba(242, 244, 238, @opacity) 94%, rgba(230, 232, 228, @opacity) 98.5%, rgb(160, 162, 158, @opacity));
+    background-image: -o-linear-gradient(top, rgba(100, 100, 100, @opacity), rgba(220, 222, 218, @opacity) 0.9%, rgba(243, 245, 242, @opacity) 9.5%, rgba(248, 251, 247, @opacity) 20%, rgba(251, 252, 250, @opacity) 30%, rgba(254, 255, 253, @opacity) 60%, rgba(255, 255, 254, @opacity) 78%, rgba(242, 244, 238, @opacity) 94%, rgba(230, 232, 228, @opacity) 98.5%, rgb(160, 162, 158, @opacity));
+    background-image: -ms-linear-gradient(top, rgba(100, 100, 100, @opacity), rgba(220, 222, 218, @opacity) 0.9%, rgba(243, 245, 242, @opacity) 9.5%, rgba(248, 251, 247, @opacity) 20%, rgba(251, 252, 250, @opacity) 30%, rgba(254, 255, 253, @opacity) 60%, rgba(255, 255, 254, @opacity) 78%, rgba(242, 244, 238, @opacity) 94%, rgba(230, 232, 228, @opacity) 98.5%, rgb(160, 162, 158, @opacity));
+}
+
+#alpha-gradient {
+  .horizontal (@startColor: #555, @endColor: #333) {
+    background-color: none;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, right top, from(@startColor), to(@endColor)); // Konqueror
+    background-image: -moz-linear-gradient(left, @startColor, @endColor); // FF 3.6+
+    background-image: -ms-linear-gradient(left, @startColor, @endColor); // IE10
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, @startColor), color-stop(100%, @endColor)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(left, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(left, @startColor, @endColor); // Opera 11.10
+    background-image: linear-gradient(left, @startColor, @endColor); // Le standard
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@startColor,@endColor)); // IE9 and down
+  }
+  .vertical (@startColor: #555, @endColor: #333) {
+    background-color: none;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(@startColor), to(@endColor)); // Konqueror
+    background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
+    background-image: -ms-linear-gradient(top, @startColor, @endColor); // IE10
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @startColor), color-stop(100%, @endColor)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
+    background-image: linear-gradient(top, @startColor, @endColor); // The standard
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down
+  }
+  .directional (@startColor: #555, @endColor: #333, @deg: 45deg) {
+    background-color: none;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(@deg, @startColor, @endColor); // FF 3.6+
+    background-image: -ms-linear-gradient(@deg, @startColor, @endColor); // IE10
+    background-image: -webkit-linear-gradient(@deg, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(@deg, @startColor, @endColor); // Opera 11.10
+    background-image: linear-gradient(@deg, @startColor, @endColor); // The standard
+  }
+
+}    
+
+
+@shadowEndColor:  rgba(180,180,180,0);
+@shadowStartColor:  rgba(0,0,0,0.2);
+
+
+.shadow-up-divider(@height:4px) {
+          position:absolute;z-index:100;top:0 - @height;left:0;right:0;
+          #alpha-gradient > .vertical(@shadowEndColor, @shadowStartColor);
+          background-color: none;
+          height:@height;
+}
+
+.shadow-down-divider(@height:4px) {
+    position:absolute;z-index:100;bottom:0 - @height;left:0;right:0;
+    #alpha-gradient > .vertical(@shadowStartColor, @shadowEndColor);
+    background-color: none;
+      height:@height;
+}
+
+
+.shadow-top-inset(@height:4px) {
+          position:absolute;z-index:100;top:0;left:0;right:0;
+    #alpha-gradient > .vertical(@shadowStartColor, @shadowEndColor);
+          background-color: none;
+          height:@height;
+}
+
+.shadow-bottom-inset(@height:4px) {
+    position:absolute;z-index:100;bottom:0;left:0;right:0;
+    #alpha-gradient > .vertical(@shadowEndColor, @shadowStartColor);
+    background-color: none;
+   height:@height;
+}
+
+
+
+
+.shadow-to-right-divider(@width:4px) {
+          position:absolute;z-index:100;right:0 - @width;bottom:0;top:0;
+    #alpha-gradient > .horizontal(@shadowStartColor, @shadowEndColor);
+          background-color: none;
+          width:@width;
+}
+
+.shadow-to-left-divider(@width:4px) {
+    position:absolute;z-index:100;bottom:0;left:0 - @width;top:0;
+          #alpha-gradient > .horizontal(@shadowEndColor, @shadowStartColor);
+    background-color: none;
+      width:@width;
+}
+
+.top-bottom-shadows(@height:3px) {
+            position:relative;
+            overflow:visible;
+
+            &:before {
+                content:" ";
+                display: block;
+                .shadow-up-divider(@height);
+            }
+            &:after {
+                content:" ";
+                display: block;
+                .shadow-down-divider(@height);
+            }
+
+}
+
+
+
+.top-bottom-inset-shadows(@height:3px) {
+            position:relative;
+            overflow:visible;
+
+            &:before {
+                content:" ";
+                display: block;
+                .shadow-top-inset(@height);
+            }
+            &:after {
+                content:" ";
+                display: block;
+                .shadow-bottom-inset(@height);
+            }
+}
+
+
+.left-right-shadows(@width:4px) {
+            position:relative;
+            overflow:visible;
+
+            &:before {
+                content:" ";
+                display: block;
+                .shadow-to-left-divider(@width);
+            }
+            &:after {
+                content:" ";
+                display: block;
+                .shadow-to-right-divider(@width);
+            }
+}
+
+
+
+

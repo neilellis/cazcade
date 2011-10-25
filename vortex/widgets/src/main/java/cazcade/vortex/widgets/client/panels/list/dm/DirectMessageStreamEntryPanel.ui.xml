@@ -1,0 +1,17 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
+             xmlns:date="urn:import:cazcade.vortex.widgets.client.date">
+    <g:HTMLPanel styleName="alert-message info stream-status-update-panel dm-update-panel">
+        <g:HTMLPanel ui:field="imageSurround" styleName="stream-status-update-user-panel">
+            <image:UserProfileImage styleName="stream-author-icon" ui:field="profileImage"/>
+        </g:HTMLPanel>
+        <p class="stream-entry-main">
+            <g:Label styleName="stream-author-label" ui:field="profileName"/>
+            <span class="stream-entry-message" ui:field="text"/>
+            <div class="stream-entry-details">
+                <date:SelfUpdatingRelativeDate styleName="stream-chat-time" ui:field="dateTime"/>
+            </div>
+        </p>
+    </g:HTMLPanel>
+</ui:UiBinder>

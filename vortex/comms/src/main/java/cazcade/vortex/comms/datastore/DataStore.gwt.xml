@@ -1,0 +1,13 @@
+<module rename-to="DataStore">
+    <source path="client"/>
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="cazcade.liquid.LiquidAPI"/>
+    <inherits name="cazcade.vortex.gwt.util.GWTUtil"/>
+    <inherits name="cazcade.vortex.bus.Bus"/>
+    <!--<inherits name="cazcade.fountain.datastore.DataStoreAPI"/>-->
+
+    <!-- Specify the app servlets.                   -->
+    <servlet path='/DataStoreService' class='cazcade.vortex.comms.datastore.server.DataStoreServiceImpl'/>
+
+</module>

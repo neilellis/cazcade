@@ -1,0 +1,396 @@
+/* @override http://localhost:8080/css/vortex-safari.css */
+
+body {
+    background-image: url('../images/DarkTile.png');
+}
+
+.vtx-main-panel {
+/*background: -webkit-gradient(radial, 600 100, 100, 100 300, 1500, from(rgba(20, 20, 23, 0.6)), color-stop(0.2, rgba(10, 10, 10, 0.6)), color-stop(0.6, rgba(0, 0, 0, 0.6)), to(rgba(10, 10, 10, 0.6)));*/
+
+}
+
+.vtx-rounded-box {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    background-color: rgba(224, 224, 224, 0.296875);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(222, 222, 222);
+    -webkit-border-radius: 8px 8px;
+    -moz-border-radius: 8px 8px;
+    border-radius: 8px 8px;
+}
+
+.vtx-rhs {
+    height: 100%;
+    width: 100%;
+    border-left: 2px black solid;
+
+}
+
+.vtx-toolbar {
+    -webkit-box-sizing: border-box;
+    border-top: 1px #a0a0a0 groove;
+    border-bottom: 1px #303030 solid;
+    padding-bottom: 0px;
+    z-index: 80;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+    position: absolute;
+    background-image: url("../images/UIComponents/UIToolBarBackground.png")
+}
+
+.vtx-toolbar.editmode {
+
+    background-image: url("../images/UIComponents/UIToolBarEditModeBackground.png")
+}
+
+.vtx-re-overlay /* Used to overlay back on top of a glass effect overlay*/
+{
+    z-index: 1000;
+    opacity: 0.01;
+}
+
+.vtx-glass-overlay {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.1)), color-stop(0.05, rgba(255, 255, 255, 0.3)), color-stop(0.3, rgba(255, 255, 255, 0.2)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.51, rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0)));
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: absolute;
+}
+
+.pool-area {
+    -webkit-border-radius: 8px;
+    margin: 2px;
+    border-style: groove;
+    border-width: 2px;
+    border-color: black; /*todo: make this translucent*/
+    background-image: url('../images/DarkTile.png');
+}
+
+.pool-object-microblog {
+    font: 12px Helvetica;
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    color: white;
+    background-color: rgba(180, 185, 200, 0.2);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(222, 222, 222);
+    -webkit-border-top-right-radius: 8px 8px;
+    -moz-border-radius-topright: 8px 8px;
+    -webkit-border-top-left-radius: 8px 8px;
+    -moz-border-radius-topleft: 8px 8px;
+    -webkit-border-bottom-left-radius: 8px 8px;
+    -moz-border-radius-bottomleft: 8px 8px;
+    -webkit-border-bottom-right-radius: 8px 8px;
+    -moz-border-radius-bottomright: 8px 8px;
+}
+
+.pool-object-microblog img {
+    padding: 3px;
+}
+
+/** TODO: use an overlay instead to add the glass effect **/
+
+.vtx-dock {
+/*-webkit-box-sizing: border-box;*/
+    border-top: 1px #a0a0a0 groove;
+    padding: 3px;
+    background-color: #091830;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.vtx-toolbar>h1 {
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    top: 10px;
+    line-height: 1em;
+    margin: 1px 0 0 -75px;
+    height: 40px;
+    font-size: 20px;
+    width: 150px;
+    font-weight: bold;
+    text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.vtx-search {
+    width: 100px;
+    -webkit-appearance: searchfield;
+    -webkit-box-sizing: border-box;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    background: white;
+    border: 2px inset;
+    cursor: auto;
+    padding: 1px;
+    cursor: auto;
+    color: initial;
+    display: inline-block;
+    font: -webkit-small-control;
+    letter-spacing: normal;
+    line-height: normal;
+    margin: 0em;
+    text-align: -webkit-auto;
+    text-indent: 0px;
+    text-shadow: none;
+    text-transform: none;
+    word-spacing: normal;
+    background-image: url('./images/UIComponents/UISearchBox16x16.jpg');
+    padding-left: 20px;
+
+}
+
+.vtx-left-scroll-area {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(radial, 150 400, 100, 100 300, 1000, from(rgba(10, 20, 60, 0.8)), to(rgba(60, 70, 100, 0.6)));
+}
+
+.vtx-toolbar-button-group {
+    width: 100%;
+
+}
+
+.vtx-toolbar-button img {
+    padding: 3px;
+}
+
+.vtx-toolbar-button:hover, .vtx-toolbar-button[selected] {
+    background: #C0C0C0 -webkit-gradient(linear, left top, left bottom, from(#C0C0C0), to(#808080)); /*-webkit-gradient(radial, 5 0, 8, 30 40, 60, from(#A0A0A0), to(#505050), color-stop(80%, #606080));*/
+    width: 40px;
+    height: 30px;
+    float: left;
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+    border: 1px solid #404040;
+}
+
+.vtx-toolbar-button {
+    background: #606060 -webkit-gradient(linear, left top, left bottom, from(#606060), to(#303030)); /*background: #505050 -webkit-gradient(radial, 5 0, 8, 30 40, 60, from(#606060), to(#303030), color-stop(80%, #404050));*/
+    width: 40px;
+    height: 30px;
+    float: left;
+    -webkit-box-shadow: 0 2px 2px rgba(10, 10, 10, .2);
+}
+
+.vtx-left-toolbar-button {
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    padding-left: 8px;
+}
+
+.vtx-right-toolbar-button {
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    padding-left: 8px;
+}
+
+.vtx-scrollbar-bar {
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    background: gray;
+    height: 8px;
+    width: 8px;
+    opacity: 0.8; /*border: 1px solid white;*/
+
+}
+
+/** GWT **/
+
+.gwt-SplitLayoutPanel {
+    min-width: 100%;
+}
+
+.gwt-SplitLayoutPanel .gwt-SplitLayoutPanel-HDragger {
+/*background: #c5ccd3 url('../images/UIComponents/UIDimpledMetalVertical.png');*/
+    cursor: move; /* Pretty much everything */
+    width: 2px;
+    cursor: n-resize; /* IE6, IE7, FF2, Safari Win */
+    cursor: column-resize;
+}
+
+/*.gwt-SplitLayoutPanel .left {*/
+/*background-color: #E8EEF7;*/
+/*}*/
+
+a {
+    color: #333;
+}
+
+/** THIRD PARTY STUFF THAT NEEDS COMPLETION **/
+
+/**
+
+MENUS
+
+**/
+
+#nav {
+    margin: 0;
+    padding: 7px 6px 0;
+    background: #7d7d7d url(../images/UIComponents/UIGeneralShadingLightGradient.png) repeat-x 0 -110px;
+    line-height: 100%;
+
+    border-radius: 2em;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+}
+
+#nav li {
+    margin: 0 5px;
+    padding: 0 0 8px;
+    float: left;
+    position: relative;
+    list-style: none;
+}
+
+/* main level link */
+#nav a {
+    font-weight: bold;
+    color: #e7e5e5;
+    text-decoration: none;
+    display: block;
+    padding: 8px 20px;
+    margin: 0;
+
+    -webkit-border-radius: 1.6em;
+    -moz-border-radius: 1.6em;
+
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+
+#nav a:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* main level link hover */
+#nav .current a, #nav li:hover > a {
+    background: #666 url(../images/UIComponents/UIGeneralShadingLightGradient.png) repeat-x 0 -40px;
+    color: #444;
+    border-top: solid 1px #f8f8f8;
+
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* sub levels link hover */
+#nav ul li:hover a, #nav li:hover li a {
+    background: none;
+    border: none;
+    color: #666;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+#nav ul a:hover {
+    background: #0078ff url(../images/UIComponents/UIGeneralShadingLightGradient.png) repeat-x 0 -100px !important;
+    color: #fff !important;
+
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+/* dropdown */
+#nav li:hover > ul {
+    display: block;
+}
+
+/* level 2 list */
+#nav ul {
+    display: none;
+
+    margin: 0;
+    padding: 0;
+    width: 185px;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    background: #ddd url(../images/UIComponents/UIGeneralShadingLightGradient.png) repeat-x 0 0;
+    border: solid 1px #b4b4b4;
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+}
+
+#nav ul li {
+    float: none;
+    margin: 0;
+    padding: 0;
+}
+
+#nav ul a {
+    font-weight: normal;
+    text-shadow: 0 1px 0 #fff;
+}
+
+/* level 3+ list */
+#nav ul ul {
+    left: 181px;
+    top: -3px;
+}
+
+/* rounded corners of first and last link */
+#nav ul li:first-child > a {
+    -webkit-border-top-left-radius: 9px;
+    -moz-border-radius-topleft: 9px;
+
+    -webkit-border-top-right-radius: 9px;
+    -moz-border-radius-topright: 9px;
+}
+
+#nav ul li:last-child > a {
+    -webkit-border-bottom-left-radius: 9px;
+    -moz-border-radius-bottomleft: 9px;
+
+    -webkit-border-bottom-right-radius: 9px;
+    -moz-border-radius-bottomright: 9px;
+}
+
+/* clearfix */
+#nav:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+#nav {
+    display: inline-block;
+}
+
+html[xmlns] #nav {
+    display: block;
+}
+
+* html #nav {
+    height: 1%;
+}

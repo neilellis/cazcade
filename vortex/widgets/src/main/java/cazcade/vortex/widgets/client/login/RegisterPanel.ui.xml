@@ -1,0 +1,43 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:field='urn:import:cazcade.vortex.widgets.client.form.fields'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="register-panel-inner">
+        <div>
+            <div class="login-panel-row">
+                <div class="login-panel-label">Fullname
+                </div>
+                <field:RegexTextBox styleName="login-panel-chat login-panel-username" regex="[a-zA-Z][\w ]*" ui:field="fullname" errorMessage="Invalid Name"/>
+            </div>
+            <div class="login-panel-row">
+                <div class="login-panel-label">Username
+                </div>
+                <field:UsernameTextBox showAvailability="true"
+                                       styleName="login-panel-chat login-panel-username"
+                                       ui:field="username"/>
+            </div>
+            <div class="login-panel-row">
+                <div class="login-panel-label">Password</div>
+                <field:VortexPasswordTextBox  styleName="login-panel-chat login-panel-password"
+                                             ui:field="password"/>
+            </div>
+            <div class="login-panel-row">
+                <div class="login-panel-label">Confirm</div>
+                <field:VortexPasswordTextBox
+                                             styleName="login-panel-chat login-panel-password"
+                                             ui:field="passwordConfirm"/>
+            </div>
+            <div class="login-panel-row">
+                <div class="login-panel-label">Email
+                </div>
+                <field:RegexTextBox inputType="email" regex="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" errorMessage="Invalid Email" styleName="login-panel-chat login-panel-username" ui:field="email"/>
+            </div>
+            <div class="login-panel-row">
+                <g:Button styleName="register-button" text="Register" ui:field="registerButton"/>
+                <g:Hyperlink text="or Sign In" ui:field="login" styleName="login-link"/>
+
+            </div>
+            <g:Label styleName="login-panel-error-message" ui:field="registerErrorMessage"/>
+        </div>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

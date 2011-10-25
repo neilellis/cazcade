@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <div class="pool-object-microblog">
+            <div style="width:48;height:48">
+                <img ui:field="image" style="float:left;"/>
+            </div>
+            <h3 ui:field="title"></h3>
+            <p>
+                <span ui:field="shortText"></span>
+            </p>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

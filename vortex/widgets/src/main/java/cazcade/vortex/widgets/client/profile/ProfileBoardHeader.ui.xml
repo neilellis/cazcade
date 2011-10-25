@@ -1,0 +1,57 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
+             xmlns:dm="urn:import:cazcade.vortex.widgets.client.dm">
+    <g:HTMLPanel styleName="profile-board-header">
+
+        <div ui:field="contentArea">
+
+            <div class="row profile-board-header-top">
+                <div class="profile-header-top-left">
+                    <div>
+                        <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="200px"
+                                             size="CLIPPED_MEDIUM"
+                                             height="200px"/>
+                    </div>
+                </div>
+                <div class="profile-header-top-middle">
+                    <fields:VortexEditableLabel ui:field="userFullName" styleName="profile-board-user-fullname"/>
+                    <span class="profile-board-user-role">(<g:Label ui:field="roleFullName"/>)
+                    </span>
+                    <fields:VortexEditableLabel ui:field="userShortName" prefix="@" readonly="true"
+                                                styleName="profile-board-username"/>
+                    <fields:VortexEditableLabel wordwrap="false" ui:field="description" visibleLength="30"
+                                                styleName="profile-board-user-description"/>
+
+                </div>
+                <div>
+                    <g:HTMLPanel ui:field="detailPanel" styleName="profile-header-top-right">
+
+                        <a ui:field="profileLink" class="profile-board-followers" style="visibility:hidden;">Profile</a>
+                        <!--<a ui:field="publicLink" class="profile-board-followers" style="visibility:hidden;">Public</a>-->
+
+                        <g:Label ui:field="followersLabel" styleName="profile-board-followers">X
+                            Followers
+                        </g:Label>
+                        <g:Label ui:field="followingLabel" styleName="profile-board-following">
+                            Following Y
+                        </g:Label>
+                        <div class="row profile-board-header-middle-bar">
+                            <div class="button-holder">
+                                <g:Label ui:field="followButton" styleName="btn large primary">Follow
+                                </g:Label>
+                                <g:Label ui:field="dmButton" styleName="btn large">DM</g:Label>
+                            </div>
+                        </div>
+
+                    </g:HTMLPanel>
+                    <dm:DirectMessagePanel ui:field="directMessagePanel" visible="false"/>
+                </div>
+            </div>
+        </div>
+
+    </g:HTMLPanel>
+
+
+</ui:UiBinder>

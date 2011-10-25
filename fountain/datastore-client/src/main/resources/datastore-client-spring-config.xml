@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <import resource="classpath:liquid-spring-config.xml"/>
+    <import resource="classpath:messaging-context.xml"/>
+
+    <bean id="requestValidator" class="cazcade.fountain.validation.FountainRequestValidatorImpl">
+        <property name="requestValidatorMap">
+            <map>
+                <entry key="CREATE_USER">
+                    <bean class="cazcade.fountain.validation.request.CreateUserRequestValidator"
+                          p:entityValidator-ref="entityValidator"/>
+                </entry>
+                <entry key="CREATE_POOL_OBJECT">
+                    <bean class="cazcade.fountain.validation.request.CreatePoolObjectRequestValidator"
+                          p:entityValidator-ref="entityValidator"/>
+                </entry>
+                <entry key="UPDATE_POOL_OBJECT">
+                    <bean class="cazcade.fountain.validation.request.UpdatePoolObjectRequestValidator"
+                          p:entityValidator-ref="entityValidator"/>
+                </entry>
+            </map>
+        </property>
+        <property name="defaultValidator">
+            <bean class="cazcade.fountain.validation.request.DefaultRequestValidator"
+                  p:entityValidator-ref="entityValidator"/>
+        </property>
+    </bean>
+
+    <rabbit:topic-exchange id="mainExchange" name="mainExchange" durable="true">
+    </rabbit:topic-exchange>
+
+
+    <bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate"
+          p:exchange="mainExchange"
+          p:messageConverter-ref="messageConverter"
+          p:connectionFactory-ref="rabbitConnectionFactory"/>
+
+    <bean id="messageSender" class="cazcade.fountain.messaging.LiquidMessageSender"
+          p:template-ref="rabbitTemplate"/>
+
+    <bean id="remoteDataStore" class="cazcade.fountain.datastore.client.FountainRemoteDataStore"
+          destroy-method="stopIfNotStopped" p:template-ref="rabbitTemplate" p:rabbitAdmin-ref="rabbitAdmin"
+          p:securityValidator-ref="securityValidator" p:requestValidator-ref="requestValidator"
+          p:messageSender-ref="messageSender" init-method="startIfNotStarted"/>
+
+    <bean id="syncRemoteDataStore" class="cazcade.fountain.datastore.client.FountainRemoteDataStore"
+          destroy-method="stopIfNotStopped" p:template-ref="rabbitTemplate" p:rabbitAdmin-ref="rabbitAdmin"
+          p:securityValidator-ref="securityValidator" p:requestValidator-ref="requestValidator"
+          p:messageSender-ref="messageSender" init-method="startIfNotStarted">
+        <property name="alwaysSynchronous" value="true"/>
+    </bean>
+
+    <bean id="authorizationService" class="cazcade.fountain.datastore.client.validation.AuthorizationServiceImpl">
+        <property name="dataStore" ref="remoteDataStore"/>
+    </bean>
+
+    <bean id="authDataStore" class="cazcade.fountain.datastore.client.FountainRemoteDataStore"
+          p:template-ref="rabbitTemplate"
+          destroy-method="stopIfNotStopped">
+        <property name="requestValidator" ref="requestValidator"/>
+        <property name="messageSender" ref="messageSender"/>
+    </bean>
+
+    <bean id="securityValidator" class="cazcade.fountain.datastore.client.validation.SecurityValidatorImpl"
+          p:authorizationService-ref="authorizationService"/>
+
+    <bean id="entityValidator" class="cazcade.fountain.validation.FountainEntityValidator">
+        <property name="entityValidatorMap">
+            <map>
+                <entry key="Identity.Person.User">
+                    <bean class="cazcade.fountain.validation.entity.UserEntityValidator"/>
+                </entry>
+            </map>
+        </property>
+        <property name="formatValidator" ref="formatValidator"/>
+    </bean>
+
+    <bean id="clientSessionManager" init-method="start" destroy-method="stop"
+          class="cazcade.fountain.messaging.session.ClientSessionManager"/>
+
+    <rabbit:fanout-exchange id="rpcExchange" name="rpc-exchange" durable="false">
+    </rabbit:fanout-exchange>
+
+
+    <!--<camel:camelContext id="localDataStoreCamelContext">-->
+    <!--&lt;!&ndash;<camel:route>&ndash;&gt;-->
+    <!--&lt;!&ndash;<camel:from uri="mina:tcp://localhost:6200?sync=true"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<camel:to uri="bean:localDataStore"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</camel:route>&ndash;&gt;-->
+    <!--</camel:camelContext>-->
+
+
+</beans>

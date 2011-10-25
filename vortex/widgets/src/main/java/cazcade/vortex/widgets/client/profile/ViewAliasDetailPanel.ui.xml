@@ -1,0 +1,11 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:profile="urn:import:cazcade.vortex.widgets.client.profile"
+        >
+    <g:HTMLPanel>
+        <g:PopupPanel width="360px" height="200px"
+                      ui:field="popup" glassEnabled="false" modal="false" autoHideEnabled="true">
+            <profile:AliasDetailPanel ui:field="detailPanel" styleName="drop-shadow raised view-user-details view-user-details-popup"/>
+        </g:PopupPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

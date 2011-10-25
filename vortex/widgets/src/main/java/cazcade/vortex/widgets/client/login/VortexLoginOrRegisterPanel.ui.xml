@@ -1,0 +1,7 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:login='urn:import:cazcade.vortex.widgets.client.login'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:SimplePanel styleName="login-panel login-or-register-panel">
+       <login:LoginPanel ui:field="loginPanel"></login:LoginPanel>
+    </g:SimplePanel>
+</ui:UiBinder>

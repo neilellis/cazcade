@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="UTF-8">
+
+    <empty>
+        <var-def name="page">
+            <html-to-xml>
+                <http url="${url}">
+                </http>
+            </html-to-xml>
+        </var-def>
+        <var-def name="links">
+            <loop item="link">
+                <list>
+                    <xpath expression="//span[@class ='pager_container']//a/@href">
+                        <var name="page"/>
+                    </xpath>
+                    <template>${url}</template>
+                </list>
+                <body>
+                    <xpath expression="//div[@id = 'myfriends_grid']//a/@href">
+                        <html-to-xml>
+                            <http url="${link}">
+                            </http>
+                        </html-to-xml>
+                    </xpath>
+                </body>
+            </loop>
+        </var-def>
+    </empty>
+</config>

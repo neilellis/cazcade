@@ -1,0 +1,550 @@
+
+//Editor
+
+.pool-object-editor-popup-glass {
+     background: @dialogGlassBackground;
+     background-color: @dialogGlassBackgroundColor;
+     opacity: 0.7;
+     z-index: 10000;
+}
+
+
+.pool-object-editor-popup {
+    z-index:20000;
+}
+
+
+
+//Objects
+
+
+.default-size {
+     .size-small {
+         width: @poolObjectSmallWidth;
+         height: @poolObjectSmallHeight;
+
+     }
+
+     .size-medium {
+         width: @poolObjectMediumWidth;
+         height: @poolObjectMediumHeight;
+     }
+
+     .size-large {
+         width: @poolObjectLargeWidth;
+         height: @poolObjectLargeHeight;
+     }
+}
+
+.pool-object {
+    position: absolute;
+    .transition-height;
+    .transition-width;
+    .transition-top;
+    .transition-left;
+    .transition-opacity;
+    .transition-transform;
+
+     background: none;
+     border: 2px dotted rgba(90, 200, 250,0.0);
+         overflow: hidden;
+
+
+
+
+}
+
+
+.modifiable-board {
+    .pool-object {
+         &:hover {
+            background-color: rgba(0,200,0,0.3);
+            .border-radius(4px);
+         }
+     }
+}
+
+
+.drag-mode {
+    .pool-object {
+        border: 2px dotted rgba(90, 200, 250,0.5);
+    }
+}
+
+.pool-object-inner {
+    position: relative;
+    z-index: 1;
+    padding: @poolObjectPadding;
+
+
+}
+
+.pool-object:hover {
+    cursor: move;
+}
+
+.pool-object-edit-mode {
+    z-index: 32000;
+}
+
+.pool-object-delete {
+    position: absolute;
+    background-image: url("../_images/delete.png");
+    width: 24px;
+    height: 24px;
+    top: 0px;
+    right: 0px;
+    z-index: 50;
+    cursor: pointer;
+
+}
+
+@stickyColor: #FCF0AD;
+
+.pool-object-rich-text {
+    width: 230px;
+    height: 240px;
+    color: #333;
+    background-color: #FCF0AD;
+//    background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 20%)), to(@stickyColor));
+    .shadow-border(@stickyColor);
+    .border-radius(4px);
+    font-size: @boardTextFontSize;
+    z-index:7000;
+}
+
+.pool-object-rich-text {
+}
+
+.pool-object-rich-text .editableLabel-label {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+
+    font-size: @boardTextFontSize;
+    word-wrap: break-word;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.pool-object-rich-text .editableLabel-buttonPanel {
+    bottom: 0px;
+}
+
+.pool-object-rich-text .editableLabel-textArea {
+    width: 100%;
+    height: 205px;
+    font-size: @boardTextFontSize;
+}
+
+.pool-object-note {
+
+    //golden ratio
+    height: auto;
+    min-height:30px;
+
+    &.size-small, &.size-medium, &.size-large {
+        height: auto;
+    }
+    /*color: #fff;*/
+    /*#gradient > .vertical(rgba(254,254,254,0.3), rgba(252,252,252,0.3));*/
+    /*#gradient > .vertical(rgba(254,254,254,0.3), rgba(252,252,252,0.3));*/
+    /*background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(#f5f5f5), to(#e0e0e0));*/
+    /*background-image:    -moz-radial-gradient(center 45deg, circle closest-side, orange 0%, red 100%);*/
+    /*background-image: radial-gradient(50%,80% 45deg, circle closest-side, #f5f5f5 0%, #e00000 100%);*/
+//    .shadow-border();
+
+      &.theme-black {
+         .pool-object-note-inner {
+             background-color: rgba(0,0,0,0.31) ;
+             color:white;
+         }
+     }
+
+     &.theme-white {
+         .pool-object-note-inner {
+             background-color: rgba(255,255,255,0.5) ;
+             color:black;
+         }
+     }
+
+
+
+
+
+}
+
+.pool-object-note-inner {
+
+    background: none;
+    color:@grayDark;
+
+    .border-radius(2px);
+    padding: 10px;
+
+    border: 1px dashed rgba(0,0,0,0.0);
+
+    &:hover {
+        border: 1px dashed rgba(0,0,0,0.5);
+    }
+
+}
+
+.pool-object-note .editableLabel-label {
+    position: static;
+    width:100%;
+    height:100%;
+    font-size:16px;
+    overflow: hidden;
+    text-overflow: ellipsis-word;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+.pool-object-note .editableLabel-buttonPanel {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+}
+
+.pool-object-note .editableLabel-textArea {
+    position: static;
+    height: auto;
+    min-height: 20px;
+    padding-bottom: 40px;
+    min-width: 390px;
+    font-size: @boardTextFontSize;
+}
+
+
+.pool-object-caption {
+    width: @poolObjectSmallWidth - 40;
+    margin-left:20px;
+    margin-right: 20px;
+    height: 30px;
+    background: none;
+    padding: 0;
+    margin:0;
+    .box-shadow(none);
+    background-color: rgba(0,0,0,0.9);
+    border:  1px solid rgba(0,0,0,0.3);
+    color: white;
+    .border-radius(8px);
+    opacity: 0.8;
+    text-align: center;
+    z-index:8000;
+}
+
+.pool-object-caption .editableLabel-label {
+    cursor: pointer;
+    padding: 8px;
+    margin: 10px;
+    /*Style the text*/
+    text-overflow: ellipsis-word;
+    word-wrap: break-word;
+    font-size: @captionFontSize;
+    line-height: @captionFontSize+8;
+
+}
+/*
+
+.pool-object-caption {
+    width: 300px;
+    height: 22px;
+    background-color: #111;
+    background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(#111), to(#333));
+    .shadow-border(#111);
+    .border-radius(1px);
+    transform: rotate(2deg);
+
+}
+
+.pool-object-caption .editableLabel-label {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 4px;
+    bottom: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    color: #f5f5f5;
+    text-shadow: 1px 1px 1px #bbb;
+
+    //Style the text
+    text-overflow: ellipsis-word;
+    word-wrap: break-word;
+    font-size: @captionFontSize;
+    font-family: monospace;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 3px #ddd;
+    letter-spacing: .1em;
+    word-spacing: 5px;
+    //Rotate the label & give it a shadow
+    transform: rotate(-3deg);
+    text-outline: 1px 1px #333;
+    text-align: center;
+
+}
+
+*/
+
+.pool-object-caption .editableLabel-buttonPanel {
+    position: absolute;
+    bottom: -40px;
+    left: 10px;
+    right: 10px;
+}
+
+.pool-object-caption .editableLabel-textBox {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    height: 24px;
+    min-width: 300px;
+    font-size: captionFontSize;
+    overflow: hidden;
+    color:black;
+}
+
+.rich-text-author-label {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: left;
+}
+
+.rich-text-detail {
+    font-size: 0.5em;
+    color: rgba(10, 10, 12, 0.3);
+    padding: 0px;
+}
+
+.pool-object-microblog {
+    font: @boardTextFontSize;
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    color: white;
+    background-color: rgba(180, 185, 200, 0.2);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(222, 222, 222);
+    .border-radius(4px);
+}
+
+.pool-object-checklist-surround {
+    position: absolute;
+    height: 570px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.pool-object-checklist {
+    background-image: url('../_images/objects/notepaper-small.png');
+    width: 400px;
+    height: 575px;
+    font-family: 'Delius', Helvetica, Arial, sans-serif;
+}
+
+.pool-object-checklist table {
+    margin-left: 47px;
+    font-size: 11.7px;
+    color: black;
+    color: rgba(0, 0, 0, 0.9);
+    margin-right: 10px;
+    width: 300px;
+}
+
+.pool-object-checklist td {
+    height: 18px;
+    color: #202050;
+    width: 100%;
+}
+
+.pool-object-checklist h1 {
+    margin-top: 10px;
+    margin-left: 48px;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #202030;
+
+}
+
+.checklist-entry-checkbox {
+    display: inline;
+    float: left;
+    font-size: 1.4em;
+    height: 1.5em;
+    font-weight: bolder;
+    width: 25px;
+}
+
+.editableLabel-label {
+    display: inline;
+
+}
+
+.checklist-entry-text {
+    display: inline;
+    height: 1.5em;
+}
+
+div.checklist-entry-author {
+    display: inline;
+    float: right;
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+.pool-object-photo {
+    background: none;
+    border: none;
+    .border-radius(4px);
+    margin: @poolObjectPadding - 6;
+
+     .photo-effect {
+        .absolute-full;
+     }
+
+
+    .pool-object-photo-surround {
+        margin: 4px;
+        .border-radius(6px);
+
+
+    //    &::after {
+    //        display: block;
+    //        content:  " ";
+    //        background-image: url('../_images/photo-masks/gloss-medium-noframe.png');
+    //        /*background: red;*/
+    //        position: absolute;
+    //        top:0;
+    //        left:0;
+    //        width:326px;
+    //        height:186px;
+    //        z-index:10001;
+    //        .border-radius(4px);
+    //    }
+
+     img {
+        /*z-index: 1000;*/
+        border: none;
+        /*padding: 10px;*/
+        transition: src ease-in-out 300ms;
+        -o-transition: src ease-in-out 300ms;
+        -webkit-transition: src ease-in-out 300ms;
+        -moz-transition: src ease-in-out 300ms;
+        .border-radius(2px);
+        .box-shadow(2px 2px 3px 1px rgba(0,0,0,0.2));
+        }
+
+     }
+
+
+
+
+}
+
+
+  /*
+.pool-object-photo .vortex-image-uploader .vortex-image-uploader-loader-area {
+    color: white;
+    width: 100%;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+
+}
+
+.pool-object-photo .vortex-image-uploader .pool-object-photo-edit-cancel {
+
+    padding: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.pool-object-photo  .vortex-image-uploader {
+    background-color: #666;
+    color: white;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: none;
+
+}
+
+.pool-object-photo  .vortex-image-uploader p {
+    font-size: 1.1em;
+    margin: 5px;
+}
+
+.pool-object-photo .vortex-image-uploader .gwt-FileUpload {
+    padding: 5px;
+    color: white;
+    border: none;
+    width: 100%;
+    margin: 10px;
+
+}
+
+
+*/
+.pool-object-youtube {
+    position: relative;
+    .border-radius(4px);
+    width: @poolObjectSmallWidth;
+    height: @poolObjectSmallHeight;
+    z-index: 1000;
+        /*padding: 10px;*/
+}
+
+.pool-object-youtube img {
+    background-color: black;
+    transition: src ease-in-out 300ms;
+    -o-transition: src ease-in-out 300ms;
+    -webkit-transition: src ease-in-out 300ms;
+    -moz-transition: src ease-in-out 300ms;
+       margin: 0px;
+       padding: 0px;
+    width: @poolObjectSmallWidth;
+    height: @poolObjectSmallHeight;
+
+}
+
+.pool-object-youtube-preview {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    width: @poolObjectSmallWidth;
+    height: @poolObjectSmallHeight;
+}
+
+.pool-object-youtube-video {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+
+    width: @poolObjectSmallWidth;
+    height: @poolObjectSmallHeight;
+    z-index: 0;
+}
+
+.pool-object-business-card {
+    width: 266px;
+    height: @poolObjectSmallHeight;
+}
+
+
+
+.pool-object-image {
+    z-index:9000;
+}
+
+
+

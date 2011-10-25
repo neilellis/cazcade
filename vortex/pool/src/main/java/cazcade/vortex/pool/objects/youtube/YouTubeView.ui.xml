@@ -1,0 +1,20 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
+    <g:HTMLPanel styleName="pool-object-youtube drop-shadow raised">
+        <g:AbsolutePanel>
+            <g:HTMLPanel styleName="pool-object-youtube-preview">
+                <image:CachedImage ui:field="image" visible="false" size="CLIPPED_SMALL"/>
+            </g:HTMLPanel>
+
+            <g:HTMLPanel ui:field="videoFrameHolder" styleName="pool-object-youtube-video">
+                <iframe ui:field="videoFrame" width="366" height="219" src=""
+                        frameborder="0"
+                        allowfullscreen="true"></iframe>
+            </g:HTMLPanel>
+
+        </g:AbsolutePanel>
+
+    </g:HTMLPanel>
+
+</ui:UiBinder>

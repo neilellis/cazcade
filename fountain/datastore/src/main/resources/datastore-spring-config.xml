@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="classpath:liquid-spring-config.xml"/>
+    <import resource="classpath:index-service.xml"/>
+
+    <context:annotation-config/>
+
+
+    <bean id="compensator" class="cazcade.fountain.datastore.impl.FountainRequestCompensatorImpl">
+        <property name="requestMap" ref="requestMap"/>
+    </bean>
+
+    <bean id="authHandler" class="cazcade.fountain.datastore.impl.handlers.AuthorizationHandler"/>
+
+
+    <bean id="localDataStore" class="cazcade.fountain.datastore.impl.FountainLocalDataStore" init-method="start"
+          destroy-method="stop">
+        <property name="fountainNeo" ref="fountainNeo"/>
+        <property name="requestMap" ref="requestMap"/>
+        <property name="authHandler" ref="authHandler"/>
+    </bean>
+
+    <bean id="requestMap" class="cazcade.fountain.datastore.impl.FountainRequestMap">
+        <property name="map">
+            <map>
+                <entry key="cazcade.liquid.api.request.CreatePoolRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.CreatePoolHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.CreatePoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.CreatePoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.CreateUserRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.CreateUserHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.CreateSessionRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.CreateSessionHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.CreateAliasRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.CreateAliasHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+
+                <entry key="cazcade.liquid.api.request.RetrievePoolRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrievePoolHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RetrievePoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrievePoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RetrieveUserRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrieveUserHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RetrieveSessionRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrieveSessionHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RetrieveAliasRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrieveAliasHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+
+                <entry key="cazcade.liquid.api.request.UpdatePoolRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.UpdatePoolHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.UpdatePoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.UpdatePoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.UpdateUserRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.UpdateUserHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.UpdateSessionRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.UpdateSessionHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.UpdateAliasRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.UpdateAliasHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+
+                <entry key="cazcade.liquid.api.request.DeletePoolRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.DeletePoolHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.DeletePoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.DeletePoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.DeleteUserRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.DeleteUserHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.DeleteSessionRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.DeleteSessionHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.UnlinkAliasRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.UnlinkAliasHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+
+                <entry key="cazcade.liquid.api.request.ResizePoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.ResizePoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.MovePoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.MovePoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RotateXYPoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RotateXYPoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.AuthorizationRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler" ref="authHandler"/>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.ClaimAliasRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.ClaimAliasHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.ChangePasswordRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.ChangePasswordHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.LinkPoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.LinkPoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.VisitPoolRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.VisitPoolHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RetrievePoolRosterRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrievePoolRosterHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.SelectPoolObjectRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.SelectPoolObjectHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.AddCommentRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.AddCommentHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.LinkPoolRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.LinkPoolHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RetrieveUpdatesRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrieveUpdatesHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.RetrieveCommentsRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.RetrieveCommentsHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.SearchRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.SearchHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.ChangePermissionRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.ChangePermissionHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.FollowRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.FollowHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.SendRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.SendHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.AdminCommandRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler" ref="adminCommandHandler"/>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.BoardQueryRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.BoardQueryHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="cazcade.liquid.api.request.ChatRequest">
+                    <bean class="cazcade.fountain.datastore.impl.FountainRequestConfiguration">
+                        <property name="handler">
+                            <bean class="cazcade.fountain.datastore.impl.handlers.ChatHandler"/>
+                        </property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <bean id="adminCommandHandler" class="cazcade.fountain.datastore.impl.handlers.AdminCommandHandler">
+        <property name="adminCommands">
+            <map>
+                <entry key="fixperm">
+                    <bean class="cazcade.fountain.datastore.impl.admin.commands.FixAllPermissions"/>
+                </entry>
+                <entry key="fixalias">
+                    <bean class="cazcade.fountain.datastore.impl.admin.commands.FixAllAliases"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="fountainNeo" class="cazcade.fountain.datastore.impl.FountainNeo" destroy-method="stop"
+          init-method="start">
+    </bean>
+
+    <bean id="fountainIndexService" class="cazcade.fountain.datastore.impl.FountainIndexServiceImpl"/>
+    <bean id="poolDAO" class="cazcade.fountain.datastore.impl.FountainPoolDAOImpl"/>
+    <bean id="userDAO" class="cazcade.fountain.datastore.impl.FountainUserDAOImpl"/>
+    <bean id="socialDAO" class="cazcade.fountain.datastore.impl.FountainSocialDAOImpl"/>
+    <bean id="poolQueryDAO" class="cazcade.fountain.datastore.impl.FountainBoardQueryDAOImpl"/>
+    <bean id="fountainNeoInitializer" class="cazcade.fountain.datastore.impl.FountainNeoIntializer"
+          init-method="initGraph" depends-on="fountainNeo" p:fountainNeo-ref="fountainNeo"/>
+
+
+</beans>

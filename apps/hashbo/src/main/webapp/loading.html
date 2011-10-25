@@ -1,0 +1,155 @@
+<html>
+<head>
+    <style type="text/css">
+
+        @-webkit-keyframes anim-5 {
+        0% {
+                opacity: 1.0;
+        }
+        40% {
+                opacity: 0.0;
+        }
+        80% {
+                opacity: 0.0;
+        }
+        100% {
+                opacity: 1.0
+        }
+        }
+        @-webkit-keyframes anim-4 {
+        0% {
+                opacity: 0.8;
+        }
+        15% {
+                opacity: 0.0;
+        }
+        75% {
+                opacity: 0.0;
+        }
+        95% {
+                opacity: 1.0;
+        }
+        100% {
+                opacity: 0.8
+        }
+        }
+
+        @-webkit-keyframes anim-3 {
+        0% {
+                opacity: 0.6;
+        }
+        10% {
+                opacity: 0.0;
+        }
+        70% {
+                opacity: 0.0;
+        }
+        90% {
+                opacity: 1.0;
+        }
+        100% {
+                opacity: 0.6
+        }
+        }
+
+        @-webkit-keyframes anim-2 {
+        0% {
+                opacity: 0.4;
+        }
+        5% {
+                opacity: 0.0;
+        }
+        65% {
+                opacity: 0.0;
+        }
+        85% {
+                opacity: 1.0;
+        }
+        100% {
+                opacity: 0.4
+        }
+        }
+
+        @-webkit-keyframes anim-1 {
+        0% {
+                opacity: 0.0;
+        }
+        60% {
+                opacity: 0.0;
+        }
+        80% {
+                opacity: 1.0;
+        }
+        100% {
+                opacity: 0.0;
+        }
+        }
+
+        @-webkit-keyframes anim-pad {
+
+        }
+
+        .loading-bar {
+            width: 200px;
+            position: relative;
+            height: 20px;
+        }
+
+        .circle {
+            -webkit-border-radius: 20px;
+            height: 15px;
+            width: 15px;
+            background-color: #666;
+            position: absolute;
+            /*box-shadow: 0 0 1px 1px #888;*/
+            -webkit-animation-duration: 2s;
+            -webkit-animation-iteration-count: 100;
+            opacity:0.0;
+        }
+
+        .loading-circle-1 {
+            left: 0px;
+            -webkit-animation-name: anim-1;
+            background-color: #eee;
+        }
+
+        .loading-circle-2 {
+            left: 25px;
+            -webkit-animation-name: anim-2;
+            background-color: #ddd;
+        }
+
+        .loading-circle-3 {
+            left: 50px;
+            -webkit-animation-name: anim-3;
+            background-color: #ccc;
+        }
+
+        .loading-circle-4 {
+            left: 75px;
+            -webkit-animation-name: anim-4;
+            background-color: #bbb;
+        }
+
+        .loading-circle-5 {
+            left: 100px;
+            -webkit-animation-name: anim-5;
+            background-color: #666;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="loading-bar">
+    <div class="loading-circle-1 circle"></div>
+    <div class="loading-circle-2 circle"></div>
+    <div class="loading-circle-3 circle"></div>
+    <div class="loading-circle-4 circle"></div>
+    <div class="loading-circle-5 circle"></div>
+</div>
+</body>
+</html>

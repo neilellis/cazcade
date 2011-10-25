@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="UTF-8">
+    <empty>
+        <var-def name="page">
+            <html-to-xml unicodechars="false" specialentities="false">
+                <http url="${url}">
+                </http>
+            </html-to-xml>
+        </var-def>
+    </empty>
+
+    <var-def name="videos">
+
+        <loop item="link">
+            <list>
+                <xpath expression="//object/param[starts-with(@value, 'http://www.youtube.com/v/')]/@value">
+                    <var name="page"/>
+                </xpath>
+            </list>
+            <body>
+                <template>${sys.fullUrl(url, link)}</template>
+            </body>
+        </loop>
+
+        <!--<input type="hidden" name="video_id" value="Gck5qZWe8pc" />-->
+
+        <loop item="video">
+            <list>
+                <xpath expression="//input[@type='hidden' and @name='video_id']/@value">
+                    <var name="page"/>
+                </xpath>
+            </list>
+            <body>
+                <template>http://www.youtube.com/v/${video}</template>
+            </body>
+        </loop>
+    </var-def>
+
+
+    <var-def name="images">
+
+        <loop item="link">
+            <list>
+                <xpath expression="//img/@src">
+                    <var name="page"/>
+                </xpath>
+            </list>
+            <body>
+                <template>${sys.fullUrl(url, link)}</template>
+            </body>
+        </loop>
+
+    </var-def>
+
+    <var-def name="favicon_raw">
+
+        <xpath expression="//link[@rel = 'icon' ]/@href">
+            <var name="page"/>
+        </xpath>
+    </var-def>
+
+    <var-def name="favicon">
+        <template>${sys.fullUrl(url, favicon_raw)}</template>
+    </var-def>
+
+    <var-def name="feeds">
+
+        <loop item="link">
+            <list>
+                <xpath expression="//link[@type ='application/atom+xml']/@href">
+                    <var name="page"/>
+                </xpath>
+            </list>
+            <body>
+                <template>atom:${sys.fullUrl(url, link)}</template>
+            </body>
+        </loop>
+        <loop item="link">
+            <list>
+                <xpath expression="//link[@type = 'application/rss+xml' ]/@href">
+                    <var name="page"/>
+                </xpath>
+            </list>
+            <body>
+                <template>rss:${sys.fullUrl(url, link)}</template>
+            </body>
+        </loop>
+        <loop item="link">
+            <!-- list consists of all rows in the main HTML table on the page -->
+            <list>
+                <xpath expression="//a[ends-with(@href, 'xml') or ends-with(@href, 'rss') or ends-with(@href, 'atom')]/@href">
+                    <var name="page"/>
+                </xpath>
+            </list>
+
+
+            <body>
+                <empty>
+                    <var-def name="root">
+                        <xpath expression="/*/name()">
+                            <html-to-xml>
+                                <http url='${sys.fullUrl(url, link)}' method="get"/>
+                            </html-to-xml>
+                        </xpath>
+                    </var-def>
+                </empty>
+                <case>
+                    <if condition='${http.mimeType.equals("application/rss+xml")}'>
+                        <template>rss:${sys.fullUrl(url, link)}</template>
+                    </if>
+                    <if condition='http.mimeType.equals("application/atom+xml") }'>
+                        <template>atom:${sys.fullUrl(url, link)}</template>
+                    </if>
+                    <if condition='${http.mimeType.equals("text/xml") }'>
+                        <case>
+                            <if condition='root.toString().equals("rss")}'>
+                                <template>rss:${sys.fullUrl(url, link)}</template>
+                            </if>
+                            <if condition='root.toString().equals("rss") || root.toString().equals("atom:feed") }'>
+                                <template>atom:${sys.fullUrl(url, link)}</template>
+                            </if>
+                        </case>
+                    </if>
+                </case>
+            </body>
+        </loop>
+    </var-def>
+
+
+</config>

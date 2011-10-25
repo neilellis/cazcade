@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="12367e50-9143-47d0-8bda-5718ea550a95" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/test/java/cazcade/fountain/server/rest/test/FountainTestClientSupport.java" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/test/java/cazcade/fountain/server/rest/test/FountainTestClientSupport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RotateXYPoolObjectHandler.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RotateXYPoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainNeo.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainNeo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/validation/src/test/resources/cazcade/fountain/validation/test/TestObject1.properties" afterPath="$PROJECT_DIR$/../fountain/validation/src/test/resources/cazcade/fountain/validation/test/TestObject1.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-impl/src/test/resources/cazcade/liquid/impl/test.properties" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-impl/src/test/resources/cazcade/liquid/impl/test.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/request/CreatePoolObjectRequestValidator.java" afterPath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/request/CreatePoolObjectRequestValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject3.properties" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject3.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/request/UpdatePoolObjectRequestValidator.java" afterPath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/request/UpdatePoolObjectRequestValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreatePoolObjectRequest.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreatePoolObjectRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDTypeGroups.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDTypeGroups.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/request/AbstractRequestValidator.java" afterPath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/request/AbstractRequestValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/RotateXYPoolObjectRequest.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/RotateXYPoolObjectRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractRetrievalHandler.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractRetrievalHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationships.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationships.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/main/java/cazcade/fountain/server/rest/test/test.properties" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/main/java/cazcade/fountain/server/rest/test/test.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/LiquidURIScheme.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/LiquidURIScheme.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AuthorizationHandler.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AuthorizationHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../fountain/datastore-api/src/main/java/cazcade/fountain/datastore/api/DuplicateRelationshipException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/test/java/cazcade/fountain/server/rest/test/FountainInstanceTestsForClient.java" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/test/java/cazcade/fountain/server/rest/test/FountainInstanceTestsForClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject4.properties" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject4.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/PListUnmarshaler.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/PListUnmarshaler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolObjectHandler.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-impl/src/test/java/cazcade/liquid/impl/LSDEntityTest.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-impl/src/test/java/cazcade/liquid/impl/LSDEntityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/MovePoolObjectHandler.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/MovePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ScalePoolObjectRequest.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ScalePoolObjectRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject1.properties" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject1.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ScalePoolObjectHandler.java" afterPath="$PROJECT_DIR$/../fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ScalePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject2.properties" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/test/resources/cazcade/fountain/server/rest/test/entities/TestObject2.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/main/java/cazcade/fountain/server/rest/pool/PoolRestHandler.java" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/main/java/cazcade/fountain/server/rest/pool/PoolRestHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDUnknownAttributeException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/rest-server/src/main/java/cazcade/fountain/server/rest/dictionary/DictionaryRestHandler.java" afterPath="$PROJECT_DIR$/../fountain/rest-server/src/main/java/cazcade/fountain/server/rest/dictionary/DictionaryRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/FountainEntityValidator.java" afterPath="$PROJECT_DIR$/../fountain/validation/src/main/java/cazcade/fountain/validation/FountainEntityValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDDictionary.java" afterPath="$PROJECT_DIR$/../fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDDictionary.java" />
+    </list>
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="vortex.iws" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+    <option name="REVERSE_PATCH" value="false" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="vortex" />
+  </component>
+  <component name="FileColors" enabled="true" enabledForTabs="true" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="BusListener.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bus/src/main/java/cazcade/vortex/bus/client/BusListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="7" selection-start="125" selection-end="125" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResponseCallback.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bus/src/main/java/cazcade/vortex/bus/client/ResponseCallback.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="25" selection-start="143" selection-end="143" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataStoreService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/comms/src/main/java/cazcade/vortex/comms/datastore/client/DataStoreService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="4" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataStoreServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="69" column="39" selection-start="2913" selection-end="2913" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LSDEntity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/fountain/liquid-api/1.0/liquid-api-1.0-sources.jar!/cazcade/liquid/api/lsd/LSDEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="101" column="40" selection-start="2375" selection-end="2379" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractPoolObjectPresenter.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/AbstractPoolObjectPresenter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="35" selection-start="1555" selection-end="1555" vertical-scroll-proportion="0.2578125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScalePoolObjectRequest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/fountain/liquid-api/1.0/liquid-api-1.0-sources.jar!/cazcade/liquid/api/request/ScalePoolObjectRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="13" selection-start="336" selection-end="336" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BrowserUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/client/browser/BrowserUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="0" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SafariBrowserUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/client/browser/SafariBrowserUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="19" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pool/pom.xml" />
+        <option value="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/Pool.gwt.xml" />
+        <option value="$PROJECT_DIR$/main/src/main/java/cazcade/vortex/Vortex.gwt.xml" />
+        <option value="$PROJECT_DIR$/main/pom.xml" />
+        <option value="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/PoolObjectWidget.java" />
+        <option value="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/widgets/objects/ImageObject.ui.xml" />
+        <option value="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/widgets/objects/ImageObject.java" />
+        <option value="$PROJECT_DIR$/widgets/src/main/java/cazcade/vortex/widgets/client/panels/VortexSplitPanel.ui.xml" />
+        <option value="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/PoolPresenter.java" />
+        <option value="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/PoolObjectPresenter.java" />
+        <option value="$PROJECT_DIR$/bus/src/main/java/cazcade/vortex/bus/client/BusListener.java" />
+        <option value="$PROJECT_DIR$/comms/src/main/java/cazcade/vortex/comms/datastore/client/DataStoreService.java" />
+        <option value="$PROJECT_DIR$/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" />
+        <option value="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/AbstractPoolObjectPresenter.java" />
+        <option value="$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/client/browser/BrowserUtil.java" />
+        <option value="$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/client/browser/SafariBrowserUtil.java" />
+      </list>
+    </option>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
+  </component>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id>Google Web Toolkit issues</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>NonJREEmulationClassesInClientCode</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages ProjectPane="false" />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fountain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Favorites" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="google.gwt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade.vortex.widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade.vortex.widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade.vortex.widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="panels" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade.vortex.bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade.vortex.bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="options.lastSelected" value="com.wrq.rearranger.Rearranger" />
+    <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.includeJavaFiles" value="true" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
+  </component>
+  <component name="PublishConfig" overwriteAll="false" autoUpload="true">
+    <servers>
+      <server id="8bef041f-d9c7-4cbe-9e4c-024cea24b754">
+        <serverdata>
+          <mappings>
+            <mapping deploy="Vortex" local="$PROJECT_DIR$/out/artifacts/main_Web_exploded" web="Vortex" />
+          </mappings>
+        </serverdata>
+      </server>
+    </servers>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cazcade.vortex.pool.widgets.objects" />
+      <recent name="cazcade.vortex.bus" />
+      <recent name="cazcade.vortex.widgets.client.panels.scroll" />
+      <recent name="cazcade.vortex.dnd.client.browser" />
+      <recent name="cazcade.vortex.dnd.client.touch.end" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/widgets/objects" />
+      <recent name="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool" />
+      <recent name="$PROJECT_DIR$/bus/src/main/java/cazcade/vortex/bus" />
+      <recent name="$PROJECT_DIR$/widgets/src/main/java/cazcade/vortex/widgets/client/panels/scroll" />
+      <recent name="$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/client/touch/cancel" />
+    </key>
+    <key name="GwtCreateUiBinderDialog.RecentRootElementType">
+      <recent name="com.google.gwt.user.client.ui.HTMLPanel" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="cazcade.vortex.pool" />
+      <recent name="cazcade.vortex.dnd.client.browser" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="cazcade.vortex.dnd.client.browser.BrowserUtil" />
+    </key>
+    <key name="IntroduceConstantDialog.RECENTS_KEY">
+      <recent name="cazcade.vortex.bus.client.BusImpl" />
+      <recent name="cazcade.vortex.bus.BusImpl" />
+      <recent name="cazcade.vortex.comms.datastore.server.DataStoreServiceImpl" />
+      <recent name="cazcade.vortex.dnd.client.DragScrollListener" />
+      <recent name="cazcade.vortex.dnd.client.VortexDraggableScrollPanel.DraggableMouseListener" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="cazcade.vortex.pool" />
+      <recent name="cazcade.vortex.bus" />
+      <recent name="cazcade.vortex.comms.datastore.client" />
+      <recent name="cazcade.vortex.widgets.client.panels.scroll" />
+      <recent name="cazcade.vortex.dnd.client.scroll" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.google.gwt.user.client.rpc.core.java.util" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/widgets" />
+      <recent name="$PROJECT_DIR$/bus/src/main/java/cazcade/vortex/bus" />
+      <recent name="$PROJECT_DIR$/widgets/src/main/java/cazcade/vortex/widgets/client/stream" />
+      <recent name="$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/historical" />
+      <recent name="$PROJECT_DIR$/widgets/src/main/java/cazcade/vortex/widgets/client/toolbars" />
+    </key>
+  </component>
+  <component name="Regex">
+    <option name="pos1" value="218" />
+    <option name="pos2" value="218" />
+    <option name="pos3" value="162" />
+    <option name="pos4" value="444" />
+    <option name="pos5" value="162" />
+    <option name="autoUpdate" value="true" />
+    <option name="referenceOn" value="false" />
+    <option name="referencePos" value="0" />
+    <option name="showLabels" value="true" />
+  </component>
+  <component name="RunManager" selected="GWT Configuration.Vortex">
+    <configuration default="false" name="DataStore" type="GWT.ConfigurationType" factoryName="GWT Configuration" temporary="true">
+      <module name="comms" />
+      <option name="RUN_PAGE" value="DataStore.html" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="57560" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings">
+          <MavenGeneralSettings>
+            <option name="checksumPolicy" value="FAIL" />
+            <option name="failureBehavior" value="FAST" />
+            <option name="localRepository" value="" />
+            <option name="mavenHome" value="" />
+            <option name="mavenSettingsFile" value="" />
+            <option name="nonRecursive" value="false" />
+            <option name="pluginUpdatePolicy" value="DO_NOT_UPDATE" />
+            <option name="printErrorStackTraces" value="false" />
+            <option name="snapshotUpdatePolicy" value="ALWAYS_UPDATE" />
+            <option name="usePluginRegistry" value="false" />
+            <option name="workOffline" value="false" />
+          </MavenGeneralSettings>
+        </option>
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="jreName" value="1.6" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GWT.ConfigurationType" factoryName="GWT Configuration">
+      <module name="" />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
+      <deployment />
+      <server-settings>
+        <option name="DEPLOY_TOMCAT_MANAGER" value="false" />
+        <option name="BASE_DIRECTORY_NAME" value="" />
+      </server-settings>
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="false" name="Vortex" type="GWT.ConfigurationType" factoryName="GWT Configuration">
+      <module name="main" />
+      <option name="VM_PARAMETERS" value="-Xmx256m -Dxxxfountain.rabbitmq.host=172.16.2.129" />
+      <option name="RUN_PAGE" value="Vortex.html" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 5">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <deployment>
+        <artifact name="main:Web exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="DEPLOY_TOMCAT_MANAGER" value="false" />
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_vortex28bf33aa" />
+      </server-settings>
+      <log_file path="/Users/neilellis/Library/Caches/IntelliJIdea90/tomcat/Unnamed_vortex28bf33aa/logs/localhost*" checked="true" skipped="true" show_all="false" alias="Tomcat Log" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="65204" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="$PROJECT_DIR$/../../thirdparty/apache-tomcat-5.5.27/bin/catalina.sh" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value=" run" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="$PROJECT_DIR$/../../thirdparty/apache-tomcat-5.5.27/bin/catalina.sh" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value=" stop" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="$PROJECT_DIR$/../../thirdparty/apache-tomcat-5.5.27/bin/catalina.sh" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value=" run" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="$PROJECT_DIR$/../../thirdparty/apache-tomcat-5.5.27/bin/catalina.sh" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value=" stop" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="main:Web exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="GWT Configuration.DataStore" />
+      <item index="1" class="java.lang.String" itemvalue="GWT Configuration.Vortex" />
+      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
+    </list>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="StructuralSearchPlugin">
+    <replaceConfiguration name="user defined" text="cazcade.liquid.api.LiquidResponse" recursive="false" caseInsensitive="true" reformatAccordingToStyle="true" shortenFQN="true" replacement="cazcade.liquid.api.LiquidMessage" history="1" />
+  </component>
+  <component name="SvnConfiguration" maxAnnotateRevisions="500">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="UPDATE_RUN_STATUS" value="false" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="DETECT_NESTED_COPIES" value="true" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <configuration useDefault="true">/Users/neilellis/.subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$/../fountain" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$/../fountain" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$/../fountain" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$/../fountain" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="12367e50-9143-47d0-8bda-5718ea550a95" name="Default" comment="" />
+      <created>1272279251582</created>
+      <updated>1272279251582</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1920" height="1174" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32637572" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.078074865" sideWeight="0.6679317" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39943075" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32542694" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2486631" sideWeight="0.6679317" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25508022" sideWeight="0.6679317" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33586338" sideWeight="0.99948186" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23741691" sideWeight="0.7450199" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="ENABLE_BACKGROUND_PROCESSES" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/widgets/src/main/java/cazcade/vortex/widgets/client/panels/VortexSplitPanel.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="75" selection-start="845" selection-end="845" vertical-scroll-proportion="0.24585366" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/main/java/cazcade/vortex/client/Vortex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="48" selection-start="788" selection-end="788" vertical-scroll-proportion="0.2692683" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/PoolPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="4" selection-start="108" selection-end="108" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="95" selection-start="2324" selection-end="2324" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="33" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/widgets/objects/ImageObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="7" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/PoolObjectPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="769" selection-end="769" vertical-scroll-proportion="0.17560975" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bus/src/main/java/cazcade/vortex/bus/client/BusListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="7" selection-start="125" selection-end="125" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bus/src/main/java/cazcade/vortex/bus/client/ResponseCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="25" selection-start="143" selection-end="143" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comms/src/main/java/cazcade/vortex/comms/datastore/client/DataStoreService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="4" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="39" selection-start="2913" selection-end="2913" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/fountain/liquid-api/1.0/liquid-api-1.0-sources.jar!/cazcade/liquid/api/lsd/LSDEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="40" selection-start="2375" selection-end="2379" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/client/browser/BrowserUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dnd/src/main/java/cazcade/vortex/dnd/client/browser/SafariBrowserUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="19" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/fountain/liquid-api/1.0/liquid-api-1.0-sources.jar!/cazcade/liquid/api/request/ScalePoolObjectRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="336" selection-end="336" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pool/src/main/java/cazcade/vortex/pool/AbstractPoolObjectPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="35" selection-start="1555" selection-end="1555" vertical-scroll-proportion="0.2578125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
+              <option name="proportions">
+                <list>
+                  <option value="0.2" />
+                  <option value="0.5" />
+                </list>
+              </option>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <last-edited>main:Web exploded</last-edited>
+          <settings />
+        </UIState>
+      </state>
+      <state key="Copyright.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+        </UIState>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
+              <option name="proportions">
+                <list>
+                  <option value="0.2" />
+                </list>
+              </option>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <last-edited>1.6</last-edited>
+        </UIState>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
+              <option name="proportions">
+                <list>
+                  <option value="0.2" />
+                </list>
+              </option>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <last-edited />
+          <settings />
+        </UIState>
+      </state>
+    </states>
+  </component>
+</project>
+
