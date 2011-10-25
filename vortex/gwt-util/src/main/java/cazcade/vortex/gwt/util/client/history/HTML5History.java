@@ -13,6 +13,9 @@ public class HTML5History extends HistoryImpl {
         var token = '';
 
         var path = $wnd.location.pathname;
+        if (path.charAt(0) == '/') {
+            path = path.substring(1);
+        }
         if (path.length > 0) {
             token =
                     this.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
@@ -28,6 +31,9 @@ public class HTML5History extends HistoryImpl {
             var token = '';
 
             var path = $wnd.location.pathname;
+            if (path.charAt(0) == '/') {
+                path = path.substring(1);
+            }
             if (path.length > 0) {
                 token =
                         historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
@@ -38,6 +44,23 @@ public class HTML5History extends HistoryImpl {
 
             if (oldHandler) {
                 oldHandler();
+            }
+        });
+
+        var oldHashHandler = $wnd.onhashchange;
+
+        $wnd.onhashchange = $entry(function() {
+            var token = '', hash = $wnd.location.hash;
+
+            if (hash.length > 0) {
+                token = historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(hash.substring(1));
+                $wnd.history.replaceState(token, token, '/'+token);
+            }
+
+            historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::newItemOnEvent(Ljava/lang/String;)(token);
+
+            if (oldHashHandler) {
+                oldHashHandler();
             }
         });
 

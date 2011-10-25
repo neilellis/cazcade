@@ -94,7 +94,7 @@ public class LiquidURI implements Serializable {
         return uri;
     }
 
-    public LiquidBoardURL toShortUrl() {
+    public LiquidBoardURL asShortUrl() {
         return new LiquidBoardURL(this);
     }
 

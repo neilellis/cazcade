@@ -19,7 +19,6 @@ import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.ClientPreferences;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.widgets.PoolContentArea;
-import cazcade.vortex.widgets.client.form.fields.VortexFormField;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import cazcade.vortex.widgets.client.stream.ChatStreamPanel;
@@ -108,7 +107,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         });
 
 
-        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI.toShortUrl().isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
+        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI.asShortUrl().isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
 
             @Override
             public void onFailure(VisitPoolRequest message, VisitPoolRequest response) {

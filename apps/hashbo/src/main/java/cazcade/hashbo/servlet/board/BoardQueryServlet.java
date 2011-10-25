@@ -42,7 +42,9 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String username = req.getParameter("user");
-            final BoardQueryRequest.QueryType type = queryLookup.get(req.getServletPath().substring(1, req.getServletPath().indexOf('.')));
+//            final String queryName = req.getServletPath().substring(1, req.getServletPath().indexOf('.'));
+            String queryName= req.getParameter("query");
+            final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
             BoardQueryRequest response = dataStore.process(new BoardQueryRequest(getLiquidSessionId(), type, alias));
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));

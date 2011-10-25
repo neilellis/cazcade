@@ -166,18 +166,18 @@
 
     <servlet-mapping>
         <servlet-name>board-query</servlet-name>
-        <url-pattern>*.list</url-pattern>
+        <url-pattern>/_query</url-pattern>
     </servlet-mapping>
 
+
+    <servlet-mapping>
+        <servlet-name>board</servlet-name>
+        <url-pattern>/_board</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>board</servlet-name>
         <url-pattern>*.board</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>board</servlet-name>
-        <url-pattern>*.profile</url-pattern>
     </servlet-mapping>
 
 

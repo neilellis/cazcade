@@ -926,6 +926,15 @@
           <module name="widgets" />
         </modules>
       </facet-type>
+      <facet-type id="Spring">
+        <modules>
+          <module name="cyclone-main">
+            <files>
+              <file url="file://$PROJECT_DIR$/../cyclone/CycloneWebApplication/main/src/main/resources/registration-process-spring-config.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
       <facet-type id="web">
         <modules>
           <module name="cyclone-main" />
@@ -1184,9 +1193,7 @@
       <module fileurl="file://$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" filepath="$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/comms/comms.iml" filepath="$PROJECT_DIR$/vortex/comms/comms.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/comms/comms.iml" filepath="$PROJECT_DIR$/vortex/comms/comms.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../cyclone/CycloneWebApplication/cyclone.iml" filepath="$PROJECT_DIR$/../cyclone/CycloneWebApplication/cyclone.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Cyclone/CycloneWebApplication/cyclone.iml" filepath="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/cyclone.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../cyclone/CycloneWebApplication/main/cyclone-main.iml" filepath="$PROJECT_DIR$/../cyclone/CycloneWebApplication/main/cyclone-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Cyclone/CycloneWebApplication/main/cyclone-main.iml" filepath="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/main/cyclone-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/datastore/datastore.iml" filepath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/datastore/datastore.iml" filepath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />

@@ -198,7 +198,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         });
 
 
-        final boolean listed = poolURI.toShortUrl().isListedByConvention();
+        final boolean listed = poolURI.asShortUrl().isListedByConvention();
         //start listed boards as public readonly, default is public writeable
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), listed, listed ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY : null), new AbstractResponseCallback<VisitPoolRequest>() {
 
@@ -220,7 +220,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 if (response.getResponse() == null || response.getResponse().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                     if (previousPoolURI != null) {
-                        History.newItem(previousPoolURI.toShortUrl().toString());
+                        History.newItem(previousPoolURI.asShortUrl().toString());
                     }
                 } else if (response.getResponse().canBe(LSDDictionaryTypes.POOL)) {
                     bind(response.getResponse());
@@ -247,7 +247,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             removeStyleName("modifiable-board");
         }
 
-        if (!getEntity().getURI().toShortUrl().isProfileBoard()) {
+        if (!getEntity().getURI().asShortUrl().isProfileBoard()) {
             publicBoardHeader.bind(getEntity());
             publicBoardHeader.setVisible(true);
             profileBoardHeader.setVisible(false);
@@ -256,7 +256,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         }
 
-        if (getEntity().getURI().toShortUrl().isProfileBoard()) {
+        if (getEntity().getURI().asShortUrl().isProfileBoard()) {
             profileBoardHeader.setVisible(true);
             publicBoardHeader.setVisible(false);
             ownerDetailPanel.setVisible(false);
@@ -302,7 +302,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
                     final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
                     final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
-                    setShareThisDetails(boardTitle, "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
+                    setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.setUri(poolURI);
                         menuBar.setVisible(true);
@@ -440,7 +440,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         $wnd.stWidget.addEntry({
             "service": "sharethis",
             "element": element,
-            "url": "http://beta.hashbo.com#" + board,
+            "url": "http://boardca.st/" + board,
             "title": title,
             "image" : image,
             "summary": summary,

@@ -65,7 +65,8 @@ public class LiquidBoardURL {
         return result;
     }
 
-    public static String convertFromShort(String shortURL) {
+    public static String convertFromShort(String url) {
+        String shortURL= url.replaceAll("~", "@");
         String str;
         if (shortURL.contains("@")) {
             str = USER_STEM + "/";
@@ -145,4 +146,10 @@ public class LiquidBoardURL {
     public boolean isListedByConvention() {
         return !shortURL.startsWith("-");
     }
+
+
+    public String asUrlSafe() {
+        return shortURL.replaceAll("@", "~");
+    }
+
 }

@@ -51,6 +51,7 @@ public class Boardcast implements EntryPoint {
     private boolean registerRequest;
 
     public void onModuleLoad() {
+//        Window.alert(History.getToken());
         HashboClientBundle.INSTANCE.css().ensureInjected();
         ClientApplicationConfiguration.init();
         ClientLog.setDebugMode(ClientApplicationConfiguration.isDebug());

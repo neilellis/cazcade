@@ -43,7 +43,7 @@
                 <div class="boards-list-item">
                     <div class="boards-list-item-inner">
                             <%--<a href="#"><img class="thumbnail" src="http://placehold.it/80x60" alt=""></a>--%>
-                        <a href="./#<c:url value='${board.shortUrl}'/>" alt="${board.description}" title="${board.description}">
+                        <a href="./<c:url value='${board.shortUrl}'/>" alt="${board.description}" title="${board.description}">
                             <div class="board-image-wrapper">
                                 <img class="thumbnail"
                                      src='image.service?url=<c:url value="${board.iconUrl}"/>&size=CLIPPED_MEDIUM&width=300&height=200'

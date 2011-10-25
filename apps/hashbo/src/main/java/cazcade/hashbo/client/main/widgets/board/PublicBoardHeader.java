@@ -6,7 +6,6 @@ import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
-import cazcade.vortex.widgets.client.form.fields.VortexFormField;
 import cazcade.vortex.widgets.client.image.EditableImage;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
@@ -17,12 +16,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.sun.jdi.event.EventSet;
 
 import static com.google.gwt.http.client.URL.*;
 
@@ -117,7 +113,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     protected void onChange(LSDEntity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(this, true);
-        final String shortUrl = entity.getURI().toShortUrl().toString();
+        final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
         if(shortUrl.startsWith("-")) {
             //unlisted board, probably has a nasty name so let's not show it here.
             WidgetUtil.hideGracefully(tag, false);
@@ -128,9 +124,9 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         }
 
         tag.setValue("#"+shortUrl);
-        final String externalURL = "http://boardcast.us/#" + shortUrl;
+        final String externalURL = "http://boardca.st/" + shortUrl;
         url.setValue(externalURL);
-        tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.us/"+shortUrl+".board")+
+        tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/"+shortUrl)+
                 "&text="+encode("Check out "+entity.getAttribute(LSDAttribute.TITLE, "my great board")+" on Boardcast")
                 +"&count=horizontal");
         WidgetUtil.showGracefully(contentArea, false);

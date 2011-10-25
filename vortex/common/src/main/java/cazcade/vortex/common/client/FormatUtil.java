@@ -117,8 +117,8 @@ public class FormatUtil {
         text = text.replaceAll("(\\* ){4,}", "<hr/>");
         text = text.replaceAll("&#39;", "'");
         text = text.replaceAll("<a\\s", "<a target='_new' ");
-        text = text.replaceAll("(^|[^\\w]+)#([a-zA-Z]+[a-zA-Z0-9./_\\-\\+@]*[a-zA-Z0-9]+)", "$1<a href='/$2' class='board-link'>$2</a>");
-        text = text.replaceAll("(^|[^\\w]+)@([a-zA-Z]+[a-zA-Z0-9./_\\-\\+]*[a-zA-Z0-9]+)", "$1<a href='/~$2' class='person-link'>$2</a>");
+        text = text.replaceAll("(^|[^\\w]+)#([a-zA-Z]+[a-zA-Z0-9./_\\-\\+@]*[a-zA-Z0-9]+)", "$1<a href='#$2' class='board-link'>$2</a>");
+        text = text.replaceAll("(^|[^\\w]+)@([a-zA-Z]+[a-zA-Z0-9./_\\-\\+]*[a-zA-Z0-9]+)", "$1<a href='#~$2' class='person-link'>$2</a>");
 
 //        html = html.replaceAll("(^|\\s+)#\\.([a-zA-Z0-9./_\\+]*[a-zA-Z0-9]+)", "$1<a href='#" + boardName + ".$2'>#.$2</a>");
 

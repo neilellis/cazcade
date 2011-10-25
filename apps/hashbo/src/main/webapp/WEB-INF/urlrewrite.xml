@@ -17,18 +17,18 @@
     <!--</rule>-->
     <!---->
     <rule>
-        <from>^/([a-zA-Z][0-9a-zA-Z_]*)$</from>
-        <to type="redirect">$1.board</to>
+        <from>^/(~?[a-zA-Z][0-9a-zA-Z_~]*)$</from>
+        <to type="redirect">/_board?board=$1</to>
     </rule>
 
-    <rule>
-        <from>^/~(.*)$</from>
-        <to type="redirect">$1.profile</to>
-    </rule>
+    <!--<rule>-->
+        <!--<from>^/~(.*)$</from>-->
+        <!--<to type="redirect">$1.profile</to>-->
+    <!--</rule>-->
 
     <rule>
         <from>^/!(.*)$</from>
-        <to type="redirect">$1.list</to>
+        <to type="redirect">/_query?query=$1</to>
     </rule>
 
 

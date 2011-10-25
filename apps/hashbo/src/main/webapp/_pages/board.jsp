@@ -14,6 +14,8 @@
             } else {
                 window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#' + '${requestScope.board}');
             }
+
+
         </script>
     </c:if>
     <c:if test="${empty requestScope.board}">
