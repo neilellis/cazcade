@@ -4,8 +4,10 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.BoardQueryRequest;
+import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 
 import javax.servlet.ServletException;
@@ -25,8 +27,15 @@ public class BoardServlet extends AbstractBoardListServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final String[] parts = req.getServletPath().substring(1).split("\\.");
 
+//            RetrieveAliasRequest response = dataStore.process(new RetrieveAliasRequest(getLiquidSessionId(), new LiquidURI("alias:cazcade:"+parts[0])));
+//            if(response.getResponse().isA(LSDDictionaryTypes.ALIAS)) {
+//                req.setAttribute("board", "@"+parts[0]);
+//            } else {
+//                req.setAttribute("board", parts[0]);
+//            }
+
+            final String[] parts = req.getServletPath().substring(1).split("\\.");
             req.setAttribute("board", parts[1].equals("profile") ? "@"+parts[0] : parts[0]);
             req.getRequestDispatcher("_pages/board.jsp").forward(req, resp);
         } catch (Exception e) {

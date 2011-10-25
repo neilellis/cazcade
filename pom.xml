@@ -721,13 +721,13 @@
         <repository>
             <id>cazcade.releases</id>
             <name>Cazcade Releases</name>
-            <url>dav:http://office.cazcade.internal:8881/nexus/content/repositories/releases/
+            <url>dav:http://nexus.cazcade.com:8881/nexus/content/repositories/releases/
             </url>
         </repository>
         <snapshotRepository>
             <id>cazcade.snapshots</id>
             <name>Cazcade Snapshots</name>
-            <url>dav:http://office.cazcade.internal:8881/nexus/content/repositories/snapshots/
+            <url>dav:http://nexus.cazcade.com:8881/nexus/content/repositories/snapshots/
             </url>
         </snapshotRepository>
     </distributionManagement>
@@ -776,16 +776,16 @@
 
         <repository>
             <id>cazcade-public-external-ip</id>
-            <url>http://office.cazcade.com:8881/nexus/content/groups/public/</url>
+            <url>http://nexus.cazcade.com:8881/nexus/content/groups/public/</url>
         </repository>
 
 
     </repositories>
 
     <scm>
-        <connection>scm:svn:https://office.cazcade.internal/svn/cazcade/trunk</connection>
-        <developerConnection>scm:svn:https://office.cazcade.internal/svn/cazcade/trunk</developerConnection>
-        <url>https://office.cazcade.internal/svn/cazcade/trunk</url>
+        <connection>scm:svn:https://boardcast.svn.beanstalkapp.com/cazcade/trunk</connection>
+        <developerConnection>scm:svn:https://boardcast.svn.beanstalkapp.com/cazcade/trunk</developerConnection>
+        <url>https://boardcast.svn.beanstalkapp.com/cazcade/trunk</url>
     </scm>
 
     <profiles>

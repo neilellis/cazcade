@@ -9,7 +9,11 @@
     <title>Boardcast</title>
     <c:if test="${not empty requestScope.board}">
         <script type="text/javascript">
-            window.location.href= (window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#' + '${requestScope.board}');
+            if (typeof(window.history.pushState) == "function") {
+                window.history.replaceState('${requestScope.board}', '${requestScope.board}', '${requestScope.board}');
+            } else {
+                window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#' + '${requestScope.board}');
+            }
         </script>
     </c:if>
     <c:if test="${empty requestScope.board}">

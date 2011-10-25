@@ -28,6 +28,8 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.FrameElement;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
@@ -52,6 +54,8 @@ public class Boardcast implements EntryPoint {
         HashboClientBundle.INSTANCE.css().ensureInjected();
         ClientApplicationConfiguration.init();
         ClientLog.setDebugMode(ClientApplicationConfiguration.isDebug());
+
+
         RootPanel logPanel = RootPanel.get("log-panel");
         if (ClientApplicationConfiguration.isDebug()) {
             ClientLog.logWidget = ((FrameElement) logPanel.getElement().cast()).getContentDocument().getBody();

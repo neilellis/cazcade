@@ -56,8 +56,7 @@ public class FountainNeo extends AbstractServiceStateMachine {
     public static final String TEXT_EXTENDED = LSDAttribute.TEXT_EXTENDED.getKeyName();
     public static final String IMAGE_URL = LSDAttribute.IMAGE_URL.getKeyName();
     public static final String ICON_URL = LSDAttribute.ICON_URL.getKeyName();
-
-
+    public static final String BOARDS_URI = "pool:///boards";
     public static final LiquidURI ADMIN_ALIAS_URI = new LiquidURI(LiquidURIScheme.alias, "cazcade:system");
 
 

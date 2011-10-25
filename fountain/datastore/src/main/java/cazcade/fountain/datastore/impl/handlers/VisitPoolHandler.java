@@ -27,7 +27,7 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 node = fountainNeo.findByUUID(request.getTarget());
             }
 
-            if (node == null && request.isOrCreate()) {
+            if (node == null && request.isOrCreate() && !request.getSessionIdentifier().isAnon()) {
                 Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
                 LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
@@ -38,7 +38,6 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 }
             }
 
-            fountainNeo.assertLatestVersion(node);
             if (node == null) {
                 return LiquidResponseHelper.forResourceNotFound("Could not find pool " + request.getUri(), request);
             } else {

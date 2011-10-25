@@ -463,130 +463,7 @@
           <element id="directory" name="classes">
             <element id="module-output" name="cyclone-main" />
           </element>
-          <element id="directory" name="lib">
-            <element id="archive" name="widgets-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="widgets" />
-            </element>
-            <element id="archive" name="common-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="common (3) (cazcade.vortex)" />
-              <element id="module-output" name="common (2) (fountain)" />
-              <element id="module-output" name="common (1) (cazcade)" />
-            </element>
-            <element id="archive" name="liquid-api-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="liquid-api" />
-            </element>
-            <element id="library" level="project" name="Maven: org.springframework:spring-core:3.0.5.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-asm:3.0.5.RELEASE" />
-            <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.1" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-beans:3.0.5.RELEASE" />
-            <element id="library" level="project" name="Maven: commons-io:commons-io:1.4" />
-            <element id="library" level="project" name="Maven: com.atlassian.jira.plugins:jira-soapclient:4.1.1-1" />
-            <element id="library" level="project" name="Maven: axis:axis:1.3" />
-            <element id="library" level="project" name="Maven: axis:axis-jaxrpc:1.3" />
-            <element id="library" level="project" name="Maven: axis:axis-saaj:1.3" />
-            <element id="library" level="project" name="Maven: wsdl4j:wsdl4j:1.5.1" />
-            <element id="library" level="project" name="Maven: commons-discovery:commons-discovery:0.2" />
-            <element id="library" level="project" name="Maven: axis:axis-wsdl4j:1.5.1" />
-            <element id="library" level="project" name="Maven: org.jasypt:jasypt:1.6" />
-            <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.5" />
-            <element id="library" level="project" name="Maven: com.thoughtworks.xstream:xstream:1.3.1" />
-            <element id="library" level="project" name="Maven: xpp3:xpp3_min:1.1.4c" />
-            <element id="library" level="project" name="Maven: com.newrelic:newrelic-api:2.0.3" />
-            <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.3" />
-            <element id="library" level="project" name="Maven: log4j:log4j:1.2.15" />
-            <element id="library" level="project" name="Maven: javax.mail:mail:1.4" />
-            <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
-            <element id="archive" name="gwt-util-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="gwt-util" />
-            </element>
-            <element id="archive" name="dnd-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="dnd" />
-            </element>
-            <element id="archive" name="bus-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="bus" />
-            </element>
-            <element id="library" level="project" name="Maven: com.google.gwt.inject:gin:1.0" />
-            <element id="library" level="project" name="Maven: com.google.inject:guice:2.0" />
-            <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
-            <element id="archive" name="liquid-impl-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="liquid-impl" />
-            </element>
-            <element id="library" level="project" name="Maven: org.springframework:spring-context:3.0.5.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.0.5.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.0.5.RELEASE" />
-            <element id="archive" name="comms-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="comms" />
-            </element>
-            <element id="archive" name="datastore-api-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="datastore-api" />
-            </element>
-            <element id="archive" name="datastore-client-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="datastore-client" />
-            </element>
-            <element id="archive" name="messaging-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="messaging" />
-            </element>
-            <element id="library" level="project" name="Maven: org.springframework.amqp:spring-amqp:1.0.0.RC1" />
-            <element id="library" level="project" name="Maven: org.springframework.amqp:spring-rabbit:1.0.0.RC1" />
-            <element id="library" level="project" name="Maven: com.rabbitmq:amqp-client:2.3.1" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.0.5.RELEASE" />
-            <element id="archive" name="datastore-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="datastore" />
-            </element>
-            <element id="archive" name="validation-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="validation" />
-            </element>
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-kernel:1.4" />
-            <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-lucene-index:1.4" />
-            <element id="library" level="project" name="Maven: org.apache.lucene:lucene-core:3.1.0" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-graph-algo:1.4" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-udc:1.4" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-graph-matching:1.4" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-cypher:1.4" />
-            <element id="library" level="project" name="Maven: org.scala-lang:scala-library:2.9.0-1" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-jmx:1.4" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-kernel:test-jar:tests:1.4" />
-            <element id="library" level="project" name="Maven: org.neo4j:neo4j-shell:1.4" />
-            <element id="library" level="project" name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.jline:0.9.94_1" />
-            <element id="library" level="project" name="Maven: commons-cli:commons-cli:1.1" />
-            <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.3.3" />
-            <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.1" />
-            <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.0-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.0-SNAPSHOT" />
-            <element id="archive" name="notification-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="notification" />
-            </element>
-            <element id="library" level="project" name="Maven: org.apache.camel:camel-core:2.7.3" />
-            <element id="library" level="project" name="Maven: org.fusesource.commonman:commons-management:1.0" />
-            <element id="library" level="project" name="Maven: org.apache.camel:camel-mina:2.7.3" />
-            <element id="library" level="project" name="Maven: org.apache.mina:mina-core:1.1.7" />
-            <element id="library" level="project" name="Maven: org.apache.camel:camel-spring:2.7.3" />
-            <element id="archive" name="security-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="security" />
-            </element>
-            <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.1" />
-            <element id="library" level="project" name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat" />
-            <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
-            <element id="library" level="project" name="Maven: com.allen_sauer.gwt.voices:gwt-voices:2.1.0" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:store:1.1-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:common:1.1-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: rackspace:cloudfiles:1.5.3" />
-            <element id="library" level="project" name="Maven: commons-httpclient:commons-httpclient:3.1" />
-            <element id="library" level="project" name="Maven: xerces:xercesImpl:2.8.1" />
-            <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.3.03" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:image:1.1-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:snapshot:1.1-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:processing:1.1-SNAPSHOT" />
-            <element id="archive" name="pool-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="pool" />
-            </element>
-            <element id="library" level="project" name="Maven: com.google.gwt:gwt-servlet:2.3.0" />
-            <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
-            <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-continuation:7.2.2.v20101205" />
-          </element>
         </element>
-        <element id="gwt-compiler-output" facet="cyclone-main/gwt/GWT" />
       </root>
     </artifact>
     <artifact type="war" name="hashbo:war">
@@ -956,7 +833,6 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="DataSourceManagerImpl" compressed="false" />
   <component name="DebuggerManager">
     <breakpoint_any>
       <breakpoint>
@@ -1295,48 +1171,83 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/vortex/bus/bus.iml" filepath="$PROJECT_DIR$/vortex/bus/bus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/bus/bus.iml" filepath="$PROJECT_DIR$/vortex/bus/bus.iml" />
       <module fileurl="file://$PROJECT_DIR$/cazcade.iml" filepath="$PROJECT_DIR$/cazcade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/cazcade.apps.iml" filepath="$PROJECT_DIR$/apps/cazcade.apps.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/cazcade.apps.iml" filepath="$PROJECT_DIR$/apps/cazcade.apps.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" filepath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common (1) (cazcade).iml" filepath="$PROJECT_DIR$/common/common (1) (cazcade).iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common (1) (cazcade).iml" filepath="$PROJECT_DIR$/common/common (1) (cazcade).iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" filepath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" filepath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" filepath="$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" filepath="$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/comms/comms.iml" filepath="$PROJECT_DIR$/vortex/comms/comms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/comms/comms.iml" filepath="$PROJECT_DIR$/vortex/comms/comms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cyclone/CycloneWebApplication/cyclone.iml" filepath="$PROJECT_DIR$/../cyclone/CycloneWebApplication/cyclone.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Cyclone/CycloneWebApplication/cyclone.iml" filepath="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/cyclone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cyclone/CycloneWebApplication/main/cyclone-main.iml" filepath="$PROJECT_DIR$/../cyclone/CycloneWebApplication/main/cyclone-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Cyclone/CycloneWebApplication/main/cyclone-main.iml" filepath="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/main/cyclone-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/datastore/datastore.iml" filepath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/datastore/datastore.iml" filepath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" filepath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" filepath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" filepath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" filepath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" filepath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" filepath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/dist/dist.iml" filepath="$PROJECT_DIR$/fountain/dist/dist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/dist/dist.iml" filepath="$PROJECT_DIR$/fountain/dist/dist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/dnd/dnd.iml" filepath="$PROJECT_DIR$/vortex/dnd/dnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/dnd/dnd.iml" filepath="$PROJECT_DIR$/vortex/dnd/dnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/download/download.iml" filepath="$PROJECT_DIR$/apps/download/download.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/download/download.iml" filepath="$PROJECT_DIR$/apps/download/download.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/fountain.iml" filepath="$PROJECT_DIR$/fountain/fountain.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/fountain.iml" filepath="$PROJECT_DIR$/fountain/fountain.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" filepath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" filepath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/hashbo/hashbo.iml" filepath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/index/index.iml" filepath="$PROJECT_DIR$/fountain/index/index.iml" />
       <module fileurl="file://$PROJECT_DIR$/index/index.iml" filepath="$PROJECT_DIR$/index/index.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/io/io.iml" filepath="$PROJECT_DIR$/apps/io/io.iml" />
       <module fileurl="file://$PROJECT_DIR$/io/io.iml" filepath="$PROJECT_DIR$/io/io.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/main/main.iml" filepath="$PROJECT_DIR$/vortex/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/main/main.iml" filepath="$PROJECT_DIR$/vortex/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../Development/Projects/Cyclone/CycloneWebApplication/main/main (Cyclone).iml" filepath="$PROJECT_DIR$/../../Development/Projects/Cyclone/CycloneWebApplication/main/main (Cyclone).iml" />
       <module fileurl="file://$PROJECT_DIR$/../../Development/Projects/cazcade/vortex/main/main (Vortex).iml" filepath="$PROJECT_DIR$/../../Development/Projects/cazcade/vortex/main/main (Vortex).iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/messaging/messaging.iml" filepath="$PROJECT_DIR$/fountain/messaging/messaging.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/notification/notification.iml" filepath="$PROJECT_DIR$/fountain/notification/notification.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/notification/notification.iml" filepath="$PROJECT_DIR$/fountain/notification/notification.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/rest-server/rest-server.iml" filepath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/rest-server/rest-server.iml" filepath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrape/scrape.iml" filepath="$PROJECT_DIR$/scrape/scrape.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrape/scrape.iml" filepath="$PROJECT_DIR$/scrape/scrape.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/security/security.iml" filepath="$PROJECT_DIR$/fountain/security/security.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/security/security.iml" filepath="$PROJECT_DIR$/fountain/security/security.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/social/social.iml" filepath="$PROJECT_DIR$/fountain/social/social.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/social/social.iml" filepath="$PROJECT_DIR$/fountain/social/social.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/test/test.iml" filepath="$PROJECT_DIR$/fountain/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/test/test.iml" filepath="$PROJECT_DIR$/fountain/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" filepath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" filepath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" filepath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/upload/upload.iml" filepath="$PROJECT_DIR$/apps/upload/upload.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/upload/upload.iml" filepath="$PROJECT_DIR$/apps/upload/upload.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/validation/validation.iml" filepath="$PROJECT_DIR$/fountain/validation/validation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/validation/validation.iml" filepath="$PROJECT_DIR$/fountain/validation/validation.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
     </modules>
   </component>
@@ -2012,17 +1923,6 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: commons-cli:commons-cli:1.1">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.1/commons-cli-1.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.1/commons-cli-1.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.1/commons-cli-1.1-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: commons-cli:commons-cli:1.2">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.2/commons-cli-1.2.jar!/" />
@@ -2252,17 +2152,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.1.1/jstl-1.1.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: javax.servlet:jstl:1.2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.servlet:servlet-api:2.4">

@@ -18,6 +18,11 @@
     <!---->
     <rule>
         <from>^/([a-zA-Z][0-9a-zA-Z_]*)$</from>
+        <to type="redirect">$1.board</to>
+    </rule>
+
+    <rule>
+        <from>^/~(.*)$</from>
         <to type="redirect">$1.profile</to>
     </rule>
 

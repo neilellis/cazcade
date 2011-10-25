@@ -6,6 +6,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.sun.org.apache.bcel.internal.generic.PUSH;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,8 @@ import java.util.Map;
  * @author neilellis@cazcade.com
  */
 public class HistoryManager {
+
+
 
     Map<String, HistoryAwareComposite> compositeMap = new HashMap<String, HistoryAwareComposite>();
 

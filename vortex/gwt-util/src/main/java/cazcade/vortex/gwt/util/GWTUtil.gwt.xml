@@ -2,6 +2,27 @@
         "http://google-web-toolkit.googlecode.com/svn/releases/2.0/distro-source/core/src/gwt-module.dtd">
 <module>
 
+
+    <define-property name="history.push.state" values="supported,notsupported"/>
+
+    <property-provider name="history.push.state">
+        <![CDATA[
+        if (typeof(window.history.pushState) == "function") {
+            return "supported";
+        } else {
+            return "notsupported";
+        }
+    ]]>
+    </property-provider>
+
+    <replace-with
+            class="cazcade.vortex.gwt.util.client.history.HTML5History">
+        <when-type-is class="com.google.gwt.user.client.impl.HistoryImpl"/>
+        <all>
+            <when-property-is name="history.push.state" value="supported"/>
+        </all>
+    </replace-with>
+
     <inherits name='com.google.gwt.user.User'/>
     <source path="client"/>
     <super-source path="jre"/>

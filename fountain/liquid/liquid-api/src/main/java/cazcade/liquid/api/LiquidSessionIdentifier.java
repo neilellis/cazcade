@@ -126,4 +126,8 @@ public class LiquidSessionIdentifier implements Serializable {
 //            }
 //        }
     }
+
+    public boolean isAnon() {
+        return name.equalsIgnoreCase("anon");
+    }
 }

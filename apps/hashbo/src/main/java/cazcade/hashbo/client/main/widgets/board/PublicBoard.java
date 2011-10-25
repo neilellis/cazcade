@@ -3,10 +3,6 @@ package cazcade.hashbo.client.main.widgets.board;
 import cazcade.hashbo.client.main.widgets.BoardMenuBar;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.hashbo.client.StartupUtil;
-import cazcade.hashbo.client.main.menus.add.CreateAliasRefCommand;
-import cazcade.hashbo.client.main.menus.add.CreatePhotoCommand;
-import cazcade.hashbo.client.main.menus.add.CreateRichTextCommand;
-import cazcade.hashbo.client.main.menus.add.CreateYouTubeCommand;
 import cazcade.hashbo.client.main.widgets.AddCommentBox;
 import cazcade.hashbo.client.main.widgets.toolbar.HashboToolbarIcon;
 import cazcade.liquid.api.*;
@@ -21,14 +17,12 @@ import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
-import cazcade.vortex.widgets.client.form.fields.VortexFormField;
 import cazcade.vortex.widgets.client.image.ImageOption;
 import cazcade.vortex.widgets.client.image.ImageSelection;
 import cazcade.vortex.widgets.client.profile.AliasDetailFlowPanel;
@@ -253,11 +247,12 @@ public class PublicBoard extends EntityBackedFormPanel {
             removeStyleName("modifiable-board");
         }
 
-        if (getEntity().getURI().toShortUrl().isPublicBoard()) {
+        if (!getEntity().getURI().toShortUrl().isProfileBoard()) {
             publicBoardHeader.bind(getEntity());
             publicBoardHeader.setVisible(true);
             profileBoardHeader.setVisible(false);
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
+//            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
 
         }
 
@@ -266,6 +261,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             publicBoardHeader.setVisible(false);
             ownerDetailPanel.setVisible(false);
             profileBoardHeader.setAliasURI(owner.getURI());
+//            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
         }
         ownerDetailPanel.setAliasURI(owner.getURI());
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
@@ -336,6 +332,14 @@ public class PublicBoard extends EntityBackedFormPanel {
             }
         });
     }
+
+
+    private native static void replaceState(String title, String state) /*-{
+        if(window.history.replaceState != 'undefined') {
+            window.history.replaceState(state, title, state);
+        }
+    }-*/;
+
 
     @UiField
     CommentPanel comments;
