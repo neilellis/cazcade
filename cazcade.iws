@@ -64,22 +64,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/add/CreateWebsiteCommand.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.ui.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsitePresenter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteView.ui.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/BoardMenuBar.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/BoardMenuBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/BoardServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/BoardServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -299,10 +284,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BoardServlet.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BoardServlet.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/BoardServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="40" selection-start="1785" selection-end="1785" vertical-scroll-proportion="0.6585366">
+            <state line="41" column="40" selection-start="1785" selection-end="1785" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -356,10 +341,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GWTUtil.gwt.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GWTUtil.gwt.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="89" selection-start="430" selection-end="430" vertical-scroll-proportion="0.0">
+            <state line="9" column="105" selection-start="446" selection-end="446" vertical-scroll-proportion="0.2198697">
               <folding />
             </state>
           </provider>
@@ -402,8 +387,8 @@
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/BoardServlet.java" />
-        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" />
       </list>
     </option>
   </component>
@@ -4725,7 +4710,7 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765532" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33567134" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33567134" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
@@ -4733,8 +4718,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.66533065" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33466935" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.66432863" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33466935" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -4950,13 +4935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="89" selection-start="430" selection-end="430" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="18" selection-start="517" selection-end="517" vertical-scroll-proportion="0.0">
@@ -4973,7 +4951,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/BoardServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="40" selection-start="1785" selection-end="1785" vertical-scroll-proportion="0.6585366">
+        <state line="41" column="40" selection-start="1785" selection-end="1785" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="105" selection-start="446" selection-end="446" vertical-scroll-proportion="0.2198697">
           <folding />
         </state>
       </provider>
