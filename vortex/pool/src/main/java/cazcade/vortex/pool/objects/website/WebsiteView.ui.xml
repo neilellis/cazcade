@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
+    <g:HTMLPanel styleName="website-object-inner">
+
+        <g:HTMLPanel styleName="pool-object-website">
+            <g:HTMLPanel styleName="pool-object-website-surround" ui:field="websiteSurround">
+                <image:CachedImage ui:field="website" size="CLIPPED_MEDIUM"/>
+            </g:HTMLPanel>
+
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

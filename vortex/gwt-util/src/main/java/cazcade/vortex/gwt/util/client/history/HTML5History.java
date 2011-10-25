@@ -50,7 +50,7 @@ public class HTML5History extends HistoryImpl {
         var oldHashHandler = $wnd.onhashchange;
 
         $wnd.onhashchange = $entry(function() {
-            var token = '', hash = $wnd.location.hash;
+                var token = '', hash = $wnd.location.hash;
 
             if (hash.length > 0) {
                 token = historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(hash.substring(1));

@@ -38,7 +38,8 @@ public class BoardServlet extends AbstractBoardListServlet {
 //            final String[] parts = req.getServletPath().substring(1).split("\\.");
 //            req.setAttribute("board", parts[1].equals("profile") ? "@"+parts[0] : parts[0]);
             req.setAttribute("board", req.getParameter("board"));
-            req.getRequestDispatcher("_pages/board.jsp").forward(req, resp);
+            final String jsp = req.getParameter("gwt.codesvr") == null ? "_pages/board.jsp" : "_pages/board.jsp?gwt.codesvr=" + req.getParameter("gwt.codesvr");
+            req.getRequestDispatcher(jsp).forward(req, resp);
         } catch (Exception e) {
             log.error(e);
         }

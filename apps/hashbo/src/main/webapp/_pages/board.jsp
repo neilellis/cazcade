@@ -10,7 +10,11 @@
     <c:if test="${not empty requestScope.board}">
         <script type="text/javascript">
             if (typeof(window.history.pushState) == "function") {
-                window.history.replaceState('${requestScope.board}', '${requestScope.board}', '${requestScope.board}');
+                var board= '${requestScope.board}';
+                if(window.location.href.indexOf('?') > 0) {
+                    board=board+"?"+window.history.substring(window.location.href.indexOf('?'));
+                }
+                window.history.replaceState('${requestScope.board}', '${requestScope.board}', board);
             } else {
                 window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#' + '${requestScope.board}');
             }

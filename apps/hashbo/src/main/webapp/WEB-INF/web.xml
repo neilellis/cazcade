@@ -176,12 +176,6 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>board</servlet-name>
-        <url-pattern>*.board</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet-mapping>
         <servlet-name>link</servlet-name>
         <url-pattern>/_twitter/link</url-pattern>
     </servlet-mapping>

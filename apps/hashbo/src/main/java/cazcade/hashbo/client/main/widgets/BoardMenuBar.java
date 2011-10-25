@@ -1,4 +1,4 @@
-    package cazcade.hashbo.client.main.widgets;
+package cazcade.hashbo.client.main.widgets;
 
 import cazcade.hashbo.client.main.menus.add.*;
 import cazcade.liquid.api.LiquidURI;
@@ -71,8 +71,16 @@ public class BoardMenuBar extends MenuBar {
                     }
                 }));
 
+        subMenu.addItem("Webpage Link",
+                createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                    @Override
+                    public CreateItemCommand create(CreateItemCommand.Size size) {
+                        return new CreateWebsiteCommand(poolURI, LSDDictionaryTypes.WEBPAGE, size, "default");
+                    }
+                }));
+
         subMenu.addItem("YouTube Video",
-        createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
                         return new CreateYouTubeCommand(poolURI, LSDDictionaryTypes.YOUTUBE_MOVIE, size, "default");
@@ -100,13 +108,14 @@ public class BoardMenuBar extends MenuBar {
 
     private MenuBar createShapeMenuBar() {
         final MenuBar menuBar = new MenuBar(false);
-        String[] names= new String[]{"arrow-down-1.png", "arrow-down-2.png", "arrow-left-1.png", "arrow-left-2.png", "arrow-right-1.png", "arrow-right-2.png", "arrow-up-1.png", "arrow-up-2.png", "circle_1.png", "circle_2.png", "circle_3.png", "star-1.png", "star-2.png", "star-3.png", "tick-1.png", "x-1.png"};
+        String[] names = new String[]{"arrow-down-1.png", "arrow-down-2.png", "arrow-left-1.png", "arrow-left-2.png", "arrow-right-1.png", "arrow-right-2.png", "arrow-up-1.png", "arrow-up-2.png", "circle_1.png", "circle_2.png", "circle_3.png", "star-1.png", "star-2.png", "star-3.png", "tick-1.png", "x-1.png"};
         for (String name : names) {
             final MenuBar shapeVariants = createMenuBarForShapeVariants(name);
-            menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, "black")+"' width='24' height='24'/>").toSafeHtml(),shapeVariants);
+            menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, "black") + "' width='24' height='24'/>").toSafeHtml(), shapeVariants);
         }
         return menuBar;
     }
+
     private MenuBar createMenuBarForShapeVariants(String name) {
         final MenuBar menuBar = new MenuBar(true);
         createMenuItemForDecoration(name, menuBar, "black");
@@ -117,7 +126,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private void createMenuItemForDecoration(String name, MenuBar menuBar, String variant) {
-        menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, variant)+"' width='24' height='24'/>").toSafeHtml(),new CreateDecorationCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D, createUrlForDecoration(name, variant),  AbstractCreateCommand.Size.DEFAULT, "default"));
+        menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, variant) + "' width='24' height='24'/>").toSafeHtml(), new CreateDecorationCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D, createUrlForDecoration(name, variant), AbstractCreateCommand.Size.DEFAULT, "default"));
     }
 
     private String createUrlForDecoration(String name, String theme) {

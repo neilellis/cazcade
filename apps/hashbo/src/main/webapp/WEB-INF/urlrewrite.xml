@@ -17,7 +17,7 @@
     <!--</rule>-->
     <!---->
     <rule>
-        <from>^/(~?[a-zA-Z][0-9a-zA-Z_~]*)$</from>
+        <from>^/(\~?[a-zA-Z][0-9a-zA-Z_~]*)$</from>
         <to type="redirect">/_board?board=$1</to>
     </rule>
 
