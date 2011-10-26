@@ -6,21 +6,25 @@
         <div class="page-header">
             <div class="page-header-inner">
 
-                <image:EditableImage ui:field="boardIcon" styleName="board-icon" width="110px"
-                                     size="CLIPPED_MEDIUM"
-                                     height="80px"/>
                 <div ui:field="contentArea" class="board-page-header-content">
                     <fields:VortexEditableLabel styleName="board-title" placeholder="Click to name" ui:field="title"/>
                     <fields:VortexEditableLabel styleName="board-description"
                                                 placeholder="Click to edit the short description of the board"
                                                 ui:field="description"/>
+                    <div class="board-link-row">
+
+                    <div class="board-tag">
+                        <fields:VortexEditableLabel readonly="true" ui:field="tag"/>
+                    </div>
+                    <div class="board-url">
+                        <fields:VortexEditableLabel readonly="true" ui:field="url"/>
+                    </div>
+
+                    </div>
                     <div class="board-page-header-rhs">
-                        <div class="board-tag">
-                            <fields:VortexEditableLabel readonly="true" ui:field="tag"/>
-                        </div>
-                        <div class="board-url">
-                            <fields:VortexEditableLabel readonly="true" ui:field="url"/>
-                        </div>
+                        <image:EditableImage ui:field="boardIcon" styleName="board-icon" width="90px"
+                                             size="CLIPPED_SMALL"
+                                             height="60px"/>
                         <iframe allowtransparency="true" frameborder="0" scrolling="no" ui:field="tweetButton"
 
                                 style="width:130px; height:20px;"></iframe>
@@ -28,10 +32,10 @@
                 </div>
 
             </div>
-            <div class="board-buttons">
-                <g:Button styleName="primary btn" text="Follow"/>
-                <g:Button styleName="btn" text="Chat"/>
-            </div>
+            <!--<div class="board-buttons">-->
+                <!--<g:Button styleName="primary btn" text="Follow"/>-->
+                <!--<g:Button styleName="btn" text="Chat"/>-->
+            <!--</div>-->
 
         </div>
         <!--<div class="board-top-bar">-->

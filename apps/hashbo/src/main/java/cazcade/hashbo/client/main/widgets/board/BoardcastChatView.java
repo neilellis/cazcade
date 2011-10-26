@@ -156,9 +156,9 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                         if (poolEntity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
 //                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
-                            menuBar.setUri(poolURI);
+                            menuBar.setUri(poolURI, true);
                         } else {
-                            menuBar.setVisible(false);
+                            menuBar.setUri(poolURI, false);
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
 
                         }

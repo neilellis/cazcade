@@ -7,6 +7,23 @@
 <head>
     <meta charset="utf-8">
     <title>Boardcast</title>
+
+    <script type="text/javascript">
+        var _nav;
+        if (typeof(window.history.pushState) == "function") {
+            _nav= function(href) {
+                window.history.pushState(href, window.document.title, "/"+href);
+                fireGWTHistoryEvent(href);
+            };
+        } else {
+            _nav= function(href) {
+                window.location.href=window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#'+href;
+            };
+        }
+
+
+    </script>
+
     <c:if test="${not empty requestScope.board}">
         <script type="text/javascript">
             if (typeof(window.history.pushState) == "function") {
@@ -18,16 +35,7 @@
             } else {
                 window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#' + '${requestScope.board}');
             }
-
-
         </script>
-    </c:if>
-    <c:if test="${empty requestScope.board}">
-    <script type="text/javascript">
-        if (window.location.href.indexOf('#') < 0 && window.location.href.indexOf('?') < 0) {
-            window.location.href = './site/';
-        }
-    </script>
     </c:if>
     <%@ include file="header.jspf" %>
 
@@ -41,7 +49,6 @@
 
 <div class="inner-body">
 
-    <div class="container">
         <tags:log-panel/>
 
         <script>
@@ -65,8 +72,6 @@
 
         <%@ include file="footer.jspf" %>
 
-
-    </div>
 
 
 

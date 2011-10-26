@@ -304,11 +304,10 @@ public class PublicBoard extends EntityBackedFormPanel {
                     final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-                        menuBar.setUri(poolURI);
-                        menuBar.setVisible(true);
+                        menuBar.setUri(poolURI, true);
                         boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
                     } else {
-                        menuBar.setVisible(false);
+                        menuBar.setUri(poolURI, false);
                         boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
 
                     }

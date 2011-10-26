@@ -31,6 +31,10 @@
         <to type="forward">/_query?query=$1</to>
     </rule>
 
+    <rule>
+        <from>^/$</from>
+        <to type="redirect">/site/</to>
+    </rule>
 
 
 </urlrewrite>

@@ -15,6 +15,9 @@ import com.google.gwt.user.client.ui.MenuBar;
 public class BoardMenuBar extends MenuBar {
 
     private LiquidURI poolURI;
+    private MenuBar addMenu;
+
+
 
     public interface SizeVariantBuilder<T extends CreateItemCommand> {
 
@@ -27,26 +30,33 @@ public class BoardMenuBar extends MenuBar {
     }
 
 
-    public void setUri(final LiquidURI poolURI) {
+    public void setUri(final LiquidURI poolURI, boolean modifierOptions) {
         this.poolURI = poolURI;
         clearItems();
-        final MenuBar subMenu = new MenuBar(true);
-        addItem(new SafeHtmlBuilder().appendHtmlConstant("<img alt=\"add\" src=\"_images/add.png\"/>").toSafeHtml(), subMenu);
+        if(modifierOptions) {
+        addMenu = new MenuBar(true);
+            createAddMenu(poolURI);
+        }
+
+    }
+
+    private void createAddMenu(final LiquidURI poolURI) {
+        addItem(new SafeHtmlBuilder().appendHtmlConstant("<img alt=\"add\" src=\"_images/add.png\"/>").toSafeHtml(), addMenu);
         setVisible(true);
         setAnimationEnabled(true);
         setAutoOpen(true);
         setFocusOnHoverEnabled(true);
 
-        subMenu.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
+        addMenu.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
 
-        subMenu.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenu.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "default");
             }
         }));
 
-        subMenu.addItem("White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenu.addItem("White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
@@ -54,16 +64,16 @@ public class BoardMenuBar extends MenuBar {
         }));
 
 
-        subMenu.addItem("Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenu.addItem("Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
             }
         }));
 
-        subMenu.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
+        addMenu.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
 
-        subMenu.addItem("Photograph",
+        addMenu.addItem("Photograph",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
@@ -71,7 +81,7 @@ public class BoardMenuBar extends MenuBar {
                     }
                 }));
 
-        subMenu.addItem("Webpage Link",
+        addMenu.addItem("Webpage Link",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
@@ -79,7 +89,7 @@ public class BoardMenuBar extends MenuBar {
                     }
                 }));
 
-        subMenu.addItem("YouTube Video",
+        addMenu.addItem("YouTube Video",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
@@ -87,14 +97,13 @@ public class BoardMenuBar extends MenuBar {
                     }
                 }));
 
-        subMenu.addItem("Decorations", createShapeMenuBar());
+        addMenu.addItem("Decorations", createShapeMenuBar());
 
         if (ClientApplicationConfiguration.isAlphaFeatures()) {
-            subMenu.addItem("Your Card", new CreateAliasRefCommand(poolURI, LSDDictionaryTypes.ALIAS_REF, UserUtil.getCurrentAlias().getURI()));
+            addMenu.addItem("Your Card", new CreateAliasRefCommand(poolURI, LSDDictionaryTypes.ALIAS_REF, UserUtil.getCurrentAlias().getURI()));
 //                                subMenu.addItem("Custom Object (ALPHA)", new CreateCustomObjectCommand(poolURI, LSDDictionaryTypes.CUSTOM_OBJECT));
-            subMenu.addItem("Checklist (ALPHA)", new CreateChecklistCommand(poolURI, LSDDictionaryTypes.CHECKLIST_POOL));
+            addMenu.addItem("Checklist (ALPHA)", new CreateChecklistCommand(poolURI, LSDDictionaryTypes.CHECKLIST_POOL));
         }
-
     }
 
     private MenuBar createMenuBarForSizeVariants(SizeVariantBuilder builder) {

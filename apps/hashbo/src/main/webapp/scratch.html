@@ -1,140 +1,160 @@
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Hashbo</title>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<title>Boardcast</title>
 
-    <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" type="text/css" href="_css/loading.css">
-    <link rel="stylesheet/less" type="text/css" href="_css/hashbo.less">
-    <script src="_js/less-dev.js" type="text/javascript"></script>
-
-
-    <!--<script src="_js/less-1.1.3.min.js" type="text/javascript"></script>-->
-
-    <script type="text/javascript" src="_prettify/prettify.js"></script>
-    <!--<link href='http://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>-->
-    <!--<link href='http://fonts.googleapis.com/css?family=Metrophobic&v2' rel='stylesheet' type='text/css'>-->
+<script type="text/javascript">
+    var _nav;
+    if (typeof(window.history.pushState) == "function") {
+        _nav = function(href) {
+            window.history.pushState(href, window.document.title, "/" + href);
+            fireGWTHistoryEvent(href);
+        };
+    } else {
+        _nav = function(href) {
+            window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '#' + href;
+        };
+    }
 
 
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        var pageTracker = _gat._getTracker("UA-25104667-1");
-
-        // *** track anchor tags ***
-        pageTracker._setAllowAnchor(true);
-
-        pageTracker._initData();
-        pageTracker._trackPageview();
-        pageTracker._trackPageview('Main Page');
-    </script>
-
-    <script type="text/javascript">var switchTo5x = false;</script>
-
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript" src="http://wd-edge.sharethis.com/button/checkOAuth.esi"></script>
-
-    <script type="text/javascript">stLight.options({publisher:'9441652f-4062-4f40-b09f-404dbad3db50', publisherGA:"UA-25104667-1", onhover:false});</script>
+</script>
 
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
-    <style type="text/css">
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="_css/loading.css">
+
+<!--<script src="_js/less-1.1.3.min.js" type="text/javascript"></script>-->
+
+<script type="text/javascript" src="_prettify/prettify.js"></script>
+<!--<link href='http://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>-->
+<!--<link href='http://fonts.googleapis.com/css?family=Metrophobic&v2' rel='stylesheet' type='text/css'>-->
 
 
-    </style>
+<link rel="stylesheet/less" type="text/css" href="_css/hashbo.less">
+<script src="_js/less-1.1.3.min.js" type="text/javascript"></script>
 
-    <script>
-        function loadjs(url) {
-            head = document.getElementsByTagName('head')[0];
-            var fileref = document.createElement('script');
-            fileref.setAttribute("type", "text/javascript");
-            fileref.setAttribute("src", url);
-            if (typeof fileref != "undefined") {
-                document.getElementsByTagName("head")[0].appendChild(fileref);
+
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-25104667-1");
+
+    // *** track anchor tags ***
+    pageTracker._setAllowAnchor(true);
+
+    pageTracker._initData();
+    pageTracker._trackPageview();
+    pageTracker._trackPageview('Main Page');
+</script>
+
+<script type="text/javascript">var switchTo5x = false;</script>
+
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript" src="http://wd-edge.sharethis.com/button/checkOAuth.esi"></script>
+
+<script type="text/javascript">stLight.options({publisher:'9441652f-4062-4f40-b09f-404dbad3db50', publisherGA:"UA-25104667-1", onhover:false});</script>
+
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<style type="text/css">
+
+
+</style>
+
+<script>
+    function loadjs(url) {
+        head = document.getElementsByTagName('head')[0];
+        var fileref = document.createElement('script');
+        fileref.setAttribute("type", "text/javascript");
+        fileref.setAttribute("src", url);
+        if (typeof fileref != "undefined") {
+            document.getElementsByTagName("head")[0].appendChild(fileref);
+        }
+    }
+    function loadcss(url, title, callback) {
+        head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = url;
+        link.title = title;
+
+        head.appendChild(link);
+        var handle = window.setInterval(function() {
+            if (document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth == 42) {
+                if (callback) {
+                    callback();
+                }
+                window.clearInterval(handle);
             }
-        }
-        function loadcss(url, title, callback) {
-            head = document.getElementsByTagName('head')[0];
-            var link = document.createElement('link');
-            link.rel = "stylesheet";
-            link.href = url;
-            link.title = title;
+        }, 30);
 
-            head.appendChild(link);
-            var handle = window.setInterval(function() {
-                if (document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth == 42) {
-                    if (callback) {
-                        callback();
-                    }
-                    window.clearInterval(handle);
+    }
+
+    function waitForStylesheetLoad(callback) {
+        var handle = window.setInterval(function() {
+            if (document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth == 42) {
+                if (callback) {
+                    callback();
                 }
-            }, 30);
+                window.clearInterval(handle);
+            }
+        }, 30);
 
-        }
+    }
 
-        function waitForStylesheetLoad(callback) {
-            var handle = window.setInterval(function() {
-                if (document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth == 42) {
-                    if (callback) {
-                        callback();
-                    }
-                    window.clearInterval(handle);
-                }
-            }, 30);
-
-        }
-
-    </script>
+</script>
 
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="_images/favicon.ico">
-    <link rel="apple-touch-icon" href="_images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="_images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="_images/apple-touch-icon-114x114.png">
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="_images/favicon.ico">
+<link rel="apple-touch-icon" href="_images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="_images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="_images/apple-touch-icon-114x114.png">
 
-    <script type="text/javascript" src="./_prettify/prettify.js"></script>
-    <link rel="stylesheet" href="./_css/hackabout.css" title="hack">
-    <script type="text/javascript" src="http://wd-edge.sharethis.com/button/checkOAuth.esi"></script>
-    <style></style>
-    <link rel="stylesheet" type="text/css"
-          href="http://w.sharethis.com/button/css/buttons.75629ccedf64ecdd08e26260af818da8.css">
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<script type="text/javascript" src="./_prettify/prettify.js"></script>
+<link rel="stylesheet" href="./_css/hackabout.css" title="hack">
+<script type="text/javascript" src="http://wd-edge.sharethis.com/button/checkOAuth.esi"></script>
+<style></style>
+<link rel="stylesheet" type="text/css"
+      href="http://w.sharethis.com/button/css/buttons.75629ccedf64ecdd08e26260af818da8.css">
 </head>
 <body onclick="if(stWidget.buttonClicked==false){stWidget.stopClosing=false;stWidget.openDuration=0;stWidget.stClose(100);}"
       class="app-mode">
 
-
 <div style="opacity: 1; " id="top-bar-wrapper">
-
     <div class="topbar">
         <div class="fill">
             <div class="container">
-                <a class="brand" href="#">Hashbo</a>
+                <a class="logo" href="/">&nbsp;</a>
                 <ul class="nav">
-                    <li class="active"><a href="welcome">Home</a></li>
-                    <li><a href="popular">Popular</a></li>
-                    <li><a href="recent">Recent</a></li>
-                    <li><a href="#about">Recent</a></li>
-                    <li><a href="#about">My</a></li>
-                    <li><a href="#profile">Profile</a></li>
+                    <li class="active"><a href="welcome.page">Home</a></li>
+                    <li><a href="./!popular">Popular</a></li>
+                    <li><a href="./!new">New</a></li>
+                    <li><a href="./!history">Visited</a></li>
+                    <li><a href="./!my">My</a></li>
+                    <li><a href="./?create=listed">Create</a></li>
+
+                    <li><a href="#@"></a></li>
+
                 </ul>
 
-                <form action="login" method="POST" class="pull-right"
+                <form action="login.action" method="POST" class="pull-right"
                       onsubmit="document.getElementById('loginNextUrl').value=window.location.href;  window.sessionStorage.setItem('boardcast.identity','');">
                     <input class="input-small" type="text" name="username" placeholder="Username" value="">
                     <input class="input-small" type="password" name="password" placeholder="Password">
@@ -148,306 +168,408 @@
     </div>
 </div>
 
-<div class="container">
-<iframe id="log-panel" width="100%" height="400px"
-        style="visibility: hidden; height: 0px; display: none; "></iframe>
+<div class="inner-body">
+
+    <div class="container">
+        <iframe id="log-panel" width="100%" height="400px"
+                style="visibility: hidden; height: 0px; display: none; "></iframe>
 
 
-<script>
-    //Deferred loading to improve initial load time.
-    loadjs("./_prettify/prettify.js");
-</script>
+        <script>
+            //Deferred loading to improve initial load time.
+            loadjs("./_prettify/prettify.js");
+        </script>
 
-<script type="text/javascript">
-    waitForStylesheetLoad(function() {
-        document.getElementById('loading-panel').style.opacity = 0.0;
-        document.getElementById('cache-panel').style.opacity = 1.0;
-        document.getElementById('top-bar-wrapper').style.opacity = 1.0;
-    });
-    loadcss("./_css/hackabout.css", "hack", null);
-</script>
-
-
-<div id="loading-panel" style="opacity: 0; ">
-    <div class="loading-bar-outer">
-        <div class="loading-bar">
-            <div class="circle-outer-1">
-                <div class="loading-circle-1 circle"></div>
-            </div>
-            <div class="circle-outer-2">
-                <div class="loading-circle-2 circle"></div>
-            </div>
-            <div class="circle-outer-3">
-                <div class="loading-circle-3 circle"></div>
-            </div>
-            <div class="circle-outer-4">
-                <div class="loading-circle-4 circle"></div>
-            </div>
-            <div class="circle-outer-5">
-                <div class="loading-circle-5 circle"></div>
-            </div>
-        </div>
-
-    </div>
-</div>
+        <script type="text/javascript">
+            waitForStylesheetLoad(function() {
+                document.getElementById('top-bar-wrapper').style.opacity = 1.0;
+//        document.getElementById('loading-panel').style.opacity = 0.0;
+                document.getElementById('cache-panel').style.opacity = 1.0;
+            });
+            loadcss("./_css/hackabout.css", "hack", null);
+        </script>
 
 
-<div id="board-panel" style="opacity: 1; visibility: visible; ">
-
-<div>
-<div class="content">
-<div style="display: none; ">
-    <div class="page-header">
-        <div class="board-title"><span class="vortex-editable-label"> <span></span> <div
-                style="display: inline; ">
-            <div class="editableLabel-label" style="white-space: nowrap; "></div>
-        </div> <div class="hover-edit-button">edit</div> <img
-                onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                border="0"> <div class="invisible form-field-error-message"></div> </span></div>
-        <div class="board-description"><span class="vortex-editable-label"> <span></span> <div
-                style="display: inline; ">
-            <div class="editableLabel-label" style="white-space: nowrap; "></div>
-        </div> <div class="hover-edit-button">edit</div> <img
-                onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                border="0"> <div class="invisible form-field-error-message"></div> </span></div>
-    </div>
-    <div class="row">
-        <div class="span16">
-            <div class="board-text"><span class="vortex-editable-label word-wrap"> <span></span> <div
-                    style="display: inline; ">
-                <div class="editableLabel-label" style="white-space: normal; "></div>
-            </div> <div class="hover-edit-button" style="display: none; ">edit</div> <img
-                    onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                    src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                    style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                    border="0"> <div class="invisible form-field-error-message"></div> </span></div>
-        </div>
-    </div>
-</div>
-<div class="profile-board-header" style="">
-    <div class="row profile-board-header-top" style="">
-        <div class="profile-header-top-left">
-                <div class="profile-board-user-image" style="height: 200px; width: 200px; "><img
-                        class="gwt-Image drop-shadow" style="height: 200px; width: 200px; "
-                        src="http://c0021791.cdn1.cloudfiles.rackspacecloud.com/2887737c-874c-450b-aa9e-fb072887efae.jpg">
-                </div>
-        </div>
-        <div class="span7 profile-header-top-middle">
-
-            <div class="profile-board-username"><span
-                    class="vortex-editable-label readonly"> <span>@</span> <div
-                    style="display: inline; ">
-                <div class="editableLabel-label" style="white-space: nowrap; ">neil</div>
-            </div> <div class="hover-edit-button">edit</div> <img
-                    onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                    src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                    style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                    border="0"> <div class="invisible form-field-error-message"></div> </span></div>
-            <div class="profile-board-user-fullname"><span class="vortex-editable-label"> <span></span> <div
-                    style="display: inline; ">
-                <div class="editableLabel-label" style="white-space: nowrap; ">Neil Ellis</div>
-            </div> <div class="hover-edit-button">edit</div> <img
-                    onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                    src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                    style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                    border="0"> <div class="invisible form-field-error-message"></div> </span></div>
-            <span class="profile-board-user-role">(<div class="gwt-Label">Founder</div>)</span>
-
-            <div class="profile-board-user-description"><span
-                    class="vortex-editable-label"> <span></span> <div style="display: inline; ">
-                <div class="editableLabel-label" style="white-space: nowrap; ">Founder of Hashbo and CEO
-                    of Cazcade Limited
-                </div>
-            </div> <div class="hover-edit-button">edit</div> <img
-                    onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                    src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                    style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                    border="0"> <div class="invisible form-field-error-message"></div> </span></div>
-            <div class="button-holder">
-                <div class="btn large primary invisible">Follow</div>
-                <div class="btn large invisible">DM</div>
-            </div>
-        </div>
-        <div class="profile-header-top-right">
-            <div>
-                        <div class="profile-board-followers">2 Followers</div>
-                        <div class="profile-board-following">Following 2</div>
-                    <div class="span1 invisible"><a class="view-user-details-board-link" href="#@neil">Profile</a>
-                        <a class="view-user-details-board-link" href="#public@neil">Public</a></div>
-            </div>
-            <div class="dm-send-panel" style="overflow-x: hidden; overflow-y: hidden; display: none; ">
-                <div>
-                    <iframe class="gwt-RichTextArea"
-                            style="height: 140px; width: 100%; border-width: initial; border-color: initial; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; margin-top: 7px; border-top-left-radius: 4px 4px; border-top-right-radius: 4px 4px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); border-right-width: 1px; border-right-style: solid; border-right-color: rgb(238, 238, 238); border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); "
-                            frameborder="0" marginwidth="0" scrolling="no"></iframe>
-                    <div class="dm-button-surround">
-                        <div class="btn primary">Send</div>
-                        <div class="btn">Cancel</div>
+        <div id="board-panel" style="opacity: 1; visibility: visible; ">
+            <div style="opacity: 1; visibility: visible; " class="main-content-panel">
+                <div class="content">
+                    <div class="notification-panel" style="left: 394px; right: 395px; ">
+                        <table cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr></tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row profile-board-header-bottom">
-        <div class="span16">
-            <div class="board-text"><span class="vortex-editable-label word-wrap"> <span></span> <div
-                    style="display: inline; ">
-                <div class="editableLabel-label" style="white-space: normal; ">test</div>
-            </div> <div class="hover-edit-button" style="display: none; ">edit</div> <img
-                    onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                    src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                    style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                    border="0"> <div class="invisible form-field-error-message"></div> </span></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span3"></div>
-    </div>
-</div>
-<div class="row">
-<div class="span13">
-<div class="board-content"
-     style="width:1024px; height:100%; position:relative;margin-left:-20px;overflow:visible;">
-<div class="board-content-top-divider"></div>
-<div class="board-content-bottom-divider"></div>
-<div style="width: 100%; height: 100%; position: relative; " class="drag-scroll-panel">
-<div style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: hidden; ">
-<div class="pool-area"
-     style="height: 690px; width: 1024px; -webkit-transition-duration: 500ms; -webkit-transform: translate3d(0px, 0px, 0px); ">
-<div style="position:relative; width:100%; height:100%; background-color:rgba(200,200,200,0.1)">
-<div style="position: relative; overflow-x: hidden; overflow-y: hidden; height: 100%; width: 100%; "
-     class="pool-area-content"><img class="gwt-Image"
-                                    style="height: 100%; width: 100%; "
-                                    src="http://localhost:8888/_background/metal/metal_2.jpg&amp;size=LARGE"><img
-        class="gwt-Image"
-        src="http://localhost:8888/_background/metal/metal_2.jpg&amp;size=CLIPPED_LARGE"
-        style="width: 100%; height: 100%; ">
-
-<div class="pool-object"
-     style="-webkit-transform-style: preserve-3d; position: absolute; left: 399px; top: 285px; ">
-    <div class="pool-object-youtube drop-shadow raised pool-object-inner">
-        <div style="position: relative; overflow-x: hidden; overflow-y: hidden; ">
-            <div class="pool-object-youtube-preview"><img
-                    class="gwt-Image" style=""
-                    src="http://img.youtube.com/vi/ifDvI9M6pME/hqdefault.jpg">
-            </div>
-            <div class="pool-object-youtube-video"
-                 style="display: none; ">
-                <iframe allowfullscreen="true" frameborder="0"
-                        height="175"
-                        src="http://www.youtube.com/embed/ifDvI9M6pME?wmode=transparent"
-                        width="280"></iframe>
-            </div>
-        </div>
-        <div class="pool-object-delete invisible"></div>
-    </div>
-</div>
-<div class="pool-object"
-     style="-webkit-transform-style: preserve-3d; position: absolute; left: 405px; top: 516px; ">
-    <div class="pool-object-inner">
-        <div class="drop-shadow curved curved-hz-1 pool-object-caption">
-            <div>
-                <div style="display: inline; ">
-                    <div class="editableLabel-label"
-                         style="white-space: nowrap; ">Excellent film
-                    </div>
-                </div>
-                <div style="visibility:hidden;">
-                    <div class="rich-text-author-label"></div>
-                    <div class="rich-text-entry-location"></div>
-                    <div class="rich-text-entry-time"></div>
-                </div>
-            </div>
-        </div>
-        <div class="pool-object-delete invisible"></div>
-    </div>
-</div>
-<div class="pool-object"
-     style="-webkit-transform-style: preserve-3d; position: absolute; left: 96px; top: 305px; ">
-    <div class="pool-object-inner">
-        <div class="drop-shadow lifted pool-object-rich-text">
-            <div>
-                <div style="display: inline; ">
-                    <div class="editableLabel-label"
-                         style="white-space: normal; ">Hi I'm Neil
-                        <div><br></div>
-                        <div>I wrote Hashbo but have had loads of
-                            support from (<a href="#@dimple"
-                                             class="person-link">@dimple</a>,
-                            <a href="#@CastorAcer" class="person-link">@CastorAcer</a>,
-                            <a href="#@roger"
-                               class="person-link">@roger</a> and <a
-                                    href="#@mikefrancis"
-                                    class="person-link">@mikefrancis</a>)
+                    <div style="opacity: 1; visibility: visible; max-height: 100%; ">
+                        <div class="page-header">
+                            <div class="page-header-inner">
+                                <div class="board-icon" style="height: 80px; width: 110px; ">
+                                    <div class="editable-image"><img class="editable-image-display"
+                                                                     style="height: 80px; width: 110px; "> <span
+                                            class="editable-image-text">Click to edit</span></div>
+                                </div>
+                                <div class="board-page-header-content" style="visibility: visible; opacity: 1; ">
+                                    <div class="board-title"><span class="vortex-editable-label"> <span></span> <div
+                                            style="display: inline; ">
+                                        <div class="editableLabel-label" style="white-space: nowrap; ">test11</div>
+                                    </div> <div class="hover-edit-button">edit</div> <img
+                                            onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                            src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                            style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                            border="0"> <div class="invisible form-field-error-message"></div> </span>
+                                    </div>
+                                    <div class="board-description"><span class="vortex-editable-label"> <span></span> <div
+                                            style="display: inline; ">
+                                        <div class="editableLabel-label" style="white-space: nowrap; "></div>
+                                    </div> <div class="hover-edit-button">edit</div> <img
+                                            onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                            src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                            style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                            border="0"> <div class="invisible form-field-error-message"></div> </span>
+                                    </div>
+                                    <div class="board-page-header-rhs">
+                                        <div class="board-tag">
+                                            <div style="opacity: 1; visibility: visible; "><span
+                                                    class="vortex-editable-label readonly"> <span></span> <div
+                                                    style="display: inline; ">
+                                                <div class="editableLabel-label" style="white-space: nowrap; ">#test11
+                                                </div>
+                                            </div> <div class="hover-edit-button" style="display: none; ">edit
+                                            </div> <img onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                                        border="0"> <div
+                                                    class="invisible form-field-error-message"></div> </span></div>
+                                        </div>
+                                        <div class="board-url">
+                                            <div style="opacity: 1; visibility: visible; "><span
+                                                    class="vortex-editable-label readonly"> <span></span> <div
+                                                    style="display: inline; ">
+                                                <div class="editableLabel-label" style="white-space: nowrap; ">
+                                                    http://boardca.st/test11
+                                                </div>
+                                            </div> <div class="hover-edit-button" style="display: none; ">edit
+                                            </div> <img onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                                        border="0"> <div
+                                                    class="invisible form-field-error-message"></div> </span></div>
+                                        </div>
+                                        <iframe allowtransparency="true" frameborder="0" scrolling="no"
+                                                style="width:130px; height:20px;"
+                                                src="http://platform.twitter.com/widgets/tweet_button.html?url=http://boardca.st/test11&amp;text=Check%20out%20test11%20on%20Boardcast&amp;count=horizontal"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="board-buttons">
+                                <button type="button" class="primary btn">Follow</button>
+                                <button type="button" class="btn">Chat</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="rich-text-detail">
-                    <div class="rich-text-author-label"></div>
-                    <div class="rich-text-entry-location"></div>
-                    <div class="rich-text-entry-time"></div>
-                </div>
-            </div>
-        </div>
-        <div class="pool-object-delete invisible"></div>
-    </div>
-</div>
-<div class="pool-object"
-     style="-webkit-transform-style: preserve-3d; position: absolute; left: 75px; top: 39px; ">
-    <div class="pool-object-inner">
-        <div class="drop-shadow curved curved-hz-2 view-user-details pool-object-business-card">
-            <div class="view-user-details-inner" style="">
-                <div>
-                    <div style="position: relative; height: 180px; width: 100%; ">
-                        <div style="position: absolute; z-index: -32767; top: -20ex; width: 10em; height: 10ex; ">
-                            &nbsp;</div>
-                        <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 0px; top: 0px; bottom: 0px; width: 80px; ">
-                            <div style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">
-                                <div class="view-user-lhs-container">
-                                    <div class="view-user-details-image">
-                                        <img class="gwt-Image"
-                                             src="http://c0021791.cdn1.cloudfiles.rackspacecloud.com/2887737c-874c-450b-aa9e-fb072887efae.jpg&amp;size=CLIPPED_SMALL">
+                    <div class="profile-board-header" style="display: none; ">
+                        <div style="visibility: hidden; opacity: 0; ">
+                            <div class="row profile-board-header-top">
+                                <div class="profile-header-top-left">
+                                    <div>
+                                        <div class="profile-board-user-image" style="height: 200px; width: 200px; ">
+                                            <div class="editable-image"><img class="editable-image-display"
+                                                                             style="height: 200px; width: 200px; "
+                                                                             src="http://placehold.it/32x32"> <span
+                                                    class="editable-image-text">Click to edit</span></div>
+                                        </div>
                                     </div>
-                                    <div class="view-user-details-username">
-                                                                                        <span class="vortex-editable-label readonly"> <span>@</span> <div
-                                                                                                style="display: inline; ">
-                                                                                            <div class="editableLabel-label"
-                                                                                                 style="white-space: nowrap; ">
-                                                                                                neil
-                                                                                            </div>
-                                                                                        </div> <div
-                                                                                                class="hover-edit-button">
-                                                                                            edit
-                                                                                        </div> <img
-                                                                                                onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                                                                                                src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                                                                                                style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                                                                                                border="0"> <div
-                                                                                                class="invisible form-field-error-message"></div> </span>
+                                </div>
+                                <div class="profile-header-top-middle">
+                                    <div class="profile-board-user-fullname"><span
+                                            class="vortex-editable-label"> <span></span> <div style="display: inline; ">
+                                        <div class="editableLabel-label" style="white-space: nowrap; "></div>
+                                    </div> <div class="hover-edit-button">edit</div> <img
+                                            onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                            src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                            style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                            border="0"> <div class="invisible form-field-error-message"></div> </span>
                                     </div>
-                                    <div class="btn small info view-user-button invisible">
-                                        Follow
+                                    <span class="profile-board-user-role">(<div class="gwt-Label"></div>) </span>
+
+                                    <div class="profile-board-username"><span
+                                            class="vortex-editable-label readonly"> <span>@</span> <div
+                                            style="display: inline; ">
+                                        <div class="editableLabel-label" style="white-space: nowrap; "></div>
+                                    </div> <div class="hover-edit-button" style="display: none; ">edit</div> <img
+                                            onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                            src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                            style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                            border="0"> <div class="invisible form-field-error-message"></div> </span>
                                     </div>
-                                    <div class="btn small info view-user-button invisible">
-                                        DM
+                                    <div class="profile-board-user-description"><span
+                                            class="vortex-editable-label"> <span></span> <div style="display: inline; ">
+                                        <div class="editableLabel-label" style="white-space: nowrap; "></div>
+                                    </div> <div class="hover-edit-button">edit</div> <img
+                                            onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                            src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                            style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                            border="0"> <div class="invisible form-field-error-message"></div> </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="profile-header-top-right"><a class="profile-board-followers"
+                                                                             style="visibility:hidden;">Profile</a>
+
+                                        <div class="profile-board-followers">X Followers</div>
+                                        <div class="profile-board-following">Following Y</div>
+                                        <div class="row profile-board-header-middle-bar">
+                                            <div class="button-holder">
+                                                <div class="btn large primary">Follow</div>
+                                                <div class="btn large">DM</div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="dm-send-panel"
                                          style="overflow-x: hidden; overflow-y: hidden; display: none; ">
                                         <div>
                                             <iframe class="gwt-RichTextArea"
                                                     style="height: 140px; width: 100%; border-width: initial; border-color: initial; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; margin-top: 7px; border-top-left-radius: 4px 4px; border-top-right-radius: 4px 4px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); border-right-width: 1px; border-right-style: solid; border-right-color: rgb(238, 238, 238); border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); "
-                                                    frameborder="0"
-                                                    marginwidth="0"
-                                                    scrolling="no"></iframe>
+                                                    frameborder="0" marginwidth="0" scrolling="no"></iframe>
                                             <div class="dm-button-surround">
-                                                <div class="btn primary">
-                                                    Send
+                                                <div class="btn primary">Send</div>
+                                                <div class="btn">Cancel</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div tabindex="0" role="menubar" class="hashbo-add-menu"
+                         style="outline-width: 0px; outline-style: initial; outline-color: initial; display: none; "
+                         hidefocus="true"><input type="text" tabindex="-1"
+                                                 style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; ">
+                        <table>
+                            <tbody>
+                            <tr></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="board-content" style="">
+                        <div style="width: 100%; position: relative; height: 1053px; " class="drag-scroll-panel">
+                            <div style="position: relative; width: 100%; height: 100%; overflow-x: hidden; overflow-y: hidden; ">
+                                <div class="pool-area"
+                                     style="height: auto; width: 1024px; -webkit-transition-duration: 500ms; -webkit-transform: translate3d(0px, 0px, 0px); ">
+                                    <div style="background-image: url(http://localhost:8888/image.service?url=http://localhost:8888/_background/misc/retro-sunbeam-1.jpg&amp;size=CLIPPED_LARGE); width: 1024px; ">
+                                        <div style="position: relative; overflow-x: hidden; overflow-y: hidden; width: 100%; height: 1053px; "
+                                             class="pool-area-content">
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 0px; top: 316px; ">
+                                                <div class="pool-object-inner theme-default size-small">
+                                                    <div class="pool-object-photo">
+                                                        <div style="position: relative; overflow-x: hidden; overflow-y: hidden; ">
+                                                            <div class="pool-object-photo-surround"><img
+                                                                    class="gwt-Image"
+                                                                    style="width: 367px; height: 217px; "
+                                                                    src="./image.service?url=http://news.bbcimg.co.uk/media/images/50854000/jpg/_50854522_50854521.jpg&amp;size=CLIPPED_MEDIUM">
+                                                            </div>
+                                                            <img class="photo-effect"
+                                                                 src="_images/photo-masks/gloss-medium-noframe.png"
+                                                                 style="position: absolute; width: 367px; height: 217px; ">
+                                                        </div>
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
                                                 </div>
-                                                <div class="btn">Cancel
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; width: 1020px; position: absolute; left: 0px; top: 0px; ">
+                                                <div class="pool-object-note pool-object-inner theme-white size-large">
+                                                    <div class="pool-object-note-inner">
+                                                        <div style="display: inline; ">
+                                                            <div class="editableLabel-label"
+                                                                 style="white-space: normal; "><p>Europe's first
+                                                                satellite-navigation spacecraft have been sent into
+                                                                orbit.</p>
+
+                                                                <p>The two Galileo satellites were launched by a Russian
+                                                                    Soyuz rocket from its new base in French Guiana at
+                                                                    07:30 local time (10:30 GMT; 11:30 BST).</p>
+
+                                                                <p>The European Commission (EC) is investing billions of
+                                                                    euros in its own version of the American GPS
+                                                                    system.</p>
+
+                                                                <p>It expects Galileo to bring significant returns to EU
+                                                                    nations in the form of new businesses that can
+                                                                    exploit precise space-borne timing and location
+                                                                    data.</p>
+
+                                                                <p>The Soyuz mission was a long one - it took three
+                                                                    hours and 49 minutes to get the satellite pair into
+                                                                    their correct orbit 23,222km above the Earth.</p>
+
+                                                                <p>"Galileo is at the heart of our new industrial
+                                                                    policy," EC Vice-President Antonio Tajani said once
+                                                                    the separation confirmation had come through. "We
+                                                                    must commit very strongly to Galileo. We need this;
+                                                                    this not entertainment. This is necessary for the
+                                                                    competitiveness of our European Union in the
+                                                                    world."</p>
+
+                                                                <p>Mr Tajani then announced the industrial competition
+                                                                    to procure 6-8 more satellites over and above the 18
+                                                                    already contracted.</p>
+
+                                                                <div><br></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="rich-text-detail" style="visibility:hidden;">
+                                                            <div class="rich-text-author-label"></div>
+                                                            <div class="rich-text-chat-location"></div>
+                                                            <div class="rich-text-chat-time"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 437px; top: 390px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/red/circle_1.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 245px; top: 431px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/green/arrow-left-2.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 925px; top: 0px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/green/star-2.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 854px; top: 293px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/black/star-1.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 45px; top: 293px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/white/circle_2.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 129px; top: 725px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/green/circle_3.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 913px; top: 175px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/red/star-3.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 375px; top: 266px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/green/arrow-down-1.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 274px; top: 225px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/green/arrow-down-2.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 474px; top: 163px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/black/circle_1.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 320px; top: 0px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/white/circle_3.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 0px; top: 675px; ">
+                                                <div class="pool-object-youtube drop-shadow raised pool-object-inner theme-default size-small">
+                                                    <div style="position: relative; overflow-x: hidden; overflow-y: hidden; ">
+                                                        <div class="pool-object-youtube-preview"><img class="gwt-Image"
+                                                                                                      style="width: 367px; height: 217px; "
+                                                                                                      src="./image.service?url=http://img.youtube.com/vi/QH2-TGUlwu4/default.jpg&amp;size=CLIPPED_SMALL">
+                                                        </div>
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 157px; top: 410px; ">
+                                                <div class="pool-object-inner theme-default size-default">
+                                                    <div class="pool-object-image"><img class="gwt-Image"
+                                                                                        style="height: auto; width: auto; "
+                                                                                        src="http://localhost:8888/_decorations/red/x-1.png">
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
+                                                </div>
+                                            </div>
+                                            <div class="pool-object"
+                                                 style="-webkit-transform-style: preserve-3d; position: absolute; left: 629px; top: 688px; ">
+                                                <div class="pool-object-youtube drop-shadow raised pool-object-inner theme-default size-medium">
+                                                    <div style="position: relative; overflow-x: hidden; overflow-y: hidden; ">
+                                                        <div class="pool-object-youtube-preview"><img class="gwt-Image"
+                                                                                                      style="width: 608px; height: 367px; "
+                                                                                                      src="./image.service?url=http://img.youtube.com/vi/QH2-TGUlwu4/default.jpg&amp;size=CLIPPED_SMALL">
+                                                        </div>
+                                                    </div>
+                                                    <div class="pool-object-delete invisible"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -455,271 +577,179 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: 80px; top: 0px; right: 0px; bottom: 0px; ">
-                            <div class="view-user-rhs-container"
-                                 style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; ">
-                                <div class="view-user-details-fullname">
-                                                                                    <span class="vortex-editable-label"> <span></span> <div
-                                                                                            style="display: inline; ">
-                                                                                        <div class="editableLabel-label"
-                                                                                             style="white-space: nowrap; ">
-                                                                                            Neil Ellis
-                                                                                        </div>
-                                                                                    </div> <div
-                                                                                            class="hover-edit-button">
-                                                                                        edit
-                                                                                    </div> <img
-                                                                                            onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                                                                                            src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                                                                                            style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                                                                                            border="0"> <div
-                                                                                            class="invisible form-field-error-message"></div> </span>
-                                </div>
-                                <div class="view-user-details-role">
-                                    Founder
-                                </div>
-                                <div class="view-user-details-description">
-                                                                                    <span class="vortex-editable-label"> <span></span> <div
-                                                                                            style="display: inline; ">
-                                                                                        <div class="editableLabel-label"
-                                                                                             style="white-space: nowrap; ">
-                                                                                            Founder of Hashbo and CEO of
-                                                                                            Cazcade Limited
-                                                                                        </div>
-                                                                                    </div> <div
-                                                                                            class="hover-edit-button">
-                                                                                        edit
-                                                                                    </div> <img
-                                                                                            onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                                                                                            src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                                                                                            style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                                                                                            border="0"> <div
-                                                                                            class="invisible form-field-error-message"></div> </span>
+                        <div class="board-locked" title="You don't have permission to edit this board."
+                             style="visibility: visible; "></div>
+                    </div>
+                    <div class="row profile-board-header-bottom">
+                        <div class="board-lhs">
+                            <div class="board-text"><span class="vortex-editable-label word-wrap"> <span></span> <div
+                                    style="display: inline; ">
+                                <div class="editableLabel-label" style="white-space: normal; "></div>
+                            </div> <div class="hover-edit-button" style="display: none; ">edit</div> <img
+                                    onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                    src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                    style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                    border="0"> <div class="invisible form-field-error-message"></div> </span></div>
+                        </div>
+                        <div class="board-rhs">
+                            <div class="board-author-info-box"><h3>About the author</h3>
+
+                                <div class="view-user-flow-panel"
+                                     style="opacity: 1; visibility: visible; max-height: 100%; ">
+                                    <div>
+                                        <div class="row">
+                                            <div class="span2">
+                                                <div class="user-profile-image" style="height: 64px; width: 64px; ">
+                                                    <div class="editable-image"><img class="editable-image-display"
+                                                                                     style="height: 64px; width: 64px; "
+                                                                                     src="./image.service?url=http://c0021791.cdn1.cloudfiles.rackspacecloud.com/8ef412c0-2b86-4019-946e-1db1e8f5e857.gif&amp;size=CLIPPED_SMALL">
+                                                        <span class="editable-image-text">Click to edit</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="span2">
+                                                <div class="view-user-details-username"><span
+                                                        class="vortex-editable-label readonly"> <span>@</span> <div
+                                                        style="display: inline; ">
+                                                    <div class="editableLabel-label" style="white-space: nowrap; ">admin
+                                                    </div>
+                                                </div> <div class="hover-edit-button" style="display: none; ">edit</div> <img
+                                                        onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                                        border="0"> <div
+                                                        class="invisible form-field-error-message"></div> </span></div>
+                                                <div class="view-user-details-fullname"><span
+                                                        class="vortex-editable-label"> <span></span> <div
+                                                        style="display: inline; ">
+                                                    <div class="editableLabel-label" style="white-space: nowrap; ">Admin
+                                                    </div>
+                                                </div> <div class="hover-edit-button">edit</div> <img
+                                                        onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                                        border="0"> <div
+                                                        class="invisible form-field-error-message"></div> </span></div>
+                                                <div class="view-user-details-role">Administrator</div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="view-user-flow-panel-buttons">
+                                                <div class="btn primary view-user-button invisible">Follow</div>
+                                                <div class="btn view-user-button invisible">DM</div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span3">
+                                                <div class="view-user-details-description"><span
+                                                        class="vortex-editable-label word-wrap"> <span></span> <div
+                                                        style="display: inline; ">
+                                                    <div class="editableLabel-label"
+                                                         style="white-space: normal; "></div>
+                                                </div> <div class="hover-edit-button" style="display: none; ">edit</div> <img
+                                                        onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                                        border="0"> <div
+                                                        class="invisible form-field-error-message"></div> </span></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span3">
+                                                <div class="view-user-details-followers-label">-4 followers</div>
+                                                <div class="view-user-details-following-label">2 follows</div>
+                                            </div>
+                                            <div class="span1 invisible"><a class="view-user-details-board-link"
+                                                                            href="#@admin">Profile</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="dm-send-panel"
+                                         style="overflow-x: hidden; overflow-y: hidden; display: none; ">
+                                        <div>
+                                            <iframe class="gwt-RichTextArea"
+                                                    style="height: 140px; width: 100%; border-width: initial; border-color: initial; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; margin-top: 7px; border-top-left-radius: 4px 4px; border-top-right-radius: 4px 4px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); border-right-width: 1px; border-right-style: solid; border-right-color: rgb(238, 238, 238); border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); "
+                                                    frameborder="0" marginwidth="0" scrolling="no"></iframe>
+                                            <div class="dm-button-surround">
+                                                <div class="btn primary">Send</div>
+                                                <div class="btn">Cancel</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="view-user-details-bottom"><a
-                            class="view-user-details-board-link"
-                            href="#@neil">Profile</a> <a
-                            class="view-user-details-board-link"
-                            href="#public@neil">Public</a>
+                    <hr>
+                    <div class="row">
+                        <div class="board-lhs"><h2>Comments</h2>
 
-                        <div class="view-user-details-followers-label">2
-                            followers
-                        </div>
-                        <div class="view-user-details-following-label">2
-                            follows
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="pool-object-delete invisible"></div>
-    </div>
-</div>
-<div class="pool-object"
-     style="-webkit-transform-style: preserve-3d; position: absolute; left: 493px; top: 36px; ">
-    <div class="pool-object-inner">
-        <div class="drop-shadow lifted pool-object-rich-text">
-            <div>
-                <div style="display: inline; ">
-                    <div class="editableLabel-label"
-                         style="white-space: normal; ">The 411 on me:
-                        <div>
+                            <p>Tell us what you think</p>
 
+                            <div>
+                                <div class="vortex-add-comment-box"
+                                     style="overflow-x: hidden; overflow-y: hidden; width: 100%; display: none; ">
+                                    <iframe class="gwt-RichTextArea"
+                                            style="height: 65px; width: 592px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(204, 204, 204); border-right-color: rgb(204, 204, 204); border-bottom-color: rgb(204, 204, 204); border-left-color: rgb(204, 204, 204); margin-right: 4px; margin-bottom: 4px; margin-left: 4px; margin-top: 7px; border-top-left-radius: 4px 4px; border-top-right-radius: 4px 4px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; "
+                                            frameborder="0" marginwidth="0" scrolling="no"></iframe>
+                                    <button type="button" class="btn">Add Comment</button>
+                                </div>
+                                <div class="hashbo-add-comment-or-login">
+                                    <div class="twitter-signin"><img class="gwt-Image"
+                                                                     src="./_images/Sign-in-with-Twitter-darker.png">
+                                    </div>
+                                    <a href="login.html?userlogin#test11">or with Boardcast.</a></div>
+                            </div>
+                            <table cellspacing="0" cellpadding="0" class="comment-panel">
+                                <tbody>
+                                <tr>
+                                    <td align="left" style="vertical-align: top; ">
+                                        <div class="comment-entry-panel" style="max-height: 999px; opacity: 1; ">
+                                            <div class="comment-entry-user-panel">
+                                                <div class="user-profile-image">
+                                                    <div class="editable-image"><img class="editable-image-display"
+                                                                                     src="./image.service?url=http://c0021791.cdn1.cloudfiles.rackspacecloud.com/8ef412c0-2b86-4019-946e-1db1e8f5e857.gif&amp;size=CLIPPED_SMALL">
+                                                        <span class="editable-image-text">Click to edit</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-entry-main"><strong> <span
+                                                    class="comment-author-fullname-label">Admin</span>
+                                                <small><span class="comment-author-username-label">@admin</span></small>
+                                            </strong> <span class="comment-entry-message"><a href="javascript:void(0)"
+                                                                                             onclick="_nav('welcome')"
+                                                                                             class="board-link">welcome</a> <a
+                                                    href="javascript:void(0)" onclick="_nav('~neil')"
+                                                    class="person-link">neil</a></span>
 
-                            <p><a target="_new"
-                                  href="http://uk.linkedin.com/in/neilellis"
-                                  class="external-link">http://uk.linkedin.com/in/neilellis</a>
-                            </p>
-
-                            <p><a target="_new"
-                                  href="http://twitter.com/neilellis"
-                                  class="external-link">http://twitter.com/neilellis</a>
-                            </p></div>
-                    </div>
-                </div>
-                <div class="rich-text-detail">
-                    <div class="rich-text-author-label"></div>
-                    <div class="rich-text-entry-location"></div>
-                    <div class="rich-text-entry-time"></div>
-                </div>
-            </div>
-        </div>
-        <div class="pool-object-delete invisible"></div>
-    </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div tabindex="0" role="menubar" class="hashbo-add-menu"
-     style="outline-width: 0px; outline-style: initial; outline-color: initial; display: none; "
-     hidefocus="true"><input type="text" tabindex="-1"
-                             style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; ">
-    <table>
-        <tbody>
-        <tr>
-            <td class="gwt-MenuItem" id="gwt-uid-108" role="menuitem" aria-haspopup="true">
-                <img alt="add" src="_images/add.png"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div class="board-locked" title="You don't have permission to edit this board."
-     style="visibility: visible; "></div>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="span12"><h2>Comments</h2>
-
-    <p>What do you think?</p>
-
-    <div>
-        <div class="vortex-add-comment-box"
-             style="overflow-x: hidden; overflow-y: hidden; width: 100%; display: none; ">
-            <iframe class="gwt-RichTextArea"
-                    style="height: 65px; width: 492px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(204, 204, 204); border-right-color: rgb(204, 204, 204); border-bottom-color: rgb(204, 204, 204); border-left-color: rgb(204, 204, 204); margin-right: 4px; margin-bottom: 4px; margin-left: 4px; margin-top: 7px; border-top-left-radius: 4px 4px; border-top-right-radius: 4px 4px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; "
-                    frameborder="0" marginwidth="0" scrolling="no"></iframe>
-        </div>
-        <div class="hashbo-add-comment-or-login">
-            <div><img class="twitter-signin" src="./_images/Sign-in-with-Twitter-darker.png"></div>
-            <a href="login.html?userlogin#@neil">or with Hashbo.</a></div>
-    </div>
-    <table cellspacing="0" cellpadding="0" class="comment-panel">
-        <tbody></tbody>
-    </table>
-</div>
-<div class="span4">
-<div style="display: none; "><h3>Background</h3>
-
-    <div class="row">
-        <div class="span4">
-            <div>
-                <div class="vortex-image-uploader vortex-profile-image-uploader">
-                    <div class="vortex-image-uploader-single-image-preview"><img
-                            class="gwt-Image"
-                            src="http://localhost:8888/_background/metal/metal_2.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="vortex-image-uploader-loader-area">
-                        <table cellspacing="0" cellpadding="0" class="GWTUpld">
-                            <tbody>
-                            <tr>
-                                <td align="left" style="vertical-align: top; ">
-                                    <form target="FormPanel_cazcade.hashbo.Boardcast_1"
-                                          enctype="multipart/form-data" method="post"
-                                          action="servlet.gupld">
-                                        <div class="upld-form-elements"><input type="file"
-                                                                               class="gwt-FileUpload"
-                                                                               size="40"
-                                                                               name="GWTU-07863289112562927">
-                                            <button type="button" class="gwt-Button submit"
-                                                    style="display: none; ">Send
-                                            </button>
+                                                <div class="comment-entry-details">
+                                                    <div class="comment-entry-time">21:22</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </form>
-                                </td>
-                                <td align="left" style="vertical-align: top; ">
-                                    <div class="gwt-HTML"></div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <small>You can supply the URL of a web page or of an image. If you supply a web
-                    page URL here we will take a snapshot and use that.
-                </small>
-                <div><input type="text" class="gwt-TextBox"> <img
-                        onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                        border="0">
-
-                    <div class="invisible form-field-error-message"></div>
-                </div>
-                <img class="invisible">
-
-                <div class="invisible form-field-error-message"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span4">
-            <div>
-                <div class="image-selection">
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                    <div class="image-option"><img class="gwt-Image"
-                                                   src="http://localhost:8888/_background/thumb/metal/metal_1.jpg&amp;size=CLIPPED_SMALL">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="board-toolbar">
-        <div class="toolbar-icon" style="display: none; "><img class="toolbar-icon-image"
-                                                               src="_images/toolbar/unlocked_small.png">
-
-            <div class="toolbar-icon-label">Unlock</div>
-        </div>
-        <div class="toolbar-icon"><img class="toolbar-icon-image"
-                                       src="_images/toolbar/locked_small.png">
-
-            <div class="toolbar-icon-label">Lock</div>
-        </div>
-        <div class="toolbar-icon" style="display: none; "><img class="toolbar-icon-image"
-                                                               src="_images/toolbar/personal.png">
-
-            <div class="toolbar-icon-label">Personal</div>
-        </div>
-    </div>
-</div>
-<hr>
-<h3>Board Information</h3> This board was created at <span>Fri Jul 29 23:56:45 BST 2011</span>
-by<span>Neil Ellis</span>.
-<hr>
-<div class="board-share-this-holder"><span id="sharethis" style="visibility: visible; ">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="board-rhs"><h3>Board Information</h3> This board was created at <span>Wed Oct 19 18:19:21 BST 2011</span>
+                            by <span>Admin</span>.
+                            <hr>
+                            <div class="board-share-this-holder"><span id="sharethis" style="visibility: visible; ">
  <span class="st_twitter_large" displaytext="Tweet" st_processed="yes"><span
          style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span
          class="stLarge" style="background-image: url(http://w.sharethis.com/images/twitter_32.png); "></span><img
          src="http://w.sharethis.com/images/check-big.png"
          style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none; "></span></span><span
-        class="st_email_large" displaytext="Email" st_processed="yes"><span
-        style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
-        class="stButton"><span class="stLarge"
-                               style="background-image: url(http://w.sharethis.com/images/email_32.png); "></span><img
-        src="http://w.sharethis.com/images/check-big.png"
-        style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none; "></span></span><span
-        class="st_facebook_large" displaytext="Facebook" st_processed="yes"><span
-        style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
-        class="stButton"><span class="stLarge"
-                               style="background-image: url(http://w.sharethis.com/images/facebook_32.png); "></span><img
-        src="http://w.sharethis.com/images/check-big.png"
-        style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none; "></span></span>
+                                    class="st_email_large" displaytext="Email" st_processed="yes"><span
+                                    style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
+                                    class="stButton"><span class="stLarge"
+                                                           style="background-image: url(http://w.sharethis.com/images/email_32.png); "></span><img
+                                    src="http://w.sharethis.com/images/check-big.png"
+                                    style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none; "></span></span><span
+                                    class="st_facebook_large" displaytext="Facebook" st_processed="yes"><span
+                                    style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
+                                    class="stButton"><span class="stLarge"
+                                                           style="background-image: url(http://w.sharethis.com/images/facebook_32.png); "></span><img
+                                    src="http://w.sharethis.com/images/check-big.png"
+                                    style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none; "></span></span>
     <span class="st_linkedin_large" st_processed="yes"><span
             style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span
             class="stLarge" style="background-image: url(http://w.sharethis.com/images/linkedin_32.png); "></span><img
@@ -730,126 +760,416 @@ by<span>Neil Ellis</span>.
             class="stLarge" style="background-image: url(http://w.sharethis.com/images/reddit_32.png); "></span><img
             src="http://w.sharethis.com/images/check-big.png"
             style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none; "></span></span>
-    <span class="st_plusone_large" st_processed="yes"><div
-            style="display:inline-block;overflow:hidden;line-height:0px;position:relative;vertical-align:middle;bottom:8px;width:36px; height:30px;">
-        &nbsp;
-        <g:plusone href="http://localhost:8888/?gwt.codesvr=127.0.0.1:9997/#@neil" size="medium" count="false"
-                   callback="plusoneCallback"></g:plusone>
-    </div></span>
+    
     <span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"
           class="stButton"></span></span></div>
-<hr>
-<h3>About the author</h3>
+                            <hr>
+                            <div style="display: none; "><h3>Background</h3>
 
-<div class="view-user-flow-panel" style="">
-    <div>
-        <div class="row">
-            <div class="span2">
-                <div class="user-profile-image" style="height: 64px; width: 64px; "><img
-                        class="gwt-Image" style="height: 64px; width: 64px; "
-                        src="http://c0021791.cdn1.cloudfiles.rackspacecloud.com/2887737c-874c-450b-aa9e-fb072887efae.jpg&amp;size=CLIPPED_SMALL">
+                                <div class="change-image-panel">
+                                    <div class="vortex-image-uploader vortex-profile-image-uploader">
+                                        <div class="vortex-image-uploader-single-image-preview"><img class="gwt-Image"
+                                                                                                     src="./image.service?url=http://localhost:8888/_background/misc/retro-sunbeam-1.jpg&amp;size=CLIPPED_SMALL">
+                                        </div>
+                                        <div class="vortex-image-uploader-loader-area">
+                                            <table cellspacing="0" cellpadding="0" class="GWTUpld">
+                                                <tbody>
+                                                <tr>
+                                                    <td align="left" style="vertical-align: top; ">
+                                                        <form target="FormPanel_cazcade.hashbo.Boardcast_1"
+                                                              enctype="multipart/form-data" method="post"
+                                                              action="servlet.gupld">
+                                                            <div class="upld-form-elements"><input type="file"
+                                                                                                   class="gwt-FileUpload"
+                                                                                                   size="40"
+                                                                                                   name="GWTU-09233883046063462">
+                                                                <button type="button" class="gwt-Button submit"
+                                                                        style="display: none; ">Send
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </td>
+                                                    <td align="left" style="vertical-align: top; ">
+                                                        <div class="gwt-HTML"></div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="change-image-url-area">
+                                        <small>You can supply the URL of a web page or of an image. If you supply a web
+                                            page URL here we will take a snapshot and use that.
+                                        </small>
+                                        <label>Url</label>
+
+                                        <div class="change-image-text-box"><input type="text" class="gwt-TextBox"> <img
+                                                onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
+                                                src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
+                                                style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
+                                                border="0">
+
+                                            <div class="invisible form-field-error-message"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="image-selection">
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/canvas.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/green-board.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/light-blue-linen.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/linen-black.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/linen-blue.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/linen-gray.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/linen-white-light.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/linen-white.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/noise-black.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/noise-grey.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/noise-light-grey.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/noise-vlight-grey.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/noise-white.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/retro-sunbeam-1.jpg">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/misc/ios-linen-light-tan.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/01.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/02.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/03.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/04.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/05.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/06.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/07.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/08.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/09.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/wood/10.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_1.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_2.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_3.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_4.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_5.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_6.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_7.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/metal/metal_8.jpg"></div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/Crosshairs.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/Dotted.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/Isometric.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/LargeGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/LargeLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/Lined.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/Notation.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/PlainBlackCrumpled.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/SmallGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/SmallLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Black/Squared.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/Crosshairs.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/Dotted.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/Isometric.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/LargeGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/LargeLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/Lined.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/Notation.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/PlainBlue.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/SmallGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/SmallLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Blue/Squared.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/Crosshairs.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/Dotted.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/Isometric.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/LargeGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/LargeLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/Lined.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/Notation.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/PlainCardboard.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/SmallGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/SmallLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Cardboard/Squared.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/Crosshairs.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/Dotted.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/Isometric.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/LargeGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/LargeLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/Lined.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/Notation.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/PlainOldPaper.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/SmallGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/SmallLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/OldPaper/Squared.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/Crosshairs.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/Dotted.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/Isometric.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/LargeGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/LargeLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/Lined.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/Notation.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/PlainPaper.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/SmallGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/SmallLinedGrid.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/paper/Paper/Squared.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-1.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-10.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-11.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-12.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-13.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-14.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-15.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-16.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-17.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-18.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-19.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-2.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-20.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-3.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-4.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-5.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-6.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-7.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-8.png">
+                                        </div>
+                                        <div class="image-option"><img class="gwt-Image"
+                                                                       src="_background/thumb/subtle-grunge/Texture-9.png">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="board-toolbar">
+                                    <div class="toolbar-icon"><img class="toolbar-icon-image"
+                                                                   src="_images/toolbar/unlocked_small.png">
+
+                                        <div class="toolbar-icon-label">Unlock</div>
+                                    </div>
+                                    <div class="toolbar-icon" style="display: none; "><img class="toolbar-icon-image"
+                                                                                           src="_images/toolbar/locked_small.png">
+
+                                        <div class="toolbar-icon-label">Lock</div>
+                                    </div>
+                                    <div class="toolbar-icon" style="display: none; "><img class="toolbar-icon-image"
+                                                                                           src="_images/toolbar/personal.png">
+
+                                        <div class="toolbar-icon-label">Personal</div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                            <h3>Followers</h3> <em>Coming very soon.</em></div>
+                    </div>
                 </div>
             </div>
-            <div class="span2">
-                <div class="view-user-details-username"><span
-                        class="vortex-editable-label readonly"> <span>@</span> <div
-                        style="display: inline; ">
-                    <div class="editableLabel-label" style="white-space: nowrap; ">neil</div>
-                </div> <div class="hover-edit-button">edit</div> <img
-                        onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                        border="0"> <div
-                        class="invisible form-field-error-message"></div> </span></div>
-                <div class="view-user-details-fullname"><span
-                        class="vortex-editable-label"> <span></span> <div
-                        style="display: inline; ">
-                    <div class="editableLabel-label" style="white-space: nowrap; ">Neil Ellis
-                    </div>
-                </div> <div class="hover-edit-button">edit</div> <img
-                        onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                        border="0"> <div
-                        class="invisible form-field-error-message"></div> </span></div>
-                <div class="view-user-details-role">Founder</div>
-                <div class="row">
-                    <div class="span2">
-                        <div class="btn small success view-user-button invisible">Follow</div>
-                        <div class="btn small success view-user-button invisible">DM</div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="span3">
-                <div class="view-user-details-description"><span
-                        class="vortex-editable-label word-wrap"> <span></span> <div
-                        style="display: inline; ">
-                    <div class="editableLabel-label" style="white-space: normal; ">Founder of
-                        Hashbo and CEO of Cazcade Limited
-                    </div>
-                </div> <div class="hover-edit-button" style="display: none; ">edit</div> <img
-                        onload="this.__gwtLastUnhandledEvent=&quot;load&quot;;"
-                        src="http://localhost:8888/cazcade.hashbo.Boardcast/clear.cache.gif"
-                        style="width: 1px; height: 1px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mNgAAIAAAUAAen63NgAAAAASUVORK5CYII=) no-repeat 0px 0px"
-                        border="0"> <div
-                        class="invisible form-field-error-message"></div> </span></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="span2">
-                <div class="view-user-details-followers-label">2 followers</div>
-                <div class="view-user-details-following-label">2 follows</div>
-            </div>
-            <div class="span2 invisible"><a class="view-user-details-board-link" href="#@neil">Profile</a>
-                <a class="view-user-details-board-link" href="#public@neil">Public</a></div>
-        </div>
+
+
+        <div id="stylesheet-loaded" style="visibility:hidden"></div>
+
+
     </div>
-    <div class="dm-send-panel" style="overflow-x: hidden; overflow-y: hidden; display: none; ">
-        <div>
-            <iframe class="gwt-RichTextArea"
-                    style="height: 140px; width: 100%; border-width: initial; border-color: initial; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; margin-top: 7px; border-top-left-radius: 4px 4px; border-top-right-radius: 4px 4px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); border-right-width: 1px; border-right-style: solid; border-right-color: rgb(238, 238, 238); border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); "
-                    frameborder="0" marginwidth="0" scrolling="no"></iframe>
-            <div class="dm-button-surround">
-                <div class="btn primary">Send</div>
-                <div class="btn">Cancel</div>
-            </div>
-        </div>
-    </div>
-</div>
-<hr>
-<h3>Participants</h3> <em>Coming very soon.</em></div>
-</div>
-</div>
-</div>
-</div>
 
-<footer>
-    <p>© Company 2011</p>
-</footer>
-<div id="stylesheet-loaded" style="visibility:hidden"></div>
 
+    <!-- /container -->
 
 </div>
 
-<script type="text/javascript" language="javascript"
-        src="cazcade.hashbo.Boardcast/cazcade.hashbo.Boardcast.nocache.js"></script>
 <script language="javascript" src="http://localhost:8888/cazcade.hashbo.Boardcast/scrollsupport.js"></script>
-<script defer="defer">cazcade_hashbo_HashBo.onInjectionDone('cazcade.hashbo.Boardcast')</script>
 
-
-<!-- /container -->
 
 
 <iframe src="javascript:''" id="cazcade.hashbo.Boardcast"
         style="position: absolute; width: 0px; height: 0px; border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; "
         tabindex="-1"></iframe>
 <iframe id="stSegmentFrame" name="stSegmentFrame"
-        src="http://seg.sharethis.com/getSegment.php?purl=http%3A%2F%2Flocalhost%3A8888%2F%3Fgwt.codesvr%3D127.0.0.1%3A9997%2F%23%40neil&amp;jsref=&amp;rnd=1318527125434"
+        src="http://seg.sharethis.com/getSegment.php?purl=http%3A%2F%2Flocalhost%3A8888%2Ftest11%3Fgwt.codesvr%3D127.0.0.1%3A9997&amp;jsref=&amp;rnd=1319656536632"
         frameborder="0" scrolling="no" width="0px" height="0px" style="display:none;"></iframe>
 <div style="display: none; "></div>
-<div style="position: absolute; z-index: -32767; top: -20cm; width: 10cm; height: 10cm; ">&nbsp;</div>
 <div id="stwrapper" class="stwrapper" style="visibility: hidden; top: -999px; left: -999px; ">
     <div class="stclose"></div>
     <iframe allowtransparency="true" id="stLframe" class="stLframe" name="stLframe" frameborder="0" scrolling="no"
@@ -861,6 +1181,19 @@ by<span>Neil Ellis</span>.
         <param name="FlashVars" value="id=gwtVoices1000">
     </object>
 </div>
+<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: -500px; top: -500px; width: 0px; height: 0px; ">
+    <object id="gwtVoices1001" type="application/x-shockwave-flash"
+            data="http://localhost:8888/cazcade.hashbo.Boardcast/gwt-voices.swf">
+        <param name="FlashVars" value="id=gwtVoices1001">
+    </object>
+</div>
+<div style="position: absolute; overflow-x: hidden; overflow-y: hidden; left: -500px; top: -500px; width: 0px; height: 0px; ">
+    <object id="gwtVoices1002" type="application/x-shockwave-flash"
+            data="http://localhost:8888/cazcade.hashbo.Boardcast/gwt-voices.swf">
+        <param name="FlashVars" value="id=gwtVoices1002">
+    </object>
+</div>
+<div style="position: absolute; z-index: -32767; top: -20cm; width: 10cm; height: 10cm; ">&nbsp;</div>
 <iframe src="javascript:''" name="FormPanel_cazcade.hashbo.Boardcast_1"
         style="position:absolute;width:0;height:0;border:0"></iframe>
 </body>
