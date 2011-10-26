@@ -64,53 +64,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cazcade.apps.iml" afterPath="$PROJECT_DIR$/apps/cazcade.apps.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/download/download.iml" afterPath="$PROJECT_DIR$/apps/download/download.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" afterPath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/BoardMenuBar.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/BoardMenuBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/BoardcastChatView.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/BoardcastChatView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.ui.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoardHeader.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoardHeader.ui.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/scratch.html" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/scratch.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/upload/upload.iml" afterPath="$PROJECT_DIR$/apps/upload/upload.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common (1) (cazcade).iml" afterPath="$PROJECT_DIR$/common/common (1) (cazcade).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" afterPath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" afterPath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" afterPath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" afterPath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/datastore.iml" afterPath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/dist/dist.iml" afterPath="$PROJECT_DIR$/fountain/dist/dist.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/fountain.iml" afterPath="$PROJECT_DIR$/fountain/fountain.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid.iml" afterPath="$PROJECT_DIR$/fountain/liquid/liquid.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/notification/notification.iml" afterPath="$PROJECT_DIR$/fountain/notification/notification.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" afterPath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/security/security.iml" afterPath="$PROJECT_DIR$/fountain/security/security.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/social/social.iml" afterPath="$PROJECT_DIR$/fountain/social/social.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/test.iml" afterPath="$PROJECT_DIR$/fountain/test/test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scrape/scrape.iml" afterPath="$PROJECT_DIR$/scrape/scrape.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/bus/bus.iml" afterPath="$PROJECT_DIR$/vortex/bus/bus.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" afterPath="$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/FormatUtil.java" afterPath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/FormatUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/comms.iml" afterPath="$PROJECT_DIR$/vortex/comms/comms.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/dnd/dnd.iml" afterPath="$PROJECT_DIR$/vortex/dnd/dnd.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" afterPath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/main/main.iml" afterPath="$PROJECT_DIR$/vortex/main/main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/plugins/plugins.iml" afterPath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" afterPath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/pool.iml" afterPath="$PROJECT_DIR$/vortex/pool/pool.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/vortex.iml" afterPath="$PROJECT_DIR$/vortex/vortex.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/widgets.iml" afterPath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -303,28 +257,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="urlrewrite.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="16" selection-start="899" selection-end="899" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="hashbo.less" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="20" selection-start="389" selection-end="389" vertical-scroll-proportion="0.0">
+            <state line="190" column="18" selection-start="4663" selection-end="4669" vertical-scroll-proportion="-109.61539">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="board.less" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="common.less" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="0.29191616">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="board.less" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="33" selection-start="2343" selection-end="2343" vertical-scroll-proportion="0.3799682">
+            <state line="128" column="33" selection-start="2343" selection-end="2343" vertical-scroll-proportion="-9.192307">
               <folding />
             </state>
           </provider>
@@ -413,7 +367,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/login.html" />
         <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" />
         <option value="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/FormatUtil.java" />
         <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java" />
@@ -429,6 +382,7 @@
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/bootstrap/variables.less" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.ui.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" />
       </list>
     </option>
   </component>
@@ -4748,7 +4702,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1116" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32827324" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256513" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -4890,13 +4844,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/scratch.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1161" column="0" selection-start="93004" selection-end="93004" vertical-scroll-proportion="-628.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoardHeader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="0" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.0">
@@ -4971,13 +4918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="20" selection-start="389" selection-end="389" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/bootstrap/variables.less">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="29" selection-start="929" selection-end="929" vertical-scroll-proportion="0.0">
@@ -5001,7 +4941,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="33" selection-start="2343" selection-end="2343" vertical-scroll-proportion="0.3799682">
+        <state line="128" column="33" selection-start="2343" selection-end="2343" vertical-scroll-proportion="-9.192307">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="190" column="18" selection-start="4663" selection-end="4669" vertical-scroll-proportion="-109.61539">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="0.29191616">
           <folding />
         </state>
       </provider>
