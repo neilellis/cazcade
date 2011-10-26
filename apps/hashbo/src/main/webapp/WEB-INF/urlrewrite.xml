@@ -18,7 +18,7 @@
     <!---->
     <rule>
         <from>^/(\~?[a-zA-Z][0-9a-zA-Z_~]*)$</from>
-        <to type="redirect">/_board?board=$1</to>
+        <to type="forward">/_pages/board.jsp?%{query-string}&amp;board=$1</to>
     </rule>
 
     <!--<rule>-->
@@ -28,7 +28,7 @@
 
     <rule>
         <from>^/!(.*)$</from>
-        <to type="redirect">/_query?query=$1</to>
+        <to type="forward">/_query?query=$1</to>
     </rule>
 
 

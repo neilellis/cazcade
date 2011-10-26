@@ -83,7 +83,7 @@
 </div>
 
 <script type="text/javascript" language="javascript"
-        src="cazcade.hashbo.HashBo/cazcade.hashbo.HashBo.nocache.js"></script>
+        src="cazcade.hashbo.Boardcast/cazcade.hashbo.Boardcast.nocache.js"></script>
 
 </body>
 </html>

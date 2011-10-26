@@ -67,7 +67,7 @@
 </div>
 
 <%--<script type="text/javascript" language="javascript"--%>
-        <%--src="cazcade.hashbo.HashboMain/cazcade.hashbo.HashboMain.nocache.js"></script>--%>
+        <%--src="cazcade.hashbo.BoardcastMain/cazcade.hashbo.BoardcastMain.nocache.js"></script>--%>
 
 
 <!-- /container -->

@@ -7,7 +7,7 @@
 
     <property-provider name="history.push.state">
         <![CDATA[
-        if (typeof(window.history.pushState) == "function" && window.history.href.indexOf('gwt.codesvr=') < 0) {
+        if (typeof(window.history.pushState) == "function") {
             return "supported";
         } else {
             return "notsupported";

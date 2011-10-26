@@ -34,9 +34,13 @@ public class HTML5History extends HistoryImpl {
             if (path.charAt(0) == '/') {
                 path = path.substring(1);
             }
+            if(path.indexOf('#') > 0) {
+                //convert anchor tags into history states
+                path= path.substring(path.indexOf('#')+1);
+                $wnd.alert('Oi!');
+            }
             if (path.length > 0) {
-                token =
-                        historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
+                token= historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
             }
 
 
@@ -50,11 +54,11 @@ public class HTML5History extends HistoryImpl {
         var oldHashHandler = $wnd.onhashchange;
 
         $wnd.onhashchange = $entry(function() {
-                var token = '', hash = $wnd.location.hash;
-
+            var token = '', hash = $wnd.location.hash;
             if (hash.length > 0) {
                 token = historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(hash.substring(1));
-                $wnd.history.replaceState(token, token, '/'+token);
+                //$wnd.alert("window.history.pushState('"+token+"',  '"+$wnd.document.title+"', '/"+token+"')");
+                $wnd.setTimeout("window.history.replaceState('"+token+"',  '"+$wnd.document.title+"', '/"+token+"')",500);
             }
 
             historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::newItemOnEvent(Ljava/lang/String;)(token);
@@ -62,7 +66,9 @@ public class HTML5History extends HistoryImpl {
             if (oldHashHandler) {
                 oldHashHandler();
             }
+
         });
+
 
         return true;
     }-*/;

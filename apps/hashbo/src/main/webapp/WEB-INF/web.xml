@@ -209,7 +209,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DataStoreService</servlet-name>
-        <url-pattern>/cazcade.hashbo.HashBo/DataStoreService</url-pattern>
+        <url-pattern>/cazcade.hashbo.Boardcast/DataStoreService</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>UUIDService</servlet-name>
@@ -217,7 +217,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UUIDService</servlet-name>
-        <url-pattern>/cazcade.hashbo.HashBo/UUIDService</url-pattern>
+        <url-pattern>/cazcade.hashbo.Boardcast/UUIDService</url-pattern>
     </servlet-mapping>
 
 
@@ -228,7 +228,7 @@
     </servlet>
 
     <servlet>
-        <servlet-name>cazcade.hashbo.HashBo ScriptService</servlet-name>
+        <servlet-name>cazcade.hashbo.Boardcast ScriptService</servlet-name>
         <servlet-class>cazcade.hashbo.server.ScriptServiceImpl</servlet-class>
     </servlet>
 
@@ -237,7 +237,7 @@
         <servlet-class>cazcade.hashbo.servlet.ImageProxyServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>cazcade.hashbo.HashBo BuildVersionService</servlet-name>
+        <servlet-name>cazcade.hashbo.Boardcast BuildVersionService</servlet-name>
         <servlet-class>cazcade.hashbo.server.BuildVersionServiceImpl</servlet-class>
     </servlet>
 
@@ -252,11 +252,11 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>cazcade.hashbo.HashBo ScriptService</servlet-name>
-        <url-pattern>/cazcade.hashbo.HashBo/ScriptService</url-pattern>
+        <servlet-name>cazcade.hashbo.Boardcast ScriptService</servlet-name>
+        <url-pattern>/cazcade.hashbo.Boardcast/ScriptService</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>cazcade.hashbo.HashBo BuildVersionService</servlet-name>
-        <url-pattern>/cazcade.hashbo.HashBo/BuildVersionService</url-pattern>
+        <servlet-name>cazcade.hashbo.Boardcast BuildVersionService</servlet-name>
+        <url-pattern>/cazcade.hashbo.Boardcast/BuildVersionService</url-pattern>
     </servlet-mapping>
 </web-app>
