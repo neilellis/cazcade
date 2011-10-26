@@ -20,6 +20,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/annotations" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -47,6 +48,7 @@
     <orderEntry type="library" name="Maven: com.rosaloves:bitlyj:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: javax.transaction:transaction-api:1.1" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:2.2" level="project" />
+    <orderEntry type="library" name="Maven: asm:asm:3.1" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.jasypt:jasypt:1.6" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
