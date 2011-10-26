@@ -695,7 +695,8 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.1</version>
                 <configuration>
-                    <tagBase>https://office.cazcade.internal/svn/cazcade/tags/releases</tagBase>
+                    <!-- change to beanstalk -->
+                    <tagBase>https://dev.cazcade.internal/svn/cazcade/tags/releases</tagBase>
                     <preparationGoals>clean install</preparationGoals>
                     <goals>deploy -P no-tests</goals>
                 </configuration>
@@ -721,13 +722,13 @@
         <repository>
             <id>cazcade.releases</id>
             <name>Cazcade Releases</name>
-            <url>dav:http://nexus.cazcade.com:8881/nexus/content/repositories/releases/
+            <url>dav:http://dev.cazcade.com:8881/nexus/content/repositories/releases/
             </url>
         </repository>
         <snapshotRepository>
             <id>cazcade.snapshots</id>
             <name>Cazcade Snapshots</name>
-            <url>dav:http://nexus.cazcade.com:8881/nexus/content/repositories/snapshots/
+            <url>dav:http://dev.cazcade.com:8881/nexus/content/repositories/snapshots/
             </url>
         </snapshotRepository>
     </distributionManagement>

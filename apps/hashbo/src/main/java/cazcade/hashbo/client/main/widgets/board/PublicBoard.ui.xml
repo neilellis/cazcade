@@ -46,12 +46,10 @@
                 <hr/>
 
                 <div class="row">
-                    <div class="board-lhs">
-                        <h2>Comments</h2>
-                        <p>Tell us what you think</p>
-                        <widgets:AddCommentBox ui:field="addCommentBox"/>
-                        <stream:CommentPanel ui:field="comments"/>
-                    </div>
+                    <h2>Comments</h2>
+                    <p>Tell us what you think</p>
+                    <widgets:AddCommentBox ui:field="addCommentBox"/>
+                    <stream:CommentPanel ui:field="comments"/>
                 </div>
                 <g:HTMLPanel ui:field="controls">
 
