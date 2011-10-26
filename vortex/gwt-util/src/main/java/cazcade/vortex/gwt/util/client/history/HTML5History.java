@@ -58,10 +58,10 @@ public class HTML5History extends HistoryImpl {
             if (hash.length > 0) {
                 token = historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(hash.substring(1));
                 //$wnd.alert("window.history.pushState('"+token+"',  '"+$wnd.document.title+"', '/"+token+"')");
-                window.history.replaceState(token,  $wnd.document.title, token);
+                $wnd.history.replaceState(hash.substring(1),  $wnd.document.title, "/"+hash.substring(1)+"#");
+                historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::newItemOnEvent(Ljava/lang/String;)(token);
             }
 
-            historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::newItemOnEvent(Ljava/lang/String;)(token);
 
             if (oldHashHandler) {
                 oldHashHandler();
