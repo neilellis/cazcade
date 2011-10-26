@@ -11,13 +11,13 @@
     <script type="text/javascript">
         var _nav;
         if (typeof(window.history.pushState) == "function") {
-            _nav= function(href) {
-                window.history.pushState(href, window.document.title, "/"+href);
+            _nav = function(href) {
+                window.history.pushState(href, window.document.title, "/" + href);
                 fireGWTHistoryEvent(href);
             };
         } else {
-            _nav= function(href) {
-                window.location.href=window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#'+href;
+            _nav = function(href) {
+                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '#' + href;
             };
         }
 
@@ -27,13 +27,13 @@
     <c:if test="${not empty requestScope.board}">
         <script type="text/javascript">
             if (typeof(window.history.pushState) == "function") {
-                var board= '${requestScope.board}';
-                if(window.location.href.indexOf('?') > 0) {
-                    board=board+"?"+window.history.substring(window.location.href.indexOf('?'));
+                var board = '${requestScope.board}';
+                if (window.location.href.indexOf('?') > 0) {
+                    board = board + "?" + window.history.substring(window.location.href.indexOf('?'));
                 }
                 window.history.replaceState('${requestScope.board}', '${requestScope.board}', board);
             } else {
-                window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/'))+'#' + '${requestScope.board}');
+                window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '#' + '${requestScope.board}');
             }
         </script>
     </c:if>
@@ -49,41 +49,38 @@
 
 <div class="inner-body">
 
-        <tags:log-panel/>
+    <tags:log-panel/>
 
-        <script>
-            //Deferred loading to improve initial load time.
-            loadjs("./_prettify/prettify.js");
-        </script>
+    <script>
+        //Deferred loading to improve initial load time.
+        loadjs("./_prettify/prettify.js");
+    </script>
 
-        <tags:hashbo-less/>
+    <tags:hashbo-less/>
 
 
-        <div id="cache-panel">
-            <div id="loading-panel">
-                <div class="loading-bar-outer">
-                    <tags:loading-bar/>
-                </div>
+    <div id="cache-panel">
+        <div id="loading-panel">
+            <div class="loading-bar-outer">
+                <tags:loading-bar/>
             </div>
         </div>
+    </div>
 
-        <div id="board-panel">
-        </div>
+    <div id="board-panel">
+    </div>
 
-        <%@ include file="footer.jspf" %>
-
-
-
+    <%@ include file="footer.jspf" %>
 
 
     <!-- /container -->
 <span id="sharethis" style="visibility: hidden">
- <span class='st_twitter_large' displayText='Tweet'></span><span class='st_email_large'
-                                                                 displayText='Email'></span><span
-        class='st_facebook_large' displayText='Facebook'></span>
-    <span class='st_linkedin_large'></span>
-    <span class='st_reddit_large'></span>
-    <%--<span class='st_plusone_large'></span>--%>
+ <span class='st_twitter' displayText='Tweet'></span><span class='st_email'
+                                                           displayText='Email'></span><span
+        class='st_facebook' displayText='Facebook'></span>
+    <span class='st_linkedin'></span>
+    <span class='st_reddit'></span>
+    <%--<span class='st_plusone'></span>--%>
     </span>
 </div>
 
