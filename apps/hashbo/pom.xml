@@ -169,7 +169,7 @@
                                         <argument>--exclude</argument>
                                         <argument>*~</argument>
                                         <argument>${build.directory}/${build.finalName}/*</argument>
-                                        <argument>~/jetty/webapps/hashbo</argument>
+                                        <argument>~/jetty/webapps/root</argument>
                                     </arguments>
                                 </configuration>
                             </execution>

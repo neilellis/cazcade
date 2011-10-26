@@ -776,7 +776,7 @@
 
         <repository>
             <id>cazcade-public-external-ip</id>
-            <url>http://nexus.cazcade.com:8881/nexus/content/groups/public/</url>
+            <url>http://dev.cazcade.com:8881/nexus/content/groups/public/</url>
         </repository>
 
 
