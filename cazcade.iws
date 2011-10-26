@@ -64,19 +64,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/HashBo.gwt.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/Boardcast.gwt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/pom.xml" afterPath="$PROJECT_DIR$/apps/hashbo/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/profile.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/profile.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/public-mock.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/public-mock.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/welcome.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/welcome.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/index_old.html" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/index_old.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/index_preload.html" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/index_preload.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/login.html" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/scratch.html" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/scratch.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
@@ -336,29 +323,29 @@
       <file leaf-file-name="HTML5History.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="0" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.4878049">
+            <state line="60" column="0" selection-start="2068" selection-end="2068" vertical-scroll-proportion="0.7804878">
               <folding>
-                <marker date="1319591991000" expanded="true" signature="325:1678" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="325:2443" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="430:479" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="430:479" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="509:653" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="509:653" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="875:1627" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="875:1627" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="992:1049" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="992:1049" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="1088:1255" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="1289:1427" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="1289:1427" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="1572:1617" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="1572:1617" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="1679:2443" placeholder="/*...*/" />
-                <marker date="1319591991000" expanded="true" signature="1726:2412" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="1816:2204" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="2352:2401" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="2512:2760" placeholder="{...}" />
-                <marker date="1319591991000" expanded="true" signature="2512:2760" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="325:1678" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="325:2401" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="430:479" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="430:479" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="509:653" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="509:653" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="875:1627" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="875:1627" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="992:1049" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="992:1049" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="1088:1255" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="1289:1427" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="1289:1427" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="1572:1617" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="1572:1617" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="1679:2401" placeholder="/*...*/" />
+                <marker date="1319592858000" expanded="true" signature="1726:2370" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="1816:2162" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="2310:2359" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="2470:2718" placeholder="{...}" />
+                <marker date="1319592858000" expanded="true" signature="2470:2718" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -4987,29 +4974,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HTML5History.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="0" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.4878049">
+        <state line="60" column="0" selection-start="2068" selection-end="2068" vertical-scroll-proportion="0.7804878">
           <folding>
-            <marker date="1319591991000" expanded="true" signature="325:1678" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="325:2443" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="430:479" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="430:479" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="509:653" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="509:653" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="875:1627" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="875:1627" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="992:1049" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="992:1049" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="1088:1255" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="1289:1427" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="1289:1427" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="1572:1617" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="1572:1617" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="1679:2443" placeholder="/*...*/" />
-            <marker date="1319591991000" expanded="true" signature="1726:2412" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="1816:2204" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="2352:2401" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="2512:2760" placeholder="{...}" />
-            <marker date="1319591991000" expanded="true" signature="2512:2760" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="325:1678" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="325:2401" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="430:479" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="430:479" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="509:653" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="509:653" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="875:1627" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="875:1627" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="992:1049" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="992:1049" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="1088:1255" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="1289:1427" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="1289:1427" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="1572:1617" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="1572:1617" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="1679:2401" placeholder="/*...*/" />
+            <marker date="1319592858000" expanded="true" signature="1726:2370" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="1816:2162" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="2310:2359" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="2470:2718" placeholder="{...}" />
+            <marker date="1319592858000" expanded="true" signature="2470:2718" placeholder="{...}" />
           </folding>
         </state>
       </provider>
