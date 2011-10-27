@@ -64,17 +64,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryAware.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/Boardcast.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/Boardcast.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/BoardcastChatView.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/BoardcastChatView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/topbar.jspf" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/topbar.jspf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryAwareComposite.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryAwareComposite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -280,19 +270,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="board.jsp" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="board.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="793" selection-end="793" vertical-scroll-proportion="-15.583333">
+            <state line="12" column="76" selection-start="410" selection-end="410" vertical-scroll-proportion="0.29883137">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateBoardDialog.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CreateBoardDialog.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.5730337">
+            <state line="45" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -337,7 +327,7 @@
       <file leaf-file-name="Boardcast.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/Boardcast.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="155" column="68" selection-start="5995" selection-end="5995" vertical-scroll-proportion="-8.038462">
+            <state line="155" column="68" selection-start="5995" selection-end="5995" vertical-scroll-proportion="-28.23077">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -410,11 +400,11 @@
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/Boardcast.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/topbar.jspf" />
         <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/GWTUtil.gwt.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
         <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryAware.java" />
         <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryAwareComposite.java" />
         <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
       </list>
     </option>
   </component>
@@ -5146,13 +5136,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="793" selection-end="793" vertical-scroll-proportion="-15.583333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryAwareComposite.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="19" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
@@ -5177,18 +5160,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/Boardcast.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="68" selection-start="5995" selection-end="5995" vertical-scroll-proportion="-8.038462">
+        <state line="155" column="68" selection-start="5995" selection-end="5995" vertical-scroll-proportion="-28.23077">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.5730337">
+        <state line="12" column="76" selection-start="410" selection-end="410" vertical-scroll-proportion="0.29883137">
           <folding />
         </state>
       </provider>

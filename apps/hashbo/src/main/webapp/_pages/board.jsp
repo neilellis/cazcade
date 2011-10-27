@@ -10,7 +10,7 @@
 
     <script type="text/javascript">
         var _nav;
-        var testNoPushState= true;
+        var testNoPushState= window.location.href.indexOf("nopushstate") > 0;
         if (typeof(window.history.pushState) == "function" && !testNoPushState) {
             _nav = function(href) {
                 window.history.pushState(href, window.document.title, "/" + href);
