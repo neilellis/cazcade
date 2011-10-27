@@ -7,7 +7,7 @@
 
     <property-provider name="history.push.state">
         <![CDATA[
-        if (typeof(window.history.pushState) == "function") {
+        if (typeof(window.history.pushState) == "function" && !testNoPushState) {
             return "supported";
         } else {
             return "notsupported";

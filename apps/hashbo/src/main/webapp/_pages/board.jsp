@@ -10,33 +10,21 @@
 
     <script type="text/javascript">
         var _nav;
-        if (typeof(window.history.pushState) == "function") {
+        var testNoPushState= true;
+        if (typeof(window.history.pushState) == "function" && !testNoPushState) {
             _nav = function(href) {
                 window.history.pushState(href, window.document.title, "/" + href);
                 fireGWTHistoryEvent(href);
             };
         } else {
             _nav = function(href) {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '#' + href;
+                window.location.href = window.location.href="./"+href;
             };
         }
 
 
     </script>
 
-    <c:if test="${not empty requestScope.board}">
-        <script type="text/javascript">
-            if (typeof(window.history.pushState) == "function") {
-                var board = '${requestScope.board}';
-                if (window.location.href.indexOf('?') > 0) {
-                    board = board + "?" + window.history.substring(window.location.href.indexOf('?'));
-                }
-                window.history.replaceState('${requestScope.board}', '${requestScope.board}', board);
-            } else {
-                window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '#' + '${requestScope.board}');
-            }
-        </script>
-    </c:if>
     <%@ include file="header.jspf" %>
 
 </head>

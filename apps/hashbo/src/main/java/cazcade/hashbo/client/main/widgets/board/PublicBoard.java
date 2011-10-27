@@ -211,7 +211,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 if (response.getResponse() == null || response.getResponse().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                     if (previousPoolURI != null) {
-                        History.newItem(previousPoolURI.asShortUrl().toString());
+                        getHistoryManager().navigate(previousPoolURI.asShortUrl().toString());
                     }
                 } else if (response.getResponse().canBe(LSDDictionaryTypes.POOL)) {
                     bind(response.getResponse());

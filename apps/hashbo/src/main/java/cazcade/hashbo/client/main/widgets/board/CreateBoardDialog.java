@@ -1,5 +1,8 @@
 package cazcade.hashbo.client.main.widgets.board;
 
+import cazcade.vortex.gwt.util.client.history.HistoryAware;
+import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
+import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.form.fields.HashtagTextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -21,9 +24,11 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 /**
  * @author neilellis@cazcade.com
  */
-public class CreateBoardDialog extends DialogBox {
+public class CreateBoardDialog extends DialogBox implements HistoryAware{
 
     private Runnable onComplete;
+    private HistoryManager historyManager;
+    private String historyToken;
 
 
     public void setOnComplete(Runnable onComplete) {
@@ -32,6 +37,38 @@ public class CreateBoardDialog extends DialogBox {
 
     public boolean isListed() {
         return listed.getValue();
+    }
+
+    @Override
+    public void onLocalHistoryTokenChanged(String token) {
+        center();
+        show();
+    }
+
+    @Override
+    public void setHistoryManager(HistoryManager historyManager) {
+
+        this.historyManager = historyManager;
+    }
+
+    @Override
+    public HistoryManager getHistoryManager() {
+       return historyManager;
+    }
+
+    @Override
+    public void setHistoryToken(String historyToken) {
+        this.historyToken = historyToken;
+    }
+
+    @Override
+    public String getHistoryToken() {
+        return historyToken;
+    }
+
+    @Override
+    public boolean addToRootPanel() {
+        return false;
     }
 
 
@@ -85,8 +122,6 @@ public class CreateBoardDialog extends DialogBox {
         setWidth("600px");
         setHeight("340px");
         setModal(false);
-        center();
-        show();
         setText("Create New Board");
         listed.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override

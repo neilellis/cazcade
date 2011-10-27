@@ -44,8 +44,6 @@ public class Boardcast implements EntryPoint {
     public static final String PUBLIC_BOARD_PANEL_ID = "board-panel";
     private HashboLoginOrRegisterPanel loginOrRegisterPanel;
     private HistoryManager historyManager;
-    private boolean createListedRequest;
-    private boolean createUnlistedRequest;
     private boolean registerRequest;
     private boolean createRequest;
 
@@ -87,12 +85,11 @@ public class Boardcast implements EntryPoint {
         }
 
 
-        final String createParam = Window.Location.getParameter("create");
-        createRequest = createParam != null;
-        createListedRequest = createParam != null && createParam.equals("listed");
-        createUnlistedRequest = createParam != null && createParam.equals("unlisted");
+
         final String registerParam = Window.Location.getParameter("register");
         registerRequest = registerParam != null;
+
+        createRequest= Window.Location.getPath().startsWith("/_create-");
 
         injectChildren();
 
@@ -111,52 +108,15 @@ public class Boardcast implements EntryPoint {
 //        addLogPanel();
 
         if (RootPanel.get(PUBLIC_BOARD_PANEL_ID) != null) {
-            final Runnable loginBoardAction = new Runnable() {
+            final Runnable loginAction = new Runnable() {
                 @Override
                 public void run() {
                     addPublicBoard();
-                    History.fireCurrentHistoryState();
+                    addCreateDialog();
+                    historyManager.fireCurrentHistoryState();
                 }
             };
-            Runnable loginAction = loginBoardAction;
-            if (createRequest && Window.Location.getHash().isEmpty()) {
-                loginAction = new Runnable() {
-                    @Override
-                    public void run() {
-                        Scheduler.get().scheduleDeferred(
-                                new Scheduler.ScheduledCommand() {
-                                    @Override
-                                    public void execute() {
-                                        final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
-                                        createBoardDialog.show();
-                                        createBoardDialog.setOnComplete(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                createBoardDialog.hide();
-                                                addPublicBoard();
-                                                String board = createBoardDialog.getBoard();
-                                                final boolean listed = createBoardDialog.isListed();
-                                                if (!listed) {
-                                                    BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
-                                                        @Override
-                                                        public void callback(LiquidUUID uuid) {
-                                                            History.newItem("-unlisted-" + uuid.toString().toLowerCase());
-                                                        }
-                                                    });
-                                                } else {
-                                                    if (board.isEmpty()) {
-                                                        board = Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36) + "-@" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
-                                                    }
-                                                    History.newItem(board);
-                                                }
-                                            }
-                                        });
-                                    }
-                                }
-                        );
-                    }
-                };
-            }
+
             createLoginPanel(loginAction);
             checkUserLoggedIn(loginAction);
         } else if (RootPanel.get(LOGIN_PANEL_ID) != null) {
@@ -184,12 +144,38 @@ public class Boardcast implements EntryPoint {
                 public void run() {
                     RootPanel.get(MAIN_PANEL_ID).add(new BoardcastChatView());
                     loginOrRegisterPanel.hide();
-                    History.fireCurrentHistoryState();
+                    historyManager.fireCurrentHistoryState();
                 }
             };
             createLoginPanel(loginAction);
             checkUserLoggedIn(loginAction);
         }
+    }
+
+    private void addCreateDialog() {
+        final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
+        historyManager.registerTopLevelComposite("create", createBoardDialog);
+        createBoardDialog.setOnComplete(new Runnable() {
+            @Override
+            public void run() {
+                createBoardDialog.hide();
+                String board = createBoardDialog.getBoard();
+                final boolean listed = createBoardDialog.isListed();
+                if (!listed) {
+                    BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
+                        @Override
+                        public void callback(LiquidUUID uuid) {
+                            historyManager.navigate("-unlisted-" + uuid.toString().toLowerCase());
+                        }
+                    });
+                } else {
+                    if (board.isEmpty()) {
+                        board = Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36) + "-@" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
+                    }
+                    historyManager.navigate(board);
+                }
+            }
+        });
     }
 
     private void addPublicBoard() {
