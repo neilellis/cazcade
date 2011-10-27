@@ -17,17 +17,25 @@
     <!--</rule>-->
     <!---->
     <rule>
-        <from>^/(\~?[a-zA-Z][0-9a-zA-Z_~]*)$</from>
+        <from>^/(\~?[a-zA-Z][0-9a-zA-Z_.-~]*)$</from>
         <to type="forward">/_pages/board.jsp?%{query-string}&amp;board=$1</to>
     </rule>
 
+    <rule>
+        <from>^/_create-listed$</from>
+        <to type="forward">/_pages/board.jsp?%{query-string}&amp;create=listed</to>
+    </rule>
+    <rule>
+        <from>^/_create-unlisted$</from>
+        <to type="forward">/_pages/board.jsp?%{query-string}&amp;create=unlisted</to>
+    </rule>
     <!--<rule>-->
-        <!--<from>^/~(.*)$</from>-->
-        <!--<to type="redirect">$1.profile</to>-->
+    <!--<from>^/~(.*)$</from>-->
+    <!--<to type="redirect">$1.profile</to>-->
     <!--</rule>-->
 
     <rule>
-        <from>^/!(.*)$</from>
+        <from>^/_query-(.*)$</from>
         <to type="forward">/_query?query=$1</to>
     </rule>
 

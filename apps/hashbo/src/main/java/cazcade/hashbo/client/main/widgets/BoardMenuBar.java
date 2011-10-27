@@ -36,6 +36,10 @@ public class BoardMenuBar extends MenuBar {
 
     public BoardMenuBar() {
         super(false);
+        setVisible(true);
+        setAnimationEnabled(false);
+        setAutoOpen(true);
+        setFocusOnHoverEnabled(true);
     }
 
 
@@ -86,10 +90,6 @@ public class BoardMenuBar extends MenuBar {
 
     private void createAddMenu(final LiquidURI poolURI) {
 //        addItem(new SafeHtmlBuilder().appendHtmlConstant("<img alt=\"add\" src=\"_images/add.png\"/>").toSafeHtml(), addMenu);
-        setVisible(true);
-        setAnimationEnabled(true);
-        setAutoOpen(true);
-        setFocusOnHoverEnabled(true);
 
         addMenubar.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
 

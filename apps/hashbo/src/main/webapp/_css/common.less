@@ -132,6 +132,14 @@
     -moz-transition: left ease-in-out @duration;
 }
 
+.transform(@transform) {
+	-webkit-transform: @transform;
+	   -moz-transform: @transform;
+ 	    -ms-transform: @transform;
+	     -o-transform: @transform;
+	        transform: @transform;
+}
+
 .linear-gradient(@gradient){
     background-image: linear-gradient(@gradient);
     background-image: -webkit-linear-gradient(@gradient);

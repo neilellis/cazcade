@@ -101,7 +101,9 @@
 
 @stickyColor: #FCF0AD;
 
-.pool-object-rich-text {
+.pool-object-rich-text-inner {
+    margin-bottom:10px;
+    margin: 4px;
     width: 230px;
     height: 240px;
     color: #333;
@@ -110,10 +112,42 @@
     .shadow-border(@stickyColor);
     .border-radius(4px);
     font-size: @boardTextFontSize;
-    z-index:7000;
+    overflow: visible;
+    position: relative;
+    float: left;
+
+    /* Lifted corners */
+     .box-shadow(0 1px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(0, 0, 0, 0.05) inset) ;
+
+    &:before,
+    &:after {
+        content: "";
+        display:block;
+        position: absolute;
+        z-index:-1;
+        bottom: 15px;
+        left: 10px;
+        width: 50%;
+        height: 20%;
+        max-width: 300px;
+        .box-shadow(0 15px 10px rgba(0, 0, 0, 0.7));
+        .transform(rotate(-3deg));
+    }
+
+    &:after {
+        right: 10px;
+        left: auto;
+        .transform(rotate(3deg));
+    }
+
 }
 
 .pool-object-rich-text {
+    overflow: visible;
+    position: static;
+    z-index:7000;
+    height: 250px;
+
 }
 
 .pool-object-rich-text .editableLabel-label {

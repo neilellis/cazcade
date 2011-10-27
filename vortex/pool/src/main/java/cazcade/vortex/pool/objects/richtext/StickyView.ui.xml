@@ -2,9 +2,10 @@
              xmlns:misc='urn:import:cazcade.vortex.widgets.client.misc'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel styleName="pool-object-inner">
-        <g:HTMLPanel styleName="drop-shadow lifted pool-object-rich-text">
-            <g:HTMLPanel>
-                <misc:EditableLabel ui:field="label" wordWrap="true" doubleClick="true" placeholder="Double Click to Edit"/>
+        <g:HTMLPanel styleName="pool-object-rich-text">
+            <g:HTMLPanel styleName="pool-object-rich-text-inner">
+                <misc:EditableLabel ui:field="label" wordWrap="true" doubleClick="true"
+                                    placeholder="Double Click to Edit"/>
                 <div class="rich-text-detail">
                     <g:Label styleName="rich-text-author-label" ui:field="authorName"/>
                     <g:Label styleName="rich-text-chat-location" ui:field="location"/>

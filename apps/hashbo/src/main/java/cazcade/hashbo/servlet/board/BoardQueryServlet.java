@@ -21,16 +21,22 @@ import java.util.Map;
 public class BoardQueryServlet extends AbstractBoardListServlet {
 
     private Map<String, BoardQueryRequest.QueryType> queryLookup = new HashMap<String, BoardQueryRequest.QueryType>();
+    private Map<String, String> titleLookup = new HashMap<String, String>();
     private final static Logger log = Logger.getLogger(BoardQueryServlet.class);
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         queryLookup.put("history", BoardQueryRequest.QueryType.HISTORY);
+        titleLookup.put("history", "Recently Visited");
         queryLookup.put("my", BoardQueryRequest.QueryType.MY);
+        titleLookup.put("my", "Your Boards");
         queryLookup.put("popular", BoardQueryRequest.QueryType.POPULAR);
+        titleLookup.put("popular", "Popular Boards");
         queryLookup.put("new", BoardQueryRequest.QueryType.RECENT);
+        titleLookup.put("new", "New Boards");
         queryLookup.put("profile", BoardQueryRequest.QueryType.USERS_BOARDS);
+//        titleLookup.put("profile", BoardQueryRequest.QueryType.USERS_BOARDS);
     }
 
     @Override
@@ -43,15 +49,14 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
         try {
             String username = req.getParameter("user");
 //            final String queryName = req.getServletPath().substring(1, req.getServletPath().indexOf('.'));
-            String queryName= req.getParameter("query");
+            String queryName = req.getParameter("query");
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
             BoardQueryRequest response = dataStore.process(new BoardQueryRequest(getLiquidSessionId(), type, alias));
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
             List<LSDEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             req.setAttribute("boards", makeJSPFriendly(boards));
-            req.setAttribute("title", "For your consideration ...");
-            req.setAttribute("title", req.getServletPath().substring(1));
+            req.setAttribute("title", titleLookup.get(queryName));
             req.getRequestDispatcher("_pages/boards.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e);
