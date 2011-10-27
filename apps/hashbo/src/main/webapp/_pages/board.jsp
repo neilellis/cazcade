@@ -75,9 +75,9 @@
 
     <!-- /container -->
     <span id="sharethis" style="visibility: hidden">
-        <span class='st_twitter' displayText='Tweet'></span>
-        <span class='st_email' displayText='Email'></span>
-        <span class='st_facebook' displayText='Facebook'></span>
+        <span class='st_twitter'></span>
+        <span class='st_email'></span>
+        <span class='st_facebook'></span>
         <span class='st_linkedin'></span>
         <span class='st_reddit'></span>
         <%--<span class='st_plusone'></span>--%>
