@@ -65,6 +65,7 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -273,7 +274,7 @@
       <file leaf-file-name="board.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="76" selection-start="410" selection-end="410" vertical-scroll-proportion="0.29883137">
+            <state line="12" column="33" selection-start="367" selection-end="367" vertical-scroll-proportion="0.29883137">
               <folding />
             </state>
           </provider>
@@ -5178,7 +5179,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="76" selection-start="410" selection-end="410" vertical-scroll-proportion="0.29883137">
+        <state line="12" column="33" selection-start="367" selection-end="367" vertical-scroll-proportion="0.29883137">
           <folding />
         </state>
       </provider>
