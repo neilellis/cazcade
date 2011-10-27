@@ -87,9 +87,9 @@
         </g:HTMLPanel>
 
 
-        <widgets:BoardMenuBar styleName="hashbo-add-menu" autoOpen="true"  focusOnHoverEnabled="true"
+        <widgets:BoardMenuBar styleName="hashbo-board-menu" autoOpen="true" focusOnHoverEnabled="true"
                               ui:field="menuBar"/>
-        <!--<g:MenuBar styleName="hashbo-add-menu" autoOpen="true" ui:field="menuBar" focusOnHoverEnabled="true">-->
+        <!--<g:MenuBar styleName="hashbo-board-menu" autoOpen="true" ui:field="menuBar" focusOnHoverEnabled="true">-->
         <!--<g:MenuItem>-->
         <!--<img alt="add" src="_images/add.png"/>-->
         <!--<g:MenuBar vertical="true" ui:field="addMenuBarSubMenu">-->
@@ -99,7 +99,8 @@
 
         <div class="board-locked" ui:field="boardLockedIcon"
              title="You don't have permission to edit this board."/>
-        <g:Label styleName="btn large primary return-from-chat-button" ui:field="returnFromChatButton" text="Leave Chat"/>
+        <g:Label styleName="btn large primary return-from-chat-button" ui:field="returnFromChatButton"
+                 text="Leave Chat"/>
 
     </g:HTMLPanel>
 </ui:UiBinder>

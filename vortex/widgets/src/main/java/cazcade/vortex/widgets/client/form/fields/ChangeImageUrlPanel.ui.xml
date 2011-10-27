@@ -5,9 +5,17 @@
     <g:HTMLPanel styleName="change-image-panel">
         <image:ImageUploader ui:field="imageUploader"/>
         <div class="change-image-url-area">
-        <small>You can supply the URL of a web page or of an image. If you supply a web page URL here we will take a snapshot and use that.</small>
-        <label>Url</label>
-        <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box"/>
+            <p>
+                <small>You can supply the URL of a web page or of an image. If you supply a web page URL here we will
+                    take a
+                    snapshot and use that.
+                </small>
+            </p>
+            <br/>
+            <p>
+                <strong>Url:</strong>
+                <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box"/>
+            </p>
         </div>
         <!--<g:Image ui:field="validityImage" styleName="invisible form-field-validity-icon"/>-->
         <!--<g:Label ui:field="errorMessage" styleName="invisible form-field-error-message"/>-->

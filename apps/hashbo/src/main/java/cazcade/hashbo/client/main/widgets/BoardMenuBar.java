@@ -1,13 +1,21 @@
 package cazcade.hashbo.client.main.widgets;
 
-import cazcade.hashbo.client.main.menus.add.*;
+import cazcade.hashbo.client.main.menus.board.*;
+import cazcade.hashbo.client.main.widgets.board.ChangeBackgroundDialog;
+import cazcade.liquid.api.LiquidPermission;
+import cazcade.liquid.api.LiquidPermissionChangeType;
+import cazcade.liquid.api.LiquidPermissionScope;
 import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 
 /**
  * @author neilellis@cazcade.com
@@ -15,8 +23,9 @@ import com.google.gwt.user.client.ui.MenuBar;
 public class BoardMenuBar extends MenuBar {
 
     private LiquidURI poolURI;
-    private MenuBar addMenu;
-
+    private MenuBar addMenubar;
+    private MenuBar backgroundMenuBar;
+    private MenuBar accessMenuBar;
 
 
     public interface SizeVariantBuilder<T extends CreateItemCommand> {
@@ -30,33 +39,68 @@ public class BoardMenuBar extends MenuBar {
     }
 
 
-    public void setUri(final LiquidURI poolURI, boolean modifierOptions) {
-        this.poolURI = poolURI;
+    public void init(LSDEntity board, boolean modifierOptions, final ChangeBackgroundDialog backgroundDialog) {
+        this.poolURI = board.getURI();
         clearItems();
-        if(modifierOptions) {
-        addMenu = new MenuBar(true);
+        if (modifierOptions) {
+            addMenubar = new MenuBar(true);
             createAddMenu(poolURI);
+            final MenuItem add = addItem("Add", addMenubar);
+            add.addStyleName("board-menu-add");
+        }
+        if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
+            backgroundMenuBar = new MenuBar(true);
+            addItem("Background", backgroundMenuBar);
+            backgroundMenuBar.addItem("Change", new Command() {
+                @Override
+                public void execute() {
+                    backgroundDialog.center();
+                    backgroundDialog.show();
+                }
+            });
+        }
+        if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
+            accessMenuBar = new MenuBar(true);
+            addItem("Access", accessMenuBar);
+            createAccessMenu(board);
         }
 
     }
 
+    private void createAccessMenu(LSDEntity board) {
+        if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+            if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+                accessMenuBar.addItem("Make Readonly", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
+            } else {
+                accessMenuBar.addItem("Make Writeable", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI));
+
+            }
+            accessMenuBar.addItem("Make Private", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PRIVATE, poolURI));
+        } else {
+            accessMenuBar.addItem("Make Public (Readonly)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
+            accessMenuBar.addItem("Make Public (Writeable)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI));
+        }
+
+
+    }
+
     private void createAddMenu(final LiquidURI poolURI) {
-        addItem(new SafeHtmlBuilder().appendHtmlConstant("<img alt=\"add\" src=\"_images/add.png\"/>").toSafeHtml(), addMenu);
+//        addItem(new SafeHtmlBuilder().appendHtmlConstant("<img alt=\"add\" src=\"_images/add.png\"/>").toSafeHtml(), addMenu);
         setVisible(true);
         setAnimationEnabled(true);
         setAutoOpen(true);
         setFocusOnHoverEnabled(true);
 
-        addMenu.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
+        addMenubar.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
 
-        addMenu.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenubar.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "default");
             }
         }));
 
-        addMenu.addItem("White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenubar.addItem("White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
@@ -64,16 +108,16 @@ public class BoardMenuBar extends MenuBar {
         }));
 
 
-        addMenu.addItem("Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenubar.addItem("Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
             }
         }));
 
-        addMenu.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
+        addMenubar.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
 
-        addMenu.addItem("Photograph",
+        addMenubar.addItem("Photograph",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
@@ -81,7 +125,7 @@ public class BoardMenuBar extends MenuBar {
                     }
                 }));
 
-        addMenu.addItem("Webpage Link",
+        addMenubar.addItem("Webpage Link",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
@@ -89,7 +133,7 @@ public class BoardMenuBar extends MenuBar {
                     }
                 }));
 
-        addMenu.addItem("YouTube Video",
+        addMenubar.addItem("YouTube Video",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
@@ -97,12 +141,12 @@ public class BoardMenuBar extends MenuBar {
                     }
                 }));
 
-        addMenu.addItem("Decorations", createShapeMenuBar());
+        addMenubar.addItem("Decorations", createShapeMenuBar());
 
         if (ClientApplicationConfiguration.isAlphaFeatures()) {
-            addMenu.addItem("Your Card", new CreateAliasRefCommand(poolURI, LSDDictionaryTypes.ALIAS_REF, UserUtil.getCurrentAlias().getURI()));
+            addMenubar.addItem("Your Card", new CreateAliasRefCommand(poolURI, LSDDictionaryTypes.ALIAS_REF, UserUtil.getCurrentAlias().getURI()));
 //                                subMenu.addItem("Custom Object (ALPHA)", new CreateCustomObjectCommand(poolURI, LSDDictionaryTypes.CUSTOM_OBJECT));
-            addMenu.addItem("Checklist (ALPHA)", new CreateChecklistCommand(poolURI, LSDDictionaryTypes.CHECKLIST_POOL));
+            addMenubar.addItem("Checklist (ALPHA)", new CreateChecklistCommand(poolURI, LSDDictionaryTypes.CHECKLIST_POOL));
         }
     }
 

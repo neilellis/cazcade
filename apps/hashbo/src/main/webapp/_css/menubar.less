@@ -1,8 +1,26 @@
+.hashbo-board-menu{
+    float: left;
+    width:600px;
+}
+
+.board-menu-add {
+    color:@highlightColorDark;
+}
 
 .gwt-MenuBar {
     cursor: default;
-    font-size: 0.8em;
+    font-size: 16px;
 }
+
+.hashbo-board-menu td.gwt-MenuItem {
+    padding:4px;
+    font-size: 16px;
+    font-weight: bold;
+    &:hover {
+        background: #F3F8FF;
+    }
+}
+
 
 .gwt-MenuBar .gwt-MenuItem {
     cursor: default;
@@ -10,7 +28,7 @@
 }
 
 .gwt-MenuBar .gwt-MenuItem-selected {
-    background: #E3E8F3;
+    background: #F3F8FF;
 }
 
 .gwt-MenuBar-horizontal {
@@ -45,9 +63,8 @@
     margin-left: 0px;
     background: white;
     padding: 4px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
+    .border-radius(3px);
+    border:  1px solid #ddd;
 
 }
 

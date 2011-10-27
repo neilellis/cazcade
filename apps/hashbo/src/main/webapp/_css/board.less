@@ -128,7 +128,7 @@
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     margin-bottom:30px;
-    margin-right: -20px;
+    margin-right: 0px;
 }
 .board-top-bar {
     height:40px;
@@ -173,13 +173,15 @@ body.boards-body {
      font-size: 40px;
      padding-top: 25px;
      opacity: 0.95;
+     text-shadow: 1px 1px 1px rgba(0,0,0,0.5) ;
  }
  .board-description {
      display:block;
      clear:left;
      float: left;
-     font-size: 18px;
+     font-size: 15px;
      padding-top:6px;
+     padding-left: 16px;
      opacity: 0.6;
 
  }
@@ -188,7 +190,7 @@ body.boards-body {
 
  .board-share-this-holder {
      margin:8px;
-     width:100%;
+     width:300px;
      text-align: right;
      float: right;
  }
@@ -723,6 +725,35 @@ body.boards-body {
     background-image: @blackTexture;
 
 }
+
+.change-background-panel {
+
+
+
+    strong {
+    }
+    .vortex-image-uploader {
+       margin-top: 8px;
+       width:300px;
+    }
+    .vortex-image-uploader-loader-area {
+      position: absolute;
+      left:270px;
+      top:20px;
+      right:20px;
+
+    }
+    .change-image-url-area {
+      position: absolute;
+      left:270px;
+      top:80px;
+      right:20px;
+
+    }
+
+
+}
+
 
 .hashbo-chat {
     position: absolute;

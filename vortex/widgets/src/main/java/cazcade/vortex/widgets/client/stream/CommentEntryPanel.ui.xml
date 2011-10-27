@@ -7,17 +7,17 @@
             <image:UserProfileImage ui:field="profileImage"/>
         </g:HTMLPanel>
         <div class="comment-entry-main">
-            <strong>
-                <span class="comment-author-fullname-label" ui:field="authorFullname"/>
-                <small>
-                    <span class="comment-author-username-label" ui:field="profileName"/>
-                </small>
-            </strong>
-            <!--<span class="comment-author-follow-badge">Follow</span>-->
-            <span class="comment-entry-message" ui:field="text"/>
             <div class="comment-entry-details">
+                <strong>
+                    <span class="comment-author-fullname-label" ui:field="authorFullname"/>
+                    <small>
+                        <span class="comment-author-username-label" ui:field="profileName"/>
+                    </small>
+                </strong>
                 <date:SelfUpdatingRelativeDate styleName="comment-entry-time" ui:field="dateTime"/>
             </div>
+            <!--<span class="comment-author-follow-badge">Follow</span>-->
+            <span class="comment-entry-message" ui:field="text"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

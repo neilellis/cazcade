@@ -1,4 +1,4 @@
-package cazcade.hashbo.client.main.menus.add;
+package cazcade.hashbo.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -70,10 +70,10 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
         final LSDSimpleEntity view = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.VIEW);
         view.setAttribute(LSDAttribute.VIEW_X, "0");
         view.setAttribute(LSDAttribute.VIEW_Y, "0");
-        if(theme != null) {
-        view.setAttribute(LSDAttribute.THEME, theme);
+        if (theme != null) {
+            view.setAttribute(LSDAttribute.THEME, theme);
         }
-        if(size != null) {
+        if (size != null) {
             view.setAttribute(LSDAttribute.SIZE, size.name().toLowerCase());
         }
         entity.addAnonymousSubEntity(LSDAttribute.VIEW, view);

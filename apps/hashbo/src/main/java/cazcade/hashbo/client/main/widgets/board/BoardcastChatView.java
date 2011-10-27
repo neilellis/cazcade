@@ -1,11 +1,12 @@
 package cazcade.hashbo.client.main.widgets.board;
 
-import cazcade.hashbo.client.main.widgets.BoardMenuBar;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.hashbo.client.StartupUtil;
-import cazcade.liquid.api.LiquidBoardURL;
 import cazcade.hashbo.client.main.widgets.AddChatBox;
-import cazcade.liquid.api.*;
+import cazcade.hashbo.client.main.widgets.BoardMenuBar;
+import cazcade.liquid.api.LiquidBoardURL;
+import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
@@ -14,6 +15,7 @@ import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
+import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.ClientPreferences;
@@ -24,7 +26,8 @@ import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import cazcade.vortex.widgets.client.stream.ChatStreamPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
-import com.google.gwt.dom.client.*;
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -33,7 +36,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ToggleButton;
 
 
 /**
@@ -77,9 +82,9 @@ public class BoardcastChatView extends EntityBackedFormPanel {
             public void onValueChange(ValueChangeEvent<Boolean> booleanValueChangeEvent) {
                 ClientPreferences.setBooleanPreference(ClientPreferences.Preference.RHS_HIDE, booleanValueChangeEvent.getValue());
                 if (!booleanValueChangeEvent.getValue()) {
-                   showRhs();
+                    showRhs();
                 } else {
-                   hideRhs();
+                    hideRhs();
                 }
             }
         });
@@ -156,9 +161,9 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                         if (poolEntity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
 //                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
-                            menuBar.setUri(poolURI, true);
+                            menuBar.init(poolEntity, true, null);
                         } else {
-                            menuBar.setUri(poolURI, false);
+                            menuBar.init(poolEntity, false, null);
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
 
                         }
@@ -241,7 +246,6 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     private void hideRhs() {
         rhs.getElement().getStyle().setRight(Window.getClientWidth() - (PoolContentArea.DEFAULT_WIDTH + 500), Style.Unit.PX);
     }
-
 
 
     private class RHSMouseOutHandler implements MouseOutHandler {

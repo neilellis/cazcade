@@ -1,4 +1,4 @@
-package cazcade.hashbo.client.main.menus.add;
+package cazcade.hashbo.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;

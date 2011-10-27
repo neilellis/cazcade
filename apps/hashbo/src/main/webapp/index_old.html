@@ -52,14 +52,14 @@
             link.title = title;
 
             head.appendChild(link);
-            var handle = window.setInterval( function(){
-                if( document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth==42 ) {
+            var handle = window.setInterval(function() {
+                if (document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth == 42) {
                     if (callback) {
                         callback();
                     }
                     window.clearInterval(handle);
                 }
-            }, 30 );
+            }, 30);
 
         }
 
@@ -346,7 +346,7 @@
         </div>
     </div>
 </div>
-<div tabindex="0" role="menubar" class="hashbo-add-menu"
+<div tabindex="0" role="menubar" class="hashbo-board-menu"
      style="outline-width: 0px; outline-style: initial; outline-color: initial; " hidefocus="true"><input
         type="text" tabindex="-1"
         style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow-x: hidden; overflow-y: hidden; position: absolute; ">
@@ -379,6 +379,7 @@
 </script>
 
 <span id="sharethis" class='st_sharethis' displayText='' style="visibility: hidden"></span>
-    <div id="stylesheet-loaded" style="visibility:hidden"></div>
+
+<div id="stylesheet-loaded" style="visibility:hidden"></div>
 </body>
 </html>

@@ -1,11 +1,25 @@
+.vortex-add-comment-box {
+    position: relative;
+    margin-bottom: 10px;
+    width:100%;
+    button {
+        position: absolute;
+        top:30px;
+        right: 180px;
+    }
+}
+
+
 .hashbo-chat {
     .vortex-add-comment-box {
+        position: relative;
         margin-bottom: 10px;
         width:100%;
         background-color: #eee;
     }
-
 }
+
+
 
 .comment-panel {
     margin-top: 16px;
@@ -24,7 +38,7 @@
         }
 
         .comment-entry-main {
-            .span10;
+            .span14;
             .gridColumn();
 
             .comment-author-fullname-label {
@@ -36,16 +50,17 @@
             }
 
             .comment-entry-message {
-                .span9;
-                .gridColumn();
                 font-size:16px;
             }
 
             .comment-entry-details {
-                .span9;
                 .gridColumn();
                  color:#aaa;
                  font-size:0.9em;
+            }
+
+            .comment-entry-time {
+                float:right;
             }
 
             .comment-author-follow-badge {

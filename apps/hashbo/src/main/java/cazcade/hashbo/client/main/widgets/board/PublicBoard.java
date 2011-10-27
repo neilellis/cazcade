@@ -1,10 +1,8 @@
 package cazcade.hashbo.client.main.widgets.board;
 
-import cazcade.hashbo.client.main.widgets.BoardMenuBar;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.hashbo.client.StartupUtil;
 import cazcade.hashbo.client.main.widgets.AddCommentBox;
-import cazcade.hashbo.client.main.widgets.toolbar.HashboToolbarIcon;
+import cazcade.hashbo.client.main.widgets.BoardMenuBar;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -16,15 +14,13 @@ import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
+import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.pool.widgets.PoolContentArea;
-import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
-import cazcade.vortex.widgets.client.image.ImageOption;
-import cazcade.vortex.widgets.client.image.ImageSelection;
 import cazcade.vortex.widgets.client.profile.AliasDetailFlowPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
@@ -46,7 +42,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * @author neilellis@cazcade.com
@@ -54,10 +51,11 @@ import com.google.gwt.user.client.ui.*;
 public class PublicBoard extends EntityBackedFormPanel {
 
     private long updatePoolListener;
+    private ChangeBackgroundDialog changeBackgroundDialog;
 
     public void bind(LSDEntity entity) {
         super.bind(entity);
-        addBinding(changeBackgroundPanel, LSDAttribute.IMAGE_URL);
+        addBinding(changeBackgroundDialog, LSDAttribute.IMAGE_URL);
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
@@ -131,14 +129,6 @@ public class PublicBoard extends EntityBackedFormPanel {
         shareThisHolder.getElement().appendChild(sharethis.getElement());
 
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
-        lockIcon.addHandler(new LockIconClickHandler(true), ClickEvent.getType());
-        unlockIcon.addHandler(new LockIconClickHandler(false), ClickEvent.getType());
-        personalIcon.addHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                Window.alert("This will create a personal version of the board. Feature coming soon ...");
-            }
-        }, ClickEvent.getType());
         if (poolURI != null) {
             refresh();
         }
@@ -241,7 +231,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         comments.clear();
         LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER);
 
-        if(entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
+        if (entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
             addStyleName("modifiable-board");
         } else {
             removeStyleName("modifiable-board");
@@ -266,28 +256,13 @@ public class PublicBoard extends EntityBackedFormPanel {
         ownerDetailPanel.setAliasURI(owner.getURI());
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         publishDate.setInnerText(getEntity().getPublished().toString());
-        imageSelector.setSelectionAction(new ImageSelection.SelectionAction() {
-            @Override
-            public void onSelect(ImageOption imageOption) {
-                changeBackgroundPanel.setValue(imageOption.getUrl());
-                changeBackgroundPanel.callOnChangeAction();
-            }
-        });
 
 //        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
 //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
 //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
 
         boolean adminPermission = getEntity().getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
-        controls.setVisible(adminPermission);
 
-        if (getEntity().hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
-            unlockIcon.setVisible(false);
-            lockIcon.setVisible(true);
-        } else {
-            unlockIcon.setVisible(true);
-            lockIcon.setVisible(false);
-        }
 
         GWT.runAsync(new RunAsyncCallback() {
             @Override
@@ -304,10 +279,10 @@ public class PublicBoard extends EntityBackedFormPanel {
                     final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-                        menuBar.setUri(poolURI, true);
+                        menuBar.init(getEntity(), true, changeBackgroundDialog);
                         boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
                     } else {
-                        menuBar.setUri(poolURI, false);
+                        menuBar.init(getEntity(), false, changeBackgroundDialog);
                         boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
 
                     }
@@ -334,7 +309,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
 
     private native static void replaceState(String title, String state) /*-{
-        if(window.history.replaceState != 'undefined') {
+        if (window.history.replaceState != 'undefined') {
             window.history.replaceState(state, title, state);
         }
     }-*/;
@@ -350,23 +325,11 @@ public class PublicBoard extends EntityBackedFormPanel {
     @UiField
     BoardMenuBar menuBar;
     @UiField
-    HashboToolbarIcon lockIcon;
-    @UiField
-    HashboToolbarIcon personalIcon;
-    @UiField
     DivElement boardLockedIcon;
     @UiField
     HTMLPanel shareThisHolder;
     @UiField
     AliasDetailFlowPanel ownerDetailPanel;
-    @UiField
-    ChangeImageUrlPanel changeBackgroundPanel;
-    @UiField
-    ImageSelection imageSelector;
-    @UiField
-    HashboToolbarIcon unlockIcon;
-    @UiField
-    HTMLPanel controls;
     @UiField
     SpanElement authorFullname;
     @UiField
@@ -395,6 +358,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 sizeNotificationPanel();
             }
         });
+        changeBackgroundDialog = new ChangeBackgroundDialog();
     }
 
     private void sizeNotificationPanel() {
