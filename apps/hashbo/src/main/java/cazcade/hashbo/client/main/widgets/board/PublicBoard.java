@@ -90,6 +90,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     public void navigate(String value) {
         if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
+            return;
         }
         previousPoolURI = poolURI;
         poolURI = new LiquidURI(LiquidBoardURL.convertFromShort(value));
