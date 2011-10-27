@@ -2,7 +2,6 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import com.google.gwt.http.client.URL;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Image;
 
 /**
@@ -24,8 +23,8 @@ public class CachedImage extends Image {
 
     private String defaultUrl;
     private String url;
-    private String notReadyText="No Image";
-    private boolean cached= true;
+    private String notReadyText = "No Image";
+    private boolean cached = true;
 
     public CachedImage(String url, String size) {
         setSize(size);
@@ -35,8 +34,8 @@ public class CachedImage extends Image {
     @Override
     protected void onAttach() {
         super.onAttach();
-        if(super.getUrl() == null || super.getUrl().isEmpty()) {
-            super.setUrl("http://placehold.it/" + getOffsetWidth() + "x" + getOffsetHeight() + "&text="+URL.encode(notReadyText));
+        if (super.getUrl() == null || super.getUrl().isEmpty()) {
+            super.setUrl("http://placehold.it/" + getOffsetWidth() + "x" + getOffsetHeight() + "&text=" + URL.encode(notReadyText));
         }
     }
 
@@ -50,7 +49,7 @@ public class CachedImage extends Image {
 
     @Override
     public void setUrl(String url) {
-        String oldUrl= this.url;
+        String oldUrl = this.url;
         this.url = url;
         updateImageUrl();
         if (isAttached() && (oldUrl == null || !oldUrl.equals(url)) && onChangeAction != null) {
@@ -70,9 +69,9 @@ public class CachedImage extends Image {
         if (url != null) {
             if (CACHING && cached) {
                 if (url.startsWith("http")) {
-                    super.setUrl("./image.service?url=" + URL.encode(url) + "&size=" + size);
+                    super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size);
                 } else {
-                    super.setUrl("./image.service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeight());
+                    super.setUrl("./_image-service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeight());
                 }
             } else {
                 super.setUrl(url);

@@ -43,24 +43,29 @@
                 <div class="boards-list-item">
                     <div class="boards-list-item-inner">
                             <%--<a href="#"><img class="thumbnail" src="http://placehold.it/80x60" alt=""></a>--%>
-                        <a href="./<c:url value='${board.shortUrl}'/>" alt="${board.description}" title="${board.description}">
+                        <a href="./<c:url value='${board.shortUrl}'/>" alt="${board.description}"
+                           title="${board.description}">
                             <div class="board-image-wrapper">
                                 <img class="thumbnail"
-                                     src='image.service?url=<c:url value="${board.iconUrl}"/>&size=CLIPPED_MEDIUM&width=300&height=200'
+                                     src='_image-service?url=<c:url value="${board.iconUrl}"/>&size=CLIPPED_MEDIUM&width=300&height=200'
                                      width="80"
-                                     height="60" alt="" >
+                                     height="60" alt="">
                             </div>
                         </a>
 
 
                         <div class="boards-list-caption-area">
 
-                                <div class="boards-list-board-owner">${board.authorFn}</div>
+                            <div class="boards-list-board-owner">${board.authorFn}</div>
                             <div class="boards-list-board-title"><a
-                                    href="./#<c:url value='${board.shortUrl}'/>"><c:out value="${board.title}" default="#${board.title}"/></a></div>
+                                    href="./#<c:url value='${board.shortUrl}'/>"><c:out value="${board.title}"
+                                                                                        default="#${board.title}"/></a>
+                            </div>
 
 
-                            <div class="boards-list-board-comment-count"><c:out value="${board.commentsCount}" default="no"/>&nbsp;comments</div>
+                            <div class="boards-list-board-comment-count"><c:out value="${board.commentsCount}"
+                                                                                default="no"/>&nbsp;comments
+                            </div>
                         </div>
 
                     </div>

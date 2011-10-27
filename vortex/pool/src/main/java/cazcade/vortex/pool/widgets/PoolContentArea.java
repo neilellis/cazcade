@@ -15,10 +15,8 @@ import cazcade.vortex.pool.PoolPresenterImpl;
 import cazcade.vortex.pool.api.PoolPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenterFactory;
-import cazcade.vortex.widgets.client.image.CachedImage;
 import cazcade.vortex.widgets.client.panels.scroll.VortexScrollPanel;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
@@ -28,7 +26,7 @@ import com.google.gwt.user.client.ui.*;
 
 import java.util.List;
 
-import static com.google.gwt.http.client.URL.*;
+import static com.google.gwt.http.client.URL.encode;
 
 /**
  * @author neilellis@cazcade.com
@@ -116,7 +114,7 @@ public class PoolContentArea extends Composite {
     public void setBackgroundImage(String imageUrl) {
         if (backgroundImage != null && imageUrl != null) {
 //            Window.alert("setting background "+imageUrl);
-            backgroundImage.getElement().getStyle().setProperty("backgroundImage","url('./image.service?url="+ encode(imageUrl)+"&size=CLIPPED_LARGE')");
+            backgroundImage.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=CLIPPED_LARGE')");
             backgroundImage.getElement().getStyle().setWidth(1024, Style.Unit.PX);
         }
     }

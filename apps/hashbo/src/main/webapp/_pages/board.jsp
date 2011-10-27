@@ -86,7 +86,7 @@
 </div>
 
 <script type="text/javascript" language="javascript"
-        src="cazcade.hashbo.Boardcast/cazcade.hashbo.Boardcast.nocache.js"></script>
+        src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 
 </body>
 </html>

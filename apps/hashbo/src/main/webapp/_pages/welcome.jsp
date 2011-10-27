@@ -40,8 +40,10 @@
                     <div class="welcome-block-inner">
 
                         <p><span class="larger">Realtime Noticeboards</span> help you keep everyone up to date with
-                            relevant information without them having to sift through your entire Twitter timeline. Our Realtime
-                            Noticeboards show the bigger picture of what's going with photo, videos notes and more. Maybe you'd
+                            relevant information without them having to sift through your entire Twitter timeline. Our
+                            Realtime
+                            Noticeboards show the bigger picture of what's going with photo, videos notes and more.
+                            Maybe you'd
                             like to provide information during an event,
                             keep the rest of your club informed or share your thoughts with others. It's simple, social,
                             instant and visual.
@@ -96,7 +98,7 @@
 </div>
 
 <%--<script type="text/javascript" language="javascript"--%>
-<%--src="cazcade.hashbo.BoardcastMain/cazcade.hashbo.BoardcastMain.nocache.js"></script>--%>
+<%--src="_boardcast_gwtMain/_boardcast_gwtMain.nocache.js"></script>--%>
 
 
 <!-- /container -->

@@ -209,7 +209,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DataStoreService</servlet-name>
-        <url-pattern>/cazcade.hashbo.Boardcast/DataStoreService</url-pattern>
+        <url-pattern>/_boardcast_gwt/DataStoreService</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>UUIDService</servlet-name>
@@ -217,7 +217,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UUIDService</servlet-name>
-        <url-pattern>/cazcade.hashbo.Boardcast/UUIDService</url-pattern>
+        <url-pattern>/_boardcast_gwt/UUIDService</url-pattern>
     </servlet-mapping>
 
 
@@ -243,7 +243,7 @@
 
     <servlet-mapping>
         <servlet-name>image</servlet-name>
-        <url-pattern>/image.service</url-pattern>
+        <url-pattern>/_image-service</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -253,10 +253,10 @@
 
     <servlet-mapping>
         <servlet-name>cazcade.hashbo.Boardcast ScriptService</servlet-name>
-        <url-pattern>/cazcade.hashbo.Boardcast/ScriptService</url-pattern>
+        <url-pattern>/_boardcast_gwt/ScriptService</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>cazcade.hashbo.Boardcast BuildVersionService</servlet-name>
-        <url-pattern>/cazcade.hashbo.Boardcast/BuildVersionService</url-pattern>
+        <url-pattern>/_boardcast_gwt/BuildVersionService</url-pattern>
     </servlet-mapping>
 </web-app>

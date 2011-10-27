@@ -23,11 +23,11 @@
 
     <rule>
         <from>^/_create-listed$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}&amp;create=listed</to>
+        <to type="forward">/_pages/board.jsp?%{query-string}&amp;create=listed&amp;board=</to>
     </rule>
     <rule>
         <from>^/_create-unlisted$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}&amp;create=unlisted</to>
+        <to type="forward">/_pages/board.jsp?%{query-string}&amp;create=unlisted&amp;board=</to>
     </rule>
     <!--<rule>-->
     <!--<from>^/~(.*)$</from>-->

@@ -1,7 +1,7 @@
 package cazcade.hashbo.client;
 
-import cazcade.hashbo.client.main.widgets.board.BoardcastChatView;
 import cazcade.hashbo.client.main.version.VersionNumberChecker;
+import cazcade.hashbo.client.main.widgets.board.BoardcastChatView;
 import cazcade.hashbo.client.main.widgets.board.CreateBoardDialog;
 import cazcade.hashbo.client.main.widgets.board.PublicBoard;
 import cazcade.hashbo.client.main.widgets.login.HashboLoginOrRegisterPanel;
@@ -28,8 +28,6 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.FrameElement;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
@@ -49,6 +47,7 @@ public class Boardcast implements EntryPoint {
     private boolean createListedRequest;
     private boolean createUnlistedRequest;
     private boolean registerRequest;
+    private boolean createRequest;
 
     public void onModuleLoad() {
 //        Window.alert(History.getToken());
@@ -89,6 +88,7 @@ public class Boardcast implements EntryPoint {
 
 
         final String createParam = Window.Location.getParameter("create");
+        createRequest = createParam != null;
         createListedRequest = createParam != null && createParam.equals("listed");
         createUnlistedRequest = createParam != null && createParam.equals("unlisted");
         final String registerParam = Window.Location.getParameter("register");
@@ -119,7 +119,7 @@ public class Boardcast implements EntryPoint {
                 }
             };
             Runnable loginAction = loginBoardAction;
-            if (createListedRequest && History.getToken().isEmpty()) {
+            if (createRequest && Window.Location.getHash().isEmpty()) {
                 loginAction = new Runnable() {
                     @Override
                     public void run() {
@@ -145,7 +145,7 @@ public class Boardcast implements EntryPoint {
                                                     });
                                                 } else {
                                                     if (board.isEmpty()) {
-                                                        board =  Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36)+"-@"+UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
+                                                        board = Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36) + "-@" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
                                                     }
                                                     History.newItem(board);
                                                 }
@@ -217,8 +217,8 @@ public class Boardcast implements EntryPoint {
 
     private void checkUserLoggedIn(final Runnable loginAction) {
         final LiquidSessionIdentifier identity = UserUtil.retrieveUser();
-        if (identity == null || identity.getSession() == null || registerRequest || (createListedRequest && UserUtil.isAnonymousOrLoggedOut())) {
-            DataStoreService.App.getInstance().loginQuick(!ClientApplicationConfiguration.isLoginRequired() && !createListedRequest && !registerRequest, new AsyncCallback<LiquidSessionIdentifier>() {
+        if (identity == null || identity.getSession() == null || registerRequest || (createRequest && UserUtil.isAnonymousOrLoggedOut())) {
+            DataStoreService.App.getInstance().loginQuick(!ClientApplicationConfiguration.isLoginRequired() && !createRequest && !registerRequest, new AsyncCallback<LiquidSessionIdentifier>() {
                 @Override
                 public void onFailure(Throwable caught) {
                     ClientLog.log(caught);
