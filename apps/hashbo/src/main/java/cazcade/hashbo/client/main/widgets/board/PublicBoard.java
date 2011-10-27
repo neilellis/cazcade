@@ -88,7 +88,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     public void navigate(String value) {
-        if (value == null || value.startsWith(".") || value.isEmpty()) {
+        if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
         }
         previousPoolURI = poolURI;

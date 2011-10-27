@@ -22,7 +22,7 @@
     </rule>
 
     <rule>
-        <from>^/_create-listed$</from>
+        <from>^/_create$</from>
         <to type="forward">/_pages/board.jsp?%{query-string}&amp;create=listed&amp;board=</to>
     </rule>
     <rule>

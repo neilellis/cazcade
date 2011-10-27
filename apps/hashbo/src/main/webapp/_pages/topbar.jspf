@@ -8,7 +8,7 @@
                 <li><a href="./_query-new">New</a></li>
                 <li><a href="./_query-history">Visited</a></li>
                 <li><a href="./_query-my">My</a></li>
-                <li><a href="./_create-listed">Create</a></li>
+                <li><a href="./_create">Create</a></li>
                 <c:if test="${empty sessionScope.username}">
                     <li><a href="#@${sessionScope.username}">${sessionScope.fullname}</a></li>
                 </c:if>
