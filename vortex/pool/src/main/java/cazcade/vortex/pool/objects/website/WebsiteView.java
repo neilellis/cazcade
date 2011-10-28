@@ -3,8 +3,11 @@ package cazcade.vortex.pool.objects.website;
 import cazcade.vortex.pool.objects.PoolObjectView;
 import cazcade.vortex.widgets.client.image.CachedImage;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
@@ -13,8 +16,11 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class WebsiteView extends PoolObjectView {
 
 
+    private String url;
+
     public void setUrl(String url) {
         website.setUrl(url);
+        this.url = url;
     }
 
 
@@ -32,6 +38,14 @@ public class WebsiteView extends PoolObjectView {
     public WebsiteView() {
         HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
+        addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                if (!isEditable()) {
+                    Window.open(url, "website", "");
+                }
+            }
+        });
     }
 
     @Override
