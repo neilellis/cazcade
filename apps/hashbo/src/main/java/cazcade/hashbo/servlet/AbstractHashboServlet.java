@@ -56,8 +56,8 @@ public class AbstractHashboServlet extends HttpServlet {
 
     }
 
-    protected LiquidSessionIdentifier getLiquidSessionId() {
-        return new LiquidSessionIdentifier("admin", null);
+    protected LiquidSessionIdentifier getLiquidSessionId(HttpSession session) {
+        return (LiquidSessionIdentifier) session.getAttribute(SESSION_KEY);
     }
 
     protected List<Map<String, String>> makeJSPFriendly(List<LSDEntity> entities) {

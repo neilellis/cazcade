@@ -52,7 +52,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             String queryName = req.getParameter("query");
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
-            BoardQueryRequest response = dataStore.process(new BoardQueryRequest(getLiquidSessionId(), type, alias));
+            BoardQueryRequest response = dataStore.process(new BoardQueryRequest(getLiquidSessionId(req.getSession(true)), type, alias));
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
             List<LSDEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             req.setAttribute("boards", makeJSPFriendly(boards));
