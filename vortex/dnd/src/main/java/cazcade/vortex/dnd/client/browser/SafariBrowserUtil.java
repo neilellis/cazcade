@@ -17,7 +17,7 @@ public class SafariBrowserUtil extends BrowserUtil {
 
     @Override
     public void translateXY(Widget widget, double x, double y, int millisecondTransitionTime) {
-        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
+//        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "webkitTransform", "translate3d(" + x + "px," + y + "px, 0px)");
     }
 
@@ -28,17 +28,17 @@ public class SafariBrowserUtil extends BrowserUtil {
 
     @Override
     public void resize(Widget widget, Integer width, Integer height, int millisecondTransitionTime) {
-        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
+//        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "width", width + "px");
         DOM.setStyleAttribute(widget.getElement(), "height", height + "px");
     }
 
     @Override
     public void rotate(Widget widget, Double rotationInDegrees, int millisecondTransitionTime) {
-        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
+//        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "webkitTransform", "rotate(" + rotationInDegrees + "deg)");
     }
-    
+
     @Override
     public boolean isVisibleKeyPress(int keyCode) {
         return (keyCode != KeyCodes.KEY_TAB)

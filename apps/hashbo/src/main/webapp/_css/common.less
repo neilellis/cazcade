@@ -132,6 +132,41 @@
     -moz-transition: left ease-in-out @duration;
 }
 
+
+.transition1(@transition) {
+	-webkit-transition: @transition;
+	   -moz-transition: @transition;
+ 	    -ms-transition: @transition;
+	     -o-transition: @transition;
+	        transition: @transition;
+}
+
+.transition2(@transition1, @transition2) {
+	-webkit-transition: @transition1, @transition2;
+	   -moz-transition: @transition1,  @transition2;
+ 	    -ms-transition: @transition1,  @transition2;
+	     -o-transition: @transition1,  @transition2;
+	        transition: @transition1,  @transition2;
+}
+
+.transition3(@transition1, @transition2, @transition3) {
+	-webkit-transition: @transition1, @transition2, @transition3;
+	   -moz-transition: @transition1,  @transition2, @transition3;
+ 	    -ms-transition: @transition1,  @transition2, @transition3;
+	     -o-transition: @transition1,  @transition2, @transition3;
+	        transition: @transition1,  @transition2, @transition3;
+}
+
+
+.transition4(@transition1, @transition2, @transition3, @transition4) {
+	-webkit-transition: @transition1, @transition2, @transition3, @transition4;
+	   -moz-transition: @transition1,  @transition2, @transition3, @transition4;
+ 	    -ms-transition: @transition1,  @transition2, @transition3, @transition4;
+	     -o-transition: @transition1,  @transition2, @transition3, @transition4;
+	        transition: @transition1,  @transition2, @transition3, @transition4;
+}
+
+
 .transform(@transform) {
 	-webkit-transform: @transform;
 	   -moz-transform: @transform;

@@ -1,11 +1,12 @@
 package cazcade.vortex.gwt.util.client;
 
-import com.google.gwt.core.client.RunAsyncCallback;
-import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.InsertPanel;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class WidgetUtil {
         }
 
     }
+
     public static void removeFromParentGracefully(final IsWidget widgetToRemove, int transitionDelay) {
         widgetToRemove.asWidget().getElement().getStyle().setOpacity(0.0);
         new Timer() {
@@ -40,7 +42,7 @@ public class WidgetUtil {
     }
 
     public static void removeFromParentGracefully(final IsWidget widgetToRemove) {
-        removeFromParentGracefully(widgetToRemove,  500);
+        removeFromParentGracefully(widgetToRemove, 500);
     }
 
     public static void swap(Widget widget, Widget replacement) {
@@ -85,7 +87,7 @@ public class WidgetUtil {
     public static void showGracefully(IsWidget widget, boolean verticalFlow) {
         widget.asWidget().getElement().getStyle().setOpacity(1.0);
         widget.asWidget().getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
-        if(verticalFlow) {
+        if (verticalFlow) {
             widget.asWidget().getElement().getStyle().setProperty("maxHeight", "100%");
         }
     }
@@ -98,7 +100,8 @@ public class WidgetUtil {
             public void run() {
                 widget.asWidget().setVisible(false);
             }
-        }.schedule(500);    }
+        }.schedule(500);
+    }
 
     public static void hide(final IsWidget widget, boolean verticalFlow) {
         final Widget element = widget.asWidget();
@@ -112,7 +115,7 @@ public class WidgetUtil {
     private static void hide(Element element, boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.HIDDEN);
         element.getStyle().setOpacity(0.0);
-        if(verticalFlow) {
+        if (verticalFlow) {
             element.getStyle().setProperty("maxHeight", "0%");
         }
     }
@@ -120,7 +123,7 @@ public class WidgetUtil {
     public static void hide(com.google.gwt.dom.client.Element element, boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.HIDDEN);
         element.getStyle().setOpacity(0.0);
-        if(verticalFlow) {
+        if (verticalFlow) {
             element.getStyle().setProperty("maxHeight", "0%");
         }
     }
@@ -128,7 +131,7 @@ public class WidgetUtil {
     public static void showGracefully(com.google.gwt.dom.client.Element element, boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.VISIBLE);
         element.getStyle().setOpacity(1.0);
-        if(verticalFlow) {
+        if (verticalFlow) {
             element.getStyle().setProperty("maxHeight", "100%");
         }
     }
@@ -136,5 +139,11 @@ public class WidgetUtil {
 
     public static int secondsFromBeginningOfBoardcastEpoch() {
         return (int) ((System.currentTimeMillis() - BEGINNING_OF_BOARDCAST_TIME) / 1000);
+    }
+
+    public static void addGracefully(ComplexPanel panel, IsWidget view) {
+        view.asWidget().getElement().getStyle().setOpacity(0.0);
+        panel.add(view);
+        view.asWidget().getElement().getStyle().setOpacity(1.0);
     }
 }

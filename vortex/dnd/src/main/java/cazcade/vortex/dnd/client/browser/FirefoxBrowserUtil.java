@@ -9,8 +9,6 @@ import com.google.gwt.user.client.ui.Widget;
 public class FirefoxBrowserUtil extends BrowserUtil {
 
 
-
-
     @Override
     public void initDraggable(Widget widget) {
 //        DOM.setStyleAttribute(widget.getElement(), "mozTransitionProperty", "-moz-transform, top, left");
@@ -19,7 +17,7 @@ public class FirefoxBrowserUtil extends BrowserUtil {
 
     @Override
     public void translateXY(Widget widget, double x, double y, int millisecondTransitionTime) {
-        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
+//        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "MozTransform", "translate(" + x + "px," + y + "px)");
     }
 
@@ -30,14 +28,14 @@ public class FirefoxBrowserUtil extends BrowserUtil {
 
     @Override
     public void resize(Widget widget, Integer width, Integer height, int millisecondTransitionTime) {
-        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
+//        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "width", width + "px");
         DOM.setStyleAttribute(widget.getElement(), "height", height + "px");
     }
 
     @Override
     public void rotate(Widget widget, Double rotationInDegrees, int millisecondTransitionTime) {
-        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
+//        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "MozTransform", "rotate(" + rotationInDegrees + "deg)");
     }
 

@@ -46,10 +46,6 @@ public class PoolContentArea extends Composite {
     private PoolPresenter poolPresenter;
     private boolean pageFlow;
 
-    @UiField
-    HTMLPanel backgroundImage;
-
-
     public PoolContentArea() {
         this(false, false);
     }
@@ -112,10 +108,10 @@ public class PoolContentArea extends Composite {
     }
 
     public void setBackgroundImage(String imageUrl) {
-        if (backgroundImage != null && imageUrl != null) {
+        if (container != null && imageUrl != null) {
 //            Window.alert("setting background "+imageUrl);
-            backgroundImage.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=CLIPPED_LARGE')");
-            backgroundImage.getElement().getStyle().setWidth(1024, Style.Unit.PX);
+            container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=CLIPPED_LARGE')");
+            container.getElement().getStyle().setWidth(1024, Style.Unit.PX);
         }
     }
 

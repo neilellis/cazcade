@@ -44,7 +44,7 @@ public class WebsiteView extends PoolObjectView {
                 website.setHeight(SMALL_HEIGHT + "px");
             }
             if (size.equals(MEDIUM)) {
-                website.setSize(CachedImage.LARGE);
+                website.setSize(CachedImage.CLIPPED_LARGE);
                 website.setWidth(MEDIUM_WIDTH + "px");
                 website.setHeight(MEDIUM_HEIGHT + "px");
             }

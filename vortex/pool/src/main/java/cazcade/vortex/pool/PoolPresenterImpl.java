@@ -7,28 +7,32 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
+import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.pool.api.PoolObjectContainer;
 import cazcade.vortex.pool.api.PoolObjectPresenterContainer;
 import cazcade.vortex.pool.api.PoolPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import cazcade.vortex.widgets.client.panels.scroll.VortexScrollPanel;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
+
 
 /**
  * @author neilellis@cazcade.com
  */
 public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
-    public static final int BORDER_BEFORE_PAGEFLOW_STARTS = 100;
+    public static final int BORDER_BEFORE_PAGEFLOW_STARTS = 25;
+    public static final int DEFAULT_HEIGHT = 636;
     private VortexScrollPanel scrollPanel;
     private AbsolutePanel panel;
     private LSDEntity entity;
     private boolean pageFlow;
     private VortexThreadSafeExecutor threadSafeExecutor;
     private int width = 1024;
-    private int height = 690;
+    private int height = DEFAULT_HEIGHT;
 
     private final PoolObjectContainerManager poolObjectContainerManager;
 
@@ -37,7 +41,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         this(scrollPanel, panel, entity, false, features, threadSafeExecutor);
     }
 
-    public PoolPresenterImpl(VortexScrollPanel scrollPanel, AbsolutePanel panel, final LSDEntity entity, boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(VortexScrollPanel scrollPanel, final AbsolutePanel panel, final LSDEntity entity, boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
         this.panel = panel;
         this.entity = entity;
@@ -48,6 +52,24 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         }
         this.threadSafeExecutor = threadSafeExecutor;
         poolObjectContainerManager = new PoolObjectContainerManager(this, threadSafeExecutor, entity.getURI(), features);
+        if (pageFlow) {
+            new Timer() {
+                @Override
+                public void run() {
+                    final int widgetCount = panel.getWidgetCount();
+                    int minHeight = DEFAULT_HEIGHT;
+                    for (int i = 0; i < widgetCount; i++) {
+                        final Widget widget = panel.getWidget(i);
+                        final int maxY = widget.getAbsoluteTop() + widget.getOffsetHeight();
+                        if (maxY > minHeight) {
+                            minHeight = maxY + BORDER_BEFORE_PAGEFLOW_STARTS;
+                        }
+                    }
+                    height = minHeight;
+                    adjustHeight();
+                }
+            }.scheduleRepeating(1000);
+        }
 
     }
 
@@ -98,37 +120,43 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
                 ClientLog.log("Offending widget was " + widget);
                 throw new IllegalArgumentException("Pool widget does not have this as a parent, check the log for more information.");
             } else {
-                double newX= x;
-                double newY= y;
-                if(newX > width-widget.getOffsetWidth()) {
-                    newX= width-widget.getOffsetWidth();
+                double newX = x;
+                double newY = y;
+                if (newX > width - widget.getOffsetWidth()) {
+                    newX = width - widget.getOffsetWidth();
                 }
-                if(newX < 0) {
-                    newX= 0;
+                if (newX < 0) {
+                    newX = 0;
                 }
-                if(newY < 0) {
-                    newY= 0;
+                if (newY < 0) {
+                    newY = 0;
                 }
 
-                if(!pageFlow) {
-                    if(newY > height-widget.getOffsetHeight()) {
-                        newY= height-widget.getOffsetHeight();
+                if (!pageFlow) {
+                    if (newY > height - widget.getOffsetHeight()) {
+                        newY = height - widget.getOffsetHeight();
                     }
                 }
-                panel.setWidgetPosition(widget, (int)newX, (int) newY);
+                panel.setWidgetPosition(widget, (int) newX, (int) newY);
                 presenter.setX(newX);
                 presenter.setY(newY);
-                if (pageFlow) {
-                    final int newHeight = (int) newY + widget.getOffsetHeight() + 20;
-                    if (newHeight > (height - BORDER_BEFORE_PAGEFLOW_STARTS)) {
-                        height = newHeight + BORDER_BEFORE_PAGEFLOW_STARTS;
-                        scrollPanel.setHeight(height + "px");
-                        panel.setHeight(height + "px");
-                    }
-                }
+                //No done in the timer thread
+
+//                if (pageFlow) {
+//                    final int newHeight = (int) newY + widget.getOffsetHeight() + 20;
+//                    if (newHeight > (height - BORDER_BEFORE_PAGEFLOW_STARTS)) {
+//                        height = newHeight + BORDER_BEFORE_PAGEFLOW_STARTS;
+//                        adjustHeight();
+//                    }
+//                }
             }
             poolObjectContainerManager.checkForCollisions(presenter);
         }
+    }
+
+    private void adjustHeight() {
+        scrollPanel.setHeight(height + "px");
+        panel.setHeight(height + "px");
     }
 
     @Override
@@ -202,10 +230,10 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     public void addView(Widget view) {
-        panel.add(view);
+        WidgetUtil.addGracefully(panel, view);
     }
 
     public void removeView(Widget widget) {
-        panel.remove(widget);
+        WidgetUtil.removeFromParentGracefully(widget);
     }
 }

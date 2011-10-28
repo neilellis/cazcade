@@ -1,6 +1,5 @@
 package cazcade.vortex.pool.objects;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.dnd.client.gesture.drag.DragEvent;
 import cazcade.vortex.dnd.client.gesture.drag.DragHandler;
@@ -42,7 +41,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     public static final int SMALL_HEIGHT = (int) ((BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
     public static final int MEDIUM_WIDTH = (int) (BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_WIDTH;
     public static final int MEDIUM_HEIGHT = (int) ((BOARD_WIDTH / GOLDEN_RATIO) / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
-    public static final int LARGE_WIDTH = BOARD_WIDTH - BORDER*2;
+    public static final int LARGE_WIDTH = BOARD_WIDTH - ADDITIONAL_WIDTH;
     public static final int LARGE_HEIGHT = (int) ((BOARD_WIDTH) / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
 
     private Runnable onDelete;

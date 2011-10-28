@@ -12,14 +12,16 @@ import cazcade.vortex.pool.objects.checklist.ChecklistPresenter;
 import cazcade.vortex.pool.objects.checklist.ChecklistView;
 import cazcade.vortex.pool.objects.image.ImagePresenter;
 import cazcade.vortex.pool.objects.image.ImageView;
-import cazcade.vortex.pool.objects.photo.PhotoPresenter;
-import cazcade.vortex.pool.objects.photo.PhotoView;
 import cazcade.vortex.pool.objects.microblog.MicroBlogPresenter;
 import cazcade.vortex.pool.objects.microblog.MicroBlogView;
+import cazcade.vortex.pool.objects.photo.PhotoPresenter;
+import cazcade.vortex.pool.objects.photo.PhotoView;
 import cazcade.vortex.pool.objects.richtext.CaptionView;
 import cazcade.vortex.pool.objects.richtext.NoteView;
 import cazcade.vortex.pool.objects.richtext.RichTextPresenter;
 import cazcade.vortex.pool.objects.richtext.StickyView;
+import cazcade.vortex.pool.objects.website.WebsitePresenter;
+import cazcade.vortex.pool.objects.website.WebsiteView;
 import cazcade.vortex.pool.objects.youtube.YouTubePresenter;
 import cazcade.vortex.pool.objects.youtube.YouTubeView;
 
@@ -31,8 +33,10 @@ public class PoolObjectPresenterFactory {
     public static PoolObjectPresenter getPresenterForEntity(PoolPresenter poolPresenter, LSDEntity entity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
         if (entity.canBe(LSDDictionaryTypes.PHOTO2D)) {
             return new PhotoPresenter(poolPresenter, entity, new PhotoView(), threadSafeExecutor);
-        }else if (entity.canBe(LSDDictionaryTypes.BITMAP_IMAGE_2D)) {
-                return new ImagePresenter(poolPresenter, entity, new ImageView(), threadSafeExecutor);
+        } else if (entity.canBe(LSDDictionaryTypes.WEBPAGE)) {
+            return new WebsitePresenter(poolPresenter, entity, new WebsiteView(), threadSafeExecutor);
+        } else if (entity.canBe(LSDDictionaryTypes.BITMAP_IMAGE_2D)) {
+            return new ImagePresenter(poolPresenter, entity, new ImageView(), threadSafeExecutor);
 //        } else if (entity.canBe(LSDDictionaryTypes.CUSTOM_OBJECT)) {
 //            return new CustomObjectPresenter(poolPresenter, entity, new CustomObjectView(), features.getCustomObjectEditor(), threadSafeExecutor);
         } else if (entity.canBe(LSDDictionaryTypes.ALIAS_REF)) {
