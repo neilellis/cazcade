@@ -183,7 +183,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                 return null;
             }
             getThreadLocalRequest().getSession(true).setAttribute("username", username);
-            return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username));
+            return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username), getThreadLocalRequest().getSession(true));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
@@ -195,7 +195,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         final String sessionUsername = (String) getThreadLocalRequest().getSession(true).getAttribute("username");
         if (sessionUsername != null) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + sessionUsername));
+                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + sessionUsername), getThreadLocalRequest().getSession(true));
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 return null;
@@ -203,7 +203,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         }
         if (anon) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:anon"));
+                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:anon"), getThreadLocalRequest().getSession(true));
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 return null;

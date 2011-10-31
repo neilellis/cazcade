@@ -72,7 +72,7 @@ public class LinkServlet extends AbstractTwitterServlet {
             } else {
                 LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new LiquidSessionIdentifier(username), twitterAlias, true, true, true));
                 if (createAliasResponse.getState() == LiquidMessageState.SUCCESS) {
-                    LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI());
+                    LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI(), session);
                     session.setAttribute(SESSION_KEY, sessionIdentifier);
                     response.sendRedirect(request.getContextPath() + "/_twitter/login.jsp");
                 } else {

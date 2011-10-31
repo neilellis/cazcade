@@ -28,17 +28,19 @@ import java.util.Properties;
  */
 public class LoginUtil {
     private final static Logger log = Logger.getLogger(LoginUtil.class);
+    public static final String SESSION_KEY = "sessionId";
 
 
     public static final String APP_KEY = "123";
 
-    public static LiquidSessionIdentifier login(ClientSessionManager clientSessionManager, FountainDataStore dataStore, LiquidURI alias) throws Exception {
+    public static LiquidSessionIdentifier login(ClientSessionManager clientSessionManager, FountainDataStore dataStore, LiquidURI alias, HttpSession session) throws Exception {
         LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
         if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
             LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(response.getResponse().getAttribute(LSDAttribute.NAME), response.getResponse().getID());
             createClientSession(clientSessionManager, serverSession, true);
+            session.setAttribute(SESSION_KEY, serverSession);
             return serverSession;
         } else {
             log.error("{0}", response.getResponse().asFreeText());
