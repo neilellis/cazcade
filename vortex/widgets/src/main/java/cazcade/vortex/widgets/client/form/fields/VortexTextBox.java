@@ -2,19 +2,23 @@ package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.vortex.widgets.client.Resources;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class VortexTextBox extends AbstractVortexFormField {
 
-    private int maxLength= Integer.MAX_VALUE;
+    private int maxLength = Integer.MAX_VALUE;
 
 
     @UiField
     TextBox textBox;
+    private String oldText;
 
     @Override
     protected void initWidget(Widget widget) {
@@ -67,7 +71,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
 
     @Override
     public void bind(LSDAttribute attribute, String prefix, String initialValue) {
-        this.boundAttribute= attribute;
+        this.boundAttribute = attribute;
         setValue(initialValue);
     }
 
@@ -79,5 +83,23 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
         textBox.setVisibleLength(length);
     }
 
+    protected class CleanUpKeyUpHandler implements KeyUpHandler {
+        @Override
+        public void onKeyUp(KeyUpEvent event) {
+            if (!event.isAnyModifierKeyDown()) {
+                String text = textBox.getText();
+                if (!oldText.equals(text)) {
+                    text = cleanUpText(text);
+                    if (!text.equals(textBox.getText())) {
+                        textBox.setText(text);
+                    }
+                    oldText = text;
+                    if (text.length() > 0) {
+                        showValidity();
+                    }
+                }
+            }
+        }
+    }
 
 }

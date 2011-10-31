@@ -35,12 +35,13 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     public static final int BOARD_WIDTH = 1024;
     public static final int PADDING = 10;
     public static final int BORDER = 2;
+    public static final double ASPECT_RATIO = 1.333;
     public static final int ADDITIONAL_WIDTH = PADDING * 2 + BORDER * 2;
     public static final int ADDITIONAL_HEIGHT = PADDING * 2 + BORDER * 2;
     public static final int SMALL_WIDTH = (int) (BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_WIDTH;
-    public static final int SMALL_HEIGHT = (int) ((BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
+    public static final int SMALL_HEIGHT = (int) ((BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
     public static final int MEDIUM_WIDTH = (int) (BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_WIDTH;
-    public static final int MEDIUM_HEIGHT = (int) ((BOARD_WIDTH / GOLDEN_RATIO) / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
+    public static final int MEDIUM_HEIGHT = (int) ((BOARD_WIDTH / GOLDEN_RATIO) / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
     public static final int LARGE_WIDTH = BOARD_WIDTH - ADDITIONAL_WIDTH;
     public static final int LARGE_HEIGHT = (int) ((BOARD_WIDTH) / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
 

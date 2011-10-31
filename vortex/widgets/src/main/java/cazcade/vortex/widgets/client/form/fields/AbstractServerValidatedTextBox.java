@@ -3,8 +3,6 @@ package cazcade.vortex.widgets.client.form.fields;
 import cazcade.vortex.widgets.client.Resources;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
  * @author neilellis@cazcade.com
@@ -24,7 +22,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 //
                     final int keyCode = event.getUnicodeCharCode();
 //
-                    if (keyCode == KeyCodes.KEY_ENTER  && isValid()) {
+                    if (keyCode == KeyCodes.KEY_ENTER && isValid()) {
                         event.preventDefault();
                         Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                             @Override
@@ -48,27 +46,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
         });
 
 
-        textBox.addKeyUpHandler(new KeyUpHandler() {
-            @Override
-            public void onKeyUp(KeyUpEvent event) {
-                if (!event.isAnyModifierKeyDown()) {
-                    String text = textBox.getText();
-                    if (!oldText.equals(text)) {
-                        text = cleanUpText(text);
-                        textBox.setText(text);
-                        oldText = text;
-                        if (text.length() > 0) {
-                            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-                                @Override
-                                public void execute() {
-                                    checkAvailable();
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        });
+        textBox.addKeyUpHandler(new CleanUpKeyUpHandler());
 
     }
 

@@ -1,0 +1,106 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:pool='urn:import:cazcade.vortex.pool.widgets'
+             xmlns:stream='urn:import:cazcade.vortex.widgets.client.stream'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:toolbar="urn:import:cazcade.boardcast.client.main.widgets.toolbar"
+             xmlns:widgets="urn:import:cazcade.boardcast.client.main.widgets"
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
+             xmlns:inbox="urn:import:cazcade.vortex.widgets.client.inbox"
+             xmlns:activity="urn:import:cazcade.vortex.widgets.client.activity"
+        >
+
+    <g:HTMLPanel styleName="hashbo-app " ui:field="board">
+        <!--<g:HTMLPanel styleName="board-top-shadow"/>-->
+
+
+        <g:HTMLPanel styleName="hashbo-main">
+
+            <g:HTMLPanel styleName="board-current-work-area">
+                <pool:PoolContentArea ui:field="contentArea" scrollX="true" scrollY="false"/>
+            </g:HTMLPanel>
+
+        </g:HTMLPanel>
+
+        <g:HTMLPanel styleName="hashbo-rhs" ui:field="rhs">
+            <!--<g:HTMLPanel styleName="board-right-shadow"/>-->
+
+            <g:HTMLPanel styleName="hashbo-rhs-inner">
+
+                <g:ToggleButton ui:field="hideReveal" styleName="board-rhs-reveal-hide">
+                    <g:upFace>
+                        <img src="_images/toolbar/hide-rhs.png"/>
+                    </g:upFace>
+                    <g:downFace>
+                        <img src="_images/toolbar/reveal-rhs.png"/>
+                    </g:downFace>
+                    <g:upHoveringFace>
+                        <img src="_images/toolbar/hide-rhs-hover.png"/>
+                    </g:upHoveringFace>
+                    <g:downHoveringFace>
+                        <img src="_images/toolbar/reveal-rhs-hover.png"/>
+                    </g:downHoveringFace>
+                </g:ToggleButton>
+
+
+                <div class="hashbo-chat">
+                    <g:DockLayoutPanel height="100%" unit="PX">
+                        <g:center>
+                            <stream:ChatStreamPanel ui:field="stream"
+                                                    styleName="board-stream-panel"/>
+                        </g:center>
+                        <g:south size="60">
+                            <g:HTMLPanel styleName="board-status-panel-create-panel">
+                                <widgets:AddChatBox ui:field="addChatBox"/>
+                            </g:HTMLPanel>
+                        </g:south>
+                    </g:DockLayoutPanel>
+                </div>
+
+                <!---->
+                <!--<g:TabLayoutPanel addStyleNames="hashbo-rhs-tab-panel"-->
+                <!--ui:field="communicationTabPanel" barUnit="PX" barHeight="29" width="100%"-->
+                <!--height="100%">-->
+                <!--<g:tab>-->
+                <!--<g:header>Chat</g:header>-->
+                <!--<g:DockLayoutPanel unit="PX" styleName="hashbo-chat">-->
+                <!--<g:center>-->
+                <!--<stream:ChatStreamPanel ui:field="stream"-->
+                <!--styleName="board-stream-panel"/>-->
+                <!--</g:center>-->
+                <!--<g:south size="60">-->
+                <!--<g:HTMLPanel styleName="board-status-panel-create-panel">-->
+                <!--<widgets:LoginOrCommentBox ui:field="loginOrCommentBox"/>-->
+                <!--</g:HTMLPanel>-->
+                <!--</g:south>-->
+                <!--</g:DockLayoutPanel>-->
+                <!--</g:tab>-->
+                <!--<g:tab>-->
+                <!--<g:header>Inbox</g:header>-->
+                <!--<inbox:InboxPanel ui:field="inbox"/>-->
+                <!--</g:tab>-->
+                <!--<g:tab>-->
+                <!--<g:header>Activity</g:header>-->
+                <!--<activity:ActivityPanel ui:field="activity"/>-->
+                <!--</g:tab>-->
+                <!--</g:TabLayoutPanel>-->
+            </g:HTMLPanel>
+        </g:HTMLPanel>
+
+
+        <widgets:BoardMenuBar styleName="hashbo-board-menu" autoOpen="true" focusOnHoverEnabled="true"
+                              ui:field="menuBar"/>
+        <!--<g:MenuBar styleName="hashbo-board-menu" autoOpen="true" ui:field="menuBar" focusOnHoverEnabled="true">-->
+        <!--<g:MenuItem>-->
+        <!--<img alt="add" src="_images/add.png"/>-->
+        <!--<g:MenuBar vertical="true" ui:field="addMenuBarSubMenu">-->
+        <!--</g:MenuBar>-->
+        <!--</g:MenuItem>-->
+        <!--</g:MenuBar>-->
+
+        <div class="board-locked" ui:field="boardLockedIcon"
+             title="You don't have permission to edit this board."/>
+        <g:Label styleName="btn large primary return-from-chat-button" ui:field="returnFromChatButton"
+                 text="Leave Chat"/>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

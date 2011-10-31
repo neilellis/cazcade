@@ -35,8 +35,12 @@ public class CachedImage extends Image {
     protected void onAttach() {
         super.onAttach();
         if (super.getUrl() == null || super.getUrl().isEmpty()) {
-            super.setUrl("http://placehold.it/" + getOffsetWidth() + "x" + getOffsetHeight() + "&text=" + URL.encode(notReadyText));
+            super.setUrl(placeholderImage());
         }
+    }
+
+    private String placeholderImage() {
+        return "http://placehold.it/" + getWidth() + "x" + getHeightWithDefault() + "&text=" + URL.encode(notReadyText);
     }
 
     public CachedImage() {
@@ -66,12 +70,13 @@ public class CachedImage extends Image {
     }
 
     private void updateImageUrl() {
+        getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null) {
             if (CACHING && cached) {
                 if (url.startsWith("http")) {
-                    super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size);
+                    super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeightWithDefault());
                 } else {
-                    super.setUrl("./_image-service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeight());
+                    super.setUrl("./_image-service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeightWithDefault());
                 }
             } else {
                 super.setUrl(url);
@@ -80,6 +85,14 @@ public class CachedImage extends Image {
             super.setUrl(defaultUrl);
         }
 
+    }
+
+    private int getHeightWithDefault() {
+        if (getHeight() > 0) {
+            return getHeight();
+        } else {
+            return 2048;
+        }
     }
 
     public void setSize(String size) {

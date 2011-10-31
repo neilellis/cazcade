@@ -1,11 +1,12 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
@@ -58,22 +59,7 @@ public class RegexTextBox extends VortexTextBox {
 //            }
 //        });
 
-        textBox.addKeyUpHandler(new KeyUpHandler() {
-            @Override
-            public void onKeyUp(KeyUpEvent event) {
-                if (!event.isAnyModifierKeyDown()) {
-                    String text = textBox.getText();
-                    if (!oldText.equals(text)) {
-                        text = cleanUpText(text);
-                        textBox.setText(text);
-                        oldText = text;
-                        if (text.length() > 0) {
-                            showValidity();
-                        }
-                    }
-                }
-            }
-        });
+        textBox.addKeyUpHandler(new CleanUpKeyUpHandler());
 
     }
 
@@ -91,5 +77,6 @@ public class RegexTextBox extends VortexTextBox {
     public void setRegex(String regex) {
         this.regex = regex;
     }
+
 
 }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page import="cazcade.boardcast.util.DataStoreFactory" %>
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
-<%@ page import="cazcade.hashbo.util.DataStoreFactory" %>
 <%@ page import="cazcade.liquid.api.LiquidMessageState" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -39,11 +39,13 @@
     <br/>
     <br/>
     <br/>
+
     <div><a href="http://stats.pingdom.com/7ap4sdhxa9m1/391238"><img src="http://share.pingdom.com/banners/15809bd2"
-                                                                     alt="Uptime Report" title="Uptime Report" width="300"
+                                                                     alt="Uptime Report" title="Uptime Report"
+                                                                     width="300"
                                                                      height="165"/></a>
 
-</div>
+    </div>
 </div>
 </body>
 </html>

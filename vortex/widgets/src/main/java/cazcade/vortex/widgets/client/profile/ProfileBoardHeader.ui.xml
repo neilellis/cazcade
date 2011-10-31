@@ -9,13 +9,6 @@
 
             <div class="row profile-board-header-top">
                 <div class="profile-header-top-left">
-                    <div>
-                        <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="200px"
-                                             size="CLIPPED_MEDIUM"
-                                             height="200px"/>
-                    </div>
-                </div>
-                <div class="profile-header-top-middle">
                     <fields:VortexEditableLabel ui:field="userFullName" styleName="profile-board-user-fullname"/>
                     <span class="profile-board-user-role">(<g:Label ui:field="roleFullName"/>)
                     </span>
@@ -23,9 +16,8 @@
                                                 styleName="profile-board-username"/>
                     <fields:VortexEditableLabel wordwrap="false" ui:field="description" visibleLength="30"
                                                 styleName="profile-board-user-description"/>
-
                 </div>
-                <div>
+                <div class="profile-header-top-middle">
                     <g:HTMLPanel ui:field="detailPanel" styleName="profile-header-top-right">
 
                         <a ui:field="profileLink" class="profile-board-followers" style="visibility:hidden;">Profile</a>
@@ -46,6 +38,13 @@
                         </div>
 
                     </g:HTMLPanel>
+                </div>
+                <div class="profile-header-top-right">
+                    <div>
+                        <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="150px"
+                                                size="CLIPPED_MEDIUM"
+                                                height="200px"/>
+                    </div>
                     <dm:DirectMessagePanel ui:field="directMessagePanel" visible="false"/>
                 </div>
             </div>

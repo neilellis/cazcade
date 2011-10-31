@@ -113,41 +113,41 @@
 
     <servlet>
         <servlet-name>signin</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.twitter.auth.signin.SigninServlet
+        <servlet-class>cazcade.boardcast.servlet.twitter.auth.signin.SigninServlet
         </servlet-class>
     </servlet>
     <servlet>
         <servlet-name>callback</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.twitter.auth.signin.CallbackServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.twitter.auth.signin.CallbackServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>register</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.twitter.auth.signin.RegisterServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.twitter.auth.signin.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>link</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.twitter.auth.signin.LinkServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.twitter.auth.signin.LinkServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>board</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.board.BoardServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.board.BoardServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>board-query</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.board.BoardQueryServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.board.BoardQueryServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.login.LoginServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.login.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>logout</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.login.LogoutServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.login.LogoutServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>welcome</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.WelcomeServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.WelcomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>welcome</servlet-name>
@@ -228,17 +228,17 @@
     </servlet>
 
     <servlet>
-        <servlet-name>cazcade.hashbo.Boardcast ScriptService</servlet-name>
-        <servlet-class>cazcade.hashbo.server.ScriptServiceImpl</servlet-class>
+        <servlet-name>cazcade.boardcast.Boardcast ScriptService</servlet-name>
+        <servlet-class>cazcade.boardcast.server.ScriptServiceImpl</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>image</servlet-name>
-        <servlet-class>cazcade.hashbo.servlet.ImageProxyServlet</servlet-class>
+        <servlet-class>cazcade.boardcast.servlet.ImageProxyServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>cazcade.hashbo.Boardcast BuildVersionService</servlet-name>
-        <servlet-class>cazcade.hashbo.server.BuildVersionServiceImpl</servlet-class>
+        <servlet-name>cazcade.boardcast.Boardcast BuildVersionService</servlet-name>
+        <servlet-class>cazcade.boardcast.server.BuildVersionServiceImpl</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -252,11 +252,11 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>cazcade.hashbo.Boardcast ScriptService</servlet-name>
+        <servlet-name>cazcade.boardcast.Boardcast ScriptService</servlet-name>
         <url-pattern>/_boardcast_gwt/ScriptService</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>cazcade.hashbo.Boardcast BuildVersionService</servlet-name>
+        <servlet-name>cazcade.boardcast.Boardcast BuildVersionService</servlet-name>
         <url-pattern>/_boardcast_gwt/BuildVersionService</url-pattern>
     </servlet-mapping>
 </web-app>

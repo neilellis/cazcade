@@ -1,17 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page import="cazcade.boardcast.util.DataStoreFactory" %>
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
-<%@ page import="cazcade.hashbo.util.DataStoreFactory" %>
+<%@ page import="cazcade.liquid.api.LiquidSessionIdentifier" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
 <%@ page import="javax.mail.Message" %>
 <%@ page import="javax.mail.Session" %>
 <%@ page import="javax.mail.Transport" %>
-<%@ page import="javax.mail.internet.InternetAddress" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
+<%@ page import="javax.mail.internet.InternetAddress" %>
 <%@ page import="javax.mail.internet.MimeMessage" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Properties" %>
-<%@ page import="cazcade.liquid.api.LiquidSessionIdentifier" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
@@ -30,7 +30,7 @@
     org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
 
     final String url = "http://beta.hashbo.com/login.html#welcome";
-    String messageText = "Welcome aboard! Please click on this link "+  url + " and sign in using the username and password you supplied.\n";
+    String messageText = "Welcome aboard! Please click on this link " + url + " and sign in using the username and password you supplied.\n";
 
     if (!digester.matches(to, request.getParameter("hash"))) {
         response.sendRedirect("confirm_failed.jsp");

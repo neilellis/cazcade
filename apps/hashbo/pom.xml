@@ -120,7 +120,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <module>cazcade.hashbo.Boardcast</module>
+                            <module>cazcade.boardcast.Boardcast</module>
                             <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
                             <style>OBFUSCATED</style>
                         </configuration>
