@@ -35,7 +35,7 @@
                 </div>
                 <div class="row profile-board-header-bottom">
                     <fields:VortexEditableLabel wordwrap="true" styleName="board-text"
-                                                placeholder="Click to edit. Why not put some text here to describe yourself in more detail."
+                                                placeholder="Click to edit."
                                                 ui:field="text" format="true"/>
 
                 </div>
@@ -54,7 +54,7 @@
         </div>
 
 
-        <div class="board-footer">
+        <div class="board-footer" ui:field="footer">
             <div class="container">
                 <div class="content">
 

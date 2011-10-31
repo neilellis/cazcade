@@ -145,15 +145,6 @@
         <servlet-class>cazcade.boardcast.servlet.login.LogoutServlet</servlet-class>
     </servlet>
 
-    <servlet>
-        <servlet-name>welcome</servlet-name>
-        <servlet-class>cazcade.boardcast.servlet.WelcomeServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>welcome</servlet-name>
-        <url-pattern>/welcome.page</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/_logout</url-pattern>

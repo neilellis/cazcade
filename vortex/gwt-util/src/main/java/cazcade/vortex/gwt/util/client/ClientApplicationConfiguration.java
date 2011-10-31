@@ -8,11 +8,12 @@ import com.google.gwt.user.client.Window;
  */
 public class ClientApplicationConfiguration {
 
+    private static final boolean ALPHA_FEATURES_AVAILABLE = false;
     private static boolean debug;
-    private static boolean preflight= true;
+    private static boolean preflight = true;
     private static boolean alphaFeatures;
     private static boolean loginRequired;
-    private static boolean retrieveUpdates= true;
+    private static boolean retrieveUpdates = true;
     private static boolean register;
 
     public static boolean isDebug() {
@@ -32,7 +33,11 @@ public class ClientApplicationConfiguration {
     }
 
     public static boolean isAlphaFeatures() {
-        return alphaFeatures;
+        if (ALPHA_FEATURES_AVAILABLE) {
+            return alphaFeatures;
+        } else {
+            return false;
+        }
     }
 
     public static void setAlphaFeatures(boolean alphaFeatures) {

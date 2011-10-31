@@ -18,7 +18,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
 
     @UiField
     TextBox textBox;
-    private String oldText;
+    private String oldText = "";
 
     @Override
     protected void initWidget(Widget widget) {

@@ -46,7 +46,13 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
         });
 
 
-        textBox.addKeyUpHandler(new CleanUpKeyUpHandler());
+        textBox.addKeyUpHandler(new CleanUpKeyUpHandler() {
+            @Override
+            public void onKeyUp(KeyUpEvent event) {
+                super.onKeyUp(event);
+                checkAvailable();
+            }
+        });
 
     }
 

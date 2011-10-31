@@ -41,9 +41,9 @@
                 </div>
                 <div class="profile-header-top-right">
                     <div>
-                        <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="150px"
+                        <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="120px"
                                                 size="CLIPPED_MEDIUM"
-                                                height="200px"/>
+                                                height="160px"/>
                     </div>
                     <dm:DirectMessagePanel ui:field="directMessagePanel" visible="false"/>
                 </div>

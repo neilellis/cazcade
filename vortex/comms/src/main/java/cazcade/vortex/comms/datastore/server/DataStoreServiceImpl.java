@@ -6,6 +6,7 @@ import cazcade.fountain.messaging.session.ClientSession;
 import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.fountain.security.SecurityProvider;
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
@@ -31,14 +32,23 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Properties;
 import java.util.UUID;
 
 //todo: backport the notification parts to the notification servlet.
@@ -183,7 +193,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     @Override
     public LiquidSessionIdentifier loginQuick(boolean anon) {
         final String sessionUsername = (String) getThreadLocalRequest().getSession(true).getAttribute("username");
-        if(sessionUsername != null) {
+        if (sessionUsername != null) {
             try {
                 return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + sessionUsername));
             } catch (Exception e) {
@@ -191,7 +201,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                 return null;
             }
         }
-        if(anon) {
+        if (anon) {
             try {
                 return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:anon"));
             } catch (Exception e) {
@@ -208,7 +218,17 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     @Override
     public LSDEntity register(String fullname, String username, String password, String emailAddress) {
         final HttpSession session = getThreadLocalRequest().getSession(true);
-        return LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
+        final LSDEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
+        try {
+            sendEmail(entity);
+        } catch (UnsupportedEncodingException e) {
+            log.error(e.getMessage(), e);
+            return null;
+        } catch (MessagingException e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+        return entity;
 
     }
 
@@ -341,6 +361,45 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         }
         return new ArrayList<LiquidMessage>();
 
+    }
+
+    //todo: hacked into here temp.
+    private void sendEmail(LSDEntity user) throws UnsupportedEncodingException, MessagingException {
+        if (user == null) {
+            throw new RuntimeException("No user to end email to.");
+        }
+        String host = "smtp.sendgrid.net";
+        String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
+        String from = "info@boardcast.com";
+
+        String name = user.getAttribute(LSDAttribute.FULL_NAME);
+        String subject = "Welcome!";
+
+        org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
+        String messageText = "Please click on this link to register: http://boardcast.us/_login-confirm-reg?user=" +
+                java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                "&hash=" + java.net.URLEncoder.encode(digester.digest(to), "utf8");
+
+        boolean sessionDebug = false;
+        Properties props = System.getProperties();
+        props.put("mail.host", host);
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        Session mailSession = Session.getDefaultInstance(props, null);
+        mailSession.setDebug(sessionDebug);
+        Message msg = new MimeMessage(mailSession);
+        msg.setFrom(new InternetAddress(from, "Boardcast"));
+        InternetAddress[] address = {new InternetAddress(to)};
+        msg.setRecipients(Message.RecipientType.TO, address);
+        msg.setSubject(subject);
+        msg.setSentDate(new Date());
+        msg.setText(messageText);
+
+        msg.saveChanges();
+        Transport transport = mailSession.getTransport("smtp");
+        transport.connect(host, "hashbo", "thx1139");
+        transport.sendMessage(msg, msg.getAllRecipients());
+        transport.close();
     }
 
 

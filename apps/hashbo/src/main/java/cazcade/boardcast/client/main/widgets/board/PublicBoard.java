@@ -241,6 +241,8 @@ public class PublicBoard extends EntityBackedFormPanel {
             publicBoardHeader.bind(getEntity());
             publicBoardHeader.setVisible(true);
             profileBoardHeader.setVisible(false);
+            footer.getStyle().setVisibility(Style.Visibility.VISIBLE);
+            ownerDetailPanel.setAliasURI(owner.getURI());
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
 //            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
 
@@ -250,10 +252,10 @@ public class PublicBoard extends EntityBackedFormPanel {
             profileBoardHeader.setVisible(true);
             publicBoardHeader.setVisible(false);
             ownerDetailPanel.setVisible(false);
+            footer.getStyle().setVisibility(Style.Visibility.HIDDEN);
             profileBoardHeader.setAliasURI(owner.getURI());
 //            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
         }
-        ownerDetailPanel.setAliasURI(owner.getURI());
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         publishDate.setInnerText(getEntity().getPublished().toString());
 
@@ -342,6 +344,8 @@ public class PublicBoard extends EntityBackedFormPanel {
     VortexEditableLabel text;
     @UiField
     NotificationPanel notificationPanel;
+    @UiField
+    DivElement footer;
 
     @Override
     protected void onAttach() {

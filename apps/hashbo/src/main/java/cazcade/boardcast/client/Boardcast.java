@@ -127,7 +127,7 @@ public class Boardcast implements EntryPoint {
             }, new Runnable() {
                 @Override
                 public void run() {
-                    Window.Location.assign("register_email.jsp");
+                    Window.Location.assign("/_welcome?justRegistered=true");
                 }
             }
             );
@@ -193,7 +193,7 @@ public class Boardcast implements EntryPoint {
         }, new Runnable() {
             @Override
             public void run() {
-                Window.Location.assign("register_email.jsp");
+                Window.Location.assign("/_welcome?justRegistered=true");
             }
         }
         );

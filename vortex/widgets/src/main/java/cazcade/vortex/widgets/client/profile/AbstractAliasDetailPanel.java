@@ -16,8 +16,6 @@ import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.dm.DirectMessagePanel;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
-import cazcade.vortex.widgets.client.form.fields.VortexFormField;
-import cazcade.vortex.widgets.client.image.EditableImage;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -29,7 +27,6 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author neilellis@cazcade.com
@@ -70,7 +67,6 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     HTMLPanel detailPanel;
 
     private static final boolean DM_SUPPORTED = false;
-
 
 
     public void bind(LSDEntity entity) {
@@ -115,52 +111,20 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         this.aliasURI = aliasURI;
 
 
-
         final boolean isMe = UserUtil.getCurrentAlias().getURI().equals(aliasURI);
 
-        if(!isMe) {
+        if (!isMe) {
             userShortName.addClickHandler(new UsernameClickHandler());
             userShortName.sinkEvents(Event.MOUSEEVENTS);
             userFullName.addClickHandler(new UsernameClickHandler());
             userFullName.sinkEvents(Event.MOUSEEVENTS);
         }
 
-        if (UserUtil.isAnonymousOrLoggedOut() || isMe) {
+        if (UserUtil.isAnonymousOrLoggedOut() || isMe || !ClientApplicationConfiguration.isAlphaFeatures()) {
             followButton.addStyleName("invisible");
             dmButton.addStyleName("invisible");
         } else {
-            if (followHandler != null) {
-                followHandler.removeHandler();
-            }
-            followHandler = followButton.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    BusFactory.getInstance().dispatch(new FollowRequest(aliasURI, !following));
-                }
-            });
-            if (dmHandler != null) {
-                dmHandler.removeHandler();
-            }
-            directMessagePanel.setOnFinish(new Runnable() {
-                @Override
-                public void run() {
-                    WidgetUtil.swap(directMessagePanel, detailPanel);
-                }
-            });
-            dmHandler = dmButton.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-
-                    if (ClientApplicationConfiguration.isAlphaFeatures()) {
-                        directMessagePanel.setRecipient(aliasURI.getSubURI().getSubURI().asString());
-                        WidgetUtil.swap(detailPanel, directMessagePanel);
-                        directMessagePanel.setVisible(true);
-                        directMessagePanel.start();
-                    } else {
-                        Window.alert("Feature coming very soon.");
-                    }
-                }
-            });
+            initDMAndFollow(aliasURI);
         }
 
 
@@ -196,6 +160,41 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         });
 
 
+    }
+
+    private void initDMAndFollow(final LiquidURI aliasURI) {
+        if (followHandler != null) {
+            followHandler.removeHandler();
+        }
+        followHandler = followButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                BusFactory.getInstance().dispatch(new FollowRequest(aliasURI, !following));
+            }
+        });
+        if (dmHandler != null) {
+            dmHandler.removeHandler();
+        }
+        directMessagePanel.setOnFinish(new Runnable() {
+            @Override
+            public void run() {
+                WidgetUtil.swap(directMessagePanel, detailPanel);
+            }
+        });
+        dmHandler = dmButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+
+                if (ClientApplicationConfiguration.isAlphaFeatures()) {
+                    directMessagePanel.setRecipient(aliasURI.getSubURI().getSubURI().asString());
+                    WidgetUtil.swap(detailPanel, directMessagePanel);
+                    directMessagePanel.setVisible(true);
+                    directMessagePanel.start();
+                } else {
+                    Window.alert("Feature coming very soon.");
+                }
+            }
+        });
     }
 
 

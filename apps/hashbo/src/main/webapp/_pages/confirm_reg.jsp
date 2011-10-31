@@ -22,14 +22,14 @@
 
     String host = "smtp.sendgrid.net";
     String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-    String from = "info@hashbo.com";
+    String from = "info@boardcast.com";
 
     String name = user.getAttribute(LSDAttribute.FULL_NAME);
     String subject = "Welcome!";
 
     org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
 
-    final String url = "http://beta.hashbo.com/login.html#welcome";
+    final String url = "http://boardcast.us/_welcome";
     String messageText = "Welcome aboard! Please click on this link " + url + " and sign in using the username and password you supplied.\n";
 
     if (!digester.matches(to, request.getParameter("hash"))) {
@@ -45,7 +45,7 @@
         Session mailSession = Session.getDefaultInstance(props, null);
         mailSession.setDebug(sessionDebug);
         Message msg = new MimeMessage(mailSession);
-        msg.setFrom(new InternetAddress(from, "Hashbo"));
+        msg.setFrom(new InternetAddress(from, "Boardcast"));
         InternetAddress[] address = {new InternetAddress(to)};
         msg.setRecipients(Message.RecipientType.TO, address);
         msg.setSubject(subject);
@@ -67,7 +67,7 @@
 <html>
 <head>
     <title>Hashbo Registration</title>
-    <link rel="stylesheet" href="_css/static.css">
+    <link rel="stylesheet" href="../_css/static.css">
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -102,9 +102,7 @@
     </p>
     <br/>
 
-    <p>Then please sign in with the username and password you supplied.</p>
-    <br/>
-    <h4>Apologies if this process seems a little cumbersome, we'll try and streamline it soon.</h4>
+
 </div>
 
 </body>
