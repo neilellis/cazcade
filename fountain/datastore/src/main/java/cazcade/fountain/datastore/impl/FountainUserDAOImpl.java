@@ -10,13 +10,15 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import org.jasypt.util.password.StrongPasswordEncryptor;
-import org.neo4j.graphdb.*;
+import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.concurrent.Callable;
 
 public class FountainUserDAOImpl implements FountainUserDAO {
 
+    public static final boolean USER_MUST_CONFIRM_EMAIL = false;
     @Autowired
 
     private FountainNeo fountainNeo;
@@ -221,7 +223,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             }
 
 
-            if (userNode.hasProperty(LSDAttribute.SECURITY_RESTRICTED.getKeyName())) {
+            if (userNode.hasProperty(LSDAttribute.SECURITY_RESTRICTED.getKeyName()) && USER_MUST_CONFIRM_EMAIL) {
                 final String restricted = (String) userNode.getProperty(LSDAttribute.SECURITY_RESTRICTED.getKeyName());
                 if ("true".equals(restricted)) {
                     throw new UserRestrictedException("User account for alias %s is restricted.", aliasUri);
@@ -307,7 +309,6 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             fountainNeo.end();
         }
     }
-
 
 
     public void setFountainNeo(FountainNeo fountainNeo) {
