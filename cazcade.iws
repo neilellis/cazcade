@@ -64,148 +64,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/util/DataStoreFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/hashbo/src/test/java/cazcade/hashbo/client/ShortURLTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/add" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/util" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/hashbo/src/test/java/cazcade/hashbo/client" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/Boardcast.gwt.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/Boardcast.gwt.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/Boardcast.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/BuildVersionService.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/BuildVersionService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/BuildVersionServiceAsync.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/BuildVersionServiceAsync.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/ScriptService.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/ScriptService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/ScriptServiceAsync.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/ScriptServiceAsync.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/StartupUtil.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/StartupUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/custom/HashboCustomObjectEditor.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/custom/HashboCustomObjectEditor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/custom/HashboCustomObjectEditor.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/custom/HashboCustomObjectEditor.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/account/LogoutCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account/LogoutCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/account/ProfileEditor.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account/ProfileEditor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/account/ProfileEditor.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account/ProfileEditor.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/AbstractCreateCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/AbstractCreateCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/ChangePermissionCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/ChangePermissionCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateAliasRefCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateAliasRefCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateChecklistCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateChecklistCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateContainerCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateContainerCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateCustomObjectCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateCustomObjectCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateDecorationCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateDecorationCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateImageCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateImageCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateItemCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateItemCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreatePhotoCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreatePhotoCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateRichTextCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateWebsiteCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateWebsiteCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board/CreateYouTubeCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateYouTubeCommand.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/version/VersionNumberChecker.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/version/VersionNumberChecker.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/AddChatBox.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddChatBox.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/AddChatBox.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddChatBox.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/AddCommentBox.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/AddCommentBox.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/BoardMenuBar.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/BoardcastChatView.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/BoardcastChatView.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/ChangeBackgroundDialog.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/CreateBoardDialog.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PersonalBoardHeader.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PersonalBoardHeader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PersonalBoardHeader.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PersonalBoardHeader.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoard.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoardHeader.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoardHeader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board/PublicBoardHeader.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoardHeader.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/HashboLoginOrRegisterPanel.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginOrRegisterPanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/HashboLoginOrRegisterPanel.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginOrRegisterPanel.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/HashboLoginPanel.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginPanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/HashboLoginPanel.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginPanel.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/HashboRegisterPanel.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboRegisterPanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/HashboRegisterPanel.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboRegisterPanel.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/TwitterLoginBox.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/TwitterLoginBox.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/TwitterLoginBox.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/TwitterLoginBox.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/TwitterLoginPopup.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/TwitterLoginPopup.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login/TwitterLoginPopup.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/TwitterLoginPopup.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/toolbar/HashboToolbarIcon.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/toolbar/HashboToolbarIcon.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/toolbar/HashboToolbarIcon.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/toolbar/HashboToolbarIcon.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/preflight/PreflightCheck.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/preflight/PreflightCheck.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/resources/HashboClientBundle.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/resources/HashboClientBundle.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/resources/hashbo.css" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/resources/hashbo.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/public/scrollsupport.js" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/public/scrollsupport.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/server/BuildVersionServiceImpl.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/server/BuildVersionServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/server/ScriptServiceImpl.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/server/ScriptServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/AbstractHashboServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/ImageProxyServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageProxyServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/ProfileServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ProfileServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/SnapshotServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/SnapshotServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/WelcomeServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/WelcomeServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/AbstractBoardListServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/AbstractBoardListServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/BoardQueryServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardQueryServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board/BoardServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/login/LoginServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LoginServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/login/LogoutServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LogoutServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin/AbstractTwitterServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/AbstractTwitterServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin/CallbackServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/CallbackServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin/LinkServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/LinkServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin/LogoutServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/LogoutServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin/PostServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/PostServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin/RegisterServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/RegisterServlet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin/SigninServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/SigninServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/canvas.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/canvas.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_images/boardcast-logo.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_images/boardcast-logo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" afterPath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/pom.xml" afterPath="$PROJECT_DIR$/apps/hashbo/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/AbstractCreateCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/AbstractCreateCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/ChangePermissionCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/ChangePermissionCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateAliasRefCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateAliasRefCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateChecklistCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateChecklistCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateContainerCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateContainerCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateCustomObjectCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateCustomObjectCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateDecorationCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateDecorationCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateImageCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateImageCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateItemCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateItemCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreatePhotoCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreatePhotoCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateWebsiteCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateWebsiteCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateYouTubeCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateYouTubeCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/util/DataStoreFactory.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/util/DataStoreFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/confirm.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/confirm.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/status.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/status.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/test/java/cazcade/boardcast/client/ShortURLTest.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/test/java/cazcade/boardcast/client/ShortURLTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectView.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractServerValidatedTextBox.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractServerValidatedTextBox.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/RegexTextBox.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/RegexTextBox.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexTextBox.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexTextBox.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/ProfileBoardHeader.ui.xml" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/ProfileBoardHeader.ui.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/custom" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/custom" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/account/image" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account/image" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/account" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus/board" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/menus" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/util" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/util" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/version" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/version" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/board" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/login" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets/toolbar" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/toolbar" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main/widgets" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/main" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/preflight" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/preflight" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client/resources" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/resources" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/client" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/public/images" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/public/images" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/public" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/public" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/server" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/server" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/board" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/login" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth/signin" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter/auth" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet/twitter" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/servlet" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo/wro" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/wro" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/hashbo" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/test/java/cazcade/hashbo" afterPath="$PROJECT_DIR$/apps/hashbo/src/test/java/cazcade/boardcast" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -471,15 +331,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KeyUpHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.3.0/gwt-user-2.3.0.jar!/com/google/gwt/event/dom/client/KeyUpHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="7" selection-start="919" selection-end="919" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CachedImage.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -489,10 +340,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UrlField.ui.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="UrlField.ui.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="104" selection-start="419" selection-end="419" vertical-scroll-proportion="0.12057878">
+            <state line="14" column="58" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PublicBoard.ui.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="74" column="0" selection-start="3671" selection-end="3671" vertical-scroll-proportion="1.0728155">
               <folding />
             </state>
           </provider>
@@ -523,7 +383,6 @@
       <list>
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.ui.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginOrRegisterPanel.ui.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginPanel.ui.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" />
@@ -537,6 +396,7 @@
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractServerValidatedTextBox.java" />
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
       </list>
     </option>
   </component>
@@ -3122,7 +2982,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3160,53 +3020,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3244,15 +3062,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3290,73 +3104,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="menus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="menus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="account" />
+              <option name="myItemId" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -5417,8 +5173,8 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43286574" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33564356" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32673267" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33564356" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
@@ -5426,7 +5182,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.6643564" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.6732673" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33465347" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -5548,13 +5304,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="107" selection-start="2090" selection-end="2090" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/ProfileBoardHeader.ui.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="41" column="52" selection-start="2475" selection-end="2475" vertical-scroll-proportion="0.0">
@@ -5661,7 +5410,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="104" selection-start="419" selection-end="419" vertical-scroll-proportion="0.12057878">
+        <state line="14" column="58" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="0" selection-start="3671" selection-end="3671" vertical-scroll-proportion="1.0728155">
           <folding />
         </state>
       </provider>
