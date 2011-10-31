@@ -1,14 +1,13 @@
 package cazcade.vortex.widgets.client.image;
 
-import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
+import gwtupload.client.BaseUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.PreloadedImage;
 import gwtupload.client.SingleUploader;
@@ -38,7 +37,10 @@ public class ImageUploader extends Composite {
         defaultUploader = new SingleUploader();
         defaultUploader.setAvoidRepeatFiles(false);
         defaultUploader.setAutoSubmit(true);
+        final BaseUploadStatus stat = new BaseUploadStatus();
+        defaultUploader.setStatusWidget(stat);
         loaderPanel.add(defaultUploader);
+        loaderPanel.add(stat.getWidget());
         imageLoadedPanel.add(new CachedImage());
     }
 
