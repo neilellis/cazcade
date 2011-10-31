@@ -12,6 +12,7 @@ public class LiquidSessionIdentifier implements Serializable {
     private String name;
     private LiquidUUID session;
     private LiquidURI alias;
+    public static final LiquidSessionIdentifier ANON = new LiquidSessionIdentifier("anon", null);
 
     public LiquidSessionIdentifier() {
     }

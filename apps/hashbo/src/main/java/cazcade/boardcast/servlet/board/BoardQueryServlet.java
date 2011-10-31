@@ -1,6 +1,7 @@
 package cazcade.boardcast.servlet.board;
 
 import cazcade.common.Logger;
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
@@ -52,7 +53,11 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             String queryName = req.getParameter("query");
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
-            BoardQueryRequest response = dataStore.process(new BoardQueryRequest(getLiquidSessionId(req.getSession(true)), type, alias));
+            LiquidSessionIdentifier liquidSessionId = getLiquidSessionId(req.getSession(true));
+            if (liquidSessionId == null) {
+                liquidSessionId = LiquidSessionIdentifier.ANON;
+            }
+            BoardQueryRequest response = dataStore.process(new BoardQueryRequest(liquidSessionId, type, alias));
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
             List<LSDEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             req.setAttribute("boards", makeJSPFriendly(boards));
