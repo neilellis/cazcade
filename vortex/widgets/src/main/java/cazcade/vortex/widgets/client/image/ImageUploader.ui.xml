@@ -8,7 +8,8 @@
 
         </g:HTMLPanel>
         <g:HTMLPanel ui:field="statusWidget" styleName="vortex-image-uploader-status">
-
+            <g:Image url="_images/spinner06.gif" ui:field="spinner" visible="false"/>
+            <span ui:field="statusText"/>
         </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>

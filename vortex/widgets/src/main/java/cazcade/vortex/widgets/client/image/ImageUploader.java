@@ -2,6 +2,7 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -33,6 +34,10 @@ public class ImageUploader extends Composite {
     HTMLPanel imageLoadedPanel;
     @UiField
     HTMLPanel statusWidget;
+    @UiField
+    SpanElement statusText;
+    @UiField
+    Image spinner;
 
     public ImageUploader() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -58,7 +63,9 @@ public class ImageUploader extends Composite {
 
 
     private void changeImage(Image image) {
-        statusWidget.getElement().setInnerText("Loaded");
+        statusText.setInnerText("Loaded");
+        spinner.setVisible(true);
+
         CachedImage cachedImage = new CachedImage(image, CachedImage.MEDIUM);
         if (imageLoadedPanel.getWidgetCount() > 0) {
             WidgetUtil.swap(imageLoadedPanel.getWidget(0), cachedImage);
@@ -140,12 +147,10 @@ public class ImageUploader extends Composite {
         @Override
         public void setProgress(int done, int total) {
             if (total > 0 && done != total) {
-                statusWidget.getElement().setInnerText(((int) ((done / total) * 100)) + "%");
+                statusText.setInnerText(((int) (((double) done / (double) total) * 100)) + "%");
             }
             if (done == total && total > 0) {
-                if (statusWidget.getWidgetCount() == 0) {
-                    statusWidget.add(new Image("_images/spinner06.gif"));
-                }
+                spinner.setVisible(true);
             }
 
         }
