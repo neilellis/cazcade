@@ -46,6 +46,11 @@ public class ChangeBackgroundDialog extends PopupPanel implements Bindable {
         return updateEntity;
     }
 
+    @Override
+    public boolean isValid() {
+        return changeBackgroundPanel.isValid();
+    }
+
     interface ChangeBackgroundDialogUiBinder extends UiBinder<HTMLPanel, ChangeBackgroundDialog> {
     }
 

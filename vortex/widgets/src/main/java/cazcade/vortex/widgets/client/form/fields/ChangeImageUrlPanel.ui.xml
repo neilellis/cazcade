@@ -14,7 +14,7 @@
             <br/>
             <p>
                 <strong>Url:</strong>
-                <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box"/>
+                <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box" regex="https?://.*"/>
             </p>
         </div>
         <!--<g:Image ui:field="validityImage" styleName="invisible form-field-validity-icon"/>-->

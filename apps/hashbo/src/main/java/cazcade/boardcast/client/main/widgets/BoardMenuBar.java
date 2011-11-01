@@ -16,6 +16,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
  * @author neilellis@cazcade.com
@@ -24,7 +25,6 @@ public class BoardMenuBar extends MenuBar {
 
     private LiquidURI poolURI;
     private MenuBar addMenubar;
-    private MenuBar backgroundMenuBar;
     private MenuBar accessMenuBar;
 
 
@@ -48,20 +48,9 @@ public class BoardMenuBar extends MenuBar {
         clearItems();
         if (modifierOptions) {
             addMenubar = new MenuBar(true);
-            createAddMenu(poolURI);
+            createAddMenu(poolURI, backgroundDialog, board);
             final MenuItem add = addItem("Add", addMenubar);
             add.addStyleName("board-menu-add");
-        }
-        if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
-            backgroundMenuBar = new MenuBar(true);
-            addItem("Background", backgroundMenuBar);
-            backgroundMenuBar.addItem("Change", new Command() {
-                @Override
-                public void execute() {
-                    backgroundDialog.center();
-                    backgroundDialog.show();
-                }
-            });
         }
         if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
             accessMenuBar = new MenuBar(true);
@@ -88,7 +77,18 @@ public class BoardMenuBar extends MenuBar {
 
     }
 
-    private void createAddMenu(final LiquidURI poolURI) {
+    private void createAddMenu(final LiquidURI poolURI, final PopupPanel backgroundDialog, LSDEntity board) {
+
+        if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
+            addMenubar.addItem("Background", new Command() {
+                @Override
+                public void execute() {
+                    backgroundDialog.center();
+                    backgroundDialog.show();
+                }
+            });
+        }
+
 //        addItem(new SafeHtmlBuilder().appendHtmlConstant("<img alt=\"add\" src=\"_images/add.png\"/>").toSafeHtml(), addMenu);
 
         addMenubar.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));

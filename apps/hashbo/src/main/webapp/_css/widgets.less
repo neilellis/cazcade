@@ -138,8 +138,8 @@
 
 
 .vortex-image-uploader-single-image-preview img {
-        width: 192px;
-        height: 192px;
+        width: 300px;
+        height: 200px;
         background-color: white;
         .border-radius(2px);
         padding: 1px;
@@ -178,7 +178,7 @@
 
 
 .image-editor {
-    width:550px;
+    width:500px;
     height:300px;
     z-index: 1000;
     padding: 16px;
@@ -207,6 +207,8 @@
         bottom:20px;
         display: block;
         position: absolute;
+
+
     }
 
     .vortex-image-uploader-single-image-preview {
@@ -224,6 +226,23 @@
 
 
 
+}
+
+
+.vortex-image-uploader-status.upld-status {
+    clear: left;
+    width:100%;
+}
+
+
+input[type="file"].gwt-FileUpload {
+            width:220px;
+}
+
+.vortex-image-uploader-status {
+    width:80px;
+    font-size:12px;
+    font-weight: normal;
 }
 
     .change-image-text-box {

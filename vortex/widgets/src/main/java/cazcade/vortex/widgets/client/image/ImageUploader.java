@@ -58,7 +58,8 @@ public class ImageUploader extends Composite {
 
 
     private void changeImage(Image image) {
-        CachedImage cachedImage = new CachedImage(image);
+        statusWidget.getElement().setInnerText("Loaded");
+        CachedImage cachedImage = new CachedImage(image, CachedImage.MEDIUM);
         if (imageLoadedPanel.getWidgetCount() > 0) {
             WidgetUtil.swap(imageLoadedPanel.getWidget(0), cachedImage);
 //                imageLoadedPanel.addAndReplaceElement(cachedImage, imageLoadedPanel.getWidget(0).getElement().<Element>cast());
@@ -138,8 +139,13 @@ public class ImageUploader extends Composite {
 
         @Override
         public void setProgress(int done, int total) {
-            if (total > 0) {
+            if (total > 0 && done != total) {
                 statusWidget.getElement().setInnerText(((int) ((done / total) * 100)) + "%");
+            }
+            if (done == total && total > 0) {
+                if (statusWidget.getWidgetCount() == 0) {
+                    statusWidget.add(new Image("_images/spinner06.gif"));
+                }
             }
 
         }

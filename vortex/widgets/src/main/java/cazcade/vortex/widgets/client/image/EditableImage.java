@@ -13,7 +13,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 
@@ -44,12 +43,16 @@ public class EditableImage extends Composite implements Bindable {
     }
 
 
-
     @Override
     public LSDEntity getEntityDiff() {
         final LSDEntity result = entity.asUpdateEntity();
         result.setAttribute(attribute, image.getUnCachedUrl());
         return result;
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
 
     interface EditableImageUiBinder extends UiBinder<HTMLPanel, EditableImage> {

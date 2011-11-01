@@ -4,6 +4,7 @@ import cazcade.vortex.pool.objects.PoolObjectView;
 import cazcade.vortex.widgets.client.image.CachedImage;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -17,6 +18,10 @@ public class PhotoView extends PoolObjectView {
 
     public void setUrl(String url) {
         image.setUrl(url);
+    }
+
+    public void addDoubleClickHandler(DoubleClickHandler handler) {
+        effect.addDoubleClickHandler(handler);
     }
 
 
@@ -36,7 +41,7 @@ public class PhotoView extends PoolObjectView {
     public PhotoView() {
         HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
-         effect.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
+        effect.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
     }
 
     @Override
@@ -59,7 +64,8 @@ public class PhotoView extends PoolObjectView {
 //                image.setHeight(LARGE_HEIGHT + "px");
             }
         }
-        effect.setWidth(image.getOffsetWidth()+"px");
+        image.setDefaultMessage("Double click");
+        effect.setWidth(image.getOffsetWidth() + "px");
         effect.setHeight(image.getOffsetHeight() + "px");
     }
 

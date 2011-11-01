@@ -15,13 +15,13 @@ import com.google.gwt.event.dom.client.DoubleClickHandler;
 public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
     public PhotoPresenter(PoolPresenter pool, LSDEntity entity, final PhotoView widget, VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
-        getPoolObjectView().addHandler(new DoubleClickHandler() {
+        getPoolObjectView().addDoubleClickHandler(new DoubleClickHandler() {
             @Override
             public void onDoubleClick(DoubleClickEvent event) {
                 PoolObjectEditor.showForEdit(new PhotoEditorPanel(getEntity()), null);
 
             }
-        }, DoubleClickEvent.getType());
+        });
 
     }
 
@@ -35,7 +35,6 @@ public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
             }
         });
     }
-
 
 
 }

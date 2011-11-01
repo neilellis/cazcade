@@ -31,6 +31,11 @@ public class CachedImage extends Image {
         setUrl(url);
     }
 
+    public CachedImage(Image image, String size) {
+        setSize(size);
+        setUrl(image.getUrl());
+    }
+
     @Override
     protected void onAttach() {
         super.onAttach();
@@ -41,6 +46,10 @@ public class CachedImage extends Image {
 
     private String placeholderImage() {
         return "http://placehold.it/" + getWidth() + "x" + getHeightWithDefault() + "&text=" + URL.encode(notReadyText);
+    }
+
+    public void setDefaultMessage(String message) {
+        defaultUrl = "http://placehold.it/" + getWidth() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
     }
 
     public CachedImage() {

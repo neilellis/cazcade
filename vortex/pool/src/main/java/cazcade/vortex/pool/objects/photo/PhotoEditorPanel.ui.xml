@@ -7,9 +7,13 @@
                 <div class="row">
                     <div class="span5">
                         <h3>Create/Edit Image</h3>
-                        <label>Title <small>(optional)</small></label>
+                        <label>Title
+                            <small>(optional)</small>
+                        </label>
                         <fields:RegexTextBox ui:field="title"/>
-                        <label>Description <small>(optional)</small></label>
+                        <label>Description
+                            <small>(optional)</small>
+                        </label>
                         <fields:VortexTextArea ui:field="description"/>
                     </div>
 
@@ -21,5 +25,6 @@
             </div>
         </div>
         <g:Button ui:field="done" text="Done" styleName="primary btn"/>
+        <g:Button ui:field="cancel" text="Cancel" styleName=" btn"/>
     </g:HTMLPanel>
 </ui:UiBinder>

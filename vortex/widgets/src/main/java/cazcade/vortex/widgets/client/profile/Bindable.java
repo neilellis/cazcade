@@ -15,4 +15,6 @@ public interface Bindable {
     void setErrorMessage(String message);
 
     LSDEntity getEntityDiff();
+
+    boolean isValid();
 }
