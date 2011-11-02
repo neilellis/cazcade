@@ -84,9 +84,7 @@ public class Boardcast implements EntryPoint {
         }
 
 
-        final String registerParam = Window.Location.getParameter("register");
-        registerRequest = registerParam != null;
-
+        registerRequest = Window.Location.getPath().startsWith("/login-register");
         createRequest = Window.Location.getPath().startsWith("/_create-");
 
         injectChildren();

@@ -67,6 +67,10 @@
         <to type="forward">/_pages/confirm_reg.jsp?%{query-string}</to>
     </rule>
 
+    <rule>
+        <from>^/_login-register$</from>
+        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+    </rule>
 
     <!--Straight to brochure site-->
     <rule>
