@@ -88,7 +88,7 @@ public class HistoryManager {
         if (isPushStateSupported()) {
             History.newItem(url);
         } else {
-            Window.Location.assign("./" + url);
+            Window.Location.assign("/" + url);
         }
     }
 

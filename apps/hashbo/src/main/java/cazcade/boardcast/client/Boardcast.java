@@ -161,12 +161,12 @@ public class Boardcast implements EntryPoint {
                     BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
                         @Override
                         public void callback(LiquidUUID uuid) {
-                            historyManager.navigate("-unlisted-" + uuid.toString().toLowerCase());
+                            historyManager.navigate("-unlisted-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME));
                         }
                     });
                 } else {
                     if (board.isEmpty()) {
-                        board = Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36) + "-@" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
+                        board = Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36) + "-~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
                     }
                     historyManager.navigate(board);
                 }

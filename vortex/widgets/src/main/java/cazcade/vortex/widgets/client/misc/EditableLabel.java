@@ -130,6 +130,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
     private boolean showBrief;
     private String placeholder = "Click to edit";
     private static final boolean SUPPORT_TOOLBAR = false;
+    private String prefix = "";
 
     /**
      * Allows the setting of the isEditable flag, marking
@@ -525,9 +526,9 @@ public class EditableLabel extends Composite implements HasWordWrap,
         } else {
             if (formatter != null) {
                 final String formatted = formatter.formatRichText(displayText);
-                text.setHTML(formatted);
+                text.setHTML(prefix + formatted);
             } else {
-                text.setHTML(displayText);
+                text.setHTML(prefix + displayText);
             }
         }
     }
@@ -757,6 +758,11 @@ public class EditableLabel extends Composite implements HasWordWrap,
 
     public void startEdit() {
         changeTextLabel();
+    }
+
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 }
 

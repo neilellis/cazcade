@@ -25,7 +25,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     private boolean readonly;
 
     public void setWordwrap(boolean wordwrap) {
-        if(wordwrap) {
+        if (wordwrap) {
             container.addClassName("word-wrap");
         } else {
             container.removeClassName("word-wrap");
@@ -35,11 +35,11 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     }
 
     public void setPrefix(String prefix) {
-        this.prefix.setInnerText(prefix);
+        this.label.setPrefix(prefix);
     }
 
     public void setFormat(boolean format) {
-        if(format) {
+        if (format) {
             label.setFormatter(FormatUtil.getInstance());
         } else {
             label.setFormatter(null);
@@ -68,8 +68,6 @@ public class VortexEditableLabel extends AbstractVortexFormField {
 
     @UiField
     EditableLabel label;
-    @UiField
-    SpanElement prefix;
     @UiField
     Label hoverEdit;
     @UiField
@@ -169,7 +167,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         if (readonly) {
             label.setEditable(false);
         }
-        if(readonly) {
+        if (readonly) {
             container.addClassName("readonly");
             container.removeClassName("editable");
             hoverEdit.setVisible(false);

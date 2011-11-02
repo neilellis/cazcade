@@ -3,43 +3,30 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:dm="urn:import:cazcade.vortex.widgets.client.dm"
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
     <g:HTMLPanel styleName="view-user-flow-panel" visible="false">
-        <g:HTMLPanel ui:field="detailPanel">
-            <div class="row">
-                <div class="span2">
-                    <image:UserProfileImage ui:field="userImage" width="64px" size="CLIPPED_SMALL"
-                                            height="64px"/>
-                </div>
-                <div class="span2">
-                    <fields:VortexEditableLabel readonly="true" prefix="@" ui:field="userShortName"
-                                                styleName="view-user-details-username"/>
-                    <fields:VortexEditableLabel ui:field="userFullName" styleName="view-user-details-fullname"/>
-                    <g:Label ui:field="roleFullName" styleName="view-user-details-role"/>
-                </div>
+        <g:HTMLPanel ui:field="detailPanel" styleName="detail-panel">
+            <fields:VortexEditableLabel ui:field="userFullName" styleName="view-user-details-fullname"/>
+            <fields:VortexEditableLabel readonly="true" prefix="@" ui:field="userShortName"
+                                        styleName="view-user-details-username"/>
+            <g:Label ui:field="roleFullName" styleName="view-user-details-role"/>
+            <image:UserProfileImage ui:field="userImage" width="120px" size="CLIPPED_MEDIUM"
+                                    height="150px"/>
+            <fields:VortexEditableLabel wordwrap="true" ui:field="description"
+                                        styleName="view-user-details-description"/>
+            <div class="follow-followers-counts">
+                <g:Label ui:field="followersLabel" styleName="view-user-details-followers-label">X Followers
+                </g:Label>
+                <g:Label ui:field="followingLabel" styleName="view-user-details-following-label">Following Y
+                </g:Label>
             </div>
-            <div class="row">
-                <div class="view-user-flow-panel-buttons">
-                    <g:Label ui:field="followButton" styleName="btn primary view-user-button">Follow</g:Label>
-                    <g:Label ui:field="dmButton" styleName="btn view-user-button">DM</g:Label>
-                </div>
+            <div class="view-user-flow-panel-buttons">
+                <g:Label ui:field="followButton" styleName="btn primary view-user-button">Follow</g:Label>
+                <g:Label ui:field="dmButton" styleName="btn view-user-button">DM</g:Label>
             </div>
-            <div class="row">
-                <div class="span3">
-                    <fields:VortexEditableLabel wordwrap="true" ui:field="description"
-                                                styleName="view-user-details-description"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span3">
-                    <g:Label ui:field="followersLabel" styleName="view-user-details-followers-label">X Followers
-                    </g:Label>
-                    <g:Label ui:field="followingLabel" styleName="view-user-details-following-label">Following Y
-                    </g:Label>
-                </div>
-                <div class="span1 invisible">
-                    <a ui:field="profileLink" class="view-user-details-board-link">Profile</a>
-                    <!--<a ui:field="publicLink" class="view-user-details-board-link">Public</a>-->
 
-                </div>
+            <div class="span1 invisible">
+                <a ui:field="profileLink" class="view-user-details-board-link">Profile</a>
+                <!--<a ui:field="publicLink" class="view-user-details-board-link">Public</a>-->
+
             </div>
         </g:HTMLPanel>
         <dm:DirectMessagePanel ui:field="directMessagePanel" visible="false"/>

@@ -108,6 +108,12 @@
 
 .view-user-flow-panel{
     color:@grayDark;
+    position:relative;
+    .clearfix;
+
+    .detail-panel {
+        display:inline-block;
+    }
 
     .view-user-top {
         width: 100%;
@@ -152,6 +158,14 @@
     .view-user-details-description {
         font-size: 0.9em;
         opacity: 0.7;
+        display: block;
+        clear:both;
+    }
+
+    .follow-followers-counts {
+        margin-top:20px;
+        display:block;
+        clear:both;
     }
 
     .view-user-details-followers-label {
@@ -190,8 +204,8 @@
     }
 
     .view-user-details-username {
-        font-size: 0.8em;
-        padding-left:1em;
+        font-size: 1em;
+        /*padding-left:1em;*/
         float: left;
         opacity: 0.9;
         display: inline;
@@ -199,12 +213,15 @@
     }
 
     .user-profile-image {
-        float: left;
-      width:64px;
-      height:64px;
+      position:absolute;
+      right:16px;
+      top:8px;
+      width:120px;
+      height:150px;
       img {
-          width:64px;
-          height:64px;
+          border: none;
+          width:120px;
+          height:150px;
       }
     }
 

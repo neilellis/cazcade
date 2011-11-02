@@ -3,7 +3,6 @@
              xmlns:misc="urn:import:cazcade.vortex.widgets.client.misc">
     <g:HTMLPanel>
         <span class="vortex-editable-label" ui:field="container">
-            <span ui:field="prefix"/>
             <misc:EditableLabel ui:field="label"/>
             <g:Label styleName="hover-edit-button" ui:field="hoverEdit">edit</g:Label>
             <g:Image ui:field="validityImage" styleName="invisible form-field-validity-icon"/>
