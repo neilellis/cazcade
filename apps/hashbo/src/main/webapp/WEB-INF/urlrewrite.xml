@@ -21,7 +21,14 @@
         <condition name="host" operator="equal">^boardca\.st</condition>
         <condition name="host" operator="notequal">^$</condition>
         <from>^/(.*)</from>
-        <to type="redirect" last="true">http://boardcast.us/$1</to>
+        <to type="redirect" last="true">http://boardcast.it/$1</to>
+    </rule>
+
+    <rule>
+        <condition name="host" operator="equal">^boardcast\.us</condition>
+        <condition name="host" operator="notequal">^$</condition>
+        <from>^/(.*)</from>
+        <to type="redirect" last="true">http://boardcast.it/$1</to>
     </rule>
 
 

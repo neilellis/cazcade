@@ -64,8 +64,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -191,7 +192,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java" line="37" class="cazcade.vortex.widgets.client.profile.AbstractAliasDetailPanel" package="cazcade.vortex.widgets.client.profile">
+      <breakpoint url="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java" line="34" class="cazcade.vortex.widgets.client.profile.AbstractAliasDetailPanel" package="cazcade.vortex.widgets.client.profile">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -218,6 +219,19 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" line="55" class="cazcade.hashbo.client.main.widgets.board.PublicBoard" package="cazcade.hashbo.client.main.widgets.board">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar!/gwtupload/client/BaseUploadStatus.java" line="18" class="BaseUploadStatus.java" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -271,97 +285,89 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VortexTextBox.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexTextBox.java">
+      <file leaf-file-name="ImageUploader.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="3" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YouTubeTextBox.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/YouTubeTextBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="13" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0">
+            <state line="10" column="64" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HashtagTextBox.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/HashtagTextBox.java">
+      <file leaf-file-name="ImageUploader.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
+            <state line="125" column="49" selection-start="3710" selection-end="3710" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HashtagTextBox.ui.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/HashtagTextBox.ui.xml">
+      <file leaf-file-name="CloudFilesBasedBinaryStore.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-sources.jar!/com/cazcade/billabong/store/impl/CloudFilesBasedBinaryStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="123" column="34" selection-start="4867" selection-end="4867" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractServerValidatedTextBox.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractServerValidatedTextBox.java">
+      <file leaf-file-name="variables.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/variables.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="0" selection-start="1595" selection-end="1655" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RegexTextBox.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/RegexTextBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="55" selection-start="2020" selection-end="2039" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CachedImage.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="17" selection-start="1879" selection-end="1879" vertical-scroll-proportion="0.0">
+            <state line="51" column="61" selection-start="1604" selection-end="1604" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UrlField.ui.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml">
+      <file leaf-file-name="urlrewrite.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="58" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0">
+            <state line="12" column="52" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PublicBoard.ui.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml">
+      <file leaf-file-name="spinner06.gif" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_images/spinner06.gif">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="widgets.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/widgets.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="0" selection-start="3671" selection-end="3671" vertical-scroll-proportion="1.0728155">
+            <state line="243" column="20" selection-start="4200" selection-end="4200" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WebsiteView.ui.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteView.ui.xml">
+      <file leaf-file-name="hashbo.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="27" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
+            <state line="65" column="43" selection-start="1486" selection-end="1486" vertical-scroll-proportion="-7.4615383">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="board.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="780" column="0" selection-start="14528" selection-end="14818" vertical-scroll-proportion="-7.4615383">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pool-objects.less" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="133" column="38" selection-start="2464" selection-end="2464" vertical-scroll-proportion="2.5125628">
               <folding />
             </state>
           </provider>
@@ -381,22 +387,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginOrRegisterPanel.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboLoginPanel.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" />
-        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectView.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/ProfileBoardHeader.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageProxyServlet.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/RegexTextBox.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexTextBox.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractServerValidatedTextBox.java" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/edit/AbstractPoolObjectEditorPanel.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/EditableImage.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.ui.xml" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoView.java" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoPresenter.java" />
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/dialogs.less" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/widgets.less" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
       </list>
     </option>
   </component>
@@ -5173,7 +5179,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43286574" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32673267" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33564356" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
@@ -5182,8 +5188,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.6732673" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33465347" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.66534656" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33465347" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -5223,7 +5229,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="General bugfixing and clean up." />
+    <option name="LAST_COMMIT_MESSAGE" value="Image upload work." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -5236,8 +5242,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Fixing chat stuff." />
-    <MESSAGE value="Making sure main loop for async consumer cannot finish." />
     <MESSAGE value="Reducing extraneous logging information." />
     <MESSAGE value="Better logging etc." />
     <MESSAGE value="Fixed bug in spring config where RABBITMQ_ASYNC_REQUEST_EXCHANGE_NAME was incorrectly RABBITMQ_REQUEST_EXCHANGE_NAME" />
@@ -5261,6 +5265,8 @@
     <MESSAGE value="Fixed queries always running as admin :-)" />
     <MESSAGE value="Dragging fix." />
     <MESSAGE value="General bugfixing and clean up." />
+    <MESSAGE value="Work on reg." />
+    <MESSAGE value="Image upload work." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -5304,120 +5310,114 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/ProfileBoardHeader.ui.xml">
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="52" selection-start="2475" selection-end="2475" vertical-scroll-proportion="0.0">
+        <state line="27" column="46" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="39" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="335" column="24" selection-start="6426" selection-end="6426" vertical-scroll-proportion="-13.807693">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.3.0/gwt-user-2.3.0-sources.jar!/com/google/gwt/user/client/ui/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="604" column="13" selection-start="20771" selection-end="20771" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageProxyServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="54" selection-start="6870" selection-end="6870" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.3.0/gwt-user-2.3.0.jar!/com/google/gwt/event/dom/client/KeyUpHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="7" selection-start="919" selection-end="919" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/RegexTextBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="55" selection-start="2020" selection-end="2039" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractServerValidatedTextBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="0" selection-start="1595" selection-end="1655" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/YouTubeTextBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/HashtagTextBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/HashtagTextBox.ui.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexTextBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="3" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteView.ui.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="27" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
+        <state line="9" column="58" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="17" selection-start="1879" selection-end="1879" vertical-scroll-proportion="0.0">
+        <state line="35" column="29" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.ui.xml">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="58" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0">
+        <state line="27" column="4" selection-start="1058" selection-end="1058" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/dialogs.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="80" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/bootstrap/forms.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="0" selection-start="3671" selection-end="3671" vertical-scroll-proportion="1.0728155">
+        <state line="71" column="9" selection-start="1315" selection-end="1315" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/widgets.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="243" column="20" selection-start="4200" selection-end="4200" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_images/spinner06.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="64" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="49" selection-start="3710" selection-end="3710" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-sources.jar!/com/cazcade/billabong/store/impl/CloudFilesBasedBinaryStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="34" selection-start="4867" selection-end="4867" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/variables.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="61" selection-start="1604" selection-end="1604" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="52" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="43" selection-start="1486" selection-end="1486" vertical-scroll-proportion="-7.4615383">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="780" column="0" selection-start="14528" selection-end="14818" vertical-scroll-proportion="-7.4615383">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="133" column="38" selection-start="2464" selection-end="2464" vertical-scroll-proportion="2.5125628">
           <folding />
         </state>
       </provider>

@@ -64,7 +64,7 @@ public class ImageUploader extends Composite {
 
     private void changeImage(Image image) {
         statusText.setInnerText("Loaded");
-        spinner.setVisible(true);
+        spinner.setVisible(false);
 
         CachedImage cachedImage = new CachedImage(image, CachedImage.MEDIUM);
         if (imageLoadedPanel.getWidgetCount() > 0) {
@@ -150,8 +150,9 @@ public class ImageUploader extends Composite {
                 statusText.setInnerText(((int) (((double) done / (double) total) * 100)) + "%");
             }
             if (done == total && total > 0) {
-                spinner.setVisible(true);
+                statusText.setInnerText("Loaded");
             }
+            spinner.setVisible(true);
 
         }
     }
