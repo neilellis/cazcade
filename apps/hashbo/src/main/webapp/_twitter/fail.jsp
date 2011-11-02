@@ -7,6 +7,8 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Failed</title>
     <link rel="stylesheet" href="../_css/bootstrap/bootstrap-full.less">
+    <script src="../_js/less-dev.js" type="text/javascript"></script>
+
 </head>
 <body>
 <div class="container" style="width:650px;padding-top:20px">

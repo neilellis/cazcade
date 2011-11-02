@@ -7,6 +7,8 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Register with Boardcast</title>
     <link rel="stylesheet" href="../_css/bootstrap/bootstrap-full.less">
+    <script src="../_js/less-dev.js" type="text/javascript"></script>
+
     <%--<link rel="stylesheet" href="../_css/hashbo.less">--%>
 </head>
 <body>

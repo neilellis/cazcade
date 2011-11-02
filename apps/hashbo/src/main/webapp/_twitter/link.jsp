@@ -7,6 +7,8 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Link Twitter to Boardcast Account</title>
     <link rel="stylesheet" href="../_css/bootstrap/bootstrap-full.less">
+    <script src="../_js/less-dev.js" type="text/javascript"></script>
+
 </head>
 <body>
 <div class="container" style="width:650px;padding-top:20px  ">
@@ -21,7 +23,8 @@
         </div>
         <div class="row">
             <div class="span4">
-                <p>Please sign into Boardcast to link your Twitter account to your existing Boardcast account, alternatively
+                <p>Please sign into Boardcast to link your Twitter account to your existing Boardcast account,
+                    alternatively
                     click <a href="./signin">here</a> to create a new account.</p>
             </div>
             <div class="span4">
