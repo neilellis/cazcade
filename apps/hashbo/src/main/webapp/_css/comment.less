@@ -27,15 +27,26 @@
     .gridColumn();
 
     .comment-entry-panel {
-        .transition-height(2000ms);
+        .transition3(max-height ease-in-out 2000ms, height ease-in-out 2000ms, opacity ease-in-out 500ms);
         .row;
         .clearfix();
         overflow:hidden;
+        margin-top:8px;
 
         .comment-entry-user-panel {
             .span1;
             .gridColumn();
         }
+
+        .comment-entry-details {
+            width:100%;
+            color:black;
+            font-size:14px;
+            display: block;
+            clear:both;
+            margin-bottom: 6px;
+        }
+
 
         .comment-entry-main {
             .span14;
@@ -43,28 +54,27 @@
 
             .comment-author-fullname-label {
                  font-size:1.2em;
+                 opacity: 0.80;
             }
             .comment-author-username-label {
                  font-size:1.1em;
-                 color:#aaa;
+                 opacity: 0.65;
             }
 
             .comment-entry-message {
                 font-size:16px;
             }
 
-            .comment-entry-details {
-                .gridColumn();
-                 color:#aaa;
-                 font-size:0.9em;
-            }
 
             .comment-entry-time {
                 float:right;
+                font-size:12px;
+                 opacity: 0.5;
             }
 
             .comment-author-follow-badge {
                  font-size:0.9em;
+                 opacity: 0.6;
             }
 
         }
