@@ -122,8 +122,8 @@ public class EditableImage extends Composite implements Bindable {
             super();
             final ImageEditor editor = new ImageEditor(image);
             setWidget(editor);
-            setWidth("300px");
-            setHeight("250px");
+            setWidth("600px");
+            setHeight("350px");
         }
 
     }
