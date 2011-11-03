@@ -25,6 +25,8 @@ public class CachedImage extends Image {
     private String url;
     private String notReadyText = "No Image";
     private boolean cached = true;
+    private int requestedWidth;
+    private int requestedHeight;
 
     public CachedImage(String url, String size) {
         setSize(size);
@@ -79,6 +81,7 @@ public class CachedImage extends Image {
 
     }
 
+
     private void updateImageUrl() {
         getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
@@ -86,7 +89,7 @@ public class CachedImage extends Image {
                 if (url.startsWith("http")) {
                     super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size + "&width=" + getWidthWithDefault() + "&height=" + getHeightWithDefault());
                 } else {
-                    super.setUrl("./_image-service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeightWithDefault());
+                    super.setUrl("./_image-service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidthWithDefault() + "&height=" + getHeightWithDefault());
                 }
             } else {
                 super.setUrl(url);
@@ -98,16 +101,18 @@ public class CachedImage extends Image {
     }
 
     private int getWidthWithDefault() {
-        if (getWidth() > 0) {
-            return getWidth();
-        } else {
+        if (getOffsetWidth() > 0) {
             return getOffsetWidth();
+        } else {
+            return requestedWidth;
         }
     }
 
     private int getHeightWithDefault() {
-        if (getHeight() > 0) {
-            return getHeight();
+        if (getOffsetHeight() > 0) {
+            return getOffsetHeight();
+        } else if (requestedHeight > 0) {
+            return requestedHeight;
         } else {
             return 2048;
         }
@@ -140,4 +145,28 @@ public class CachedImage extends Image {
     public void setCached(boolean cached) {
         this.cached = cached;
     }
+
+    @Override
+    public int getOffsetWidth() {
+        return super.getOffsetWidth();
+    }
+
+    @Override
+    public void setWidth(String width) {
+        super.setWidth(width);
+        if (width.endsWith("px")) {
+            this.requestedWidth = Integer.parseInt(width.substring(0, width.length() - 2));
+        }
+    }
+
+    @Override
+    public void setHeight(String height) {
+        super.setHeight(height);
+        if (height.endsWith("px")) {
+            this.requestedHeight = Integer.parseInt(height.substring(0, height.length() - 2));
+        }
+    }
 }
+
+
+
