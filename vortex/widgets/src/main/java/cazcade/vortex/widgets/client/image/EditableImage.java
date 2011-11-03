@@ -2,6 +2,7 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -116,11 +117,13 @@ public class EditableImage extends Composite implements Bindable {
     }
 
 
-    private class ImageEditorDialogBox extends PopupPanel {
+    private class ImageEditorDialogBox extends VortexPopupPanel {
         private ImageEditorDialogBox() {
-            super(true, false);
+            super();
             final ImageEditor editor = new ImageEditor(image);
             setWidget(editor);
+            setWidth("300px");
+            setHeight("250px");
         }
 
     }

@@ -6,37 +6,18 @@ import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
 import cazcade.vortex.widgets.client.form.fields.VortexTextArea;
+import cazcade.vortex.widgets.client.popup.PopupEditPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 
 /**
  * @author neilellis@cazcade.com
  */
-public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel {
-
-    @UiField
-    Button done;
-    private Timer timer;
-
-    @UiHandler("done")
-    public void doneClicked(ClickEvent e) {
-        timer.cancel();
-        onFinishAction.run();
-    }
-
-    @UiHandler("cancel")
-    public void cancelClicked(ClickEvent e) {
-        timer.cancel();
-        onFinishAction.run();
-    }
+public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements PopupEditPanel {
 
 
     @Override
@@ -68,26 +49,17 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel {
     VortexTextArea description;
     @UiField
     RegexTextBox title;
-    @UiField
-    Button cancel;
 
 
     public PhotoEditorPanel(LSDEntity entity) {
         initWidget(ourUiBinder.createAndBindUi(this));
         bind(entity);
-        timer = new Timer() {
-            @Override
-            public void run() {
-                done.setEnabled(isValid());
-            }
 
-        };
     }
 
     @Override
     protected void onLoad() {
         super.onLoad();
-        timer.schedule(50);
     }
 
     protected boolean autoCloseField(Bindable field) {

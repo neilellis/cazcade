@@ -146,4 +146,8 @@ public class WidgetUtil {
         panel.add(view);
         view.asWidget().getElement().getStyle().setOpacity(1.0);
     }
+
+    public static void show(IsWidget isWidget) {
+        isWidget.asWidget().setVisible(true);
+    }
 }

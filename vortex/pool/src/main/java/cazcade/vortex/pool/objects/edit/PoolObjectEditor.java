@@ -1,8 +1,8 @@
 package cazcade.vortex.pool.objects.edit;
 
+import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
@@ -10,15 +10,11 @@ import com.google.gwt.user.client.ui.PopupPanel;
  */
 public class PoolObjectEditor {
 
-    private Button done;
     private AbstractPoolObjectEditorPanel editorPanel;
     private Runnable onFinishAction;
     private int width;
     private int height;
 
-    public void setOnFinishAction(Runnable onFinishAction) {
-        this.onFinishAction = onFinishAction;
-    }
 
     PoolObjectEditor(AbstractPoolObjectEditorPanel editorPanel, Runnable onFinishAction, int width, int height) {
         this.editorPanel = editorPanel;
@@ -47,12 +43,13 @@ public class PoolObjectEditor {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).edit();
     }
 
-    private class PoolObjectEditorPopup extends PopupPanel {
+    private class PoolObjectEditorPopup extends VortexPopupPanel {
 
         boolean finished;
 
         private PoolObjectEditorPopup() {
-            super(false, true);
+            setAutoHideEnabled(true);
+            setAutoHideOnHistoryEventsEnabled(true);
             setHeight(height + "px");
             setWidth(width + "px");
             addStyleName("pool-object-editor-popup");
@@ -65,7 +62,7 @@ public class PoolObjectEditor {
                     finish();
                 }
             });
-            editorPanel.setOnFinishAction(new Runnable() {
+            setOnFinishAction(new Runnable() {
                 @Override
                 public void run() {
                     hide();

@@ -1,19 +1,24 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
+import cazcade.vortex.widgets.client.popup.PopupEditPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Image;
 
 /**
  * @author neilellis@cazcade.com
  */
-public class ImageEditor extends Composite{
+public class ImageEditor extends Composite implements PopupEditPanel {
     public String getUrl() {
         return changeImagePanel.getStringValue();
+    }
+
+    @Override
+    public boolean isValid() {
+        return changeImagePanel.isValid();
     }
 
     interface ImageEditorUiBinder extends UiBinder<HTMLPanel, ImageEditor> {

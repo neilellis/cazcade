@@ -40,7 +40,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
 
     protected abstract Runnable getUpdateEntityAction(Bindable field);
 
-    protected boolean isValid() {
+    public boolean isValid() {
         for (Bindable bindable : bindings.values()) {
             if (!bindable.isValid()) {
                 return false;

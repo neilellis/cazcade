@@ -42,6 +42,7 @@ public class CachedImage extends Image {
         if (super.getUrl() == null || super.getUrl().isEmpty()) {
             super.setUrl(placeholderImage());
         }
+        setUrl(this.url);
     }
 
     private String placeholderImage() {
@@ -83,7 +84,7 @@ public class CachedImage extends Image {
         if (url != null && !url.isEmpty()) {
             if (CACHING && cached) {
                 if (url.startsWith("http")) {
-                    super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeightWithDefault());
+                    super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size + "&width=" + getWidthWithDefault() + "&height=" + getHeightWithDefault());
                 } else {
                     super.setUrl("./_image-service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeightWithDefault());
                 }
@@ -94,6 +95,14 @@ public class CachedImage extends Image {
             super.setUrl(defaultUrl);
         }
 
+    }
+
+    private int getWidthWithDefault() {
+        if (getWidth() > 0) {
+            return getWidth();
+        } else {
+            return getOffsetWidth();
+        }
     }
 
     private int getHeightWithDefault() {

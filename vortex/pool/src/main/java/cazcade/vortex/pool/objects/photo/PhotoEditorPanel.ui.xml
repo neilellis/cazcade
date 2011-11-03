@@ -24,7 +24,5 @@
                 </div>
             </div>
         </div>
-        <g:Button ui:field="done" text="Done" styleName="primary btn"/>
-        <g:Button ui:field="cancel" text="Cancel" styleName=" btn"/>
     </g:HTMLPanel>
 </ui:UiBinder>

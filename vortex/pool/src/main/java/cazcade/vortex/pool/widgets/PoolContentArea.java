@@ -126,7 +126,7 @@ public class PoolContentArea extends Composite {
                     visibilityRibbon.setText("Only you can view");
                 }
             }
-            WidgetUtil.showGracefully(visibilityRibbon, false);
+            WidgetUtil.show(visibilityRibbon);
         } else {
             WidgetUtil.hideGracefully(visibilityRibbon, false);
         }

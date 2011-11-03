@@ -47,7 +47,10 @@ public class ImageUploader extends Composite {
         defaultUploader.setStatusWidget(new UploadStatusHandler());
 
         loaderPanel.add(defaultUploader);
-        imageLoadedPanel.add(new CachedImage());
+        final CachedImage cachedImage = new CachedImage();
+        cachedImage.setWidth("300px");
+        cachedImage.setHeight("200px");
+        imageLoadedPanel.add(cachedImage);
     }
 
 
@@ -66,13 +69,17 @@ public class ImageUploader extends Composite {
         statusText.setInnerText("Loaded");
         spinner.setVisible(false);
 
-        CachedImage cachedImage = new CachedImage(image, CachedImage.MEDIUM);
+        CachedImage cachedImage = new CachedImage();
+        cachedImage.setWidth("300px");
+        cachedImage.setHeight("200px");
         if (imageLoadedPanel.getWidgetCount() > 0) {
             WidgetUtil.swap(imageLoadedPanel.getWidget(0), cachedImage);
 //                imageLoadedPanel.addAndReplaceElement(cachedImage, imageLoadedPanel.getWidget(0).getElement().<Element>cast());
         } else {
             imageLoadedPanel.add(cachedImage);
         }
+        cachedImage.setSize(CachedImage.MEDIUM);
+        cachedImage.setUrl(image.getUrl());
     }
 
     private class UploadStatusHandler implements IUploadStatus {
