@@ -6,8 +6,10 @@
                 <li class="active"><a href="/_welcome">Home</a></li>
                 <li><a href="/_query-popular">Popular</a></li>
                 <li><a href="/_query-new">New</a></li>
-                <li><a href="/_query-history">Visited</a></li>
-                <li><a href="/_query-my">My</a></li>
+                <c:if test="${not empty sessionScope.username}">
+                    <li><a href="/_query-history">Visited</a></li>
+                    <li><a href="/_query-my">My</a></li>
+                </c:if>
                 <li><a href="/_create-listed">Create</a></li>
             </ul>
 

@@ -5,6 +5,8 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
@@ -23,6 +25,7 @@ public class EditableImage extends Composite implements Bindable {
     private Runnable onChangeAction;
     protected LSDEntity entity;
     private LSDAttribute attribute;
+    protected boolean editable = true;
 
     @Override
     public void bind(LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
@@ -61,6 +64,8 @@ public class EditableImage extends Composite implements Bindable {
     private static EditableImageUiBinder ourUiBinder = GWT.create(EditableImageUiBinder.class);
     @UiField
     CachedImage image;
+    @UiField
+    SpanElement editText;
 
     public EditableImage() {
         HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
@@ -70,7 +75,7 @@ public class EditableImage extends Composite implements Bindable {
 
     @UiHandler("image")
     public void onClick(ClickEvent e) {
-        if (entity.getBooleanAttribute(LSDAttribute.EDITABLE)) {
+        if (entity.getBooleanAttribute(LSDAttribute.EDITABLE) && editable) {
             final ImageEditorDialogBox imageEditorDialogBox = new ImageEditorDialogBox();
             imageEditorDialogBox.addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
@@ -103,6 +108,11 @@ public class EditableImage extends Composite implements Bindable {
     public void setHeight(String height) {
         super.setHeight(height);
         image.setHeight(height);
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+        editText.getStyle().setVisibility(editable ? Style.Visibility.VISIBLE : Style.Visibility.HIDDEN);
     }
 
 

@@ -4,7 +4,7 @@
              xmlns:date="urn:import:cazcade.vortex.widgets.client.date">
     <g:HTMLPanel styleName="comment-entry-panel">
         <g:HTMLPanel ui:field="imageSurround" styleName="comment-entry-user-panel">
-            <image:UserProfileImage ui:field="profileImage"/>
+            <image:UserProfileImage ui:field="profileImage" editable="false"/>
         </g:HTMLPanel>
         <div class="comment-entry-main">
             <div class="comment-entry-details">

@@ -82,6 +82,11 @@ public class ImageProxyServlet extends HttpServlet {
         final String url = req.getParameter("url");
         final String size = req.getParameter("size");
 
+        if (url == null || url.isEmpty()) {
+            resp.sendError(404);
+            return;
+        }
+
         final String urlCompareStr = url.toLowerCase();
         //todo: bit of a hack
         boolean isImage = req.getParameter("isImage") != null ||

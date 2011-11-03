@@ -270,8 +270,34 @@ body.boards-body {
     margin: 0px;
 
 }
+.pool-area div.pool-visibility-ribbon {
+    opacity: 0;
+    .transform(rotate(-45deg));
+    #gradient > .vertical(#20ff20, #10ff10);
+    color:rgba(0,0,0,0.8);
+    &.warning {
+        #gradient > .vertical(#ff5020, #ff4010);
+    }
+    &.danger {
+        #gradient > .vertical(#ff2020, #ff1010);
+    }
+    width:240px;
+    height:30px;
+    line-height:30px;
+    font-size:18px;
+    position: absolute;
+    top:80px;
+    left:-60px;
+    text-align: center;
+    padding-left:40px;
+    padding-right:40px;
+    .box-shadow(1px 1px 4px rgba(0,0,0,0.1));
+}
 
 
+.pool-area:hover div.pool-visibility-ribbon {
+    opacity: 1.0;
+}
 
 div.pool-area-content {
 

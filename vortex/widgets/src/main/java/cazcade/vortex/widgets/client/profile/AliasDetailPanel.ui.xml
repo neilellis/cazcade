@@ -2,16 +2,18 @@
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
              xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:dm="urn:import:cazcade.vortex.widgets.client.dm"
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
-    <g:HTMLPanel styleName="view-user-details-inner" visible="false">
-        <g:HTMLPanel ui:field="detailPanel">
+    <g:HTMLPanel visible="false">
+        <g:HTMLPanel ui:field="detailPanel" styleName="view-user-details-inner">
 
-            <g:DockLayoutPanel height="180px" width="100%">
+            <g:DockLayoutPanel height="160px" width="100%">
                 <g:west size="80">
                     <g:HTMLPanel>
                         <div class="view-user-lhs-container">
                             <image:UserProfileImage ui:field="userImage" styleName="view-user-details-image"/>
-                            <fields:VortexEditableLabel readonly="true" prefix="@" ui:field="userShortName" styleName="view-user-details-username"/>
-                            <g:Label ui:field="followButton" styleName="btn small info view-user-button">Follow</g:Label>
+                            <fields:VortexEditableLabel readonly="true" prefix="@" ui:field="userShortName"
+                                                        styleName="view-user-details-username"/>
+                            <g:Label ui:field="followButton" styleName="btn small info view-user-button">Follow
+                            </g:Label>
                             <g:Label ui:field="dmButton" styleName="btn small info view-user-button">DM</g:Label>
                             <dm:DirectMessagePanel ui:field="directMessagePanel" visible="false"/>
                         </div>
@@ -25,7 +27,7 @@
                     </g:HTMLPanel>
                 </g:center>
             </g:DockLayoutPanel>
-            <g:HTMLPanel styleName="view-user-details-bottom">
+            <g:HTMLPanel styleName="view-user-details-bottom" visible="false">
                 <a ui:field="profileLink" class="view-user-details-board-link">Profile</a>
                 <!--<a ui:field="publicLink" class="view-user-details-board-link">Public</a>-->
 

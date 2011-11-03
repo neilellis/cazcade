@@ -1,5 +1,7 @@
 package cazcade.vortex.pool.widgets;
 
+import cazcade.liquid.api.LiquidPermission;
+import cazcade.liquid.api.LiquidPermissionScope;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
@@ -15,6 +17,7 @@ import cazcade.vortex.pool.PoolPresenterImpl;
 import cazcade.vortex.pool.api.PoolPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenterFactory;
+import cazcade.vortex.pool.objects.PoolObjectView;
 import cazcade.vortex.widgets.client.panels.scroll.VortexScrollPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
@@ -38,6 +41,8 @@ public class PoolContentArea extends Composite {
 
     @UiField
     AbsolutePanel container;
+    @UiField
+    Label visibilityRibbon;
 
     private Bus bus;
 
@@ -88,6 +93,39 @@ public class PoolContentArea extends Composite {
         if (poolPresenter != null) {
             poolPresenter.destroy();
         }
+        final boolean listed = poolEntity.getBooleanAttribute(LSDAttribute.LISTED);
+        visibilityRibbon.removeStyleName("danger");
+        visibilityRibbon.removeStyleName("warning");
+        if (true || poolEntity.getBooleanAttribute(LSDAttribute.EDITABLE)) {
+            if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
+                if (listed) {
+                    visibilityRibbon.setText("All can edit");
+                    visibilityRibbon.addStyleName("danger");
+                } else {
+                    visibilityRibbon.setText("Invitees can edit");
+                }
+            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+                if (listed) {
+                    visibilityRibbon.setText("Everyone can modify");
+                    visibilityRibbon.addStyleName("warning");
+                } else {
+                    visibilityRibbon.setText("Invitees can modify");
+                }
+            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+                if (listed) {
+                    visibilityRibbon.setText("Everyone can view");
+                } else {
+                    visibilityRibbon.setText("Invitees can view");
+                }
+            } else {
+                if (listed) {
+                    visibilityRibbon.setText("Listed but not visible");
+                    visibilityRibbon.addStyleName("warning");
+                } else {
+                    visibilityRibbon.setText("Only you can view");
+                }
+            }
+        }
         poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);
         List<LSDEntity> entities = poolEntity.getSubEntities(LSDAttribute.CHILD);
         for (LSDEntity entity : entities) {
@@ -119,7 +157,7 @@ public class PoolContentArea extends Composite {
     public void clear() {
         for (Widget widget : container) {
             try {
-                if (!(widget instanceof Image)) {
+                if (widget instanceof PoolObjectView) {
                     widget.removeFromParent();
                 }
             } catch (Exception e) {

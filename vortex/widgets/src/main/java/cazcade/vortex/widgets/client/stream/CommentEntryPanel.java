@@ -75,8 +75,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
         }
 //        location.setText(locationText);
         final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR);
-        profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
-        profileImage.setAliasUri(author.getURI());
+        profileImage.bind(author, LSDAttribute.IMAGE_URL, "");
         profileName.setInnerText("@" + author.getAttribute(LSDAttribute.NAME));
         authorFullname.setInnerText(author.getAttribute(LSDAttribute.FULL_NAME));
 //        profileName.addClickHandler(new ClickHandler() {

@@ -93,6 +93,9 @@ public class BoardMenuBar extends MenuBar {
 
         addMenubar.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
 
+        addMenubar.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
+
+
         addMenubar.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
@@ -115,7 +118,6 @@ public class BoardMenuBar extends MenuBar {
             }
         }));
 
-        addMenubar.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
 
         addMenubar.addItem("Photograph",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {

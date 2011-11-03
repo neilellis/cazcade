@@ -3,9 +3,6 @@
              xmlns:profile="urn:import:cazcade.vortex.widgets.client.profile"
         >
     <g:HTMLPanel>
-        <g:PopupPanel width="360px" height="200px"
-                      ui:field="popup" glassEnabled="false" modal="false" autoHideEnabled="true">
-            <profile:AliasDetailPanel ui:field="detailPanel" styleName="drop-shadow raised view-user-details view-user-details-popup"/>
-        </g:PopupPanel>
+        <profile:AliasDetailPanel ui:field="detailPanel" styleName=" view-user-details-popup"/>
     </g:HTMLPanel>
 </ui:UiBinder>

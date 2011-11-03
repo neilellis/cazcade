@@ -60,7 +60,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
                     int minHeight = DEFAULT_HEIGHT;
                     for (int i = 0; i < widgetCount; i++) {
                         final Widget widget = panel.getWidget(i);
-                        final int maxY = widget.getAbsoluteTop() + widget.getOffsetHeight();
+                        final int maxY = widget.getElement().getOffsetTop() + widget.getOffsetHeight();
                         if (maxY > minHeight) {
                             minHeight = maxY + BORDER_BEFORE_PAGEFLOW_STARTS;
                         }

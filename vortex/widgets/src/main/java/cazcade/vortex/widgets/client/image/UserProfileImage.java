@@ -5,9 +5,9 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.widgets.client.profile.ViewAliasDetailPanel;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 
 /**
  * @author neilellis@cazcade.com
@@ -32,28 +32,26 @@ public class UserProfileImage extends EditableImage {
     @Override
     public void bind(LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
-        if (!entity.getBooleanAttribute(LSDAttribute.EDITABLE)) {
-
-            image.addClickHandler(new ClickHandler() {
-
+        setAliasUri(entity.getURI());
+        setUrl(entity.getAttribute(attribute));
+        if (!entity.getBooleanAttribute(LSDAttribute.EDITABLE) || !editable) {
+            image.addMouseOverHandler(new MouseOverHandler() {
                 private ViewAliasDetailPanel aliasDetailPanel;
-                private boolean showing;
 
                 @Override
-                public void onClick(final ClickEvent event) {
+                public void onMouseOver(MouseOverEvent event) {
                     if (aliasDetailPanel == null) {
                         aliasDetailPanel = new ViewAliasDetailPanel(getAliasUri(), FormatUtil.getInstance());
-                        RootPanel.get().add(aliasDetailPanel);
                         showPopup(event);
                     } else {
                         showPopup(event);
                     }
                 }
 
-                private void showPopup(ClickEvent event) {
-                    aliasDetailPanel.show(RootPanel.get(), event.getRelativeX(RootPanel.get().getElement()), event.getRelativeY(RootPanel.get().getElement()));
+                private void showPopup(MouseEvent event) {
+                    aliasDetailPanel.showRelativeTo(getWidget());
+//                    aliasDetailPanel.show(RootPanel.get(), event.getRelativeX(RootPanel.get().getElement()), event.getRelativeY(RootPanel.get().getElement()));
                 }
-
             });
         }
     }
@@ -89,4 +87,6 @@ public class UserProfileImage extends EditableImage {
     public void setDefaultUrl(String defaultUrl) {
         image.setDefaultUrl(defaultUrl);
     }
+
+
 }
