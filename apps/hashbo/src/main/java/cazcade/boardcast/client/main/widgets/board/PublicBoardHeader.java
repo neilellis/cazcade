@@ -11,7 +11,6 @@ import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -19,8 +18,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
-
-import static com.google.gwt.http.client.URL.encode;
 
 
 /**
@@ -38,8 +35,6 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     VortexEditableLabel url;
     @UiField
     DivElement contentArea;
-    @UiField
-    IFrameElement tweetButton;
     @UiField
     EditableImage boardIcon;
 
@@ -124,9 +119,6 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         tag.setValue("#" + shortUrl);
         final String externalURL = "http://boardca.st/" + shortUrl;
         url.setValue(externalURL);
-        tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/" + shortUrl) +
-                "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "my great board") + " on Boardcast")
-                + "&count=horizontal");
         WidgetUtil.showGracefully(contentArea, false);
     }
 

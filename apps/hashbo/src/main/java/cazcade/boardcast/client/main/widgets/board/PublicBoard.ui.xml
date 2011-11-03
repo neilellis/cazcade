@@ -19,7 +19,12 @@
                     <widgets:BoardMenuBar styleName="hashbo-board-menu" autoOpen="true" ui:field="menuBar"
                                           focusOnHoverEnabled="true"/>
 
+                    <iframe allowtransparency="true" frameborder="0" scrolling="no" class="tweet-button"
+                            ui:field="tweetButton"
+
+                            style="width:100px; height:20px;"></iframe>
                     <g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>
+
                 </div>
 
                 <div class="board-content"

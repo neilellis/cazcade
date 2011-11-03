@@ -25,9 +25,6 @@
                         <image:EditableImage ui:field="boardIcon" styleName="board-icon" width="90px"
                                              size="CLIPPED_SMALL"
                                              height="60px"/>
-                        <iframe allowtransparency="true" frameborder="0" scrolling="no" ui:field="tweetButton"
-
-                                style="width:130px; height:20px;"></iframe>
                     </div>
                 </div>
 

@@ -80,7 +80,7 @@ public class CachedImage extends Image {
 
     private void updateImageUrl() {
         getElement().getStyle().setBackgroundImage(placeholderImage());
-        if (url != null) {
+        if (url != null && !url.isEmpty()) {
             if (CACHING && cached) {
                 if (url.startsWith("http")) {
                     super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size + "&width=" + getWidth() + "&height=" + getHeightWithDefault());

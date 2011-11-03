@@ -106,6 +106,11 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
 
+    protected boolean loggedInAs(String username, HttpSession session) {
+        return session.getAttribute(USERNAME_KEY).equals(username);
+    }
+
+
     @Override
     public void destroy() {
         dataStore.stopIfNotStopped();

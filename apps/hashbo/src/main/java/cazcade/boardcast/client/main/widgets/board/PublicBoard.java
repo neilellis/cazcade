@@ -29,10 +29,7 @@ import cazcade.vortex.widgets.client.stream.CommentPanel;
 import cazcade.vortex.widgets.client.stream.NotificationPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
-import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.SpanElement;
-import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.*;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -43,6 +40,8 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+
+import static com.google.gwt.http.client.URL.encode;
 
 /**
  * @author neilellis@cazcade.com
@@ -237,6 +236,11 @@ public class PublicBoard extends EntityBackedFormPanel {
             removeStyleName("modifiable-board");
         }
 
+        tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/" + entity.getURI().asShortUrl().asUrlSafe()) +
+                "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "my great board") + " on Boardcast")
+                + "&count=horizontal");
+
+
         if (!getEntity().getURI().asShortUrl().isProfileBoard()) {
             publicBoardHeader.bind(getEntity());
             publicBoardHeader.setVisible(true);
@@ -245,16 +249,20 @@ public class PublicBoard extends EntityBackedFormPanel {
             ownerDetailPanel.setAliasURI(owner.getURI());
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
 //            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
+            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/" + entity.getURI().asShortUrl().asUrlSafe()) +
+                    "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "this board") + " on Boardcast")
+                    + "&count=horizontal");
 
-        }
-
-        if (getEntity().getURI().asShortUrl().isProfileBoard()) {
+        } else {
             profileBoardHeader.setVisible(true);
             publicBoardHeader.setVisible(false);
             ownerDetailPanel.setVisible(false);
             footer.getStyle().setVisibility(Style.Visibility.HIDDEN);
             profileBoardHeader.setAliasURI(owner.getURI());
 //            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
+            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/" + entity.getURI().asShortUrl().asUrlSafe()) +
+                    "&text=" + encode("Check out this profile on Boardcast")
+                    + "&count=horizontal");
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         publishDate.setInnerText(getEntity().getPublished().toString());
@@ -346,6 +354,8 @@ public class PublicBoard extends EntityBackedFormPanel {
     NotificationPanel notificationPanel;
     @UiField
     DivElement footer;
+    @UiField
+    IFrameElement tweetButton;
 
     @Override
     protected void onAttach() {

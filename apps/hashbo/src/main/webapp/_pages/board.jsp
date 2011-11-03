@@ -6,11 +6,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+
     <title>Boardcast</title>
 
     <script type="text/javascript">
         var _nav;
-        var testNoPushState= true;
+        var testNoPushState = true;
         if (typeof(window.history.pushState) == "function" && !testNoPushState) {
             _nav = function(href) {
                 window.history.pushState(href, window.document.title, "/" + href);
@@ -18,7 +19,7 @@
             };
         } else {
             _nav = function(href) {
-                window.location.href = window.location.href="./"+href;
+                window.location.href = window.location.href = "./" + href;
             };
         }
 

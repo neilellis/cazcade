@@ -13,6 +13,7 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.liquid.api.request.CreateUserRequest;
+import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.impl.UUIDFactory;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -29,6 +30,9 @@ import java.util.Properties;
 public class LoginUtil {
     private final static Logger log = Logger.getLogger(LoginUtil.class);
     public static final String SESSION_KEY = "sessionId";
+    public static final String ALIAS_KEY = "alias_entity";
+    public static final String ALIAS_KEY_FOR_JSP = "alias";
+    private static final String USERNAME_KEY = "username";
 
 
     public static final String APP_KEY = "123";
@@ -38,9 +42,13 @@ public class LoginUtil {
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
         if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
-            LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(response.getResponse().getAttribute(LSDAttribute.NAME), response.getResponse().getID());
+            LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), response.getResponse().getID());
             createClientSession(clientSessionManager, serverSession, true);
+            final LSDEntity aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
             session.setAttribute(SESSION_KEY, serverSession);
+            session.setAttribute(USERNAME_KEY, serverSession.getName());
+            session.setAttribute(ALIAS_KEY, aliasEntity);
+            session.setAttribute(ALIAS_KEY_FOR_JSP, aliasEntity.getCamelCaseMap());
             return serverSession;
         } else {
             log.error("{0}", response.getResponse().asFreeText());

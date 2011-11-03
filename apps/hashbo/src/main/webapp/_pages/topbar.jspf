@@ -3,18 +3,17 @@
         <div class="container">
             <a class="logo" href="/">&nbsp;</a>
             <ul class="nav">
-                <li class="active"><a href="./_welcome">Home</a></li>
-                <li><a href="./_query-popular">Popular</a></li>
-                <li><a href="./_query-new">New</a></li>
-                <li><a href="./_query-history">Visited</a></li>
-                <li><a href="./_query-my">My</a></li>
-                <li><a href="./_create-listed">Create</a></li>
-                <c:if test="${empty sessionScope.username}">
-                    <li><a href="#@${sessionScope.username}">${sessionScope.fullname}</a></li>
-                </c:if>
+                <li class="active"><a href="/_welcome">Home</a></li>
+                <li><a href="/_query-popular">Popular</a></li>
+                <li><a href="/_query-new">New</a></li>
+                <li><a href="/_query-history">Visited</a></li>
+                <li><a href="/_query-my">My</a></li>
+                <li><a href="/_create-listed">Create</a></li>
             </ul>
+
+            <span class="account">
             <c:if test="${empty sessionScope.username}">
-                <form action="_login" method="POST" class="pull-right"
+                <form action="/_login" method="POST" class="pull-right"
                       onsubmit="document.getElementById('loginNextUrl').value=window.location.href;  window.sessionStorage.setItem('boardcast.identity','');">
                     <input class="input-small" type="text" name="username" placeholder="Username" value="">
                     <input class="input-small" type="password" name="password" placeholder="Password">
@@ -23,12 +22,21 @@
                 </form>
             </c:if>
             <c:if test="${not empty sessionScope.username}">
-                <form action="_logout" method="POST" class="pull-right"
+                <ul class="nav">
+                    <li><a class="logged-in-user-fullname"
+                           href="/~${sessionScope.alias.name}">${sessionScope.alias.fn}</a></li>
+                    <li><img class="logged-in-user-icon"
+                             src='/_image-service?url=<c:url value="${sessionScope.alias.imageUrl}"/>&size=PROFILE_SMALL&width=21&height=28'
+                             width="21px" height="28px"/>
+                    </li>
+                </ul>
+                <form action="/_logout" method="POST" class="pull-right"
                       onsubmit="document.getElementById('logoutNextUrl').value= window.location.href;  window.sessionStorage.setItem('boardcast.identity','');">
                     <input type="hidden" id="logoutNextUrl" name="next"/>
                     <button class="btn" type="submit">Sign Out</button>
                 </form>
             </c:if>
+                </span>
         </div>
     </div>
 </div>

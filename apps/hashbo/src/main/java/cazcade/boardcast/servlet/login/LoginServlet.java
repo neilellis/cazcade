@@ -2,10 +2,13 @@ package cazcade.boardcast.servlet.login;
 
 import cazcade.boardcast.servlet.AbstractHashboServlet;
 import cazcade.common.Logger;
+import cazcade.liquid.api.LiquidURI;
+import cazcade.vortex.comms.datastore.server.LoginUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
 
@@ -27,18 +30,19 @@ public class LoginServlet extends AbstractHashboServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String username = req.getParameter("username");
+        final String password = req.getParameter("password");
         try {
-            if (loggedIn(req.getSession(true))) {
+            final HttpSession session = req.getSession(true);
+            if (loggedIn(session) && loggedInAs(username, session)) {
                 forwardAfterLogin(req, resp);
             } else {
-                final String username = req.getParameter("username");
-                final String password = req.getParameter("password");
                 if (username == null) {
                     req.getRequestDispatcher("/_pages/login.jsp").forward(req, resp);
                 }
                 final Principal principal = securityProvider.doAuthentication(username, password);
                 if (principal != null) {
-                    req.getSession(true).setAttribute(USERNAME_KEY, username);
+                    LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session);
                     forwardAfterLogin(req, resp);
                 } else {
                     req.setAttribute("error", "Could not log you in.");
@@ -50,5 +54,6 @@ public class LoginServlet extends AbstractHashboServlet {
             throw new ServletException(e);
         }
     }
+
 
 }

@@ -182,7 +182,6 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             if (principal == null) {
                 return null;
             }
-            getThreadLocalRequest().getSession(true).setAttribute("username", username);
             return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username), getThreadLocalRequest().getSession(true));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
