@@ -123,7 +123,13 @@ public class EditableImage extends Composite implements Bindable {
             final ImageEditor editor = new ImageEditor(image);
             setWidget(editor);
             setWidth("600px");
-            setHeight("350px");
+            setHeight("380px");
+            setOnFinishAction(new Runnable() {
+                @Override
+                public void run() {
+                    hide();
+                }
+            });
         }
 
     }
