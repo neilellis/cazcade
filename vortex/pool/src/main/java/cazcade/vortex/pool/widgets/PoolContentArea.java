@@ -13,6 +13,7 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
+import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.pool.PoolPresenterImpl;
 import cazcade.vortex.pool.api.PoolPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
@@ -96,7 +97,7 @@ public class PoolContentArea extends Composite {
         final boolean listed = poolEntity.getBooleanAttribute(LSDAttribute.LISTED);
         visibilityRibbon.removeStyleName("danger");
         visibilityRibbon.removeStyleName("warning");
-        if (true || poolEntity.getBooleanAttribute(LSDAttribute.EDITABLE)) {
+        if (poolEntity.getBooleanAttribute(LSDAttribute.EDITABLE)) {
             if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
                 if (listed) {
                     visibilityRibbon.setText("All can edit");
@@ -125,6 +126,9 @@ public class PoolContentArea extends Composite {
                     visibilityRibbon.setText("Only you can view");
                 }
             }
+            WidgetUtil.showGracefully(visibilityRibbon, false);
+        } else {
+            WidgetUtil.hideGracefully(visibilityRibbon, false);
         }
         poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);
         List<LSDEntity> entities = poolEntity.getSubEntities(LSDAttribute.CHILD);
