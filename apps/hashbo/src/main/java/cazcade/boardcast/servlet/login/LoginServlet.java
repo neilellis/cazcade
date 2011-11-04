@@ -45,7 +45,7 @@ public class LoginServlet extends AbstractHashboServlet {
                     LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session);
                     forwardAfterLogin(req, resp);
                 } else {
-                    req.setAttribute("error", "Could not log you in.");
+                    req.setAttribute("message", "Could not log you in.");
                     req.getRequestDispatcher("/_pages/login.jsp").forward(req, resp);
                 }
             }

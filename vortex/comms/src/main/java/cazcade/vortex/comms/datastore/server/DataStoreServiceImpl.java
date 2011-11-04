@@ -257,6 +257,11 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                 throw new LoggedOutException();
             } else {
                 clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true);
+                //This basically synchronizes our two ways of being logged in, logged in on the client and logged
+                //in here on the web server.
+                if (!serverSession.isAnon()) {
+                    LoginUtil.placeServerSessionInHttpSession(dataStore, getThreadLocalRequest().getSession(true), serverSession);
+                }
             }
         }
         try {

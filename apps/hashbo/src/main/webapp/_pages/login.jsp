@@ -6,14 +6,15 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Link Twitter to Boardcast Account</title>
-    <link rel="stylesheet" href="_css/bootstrap/bootstrap-full.less">
+    <link rel="stylesheet" type="text/less" href="_css/bootstrap/bootstrap-full.less">
+    <script src="_js/less-1.1.3.min.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="container" style="width:650px;padding-top:20px  ">
     <section id="forms">
         <div class="row"></div>
-        <c:if test="${not empty param.message}">
-            <div class="alert-message error">${param.message}</div>
+        <c:if test="${not empty requestScope.message}">
+            <div class="alert-message error">${requestScope.message}</div>
         </c:if>
 
         <div class="page-header">
@@ -24,7 +25,7 @@
                 <p></p>
             </div>
             <div class="span4">
-                <form action="login" method="POST">
+                <form action="/_login" method="POST">
                     <fieldset style="border:none;">
                         <div class="clearfix">
                             <label for="xlInput">Username</label>

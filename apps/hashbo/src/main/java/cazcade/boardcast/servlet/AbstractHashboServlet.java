@@ -101,7 +101,7 @@ public class AbstractHashboServlet extends HttpServlet {
         if (next != null) {
             resp.sendRedirect(next);
         } else {
-            resp.sendRedirect("/popular");
+            resp.sendRedirect("/_query-popular");
         }
     }
 

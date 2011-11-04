@@ -2,17 +2,36 @@
     <div class="fill">
         <div class="container">
             <a class="logo" href="/">&nbsp;</a>
-            <ul class="nav">
-                <li class="active"><a href="/_welcome">Home</a></li>
+            <ul class="nav" id="nav-bar">
+                <li><a href="/_welcome">Home</a></li>
                 <li><a href="/_query-popular">Popular</a></li>
                 <li><a href="/_query-new">New</a></li>
                 <c:if test="${not empty sessionScope.username}">
+
                     <li><a href="/_query-history">Visited</a></li>
                     <li><a href="/_query-my">My</a></li>
                 </c:if>
                 <li><a href="/_create-listed">Create</a></li>
             </ul>
 
+            <script type="text/javascript">
+
+                var body = document.getElementsByTagName("body")[0];
+
+                body.addEventListener("load", initNavEls(), false);
+
+                function initNavEls() {
+                    var navEls = document.getElementById('nav-bar').getElementsByTagName("li");
+                    for (var i = 0; i < navEls.length; i++) {
+                        var v1 = navEls[i].getElementsByTagName("a");
+                        var v2 = navEls[i].getElementsByTagName("a")[0];
+                        var v3 = navEls[i].getElementsByTagName("a")[0].href;
+                        if (window.location.href.indexOf(navEls[i].getElementsByTagName("a")[0].href) >= 0) {
+                            navEls[i].className += "active";
+                        }
+                    }
+                }
+            </script>
             <span class="account">
             <c:if test="${empty sessionScope.username}">
                 <form action="/_login" method="POST" class="pull-right"

@@ -44,16 +44,28 @@ public class LoginUtil {
         if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
             LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), response.getResponse().getID());
             createClientSession(clientSessionManager, serverSession, true);
-            final LSDEntity aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
-            session.setAttribute(SESSION_KEY, serverSession);
-            session.setAttribute(USERNAME_KEY, serverSession.getName());
-            session.setAttribute(ALIAS_KEY, aliasEntity);
-            session.setAttribute(ALIAS_KEY_FOR_JSP, aliasEntity.getCamelCaseMap());
+            if (!serverSession.isAnon()) {
+                placeServerSessionInHttpSession(dataStore, session, serverSession);
+            }
             return serverSession;
         } else {
             log.error("{0}", response.getResponse().asFreeText());
             throw new RuntimeException("Unexpected result " + response.getResponse().getTypeDef());
         }
+    }
+
+    public static void placeServerSessionInHttpSession(FountainDataStore dataStore, HttpSession session, LiquidSessionIdentifier serverSession) {
+        final LSDEntity aliasEntity;
+        try {
+            aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return;
+        }
+        session.setAttribute(SESSION_KEY, serverSession);
+        session.setAttribute(USERNAME_KEY, serverSession.getName());
+        session.setAttribute(ALIAS_KEY, aliasEntity);
+        session.setAttribute(ALIAS_KEY_FOR_JSP, aliasEntity.getCamelCaseMap());
     }
 
     public static ClientSession createClientSession(ClientSessionManager clientSessionManager, LiquidSessionIdentifier identity, boolean create) {
