@@ -49,12 +49,12 @@
         left:20px;
         right:20px;
         top:0px;
-        bottom:15px;
+        bottom:5px;
         .board-page-header-rhs {
             position:absolute;
             right:0px;
             top:2px;
-            bottom:85px;
+            bottom:0px;
             left:800px;
 
 
@@ -65,11 +65,7 @@
                 right: 8px;
              }
 
-             .board-url {
-                 margin-top:6px;
-                 font-size: 12px;
-                opacity: 0.9;
-             }
+
 
         }
     }
@@ -92,8 +88,11 @@
 
 
 .board-link-row {
-    clear: both;
-    width:100%;
+    position: absolute;
+    bottom:0px;
+    right:0px;
+    width:300px;
+
     text-align:right;
      .board-tag, .board-url{
         font-size: 14px;
@@ -169,12 +168,13 @@ body.boards-body {
      opacity: 0.95;
      text-shadow: 1px 1px 1px rgba(0,0,0,0.5) ;
  }
+
  .board-description {
      display:block;
      clear:left;
      float: left;
      font-size: 15px;
-     padding-top:6px;
+     padding-top:16px;
      padding-left: 16px;
      opacity: 0.6;
 
@@ -670,6 +670,7 @@ div.pool-area-content {
     float: right;
     overflow: visible;
     z-index:20000;
+    position:relative;
     /*margin-right:20px;*/
 
 }

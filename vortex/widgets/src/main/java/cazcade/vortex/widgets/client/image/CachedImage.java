@@ -109,6 +109,9 @@ public class CachedImage extends Image {
     }
 
     private int getHeightWithDefault() {
+        if (size.equals(LARGE)) {
+            return 2048;
+        }
         if (getOffsetHeight() > 0) {
             return getOffsetHeight();
         } else if (requestedHeight > 0) {

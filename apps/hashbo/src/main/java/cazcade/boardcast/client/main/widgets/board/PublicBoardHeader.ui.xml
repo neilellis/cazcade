@@ -11,20 +11,20 @@
                     <fields:VortexEditableLabel styleName="board-description"
                                                 placeholder="Click to edit the short description of the board"
                                                 ui:field="description"/>
-                    <div class="board-link-row">
-
-                        <div class="board-url">
-                            <fields:VortexEditableLabel readonly="true" ui:field="url"/>
-                        </div>
-                        <div class="board-tag">
-                            <fields:VortexEditableLabel readonly="true" ui:field="tag"/>
-                        </div>
-
-                    </div>
                     <div class="board-page-header-rhs">
                         <image:EditableImage ui:field="boardIcon" styleName="board-icon" width="90px"
                                              size="CLIPPED_SMALL"
                                              height="60px"/>
+                        <div class="board-link-row">
+
+                            <div class="board-url">
+                                <fields:VortexEditableLabel readonly="true" ui:field="url"/>
+                            </div>
+                            <div class="board-tag">
+                                <fields:VortexEditableLabel readonly="true" ui:field="tag"/>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
