@@ -34,7 +34,7 @@
 
     <!--Board or username-->
     <rule>
-        <from>^/(\~?[a-zA-Z-][0-9a-zA-Z_~-.pool-object-youtube]*)$</from>
+        <from>^/(\~?[a-zA-Z-][0-9a-zA-Z_~-.]*)$</from>
         <to type="forward">/_pages/board.jsp?%{query-string}</to>
     </rule>
 
