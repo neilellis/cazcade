@@ -16,7 +16,6 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
-import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
  * @author neilellis@cazcade.com
@@ -77,13 +76,12 @@ public class BoardMenuBar extends MenuBar {
 
     }
 
-    private void createAddMenu(final LiquidURI poolURI, final PopupPanel backgroundDialog, LSDEntity board) {
+    private void createAddMenu(final LiquidURI poolURI, final ChangeBackgroundDialog backgroundDialog, LSDEntity board) {
 
         if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
             addMenubar.addItem("Background", new Command() {
                 @Override
                 public void execute() {
-                    backgroundDialog.center();
                     backgroundDialog.show();
                 }
             });

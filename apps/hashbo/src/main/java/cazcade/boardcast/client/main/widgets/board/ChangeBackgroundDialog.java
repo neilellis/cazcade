@@ -5,18 +5,20 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.image.ImageOption;
 import cazcade.vortex.widgets.client.image.ImageSelection;
+import cazcade.vortex.widgets.client.popup.PopupEditPanel;
+import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
  * @author neilellis@cazcade.com
  */
-public class ChangeBackgroundDialog extends PopupPanel implements Bindable {
+public class ChangeBackgroundDialog extends Composite implements Bindable, PopupEditPanel {
     private LSDEntity oldEntity;
 
 
@@ -60,13 +62,28 @@ public class ChangeBackgroundDialog extends PopupPanel implements Bindable {
     @UiField
     ImageSelection imageSelector;
 
+
+    public void show() {
+        final VortexPopupPanel vortexPopupPanel = new VortexPopupPanel();
+        vortexPopupPanel.setWidget(this);
+        vortexPopupPanel.setAutoHideEnabled(true);
+        vortexPopupPanel.setAutoHideOnHistoryEventsEnabled(true);
+        vortexPopupPanel.setGlassEnabled(false);
+        vortexPopupPanel.setWidth("800px");
+        vortexPopupPanel.setHeight("400px");
+        vortexPopupPanel.center();
+        vortexPopupPanel.show();
+        vortexPopupPanel.setOnFinishAction(new Runnable() {
+            @Override
+            public void run() {
+                vortexPopupPanel.hide();
+            }
+        });
+    }
+
+
     public ChangeBackgroundDialog() {
-        setWidget(ourUiBinder.createAndBindUi(this));
-        setAutoHideEnabled(true);
-        setAutoHideOnHistoryEventsEnabled(true);
-        setGlassEnabled(false);
-        setWidth("600px");
-        setHeight("360px");
+        initWidget(ourUiBinder.createAndBindUi(this));
         imageSelector.setSelectionAction(new ImageSelection.SelectionAction() {
             @Override
             public void onSelect(ImageOption imageOption) {

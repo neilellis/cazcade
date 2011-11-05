@@ -20,10 +20,10 @@
                 <image:ImageOption url="_background/misc/green-board.jpg"
                                    thumbnail="_background/thumb/misc/green-board.jpg"/>
             </image:option>
-            <image:option>
-                <image:ImageOption url="_background/misc/light-blue-linen.jpg"
-                                   thumbnail="_background/thumb/misc/light-blue-linen.jpg"/>
-            </image:option>
+            <!--<image:option>-->
+            <!--<image:ImageOption url="_background/misc/light-blue-linen.jpg"-->
+            <!--thumbnail="_background/thumb/misc/light-blue-linen.jpg"/>-->
+            <!--</image:option>-->
             <image:option>
                 <image:ImageOption url="_background/misc/linen-black.jpg"
                                    thumbnail="_background/thumb/misc/linen-black.jpg"/>
