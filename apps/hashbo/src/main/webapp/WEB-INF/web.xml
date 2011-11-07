@@ -237,10 +237,6 @@
         <url-pattern>/_image-service</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>uploadServlet</servlet-name>
-        <url-pattern>*.gupld</url-pattern>
-    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>uploadServlet</servlet-name>
@@ -252,8 +248,10 @@
         <servlet-name>cazcade.boardcast.Boardcast ScriptService</servlet-name>
         <url-pattern>/_boardcast_gwt/ScriptService</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>cazcade.boardcast.Boardcast BuildVersionService</servlet-name>
         <url-pattern>/_boardcast_gwt/BuildVersionService</url-pattern>
     </servlet-mapping>
+
 </web-app>
