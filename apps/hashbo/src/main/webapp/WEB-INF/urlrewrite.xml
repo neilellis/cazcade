@@ -31,6 +31,11 @@
         <to type="redirect" last="true">http://boardcast.it/$1</to>
     </rule>
 
+    <rule>
+        <from>^/*.gupld$</from>
+        <to type="forward">/_image-upload</to>
+    </rule>
+
 
     <!--Board or username-->
     <rule>

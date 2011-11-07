@@ -243,6 +243,12 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>uploadServlet</servlet-name>
+        <url-pattern>_image-upload</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
         <servlet-name>cazcade.boardcast.Boardcast ScriptService</servlet-name>
         <url-pattern>/_boardcast_gwt/ScriptService</url-pattern>
     </servlet-mapping>
