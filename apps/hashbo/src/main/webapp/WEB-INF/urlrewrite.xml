@@ -33,7 +33,7 @@
 
     <rule>
         <from>^/*.gupld$</from>
-        <to type="forward">/_image-upload</to>
+        <to type="forward" last="true">/_image-upload</to>
     </rule>
 
 
