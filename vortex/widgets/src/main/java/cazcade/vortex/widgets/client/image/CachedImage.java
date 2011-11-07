@@ -48,11 +48,15 @@ public class CachedImage extends Image {
     }
 
     private String placeholderImage() {
-        return "http://placehold.it/" + getWidth() + "x" + getHeightWithDefault() + "&text=" + URL.encode(notReadyText);
+        return defaultDefaultMessage(notReadyText);
     }
 
     public void setDefaultMessage(String message) {
-        defaultUrl = "http://placehold.it/" + getWidth() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
+        defaultUrl = defaultDefaultMessage(message);
+    }
+
+    private String defaultDefaultMessage(String message) {
+        return "http://placehold.it/" + getWidth() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
     }
 
     public CachedImage() {
@@ -94,8 +98,10 @@ public class CachedImage extends Image {
             } else {
                 super.setUrl(url);
             }
-        } else {
+        } else if (defaultUrl != null) {
             super.setUrl(defaultUrl);
+        } else {
+            super.setUrl(defaultDefaultMessage("No Image"));
         }
 
     }
