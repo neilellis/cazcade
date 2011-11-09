@@ -5,7 +5,7 @@
             <ul class="nav" id="nav-bar">
                 <li><a href="/_welcome">Home</a></li>
                 <li><a href="/_query-popular">Popular</a></li>
-                <li><a href="/_query-new">New</a></li>
+                <li><a href="/_query-new">Recent</a></li>
                 <c:if test="${not empty sessionScope.username}">
 
                     <li><a href="/_query-history">Visited</a></li>

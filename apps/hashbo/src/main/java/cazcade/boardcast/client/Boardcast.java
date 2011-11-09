@@ -45,6 +45,7 @@ public class Boardcast implements EntryPoint {
     private HistoryManager historyManager;
     private boolean registerRequest;
     private boolean createRequest;
+    private boolean loginRequest;
 
     public void onModuleLoad() {
 //        Window.alert(History.getToken());
@@ -84,7 +85,8 @@ public class Boardcast implements EntryPoint {
         }
 
 
-        registerRequest = Window.Location.getPath().startsWith("/login-register");
+        registerRequest = Window.Location.getPath().startsWith("/_login-register");
+        loginRequest = Window.Location.getPath().startsWith("/_login-login");
         createRequest = Window.Location.getPath().startsWith("/_create-");
 
         injectChildren();
@@ -191,7 +193,11 @@ public class Boardcast implements EntryPoint {
         }, new Runnable() {
             @Override
             public void run() {
-                Window.Location.assign("/_welcome?justRegistered=true");
+                if (registerRequest || loginRequest) {
+                    Window.Location.assign("/_welcome?justRegistered=true");
+                } else {
+                    Window.Location.reload();
+                }
             }
         }
         );

@@ -6,7 +6,7 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Failed</title>
-    <link rel="stylesheet" href="../_css/bootstrap/bootstrap-full.less">
+    <link rel="stylesheet" type="text/less" href="../_css/bootstrap/bootstrap-full.less">
     <script src="../_js/less-dev.js" type="text/javascript"></script>
 
 </head>

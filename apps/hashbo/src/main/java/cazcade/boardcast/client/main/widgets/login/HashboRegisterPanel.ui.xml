@@ -46,17 +46,17 @@
         </g:HTMLPanel>
         <g:HTMLPanel styleName="register-panel-rhs">
             <p>Thanks for signing up to Boardcast, we're a new kid on the block and things might not always go as
-                planned. We ask
-                for your patience during this time, and ask that you let us know of anything we can do to make things
+                planned. We ask for your patience during this time, and ask that you let us know of anything we can do
+                to make things
                 better
-                <a href="mailto:info@hashbo.com">info@hashbo.com</a>
+                <a href="mailto:info@boardcast.it">info@boardcast.it</a>
             </p>
             <br/>
             <p>If you already have an account please sign in instead.</p>
         </g:HTMLPanel>
 
         <g:Button styleName="btn primary large left-button" text="Register" ui:field="registerButton"/>
-        <g:Hyperlink text="Sign In" ui:field="login" styleName=" btn large right-button"/>
+        <g:Hyperlink text="or Sign In" ui:field="login" styleName=" btn large right-button"/>
 
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -37,7 +37,7 @@ public class YouTubeTextBox extends VortexTextBox {
                     final int keyCode = event.getUnicodeCharCode();
 
                     if (keyCode == KeyCodes.KEY_ENTER) {
-                        callOnChangeAction();
+                        update(true);
                     }
 
                 }
@@ -47,7 +47,7 @@ public class YouTubeTextBox extends VortexTextBox {
         textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
             public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
-                callOnChangeAction();
+                update(true);
             }
         });
 
@@ -59,7 +59,7 @@ public class YouTubeTextBox extends VortexTextBox {
                     String text = textBox.getText();
                     if (!oldText.equals(text)) {
                         oldText = text;
-                        update();
+                        update(false);
                         if (text.length() > 0) {
                             showValidity();
                         }
@@ -71,12 +71,13 @@ public class YouTubeTextBox extends VortexTextBox {
     }
 
 
-    public void update() {
+    public void update(boolean andCallOnChange) {
         String text = textBox.getText();
         if (text.startsWith("http")) {
             if (text.matches(YOU_TUBE_URL_REGEX)) {
                 text = text.replaceAll("http[s]?://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9\\-_]+).*", "$1");
                 setValue(text);
+                callOnChangeAction();
                 errorMessage.setText("");
             } else {
                 errorMessage.setText(INVALID_URL_MESSAGE);
@@ -85,6 +86,9 @@ public class YouTubeTextBox extends VortexTextBox {
             if (text.matches(VIDEO_REGEX)) {
                 setValue(text);
                 errorMessage.setText("");
+                if (andCallOnChange) {
+                    callOnChangeAction();
+                }
             } else {
                 errorMessage.setText(INVALID_URL_MESSAGE);
             }
