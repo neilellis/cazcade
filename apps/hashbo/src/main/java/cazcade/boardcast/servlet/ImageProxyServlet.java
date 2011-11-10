@@ -81,9 +81,10 @@ public class ImageProxyServlet extends HttpServlet {
 
         final String url = req.getParameter("url");
         final String size = req.getParameter("size");
+        final String text = req.getParameter("text");
 
         if (url == null || url.isEmpty()) {
-            sendMissing(resp, width, height);
+            sendMissing(resp, width, height, text);
             return;
         }
 
@@ -156,9 +157,9 @@ public class ImageProxyServlet extends HttpServlet {
         resp.setHeader("Connection", "close");
     }
 
-    private void sendMissing(HttpServletResponse resp, int width, int height) throws UnsupportedEncodingException {
+    private void sendMissing(HttpServletResponse resp, int width, int height, String text) throws UnsupportedEncodingException {
         resp.setStatus(307);
-        resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=Image+Missing");
+        resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=" + (text != null && !text.isEmpty() ? URLEncoder.encode(text, "utf-8") : "Image+Missing"));
         resp.setHeader("Connection", "close");
     }
 

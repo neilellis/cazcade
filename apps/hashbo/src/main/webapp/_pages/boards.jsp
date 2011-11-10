@@ -51,8 +51,8 @@
                                             <c:param name="url" value="${board.iconUrl}"/>
                                             <c:param name="text" value="${board.title}"/>
                                             <c:param name="size" value="CLIPPED_MEDIUM"/>
-                                            <c:param name="width" value="80"/>
-                                            <c:param name="height" value="60"/>
+                                            <c:param name="width" value="300"/>
+                                            <c:param name="height" value="200"/>
                                         </c:url>'
                                      width="80"
                                      height="60"
