@@ -65,13 +65,11 @@
                             <!--
                               ${board}
                              -->
-                            <div class="boards-list-board-owner">${board.ownerFn}</div>
                             <div class="boards-list-board-title"><a
                                     href="./#<c:url value='${board.shortUrl}'/>"><c:out value="${board.title}"
                                                                                         default="#${board.title}"/></a>
                             </div>
-
-
+                            <div class="boards-list-board-owner">${board.ownerFn}</div>
                             <div class="boards-list-board-comment-count"><c:out value="${board.commentsCount}"
                                                                                 default="no"/>&nbsp;comments
                             </div>
