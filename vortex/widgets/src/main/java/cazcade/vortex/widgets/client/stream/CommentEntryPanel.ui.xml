@@ -10,8 +10,9 @@
             <div class="comment-entry-details">
                 <strong>
                     <span class="comment-author-fullname-label" ui:field="authorFullname"/>
-                    <small>
+                    <small>(
                         <span class="comment-author-username-label" ui:field="profileName"/>
+                        )
                     </small>
                 </strong>
                 <date:SelfUpdatingRelativeDate styleName="comment-entry-time" ui:field="dateTime"/>

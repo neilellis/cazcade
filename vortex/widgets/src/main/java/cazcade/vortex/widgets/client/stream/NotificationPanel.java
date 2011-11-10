@@ -3,13 +3,14 @@ package cazcade.vortex.widgets.client.stream;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.request.AbstractRequest;
-import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.api.request.SendRequest;
-import cazcade.vortex.bus.client.*;
+import cazcade.vortex.bus.client.AbstractBusListener;
+import cazcade.vortex.bus.client.Bus;
+import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.panels.list.dm.DirectMessageStreamEntryPanel;
@@ -19,7 +20,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
  * @author neilellis@cazcade.com
@@ -72,7 +75,7 @@ public class NotificationPanel extends Composite {
         new Timer() {
             @Override
             public void run() {
-                if(parentPanel.getWidgetCount() == 0) {
+                if (parentPanel.getWidgetCount() == 0) {
                     removeStyleName("show");
                 } else {
                     addStyleName("show");
@@ -102,7 +105,11 @@ public class NotificationPanel extends Composite {
                             if (message.getResponse() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
                                 VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(message.getResponse(), pool, message.getId().toString());
                                 addToStream(content);
-                                userEnteredSound.play();
+                                try {
+                                    userEnteredSound.play();
+                                } catch (Exception e) {
+                                    ClientLog.log(e);
+                                }
                             }
                         }
                     });

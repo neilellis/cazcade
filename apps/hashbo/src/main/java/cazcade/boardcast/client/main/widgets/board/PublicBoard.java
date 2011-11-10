@@ -112,7 +112,6 @@ public class PublicBoard extends EntityBackedFormPanel {
     private LiquidURI poolURI;
     private LiquidURI previousPoolURI;
     private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-    private LSDEntity entity;
     private long changePermissionListener;
     private Element sharethisElement;
 
@@ -266,7 +265,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         publishDate.setInnerText(getEntity().getPublished().toString());
-
+        visibilityDescription.setInnerText(buildVisibilityDescription());
 //        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
 //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
 //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
@@ -317,6 +316,48 @@ public class PublicBoard extends EntityBackedFormPanel {
         });
     }
 
+    private String buildVisibilityDescription() {
+        String description = "";
+        if (entity == null) {
+            return "";
+        }
+        if (entity.getBooleanAttribute(LSDAttribute.LISTED)) {
+            description += "It is a listed board which is ";
+            if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+                description += "visible to all";
+                if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
+                    description += " and editable by all.";
+                } else {
+                    if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+                        description += " and modifiable by all.";
+                    } else {
+                        description += ". ";
+                    }
+                }
+            } else {
+                description += "currently only visible to the creator.";
+            }
+        } else {
+            description += "It is an unlisted board which is ";
+            if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+                description += "visible to those who know the URL";
+                if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
+                    description += " and editable by them. ";
+                } else {
+                    if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
+                        description += " and modifiable by them. ";
+                    } else {
+                        description += ". ";
+                    }
+                }
+            } else {
+                description += "visible only to the creator.";
+            }
+        }
+        return description;
+
+    }
+
 
     private native static void replaceState(String title, String state) /*-{
         if (window.history.replaceState != 'undefined') {
@@ -356,6 +397,8 @@ public class PublicBoard extends EntityBackedFormPanel {
     DivElement footer;
     @UiField
     IFrameElement tweetButton;
+    @UiField
+    SpanElement visibilityDescription;
 
     @Override
     protected void onAttach() {

@@ -72,6 +72,7 @@
                                 <span ui:field="publishDate"/>
                                 by
                                 <span ui:field="authorFullname"/>.
+                                <span ui:field="visibilityDescription"/>
                             </g:HTMLPanel>
                         </g:west>
                         <g:center>
