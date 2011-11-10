@@ -63,15 +63,7 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-    </list>
+    <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="" />
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
     <ignored path=".idea/workspace.xml" />
@@ -289,46 +281,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ChangeImageUrlPanel.ui.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml">
+      <file leaf-file-name="welcome.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/welcome.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="629" selection-end="629" vertical-scroll-proportion="0.0">
+            <state line="43" column="46" selection-start="794" selection-end="794" vertical-scroll-proportion="-4.375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urlrewrite.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
+      <file leaf-file-name="YouTubeView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/youtube/YouTubeView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="21" selection-start="886" selection-end="886" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChangeBackgroundDialog.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="38" selection-start="2700" selection-end="2700" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="board.less" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="788" column="13" selection-start="14970" selection-end="14970" vertical-scroll-proportion="0.64909637">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardMenuBar.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="39" selection-start="3382" selection-end="3382" vertical-scroll-proportion="0.0">
+            <state line="27" column="44" selection-start="1265" selection-end="1265" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="false" />
               </folding>
@@ -336,48 +301,73 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangeBackgroundDialog.ui.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml">
+      <file leaf-file-name="Boardcast.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="1138" selection-end="1366" vertical-scroll-proportion="0.0">
+            <state line="156" column="65" selection-start="6184" selection-end="6184" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pool-objects.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less">
+      <file leaf-file-name="ClientApplicationConfiguration.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="561" column="0" selection-start="10856" selection-end="10856" vertical-scroll-proportion="0.0">
+            <state line="8" column="13" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VortexPopupPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.java">
+      <file leaf-file-name="CreateBoardDialog.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="551" selection-end="551" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VortexPopupPanel.ui.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.ui.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="140" column="43" selection-start="4158" selection-end="4158" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageUploader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java">
+      <file leaf-file-name="AddCommentBox.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="13" selection-start="709" selection-end="709" vertical-scroll-proportion="0.0">
+            <state line="21" column="71" selection-start="815" selection-end="815" vertical-scroll-proportion="0.26484752">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddCommentBox.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.ui.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="31" selection-start="562" selection-end="562" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateBoardDialog.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.ui.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="14" selection-start="657" selection-end="657" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hashbo.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="166" column="23" selection-start="3920" selection-end="3920" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="widgets.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/widgets.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="298" column="13" selection-start="5101" selection-end="5101" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -397,22 +387,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoardHeader.ui.xml" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/login.jsp" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/link.jsp" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/fail.jsp" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboRegisterPanel.ui.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/topbar.jspf" />
         <option value="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" />
-        <option value="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/LoginUtil.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LoginServlet.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/login.jsp" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/bootstrap/variables.less" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/widgets.less" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/welcome.jsp" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/youtube/YouTubeView.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.ui.xml" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.java" />
+        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.java" />
       </list>
     </option>
   </component>
@@ -3354,6 +3344,60 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="login" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apps" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hashbo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boardcast" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="widgets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="board" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -5130,7 +5174,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256513" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28118813" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28118813" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08502674" sideWeight="0.6442886" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43286574" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
@@ -5144,8 +5188,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.71881187" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33465347" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.66534656" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33465347" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -5185,7 +5229,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Image upload fixes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Latest fixes." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -5198,11 +5242,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="General update for Cyclone." />
-    <MESSAGE value="Added Sofi's latest work." />
-    <MESSAGE value="Latest Hashbo work." />
-    <MESSAGE value="Twitter dev." />
-    <MESSAGE value="Severe redesign of Hashbo" />
     <MESSAGE value="Migration work.&#10;" />
     <MESSAGE value="Clean up of look and feel." />
     <MESSAGE value="URL rewrite fixes." />
@@ -5223,6 +5262,11 @@
     <MESSAGE value="Image issues." />
     <MESSAGE value="Login changes." />
     <MESSAGE value="Image upload fixes." />
+    <MESSAGE value="Image work." />
+    <MESSAGE value="Bug fix." />
+    <MESSAGE value="Bug fixes." />
+    <MESSAGE value="Latest fixes plus work on the 'home page' of the app." />
+    <MESSAGE value="Latest fixes." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -5266,118 +5310,118 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="895" selection-end="968" vertical-scroll-proportion="-13.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/login.jsp">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/login.jsp">
+    <entry file="file://$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/LoginUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="59" selection-start="763" selection-end="763" vertical-scroll-proportion="-1.25">
+        <state line="99" column="28" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LoginServlet.java">
+    <entry file="file://$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="25" selection-start="830" selection-end="830" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="39" selection-start="4305" selection-end="4305" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/widgets.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="264" column="0" selection-start="4399" selection-end="4513" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="709" selection-end="709" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="629" selection-end="629" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="21" selection-start="886" selection-end="886" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="561" column="0" selection-start="10856" selection-end="10856" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.ui.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="551" selection-end="551" vertical-scroll-proportion="0.0">
+        <state line="208" column="13" selection-start="8435" selection-end="8435" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/tags/hashbo-less.tag">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="39" selection-start="3382" selection-end="3382" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/bootstrap/variables.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="22" selection-start="739" selection-end="739" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/variables.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/widgets.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="298" column="13" selection-start="5101" selection-end="5101" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="166" column="23" selection-start="3920" selection-end="3920" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/welcome.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="46" selection-start="794" selection-end="794" vertical-scroll-proportion="-4.375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/youtube/YouTubeView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="44" selection-start="1265" selection-end="1265" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.ui.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="1138" selection-end="1366" vertical-scroll-proportion="0.0">
+        <state line="12" column="14" selection-start="657" selection-end="657" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/CreateBoardDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="38" selection-start="2700" selection-end="2700" vertical-scroll-proportion="0.0">
+        <state line="140" column="43" selection-start="4158" selection-end="4158" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.ui.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="788" column="13" selection-start="14970" selection-end="14970" vertical-scroll-proportion="0.64909637">
+        <state line="8" column="31" selection-start="562" selection-end="562" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="156" column="65" selection-start="6184" selection-end="6184" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/AddCommentBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="71" selection-start="815" selection-end="815" vertical-scroll-proportion="0.26484752">
           <folding />
         </state>
       </provider>
