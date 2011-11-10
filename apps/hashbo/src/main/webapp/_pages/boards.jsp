@@ -47,9 +47,16 @@
                            title="${board.description}">
                             <div class="board-image-wrapper">
                                 <img class="thumbnail"
-                                     src='_image-service?url=<c:url value="${board.iconUrl}"/>&size=CLIPPED_MEDIUM&width=300&height=200'
+                                     src='<c:url value="_image-service">
+                                            <c:param name="url" value="${board.iconUrl}"/>
+                                            <c:param name="text" value="${board.title}"/>
+                                            <c:param name="size" value="CLIPPED_MEDIUM"/>
+                                            <c:param name="width" value="80"/>
+                                            <c:param name="height" value="60"/>
+                                        </c:url>'
                                      width="80"
-                                     height="60" alt="">
+                                     height="60"
+                                     alt="${board.description}"/>
                             </div>
                         </a>
 

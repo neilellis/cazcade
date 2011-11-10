@@ -13,8 +13,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class BrowserUtil {
     public static String convertRelativeUrlToAbsolute(String url) {
-        if(url.startsWith("./")) {
-            url=url.substring(2);
+        if (url.startsWith("./")) {
+            url = url.substring(2);
         }
         String cleanUrl = Window.Location.getHref().split("\\?")[0].split("#")[0];
         return URL.encode(cleanUrl.substring(0, cleanUrl.lastIndexOf("/")) + "/" + url);
@@ -106,4 +106,9 @@ public class BrowserUtil {
         return  _x;
     }-*/;
 
+    public static boolean isInternalImage(String url) {
+        int pathStart = url.indexOf("/", url.indexOf(':') + 1);
+        final String pathString = url.substring(pathStart + 1);
+        return !(pathString.startsWith("_images") || pathString.startsWith("_decorations") || pathString.startsWith("_background"));
+    }
 }

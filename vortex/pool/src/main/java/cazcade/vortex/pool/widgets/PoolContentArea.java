@@ -11,6 +11,7 @@ import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.common.client.FormatUtil;
+import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -152,7 +153,11 @@ public class PoolContentArea extends Composite {
     public void setBackgroundImage(String imageUrl) {
         if (container != null && imageUrl != null) {
 //            Window.alert("setting background "+imageUrl);
-            container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=CLIPPED_LARGE')");
+            if (BrowserUtil.isInternalImage(imageUrl)) {
+                container.getElement().getStyle().setProperty("backgroundImage", "url('" + imageUrl + "')");
+            } else {
+                container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=CLIPPED_LARGE')");
+            }
             container.getElement().getStyle().setWidth(1024, Style.Unit.PX);
         }
     }

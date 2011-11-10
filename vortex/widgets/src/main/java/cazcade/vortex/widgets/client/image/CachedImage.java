@@ -56,7 +56,7 @@ public class CachedImage extends Image {
     }
 
     private String defaultDefaultMessage(String message) {
-        return "http://placehold.it/" + getWidth() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
+        return "http://placehold.it/" + getWidthWithDefault() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
     }
 
     public CachedImage() {
@@ -89,7 +89,7 @@ public class CachedImage extends Image {
     private void updateImageUrl() {
         getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
-            if (CACHING && cached) {
+            if (CACHING && cached && !BrowserUtil.isInternalImage(url)) {
                 if (url.startsWith("http")) {
                     super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size + "&width=" + getWidthWithDefault() + "&height=" + getHeightWithDefault());
                 } else {
@@ -163,7 +163,7 @@ public class CachedImage extends Image {
     @Override
     public void setWidth(String width) {
         super.setWidth(width);
-        if (width.endsWith("px")) {
+        if (width.toLowerCase().endsWith("px")) {
             this.requestedWidth = Integer.parseInt(width.substring(0, width.length() - 2));
         }
     }
@@ -171,7 +171,7 @@ public class CachedImage extends Image {
     @Override
     public void setHeight(String height) {
         super.setHeight(height);
-        if (height.endsWith("px")) {
+        if (height.toLowerCase().endsWith("px")) {
             this.requestedHeight = Integer.parseInt(height.substring(0, height.length() - 2));
         }
     }

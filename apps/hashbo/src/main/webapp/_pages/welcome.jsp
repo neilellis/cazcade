@@ -49,7 +49,7 @@
         <div class="row">
             <div class="span16">
                 <div class="big-text">
-                    Let's create
+                    Get Started!
                 </div>
             </div>
         </div>
@@ -123,18 +123,5 @@
 
 </div>
 
-<%--<script type="text/javascript" language="javascript"--%>
-<%--src="_boardcast_gwtMain/_boardcast_gwtMain.nocache.js"></script>--%>
-
-
-<!-- /container -->
-<span id="sharethis" style="visibility: hidden">
- <span class='st_twitter_large' displayText='Tweet'></span><span class='st_email_large'
-                                                                 displayText='Email'></span><span
-        class='st_facebook_large' displayText='Facebook'></span>
-    <span class='st_linkedin_large'></span>
-    <span class='st_reddit_large'></span>
-    <span class='st_plusone_large'></span>
-    </span>
 </body>
 </html>
