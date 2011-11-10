@@ -24,8 +24,11 @@ package cazcade.vortex.widgets.client.misc;
 
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.widgets.client.misc.toolbar.RichTextToolbar;
+import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.InitializeEvent;
+import com.google.gwt.event.logical.shared.InitializeHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
 
@@ -339,6 +342,23 @@ public class EditableLabel extends Composite implements HasWordWrap,
         // and add a KeyboardListener for Esc key presses (not return in this case)
 
         changeTextArea = new RichTextArea();
+        changeTextArea.addInitializeHandler(new InitializeHandler() {
+            public void onInitialize(InitializeEvent ie) {
+                IFrameElement fe = (IFrameElement)
+                        changeTextArea.getElement().cast();
+                fe.setFrameBorder(0);
+//                fe.setMarginWidth(10);
+                fe.setScrolling("no");
+                Style s = fe.getContentDocument().getBody().getStyle();
+                s.setProperty("fontFamily", "'Helvetica Neue',Arial,sans- serif");
+                s.setProperty("fontSize", "0.9em");
+                s.setProperty("wordWrap", "break-word");
+                s.setOverflow(Style.Overflow.HIDDEN);
+                s.setColor("black");
+                fe.focus();
+            }
+        });
+
 
         if (SUPPORT_TOOLBAR) {
             toolbar = new RichTextToolbar(changeTextArea, false);
@@ -593,7 +613,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
     /**
      * Set the visible length of the editable area.
      *
-     * @throws RuntimeExcpetion If editable label is word wrapped.
+     * @throws RuntimeException If editable label is word wrapped.
      */
     public void setVisibleLength(int length) {
         if (text.getWordWrap()) {
