@@ -42,6 +42,7 @@ public class ImageUploader extends Composite {
     public ImageUploader() {
         initWidget(ourUiBinder.createAndBindUi(this));
         defaultUploader = new SingleUploader();
+        defaultUploader.setServletPath("/_image-upload");
         defaultUploader.setAvoidRepeatFiles(false);
         defaultUploader.setAutoSubmit(true);
         defaultUploader.setStatusWidget(new UploadStatusHandler());
