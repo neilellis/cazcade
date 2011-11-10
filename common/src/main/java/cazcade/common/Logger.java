@@ -36,6 +36,7 @@ import java.util.zip.ZipOutputStream;
 
 public class Logger {
 
+    public static final boolean USE_JIRA = false;
     private final org.apache.log4j.Logger logger;
     private static Set<String> errorHashes = Collections.synchronizedSet(new HashSet<String>());
 
@@ -179,7 +180,7 @@ public class Logger {
             writeToSessionLog(ExceptionUtils.getFullStackTrace(t), "error", "details");
             if (CommonConstants.IS_PRODUCTION) {
                 NewRelic.noticeError(t);
-                sendToJira(t, MessageFormat.format(message, params));
+                notifyOfError(t, MessageFormat.format(message, params));
             } else {
 //                System.exit(-1);
             }
@@ -349,7 +350,7 @@ public class Logger {
 
     }
 
-    public void sendToJira(Throwable t, String message) {
+    public void notifyOfError(Throwable t, String message) {
         String hashStr = t.getClass().getName();
         StackTraceElement[] stackTraceElements = t.getStackTrace();
         for (StackTraceElement stackTraceElement : stackTraceElements) {
@@ -368,14 +369,20 @@ public class Logger {
 
         }
 
-        String summary = StringUtils.abbreviate("BUG(SERVER)" + message + "   " + t.getClass().getSimpleName() + ": '" + t.getMessage() + "' at " + location + ")", 250);
+        String summary = StringUtils.abbreviate("BUG (SERVER)" + message + "   " + t.getClass().getSimpleName() + ": '" + t.getMessage() + "' at " + location + ")", 250);
         String contextStr = "\n(No context available)\n";
         if (context != null) {
             contextStr = "\nContext:\n" + XSTREAM.toXML(context.get()) + "\n";
         }
         String description = "Automatically logged exception for " + username.get() + " (session='" + session.get() + "').\n\n" + message + "\n" + ExceptionUtils.getFullStackTrace(t)
                 + contextStr;
-        sendToJira(message, hash, summary, description, "vortex");
+
+        if (USE_JIRA) {
+            sendToJira(message, hash, summary, description, "vortex");
+        } else {
+            send("Auto Bug Report - " + hash, description);
+        }
+
 
     }
 
@@ -466,32 +473,34 @@ public class Logger {
      * "send" method to send the message.
      */
 
-    public static void send(String to
-            , String subject, String body) {
+    public static void send(String subject, String body) {
         try {
+
+
+            String host = "smtp.sendgrid.net";
+            String to = "support@boardcast.zendesk.com";
+            String from = "info@boardcast.com";
+
+            boolean sessionDebug = false;
             Properties props = System.getProperties();
-            // -- Attaching to default Session, or we could start a new one --
-            props.put("mail.smtp.host", "office.cazcade.com");
-            Session session = Session.getDefaultInstance(props, null);
-            // -- Create a new message --
-            Message msg = new MimeMessage(session);
-            // -- Set the FROM and TO fields --
-            msg.setFrom(new InternetAddress("bugs@cazcade.com"));
-            msg.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to, false));
-            // -- We could include CC recipients too --
-            // if (cc != null)
-            // msg.setRecipients(Message.RecipientType.CC
-            // ,InternetAddress.parse(cc, false));
-            // -- Set the subject and body text --
+            props.put("mail.host", host);
+            props.put("mail.transport.protocol", "smtp");
+            props.put("mail.smtp.auth", "true");
+            Session mailSession = Session.getDefaultInstance(props, null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(from, "Bug Reporter"));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);
-            msg.setText(body);
-            // -- Set some other header information --
-            msg.setHeader("X-Mailer", "LOTONtechEmail");
             msg.setSentDate(new Date());
-            // -- Send the message --
-            Transport.send(msg);
-            System.out.println("Message sent OK.");
+            msg.setText(body);
+            msg.saveChanges();
+            Transport transport = mailSession.getTransport("smtp");
+            transport.connect(host, "hashbo", "thx1139");
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

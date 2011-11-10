@@ -64,7 +64,7 @@
 
     <!-- /container -->
     <span id="sharethis" style="visibility: hidden">
-        <span class='st_twitter'></span>
+        <%--<span class='st_twitter'></span>--%>
         <span class='st_email'></span>
         <span class='st_facebook'></span>
         <span class='st_linkedin'></span>
