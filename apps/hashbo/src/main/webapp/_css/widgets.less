@@ -289,3 +289,58 @@ input[type="file"].gwt-FileUpload {
 }
 
 
+
+
+.call-to-action {
+    float:right;
+    text-align:center;
+    padding:20px;
+    width:220px;
+    height:26px;
+    font-size:20px;
+    .border-radius(8px);
+    font-weight:bolder;
+    margin-right:18px;
+    margin-top:20px;
+    line-height:23px;
+    border:2px solid @grayLight;
+    color: @grayDark;
+    #gradient > .vertical(lighten(@grayLight, 20%), @grayLight);
+             text-shadow:-1px -1px 1px lighten(@grayLight, 10%);
+    &:hover{
+        #gradient > .vertical(lighten(@grayLight, 10%), darken(@grayLight, 10%));
+             text-shadow:-1px -1px 1px lighten(@grayLight, 20%);
+             cursor:pointer;
+             text-decoration:none;
+        color: @grayVeryDark;
+    }
+
+
+    &.primary {
+        #gradient > .vertical(lighten(@highlightColor, 20%), @highlightColor);
+         text-shadow:-1px -1px 1px darken(@highlightColor, 10%);
+         line-height:26px;
+         border:2px solid @highlightColor;
+         color:white;
+         font-size:24px;
+        &:hover{
+            #gradient > .vertical(lighten(@highlightColor, 10%), darken(@highlightColor, 10%));
+             text-shadow:-1px -1px 1px darken(@highlightColor, 20%);
+             cursor:pointer;
+             text-decoration:none;
+             color:white;
+        }
+            height:50px;
+
+    }
+
+    small {
+         line-height:20px;
+         font-size:18px;
+         font-weight:normal;
+    }
+
+    display:inline-block;
+}
+
+

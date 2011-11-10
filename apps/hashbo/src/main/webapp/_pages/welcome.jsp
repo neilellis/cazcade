@@ -8,6 +8,27 @@
     <meta charset="utf-8">
     <title>Boardcast</title>
     <%@ include file="header.jspf" %>
+    <style type="text/css">
+        p {
+            font-size: 20px;
+            line-height: 24px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #444;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #666;
+        }
+
+        h3 {
+            font-size: 22px;
+        }
+    </style>
 
 </head>
 
@@ -20,72 +41,77 @@
     <%@ include file="topbar.jspf" %>
 </div>
 
+
 <div class="container">
 
-    <div class="content span16">
+    <div class="content">
 
         <div class="row">
-            <div class="span16 ">
+            <div class="span16">
                 <div class="big-text">
-                    Let's go create ...
+                    Let's create
                 </div>
             </div>
         </div>
         <div class="row">
+            <div class="span16">
+                <h1>Two Great Uses</h1>
 
+                <h2>To show the world!</h2>
 
-            <div class="span9 ">
-                <div class="welcome-block left ">
+                <p><span class="larger">Listed boards</span> allow you to instantly publish an idea, some photos, a
+                    poem or the latest news about something.
+                    They can be creative, simple and visual - like a poem, some photos or a a tribute to your favourite
+                    band. They can also be informational,
+                    rich and realtime like a gig information board, or a charity notice board.
+                    <a href="/_create-listed" class="call-to-action ">
+                        Create listed board
+                    </a>
+                </p>
+            </div>
+            <div class="span16">
+                <h2>To collaborate with friends, family or colleagues</h2>
 
-                    <div class="welcome-block-inner">
+                <p><span class="larger">Unlisted Boards</span> are great for collaboration such as
+                    planning a holiday with friends, organising a wedding with family or working
+                    on a project with teammates. Create a board and
+                    then just share the URL with those you'd like to see it.
+                    Only those with the URL can access your board.
+                    <a href="/_create-unlisted" class="call-to-action ">
+                        Create unlisted board
+                    </a>
+                </p>
 
-                        <p><span class="larger">Realtime Noticeboards</span> help you keep everyone up to date with
-                            relevant information without them having to sift through your entire Twitter timeline. Our
-                            Realtime
-                            Noticeboards show the bigger picture of what's going with photo, videos notes and more.
-                            Maybe you'd
-                            like to provide information during an event,
-                            keep the rest of your club informed or share your thoughts with others. It's simple, social,
-                            instant and visual.
-                        </p>
-
-
-                        <a href="./#::createPublic" class="create-board-button drop-shadow curved curved-vt-2">
-                            <h1>Create Notice Board</h1>
-
-                            <p>Create a public notice board.</p>
-
-                        </a>
-                    </div>
-                </div>
             </div>
 
-
-            <div class="span7">
-                <div class="welcome-block right">
-                    <div class="welcome-block-inner">
-                        <p>
-                            <span class="larger">Unlisted Boards</span> are great for collaboration such as
-                            planning a holiday with friends, organising a wedding with family or working
-                            on a project with teammates. Create a board and
-                            then just share the URL with those you'd like to see it.
-                            Only those with the URL can access your board.
-                        </p>
-
-                        <a href="./#::createCollab" class="create-board-button drop-shadow curved curved-vt-2">
-                            <h1>Create Unlisted Board</h1>
-
-                            <p>Create an unlisted board for collaboration.</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
+        <hr/>
         <div class="row">
             <div class="span16 ">
-                <div class="big-text bottom">
-                    ... something amazing!
-                </div>
+                <h1>Three Easy Steps</h1>
+
+                <h3>Step One</h3>
+
+                <p>Create a board. If it's listed, optionally give it a short name.</p>
+                <br/>
+
+                <h3>Step Two</h3>
+
+                <p>Optionally add a background. Then add some content, we're continually adding new content types, right
+                    now
+                    you can add text, photos, videos, websites and annotations.</p>
+                <br/>
+
+                <h3>Step Three</h3>
+
+                <p>Share the board with your friends - they can comment and see changes as they happen. If it's an
+                    unlisted
+                    board they can also add content to the board.</p>
+
+                <a href="/_create-listed" class="call-to-action primary">
+                    Create a board now
+                </a>
+
             </div>
         </div>
 

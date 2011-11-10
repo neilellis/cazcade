@@ -219,11 +219,11 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         final HttpSession session = getThreadLocalRequest().getSession(true);
         final LSDEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
+            if (entity.isA(LSDDictionaryTypes.USER)) {
+                LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade" + username), session);
+            }
             sendEmail(entity);
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
         }
