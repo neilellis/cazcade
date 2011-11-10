@@ -12,6 +12,6 @@ public class LoggerTest extends TestCase {
         e.printStackTrace();
         Logger logger = Logger.getLogger("test");
         logger.addContext(this);
-        logger.sendToJira(e, "Testing Jira");
+        logger.notifyOfError(e, "Testing Jira");
     }
 }

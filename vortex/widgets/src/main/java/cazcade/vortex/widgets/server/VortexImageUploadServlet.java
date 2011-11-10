@@ -61,8 +61,8 @@ public class VortexImageUploadServlet extends UploadAction {
                 } catch (IOException e) {
                     log.error(e.getMessage(), e);
                 }
-                removeSessionFileItems(request);
             }
+            removeSessionFileItems(request);
             if (commaSeparated.isEmpty()) {
                 return "";
             } else {

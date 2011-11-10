@@ -32,7 +32,9 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                         public void onSuccess(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
                             setEntity(response.getResponse());
                             if (autoCloseField(field)) {
-                                onFinishAction.run();
+                                if (onFinishAction != null) {
+                                    onFinishAction.run();
+                                }
                             }
                         }
 
