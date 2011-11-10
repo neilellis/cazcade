@@ -23,7 +23,7 @@ public class CachedImage extends Image {
 
     private String defaultUrl;
     private String url;
-    private String notReadyText = "No Image";
+    private String notReadyText = "Loading";
     private boolean cached = true;
     private int requestedWidth;
     private int requestedHeight;

@@ -111,4 +111,12 @@ public class BrowserUtil {
         final String pathString = url.substring(pathStart + 1);
         return (pathString.startsWith("_images") || pathString.startsWith("_decorations") || pathString.startsWith("_background"));
     }
+
+    public static boolean isImage(String url) {
+        if (url == null) {
+            return false;
+        }
+        final String urlLowerCase = url.toLowerCase();
+        return (urlLowerCase.endsWith(".jpg") || urlLowerCase.endsWith(".jpeg") || urlLowerCase.endsWith(".gif") || urlLowerCase.endsWith(".png") || urlLowerCase.endsWith(".tiff"));
+    }
 }

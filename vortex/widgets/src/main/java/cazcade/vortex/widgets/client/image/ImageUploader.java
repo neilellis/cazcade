@@ -1,5 +1,6 @@
 package cazcade.vortex.widgets.client.image;
 
+import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
@@ -49,7 +50,6 @@ public class ImageUploader extends Composite {
 
         loaderPanel.add(defaultUploader);
         final CachedImage cachedImage = new CachedImage();
-        cachedImage.setCached(false);
         cachedImage.setWidth("300px");
         cachedImage.setHeight("200px");
         imageLoadedPanel.add(cachedImage);
@@ -62,16 +62,37 @@ public class ImageUploader extends Composite {
         }
     }
 
+    public HandlerRegistration addOnCancelUploadHandler(IUploader.OnCancelUploaderHandler handler) {
+        return defaultUploader.addOnCancelUploadHandler(handler);
+    }
+
+    public HandlerRegistration addOnChangeUploadHandler(IUploader.OnChangeUploaderHandler handler) {
+        return defaultUploader.addOnChangeUploadHandler(handler);
+    }
+
+    public HandlerRegistration addOnFinishUploadHandler(IUploader.OnFinishUploaderHandler handler) {
+        return defaultUploader.addOnFinishUploadHandler(handler);
+    }
+
+    public HandlerRegistration addOnStartUploadHandler(IUploader.OnStartUploaderHandler handler) {
+        return defaultUploader.addOnStartUploadHandler(handler);
+    }
+
+    public HandlerRegistration addOnStatusChangedHandler(IUploader.OnStatusChangedHandler handler) {
+        return defaultUploader.addOnStatusChangedHandler(handler);
+    }
+
     public void addOnFinishHandler(IUploader.OnFinishUploaderHandler onFinishUploaderHandler) {
         defaultUploader.addOnFinishUploadHandler(onFinishUploaderHandler);
     }
 
 
     private void changeImage(Image image) {
-        statusText.setInnerText("Loaded");
+        statusText.setInnerText("Processing");
         spinner.setVisible(false);
 
         CachedImage cachedImage = new CachedImage();
+        cachedImage.setCached(!BrowserUtil.isImage(image.getUrl()));
         cachedImage.setWidth("300px");
         cachedImage.setHeight("200px");
         if (imageLoadedPanel.getWidgetCount() > 0) {
@@ -159,7 +180,7 @@ public class ImageUploader extends Composite {
                 statusText.setInnerText(((int) (((double) done / (double) total) * 100)) + "%");
             }
             if (done == total && total > 0) {
-                statusText.setInnerText("Loaded");
+                statusText.setInnerText("Processing");
             }
             spinner.setVisible(true);
 

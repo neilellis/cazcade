@@ -4,6 +4,8 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.widgets.client.image.ImageUploader;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
@@ -53,9 +55,21 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
 
 
         });
+
+        imageUploader.addOnStartUploadHandler(new IUploader.OnStartUploaderHandler() {
+            @Override
+            public void onStart(IUploader uploader) {
+                urlField.setValue("");
+            }
+        });
+        urlField.addHandler(new KeyUpHandler() {
+            @Override
+            public void onKeyUp(KeyUpEvent event) {
+                imageUploader.setImageURL(urlField.getValue());
+            }
+        }, KeyUpEvent.getType());
+
     }
-
-
 
 
     @Override
