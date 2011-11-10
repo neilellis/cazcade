@@ -2,11 +2,13 @@
              xmlns:stream='urn:import:cazcade.vortex.widgets.client.stream'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:login="urn:import:cazcade.boardcast.client.main.widgets.login">
-    <g:HTMLPanel>
+    <g:HTMLPanel styleName="hashbo-add-comment">
         <stream:CommentBox ui:field="addCommentBox" width="100%" visible="false"/>
-        <g:HTMLPanel ui:field="loginPanel" addStyleNames="hashbo-add-comment-or-login">
-            <login:TwitterLoginBox ui:field="twitterLoginBox"/>
-            <a ui:field="loginLink">or with Boardcast.</a>
+        <g:HTMLPanel ui:field="loginPanel" styleName="hashbo-add-comment-or-login">
+            <p>Tell us what you think, but first you'll need to
+                <login:TwitterLoginBox ui:field="twitterLoginBox"/>
+                <a ui:field="loginLink" class="hashbo-login-link">or with Boardcast.</a>
+            </p>
         </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>

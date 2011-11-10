@@ -62,8 +62,10 @@
 
 
                         <div class="boards-list-caption-area">
-
-                            <div class="boards-list-board-owner">${board.authorFn}</div>
+                            <!--
+                              ${board}
+                             -->
+                            <div class="boards-list-board-owner">${board.ownerFn}</div>
                             <div class="boards-list-board-title"><a
                                     href="./#<c:url value='${board.shortUrl}'/>"><c:out value="${board.title}"
                                                                                         default="#${board.title}"/></a>

@@ -4,7 +4,7 @@
              xmlns:login="urn:import:cazcade.boardcast.client.main.widgets.login">
     <g:HTMLPanel>
         <stream:ChatBox ui:field="addChatBox" width="100%" visible="false"/>
-        <g:HTMLPanel ui:field="loginPanel" addStyleNames="hashbo-add-comment-or-login">
+        <g:HTMLPanel ui:field="loginPanel" styleName="hashbo-add-comment-or-login">
             <login:TwitterLoginBox ui:field="twitterLoginBox"/>
             <a ui:field="loginLink">or with Hashbo.</a>
         </g:HTMLPanel>
