@@ -49,6 +49,7 @@ public class ImageUploader extends Composite {
 
         loaderPanel.add(defaultUploader);
         final CachedImage cachedImage = new CachedImage();
+        cachedImage.setCached(false);
         cachedImage.setWidth("300px");
         cachedImage.setHeight("200px");
         imageLoadedPanel.add(cachedImage);

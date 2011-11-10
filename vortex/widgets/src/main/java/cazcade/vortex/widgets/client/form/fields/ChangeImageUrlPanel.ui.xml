@@ -7,7 +7,7 @@
         <div class="change-image-url-area">
             <p>
                 Click 'Choose File' to use an image from your computer, alternatively please supply the URL of a web
-                page or of an image below.
+                page or of an image.
             </p>
             <br/>
             <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box" regex="https?://.*"/>
