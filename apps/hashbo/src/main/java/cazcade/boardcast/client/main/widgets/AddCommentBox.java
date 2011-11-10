@@ -19,7 +19,7 @@ public class AddCommentBox extends Composite {
 
     public void init(LiquidURI poolURI) {
         addCommentBox.init(poolURI);
-        loginLink.setHref("login.html?userlogin#" + new LiquidBoardURL(poolURI));
+        loginLink.setHref("/" + new LiquidBoardURL(poolURI).asUrlSafe() + "?forceLogin=true");
         if (UserUtil.isAnonymousOrLoggedOut()) {
             loginPanel.setVisible(true);
             addCommentBox.setVisible(false);
@@ -29,10 +29,10 @@ public class AddCommentBox extends Composite {
         }
     }
 
-    interface LoginOrCommentBoxUiBinder extends UiBinder<HTMLPanel, AddCommentBox> {
+    interface AddCommentBoxUiBinder extends UiBinder<HTMLPanel, AddCommentBox> {
     }
 
-    private static LoginOrCommentBoxUiBinder ourUiBinder = GWT.create(LoginOrCommentBoxUiBinder.class);
+    private static AddCommentBoxUiBinder ourUiBinder = GWT.create(AddCommentBoxUiBinder.class);
     @UiField
     CommentBox addCommentBox;
     @UiField

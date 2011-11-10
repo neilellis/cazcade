@@ -34,14 +34,19 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         this.onComplete = onComplete;
     }
 
-    public boolean isListed() {
-        return listed.getValue();
+    public boolean getListedCheckBox() {
+        return listedCheckBox.getValue();
     }
 
     @Override
     public void onLocalHistoryTokenChanged(String token) {
-        center();
-        show();
+        //unlisted boards don't actually need the dialog, we just create them
+        if (token.equals("unlisted")) {
+            onComplete.run();
+        } else {
+            center();
+            show();
+        }
     }
 
     @Override
@@ -81,7 +86,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     @UiField
     DivElement shortnameArea;
     @UiField
-    CheckBox listed;
+    CheckBox listedCheckBox;
     @UiField
     Button cancelButton;
     @UiField
@@ -119,18 +124,23 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         setAutoHideOnHistoryEventsEnabled(true);
         setAnimationEnabled(true);
         setWidth("600px");
-        setHeight("340px");
+        setHeight("310px");
         setModal(false);
         setText("Create New Board");
-        listed.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+        listedCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
             public void onValueChange(ValueChangeEvent<Boolean> booleanValueChangeEvent) {
-                shortnameArea.getStyle().setDisplay(booleanValueChangeEvent.getValue() ? Style.Display.BLOCK : Style.Display.NONE);
-                setHeight(booleanValueChangeEvent.getValue() ? "340px" : "180px");
-                setWidth(booleanValueChangeEvent.getValue() ? "600px" : "350px");
-                center();
+                final Boolean listed = booleanValueChangeEvent.getValue();
+                showListed(listed);
             }
         });
+    }
+
+    private void showListed(boolean listed) {
+        shortnameArea.getStyle().setDisplay(listed ? Style.Display.BLOCK : Style.Display.NONE);
+        setHeight(listed ? "340px" : "200px");
+        setWidth(listed ? "600px" : "310px");
+        center();
     }
 
 

@@ -46,6 +46,7 @@ public class Boardcast implements EntryPoint {
     private boolean registerRequest;
     private boolean createRequest;
     private boolean loginRequest;
+    private boolean createUnlistedRequest;
 
     public void onModuleLoad() {
 //        Window.alert(History.getToken());
@@ -88,6 +89,7 @@ public class Boardcast implements EntryPoint {
         registerRequest = Window.Location.getPath().startsWith("/_login-register");
         loginRequest = Window.Location.getPath().startsWith("/_login-login");
         createRequest = Window.Location.getPath().startsWith("/_create-");
+        createUnlistedRequest = Window.Location.getPath().startsWith("/_create-unlisted");
 
         injectChildren();
 
@@ -151,6 +153,7 @@ public class Boardcast implements EntryPoint {
     }
 
     private void addCreateDialog() {
+
         final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
         historyManager.registerTopLevelComposite("create", createBoardDialog);
         createBoardDialog.setOnComplete(new Runnable() {
@@ -158,12 +161,13 @@ public class Boardcast implements EntryPoint {
             public void run() {
                 createBoardDialog.hide();
                 String board = createBoardDialog.getBoard();
-                final boolean listed = createBoardDialog.isListed();
+                final boolean listed = createBoardDialog.getListedCheckBox();
                 if (!listed) {
                     BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
                         @Override
                         public void callback(LiquidUUID uuid) {
-                            historyManager.navigate("-unlisted-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME));
+                            final String unlistedShortUrl = "-unlisted-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
+                            historyManager.navigate(unlistedShortUrl);
                         }
                     });
                 } else {

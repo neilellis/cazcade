@@ -2,29 +2,24 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
     <g:HTMLPanel styleName="dialog-box-contents create-board-dialog-contents">
-        <g:CheckBox text="List in directories" ui:field="listed" checked="true"/>
+        <g:CheckBox text="List in directories" ui:field="listedCheckBox" checked="true"/>
         <p>
             <small>Listed boards are better for sharing and unlisted are better for collaboration.</small>
         </p>
         <div class="create-board-shortname" ui:field="shortnameArea">
             <p>
-                <strong>Board Name
-                    <small>(optional)</small>
-                </strong>
+                Short Name
+                <small>(optional)</small>
+
             </p>
             <fields:HashtagTextBox showAvailability="true" showValidity="true" ui:field="tagBox"/>
             <p>
-                <small>Start with a letter and then letters, numbers, '-' and '.'</small>
-            </p>
-
-            <p>
-                <small>
-                    This name is used as a quick way to reference your board in comments and on other board, just place
-                    #
-                    sign before it, we then
-                    automatically create a link to your board for you.
+                <small>The optional short name should start with a letter and contain only letters, numbers, '-' or
+                    '.'
                 </small>
             </p>
+
+
         </div>
         <g:Button styleName="primary btn large" text="Create" ui:field="createButton"/>
         <g:Button styleName="btn large" text="Cancel" ui:field="cancelButton"/>

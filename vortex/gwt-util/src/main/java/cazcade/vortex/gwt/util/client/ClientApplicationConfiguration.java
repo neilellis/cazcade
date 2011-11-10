@@ -54,7 +54,7 @@ public class ClientApplicationConfiguration {
 
     public static void init() {
         setPreflight(Window.Location.getParameter("skippreflight") == null);
-        setLoginRequired(Window.Location.getParameter("userlogin") != null);
+        setLoginRequired(Window.Location.getParameter("forceLogin") != null);
         setDebug(Window.Location.getParameter("debug") != null);
         setAlphaFeatures(Window.Location.getParameter("alpha") != null);
         setRetrieveUpdates(Window.Location.getParameter("noupdates") == null);

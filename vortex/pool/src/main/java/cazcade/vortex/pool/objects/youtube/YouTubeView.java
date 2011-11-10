@@ -1,13 +1,13 @@
 package cazcade.vortex.pool.objects.youtube;
 
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.pool.objects.PoolObjectView;
-import cazcade.vortex.widgets.client.image.CachedImage;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.IFrameElement;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -16,8 +16,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
 
 /**
  * @author neilellis@cazcade.com
@@ -31,7 +29,9 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
         this.videoId = videoId;
         //wmode=transparent is required to stop visual artifacts, but we do need to look at a way to optimize this
         //because transparent is a lot slower.
-        image.setUrl("http://img.youtube.com/vi/" + videoId + ((size == null || !size.equals(LARGE)) ? "/default.jpg" : "/hqdefault.jpg"));
+        final String imageUrl = "http://img.youtube.com/vi/" + videoId + ((size == null || size.equals(SMALL)) ? "/default.jpg" : "/hqdefault.jpg");
+        image.setUrl(imageUrl);
+        videoFrameHolder.getElement().getStyle().setBackgroundImage(imageUrl);
         imageViewOn();
     }
 
