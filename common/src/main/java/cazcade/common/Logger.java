@@ -477,15 +477,15 @@ public class Logger {
         try {
 
 
-            String host = "smtp.postmarkapp.com";
+            String host = "localhost";
             String to = "support@boardcast.zendesk.com";
-            String from = "support@boardcast.it";
+            String from = "neil@boardcast.it";
 
             boolean sessionDebug = false;
             Properties props = System.getProperties();
             props.put("mail.host", host);
             props.put("mail.transport.protocol", "smtp");
-            props.put("mail.smtp.auth", "true");
+//            props.put("mail.smtp.auth", "false");
             Session mailSession = Session.getDefaultInstance(props, null);
             mailSession.setDebug(sessionDebug);
             Message msg = new MimeMessage(mailSession);

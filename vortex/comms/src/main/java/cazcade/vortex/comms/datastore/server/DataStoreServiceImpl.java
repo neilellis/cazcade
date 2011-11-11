@@ -23,6 +23,7 @@ import net.sf.ehcache.Element;
 import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jetty.continuation.Continuation;
 import org.eclipse.jetty.continuation.ContinuationSupport;
+import org.eclipse.jetty.io.EofException;
 import org.springframework.amqp.AmqpIOException;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Queue;
@@ -163,7 +164,11 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                 return;
             }
         }
-        super.service(req, resp);
+        try {
+            super.service(req, resp);
+        } catch (EofException eof) {
+            log.debug("EOF");
+        }
         log.debug("Returning from service method.");
     }
 

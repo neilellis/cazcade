@@ -104,7 +104,13 @@ public class ImageProxyServlet extends HttpServlet {
         }
         try {
             CacheResponse response;
-            final ImageSize imageSize = ImageSize.valueOf(size);
+
+            final ImageSize imageSize;
+            if (size != null) {
+                imageSize = ImageSize.valueOf(size);
+            } else {
+                imageSize = ImageSize.LARGE;
+            }
             final URI imageUrl;
             try {
                 imageUrl = new URI(url);
