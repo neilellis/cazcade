@@ -377,6 +377,12 @@ public class Logger {
         String description = "Automatically logged exception for " + username.get() + " (session='" + session.get() + "').\n\n" + message + "\n" + ExceptionUtils.getFullStackTrace(t)
                 + contextStr;
 
+        if (errorHashes.contains(hash)) {
+            return;
+        }
+
+        errorHashes.add(hash);
+
         if (USE_JIRA) {
             sendToJira(message, hash, summary, description, "vortex");
         } else {
