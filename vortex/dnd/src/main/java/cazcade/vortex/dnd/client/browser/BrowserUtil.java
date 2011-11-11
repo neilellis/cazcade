@@ -107,7 +107,7 @@ public class BrowserUtil {
     }-*/;
 
     public static boolean isInternalImage(String url) {
-        int pathStart = url.indexOf("/", url.indexOf(':') + 1);
+        int pathStart = url.indexOf("/", url.indexOf(':') + 3);
         final String pathString = url.substring(pathStart + 1);
         return (pathString.startsWith("_images") || pathString.startsWith("_decorations") || pathString.startsWith("_background"));
     }
