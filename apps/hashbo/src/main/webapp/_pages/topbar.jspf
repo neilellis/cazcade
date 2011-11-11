@@ -11,7 +11,7 @@
                     <li><a href="/_query-history">Visited</a></li>
                     <li><a href="/_query-my">My</a></li>
                 </c:if>
-                <li><a href="/_create-listed">Create</a></li>
+                <li><a href="/_create-listed" style="font-weight:bolder;">Create</a></li>
             </ul>
 
             <script type="text/javascript">
