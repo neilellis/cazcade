@@ -220,7 +220,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         final LSDEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
             if (entity.isA(LSDDictionaryTypes.USER)) {
-                LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade" + username), session);
+                LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session);
             }
             sendEmail(entity);
         } catch (Exception e) {
