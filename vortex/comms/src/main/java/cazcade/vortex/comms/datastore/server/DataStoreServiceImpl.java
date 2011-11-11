@@ -372,9 +372,9 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         if (user == null) {
             throw new RuntimeException("No user to end email to.");
         }
-        String host = "smtp.sendgrid.net";
+        String host = "smtp.postmarkapp.com";
         String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-        String from = "info@boardcast.com";
+        String from = "info@boardcast.it";
 
         String name = user.getAttribute(LSDAttribute.FULL_NAME);
         String subject = "Welcome!";
@@ -401,7 +401,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
         msg.saveChanges();
         Transport transport = mailSession.getTransport("smtp");
-        transport.connect(host, "boardcast", "thx1139");
+        transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
         transport.sendMessage(msg, msg.getAllRecipients());
         transport.close();
     }

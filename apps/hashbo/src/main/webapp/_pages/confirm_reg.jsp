@@ -20,9 +20,9 @@
     final cazcade.liquid.api.LiquidMessage retrieveUserResponse = dataStore.process(new cazcade.liquid.api.request.RetrieveUserRequest(admin, new cazcade.liquid.api.LiquidURI(cazcade.liquid.api.LiquidURIScheme.user, request.getParameter("user").toLowerCase())));
     cazcade.liquid.api.lsd.LSDEntity user = retrieveUserResponse.getResponse();
 
-    String host = "smtp.sendgrid.net";
+    String host = "smtp.postmarkapp.com";
     String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-    String from = "info@boardcast.com";
+    String from = "info@boardcast.it";
 
     String name = user.getAttribute(LSDAttribute.FULL_NAME);
     String subject = "Welcome!";
@@ -54,7 +54,7 @@
 
         msg.saveChanges();
         Transport transport = mailSession.getTransport("smtp");
-        transport.connect(host, "boardcast", "thx1139");
+        transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
         transport.sendMessage(msg, msg.getAllRecipients());
         transport.close();
         response.sendRedirect(url);

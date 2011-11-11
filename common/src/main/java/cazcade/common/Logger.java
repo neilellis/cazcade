@@ -477,9 +477,9 @@ public class Logger {
         try {
 
 
-            String host = "smtp.sendgrid.net";
+            String host = "smtp.postmarkapp.com";
             String to = "support@boardcast.zendesk.com";
-            String from = "info@boardcast.com";
+            String from = "info@boardcast.it";
 
             boolean sessionDebug = false;
             Properties props = System.getProperties();
@@ -497,7 +497,7 @@ public class Logger {
             msg.setText(body);
             msg.saveChanges();
             Transport transport = mailSession.getTransport("smtp");
-            transport.connect(host, "boardcast", "thx1139");
+            transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
 
