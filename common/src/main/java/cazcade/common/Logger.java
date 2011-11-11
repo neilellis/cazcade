@@ -497,7 +497,7 @@ public class Logger {
             msg.setText(body);
             msg.saveChanges();
             Transport transport = mailSession.getTransport("smtp");
-            transport.connect(host, "hashbo", "thx1139");
+            transport.connect(host, "boardcast", "thx1139");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
 
