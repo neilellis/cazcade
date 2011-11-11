@@ -43,6 +43,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
@@ -165,7 +166,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         }
         try {
             super.service(req, resp);
-        } catch (IOException eof) {
+        } catch (EOFException eof) {
             log.debug("EOF");
         }
         log.debug("Returning from service method.");

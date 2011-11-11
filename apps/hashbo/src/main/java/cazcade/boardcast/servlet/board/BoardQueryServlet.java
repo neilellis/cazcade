@@ -11,6 +11,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,15 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
         titleLookup.put("new", "New Boards");
         queryLookup.put("profile", BoardQueryRequest.QueryType.USERS_BOARDS);
 //        titleLookup.put("profile", BoardQueryRequest.QueryType.USERS_BOARDS);
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            super.service(req, resp);
+        } catch (EOFException e) {
+            log.debug("EOF");
+        }
     }
 
     @Override
