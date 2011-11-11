@@ -35,8 +35,8 @@
                     <!--<div style="position:absolute;z-index:40000;bottom:-6px;left:0;right:0;background-image: url('_images/shadow-top-to-bottom-narrow.png');height:6px;"/>-->
                     <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="contentArea"/>
 
-                    <div class="board-locked" ui:field="boardLockedIcon"
-                         title="You don't have permission to edit this board."/>
+                    <!--<div class="board-locked" ui:field="boardLockedIcon"-->
+                    <!--title="You don't have permission to edit this board."/>-->
                 </div>
                 <div class="row profile-board-header-bottom">
                     <fields:VortexEditableLabel wordwrap="true" styleName="board-text"

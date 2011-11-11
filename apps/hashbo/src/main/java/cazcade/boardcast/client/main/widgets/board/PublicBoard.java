@@ -298,11 +298,8 @@ public class PublicBoard extends EntityBackedFormPanel {
             setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
             if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                 menuBar.init(getEntity(), true, changeBackgroundDialog);
-                boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
             } else {
                 menuBar.init(getEntity(), false, changeBackgroundDialog);
-                boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
-
             }
             StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
             WidgetUtil.showGracefully(getWidget(), false);
@@ -385,8 +382,8 @@ public class PublicBoard extends EntityBackedFormPanel {
     PoolContentArea contentArea;
     @UiField
     BoardMenuBar menuBar;
-    @UiField
-    DivElement boardLockedIcon;
+    //    @UiField
+//    DivElement boardLockedIcon;
     @UiField
     HTMLPanel shareThisHolder;
     @UiField

@@ -402,8 +402,8 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public String getAttribute(LSDAttribute attribute, String defaultValue) {
-        String result= getAttribute(attribute);
-        if(result == null) {
+        String result = getAttribute(attribute);
+        if (result == null) {
             return defaultValue;
         }
         return result;
@@ -439,6 +439,7 @@ public class LSDSimpleEntity implements LSDEntity {
         }
         return builder.toString();
     }
+
     public boolean hasAttribute(LSDAttribute key) {
         return lsdProperties.containsKey(key.getKeyName());
     }
@@ -603,17 +604,12 @@ public class LSDSimpleEntity implements LSDEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        LSDSimpleEntity that = (LSDSimpleEntity) o;
-
-        if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) return false;
-
-        return true;
+        return getURI().equals(((LSDSimpleEntity) o).getURI());
     }
 
     @Override
     public int hashCode() {
-        return uuid != null ? uuid.hashCode() : 0;
+        return getURI() != null ? getURI().hashCode() : 0;
     }
 
     public static LSDSimpleEntity createEmpty() {

@@ -31,7 +31,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.google.gwt.http.client.URL.encode;
 
@@ -133,9 +134,10 @@ public class PoolContentArea extends Composite {
         } else {
             WidgetUtil.hideGracefully(visibilityRibbon, false);
         }
+        clear();
         poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);
         poolPresenter.showInitMode();
-        List<LSDEntity> entities = poolEntity.getSubEntities(LSDAttribute.CHILD);
+        Set<LSDEntity> entities = new HashSet<LSDEntity>(poolEntity.getSubEntities(LSDAttribute.CHILD));
         for (LSDEntity entity : entities) {
             try {
                 ClientLog.log(entity.getTypeDef().asString());
