@@ -268,13 +268,17 @@ public class EditableLabel extends Composite implements HasWordWrap,
         if (doubleClick) {
             text.addDoubleClickHandler(new DoubleClickHandler() {
                 public void onDoubleClick(DoubleClickEvent event) {
-                    changeTextLabel();
+                    if (editable) {
+                        changeTextLabel();
+                    }
                 }
             });
         } else {
             text.addClickListener(new ClickListener() {
                 public void onClick(Widget sender) {
-                    changeTextLabel();
+                    if (editable) {
+                        changeTextLabel();
+                    }
                 }
             });
         }

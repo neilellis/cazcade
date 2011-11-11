@@ -171,11 +171,9 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     public void setReadonly(boolean readonly) {
         this.readonly = readonly;
         if (readonly) {
-            setEditable(false);
-        }
-        if (readonly) {
             container.addClassName("readonly");
             container.removeClassName("editable");
+            label.setEditable(false);
             hoverEdit.setVisible(false);
         } else {
             container.removeClassName("readonly");
