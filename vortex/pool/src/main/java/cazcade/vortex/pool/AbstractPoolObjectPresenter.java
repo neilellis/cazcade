@@ -375,6 +375,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         y = y + deltaY;
         oldX = x;
         oldY = y;
+        poolObjectView.addStyleName("dragging");
         pool.move(this, x, y, true);
         browserUtil.translateXY(poolObjectView, 0, 0, 0);
         pool.move(this, x, y, false);
@@ -383,7 +384,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
             public void run() {
                 poolObjectView.removeStyleName("dragging");
             }
-        }.schedule(800);
+        }.schedule(1000);
         pool.hideDragMode();
 
     }
