@@ -49,6 +49,9 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             alias.setValue(FountainNeo.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
             alias.setType(LSDDictionaryTypes.ALIAS);
             alias.setAttribute(LSDAttribute.FULL_NAME, entity.getAttribute(LSDAttribute.FULL_NAME));
+            if (entity.hasAttribute(LSDAttribute.IMAGE_URL)) {
+                alias.setAttribute(LSDAttribute.IMAGE_URL, entity.getAttribute(LSDAttribute.IMAGE_URL));
+            }
             alias.setAttribute(LSDAttribute.NETWORK, "cazcade");
             alias.setAttribute(LSDAttribute.NAME, username);
             createAlias(userNode, alias, true, true, false, systemUser);
