@@ -29,7 +29,7 @@
 
     org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
 
-    final String url = "http://boardcast.us/_welcome";
+    final String url = "http://boardcast.it/_welcome";
     String messageText = "Welcome aboard! Please click on this link " + url + " and sign in using the username and password you supplied.\n";
 
     if (!digester.matches(to, request.getParameter("hash"))) {

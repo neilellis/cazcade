@@ -380,7 +380,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         String subject = "Welcome!";
 
         org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
-        String messageText = "Please click on this link to register: http://boardcast.us/_login-confirm-reg?user=" +
+        String messageText = "Please click on this link to register: http://boardcast.it/_login-confirm-reg?user=" +
                 java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
                 "&hash=" + java.net.URLEncoder.encode(digester.digest(to), "utf8");
 

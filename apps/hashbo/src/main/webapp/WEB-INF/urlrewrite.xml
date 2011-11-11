@@ -69,7 +69,7 @@
 
     <rule>
         <from>^/_login-confirm-reg$</from>
-        <to type="redirect">/_pages/confirm_reg.jsp?%{query-string}</to>
+        <to type="forward">/_pages/confirm_reg.jsp?%{query-string}</to>
     </rule>
 
     <rule>
