@@ -374,7 +374,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         }
         String host = "smtp.postmarkapp.com";
         String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-        String from = "info@boardcast.it";
+        String from = "support@boardcast.it";
 
         String name = user.getAttribute(LSDAttribute.FULL_NAME);
         String subject = "Welcome!";

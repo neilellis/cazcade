@@ -479,7 +479,7 @@ public class Logger {
 
             String host = "smtp.postmarkapp.com";
             String to = "support@boardcast.zendesk.com";
-            String from = "info@boardcast.it";
+            String from = "support@boardcast.it";
 
             boolean sessionDebug = false;
             Properties props = System.getProperties();
