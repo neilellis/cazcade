@@ -296,8 +296,8 @@ public class EditableLabel extends Composite implements HasWordWrap,
         this.doubleClick = doubleClick;
         // Put everything in a VerticalPanel
         instance = new FlowPanel();
-        instance.getElement().getStyle().setDisplay(Style.Display.INLINE);
-
+        instance.getElement().getStyle().setDisplay(Style.Display.INLINE_BLOCK);
+        instance.setWidth("100%");
         plainText = labelText;
 
         // Create the Label element and add a ClickListener to call out Change method when clicked

@@ -17,9 +17,17 @@ public class ViewAliasDetailPanel extends PopupPanel {
     public static final int POPUP_HEIGHT = 180;
     public static final int POPUP_WIDTH = 360;
 
-    public void hide() {
-        hide();
+    private static ViewAliasDetailPanel current;
+
+    public static ViewAliasDetailPanel createViewAliasDetailPanel(LiquidURI aliasURI, FormatUtil features) {
+        if (current == null) {
+            current = new ViewAliasDetailPanel(aliasURI, features);
+        } else {
+            current.init(aliasURI, features);
+        }
+        return current;
     }
+
 
     public void show(final UIObject container, final int relativeX, final int relativeY) {
         setPopupPositionAndShow(new PopupPanel.PositionCallback() {
@@ -52,16 +60,21 @@ public class ViewAliasDetailPanel extends PopupPanel {
 //        popup.showRelativeTo(trigger);
 //    }
 
-    public ViewAliasDetailPanel(LiquidURI aliasURI, FormatUtil features) {
-
+    private ViewAliasDetailPanel(LiquidURI aliasURI, FormatUtil features) {
+        setAutoHideEnabled(true);
+        setAutoHideOnHistoryEventsEnabled(true);
         setWidget(ourUiBinder.createAndBindUi(this));
         setWidth("360px");
         setHeight("200px");
         setGlassEnabled(false);
         setModal(false);
         setAutoHideEnabled(true);
+        init(aliasURI, features);
+
+    }
+
+    private void init(LiquidURI aliasURI, FormatUtil features) {
         detailPanel.setAliasURI(aliasURI);
         detailPanel.setFeatures(features);
-
     }
 }

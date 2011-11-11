@@ -41,7 +41,7 @@ public class UserProfileImage extends EditableImage {
                 @Override
                 public void onMouseOver(MouseOverEvent event) {
                     if (aliasDetailPanel == null) {
-                        aliasDetailPanel = new ViewAliasDetailPanel(getAliasUri(), FormatUtil.getInstance());
+                        aliasDetailPanel = ViewAliasDetailPanel.createViewAliasDetailPanel(getAliasUri(), FormatUtil.getInstance());
                         showPopup(event);
                     } else {
                         showPopup(event);

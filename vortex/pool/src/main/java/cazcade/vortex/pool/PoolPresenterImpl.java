@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
-    public static final int BORDER_BEFORE_PAGEFLOW_STARTS = 25;
+    public static final int BORDER_BEFORE_PAGEFLOW_STARTS = 0;
     public static final int DEFAULT_HEIGHT = 636;
     private VortexScrollPanel scrollPanel;
     private AbsolutePanel panel;

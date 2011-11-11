@@ -59,7 +59,7 @@ div.pool-object {
 .modifiable-board {
     .pool-object {
          &:hover {
-            background-color: rgba(0,200,0,0.3);
+            background-color: rgba(0,100,0,0.7);
             .border-radius(4px);
          }
      }
@@ -237,6 +237,7 @@ div.pool-object {
     text-overflow: ellipsis-word;
     word-wrap: break-word;
     cursor: pointer;
+    display: inline-block;
 }
 
 .pool-object-note .editableLabel-buttonPanel {
@@ -336,12 +337,12 @@ div.pool-object {
 
 .pool-object-caption .editableLabel-textBox {
     position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0px;
+    left: 8px;
+    right: -16px;
+    top: 8px;
     bottom: 0px;
     height: 24px;
-    min-width: 300px;
+    min-width: 330px;
     font-size: captionFontSize;
     overflow: hidden;
     color:black;

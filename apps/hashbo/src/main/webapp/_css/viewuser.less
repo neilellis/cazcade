@@ -20,11 +20,11 @@
 }
 
 .view-user-details-inner {
-    position: absolute;
-    top: 10px;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    /*position: absolute;*/
+    /*top: 10px;*/
+    /*bottom: 10px;*/
+    /*left: 10px;*/
+    /*right: 10px;*/
 
 
 
@@ -45,10 +45,16 @@
 
     .view-user-details-fullname {
         font-size: 1.4em;
+        display: inline;
     }
 
     .view-user-details-description {
         font-size: 0.9em;
+        display: block;
+        .clearfix();
+        float: none;
+        margin-top:8px;
+        width:100%;
     }
 
     .view-user-details-followers-label {
@@ -94,6 +100,10 @@
     .view-user-details-username {
         font-size: 1em;
         text-align: center;
+        .vortex-editable-label {
+            display: inline;
+            float: none;
+        }
     }
 
     .view-user-lhs-container {

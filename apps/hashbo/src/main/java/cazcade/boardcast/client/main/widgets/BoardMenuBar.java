@@ -101,7 +101,7 @@ public class BoardMenuBar extends MenuBar {
             }
         }));
 
-        addMenubar.addItem("White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenubar.addItem("Black on White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
@@ -109,7 +109,7 @@ public class BoardMenuBar extends MenuBar {
         }));
 
 
-        addMenubar.addItem("Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        addMenubar.addItem("White on Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
