@@ -84,7 +84,7 @@ public class HistoryManager {
         navigate(historyToken + ":" + localHistory);
     }
 
-    public void navigate(String url) {
+    public static void navigate(String url) {
         if (isPushStateSupported()) {
             History.newItem(url);
         } else {

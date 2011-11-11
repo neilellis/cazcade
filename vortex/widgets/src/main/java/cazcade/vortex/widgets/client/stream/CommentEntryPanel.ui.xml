@@ -9,9 +9,9 @@
         <div class="comment-entry-main">
             <div class="comment-entry-details">
                 <strong>
-                    <span class="comment-author-fullname-label" ui:field="authorFullname"/>
+                    <g:Label styleName="comment-author-fullname-label link" ui:field="authorFullname"/>
                     <small>(
-                        <span class="comment-author-username-label" ui:field="profileName"/>
+                        <g:Label styleName="comment-author-username-label link" ui:field="profileName"/>
                         )
                     </small>
                 </strong>

@@ -3,14 +3,18 @@ package cazcade.vortex.widgets.client.stream;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.common.client.FormatUtil;
+import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 
 import java.util.Date;
 
@@ -49,7 +53,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     @UiField
     UserProfileImage profileImage;
     @UiField
-    SpanElement profileName;
+    Label profileName;
     @UiField
     SpanElement text;
     @UiField
@@ -57,7 +61,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     @UiField
     HTMLPanel imageSurround;
     @UiField
-    SpanElement authorFullname;
+    Label authorFullname;
 
     protected CommentEntryPanel() {
     }
@@ -76,8 +80,21 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
 //        location.setText(locationText);
         final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR);
         profileImage.bind(author, LSDAttribute.IMAGE_URL, "");
-        profileName.setInnerText("@" + author.getAttribute(LSDAttribute.NAME));
-        authorFullname.setInnerText(author.getAttribute(LSDAttribute.FULL_NAME));
+        final String name = author.getAttribute(LSDAttribute.NAME);
+        profileName.setText("@" + name);
+        profileName.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                HistoryManager.navigate("~" + name);
+            }
+        });
+        authorFullname.setText(author.getAttribute(LSDAttribute.FULL_NAME));
+        authorFullname.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                HistoryManager.navigate("~" + name);
+            }
+        });
 //        profileName.addClickHandler(new ClickHandler() {
 //            @Override
 //            public void onClick(ClickEvent clickEvent) {
