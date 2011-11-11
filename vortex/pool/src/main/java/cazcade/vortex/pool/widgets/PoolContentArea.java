@@ -26,6 +26,7 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
@@ -132,6 +133,7 @@ public class PoolContentArea extends Composite {
             WidgetUtil.hideGracefully(visibilityRibbon, false);
         }
         poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);
+        poolPresenter.showInitMode();
         List<LSDEntity> entities = poolEntity.getSubEntities(LSDAttribute.CHILD);
         for (LSDEntity entity : entities) {
             try {
@@ -146,6 +148,13 @@ public class PoolContentArea extends Composite {
 
             } catch (Throwable e) {
                 ClientLog.log(e);
+            } finally {
+                new Timer() {
+                    @Override
+                    public void run() {
+                        poolPresenter.hideInitMode();
+                    }
+                }.schedule(500);
             }
         }
     }

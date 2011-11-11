@@ -26,8 +26,6 @@ import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.api.PoolPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import cazcade.vortex.pool.objects.PoolObjectView;
-import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
-import cazcade.vortex.pool.objects.edit.PoolObjectEditor;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.GwtEvent;
@@ -274,7 +272,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
             clone.getElement().setInnerHTML(poolObjectView.getElement().getInnerHTML());
             DOM.setStyleAttribute(clone.getElement(), "position", "absolute");
             DOM.setStyleAttribute(clone.getElement(), "left", poolObjectView.getPageX() + "px");
-            DOM.setStyleAttribute(clone.getElement(), "top", poolObjectView.getPageY()+ "px");
+            DOM.setStyleAttribute(clone.getElement(), "top", poolObjectView.getPageY() + "px");
             DOM.setStyleAttribute(clone.getElement(), "width", poolObjectView.getLogicalWidth() + "px");
             DOM.setStyleAttribute(clone.getElement(), "height", poolObjectView.getLogicalHeight() + "px");
             DOM.setStyleAttribute(clone.getElement(), "zIndex", String.valueOf(Integer.MAX_VALUE));
@@ -326,20 +324,20 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     private void constrainMovement() {
         int offsetWidth = poolObjectView.getOffsetWidth();
         int offsetHeight = poolObjectView.getOffsetHeight();
-        if (x + deltaX + offsetWidth  > (pool.getWidth() - SNAP_BORDER_X)) {
-            deltaX = pool.getWidth() - offsetWidth  - x;
+        if (x + deltaX + offsetWidth > (pool.getWidth() - SNAP_BORDER_X)) {
+            deltaX = pool.getWidth() - offsetWidth - x;
 //            deltaX= 0;
         }
-        if (x + deltaX < ( SNAP_BORDER_X)) {
+        if (x + deltaX < (SNAP_BORDER_X)) {
             deltaX = -x;
 //            deltaX= 0
         }
-        if ((y + deltaY + offsetHeight  > (pool.getHeight() - SNAP_BORDER_Y)) && !pool.isPageFlow()) {
+        if ((y + deltaY + offsetHeight > (pool.getHeight() - SNAP_BORDER_Y)) && !pool.isPageFlow()) {
             deltaY = pool.getHeight() - offsetHeight / 2 - y;
 //            deltaY= 0;
         }
-        if (y + deltaY < ( SNAP_BORDER_Y)) {
-            deltaY = - y;
+        if (y + deltaY < (SNAP_BORDER_Y)) {
+            deltaY = -y;
 //            deltaY= 0;
         }
     }
@@ -380,7 +378,12 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         pool.move(this, x, y, true);
         browserUtil.translateXY(poolObjectView, 0, 0, 0);
         pool.move(this, x, y, false);
-        poolObjectView.removeStyleName("dragging");
+        new Timer() {
+            @Override
+            public void run() {
+                poolObjectView.removeStyleName("dragging");
+            }
+        }.schedule(800);
         pool.hideDragMode();
 
     }

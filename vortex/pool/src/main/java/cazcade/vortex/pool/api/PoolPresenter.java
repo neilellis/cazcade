@@ -5,7 +5,6 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.pool.PoolMode;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author neilellis@cazcade.com
@@ -54,4 +53,8 @@ public interface PoolPresenter {
     void showDragMode();
 
     void hideDragMode();
+
+    void showInitMode();
+
+    void hideInitMode();
 }

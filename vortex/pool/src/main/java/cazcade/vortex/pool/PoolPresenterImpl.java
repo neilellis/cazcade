@@ -137,9 +137,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
                         newY = height - widget.getOffsetHeight();
                     }
                 }
-                widget.addStyleName("drag-mode");
                 panel.setWidgetPosition(widget, (int) newX, (int) newY);
-                widget.removeStyleName("drag-mode");
                 presenter.setX(newX);
                 presenter.setY(newY);
                 //No done in the timer thread
@@ -224,6 +222,16 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     @Override
     public void hideDragMode() {
         panel.removeStyleName("drag-mode");
+    }
+
+
+    public void showInitMode() {
+        panel.addStyleName("init-mode");
+
+    }
+
+    public void hideInitMode() {
+        panel.removeStyleName("init-mode");
     }
 
 
