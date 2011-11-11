@@ -11,7 +11,7 @@
 
     <script type="text/javascript">
         var _nav;
-        var testNoPushState = true;
+        var testNoPushState = false;
         if (typeof(window.history.pushState) == "function" && !testNoPushState) {
             _nav = function(href) {
                 window.history.pushState(href, window.document.title, "/" + href);

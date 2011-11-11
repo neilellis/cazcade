@@ -69,7 +69,8 @@
                                     href="./#<c:url value='${board.shortUrl}'/>"><c:out value="${board.title}"
                                                                                         default="#${board.title}"/></a>
                             </div>
-                            <div class="boards-list-board-owner">${board.ownerFn}</div>
+                            <div class="boards-list-board-owner"><a href="/~${board.ownerName}">${board.ownerFn}</a>
+                            </div>
                             <div class="boards-list-board-comment-count"><c:out value="${board.commentsCount}"
                                                                                 default="no"/>&nbsp;comments
                             </div>

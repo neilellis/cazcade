@@ -19,7 +19,6 @@ import cazcade.vortex.pool.PoolPresenterImpl;
 import cazcade.vortex.pool.api.PoolPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenterFactory;
-import cazcade.vortex.pool.objects.PoolObjectView;
 import cazcade.vortex.widgets.client.panels.scroll.VortexScrollPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
@@ -27,8 +26,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 
 import java.util.List;
 
@@ -173,15 +174,7 @@ public class PoolContentArea extends Composite {
 
 
     public void clear() {
-        for (Widget widget : container) {
-            try {
-                if (widget instanceof PoolObjectView) {
-                    widget.removeFromParent();
-                }
-            } catch (Exception e) {
-                Window.alert(e.getMessage());
-            }
-        }
+        WidgetUtil.removeAllChildren(container);
         scrollPanel.scrollToTopLeft();
 
     }

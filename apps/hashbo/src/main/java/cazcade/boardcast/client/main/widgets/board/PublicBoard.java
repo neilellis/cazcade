@@ -50,6 +50,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private long updatePoolListener;
     private ChangeBackgroundDialog changeBackgroundDialog;
+    private boolean inited;
 
     public void bind(LSDEntity entity) {
         super.bind(entity);
@@ -86,8 +87,12 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     public void navigate(String value) {
+
         if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
+            return;
+        }
+        if (poolURI != null && poolURI.asShortUrl().asUrlSafe().equalsIgnoreCase(value)) {
             return;
         }
         previousPoolURI = poolURI;
@@ -119,6 +124,15 @@ public class PublicBoard extends EntityBackedFormPanel {
     @Override
     protected void onLoad() {
         super.onLoad();
+        if (!inited) {
+            init();
+            inited = true;
+        }
+
+
+    }
+
+    private void init() {
         //sharethis button
         RootPanel sharethis = RootPanel.get("sharethis");
         sharethisElement = sharethis.getElement();
@@ -129,8 +143,8 @@ public class PublicBoard extends EntityBackedFormPanel {
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
         if (poolURI != null) {
             refresh();
-        }
 
+        }
     }
     /*
     private void addUserInfo() {
@@ -188,6 +202,9 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         final boolean listed = poolURI.asShortUrl().isListedByConvention();
         //start listed boards as public readonly, default is public writeable
+        if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
+            contentArea.clear();
+        }
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), listed, listed ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY : null), new AbstractResponseCallback<VisitPoolRequest>() {
 
             @Override
@@ -226,7 +243,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     @Override
     protected void onChange(LSDEntity entity) {
-        comments.clear();
+
         LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER);
 
         if (entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
@@ -271,6 +288,25 @@ public class PublicBoard extends EntityBackedFormPanel {
 //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
 
         boolean adminPermission = getEntity().getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
+        final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
+        Window.setTitle("Boardcast : " + boardTitle);
+
+
+        if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
+            contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
+            final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
+            setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
+            if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
+                menuBar.init(getEntity(), true, changeBackgroundDialog);
+                boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
+            } else {
+                menuBar.init(getEntity(), false, changeBackgroundDialog);
+                boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
+
+            }
+            StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
+            WidgetUtil.showGracefully(getWidget(), false);
+        }
 
 
         GWT.runAsync(new RunAsyncCallback() {
@@ -281,34 +317,8 @@ public class PublicBoard extends EntityBackedFormPanel {
 
             @Override
             public void onSuccess() {
-                if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
-                    contentArea.clear();
-                    contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
-                    final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
-                    final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
-                    setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
-                    if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-                        menuBar.init(getEntity(), true, changeBackgroundDialog);
-                        boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
-                    } else {
-                        menuBar.init(getEntity(), false, changeBackgroundDialog);
-                        boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
+                comments.clear();
 
-                    }
-                    StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
-                    WidgetUtil.showGracefully(getWidget(), false);
-                }
-
-            }
-        });
-        GWT.runAsync(new RunAsyncCallback() {
-            @Override
-            public void onFailure(Throwable reason) {
-                ClientLog.log(reason);
-            }
-
-            @Override
-            public void onSuccess() {
                 comments.init(poolURI, FormatUtil.getInstance());
                 notificationPanel.init(poolURI, FormatUtil.getInstance());
                 addCommentBox.init(poolURI);
