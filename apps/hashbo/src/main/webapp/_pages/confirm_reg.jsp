@@ -30,7 +30,7 @@
     org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
 
     final String url = "http://boardcast.it/_welcome";
-    String messageText = "Welcome aboard! Please click on this link " + url + " and sign in using the username and password you supplied.\n";
+    String messageText = "Welcome aboard! We're a pretty young application, so we're really looking for your feedback and help. Please feel free to email us at support@boardcast.it and let us know what we can do for you. You can now click on this link " + url + " and sign in using the username and password you supplied.\n";
 
     if (!digester.matches(to, request.getParameter("hash"))) {
         response.sendRedirect("confirm_failed.jsp");
