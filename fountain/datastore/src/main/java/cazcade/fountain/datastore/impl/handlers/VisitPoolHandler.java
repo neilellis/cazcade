@@ -7,6 +7,7 @@ import cazcade.liquid.api.handler.VisitPoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
+import org.apache.commons.lang.WordUtils;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
@@ -31,7 +32,11 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
                 LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
-                node = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), request.getUri().getLastPathElement(), 0.0, 0.0, "New Board", request.isListed());
+                final String name = request.getUri().getLastPathElement();
+                String boardTitle = request.isListed() && name.matches("[a-zA-Z]+.*") ? name : "New Board";
+                boardTitle = boardTitle.replaceAll("[._-]+", " ");
+                boardTitle = WordUtils.capitalize(boardTitle);
+                node = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), name, 0.0, 0.0, boardTitle, request.isListed());
                 if (request.getPermission() != null) {
                     node = fountainNeo.changeNodePermissionNoTx(node, request.getSessionIdentifier(), request.getPermission());
                     fountainNeo.assertLatestVersion(node);
