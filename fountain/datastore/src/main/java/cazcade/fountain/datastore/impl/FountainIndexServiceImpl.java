@@ -1,17 +1,20 @@
 package cazcade.fountain.datastore.impl;
 
 import cazcade.fountain.index.model.BoardType;
-import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.dao.AliasDAO;
-import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
+import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.entities.AliasEntity;
+import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
 import cazcade.fountain.index.persistence.entities.VisitEntity;
 import cazcade.liquid.api.LiquidBoardURL;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDTypeImpl;
-import org.neo4j.graphdb.*;
+import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,19 +81,19 @@ public class FountainIndexServiceImpl {
 
     private void addOwnershipToBoard(Node node, BoardIndexEntity board) {
         final Relationship ownerRel = node.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
-        if(ownerRel != null) {
+        if (ownerRel != null) {
             final String owner = ownerRel.getOtherNode(node).getProperty(FountainNeo.URI, "unknown").toString();
             log.debug("Setting owner as {0} on {1}", owner, board.getUri());
             board.setOwner(aliasDAO.getOrCreateUser(owner));
         }
         final Relationship authorRel = node.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
-        if(authorRel != null) {
+        if (authorRel != null) {
             final String author = authorRel.getOtherNode(node).getProperty(FountainNeo.URI, "unknown").toString();
             log.debug("Setting author as {0} on {1}", author, board.getUri());
             board.setAuthor(aliasDAO.getOrCreateUser(author));
         }
         final Relationship creatorRel = node.getSingleRelationship(FountainRelationships.CREATOR, Direction.OUTGOING);
-        if(creatorRel != null) {
+        if (creatorRel != null) {
             final String creator = creatorRel.getOtherNode(node).getProperty(FountainNeo.URI, "unknown").toString();
             log.debug("Setting creator as {0} on {1}", creator, board.getUri());
             board.setCreator(aliasDAO.getOrCreateUser(creator));
@@ -216,6 +219,12 @@ public class FountainIndexServiceImpl {
     }
 
     private void updateBoardPopularity(BoardIndexEntity board) {
-        board.setPopularity((long) (10000 * (Math.log10(board.getCommentCount()+1) + Math.log10(board.getActivityCount()+1) + Math.log10(board.getFollowerCount()+1) + Math.log10(board.getLikeCount()+1))));
+        board.setPopularity((long) (10000 * (Math.log10(board.getCommentCount() + 1) + Math.log10(board.getActivityCount() + 1) + Math.log10(board.getFollowerCount() + 1) + Math.log10(board.getLikeCount() + 1))));
+    }
+
+    public void addMetrics(Node pool, LSDEntity entity) {
+        final BoardIndexEntity board = boardDAO.getOrCreateBoard(pool.getProperty(FountainNeo.URI).toString());
+        entity.setAttribute(LSDAttribute.VISITS_METRIC, String.valueOf(board.getVisitCount()));
+        entity.setAttribute(LSDAttribute.UNIQUE_VISITORS_METRIC, boardDAO.getUniqueVisitorCount(board));
     }
 }

@@ -2,7 +2,8 @@ package cazcade.fountain.index.persistence.dao;
 
 
 import cazcade.fountain.index.model.BoardType;
-import cazcade.fountain.index.persistence.entities.*;
+import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
+import cazcade.fountain.index.persistence.entities.VisitEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import java.lang.Override;import java.lang.String;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +38,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
-        this.sessionFactory= sessionFactory;
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -175,6 +175,12 @@ public class BoardDAOImpl implements BoardDAO {
     @Override
     public void addVisit(VisitEntity visitEntity) {
         hibernateTemplate.persist(visitEntity);
+    }
+
+    @Override
+    public String getUniqueVisitorCount(BoardIndexEntity board) {
+        return sessionFactory.getCurrentSession().createQuery("select count(distinct ve.visitor) from VisitEntity ve where ve.board= :board").setParameter("board", board).uniqueResult().toString();
+
     }
 
     /*

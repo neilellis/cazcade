@@ -449,6 +449,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 }
                 entity.addSubEntities(LSDAttribute.CHILD, entities.subList(start, end >= entities.size() ? entities.size() : end + 1));
                 entity.setAttribute(LSDAttribute.POPULARITY_METRIC, String.valueOf(fountainNeo.popularity(targetNode)));
+                indexDAO.addMetrics(pool, entity);
             }
             return entity;
         } finally {

@@ -129,7 +129,11 @@ public final class LSDAttribute {
     public static final LSDAttribute COMMENT_UPDATED = LSDAttribute.create("comment.updated", "text:", "A short comment added by the user.", false, false, false, false, false, false, false);
     public static final LSDAttribute COMMENT_COUNT = LSDAttribute.create("comments.count", "int:", "The number of comments added to an entity.", false, false, false, false, false, true, false);
 
+
+    //Metrics
     public static final LSDAttribute POPULARITY_METRIC = LSDAttribute.create("metric.popularity", "int:", "A simple measure of the popularity of something.", true, true, false, false, false, true, true);
+    public static final LSDAttribute VISITS_METRIC = LSDAttribute.create("metric.visits", "int:", "The total number of visits to this resource.", true, true, false, false, false, true, true);
+    public static final LSDAttribute UNIQUE_VISITORS_METRIC = LSDAttribute.create("metric.visitors", "int:", "The total number of unique visitors to this resource.", true, true, false, false, false, true, true);
 
 
     public static final LSDAttribute MOTIVE_TEXT = LSDAttribute.create("motive.text", "text:", "A short comment added by the user, usually to explain why it was added to a pool.", false, false, false, false, false, false, false);
