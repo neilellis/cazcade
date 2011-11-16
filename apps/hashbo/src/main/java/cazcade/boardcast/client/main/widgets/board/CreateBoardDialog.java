@@ -126,7 +126,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         setAutoHideOnHistoryEventsEnabled(true);
         setAnimationEnabled(true);
         setWidth("600px");
-        setHeight("310px");
+        setHeight("220px");
         setModal(false);
         setText("Create New Board");
         listedCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
@@ -143,8 +143,8 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
 
     private void showListed(boolean listed) {
         shortnameArea.getStyle().setDisplay(listed ? Style.Display.BLOCK : Style.Display.NONE);
-        setHeight(listed ? "340px" : "200px");
-        setWidth(listed ? "600px" : "310px");
+        setHeight(listed ? "220px" : "200px");
+        setWidth(listed ? "600px" : "600px");
         center();
     }
 
