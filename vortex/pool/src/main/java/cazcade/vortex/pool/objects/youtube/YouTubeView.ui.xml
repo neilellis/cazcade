@@ -4,7 +4,7 @@
     <g:HTMLPanel styleName="pool-object-youtube drop-shadow raised">
         <g:AbsolutePanel>
             <g:HTMLPanel styleName="pool-object-youtube-preview">
-                <image:CachedImage ui:field="image" visible="false" size="CLIPPED_SMALL"/>
+                <image:CachedImage ui:field="image" visible="false" size="CLIPPED_MEDIUM"/>
             </g:HTMLPanel>
 
             <g:HTMLPanel ui:field="videoFrameHolder" styleName="pool-object-youtube-video">

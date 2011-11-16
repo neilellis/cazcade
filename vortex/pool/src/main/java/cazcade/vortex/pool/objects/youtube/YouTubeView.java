@@ -2,6 +2,7 @@ package cazcade.vortex.pool.objects.youtube;
 
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.pool.objects.PoolObjectView;
+import cazcade.vortex.widgets.client.image.CachedImage;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
@@ -15,7 +16,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Image;
 
 /**
  * @author neilellis@cazcade.com
@@ -31,6 +31,11 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
         //because transparent is a lot slower.
         final String imageUrl = "http://img.youtube.com/vi/" + videoId + ((size == null || size.equals(SMALL)) ? "/default.jpg" : "/hqdefault.jpg");
         image.setUrl(imageUrl);
+        if (SMALL.equals(size)) {
+            image.setSize(CachedImage.MEDIUM);
+        } else {
+            image.setSize(CachedImage.LARGE);
+        }
         videoFrameHolder.getElement().getStyle().setBackgroundImage(imageUrl);
         imageViewOn();
     }
@@ -85,7 +90,7 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
     @UiField
     HTMLPanel videoFrameHolder;
     @UiField
-    Image image;
+    CachedImage image;
 
 
     @Override
