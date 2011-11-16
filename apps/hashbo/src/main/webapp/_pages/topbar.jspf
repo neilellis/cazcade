@@ -3,7 +3,7 @@
         <div class="container">
             <a class="logo" href="/">&nbsp;</a>
             <ul class="nav" id="nav-bar">
-                <li><a href="/_welcome">Home</a></li>
+                <li><a href="/_welcome">Start</a></li>
                 <li><a href="/_query-popular">Popular</a></li>
                 <li><a href="/_query-new">Recent</a></li>
                 <c:if test="${not empty sessionScope.username}">

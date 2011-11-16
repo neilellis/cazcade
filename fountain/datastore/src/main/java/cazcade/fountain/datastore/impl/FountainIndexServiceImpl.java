@@ -225,6 +225,6 @@ public class FountainIndexServiceImpl {
     public void addMetrics(Node pool, LSDEntity entity) {
         final BoardIndexEntity board = boardDAO.getOrCreateBoard(pool.getProperty(FountainNeo.URI).toString());
         entity.setAttribute(LSDAttribute.VISITS_METRIC, String.valueOf(board.getVisitCount()));
-        entity.setAttribute(LSDAttribute.UNIQUE_VISITORS_METRIC, boardDAO.getUniqueVisitorCount(board));
+        entity.setAttribute(LSDAttribute.REGISTERED_VISITORS_METRIC, boardDAO.getUniqueVisitorCount(board));
     }
 }

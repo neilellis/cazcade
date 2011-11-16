@@ -30,22 +30,29 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     private Runnable onComplete;
     private HistoryManager historyManager;
     private String historyToken;
+    private boolean unlistedToken;
 
 
     public void setOnComplete(Runnable onComplete) {
         this.onComplete = onComplete;
     }
 
-    public boolean getListedCheckBox() {
-        return listedCheckBox.getValue();
+    public boolean isListed() {
+        if (unlistedToken) {
+            return false;
+        } else {
+            return listedCheckBox.getValue();
+        }
     }
 
     @Override
     public void onLocalHistoryTokenChanged(String token) {
         //unlisted boards don't actually need the dialog, we just create them
         if (token.equals("unlisted")) {
+            unlistedToken = true;
             onComplete.run();
         } else {
+            unlistedToken = false;
             center();
             show();
         }

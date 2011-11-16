@@ -160,12 +160,12 @@ public class Boardcast implements EntryPoint {
             public void run() {
                 createBoardDialog.hide();
                 String board = createBoardDialog.getBoard();
-                final boolean listed = createBoardDialog.getListedCheckBox();
+                final boolean listed = createBoardDialog.isListed();
                 if (!listed) {
                     BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
                         @Override
                         public void callback(LiquidUUID uuid) {
-                            final String unlistedShortUrl = "-unlisted-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
+                            final String unlistedShortUrl = "-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
                             historyManager.navigate(unlistedShortUrl);
                         }
                     });

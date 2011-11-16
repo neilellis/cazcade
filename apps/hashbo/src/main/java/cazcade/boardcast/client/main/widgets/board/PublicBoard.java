@@ -252,11 +252,6 @@ public class PublicBoard extends EntityBackedFormPanel {
             removeStyleName("modifiable-board");
         }
 
-        tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()) +
-                "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "my great board") + " on Boardcast")
-                + "&count=horizontal");
-
-
         if (!getEntity().getURI().asShortUrl().isProfileBoard()) {
             publicBoardHeader.bind(getEntity());
             publicBoardHeader.setVisible(true);
@@ -265,7 +260,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             ownerDetailPanel.setAliasURI(owner.getURI());
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
 //            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
-            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/" + entity.getURI().asShortUrl().asUrlSafe()) +
+            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()) +
                     "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "this board") + " on Boardcast")
                     + "&count=horizontal");
 
@@ -276,13 +271,14 @@ public class PublicBoard extends EntityBackedFormPanel {
             footer.getStyle().setVisibility(Style.Visibility.HIDDEN);
             profileBoardHeader.setAliasURI(owner.getURI());
 //            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
-            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/" + entity.getURI().asShortUrl().asUrlSafe()) +
+            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()) +
                     "&text=" + encode("Check out this profile on Boardcast")
                     + "&count=horizontal");
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         publishDate.setInnerText(getEntity().getPublished().toString());
-        visibilityDescription.setInnerText(buildVisibilityDescription() + " There have been " + entity.getAttribute(LSDAttribute.VISITS_METRIC) + " visits from " + entity.getAttribute(LSDAttribute.UNIQUE_VISITORS_METRIC) + " unique visitors.");
+        visibilityDescription.setInnerText(buildVisibilityDescription() + " There have been " + entity.getAttribute(LSDAttribute.VISITS_METRIC)
+                + " visits including " + entity.getAttribute(LSDAttribute.REGISTERED_VISITORS_METRIC) + " registered users and " + entity.getAttribute(LSDAttribute.COMMENT_COUNT) + " comments.");
 //        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
 //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
 //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
