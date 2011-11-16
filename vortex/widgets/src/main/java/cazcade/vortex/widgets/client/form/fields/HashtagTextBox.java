@@ -30,7 +30,7 @@ public class HashtagTextBox extends AbstractServerValidatedTextBox {
     @Override
     protected void checkAvailable() {
 
-        if (showAvailability) {
+        if (showAvailability && isValidName()) {
             new Timer() {
                 @Override
                 public void run() {

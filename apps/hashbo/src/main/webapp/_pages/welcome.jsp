@@ -108,8 +108,13 @@
                     unlisted
                     board they can also add content to the board.</p>
 
+                <br/>
                 <a href="/_create-listed" class="call-to-action primary">
                     Create a board now
+                </a>
+
+                <a href="/_query-popular" class="call-to-action secondary">
+                    Look at some examples
                 </a>
 
             </div>

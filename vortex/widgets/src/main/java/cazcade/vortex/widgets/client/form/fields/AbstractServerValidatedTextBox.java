@@ -50,7 +50,11 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
             @Override
             public void onKeyUp(KeyUpEvent event) {
                 super.onKeyUp(event);
-                checkAvailable();
+                if (!isValidName()) {
+                    showInvalidName();
+                } else {
+                    checkAvailable();
+                }
             }
         });
 
@@ -83,9 +87,18 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
     @Override
     public boolean isValid() {
-        return acceptable && textBox.getText().matches("[a-zA-Z][a-zA-Z0-9_.-]*");
+        return acceptable && isValidName();
     }
 
+    public boolean isValidName() {
+        return textBox.getText().matches("[a-zA-Z][a-zA-Z0-9_.-]*");
+    }
+
+    protected void showInvalidName() {
+        validityImage.setResource(Resources.INSTANCE.userNotAvailable());
+        errorMessage.setText("Invalid name");
+        errorMessage.removeStyleName("success");
+    }
 
     protected void showTaken() {
         validityImage.setResource(Resources.INSTANCE.userNotAvailable());

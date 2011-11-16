@@ -252,7 +252,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             removeStyleName("modifiable-board");
         }
 
-        tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardca.st/" + entity.getURI().asShortUrl().asUrlSafe()) +
+        tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()) +
                 "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "my great board") + " on Boardcast")
                 + "&count=horizontal");
 
