@@ -9,16 +9,8 @@
             </small>
         </p>
         <div class="create-board-shortname" ui:field="shortnameArea">
-            <p>
-                Board Name
-                <small>(optional)</small>
-            </p>
-            <fields:HashtagTextBox showAvailability="true" showValidity="true" ui:field="tagBox"/>
-            <p>
-                <small>Supply a short memorable name for your board if you like, this will appears in the boards url
-                    after http://boardcast.it/ - it should start with a letter and contain only letters, numbers, '-' or
-                    '.'
-                </small>
+            <p>http://boardcast.it/
+                <fields:HashtagTextBox showAvailability="true" showValidity="true" ui:field="tagBox"/>
             </p>
 
 

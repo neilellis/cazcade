@@ -19,7 +19,6 @@ import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
-import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import com.google.gwt.core.client.EntryPoint;
@@ -171,9 +170,6 @@ public class Boardcast implements EntryPoint {
                         }
                     });
                 } else {
-                    if (board.isEmpty()) {
-                        board = Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36) + "-~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
-                    }
                     historyManager.navigate(board);
                 }
             }

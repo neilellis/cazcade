@@ -29,7 +29,8 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
         this.videoId = videoId;
         //wmode=transparent is required to stop visual artifacts, but we do need to look at a way to optimize this
         //because transparent is a lot slower.
-        final String imageUrl = "http://img.youtube.com/vi/" + videoId + ((size == null || size.equals(SMALL)) ? "/default.jpg" : "/hqdefault.jpg");
+//        final String imageUrl = "http://img.youtube.com/vi/" + videoId + ((size == null || size.equals(SMALL)) ? "/default.jpg" : "/hqdefault.jpg");
+        final String imageUrl = "http://img.youtube.com/vi/" + videoId + "/hqdefault.jpg";
         image.setUrl(imageUrl);
         if (SMALL.equals(size)) {
             image.setSize(CachedImage.MEDIUM);

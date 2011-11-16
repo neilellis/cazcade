@@ -7,7 +7,6 @@ import cazcade.liquid.api.handler.VisitPoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
-import org.apache.commons.lang.WordUtils;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
@@ -33,10 +32,37 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
                 final String name = request.getUri().getLastPathElement();
-                String boardTitle = request.isListed() && name.matches("[a-zA-Z]+.*") ? name : "New Board";
-                boardTitle = boardTitle.replaceAll("[._-]+", " ");
-                boardTitle = WordUtils.capitalize(boardTitle);
-                node = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), name, 0.0, 0.0, boardTitle, request.isListed());
+                String boardTitle = request.isListed() && name.startsWith(request.getSessionIdentifier().getName() + "-") ? "Untitled" : name;
+                StringBuilder newTitle = new StringBuilder();
+                boolean previousCharWhitespace = true;
+                for (int i = 0; i < boardTitle.length(); i++) {
+                    final char c = boardTitle.charAt(i);
+                    if ("._-".indexOf(c) >= 0) {
+                        if (!previousCharWhitespace) {
+                            newTitle.append(" ");
+                        }
+                        previousCharWhitespace = true;
+                    } else if (Character.isWhitespace(c)) {
+                        if (!previousCharWhitespace) {
+                            newTitle.append(' ');
+                        }
+                        previousCharWhitespace = true;
+                    } else if (Character.isUpperCase(c)) {
+                        if (!previousCharWhitespace) {
+                            newTitle.append(' ');
+                        }
+                        newTitle.append(c);
+                        previousCharWhitespace = false;
+                    } else {
+                        if (previousCharWhitespace) {
+                            newTitle.append(Character.toUpperCase(c));
+                        } else {
+                            newTitle.append(c);
+                        }
+                        previousCharWhitespace = false;
+                    }
+                }
+                node = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed());
                 if (request.getPermission() != null) {
                     node = fountainNeo.changeNodePermissionNoTx(node, request.getSessionIdentifier(), request.getPermission());
                     fountainNeo.assertLatestVersion(node);

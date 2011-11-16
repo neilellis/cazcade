@@ -5,7 +5,6 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import com.google.gwt.storage.client.Storage;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 /**
  * @author neilellis@cazcade.com
@@ -71,6 +70,15 @@ public class UserUtil {
     }
 
     public static LiquidURI getInboxURI() {
-        return new LiquidURI("pool:///people/"+currentAlias.getAttribute(LSDAttribute.NAME)+"/.inbox");
+        return new LiquidURI("pool:///people/" + currentAlias.getAttribute(LSDAttribute.NAME) + "/.inbox");
+    }
+
+    public static String getCurrentAliasName() {
+        if (currentAlias != null) {
+            return currentAlias.getAttribute(LSDAttribute.NAME);
+        } else {
+            return "";
+        }
+
     }
 }

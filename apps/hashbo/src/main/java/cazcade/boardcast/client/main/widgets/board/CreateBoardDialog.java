@@ -1,5 +1,7 @@
 package cazcade.boardcast.client.main.widgets.board;
 
+import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.form.fields.HashtagTextBox;
@@ -134,6 +136,9 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
                 showListed(listed);
             }
         });
+
+        tagBox.setValue(UserUtil.getCurrentAliasName() + "-" + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36));
+
     }
 
     private void showListed(boolean listed) {
