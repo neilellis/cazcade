@@ -122,7 +122,7 @@ public class ImageProxyServlet extends HttpServlet {
             response = getCachedImage(imageSize, imageUrl, isImage);
             int count = 0;
             while (response.getRefreshIndicator() > 0 && count++ < 4) {
-                Thread.sleep(500);
+                Thread.sleep(50);
 //                Thread.sleep(response.getRefreshIndicator());
                 response = getCachedImage(imageSize, imageUrl, isImage);
             }
