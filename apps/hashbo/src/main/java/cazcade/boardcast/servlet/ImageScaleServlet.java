@@ -2,7 +2,11 @@ package cazcade.boardcast.servlet;
 
 import cazcade.common.Logger;
 import com.mortennobel.imagescaling.*;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
@@ -43,10 +47,16 @@ public class ImageScaleServlet extends HttpServlet {
     private static final boolean debug = true;
 
     private ServletContext context;
+    private Cache scaleCache;
+    private static final String IMAGE_SCALE_CACHE = "image-scale-cache";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         context = config.getServletContext();
+        if (!CacheManager.getInstance().cacheExists(IMAGE_SCALE_CACHE)) {
+            CacheManager.getInstance().addCache(IMAGE_SCALE_CACHE);
+        }
+        scaleCache = CacheManager.getInstance().getCache(IMAGE_SCALE_CACHE);
     }
 
     @Override
@@ -54,52 +64,72 @@ public class ImageScaleServlet extends HttpServlet {
         long start = System.currentTimeMillis(); // Just for debugging
 
         // Get the requested uri as an inputstream
-        InputStream is = new URL(req.getParameter("url")).openStream();
-        if (is == null) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND, String.format("Could not find the requested resource (%s)", req.getRequestURI()));
-            return;
+        final String url = req.getParameter("url");
+        final String w = req.getParameter("w");
+        final String h = req.getParameter("h");
+        final String key = url + ":" + w + ":" + h;
+
+        if (scaleCache.get(key) == null) {
+            InputStream is = new URL(url).openStream();
+            if (is == null) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, String.format("Could not find the requested resource (%s)", req.getRequestURI()));
+                return;
+            }
+
+            BufferedImage originalImage = ImageIO.read(is);
+
+            // Compute the dimentions of the scaled image:
+            DimensionConstrain dims = getDimentionConstrainFromRequest(req, originalImage.getWidth(), originalImage.getHeight());
+
+            // Initialize a resample operation based on the computed dims
+            ResampleOp op = new ResampleOp(dims);
+
+            // If the user defined a filter parameter set it on the operation:
+            String filter = req.getParameter("f");
+            if (filter != null) op.setFilter(getResampleFilterByName(filter));
+
+            // If the user defined a unsharpenmask parameter set it on the operation:
+            String unsharpenmask = req.getParameter("um");
+            if (unsharpenmask != null) op.setUnsharpenMask(getUnsharpenMaskByName(unsharpenmask));
+
+            // Create a scaled image:
+            BufferedImage scaledImage = op.filter(originalImage, null);
+            logger.debug(String.format("Serving image %sx%s scalled to %sx%s with filter '%s' and unshurpenmask '%s' within %smillis", originalImage.getWidth(), originalImage.getHeight(), scaledImage.getWidth(), scaledImage.getHeight(), op.getFilter().getClass(), op.getUnsharpenMask(), System.currentTimeMillis() - start));
+
+            if (debug) {
+                resp.setHeader("X-InitialDimensions", String.format("%sx%s", originalImage.getWidth(), originalImage.getHeight()));
+                resp.setHeader("X-ScaledDimensions", String.format("%sx%s", scaledImage.getWidth(), scaledImage.getHeight()));
+                resp.setHeader("X-ScaledFilter", op.getFilter().getClass().getSimpleName());
+                resp.setHeader("X-ScalledUnsharpenMask", op.getUnsharpenMask().toString());
+                resp.setHeader("X-ScaledTimeMillis", String.valueOf(System.currentTimeMillis() - start));
+            }
+
+            resp.setContentType("image/jpeg");
+
+            final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(scaledImage, "jpg", byteArrayOutputStream);
+            final byte[] bytes = byteArrayOutputStream.toByteArray();
+            scaleCache.put(new Element(key, bytes));
+            IOUtils.closeQuietly(is);
+            IOUtils.write(bytes, resp.getOutputStream());
+        } else {
+            if (debug) {
+                resp.setHeader("X-ScaledImageCacheKey", key);
+                resp.setHeader("X-ScaledTimeMillis", String.valueOf(System.currentTimeMillis() - start));
+                resp.setHeader("X-ScaledImageCacheStats", scaleCache.getStatistics().toString());
+            }
+            IOUtils.write((byte[]) (scaleCache.get(key).getValue()), resp.getOutputStream());
         }
-
-        BufferedImage originalImage = ImageIO.read(is);
-
-        // Compute the dimentions of the scaled image:
-        DimensionConstrain dims = getDimentionConstrainFromRequest(req, originalImage.getWidth(), originalImage.getHeight());
-
-        // Initialize a resample operation based on the computed dims
-        ResampleOp op = new ResampleOp(dims);
-
-        // If the user defined a filter parameter set it on the operation:
-        String filter = req.getParameter("f");
-        if (filter != null) op.setFilter(getResampleFilterByName(filter));
-
-        // If the user defined a unsharpenmask parameter set it on the operation:
-        String unsharpenmask = req.getParameter("um");
-        if (unsharpenmask != null) op.setUnsharpenMask(getUnsharpenMaskByName(unsharpenmask));
-
-        // Create a scaled image:
-        BufferedImage scaledImage = op.filter(originalImage, null);
-
-        logger.debug(String.format("Serving image %sx%s scalled to %sx%s with filter '%s' and unshurpenmask '%s' within %smillis", originalImage.getWidth(), originalImage.getHeight(), scaledImage.getWidth(), scaledImage.getHeight(), op.getFilter().getClass(), op.getUnsharpenMask(), System.currentTimeMillis() - start));
-
-        if (debug) {
-            resp.setHeader("X-InitialDimensions", String.format("%sx%s", originalImage.getWidth(), originalImage.getHeight()));
-            resp.setHeader("X-ScaledDimensions", String.format("%sx%s", scaledImage.getWidth(), scaledImage.getHeight()));
-            resp.setHeader("X-ScaledFilter", op.getFilter().getClass().getSimpleName());
-            resp.setHeader("X-ScalledUnsharpenMask", op.getUnsharpenMask().toString());
-            resp.setHeader("X-ScaledTimeMillis", String.valueOf(System.currentTimeMillis() - start));
-        }
-
-        resp.setContentType("image/jpeg");
-        ImageIO.write(scaledImage, "jpg", resp.getOutputStream());
         resp.flushBuffer();
-        IOUtils.closeQuietly(is);
     }
 
     private DimensionConstrain getDimentionConstrainFromRequest(HttpServletRequest req,
                                                                 int defwidth,
                                                                 int defheight) {
-        int width = getInt(req.getParameter("w"), defwidth);
-        int height = getInt(req.getParameter("h"), defheight);
+        final String w = req.getParameter("w");
+        int width = getInt(w, defwidth);
+        final String h = req.getParameter("h");
+        int height = getInt(h, defheight);
 
         return DimensionConstrain.createMaxDimension(width, height);
     }
