@@ -1,6 +1,8 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
+import com.google.gwt.event.dom.client.LoadEvent;
+import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.Image;
 
@@ -29,13 +31,19 @@ public class CachedImage extends Image {
     private int requestedHeight;
 
     public CachedImage(String url, String size) {
+        setVisible(false);
         setSize(size);
         setUrl(url);
+        addLoadHandler(new LoadHandler() {
+            @Override
+            public void onLoad(LoadEvent event) {
+                setVisible(true);
+            }
+        });
     }
 
     public CachedImage(Image image, String size) {
-        setSize(size);
-        setUrl(image.getUrl());
+        this(image.getUrl(), size);
     }
 
     @Override
