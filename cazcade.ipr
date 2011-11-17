@@ -629,6 +629,8 @@
             <element id="library" level="project" name="Maven: com.yahoo.platform.yui:yuicompressor:2.3.6" />
             <element id="library" level="project" name="Maven: org.twitter4j:twitter4j-core:2.2.4" />
             <element id="library" level="project" name="Maven: org.tuckey:urlrewritefilter:3.2.0" />
+            <element id="library" level="project" name="Maven: com.mortennobel:java-image-scaling:0.8.5" />
+            <element id="library" level="project" name="Maven: com.jhlabs:filters:2.0.235" />
           </element>
         </element>
         <element id="gwt-compiler-output" facet="hashbo/gwt/GWT" />
@@ -1797,6 +1799,28 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.jhlabs:filters:2.0.235">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/jhlabs/filters/2.0.235/filters-2.0.235.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/jhlabs/filters/2.0.235/filters-2.0.235-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/jhlabs/filters/2.0.235/filters-2.0.235-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.mortennobel:java-image-scaling:0.8.5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.newrelic:newrelic-api:2.0.3">

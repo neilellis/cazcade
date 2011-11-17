@@ -168,7 +168,7 @@ public class PoolContentArea extends Composite {
             if (BrowserUtil.isInternalImage(imageUrl)) {
                 container.getElement().getStyle().setProperty("backgroundImage", "url('" + imageUrl + "')");
             } else {
-                container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=CLIPPED_LARGE')");
+                container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=CLIPPED_LARGE&width=1024')");
             }
             container.getElement().getStyle().setWidth(1024, Style.Unit.PX);
         }

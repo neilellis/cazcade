@@ -278,7 +278,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         publishDate.setInnerText(getEntity().getPublished().toString());
         visibilityDescription.setInnerText(buildVisibilityDescription() + " There have been " + entity.getAttribute(LSDAttribute.VISITS_METRIC)
-                + " visits including " + entity.getAttribute(LSDAttribute.REGISTERED_VISITORS_METRIC) + " registered users and " + entity.getAttribute(LSDAttribute.COMMENT_COUNT) + " comments.");
+                + " visits including " + entity.getAttribute(LSDAttribute.REGISTERED_VISITORS_METRIC) + " registered users and " + entity.getAttribute(LSDAttribute.COMMENT_COUNT, "no") + " comments left.");
 //        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
 //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
 //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));

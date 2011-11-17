@@ -145,6 +145,18 @@
         <servlet-class>cazcade.boardcast.servlet.login.LogoutServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>image-scale</servlet-name>
+        <servlet-class>cazcade.boardcast.servlet.ImageScaleServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>image-scale</servlet-name>
+        <url-pattern>/_image-scale</url-pattern>
+    </servlet-mapping>
+
+
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/_logout</url-pattern>

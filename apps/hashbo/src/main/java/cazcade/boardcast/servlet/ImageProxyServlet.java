@@ -100,7 +100,7 @@ public class ImageProxyServlet extends HttpServlet {
 
         if (imageService == null) {
             log.warn("Sending alternate image as image service not ready yet.");
-            sendAlternate(resp, width, height, url, isImage);
+            sendAlternate(resp, width, height, url, isImage, 60 * 1000);
         }
         try {
             CacheResponse response;
@@ -128,13 +128,13 @@ public class ImageProxyServlet extends HttpServlet {
             }
 
             if (response.getRefreshIndicator() > 0) {
-                sendAlternate(resp, width, height, url, isImage);
+                sendAlternate(resp, width, height, url, isImage, response.getRefreshIndicator());
             } else {
                 log.debug("Scaled {0} to {1}.", url, response.getURI().toString());
                 resp.setStatus(301);
                 //cache for about a week (in reality this is a permanent redirect)
                 resp.setHeader("Cache-Control", "max-age=604800");
-                resp.setHeader("Location", response.getURI().toString());
+                resp.setHeader("Location", scaledImageLocation(response.getURI().toString(), width, height));
                 resp.setHeader("Connection", "close");
             }
         } catch (Exception e) {
@@ -142,12 +142,18 @@ public class ImageProxyServlet extends HttpServlet {
         }
     }
 
-    private void sendAlternate(HttpServletResponse resp, int width, int height, String url, boolean image) throws UnsupportedEncodingException {
+    private String scaledImageLocation(String url, int width, int height) throws UnsupportedEncodingException {
+        return "/_image-scale?url=" + URLEncoder.encode(url, "utf8") + "&w=" + width + "&h=" + height;
+    }
+
+    private void sendAlternate(HttpServletResponse resp, int width, int height, String url, boolean image, long refreshIndicator) throws UnsupportedEncodingException {
+        final String refreshInSecs = String.valueOf(refreshIndicator / 1000);
         if (image) {
             log.warn("Failed to scale {0}.", url);
             //We temporarily redirect to the unscaled image until the image becomes available in it's scaled form.
             resp.setStatus(307);
-            resp.setHeader("Location", url);
+            resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
+            resp.setHeader("Location", scaledImageLocation(url, width, height));
             resp.setHeader("Connection", "close");
         } else {
             log.warn("Failed to snapshot {0}.", url);
