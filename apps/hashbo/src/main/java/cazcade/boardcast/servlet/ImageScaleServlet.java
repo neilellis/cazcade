@@ -1,6 +1,8 @@
 package cazcade.boardcast.servlet;
 
+import cazcade.common.Logger;
 import com.mortennobel.imagescaling.*;
+import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
@@ -12,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.URL;
+
 
 /**
  * That means that all the requests ending with .jpg will get served by our servlet. The
@@ -52,7 +54,7 @@ public class ImageScaleServlet extends HttpServlet {
         long start = System.currentTimeMillis(); // Just for debugging
 
         // Get the requested uri as an inputstream
-        InputStream is = context.getResourceAsStream(req.getParameter("url"));
+        InputStream is = new URL(req.getParameter("url")).openStream();
         if (is == null) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, String.format("Could not find the requested resource (%s)", req.getRequestURI()));
             return;
@@ -77,8 +79,7 @@ public class ImageScaleServlet extends HttpServlet {
         // Create a scaled image:
         BufferedImage scaledImage = op.filter(originalImage, null);
 
-        if (logger.isLoggable(Level.FINE))
-            logger.log(Level.FINE, String.format("Serving image %sx%s scalled to %sx%s with filter '%s' and unshurpenmask '%s' within %smillis", originalImage.getWidth(), originalImage.getHeight(), scaledImage.getWidth(), scaledImage.getHeight(), op.getFilter().getClass(), op.getUnsharpenMask(), System.currentTimeMillis() - start));
+        logger.debug(String.format("Serving image %sx%s scalled to %sx%s with filter '%s' and unshurpenmask '%s' within %smillis", originalImage.getWidth(), originalImage.getHeight(), scaledImage.getWidth(), scaledImage.getHeight(), op.getFilter().getClass(), op.getUnsharpenMask(), System.currentTimeMillis() - start));
 
         if (debug) {
             resp.setHeader("X-InitialDimensions", String.format("%sx%s", originalImage.getWidth(), originalImage.getHeight()));
@@ -91,6 +92,7 @@ public class ImageScaleServlet extends HttpServlet {
         resp.setContentType("image/jpeg");
         ImageIO.write(scaledImage, "jpg", resp.getOutputStream());
         resp.flushBuffer();
+        IOUtils.closeQuietly(is);
     }
 
     private DimensionConstrain getDimentionConstrainFromRequest(HttpServletRequest req,
