@@ -134,7 +134,8 @@ public class ImageScaleServlet extends HttpServlet {
 
     private int getInt(String val, int defaultvalue) {
         try {
-            return Integer.parseInt(val);
+            final int i = Integer.parseInt(val);
+            return i > 0 ? i : defaultvalue;
         } catch (Exception e) {
             return defaultvalue;
         }
