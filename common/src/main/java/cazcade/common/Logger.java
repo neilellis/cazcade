@@ -69,6 +69,10 @@ public class Logger {
 
     private static boolean production;
 
+    public static boolean isProduction() {
+        return production;
+    }
+
     static {
         try {
             production = System.getProperty("production") != null;

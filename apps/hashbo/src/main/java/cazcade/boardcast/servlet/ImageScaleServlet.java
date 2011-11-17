@@ -10,7 +10,6 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,15 +43,12 @@ import java.net.URL;
 public class ImageScaleServlet extends HttpServlet {
     private static final long serialVersionUID = 896323877253822771L;
     private static final Logger logger = Logger.getLogger(ImageScaleServlet.class.getName());
-    private static final boolean debug = true;
 
-    private ServletContext context;
     private Cache scaleCache;
     private static final String IMAGE_SCALE_CACHE = "image-scale-cache";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        context = config.getServletContext();
         if (!CacheManager.getInstance().cacheExists(IMAGE_SCALE_CACHE)) {
             CacheManager.getInstance().addCache(IMAGE_SCALE_CACHE);
         }
@@ -61,6 +57,7 @@ public class ImageScaleServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final boolean debug = !Logger.isProduction() || req.getParameter("debug") != null;
         long start = System.currentTimeMillis(); // Just for debugging
 
         // Get the requested uri as an inputstream
@@ -118,6 +115,7 @@ public class ImageScaleServlet extends HttpServlet {
                 resp.setHeader("X-ScaledTimeMillis", String.valueOf(System.currentTimeMillis() - start));
                 resp.setHeader("X-ScaledImageCacheStats", scaleCache.getStatistics().toString());
             }
+            resp.setContentType("image/jpeg");
             IOUtils.write((byte[]) (scaleCache.get(key).getValue()), resp.getOutputStream());
         }
         resp.flushBuffer();
