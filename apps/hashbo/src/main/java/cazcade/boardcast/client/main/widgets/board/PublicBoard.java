@@ -261,7 +261,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
 //            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
             tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()) +
-                    "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "this board") + " on Boardcast")
+                    "&text=" + encode("Check out " + entity.getAttribute(LSDAttribute.TITLE, "this board") + " on Boardcast #bc")
                     + "&count=horizontal");
 
         } else {
@@ -272,7 +272,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             profileBoardHeader.setAliasURI(owner.getURI());
 //            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
             tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()) +
-                    "&text=" + encode("Check out this profile on Boardcast")
+                    "&text=" + encode("Check out this profile on Boardcast #bc")
                     + "&count=horizontal");
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
