@@ -32,7 +32,7 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
                 final String name = request.getUri().getLastPathElement();
-                String boardTitle = request.isListed() && name.startsWith(request.getSessionIdentifier().getName() + "-") ? "Untitled" : name;
+                String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-") || name.startsWith("-")) ? "Untitled" : name;
                 StringBuilder newTitle = new StringBuilder();
                 boolean previousCharWhitespace = true;
                 for (int i = 0; i < boardTitle.length(); i++) {

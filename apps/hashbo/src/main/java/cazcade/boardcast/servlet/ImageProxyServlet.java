@@ -122,7 +122,7 @@ public class ImageProxyServlet extends HttpServlet {
             response = getCachedImage(imageSize, imageUrl, isImage);
             int count = 0;
             while (response.getRefreshIndicator() > 0 && count++ < 4) {
-                Thread.sleep(50);
+                Thread.sleep(100);
 //                Thread.sleep(response.getRefreshIndicator());
                 response = getCachedImage(imageSize, imageUrl, isImage);
             }
@@ -132,6 +132,8 @@ public class ImageProxyServlet extends HttpServlet {
             } else {
                 log.debug("Scaled {0} to {1}.", url, response.getURI().toString());
                 resp.setStatus(301);
+                //cache for about a week (in reality this is a permanent redirect)
+                resp.setHeader("Cache-Control", "max-age=604800");
                 resp.setHeader("Location", response.getURI().toString());
                 resp.setHeader("Connection", "close");
             }
@@ -155,10 +157,12 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
     private void sendNotReady(HttpServletResponse resp, CacheResponse response, int width, int height) throws UnsupportedEncodingException {
+        final String refreshInSecs = String.valueOf(response.getRefreshIndicator() / 1000);
         resp.setStatus(307);
         resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=Image+Not+Ready");
+        resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
         if (response == null) {
-            resp.setHeader("Refresh", String.valueOf(response.getRefreshIndicator() / 1000));
+            resp.setHeader("Refresh", refreshInSecs);
         }
         resp.setHeader("Connection", "close");
     }
