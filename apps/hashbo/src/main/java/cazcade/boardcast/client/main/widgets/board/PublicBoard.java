@@ -16,6 +16,7 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -313,7 +314,9 @@ public class PublicBoard extends EntityBackedFormPanel {
                 comments.clear();
 
                 comments.init(poolURI, FormatUtil.getInstance());
-                notificationPanel.init(poolURI, FormatUtil.getInstance());
+                if (ClientApplicationConfiguration.isAlphaFeatures()) {
+                    notificationPanel.init(poolURI, FormatUtil.getInstance());
+                }
                 addCommentBox.init(poolURI);
             }
         });
