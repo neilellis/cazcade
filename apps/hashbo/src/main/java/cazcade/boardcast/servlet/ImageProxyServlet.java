@@ -76,8 +76,8 @@ public class ImageProxyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
-        int width = req.getParameter("width") != null ? Integer.parseInt(req.getParameter("width")) : 300;
-        int height = req.getParameter("height") != null ? Integer.parseInt(req.getParameter("height")) : 200;
+        int width = req.getParameter("width") != null ? Integer.parseInt(req.getParameter("width")) : 1024;
+        int height = req.getParameter("height") != null ? Integer.parseInt(req.getParameter("height")) : -1;
 
         final String url = req.getParameter("url");
         final String size = req.getParameter("size");
