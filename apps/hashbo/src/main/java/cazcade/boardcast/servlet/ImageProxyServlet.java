@@ -157,7 +157,7 @@ public class ImageProxyServlet extends HttpServlet {
             resp.setHeader("Connection", "close");
         } else {
             log.warn("Failed to snapshot {0}.", url);
-            sendUrl2PngAlternate(resp, width, height, url);
+            sendUrl2PngAlternate(resp, width, height, url, refreshInSecs);
 
         }
     }
@@ -180,10 +180,11 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
 
-    private void sendUrl2PngAlternate(HttpServletResponse resp, int width, int height, String url) throws UnsupportedEncodingException {
+    private void sendUrl2PngAlternate(HttpServletResponse resp, int width, int height, String url, String refreshInSecs) throws UnsupportedEncodingException {
         resp.setStatus(307);
         url = URLEncoder.encode(url, "utf-8");
         String url2pngUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" + DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) + "/" + width + "x" + height + "/" + url;
+        resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
         resp.setHeader("Location", url2pngUrl);
 //        if (response == null) {
 //            resp.setHeader("Refresh", String.valueOf(response.getRefreshIndicator() / 1000));

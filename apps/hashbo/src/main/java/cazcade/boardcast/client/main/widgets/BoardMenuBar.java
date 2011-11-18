@@ -12,6 +12,9 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.gwt.util.client.ClientLog;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -42,20 +45,30 @@ public class BoardMenuBar extends MenuBar {
     }
 
 
-    public void init(LSDEntity board, boolean modifierOptions, final ChangeBackgroundDialog backgroundDialog) {
+    public void init(final LSDEntity board, final boolean modifierOptions, final ChangeBackgroundDialog backgroundDialog) {
         this.poolURI = board.getURI();
         clearItems();
-        if (modifierOptions) {
-            addMenubar = new MenuBar(true);
-            createAddMenu(poolURI, backgroundDialog, board);
-            final MenuItem add = addItem("Add", addMenubar);
-            add.addStyleName("board-menu-add");
-        }
-        if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
-            accessMenuBar = new MenuBar(true);
-            addItem("Access", accessMenuBar);
-            createAccessMenu(board);
-        }
+        GWT.runAsync(new RunAsyncCallback() {
+            @Override
+            public void onFailure(Throwable reason) {
+                ClientLog.log(reason);
+            }
+
+            @Override
+            public void onSuccess() {
+                if (modifierOptions) {
+                    addMenubar = new MenuBar(true);
+                    createAddMenu(poolURI, backgroundDialog, board);
+                    final MenuItem add = addItem("Add", addMenubar);
+                    add.addStyleName("board-menu-add");
+                }
+                if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
+                    accessMenuBar = new MenuBar(true);
+                    addItem("Access", accessMenuBar);
+                    createAccessMenu(board);
+                }
+            }
+        });
 
     }
 
