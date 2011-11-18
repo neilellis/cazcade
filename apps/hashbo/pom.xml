@@ -126,9 +126,11 @@
                             <module>cazcade.boardcast.Boardcast</module>
                             <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
                             <style>OBFUSCATED</style>
+                            <compileReport>true</compileReport>
                         </configuration>
                         <goals>
                             <goal>compile</goal>
+
                         </goals>
                     </execution>
                 </executions>

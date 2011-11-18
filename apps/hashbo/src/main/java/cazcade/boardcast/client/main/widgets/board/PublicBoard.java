@@ -99,7 +99,17 @@ public class PublicBoard extends EntityBackedFormPanel {
         previousPoolURI = poolURI;
         poolURI = new LiquidURI(LiquidBoardURL.convertFromShort(value));
         if (isAttached()) {
-            refresh();
+            GWT.runAsync(new RunAsyncCallback() {
+                @Override
+                public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
+                }
+
+                @Override
+                public void onSuccess() {
+                    refresh();
+                }
+            });
         }
     }
 
@@ -290,16 +300,26 @@ public class PublicBoard extends EntityBackedFormPanel {
 
 
         if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
-            contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
-            final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
-            setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
-            if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-                menuBar.init(getEntity(), true, changeBackgroundDialog);
-            } else {
-                menuBar.init(getEntity(), false, changeBackgroundDialog);
-            }
-            StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
-            WidgetUtil.showGracefully(getWidget(), false);
+            GWT.runAsync(new RunAsyncCallback() {
+                @Override
+                public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
+                }
+
+                @Override
+                public void onSuccess() {
+                    contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
+                    final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
+                    setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
+                    if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
+                        menuBar.init(getEntity(), true, changeBackgroundDialog);
+                    } else {
+                        menuBar.init(getEntity(), false, changeBackgroundDialog);
+                    }
+                    StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
+                    WidgetUtil.showGracefully(getWidget(), false);
+                }
+            });
         }
 
 
