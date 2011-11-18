@@ -19,7 +19,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveAliasRequest(LiquidSessionIdentifier identity) {
-        this.identity = identity;
+        this.setIdentity(identity);
     }
 
     public RetrieveAliasRequest(LiquidSessionIdentifier identity, LiquidUUID target) {
@@ -31,28 +31,28 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
     }
 
     public RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri) {
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
     }
 
     private RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
-        this.target = target;
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
+        this.setTarget(target);
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new RetrieveAliasRequest(id, identity, target, uri);
+        return new RetrieveAliasRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri());
     }
 
     public LiquidRequestType getRequestType() {

@@ -54,19 +54,19 @@ public class FountainTestDataBuilderClient {
         LSDEntity streamEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" + username + "/.stream");
         String streamId = streamEntity.getID().toString();
 //        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TwitterFeed"), "alias:cazcade:"+username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("RSSFeed1"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("RSSFeed2"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("RSSFeed3"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("RSSFeed1"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("RSSFeed2"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("RSSFeed3"), "alias:cazcade:" + username);
     }
 
     private static void initHomePool() throws IOException {
         LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" + username);
         String entityId = poolEntity.getID().toString();
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject1"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject2"), "alias::cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject3"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject4"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject5"), "alias:youtube:HomeAdditionPlus");
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject1"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject2"), "alias::cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject3"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject4"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject5"), "alias:youtube:HomeAdditionPlus");
         LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" + username + "%23TestObject4");
         System.err.println(testEntity.toString());
         assertTrue(testEntity.getTypeDef().getPrimaryType().getClassOnlyType().asString().equals(LSDDictionaryTypes.BITMAP_IMAGE_2D.getValue()));
@@ -75,11 +75,11 @@ public class FountainTestDataBuilderClient {
     private static void initInbox() throws IOException {
         LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" + username + "/.inbox");
         String entityId = poolEntity.getID().toString();
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject1"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject2"), "alias::cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject3"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject4"), "alias:cazcade:" + username);
-        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject5"), "alias:youtube:HomeAdditionPlus");
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject1"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject2"), "alias::cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject3"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject4"), "alias:cazcade:" + username);
+        FountainTestClientSupport.putEntityToURL(clientSession, "pool/" + entityId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject5"), "alias:youtube:HomeAdditionPlus");
         LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" + username + "/.inbox%23TestObject4");
         System.err.println(testEntity.toString());
         assertTrue(testEntity.getTypeDef().getPrimaryType().getClassOnlyType().asString().equals(LSDDictionaryTypes.BITMAP_IMAGE_2D.getValue()));

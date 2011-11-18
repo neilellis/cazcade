@@ -1,6 +1,7 @@
 package cazcade.liquid.api;
 
 import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.request.SerializedRequest;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -62,4 +63,5 @@ public interface LiquidMessage extends Serializable {
     LSDEntity getResponseOrRequestEntity();
 
 
+    SerializedRequest asSerializedRequest();
 }

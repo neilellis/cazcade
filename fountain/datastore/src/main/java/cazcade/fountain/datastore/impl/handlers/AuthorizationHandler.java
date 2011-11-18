@@ -6,7 +6,10 @@ import cazcade.fountain.datastore.api.DeletedEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
-import cazcade.liquid.api.lsd.*;
+import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.AuthorizationRequest;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
@@ -33,8 +36,8 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
                 throw new AuthorizationException("No identity supplied.");
             }
             final Node node;
-            if (request.getResource() != null) {
-                node = fountainNeo.findByUUID(request.getResource());
+            if (request.getTarget() != null) {
+                node = fountainNeo.findByUUID(request.getTarget());
             } else {
                 node = fountainNeo.findByURI(request.getUri());
                 if (node == null) {
@@ -56,12 +59,12 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (DeletedEntityException dee) {
-            log.warn("Client asked for authorization on  " + request.getResource() + " which has been deleted.");
+            log.warn("Client asked for authorization on  " + request.getTarget() + " which has been deleted.");
             entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_INVALID.getValue());
-            entity.setAttribute(LSDAttribute.DESCRIPTION, request.getResource() + " has been deleted.");
+            entity.setAttribute(LSDAttribute.DESCRIPTION, request.getTarget() + " has been deleted.");
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (EntityNotFoundException enfe) {
-            log.warn("Client asked for authorization on  " + request.getResource() + " which could not be found.");
+            log.warn("Client asked for authorization on  " + request.getTarget() + " which could not be found.");
 //            entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_INVALID.getAttribute());
             return LiquidResponseHelper.forResourceNotFound(enfe.getMessage(), request);
         } catch (RuntimeException exception) {

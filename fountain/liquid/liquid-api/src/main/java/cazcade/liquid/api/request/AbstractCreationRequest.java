@@ -1,7 +1,6 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,10 +10,6 @@ import java.util.List;
  */
 public abstract class AbstractCreationRequest extends AbstractRequest {
 
-
-    public LSDEntity getEntity() {
-        return entity;
-    }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;

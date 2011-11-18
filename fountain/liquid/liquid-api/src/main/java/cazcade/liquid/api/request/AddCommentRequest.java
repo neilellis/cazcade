@@ -28,42 +28,39 @@ public class AddCommentRequest extends AbstractUpdateRequest {
     }
 
     public AddCommentRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.entity = entity;
-        this.uri = uri;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setRequestEntity(entity);
+        this.setUri(uri);
     }
 
     public AddCommentRequest(LiquidURI uri, String value) {
-        this.entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT);
+        this.setRequestEntity(LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT));
         //Time clocks vary so we don't want this set.
-        entity.remove(LSDAttribute.PUBLISHED);
-        this.entity.setAttribute(LSDAttribute.TEXT_BRIEF, value);
-        this.uri = uri;
+        super.getEntity().remove(LSDAttribute.PUBLISHED);
+        super.getEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
+        this.setUri(uri);
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (uri.getScheme().equals(LiquidURIScheme.alias)) {
+        if (getUri().getScheme().equals(LiquidURIScheme.alias)) {
             return Collections.EMPTY_LIST;
         } else {
-            return target != null ? Arrays.asList(new AuthorizationRequest(target, LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
+            return super.getTarget() != null ? Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
         }
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new AddCommentRequest(id, identity, target, uri, entity);
+        return new AddCommentRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getEntity());
     }
 
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.ADD_COMMENT;
     }
 
-    public LiquidURI getUri() {
-        return uri;
-    }
 
     @Override
     public void adjustTimeStampForServerTime() {

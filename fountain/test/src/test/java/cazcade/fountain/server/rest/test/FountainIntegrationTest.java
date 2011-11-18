@@ -185,8 +185,8 @@ public class FountainIntegrationTest {
         LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
-        FountainTestClientSupport.postEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
-        FountainTestClientSupport.callRESTApiWithGet(userSession, "comment/create.xml?uri=" + objectURL + "&text=HelloWorld&image="+URLEncoder.encode("http://www.google.co.uk/logos/2011/calder11-sr.png"));
+        FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
+        FountainTestClientSupport.callRESTApiWithGet(userSession, "comment/create.xml?uri=" + objectURL + "&text=HelloWorld&image=" + URLEncoder.encode("http://www.google.co.uk/logos/2011/calder11-sr.png"));
         Thread.sleep(2000);
         LSDEntity commentList = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?uri=" + objectURL);
         List<LSDEntity> comments = commentList.getSubEntities(LSDAttribute.CHILD);
@@ -203,7 +203,7 @@ public class FountainIntegrationTest {
 
         testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
         testEntity.setAttribute(LSDAttribute.RIGHTS, YOU_HAVE_NO_RIGHTS);
-        FountainTestClientSupport.postEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
+        FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
         Thread.sleep(1000);
 
         updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL + "&history");
@@ -219,7 +219,7 @@ public class FountainIntegrationTest {
 
     @Test
     public void testLinkObject() throws IOException, InterruptedException {
-        if(!LinkPoolObjectRequest.SUPPORTS_URI) {
+        if (!LinkPoolObjectRequest.SUPPORTS_URI) {
             return;
         }
         Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
@@ -227,7 +227,7 @@ public class FountainIntegrationTest {
         LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
-        FountainTestClientSupport.postEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
+        FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
         Thread.sleep(3000);
 
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID() + "/link?to=" + testUserPublicPoolId);
@@ -258,7 +258,7 @@ public class FountainIntegrationTest {
         LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
-        FountainTestClientSupport.postEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
+        FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
         Thread.sleep(1000);
 
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID() + "/relocate?to=" + testUserPublicPoolId);
@@ -276,7 +276,7 @@ public class FountainIntegrationTest {
         LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
-        FountainTestClientSupport.postEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
+        FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getID(), testEntity, "alias:cazcade:" + testUsername);
         Thread.sleep(1000);
 
         testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
@@ -290,11 +290,11 @@ public class FountainIntegrationTest {
     @Test
     public void testUpdatePool() throws IOException, InterruptedException {
         Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
-        LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool);
+        LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + testUserHomePool);
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
-        FountainTestClientSupport.postEntityToURL(userSession, "pool/" + testUserHomePoolId, testEntity, "alias:cazcade:" + testUsername);
+        FountainTestClientSupport.putEntityToURL(userSession, "pool/update?uri=" + testUserHomePool, testEntity, "alias:cazcade:" + testUsername);
         Thread.sleep(1000);
-        LSDEntity updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool);
+        LSDEntity updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + testUserHomePool);
         Assert.assertEquals(CAZCADE_COPYRIGHT_STATEMENT, updatedEntity.getAttribute(LSDAttribute.RIGHTS));
         listenThread.stop();
     }
@@ -345,7 +345,7 @@ public class FountainIntegrationTest {
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/create.xml?parent=" + LiquidURI + "&name=testchildfordelete&title=&description=&x=0&y=0");
         Thread.sleep(500);
         LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + LiquidURI + "/testchildfordelete");
-        LSDEntity deletionEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/delete?uri="+poolEntity.getURI());
+        LSDEntity deletionEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/delete?uri=" + poolEntity.getURI());
         Thread.sleep(500);
         try {
             LSDEntity entityToTest = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + LiquidURI + "/testchildfordelete");

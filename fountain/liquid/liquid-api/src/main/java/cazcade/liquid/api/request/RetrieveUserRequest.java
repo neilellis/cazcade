@@ -16,7 +16,7 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this(null, null, uri, false);
     }
 
-    public RetrieveUserRequest(LiquidSessionIdentifier identity,LiquidURI uri) {
+    public RetrieveUserRequest(LiquidSessionIdentifier identity, LiquidURI uri) {
         this(null, identity, uri, false);
     }
 
@@ -29,28 +29,28 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
     }
 
     public RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean internal) {
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
-        this.internal = internal;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
+        this.setInternal(internal);
     }
 
     private RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
-        this.target = target;
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
+        this.setTarget(target);
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
     }
 
     @Override
     public LiquidMessage copy() {
-        return new RetrieveUserRequest(id, identity, target, uri);
+        return new RetrieveUserRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri());
     }
 
 

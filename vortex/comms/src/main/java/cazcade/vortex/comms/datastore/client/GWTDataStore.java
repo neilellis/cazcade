@@ -1,18 +1,19 @@
 package cazcade.vortex.comms.datastore.client;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.request.AbstractRequest;
+import cazcade.liquid.api.request.SerializedRequest;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.*;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.SerializationException;
+import com.google.gwt.user.client.rpc.StatusCodeException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,26 +86,27 @@ public class GWTDataStore {
 //                            ((LiquidRequest) message).setIdentity(null);
                     ((LiquidRequest) message).setIdentity(identity);
 
-                    DataStoreService.App.getInstance().process((LiquidRequest) message, new AsyncCallback<LiquidMessage>() {
+                    DataStoreService.App.getInstance().process(message.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
                         public int count;
 
                         public void onFailure(Throwable caught) {
                             ClientLog.log(caught);
                             if (caught instanceof StatusCodeException && count++ < MAX_RETRY) {
-                                final AsyncCallback<LiquidMessage> callback = this;
+                                final AsyncCallback<SerializedRequest> callback = this;
                                 new Timer() {
                                     @Override
                                     public void run() {
-                                        DataStoreService.App.getInstance().process((LiquidRequest) message, callback);
+                                        DataStoreService.App.getInstance().process(message.asSerializedRequest(), callback);
                                     }
                                 }.schedule(1000 * count);
                             }
                         }
 
-                        public void onSuccess(LiquidMessage result) {
+                        public void onSuccess(SerializedRequest result) {
 //                                    result.setId(id);
                             if (result != null) {
-                                bus.dispatch(result);
+                                final AbstractRequest response = deserializeRequest(result);
+                                bus.dispatch(response);
                             }
                         }
                     });
@@ -124,6 +126,12 @@ public class GWTDataStore {
         }.scheduleRepeating(1000);
         onStartup.run();
 
+    }
+
+    private AbstractRequest deserializeRequest(SerializedRequest result) {
+        final AbstractRequest response = result.getType().createInGWT();
+        response.setEntity(result.getEntity());
+        return response;
     }
 
 
@@ -152,13 +160,24 @@ public class GWTDataStore {
 //        }
 //    }
 
-    public void process(LiquidRequest request, AsyncCallback<LiquidMessage> callback) {
+    public void process(LiquidRequest request, final AsyncCallback<LiquidMessage> callback) {
         request.setIdentity(identity);
-        DataStoreService.App.getInstance().process(request, callback);
+        DataStoreService.App.getInstance().process(request.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                callback.onFailure(caught);
+            }
+
+            @Override
+            public void onSuccess(SerializedRequest result) {
+                final AbstractRequest response = deserializeRequest(result);
+                callback.onSuccess(response);
+            }
+        });
     }
 
 
-    private class CollectCallback implements AsyncCallback<ArrayList<LiquidMessage>> {
+    private class CollectCallback implements AsyncCallback<ArrayList<SerializedRequest>> {
 
         public CollectCallback() {
 
@@ -204,7 +223,7 @@ public class GWTDataStore {
 
         }
 
-        public void onSuccess(ArrayList<LiquidMessage> liquidMessages) {
+        public void onSuccess(ArrayList<SerializedRequest> requests) {
             new Timer() {
                 @Override
                 public void run() {
@@ -212,13 +231,14 @@ public class GWTDataStore {
                     DataStoreService.App.getInstance().collect(identity, locations, CollectCallback.this);
                 }
             }.schedule(100);
-            if (liquidMessages != null) {
-                ClientLog.log("Result from collect was " + liquidMessages.size());
-                for (LiquidMessage message : liquidMessages) {
-                    ClientLog.log("Dispatching message " + message.getId());
-                    String uniqueId = message.getDeduplicationIdentifier();
+            if (requests != null) {
+                ClientLog.log("Result from collect was " + requests.size());
+                for (SerializedRequest serializedRequest : requests) {
+                    AbstractRequest request = deserializeRequest(serializedRequest);
+                    ClientLog.log("Dispatching request " + request.getId());
+                    String uniqueId = request.getDeduplicationIdentifier();
                     if (unique(uniqueId)) {
-                        bus.dispatch(message);
+                        bus.dispatch(request);
                     }
                 }
             } else {

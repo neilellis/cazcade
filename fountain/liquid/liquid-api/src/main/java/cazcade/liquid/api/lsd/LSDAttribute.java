@@ -32,7 +32,53 @@ public final class LSDAttribute {
     public static final LSDAttribute ACTIVE = LSDAttribute.create("active", "boolean:", "Simple boolean flag to say if the entity is in some manner active.", false, false, false, false, false, false, false);
     public static final LSDAttribute HAS_FOCUS = LSDAttribute.create("focused", "boolean:", "Simple boolean flag to say if the entity should have focus.", true, true, false, false, false, false, true);
 
+    /*
+     * Requests
+     */
+    public static final LSDAttribute DICTIONARY_CATEGORY = LSDAttribute.create("dictionary.category", "text:", "Dictionary category.", false, false, false, false, false, false, false);
+    public static final LSDAttribute FOLLOW = LSDAttribute.create("follow", "boolean:", "A request to follow (true) or unfollow (false)", false, false, false, false, false, false, false);
+    public static final LSDAttribute RECIPIENT = LSDAttribute.create("recipient.name", "text:shortname:", "The recipient of a message.", false, false, false, false, false, false, false);
 
+    public static final LSDAttribute FROM = LSDAttribute.create("request.resource.from.id", "uuid:", "Location to move a resource from.", false, false, false, false, false, false, false);
+    public static final LSDAttribute TO = LSDAttribute.create("request.resource.to.id", "uuid:", "Location to move a resource from.", false, false, false, false, false, false, false);
+    public static final LSDAttribute UNLINK = LSDAttribute.create("request.resource.unlink", "boolean:", "Unlink the original resource in a link request.", false, false, false, false, false, false, false);
+
+    public static final LSDAttribute CREATE_OR_UPDATE = LSDAttribute.create("request.coru", "boolean:", "Create the resource if it doesn't exist, update if it does.", false, false, false, false, false, false, false);
+    public static final LSDAttribute CLIENT_APPLICATION_IDENTIFIER = LSDAttribute.create("request.cai", "boolean:", "Client application identifier", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_ORIGIN = LSDAttribute.create("request.origin", "text:", "From where the request originated.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_STATE = LSDAttribute.create("request.state", "text:", "The current state of the request.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_CACHING_SCOPE = LSDAttribute.create("request.cache.scope", "text:", "The scope of the caching for this request.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_SESSION_ID = LSDAttribute.create("request.sid", "text:", "Session identifier.", false, false, false, false, false, false, false);
+    public static final LSDAttribute INTERNAL_REQUEST = LSDAttribute.create("request.internal", "boolean:", "Is this request internal.", false, false, false, false, false, false, false);
+    public static final LSDAttribute HISTORICAL_REQUEST = LSDAttribute.create("request.historical", "boolean:", "Is this request historical.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_EXPLICIT_RPC = LSDAttribute.create("request.rpc", "boolean:", "Is this request synchronous (RPC).", false, false, false, false, false, false, false);
+    public static final LSDAttribute IS_ME = LSDAttribute.create("request.self", "boolean:", "Request relates to me.", false, false, false, false, false, false, false);
+    public static final LSDAttribute IS_CLAIM = LSDAttribute.create("request.claim", "boolean:", "Claiming resource.", false, false, false, false, false, false, false);
+
+
+    public static final LSDAttribute REQUEST_RESULT = LSDAttribute.create("request.result", "", "The result entity for this request.", false, false, true, false, false, false, false);
+    public static final LSDAttribute REQUEST_ENTITY = LSDAttribute.create("request.resource.entity", "", "The entity to use for this request.", false, false, true, false, false, false, false);
+
+    public static final LSDAttribute REQUEST_URI = LSDAttribute.create("request.resource.uri", "uri:", "Request URI.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_UUID = LSDAttribute.create("request.resource.uuid", "uuid:", "Request UUID.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_POOL_UUID = LSDAttribute.create("request.resource.pool.uuid", "uuid:", "Request Pool UUID.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_POOL_URI = LSDAttribute.create("request.resource.pool.uri", "uri:", "Request Pool URI.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_PREVIOUS_POOL_URI = LSDAttribute.create("request.resource.previous.pool.uri", "uri:", "Previous Pool URI.", false, false, false, false, false, false, false);
+
+    public static final LSDAttribute REQUEST_OBJECT_UUID = LSDAttribute.create("request.resource.object.uuid", "text:", "Request Object UUID.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_ALIAS = LSDAttribute.create("request.resource.alias", "uri:", "Request Alias.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_AUTHOR = LSDAttribute.create("request.resource.author", "uuid:", "Request Author.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_RESOURCE_TYPE = LSDAttribute.create("request.resource.type", "type:", "Request resource type.", false, false, false, false, false, false, false);
+    public static final LSDAttribute REQUEST_PARENT_URI = LSDAttribute.create("request.resource.parent.uri", "uri:", "Parent resource.", false, false, false, false, false, false, false);
+
+
+    public static final LSDAttribute QUERY_DETAIL = LSDAttribute.create("query.detail", "text:", "Level of detail to return.", false, false, false, false, false, false, false);
+    public static final LSDAttribute SINCE = LSDAttribute.create("query.since", "number:", "Time from which results should be returned.", false, false, false, false, false, false, false);
+    public static final LSDAttribute CONTENTS = LSDAttribute.create("query.contents", "boolean:", "Include contents in result.", false, false, false, false, false, false, false);
+    public static final LSDAttribute SORT_BY = LSDAttribute.create("query.sort.by", "text:", "Sort criteria.", false, false, false, false, false, false, false);
+    public static final LSDAttribute BOARD_QUERY_TYPE = LSDAttribute.create("query.board.type", "text:", "Board query type", false, false, false, false, false, false, false);
+    public static final LSDAttribute QUERY_START_OFFSET = LSDAttribute.create("query.start.offset", "text:", "The offset to return results from.", false, false, false, false, false, false, false);
+    public static final LSDAttribute QUERY_MAX = LSDAttribute.create("query.max", "text:", "The maximum number of results to return.", false, false, false, false, false, false, false);
     /**
      * Profile information *
      */
@@ -158,6 +204,7 @@ public final class LSDAttribute {
     public static final LSDAttribute SECURITY_RESTRICTED = LSDAttribute.create("security.access.restricted", "boolean:", "If set to true the user cannot login  = LSDAttributes.create(enforced by client); the informational text should be displayed to the user.", false, false, false, false, false, false, false);
     public static final LSDAttribute SECURITY_STATUS = LSDAttribute.create("security.access.text", "text:", "Informational text relating to the status of the user's account, this should be displayed if the account is blocked.", false, false, false, false, false, false, false);
     public static final LSDAttribute PERMISSIONS = LSDAttribute.create("security.permissions", "text:", "The numeric value of the permission set for this entity, note that you cannot change this property by changing the entity, an appropriate request must be made.", true, true, false, false, false, true, false);
+    public static final LSDAttribute PERMISSION_CHANGE = LSDAttribute.create("security.alter.permission", "text:", "A request to change the permissions of a resource.", false, false, false, false, false, false, false);
     public static final LSDAttribute PLAIN_PASSWORD = LSDAttribute.create("security.password.plain", "text:", "Plain text password, will not be stored.", true, false, false, false, true, false, true);
 
     public static final LSDAttribute VIEW = LSDAttribute.create("view", "", "The nested view object", false, false, true, true, false, false, false);

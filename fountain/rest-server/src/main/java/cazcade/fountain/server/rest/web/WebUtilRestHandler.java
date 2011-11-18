@@ -198,7 +198,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                     LSDSimpleEntity author = LSDSimpleEntity.createEmpty();
                     author.setAttribute(LSDAttribute.FULL_NAME, syndFeed.getAuthor());
                     author.setID(UUIDFactory.randomUUID());
-                    entity.addSubEntity(LSDAttribute.AUTHOR, author);
+                    entity.addSubEntity(LSDAttribute.AUTHOR, author, true);
                 }
 //                entity.setValues(LSDDictionary.CATEGORY_TERM, syndFeed.getCategories());
                 entity.setAttributeConditonally(LSDAttribute.RIGHTS, syndFeed.getCopyright());
@@ -290,7 +290,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                 view.setType(LSDDictionaryTypes.VIEW);
                 view.setAttribute(LSDAttribute.VIEW_WIDTH, "430");
                 view.setAttribute(LSDAttribute.VIEW_HEIGHT, "385");
-                entity.addSubEntity(LSDAttribute.VIEW, view);
+                entity.addSubEntity(LSDAttribute.VIEW, view, true);
                 entity.setID(UUIDFactory.randomUUID());
                 entities.add(entity);
             } catch (Exception e) {

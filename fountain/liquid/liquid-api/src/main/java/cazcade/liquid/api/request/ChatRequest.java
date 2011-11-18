@@ -28,42 +28,39 @@ public class ChatRequest extends AbstractUpdateRequest {
     }
 
     public ChatRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.entity = entity;
-        this.uri = uri;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setRequestEntity(entity);
+        this.setUri(uri);
     }
 
     public ChatRequest(LiquidURI uri, String value) {
-        this.entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT);
+        this.setRequestEntity(LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT));
         //Time clocks vary so we don't want this set.
-        entity.remove(LSDAttribute.PUBLISHED);
-        this.entity.setAttribute(LSDAttribute.TEXT_BRIEF, value);
-        this.uri = uri;
+        super.getEntity().remove(LSDAttribute.PUBLISHED);
+        super.getEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
+        this.setUri(uri);
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (uri.getScheme().equals(LiquidURIScheme.alias)) {
+        if (getUri().getScheme().equals(LiquidURIScheme.alias)) {
             return Collections.EMPTY_LIST;
         } else {
-            return target != null ? Arrays.asList(new AuthorizationRequest(target, LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
+            return super.getTarget() != null ? Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
         }
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new ChatRequest(id, identity, target, uri, entity);
+        return new ChatRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getEntity());
     }
 
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.CHAT;
     }
 
-    public LiquidURI getUri() {
-        return uri;
-    }
 
     @Override
     public void adjustTimeStampForServerTime() {

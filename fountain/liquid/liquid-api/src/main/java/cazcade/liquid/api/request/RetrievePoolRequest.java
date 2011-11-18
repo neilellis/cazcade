@@ -6,11 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrievePoolRequest extends AbstractRetrievalRequest {
-    private boolean contents;
-    private boolean orCreate;
-    private ChildSortOrder order;
-    private int max;
-    private boolean listed;
 
 
     public RetrievePoolRequest() {
@@ -48,15 +43,15 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
     }
 
     public RetrievePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LiquidRequestDetailLevel detail, boolean contents, boolean orCreate, ChildSortOrder order, int max) {
-        this.orCreate = orCreate;
-        this.identity = identity;
-        this.uri = uri;
-        this.detail = detail;
-        this.contents = contents;
-        this.order = order;
-        this.target = target;
-        this.id = id;
-        this.max= max;
+        setOrCreate(orCreate);
+        setIdentity(identity);
+        setUri(uri);
+        setDetail(detail);
+        setContents(contents);
+        setOrder(order);
+        setTarget(target);
+        setId(id);
+        setMax(max);
     }
 
     public RetrievePoolRequest(LiquidURI uri, LiquidRequestDetailLevel detailLevel, boolean contents, boolean orCreate) {
@@ -72,20 +67,16 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
     }
 
 
-    public boolean isContents() {
-        return contents;
-    }
-
     @Override
     public LiquidMessage copy() {
-        return new RetrievePoolRequest(id, identity, target, uri, detail, contents, orCreate, order);
+        return new RetrievePoolRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), getDetail(), isContents(), isOrCreate(), getOrder());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (target != null) {
-            return Arrays.asList(new AuthorizationRequest(target, LiquidPermission.VIEW));
+        if (super.getTarget() != null) {
+            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW));
         } else {
-            return Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
+            return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
         }
     }
 
@@ -95,31 +86,4 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
     }
 
 
-    public boolean isOrCreate() {
-        return orCreate;
-    }
-
-    public void setContents(boolean contents) {
-        this.contents = contents;
-    }
-
-    public void setOrCreate(boolean orCreate) {
-        this.orCreate = orCreate;
-    }
-
-    public ChildSortOrder getOrder() {
-        return order;
-    }
-
-    public void setOrder(ChildSortOrder order) {
-        this.order = order;
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public boolean isListed() {
-        return listed;
-    }
 }

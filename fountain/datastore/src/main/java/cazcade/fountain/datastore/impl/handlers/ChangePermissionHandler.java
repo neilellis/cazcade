@@ -12,7 +12,7 @@ public class ChangePermissionHandler extends AbstractDataStoreHandler<ChangePerm
     public ChangePermissionRequest handle(ChangePermissionRequest request) throws Exception {
         Transaction transaction = fountainNeo.beginTx();
         try {
-            ChangePermissionRequest message = LiquidResponseHelper.forServerSuccess(request, fountainNeo.changePermissionNoTx(request.getSessionIdentifier(), request.getUri(), request.getChange(), request.getDetail(), request.isInternal()));
+            ChangePermissionRequest message = LiquidResponseHelper.forServerSuccess(request, fountainNeo.changePermissionNoTx(request.getSessionIdentifier(), request.getUri(), request.getPermission(), request.getDetail(), request.isInternal()));
             transaction.success();
             return message;
         } catch (RuntimeException e) {

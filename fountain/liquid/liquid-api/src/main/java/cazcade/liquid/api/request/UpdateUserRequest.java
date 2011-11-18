@@ -25,20 +25,20 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
     }
 
     public UpdateUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.entity = entity;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setRequestEntity(entity);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new UpdateUserRequest(id, identity, target, entity);
+        return new UpdateUserRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(target, LiquidPermission.EDIT));
+        return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.EDIT));
     }
 
     public LiquidRequestType getRequestType() {

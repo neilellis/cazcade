@@ -10,10 +10,6 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class LinkPoolRequest extends AbstractRequest {
-    private LiquidUUID from;
-    private LiquidUUID to;
-    private LiquidUUID target;
-    private boolean unlink;
 
     public LinkPoolRequest() {
     }
@@ -31,12 +27,12 @@ public class LinkPoolRequest extends AbstractRequest {
     }
 
     public LinkPoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidUUID from, LiquidUUID to, boolean unlink) {
-        this.from = from;
-        this.to = to;
-        this.target = target;
-        this.unlink = unlink;
-        this.id = id;
-        this.identity = identity;
+        this.setFrom(from);
+        this.setTo(to);
+        this.setTarget(target);
+        this.setUnlink(unlink);
+        this.setId(id);
+        this.setIdentity(identity);
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
@@ -55,7 +51,7 @@ public class LinkPoolRequest extends AbstractRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new LinkPoolRequest(id, identity, target, from, to, unlink);
+        return new LinkPoolRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getFrom(), super.getTo(), super.isUnlink());
     }
 
     public boolean isMutationRequest() {
@@ -64,11 +60,11 @@ public class LinkPoolRequest extends AbstractRequest {
 
     public List<String> getNotificationLocations() {
         List<String> locations = new ArrayList<String>();
-        if (from != null) {
-            locations.add(from.toString());
+        if (super.getFrom() != null) {
+            locations.add(super.getFrom().toString());
         }
-        if (to != null) {
-            locations.add(to.toString());
+        if (super.getTo() != null) {
+            locations.add(super.getTo().toString());
         }
         return locations;
     }
@@ -78,42 +74,27 @@ public class LinkPoolRequest extends AbstractRequest {
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (unlink) {
+        if (super.isUnlink()) {
             ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
-            if (from != null) {
-                requests.add(new AuthorizationRequest(target, LiquidPermission.EDIT));
-                requests.add(new AuthorizationRequest(from, LiquidPermission.MODIFY));
+            if (super.getFrom() != null) {
+                requests.add(new AuthorizationRequest(super.getTarget(), LiquidPermission.EDIT));
+                requests.add(new AuthorizationRequest(super.getFrom(), LiquidPermission.MODIFY));
             }
             return requests;
         } else {
             ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
-            if (from != null && to != null) {
-                requests.add(new AuthorizationRequest(target, LiquidPermission.EDIT));
-                requests.add(new AuthorizationRequest(from, LiquidPermission.MODIFY));
-                requests.add(new AuthorizationRequest(to, LiquidPermission.MODIFY));
-            } else if (to != null) {
-                requests.add(new AuthorizationRequest(target, LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(to, LiquidPermission.MODIFY));
+            if (super.getFrom() != null && super.getTo() != null) {
+                requests.add(new AuthorizationRequest(super.getTarget(), LiquidPermission.EDIT));
+                requests.add(new AuthorizationRequest(super.getFrom(), LiquidPermission.MODIFY));
+                requests.add(new AuthorizationRequest(super.getTo(), LiquidPermission.MODIFY));
+            } else if (super.getTo() != null) {
+                requests.add(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW));
+                requests.add(new AuthorizationRequest(super.getTo(), LiquidPermission.MODIFY));
             }
             return requests;
 
         }
     }
 
-    public LiquidUUID getFrom() {
-        return from;
-    }
-
-    public LiquidUUID getTo() {
-        return to;
-    }
-
-    public LiquidUUID getTarget() {
-        return target;
-    }
-
-    public boolean isUnlink() {
-        return unlink;
-    }
 
 }

@@ -28,7 +28,7 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
             LiquidURI owner = request.getRecipientAlias();
             //Note we run this as the recipient -- just like in email, the receiver owns the message.
             final LSDEntity entity;
-            LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipientAliasName(), null);
+            LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
             if (request.getEntity() != null) {
                 entity = poolDAO.createPoolObjectTx(poolNode, recipientSessionId, owner, request.getSessionIdentifier().getAliasURL(), request.getEntity(), request.getDetail(), request.isInternal(), false);
             } else {

@@ -5,8 +5,8 @@ import cazcade.fountain.datastore.api.FountainDataStoreFacade;
 import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.fountain.server.rest.RestHandlerException;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.*;
@@ -27,14 +27,21 @@ public class PoolRestHandler extends AbstractRestHandler {
     private FountainDataStoreFacade dataStoreFacade;
     private AuthorizationService authorizationService;
 
+    public LiquidMessage update(LSDEntity lsdEntity, Map<String, String[]> parameters) {
+
+        final LiquidURI uri = new LiquidURI(parameters.get("uri")[0]);
+        if (uri.hasFragment()) {
+            return dataStoreFacade.process(new UpdatePoolRequest(RestContext.getContext().getCredentials(), uri, lsdEntity));
+        } else {
+            return dataStoreFacade.process(new UpdatePoolObjectRequest(RestContext.getContext().getCredentials(), uri, lsdEntity));
+        }
+    }
 
     public LiquidMessage update(LiquidUUID poolId, LSDEntity lsdEntity) {
-//        poolValidator.validate(lsdEntity);
         return dataStoreFacade.process(new UpdatePoolRequest(RestContext.getContext().getCredentials(), poolId, lsdEntity));
     }
 
     public LiquidMessage update(LiquidUUID poolId, LiquidUUID objectId, LSDEntity lsdEntity) {
-//        poolObjectValidator.validate(lsdEntity);
         return dataStoreFacade.process(new UpdatePoolObjectRequest(RestContext.getContext().getCredentials(), poolId, objectId, lsdEntity));
     }
 
@@ -144,10 +151,7 @@ public class PoolRestHandler extends AbstractRestHandler {
      * @param object
      * @param parameters
      * @return
-     * @throws URISyntaxException
-     *
-     *         //todo: support URIS
-
+     * @throws URISyntaxException //todo: support URIS
      */
     public LiquidMessage copy(LiquidUUID pool, LiquidUUID object, Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "to");
@@ -252,6 +256,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         return dataStoreFacade.process(new CreatePoolRequest(identity, new LiquidURI(parent), name, title, description, x, y));
     }
 
+
     public LiquidMessage create(LiquidUUID poolId, LSDEntity entity, Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "author");
         final String author = parameters.get("author")[0];
@@ -261,6 +266,13 @@ public class PoolRestHandler extends AbstractRestHandler {
             return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext().getCredentials(), poolId, entity, new LiquidURI(author)));
         }
     }
+
+    public LiquidMessage createPUT(LSDEntity entity, Map<String, String[]> parameters) throws URISyntaxException {
+        checkForSingleValueParams(parameters, "uri");
+        final String uri = parameters.get("uri")[0];
+        return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext().getCredentials(), new LiquidURI(uri), entity));
+    }
+
 
     public LiquidMessage create(LiquidUUID poolId, LiquidUUID objectId, LSDEntity entity) throws URISyntaxException {
         return update(poolId, objectId, entity);

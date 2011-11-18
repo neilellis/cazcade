@@ -1,7 +1,6 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDType;
 
 import java.util.ArrayList;
@@ -10,14 +9,6 @@ import java.util.List;
 
 public class VisitPoolRequest extends AbstractRetrievalRequest {
 
-    public static final int DEFAULT_CHILD_LIMIT = 60;
-
-    private boolean orCreate;
-    private LiquidURI previous;
-    private LSDType type;
-    private int max = DEFAULT_CHILD_LIMIT;
-    private boolean listed;
-    private LiquidPermissionChangeType permission;
 
     public VisitPoolRequest() {
     }
@@ -45,15 +36,15 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
 
 
     private VisitPoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDType type, LiquidURI uri, LiquidURI previous, boolean orCreate, int max, boolean listed, LiquidPermissionChangeType permission) {
-        this.orCreate = orCreate;
-        this.listed = listed;
-        this.permission = permission;
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
-        this.previous = previous;
-        this.max = max;
-        this.type = type;
+        this.setOrCreate(orCreate);
+        this.setListed(listed);
+        this.setPermission(permission);
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
+        this.setPreviousPool(previous);
+        this.setMax(max);
+        this.setPoolType(type);
 
     }
 
@@ -65,7 +56,7 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new VisitPoolRequest(id, identity, type, uri, previous, orCreate, listed);
+        return new VisitPoolRequest(getId(), getSessionIdentifier(), getType(), getUri(), getPreviousPool(), isOrCreate(), isListed());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -81,10 +72,10 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
 
 
     public List<String> getNotificationLocations() {
-        if (previous != null) {
-            return Arrays.asList(uri.asReverseDNSString(), previous.asReverseDNSString());
+        if (getPreviousPool() != null) {
+            return Arrays.asList(getUri().asReverseDNSString(), getPreviousPool().asReverseDNSString());
         } else {
-            return Arrays.asList(uri.asReverseDNSString());
+            return Arrays.asList(getUri().asReverseDNSString());
         }
     }
 
@@ -93,23 +84,4 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
     }
 
 
-    public boolean isOrCreate() {
-        return orCreate;
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public LSDType getType() {
-        return type;
-    }
-
-    public boolean isListed() {
-        return listed;
-    }
-
-    public LiquidPermissionChangeType getPermission() {
-        return permission;
-    }
 }

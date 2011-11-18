@@ -24,7 +24,7 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
         try {
             LiquidSessionIdentifier session = request.getSessionIdentifier();
             Node userNode = fountainNeo.findByURI(session.getUserURL());
-            Node aliasNode = userDAO.createAlias(userNode, request.getEntity(), request.isMe(), request.isOrupdate(), request.isClaim(), false);
+            Node aliasNode = userDAO.createAlias(userNode, request.getEntity(), request.isMe(), request.isOrCreate(), request.isClaim(), false);
             final LSDEntity entity = fountainNeo.convertNodeToLSD(aliasNode, request.getDetail(), request.isInternal());
             poolDAO.createPoolsForAliasNoTx(entity.getURI(), entity.getAttribute(LSDAttribute.NAME), entity.getAttribute(LSDAttribute.FULL_NAME), false);
             //we reserve boards with user's name to avoid confusion with their profile boards.

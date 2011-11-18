@@ -9,8 +9,10 @@ import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
+import cazcade.liquid.api.request.SerializedRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.LoggedOutException;
@@ -250,8 +252,19 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
     }
 
-    public LiquidMessage process(LiquidRequest request) {
-        log.debug("{0}", LiquidXStreamFactory.getXstream().toXML(request));
+    public SerializedRequest process(SerializedRequest ser) {
+        log.debug("{0}", LiquidXStreamFactory.getXstream().toXML(ser));
+        final AbstractRequest request;
+        try {
+            request = (AbstractRequest) ser.getType().getRequestClass().newInstance();
+            request.setEntity(ser.getEntity());
+        } catch (InstantiationException e) {
+            log.error(e.getMessage(), e);
+            return null;
+        } catch (IllegalAccessException e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
         final LiquidSessionIdentifier serverSession = request.getSessionIdentifier();
         if (serverSession == null) {
             throw new LoggedOutException();
@@ -277,7 +290,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             log.debug(LiquidXStreamFactory.getXstream().toXML(response));
             getThreadLocalResponse().addHeader(X_VORTEX_CACHE_SCOPE, request.getCachingScope().name());
             getThreadLocalResponse().addHeader(X_VORTEX_CACHE_EXPIRY, String.valueOf(request.getCacheExpiry()));
-            return response;
+            return ((AbstractRequest) response).asSerializedRequest();
         } catch (Exception e) {
             e.printStackTrace(System.err);
             return null;
@@ -298,7 +311,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
 
-    public ArrayList<LiquidMessage> collect(LiquidSessionIdentifier serverSession, ArrayList<String> locations) throws Exception {
+    public ArrayList<SerializedRequest> collect(LiquidSessionIdentifier serverSession, ArrayList<String> locations) throws Exception {
         getThreadLocalRequest().setAttribute("com.newrelic.agent.IGNORE", true);
         NewRelic.ignoreTransaction();
 
@@ -340,11 +353,11 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
             int count = 0;
             while (count++ < 100) {
-                final ArrayList<LiquidMessage> resultMessages = new ArrayList<LiquidMessage>();
+                final ArrayList<SerializedRequest> resultMessages = new ArrayList<SerializedRequest>();
                 for (LiquidMessage resultMessage : clientSession.removeMessages()) {
                     final String cacheKey = sessionId + ":" + resultMessage.getDeduplicationIdentifier();
                     if (ALLOW_DUPLICATES || dedupCache.get(cacheKey) == null) {
-                        resultMessages.add(resultMessage);
+                        resultMessages.add(resultMessage.asSerializedRequest());
                         dedupCache.putQuiet(new Element(cacheKey, ""));
                     } else {
                         log.debug("Deduplicated {0}", cacheKey);
@@ -368,7 +381,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             log.error(e);
 
         }
-        return new ArrayList<LiquidMessage>();
+        return new ArrayList<SerializedRequest>();
 
     }
 

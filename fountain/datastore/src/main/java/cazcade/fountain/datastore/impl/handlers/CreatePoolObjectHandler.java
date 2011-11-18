@@ -34,7 +34,13 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
             }
             LiquidURI owner = request.getAlias();
 //            owner = defaultAndCheckOwner(request, owner);
-            final LSDEntity entity = poolDAO.createPoolObjectTx(poolNode, request.getSessionIdentifier(), owner, request.getAuthor(), request.getEntity(), request.getDetail(), request.isInternal(), true);
+            LiquidURI result;
+            if (request.getAuthor() == null) {
+                result = request.getAlias();
+            } else {
+                result = request.getAuthor();
+            }
+            final LSDEntity entity = poolDAO.createPoolObjectTx(poolNode, request.getSessionIdentifier(), owner, result, request.getEntity(), request.getDetail(), request.isInternal(), true);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

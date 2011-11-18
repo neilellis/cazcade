@@ -1,10 +1,9 @@
 package cazcade.vortex.comms.datastore.client;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
-import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.request.SerializedRequest;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import java.util.ArrayList;
@@ -12,11 +11,7 @@ import java.util.ArrayList;
 public interface DataStoreServiceAsync {
 
 
-
     void login(String username, String password, AsyncCallback<LiquidSessionIdentifier> async);
-
-
-    void process(LiquidRequest request, AsyncCallback<LiquidMessage> async);
 
 
     void checkUsernameAvailability(String username, AsyncCallback<Boolean> async);
@@ -32,7 +27,7 @@ public interface DataStoreServiceAsync {
     void getApplicationIdentifier(AsyncCallback<String> async);
 
 
-    void collect(LiquidSessionIdentifier identity, ArrayList<String> location, AsyncCallback<ArrayList<LiquidMessage>> async);
+    void collect(LiquidSessionIdentifier identity, ArrayList<String> location, AsyncCallback<ArrayList<SerializedRequest>> async);
 
     void logout(LiquidSessionIdentifier identity, AsyncCallback<Void> async);
 
@@ -41,4 +36,6 @@ public interface DataStoreServiceAsync {
 
 
     void checkBoardAvailability(LiquidURI board, AsyncCallback<Boolean> async);
+
+    void process(SerializedRequest request, AsyncCallback<SerializedRequest> async);
 }

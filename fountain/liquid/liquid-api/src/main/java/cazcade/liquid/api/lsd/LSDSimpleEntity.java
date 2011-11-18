@@ -21,6 +21,11 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     private LSDSimpleEntity(Map<String, String> lsdProperties) {
+        for (Map.Entry<String, String> entry : lsdProperties.entrySet()) {
+            if (entry.getValue() == null) {
+                throw new NullPointerException("Tried to set the value of " + entry.getKey() + " to null.");
+            }
+        }
         this.lsdProperties.putAll(lsdProperties);
         initTypeDef();
         initUUID();
@@ -44,7 +49,9 @@ public class LSDSimpleEntity implements LSDEntity {
             newPath = path.isEmpty() ? node.getName() : path + "." + node.getName();
         }
         if (node.isLeaf()) {
-            lsdProperties.put(newPath, node.getLeafValue());
+            if (node.getLeafValue() != null) {
+                lsdProperties.put(newPath, node.getLeafValue());
+            }
         } else {
             if (node.isArray()) {
                 List<LSDNode> children = node.getChildren();
@@ -135,6 +142,93 @@ public class LSDSimpleEntity implements LSDEntity {
 
     public void setURI(LiquidURI uri) {
         setAttribute(LSDAttribute.URI, uri.asString());
+    }
+
+    @Override
+    public Long getLongAttribute(LSDAttribute attribute) {
+        return Long.valueOf(getAttribute(attribute));
+    }
+
+    @Override
+    public void setAttribute(LSDAttribute attribute, long value) {
+        setAttribute(attribute, String.valueOf(value));
+    }
+
+    @Override
+    public Integer getIntegerAttribute(LSDAttribute attribute) {
+        return Integer.valueOf(getAttribute(attribute));
+    }
+
+    @Override
+    public LiquidUUID getUUIDAttribute(LSDAttribute attribute) {
+        final String result = getAttribute(attribute);
+        if (result != null && !result.isEmpty()) {
+            return LiquidUUID.fromString(result);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void setAttribute(LSDAttribute attribute, LiquidUUID uuid) {
+        setAttribute(attribute, uuid.toString());
+    }
+
+    @Override
+    public LiquidURI getURIAttribute(LSDAttribute attribute) {
+        final String value = getAttribute(attribute);
+        if (value != null && !value.isEmpty()) {
+            return new LiquidURI(value);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void setAttribute(LSDAttribute attribute, LiquidURI uri) {
+        setAttribute(attribute, uri.asString());
+    }
+
+    @Override
+    public Double getDoubleAttribute(LSDAttribute attribute) {
+        return Double.valueOf(getAttribute(attribute));
+    }
+
+    @Override
+    public void setAttribute(LSDAttribute attribute, double value) {
+        setAttribute(attribute, String.valueOf(value));
+    }
+
+    @Override
+    public int getIntegerAttribute(LSDAttribute attribute, int defaultValue) {
+        return Integer.parseInt(getAttribute(attribute, String.valueOf(defaultValue)));
+    }
+
+    @Override
+    public boolean hasSubEntity(LSDAttribute attribute) {
+        String keyString = attribute.getKeyName();
+        for (Map.Entry<String, String> entry : lsdProperties.entrySet()) {
+            if (entry.getKey().startsWith(keyString + ".")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean getBooleanAttribute(LSDAttribute attribute, boolean defaultValue) {
+        final String value = getAttribute(attribute);
+        if (value != null && !value.isEmpty()) {
+            return "true".equals(value);
+        } else {
+            return defaultValue;
+        }
+
+    }
+
+    @Override
+    public void removeCompletely(LSDAttribute attribute) {
+        lsdProperties.remove(attribute.getKeyName());
     }
 
 
@@ -287,6 +381,9 @@ public class LSDSimpleEntity implements LSDEntity {
         if (key == null) {
             throw new IllegalArgumentException("Cannot set a value for a null key.");
         }
+        if (value == null) {
+            throw new NullPointerException("Cannot set an attribute to a null value, only an empty string.");
+        }
         setValue(key.getKeyName(), value);
     }
 
@@ -397,6 +494,9 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public Object set(String key, String value) {
+        if (value == null) {
+            throw new NullPointerException("Cannot set " + key + " to a null value.");
+        }
         return lsdProperties.put(convertFromCamel(key), value);
     }
 
@@ -452,11 +552,11 @@ public class LSDSimpleEntity implements LSDEntity {
         }
     }
 
-    public void addSubEntity(LSDAttribute stem, LSDEntity entity) {
+    public void addSubEntity(LSDAttribute stem, LSDEntity entity, boolean requiresId) {
         if (!stem.isSubEntity()) {
             throw new IllegalArgumentException("Cannot add a sub entity to a non sub entity property '" + stem.getKeyName() + "'.");
         }
-        if (entity.getID() == null) {
+        if (requiresId && entity.getID() == null) {
             throw new IllegalArgumentException("Attempted to add a sub entity which had no id.");
         }
         String stemKey = stem.getKeyName();
@@ -589,6 +689,10 @@ public class LSDSimpleEntity implements LSDEntity {
 
 
     public void setType(LSDDictionaryTypes type) {
+        if (type.getValue() == null) {
+            throw new NullPointerException("Cannot set type to a null value.");
+        }
+
         lsdProperties.put(TYPE_KEY, type.getValue());
     }
 
@@ -654,6 +758,9 @@ public class LSDSimpleEntity implements LSDEntity {
 
     public void setTypeDef(LSDTypeDef type) {
         this.lsdTypeDef = type;
+        if (type.asString() == null) {
+            throw new NullPointerException("Cannot set type def to a null value.");
+        }
         lsdProperties.put(TYPE_KEY, type.asString());
     }
 

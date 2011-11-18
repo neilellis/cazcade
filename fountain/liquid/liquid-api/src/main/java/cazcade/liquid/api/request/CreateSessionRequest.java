@@ -7,7 +7,6 @@ import java.util.Collection;
 
 
 public class CreateSessionRequest extends AbstractCreationRequest {
-    private ClientApplicationIdentifier client;
 
     public CreateSessionRequest() {
     }
@@ -21,23 +20,20 @@ public class CreateSessionRequest extends AbstractCreationRequest {
     }
 
     public CreateSessionRequest(LiquidUUID id, LiquidURI alias, ClientApplicationIdentifier client) {
-        this.id = id;
-        this.uri = alias;
-        this.client = client;
+        this.setId(id);
+        this.setUri(alias);
+        this.setClient(client);
     }
 
-    public ClientApplicationIdentifier getClient() {
-        return client;
-    }
 
     public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(uri);
+        return Arrays.asList(getUri());
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new CreateSessionRequest(id, uri, client);
+        return new CreateSessionRequest(getId(), getUri(), getClient());
     }
 
 

@@ -1,31 +1,32 @@
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.*;
+import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.LiquidUUID;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SearchRequest extends AbstractRequest {
-    private String searchText;
 
     public SearchRequest() {
     }
 
-    public SearchRequest(String  searchText) {
+    public SearchRequest(String searchText) {
         this(null, null, searchText);
     }
 
     public SearchRequest(LiquidUUID id, LiquidSessionIdentifier identity, String searchText) {
-        this.id = id;
-        this.searchText = searchText;
-        this.identity = identity;
+        this.setId(id);
+        this.setSearchText(searchText);
+        this.setIdentity(identity);
     }
-
 
 
     @Override
     public LiquidMessage copy() {
-        return new SearchRequest(id, identity, searchText);
+        return new SearchRequest(getId(), getSessionIdentifier(), super.getSearchText());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -47,7 +48,4 @@ public class SearchRequest extends AbstractRequest {
     }
 
 
-    public String getSearchText() {
-        return searchText;
-    }
 }

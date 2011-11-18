@@ -4,16 +4,11 @@ import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidURIScheme;
-import cazcade.liquid.api.handler.AddCommentRequestHandler;
 import cazcade.liquid.api.handler.ChatRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.request.AddCommentRequest;
 import cazcade.liquid.api.request.ChatRequest;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Transaction;
 
-import java.net.Authenticator;
 import java.util.UUID;
 
 /**
@@ -29,7 +24,7 @@ public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements C
         final String id = UUID.randomUUID().toString();
         response.setId(id);
         response.setURI(new LiquidURI(LiquidURIScheme.chat, id));
-        response.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(fountainNeo.findByURI(request.getSessionIdentifier().getAliasURL(), true), request.getInternal(), LiquidRequestDetailLevel.PERSON_MINIMAL));
+        response.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(fountainNeo.findByURI(request.getSessionIdentifier().getAliasURL(), true), request.getInternal(), LiquidRequestDetailLevel.PERSON_MINIMAL), true);
         return LiquidResponseHelper.forServerSuccess(request, response);
 
 //        final Transaction transaction = fountainNeo.beginTx();

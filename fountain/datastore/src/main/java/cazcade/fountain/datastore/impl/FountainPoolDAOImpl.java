@@ -117,6 +117,8 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         try {
             fountainNeo.assertAuthorized(pool, identity, LiquidPermission.MODIFY, LiquidPermission.VIEW);
             LSDEntity entityCopy = entity.copy();
+            //We shouldn't be using the ID supplied to us.
+            entityCopy.removeCompletely(LSDAttribute.ID);
             String name = entityCopy.getAttribute(LSDAttribute.NAME);
             if (name == null) {
                 name = entityCopy.getTypeDef().getPrimaryType().getGenus().toLowerCase() + System.currentTimeMillis();
@@ -207,7 +209,9 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             }
         }), pool, detail, internal, false);
         assertHasOwner(node);
-        indexDAO.incrementBoardActivity(pool);
+        if (pool != null) {
+            indexDAO.incrementBoardActivity(pool);
+        }
         return newObject;
 
     }
@@ -646,25 +650,25 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 if (done) {
                     throw new DuplicateEntityException("Found a second view for a single object.");
                 }
-                entity.addSubEntity(LSDAttribute.VIEW, fountainNeo.convertNodeToLSD(relationship.getOtherNode(node), detail, internal));
+                entity.addSubEntity(LSDAttribute.VIEW, fountainNeo.convertNodeToLSD(relationship.getOtherNode(node), detail, internal), true);
                 done = true;
             }
 
             if (detail == LiquidRequestDetailLevel.COMPLETE || detail == LiquidRequestDetailLevel.NORMAL || detail == LiquidRequestDetailLevel.BOARD_LIST) {
                 Relationship ownerRel = node.getSingleRelationship(OWNER, Direction.OUTGOING);
                 if (ownerRel != null) {
-                    entity.addSubEntity(LSDAttribute.OWNER, userDAO.getAliasFromNode(ownerRel.getOtherNode(node), internal, aliasDetailLevel));
+                    entity.addSubEntity(LSDAttribute.OWNER, userDAO.getAliasFromNode(ownerRel.getOtherNode(node), internal, aliasDetailLevel), true);
                 }
 
                 if (detail != LiquidRequestDetailLevel.BOARD_LIST) {
                     Relationship relationship = node.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
                     if (relationship != null) {
-                        entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(relationship.getOtherNode(node), internal, aliasDetailLevel));
+                        entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(relationship.getOtherNode(node), internal, aliasDetailLevel), true);
                     }
 
                     Relationship editorRel = node.getSingleRelationship(EDITOR, Direction.OUTGOING);
                     if (editorRel != null) {
-                        entity.addSubEntity(LSDAttribute.EDITOR, userDAO.getAliasFromNode(editorRel.getOtherNode(node), internal, aliasDetailLevel));
+                        entity.addSubEntity(LSDAttribute.EDITOR, userDAO.getAliasFromNode(editorRel.getOtherNode(node), internal, aliasDetailLevel), true);
                     }
                 }
 

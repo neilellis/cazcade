@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
-    private LiquidUUID pool;
-    private LiquidURI poolURI;
 
     public UpdatePoolObjectRequest() {
     }
@@ -27,70 +25,66 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
      */
 
     public UpdatePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.pool = pool;
-        this.entity = entity;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setPoolUUID(pool);
+        this.setRequestEntity(entity);
     }
 
     @Deprecated
-    public UpdatePoolObjectRequest(LiquidSessionIdentifier identity, LiquidURI poolURI, LiquidURI objectURI, LSDEntity newEntity) {
-        this.identity = identity;
-        this.poolURI = poolURI;
-        this.uri = objectURI;
-        this.entity = newEntity;
+    public UpdatePoolObjectRequest(LiquidSessionIdentifier identity, LiquidURI objectURI, LSDEntity newEntity) {
+        this.setIdentity(identity);
+        this.setUri(objectURI);
+        this.setRequestEntity(newEntity);
     }
 
-     @Deprecated
+    @Deprecated
     public UpdatePoolObjectRequest(LiquidURI poolURI, LSDEntity newEntity) {
-        this.poolURI = poolURI;
-        this.uri = newEntity.getURI();
-        this.entity = newEntity;
+        this.setUri(newEntity.getURI());
+        this.setRequestEntity(newEntity);
     }
 
     public UpdatePoolObjectRequest(LSDEntity newEntity) {
-        if(newEntity.getURI() == null) {
+        if (newEntity.getURI() == null) {
             throw new IllegalArgumentException("To update a pool object the entity should have a URI");
         }
-        this.uri = newEntity.getURI();
-        this.poolURI = this.uri.getWithoutFragment();
-        if(uri.equals(poolURI)) {
-            throw new IllegalArgumentException("To update a pool object the entity supplied should be a pool object and have a pool object URI ending in #<object-name> the URI supplied was "+uri);
+        this.setUri(newEntity.getURI());
+        if (getUri().equals(getPoolURI())) {
+            throw new IllegalArgumentException("To update a pool object the entity supplied should be a pool object and have a pool object URI ending in #<object-name> the URI supplied was " + getUri());
         }
-        this.entity = newEntity;
+        this.setRequestEntity(newEntity);
     }
 
 
-    protected UpdatePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID pool, LiquidURI poolURI, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.pool = pool;
-        this.entity = entity;
-        this.poolURI = poolURI;
-        this.uri = uri;
+    protected UpdatePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setPoolUUID(pool);
+        this.setRequestEntity(entity);
+        this.setUri(uri);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new UpdatePoolObjectRequest(id, identity, pool, poolURI, target, uri, entity);
+        return new UpdatePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), getUri(), super.getEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (uri != null) {
-            return Arrays.asList(new AuthorizationRequest(poolURI, LiquidPermission.EDIT).or(new AuthorizationRequest(uri, LiquidPermission.EDIT).and(new AuthorizationRequest(poolURI, LiquidPermission.MODIFY))));
+        if (getUri() != null) {
+            return Arrays.asList(new AuthorizationRequest(getPoolURI(), LiquidPermission.EDIT).or(new AuthorizationRequest(getUri(), LiquidPermission.EDIT).and(new AuthorizationRequest(getPoolURI(), LiquidPermission.MODIFY))));
         } else {
-            return Arrays.asList(new AuthorizationRequest(pool, LiquidPermission.EDIT).or(new AuthorizationRequest(target, LiquidPermission.EDIT).and(new AuthorizationRequest(pool, LiquidPermission.MODIFY))));
+            return Arrays.asList(new AuthorizationRequest(getPoolUUID(), LiquidPermission.EDIT).or(new AuthorizationRequest(super.getTarget(), LiquidPermission.EDIT).and(new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY))));
         }
     }
 
     public List<String> getNotificationLocations() {
-        if (poolURI != null) {
-            return Arrays.asList(poolURI.asReverseDNSString(), uri.asReverseDNSString());
+        if (getPoolURI() != null) {
+            return Arrays.asList(getPoolURI().asReverseDNSString(), getUri().asReverseDNSString());
         } else {
-            return Arrays.asList(pool.toString());
+            return Arrays.asList(getPoolUUID().toString());
         }
     }
 

@@ -16,7 +16,7 @@ public class ResizePoolObjectHandler extends AbstractDataStoreHandler<ResizePool
     public ResizePoolObjectRequest handle(ResizePoolObjectRequest request) throws InterruptedException {
         Transaction transaction = fountainNeo.beginTx();
         try {
-            Node node = fountainNeo.findByUUID(request.getObject());
+            Node node = fountainNeo.findByUUID(request.getObjectUUID());
             Node viewNode = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(node);
             if (request.getWidth() != null) {
                 viewNode.setProperty(LSDAttribute.VIEW_WIDTH.getKeyName(), request.getWidth().toString());

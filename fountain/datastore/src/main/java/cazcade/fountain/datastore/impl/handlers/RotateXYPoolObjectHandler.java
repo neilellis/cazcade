@@ -17,7 +17,7 @@ public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXY
     public RotateXYPoolObjectRequest handle(RotateXYPoolObjectRequest request) throws InterruptedException {
         Transaction transaction = fountainNeo.beginTx();
         try {
-            Node node = fountainNeo.findByUUID(request.getObject());
+            Node node = fountainNeo.findByUUID(request.getObjectUUID());
             Node viewNode = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(node);
 
             if (request.getAngle() != null) {

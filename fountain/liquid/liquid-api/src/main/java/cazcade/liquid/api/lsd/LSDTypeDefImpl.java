@@ -42,7 +42,7 @@ public class LSDTypeDefImpl implements LSDTypeDef {
     }
 
     public LSDTypeDefImpl(LSDDictionaryTypes parentType, String subType) {
-        this(parentType+"."+subType);
+        this(subType == null ? parentType.asString() : (parentType + "." + subType));
     }
 
     private LSDType convertToType(String typeString) {

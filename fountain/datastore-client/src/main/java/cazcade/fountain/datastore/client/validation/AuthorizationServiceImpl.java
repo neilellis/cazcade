@@ -65,7 +65,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     public LiquidRequest authorize(LiquidRequest liquidRequest) throws Exception {
         List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
         for (AuthorizationRequest authRequest : authRequests) {
-            log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.getResource());
+            log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.getTarget());
             authRequest.setIdentity(liquidRequest.getSessionIdentifier());
             LiquidMessage message = dataStore.process(authRequest);
             if (message == null) {

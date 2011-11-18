@@ -42,7 +42,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
                 return;
             }
         }
-        if(applicationContext == null) {
+        if (applicationContext == null) {
             resp.sendError(500, "Spring context was null, failed to initialize the server correctly.");
             log.error("No Spring context.");
             return;
@@ -64,6 +64,12 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
         //All entities must be timestamped at source on the server side. We don't trust client applications to have the correct time on them!
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        //Look for methods which explicitly specify the HTTP method
+        for (Method method : methods) {
+            if (matchMethod(req, resp, restHandler, uuids, methodName + req.getMethod(), method, format, entity))
+                return;
+
+        }
         for (Method method : methods) {
             if (matchMethod(req, resp, restHandler, uuids, methodName, method, format, entity)) return;
 

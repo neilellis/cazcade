@@ -1,7 +1,5 @@
-
 package cazcade.liquid.api.request;
 
-import cazcade.common.CommonConstants;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDEntity;
 
@@ -12,7 +10,6 @@ import java.util.List;
 
 public class SendRequest extends AbstractRequest {
 
-    private String recipient;
 
     public SendRequest() {
     }
@@ -22,10 +19,10 @@ public class SendRequest extends AbstractRequest {
     }
 
     public SendRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDEntity entity, String recipient) {
-        this.id = id;
-        this.identity = identity;
-        this.recipient = recipient;
-        this.entity = entity;
+        this.setId(id);
+        this.setIdentity(identity);
+        super.setRecipient(recipient);
+        this.setRequestEntity(entity);
     }
 
     public SendRequest(LSDEntity entity, String recipient) {
@@ -39,7 +36,7 @@ public class SendRequest extends AbstractRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new SendRequest(id, identity, entity, recipient);
+        return new SendRequest(getId(), getSessionIdentifier(), getEntity(), super.getRecipient());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -47,7 +44,7 @@ public class SendRequest extends AbstractRequest {
     }
 
     public LiquidURI getInboxURI() {
-        return new LiquidURI("pool:///people/" + recipient + "/.inbox");
+        return new LiquidURI("pool:///people/" + super.getRecipient() + "/.inbox");
     }
 
 
@@ -57,7 +54,7 @@ public class SendRequest extends AbstractRequest {
 
     @Override
     public List<String> getNotificationLocations() {
-        return Arrays.asList(new LiquidURI("alias:cazcade:" + recipient).asReverseDNSString());
+        return Arrays.asList(new LiquidURI("alias:cazcade:" + super.getRecipient()).asReverseDNSString());
     }
 
 
@@ -65,19 +62,10 @@ public class SendRequest extends AbstractRequest {
         return LiquidRequestType.SEND;
     }
 
-    public String getRecipientAliasName() {
-        return recipient;
-    }
 
     public LiquidURI getRecipientAlias() {
-        return new LiquidURI("alias:cazcade:" + recipient);
+        return new LiquidURI("alias:cazcade:" + super.getRecipient());
     }
 
-    public String getRecipient() {
-        return recipient;
-    }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
 }

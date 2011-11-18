@@ -41,7 +41,7 @@ public class SecurityProvider {
         try {
             LSDEntity lsdEntity = loadUserInternal(username);
             String hashedPassword = lsdEntity.getAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD);
-            if ((!lsdEntity.hasAttribute(LSDAttribute.SECURITY_BLOCKED) || lsdEntity.getAttribute(LSDAttribute.SECURITY_BLOCKED).equals(LSDEntity.FALSE)) && passwordEncryptor.checkPassword(password, hashedPassword)) {
+            if (!lsdEntity.getBooleanAttribute(LSDAttribute.SECURITY_BLOCKED) && passwordEncryptor.checkPassword(password, hashedPassword)) {
                 return new LiquidPrincipal(new LiquidSessionIdentifier(username).getName());
 
             } else {

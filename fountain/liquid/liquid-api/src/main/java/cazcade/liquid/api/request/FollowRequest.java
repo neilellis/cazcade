@@ -1,4 +1,4 @@
-    package cazcade.liquid.api.request;
+package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
@@ -13,7 +13,6 @@ public class FollowRequest extends AbstractRequest {
      * If negative then unfollow.
      */
 
-    private boolean follow;
 
     public FollowRequest() {
     }
@@ -23,10 +22,10 @@ public class FollowRequest extends AbstractRequest {
     }
 
     public FollowRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean follow) {
-        this.id = id;
-        this.identity = identity;
-        this.follow = follow;
-        this.uri = uri;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setFollow(follow);
+        this.setUri(uri);
     }
 
     public FollowRequest(LiquidURI uri, boolean follow) {
@@ -35,16 +34,16 @@ public class FollowRequest extends AbstractRequest {
 
 
     public Collection<LiquidURI> getAffectedEntities() {
-        if (identity != null) {
-            return Arrays.asList(uri, identity.getAliasURL());
+        if (getSessionIdentifier() != null) {
+            return Arrays.asList(getUri(), getSessionIdentifier().getAliasURL());
         } else {
-            return Arrays.asList(uri);
+            return Arrays.asList(getUri());
         }
     }
 
     @Override
     public LiquidMessage copy() {
-        return new FollowRequest(id, identity, uri, follow);
+        return new FollowRequest(getId(), getSessionIdentifier(), getUri(), super.isFollow());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -58,7 +57,7 @@ public class FollowRequest extends AbstractRequest {
 
     @Override
     public List<String> getNotificationLocations() {
-        return Arrays.asList(uri.toString());
+        return Arrays.asList(getUri().toString());
     }
 
 
@@ -66,7 +65,4 @@ public class FollowRequest extends AbstractRequest {
         return LiquidRequestType.FOLLOW;
     }
 
-    public boolean isFollow() {
-        return follow;
-    }
 }

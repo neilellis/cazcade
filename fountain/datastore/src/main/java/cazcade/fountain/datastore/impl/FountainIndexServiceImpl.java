@@ -39,7 +39,11 @@ public class FountainIndexServiceImpl {
     private AliasDAO aliasDAO;
 
     private boolean isBoard(Node node) {
-        return node.getProperty(FountainNeo.TYPE).toString().startsWith(LSDDictionaryTypes.BOARD.getValue());
+        final Object type = node.getProperty(FountainNeo.TYPE);
+        if (type == null) {
+            throw new NullPointerException("Node " + node.getProperty(FountainNeo.URI) + " has no type");
+        }
+        return type.toString().startsWith(LSDDictionaryTypes.BOARD.getValue());
     }
 
     private void addCoreMetadataToBoard(Node node, BoardIndexEntity board) {

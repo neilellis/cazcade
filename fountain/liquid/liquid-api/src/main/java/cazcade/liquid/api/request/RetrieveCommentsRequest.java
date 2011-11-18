@@ -4,7 +4,6 @@ import cazcade.liquid.api.*;
 
 public class RetrieveCommentsRequest extends AbstractRetrievalRequest {
 
-    private int max;
 
     public RetrieveCommentsRequest() {
     }
@@ -15,11 +14,11 @@ public class RetrieveCommentsRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveCommentsRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, int max, boolean historical) {
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
-        this.historical = historical;
-        this.max = max;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
+        this.setHistorical(historical);
+        this.setMax(max);
     }
 
     public RetrieveCommentsRequest(LiquidURI pool, int max) {
@@ -29,14 +28,12 @@ public class RetrieveCommentsRequest extends AbstractRetrievalRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new RetrieveCommentsRequest(id, identity, uri, max, historical);
+        return new RetrieveCommentsRequest(getId(), getSessionIdentifier(), getUri(), getMax(), super.isHistorical());
     }
 
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_COMMENTS;
     }
 
-    public int getMax() {
-        return max;
-    }
+
 }

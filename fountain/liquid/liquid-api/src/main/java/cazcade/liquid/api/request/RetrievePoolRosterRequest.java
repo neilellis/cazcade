@@ -27,35 +27,35 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
     }
 
     public RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.target = target;
-        this.id = id;
-        this.identity = identity;
+        this.setTarget(target);
+        this.setId(id);
+        this.setIdentity(identity);
     }
 
     public RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri) {
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
     }
 
     private RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
-        this.target = target;
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
+        this.setTarget(target);
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new RetrievePoolRosterRequest(id, identity, target, uri);
+        return new RetrievePoolRosterRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (target != null) {
-            return Arrays.asList(new AuthorizationRequest(target, LiquidPermission.VIEW));
+        if (super.getTarget() != null) {
+            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW));
         } else {
-            return Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
+            return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
         }
     }
 

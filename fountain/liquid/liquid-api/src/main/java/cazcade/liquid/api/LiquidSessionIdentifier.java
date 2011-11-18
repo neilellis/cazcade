@@ -80,10 +80,14 @@ public class LiquidSessionIdentifier implements Serializable {
             return null;
         }
         final String[] strings = s.split(",");
-        if (strings.length != 2) {
+        if (strings.length > 2 || strings.length == 0) {
             throw new IllegalArgumentException("Could not create a LiquidSessionIdentifier from " + s);
         }
-        return new LiquidSessionIdentifier(strings[0], new LiquidUUID(strings[1]));
+        if (strings.length == 2) {
+            return new LiquidSessionIdentifier(strings[0], new LiquidUUID(strings[1]));
+        } else {
+            return new LiquidSessionIdentifier(strings[0], null);
+        }
     }
 
     @Override

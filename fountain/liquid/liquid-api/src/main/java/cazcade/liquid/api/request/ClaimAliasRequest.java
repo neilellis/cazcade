@@ -22,18 +22,18 @@ public class ClaimAliasRequest extends AbstractRequest {
     }
 
     public ClaimAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity) {
-        this.id = id;
-        this.identity = identity;
+        this.setId(id);
+        this.setIdentity(identity);
     }
 
 
     public Collection<LiquidURI> getAffectedEntities() {
-        return java.util.Arrays.asList(identity.getAliasURL());
+        return java.util.Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
     @Override
     public LiquidMessage copy() {
-        return new ClaimAliasRequest(id, identity);
+        return new ClaimAliasRequest(getId(), getSessionIdentifier());
     }
 
     public boolean isMutationRequest() {

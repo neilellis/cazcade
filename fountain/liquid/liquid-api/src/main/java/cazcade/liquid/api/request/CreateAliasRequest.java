@@ -1,16 +1,12 @@
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDEntity;
 
 public class CreateAliasRequest extends AbstractCreationRequest {
-    private boolean me;
-    private boolean orupdate;
-
-    private boolean claim;
 
     public CreateAliasRequest() {
     }
@@ -24,12 +20,12 @@ public class CreateAliasRequest extends AbstractCreationRequest {
     }
 
     public CreateAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDEntity entity, boolean me, boolean orupdate, boolean claim) {
-        this.claim = claim;
-        this.id = id;
-        this.entity = entity;
-        this.me = me;
-        this.orupdate = orupdate;
-        this.identity = identity;
+        this.setClaim(claim);
+        this.setId(id);
+        this.setRequestEntity(entity);
+        this.setMe(me);
+        setOrCreate(orupdate);
+        this.setIdentity(identity);
     }
 
     @Override
@@ -37,17 +33,10 @@ public class CreateAliasRequest extends AbstractCreationRequest {
         return false;
     }
 
-    public boolean isMe() {
-        return me;
-    }
-
-    public boolean isOrupdate() {
-        return orupdate;
-    }
 
     @Override
     public LiquidMessage copy() {
-        return new CreateAliasRequest(id, identity, entity, me, orupdate, claim);
+        return new CreateAliasRequest(getId(), getSessionIdentifier(), super.getEntity(), isMe(), isOrCreate(), isClaim());
     }
 
     public LiquidRequestType getRequestType() {
@@ -55,7 +44,4 @@ public class CreateAliasRequest extends AbstractCreationRequest {
     }
 
 
-    public boolean isClaim() {
-        return claim;
-    }
 }

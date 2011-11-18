@@ -1,8 +1,8 @@
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 
 public class DeleteSessionRequest extends AbstractDeletionRequest {
@@ -19,15 +19,15 @@ public class DeleteSessionRequest extends AbstractDeletionRequest {
     }
 
     public DeleteSessionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new DeleteSessionRequest(id, identity, target);
+        return new DeleteSessionRequest(getId(), getSessionIdentifier(), super.getTarget());
     }
 
 

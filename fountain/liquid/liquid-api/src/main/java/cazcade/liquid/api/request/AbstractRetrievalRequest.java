@@ -1,9 +1,6 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidPermission;
-import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDEntity;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,23 +11,13 @@ import java.util.List;
  */
 public abstract class AbstractRetrievalRequest extends AbstractRequest {
 
-    ;
-
-    protected LiquidUUID target;
-    protected boolean historical;
-
-
-    public LiquidUUID getTarget() {
-        return target;
-    }
-
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (target != null) {
-            return Arrays.asList(new AuthorizationRequest(target, LiquidPermission.VIEW));
+        if (super.getTarget() != null) {
+            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW));
         } else {
-            if (uri != null) {
-                return Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
+            if (getUri() != null) {
+                return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
             } else {
                 return Collections.emptyList();
             }
@@ -40,7 +27,7 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
 
     @Override
     public String getCacheIdentifier() {
-        return getRequestType().name() + ":" + getState().name() + ":" + getDetail() + ":" + ((uri != null) ? uri : target) + ":" + (historical ? "historical" : "latest");
+        return getRequestType().name() + ":" + getState().name() + ":" + getDetail() + ":" + ((getUri() != null) ? getUri() : super.getTarget()) + ":" + (super.isHistorical() ? "historical" : "latest");
     }
 
     public List<String> getNotificationLocations() {
@@ -51,19 +38,11 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
         return false;
     }
 
-    public boolean isHistorical() {
-        return historical;
-    }
-
-    public boolean getHistorical() {
-        return historical;
-    }
 
     @Override
     public boolean isCacheable() {
         return true;
     }
-
 
 
 }

@@ -77,7 +77,7 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 fountainNeo.assertLatestVersion(node);
                 entity = poolDAO.getPoolAndContentsNoTx(node, request.getDetail(), true, ChildSortOrder.AGE, request.isInternal(), request.getSessionIdentifier(), null, null, request.isHistorical());
                 final LSDEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURI(request.getAlias()), request.isInternal(), request.getDetail());
-                entity.addSubEntity(LSDAttribute.VISITOR, visitor);
+                entity.addSubEntity(LSDAttribute.VISITOR, visitor, true);
                 transaction.success();
             }
             if (entity != null) {

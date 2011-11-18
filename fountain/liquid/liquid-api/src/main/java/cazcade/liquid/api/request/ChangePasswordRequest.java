@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChangePasswordRequest extends AbstractRequest {
-    private String password;
 
     public ChangePasswordRequest() {
     }
@@ -26,19 +25,19 @@ public class ChangePasswordRequest extends AbstractRequest {
     }
 
     public ChangePasswordRequest(LiquidUUID id, LiquidSessionIdentifier identity, String password) {
-        this.password = password;
-        this.id = id;
-        this.identity = identity;
+        this.setPassword(password);
+        this.setId(id);
+        this.setIdentity(identity);
     }
 
 
     public Collection<LiquidURI> getAffectedEntities() {
-        return java.util.Arrays.asList(identity.getAliasURL());
+        return java.util.Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
     @Override
     public LiquidMessage copy() {
-        return new ChangePasswordRequest(id, identity, password);
+        return new ChangePasswordRequest(getId(), getSessionIdentifier(), super.getPassword());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -62,7 +61,4 @@ public class ChangePasswordRequest extends AbstractRequest {
         return LiquidRequestType.CHANGE_PASSWORD;
     }
 
-    public String getPassword() {
-        return password;
-    }
 }

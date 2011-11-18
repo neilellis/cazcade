@@ -1,8 +1,8 @@
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDEntity;
 
@@ -23,15 +23,15 @@ public class CreateUserRequest extends AbstractCreationRequest {
     }
 
     public CreateUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.entity = entity;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setRequestEntity(entity);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new CreateUserRequest(id, identity, entity);
+        return new CreateUserRequest(getId(), getSessionIdentifier(), super.getEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {

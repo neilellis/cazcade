@@ -13,11 +13,7 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.jbehave.core.annotations.Alias;
-import org.jbehave.core.annotations.BeforeScenario;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 
 import java.io.IOException;
@@ -261,7 +257,7 @@ public class FountainSteps {
             Map<String, String> objectRow = objectTable.getRow(i);
             objectRow.put(LSDAttribute.TYPE.getKeyName(), objectType);
             LSDSimpleEntity object = LSDSimpleEntity.createFromProperties(objectRow);
-            FountainTestClientSupport.postEntityToURL(details.getUserSession(), "pool/" + poolId + ".xml", object,
+            FountainTestClientSupport.putEntityToURL(details.getUserSession(), "pool/" + poolId + ".xml", object,
                     "alias:cazcade:" + details.getUsername());
         }
     }
@@ -286,7 +282,7 @@ public class FountainSteps {
     private void updateCurrentEntity() throws IOException, InterruptedException {
         waitForSomeSeconds(4);
         UserDetails details = userMap.get(currentUser);
-        FountainTestClientSupport.postEntityToURL(details.getUserSession(),
+        FountainTestClientSupport.putEntityToURL(details.getUserSession(),
                 "pool/" + currentPoolId + "/" + currentEntity.getID(),
                 currentEntity, "alias:cazcade:" + details.getUsername());
         currentEntity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),

@@ -38,7 +38,7 @@ public class DataStoreServerMessageHandler {
                 log.setSession(session == null ? null : session.toString(), request.getSessionIdentifier() == null ? null : request.getSessionIdentifier().getName());
             }
             if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
-                log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(), ((AuthorizationRequest) request).getResource(), ((AuthorizationRequest) request).getUri());
+                log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(), ((AuthorizationRequest) request).getTarget(), ((AuthorizationRequest) request).getUri());
             } else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
                 log.debug("Retrieve user request for {0}/{1}", ((RetrieveUserRequest) request).getTarget(), ((RetrieveUserRequest) request).getUri());
 
@@ -48,9 +48,9 @@ public class DataStoreServerMessageHandler {
 
             LiquidRequest response;
             try {
-                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase()+".1.prepro");
+                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".1.prepro");
                 response = (LiquidRequest) store.process(request);
-                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase()+".2.postpro");
+                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".2.postpro");
             } catch (InterruptedException e) {
                 Thread.interrupted();
                 return null;
@@ -71,11 +71,11 @@ public class DataStoreServerMessageHandler {
             if (request.shouldNotify()) {
                 //Notify if async
                 //i.e. for pool visits.
-                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase()+".3.prenot");
+                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".3.prenot");
                 messageSender.sendNotifications(response);
-            stopWatch.stop("recv." + request.getRequestType().name().toLowerCase()+".4.postnot");
+                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".4.postnot");
             }
-            stopWatch.stop("recv." + request.getRequestType().name().toLowerCase()+".5.end");
+            stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".5.end");
 
 
             return response;

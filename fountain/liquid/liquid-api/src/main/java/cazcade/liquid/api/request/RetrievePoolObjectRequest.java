@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
-    private LiquidUUID pool;
 
     public RetrievePoolObjectRequest() {
     }
@@ -25,10 +24,10 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
     }
 
     public RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean historical) {
-        this.id = id;
-        this.identity = identity;
-        this.uri = uri;
-        this.historical = historical;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setUri(uri);
+        this.setHistorical(historical);
     }
 
     public RetrievePoolObjectRequest(LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, boolean historical) {
@@ -36,30 +35,29 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
     }
 
     public RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, boolean historical) {
-        this.identity = authenticatedUser;
-        this.pool = pool;
-        this.target = target;
-        this.historical = historical;
+        this.setIdentity(authenticatedUser);
+        this.setPoolUUID(pool);
+        this.setTarget(target);
+        this.setHistorical(historical);
     }
 
     private RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, LiquidURI uri) {
-        this.id = id;
-        this.identity = authenticatedUser;
-        this.pool = pool;
-        this.target = target;
-        this.uri = uri;
+        this.setId(id);
+        this.setIdentity(authenticatedUser);
+        this.setPoolUUID(pool);
+        this.setTarget(target);
+        this.setUri(uri);
     }
-
 
 
     @Override
     public LiquidMessage copy() {
-        return new RetrievePoolObjectRequest(id, identity, pool, target, uri);
+        return new RetrievePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), getUri());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (pool != null) {
-            return Arrays.asList(new AuthorizationRequest(target, LiquidPermission.VIEW), new AuthorizationRequest(pool, LiquidPermission.VIEW));
+        if (getPoolUUID() != null) {
+            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(getPoolUUID(), LiquidPermission.VIEW));
         } else {
             return Collections.EMPTY_LIST;
         }

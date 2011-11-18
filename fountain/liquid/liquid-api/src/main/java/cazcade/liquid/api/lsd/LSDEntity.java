@@ -61,6 +61,7 @@ public interface LSDEntity extends Serializable {
 
     /**
      * Use this for JSPs i.e. JSTL EL
+     *
      * @return
      */
     Map<String, String> getCamelCaseMap();
@@ -117,10 +118,11 @@ public interface LSDEntity extends Serializable {
      * {@link #addSubEntities(LSDAttribute, Collection<LSDEntity>)}
      * method.
      *
-     * @param stem the stem property to which the sub entities properties
-     *             are appended to.
+     * @param stem       the stem property to which the sub entities properties
+     *                   are appended to.
+     * @param requiresId
      */
-    void addSubEntity(LSDAttribute stem, LSDEntity entity);
+    void addSubEntity(LSDAttribute stem, LSDEntity entity, boolean requiresId);
 
     void addSubEntities(LSDAttribute stem, Collection<LSDEntity> entity);
 
@@ -197,6 +199,32 @@ public interface LSDEntity extends Serializable {
     void setId(String id);
 
     void setURI(LiquidURI uri);
+
+    Long getLongAttribute(LSDAttribute attribute);
+
+    void setAttribute(LSDAttribute attribute, long value);
+
+    Integer getIntegerAttribute(LSDAttribute attribute);
+
+    LiquidUUID getUUIDAttribute(LSDAttribute attribute);
+
+    void setAttribute(LSDAttribute attribute, LiquidUUID uuid);
+
+    LiquidURI getURIAttribute(LSDAttribute attribute);
+
+    void setAttribute(LSDAttribute attribute, LiquidURI uri);
+
+    Double getDoubleAttribute(LSDAttribute attribute);
+
+    void setAttribute(LSDAttribute attribute, double value);
+
+    int getIntegerAttribute(LSDAttribute attribute, int defaultValue);
+
+    boolean hasSubEntity(LSDAttribute attribute);
+
+    boolean getBooleanAttribute(LSDAttribute attribute, boolean defaultValue);
+
+    void removeCompletely(LSDAttribute attribute);
 
 
     class EntityUpdatedComparator implements Comparator<LSDEntity> {

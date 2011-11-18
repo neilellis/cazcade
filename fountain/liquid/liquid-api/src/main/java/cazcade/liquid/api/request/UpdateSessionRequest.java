@@ -1,8 +1,8 @@
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDEntity;
 
@@ -22,17 +22,17 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
     }
 
     public UpdateSessionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity, boolean internal) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.entity = entity;
-        this.internal = internal;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setRequestEntity(entity);
+        this.setInternal(internal);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new UpdateSessionRequest(id, identity, target, entity, internal);
+        return new UpdateSessionRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getEntity(), isInternal());
     }
 
 

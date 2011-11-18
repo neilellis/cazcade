@@ -2,10 +2,9 @@ package cazcade.vortex.comms.datastore.client;
 
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
-import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.request.SerializedRequest;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -36,9 +35,9 @@ public interface DataStoreService extends RemoteService {
 
     boolean checkUsernameAvailability(String username);
 
-    ArrayList<LiquidMessage> collect(LiquidSessionIdentifier identity, ArrayList<String> location) throws Exception;
+    ArrayList<SerializedRequest> collect(LiquidSessionIdentifier identity, ArrayList<String> location) throws Exception;
 
-    LiquidMessage process(LiquidRequest request);
+    SerializedRequest process(SerializedRequest request);
 
     boolean checkBoardAvailability(LiquidURI board);
 

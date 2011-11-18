@@ -32,29 +32,29 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
     public UpdateAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.entity = entity;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setRequestEntity(entity);
     }
 
     public UpdateAliasRequest(LiquidSessionIdentifier identity, LiquidURI uri, LSDEntity newEntity) {
-        this.uri = uri;
-        this.identity = identity;
-        this.entity = newEntity;
+        this.setUri(uri);
+        this.setIdentity(identity);
+        this.setRequestEntity(newEntity);
     }
 
     public UpdateAliasRequest(LiquidURI uri, LSDEntity newEntity) {
-        this.uri = uri;
-        this.entity = newEntity;
+        this.setUri(uri);
+        this.setRequestEntity(newEntity);
     }
 
     public UpdateAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
-        this.uri = uri;
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.entity = entity;
+        this.setUri(uri);
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setRequestEntity(entity);
     }
 
     public UpdateAliasRequest(LiquidSessionIdentifier sessionIdentifier, LSDSimpleEntity alias) {
@@ -62,13 +62,9 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     }
 
 
-    public LiquidSessionIdentifier getSessionIdentifier() {
-        return identity;
-    }
-
     @Override
     public LiquidMessage copy() {
-        return new UpdateAliasRequest(id, identity, target, uri, entity);
+        return new UpdateAliasRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getEntity());
     }
 
     public LiquidRequestType getRequestType() {

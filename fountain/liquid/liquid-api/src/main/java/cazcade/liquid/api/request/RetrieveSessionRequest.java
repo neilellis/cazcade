@@ -19,19 +19,19 @@ public class RetrieveSessionRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveSessionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new RetrieveSessionRequest(id, identity, target);
+        return new RetrieveSessionRequest(getId(), getSessionIdentifier(), super.getTarget());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(target, LiquidPermission.VIEW));
+        return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW));
     }
 
 

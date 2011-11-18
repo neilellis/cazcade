@@ -29,7 +29,6 @@ public interface LiquidRequest extends LiquidMessage {
     LiquidRequestType getRequestType();
 
 
-
     /**
      * Used for pre-authorization, passing the authorization request does not guarantee
      * the action will be allowed by the server. It is simply to allow a quick pre-check.
@@ -57,7 +56,6 @@ public interface LiquidRequest extends LiquidMessage {
      */
     void setRpc(Boolean b);
 
-    void setReplyTo(String name);
 
     void adjustTimeStampForServerTime();
 

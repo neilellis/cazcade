@@ -5,7 +5,6 @@ import cazcade.common.Logger;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.FountainUserDAO;
-import cazcade.fountain.datastore.impl.FountainUserDAOImpl;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -277,7 +276,7 @@ public class LatestContentFinder {
         Relationship authorRelationship = node.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
         if (authorRelationship != null) {
             final Node authorNode = authorRelationship.getOtherNode(node);
-            entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(authorNode, false, detail));
+            entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(authorNode, false, detail), true);
             entity.setAttribute(LSDAttribute.TITLE, (String) authorNode.getProperty(LSDAttribute.NAME.getKeyName()));
             if (authorNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
                 entity.setAttribute(LSDAttribute.ICON_URL, (String) authorNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
@@ -330,7 +329,7 @@ public class LatestContentFinder {
         Relationship editorRelationship = node.getSingleRelationship(FountainRelationships.EDITOR, Direction.OUTGOING);
         if (editorRelationship != null) {
             final Node ownerNode = editorRelationship.getOtherNode(node);
-            entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(ownerNode, false, detail));
+            entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(ownerNode, false, detail), true);
             entity.setAttribute(LSDAttribute.TITLE, (String) ownerNode.getProperty(LSDAttribute.NAME.getKeyName()));
             if (ownerNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
                 entity.setAttribute(LSDAttribute.ICON_URL, (String) ownerNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
@@ -338,7 +337,7 @@ public class LatestContentFinder {
         }
         Relationship viewRelationship = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
         if (viewRelationship != null) {
-            entity.addSubEntity(LSDAttribute.VIEW, fountainNeo.convertNodeToLSD(viewRelationship.getOtherNode(node), detail, false));
+            entity.addSubEntity(LSDAttribute.VIEW, fountainNeo.convertNodeToLSD(viewRelationship.getOtherNode(node), detail, false), true);
         }
 
         //The URI keeps it unique in the stream
@@ -352,7 +351,7 @@ public class LatestContentFinder {
         final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.PRESENCE_UPDATE, UUIDFactory.randomUUID());
         Relationship ownerRelationship = sessionNode.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
         Node aliasNode = ownerRelationship.getOtherNode(sessionNode);
-        entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(ownerRelationship.getOtherNode(sessionNode), false, detail));
+        entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(ownerRelationship.getOtherNode(sessionNode), false, detail), true);
         final String aliasName = (String) ownerRelationship.getOtherNode(sessionNode).getProperty(LSDAttribute.NAME.getKeyName());
         final String aliasFullName = (String) ownerRelationship.getOtherNode(sessionNode).getProperty(LSDAttribute.FULL_NAME.getKeyName());
         entity.setAttribute(LSDAttribute.TITLE, aliasName);

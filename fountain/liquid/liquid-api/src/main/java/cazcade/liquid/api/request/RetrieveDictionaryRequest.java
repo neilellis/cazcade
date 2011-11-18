@@ -4,29 +4,26 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
 
 /**
-* @author neilellis@cazcade.com
-*/
+ * @author neilellis@cazcade.com
+ */
 public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
-    private Category category;
 
-    public static enum Category {
-        KEYS, TYPES
+    public RetrieveDictionaryRequest() {
     }
+
     public RetrieveDictionaryRequest(Category category) {
         super();
-        this.category = category;
+        this.setCategory(category);
     }
 
     @Override
     public LiquidMessage copy() {
-        return new RetrieveDictionaryRequest(category);
+        return new RetrieveDictionaryRequest(getCategory());
     }
 
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_DICTIONARY;
     }
 
-    public Category getCategory() {
-        return category;
-    }
+
 }

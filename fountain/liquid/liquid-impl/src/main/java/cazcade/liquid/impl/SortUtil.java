@@ -45,6 +45,8 @@ public class SortUtil {
             dateSortEntities(entities);
         } else if (order == ChildSortOrder.POPULARITY) {
             popularitySortEntities(entities);
+        } else if (order == ChildSortOrder.NONE) {
+            return;
         } else {
             throw new UnsupportedOperationException("Order " + order + " not supported yet.");
         }

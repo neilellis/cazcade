@@ -1,15 +1,11 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class RotateXYPoolObjectRequest extends AbstractRequest {
-    private LiquidUUID object;
-    private LiquidUUID pool;
-    private Double angle;
 
     public RotateXYPoolObjectRequest() {
     }
@@ -23,43 +19,27 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
     }
 
     public RotateXYPoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID poolId, LiquidUUID object, Double angle) {
-        this.id = id;
-        this.identity = identity;
-        this.object = object;
-        this.pool = poolId;
-        this.angle = angle;
-        this.uri= objectURI;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setObjectUUID(object);
+        this.setPoolUUID(poolId);
+        this.setAngle(angle);
+        this.setUri(objectURI);
     }
 
-
-
-    public Double getAngle() {
-        return angle;
-    }
-
-    public LiquidUUID getObject() {
-        return object;
-    }
-
-    public LiquidUUID getPool() {
-        return pool;
-    }
 
     @Override
     public LiquidMessage copy() {
-        return new RotateXYPoolObjectRequest(id, identity, uri, pool, object, angle);
+        return new RotateXYPoolObjectRequest(getId(), getSessionIdentifier(), getUri(), super.getPoolUUID(), super.getObjectUUID(), super.getAngle());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(pool, LiquidPermission.MODIFY));
+        return Arrays.asList(new AuthorizationRequest(super.getPoolUUID(), LiquidPermission.MODIFY));
     }
 
-    public LSDEntity getEntity() {
-        return null;
-    }
 
     public List<String> getNotificationLocations() {
-        return Arrays.asList(pool.toString());
+        return Arrays.asList(super.getPoolUUID().toString());
     }
 
     public LiquidRequestType getRequestType() {

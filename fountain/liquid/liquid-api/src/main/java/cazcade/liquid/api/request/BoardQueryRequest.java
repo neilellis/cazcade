@@ -6,26 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BoardQueryRequest extends AbstractRequest {
-    private QueryType type;
-    private LiquidURI alias;
-    private int start;
-
-    //60 is divisible by 1,2,3,4,5,6 - therefore a good number to show as blocks on a page with columns between 1 and 6.
-    private int max=60;
-
-
-
-    public int getStart() {
-        return start;
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public enum QueryType {
-        MY, USERS_BOARDS, RECENT, HISTORY, POPULAR
-    }
 
 
     public BoardQueryRequest() {
@@ -50,17 +30,16 @@ public class BoardQueryRequest extends AbstractRequest {
 
 
     public BoardQueryRequest(LiquidUUID id, LiquidSessionIdentifier identity, QueryType type, LiquidURI alias) {
-        this.id = id;
-        this.type = type;
-        this.alias= alias;
-        this.identity = identity;
+        this.setId(id);
+        this.setQueryType(type);
+        this.setAlias(alias);
+        this.setIdentity(identity);
     }
-
 
 
     @Override
     public LiquidMessage copy() {
-        return new BoardQueryRequest(id, identity, type, alias);
+        return new BoardQueryRequest(getId(), getSessionIdentifier(), getQueryType(), super.getAlias());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -81,11 +60,5 @@ public class BoardQueryRequest extends AbstractRequest {
         return LiquidRequestType.BOARD_QUERY;
     }
 
-    public QueryType getType() {
-        return type;
-    }
 
-    public LiquidURI getAlias() {
-        return alias;
-    }
 }

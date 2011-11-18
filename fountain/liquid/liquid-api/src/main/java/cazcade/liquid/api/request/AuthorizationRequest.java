@@ -1,18 +1,14 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class AuthorizationRequest extends AbstractRequest {
-    private LiquidUUID resource;
-    private LiquidURI uri;
     private List<AuthorizationRequest> or = new ArrayList<AuthorizationRequest>();
     private List<AuthorizationRequest> and = new ArrayList<AuthorizationRequest>();
-
     private LiquidPermission[] permission;
 
     public AuthorizationRequest() {
@@ -39,11 +35,11 @@ public class AuthorizationRequest extends AbstractRequest {
         if (resource == null && uri == null) {
             throw new NullPointerException("Cannot create an authorization request with a null resource id and uri.");
         }
-        this.id = id;
-        this.uri = uri;
-        this.resource = resource;
+        this.setId(id);
+        this.setUri(uri);
+        this.setTarget(resource);
         this.permission = permission;
-        this.identity = identity;
+        this.setIdentity(identity);
     }
 
     public AuthorizationRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID resource, LiquidURI uri, LiquidPermission[] permission, List<AuthorizationRequest> or, List<AuthorizationRequest> and) {
@@ -52,19 +48,15 @@ public class AuthorizationRequest extends AbstractRequest {
         this.and.addAll(and);
     }
 
-    public LiquidUUID getResource() {
-        return resource;
-    }
 
-
-    public AuthorizationRequest or(AuthorizationRequest ... authorizationRequests) {
+    public AuthorizationRequest or(AuthorizationRequest... authorizationRequests) {
         for (AuthorizationRequest authorizationRequest : authorizationRequests) {
             or.add(authorizationRequest);
         }
         return this;
     }
 
-    public AuthorizationRequest and(AuthorizationRequest ... authorizationRequests) {
+    public AuthorizationRequest and(AuthorizationRequest... authorizationRequests) {
         for (AuthorizationRequest authorizationRequest : authorizationRequests) {
             and.add(authorizationRequest);
         }
@@ -82,7 +74,7 @@ public class AuthorizationRequest extends AbstractRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new AuthorizationRequest(id, identity, resource, uri, permission, or, and);
+        return new AuthorizationRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getUri(), permission, or, and);
     }
 
     public LiquidPermission[] getActions() {
@@ -92,10 +84,6 @@ public class AuthorizationRequest extends AbstractRequest {
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
-    }
-
-    public LSDEntity getEntity() {
-        return null;
     }
 
     public List<String> getNotificationLocations() {
@@ -110,8 +98,5 @@ public class AuthorizationRequest extends AbstractRequest {
         return false;
     }
 
-    public LiquidURI getUri() {
-        return uri;
-    }
 
 }

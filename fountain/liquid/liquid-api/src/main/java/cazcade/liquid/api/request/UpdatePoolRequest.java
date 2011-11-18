@@ -9,41 +9,41 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
     }
 
     /**
-     * @deprecated  use URIs where possible.
+     * @deprecated use URIs where possible.
      */
     public UpdatePoolRequest(LiquidUUID target, LSDEntity entity) {
         this(null, null, target, entity);
     }
 
     /**
-     * @deprecated  use URIs where possible.
+     * @deprecated use URIs where possible.
      */
     public UpdatePoolRequest(LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
         this(null, identity, target, entity);
     }
 
     /**
-     * @deprecated  use URIs where possible.
+     * @deprecated use URIs where possible.
      */
     public UpdatePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.entity = entity;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setRequestEntity(entity);
     }
 
     public UpdatePoolRequest(LiquidSessionIdentifier identity, LiquidURI poolURI, LSDEntity newEntity) {
-        this.identity = identity;
-        this.uri = poolURI;
-        this.entity = newEntity;
+        this.setIdentity(identity);
+        this.setUri(poolURI);
+        this.setRequestEntity(newEntity);
     }
 
     protected UpdatePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.uri = uri;
-        this.entity = entity;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setUri(uri);
+        this.setRequestEntity(entity);
     }
 
     public UpdatePoolRequest(LSDEntity updateEntity) {
@@ -53,7 +53,7 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new UpdatePoolRequest(id, identity, target, uri, entity);
+        return new UpdatePoolRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getEntity());
     }
 
     public LiquidRequestType getRequestType() {

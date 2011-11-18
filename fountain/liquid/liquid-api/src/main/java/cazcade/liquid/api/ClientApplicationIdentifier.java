@@ -31,4 +31,14 @@ public class ClientApplicationIdentifier implements Serializable {
     public String getHostinfo() {
         return hostinfo;
     }
+
+    @Override
+    public String toString() {
+        return name + ":" + hostinfo + ":" + key;
+    }
+
+    public static ClientApplicationIdentifier valueOf(String s) {
+        final String[] strings = s.split(":");
+        return new ClientApplicationIdentifier(strings[0], strings[1], strings[2]);
+    }
 }

@@ -109,6 +109,7 @@ public enum LSDDictionaryTypes implements LSDType {
     SOCIAL_NETWORK("Collection.Network.SocialNetwork"),
     SESSION("System.Session.ClientSession"),
     VIEW("System.View.PoolObjectView"),
+    REQUEST("System.Request"),
 
     EMPTY_RESULT("System.Entity.Empty"),
     EXCEPTION("System.Error.JavaException"),

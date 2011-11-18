@@ -86,7 +86,7 @@ public class CommandSupport {
     }
 
     public static boolean checkEntityOnStack(ShellSession shellSession) {
-        if(!shellSession.hasEntityOnStack()) {
+        if (!shellSession.hasEntityOnStack()) {
             System.err.println("This command must be executed within a 'with' block.");
             return false;
         }
@@ -105,7 +105,7 @@ public class CommandSupport {
 
         LSDEntity newEntity = callback.alter(entity1);
 
-        LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolObjectRequest(shellSession.getIdentity(), poolURI, objectURI, newEntity));
+        LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolObjectRequest(shellSession.getIdentity(), objectURI, newEntity));
         final LSDEntity entity2 = response2.getResponse();
         if (response2.getState() != LiquidMessageState.SUCCESS) {
             System.err.println(entity2.getAttribute(LSDAttribute.DESCRIPTION));

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SelectPoolObjectRequest extends AbstractUpdateRequest {
-    private boolean selected;
 
     public SelectPoolObjectRequest() {
     }
@@ -17,22 +16,20 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
     }
 
     public SelectPoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, boolean selected) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.selected = selected;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setSelected(selected);
     }
-
-
 
 
     @Override
     public LiquidMessage copy() {
-        return new SelectPoolObjectRequest(id, identity, target, selected);
+        return new SelectPoolObjectRequest(getId(), getSessionIdentifier(), super.getTarget(), isSelected());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(target, LiquidPermission.MODIFY));
+        return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.MODIFY));
     }
 
     public List<String> getNotificationLocations() {
@@ -41,10 +38,6 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
 
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.SELECT_POOL_OBJECT;
-    }
-
-    public boolean isSelected() {
-        return selected;
     }
 
 

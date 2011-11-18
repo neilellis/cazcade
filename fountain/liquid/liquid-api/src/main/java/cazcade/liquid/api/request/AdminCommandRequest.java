@@ -7,26 +7,34 @@ import java.util.List;
 
 public class AdminCommandRequest extends AbstractRequest {
 
-
     private String[] args;
+
+    public final String[] getArgs() {
+        return args;
+    }
+
+    public final void setArgs(String[] args) {
+        this.args = args;
+    }
+
 
     public AdminCommandRequest() {
     }
 
-    public AdminCommandRequest(String ... args) {
+    public AdminCommandRequest(String... args) {
         this(null, null, args);
     }
 
-    public AdminCommandRequest(LiquidUUID id, LiquidSessionIdentifier identity, String ... args) {
-        this.args = args;
-        this.id = id;
-        this.identity = identity;
+    public AdminCommandRequest(LiquidUUID id, LiquidSessionIdentifier identity, String... args) {
+        this.setArgs(args);
+        this.setId(id);
+        this.setIdentity(identity);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new AdminCommandRequest(id, identity, args);
+        return new AdminCommandRequest(getId(), getSessionIdentifier(), getArgs());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -39,7 +47,7 @@ public class AdminCommandRequest extends AbstractRequest {
     }
 
     public List<String> getNotificationLocations() {
-        return Arrays.asList(uri.getWithoutFragment().asReverseDNSString(), uri.asReverseDNSString());
+        return Arrays.asList(getUri().getWithoutFragment().asReverseDNSString(), getUri().asReverseDNSString());
     }
 
     public LiquidRequestType getRequestType() {
@@ -51,7 +59,4 @@ public class AdminCommandRequest extends AbstractRequest {
         return false;
     }
 
-    public String[] getArgs() {
-        return args;
-    }
 }

@@ -1,7 +1,6 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
 
 public class DeletePoolRequest extends AbstractDeletionRequest {
 
@@ -17,33 +16,29 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
     }
 
     public DeletePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
     }
 
     public DeletePoolRequest(LiquidSessionIdentifier identity, LiquidURI poolURI) {
-        this.identity = identity;
-        this.uri = poolURI;
+        this.setIdentity(identity);
+        this.setUri(poolURI);
     }
 
     public DeletePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
-        this.id = id;
-        this.identity = identity;
-        this.target = target;
-        this.uri= uri;
+        this.setId(id);
+        this.setIdentity(identity);
+        this.setTarget(target);
+        this.setUri(uri);
     }
 
 
     @Override
     public LiquidMessage copy() {
-        return new DeletePoolRequest(id, identity, target, uri);
+        return new DeletePoolRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getUri());
     }
 
-    @Override
-    public LSDEntity getEntity() {
-        return null;
-    }
 
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.DELETE_POOL;
