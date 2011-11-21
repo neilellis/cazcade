@@ -231,6 +231,8 @@ public interface LSDEntity extends Serializable {
 
     void setAttribute(LSDAttribute parent, LSDAttribute child, String value);
 
+    boolean isReadonly();
+
 
     class EntityUpdatedComparator implements Comparator<LSDEntity> {
         @Override

@@ -256,6 +256,11 @@ public class LSDSimpleEntity implements LSDEntity {
         setValue(parent.getKeyName() + "." + child.getKeyName(), value);
     }
 
+    @Override
+    public boolean isReadonly() {
+        return readonly;
+    }
+
 
     public LSDTypeDef getTypeDef() {
         initTypeDef();
