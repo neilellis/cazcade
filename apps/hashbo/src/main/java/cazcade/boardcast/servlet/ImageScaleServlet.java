@@ -132,7 +132,6 @@ public class ImageScaleServlet extends HttpServlet {
             final byte[] bytes = byteArrayOutputStream.toByteArray();
             final Element element = new Element(key, bytes, false, DEFAULT_SCALED_IMAGE_TTL_SECS, DEFAULT_SCALED_IMAGE_TTL_SECS);
             scaleCache.put(element);
-            resp.setHeader("Cache-Control", "max-age=" + DEFAULT_SCALED_IMAGE_TTL_SECS);
             setDateHeaders(resp, element);
             IOUtils.closeQuietly(is);
             IOUtils.write(bytes, resp.getOutputStream());
@@ -145,7 +144,6 @@ public class ImageScaleServlet extends HttpServlet {
             resp.setContentType("image/jpeg");
             //
             final Element element = scaleCache.get(key);
-            resp.setHeader("Cache-Control", "max-age=" + element.getTimeToLive());
             setDateHeaders(resp, element);
             IOUtils.write((byte[]) (element.getValue()), resp.getOutputStream());
         }
@@ -154,8 +152,9 @@ public class ImageScaleServlet extends HttpServlet {
 
     private void setDateHeaders(HttpServletResponse resp, Element element) {
         resp.setDateHeader("Date", System.currentTimeMillis());
-        resp.setDateHeader("Last-Modified", element.getLastUpdateTime());
+        resp.setDateHeader("Last-Modified", element.getLatestOfCreationAndUpdateTime());
         resp.setDateHeader("Expires", element.getExpirationTime());
+        resp.setHeader("Cache-Control", "max-age=" + element.getTimeToLive());
     }
 
     private DimensionConstrain getDimentionConstrainFromRequest(HttpServletRequest req,
