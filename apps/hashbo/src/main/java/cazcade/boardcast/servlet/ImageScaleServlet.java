@@ -57,15 +57,36 @@ public class ImageScaleServlet extends HttpServlet {
         scaleCache = CacheManager.getInstance().getCache(IMAGE_SCALE_CACHE);
     }
 
+
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doHead(req, resp);
+        final String url = req.getAttribute("url") == null ? req.getParameter("url") : (String) req.getAttribute("url");
+        final String w = req.getParameter("width");
+        final String h = req.getParameter("height");
+        final String key = url + ":" + w + ":" + h;
+        if (scaleCache.get(key) != null) {
+            final Element element = scaleCache.get(key);
+            element.getCreationTime();
+            if (req.getDateHeader("If-Modified-Since") > element.getCreationTime()) {
+                resp.setStatus(304);
+            } else {
+                resp.setStatus(200);
+            }
+        } else {
+            resp.setStatus(200);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final boolean debug = !Logger.isProduction() || req.getParameter("debug") != null;
         long start = System.currentTimeMillis(); // Just for debugging
 
         // Get the requested uri as an inputstream
-        final String url = req.getParameter("url");
-        final String w = req.getParameter("w");
-        final String h = req.getParameter("h");
+        final String url = req.getAttribute("url") == null ? req.getParameter("url") : (String) req.getAttribute("url");
+        final String w = req.getParameter("width");
+        final String h = req.getParameter("height");
         final String key = url + ":" + w + ":" + h;
 
         if (scaleCache.get(key) == null) {

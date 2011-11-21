@@ -130,12 +130,14 @@ public class ImageProxyServlet extends HttpServlet {
             if (response.getRefreshIndicator() > 0) {
                 sendAlternate(resp, width, height, url, isImage, response.getRefreshIndicator());
             } else {
-                log.debug("Scaled {0} to {1}.", url, response.getURI().toString());
-                resp.setStatus(301);
-                //cache for about a week (in reality this is a permanent redirect)
-                resp.setHeader("Cache-Control", "max-age=604800");
-                resp.setHeader("Location", scaledImageLocation(response.getURI().toString(), width, height));
-                resp.setHeader("Connection", "close");
+                req.setAttribute("url", response.getURI().toString());
+                req.getRequestDispatcher("_image-scale").forward(req, resp);
+//                log.debug("Scaled {0} to {1}.", url, response.getURI().toString());
+//                resp.setStatus(301);
+//                //cache for about a week (in reality this is a permanent redirect)
+//                resp.setHeader("Cache-Control", "max-age=604800");
+//                resp.setHeader("Location", scaledImageLocation(response.getURI().toString(), width, height));
+//                resp.setHeader("Connection", "close");
             }
         } catch (Exception e) {
             log.error(e);
@@ -143,7 +145,7 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
     private String scaledImageLocation(String url, int width, int height) throws UnsupportedEncodingException {
-        return "/_image-scale?url=" + URLEncoder.encode(url, "utf8") + "&w=" + width + "&h=" + height;
+        return "/_image-scale?url=" + URLEncoder.encode(url, "utf8") + "&width=" + width + "&height=" + height;
     }
 
     private void sendAlternate(HttpServletResponse resp, int width, int height, String url, boolean image, long refreshIndicator) throws UnsupportedEncodingException {
