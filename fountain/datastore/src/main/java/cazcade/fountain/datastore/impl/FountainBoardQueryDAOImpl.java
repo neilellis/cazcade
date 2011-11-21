@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
+import cazcade.common.Logger;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
@@ -18,6 +19,8 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
+    private final static Logger log = Logger.getLogger(FountainBoardQueryDAO.class);
+
     @Autowired
     private FountainNeo fountainNeo;
 
@@ -29,7 +32,6 @@ public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
     private BoardDAO boardDAO;
 
 
-
     @Override
     public LSDEntity getMyBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException {
         List<BoardIndexEntity> boards = boardDAO.getMyBoards(start, end, session.getAliasURL().toString());
@@ -38,10 +40,15 @@ public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
     }
 
     private LSDSimpleEntity convertToEntityResult(LiquidSessionIdentifier session, List<BoardIndexEntity> boards) throws InterruptedException {
-        List<LSDEntity> subEntities= new ArrayList<LSDEntity>();
+        List<LSDEntity> subEntities = new ArrayList<LSDEntity>();
         LSDSimpleEntity result = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.BOARD_LIST);
         for (BoardIndexEntity board : boards) {
-            subEntities.add(poolDAO.getPoolObjectTx(session, new LiquidURI(board.getUri()), false, false, LiquidRequestDetailLevel.BOARD_LIST));
+            final LSDEntity poolObjectTx = poolDAO.getPoolObjectTx(session, new LiquidURI(board.getUri()), false, false, LiquidRequestDetailLevel.BOARD_LIST);
+            if (poolObjectTx == null) {
+                log.warn("Board " + board.getUri() + " was null from getPoolObjectTx, skipping.");
+            } else {
+                subEntities.add(poolObjectTx);
+            }
         }
         result.addSubEntities(LSDAttribute.CHILD, subEntities);
         return result;

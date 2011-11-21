@@ -9,6 +9,8 @@ import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -41,6 +43,36 @@ public class GWTDataStore {
         this.onLoggedOutAction = onLoggedOutAction;
         this.identity = newIdentity;
         bus = BusFactory.getInstance();
+
+        new Timer() {
+            @Override
+            public void run() {
+                if (!collecting) {
+                    collecting = true;
+                    ClientLog.log("Collection from " + locations);
+                    DataStoreService.App.getInstance().collect(identity, locations, new CollectCallback());
+                }
+            }
+        }.scheduleRepeating(1000);
+
+        GWT.runAsync(new RunAsyncCallback() {
+            @Override
+            public void onFailure(Throwable reason) {
+                ClientLog.log(reason);
+            }
+
+            @Override
+            public void onSuccess() {
+                setupListeners(newIdentity);
+                onStartup.run();
+
+            }
+        });
+
+
+    }
+
+    private void setupListeners(final LiquidSessionIdentifier newIdentity) {
         bus.listen(new AbstractBusListener() {
             @Override
             public void handle(LiquidMessage message) {
@@ -113,19 +145,6 @@ public class GWTDataStore {
                 }
             }
         });
-
-        new Timer() {
-            @Override
-            public void run() {
-                if (!collecting) {
-                    collecting = true;
-                    ClientLog.log("Collection from " + locations);
-                    DataStoreService.App.getInstance().collect(identity, locations, new CollectCallback());
-                }
-            }
-        }.scheduleRepeating(1000);
-        onStartup.run();
-
     }
 
     private AbstractRequest deserializeRequest(SerializedRequest result) {

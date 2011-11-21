@@ -35,7 +35,7 @@ public class VersionNumberChecker {
                     }
                 });
             }
-        }.scheduleRepeating(30 * 1000);
+        }.scheduleRepeating(180 * 1000);
     }
 
     public static String getBuildNumber() {
