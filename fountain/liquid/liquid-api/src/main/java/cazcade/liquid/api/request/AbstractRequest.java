@@ -617,6 +617,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         entity.addSubEntity(LSDAttribute.REQUEST_ENTITY, requestEntity, false);
     }
 
+
     @Override
     public SerializedRequest asSerializedRequest() {
         return new SerializedRequest(getRequestType(), entity);

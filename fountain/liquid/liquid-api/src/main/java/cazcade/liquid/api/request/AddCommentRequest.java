@@ -35,11 +35,12 @@ public class AddCommentRequest extends AbstractUpdateRequest {
         this.setUri(uri);
     }
 
-    public AddCommentRequest(LiquidURI uri, String value) {
-        this.setRequestEntity(LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT));
+    public AddCommentRequest(LiquidURI uri, String text) {
+        final LSDSimpleEntity requestEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT);
+        requestEntity.remove(LSDAttribute.PUBLISHED);
+        requestEntity.setAttribute(LSDAttribute.TEXT_BRIEF, text);
+        this.setRequestEntity(requestEntity);
         //Time clocks vary so we don't want this set.
-        super.getEntity().remove(LSDAttribute.PUBLISHED);
-        super.getEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
         this.setUri(uri);
     }
 

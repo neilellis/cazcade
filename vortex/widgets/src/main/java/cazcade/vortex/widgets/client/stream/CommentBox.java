@@ -8,7 +8,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.InitializeEvent;
 import com.google.gwt.event.logical.shared.InitializeHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -111,7 +112,6 @@ public class CommentBox extends Composite {
 
 
     }
-
 
 
     public void init(final LiquidURI uri) {

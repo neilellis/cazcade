@@ -32,7 +32,7 @@ public class BuildVersionServiceImpl extends RemoteServiceServlet implements Bui
 
         Attributes atts = mf.getMainAttributes();
 
-        return atts.getValue("Implementation-Version");
+        return atts.getValue("Implementation-Build");
 
 
     }

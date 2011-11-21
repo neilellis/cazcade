@@ -30,7 +30,7 @@ public class VersionNumberChecker {
                             return;
                         }
                         if (!version.equals(result)) {
-                            Window.Location.reload();
+                            Window.alert("A new version of this application is available, please refresh this page.");
                         }
                     }
                 });
