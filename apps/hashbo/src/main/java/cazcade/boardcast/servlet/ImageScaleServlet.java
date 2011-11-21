@@ -43,6 +43,8 @@ import java.net.URL;
 public class ImageScaleServlet extends HttpServlet {
     private static final long serialVersionUID = 896323877253822771L;
     private static final Logger logger = Logger.getLogger(ImageScaleServlet.class.getName());
+    //todo get this from the original image, or make param or something :-)
+    public static final int DEFAULT_SCALED_IMAGE_TTL_SECS = 24 * 3600;
 
     private Cache scaleCache;
     private static final String IMAGE_SCALE_CACHE = "image-scale-cache";
@@ -106,7 +108,8 @@ public class ImageScaleServlet extends HttpServlet {
             final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ImageIO.write(scaledImage, "jpg", byteArrayOutputStream);
             final byte[] bytes = byteArrayOutputStream.toByteArray();
-            scaleCache.put(new Element(key, bytes));
+            scaleCache.put(new Element(key, bytes, false, DEFAULT_SCALED_IMAGE_TTL_SECS, DEFAULT_SCALED_IMAGE_TTL_SECS));
+            resp.setHeader("Cache-Control", "max-age=" + DEFAULT_SCALED_IMAGE_TTL_SECS);
             IOUtils.closeQuietly(is);
             IOUtils.write(bytes, resp.getOutputStream());
         } else {
@@ -116,7 +119,10 @@ public class ImageScaleServlet extends HttpServlet {
                 resp.setHeader("X-ScaledImageCacheStats", scaleCache.getStatistics().toString());
             }
             resp.setContentType("image/jpeg");
-            IOUtils.write((byte[]) (scaleCache.get(key).getValue()), resp.getOutputStream());
+            //
+            final Element element = scaleCache.get(key);
+            resp.setHeader("Cache-Control", "max-age=" + element.getTimeToLive());
+            IOUtils.write((byte[]) (element.getValue()), resp.getOutputStream());
         }
         resp.flushBuffer();
     }
