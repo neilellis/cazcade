@@ -69,7 +69,7 @@ public class ImageScaleServlet extends HttpServlet {
         if (scaleCache.get(key) != null && req.getHeader(IF_MODIFIED_SINCE) != null) {
             final Element element = scaleCache.get(key);
             element.getCreationTime();
-            if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime()) {
+            if (req.getDateHeader(IF_MODIFIED_SINCE) > (element.getCreationTime() - 1000)) {
                 resp.setStatus(304);
             } else {
                 resp.setStatus(200);
@@ -142,13 +142,13 @@ public class ImageScaleServlet extends HttpServlet {
                 resp.setHeader("X-ScaledTimeMillis", String.valueOf(System.currentTimeMillis() - start));
                 resp.setHeader("X-ScaledImageCacheStats", scaleCache.getStatistics().toString());
             }
-            resp.setContentType("image/jpeg");
             //
             final Element element = scaleCache.get(key);
             setDateHeaders(resp, element);
-            if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime()) {
+            if (req.getDateHeader(IF_MODIFIED_SINCE) > (element.getCreationTime() - 1000)) {
                 resp.setStatus(304);
             } else {
+                resp.setContentType("image/jpeg");
                 IOUtils.write((byte[]) (element.getValue()), resp.getOutputStream());
             }
 
