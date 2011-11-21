@@ -19,7 +19,7 @@ public class BusImpl implements Bus {
 
     private HashMap<LiquidUUID, CallbackProcessor> responseCallbacks = new HashMap<LiquidUUID, CallbackProcessor>();
     private HashMap<String, ListenerCollection> listenerCollections = new HashMap<String, ListenerCollection>();
-    private ArrayList<LiquidUUID> uuids = new ArrayList<LiquidUUID>();
+    private PersistentUUIDService uuids = new PersistentUUIDService();
     private HashMap<Long, BusListener> listenerLookup = new HashMap<Long, BusListener>();
     public static final Runnable DO_NOTHING = new Runnable() {
         public void run() {
@@ -35,13 +35,14 @@ public class BusImpl implements Bus {
 
     private void topUpUUIDs(final Runnable then) {
         if (uuids.size() < UUID_THRESHOLD) {
+
             UUIDService.App.getInstance().getRandomUUIDs(UUID_BATCH_SIZE, new AsyncCallback<ArrayList<LiquidUUID>>() {
                 public void onFailure(Throwable caught) {
                     ClientLog.log(caught.getMessage(), caught);
                 }
 
                 public void onSuccess(ArrayList<LiquidUUID> result) {
-                    uuids.addAll(result);
+                    uuids.topUp(result);
                     then.run();
                 }
             });
@@ -82,7 +83,7 @@ public class BusImpl implements Bus {
     public void retrieveUUID(final UUIDCallback callback) {
         topUpUUIDs(new Runnable() {
             public void run() {
-                callback.callback(uuids.remove(0));
+                callback.callback(uuids.pop());
             }
         });
     }
@@ -94,7 +95,7 @@ public class BusImpl implements Bus {
         if (message.getId() == null) {
             topUpUUIDs(new Runnable() {
                 public void run() {
-                    message.setId(uuids.remove(0));
+                    message.setId(uuids.pop());
                     ClientLog.log("Assigned UUID " + message.getId());
                     then.run();
                 }
