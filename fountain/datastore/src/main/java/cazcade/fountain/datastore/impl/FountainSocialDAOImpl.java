@@ -4,11 +4,14 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
-import org.neo4j.graphdb.*;
+import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 public class FountainSocialDAOImpl implements FountainSocialDAO {
@@ -26,7 +29,6 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
 
     @Autowired
     private FountainIndexServiceImpl indexDAO;
-
 
 
     @Override
@@ -203,6 +205,16 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     @Override
     public void recordChat(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LSDEntity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void forEachUser(UserCallback callback) {
+        //TODO
+    }
+
+    @Override
+    public List<LSDEntity> getUpdateSummaryForAlias(LiquidURI aliasURI, long since) {
+        return null; //TODO
     }
 
     LSDEntity getAliasAsProfile(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException {

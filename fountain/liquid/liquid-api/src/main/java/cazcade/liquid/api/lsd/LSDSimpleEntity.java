@@ -717,7 +717,9 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public static LSDSimpleEntity createEmpty() {
-        return new LSDSimpleEntity();
+        final LSDSimpleEntity entity = new LSDSimpleEntity();
+        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        return entity;
     }
 
 

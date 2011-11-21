@@ -42,6 +42,6 @@ public abstract class AbstractCreateCommand implements Command {
     }
 
     public enum Size {
-        SMALL, MEDIUM, LARGE, DEFAULT
+        THUMBNAIL, SMALL, MEDIUM, LARGE, DEFAULT
     }
 }

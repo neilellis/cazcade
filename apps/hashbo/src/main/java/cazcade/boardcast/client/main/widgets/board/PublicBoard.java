@@ -55,7 +55,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     public void bind(LSDEntity entity) {
         super.bind(entity);
-        addBinding(changeBackgroundDialog, LSDAttribute.IMAGE_URL);
+        addBinding(getChangeBackgroundDialog(), LSDAttribute.IMAGE_URL);
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
@@ -116,6 +116,18 @@ public class PublicBoard extends EntityBackedFormPanel {
     @Override
     public void onLocalHistoryTokenChanged(String token) {
         navigate(token);
+    }
+
+    public ChangeBackgroundDialog getChangeBackgroundDialog() {
+        if (changeBackgroundDialog == null) {
+            setChangeBackgroundDialog(new ChangeBackgroundDialog());
+        }
+        return changeBackgroundDialog;
+
+    }
+
+    public void setChangeBackgroundDialog(ChangeBackgroundDialog changeBackgroundDialog) {
+        this.changeBackgroundDialog = changeBackgroundDialog;
     }
 
     interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {
@@ -312,9 +324,9 @@ public class PublicBoard extends EntityBackedFormPanel {
                     final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-                        menuBar.init(getEntity(), true, changeBackgroundDialog);
+                        menuBar.init(getEntity(), true, getChangeBackgroundDialog());
                     } else {
-                        menuBar.init(getEntity(), false, changeBackgroundDialog);
+                        menuBar.init(getEntity(), false, getChangeBackgroundDialog());
                     }
                     StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
                     WidgetUtil.showGracefully(getWidget(), false);
@@ -441,7 +453,6 @@ public class PublicBoard extends EntityBackedFormPanel {
                 sizeNotificationPanel();
             }
         });
-        changeBackgroundDialog = new ChangeBackgroundDialog();
     }
 
     private void sizeNotificationPanel() {

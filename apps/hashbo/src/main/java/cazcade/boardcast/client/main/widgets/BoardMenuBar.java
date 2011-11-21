@@ -112,14 +112,14 @@ public class BoardMenuBar extends MenuBar {
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "default");
             }
-        }));
+        }, false));
 
         addMenubar.addItem("Black on White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
             }
-        }));
+        }, false));
 
 
         addMenubar.addItem("White on Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
@@ -127,7 +127,7 @@ public class BoardMenuBar extends MenuBar {
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
             }
-        }));
+        }, false));
 
 
         addMenubar.addItem("Photograph",
@@ -136,7 +136,7 @@ public class BoardMenuBar extends MenuBar {
                     public CreateItemCommand create(CreateItemCommand.Size size) {
                         return new CreatePhotoCommand(poolURI, LSDDictionaryTypes.PHOTO2D, size, "default");
                     }
-                }));
+                }, true));
 
         addMenubar.addItem("Webpage Link",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
@@ -144,7 +144,7 @@ public class BoardMenuBar extends MenuBar {
                     public CreateItemCommand create(CreateItemCommand.Size size) {
                         return new CreateWebsiteCommand(poolURI, LSDDictionaryTypes.WEBPAGE, size, "default");
                     }
-                }));
+                }, true));
 
         addMenubar.addItem("YouTube Video",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
@@ -152,7 +152,7 @@ public class BoardMenuBar extends MenuBar {
                     public CreateItemCommand create(CreateItemCommand.Size size) {
                         return new CreateYouTubeCommand(poolURI, LSDDictionaryTypes.YOUTUBE_MOVIE, size, "default");
                     }
-                }));
+                }, false));
 
         addMenubar.addItem("Decorations", createShapeMenuBar());
 
@@ -163,8 +163,11 @@ public class BoardMenuBar extends MenuBar {
         }
     }
 
-    private MenuBar createMenuBarForSizeVariants(SizeVariantBuilder builder) {
+    private MenuBar createMenuBarForSizeVariants(SizeVariantBuilder builder, boolean includeVerySmall) {
         final MenuBar menuBar = new MenuBar(true);
+        if (includeVerySmall) {
+            menuBar.addItem("Very Small", builder.create(AbstractCreateCommand.Size.THUMBNAIL));
+        }
         menuBar.addItem("Small", builder.create(AbstractCreateCommand.Size.SMALL));
         menuBar.addItem("Medium", builder.create(AbstractCreateCommand.Size.MEDIUM));
         menuBar.addItem("Full Width", builder.create(AbstractCreateCommand.Size.LARGE));

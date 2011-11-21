@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class PoolObjectView extends GestureAwareView implements HasDragHandler, HasHoldDragHandler, HasEndDragHandler, HasClickHandlers {
 
+    public static final String THUMBNAIL = "thumbnail";
     public static final String SMALL = "small";
     public static final String MEDIUM = "medium";
     public static final String LARGE = "large";
@@ -38,6 +39,8 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     public static final double ASPECT_RATIO = 1.333;
     public static final int ADDITIONAL_WIDTH = PADDING * 2 + BORDER * 2;
     public static final int ADDITIONAL_HEIGHT = PADDING * 2 + BORDER * 2;
+    public static final int THUMBNAIL_WIDTH = 96;
+    public static final int THUMBNAIL_HEIGHT = (int) (THUMBNAIL_WIDTH / ASPECT_RATIO);
     public static final int SMALL_WIDTH = (int) (BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_WIDTH;
     public static final int SMALL_HEIGHT = (int) ((BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
     public static final int MEDIUM_WIDTH = (int) (BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_WIDTH;

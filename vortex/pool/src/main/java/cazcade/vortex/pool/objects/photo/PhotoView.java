@@ -48,6 +48,11 @@ public class PhotoView extends PoolObjectView {
     public void onAddToPool() {
         super.onAddToPool();
         if (size != null) {
+            if (size.equals(THUMBNAIL)) {
+                image.setSize(CachedImage.SMALL);
+                image.setWidth(THUMBNAIL_WIDTH + "px");
+                image.setHeight(THUMBNAIL_HEIGHT + "px");
+            }
             if (size.equals(SMALL)) {
                 image.setSize(CachedImage.MEDIUM);
                 image.setWidth(SMALL_WIDTH + "px");

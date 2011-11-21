@@ -365,7 +365,11 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     }
 
     public final LiquidPermissionChangeType getPermission() {
-        return LiquidPermissionChangeType.valueOf(entity.getAttribute(LSDAttribute.PERMISSION_CHANGE));
+        if (entity.hasAttribute(LSDAttribute.PERMISSION_CHANGE)) {
+            return LiquidPermissionChangeType.valueOf(entity.getAttribute(LSDAttribute.PERMISSION_CHANGE));
+        } else {
+            return null;
+        }
     }
 
     public final void setPermission(LiquidPermissionChangeType permission) {
