@@ -52,6 +52,12 @@ public class WebsiteView extends PoolObjectView {
     public void onAddToPool() {
         super.onAddToPool();
         if (size != null) {
+            if (size.equals(THUMBNAIL)) {
+                website.setSize(CachedImage.SMALL);
+                website.setWidth(THUMBNAIL_WIDTH + "px");
+                website.setHeight(THUMBNAIL_HEIGHT + "px");
+            }
+
             if (size.equals(SMALL)) {
                 website.setSize(CachedImage.MEDIUM);
                 website.setWidth(SMALL_WIDTH + "px");
