@@ -36,7 +36,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
     public void show(LSDEntity object) {
         updateEntity = object.asUpdateEntity();
         imageUploader.setImageURL(object.getAttribute(LSDAttribute.IMAGE_URL));
-        LSDEntity view = object.getSubEntity(LSDAttribute.VIEW);
+        LSDEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
         widthField.setValue(view.getAttribute(LSDAttribute.VIEW_WIDTH));
         heightField.setValue(view.getAttribute(LSDAttribute.VIEW_HEIGHT));
         Runnable sizeDirtyAction = new Runnable() {

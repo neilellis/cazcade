@@ -14,7 +14,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
 import java.util.Date;
 
@@ -48,7 +49,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     public VortexStatusUpdatePanel(LSDEntity statusUpdate, FormatUtil features) {
         initWidget(ourUiBinder.createAndBindUi(this));
         this.entity = statusUpdate;
-        author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR);
+        author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         if (statusUpdate.hasAttribute(LSDAttribute.SOURCE)) {
             locationName = features.formatPoolName(new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment().asString());

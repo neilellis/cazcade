@@ -15,7 +15,7 @@ public interface LiquidMessage extends Serializable {
 
     void setId(LiquidUUID id);
 
-    LSDEntity getEntity();
+    LSDEntity getRequestEntity();
 
     /**
      * TODO: Deprecate this, it's used by the GWT Bus only.

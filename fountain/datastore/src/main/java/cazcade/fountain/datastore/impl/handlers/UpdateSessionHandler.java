@@ -9,6 +9,6 @@ import cazcade.liquid.api.request.UpdateSessionRequest;
  */
 public class UpdateSessionHandler extends AbstractUpdateHandler<UpdateSessionRequest> implements UpdateSessionRequestHandler {
     public UpdateSessionRequest handle(UpdateSessionRequest request) throws InterruptedException {
-        return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateUnversionedEntityByUUIDTx(request.getTarget(), request.getEntity(), request.isInternal(), request.getDetail(), null));
+        return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateUnversionedEntityByUUIDTx(request.getTarget(), request.getRequestEntity(), request.isInternal(), request.getDetail(), null));
     }
 }

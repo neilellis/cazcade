@@ -64,7 +64,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new UpdateAliasRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getEntity());
+        return new UpdateAliasRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
     }
 
     public LiquidRequestType getRequestType() {

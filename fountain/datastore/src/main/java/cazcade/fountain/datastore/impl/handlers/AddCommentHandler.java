@@ -16,7 +16,7 @@ public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> 
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final Node commentTargetNode = request.getTarget() != null ? fountainNeo.findByUUID(request.getTarget()) : fountainNeo.findByURI(request.getUri());
-            final LSDEntity response = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), poolDAO.addCommentNoTX(commentTargetNode, request.getEntity(), request.getAlias()), null, request.getDetail(), request.isInternal(), false);
+            final LSDEntity response = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), poolDAO.addCommentNoTX(commentTargetNode, request.getRequestEntity(), request.getAlias()), null, request.getDetail(), request.isInternal(), false);
 
             //This is an iPad app hack//
             // removed by Neil, we'll need to go back and fix a lot in the iPad application

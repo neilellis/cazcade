@@ -11,7 +11,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 
 import java.util.Date;
 
@@ -66,7 +69,7 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
     public VortexStreamEntryPanel(LSDEntity streamEntry, final FormatUtil features) {
         this.entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
-        final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR);
+        final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         profileImage.setAliasUri(author.getURI());
         profileName.setText("@" + author.getAttribute(LSDAttribute.NAME));

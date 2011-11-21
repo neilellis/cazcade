@@ -26,7 +26,7 @@ public abstract class AbstractRequestValidator<T extends LiquidRequest> implemen
 //            }
 //        }
         if (!validType) {
-            throw new ValidationException("Unsupported type " + request.getEntity().getTypeDef().asString() + " for pools.");
+            throw new ValidationException("Unsupported type " + request.getRequestEntity().getTypeDef().asString() + " for pools.");
         }
     }
 }

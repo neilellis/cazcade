@@ -267,7 +267,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     @Override
     protected void onChange(LSDEntity entity) {
 
-        LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER);
+        LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER, false);
 
         if (entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
             addStyleName("modifiable-board");

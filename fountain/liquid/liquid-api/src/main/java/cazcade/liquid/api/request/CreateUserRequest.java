@@ -31,7 +31,7 @@ public class CreateUserRequest extends AbstractCreationRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new CreateUserRequest(getId(), getSessionIdentifier(), super.getEntity());
+        return new CreateUserRequest(getId(), getSessionIdentifier(), super.getRequestEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {

@@ -38,7 +38,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
 
             node = fountainNeo.findByURI(request.getUri());
             LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
-            final LSDEntity requestEntity = request.getEntity();
+            final LSDEntity requestEntity = request.getRequestEntity();
 
             Runnable onRenameAction = new Runnable() {
                 @Override

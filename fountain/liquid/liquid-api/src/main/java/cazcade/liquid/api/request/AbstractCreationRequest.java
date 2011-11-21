@@ -31,8 +31,8 @@ public abstract class AbstractCreationRequest extends AbstractRequest {
     @Override
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
-        if (getEntity() != null) {
-            getEntity().setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        if (getRequestEntity() != null) {
+            getRequestEntity().setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
     }
 }

@@ -6,12 +6,10 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
-import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.*;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.panels.list.dm.DirectMessageStreamEntryPanel;
@@ -247,7 +245,7 @@ public class ChatStreamPanel extends Composite {
     }
 
     private String entryComparisonString(LSDEntity entity) {
-        final LSDEntity author = entity.getSubEntity(LSDAttribute.AUTHOR);
+        final LSDEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, false);
         return entity.getAttribute(LSDAttribute.TEXT_BRIEF) + (author == null ? "null" : author.getAttribute(LSDAttribute.NAME));
     }
 
@@ -262,8 +260,8 @@ public class ChatStreamPanel extends Composite {
                 } else {
                     if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
-                        final boolean isMe = entry.getSubEntity(LSDAttribute.AUTHOR).getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
-                        final boolean isAnon = UserUtil.isAnonymousAliasURI(entry.getSubEntity(LSDAttribute.AUTHOR).getAttribute(LSDAttribute.URI));
+                        final boolean isMe = entry.getSubEntity(LSDAttribute.AUTHOR, false).getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
+                        final boolean isAnon = UserUtil.isAnonymousAliasURI(entry.getSubEntity(LSDAttribute.AUTHOR, false).getAttribute(LSDAttribute.URI));
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
                         final boolean isHere = sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());
                         final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - UPDATE_LIEFTIME;

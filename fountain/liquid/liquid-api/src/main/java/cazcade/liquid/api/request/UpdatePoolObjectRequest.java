@@ -69,7 +69,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new UpdatePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), getUri(), super.getEntity());
+        return new UpdatePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), getUri(), super.getRequestEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {

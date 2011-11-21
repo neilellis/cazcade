@@ -103,7 +103,7 @@ public class NotificationPanel extends Composite {
                                 addToStream(new CommentEntryPanel(message.getResponse(), features));
                             }
                             if (message.getResponse() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
-                                    && !UserUtil.isAnonymousAliasURI(message.getResponse().getSubEntity(LSDAttribute.VISITOR).getURI().toString())
+                                    && !UserUtil.isAnonymousAliasURI(message.getResponse().getSubEntity(LSDAttribute.VISITOR, false).getURI().toString())
                                     ) {
                                 VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(message.getResponse(), pool, message.getId().toString());
                                 addToStream(content);

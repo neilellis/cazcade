@@ -69,8 +69,8 @@ public class FountainDataStoreFacadeProxyFactory {
             liquidRequest.setOrigin(LiquidMessageOrigin.CLIENT);
             LiquidMessage response = null;
             try {
-                if (liquidRequest.getEntity() != null) {
-                    entityValidator.validate(liquidRequest.getEntity(), ValidationLevel.MODERATE);
+                if (liquidRequest.getRequestEntity() != null) {
+                    entityValidator.validate(liquidRequest.getRequestEntity(), ValidationLevel.MODERATE);
                 }
                 response = authorizationService.authorize(liquidRequest);
                 if (response == null) {

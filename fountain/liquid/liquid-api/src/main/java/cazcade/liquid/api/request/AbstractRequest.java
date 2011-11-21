@@ -498,9 +498,9 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         entity.addSubEntity(LSDAttribute.REQUEST_RESULT, response, false);
     }
 
-    public final LSDEntity getEntity() {
+    public final LSDEntity getRequestEntity() {
         if (entity.hasSubEntity(LSDAttribute.REQUEST_ENTITY)) {
-            return entity.getSubEntity(LSDAttribute.REQUEST_ENTITY);
+            return entity.getSubEntity(LSDAttribute.REQUEST_ENTITY, true);
         } else {
             return null;
         }
@@ -509,7 +509,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
 
     public final LSDEntity getResponse() {
         if (entity.hasSubEntity(LSDAttribute.REQUEST_RESULT)) {
-            return entity.getSubEntity(LSDAttribute.REQUEST_RESULT);
+            return entity.getSubEntity(LSDAttribute.REQUEST_RESULT, true);
         } else {
             return null;
         }
@@ -553,7 +553,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         if (getResponse() != null) {
             return getResponse();
         } else {
-            return getEntity();
+            return getRequestEntity();
         }
     }
 
@@ -564,8 +564,8 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
 
     protected final Set<LiquidURI> getStandardAffectedEntitiesInternalPlus(LiquidURI... uris) {
         final Set<LiquidURI> result = new HashSet<LiquidURI>();
-        if (getEntity() != null) {
-            result.addAll(getAffectedEntitiesInternal(getEntity().getURI()));
+        if (getRequestEntity() != null) {
+            result.addAll(getAffectedEntitiesInternal(getRequestEntity().getURI()));
         }
         if (getResponse() != null) {
             result.addAll(getAffectedEntitiesInternal(getResponse().getURI()));
@@ -603,8 +603,8 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
 
     @Override
     public void adjustTimeStampForServerTime() {
-        if (getEntity() != null) {
-            getEntity().timestamp();
+        if (getRequestEntity() != null) {
+            entity.setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         }
     }
 
@@ -623,5 +623,8 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return new SerializedRequest(getRequestType(), entity);
     }
 
+    public LSDEntity getEntity() {
+        return entity;
+    }
 
 }

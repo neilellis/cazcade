@@ -15,11 +15,11 @@ public class CreateUserRequestValidator extends AbstractRequestValidator<CreateU
 
     public void validate(CreateUserRequest request, ValidationLevel level) {
         log.debug("Validating create user request.");
-        if (!request.getEntity().isA(LSDDictionaryTypes.USER)) {
+        if (!request.getRequestEntity().isA(LSDDictionaryTypes.USER)) {
             throw new ValidationException("The entity supplied is not a user entity.");
         }
-        entityValidator.validate(request.getEntity(), level);
-        if (!request.getEntity().hasAttribute(LSDAttribute.PLAIN_PASSWORD)) {
+        entityValidator.validate(request.getRequestEntity(), level);
+        if (!request.getRequestEntity().hasAttribute(LSDAttribute.PLAIN_PASSWORD)) {
             throw new ValidationException("You cannot create a new user without supplying the plain text password.");
         }
 

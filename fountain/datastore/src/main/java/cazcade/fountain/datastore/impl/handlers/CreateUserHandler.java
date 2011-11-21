@@ -26,11 +26,11 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
         Node userNode;
         try {
 
-            userNode = userDAO.createUser(request.getEntity(), false);
+            userNode = userDAO.createUser(request.getRequestEntity(), false);
 
             LSDEntity entity = fountainNeo.convertNodeToLSD(userNode, request.getDetail(), request.isInternal());
-            String username = request.getEntity().getAttribute(LSDAttribute.NAME);
-            if(username == null) {
+            String username = request.getRequestEntity().getAttribute(LSDAttribute.NAME);
+            if (username == null) {
                 throw new DataStoreException("The name attribute was null on the entity passed in to create user.");
             }
             poolDAO.createPoolsForUserNoTx(username);

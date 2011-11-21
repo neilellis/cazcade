@@ -32,7 +32,7 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new UpdateSessionRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getEntity(), isInternal());
+        return new UpdateSessionRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getRequestEntity(), isInternal());
     }
 
 

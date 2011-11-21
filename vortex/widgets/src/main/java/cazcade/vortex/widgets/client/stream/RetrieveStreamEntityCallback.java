@@ -11,14 +11,13 @@ import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import com.google.gwt.user.client.ui.InsertPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
-* @author neilellis@cazcade.com
-*/
+ * @author neilellis@cazcade.com
+ */
 class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequest> {
     private FormatUtil features;
     private int maxRows;
@@ -47,8 +46,8 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
             } else {
                 if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                     //TODO: This should all be done on the serverside (see LatestContentFinder).
-                    final boolean isMe = entry.getSubEntity(LSDAttribute.AUTHOR).getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
-                    final boolean isAnon = UserUtil.isAnonymousAliasURI(entry.getSubEntity(LSDAttribute.AUTHOR).getAttribute(LSDAttribute.URI));
+                    final boolean isMe = entry.getSubEntity(LSDAttribute.AUTHOR, false).getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
+                    final boolean isAnon = UserUtil.isAnonymousAliasURI(entry.getSubEntity(LSDAttribute.AUTHOR, false).getAttribute(LSDAttribute.URI));
                     final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
                     final boolean isHere = sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());
                     final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - NotificationPanel.UPDATE_LIEFTIME;

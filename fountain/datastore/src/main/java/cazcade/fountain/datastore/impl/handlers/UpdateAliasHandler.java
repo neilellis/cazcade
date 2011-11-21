@@ -10,10 +10,10 @@ import cazcade.liquid.api.request.UpdateAliasRequest;
 public class UpdateAliasHandler extends AbstractUpdateHandler<UpdateAliasRequest> implements UpdateAliasRequestHandler {
     public UpdateAliasRequest handle(UpdateAliasRequest request) throws Exception {
         if (request.getUri() != null) {
-            fountainNeo.updateEntityByURITx(request.getSessionIdentifier(), request.getUri(), request.getEntity(), request.isInternal(), request.getDetail(), null);
+            fountainNeo.updateEntityByURITx(request.getSessionIdentifier(), request.getUri(), request.getRequestEntity(), request.isInternal(), request.getDetail(), null);
             return LiquidResponseHelper.forServerSuccess(request, socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.getDetail()));
         } else {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(request.getSessionIdentifier(), request.getTarget(), request.getEntity(), request.isInternal(), request.getDetail(), null));
+            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(request.getSessionIdentifier(), request.getTarget(), request.getRequestEntity(), request.isInternal(), request.getDetail(), null));
         }
     }
 

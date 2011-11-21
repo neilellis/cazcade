@@ -19,10 +19,11 @@ public interface LSDEntity extends Serializable {
     /**
      * Returns a non referenced sub object from all properties with the common parent path.
      *
-     * @param path all properties that start with this will be used.
+     * @param path     all properties that start with this will be used.
+     * @param readonly
      * @return a new object from the sub properties.
      */
-    LSDEntity getSubEntity(LSDAttribute path);
+    LSDEntity getSubEntity(LSDAttribute path, boolean readonly);
 
     LSDEntity removeSubEntity(LSDAttribute path);
 
@@ -225,6 +226,10 @@ public interface LSDEntity extends Serializable {
     boolean getBooleanAttribute(LSDAttribute attribute, boolean defaultValue);
 
     void removeCompletely(LSDAttribute attribute);
+
+    void setReadonly(boolean readonly);
+
+    void setAttribute(LSDAttribute parent, LSDAttribute child, String value);
 
 
     class EntityUpdatedComparator implements Comparator<LSDEntity> {

@@ -55,7 +55,7 @@ public class AddCommentRequest extends AbstractUpdateRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new AddCommentRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getEntity());
+        return new AddCommentRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
     }
 
     public LiquidRequestType getRequestType() {
@@ -66,9 +66,10 @@ public class AddCommentRequest extends AbstractUpdateRequest {
     @Override
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
-        if (getEntity() != null) {
-            getEntity().setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        if (getRequestEntity() != null) {
+            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
 
     }
+
 }

@@ -43,7 +43,7 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
 
         initWidget(ourUiBinder.createAndBindUi(this));
         this.entity = streamEntry;
-        visitor = streamEntry.getSubEntity(LSDAttribute.VISITOR);
+        visitor = streamEntry.getSubEntity(LSDAttribute.VISITOR, false);
         profileImage.setUrl(visitor.getAttribute(LSDAttribute.IMAGE_URL));
         if (pool.equals(entity.getURI())) {
             text.setInnerText(visitor.getAttribute(LSDAttribute.FULL_NAME) + " has just entered.");

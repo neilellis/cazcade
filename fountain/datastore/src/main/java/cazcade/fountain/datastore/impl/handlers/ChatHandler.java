@@ -17,8 +17,8 @@ import java.util.UUID;
 public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements ChatRequestHandler {
     @Override
     public ChatRequest handle(ChatRequest request) throws InterruptedException {
-        socialDAO.recordChat(request.getSessionIdentifier(), request.getUri(), request.getEntity());
-        final LSDEntity response = request.getEntity().copy();
+        socialDAO.recordChat(request.getSessionIdentifier(), request.getUri(), request.getRequestEntity());
+        final LSDEntity response = request.getRequestEntity().copy();
         //fill in the author details for the recipient
         response.removeSubEntity(LSDAttribute.AUTHOR);
         final String id = UUID.randomUUID().toString();

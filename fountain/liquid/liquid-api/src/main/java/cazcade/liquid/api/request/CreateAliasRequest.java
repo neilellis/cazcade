@@ -36,7 +36,7 @@ public class CreateAliasRequest extends AbstractCreationRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new CreateAliasRequest(getId(), getSessionIdentifier(), super.getEntity(), isMe(), isOrCreate(), isClaim());
+        return new CreateAliasRequest(getId(), getSessionIdentifier(), super.getRequestEntity(), isMe(), isOrCreate(), isClaim());
     }
 
     public LiquidRequestType getRequestType() {

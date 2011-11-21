@@ -45,7 +45,7 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new CreatePoolObjectRequest(getSessionIdentifier(), getPoolUUID(), getUri(), getId(), super.getEntity(), getAuthor());
+        return new CreatePoolObjectRequest(getSessionIdentifier(), getPoolUUID(), getUri(), getId(), super.getRequestEntity(), getAuthor());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -57,12 +57,12 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
     }
 
     public List<String> getNotificationLocations() {
-        if (super.getEntity() != null) {
+        if (super.getRequestEntity() != null) {
             if (getUri() != null) {
-                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString() + "." + super.getEntity().getAttribute(LSDAttribute.NAME));
+                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString() + "." + super.getRequestEntity().getAttribute(LSDAttribute.NAME));
             } else {
-                if (super.getEntity().getID() != null) {
-                    return Arrays.asList(getPoolUUID().toString(), super.getEntity().getID().toString());
+                if (super.getRequestEntity().getID() != null) {
+                    return Arrays.asList(getPoolUUID().toString(), super.getRequestEntity().getID().toString());
                 } else {
                     return Arrays.asList(getPoolUUID().toString());
                 }

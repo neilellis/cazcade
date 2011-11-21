@@ -36,7 +36,7 @@ public class SendRequest extends AbstractRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new SendRequest(getId(), getSessionIdentifier(), getEntity(), super.getRecipient());
+        return new SendRequest(getId(), getSessionIdentifier(), getRequestEntity(), super.getRecipient());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {

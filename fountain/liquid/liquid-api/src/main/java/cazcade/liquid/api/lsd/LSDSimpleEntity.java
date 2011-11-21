@@ -16,6 +16,7 @@ public class LSDSimpleEntity implements LSDEntity {
     private TreeMap<String, String> lsdProperties = new TreeMap<String, String>();
     private LSDTypeDef lsdTypeDef;
     private LiquidUUID uuid;
+    private boolean readonly;
 
     private LSDSimpleEntity() {
     }
@@ -39,6 +40,12 @@ public class LSDSimpleEntity implements LSDEntity {
         }
 
 
+    }
+
+    private void assertNotReadonly() {
+        if (readonly) {
+            throw new IllegalStateException("Entity is readonly, cannot be mutated.");
+        }
     }
 
     private void parse(String path, LSDNode node, boolean array) {
@@ -91,13 +98,13 @@ public class LSDSimpleEntity implements LSDEntity {
         }
     }
 
-    public LSDEntity getSubEntity(LSDAttribute path) {
+    public LSDEntity getSubEntity(LSDAttribute path, boolean readonly) {
         final String keyString = path.getKeyName();
-        return getSubEntity(keyString);
+        return getSubEntity(keyString, readonly);
     }
 
-    private LSDEntity getSubEntity(String keyString) {
-        LSDSimpleEntity subEntity = createEmpty();
+    private LSDEntity getSubEntity(String keyString, boolean readonly) {
+        LSDEntity subEntity = createEmpty();
         for (Map.Entry<String, String> entry : lsdProperties.entrySet()) {
             if (entry.getKey().startsWith(keyString + ".")) {
                 String subEntityKey = entry.getKey().substring(keyString.length() + 1);
@@ -105,6 +112,7 @@ public class LSDSimpleEntity implements LSDEntity {
             }
 
         }
+        subEntity.setReadonly(readonly);
         return subEntity;
     }
 
@@ -141,6 +149,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public void setURI(LiquidURI uri) {
+        assertNotReadonly();
         setAttribute(LSDAttribute.URI, uri.asString());
     }
 
@@ -151,6 +160,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void setAttribute(LSDAttribute attribute, long value) {
+        assertNotReadonly();
         setAttribute(attribute, String.valueOf(value));
     }
 
@@ -171,6 +181,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void setAttribute(LSDAttribute attribute, LiquidUUID uuid) {
+        assertNotReadonly();
         setAttribute(attribute, uuid.toString());
     }
 
@@ -186,6 +197,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void setAttribute(LSDAttribute attribute, LiquidURI uri) {
+        assertNotReadonly();
         setAttribute(attribute, uri.asString());
     }
 
@@ -196,6 +208,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void setAttribute(LSDAttribute attribute, double value) {
+        assertNotReadonly();
         setAttribute(attribute, String.valueOf(value));
     }
 
@@ -228,7 +241,19 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void removeCompletely(LSDAttribute attribute) {
+        assertNotReadonly();
         lsdProperties.remove(attribute.getKeyName());
+    }
+
+    @Override
+    public void setReadonly(boolean readonly) {
+        this.readonly = readonly;
+    }
+
+    @Override
+    public void setAttribute(LSDAttribute parent, LSDAttribute child, String value) {
+        assertNotReadonly();
+        setValue(parent.getKeyName() + "." + child.getKeyName(), value);
     }
 
 
@@ -367,6 +392,7 @@ public class LSDSimpleEntity implements LSDEntity {
 //    }
 
     public void setValue(String key, String value) {
+        assertNotReadonly();
         if (value == null) {
             throw new NullPointerException("The value for key '" + key + "' was null.");
         }
@@ -378,6 +404,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public void setAttribute(LSDAttribute key, String value) {
+        assertNotReadonly();
         if (key == null) {
             throw new IllegalArgumentException("Cannot set a value for a null key.");
         }
@@ -388,6 +415,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public void setAttributeConditonally(LSDAttribute key, String value) {
+        assertNotReadonly();
         if (value != null) {
             setValue(key.getKeyName(), value);
         }
@@ -430,6 +458,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public void setValues(LSDAttribute key, List values) {
+        assertNotReadonly();
         for (Map.Entry<String, String> entry : lsdProperties.entrySet()) {
             if (entry.getKey().startsWith(key.getKeyName() + ".")) {
                 entry.setValue("");
@@ -457,11 +486,13 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public void remove(LSDAttribute key) {
+        assertNotReadonly();
         lsdProperties.put(key.getKeyName(), "");
     }
 
     @Override
     public void removeValue(LSDAttribute id) {
+        assertNotReadonly();
         lsdProperties.remove(id.toString());
     }
 
@@ -473,6 +504,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void setAttribute(LSDAttribute checked, boolean bool) {
+        assertNotReadonly();
         setAttribute(checked, bool ? "true" : "false");
     }
 
@@ -484,7 +516,7 @@ public class LSDSimpleEntity implements LSDEntity {
     @Override
     public Object get(String key) {
         String dotStyleKey = convertFromCamel(key);
-        LSDEntity subEntity = getSubEntity(dotStyleKey);
+        LSDEntity subEntity = getSubEntity(dotStyleKey, true);
         if (subEntity == null) {
             return lsdProperties.get(dotStyleKey);
         } else {
@@ -494,6 +526,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public Object set(String key, String value) {
+        assertNotReadonly();
         if (value == null) {
             throw new NullPointerException("Cannot set " + key + " to a null value.");
         }
@@ -511,6 +544,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void setId(String id) {
+        assertNotReadonly();
         set(ID_KEY, id);
     }
 
@@ -546,6 +580,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     public void addAnonymousSubEntity(LSDAttribute stem, LSDEntity entity) {
+        assertNotReadonly();
         Map<String, String> map = entity.getMap();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             setValue(stem.getKeyName() + "." + entry.getKey(), entry.getValue());
@@ -553,6 +588,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public void addSubEntity(LSDAttribute stem, LSDEntity entity, boolean requiresId) {
+        assertNotReadonly();
         if (!stem.isSubEntity()) {
             throw new IllegalArgumentException("Cannot add a sub entity to a non sub entity property '" + stem.getKeyName() + "'.");
         }
@@ -570,6 +606,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
 
     public void addSubEntities(LSDAttribute stem, Collection<LSDEntity> entities) {
+        assertNotReadonly();
         if (!stem.isSubEntity()) {
             throw new IllegalArgumentException("Cannot add a sub entity to a non sub entity property '" + stem.getKeyName() + "'.");
         }
@@ -689,6 +726,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
 
     public void setType(LSDDictionaryTypes type) {
+        assertNotReadonly();
         if (type.getValue() == null) {
             throw new NullPointerException("Cannot set type to a null value.");
         }
@@ -697,6 +735,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     public void setID(LiquidUUID id) {
+        assertNotReadonly();
         lsdProperties.put(ID_KEY, id.toString().toLowerCase());
     }
 

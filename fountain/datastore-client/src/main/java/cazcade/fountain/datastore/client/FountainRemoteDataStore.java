@@ -54,8 +54,8 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
             if (request.getId() == null) {
                 request.setId(UUIDFactory.randomUUID());
             }
-            if (request.getEntity() != null && request.getEntity().getUpdated() == null) {
-                request.getEntity().timestamp();
+            if (request.getRequestEntity() != null && request.getRequestEntity().getUpdated() == null) {
+                request.getRequestEntity().timestamp();
             }
             requestValidator.validate(request, ValidationLevel.MODERATE);
 

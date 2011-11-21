@@ -94,7 +94,7 @@ public class ChecklistEntryView extends Composite {
         if (entity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
             label.setText(entity.getAttribute(LSDAttribute.TEXT_EXTENDED));
         }
-        final LSDEntity authorEntity = entity.getSubEntity(LSDAttribute.AUTHOR);
+        final LSDEntity authorEntity = entity.getSubEntity(LSDAttribute.AUTHOR, false);
         if (authorEntity != null) {
             author.setText(authorEntity.getAttribute(LSDAttribute.NAME));
         } else {

@@ -25,7 +25,7 @@ public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObj
                 node = fountainNeo.findByUUID(request.getTarget());
             }
 
-            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(), request.getEntity(), pool, node, request.isInternal(), request.getDetail());
+            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(), request.getRequestEntity(), pool, node, request.isInternal(), request.getDetail());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

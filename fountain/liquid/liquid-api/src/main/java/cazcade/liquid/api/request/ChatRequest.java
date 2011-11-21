@@ -38,8 +38,8 @@ public class ChatRequest extends AbstractUpdateRequest {
     public ChatRequest(LiquidURI uri, String value) {
         this.setRequestEntity(LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT));
         //Time clocks vary so we don't want this set.
-        super.getEntity().remove(LSDAttribute.PUBLISHED);
-        super.getEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
+        super.getRequestEntity().remove(LSDAttribute.PUBLISHED);
+        super.getRequestEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
         this.setUri(uri);
     }
 
@@ -54,7 +54,7 @@ public class ChatRequest extends AbstractUpdateRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new ChatRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getEntity());
+        return new ChatRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
     }
 
     public LiquidRequestType getRequestType() {
@@ -65,8 +65,8 @@ public class ChatRequest extends AbstractUpdateRequest {
     @Override
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
-        if (getEntity() != null) {
-            getEntity().setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        if (getRequestEntity() != null) {
+            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
 
     }

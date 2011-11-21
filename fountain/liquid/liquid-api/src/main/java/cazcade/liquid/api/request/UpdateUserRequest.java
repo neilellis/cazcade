@@ -34,7 +34,7 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new UpdateUserRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getEntity());
+        return new UpdateUserRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getRequestEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
