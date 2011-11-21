@@ -130,8 +130,10 @@ public class ImageScaleServlet extends HttpServlet {
             final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ImageIO.write(scaledImage, "jpg", byteArrayOutputStream);
             final byte[] bytes = byteArrayOutputStream.toByteArray();
-            scaleCache.put(new Element(key, bytes, false, DEFAULT_SCALED_IMAGE_TTL_SECS, DEFAULT_SCALED_IMAGE_TTL_SECS));
+            final Element element = new Element(key, bytes, false, DEFAULT_SCALED_IMAGE_TTL_SECS, DEFAULT_SCALED_IMAGE_TTL_SECS);
+            scaleCache.put(element);
             resp.setHeader("Cache-Control", "max-age=" + DEFAULT_SCALED_IMAGE_TTL_SECS);
+            setDateHeaders(resp, element);
             IOUtils.closeQuietly(is);
             IOUtils.write(bytes, resp.getOutputStream());
         } else {
@@ -144,9 +146,16 @@ public class ImageScaleServlet extends HttpServlet {
             //
             final Element element = scaleCache.get(key);
             resp.setHeader("Cache-Control", "max-age=" + element.getTimeToLive());
+            setDateHeaders(resp, element);
             IOUtils.write((byte[]) (element.getValue()), resp.getOutputStream());
         }
         resp.flushBuffer();
+    }
+
+    private void setDateHeaders(HttpServletResponse resp, Element element) {
+        resp.setDateHeader("Date", System.currentTimeMillis());
+        resp.setDateHeader("Last-Modified", element.getLastUpdateTime());
+        resp.setDateHeader("Expires", element.getExpirationTime());
     }
 
     private DimensionConstrain getDimentionConstrainFromRequest(HttpServletRequest req,
