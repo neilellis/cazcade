@@ -82,7 +82,7 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
 
     protected void init(LSDEntity streamEntry, FormatUtil features) {
         this.entity = streamEntry;
-        final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);
+        final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, true);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         profileImage.setAliasUri(author.getURI());
 

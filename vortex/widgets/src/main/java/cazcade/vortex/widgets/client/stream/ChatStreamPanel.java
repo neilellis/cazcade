@@ -245,7 +245,7 @@ public class ChatStreamPanel extends Composite {
     }
 
     private String entryComparisonString(LSDEntity entity) {
-        final LSDEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, false);
+        final LSDEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, true);
         return entity.getAttribute(LSDAttribute.TEXT_BRIEF) + (author == null ? "null" : author.getAttribute(LSDAttribute.NAME));
     }
 
@@ -260,8 +260,9 @@ public class ChatStreamPanel extends Composite {
                 } else {
                     if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
-                        final boolean isMe = entry.getSubEntity(LSDAttribute.AUTHOR, false).getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
-                        final boolean isAnon = UserUtil.isAnonymousAliasURI(entry.getSubEntity(LSDAttribute.AUTHOR, false).getAttribute(LSDAttribute.URI));
+                        final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
+                        final boolean isMe = author.getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
+                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
                         final boolean isHere = sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());
                         final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - UPDATE_LIEFTIME;

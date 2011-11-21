@@ -32,7 +32,7 @@ public abstract class AbstractCreationRequest extends AbstractRequest {
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
         if (getRequestEntity() != null) {
-            getRequestEntity().setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
     }
 }

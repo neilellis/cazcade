@@ -117,7 +117,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         if (poolObjectView.getParent() == null) {
             throw new RuntimeException("Cannot add pool object to pool with a widget parent of null.");
         }
-        LSDEntity viewEntity = entity.getSubEntity(LSDAttribute.VIEW, false);
+        LSDEntity viewEntity = entity.getSubEntity(LSDAttribute.VIEW, true);
         browserUtil.initDraggable(poolObjectView);
         gestureController = new EventBasedGestureController(this, poolObjectView.getInnerWidget(), true, true);
 
