@@ -19,7 +19,7 @@ import java.util.Map;
 public class HistoryManager {
 
 
-    Map<String, HistoryAware> compositeMap = new HashMap<String, HistoryAware>();
+    Map<String, HistoryAwareFactory> compositeMap = new HashMap<String, HistoryAwareFactory>();
     private String mainPanelId;
 
     public HistoryManager(final String mainPanelId) {
@@ -44,7 +44,7 @@ public class HistoryManager {
         if (newToken.contains("?")) {
             newToken = newToken.substring(0, newToken.lastIndexOf('?'));
         }
-        String localToken;
+        final String localToken;
 
         if (newToken.contains(":")) {
             final String[] strings = newToken.split(":");
@@ -58,22 +58,29 @@ public class HistoryManager {
             tokenFirstPart = "default";
             localToken = newToken;
         }
-        final HistoryAware composite = compositeMap.get(tokenFirstPart);
-        if (composite != null) {
-            final Widget currentWidget = RootPanel.get(mainPanelId).iterator().next();
-            if (currentWidget != null) {
-                currentWidget.removeFromParent();
-            }
-            if (composite.addToRootPanel()) {
-                composite.asWidget().addStyleName("main-content-panel");
-                RootPanel.get(mainPanelId).add(composite);
-            }
-            composite.onLocalHistoryTokenChanged(localToken);
+        compositeMap.get(tokenFirstPart).withInstance(
+                new HistoryAwareFactoryCallback() {
+                    @Override
+                    public void withInstance(HistoryAware composite) {
+                        if (composite != null) {
+                            final Widget currentWidget = RootPanel.get(mainPanelId).iterator().next();
+                            if (currentWidget != null) {
+                                currentWidget.removeFromParent();
+                            }
+                            if (composite.addToRootPanel()) {
+                                composite.asWidget().addStyleName("main-content-panel");
+                                RootPanel.get(mainPanelId).add(composite);
+                            }
+                            composite.onLocalHistoryTokenChanged(localToken);
 
-        }
+                        }
+                    }
+                }
+        );
+
     }
 
-    public void registerTopLevelComposite(String token, HistoryAware composite) {
+    public void registerTopLevelComposite(String token, HistoryAwareFactory composite) {
         compositeMap.put(token, composite);
         composite.setHistoryManager(this);
         composite.setHistoryToken(token);

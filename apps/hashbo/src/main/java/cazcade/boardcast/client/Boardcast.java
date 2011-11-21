@@ -20,6 +20,8 @@ import cazcade.vortex.comms.datastore.client.GWTDataStore;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.analytics.Track;
+import cazcade.vortex.gwt.util.client.history.AbstractLazyHistoryAwareFactory;
+import cazcade.vortex.gwt.util.client.history.HistoryAware;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -90,7 +92,17 @@ public class Boardcast implements EntryPoint {
         createRequest = Window.Location.getPath().startsWith("/_create-");
         createUnlistedRequest = Window.Location.getPath().startsWith("/_create-unlisted");
 
-        injectChildren();
+        GWT.runAsync(new RunAsyncCallback() {
+            @Override
+            public void onFailure(Throwable reason) {
+                ClientLog.log(reason);
+            }
+
+            @Override
+            public void onSuccess() {
+                injectChildren();
+            }
+        });
 
         if (Window.Location.getParameter("justRegistered") != null) {
             RootPanel.get("page-title").getElement().setInnerText("Registered successfully");
@@ -153,35 +165,50 @@ public class Boardcast implements EntryPoint {
 
     private void addCreateDialog() {
 
-        final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
-        historyManager.registerTopLevelComposite("create", createBoardDialog);
-        createBoardDialog.setOnComplete(new Runnable() {
+        historyManager.registerTopLevelComposite("create", new AbstractLazyHistoryAwareFactory() {
             @Override
-            public void run() {
-                createBoardDialog.hide();
-                String board = createBoardDialog.getBoard();
-                final boolean listed = createBoardDialog.isListed();
-                if (!listed) {
-                    BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
-                        @Override
-                        public void callback(LiquidUUID uuid) {
-                            final String unlistedShortUrl = "-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
-                            historyManager.navigate(unlistedShortUrl);
+            protected HistoryAware getInstanceInternal() {
+                final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
+                createBoardDialog.setOnComplete(new Runnable() {
+                    @Override
+                    public void run() {
+                        createBoardDialog.hide();
+                        String board = createBoardDialog.getBoard();
+                        final boolean listed = createBoardDialog.isListed();
+                        if (!listed) {
+                            BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
+                                @Override
+                                public void callback(LiquidUUID uuid) {
+                                    final String unlistedShortUrl = "-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
+                                    historyManager.navigate(unlistedShortUrl);
+                                }
+                            });
+                        } else {
+                            historyManager.navigate(board);
                         }
-                    });
-                } else {
-                    historyManager.navigate(board);
-                }
+                    }
+                });
+                return createBoardDialog;
             }
         });
     }
 
     private void addPublicBoard() {
-        final PublicBoard board = new PublicBoard();
-        RootPanel.get(PUBLIC_BOARD_PANEL_ID).add(board);
         historyManager = new HistoryManager(PUBLIC_BOARD_PANEL_ID);
-        historyManager.registerTopLevelComposite("default", board);
-        historyManager.registerTopLevelComposite("chat", new BoardcastChatView());
+        historyManager.registerTopLevelComposite("default", new AbstractLazyHistoryAwareFactory() {
+            @Override
+            protected HistoryAware getInstanceInternal() {
+                final PublicBoard board = new PublicBoard();
+                RootPanel.get(PUBLIC_BOARD_PANEL_ID).add(board);
+                return board;
+            }
+        });
+        historyManager.registerTopLevelComposite("chat", new AbstractLazyHistoryAwareFactory() {
+            @Override
+            protected HistoryAware getInstanceInternal() {
+                return new BoardcastChatView();
+            }
+        });
     }
 
     private void createLoginPanel(final Runnable loginAction) {
