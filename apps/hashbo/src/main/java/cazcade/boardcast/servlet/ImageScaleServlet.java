@@ -45,6 +45,7 @@ public class ImageScaleServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(ImageScaleServlet.class.getName());
     //todo get this from the original image, or make param or something :-)
     public static final int DEFAULT_SCALED_IMAGE_TTL_SECS = 24 * 3600;
+    public static final String IF_MODIFIED_SINCE = "If-Modified-Since";
 
     private Cache scaleCache;
     private static final String IMAGE_SCALE_CACHE = "image-scale-cache";
@@ -65,10 +66,10 @@ public class ImageScaleServlet extends HttpServlet {
         final String w = req.getParameter("width");
         final String h = req.getParameter("height");
         final String key = url + ":" + w + ":" + h;
-        if (scaleCache.get(key) != null) {
+        if (scaleCache.get(key) != null && req.getHeader(IF_MODIFIED_SINCE) != null) {
             final Element element = scaleCache.get(key);
             element.getCreationTime();
-            if (req.getDateHeader("If-Modified-Since") > element.getCreationTime()) {
+            if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime()) {
                 resp.setStatus(304);
             } else {
                 resp.setStatus(200);
@@ -151,9 +152,9 @@ public class ImageScaleServlet extends HttpServlet {
     private DimensionConstrain getDimentionConstrainFromRequest(HttpServletRequest req,
                                                                 int defwidth,
                                                                 int defheight) {
-        final String w = req.getParameter("w");
+        final String w = req.getParameter("width");
         int width = getInt(w, defwidth);
-        final String h = req.getParameter("h");
+        final String h = req.getParameter("height");
         int height = getInt(h, defheight);
 
         return DimensionConstrain.createMaxDimension(width, height);
