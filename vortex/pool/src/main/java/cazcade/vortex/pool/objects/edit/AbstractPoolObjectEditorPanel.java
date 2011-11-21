@@ -30,7 +30,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                     getBus().send(new UpdatePoolObjectRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                         @Override
                         public void onSuccess(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
-                            setEntity(response.getResponse());
+                            setEntity(response.getResponse().copy());
                             if (autoCloseField(field)) {
                                 if (onFinishAction != null) {
                                     onFinishAction.run();

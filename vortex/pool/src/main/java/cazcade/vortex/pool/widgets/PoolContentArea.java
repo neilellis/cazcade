@@ -81,7 +81,7 @@ public class PoolContentArea extends Composite {
             @Override
             public void onSuccess(VisitPoolRequest message, final VisitPoolRequest response) {
                 ClientLog.log("Got response.");
-                LSDEntity poolEntity = response.getResponse();
+                LSDEntity poolEntity = response.getResponse().copy();
                 ClientLog.log(poolEntity.dump());
 
                 PoolContentArea.this.init(poolEntity, features, threadSafeExecutor);

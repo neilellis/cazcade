@@ -1,6 +1,7 @@
 package cazcade.vortex.bus.client;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -145,7 +146,8 @@ public class BusImpl implements Bus {
                 keys.add("*:" + affectedEntity);
             }
         }
-        String responseEntityId = message.getResponse() == null ? "" : message.getResponse().getID().toString();
+        final LSDEntity response = message.getResponse();
+        String responseEntityId = response == null ? "" : response.getID().toString();
 
         keys.add(message.getMessageType().name() + ":" + responseEntityId);
         keys.add(message.getMessageType().name() + ":*");
@@ -367,18 +369,19 @@ public class BusImpl implements Bus {
         public void handleResponse(LiquidMessage response) {
 //            ClientLog.log("Callback processor processing " + response.getId());
             for (ResponseCallback responseCallback : callbacks) {
+                final LSDEntity responseEntity = response.getResponse();
                 if (message.getState() == LiquidMessageState.FAIL || (message.getResponse() != null && message.getResponse().isError())) {
-                    if (response.getResponse() == null) {
+                    if (responseEntity == null) {
                         ClientLog.log("Callback handling failed and response entity was null. ");
                     } else {
-                        ClientLog.log("Callback handling failed " + response.getResponse().asFreeText());
+                        ClientLog.log("Callback handling failed " + responseEntity.asFreeText());
                     }
                     responseCallback.onFailure(message, response);
                 } else {
-                    if (response.getResponse() == null) {
+                    if (responseEntity == null) {
                         ClientLog.log("Callback handling success, but response entity was null. ");
                     } else {
-                        ClientLog.log("Callback handling success " + response.getResponse().asFreeText());
+                        ClientLog.log("Callback handling success " + responseEntity.asFreeText());
                     }
                     responseCallback.onSuccess(message, response);
                 }

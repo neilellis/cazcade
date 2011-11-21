@@ -1,15 +1,19 @@
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.*;
+import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
-import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.api.request.SendRequest;
-import cazcade.vortex.bus.client.*;
+import cazcade.vortex.bus.client.AbstractBusListener;
+import cazcade.vortex.bus.client.Bus;
+import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.panels.list.dm.DirectMessageStreamEntryPanel;
@@ -97,9 +101,10 @@ public class CommentPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(LiquidMessage message) {
-                            if (message.getResponse() != null && message.getResponse().isA(LSDDictionaryTypes.COMMENT)
-                                    && message.getResponse().getAttribute(LSDAttribute.TEXT_BRIEF) != null && !message.getResponse().getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addStreamEntry(new CommentEntryPanel(message.getResponse(), features));
+                            final LSDEntity response = message.getResponse();
+                            if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
+                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                                addStreamEntry(new CommentEntryPanel(response, features));
                                 chatMessageSound.play();
 
 
@@ -139,7 +144,7 @@ public class CommentPanel extends Composite {
 
 
     private void addStreamEntry(final StreamEntry vortexStreamContent) {
-     StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, vortexStreamContent, false);
+        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, vortexStreamContent, false);
 
     }
 

@@ -132,7 +132,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
 
                 ClientLog.log("Got response.");
-                poolEntity = response.getResponse();
+                poolEntity = response.getResponse().copy();
                 GWT.runAsync(new RunAsyncCallback() {
                     @Override
                     public void onFailure(Throwable reason) {

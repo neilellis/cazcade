@@ -38,7 +38,7 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(UpdatePoolRequest message, UpdatePoolRequest response) {
-                        setEntity(response.getResponse());
+                        setEntity(response.getResponse().copy());
                     }
 
                     @Override

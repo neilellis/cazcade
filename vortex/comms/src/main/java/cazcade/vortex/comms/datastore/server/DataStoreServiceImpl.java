@@ -244,7 +244,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             LiquidMessage message;
             message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin"), new LiquidURI(LiquidURIScheme.user, username), true));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
-            return message.getResponse().isA(LSDDictionaryTypes.EMPTY_RESULT) || message.getResponse().isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || message.getResponse().isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
+            final LSDEntity responseEntity = message.getResponse();
+            return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return false;
@@ -303,7 +304,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             LiquidMessage message;
             message = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("admin"), board, false, false));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
-            return message.getResponse().isA(LSDDictionaryTypes.EMPTY_RESULT) || message.getResponse().isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || message.getResponse().isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
+            final LSDEntity responseEntity = message.getResponse();
+            return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return false;

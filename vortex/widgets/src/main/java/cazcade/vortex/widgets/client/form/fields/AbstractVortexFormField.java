@@ -93,7 +93,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
 
     @Override
     public void bind(LSDEntity entity, LSDAttribute attribute, String prefix) {
-        this.entity = entity;
+        setEntity(entity);
         setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
         if (attribute != null) {
             if (isMultiValue()) {
@@ -168,6 +168,9 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
 
 
     public void setEntity(LSDEntity entity) {
+        if (entity.isReadonly()) {
+            throw new IllegalArgumentException("Cannot accept readonly entities.");
+        }
         this.entity = entity;
     }
 

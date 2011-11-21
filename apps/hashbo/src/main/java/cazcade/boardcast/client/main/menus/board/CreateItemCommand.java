@@ -88,7 +88,7 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
         create(editorPanel.getEntity(), new CreateCallback() {
             @Override
             public void onCreate(CreatePoolObjectRequest response) {
-                editorPanel.setEntity(response.getResponse());
+                editorPanel.setEntity(response.getResponse().copy());
                 PoolObjectEditor.showForCreate(editorPanel, null);
             }
         });

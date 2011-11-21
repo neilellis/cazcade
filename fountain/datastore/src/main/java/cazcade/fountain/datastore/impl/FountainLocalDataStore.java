@@ -8,8 +8,8 @@ import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.AuthorizationRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -32,7 +32,8 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
             for (AuthorizationRequest authorizationRequest : authorizationRequests) {
                 authorizationRequest.setIdentity(request.getSessionIdentifier());
                 final AuthorizationRequest result = authHandler.handle(authorizationRequest);
-                if (!LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(result.getResponse().getTypeDef())) {
+                final LSDEntity responseEntity = result.getResponse();
+                if (!LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(responseEntity.getTypeDef())) {
                     LiquidResponseHelper.forFailure(request, result);
                 }
             }

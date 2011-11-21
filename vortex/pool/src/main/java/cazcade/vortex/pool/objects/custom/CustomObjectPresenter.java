@@ -51,7 +51,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
                         bus.send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                             @Override
                             public void onSuccess(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
-                                update(response.getResponse(), true);
+                                update(response.getResponse().copy(), true);
                             }
                         });
 

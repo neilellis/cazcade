@@ -135,15 +135,16 @@ public class ChatStreamPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(LiquidMessage message) {
-                            if (message.getResponse() != null && message.getResponse().isA(LSDDictionaryTypes.CHAT)
-                                    && message.getResponse().getAttribute(LSDAttribute.TEXT_BRIEF) != null && !message.getResponse().getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addStreamEntry(new VortexStreamEntryPanel(message.getResponse(), features));
+                            final LSDEntity response = message.getResponse();
+                            if (response != null && response.isA(LSDDictionaryTypes.CHAT)
+                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                                addStreamEntry(new VortexStreamEntryPanel(response, features));
                                 chatMessageSound.play();
 
 
                             }
-                            if (message.getResponse() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
-                                addStreamEntry(new VortexPresenceNotificationPanel(message.getResponse(), pool, message.getId().toString()));
+                            if (response != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
+                                addStreamEntry(new VortexPresenceNotificationPanel(response, pool, message.getId().toString()));
                                 userEnteredSound.play();
                             }
                         }

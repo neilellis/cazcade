@@ -51,7 +51,7 @@ public class ChecklistEntryView extends Composite {
             @Override
             public void handle(LiquidMessage message) {
                 if (message.getState() != LiquidMessageState.PROVISIONAL) {
-                    update(message.getResponse());
+                    update(message.getResponse().copy());
                 }
             }
         });

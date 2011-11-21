@@ -33,6 +33,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidURIScheme;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
@@ -72,7 +73,8 @@ public class CallbackServlet extends AbstractTwitterServlet {
             RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new LiquidSessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
 
             if (RequestUtil.positiveResponse(retrieveAliasRequest)) {
-                LiquidMessage createSessionRequest = createSession(retrieveAliasRequest.getResponse().getURI());
+                final LSDEntity responseEntity = retrieveAliasRequest.getResponse();
+                LiquidMessage createSessionRequest = createSession(responseEntity.getURI());
                 if (createSessionRequest.getResponse().isA(LSDDictionaryTypes.SESSION)) {
                     LiquidSessionIdentifier serverSession = createClientSession(session, createSessionRequest);
                     dataStore.process(new UpdateAliasRequest(serverSession, twitterAlias));
@@ -80,9 +82,9 @@ public class CallbackServlet extends AbstractTwitterServlet {
                     session.removeAttribute("requestToken");
                     return;
                 } else if (createSessionRequest.getResponse().isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
-                    log.warn("Could not locate Cazcade alias for {0}, will try to register as normal.", retrieveAliasRequest.getResponse().getURI());
+                    log.warn("Could not locate Cazcade alias for {0}, will try to register as normal.", responseEntity.getURI());
                 } else {
-                    log.warn("Could not log alias {0} in, reason was {1}", retrieveAliasRequest.getResponse().getURI(), createSessionRequest.getResponse().asFreeText());
+                    log.warn("Could not log alias {0} in, reason was {1}", responseEntity.getURI(), createSessionRequest.getResponse().asFreeText());
                     response.sendRedirect(request.getContextPath() + "/_twitter/fail.jsp?message=" + URLEncoder.encode(createSessionRequest.getResponse().asFreeText(), "utf8"));
                     return;
                 }

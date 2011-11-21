@@ -207,8 +207,9 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
 
     public LiquidMessage handle(UpdatePoolObjectRequest request) {
-        if (request.getResponse() != null) {
-            update(request.getResponse(), true);
+        final LSDEntity responseEntity = request.getResponse();
+        if (responseEntity != null) {
+            update(responseEntity, true);
         } else if (request.getRequestEntity() != null) {
             //only a provisional change, so we don't change the underlying entity just it's view.
             update(request.getRequestEntity(), false);

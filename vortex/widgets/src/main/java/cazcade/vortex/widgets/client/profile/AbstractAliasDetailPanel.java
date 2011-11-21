@@ -90,7 +90,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                 getBus().send(new UpdateAliasRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdateAliasRequest>() {
                     @Override
                     public void onSuccess(UpdateAliasRequest message, UpdateAliasRequest response) {
-                        setEntity(response.getResponse());
+                        setEntity(response.getResponse().copy());
                         getWidget().getElement().getStyle().setOpacity(1.0);
 
                     }
@@ -135,7 +135,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             @Override
             public void handle(FollowRequest response) {
                 if (response.getUri().equals(aliasURI)) {
-                    bind(response.getResponse());
+                    bind(response.getResponse().copy());
                 }
             }
         });
@@ -146,7 +146,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             @Override
             public void handle(UpdateAliasRequest response) {
                 if (response.getUri().equals(aliasURI)) {
-                    bind(response.getResponse());
+                    bind(response.getResponse().copy());
                 }
             }
         });
@@ -154,7 +154,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         BusFactory.getInstance().send(new RetrieveAliasRequest(aliasURI), new AbstractResponseCallback<RetrieveAliasRequest>() {
             @Override
             public void onSuccess(RetrieveAliasRequest message, RetrieveAliasRequest response) {
-                bind(response.getResponse());
+                bind(response.getResponse().copy());
 
             }
         });

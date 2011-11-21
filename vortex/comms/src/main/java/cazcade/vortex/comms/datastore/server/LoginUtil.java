@@ -41,16 +41,17 @@ public class LoginUtil {
         LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
-        if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
-            LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), response.getResponse().getID());
+        final LSDEntity responseEntity = response.getResponse();
+        if (responseEntity.isA(LSDDictionaryTypes.SESSION)) {
+            LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getID());
             createClientSession(clientSessionManager, serverSession, true);
             if (!serverSession.isAnon()) {
                 placeServerSessionInHttpSession(dataStore, session, serverSession);
             }
             return serverSession;
         } else {
-            log.error("{0}", response.getResponse().asFreeText());
-            throw new RuntimeException("Unexpected result " + response.getResponse().getTypeDef());
+            log.error("{0}", responseEntity.asFreeText());
+            throw new RuntimeException("Unexpected result " + responseEntity.getTypeDef());
         }
     }
 

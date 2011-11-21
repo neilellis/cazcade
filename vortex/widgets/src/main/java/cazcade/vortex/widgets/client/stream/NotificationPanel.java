@@ -3,6 +3,7 @@ package cazcade.vortex.widgets.client.stream;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
@@ -98,14 +99,15 @@ public class NotificationPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(LiquidMessage message) {
-                            if (message.getResponse() != null && message.getResponse().isA(LSDDictionaryTypes.COMMENT)
-                                    && message.getResponse().getAttribute(LSDAttribute.TEXT_BRIEF) != null && !message.getResponse().getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addToStream(new CommentEntryPanel(message.getResponse(), features));
+                            final LSDEntity response = message.getResponse();
+                            if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
+                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                                addToStream(new CommentEntryPanel(response, features));
                             }
-                            if (message.getResponse() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
-                                    && !UserUtil.isAnonymousAliasURI(message.getResponse().getSubEntity(LSDAttribute.VISITOR, false).getURI().toString())
+                            if (response != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
+                                    && !UserUtil.isAnonymousAliasURI(response.getSubEntity(LSDAttribute.VISITOR, false).getURI().toString())
                                     ) {
-                                VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(message.getResponse(), pool, message.getId().toString());
+                                VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(response, pool, message.getId().toString());
                                 addToStream(content);
                                 try {
                                     userEnteredSound.play();

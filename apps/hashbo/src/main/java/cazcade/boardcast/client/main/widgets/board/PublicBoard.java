@@ -73,7 +73,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(UpdatePoolRequest message, UpdatePoolRequest response) {
-                        setEntity(response.getResponse());
+                        setEntity(response.getResponse().copy());
                     }
 
                     @Override
@@ -245,15 +245,16 @@ public class PublicBoard extends EntityBackedFormPanel {
 
             @Override
             public void onSuccess(VisitPoolRequest message, final VisitPoolRequest response) {
-                if (response.getResponse() == null || response.getResponse().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
+                final LSDEntity responseEntity = response.getResponse();
+                if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                     if (previousPoolURI != null) {
                         getHistoryManager().navigate(previousPoolURI.asShortUrl().toString());
                     }
-                } else if (response.getResponse().canBe(LSDDictionaryTypes.POOL)) {
-                    bind(response.getResponse());
+                } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
+                    bind(responseEntity.copy());
                 } else {
-                    Window.alert(response.getResponse().getAttribute(LSDAttribute.TITLE));
+                    Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
 
             }
@@ -261,7 +262,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     private void update(LiquidRequest response) {
-        bind(response.getResponse());
+        bind(response.getResponse().copy());
     }
 
     @Override
