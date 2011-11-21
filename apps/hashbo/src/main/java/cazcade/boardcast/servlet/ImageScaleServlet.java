@@ -91,6 +91,7 @@ public class ImageScaleServlet extends HttpServlet {
         final String key = url + ":" + w + ":" + h;
 
         if (scaleCache.get(key) == null) {
+
             InputStream is = new URL(url).openStream();
             if (is == null) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, String.format("Could not find the requested resource (%s)", req.getRequestURI()));
@@ -145,7 +146,12 @@ public class ImageScaleServlet extends HttpServlet {
             //
             final Element element = scaleCache.get(key);
             setDateHeaders(resp, element);
-            IOUtils.write((byte[]) (element.getValue()), resp.getOutputStream());
+            if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime()) {
+                resp.setStatus(304);
+            } else {
+                IOUtils.write((byte[]) (element.getValue()), resp.getOutputStream());
+            }
+
         }
         resp.flushBuffer();
     }
