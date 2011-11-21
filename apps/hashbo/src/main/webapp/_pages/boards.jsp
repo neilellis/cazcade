@@ -54,8 +54,8 @@
                                             <c:param name="width" value="300"/>
                                             <c:param name="height" value="200"/>
                                         </c:url>'
-                                     width="80"
-                                     height="60"
+                                     width="300"
+                                     height="200"
                                      alt="${board.description}"/>
                             </div>
                         </a>
