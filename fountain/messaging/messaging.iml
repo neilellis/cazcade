@@ -10,7 +10,15 @@
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset1" name="My Fileset" removed="false">
+          <file>file://$MODULE_DIR$/../datastore/src/main/resources/datastore-spring-config.xml</file>
+          <file>file://$MODULE_DIR$/../datastore/src/main/resources/email-config.xml</file>
+          <file>file://$MODULE_DIR$/../index/src/main/resources/index-service.xml</file>
+          <file>file://$MODULE_DIR$/../liquid/liquid-impl/src/main/resources/liquid-spring-config.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/messaging-context.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
