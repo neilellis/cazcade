@@ -42,7 +42,9 @@ public class FountainUserUpdateService {
     /**
      * This is an initial trivial solution to user updates.
      */
-    @Scheduled(cron = "0 0 19 1/1 * ? *")
+    //todo: change to a less frequent cron schedule as shown
+//    @Scheduled(cron = "0 0 19 1/1 * ? *")
+    @Scheduled(cron = "0 0 0/1 1/1 * ? *")
     public void trivialUpdateLoop() {
         if (!Logger.isProduction() && !test) {
             return;
@@ -53,7 +55,7 @@ public class FountainUserUpdateService {
         final long lastHour = System.currentTimeMillis() - HOUR_IN_MILLIS;
         final long yesterday = System.currentTimeMillis() - DAY_IN_MILLIS;
         final long lastWeek = System.currentTimeMillis() - (7L * DAY_IN_MILLIS);
-        final long lastMonth = (long) (System.currentTimeMillis() - (28L * DAY_IN_MILLIS));
+        final long lastMonth = System.currentTimeMillis() - (28L * DAY_IN_MILLIS);
 
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
