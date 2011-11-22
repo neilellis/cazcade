@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:annotation-config/>
+
+    <bean id="mailService" class="cazcade.fountain.datastore.impl.email.DefaultMailService" init-method="init">
+        <property name="smtpAuthenticator" ref="smtpAuthenticator"/>
+        <property name="smtpHost" value="smtp.postmarkapp.com"/>
+        <property name="sender" value="support@boardcast.it"/>
+        <property name="senderFullname" value="Boardcast"/>
+    </bean>
+
+    <bean id="smtpAuthenticator" class="cazcade.fountain.datastore.impl.email.SMTPAuthenticator">
+        <property name="password" value="20d930a8-c079-43f6-9022-880156538a40"/>
+        <property name="username" value="20d930a8-c079-43f6-9022-880156538a40"/>
+    </bean>
+
+
+</beans>

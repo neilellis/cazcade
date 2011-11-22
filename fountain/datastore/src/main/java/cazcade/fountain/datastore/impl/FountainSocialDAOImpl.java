@@ -1,12 +1,13 @@
 package cazcade.fountain.datastore.impl;
 
 import cazcade.common.Logger;
+import cazcade.fountain.index.persistence.dao.BoardDAO;
+import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
-import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -22,10 +23,13 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     private FountainNeo fountainNeo;
 
     @Autowired
-    private FountainPoolDAOImpl poolDAO;
+    private FountainPoolDAO poolDAO;
 
     @Autowired
-    private FountainUserDAOImpl userDAO;
+    private FountainUserDAO userDAO;
+
+    @Autowired
+    private BoardDAO boardDao;
 
     @Autowired
     private FountainIndexServiceImpl indexDAO;
@@ -207,14 +211,31 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
-    public void forEachUser(UserCallback callback) {
-        //TODO
-    }
 
     @Override
-    public List<LSDEntity> getUpdateSummaryForAlias(LiquidURI aliasURI, long since) {
-        return null; //TODO
+    public ChangeReport getUpdateSummaryForAlias(LiquidURI aliasURI, long since) throws InterruptedException {
+        ChangeReport report = new ChangeReport();
+        final Node aliasNode = fountainNeo.findByURI(aliasURI);
+        final Traverser traverse = aliasNode.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.DEPTH_ONE, new ReturnableEvaluator() {
+            @Override
+            public boolean isReturnableNode(TraversalPosition currentPos) {
+                return currentPos.currentNode().getProperty(LSDAttribute.TYPE.getKeyName()).toString().startsWith(LSDDictionaryTypes.BOARD.asString());
+            }
+        }, FountainRelationships.FOLLOW_CONTENT, Direction.INCOMING);
+        for (Node node : traverse) {
+            final long updated = Long.parseLong(node.getProperty(FountainNeo.UPDATED).toString());
+            if (updated > since) {
+                report.addChangedFollowedBoard(fountainNeo.convertNodeToLSD(node, LiquidRequestDetailLevel.NORMAL, true));
+            }
+        }
+        final List<BoardIndexEntity> ownedBoards = boardDao.getMyBoards(0, 10000, aliasURI.asString());
+        for (BoardIndexEntity ownedBoard : ownedBoards) {
+            if (ownedBoard.getUpdated().getTime() > since) {
+                report.addChangedOwnedBoard(fountainNeo.convertNodeToLSD(fountainNeo.findByURI(new LiquidURI(ownedBoard.getUri())), LiquidRequestDetailLevel.NORMAL, true));
+            }
+        }
+        return report;
+
     }
 
     LSDEntity getAliasAsProfile(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException {

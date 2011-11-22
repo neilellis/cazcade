@@ -9,6 +9,7 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.Callable;
 
 /**
@@ -73,7 +74,7 @@ public class FountainNeoIntializer {
         }
     }
 
-    private void firstInit() throws InterruptedException {
+    private void firstInit() throws InterruptedException, UnsupportedEncodingException {
         fountainNeo.setRootPool(fountainNeo.createSystemPool("pool:///"));
 
         createSystemUser();
@@ -113,7 +114,7 @@ public class FountainNeoIntializer {
         createAdminUser();
     }
 
-    private void createHashboUser() throws InterruptedException {
+    private void createHashboUser() throws InterruptedException, UnsupportedEncodingException {
         final LSDSimpleEntity hashboUser = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         hashboUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, DEFAULT_PASSWORD);
         hashboUser.setAttribute(LSDAttribute.NAME, HASHBO);
@@ -125,7 +126,7 @@ public class FountainNeoIntializer {
         poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:hashbo"), "hashbo", "Hashbo", false);
     }
 
-    private void createAdminUser() throws InterruptedException {
+    private void createAdminUser() throws InterruptedException, UnsupportedEncodingException {
         final LSDSimpleEntity hashboUser = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         hashboUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, ADMIN);
         hashboUser.setAttribute(LSDAttribute.NAME, ADMIN);
@@ -138,7 +139,7 @@ public class FountainNeoIntializer {
 
     }
 
-    private void createAnonUser() throws InterruptedException {
+    private void createAnonUser() throws InterruptedException, UnsupportedEncodingException {
         final LSDSimpleEntity anonUser = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         anonUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, DEFAULT_PASSWORD);
         anonUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");
@@ -150,7 +151,7 @@ public class FountainNeoIntializer {
     }
 
 
-    private void createSystemUser() throws InterruptedException {
+    private void createSystemUser() throws InterruptedException, UnsupportedEncodingException {
         LSDEntity systemUser = LSDSimpleEntity.createEmpty();
         systemUser.setAttribute(LSDAttribute.NAME, FountainNeo.SYSTEM);
         systemUser.setAttribute(LSDAttribute.FULL_NAME, "Administrator");

@@ -4,6 +4,8 @@ import cazcade.fountain.datastore.api.DuplicateEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.api.RelationshipNotFoundException;
 import cazcade.fountain.datastore.api.UserRestrictedException;
+import cazcade.fountain.index.persistence.dao.AliasDAO;
+import cazcade.fountain.index.persistence.entities.AliasEntity;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -14,15 +16,26 @@ import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.UnsupportedEncodingException;
 
 public class FountainUserDAOImpl implements FountainUserDAO {
 
+    private final Logger log = LoggerFactory.getLogger(FountainUserDAOImpl.class);
+
+
     public static final boolean USER_MUST_CONFIRM_EMAIL = false;
     @Autowired
-
     private FountainNeo fountainNeo;
 
+    @Autowired
+    private AliasDAO aliasDAO;
+
+    @Autowired
+    private FountainEmailService emailService;
 
     private Node createUserInternal(LSDEntity entity, boolean systemUser) throws InterruptedException {
         fountainNeo.begin();
@@ -63,7 +76,29 @@ public class FountainUserDAOImpl implements FountainUserDAO {
 
 
     @Override
-    public Node createUser(LSDEntity entity, boolean systemUser) throws InterruptedException {
+    public void forEachUser(final UserCallback callback) {
+        aliasDAO.forEachUser(new AliasDAO.UserDAOCallback() {
+            @Override
+            public void process(AliasEntity alias) throws InterruptedException {
+                final String uri = alias.getUri();
+                if (uri.startsWith("alias:cazcade:")) {
+                    final Node aliasNode = fountainNeo.findByURI(new LiquidURI(alias.getUri()));
+                    final LSDEntity aliasEntity = getAliasFromNode(aliasNode, true, LiquidRequestDetailLevel.COMPLETE);
+                    final Relationship ownerRel = aliasNode.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
+                    if (ownerRel == null) {
+                        log.warn("No owner for alias " + uri);
+                    } else {
+                        final LSDEntity userEntity = fountainNeo.convertNodeToLSD(ownerRel.getEndNode(), LiquidRequestDetailLevel.COMPLETE, true);
+                        callback.process(userEntity, aliasEntity);
+                    }
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public Node createUser(LSDEntity entity, boolean systemUser) throws InterruptedException, UnsupportedEncodingException {
         fountainNeo.begin();
         try {
 
@@ -80,6 +115,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
                 String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
                 userNode.setProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD.getKeyName(), encryptedPassword);
+                emailService.sendRegistrationEmail(entity);
             }
 
             return userNode;

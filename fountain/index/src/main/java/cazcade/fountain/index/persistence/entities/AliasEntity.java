@@ -4,8 +4,12 @@ package cazcade.fountain.index.persistence.entities;
 import cazcade.fountain.index.model.CommonBase;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -19,6 +23,7 @@ public class AliasEntity extends CommonBase implements Serializable {
     protected Boolean registered;
     protected String fullName;
     private Set<VisitEntity> visits;
+    private Date lastEmailUpdateDate;
 
     @Id
     @Column(name = "uri", nullable = false)
@@ -86,21 +91,25 @@ public class AliasEntity extends CommonBase implements Serializable {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    @OneToMany(mappedBy = "visitor")
-    public Set<VisitEntity> getVisits() {
-        return this.visits;
-    }
 
     public void setVisits(Set<VisitEntity> visits) {
         this.visits = visits;
     }
 
 
-
     @Override
     public String toString() {
         return new ToStringBuilder(this).
                 toString();
+    }
+
+    public void setLastEmailUpdateDate(Date lastEmailUpdateDate) {
+        this.lastEmailUpdateDate = lastEmailUpdateDate;
+    }
+
+    @Column(name = "last_email_update", nullable = true)
+    public Date getLastEmailUpdateDate() {
+        return lastEmailUpdateDate;
     }
 }
 

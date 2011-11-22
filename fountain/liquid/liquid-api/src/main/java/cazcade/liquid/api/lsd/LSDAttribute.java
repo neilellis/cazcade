@@ -87,6 +87,7 @@ public final class LSDAttribute {
     public static final LSDAttribute DATE_OF_BIRTH = LSDAttribute.create("dob", "number:", "The date of birth stored as milliseconds since 1970.", false, false, false, false, false, false, false);
     public static final LSDAttribute JOB_TITLE = LSDAttribute.create("job.title", "text:", "The title of the person's job.", false, false, false, false, false, false, false);
     public static final LSDAttribute JOB_TYPE = LSDAttribute.create("job.type", "text:", "The type of the person's job.", false, false, false, false, false, false, false);
+    public static final LSDAttribute EMAIL_UPDATE_FREQUENCY = LSDAttribute.create("pref.email.updates", "text:", "How often the user would like to receive email updates.", false, false, false, false, false, false, false);
 
     /*
       * boards

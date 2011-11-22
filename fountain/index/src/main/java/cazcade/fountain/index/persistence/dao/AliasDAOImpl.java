@@ -23,8 +23,11 @@ public class AliasDAOImpl implements AliasDAO {
     public static final String SYSTEM_USER = "hashbo";
     private HibernateTemplate hibernateTemplate;
 
+    private SessionFactory sessionFactory;
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -59,6 +62,19 @@ public class AliasDAOImpl implements AliasDAO {
         });
     }
 
+    @Override
+    public void forEachUser(UserDAOCallback userDAOCallback) {
+        final List<AliasEntity> aliases = sessionFactory.getCurrentSession().createCriteria(AliasEntity.class).list();
+        for (AliasEntity alias : aliases) {
+            try {
+                //move this into an executor
+                userDAOCallback.process(alias);
+            } catch (InterruptedException e) {
+                log.error(e.getMessage(), e);
+                return;
+            }
+        }
+    }
 
 
 }

@@ -20,7 +20,7 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
 
     }
 
-    public CreateUserRequest handle(CreateUserRequest request) throws InterruptedException {
+    public CreateUserRequest handle(CreateUserRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         Transaction transaction = neo.beginTx();
         Node userNode;
@@ -37,7 +37,7 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
             poolDAO.createPoolsForCazcadeAliasNoTx(username, entity.getAttribute(LSDAttribute.FULL_NAME), false);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             transaction.failure();
             throw e;
         } finally {

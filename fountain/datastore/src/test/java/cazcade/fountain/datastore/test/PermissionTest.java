@@ -1,6 +1,8 @@
 package cazcade.fountain.datastore.test;
 
-import cazcade.fountain.datastore.impl.*;
+import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainPoolDAOImpl;
+import cazcade.fountain.datastore.impl.FountainUserDAOImpl;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -14,11 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.Callable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * The first in hopefully many unit tests agains the fountain server.
@@ -58,10 +59,8 @@ public class PermissionTest {
         fountainNeo.doInTransaction(new Callable() {
 
 
-
-
             @Override
-            public Object call() throws InterruptedException {
+            public Object call() throws InterruptedException, UnsupportedEncodingException {
                 final LSDSimpleEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
                 user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
                 user.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");

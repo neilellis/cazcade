@@ -1,0 +1,69 @@
+#macro (boardsummary $board)
+<tr></tr>
+<td><a href="http://boardcast.it/$board.shortUrl"><img border="0" width="80" height="60"
+                                                       src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_MEDIUM&url=$!board.imageUrl"/></a>
+</td>
+<td>
+    <table>
+        <tr>
+            <td><a href="http://boardcast.it/$board.shortUrl">$!board.title</a></td>
+        </tr>
+        <tr>
+            <td>$!board.description</td>
+        </tr>
+    </table>
+</td>
+</tr>
+#end
+
+
+<div id="body">
+    <p>Hi $!alias.fn</p>
+
+    <p>
+        Here are the latest changes to Boardcast you might be interested in, if you'd like to change the frequency of
+        this email please use the links at the bottom.
+    </p>
+
+
+    #if($data.hasChangedFollowedBoards())
+        <p>Boards that you follow that have changed:</p>
+
+        <table>
+            #foreach ($board in $data.changedFollowedBoards)
+        #boardsummary($board)
+        #end
+        </table>
+
+    #end
+    #if($data.hasChangedOwnedBoards())
+        <p>Boards that you own that have changed:</p>
+
+        <table>
+            #foreach ($board in $data.changedOwnedBoards)
+             #boardsummary($board)
+            #end
+        </table>
+    #end
+
+    <div id="signature">
+        <br/>
+        Enjoy!<br/>
+        From the Boardcast Team
+    </div>
+
+    <p>
+        <small>You can change this email to
+            <a href="http://boardcast.it/_update-admin?frequency=H&user=$user.uri&hash=$hash">Hourly</a>,
+            <a href="http://boardcast.it/_update-admin?frequency=D&user=$user.uri&hash=$hash">Daily</a>,
+            <a href="http://boardcast.it/_update-admin?frequency=W&user=$user.uri&hash=$hash">Weekly</a>,
+            <a href="http://boardcast.it/_update-admin?frequency=M&user=$user.uri&hash=$hash">Monthly</a> or
+            <a href="http://boardcast.it/_update-admin?frequency=U&user=$user.uri&hash=$hash">Unsubscribe</a> from it.
+        </small>
+    </p>
+
+    <p>
+        <small>Don't like the layout of the email? Think you could improve it? Reply to this email and let us know.
+        </small>
+    </p>
+</div>

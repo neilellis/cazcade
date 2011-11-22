@@ -81,6 +81,11 @@
         <to type="forward">/_pages/board.jsp?%{query-string}</to>
     </rule>
 
+    <rule>
+        <from>^/_update-admin$</from>
+        <to type="forward">/_pages/update_admin.jsp?%{query-string}</to>
+    </rule>
+
     <!--Straight to brochure site-->
     <rule>
         <from>^/$</from>

@@ -2,12 +2,13 @@
 
 <%@ page import="cazcade.boardcast.util.DataStoreFactory" %>
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
+<%@ page import="cazcade.fountain.datastore.impl.email.EmailUtil" %>
 <%@ page import="cazcade.liquid.api.LiquidSessionIdentifier" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
 <%@ page import="javax.mail.Message" %>
 <%@ page import="javax.mail.Session" %>
-<%@ page import="javax.mail.Transport" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
+<%@ page import="javax.mail.Transport" %>
 <%@ page import="javax.mail.internet.InternetAddress" %>
 <%@ page import="javax.mail.internet.MimeMessage" %>
 <%@ page import="java.util.Date" %>
@@ -32,8 +33,8 @@
     final String url = "http://boardcast.it/_welcome";
     String messageText = "Welcome aboard! We're a pretty young application, so we're really looking for your feedback and help. Please feel free to email us at support@boardcast.it and let us know what we can do for you. You can now click on this link " + url + " and sign in using the username and password you supplied.\n";
 
-    if (!digester.matches(to, request.getParameter("hash"))) {
-        response.sendRedirect("confirm_failed.jsp");
+    if (!EmailUtil.confirmEmailHash(to, request.getParameter("hash"))) {
+        response.sendRedirect("failed.jsp?message=Confirm+Failed");
     } else {
         user.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "false");
         dataStore.process(new cazcade.liquid.api.request.UpdateUserRequest(admin, user.getID(), user));

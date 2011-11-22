@@ -15,4 +15,12 @@ public interface AliasDAO {
 
     @Transactional
     AliasEntity getOrCreateUser(String uri);
+
+    @Transactional
+    void forEachUser(UserDAOCallback userDAOCallback);
+
+
+    interface UserDAOCallback {
+        void process(AliasEntity alias) throws InterruptedException;
+    }
 }

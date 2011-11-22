@@ -4,7 +4,9 @@ import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainPoolDAOImpl;
 import cazcade.fountain.datastore.impl.FountainSocialDAO;
 import cazcade.fountain.datastore.impl.FountainUserDAOImpl;
-import cazcade.liquid.api.*;
+import cazcade.liquid.api.LiquidRequestDetailLevel;
+import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
@@ -16,9 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.Callable;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The first in hopefully many unit tests agains the fountain server.
@@ -65,7 +69,7 @@ public class FollowTest {
         fountainNeo.doInTransaction(new Callable() {
 
             @Override
-            public Object call() throws InterruptedException {
+            public Object call() throws InterruptedException, UnsupportedEncodingException {
                 Node userNode = createUser();
                 Node otherUserNode = createUser();
                 username = (String) userNode.getProperty(LSDAttribute.NAME.getKeyName());
@@ -98,7 +102,7 @@ public class FollowTest {
         });
     }
 
-    private Node createUser() throws InterruptedException {
+    private Node createUser() throws InterruptedException, UnsupportedEncodingException {
         final LSDSimpleEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
         user.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");

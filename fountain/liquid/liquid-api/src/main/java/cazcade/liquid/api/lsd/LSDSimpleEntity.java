@@ -311,6 +311,9 @@ public class LSDSimpleEntity implements LSDEntity {
         for (Map.Entry<String, String> entry : lsdProperties.entrySet()) {
             result.put(convertToCamel(entry.getKey()), entry.getValue());
         }
+        if (getURI() != null && LiquidBoardURL.isConvertable(getURI())) {
+            result.put("shortUrl", getURI().asShortUrl().asUrlSafe());
+        }
         return result;
     }
 

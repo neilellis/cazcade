@@ -581,6 +581,12 @@
                 <version>3.12.1.GA</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>1.7</version>
+            </dependency>
+
 
         </dependencies>
 

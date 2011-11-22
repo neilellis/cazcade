@@ -6,6 +6,7 @@
 
     <import resource="classpath:liquid-spring-config.xml"/>
     <import resource="classpath:index-service.xml"/>
+    <import resource="classpath:email-config.xml"/>
 
     <context:annotation-config/>
 
@@ -341,6 +342,7 @@
     <bean id="poolQueryDAO" class="cazcade.fountain.datastore.impl.FountainBoardQueryDAOImpl"/>
     <bean id="fountainNeoInitializer" class="cazcade.fountain.datastore.impl.FountainNeoIntializer"
           init-method="initGraph" depends-on="fountainNeo" p:fountainNeo-ref="fountainNeo"/>
-
+    <bean id="fountainEmailService" class="cazcade.fountain.datastore.impl.FountainEmailService"/>
+    <bean id="fountainUserUpdateService" class="cazcade.fountain.datastore.impl.FountainUserUpdateService"/>
 
 </beans>
