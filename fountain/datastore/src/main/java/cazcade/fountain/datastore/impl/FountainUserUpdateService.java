@@ -1,11 +1,10 @@
 package cazcade.fountain.datastore.impl;
 
+import cazcade.common.Logger;
 import cazcade.fountain.index.persistence.dao.AliasDAO;
 import cazcade.fountain.index.persistence.entities.AliasEntity;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -20,7 +19,7 @@ public class FountainUserUpdateService {
     public static final long HOUR_IN_MILLIS = 3600L * 1000L;
     public static final long DAY_IN_MILLIS = 24L * HOUR_IN_MILLIS;
 
-    private final Logger log = LoggerFactory.getLogger(FountainUserDAOImpl.class);
+    private final Logger log = cazcade.common.Logger.getLogger(FountainUserDAOImpl.class);
 
 
     public static final long ABOUT_ONE_DAY_IN_MILLIS = (3600 * 1000 * 24);
@@ -45,6 +44,9 @@ public class FountainUserUpdateService {
      */
     @Scheduled(cron = "0 0 19 1/1 * ? *")
     public void trivialUpdateLoop() {
+        if (!Logger.isProduction() && !test) {
+            return;
+        }
         final long nowMillis = System.currentTimeMillis();
         final Date now = new Date(nowMillis);
         //yeah yeah I know - not accurate - will do for now.
