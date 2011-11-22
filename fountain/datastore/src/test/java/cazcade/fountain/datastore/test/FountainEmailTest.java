@@ -14,6 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * The first in hopefully many unit tests agains the fountain server.
  *
@@ -42,7 +44,7 @@ public class FountainEmailTest {
 
     @Test
     @Transactional
-    public void test() throws InterruptedException {
+    public void test() throws InterruptedException, UnsupportedEncodingException {
         final LSDEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"), true), true, LiquidRequestDetailLevel.COMPLETE);
         final LSDEntity userFromNode = fountainNeo.convertNodeToLSD(fountainNeo.findByURI(new LiquidURI("user:admin"), true), LiquidRequestDetailLevel.COMPLETE, true);
         mailService.send(userFromNode, aliasFromNode, "test-email.html", "Welcome", "", false);

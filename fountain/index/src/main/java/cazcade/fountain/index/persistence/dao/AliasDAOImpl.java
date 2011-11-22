@@ -72,6 +72,8 @@ public class AliasDAOImpl implements AliasDAO {
             } catch (InterruptedException e) {
                 log.error(e.getMessage(), e);
                 return;
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
             }
         }
     }

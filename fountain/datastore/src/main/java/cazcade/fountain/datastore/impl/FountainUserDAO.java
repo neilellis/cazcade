@@ -45,7 +45,7 @@ public interface FountainUserDAO {
          * @param userEntity  the entity for the user.
          * @param aliasEntity the entity for the primary alias node.
          */
-        void process(LSDEntity userEntity, LSDEntity aliasEntity) throws InterruptedException;
+        void process(LSDEntity userEntity, LSDEntity aliasEntity) throws Exception;
     }
 
 

@@ -21,6 +21,6 @@ public interface AliasDAO {
 
 
     interface UserDAOCallback {
-        void process(AliasEntity alias) throws InterruptedException;
+        void process(AliasEntity alias) throws Exception;
     }
 }

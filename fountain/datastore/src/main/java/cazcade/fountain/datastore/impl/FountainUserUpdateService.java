@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 /**
@@ -54,7 +55,7 @@ public class FountainUserUpdateService {
 
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
-            public void process(LSDEntity userEntity, LSDEntity aliasEntity) throws InterruptedException {
+            public void process(LSDEntity userEntity, LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
                 log.info("Sending update to " + userEntity.getURI());
                 final AliasEntity alias = aliasDAO.getOrCreateUser(userEntity.getURI().asString());
                 long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null ? alias.getLastEmailUpdateDate().getTime() : 0;

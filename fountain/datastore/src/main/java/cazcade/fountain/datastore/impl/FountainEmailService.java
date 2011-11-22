@@ -22,7 +22,7 @@ public class FountainEmailService {
     MailService mailService;
 
 
-    public void send(LSDEntity user, LSDEntity alias, String templateName, String subject, Object data, boolean test) {
+    public void send(LSDEntity user, LSDEntity alias, String templateName, String subject, Object data, boolean test) throws UnsupportedEncodingException {
 
         Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
@@ -30,7 +30,7 @@ public class FountainEmailService {
         templateData.put("subject", subject);
         templateData.put("data", data);
         //We use the hash when confirming user actions
-        templateData.put("hash", EmailUtil.getEmailHash(user));
+        templateData.put("hash", java.net.URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8"));
         mailService.sendMailFromTemplate(templateName, subject, new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)},
                 new String[0], new String[0], templateData, test);
     }

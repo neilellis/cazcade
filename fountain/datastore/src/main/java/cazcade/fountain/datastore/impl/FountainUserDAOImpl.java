@@ -79,7 +79,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     public void forEachUser(final UserCallback callback) {
         aliasDAO.forEachUser(new AliasDAO.UserDAOCallback() {
             @Override
-            public void process(AliasEntity alias) throws InterruptedException {
+            public void process(AliasEntity alias) throws Exception {
                 final String uri = alias.getUri();
                 if (uri.startsWith("alias:cazcade:")) {
                     final Node aliasNode = fountainNeo.findByURI(new LiquidURI(alias.getUri()));
