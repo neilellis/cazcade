@@ -86,7 +86,7 @@ public class FountainUserUpdateService {
                 if (send) {
                     final ChangeReport report = socialDAO.getUpdateSummaryForAlias(aliasEntity.getURI(), lastEmailUpdateDate);
                     if (report.hasChangedFollowedBoards() || report.hasChangedOwnedBoards()) {
-                        emailService.send(userEntity, aliasEntity, "daily-updates.vm", "Daily Updates from Boardcast", report, test);
+                        emailService.send(userEntity, aliasEntity, "latest-updates.vm", "Latest Updates from Boardcast", report, test);
                         alias.setLastEmailUpdateDate(now);
 //                    if (!test) {
                         aliasDAO.saveUser(alias);

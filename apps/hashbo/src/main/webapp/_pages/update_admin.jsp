@@ -6,15 +6,17 @@
 <%@ page import="cazcade.liquid.api.LiquidSessionIdentifier" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDEntity" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
     FountainDataStore dataStore = DataStoreFactory.getDataStore();
     LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin", null);
-    final cazcade.liquid.api.LiquidMessage retrieveUserResponse = dataStore.process(new cazcade.liquid.api.request.RetrieveUserRequest(admin, new cazcade.liquid.api.LiquidURI(request.getParameter("user"))));
+    final cazcade.liquid.api.LiquidRequest retrieveUserResponse = dataStore.process(new cazcade.liquid.api.request.RetrieveUserRequest(admin, new cazcade.liquid.api.LiquidURI(request.getParameter("user"))));
     cazcade.liquid.api.lsd.LSDEntity user = retrieveUserResponse.getResponse();
-
-    if (!EmailUtil.confirmEmailHash(user.getAttribute(LSDAttribute.EMAIL_ADDRESS), request.getParameter("hash"))) {
+    if (retrieveUserResponse.getResponse().isError()) {
+        response.sendRedirect("/_pages/failed.jsp?message=" + URLEncoder.encode(retrieveUserResponse.getResponse().getAttribute(LSDAttribute.DESCRIPTION), "utf8"));
+    } else if (!EmailUtil.confirmEmailHash(user.getAttribute(LSDAttribute.EMAIL_ADDRESS), request.getParameter("hash"))) {
         response.sendRedirect("/_pages/failed.jsp?message=Incorrect+URL");
     } else {
         final LSDEntity update = user.asUpdateEntity();
