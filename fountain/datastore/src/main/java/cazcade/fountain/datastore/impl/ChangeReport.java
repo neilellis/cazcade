@@ -3,6 +3,7 @@ package cazcade.fountain.datastore.impl;
 import cazcade.liquid.api.lsd.LSDEntity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ public class ChangeReport {
 
     private List<Map> changedFollowedBoards = new ArrayList<Map>();
     private List<Map> changedOwnedBoards = new ArrayList<Map>();
+    private List<Map> latestChanges = new ArrayList<Map>();
 
     public void addChangedFollowedBoard(LSDEntity boardEntity) {
         changedFollowedBoards.add(boardEntity.getCamelCaseMap());
@@ -45,5 +47,19 @@ public class ChangeReport {
 
     public boolean hasChangedOwnedBoards() {
         return changedOwnedBoards.size() > 0;
+    }
+
+    public void setLatestChanges(Collection<LSDEntity> changes) {
+        for (LSDEntity change : changes) {
+            latestChanges.add(change.getCamelCaseMap());
+        }
+    }
+
+    public List<Map> getLatestChanges() {
+        return latestChanges;
+    }
+
+    public boolean hasLatestChanges() {
+        return latestChanges.size() > 0;
     }
 }

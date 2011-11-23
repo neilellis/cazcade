@@ -61,8 +61,8 @@ public class FountainUserUpdateService {
             public void process(LSDEntity userEntity, LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
                 log.info("Sending update to " + aliasEntity.getURI());
                 final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.getURI().asString());
-                long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null ? alias.getLastEmailUpdateDate().getTime() : 0;
-                boolean send = yesterday > lastEmailUpdateDate;
+                long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null ? alias.getLastEmailUpdateDate().getTime() : yesterday;
+                boolean send = yesterday >= lastEmailUpdateDate;
                 if (userEntity.hasAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY)) {
                     final String frequency = userEntity.getAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY);
                     if (frequency.equals("H")) {
@@ -81,12 +81,12 @@ public class FountainUserUpdateService {
                 }
                 if (test) {
                     send = true;
-                    lastEmailUpdateDate = 0;
+                    lastEmailUpdateDate = lastWeek;
                 }
                 if (send) {
                     final ChangeReport report = socialDAO.getUpdateSummaryForAlias(aliasEntity.getURI(), lastEmailUpdateDate);
-                    if (report.hasChangedFollowedBoards() || report.hasChangedOwnedBoards()) {
-                        emailService.send(userEntity, aliasEntity, "latest-updates.vm", "Latest Updates from Boardcast", report, test);
+                    if (report.hasChangedFollowedBoards() || report.hasChangedOwnedBoards() || report.hasLatestChanges()) {
+                        emailService.send(userEntity, aliasEntity, "latest-updates.vm", "Latest updates from Boardcast", report, test);
                         alias.setLastEmailUpdateDate(now);
 //                    if (!test) {
                         aliasDAO.saveUser(alias);

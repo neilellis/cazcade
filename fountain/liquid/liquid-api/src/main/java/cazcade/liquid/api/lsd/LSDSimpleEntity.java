@@ -314,6 +314,9 @@ public class LSDSimpleEntity implements LSDEntity {
         if (getURI() != null && LiquidBoardURL.isConvertable(getURI())) {
             result.put("shortUrl", getURI().asShortUrl().asUrlSafe());
         }
+        if (hasAttribute(LSDAttribute.SOURCE) && LiquidBoardURL.isConvertable(getURIAttribute(LSDAttribute.SOURCE))) {
+            result.put("sourceShortUrl", getURIAttribute(LSDAttribute.SOURCE).asShortUrl().asUrlSafe());
+        }
         return result;
     }
 

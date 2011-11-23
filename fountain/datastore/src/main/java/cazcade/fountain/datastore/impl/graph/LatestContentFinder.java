@@ -30,7 +30,7 @@ public class LatestContentFinder {
     private final static Logger log = Logger.getLogger(LatestContentFinder.class);
     public static final int CACHE_ERROR_MARGIN = 5000;
     public static final boolean INCLUDE_SESSION_INFORMATION = false;
-    private Map<Long, LSDEntity> nodes = new HashMap<Long, LSDEntity>();
+    private Map<String, LSDEntity> nodes = new HashMap<String, LSDEntity>();
     private Set<Long> visited = new HashSet<Long>();
     private Set<Long> skip = new HashSet<Long>();
     private LiquidSessionIdentifier identity;
@@ -74,10 +74,10 @@ public class LatestContentFinder {
     }
 
     public String getCacheKey() {
-        return identity.getSession().toString() + ":" + ":" + maxTraversal + ":" + detail + ":" + maxDepth;
+        return identity.toString() + ":" + ":" + maxTraversal + ":" + detail + ":" + maxDepth;
     }
 
-    public void findContentNodesNewMethod(final Node startNode, final Node ownerNode, final LiquidRequestDetailLevel detail) throws InterruptedException {
+    private void findContentNodesNewMethod(final Node startNode, final Node ownerNode, final LiquidRequestDetailLevel detail) throws InterruptedException {
         final int[] count = new int[1];
         final String currentAliasURI = identity.getAliasURL().asString();
 
@@ -89,7 +89,11 @@ public class LatestContentFinder {
                 }, new ReturnableEvaluator() {
                     @Override
                     public boolean isReturnableNode(TraversalPosition currentPos) {
+
                         Node currentNode = currentPos.currentNode();
+                        if (!fountainNeo.isLatestVersion(currentNode)) {
+                            return false;
+                        }
                         if (!skip.contains(currentNode.getId())) {
                             try {
                                 if (currentNode.hasProperty(LSDAttribute.UPDATED.getKeyName()) && currentNode.hasProperty(LSDAttribute.URI.getKeyName())) {
@@ -143,8 +147,8 @@ public class LatestContentFinder {
                 FountainRelationships.CHILD, Direction.OUTGOING,
                 FountainRelationships.LINKED_CHILD, Direction.OUTGOING,
                 FountainRelationships.OWNER, Direction.INCOMING,
-//                FountainRelationships.COMMENT, Direction.OUTGOING,
-//                FountainRelationships.VISITING, Direction.BOTH,
+                FountainRelationships.COMMENT, Direction.OUTGOING,
+                FountainRelationships.VISITING, Direction.BOTH,
                 FountainRelationships.FOLLOW_CONTENT, Direction.OUTGOING,
                 FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING
         );
@@ -154,133 +158,54 @@ public class LatestContentFinder {
             String type = (String) candidateNode.getProperty(LSDAttribute.TYPE.getKeyName());
             boolean ownedByMe = fountainNeo.isOwnerNoTX(ownerNode, candidateNode);
 
+            final LSDEntity entity;
             if (type.startsWith(LSDDictionaryTypes.SESSION.getValue()) && INCLUDE_SESSION_INFORMATION) {
-                nodes.put(candidateNode.getId(), fromSessionNode(candidateNode, detail));
+                entity = fromSessionNode(candidateNode, detail);
             } else if (type.startsWith(LSDDictionaryTypes.COMMENT.getValue())) {
-                nodes.put(candidateNode.getId(), fromComment(candidateNode, detail));
+                entity = fromComment(candidateNode, detail);
             } else if (!ownedByMe && candidateNode.hasProperty(LSDAttribute.URI.getKeyName()) && candidateNode.getProperty(LSDAttribute.URI.getKeyName()).toString().startsWith("pool")) {
-                nodes.put(candidateNode.getId(), fromObjectNode(candidateNode, detail));
+                entity = fromObjectNode(candidateNode, detail);
+            } else {
+                continue;
+            }
+            if (entity.hasAttribute(LSDAttribute.TITLE) && !entity.getAttribute(LSDAttribute.TITLE).isEmpty()) {
+                nodes.put(entity.getAttribute(LSDAttribute.TITLE), entity);
+            }
+            if (nodes.size() >= maxReturnNodes) {
+                return;
             }
         }
         log.debug("Filtered to " + nodes.size() + " nodes:");
     }
 
-    public void findContentNodes(Node currentNode, boolean iterateChildren, boolean revisit, Node ownerNode, LiquidRequestDetailLevel detail, final int depth) throws InterruptedException {
-
-        //be careful to access nothing but the node id of a node so as not to trigger the paging in by neo4j of the nodes properties
-        if (depth > maxDepth) {
-            return;
-        }
-        if (!revisit && visited.contains(currentNode.getId())) {
-            return;
-        } else {
-            visited.add(currentNode.getId());
-        }
-        if (visited.size() == maxTraversal) {
-            return;
-        }
-        if (nodes.size() == maxReturnNodes) {
-            return;
-        }
-
-        //after the skip check is made references to node properties is okay
-        if (!skip.contains(currentNode.getId())) {
-            skip.add(currentNode.getId());
-            if (fountainNeo.isAuthorized(currentNode, this.identity, LiquidPermission.VIEW)) {
-                if (currentNode.hasProperty(LSDAttribute.UPDATED.getKeyName())) {
-                    long updated = Long.valueOf(currentNode.getProperty(LSDAttribute.UPDATED.getKeyName()).toString());
-                    boolean ownedByMe = fountainNeo.isOwnerNoTX(ownerNode, currentNode);
-                    if (updated >= since) {
-                        String type = (String) currentNode.getProperty(LSDAttribute.TYPE.getKeyName());
-                        if (type.startsWith(LSDDictionaryTypes.SESSION.getValue())) {
-                            if (!ownedByMe && currentNode.hasProperty(LSDAttribute.ACTIVE.getKeyName())
-                                    && currentNode.getProperty(LSDAttribute.ACTIVE.getKeyName()).equals("true")
-                                    && currentNode.hasRelationship(FountainRelationships.VISITING, Direction.OUTGOING)) {
-                                nodes.put(currentNode.getId(), fromSessionNode(currentNode, detail));
-                            }
-
-                        } else if (type.startsWith(LSDDictionaryTypes.COMMENT.getValue())) {
-                            nodes.put(currentNode.getId(), fromComment(currentNode, detail));
-                        } else if (!ownedByMe && currentNode.hasProperty(LSDAttribute.URI.getKeyName()) && currentNode.getProperty(LSDAttribute.URI.getKeyName()).toString().startsWith("pool")) {
-                            nodes.put(currentNode.getId(), fromObjectNode(currentNode, detail));
-                        }
-
-                    }
-                }
-            }
-        }
-
-
-//        if (!iterateChildren) {
-//            return;
-//        }
-        final Iterable<Relationship> children = currentNode.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
-        final Iterable<Relationship> linkedChildren = currentNode.getRelationships(FountainRelationships.LINKED_CHILD, Direction.OUTGOING);
-        final Iterable<Relationship> owneds /*I know it's not a word, okay!*/ = currentNode.getRelationships(FountainRelationships.OWNER, Direction.OUTGOING);
-        final Iterable<Relationship> comments = currentNode.getRelationships(FountainRelationships.COMMENT, Direction.OUTGOING);
-
-        final Iterable<Relationship> parents = currentNode.getRelationships(FountainRelationships.CHILD, Direction.INCOMING);
-        final Iterable<Relationship> owners = currentNode.getRelationships(FountainRelationships.OWNER, Direction.INCOMING);
-        final Iterable<Relationship> visitors = currentNode.getRelationships(FountainRelationships.VISITING, Direction.INCOMING);
-
-        for (Relationship child : children) {
-            findContentNodes(child.getOtherNode(currentNode), false, false, ownerNode, detail, depth + 1);
-        }
-        for (Relationship linkedChild : linkedChildren) {
-            findContentNodes(linkedChild.getOtherNode(currentNode), false, false, ownerNode, detail, depth + 1);
-        }
-        for (Relationship owned : owneds) {
-            findContentNodes(owned.getOtherNode(currentNode), false, false, ownerNode, detail, depth + 1);
-        }
-        for (Relationship comment : comments) {
-            findContentNodes(comment.getOtherNode(currentNode), false, false, ownerNode, detail, depth + 1);
-        }
-        for (Relationship child : children) {
-            findContentNodes(child.getOtherNode(currentNode), true, true, ownerNode, detail, depth + 1);
-        }
-        for (Relationship linkedChild : linkedChildren) {
-            findContentNodes(linkedChild.getOtherNode(currentNode), true, true, ownerNode, detail, depth + 1);
-        }
-        for (Relationship owned : owneds) {
-            findContentNodes(owned.getOtherNode(currentNode), true, true, ownerNode, detail, depth + 1);
-        }
-        for (Relationship parent : parents) {
-            findContentNodes(parent.getOtherNode(currentNode), true, false, ownerNode, detail, depth + 1);
-        }
-        for (Relationship visitor : visitors) {
-            if (visitor.hasProperty(LSDAttribute.UPDATED.getKeyName())) {
-                long updated = Long.valueOf(visitor.getProperty(LSDAttribute.UPDATED.getKeyName()).toString());
-                if (updated >= since) {
-                    findContentNodes(visitor.getOtherNode(currentNode), true, false, ownerNode, detail, depth + 1);
-                }
-            }
-        }
-        for (Relationship owner : owners) {
-            findContentNodes(owner.getOtherNode(currentNode), true, false, ownerNode, detail, depth + 1);
-        }
-
-    }
 
     private LSDEntity fromComment(Node node, LiquidRequestDetailLevel detail) throws InterruptedException {
         final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT_UPDATE, UUIDFactory.randomUUID());
-        if (node.hasProperty(LSDAttribute.TEXT_EXTENDED.getKeyName())) {
-            entity.setAttribute(LSDAttribute.TEXT_EXTENDED, (String) node.getProperty(LSDAttribute.TEXT_EXTENDED.getKeyName()));
-        }
         if (node.hasProperty(LSDAttribute.TEXT_BRIEF.getKeyName())) {
             entity.setAttribute(LSDAttribute.TEXT_BRIEF, (String) node.getProperty(LSDAttribute.TEXT_BRIEF.getKeyName()));
         }
         if (node.hasProperty(LSDAttribute.UPDATED.getKeyName())) {
             entity.setAttribute(LSDAttribute.PUBLISHED, (String) node.getProperty(LSDAttribute.UPDATED.getKeyName()));
         }
+
+        if (node.hasProperty(LSDAttribute.TEXT_EXTENDED.getKeyName())) {
+            entity.setAttribute(LSDAttribute.TEXT_EXTENDED, String.valueOf(node.getProperty(LSDAttribute.TEXT_EXTENDED.getKeyName())));
+
+        }
+
         final String objectURI = (String) node.getProperty(LSDAttribute.URI.getKeyName());
         Relationship authorRelationship = node.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
+        final LSDEntity aliasEntity;
         if (authorRelationship != null) {
             final Node authorNode = authorRelationship.getOtherNode(node);
-            entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(authorNode, false, detail), true);
-            entity.setAttribute(LSDAttribute.TITLE, (String) authorNode.getProperty(LSDAttribute.NAME.getKeyName()));
-            if (authorNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
-                entity.setAttribute(LSDAttribute.ICON_URL, (String) authorNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
-            }
+            aliasEntity = userDAO.getAliasFromNode(authorNode, false, detail);
+            entity.addSubEntity(LSDAttribute.AUTHOR, aliasEntity, true);
+//            entity.setAttribute(LSDAttribute.TITLE, (String) authorNode.getProperty(LSDAttribute.NAME.getKeyName()));
+//            if (authorNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
+//                entity.setAttribute(LSDAttribute.ICON_URL, (String) authorNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
+//            }
+        } else {
+            aliasEntity = null;
         }
         Relationship targetRelationship = node.getSingleRelationship(FountainRelationships.COMMENT, Direction.INCOMING);
         if (targetRelationship == null) {
@@ -294,6 +219,14 @@ public class LatestContentFinder {
                 entity.setAttribute(LSDAttribute.IMAGE_URL, (String) targetNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
             }
 
+            if (targetNode.hasProperty(LSDAttribute.ICON_URL.getKeyName())) {
+                entity.setAttribute(LSDAttribute.ICON_URL, (String) targetNode.getProperty(LSDAttribute.ICON_URL.getKeyName()));
+            }
+
+            if (aliasEntity != null) {
+                entity.setAttribute(LSDAttribute.TITLE, String.format("%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), targetNode.getProperty(FountainNeo.TITLE, targetNode.getProperty(FountainNeo.NAME, "Unknown"))));
+            }
+
         }
         //The URI keeps it unique in the stream
         entity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.status, "comment:" + objectURI).asString());
@@ -302,8 +235,19 @@ public class LatestContentFinder {
     }
 
 
-    private LSDEntity fromObjectNode(Node node, LiquidRequestDetailLevel detail) throws InterruptedException {
+    private LSDEntity fromObjectNode(final Node node, LiquidRequestDetailLevel detail) throws InterruptedException {
         final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.OBJECT_UPDATE, UUIDFactory.randomUUID());
+        Node boardNode = null;
+        final Iterator<Node> parentIterator = node.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
+            @Override
+            public boolean isReturnableNode(TraversalPosition currentPos) {
+                final String type = String.valueOf(currentPos.currentNode().getProperty(FountainNeo.TYPE));
+                return type.startsWith(LSDDictionaryTypes.BOARD.asString());
+            }
+        }, FountainRelationships.CHILD, Direction.INCOMING).iterator();
+        if (parentIterator.hasNext()) {
+            boardNode = parentIterator.next();
+        }
         if (node.hasProperty(LSDAttribute.MOTIVE_TEXT.getKeyName())) {
             final String motiveText = (String) node.getProperty(LSDAttribute.MOTIVE_TEXT.getKeyName());
             if (motiveText.isEmpty() && node.hasProperty(LSDAttribute.TEXT_EXTENDED.getKeyName())) {
@@ -324,17 +268,25 @@ public class LatestContentFinder {
         entity.setAttribute(LSDAttribute.SOURCE, objectURI);
         if (node.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
             entity.setAttribute(LSDAttribute.IMAGE_URL, (String) node.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
+        } else if (boardNode != null && node.hasProperty(LSDAttribute.ICON_URL.getKeyName())) {
+            entity.setAttribute(LSDAttribute.IMAGE_URL, (String) boardNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
         }
         //The author of this update is the owner of the entity :-)
         Relationship editorRelationship = node.getSingleRelationship(FountainRelationships.EDITOR, Direction.OUTGOING);
         if (editorRelationship != null) {
             final Node ownerNode = editorRelationship.getOtherNode(node);
-            entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(ownerNode, false, detail), true);
-            entity.setAttribute(LSDAttribute.TITLE, (String) ownerNode.getProperty(LSDAttribute.NAME.getKeyName()));
-            if (ownerNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
-                entity.setAttribute(LSDAttribute.ICON_URL, (String) ownerNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
+            final LSDEntity authorEntity = userDAO.getAliasFromNode(ownerNode, false, detail);
+            entity.addSubEntity(LSDAttribute.AUTHOR, authorEntity, true);
+//            entity.setAttribute(LSDAttribute.TITLE, (String) ownerNode.getProperty(LSDAttribute.NAME.getKeyName()));
+//            if (ownerNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
+//                entity.setAttribute(LSDAttribute.ICON_URL, (String) ownerNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
+//            }
+            if (boardNode != null) {
+                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s made changes to '%s'", authorEntity.getAttribute(LSDAttribute.NAME), boardNode.getProperty(FountainNeo.TITLE, boardNode.getProperty(FountainNeo.NAME, "Unknown"))));
             }
         }
+
+
         Relationship viewRelationship = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
         if (viewRelationship != null) {
             entity.addSubEntity(LSDAttribute.VIEW, fountainNeo.convertNodeToLSD(viewRelationship.getOtherNode(node), detail, false), true);
@@ -360,6 +312,7 @@ public class LatestContentFinder {
             Node poolNode = vistingRelationship.getOtherNode(sessionNode);
             final String poolUri = (String) poolNode.getProperty(LSDAttribute.URI.getKeyName());
 
+            entity.setAttribute(LSDAttribute.TITLE, "@" + aliasName + " was spotted in " + poolUri);
             entity.setAttribute(LSDAttribute.TEXT_BRIEF, aliasFullName + " was spotted in " + poolUri);
             entity.setAttribute(LSDAttribute.TEXT_EXTENDED, aliasFullName + " was spotted in " + poolUri);
 

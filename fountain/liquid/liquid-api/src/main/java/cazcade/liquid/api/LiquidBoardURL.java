@@ -1,10 +1,7 @@
 package cazcade.liquid.api;
 
 
-import java.awt.*;
-
 /**
- *
  * A form of URI that relates only to actual boards, not to generic pools.
  *
  * @author neilellis@cazcade.com
@@ -20,7 +17,7 @@ public class LiquidBoardURL {
 
     public LiquidBoardURL(LiquidURI uri) {
         this.uri = uri;
-        shortURL = convertToShort(uri.asString());
+        shortURL = convertToShort(uri.getWithoutFragmentOrComment().asString());
     }
 
     public LiquidBoardURL(String shortURL) {
@@ -40,16 +37,16 @@ public class LiquidBoardURL {
         }
         String result = "";
         if (longURL.startsWith(PUBLIC_BOARD_USER_STEM)) {
-            result= longURL.substring(PUBLIC_BOARD_USER_STEM.length() + 1 );
+            result = longURL.substring(PUBLIC_BOARD_USER_STEM.length() + 1);
 
         } else if (longURL.startsWith(USER_STEM)) {
             String str = longURL.substring(USER_STEM.length() + 1);
             final String[] strings = str.split("/");
             if (strings.length > 1) {
-                if(strings.length == 1 || (!strings[1].equals("public") && !strings[1].equals("profile"))) {
-                    throw new IllegalArgumentException("Format not valid for conversion to short url, needs to be in the boards pool to be a short url, '"+longURL+"'.");
+                if (strings.length == 1 || (!strings[1].equals("public") && !strings[1].equals("profile"))) {
+                    throw new IllegalArgumentException("Format not valid for conversion to short url, needs to be in the boards pool to be a short url, '" + longURL + "'.");
                 }
-                if(strings[1].equals("profile")) {
+                if (strings[1].equals("profile")) {
                     result = "@" + strings[0];
                 } else {
                     String board = str.substring(strings[0].length() + strings[1].length() + 2);
@@ -57,7 +54,7 @@ public class LiquidBoardURL {
                 }
 
             } else {
-                throw new IllegalArgumentException("Format not valid for conversion to short url cannot reference top level for user, '"+longURL+"'.");
+                throw new IllegalArgumentException("Format not valid for conversion to short url cannot reference top level for user, '" + longURL + "'.");
             }
         } else {
             throw new IllegalArgumentException("Liquid URIs should start with " + PUBLIC_BOARD_USER_STEM + " or " + USER_STEM + " the supplied URI was " + longURL);
@@ -66,7 +63,7 @@ public class LiquidBoardURL {
     }
 
     public static String convertFromShort(String url) {
-        String shortURL= url.replaceAll("~", "@");
+        String shortURL = url.replaceAll("~", "@");
         String str;
         if (shortURL.contains("@")) {
             str = USER_STEM + "/";
@@ -88,7 +85,7 @@ public class LiquidBoardURL {
 
 
             if (shortURL.startsWith("@")) {
-                str = str + shortURL.substring(1)+"/profile";
+                str = str + shortURL.substring(1) + "/profile";
             } else {
                 final String[] strings = shortURL.split("@");
                 str = str + strings[1] + "/public/" + strings[0];
@@ -132,7 +129,7 @@ public class LiquidBoardURL {
     /**
      * We use this to deduce if the board should be listed by default,
      * anything starting with a - sign is unlisted by default eg.
-     *
+     * <p/>
      * <pre>
      * -ABC1234-DD1456-567 is unlisted
      * music is listed

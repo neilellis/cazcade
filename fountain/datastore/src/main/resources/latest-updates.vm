@@ -1,18 +1,47 @@
 #macro (boardsummary $board)
-<tr></tr>
-<td><a href="http://boardcast.it/$board.shortUrl"><img border="0" width="80" height="60"
-                                                       src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_MEDIUM&url=$!board.iconUrl"/></a>
-</td>
-<td>
-    <table>
-        <tr>
-            <td><a href="http://boardcast.it/$board.shortUrl">$!board.title</a></td>
-        </tr>
-        <tr>
-            <td>$!board.description</td>
-        </tr>
-    </table>
-</td>
+<tr>
+    <td><a href="http://boardcast.it/$board.shortUrl"><img border="0" width="80" height="60"
+                                                           src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_MEDIUM&url=$!board.iconUrl"/></a>
+    </td>
+    <td>
+        <table>
+            <tr>
+                <td><a href="http://boardcast.it/$board.shortUrl">$!board.title</a></td>
+            </tr>
+            <tr>
+                <td>$!board.description</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+#end
+
+
+#macro (changesummary $change)
+<tr>
+    #if($change.iconUrl)
+        #set($imageUrl= $change.iconUrl)
+    #elseif($change.imageUrl)
+        #set($imageUrl= $change.imageUrl)
+    #end
+    <td><a href="http://boardcast.it/$change.sourceShortUrl"><img border="0" width="64" height="48"
+                                                                  src="http://boardcast.it/_image-service?width=64&height=48&size=CLIPPED_SMALL&url=$!imageUrl"/></a>
+    </td>
+    <td>
+        <table>
+            <tr>
+                <td><a href="http://boardcast.it/$change.sourceShortUrl">$!change.title</a></td>
+            ##            <td>( $!change.type )</td>
+                    </tr>
+            <tr>
+                #if($change.textExtended)
+                    <td>$!change.textExtended</td>
+                #elseif($change.textBrief)
+                    <td>$!change.textBrief</td>
+                #end
+            </tr>
+        </table>
+    </td>
 </tr>
 #end
 
@@ -21,10 +50,19 @@
     <p>Hi $!alias.fn</p>
 
     <p>
-        Here are the latest changes to Boardcast you might be interested in, if you'd like to change the frequency of
+        Here are some of the latest changes on Boardcast you might be interested in, if you'd like to change the
+        frequency of
         this email please use the links at the bottom.
     </p>
 
+    #if($data.hasLatestChanges())
+        <p>Sample of recent.... activity:</p>
+        <table>
+            #foreach ($change in $data.latestChanges)
+            #changesummary($change)
+        #end
+        </table>
+    #end
 
     #if($data.hasChangedFollowedBoards())
         <p>Boards that you follow that have changed:</p>

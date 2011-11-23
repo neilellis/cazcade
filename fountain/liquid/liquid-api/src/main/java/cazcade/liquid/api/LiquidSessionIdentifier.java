@@ -3,13 +3,10 @@ package cazcade.liquid.api;
 import java.io.Serializable;
 
 /**
- * @author neilelliz@cazcade.com
- *         <p/>
- *         TODO: This needs to become LiquidSessionIdentifier as it is not a user identity but a session identity.
+ * @author neilellis@cazcade.com
  */
 public class LiquidSessionIdentifier implements Serializable {
 
-    private String name;
     private LiquidUUID session;
     private LiquidURI alias;
     public static final LiquidSessionIdentifier ANON = new LiquidSessionIdentifier("anon", null);
@@ -17,18 +14,21 @@ public class LiquidSessionIdentifier implements Serializable {
     public LiquidSessionIdentifier() {
     }
 
-    @Deprecated
     public LiquidSessionIdentifier(String name) {
-        this.name = name;
+        this.alias = new LiquidURI(LiquidURIScheme.alias, "cazcade:" + name.toLowerCase());
     }
 
     public LiquidSessionIdentifier(String name, LiquidUUID session) {
-        this.name = name;
+        this(name);
         this.session = session;
     }
 
+    public LiquidSessionIdentifier(LiquidURI aliasURI) {
+        this.alias = aliasURI;
+    }
+
     public String getName() {
-        return name;
+        return alias.getSubURI().asString();
     }
 
     public LiquidUUID getSession() {
@@ -41,11 +41,11 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
     public LiquidURI getUserURL() {
-        return new LiquidURI(LiquidURIScheme.user, name.toLowerCase());
+        return new LiquidURI(LiquidURIScheme.user, getName());
     }
 
     public LiquidURI getAliasURL() {
-        return new LiquidURI(LiquidURIScheme.alias, "cazcade:" + name.toLowerCase());
+        return alias;
     }
 
 
@@ -67,11 +67,7 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
     public LiquidURI getAlias() {
-        if (alias != null) {
-            return alias;
-        } else {
-            return new LiquidURI(LiquidURIScheme.alias, "cazcade:" + getName().toLowerCase());
-        }
+        return alias;
 
     }
 
@@ -93,9 +89,9 @@ public class LiquidSessionIdentifier implements Serializable {
     @Override
     public String toString() {
         if (session != null) {
-            return name + "," + session.toString();
+            return getName() + "," + session.toString();
         } else {
-            return name;
+            return getName();
         }
 //        if (name != null) {
 //            if (alias != null) {
@@ -133,6 +129,6 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
     public boolean isAnon() {
-        return name.equalsIgnoreCase("anon");
+        return alias.asString().equals("alias:cazcade:anon");
     }
 }

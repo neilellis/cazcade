@@ -7,7 +7,6 @@ import cazcade.fountain.datastore.api.*;
 import cazcade.fountain.datastore.impl.io.FountainNeoExporter;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.*;
-import cazcade.liquid.impl.SortUtil;
 import cazcade.liquid.impl.UUIDFactory;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -20,8 +19,10 @@ import org.neo4j.helpers.collection.MapUtil;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import java.io.File;
-import java.text.MessageFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -585,18 +586,18 @@ public class FountainNeo extends AbstractServiceStateMachine {
 
     public void start() throws Exception {
         try {
-        super.start();
+            super.start();
 
-        if (!CacheManager.getInstance().cacheExists("nodeauth")) {
-            CacheManager.getInstance().addCache("nodeauth");
-        }
-        nodeAuthCache = CacheManager.getInstance().getCache("nodeauth");
+            if (!CacheManager.getInstance().cacheExists("nodeauth")) {
+                CacheManager.getInstance().addCache("nodeauth");
+            }
+            nodeAuthCache = CacheManager.getInstance().getCache("nodeauth");
 
-        HashMap<String, String> params = new HashMap<String, String>();
+            HashMap<String, String> params = new HashMap<String, String>();
 //        params.put("allow_store_upgrade", "true");
-        params.put("enable_remote_shell", "true");
+            params.put("enable_remote_shell", "true");
 
-        neo = new EmbeddedGraphDatabase(Constants.FOUNTAIN_NEO_STORE_DIR, params);
+            neo = new EmbeddedGraphDatabase(Constants.FOUNTAIN_NEO_STORE_DIR, params);
 //        wrappingNeoServerBootstrapper = new WrappingNeoServerBootstrapper(neo);
 //        wrappingNeoServerBootstrapper.start();
 //
@@ -608,32 +609,32 @@ public class FountainNeo extends AbstractServiceStateMachine {
 //        dataSource.setAutoRotate(true);
 //        dataSource.setLogicalLogTargetSize(10 * 1024 * 1024); // 10 MB
 //
-        if (CommonConstants.IS_PRODUCTION) {
-            backupScheduler.scheduleWithFixedDelay(new NeoBackupJob(this), 1, 4, TimeUnit.HOURS);
-            backup();
-        }
+            if (CommonConstants.IS_PRODUCTION) {
+                backupScheduler.scheduleWithFixedDelay(new NeoBackupJob(this), 1, 4, TimeUnit.HOURS);
+                backup();
+            }
 
 
-        log.info("Neo started.");
-        log.info("Lucene for Neo started.");
-        indexService = neo.index().forNodes(NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
-        fulltextIndexService = neo.index().forNodes(FountainNeo.FREE_TEXT_SEARCH_INDEX_KEY,
-                MapUtil.stringMap(IndexManager.PROVIDER, "lucene", "type", "fulltext"));
+            log.info("Neo started.");
+            log.info("Lucene for Neo started.");
+            indexService = neo.index().forNodes(NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
+            fulltextIndexService = neo.index().forNodes(FountainNeo.FREE_TEXT_SEARCH_INDEX_KEY,
+                    MapUtil.stringMap(IndexManager.PROVIDER, "lucene", "type", "fulltext"));
 
-        final Transaction transaction = neo.beginTx();
-        try {
-            setRootPool(findByURI(new LiquidURI("pool:///")));
+            final Transaction transaction = neo.beginTx();
+            try {
+                setRootPool(findByURI(new LiquidURI("pool:///")));
 
 
-            setPeoplePool(findByURI(new LiquidURI("pool:///people")));
-            transaction.success();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            transaction.failure();
-            throw e;
-        } finally {
-            transaction.finish();
-        }
+                setPeoplePool(findByURI(new LiquidURI("pool:///people")));
+                transaction.success();
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+                transaction.failure();
+                throw e;
+            } finally {
+                transaction.finish();
+            }
         } catch (Exception e) {
             log.error(e);
             throw new Error("Catastrophic failure, could not start FountainNeo", e);
@@ -671,9 +672,15 @@ public class FountainNeo extends AbstractServiceStateMachine {
     public void assertLatestVersion(Node node) {
         //no begin block for an assertion, no point in this holding up a shutdown.
         Relationship versionChildRelationship = node.getSingleRelationship(VERSION_PARENT, Direction.INCOMING);
-        if (versionChildRelationship != null) {
+        if (!isLatestVersion(node)) {
             throw new StaleUpdateException("Attempted to reference a stale node %s which has already been updated (i.e. stale version).", node.getProperty(URI));
         }
+    }
+
+    public boolean isLatestVersion(Node node) {
+        //no begin block for an assertion, no point in this holding up a shutdown.
+        Relationship versionChildRelationship = node.getSingleRelationship(VERSION_PARENT, Direction.INCOMING);
+        return versionChildRelationship == null;
     }
 
     private void migrateParentNode(Node node, Node clone, boolean fork) {
