@@ -11,7 +11,7 @@
 
     FountainDataStore dataStore = DataStoreFactory.getDataStore();
     LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin", null);
-    final cazcade.liquid.api.LiquidMessage retrieveUserResponse = dataStore.process(new cazcade.liquid.api.request.RetrieveUserRequest(admin, new cazcade.liquid.api.LiquidURI(cazcade.liquid.api.LiquidURIScheme.user, request.getParameter("user").toLowerCase())));
+    final cazcade.liquid.api.LiquidMessage retrieveUserResponse = dataStore.process(new cazcade.liquid.api.request.RetrieveUserRequest(admin, new cazcade.liquid.api.LiquidURI(request.getParameter("user"))));
     cazcade.liquid.api.lsd.LSDEntity user = retrieveUserResponse.getResponse();
 
     if (!EmailUtil.confirmEmailHash(user.getAttribute(LSDAttribute.EMAIL_ADDRESS), request.getParameter("hash"))) {
