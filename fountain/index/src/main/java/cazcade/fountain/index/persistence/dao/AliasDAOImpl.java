@@ -42,7 +42,7 @@ public class AliasDAOImpl implements AliasDAO {
     }
 
     @Override
-    public AliasEntity getOrCreateUser(final String uri) {
+    public AliasEntity getOrCreateAlias(final String uri) {
         return hibernateTemplate.execute(new HibernateCallback<AliasEntity>() {
             @Override
             public AliasEntity doInHibernate(Session session) throws HibernateException, SQLException {

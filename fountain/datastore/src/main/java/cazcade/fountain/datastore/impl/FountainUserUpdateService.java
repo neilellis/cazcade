@@ -19,10 +19,7 @@ public class FountainUserUpdateService {
     public static final long HOUR_IN_MILLIS = 3600L * 1000L;
     public static final long DAY_IN_MILLIS = 24L * HOUR_IN_MILLIS;
 
-    private final Logger log = cazcade.common.Logger.getLogger(FountainUserDAOImpl.class);
-
-
-    public static final long ABOUT_ONE_DAY_IN_MILLIS = (3600 * 1000 * 24);
+    private final Logger log = Logger.getLogger(FountainUserDAOImpl.class);
 
     @Autowired
     private FountainEmailService emailService;
@@ -61,8 +58,8 @@ public class FountainUserUpdateService {
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
             public void process(LSDEntity userEntity, LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
-                log.info("Sending update to " + userEntity.getURI());
-                final AliasEntity alias = aliasDAO.getOrCreateUser(userEntity.getURI().asString());
+                log.info("Sending update to " + aliasEntity.getURI());
+                final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.getURI().asString());
                 long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null ? alias.getLastEmailUpdateDate().getTime() : 0;
                 boolean send = yesterday > lastEmailUpdateDate;
                 if (userEntity.hasAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY)) {

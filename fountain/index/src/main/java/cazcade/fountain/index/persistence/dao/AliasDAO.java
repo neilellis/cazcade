@@ -14,7 +14,7 @@ public interface AliasDAO {
     public List<AliasEntity> listUsers();
 
     @Transactional
-    AliasEntity getOrCreateUser(String uri);
+    AliasEntity getOrCreateAlias(String uri);
 
     @Transactional
     void forEachUser(UserDAOCallback userDAOCallback);

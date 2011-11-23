@@ -88,19 +88,19 @@ public class FountainIndexServiceImpl {
         if (ownerRel != null) {
             final String owner = ownerRel.getOtherNode(node).getProperty(FountainNeo.URI, "unknown").toString();
             log.debug("Setting owner as {0} on {1}", owner, board.getUri());
-            board.setOwner(aliasDAO.getOrCreateUser(owner));
+            board.setOwner(aliasDAO.getOrCreateAlias(owner));
         }
         final Relationship authorRel = node.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
         if (authorRel != null) {
             final String author = authorRel.getOtherNode(node).getProperty(FountainNeo.URI, "unknown").toString();
             log.debug("Setting author as {0} on {1}", author, board.getUri());
-            board.setAuthor(aliasDAO.getOrCreateUser(author));
+            board.setAuthor(aliasDAO.getOrCreateAlias(author));
         }
         final Relationship creatorRel = node.getSingleRelationship(FountainRelationships.CREATOR, Direction.OUTGOING);
         if (creatorRel != null) {
             final String creator = creatorRel.getOtherNode(node).getProperty(FountainNeo.URI, "unknown").toString();
             log.debug("Setting creator as {0} on {1}", creator, board.getUri());
-            board.setCreator(aliasDAO.getOrCreateUser(creator));
+            board.setCreator(aliasDAO.getOrCreateAlias(creator));
         }
     }
 
@@ -195,7 +195,7 @@ public class FountainIndexServiceImpl {
         }
         VisitEntity visitEntity = new VisitEntity();
         visitEntity.setBoard(board);
-        visitEntity.setVisitor(aliasDAO.getOrCreateUser(visitor.toString()));
+        visitEntity.setVisitor(aliasDAO.getOrCreateAlias(visitor.toString()));
         visitEntity.setCreated(new Date());
         boardDAO.addVisit(visitEntity);
         board.incrementVisits();
