@@ -8,7 +8,7 @@ import com.google.gwt.user.client.Window;
  */
 public class ClientApplicationConfiguration {
 
-    private static final boolean ALPHA_FEATURES_AVAILABLE = false;
+    private static final boolean ALPHA_FEATURES_AVAILABLE = true;
     private static boolean debug;
     private static boolean preflight = true;
     private static boolean alphaFeatures;

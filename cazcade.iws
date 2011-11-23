@@ -64,63 +64,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/update_admin.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/ChangeReport.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/DefaultMailService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/EmailUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/MailService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/SMTPAuthenticator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/daily-updates.vm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/email-config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/email-velocity.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/SimpleMailTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/resources/test-email.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_failed.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/failed.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" afterPath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" afterPath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_reg.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_reg.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/io/io.iml" afterPath="$PROJECT_DIR$/apps/io/io.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" afterPath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/upload/upload.iml" afterPath="$PROJECT_DIR$/apps/upload/upload.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" afterPath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" afterPath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/datastore.iml" afterPath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/pom.xml" afterPath="$PROJECT_DIR$/fountain/datastore/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEmailService.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEmailService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainNeoIntializer.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainNeoIntializer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainSocialDAO.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainSocialDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainSocialDAOImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainSocialDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAO.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAOImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserUpdateService.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserUpdateService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateUserHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateUserHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/resources/datastore-spring-config.xml" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/datastore-spring-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/dao/AliasDAO.java" afterPath="$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/dao/AliasDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/dao/AliasDAOImpl.java" afterPath="$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/dao/AliasDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/entities/AliasEntity.java" afterPath="$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/entities/AliasEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDAttribute.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/messaging.iml" afterPath="$PROJECT_DIR$/fountain/messaging/messaging.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" afterPath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/security/security.iml" afterPath="$PROJECT_DIR$/fountain/security/security.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/test.iml" afterPath="$PROJECT_DIR$/fountain/test/test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/comms.iml" afterPath="$PROJECT_DIR$/vortex/comms/comms.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/main/main.iml" afterPath="$PROJECT_DIR$/vortex/main/main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" afterPath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/pool.iml" afterPath="$PROJECT_DIR$/vortex/pool/pool.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/widgets.iml" afterPath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -285,6 +231,19 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserUpdateService.java" line="3" class="FountainUserUpdateService.java" package="">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
     </line_breakpoints>
     <method_breakpoints>
       <breakpoint url="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageScaleServlet.java" line="165" class="cazcade.boardcast.servlet.ImageScaleServlet" package="cazcade.boardcast.servlet">
@@ -343,29 +302,74 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="daily-updates.vm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/daily-updates.vm">
+      <file leaf-file-name="PublicBoard.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="35" selection-start="526" selection-end="526" vertical-scroll-proportion="-0.625">
+            <state line="352" column="51" selection-start="15118" selection-end="15118" vertical-scroll-proportion="-7.6538463">
+              <folding>
+                <marker date="1322064196000" expanded="true" signature="17222:17359" placeholder="{...}" />
+                <marker date="1322064196000" expanded="true" signature="17280:17353" placeholder="{...}" />
+                <marker date="1322064196000" expanded="true" signature="20275:20563" placeholder="{...}" />
+                <marker date="1322064196000" expanded="true" signature="20308:20554" placeholder="{&quot;service&quot;: &quot;sharethis&quot;...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractAliasDetailPanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="187" column="51" selection-start="6735" selection-end="6735" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="confirm_reg.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_reg.jsp">
+      <file leaf-file-name="BoardMenuBar.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="2215" selection-end="2285" vertical-scroll-proportion="-7.5">
+            <state line="71" column="62" selection-start="2637" selection-end="2637" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="update_admin.jsp" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/update_admin.jsp">
+      <file leaf-file-name="BoardcastChatView.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="77" selection-start="656" selection-end="656" vertical-scroll-proportion="0.22580644">
+            <state line="47" column="47" selection-start="2105" selection-end="2105" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatStreamPanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/ChatStreamPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="130" column="44" selection-start="4551" selection-end="4551" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Boardcast.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="205" column="40" selection-start="8378" selection-end="8378" vertical-scroll-proportion="-16.307692">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HistoryManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="94" column="45" selection-start="3508" selection-end="3508" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1322069765000" expanded="true" signature="3780:3873" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -373,64 +377,26 @@
       <file leaf-file-name="urlrewrite.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="49" column="66" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="failed.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/failed.jsp">
+      <file leaf-file-name="BoardcastChatView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="17" selection-start="188" selection-end="188" vertical-scroll-proportion="-2.5">
+            <state line="235" column="11" selection-start="8877" selection-end="8877" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainUserUpdateServiceTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceTest.java">
+      <file leaf-file-name="ClientApplicationConfiguration.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="38" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.0">
+            <state line="10" column="64" selection-start="237" selection-end="237" vertical-scroll-proportion="0.23961662">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FountainUserUpdateService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserUpdateService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="29" selection-start="1178" selection-end="1178" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LSDAttribute.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDAttribute.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="59" selection-start="12681" selection-end="12703" vertical-scroll-proportion="-5.769231">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AliasEntity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/entities/AliasEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="0" selection-start="2410" selection-end="2410" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChangeReport.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/ChangeReport.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="37" selection-start="1058" selection-end="1058" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -449,22 +415,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" />
-        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java" />
-        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/EntityUtil.java" />
-        <option value="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/EmailUtil.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEmailService.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/resources/daily-updates.html" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/ChangeReport.java" />
-        <option value="$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/entities/AliasEntity.java" />
-        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDAttribute.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_failed.jsp" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_reg.jsp" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/resources/daily-updates.vm" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/update_admin.jsp" />
+        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/VisitPoolHandler.java" />
+        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/LiquidSessionIdentifier.java" />
         <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserUpdateService.java" />
+        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainPoolDAOImpl.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/common.less" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" />
+        <option value="$PROJECT_DIR$/fountain/datastore/src/main/resources/latest-updates.vm" />
+        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/graph/LatestContentFinder.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less" />
+        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAOImpl.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
+        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/ChatStreamPanel.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
+        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java" />
       </list>
     </option>
   </component>
@@ -4157,35 +4123,7 @@
     <option name="referencePos" value="0" />
     <option name="showLabels" value="true" />
   </component>
-  <component name="RunManager" selected="JUnit.FountainUserUpdateServiceTest.testUserUpdateService">
-    <configuration default="false" name="FountainIntegrationTest.testUpdateObject" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="cazcade.fountain.server.rest.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="cazcade.fountain.server.rest.test" />
-      <option name="MAIN_CLASS_NAME" value="cazcade.fountain.server.rest.test.FountainIntegrationTest" />
-      <option name="METHOD_NAME" value="testUpdateObject" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="GWT Configuration.HashBo">
     <configuration default="false" name="FountainIntegrationTest.testUpdatePool" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -4296,6 +4234,40 @@
       <patterns />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="58574" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="FountainUserUpdateServiceTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="cazcade.fountain.datastore.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="datastore" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="cazcade.fountain.datastore.test" />
+      <option name="MAIN_CLASS_NAME" value="cazcade.fountain.datastore.test.FountainUserUpdateServiceTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="55477" />
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -4734,6 +4706,11 @@
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
+      <RunnerSettings RunnerId="JProfiler">
+        <option name="WINDOW" value="false" />
+        <option name="JVMPI" value="false" />
+        <option name="INTERPRETED" value="false" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -4763,6 +4740,34 @@
       </option>
       <envs />
       <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="All" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="JProfiler">
+        <option name="WINDOW" value="false" />
+        <option name="JVMPI" value="false" />
+        <option name="INTERPRETED" value="false" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
@@ -5196,7 +5201,7 @@
         </option>
       </method>
     </configuration>
-    <list size="19">
+    <list size="20">
       <item index="0" class="java.lang.String" itemvalue="Application.FountainTestDataBuilderClient" />
       <item index="1" class="java.lang.String" itemvalue="Application.Build Dev" />
       <item index="2" class="java.lang.String" itemvalue="Application.CLI" />
@@ -5206,16 +5211,17 @@
       <item index="6" class="java.lang.String" itemvalue="GWT Configuration.HashBo" />
       <item index="7" class="java.lang.String" itemvalue="JUnit.FountainIntegrationTest" />
       <item index="8" class="java.lang.String" itemvalue="JUnit.Test Live" />
-      <item index="9" class="java.lang.String" itemvalue="Jetty Server.Jetty 7.1.6.v20100715" />
-      <item index="10" class="java.lang.String" itemvalue="Jetty Server.dev.cazcade.com" />
-      <item index="11" class="java.lang.String" itemvalue="Remote.Unnamed" />
-      <item index="12" class="java.lang.String" itemvalue="Tomcat Server.Twitter Test" />
-      <item index="13" class="java.lang.String" itemvalue="Tomcat Server.Tomcat" />
-      <item index="14" class="java.lang.String" itemvalue="JUnit.FountainIntegrationTest.testUpdateObject" />
-      <item index="15" class="java.lang.String" itemvalue="JUnit.FountainIntegrationTest.testUpdatePool" />
-      <item index="16" class="java.lang.String" itemvalue="JUnit.SimpleMailTest.testPublicPoolStickyInitialPermissions" />
-      <item index="17" class="java.lang.String" itemvalue="JUnit.FountainEmailTest.testPublicPoolStickyInitialPermissions" />
-      <item index="18" class="java.lang.String" itemvalue="JUnit.FountainUserUpdateServiceTest.testUserUpdateService" />
+      <item index="9" class="java.lang.String" itemvalue="JUnit.FountainIntegrationTest.testUpdatePool" />
+      <item index="10" class="java.lang.String" itemvalue="JUnit.SimpleMailTest.testPublicPoolStickyInitialPermissions" />
+      <item index="11" class="java.lang.String" itemvalue="JUnit.FountainEmailTest.testPublicPoolStickyInitialPermissions" />
+      <item index="12" class="java.lang.String" itemvalue="JUnit.FountainUserUpdateServiceTest.testUserUpdateService" />
+      <item index="13" class="java.lang.String" itemvalue="JUnit.FountainUserUpdateServiceTest" />
+      <item index="14" class="java.lang.String" itemvalue="JUnit.All" />
+      <item index="15" class="java.lang.String" itemvalue="Jetty Server.Jetty 7.1.6.v20100715" />
+      <item index="16" class="java.lang.String" itemvalue="Jetty Server.dev.cazcade.com" />
+      <item index="17" class="java.lang.String" itemvalue="Remote.Unnamed" />
+      <item index="18" class="java.lang.String" itemvalue="Tomcat Server.Twitter Test" />
+      <item index="19" class="java.lang.String" itemvalue="Tomcat Server.Tomcat" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -5313,7 +5319,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1131" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32827324" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256513" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -5321,11 +5327,11 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32280356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08502674" sideWeight="0.6442886" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37413624" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43336624" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33563673" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30799606" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
@@ -5333,8 +5339,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.5439289" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.45607108" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.69200397" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28529122" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -5374,7 +5380,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="More image work." />
+    <option name="LAST_COMMIT_MESSAGE" value="Chat + turned on alpha features" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -5387,13 +5393,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Email wording." />
-    <MESSAGE value="Minor look and feel fix." />
-    <MESSAGE value="Minor fixes." />
-    <MESSAGE value="Error tracking fix." />
-    <MESSAGE value="drag problems" />
-    <MESSAGE value="Editable label issues." />
-    <MESSAGE value="minor fixes" />
     <MESSAGE value="Additional metrics." />
     <MESSAGE value="Changes to board creation." />
     <MESSAGE value="Image display issues" />
@@ -5412,6 +5411,13 @@
     <MESSAGE value="Fixed image cache." />
     <MESSAGE value="Fixed image cache date headers." />
     <MESSAGE value="More image work." />
+    <MESSAGE value="Email work." />
+    <MESSAGE value="Email work + UTF8" />
+    <MESSAGE value="Email work" />
+    <MESSAGE value="Bug fixes." />
+    <MESSAGE value="General fixes for email and other things." />
+    <MESSAGE value="Add Chat" />
+    <MESSAGE value="Chat + turned on alpha features" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -5455,118 +5461,123 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/cazcade/common/Logger.java">
+    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/RetrieveUpdatesRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="12" selection-start="1746" selection-end="1746" vertical-scroll-proportion="0.0">
+        <state line="16" column="100" selection-start="466" selection-end="466" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_to_delete_register_email.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="22" selection-start="1012" selection-end="1012" vertical-scroll-proportion="-8.833333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="426" column="10" selection-start="18530" selection-end="18530" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/EmailUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="4" selection-start="330" selection-end="330" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEmailService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="1423" selection-end="1423" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="10" selection-start="390" selection-end="473" vertical-scroll-proportion="-10.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/entities/AliasEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="0" selection-start="2410" selection-end="2410" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDAttribute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="59" selection-start="12681" selection-end="12703" vertical-scroll-proportion="-5.769231">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/ChangeReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="37" selection-start="1058" selection-end="1058" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="38" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/failed.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="17" selection-start="188" selection-end="188" vertical-scroll-proportion="-2.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_reg.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="2215" selection-end="2285" vertical-scroll-proportion="-7.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/daily-updates.vm">
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/AbstractPoolObjectPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="35" selection-start="526" selection-end="526" vertical-scroll-proportion="-0.625">
+        <state line="378" column="45" selection-start="13552" selection-end="13560" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserUpdateService.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="29" selection-start="1178" selection-end="1178" vertical-scroll-proportion="0.0">
+        <state line="119" column="23" selection-start="1932" selection-end="1932" vertical-scroll-proportion="-3.7692308">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/update_admin.jsp">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="77" selection-start="656" selection-end="656" vertical-scroll-proportion="0.22580644">
+        <state line="570" column="55" selection-start="9837" selection-end="9837" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="69" selection-start="1227" selection-end="1227" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="352" column="51" selection-start="15118" selection-end="15118" vertical-scroll-proportion="-7.6538463">
+          <folding>
+            <marker date="1322064196000" expanded="true" signature="17222:17359" placeholder="{...}" />
+            <marker date="1322064196000" expanded="true" signature="17280:17353" placeholder="{...}" />
+            <marker date="1322064196000" expanded="true" signature="20275:20563" placeholder="{...}" />
+            <marker date="1322064196000" expanded="true" signature="20308:20554" placeholder="{&quot;service&quot;: &quot;sharethis&quot;...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="51" selection-start="6735" selection-end="6735" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="235" column="11" selection-start="8877" selection-end="8877" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="205" column="40" selection-start="8378" selection-end="8378" vertical-scroll-proportion="-16.307692">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="66" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="45" selection-start="3508" selection-end="3508" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1322069765000" expanded="true" signature="3780:3873" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="47" selection-start="2105" selection-end="2105" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/ChatStreamPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="44" selection-start="4551" selection-end="4551" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="62" selection-start="2637" selection-end="2637" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="64" selection-start="237" selection-end="237" vertical-scroll-proportion="0.23961662">
           <folding />
         </state>
       </provider>

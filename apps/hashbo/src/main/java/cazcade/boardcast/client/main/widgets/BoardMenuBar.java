@@ -69,7 +69,9 @@ public class BoardMenuBar extends MenuBar {
                     addItem("Permissions", accessMenuBar);
                     createAccessMenu(board);
                 }
-                createCollaborateMenu(board);
+                if (ClientApplicationConfiguration.isAlphaFeatures()) {
+                    createCollaborateMenu(board);
+                }
             }
         });
 
