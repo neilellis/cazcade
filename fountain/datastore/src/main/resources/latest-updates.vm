@@ -56,7 +56,7 @@
     </p>
 
     #if($data.hasLatestChanges())
-        <p>Sample of recent.... activity:</p>
+        <p>Sample of recent activity:</p>
         <table>
             #foreach ($change in $data.latestChanges)
             #changesummary($change)

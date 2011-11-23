@@ -44,15 +44,20 @@ div.pool-object {
 //    .transition-left;
 //    .transition-opacity;
 //    .transition-transform;
-    .transition3(left ease-in-out 400ms, top ease-in-out 400ms, opacity ease-in-out 400ms);
 
      background: none;
      border: 2px dotted rgba(90, 200, 250,0.0);
          overflow: hidden;
 
+    .transition3(left ease-in-out 400ms, top ease-in-out 400ms, opacity ease-in-out 400ms);
+}
 
+.loading div.pool-object{
+        .transitions-off;
+}
 
-
+.dragging div.pool-object{
+        .transitions-off;
 }
 
 

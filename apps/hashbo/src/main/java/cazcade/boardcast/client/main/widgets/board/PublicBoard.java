@@ -267,7 +267,8 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     @Override
     protected void onChange(LSDEntity entity) {
-
+        addStyleName("readonly");
+        addStyleName("loading");
         LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER, true);
 
         if (entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
@@ -326,11 +327,13 @@ public class PublicBoard extends EntityBackedFormPanel {
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(), "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null ? "" : imageUrl, sharethisElement);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.init(getEntity(), true, getChangeBackgroundDialog());
+                        removeStyleName("readonly");
                     } else {
                         menuBar.init(getEntity(), false, getChangeBackgroundDialog());
                     }
                     StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
                     WidgetUtil.showGracefully(getWidget(), false);
+                    removeStyleName("loading");
                 }
             });
         }

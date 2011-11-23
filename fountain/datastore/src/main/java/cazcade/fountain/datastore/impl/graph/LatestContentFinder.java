@@ -223,7 +223,7 @@ public class LatestContentFinder {
                 entity.setAttribute(LSDAttribute.ICON_URL, (String) targetNode.getProperty(LSDAttribute.ICON_URL.getKeyName()));
             }
 
-            if (aliasEntity != null) {
+            if (aliasEntity != null && fountainNeo.isListed(targetNode)) {
                 entity.setAttribute(LSDAttribute.TITLE, String.format("@%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), targetNode.getProperty(FountainNeo.TITLE, targetNode.getProperty(FountainNeo.NAME, "Unknown"))));
             }
 

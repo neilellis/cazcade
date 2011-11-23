@@ -736,12 +736,12 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
 
             int commentCount;
             if (targetNode.hasProperty(LSDAttribute.COMMENT_COUNT.getKeyName())) {
-                commentCount = Integer.parseInt(targetNode.getProperty(LSDAttribute.COMMENT_COUNT.getKeyName()).toString());
+                commentCount = Integer.parseInt(targetNode.getProperty(LSDAttribute.COMMENT_COUNT.getKeyName()).toString()) + 1;
             } else {
                 commentCount = getCommentTraverser(targetNode, FountainNeo.MAX_COMMENTS_DEFAULT).getAllNodes().size();
             }
-            log.debug("Comment count os now {0}", commentCount + 1);
-            targetNode.setProperty(LSDAttribute.COMMENT_COUNT.getKeyName(), String.valueOf(commentCount + 1));
+            log.debug("Comment count is now {0}", commentCount);
+            targetNode.setProperty(LSDAttribute.COMMENT_COUNT.getKeyName(), String.valueOf(commentCount));
             indexDAO.syncCommentCount(targetNode);
             indexDAO.incrementBoardActivity(targetNode);
             return commentNode;
