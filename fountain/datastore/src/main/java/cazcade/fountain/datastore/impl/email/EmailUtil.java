@@ -24,6 +24,6 @@ public class EmailUtil {
         if (emailAddress == null || hash == null) {
             return false;
         }
-        return digester.matches(emailAddress, hash);
+        return digester.matches(encodeEmail(emailAddress), hash);
     }
 }
