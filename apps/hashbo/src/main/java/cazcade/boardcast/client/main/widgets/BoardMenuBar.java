@@ -13,6 +13,7 @@ import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -28,6 +29,7 @@ public class BoardMenuBar extends MenuBar {
     private LiquidURI poolURI;
     private MenuBar addMenubar;
     private MenuBar accessMenuBar;
+    private MenuBar collaborateMenuBar;
 
 
     public interface SizeVariantBuilder<T extends CreateItemCommand> {
@@ -64,12 +66,24 @@ public class BoardMenuBar extends MenuBar {
                 }
                 if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
                     accessMenuBar = new MenuBar(true);
-                    addItem("Access", accessMenuBar);
+                    addItem("Permissions", accessMenuBar);
                     createAccessMenu(board);
                 }
+                createCollaborateMenu(board);
             }
         });
 
+    }
+
+    private void createCollaborateMenu(final LSDEntity board) {
+        collaborateMenuBar = new MenuBar(true);
+        addItem("Collaborate", collaborateMenuBar);
+        collaborateMenuBar.addItem("Chat (Alpha)", new Command() {
+            @Override
+            public void execute() {
+                HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
+            }
+        });
     }
 
     private void createAccessMenu(LSDEntity board) {

@@ -91,6 +91,10 @@ public class HistoryManager {
         navigate(historyToken + ":" + localHistory);
     }
 
+    public static void navigate(String action, String local) {
+        navigate("_" + action + "-" + local);
+    }
+
     public static void navigate(String url) {
         if (isPushStateSupported()) {
             History.newItem(url);

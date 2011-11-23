@@ -85,6 +85,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                     final Node aliasNode = fountainNeo.findByURI(new LiquidURI(alias.getUri()));
                     if (aliasNode == null) {
                         log.warn("Skipping " + uri + " as alias node not found.");
+                        return;
                     }
                     final LSDEntity aliasEntity = getAliasFromNode(aliasNode, true, LiquidRequestDetailLevel.COMPLETE);
                     final Relationship ownerRel = aliasNode.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);

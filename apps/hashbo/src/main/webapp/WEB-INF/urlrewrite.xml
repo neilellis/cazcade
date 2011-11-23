@@ -53,9 +53,13 @@
         <to type="forward">/_pages/board.jsp?%{query-string}</to>
     </rule>
 
-
     <rule>
         <from>^/_create-unlisted$</from>
+        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+    </rule>
+
+    <rule>
+        <from>^/_chat-*</from>
         <to type="forward">/_pages/board.jsp?%{query-string}</to>
     </rule>
 
