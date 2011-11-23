@@ -1,7 +1,7 @@
 #macro (boardsummary $board)
 <tr></tr>
 <td><a href="http://boardcast.it/$board.shortUrl"><img border="0" width="80" height="60"
-                                                       src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_MEDIUM&url=$!board.imageUrl"/></a>
+                                                       src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_MEDIUM&url=$!board.iconUrl"/></a>
 </td>
 <td>
     <table>
