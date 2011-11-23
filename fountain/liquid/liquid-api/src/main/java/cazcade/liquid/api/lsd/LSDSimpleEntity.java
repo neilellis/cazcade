@@ -600,6 +600,9 @@ public class LSDSimpleEntity implements LSDEntity {
 
     public void addSubEntity(LSDAttribute stem, LSDEntity entity, boolean requiresId) {
         assertNotReadonly();
+        if (entity == null) {
+            throw new NullPointerException("Attempted to add a null sub entity using stem " + stem);
+        }
         if (!stem.isSubEntity()) {
             throw new IllegalArgumentException("Cannot add a sub entity to a non sub entity property '" + stem.getKeyName() + "'.");
         }

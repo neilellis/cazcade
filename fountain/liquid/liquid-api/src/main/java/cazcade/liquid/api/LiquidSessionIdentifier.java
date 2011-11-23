@@ -28,7 +28,7 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
     public String getName() {
-        return alias.getSubURI().asString();
+        return alias.getSubURI().getSubURI().asString();
     }
 
     public LiquidUUID getSession() {

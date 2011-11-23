@@ -84,18 +84,18 @@ public class LatestContentFinder {
         final Traverser traverser = startNode.traverse(Traverser.Order.BREADTH_FIRST, new StopEvaluator() {
                     @Override
                     public boolean isStopNode(TraversalPosition currentPos) {
-                        return currentPos.returnedNodesCount() >= maxReturnNodes * 4 || count[0]++ >= maxTraversal;
+                        return !fountainNeo.isListed(currentPos.currentNode()) || currentPos.returnedNodesCount() >= maxReturnNodes * 4 || count[0]++ >= maxTraversal;
                     }
                 }, new ReturnableEvaluator() {
                     @Override
                     public boolean isReturnableNode(TraversalPosition currentPos) {
 
                         Node currentNode = currentPos.currentNode();
-                        if (!fountainNeo.isLatestVersion(currentNode)) {
-                            return false;
-                        }
                         if (!skip.contains(currentNode.getId())) {
                             try {
+                                if (!fountainNeo.isLatestVersion(currentNode) || !fountainNeo.isListed(currentNode)) {
+                                    return skip.add(currentNode.getId());
+                                }
                                 if (currentNode.hasProperty(LSDAttribute.UPDATED.getKeyName()) && currentNode.hasProperty(LSDAttribute.URI.getKeyName())) {
                                     long updated = Long.valueOf(currentNode.getProperty(LSDAttribute.UPDATED.getKeyName()).toString());
                                     String uri = (String) currentNode.getProperty(LSDAttribute.URI.getKeyName());

@@ -19,10 +19,7 @@ import org.neo4j.helpers.collection.MapUtil;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -109,6 +106,7 @@ public class FountainNeo extends AbstractServiceStateMachine {
             Executors.newScheduledThreadPool(1);
     public static final String PINNED = LSDAttribute.PINNED.getKeyName();
     private Cache nodeAuthCache;
+    public static final String LISTED = LSDAttribute.LISTED.getKeyName();
 
 
     static {
@@ -1087,6 +1085,34 @@ public class FountainNeo extends AbstractServiceStateMachine {
                 return startNode;
             }
         });
+    }
+
+    public boolean isListed(final Node node) {
+        try {
+            return doInBeginBlock(new Callable<Boolean>() {
+                @Override
+                public Boolean call() throws Exception {
+                    Node boardNode = null;
+                    final Iterator<Node> parentIterator = node.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
+                        @Override
+                        public boolean isReturnableNode(TraversalPosition currentPos) {
+                            final String type = String.valueOf(currentPos.currentNode().getProperty(FountainNeo.TYPE));
+                            return type.startsWith(LSDDictionaryTypes.BOARD.asString());
+                        }
+                    }, FountainRelationships.CHILD, Direction.INCOMING).iterator();
+                    if (parentIterator.hasNext()) {
+                        boardNode = parentIterator.next();
+                    }
+                    if (boardNode == null) {
+                        return false;
+                    }
+                    return boardNode.getProperty(FountainNeo.LISTED, "true").equals("true");
+                }
+            });
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
     }
 
     public <T> T doInTransaction(Callable<T> callable) throws Exception {
