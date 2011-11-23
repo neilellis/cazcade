@@ -224,7 +224,7 @@ public class LatestContentFinder {
             }
 
             if (aliasEntity != null) {
-                entity.setAttribute(LSDAttribute.TITLE, String.format("%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), targetNode.getProperty(FountainNeo.TITLE, targetNode.getProperty(FountainNeo.NAME, "Unknown"))));
+                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), targetNode.getProperty(FountainNeo.TITLE, targetNode.getProperty(FountainNeo.NAME, "Unknown"))));
             }
 
         }

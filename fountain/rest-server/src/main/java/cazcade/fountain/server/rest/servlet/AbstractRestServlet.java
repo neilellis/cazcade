@@ -58,7 +58,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
             if (req.getUserPrincipal() != null) {
                 RestContext.getContext().setCredentials(new LiquidSessionIdentifier(req.getUserPrincipal().getName()));
             } else {
-                RestContext.getContext().setCredentials(new LiquidSessionIdentifier(null));
+                RestContext.getContext().setCredentials(new LiquidSessionIdentifier(null, null));
             }
             if (sessionId != null) {
                 RestContext.getContext().getCredentials().setSession(sessionId);
