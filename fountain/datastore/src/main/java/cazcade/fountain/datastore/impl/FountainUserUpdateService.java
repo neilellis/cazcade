@@ -42,8 +42,8 @@ public class FountainUserUpdateService {
     //todo: change to a less frequent cron schedule as shown in the commented out annotation
     //just started it as hourly to get things going (makes testing easier).
 //    @Scheduled(cron = "0 0 19 1/1 * ? *")
-//    @Scheduled(cron = "0 0 0/1 1/1 * ?")
-    @Scheduled(cron = "0 0/5 * 1/1 * ?")
+    @Scheduled(cron = "0 0 0/1 1/1 * ?")
+//    @Scheduled(cron = "0 0/5 * 1/1 * ?")
     public void trivialUpdateLoop() {
         if (!Logger.isProduction() && !test) {
             return;
