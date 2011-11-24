@@ -47,7 +47,5 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="emailService" class="cazcade.fountain.index.services.EmailServiceImpl"/>
-
 
 </beans>

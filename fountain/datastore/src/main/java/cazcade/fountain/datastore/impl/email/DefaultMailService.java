@@ -52,7 +52,7 @@ public class DefaultMailService implements MailService {
     public void sendMailFromTemplate(String templateIdentifier, String subject, String[] to, String[] cc, String[] bcc,
                                      Map<String, Object> templateParameters, boolean test) {
         try {
-            Template template = velocity.getTemplate(templateIdentifier);
+            Template template = velocity.getTemplate(templateIdentifier, "UTF-8");
             StringWriter output = new StringWriter();
             VelocityContext context = new VelocityContext(templateParameters);
             template.merge(context, output);

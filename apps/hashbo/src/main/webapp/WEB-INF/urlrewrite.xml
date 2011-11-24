@@ -68,6 +68,12 @@
         <to type="forward">/_pages/snapshot.jsp?%{query-string}</to>
     </rule>
 
+    <rule>
+        <from>^/_embed-*</from>
+        <to type="forward">/_pages/snapshot.jsp?%{query-string}</to>
+    </rule>
+
+
     <!--Board queries/lists-->
     <rule>
         <from>^/_query-(.*)$</from>
