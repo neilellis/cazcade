@@ -9,78 +9,62 @@
 
     <title>Boardcast</title>
 
-    <%@ include file="navfunc.jspf"  %
-    <%@
-nclude
-ile= header.jspf" %>
 
-< head>
+    <%@ include file="navfunc.jspf" %>
+    <%@ include file="header.jspf" %>
+
+</head>
 
 <body>
 
-<div s
-    "opa ity: 0" id="top-bar-wrapp
-        <div class="right rib-hold r">
-        <div class="orange rib"><a hr
-    ttp://
-    cast.it">Beta</a></div>
-    </div
-    <
- inc ude file="topbar.js
+<div style="opacity: 0" id="top-bar-wrapper">
+    <div class="right rib-holder">
+        <div class="orange rib"><a href="http://boardcast.it">Beta</a></div>
     </div>
+    <%@ include file="topbar.jspf" %>
+</div>
 
-    <div clas
-    er-body"
+<div class="inner-body">
 
 
-        tags:log-panel/>
+    <tags:log-panel/>
 
     <script>
-        //Deferre
-         to improve initial load time.
-        loadjs(".
-    tify/prettify.js");
-    scri t>
+        //Deferred loading to improve initial load time.
+        loadjs("./_prettify/prettify.js");
+    </script>
 
-    <tags:has
-        >
+    <tags:hashbo-less/>
 
 
-    <div id="cache-p
-              <d v id="loading-panel">
-     s="loading-bar-oute
-
-        ading-
-
-
-     </d v>
+    <div id="cache-panel">
+        <div id="loading-panel">
+            <div class="loading-bar-outer">
+                <tags:loading-bar/>
+            </div>
         </div>
     </div>
 
     <div id="board-panel">
     </div>
 
-    %@ include file="footer.jspf" %>
+    <%@ include file="footer.jspf" %>
 
 
-    <!--  container -->
+    <!-- /container -->
     <span id="sharethis" style="visibility: hidden">
-<%--<span class 'st_twitter'></span>--%>
+        <%--<span class='st_twitter'></span>--%>
         <span class='st_email'></span>
-        <span cl ss='st_facebook'></span>
-        <span cl ss='st_linkedin'></span>
+        <span class='st_facebook'></span>
+        <span class='st_linkedin'></span>
         <span class='st_reddit'></span>
-<%--<span cla='st_p
-sone'>< span>--%>
+        <%--<span class='st_plusone'></span>--%>
     </span>
 
-        </div>
+</div>
 
-<script type= ascript" language="javascript"
-        src="_boardcast_g
-/_board
-ast_gwt
-.nocache.js"></script>
+<script type="text/javascript" language="javascript"
+        src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 
 </body>
 </html>
