@@ -225,16 +225,8 @@ public class Boardcast implements EntryPoint {
 
     private void addSnapshotBoard() {
         historyManager = new HistoryManager(SNAPSHOT_PANEL_ID);
-        final AbstractLazyHistoryAwareFactory historyAwareFactory = new AbstractLazyHistoryAwareFactory() {
-            @Override
-            protected HistoryAware getInstanceInternal() {
-                final SnapshotBoard board = new SnapshotBoard();
-                RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
-                return board;
-            }
-        };
-        historyManager.registerTopLevelComposite("snapshot", historyAwareFactory);
-        historyManager.registerTopLevelComposite("embed", historyAwareFactory);
+        historyManager.registerTopLevelComposite("snapshot", new SnapshotBoardFactory());
+        historyManager.registerTopLevelComposite("embed", new SnapshotBoardFactory());
     }
 
     private void createLoginPanel(final Runnable loginAction) {
@@ -349,4 +341,12 @@ public class Boardcast implements EntryPoint {
 //        }
 //    }
 
+    private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
+        @Override
+        protected HistoryAware getInstanceInternal() {
+            final SnapshotBoard board = new SnapshotBoard();
+            RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
+            return board;
+        }
+    }
 }

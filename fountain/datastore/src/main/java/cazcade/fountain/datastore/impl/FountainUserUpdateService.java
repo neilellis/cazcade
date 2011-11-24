@@ -66,9 +66,9 @@ public class FountainUserUpdateService {
                 if (userEntity.hasAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY)) {
                     final String frequency = userEntity.getAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY);
                     if (frequency.equals("H")) {
-                        send = lastHour > lastEmailUpdateDate - (HOUR_IN_MILLIS / 2);
+                        send = lastHour > lastEmailUpdateDate - (HOUR_IN_MILLIS / 4);
                     } else if (frequency.equals("D")) {
-                        send = yesterday > lastEmailUpdateDate - (DAY_IN_MILLIS / 2);
+                        send = yesterday > lastEmailUpdateDate - (DAY_IN_MILLIS / 4);
                     } else if (frequency.equals("W")) {
                         send = lastWeek > lastEmailUpdateDate - (DAY_IN_MILLIS / 2);
                     } else if (frequency.equals("M")) {
