@@ -6,52 +6,36 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    title>Boardcast Snapshot
-    e>
-    <%@  nclude file="navfun c.
-pf" %>
+    <title>Boardcast Snapshot</title>
+    <%@ include file="navfunc.jspf" %>
+    <%@ include file="header.jspf" %>
+</head>
+<body style="padding-top:0px;">
+<tags:log-panel/>
 
-  <%@
-clud  file="header.jspf"
-    ead>
-    < dy s yle=
-    ng-top:0
-        <tags:log-panel/>
+<script>
+    //Deferred loading to improve initial load time.
+    loadjs("./_prettify/prettify.js");
+</script>
 
-    <script>
-        //Defer
-        ng to improve initial load time.
-        loadjs(
-    ettify/prettify.js"
-    </sc ipt>
-
-    <tags:h
-        s/>
+<tags:hashbo-less/>
 
 
-
-
-    <div id="cac
-                  <div id="loading-panel">
- class="loading-bar-
-
-        s:load
-    ar/>
-
-         </div>
-        </
-        </
-
-         div id="snapshot- ">
+<div id="cache-panel">
+    <div id="loading-panel">
+        <div class="loading-bar-outer">
+            <tags:loading-bar/>
+        </div>
     </div>
+</div>
 
-    <%@ include file="footer.j pf" %>
+<div id="snapshot-panel">
+</div>
 
-<script type= ascript" language="javascript"
-        src="_boardcast_g
-/_board
-ast_gwt
-.nocache.js"></script>
+<%@ include file="footer.jspf" %>
+
+<script type="text/javascript" language="javascript"
+        src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 
 </body>
 </html>
