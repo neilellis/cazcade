@@ -29,6 +29,7 @@ public class ImageView extends PoolObjectView {
     public ImageView() {
         HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
+        getElement().getStyle().setZIndex(9000);
     }
 
     @Override
@@ -36,6 +37,7 @@ public class ImageView extends PoolObjectView {
         super.onAddToPool();
         image.setHeight("auto");
         image.setWidth("auto");
+
     }
 
     @Override

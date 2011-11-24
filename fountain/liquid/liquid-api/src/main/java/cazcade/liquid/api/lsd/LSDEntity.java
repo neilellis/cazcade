@@ -14,26 +14,26 @@ import java.util.*;
 
 public interface LSDEntity extends Serializable {
 
-    String FALSE = "false";
-
     /**
-     * Returns a non referenced sub object from all properties with the common parent path.
-     *
-     * @param path     all properties that start with this will be used.
-     * @param readonly
-     * @return a new object from the sub properties.
-     */
-    LSDEntity getSubEntity(LSDAttribute path, boolean readonly);
-
-    LSDEntity removeSubEntity(LSDAttribute path);
-
-
-    /**
-     * All LSD Objects have an id attributed which is compatible with the JAVA {@link cazcade.liquid.api.LiquidUUID} class.
+     * All LSD Objects have an id attribute which confirms to Java's {@link java.util.UUID} format, but for
+     * GWT related reasons we use instead {@link cazcade.liquid.api.LiquidUUID} class.
      *
      * @return a universally unique identifier for this object
      */
     LiquidUUID getID();
+
+    /**
+     * Returns a un-aliased sub object from all properties with the common parent path.
+     *
+     * @param path     all properties that start with this will be used.
+     * @param readonly the newly created sub entity should be readonly.
+     * @return a new object from the sub properties.
+     */
+    LSDEntity getSubEntity(LSDAttribute path, boolean readonly);
+
+
+    LSDEntity removeSubEntity(LSDAttribute path);
+
 
     LiquidURI getURI();
 

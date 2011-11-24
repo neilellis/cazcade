@@ -17,7 +17,7 @@ public class NoteView extends RichTextView {
 
     public NoteView() {
         initWidget(ourUiBinder.createAndBindUi(this));
-
+        getElement().getStyle().setZIndex(5000);
     }
 
     @Override
@@ -42,6 +42,7 @@ public class NoteView extends RichTextView {
     public NoteView(FormatUtil formatter) {
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setFormatter(formatter);
+        getElement().getStyle().setZIndex(5000);
 
     }
 
