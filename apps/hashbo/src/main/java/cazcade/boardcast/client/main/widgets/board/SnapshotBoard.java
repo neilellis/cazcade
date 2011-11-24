@@ -189,6 +189,9 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     public SnapshotBoard(boolean embedded) {
         initWidget(ourUiBinder.createAndBindUi(this));
         WidgetUtil.hide(getWidget(), false);
+        if (embedded) {
+            addStyleName("embedded-board");
+        }
 
     }
 
