@@ -66,9 +66,9 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
             return text;
         }
         if ("!@".indexOf(text.charAt(0)) >= 0) {
-            text = text.charAt(0) + text.substring(1).replaceAll("[^@a-zA-Z0-9_.-]", "");
+            text = text.charAt(0) + text.substring(1).replaceAll("[^@a-zA-Z0-9_-]", "");
         } else {
-            text = text.replaceAll("[^@a-zA-Z0-9_.-]", "");
+            text = text.replaceAll("[^@a-zA-Z0-9_-]", "");
         }
         return text;
     }
@@ -91,7 +91,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
     }
 
     public boolean isValidName() {
-        return textBox.getText().matches("[a-zA-Z][a-zA-Z0-9_.-]*");
+        return textBox.getText().matches("[a-zA-Z][a-zA-Z0-9_-]*");
     }
 
     protected void showInvalidName() {

@@ -66,7 +66,11 @@ public class AbstractHashboServlet extends HttpServlet {
             Map<String, String> map = entity.getCamelCaseMap();
             result.add(map);
             if (entity.getURI().toString().startsWith("pool")) {
-                map.put("shortUrl", entity.getURI().asShortUrl().asUrlSafe());
+                final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
+                map.put("shortUrl", shortUrl);
+                if (!entity.hasAttribute(LSDAttribute.ICON_URL)) {
+                    map.put("iconUrl", "http://boardcast.it/_snapshot-" + shortUrl);
+                }
             }
         }
         return result;

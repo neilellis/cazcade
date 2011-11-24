@@ -9,77 +9,78 @@
 
     <title>Boardcast</title>
 
-    <script type="text/javascript">
-        var _nav;
-        var testNoPushState = false;
-        if (typeof(window.history.pushState) == "function" && !testNoPushState) {
-            _nav = function(href) {
-                window.history.pushState(href, window.document.title, "/" + href);
-                fireGWTHistoryEvent(href);
-            };
-        } else {
-            _nav = function(href) {
-                window.location.href = window.location.href = "./" + href;
-            };
-        }
+    <%@ include file="navfunc.jspf"  %
+    <%@
+nclude
+ile= header.jspf" %>
 
-
-    </script>
-
-    <%@ include file="header.jspf" %>
-
-</head>
+< head>
 
 <body>
 
-<div style="opacity: 0" id="top-bar-wrapper">
-    <div class="right rib-holder">
-        <div class="orange rib"><a href="http://boardcast.it">Beta</a></div>
+<div s
+    "opa ity: 0" id="top-bar-wrapp
+        <div class="right rib-hold r">
+        <div class="orange rib"><a hr
+    ttp://
+    cast.it">Beta</a></div>
+    </div
+    <
+ inc ude file="topbar.js
     </div>
-    <%@ include file="topbar.jspf" %>
-</div>
 
-<div class="inner-body">
+    <div clas
+    er-body"
 
 
-    <tags:log-panel/>
+        tags:log-panel/>
 
     <script>
-        //Deferred loading to improve initial load time.
-        loadjs("./_prettify/prettify.js");
-    </script>
+        //Deferre
+         to improve initial load time.
+        loadjs(".
+    tify/prettify.js");
+    scri t>
 
-    <tags:hashbo-less/>
+    <tags:has
+        >
 
 
-    <div id="cache-panel">
-        <div id="loading-panel">
-            <div class="loading-bar-outer">
-                <tags:loading-bar/>
-            </div>
+    <div id="cache-p
+              <d v id="loading-panel">
+     s="loading-bar-oute
+
+        ading-
+
+
+     </d v>
         </div>
     </div>
 
     <div id="board-panel">
     </div>
 
-    <%@ include file="footer.jspf" %>
+    %@ include file="footer.jspf" %>
 
 
-    <!-- /container -->
+    <!--  container -->
     <span id="sharethis" style="visibility: hidden">
-        <%--<span class='st_twitter'></span>--%>
+<%--<span class 'st_twitter'></span>--%>
         <span class='st_email'></span>
-        <span class='st_facebook'></span>
-        <span class='st_linkedin'></span>
+        <span cl ss='st_facebook'></span>
+        <span cl ss='st_linkedin'></span>
         <span class='st_reddit'></span>
-        <%--<span class='st_plusone'></span>--%>
+<%--<span cla='st_p
+sone'>< span>--%>
     </span>
 
-</div>
+        </div>
 
-<script type="text/javascript" language="javascript"
-        src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
+<script type= ascript" language="javascript"
+        src="_boardcast_g
+/_board
+ast_gwt
+.nocache.js"></script>
 
 </body>
 </html>

@@ -4,6 +4,7 @@ import cazcade.boardcast.client.main.version.VersionNumberChecker;
 import cazcade.boardcast.client.main.widgets.board.BoardcastChatView;
 import cazcade.boardcast.client.main.widgets.board.CreateBoardDialog;
 import cazcade.boardcast.client.main.widgets.board.PublicBoard;
+import cazcade.boardcast.client.main.widgets.board.SnapshotBoard;
 import cazcade.boardcast.client.main.widgets.login.HashboLoginOrRegisterPanel;
 import cazcade.boardcast.client.preflight.PreflightCheck;
 import cazcade.boardcast.client.resources.HashboClientBundle;
@@ -42,6 +43,7 @@ public class Boardcast implements EntryPoint {
     public static final String MAIN_PANEL_ID = "main-panel";
     public static final String LOGIN_PANEL_ID = "login-panel";
     public static final String PUBLIC_BOARD_PANEL_ID = "board-panel";
+    public static final String SNAPSHOT_PANEL_ID = "snapshot-panel";
     private HashboLoginOrRegisterPanel loginOrRegisterPanel;
     private HistoryManager historyManager;
     private boolean registerRequest;
@@ -130,6 +132,16 @@ public class Boardcast implements EntryPoint {
 
             createLoginPanel(loginAction);
             checkUserLoggedIn(loginAction);
+        } else if (RootPanel.get(SNAPSHOT_PANEL_ID) != null) {
+            final Runnable loginAction = new Runnable() {
+                @Override
+                public void run() {
+                    addSnapshotBoard();
+                    historyManager.fireCurrentHistoryState();
+                }
+            };
+            createLoginPanel(loginAction);
+            checkUserLoggedIn(loginAction);
         } else if (RootPanel.get(LOGIN_PANEL_ID) != null) {
             loginOrRegisterPanel = new HashboLoginOrRegisterPanel(registerRequest, new Runnable() {
                 @Override
@@ -209,6 +221,19 @@ public class Boardcast implements EntryPoint {
                 return new BoardcastChatView();
             }
         });
+    }
+
+    private void addSnapshotBoard() {
+        historyManager = new HistoryManager(SNAPSHOT_PANEL_ID);
+        historyManager.registerTopLevelComposite("snapshot", new AbstractLazyHistoryAwareFactory() {
+            @Override
+            protected HistoryAware getInstanceInternal() {
+                final SnapshotBoard board = new SnapshotBoard();
+                RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
+                return board;
+            }
+        });
+
     }
 
     private void createLoginPanel(final Runnable loginAction) {
