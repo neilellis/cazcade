@@ -16,7 +16,7 @@
     </style>
 </head>
 <body
-        <c:if test="${board.listed eq 'true' and not empty board.imageUrl}">
+        <c:if test="${not empty board.imageUrl}">
             style="background-image: url('<c:url value="_image-service">
             <c:param name="url" value="${board.imageUrl}"/>
             <c:param name="size" value="LARGE"/>
