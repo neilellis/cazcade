@@ -64,9 +64,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" afterPath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -305,7 +304,7 @@
       <file leaf-file-name="iconmaker.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/iconmaker.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="56" selection-start="487" selection-end="487" vertical-scroll-proportion="-8.125">
+            <state line="18" column="22" selection-start="547" selection-end="547" vertical-scroll-proportion="-8.75">
               <folding />
             </state>
           </provider>
@@ -314,7 +313,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="135" column="57" selection-start="4493" selection-end="4493" vertical-scroll-proportion="0.0">
+            <state line="129" column="45" selection-start="4279" selection-end="4279" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -329,10 +328,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistoryManager.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="HistoryManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="31" selection-start="1944" selection-end="1944" vertical-scroll-proportion="0.29840547">
+            <state line="54" column="31" selection-start="1944" selection-end="1944" vertical-scroll-proportion="0.0">
               <folding>
                 <marker date="1322241379000" expanded="true" signature="4200:4293" placeholder="{...}" />
                 <marker date="1322241379000" expanded="true" signature="4200:4293" placeholder="{...}" />
@@ -381,10 +380,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractHashboServlet.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AbstractHashboServlet.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="39" selection-start="3395" selection-end="3395" vertical-scroll-proportion="0.0">
+            <state line="73" column="170" selection-start="3314" selection-end="3314" vertical-scroll-proportion="0.5798122">
               <folding />
             </state>
           </provider>
@@ -422,13 +421,13 @@
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/urlrewrite.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageProxyServlet.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardIconServlet.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" />
+        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/iconmaker.jsp" />
         <option value="$PROJECT_DIR$/apps/hashbo/pom.xml" />
-        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" />
       </list>
     </option>
   </component>
@@ -5424,7 +5423,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed GWT output to pretty while bugfixing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed background problem for unlisted boards." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -5437,7 +5436,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Tweet changes" />
     <MESSAGE value="Performance work." />
     <MESSAGE value="Changed requests to be based on entities now." />
     <MESSAGE value="Start on email service and live bugfixes." />
@@ -5462,6 +5460,7 @@
     <MESSAGE value="Ordering" />
     <MESSAGE value="Board snapshots." />
     <MESSAGE value="Changed GWT output to pretty while bugfixing." />
+    <MESSAGE value="Fixed background problem for unlisted boards." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -5570,30 +5569,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="39" selection-start="3395" selection-end="3395" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="40" column="50" selection-start="1432" selection-end="1432" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/iconmaker.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="56" selection-start="487" selection-end="487" vertical-scroll-proportion="-8.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="57" selection-start="4493" selection-end="4493" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -5616,11 +5594,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/history/HistoryManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="31" selection-start="1944" selection-end="1944" vertical-scroll-proportion="0.29840547">
+        <state line="54" column="31" selection-start="1944" selection-end="1944" vertical-scroll-proportion="0.0">
           <folding>
             <marker date="1322241379000" expanded="true" signature="4200:4293" placeholder="{...}" />
             <marker date="1322241379000" expanded="true" signature="4200:4293" placeholder="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/iconmaker.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="22" selection-start="547" selection-end="547" vertical-scroll-proportion="-8.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="45" selection-start="4279" selection-end="4279" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="170" selection-start="3314" selection-end="3314" vertical-scroll-proportion="0.5798122">
+          <folding />
         </state>
       </provider>
     </entry>
