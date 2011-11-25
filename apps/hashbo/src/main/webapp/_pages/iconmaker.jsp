@@ -11,6 +11,7 @@
         body {
             height: 768px;
             width: 1024px;
+            background-color: #111;
         }
     </style>
 </head>
