@@ -51,9 +51,14 @@ public class HistoryManager {
             tokenFirstPart = strings[0];
             localToken = strings[1];
         } else if (newToken.startsWith("_")) {
-            final String[] strings = newToken.substring(1).split("-");
-            tokenFirstPart = strings[0];
-            localToken = strings[1];
+            int dashPosition = newToken.indexOf("-");
+            if (dashPosition < 0) {
+                tokenFirstPart = newToken;
+                localToken = "";
+            } else {
+                tokenFirstPart = newToken.substring(0, dashPosition);
+                localToken = newToken.substring(dashPosition + 1);
+            }
         } else {
             tokenFirstPart = "default";
             localToken = newToken;

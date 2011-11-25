@@ -150,6 +150,16 @@
         <servlet-class>cazcade.boardcast.servlet.ImageScaleServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>board-icon</servlet-name>
+        <servlet-class>cazcade.boardcast.servlet.board.BoardIconServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>board-icon</servlet-name>
+        <url-pattern>/_board-icon</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>image-scale</servlet-name>
@@ -239,6 +249,7 @@
         <servlet-name>image</servlet-name>
         <servlet-class>cazcade.boardcast.servlet.ImageProxyServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>cazcade.boardcast.Boardcast BuildVersionService</servlet-name>
         <servlet-class>cazcade.boardcast.server.BuildVersionServiceImpl</servlet-class>
@@ -252,7 +263,7 @@
 
     <servlet-mapping>
         <servlet-name>uploadServlet</servlet-name>
-        <url-pattern>_image-upload</url-pattern>
+        <url-pattern>/_image-upload</url-pattern>
     </servlet-mapping>
 
 

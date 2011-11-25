@@ -59,17 +59,17 @@
     </rule>
 
     <rule>
-        <from>^/_chat-*</from>
+        <from>^/_chat-.*$</from>
         <to type="forward">/_pages/board.jsp?%{query-string}</to>
     </rule>
 
     <rule>
-        <from>^/_snapshot-*</from>
+        <from>^/_snapshot-.*$</from>
         <to type="forward">/_pages/snapshot.jsp?%{query-string}</to>
     </rule>
 
     <rule>
-        <from>^/_embed-*</from>
+        <from>^/_embed-.*$</from>
         <to type="forward">/_pages/snapshot.jsp?%{query-string}</to>
     </rule>
 

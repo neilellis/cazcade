@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +62,7 @@ public class AbstractHashboServlet extends HttpServlet {
         return (LiquidSessionIdentifier) session.getAttribute(SESSION_KEY);
     }
 
-    protected List<Map<String, String>> makeJSPFriendly(List<LSDEntity> entities) {
+    protected List<Map<String, String>> makeJSPFriendly(List<LSDEntity> entities) throws UnsupportedEncodingException {
         List<Map<String, String>> result = new ArrayList<Map<String, String>>();
         for (LSDEntity entity : entities) {
             Map<String, String> map = entity.getCamelCaseMap();
@@ -69,7 +71,7 @@ public class AbstractHashboServlet extends HttpServlet {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
                 if (!entity.hasAttribute(LSDAttribute.ICON_URL)) {
-                    map.put("iconUrl", "http://boardcast.it/_snapshot-" + shortUrl + "?ts5=" + System.currentTimeMillis() / (1000 * 3600 * 24));
+                    map.put("iconUrl", "http://boardcast.it/_board-icon?board=" + URLEncoder.encode(shortUrl, "utf-8") + "&ts=" + System.currentTimeMillis() / (1000 * 3600 * 24));
                 }
             }
         }
