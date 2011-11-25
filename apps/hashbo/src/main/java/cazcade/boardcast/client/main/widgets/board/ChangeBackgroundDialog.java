@@ -41,10 +41,10 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     @Override
     public LSDEntity getEntityDiff() {
         final LSDEntity updateEntity = changeBackgroundPanel.getEntityDiff();
-        final String oldIconUrl = oldEntity.getAttribute(LSDAttribute.ICON_URL);
-        if (oldIconUrl == null || oldIconUrl.equals(oldEntity.getAttribute(LSDAttribute.IMAGE_URL))) {
-            updateEntity.setAttribute(LSDAttribute.ICON_URL, changeBackgroundPanel.getStringValue());
-        }
+//        final String oldIconUrl = oldEntity.getAttribute(LSDAttribute.ICON_URL);
+//        if (oldIconUrl == null || oldIconUrl.equals(oldEntity.getAttribute(LSDAttribute.IMAGE_URL))) {
+//            updateEntity.setAttribute(LSDAttribute.ICON_URL, changeBackgroundPanel.getStringValue());
+//        }
         return updateEntity;
     }
 
