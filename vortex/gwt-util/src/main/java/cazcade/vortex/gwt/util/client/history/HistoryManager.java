@@ -52,18 +52,22 @@ public class HistoryManager {
             localToken = strings[1];
         } else if (newToken.startsWith("_")) {
             int dashPosition = newToken.indexOf("-");
-            if (dashPosition < 0) {
+            if (dashPosition <= 1) {
                 tokenFirstPart = newToken;
                 localToken = "";
             } else {
-                tokenFirstPart = newToken.substring(0, dashPosition);
+                tokenFirstPart = newToken.substring(1, dashPosition);
                 localToken = newToken.substring(dashPosition + 1);
             }
         } else {
             tokenFirstPart = "default";
             localToken = newToken;
         }
-        compositeMap.get(tokenFirstPart).withInstance(
+        final HistoryAwareFactory historyAwareFactory = compositeMap.get(tokenFirstPart);
+        if (historyAwareFactory == null) {
+            throw new IllegalArgumentException("Unrecognized history component " + tokenFirstPart);
+        }
+        historyAwareFactory.withInstance(
                 new HistoryAwareFactoryCallback() {
                     @Override
                     public void withInstance(HistoryAware composite) {
