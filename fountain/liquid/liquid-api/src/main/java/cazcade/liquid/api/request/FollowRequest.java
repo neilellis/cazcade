@@ -23,7 +23,7 @@ public class FollowRequest extends AbstractRequest {
 
     public FollowRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean follow) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setFollow(follow);
         this.setUri(uri);
     }

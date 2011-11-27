@@ -26,7 +26,7 @@ public class ResizePoolObjectRequest extends AbstractRequest {
         this.setWidth(width);
         this.setHeight(height);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setObjectUUID(object);
         this.setPoolUUID(pool);
         this.setUri(objectURI);

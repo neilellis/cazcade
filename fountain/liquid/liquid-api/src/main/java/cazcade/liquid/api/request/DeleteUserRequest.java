@@ -20,7 +20,7 @@ public class DeleteUserRequest extends AbstractDeletionRequest {
 
     public DeleteUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
     }
 

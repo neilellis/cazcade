@@ -15,7 +15,7 @@ public class RetrieveCommentsRequest extends AbstractRetrievalRequest {
 
     public RetrieveCommentsRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, int max, boolean historical) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
         this.setHistorical(historical);
         this.setMax(max);

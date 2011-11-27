@@ -69,7 +69,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
         for (AuthorizationRequest authRequest : authRequests) {
             log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.getTarget());
-            authRequest.setIdentity(liquidRequest.getSessionIdentifier());
+            authRequest.setSessionId(liquidRequest.getSessionIdentifier());
             LiquidMessage message = dataStore.process(authRequest);
             if (message == null) {
                 throw new NullPointerException("Received a null message back from the data store during authorization.");

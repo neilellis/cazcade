@@ -19,7 +19,7 @@ public interface LiquidRequest extends LiquidMessage {
     /**
      * This can only be called if no identity has yet been set. *
      */
-    public void setIdentity(LiquidSessionIdentifier identity);
+    public void setSessionId(LiquidSessionIdentifier identity);
 
 
     String getNotificationSession();

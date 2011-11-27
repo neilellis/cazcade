@@ -69,6 +69,7 @@ public class LoginUtil {
         session.setAttribute(ALIAS_KEY_FOR_JSP, aliasEntity.getCamelCaseMap());
     }
 
+
     public static ClientSession createClientSession(ClientSessionManager clientSessionManager, LiquidSessionIdentifier identity, boolean create) {
         ClientSession clientSession;
         if (!clientSessionManager.hasSession(identity.getSession().toString()) && create) {

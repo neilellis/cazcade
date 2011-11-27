@@ -27,20 +27,20 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
      */
     public UpdatePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setRequestEntity(entity);
     }
 
     public UpdatePoolRequest(LiquidSessionIdentifier identity, LiquidURI poolURI, LSDEntity newEntity) {
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(poolURI);
         this.setRequestEntity(newEntity);
     }
 
     protected UpdatePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setUri(uri);
         this.setRequestEntity(entity);

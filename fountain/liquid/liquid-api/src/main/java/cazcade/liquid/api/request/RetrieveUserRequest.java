@@ -30,13 +30,13 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
 
     public RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
     }
 
     public RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean internal) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
         this.setInternal(internal);
     }
@@ -44,7 +44,7 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
     private RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
         this.setTarget(target);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
     }
 

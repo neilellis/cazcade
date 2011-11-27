@@ -39,6 +39,10 @@ public interface FountainUserDAO {
      */
     void forEachUser(UserCallback callback);
 
+    boolean confirmHash(LiquidURI author, String changePasswordSecurityHash) throws Exception;
+
+    void sendPasswordChangeRequest(LiquidURI userURL) throws Exception;
+
 
     interface UserCallback {
         /**

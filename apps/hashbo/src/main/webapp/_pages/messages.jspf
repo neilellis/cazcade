@@ -1,0 +1,6 @@
+<c:if test="${not empty requestScope.error}">
+    <div class="alert-message error">${requestScope.error}</div>
+</c:if>
+<c:if test="${not empty requestScope.message}">
+    <div class="alert-message success">${requestScope.message}</div>
+</c:if>

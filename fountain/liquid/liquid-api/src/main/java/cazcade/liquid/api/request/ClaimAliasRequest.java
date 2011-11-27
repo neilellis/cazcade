@@ -23,7 +23,7 @@ public class ClaimAliasRequest extends AbstractRequest {
 
     public ClaimAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
 

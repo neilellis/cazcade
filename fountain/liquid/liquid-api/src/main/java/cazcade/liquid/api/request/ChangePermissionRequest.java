@@ -18,7 +18,7 @@ public class ChangePermissionRequest extends AbstractRequest {
     public ChangePermissionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidPermissionChangeType change) {
         this.setPermission(change);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(objectURI);
     }
 

@@ -30,7 +30,7 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
         try {
             final List<AuthorizationRequest> authorizationRequests = request.getAuthorizationRequests();
             for (AuthorizationRequest authorizationRequest : authorizationRequests) {
-                authorizationRequest.setIdentity(request.getSessionIdentifier());
+                authorizationRequest.setSessionId(request.getSessionIdentifier());
                 final AuthorizationRequest result = authHandler.handle(authorizationRequest);
                 final LSDEntity responseEntity = result.getResponse();
                 if (!LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(responseEntity.getTypeDef())) {

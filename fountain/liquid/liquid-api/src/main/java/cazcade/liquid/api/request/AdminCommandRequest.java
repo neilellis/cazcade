@@ -28,7 +28,7 @@ public class AdminCommandRequest extends AbstractRequest {
     public AdminCommandRequest(LiquidUUID id, LiquidSessionIdentifier identity, String... args) {
         this.setArgs(args);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
 

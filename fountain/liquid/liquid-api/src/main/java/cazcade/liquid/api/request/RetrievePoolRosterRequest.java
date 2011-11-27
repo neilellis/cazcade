@@ -29,19 +29,19 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
     public RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setTarget(target);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
     public RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
     }
 
     private RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
         this.setTarget(target);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
     }
 

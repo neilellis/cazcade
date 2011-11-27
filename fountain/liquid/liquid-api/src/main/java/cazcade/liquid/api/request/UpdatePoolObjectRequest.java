@@ -26,7 +26,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
 
     public UpdatePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setPoolUUID(pool);
         this.setRequestEntity(entity);
@@ -34,7 +34,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
 
     @Deprecated
     public UpdatePoolObjectRequest(LiquidSessionIdentifier identity, LiquidURI objectURI, LSDEntity newEntity) {
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(objectURI);
         this.setRequestEntity(newEntity);
     }
@@ -59,7 +59,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
 
     protected UpdatePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setPoolUUID(pool);
         this.setRequestEntity(entity);

@@ -33,7 +33,7 @@ public class BoardQueryRequest extends AbstractRequest {
         this.setId(id);
         this.setQueryType(type);
         this.setAlias(alias);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
 

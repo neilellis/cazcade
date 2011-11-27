@@ -25,7 +25,7 @@ public class CreateAliasRequest extends AbstractCreationRequest {
         this.setRequestEntity(entity);
         this.setMe(me);
         setOrCreate(orupdate);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
     @Override

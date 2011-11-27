@@ -19,7 +19,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveAliasRequest(LiquidSessionIdentifier identity) {
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
     public RetrieveAliasRequest(LiquidSessionIdentifier identity, LiquidUUID target) {
@@ -32,20 +32,20 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
 
     public RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
     }
 
     public RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
     }
 
     private RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
         this.setTarget(target);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
     }
 

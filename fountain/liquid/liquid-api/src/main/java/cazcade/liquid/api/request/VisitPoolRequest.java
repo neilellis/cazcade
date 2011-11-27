@@ -40,7 +40,7 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         this.setListed(listed);
         this.setPermission(permission);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
         this.setPreviousPool(previous);
         this.setMax(max);

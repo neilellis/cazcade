@@ -21,7 +21,7 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
 
     public DeletePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, LiquidURI uri) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setPoolUUID(pool);
         this.setTarget(target);
         this.setUri(uri);

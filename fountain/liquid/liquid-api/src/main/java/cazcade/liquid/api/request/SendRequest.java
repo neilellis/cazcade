@@ -20,7 +20,7 @@ public class SendRequest extends AbstractRequest {
 
     public SendRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDEntity entity, String recipient) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         super.setRecipient(recipient);
         this.setRequestEntity(entity);
     }

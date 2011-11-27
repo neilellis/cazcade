@@ -22,7 +22,7 @@ public class MovePoolObjectRequest extends AbstractRequest {
 
     public MovePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID pool, LiquidUUID object, Double x, Double y, Double z) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setObjectUUID(object);
         this.setPoolUUID(pool);
         this.setX(x);

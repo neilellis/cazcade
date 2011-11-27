@@ -53,4 +53,16 @@ public class FountainEmailService {
     public void sendWelcomeEmail(LSDEntity user) {
 
     }
+
+
+    public void sendChangePasswordRequest(LSDEntity user, String hash) throws UnsupportedEncodingException {
+        String link = "http://boardcast.it/_password-change?username=" +
+                java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                "&hash=" + java.net.URLEncoder.encode(hash, "utf8");
+        Map<String, Object> templateData = new HashMap<String, Object>();
+        templateData.put("user", user.getCamelCaseMap());
+        templateData.put("link", link);
+        mailService.sendMailFromTemplate("password.vm", "Password change request", new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)}, new String[0],
+                new String[0], templateData, false);
+    }
 }

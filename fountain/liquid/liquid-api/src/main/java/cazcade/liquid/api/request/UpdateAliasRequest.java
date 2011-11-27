@@ -33,14 +33,14 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
      */
     public UpdateAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setRequestEntity(entity);
     }
 
     public UpdateAliasRequest(LiquidSessionIdentifier identity, LiquidURI uri, LSDEntity newEntity) {
         this.setUri(uri);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setRequestEntity(newEntity);
     }
 
@@ -52,7 +52,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     public UpdateAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
         this.setUri(uri);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setRequestEntity(entity);
     }

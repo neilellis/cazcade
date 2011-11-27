@@ -32,7 +32,7 @@ public class LinkPoolRequest extends AbstractRequest {
         this.setTarget(target);
         this.setUnlink(unlink);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
     public Collection<LiquidURI> getAffectedEntities() {

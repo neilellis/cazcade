@@ -39,7 +39,7 @@ public class AuthorizationRequest extends AbstractRequest {
         this.setUri(uri);
         this.setTarget(resource);
         this.permission = permission;
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
     public AuthorizationRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID resource, LiquidURI uri, LiquidPermission[] permission, List<AuthorizationRequest> or, List<AuthorizationRequest> and) {

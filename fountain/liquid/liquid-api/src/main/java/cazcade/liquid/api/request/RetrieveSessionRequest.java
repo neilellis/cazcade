@@ -20,7 +20,7 @@ public class RetrieveSessionRequest extends AbstractRetrievalRequest {
 
     public RetrieveSessionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
     }
 

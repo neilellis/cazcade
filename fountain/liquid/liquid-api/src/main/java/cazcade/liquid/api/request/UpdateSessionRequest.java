@@ -23,7 +23,7 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
 
     public UpdateSessionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity, boolean internal) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setRequestEntity(entity);
         this.setInternal(internal);

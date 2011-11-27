@@ -32,7 +32,7 @@ public class CreatePoolRequest extends AbstractCreationRequest {
         this.setX(x);
         this.setY(y);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setParent(parent);
         this.setName(name);
         this.setType(type);

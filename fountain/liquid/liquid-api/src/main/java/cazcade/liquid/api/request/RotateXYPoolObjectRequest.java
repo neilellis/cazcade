@@ -20,7 +20,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
 
     public RotateXYPoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID poolId, LiquidUUID object, Double angle) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setObjectUUID(object);
         this.setPoolUUID(poolId);
         this.setAngle(angle);

@@ -26,6 +26,9 @@
             <g:HTMLPanel>
                 <h3>New to Boardcast?</h3>
                 <p>Well then come in and join the party! Just click the Register button.</p>
+                <p>
+                    <a href="/_password-forgot">Forgot your password?</a>
+                </p>
             </g:HTMLPanel>
         </div>
         <g:Button styleName="btn primary large left-button" text="Sign In" ui:field="loginButton"/>

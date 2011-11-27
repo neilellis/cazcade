@@ -26,7 +26,7 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
 
     public UpdateUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setRequestEntity(entity);
     }

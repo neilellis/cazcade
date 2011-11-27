@@ -17,18 +17,18 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
 
     public DeletePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
     }
 
     public DeletePoolRequest(LiquidSessionIdentifier identity, LiquidURI poolURI) {
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(poolURI);
     }
 
     public DeletePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setUri(uri);
     }

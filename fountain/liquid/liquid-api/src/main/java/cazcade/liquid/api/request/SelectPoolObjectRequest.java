@@ -17,7 +17,7 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
 
     public SelectPoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, boolean selected) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setSelected(selected);
     }

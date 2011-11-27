@@ -22,7 +22,7 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
     public RetrieveUpdatesRequest(LiquidUUID id, LiquidSessionIdentifier identity, long since) {
         this.setSince(since);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
     public RetrieveUpdatesRequest(long since) {

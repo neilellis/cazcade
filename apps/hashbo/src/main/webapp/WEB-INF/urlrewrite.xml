@@ -101,6 +101,10 @@
         <to type="forward">/_pages/update_admin.jsp?%{query-string}</to>
     </rule>
 
+    <rule>
+        <from>^/_password-forgot$</from>
+        <to type="forward">/_pages/forgot.jsp?%{query-string}</to>
+    </rule>
     <!--Straight to brochure site-->
     <rule>
         <from>^/$</from>

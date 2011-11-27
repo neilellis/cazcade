@@ -25,7 +25,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
 
     public RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean historical) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setUri(uri);
         this.setHistorical(historical);
     }
@@ -35,7 +35,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
     }
 
     public RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, boolean historical) {
-        this.setIdentity(authenticatedUser);
+        this.setSessionId(authenticatedUser);
         this.setPoolUUID(pool);
         this.setTarget(target);
         this.setHistorical(historical);
@@ -43,7 +43,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
 
     private RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, LiquidURI uri) {
         this.setId(id);
-        this.setIdentity(authenticatedUser);
+        this.setSessionId(authenticatedUser);
         this.setPoolUUID(pool);
         this.setTarget(target);
         this.setUri(uri);

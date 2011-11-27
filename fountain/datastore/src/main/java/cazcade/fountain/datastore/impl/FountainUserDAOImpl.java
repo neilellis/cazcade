@@ -21,10 +21,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.UnsupportedEncodingException;
+import java.util.concurrent.Callable;
 
 public class FountainUserDAOImpl implements FountainUserDAO {
 
     private final Logger log = LoggerFactory.getLogger(FountainUserDAOImpl.class);
+
+    private static final org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
+    public static final String USER_HASH_SALT = "EverythingThatArisesMustPass";
 
 
     public static final boolean USER_MUST_CONFIRM_EMAIL = false;
@@ -96,6 +100,38 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                         callback.process(userEntity, aliasEntity);
                     }
                 }
+            }
+        });
+    }
+
+    @Override
+    public boolean confirmHash(final LiquidURI user, final String changePasswordSecurityHash) throws Exception {
+        return fountainNeo.doInTransactionAndBeginBlock(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                final Node userNode = fountainNeo.findByURI(user);
+                String hash = createUserHash(userNode);
+                return hash.equals(changePasswordSecurityHash);
+            }
+        });
+    }
+
+    private String createUserHash(Node userNode) {
+        final Object id = userNode.getProperty(FountainNeo.ID);
+        final Object password = userNode.getProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD.getKeyName());
+        return FountainUserDAOImpl.digester.digest(id + ":" + password + ":" + FountainUserDAOImpl.USER_HASH_SALT);
+    }
+
+    @Override
+    public void sendPasswordChangeRequest(final LiquidURI userURI) throws Exception {
+        fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
+            @Override
+            public Object call() throws Exception {
+                final Node userNode = fountainNeo.findByURI(userURI);
+                final LSDEntity userEntity = fountainNeo.convertNodeToLSD(userNode, LiquidRequestDetailLevel.COMPLETE, true);
+
+                emailService.sendChangePasswordRequest(userEntity, createUserHash(userNode));
+                return null;
             }
         });
     }

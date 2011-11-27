@@ -15,6 +15,9 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     private LSDEntity entity = LSDSimpleEntity.createNewEntity(new LSDTypeDefImpl(LSDDictionaryTypes.REQUEST, getClass().getName().substring(getClass().getName().lastIndexOf('.') + 1)));
 
     public void setEntity(LSDEntity entity) {
+        if (!entity.hasAttribute(LSDAttribute.TYPE)) {
+            throw new IllegalArgumentException("Entities must always have a type.");
+        }
         this.entity = entity;
     }
 
@@ -429,6 +432,14 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return -1;
     }
 
+    public void setChangePasswordSecurityHash(String hash) {
+        entity.setAttribute(LSDAttribute.SECURITY_CONFIRMATION_HASH, hash);
+    }
+
+    public String getChangePasswordSecurityHash() {
+        return entity.getAttribute(LSDAttribute.SECURITY_CONFIRMATION_HASH);
+    }
+
     @Override
     public boolean isSecureOperation() {
         return false;
@@ -444,7 +455,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     }
 
 
-    public final void setIdentity(LiquidSessionIdentifier sessionId) {
+    public final void setSessionId(LiquidSessionIdentifier sessionId) {
         if (sessionId != null && sessionId.equals(getSessionIdentifier())) {
             return;
         }

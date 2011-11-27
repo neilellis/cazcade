@@ -33,7 +33,7 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
         this.setUri(uri);
         this.setId(id);
         this.setAuthor(authorURI);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setPoolUUID(pool);
         this.setRequestEntity(entity);
     }

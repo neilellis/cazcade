@@ -118,7 +118,7 @@ public class GWTDataStore {
 //                            message.setId(null);
                     //remove the identity
 //                            ((LiquidRequest) message).setIdentity(null);
-                    ((LiquidRequest) message).setIdentity(identity);
+                    ((LiquidRequest) message).setSessionId(identity);
 
                     DataStoreService.App.getInstance().process(message.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
                         public int count;
@@ -182,7 +182,7 @@ public class GWTDataStore {
 //    }
 
     public void process(LiquidRequest request, final AsyncCallback<LiquidMessage> callback) {
-        request.setIdentity(identity);
+        request.setSessionId(identity);
         DataStoreService.App.getInstance().process(request.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
             @Override
             public void onFailure(Throwable caught) {

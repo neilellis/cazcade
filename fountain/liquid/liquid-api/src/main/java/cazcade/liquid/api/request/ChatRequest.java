@@ -29,7 +29,7 @@ public class ChatRequest extends AbstractUpdateRequest {
 
     public ChatRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setTarget(target);
         this.setRequestEntity(entity);
         this.setUri(uri);

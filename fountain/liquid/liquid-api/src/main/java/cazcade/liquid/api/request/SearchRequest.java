@@ -20,7 +20,7 @@ public class SearchRequest extends AbstractRequest {
     public SearchRequest(LiquidUUID id, LiquidSessionIdentifier identity, String searchText) {
         this.setId(id);
         this.setSearchText(searchText);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
 

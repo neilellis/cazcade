@@ -381,6 +381,11 @@ public class FountainNeo extends AbstractServiceStateMachine {
             if (node == null) {
                 return null;
             }
+            if (node.hasProperty(FountainNeo.TYPE)) {
+                entity.setAttribute(LSDAttribute.TYPE, node.getProperty(FountainNeo.TYPE).toString());
+            } else {
+                throw new DataStoreException("Node had no type");
+            }
             if (detail == LiquidRequestDetailLevel.COMPLETE || detail == LiquidRequestDetailLevel.NORMAL || detail == LiquidRequestDetailLevel.FREE_TEXT_SEARCH_INDEX) {
                 final Iterable<String> iterable = node.getPropertyKeys();
                 for (String key : iterable) {

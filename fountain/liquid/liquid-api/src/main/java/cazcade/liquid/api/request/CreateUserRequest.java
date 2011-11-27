@@ -24,7 +24,7 @@ public class CreateUserRequest extends AbstractCreationRequest {
 
     public CreateUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDEntity entity) {
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
         this.setRequestEntity(entity);
     }
 

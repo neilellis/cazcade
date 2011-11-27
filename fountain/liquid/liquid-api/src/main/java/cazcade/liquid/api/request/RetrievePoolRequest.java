@@ -44,7 +44,7 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
 
     public RetrievePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LiquidRequestDetailLevel detail, boolean contents, boolean orCreate, ChildSortOrder order, int max) {
         setOrCreate(orCreate);
-        setIdentity(identity);
+        setSessionId(identity);
         setUri(uri);
         setDetail(detail);
         setContents(contents);

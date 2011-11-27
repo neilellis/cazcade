@@ -40,7 +40,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         this.setTarget(target);
         this.setUnlink(unlink);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
     public LinkPoolObjectRequest(LiquidSessionIdentifier identity, LiquidUUID target, LiquidUUID from, LiquidUUID to, boolean unlink) {

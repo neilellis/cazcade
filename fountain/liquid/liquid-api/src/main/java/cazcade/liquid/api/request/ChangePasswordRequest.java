@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDEntity;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -11,23 +12,38 @@ public class ChangePasswordRequest extends AbstractRequest {
     public ChangePasswordRequest() {
     }
 
+    public ChangePasswordRequest(LiquidSessionIdentifier identity, String password, String hash) {
+        setSessionId(identity);
+        setPassword(password);
+        setChangePasswordSecurityHash(hash);
+    }
+
+    public ChangePasswordRequest(LiquidSessionIdentifier liquidSessionIdentifier) {
+        setSessionId(liquidSessionIdentifier);
+    }
+
+    public ChangePasswordRequest(LSDEntity entity) {
+        setEntity(entity);
+    }
+
     @Override
     public boolean isSecureOperation() {
         return true;
     }
 
     public ChangePasswordRequest(String password) {
-        this(null, null, password);
+        setPassword(password);
     }
 
     public ChangePasswordRequest(LiquidSessionIdentifier identity, String password) {
-        this(null, identity, password);
+        setSessionId(identity);
+        setPassword(password);
     }
 
     public ChangePasswordRequest(LiquidUUID id, LiquidSessionIdentifier identity, String password) {
         this.setPassword(password);
         this.setId(id);
-        this.setIdentity(identity);
+        this.setSessionId(identity);
     }
 
 
@@ -37,7 +53,7 @@ public class ChangePasswordRequest extends AbstractRequest {
 
     @Override
     public LiquidMessage copy() {
-        return new ChangePasswordRequest(getId(), getSessionIdentifier(), super.getPassword());
+        return new ChangePasswordRequest(getEntity().copy());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
