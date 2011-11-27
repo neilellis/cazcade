@@ -53,7 +53,7 @@
                         </div>
                         <div class="input">
                             <input type="hidden" name="hash" id="hash" value="${param.hash}"
-                                   value=""/>
+                                    />
                             <input type="submit" name="post" value="Change" class="btn primary"/>
                             <%--<a href="./signin" class="btn">Cancel</a>--%>
                         </div>
