@@ -39,21 +39,18 @@
                             <label for="xlInput">New Password</label>
 
                             <div class="input">
-                                <input type="password" name="password" id="password"
-                                       value=""/>
+                                <input type="password" name="password" id="password" value=""/>
                             </div>
                         </div>
                         <div class="clearfix">
                             <label for="xlInput">Confirm Password</label>
 
                             <div class="input">
-                                <input type="password" name="password_confirm" id="password_confirm"
-                                       value=""/>
+                                <input type="password" name="password_confirm" id="password_confirm" value=""/>
                             </div>
                         </div>
                         <div class="input">
-                            <input type="hidden" name="hash" id="hash" value="${param.hash}"
-                                    />
+                            <input type="hidden" name="hash" id="hash" value="${param.hash}"/>
                             <input type="submit" name="post" value="Change" class="btn primary"/>
                             <%--<a href="./signin" class="btn">Cancel</a>--%>
                         </div>

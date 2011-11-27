@@ -110,16 +110,16 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             @Override
             public Boolean call() throws Exception {
                 final Node userNode = fountainNeo.findByURI(user);
-                String hash = createUserHash(userNode);
-                return hash.equals(changePasswordSecurityHash);
+                String hashString = createUserHashableString(userNode);
+                return FountainUserDAOImpl.digester.matches(hashString, changePasswordSecurityHash);
             }
         });
     }
 
-    private String createUserHash(Node userNode) {
+    private String createUserHashableString(Node userNode) {
         final Object id = userNode.getProperty(FountainNeo.ID);
         final Object password = userNode.getProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD.getKeyName());
-        return FountainUserDAOImpl.digester.digest(id + ":" + password + ":" + FountainUserDAOImpl.USER_HASH_SALT);
+        return id + ":" + password + ":" + FountainUserDAOImpl.USER_HASH_SALT;
     }
 
     @Override
@@ -130,7 +130,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 final Node userNode = fountainNeo.findByURI(userURI);
                 final LSDEntity userEntity = fountainNeo.convertNodeToLSD(userNode, LiquidRequestDetailLevel.COMPLETE, true);
 
-                emailService.sendChangePasswordRequest(userEntity, createUserHash(userNode));
+                emailService.sendChangePasswordRequest(userEntity, FountainUserDAOImpl.digester.digest(createUserHashableString(userNode)));
                 return null;
             }
         });

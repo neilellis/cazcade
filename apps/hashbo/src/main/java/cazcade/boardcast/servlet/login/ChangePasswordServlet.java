@@ -53,6 +53,8 @@ public class ChangePasswordServlet extends AbstractHashboServlet {
             } else {
                 if (!password.equals(passwordConfirm)) {
                     req.setAttribute("error", "Passwords didn't match.");
+                } else if (!(password.matches(".*[^a-zA-Z].*") && password.matches(".*[a-zA-Z].*"))) {
+                    req.setAttribute("error", "Invalid password, please include letters and non letters.");
                 } else {
                     final ChangePasswordRequest response = dataStore.process(new ChangePasswordRequest(new LiquidSessionIdentifier(username), password, hash));
                     if (response.getResponse().isError()) {
