@@ -63,11 +63,11 @@ public class Track implements ValueChangeHandler<String> {
     }-*/;
 
     public static native void trackMixpanel(String event) /*-{
-        $wnd.mpq.track(name);
+        $wnd.mpq.track(event);
     }-*/;
 
     public static native void trackMixpanelEvent(String event, String details) /*-{
-        $wnd.mpq.track(name, {'mp_note': details});
+        $wnd.mpq.track(event, {'mp_note': details});
     }-*/;
 
     /**
