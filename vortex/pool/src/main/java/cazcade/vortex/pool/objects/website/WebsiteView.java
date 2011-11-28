@@ -74,6 +74,7 @@ public class WebsiteView extends PoolObjectView {
 //                image.setHeight(LARGE_HEIGHT + "px");
             }
         }
+        website.setTitle("Click to visit " + url);
     }
 
     @Override
