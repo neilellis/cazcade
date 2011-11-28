@@ -24,7 +24,7 @@ public class Track implements ValueChangeHandler<String> {
 
 
     public void registerUser(String id, String fullname, Map<String, String> map) {
-        identifyUserMixpanel(id);
+//        identifyUserMixpanel(id);
         identifyUserNameMixpanel(fullname);
         registerUserMixpanel(map);
     }

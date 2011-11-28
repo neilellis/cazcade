@@ -8,6 +8,7 @@ import cazcade.boardcast.client.main.widgets.board.SnapshotBoard;
 import cazcade.boardcast.client.main.widgets.login.HashboLoginOrRegisterPanel;
 import cazcade.boardcast.client.preflight.PreflightCheck;
 import cazcade.boardcast.client.resources.HashboClientBundle;
+import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -296,6 +297,8 @@ public class Boardcast implements EntryPoint {
                         Map<String, String> propertyMap = new HashMap<String, String>();
                         propertyMap.putAll(alias.getMap());
                         propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
+                        propertyMap.put("production.mode", Logger.isProduction() ? "true" : "false");
+                        propertyMap.put("alpha.mode", ClientApplicationConfiguration.isAlphaFeatures() ? "true" : "false");
                         tracker.registerUser(alias.getURI().asString(), alias.getAttribute(LSDAttribute.FULL_NAME), propertyMap);
 
                         RootPanel.get().addStyleName("app-mode");
