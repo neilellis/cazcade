@@ -20,7 +20,12 @@ public class BoardIconServlet extends AbstractBoardListServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("anon"), new LiquidBoardURL(req.getParameter("board")).asURI(), false, false));
+            final String board = req.getParameter("board");
+            if (board == null) {
+                resp.sendError(400, "No board specified.");
+                return;
+            }
+            final RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("anon"), new LiquidBoardURL(board).asURI(), false, false));
             req.setAttribute("board", response.getResponse().getCamelCaseMap());
             final String jsp = req.getParameter("gwt.codesvr") == null ? "_pages/iconmaker.jsp" : "_pages/iconmaker.jsp?gwt.codesvr=" + req.getParameter("gwt.codesvr");
             req.getRequestDispatcher(jsp).forward(req, resp);
