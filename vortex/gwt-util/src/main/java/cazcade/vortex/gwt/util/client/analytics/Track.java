@@ -45,7 +45,6 @@ public class Track implements ValueChangeHandler<String> {
         historyToken = "/" + historyToken;
 
         trackGoogleAnalytics(googleId, historyToken);
-        trackMixpanel(historyToken);
 
     }
 

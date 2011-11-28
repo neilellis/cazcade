@@ -20,6 +20,7 @@ import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
 import cazcade.vortex.widgets.client.profile.AliasDetailFlowPanel;
@@ -88,7 +89,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     public void navigate(String value) {
-
+        Track.getInstance().trackEvent("Board", value);
         if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
             return;
