@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -99,6 +100,9 @@ public class ImageScaleServlet extends HttpServlet {
             }
 
             BufferedImage originalImage = ImageIO.read(is);
+            if (originalImage.getColorModel().getTransparency() != Transparency.OPAQUE) {
+                originalImage = fillTransparentPixels(originalImage, Color.WHITE);
+            }
 
             // Compute the dimentions of the scaled image:
             DimensionConstrain dims = getDimentionConstrainFromRequest(req, originalImage.getWidth(), originalImage.getHeight());
@@ -203,5 +207,19 @@ public class ImageScaleServlet extends HttpServlet {
         } catch (Exception e) {
             return AdvancedResizeOp.UnsharpenMask.None;
         }
+    }
+
+    public static BufferedImage fillTransparentPixels(BufferedImage image,
+                                                      Color fillColor) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        BufferedImage image2 = new BufferedImage(w, h,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = image2.createGraphics();
+        g.setColor(fillColor);
+        g.fillRect(0, 0, w, h);
+        g.drawRenderedImage(image, null);
+        g.dispose();
+        return image2;
     }
 }
