@@ -13,29 +13,34 @@ public class VersionNumberChecker {
     private static String version;
 
     public static void start() {
+        getVersionFromServer();
         new Timer() {
             @Override
             public void run() {
-                BuildVersionService.App.getInstance().getBuildVersion(new AsyncCallback<String>() {
-                    @Override
-                    public void onFailure(Throwable caught) {
-                        ClientLog.log("Failed to obtain version number.");
-                    }
-
-                    @Override
-                    public void onSuccess(String result) {
-                        ClientLog.log("Build version is " + result);
-                        if (version == null) {
-                            version = result;
-                            return;
-                        }
-                        if (!version.equals(result)) {
-                            Window.alert("A new version of this application is available, please refresh this page.");
-                        }
-                    }
-                });
+                getVersionFromServer();
             }
         }.scheduleRepeating(180 * 1000);
+    }
+
+    private static void getVersionFromServer() {
+        BuildVersionService.App.getInstance().getBuildVersion(new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                ClientLog.log("Failed to obtain version number.");
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                ClientLog.log("Build version is " + result);
+                if (version == null) {
+                    version = result;
+                    return;
+                }
+                if (!version.equals(result)) {
+                    Window.alert("A new version of this application is available, please refresh this page.");
+                }
+            }
+        });
     }
 
     public static String getBuildNumber() {

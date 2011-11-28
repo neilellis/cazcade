@@ -11,6 +11,7 @@ import cazcade.boardcast.client.resources.HashboClientBundle;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -35,6 +36,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -50,6 +54,7 @@ public class Boardcast implements EntryPoint {
     private boolean createRequest;
     private boolean loginRequest;
     private boolean createUnlistedRequest;
+    private Track tracker;
 
     public void onModuleLoad() {
 //        Window.alert(History.getToken());
@@ -115,7 +120,8 @@ public class Boardcast implements EntryPoint {
 
     private void injectChildren() {
         if (!ClientApplicationConfiguration.isDebug()) {
-            History.addValueChangeHandler(new Track("UA-27340178-1"));
+            tracker = new Track("UA-27340178-1");
+            History.addValueChangeHandler(tracker);
         }
 
 //        addLogPanel();
@@ -285,7 +291,13 @@ public class Boardcast implements EntryPoint {
                 BusFactory.getInstance().send(new RetrieveAliasRequest(identity.getAliasURL()), new AbstractResponseCallback<RetrieveAliasRequest>() {
                     @Override
                     public void onSuccess(RetrieveAliasRequest message, RetrieveAliasRequest response) {
-                        UserUtil.setCurrentAlias(response.getResponse());
+                        final LSDEntity alias = response.getResponse();
+                        UserUtil.setCurrentAlias(alias);
+                        Map<String, String> propertyMap = new HashMap<String, String>();
+                        propertyMap.putAll(alias.getMap());
+                        propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
+                        tracker.registerUser(alias.getURI().asString(), alias.getAttribute(LSDAttribute.FULL_NAME), propertyMap);
+
                         RootPanel.get().addStyleName("app-mode");
                         loginOrRegisterPanel.hide();
                         new Timer() {

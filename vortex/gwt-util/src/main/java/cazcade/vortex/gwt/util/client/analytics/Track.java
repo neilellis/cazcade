@@ -3,22 +3,31 @@ package cazcade.vortex.gwt.util.client.analytics;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
+import java.util.Map;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class Track implements ValueChangeHandler<String> {
 
 
-    private String id;
+    private String googleId;
 
     /**
      * constructor - nothing to do
-     * @param id
+     *
+     * @param googleId
      */
-    public Track(String id) {
-        this.id = id;
+    public Track(String googleId) {
+        this.googleId = googleId;
     }
 
+
+    public void registerUser(String id, String fullname, Map<String, String> map) {
+        identifyUserMixpanel(id);
+        identifyUserNameMixpanel(fullname);
+        registerUserMixpanel(map);
+    }
 
     /**
      * track an event
@@ -31,11 +40,29 @@ public class Track implements ValueChangeHandler<String> {
             historyToken = "historyToken_null";
         }
 
-        historyToken = "/history/" + historyToken;
+        historyToken = "/" + historyToken;
 
-        trackGoogleAnalytics(id, historyToken);
+        trackGoogleAnalytics(googleId, historyToken);
+        trackMixpanel(historyToken);
 
     }
+
+
+    public static native void registerUserMixpanel(Map<String, String> map) /*-{
+        $wnd.mpq.register(map, "all", "False", 31);
+    }-*/;
+
+    public static native void identifyUserMixpanel(String name) /*-{
+        $wnd.mpq.identify(name);
+    }-*/;
+
+    public static native void identifyUserNameMixpanel(String name) /*-{
+        $wnd.mpq.name_tag(name);
+    }-*/;
+
+    public static native void trackMixpanel(String event) /*-{
+        $wnd.mpq.track(name);
+    }-*/;
 
     /**
      * trigger google analytic native js - included in the build
