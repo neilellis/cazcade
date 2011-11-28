@@ -2,6 +2,7 @@ package cazcade.boardcast.client.main.widgets.login;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -76,6 +77,7 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
                 setHeight("280px");
                 getWidget().removeStyleName("register-panel");
                 getWidget().addStyleName("login-panel");
+                Track.getInstance().trackEvent("Login", "Switched to login panel.");
             }
         });
         if (register) {
@@ -91,6 +93,7 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
         WidgetUtil.swap(loginPanel, registerPanel);
         setWidth("650px");
         setHeight("400px");
+        Track.getInstance().trackEvent("Register", "Switched to register panel.");
 
     }
 }

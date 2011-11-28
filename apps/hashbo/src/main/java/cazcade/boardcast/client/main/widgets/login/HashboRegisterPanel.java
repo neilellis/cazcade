@@ -107,19 +107,25 @@ public class HashboRegisterPanel extends Composite {
             registerErrorMessage.setText("Password must include letters and numbers.");
             return;
         }
+        Track.getInstance().trackEvent("Register", "Submit");
+
         DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDEntity>() {
             @Override
             public void onFailure(Throwable caught) {
                 ClientLog.log(caught);
+                Track.getInstance().trackEvent("Register", "Error");
+
             }
 
             @Override
             public void onSuccess(LSDEntity result) {
                 if (result == null) {
                     registerErrorMessage.setText("Could not register you.");
+                    Track.getInstance().trackEvent("Register", "Fail");
                 } else {
                     newUser = result;
                     Track.getInstance().userRegistered(username.getStringValue(), fullname.getStringValue(), result.getMap());
+                    Track.getInstance().trackEvent("Register", "Success");
                     onSuccessAction.run();
                 }
             }

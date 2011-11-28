@@ -1,5 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@page contentType="text/html;charset=UTF-8" %>
 <%@ page import="cazcade.boardcast.util.DataStoreFactory" %>
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
 <%@ page import="cazcade.fountain.datastore.impl.email.EmailUtil" %>
