@@ -5,6 +5,7 @@
     <title>Failed</title>
     <link rel="stylesheet" href="application.css">
     <link rel="stylesheet" href="in-progress.css">
+    <%@ include file="google-analytics.jspf" %>
 
 </head>
 <body><%=request.getParameter("message")%>

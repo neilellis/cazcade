@@ -115,7 +115,7 @@ public class Boardcast implements EntryPoint {
 
     private void injectChildren() {
         if (!ClientApplicationConfiguration.isDebug()) {
-            History.addValueChangeHandler(new Track("UA-25104667-1"));
+            History.addValueChangeHandler(new Track("UA-27340178-1"));
         }
 
 //        addLogPanel();
