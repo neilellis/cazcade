@@ -13,6 +13,7 @@ import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
@@ -84,6 +85,7 @@ public class BoardMenuBar extends MenuBar {
             @Override
             public void execute() {
                 HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
+                Track.getInstance().trackEvent("Chat", "Switched to Chat");
             }
         });
     }
@@ -112,6 +114,8 @@ public class BoardMenuBar extends MenuBar {
                 @Override
                 public void execute() {
                     backgroundDialog.show();
+                    Track.getInstance().trackEvent("Background", "Dialog shown");
+
                 }
             });
         }

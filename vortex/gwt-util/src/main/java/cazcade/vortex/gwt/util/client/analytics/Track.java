@@ -11,15 +11,17 @@ import java.util.Map;
 public class Track implements ValueChangeHandler<String> {
 
 
-    private String googleId;
+    private static String googleId;
+    private static Track instance;
 
-    /**
-     * constructor - nothing to do
-     *
-     * @param googleId
-     */
-    public Track(String googleId) {
-        this.googleId = googleId;
+    private Track() {
+    }
+
+    public static Track getInstance() {
+        if (instance == null) {
+            instance = new Track();
+        }
+        return instance;
     }
 
 
@@ -64,6 +66,10 @@ public class Track implements ValueChangeHandler<String> {
         $wnd.mpq.track(name);
     }-*/;
 
+    public static native void trackMixpanelEvent(String event, String details) /*-{
+        $wnd.mpq.track(name, {'mp_note': details});
+    }-*/;
+
     /**
      * trigger google analytic native js - included in the build
      * CHECK - DemoGoogleAnalytics.gwt.xml for -> <script src="../ga.js"/>
@@ -103,5 +109,13 @@ public class Track implements ValueChangeHandler<String> {
     @Override
     public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
         trackPage(stringValueChangeEvent.getValue());
+    }
+
+    public static void setGoogleId(String googleId) {
+        Track.googleId = googleId;
+    }
+
+    public void trackEvent(String event, String details) {
+        trackMixpanelEvent(event, details);
     }
 }

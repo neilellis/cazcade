@@ -2,6 +2,7 @@ package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.pool.objects.photo.PhotoEditorPanel;
 
 /**
@@ -17,6 +18,8 @@ public class CreatePhotoCommand extends CreateItemCommand {
     @Override
     public void execute() {
         showEditorPanel(new PhotoEditorPanel(createEntityWithDefaultView()));
+        Track.getInstance().trackEvent("Add", "Add Decoration");
+
     }
 
 

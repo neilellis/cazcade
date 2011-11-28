@@ -5,8 +5,10 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.request.ChangePermissionRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
+
 
 /**
  * @author neilellis@cazcade.com
@@ -22,7 +24,7 @@ public class ChangePermissionCommand implements Command {
 
     @Override
     public void execute() {
-
+        Track.getInstance().trackEvent("Permission Change", "Changed board permission to " + change);
         BusFactory.getInstance().send(new ChangePermissionRequest(poolURI, change), new AbstractResponseCallback<ChangePermissionRequest>() {
             @Override
             public void onSuccess(ChangePermissionRequest message, ChangePermissionRequest response) {

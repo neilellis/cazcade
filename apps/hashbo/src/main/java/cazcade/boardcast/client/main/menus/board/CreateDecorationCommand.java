@@ -4,6 +4,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 
 /**
  * @author neilellis@cazcade.com
@@ -25,5 +26,12 @@ public class CreateDecorationCommand extends CreateItemCommand {
         entity.setAttribute(LSDAttribute.IMAGE_URL, urlForDecoration);
         addDefaultView(entity);
         onBuilt.onBuilt(entity);
+    }
+
+    @Override
+    public void execute() {
+        super.execute();
+        Track.getInstance().trackEvent("Add", "Add Decoration");
+
     }
 }

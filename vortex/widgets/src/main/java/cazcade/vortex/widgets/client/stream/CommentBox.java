@@ -4,6 +4,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.request.AddCommentRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.IFrameElement;
@@ -91,6 +92,7 @@ public class CommentBox extends Composite {
                         BusFactory.getInstance().send(new AddCommentRequest(uri, text), new AbstractResponseCallback<AddCommentRequest>() {
                             @Override
                             public void onSuccess(AddCommentRequest message, AddCommentRequest response) {
+                                Track.getInstance().trackEvent("Comment", "Comment Added");
                             }
 
                             @Override

@@ -2,6 +2,7 @@ package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.pool.objects.youtube.YouTubeEditorPanel;
 
 /**
@@ -16,6 +17,8 @@ public class CreateYouTubeCommand extends CreateItemCommand {
     @Override
     public void execute() {
         showEditorPanel(new YouTubeEditorPanel(createEntityWithDefaultView()));
+        Track.getInstance().trackEvent("Add", "Add YouTube");
+
     }
 
 
