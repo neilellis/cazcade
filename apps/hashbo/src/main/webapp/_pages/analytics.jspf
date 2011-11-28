@@ -14,3 +14,5 @@
     })();
 
 </script>
+
+<%@ include file="analytics.jspf" %>

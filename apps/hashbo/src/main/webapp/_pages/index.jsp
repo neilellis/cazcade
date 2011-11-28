@@ -7,7 +7,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Link Twitter to Boardcast Account</title>
     <link rel="stylesheet" href="../_css/bootstrap/bootstrap-full.less">
-    <%@ include file="google-analytics.jspf" %>
+    <%@ include file="analytics.jspf" %>
 
 </head>
 <body>

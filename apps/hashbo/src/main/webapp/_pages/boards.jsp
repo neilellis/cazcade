@@ -5,7 +5,7 @@
 <jsp:useBean id="boards" scope="request" type="java.util.List"/>
 <html lang="en">
 <head>
-    <title>Boardcast</title>
+    <title>Boardcast: Create and Publish Instantly</title>
     <%@ include file="header.jspf" %>
     <link rel="stylesheet" href="./_css/hashbo.less">
     <link rel="stylesheet" href="./_css/hackabout.css">

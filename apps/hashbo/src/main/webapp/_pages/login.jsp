@@ -8,7 +8,7 @@
     <title>Link Twitter to Boardcast Account</title>
     <link rel="stylesheet" type="text/less" href="_css/bootstrap/bootstrap-full.less">
     <script src="_js/less-1.1.3.min.js" type="text/javascript"></script>
-    <%@ include file="google-analytics.jspf" %>
+    <%@ include file="analytics.jspf" %>
 
 </head>
 <body>

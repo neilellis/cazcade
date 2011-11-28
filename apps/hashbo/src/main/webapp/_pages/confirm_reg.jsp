@@ -69,7 +69,7 @@
 <head>
     <title>Hashbo Registration</title>
     <link rel="stylesheet" href="../_css/static.css">
-    <%@ include file="google-analytics.jspf" %>
+    <%@ include file="analytics.jspf" %>
 
 </head>
 <body>

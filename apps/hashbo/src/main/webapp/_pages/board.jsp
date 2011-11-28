@@ -7,12 +7,9 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Boardcast</title>
-
-
+    <title>Boardcast: Create and Publish Instantly</title>
     <%@ include file="navfunc.jspf" %>
     <%@ include file="header.jspf" %>
-
 </head>
 
 <body>
