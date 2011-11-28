@@ -26,7 +26,7 @@ public class Track implements ValueChangeHandler<String> {
 
 
     public void registerUser(String id, String fullname, Map<String, String> map) {
-//        identifyUserMixpanel(id);
+        identifyUserMixpanel(id);
         identifyUserNameMixpanel(fullname);
         registerUserMixpanel(map);
     }
@@ -117,5 +117,13 @@ public class Track implements ValueChangeHandler<String> {
 
     public void trackEvent(String event, String details) {
         trackMixpanelEvent(event, details);
+    }
+
+    public void userRegistered(String id, String username, Map<String, String> map) {
+        trackMixpanel("$born");
+        trackMixpanelEvent("Registered", username + " registered.");
+        identifyUserMixpanel(id);
+        identifyUserNameMixpanel(username);
+        registerUserMixpanel(map);
     }
 }

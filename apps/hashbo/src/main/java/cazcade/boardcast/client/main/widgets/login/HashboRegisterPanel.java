@@ -3,6 +3,7 @@ package cazcade.boardcast.client.main.widgets.login;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
 import cazcade.vortex.widgets.client.form.fields.UsernameTextBox;
 import cazcade.vortex.widgets.client.form.fields.VortexPasswordTextBox;
@@ -118,6 +119,7 @@ public class HashboRegisterPanel extends Composite {
                     registerErrorMessage.setText("Could not register you.");
                 } else {
                     newUser = result;
+                    Track.getInstance().userRegistered(username.getStringValue(), fullname.getStringValue(), result.getMap());
                     onSuccessAction.run();
                 }
             }

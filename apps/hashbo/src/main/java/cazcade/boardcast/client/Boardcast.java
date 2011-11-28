@@ -300,7 +300,7 @@ public class Boardcast implements EntryPoint {
                         propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
                         propertyMap.put("production.mode", Logger.isProduction() ? "true" : "false");
                         propertyMap.put("alpha.mode", ClientApplicationConfiguration.isAlphaFeatures() ? "true" : "false");
-                        tracker.registerUser(alias.getURI().asString(), alias.getAttribute(LSDAttribute.FULL_NAME), propertyMap);
+                        tracker.registerUser(alias.getAttribute(LSDAttribute.NAME), alias.getAttribute(LSDAttribute.FULL_NAME), propertyMap);
 
                         RootPanel.get().addStyleName("app-mode");
                         loginOrRegisterPanel.hide();
