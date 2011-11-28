@@ -71,7 +71,7 @@ public class AbstractHashboServlet extends HttpServlet {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
                 if (!entity.hasAttribute(LSDAttribute.ICON_URL)) {
-                    map.put("iconUrl", "http://boardcast.it/_board-icon?board=" + URLEncoder.encode(shortUrl, "utf-8") + "&ts=" + entity.getAttribute(LSDAttribute.ID));
+                    map.put("iconUrl", "http://boardcast.it/_board-icon?board=" + URLEncoder.encode(shortUrl, "utf-8") + "&id=" + entity.getAttribute(LSDAttribute.ID));
                 }
             }
         }
