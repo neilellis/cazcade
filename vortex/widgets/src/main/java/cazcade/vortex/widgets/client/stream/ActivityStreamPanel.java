@@ -120,26 +120,27 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     }
 
     private void addToStream(final StreamEntry content) {
-        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, content, true);
+        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, content, true, true);
     }
 
     private void retrieveUpdates() {
         bus.send(new RetrieveUpdatesRequest(lastUpdate), new AbstractResponseCallback<RetrieveUpdatesRequest>() {
             @Override
             public void onSuccess(RetrieveUpdatesRequest message, RetrieveUpdatesRequest response) {
+                lastUpdate = System.currentTimeMillis();
                 final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entries);
                 for (LSDEntity entry : entries) {
                     if (entry.isA(LSDDictionaryTypes.COMMENT)
                             && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false);
+                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false, true);
                     } else {
                         final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
                         final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
 
                         if (!isAnon && LiquidBoardURL.isConvertable(sourceURI)) {
-                            StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, true), false);
+                            StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, true), false, true);
                             //  statusUpdateSound.play();
                         }
                     }

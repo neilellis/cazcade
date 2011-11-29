@@ -144,7 +144,7 @@ public class CommentPanel extends Composite {
 
 
     private void addStreamEntry(final StreamEntry vortexStreamContent) {
-        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, vortexStreamContent, false);
+        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, vortexStreamContent, false, true);
 
     }
 

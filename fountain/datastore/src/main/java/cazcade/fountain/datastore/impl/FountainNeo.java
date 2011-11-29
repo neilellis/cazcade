@@ -1119,7 +1119,7 @@ public class FountainNeo extends AbstractServiceStateMachine {
                             final String type = String.valueOf(currentPos.currentNode().getProperty(FountainNeo.TYPE));
                             return type.startsWith(LSDDictionaryTypes.BOARD.asString());
                         }
-                    }, FountainRelationships.CHILD, Direction.INCOMING).iterator();
+                    }, FountainRelationships.CHILD, Direction.INCOMING, FountainRelationships.COMMENT, Direction.INCOMING).iterator();
                     if (parentIterator.hasNext()) {
                         boardNode = parentIterator.next();
                     }

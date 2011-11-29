@@ -30,6 +30,7 @@ public class LatestContentFinder {
     private final static Logger log = Logger.getLogger(LatestContentFinder.class);
     public static final int CACHE_ERROR_MARGIN = 5000;
     public static final boolean INCLUDE_SESSION_INFORMATION = false;
+    public static final String GLOBAL_SKIP = "global.skip";
     private Map<String, LSDEntity> nodes = new HashMap<String, LSDEntity>();
     private Set<Long> visited = new HashSet<Long>();
     private Set<Long> skip = new HashSet<Long>();
@@ -72,19 +73,17 @@ public class LatestContentFinder {
         }
 
 
-        final Element globalSkipElement = nodeCache.get(getCacheKey());
+        final Element globalSkipElement = nodeCache.get(GLOBAL_SKIP);
         if (globalSkipElement != null) {
-            //The plus 5 seconds is because we need a margin of error
-            if (globalSkipElement.getCreationTime() < since + CACHE_ERROR_MARGIN) {
-                globalSkip = (Set<Long>) globalSkipElement.getValue();
-            }
+            globalSkip = (Set<Long>) globalSkipElement.getValue();
         }
 
 //        findContentNodesNewMethod(startNode, true, false, fountainNeo.findByURI(identity.getAliasURL()), detail, 0);
         findContentNodesNewMethod(startNode, fountainNeo.findByURI(identity.getAliasURL()), detail);
 
-        nodeCache.put(new Element(getCacheKey(), skip, 0));
-        nodeCache.put(new Element("global.skip", globalSkip, 0));
+        final Element element = new Element(getCacheKey(), skip);
+        nodeCache.put(element);
+        nodeCache.put(new Element(GLOBAL_SKIP, globalSkip));
     }
 
     public String getCacheKey() {
@@ -105,7 +104,7 @@ public class LatestContentFinder {
                     public boolean isReturnableNode(TraversalPosition currentPos) {
 
                         Node currentNode = currentPos.currentNode();
-                        if (!skip.contains(currentNode.getId()) || globalSkip.contains(currentNode.getId())) {
+                        if (!skip.contains(currentNode.getId()) && !globalSkip.contains(currentNode.getId())) {
                             try {
                                 if (currentNode.hasProperty(LSDAttribute.URI.getKeyName())) {
                                     String uri = (String) currentNode.getProperty(LSDAttribute.URI.getKeyName());
@@ -162,15 +161,18 @@ public class LatestContentFinder {
             if (entity.hasAttribute(LSDAttribute.TITLE)) {
                 final String key = entity.getSubAttribute(LSDAttribute.AUTHOR, LSDAttribute.NAME, "") + ":" + entity.getAttribute(LSDAttribute.SOURCE, "");
                 if (nodes.containsKey(key)) {
+                    if (nodes.get(key).getPublished().before(entity.getPublished())) {
+                        nodes.put(key, entity);
+                        log.debug("Node replaced with new version: " + key);
+                    }
                     log.debug("Node filtered, key not unique: " + key);
                 } else {
-                    nodes.put(key, entity);
+                    if (nodes.size() < maxReturnNodes) {
+                        nodes.put(key, entity);
+                    }
                 }
             } else {
                 log.debug("Node had no title, so filtered.");
-            }
-            if (nodes.size() >= maxReturnNodes) {
-                break;
             }
         }
         log.debug("Filtered to " + nodes.size() + " nodes. Max nodes is " + maxReturnNodes);
@@ -198,6 +200,8 @@ public class LatestContentFinder {
                             return true;
                         } else {
                             log.debug("Node not listed: " + uri);
+                            globalSkip.add(currentNode.getId());
+                            return false;
                         }
                     } else {
                         throw new IllegalStateException("Should not reach this line.");

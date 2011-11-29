@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.InsertPanel;
  */
 public class StreamUtil {
 
-    public static void addStreamEntry(final int maxRows, final InsertPanel parentPanel, VortexThreadSafeExecutor threadSafeExecutor, final StreamEntry streamEntry, boolean autoDelete) {
+    public static void addStreamEntry(final int maxRows, final InsertPanel parentPanel, VortexThreadSafeExecutor threadSafeExecutor, final StreamEntry streamEntry, boolean autoDelete, final boolean allowUpdates) {
         if (autoDelete) {
             WidgetUtil.removeFromParentGracefully(streamEntry, streamEntry.getAutoDeleteLifetime() * 1000);
         }
@@ -17,6 +17,7 @@ public class StreamUtil {
             @Override
             public void run() {
                 boolean inserted = false;
+                boolean removed = false;
                 int i = 0;
                 while (i < parentPanel.getWidgetCount()) {
                     if (!(parentPanel.getWidget(i) instanceof StreamEntry)) {
@@ -24,8 +25,12 @@ public class StreamUtil {
                     }
                     final StreamEntry panel = (StreamEntry) parentPanel.getWidget(i);
                     if (streamEntry.getStreamIdentifier().equals(panel.getStreamIdentifier())) {
-
-                        WidgetUtil.removeFromParent(panel);
+                        if (allowUpdates) {
+                            WidgetUtil.removeFromParent(panel);
+                            removed = true;
+                        } else {
+                            return;
+                        }
 //                        parentPanel.remove(panel);
                         break;
                     }
@@ -39,7 +44,7 @@ public class StreamUtil {
                     }
                     final StreamEntry panel = (StreamEntry) parentPanel.getWidget(i);
                     if (panel.getSortDate().before(streamEntry.getSortDate())) {
-                        if (i == 0) {
+                        if (i == 0 && !removed) {
                             WidgetUtil.insertGracefully(parentPanel, streamEntry, i);
                         } else {
                             WidgetUtil.insert(parentPanel, streamEntry, i);

@@ -149,7 +149,7 @@ public class NotificationPanel extends Composite {
     }
 
     private void addToStream(final StreamEntry content) {
-        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, content, true);
+        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, content, true, true);
     }
 
 }
