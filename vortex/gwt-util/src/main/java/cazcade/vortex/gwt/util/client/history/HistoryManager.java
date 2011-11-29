@@ -53,7 +53,7 @@ public class HistoryManager {
         } else if (newToken.startsWith("_")) {
             int dashPosition = newToken.indexOf("-");
             if (dashPosition <= 1) {
-                tokenFirstPart = newToken;
+                tokenFirstPart = newToken.substring(1);
                 localToken = "";
             } else {
                 tokenFirstPart = newToken.substring(1, dashPosition);
