@@ -35,12 +35,11 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class ActivityStreamPanel extends HistoryAwareComposite {
-    public static final int UPDATE_LIEFTIME = 1200 * 1000;
+    public static final int UPDATE_LIEFTIME = 48 * 3600 * 1000;
     public static final int STATUS_CHECK_FREQUENCY = 30 * 1000;
     private Bus bus = BusFactory.getInstance();
     private int maxRows = 10;
-    //    private long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
-    private long lastUpdate = 0;
+    private long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
     private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
     private boolean initialized;
