@@ -276,24 +276,30 @@ public class LatestContentFinder {
         } else {
             aliasEntity = null;
         }
-        Relationship targetRelationship = node.getSingleRelationship(FountainRelationships.COMMENT, Direction.INCOMING);
-        if (targetRelationship == null) {
-            targetRelationship = node.getSingleRelationship(FountainRelationships.PREVIOUS, Direction.INCOMING);
+        Node poolOrObjectNode = null;
+        final Traverser traverse = node.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
+            @Override
+            public boolean isReturnableNode(TraversalPosition currentPos) {
+                return !currentPos.currentNode().getProperty(FountainNeo.TYPE).equals(LSDDictionaryTypes.COMMENT);
+            }
+        }, FountainRelationships.PREVIOUS, Direction.INCOMING, FountainRelationships.COMMENT, Direction.INCOMING);
+        final Collection<Node> nodes = traverse.getAllNodes();
+        if (!nodes.isEmpty()) {
+            poolOrObjectNode = nodes.iterator().next();
         }
-        if (targetRelationship != null) {
-            Node targetNode = targetRelationship.getOtherNode(node);
-            final String targetURI = (String) targetNode.getProperty(LSDAttribute.URI.getKeyName());
+        if (poolOrObjectNode != null) {
+            final String targetURI = (String) poolOrObjectNode.getProperty(LSDAttribute.URI.getKeyName());
             entity.setAttribute(LSDAttribute.SOURCE, targetURI);
-            if (targetNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
-                entity.setAttribute(LSDAttribute.IMAGE_URL, (String) targetNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
+            if (poolOrObjectNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
+                entity.setAttribute(LSDAttribute.IMAGE_URL, (String) poolOrObjectNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
             }
 
-            if (targetNode.hasProperty(LSDAttribute.ICON_URL.getKeyName())) {
-                entity.setAttribute(LSDAttribute.ICON_URL, (String) targetNode.getProperty(LSDAttribute.ICON_URL.getKeyName()));
+            if (poolOrObjectNode.hasProperty(LSDAttribute.ICON_URL.getKeyName())) {
+                entity.setAttribute(LSDAttribute.ICON_URL, (String) poolOrObjectNode.getProperty(LSDAttribute.ICON_URL.getKeyName()));
             }
 
-            if (aliasEntity != null && fountainNeo.isListed(targetNode)) {
-                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), targetNode.getProperty(FountainNeo.TITLE, targetNode.getProperty(FountainNeo.NAME, "Unknown"))));
+            if (aliasEntity != null && fountainNeo.isListed(poolOrObjectNode)) {
+                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), poolOrObjectNode.getProperty(FountainNeo.TITLE, poolOrObjectNode.getProperty(FountainNeo.NAME, "Unknown"))));
             }
 
         }
