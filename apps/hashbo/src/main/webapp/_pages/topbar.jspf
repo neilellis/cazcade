@@ -10,7 +10,6 @@
 
                     <li><a href="/_query-history">Visited</a></li>
                     <li><a href="/_query-my">My</a></li>
-                    <li>|</li>
                     <li><a href="/_activity">Activity</a></li>
                 </c:if>
                 <li><a href="/_create-listed" style="font-weight:bolder;">Create</a></li>
