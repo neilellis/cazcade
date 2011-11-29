@@ -97,7 +97,7 @@ public class LatestContentFinder {
         final Traverser traverser = startNode.traverse(Traverser.Order.BREADTH_FIRST, new StopEvaluator() {
                     @Override
                     public boolean isStopNode(TraversalPosition currentPos) {
-                        return currentPos.returnedNodesCount() >= maxReturnNodes * 10 || count[0]++ >= maxTraversal;
+                        return currentPos.returnedNodesCount() >= maxReturnNodes * 10 || count[0]++ >= maxTraversal || currentPos.depth() > maxDepth;
                     }
                 }, new ReturnableEvaluator() {
                     @Override
@@ -138,6 +138,7 @@ public class LatestContentFinder {
                 FountainRelationships.LINKED_CHILD, Direction.OUTGOING,
                 FountainRelationships.OWNER, Direction.INCOMING,
                 FountainRelationships.COMMENT, Direction.OUTGOING,
+                FountainRelationships.PREVIOUS, Direction.OUTGOING,
                 FountainRelationships.VISITING, Direction.BOTH,
                 FountainRelationships.FOLLOW_CONTENT, Direction.OUTGOING,
                 FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING
