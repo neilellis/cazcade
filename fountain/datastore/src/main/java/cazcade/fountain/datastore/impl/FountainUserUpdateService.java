@@ -81,7 +81,7 @@ public class FountainUserUpdateService {
                 }
                 if (test) {
                     send = true;
-                    lastEmailUpdateDate = lastWeek;
+                    lastEmailUpdateDate = 0;
                 }
                 if (send) {
                     final ChangeReport report = socialDAO.getUpdateSummaryForAlias(aliasEntity.getURI(), lastEmailUpdateDate);

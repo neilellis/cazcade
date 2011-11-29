@@ -77,11 +77,11 @@ public class LatestContentFinder {
         return identity.toString() + ":" + ":" + maxTraversal + ":" + detail + ":" + maxDepth;
     }
 
-    private void findContentNodesNewMethod(final Node startNode, final Node ownerNode, final LiquidRequestDetailLevel detail) throws InterruptedException {
+    private void findContentNodesNewMethod(final Node startNode, final Node myAliasNode, final LiquidRequestDetailLevel detail) throws InterruptedException {
         final int[] count = new int[1];
         final String currentAliasURI = identity.getAliasURL().asString();
 
-        final Traverser traverser = startNode.traverse(Traverser.Order.BREADTH_FIRST, new StopEvaluator() {
+        final Traverser traverser = startNode.traverse(Traverser.Order.DEPTH_FIRST, new StopEvaluator() {
                     @Override
                     public boolean isStopNode(TraversalPosition currentPos) {
                         return !fountainNeo.isListed(currentPos.currentNode()) || currentPos.returnedNodesCount() >= maxReturnNodes * 4 || count[0]++ >= maxTraversal;
@@ -93,50 +93,64 @@ public class LatestContentFinder {
                         Node currentNode = currentPos.currentNode();
                         if (!skip.contains(currentNode.getId())) {
                             try {
-                                if (!fountainNeo.isLatestVersion(currentNode) || !fountainNeo.isListed(currentNode)) {
-                                    return skip.add(currentNode.getId());
-                                }
                                 if (currentNode.hasProperty(LSDAttribute.UPDATED.getKeyName()) && currentNode.hasProperty(LSDAttribute.URI.getKeyName())) {
                                     long updated = Long.valueOf(currentNode.getProperty(LSDAttribute.UPDATED.getKeyName()).toString());
-                                    String uri = (String) currentNode.getProperty(LSDAttribute.URI.getKeyName());
                                     if (updated >= since) {
+                                        String uri = (String) currentNode.getProperty(LSDAttribute.URI.getKeyName());
                                         boolean kosher = uri.startsWith(LiquidURIScheme.session.toString()) ||
                                                 uri.startsWith(LiquidURIScheme.comment.toString()) ||
                                                 uri.startsWith(LiquidURIScheme.pool.toString());
-                                        if (!kosher) {
-                                            //wrong type so add to skip list
-                                            skip.add(currentNode.getId());
-                                            return false;
-                                        } else {
-                                            if (fountainNeo.isAuthorized(currentNode, identity, LiquidPermission.VIEW)) {
-                                                boolean ownedByMe = fountainNeo.isOwnerNoTX(ownerNode, currentNode);
-                                                if (!uri.equals(currentAliasURI) && !CommonConstants.ANONYMOUS_ALIAS.equals(uri) && uri.startsWith(LiquidURIScheme.session.toString())) {
-                                                    return !ownedByMe && currentNode.hasProperty(LSDAttribute.ACTIVE.getKeyName())
-                                                            && currentNode.getProperty(LSDAttribute.ACTIVE.getKeyName()).equals("true")
-                                                            && currentNode.hasRelationship(FountainRelationships.VISITING, Direction.OUTGOING);
+                                        if (kosher) {
+                                            if (fountainNeo.isLatestVersion(currentNode)) {
+                                                if (fountainNeo.isAuthorized(currentNode, identity, LiquidPermission.VIEW)) {
+                                                    boolean authoredByMe = fountainNeo.isAuthorNoTX(myAliasNode, currentNode);
+                                                    if (!authoredByMe) {
+                                                        if (uri.startsWith(LiquidURIScheme.session.toString())) {
+                                                            if (!uri.equals(currentAliasURI) && !CommonConstants.ANONYMOUS_ALIAS.equals(uri)) {
+                                                                if (currentNode.hasProperty(LSDAttribute.ACTIVE.getKeyName())
+                                                                        && currentNode.getProperty(LSDAttribute.ACTIVE.getKeyName()).equals("true")
+                                                                        && currentNode.hasRelationship(FountainRelationships.VISITING, Direction.OUTGOING)) {
+                                                                    return true;
+                                                                } else {
+                                                                    log.debug("Node was a session but not of interest: " + uri);
+                                                                }
+                                                            } else {
+                                                                log.debug("Node was a session but was own or anonymous: " + uri);
+                                                            }
+                                                        } else if (uri.startsWith("pool") || uri.startsWith(LiquidURIScheme.comment.toString())) {
+                                                            if (fountainNeo.isListed(currentNode)) {
+                                                                return true;
+                                                            } else {
+                                                                log.debug("Node not listed: " + uri);
+                                                            }
+                                                        } else {
+                                                            throw new IllegalStateException("Should not reach this line.");
+                                                        }
+                                                    } else {
+                                                        log.debug("Node authored by me: " + uri);
 
-                                                } else if (!ownedByMe && uri.startsWith("pool")) {
-                                                    return true;
-                                                } else if (uri.startsWith(LiquidURIScheme.comment.toString())) {
-                                                    return true;
+                                                    }
+                                                } else {
+                                                    log.debug("Node is not authorized: " + uri);
+
                                                 }
                                             } else {
-                                                skip.add(currentNode.getId());
+                                                log.debug("Node not latest version: " + uri);
                                             }
+                                        } else {
+                                            log.debug("Node is of the wrong type: " + uri);
 
                                         }
-                                    } else if (uri.startsWith(LiquidURIScheme.pool.toString())) {
-                                        //pool nodes never get updated so we can add this to the skip list.
-                                        skip.add(currentNode.getId());
+                                    } else {
+                                        log.debug("Node is too old " + updated + " < " + since);
                                     }
                                 } else {
-                                    //not valid, add to the skip list
-                                    skip.add(currentNode.getId());
+                                    log.debug("No UPDATED or URI key");
                                 }
-
                             } catch (InterruptedException e) {
                                 log.error(e.getMessage(), e);
                             }
+                            skip.add(currentNode.getId());
                             return false;
                         } else {
                             //skipped
@@ -156,7 +170,7 @@ public class LatestContentFinder {
         log.debug("Found " + candidateNodes.size() + " nodes:");
         for (Node candidateNode : candidateNodes) {
             String type = (String) candidateNode.getProperty(LSDAttribute.TYPE.getKeyName());
-            boolean ownedByMe = fountainNeo.isOwnerNoTX(ownerNode, candidateNode);
+            boolean ownedByMe = fountainNeo.isOwnerNoTX(myAliasNode, candidateNode);
 
             final LSDEntity entity;
             if (type.startsWith(LSDDictionaryTypes.SESSION.getValue()) && INCLUDE_SESSION_INFORMATION) {

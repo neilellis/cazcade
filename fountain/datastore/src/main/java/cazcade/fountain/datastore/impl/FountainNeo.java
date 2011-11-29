@@ -564,6 +564,21 @@ public class FountainNeo extends AbstractServiceStateMachine {
         }
     }
 
+    public boolean isAuthorNoTX(final Node ownerNode, Node node) throws InterruptedException {
+        begin();
+        try {
+            final Iterable<Relationship> relationships = node.getRelationships(AUTHOR, Direction.OUTGOING);
+            for (Relationship relationship : relationships) {
+                if (relationship.getOtherNode(node).equals(ownerNode)) {
+                    return true;
+                }
+            }
+            return false;
+        } finally {
+            end();
+        }
+    }
+
     public boolean isOwnerNoTX(final LiquidSessionIdentifier identity, Node node) throws InterruptedException {
         begin();
         try {

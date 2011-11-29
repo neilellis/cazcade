@@ -20,6 +20,7 @@ public class WebsiteView extends PoolObjectView {
 
     public void setUrl(String url) {
         website.setUrl(url);
+        website.setTitle("Click to visit " + url);
         this.url = url;
     }
 
@@ -74,7 +75,6 @@ public class WebsiteView extends PoolObjectView {
 //                image.setHeight(LARGE_HEIGHT + "px");
             }
         }
-        website.setTitle("Click to visit " + url);
     }
 
     @Override
