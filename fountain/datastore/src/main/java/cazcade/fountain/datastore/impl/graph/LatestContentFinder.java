@@ -167,23 +167,25 @@ public class LatestContentFinder {
                 FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING
         );
         final Collection<Node> candidateNodes = traverser.getAllNodes();
-        log.debug("Found " + candidateNodes.size() + " nodes:");
+        log.debug("Found " + candidateNodes.size() + " candidate nodes:");
         for (Node candidateNode : candidateNodes) {
             String type = (String) candidateNode.getProperty(LSDAttribute.TYPE.getKeyName());
-            boolean ownedByMe = fountainNeo.isOwnerNoTX(myAliasNode, candidateNode);
-
+            final String uri = candidateNode.getProperty(LSDAttribute.URI.getKeyName()).toString();
             final LSDEntity entity;
             if (type.startsWith(LSDDictionaryTypes.SESSION.getValue()) && INCLUDE_SESSION_INFORMATION) {
                 entity = fromSessionNode(candidateNode, detail);
             } else if (type.startsWith(LSDDictionaryTypes.COMMENT.getValue())) {
                 entity = fromComment(candidateNode, detail);
-            } else if (!ownedByMe && candidateNode.hasProperty(LSDAttribute.URI.getKeyName()) && candidateNode.getProperty(LSDAttribute.URI.getKeyName()).toString().startsWith("pool")) {
+            } else if (uri.startsWith("pool")) {
                 entity = fromObjectNode(candidateNode, detail);
             } else {
+                log.debug("Node {0} was filtered because of type {1}", uri, type);
                 continue;
             }
             if (entity.hasAttribute(LSDAttribute.TITLE) && !entity.getAttribute(LSDAttribute.TITLE).isEmpty()) {
                 nodes.put(entity.getAttribute(LSDAttribute.TITLE), entity);
+            } else {
+                log.debug("Node had no title, so filtered.");
             }
             if (nodes.size() >= maxReturnNodes) {
                 return;
