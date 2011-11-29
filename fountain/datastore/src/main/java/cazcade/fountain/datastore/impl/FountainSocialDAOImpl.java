@@ -235,7 +235,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
                 report.addChangedOwnedBoard(fountainNeo.convertNodeToLSD(fountainNeo.findByURI(new LiquidURI(ownedBoard.getUri())), LiquidRequestDetailLevel.NORMAL, true));
             }
         }
-        final LatestContentFinder latestContentFinder = new LatestContentFinder(new LiquidSessionIdentifier(aliasURI), fountainNeo, aliasNode, since, 25, 5000, LiquidRequestDetailLevel.NORMAL, 10, userDAO);
+        final LatestContentFinder latestContentFinder = new LatestContentFinder(new LiquidSessionIdentifier(aliasURI), fountainNeo, aliasNode, since, 25, 5000, LiquidRequestDetailLevel.NORMAL, 50, userDAO);
         report.setLatestChanges(latestContentFinder.getNodes());
 
         return report;

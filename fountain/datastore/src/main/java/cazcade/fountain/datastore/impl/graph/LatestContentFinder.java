@@ -6,10 +6,7 @@ import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.FountainUserDAO;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.impl.UUIDFactory;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -45,6 +42,7 @@ public class LatestContentFinder {
 
     private static Cache nodeCache;
     private FountainUserDAO userDAO;
+    private final long minAge = System.currentTimeMillis() - 7 * 24 * 3600 * 1000;
 
     static {
         if (!CacheManager.getInstance().cacheExists("latestcontent")) {
@@ -69,6 +67,8 @@ public class LatestContentFinder {
             //The plus 5 seconds is because we need a margin of error
             if (localSkipElement.getCreationTime() < since + CACHE_ERROR_MARGIN) {
                 skip = (Set<Long>) localSkipElement.getValue();
+            } else {
+                log.debug("No valid skip available");
             }
         }
 
@@ -97,6 +97,14 @@ public class LatestContentFinder {
         final Traverser traverser = startNode.traverse(Traverser.Order.BREADTH_FIRST, new StopEvaluator() {
                     @Override
                     public boolean isStopNode(TraversalPosition currentPos) {
+                        final Node currentNode = currentPos.currentNode();
+                        if (isUnlisted(currentNode)) return true;
+
+                        if (currentNode.hasRelationship(FountainRelationships.COMMENT, Direction.INCOMING)) {
+                            if (isUnlisted(currentNode.getSingleRelationship(FountainRelationships.COMMENT, Direction.INCOMING).getOtherNode(currentNode))) {
+                                return true;
+                            }
+                        }
                         return currentPos.returnedNodesCount() >= maxReturnNodes * 10 || count[0]++ >= maxTraversal || currentPos.depth() > maxDepth;
                     }
                 }, new ReturnableEvaluator() {
@@ -179,8 +187,20 @@ public class LatestContentFinder {
         log.debug("Filtered to " + nodes.size() + " nodes. Max nodes is " + maxReturnNodes);
     }
 
+    private boolean isUnlisted(Node currentNode) {
+        final String type = currentNode.getProperty(FountainNeo.TYPE, "").toString();
+        final boolean listed = currentNode.getProperty(FountainNeo.LISTED, "false").toString().equals("true");
+        final LSDTypeDefImpl typeDef = new LSDTypeDefImpl(type);
+
+        if ((typeDef.canBe(LSDDictionaryTypes.POOL2D) || typeDef.canBe(LSDDictionaryTypes.BOARD)) && !listed) {
+            return true;
+        }
+        return false;
+    }
+
     private boolean validForThisRequest(Node currentNode, String uri, Node myAliasNode, String currentAliasURI) throws InterruptedException {
-        if (currentNode.hasProperty(LSDAttribute.UPDATED.getKeyName()) && Long.valueOf(currentNode.getProperty(LSDAttribute.UPDATED.getKeyName()).toString()) >= since) {
+        final Long nodeAge = Long.valueOf(currentNode.getProperty(LSDAttribute.UPDATED.getKeyName()).toString());
+        if (currentNode.hasProperty(LSDAttribute.UPDATED.getKeyName()) && nodeAge >= since) {
             if (fountainNeo.isAuthorized(currentNode, identity, LiquidPermission.VIEW)) {
                 boolean authoredByMe = fountainNeo.isAuthorNoTX(myAliasNode, currentNode);
                 if (!authoredByMe) {
@@ -216,7 +236,12 @@ public class LatestContentFinder {
 
             }
         } else {
-            log.debug("Node is too old " + currentNode.getProperty(LSDAttribute.UPDATED.getKeyName()) + " < " + since);
+            if (nodeAge < minAge) {
+                globalSkip.add(currentNode.getId());
+                log.debug("Node is too old to be of interest " + nodeAge + " < " + minAge);
+            } else {
+                log.debug("Node is too old for this request " + nodeAge + " < " + since);
+            }
         }
         skip.add(currentNode.getId());
         return false;
