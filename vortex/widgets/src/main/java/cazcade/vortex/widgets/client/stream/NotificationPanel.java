@@ -102,7 +102,7 @@ public class NotificationPanel extends Composite {
                             final LSDEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addToStream(new CommentEntryPanel(response, features));
+                                addToStream(new CommentEntryPanel(response));
                             }
                             if (response != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
                                     && !UserUtil.isAnonymousAliasURI(response.getSubEntity(LSDAttribute.VISITOR, false).getURI().toString())

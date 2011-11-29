@@ -46,13 +46,13 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     private static VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
 
 
-    public VortexStatusUpdatePanel(LSDEntity statusUpdate, FormatUtil features) {
+    public VortexStatusUpdatePanel(LSDEntity statusUpdate) {
         initWidget(ourUiBinder.createAndBindUi(this));
         this.entity = statusUpdate;
         author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         if (statusUpdate.hasAttribute(LSDAttribute.SOURCE)) {
-            locationName = features.formatPoolName(new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment().asString());
+            locationName = FormatUtil.getInstance().formatPoolName(new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment().asString());
         } else {
             locationName = THE_VOID;
         }

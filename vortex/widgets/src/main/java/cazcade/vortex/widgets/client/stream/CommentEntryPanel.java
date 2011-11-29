@@ -66,7 +66,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     protected CommentEntryPanel() {
     }
 
-    public CommentEntryPanel(LSDEntity streamEntry, final FormatUtil features) {
+    public CommentEntryPanel(LSDEntity streamEntry) {
         this.entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
         final String locationText;
@@ -105,7 +105,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     OBJECT_UPDATE("Text.StatusUpdate.Object", "A pool object status update."),
     COMMENT_UPDATE("Text.StatusUpdate.Comment", "A comment based status update."),*/
 
-        text.setInnerHTML(features.formatRichText(streamEntry.getAttribute(LSDAttribute.TEXT_BRIEF)));
+        text.setInnerHTML(FormatUtil.getInstance().formatRichText(streamEntry.getAttribute(LSDAttribute.TEXT_BRIEF)));
         //todo - format date :-)
         final String publishedDateStringInMillis = streamEntry.getAttribute(LSDAttribute.PUBLISHED);
         if (publishedDateStringInMillis != null) {

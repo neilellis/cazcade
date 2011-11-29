@@ -1,9 +1,14 @@
 package cazcade.vortex.widgets.client.stream;
 
+import cazcade.liquid.api.LiquidBoardURL;
 import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.request.AbstractRequest;
+import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.api.request.SendRequest;
+import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
@@ -20,8 +25,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author neilellis@cazcade.com
@@ -61,7 +70,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     private static VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
 
     @UiField
-    HorizontalPanel parentPanel;
+    VerticalPanel parentPanel;
 
     public ActivityStreamPanel() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -118,13 +127,40 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     }
 
     private void retrieveUpdates() {
-        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(FormatUtil.getInstance(), maxRows, parentPanel, null, threadSafeExecutor, true) {
+        bus.send(new RetrieveUpdatesRequest(lastUpdate), new AbstractResponseCallback<RetrieveUpdatesRequest>() {
             @Override
-            public void onSuccess(AbstractRequest message, AbstractRequest response) {
-                lastUpdate = response.getResponse().getUpdated().getTime();
-                super.onSuccess(message, response);
+            public void onSuccess(RetrieveUpdatesRequest message, RetrieveUpdatesRequest response) {
+                final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                Collections.reverse(entries);
+                Window.alert("Count was " + entries.size());
+                for (LSDEntity entry : entries) {
+                    if (entry.isA(LSDDictionaryTypes.COMMENT)
+                            && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false);
+                    } else {
+                        if (entry.hasAttribute(LSDAttribute.SOURCE)) {
+                            final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
+                            final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
+                            final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
+
+                            if (!isAnon && LiquidBoardURL.isConvertable(sourceURI)) {
+                                StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry), false);
+                                //  statusUpdateSound.play();
+                            }
+                        }
+
+                    }
+                }
             }
         });
+//        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(FormatUtil.getInstance(), maxRows, parentPanel, null, threadSafeExecutor, true) {
+//            @Override
+//            public void onSuccess(AbstractRequest message, AbstractRequest response) {
+//                lastUpdate = response.getResponse().getUpdated().getTime();
+//                Window.alert("Success");
+//                super.onSuccess(message, response);
+//            }
+//        });
     }
 
 }

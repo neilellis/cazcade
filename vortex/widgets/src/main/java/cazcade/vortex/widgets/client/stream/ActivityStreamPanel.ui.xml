@@ -2,8 +2,8 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <g:HTMLPanel styleName="activity-panel">
-        <g:HorizontalPanel ui:field="parentPanel">
-        </g:HorizontalPanel>
+        <g:VerticalPanel ui:field="parentPanel">
+        </g:VerticalPanel>
     </g:HTMLPanel>
 
 </ui:UiBinder>

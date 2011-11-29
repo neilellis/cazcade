@@ -104,7 +104,7 @@ public class CommentPanel extends Composite {
                             final LSDEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addStreamEntry(new CommentEntryPanel(response, features));
+                                addStreamEntry(new CommentEntryPanel(response));
                                 chatMessageSound.play();
 
 

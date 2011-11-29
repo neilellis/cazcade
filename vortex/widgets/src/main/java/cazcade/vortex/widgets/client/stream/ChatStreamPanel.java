@@ -269,7 +269,7 @@ public class ChatStreamPanel extends Composite {
                         final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - UPDATE_LIEFTIME;
 
                         if (!isAnon && !expired && !isMe && !isHere && LiquidBoardURL.isConvertable(sourceURI)) {
-                            addStreamEntry(new VortexStatusUpdatePanel(entry, features));
+                            addStreamEntry(new VortexStatusUpdatePanel(entry));
                             //  statusUpdateSound.play();
                         }
                     }

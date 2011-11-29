@@ -42,7 +42,7 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
         for (LSDEntity entry : entries) {
             if (entry.isA(LSDDictionaryTypes.COMMENT)
                     && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry, features), autoDelete);
+                StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), autoDelete);
             } else {
                 if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                     //TODO: This should all be done on the serverside (see LatestContentFinder).
@@ -54,7 +54,7 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
                     final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - NotificationPanel.UPDATE_LIEFTIME;
 
                     if (!isAnon && !expired && !isMe && !isHere && LiquidBoardURL.isConvertable(sourceURI)) {
-                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, features), autoDelete);
+                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry), autoDelete);
                         //  statusUpdateSound.play();
                     }
                 }
