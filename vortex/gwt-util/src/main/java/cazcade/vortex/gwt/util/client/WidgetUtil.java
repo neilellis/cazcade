@@ -41,6 +41,10 @@ public class WidgetUtil {
         }.schedule(transitionDelay);
     }
 
+    public static void removeFromParent(final IsWidget widgetToRemove) {
+        widgetToRemove.asWidget().removeFromParent();
+    }
+
     public static void removeFromParentGracefully(final IsWidget widgetToRemove) {
         removeFromParentGracefully(widgetToRemove, 500);
     }
@@ -55,6 +59,10 @@ public class WidgetUtil {
                 parent.add(replacement);
             }
         }
+    }
+
+    public static void insert(final InsertPanel parentPanel, final IsWidget widget, final int pos) {
+        parentPanel.insert(widget.asWidget(), pos);
     }
 
     public static void insertGracefully(final InsertPanel parentPanel, final IsWidget widget, final int pos) {
@@ -150,4 +158,5 @@ public class WidgetUtil {
     public static void show(IsWidget isWidget) {
         isWidget.asWidget().setVisible(true);
     }
+
 }

@@ -4,7 +4,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.vortex.common.client.FormatUtil;
+import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.core.client.GWT;
@@ -13,7 +13,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
@@ -52,7 +51,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
         author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         if (statusUpdate.hasAttribute(LSDAttribute.SOURCE)) {
-            locationName = FormatUtil.getInstance().formatPoolName(new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment().asString());
+            locationName = new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment().asShortUrl().asUrlSafe();
         } else {
             locationName = THE_VOID;
         }
@@ -71,7 +70,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
             @Override
             public void onClick(ClickEvent event) {
                 if (locationName != null && !THE_VOID.equals(locationName)) {
-                    History.newItem(locationName);
+                    HistoryManager.navigate(locationName);
                 }
             }
         }, ClickEvent.getType());

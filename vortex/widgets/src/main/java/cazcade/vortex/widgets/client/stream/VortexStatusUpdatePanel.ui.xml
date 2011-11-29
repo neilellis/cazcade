@@ -2,7 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
              xmlns:date="urn:import:cazcade.vortex.widgets.client.date">
-    <g:HTMLPanel styleName="alert-message info stream-status-update-panel ">
+    <g:HTMLPanel styleName="stream-status-update-panel ">
         <span class="stream-status-update-user-panel">
             <image:UserProfileImage styleName="stream-author-icon" ui:field="profileImage"/>
         </span>

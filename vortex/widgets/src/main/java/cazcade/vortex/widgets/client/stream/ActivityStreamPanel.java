@@ -25,7 +25,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -88,8 +87,6 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     }
 
     public void init() {
-        clear();
-
         if (!initialized) {
             new Timer() {
                 @Override
@@ -115,10 +112,10 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
 
             }.scheduleRepeating(STATUS_CHECK_FREQUENCY);
             retrieveUpdates();
+            StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
+            WidgetUtil.showGracefully(getWidget(), false);
             initialized = true;
         }
-        StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
-        WidgetUtil.showGracefully(getWidget(), false);
 
     }
 
@@ -132,23 +129,19 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
             public void onSuccess(RetrieveUpdatesRequest message, RetrieveUpdatesRequest response) {
                 final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entries);
-                Window.alert("Count was " + entries.size());
                 for (LSDEntity entry : entries) {
                     if (entry.isA(LSDDictionaryTypes.COMMENT)
                             && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false);
                     } else {
-                        if (entry.hasAttribute(LSDAttribute.SOURCE)) {
-                            final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
-                            final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
-                            final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
+                        final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
+                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
+                        final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
 
-                            if (!isAnon && LiquidBoardURL.isConvertable(sourceURI)) {
-                                StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry), false);
-                                //  statusUpdateSound.play();
-                            }
+                        if (!isAnon && LiquidBoardURL.isConvertable(sourceURI)) {
+                            StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry), false);
+                            //  statusUpdateSound.play();
                         }
-
                     }
                 }
             }
