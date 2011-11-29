@@ -50,7 +50,7 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
                     final boolean isMe = author.getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
                     final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                     final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
-                    final boolean isHere = sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());
+                    final boolean isHere = pool == null || sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());
                     final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - NotificationPanel.UPDATE_LIEFTIME;
 
                     if (!isAnon && !expired && !isMe && !isHere && LiquidBoardURL.isConvertable(sourceURI)) {

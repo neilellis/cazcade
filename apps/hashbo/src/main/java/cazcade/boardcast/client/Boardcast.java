@@ -21,10 +21,12 @@ import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.AbstractLazyHistoryAwareFactory;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
+import cazcade.vortex.widgets.client.stream.ActivityStreamPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
@@ -228,7 +230,14 @@ public class Boardcast implements EntryPoint {
                 return new BoardcastChatView();
             }
         });
+        historyManager.registerTopLevelComposite("activity", new AbstractLazyHistoryAwareFactory() {
+            @Override
+            protected HistoryAware getInstanceInternal() {
+                return new ActivityStreamPanel();
+            }
+        });
     }
+
 
     private void addSnapshotBoard() {
         historyManager = new HistoryManager(SNAPSHOT_PANEL_ID);

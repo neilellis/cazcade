@@ -1,6 +1,5 @@
 package cazcade.boardcast.client.main.widgets.board;
 
-import cazcade.boardcast.client.StartupUtil;
 import cazcade.boardcast.client.main.widgets.AddChatBox;
 import cazcade.boardcast.client.main.widgets.BoardMenuBar;
 import cazcade.liquid.api.LiquidBoardURL;
@@ -19,6 +18,7 @@ import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.ClientPreferences;
+import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.profile.Bindable;
@@ -230,7 +230,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 //    @UiField
 //    InboxPanel inbox;
 //    @UiField
-//    ActivityPanel activity;
+//    ActivityStreamPanel activity;
 
 
     public BoardcastChatView() {

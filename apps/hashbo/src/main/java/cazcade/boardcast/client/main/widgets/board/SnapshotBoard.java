@@ -1,6 +1,5 @@
 package cazcade.boardcast.client.main.widgets.board;
 
-import cazcade.boardcast.client.StartupUtil;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -13,6 +12,7 @@ import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.pool.widgets.PoolContentArea;

@@ -1,4 +1,4 @@
-package cazcade.boardcast.client;
+package cazcade.vortex.gwt.util.client;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
