@@ -6,6 +6,7 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
+import cazcade.vortex.widgets.client.image.CachedImage;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
@@ -45,8 +46,17 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     private static VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
 
 
-    public VortexStatusUpdatePanel(LSDEntity statusUpdate) {
+    public VortexStatusUpdatePanel(LSDEntity statusUpdate, boolean large) {
         initWidget(ourUiBinder.createAndBindUi(this));
+        if (large) {
+            profileImage.setWidth("48px");
+            profileImage.setHeight("64px");
+            profileImage.setSize(CachedImage.MEDIUM);
+        } else {
+            profileImage.setWidth("14px");
+            profileImage.setHeight("18px");
+            profileImage.setSize(CachedImage.SMALL);
+        }
         this.entity = statusUpdate;
         author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));

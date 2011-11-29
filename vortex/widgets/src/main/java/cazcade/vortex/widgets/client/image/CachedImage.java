@@ -171,6 +171,7 @@ public class CachedImage extends Image {
     @Override
     public void setWidth(String width) {
         super.setWidth(width);
+        getElement().getStyle().setProperty("minWidth", width);
         if (width.toLowerCase().endsWith("px")) {
             this.requestedWidth = Integer.parseInt(width.substring(0, width.length() - 2));
         }
@@ -179,6 +180,7 @@ public class CachedImage extends Image {
     @Override
     public void setHeight(String height) {
         super.setHeight(height);
+        getElement().getStyle().setProperty("minHeight", height);
         if (height.toLowerCase().endsWith("px")) {
             this.requestedHeight = Integer.parseInt(height.substring(0, height.length() - 2));
         }

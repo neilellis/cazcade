@@ -139,7 +139,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
 
                         if (!isAnon && LiquidBoardURL.isConvertable(sourceURI)) {
-                            StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry), false);
+                            StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, true), false);
                             //  statusUpdateSound.play();
                         }
                     }

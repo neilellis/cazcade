@@ -54,7 +54,7 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
                     final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - NotificationPanel.UPDATE_LIEFTIME;
 
                     if (!isAnon && !expired && !isMe && !isHere && LiquidBoardURL.isConvertable(sourceURI)) {
-                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry), autoDelete);
+                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, false), autoDelete);
                         //  statusUpdateSound.play();
                     }
                 }
