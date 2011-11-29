@@ -4,7 +4,6 @@ import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.LiquidURIScheme;
 import cazcade.liquid.api.handler.RetrieveUpdatesRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -37,7 +36,7 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
                 throw new EntityNotFoundException("Could not find start point at " + initialURI);
             }
             //todo:tune parameters and make them part of the request too...
-            final List<LSDEntity> entities = new ArrayList<LSDEntity>(new LatestContentFinder(request.getSessionIdentifier(), fountainNeo, startNode, request.getSince(), 20, 5000, request.getDetail(), 100, userDAO).getNodes());
+            final List<LSDEntity> entities = new ArrayList<LSDEntity>(new LatestContentFinder(request.getSessionIdentifier(), fountainNeo, startNode, request.getSince(), 20, 50000, request.getDetail(), 100, userDAO).getNodes());
             Collections.sort(entities, new LSDEntity.EntityPublishedComparator());
             transaction.success();
             if (entities == null || entities.size() == 0) {

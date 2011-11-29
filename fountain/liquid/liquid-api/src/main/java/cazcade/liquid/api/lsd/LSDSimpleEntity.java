@@ -261,6 +261,20 @@ public class LSDSimpleEntity implements LSDEntity {
         return readonly;
     }
 
+    @Override
+    public String getSubAttribute(LSDAttribute attribute, LSDAttribute subAttribute, String defaultValue) {
+        return getValue(attribute.getKeyName() + "." + subAttribute.getKeyName(), defaultValue);
+    }
+
+    private String getValue(String key, String defaultValue) {
+        final String value = lsdProperties.get(key);
+        if (value == null) {
+            return defaultValue;
+        } else {
+            return value;
+        }
+    }
+
 
     public LSDTypeDef getTypeDef() {
         initTypeDef();
