@@ -1,24 +1,25 @@
-package cazcade.fountain.datastore;
+package cazcade.fountain.datastore.impl.services.persistence;
 
+import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author neilellis@cazcade.com
  */
-public class Relationship {
+public class FountainRelationshipImpl implements FountainRelationship {
 
-    @Nullable
+    @Nonnull
     private final org.neo4j.graphdb.Relationship relationship;
 
-    public Relationship(@Nullable final org.neo4j.graphdb.Relationship relationship) {
+    public FountainRelationshipImpl(@Nonnull final org.neo4j.graphdb.Relationship relationship) {
         if (relationship == null) {
-            throw new NullPointerException("Tried to create a FountainRelationship from a null Neo Relationship.");
+            throw new NullPointerException("Tried to create a FountainRelationship from a null neo relationship.");
         }
         this.relationship = relationship;
     }
@@ -29,23 +30,27 @@ public class Relationship {
     }
 
 
+    @Override
     public void delete() {
         relationship.delete();
     }
 
 
+    @Override
     @Nonnull
     public FountainEntity getStartNode() {
         return new FountainEntityImpl(relationship.getStartNode());
     }
 
 
+    @Override
     @Nonnull
     public FountainEntity getEndNode() {
         return new FountainEntityImpl(relationship.getEndNode());
     }
 
 
+    @Override
     @Nonnull
     public FountainEntity getOtherNode(@Nonnull final FountainEntity fountainEntity) {
         return new FountainEntityImpl(relationship.getOtherNode(fountainEntity.getNeoNode()));
@@ -62,6 +67,7 @@ public class Relationship {
     }
 
 
+    @Override
     public FountainRelationships getType() {
         return FountainRelationships.valueOf(relationship.getType().name());
     }
@@ -77,27 +83,30 @@ public class Relationship {
     }
 
 
-    public boolean hasProperty(final String key) {
+    @Override
+    public boolean hasProperty(@Nonnull final String key) {
         return relationship.hasProperty(key);
     }
 
 
-    public Object getProperty(final String key) {
+    @Override
+    public Object getProperty(@Nonnull final String key) {
         return relationship.getProperty(key);
     }
 
 
-    public Object getProperty(final String key, final Object defaultValue) {
+    public Object getProperty(@Nonnull final String key, @Nonnull final Object defaultValue) {
         return relationship.getProperty(key, defaultValue);
     }
 
 
-    public void setProperty(final String key, final Object value) {
+    @Override
+    public void setProperty(@Nonnull final String key, @Nonnull final Object value) {
         relationship.setProperty(key, value);
     }
 
 
-    public Object removeProperty(final String key) {
+    public Object removeProperty(@Nonnull final String key) {
         return relationship.removeProperty(key);
     }
 

@@ -1,11 +1,10 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.DuplicateEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.api.RelationshipNotFoundException;
 import cazcade.fountain.datastore.api.UserRestrictedException;
+import cazcade.fountain.datastore.impl.*;
 import cazcade.fountain.index.persistence.dao.AliasDAO;
 import cazcade.fountain.index.persistence.entities.AliasEntity;
 import cazcade.liquid.api.*;
@@ -101,7 +100,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                         return;
                     }
                     final LSDEntity aliasEntity = getAliasFromNode(aliasFountainEntity, true, LiquidRequestDetailLevel.COMPLETE);
-                    final Relationship ownerRel = aliasFountainEntity.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
+                    final FountainRelationship ownerRel = aliasFountainEntity.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
                     if (ownerRel == null) {
                         log.warn("No owner for alias " + uri);
                     } else {
@@ -225,7 +224,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 fountainEntityImpl.mergeProperties(entity, true, false, null);
                 fountainNeo.freeTextIndexNoTx(fountainEntityImpl);
                 if (me) {
-                    for (final Relationship relationship : fountainEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING)) {
+                    for (final FountainRelationship relationship : fountainEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING)) {
                         //todo: throw an exception instead!
                         relationship.delete();
                     }
@@ -311,7 +310,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 if (otherNetworkAlias == null) {
                     throw new EntityNotFoundException("Could not find alias for %s", aliasUri);
                 }
-                final Relationship userRelationship = otherNetworkAlias.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
+                final FountainRelationship userRelationship = otherNetworkAlias.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
                 userFountainEntity = userRelationship.getEndNode();
                 ownerFountainEntityImpl = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + userFountainEntity.getAttribute(LSDAttribute.NAME)));
                 if (ownerFountainEntityImpl == null) {
@@ -329,15 +328,15 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             }
 
             //Remove stale sessions
-            final Iterable<Relationship> existingSessionRelationships = ownerFountainEntityImpl.getRelationships(FountainRelationships.HAS_SESSION, Direction.OUTGOING);
-            for (final Relationship existingSessionRelationship : existingSessionRelationships) {
+            final Iterable<FountainRelationship> existingSessionRelationships = ownerFountainEntityImpl.getRelationships(FountainRelationships.HAS_SESSION, Direction.OUTGOING);
+            for (final FountainRelationship existingSessionRelationship : existingSessionRelationships) {
                 final FountainEntity sessionFountainEntity = existingSessionRelationship.getOtherNode(ownerFountainEntityImpl);
                 final long updated = sessionFountainEntity.getUpdated().getTime();
                 final boolean active = sessionFountainEntity.getBooleanAttribute(LSDAttribute.ACTIVE);
                 if (updated < System.currentTimeMillis() - FountainNeoImpl.SESSION_EXPIRES_MILLI) {
                     if (!active) {
                         existingSessionRelationship.delete();
-                        for (final Relationship relationship : sessionFountainEntity.getRelationships()) {
+                        for (final FountainRelationship relationship : sessionFountainEntity.getRelationships()) {
                             relationship.delete();
                         }
                         sessionFountainEntity.deleteNeo();
@@ -380,9 +379,9 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             try {
                 final FountainEntity fountainEntity = fountainNeo.findByUUID(target);
                 final FountainEntity ownerFountainEntity = fountainNeo.findByURI(identity.getUserURL());
-                final Iterable<Relationship> relationships = fountainEntity.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING);
+                final Iterable<FountainRelationship> relationships = fountainEntity.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING);
                 boolean deleted = false;
-                for (final Relationship relationship : relationships) {
+                for (final FountainRelationship relationship : relationships) {
                     if (relationship.getOtherNode(fountainEntity).equals(ownerFountainEntity)) {
                         deleted = true;
                         relationship.delete();

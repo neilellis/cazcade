@@ -1,8 +1,8 @@
 package cazcade.fountain.datastore.test;
 
-import cazcade.fountain.datastore.impl.FountainEmailService;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainUserDAO;
+import cazcade.fountain.datastore.impl.services.persistence.FountainEmailService;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDEntity;

@@ -1,7 +1,5 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.impl.*;
 import cazcade.liquid.api.LiquidMessage;
@@ -52,7 +50,7 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
             if (ownerAlias == null) {
                 throw new AuthorizationException("Could not locate owner %s", owner);
             }
-            final Relationship ownerRelationship = ownerAlias.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
+            final FountainRelationship ownerRelationship = ownerAlias.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
             if (ownerRelationship == null) {
                 throw new AuthorizationException("Could not locate owner relationship for alias %s", owner);
             }

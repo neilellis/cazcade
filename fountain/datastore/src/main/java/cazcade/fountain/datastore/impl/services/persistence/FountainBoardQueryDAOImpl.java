@@ -1,6 +1,9 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
+import cazcade.fountain.datastore.impl.FountainBoardQueryDAO;
+import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainPoolDAO;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
 import cazcade.liquid.api.LiquidRequestDetailLevel;

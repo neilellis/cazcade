@@ -1,8 +1,8 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.FountainEntityImpl;
+import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.services.persistence.FountainEntityImpl;
 import cazcade.liquid.api.handler.SearchRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;

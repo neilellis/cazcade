@@ -1,10 +1,8 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.FountainEntityImpl;
-import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.*;
+import cazcade.fountain.datastore.impl.*;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.impl.SortUtil;
@@ -312,7 +310,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             clone.setAttribute(LSDAttribute.URI, candidateURI);
             fountainNeo.reindex(clone, LSDAttribute.URI, LSDAttribute.URI);
             to.createRelationshipTo(clone, FountainRelationships.CHILD);
-            final Relationship ownerRel = clone.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
+            final FountainRelationship ownerRel = clone.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
             ownerRel.delete();
             clone.createRelationshipTo(newOwner, FountainRelationships.OWNER);
             recalculatePoolURIs(clone);
@@ -343,12 +341,12 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             if (target.hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
                 throw new CannotUnlinkEntityException("Cannot unlink a fountainEntityImpl that is not the latest version.");
             }
-            final Iterable<Relationship> relationships = target.getRelationships(FountainRelationships.CHILD, Direction.INCOMING);
-            for (final Relationship relationship : relationships) {
+            final Iterable<FountainRelationship> relationships = target.getRelationships(FountainRelationships.CHILD, Direction.INCOMING);
+            for (final FountainRelationship relationship : relationships) {
                 relationship.delete();
             }
-            final Iterable<Relationship> linkedRelationships = target.getRelationships(FountainRelationships.LINKED_CHILD, Direction.INCOMING);
-            for (final Relationship relationship : linkedRelationships) {
+            final Iterable<FountainRelationship> linkedRelationships = target.getRelationships(FountainRelationships.LINKED_CHILD, Direction.INCOMING);
+            for (final FountainRelationship relationship : linkedRelationships) {
                 relationship.delete();
             }
             fountainNeo.getIndexService().remove(target.getNeoNode(), LSDAttribute.URI.getKeyName());
@@ -404,12 +402,12 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
     public FountainEntity unlinkPool(@Nonnull final FountainEntity target) throws InterruptedException {
         fountainNeo.begin();
         try {
-            final Iterable<Relationship> relationships = target.getRelationships(FountainRelationships.CHILD, Direction.INCOMING);
-            for (final Relationship relationship : relationships) {
+            final Iterable<FountainRelationship> relationships = target.getRelationships(FountainRelationships.CHILD, Direction.INCOMING);
+            for (final FountainRelationship relationship : relationships) {
                 relationship.delete();
             }
-            final Iterable<Relationship> linkedRelationships = target.getRelationships(FountainRelationships.LINKED_CHILD, Direction.INCOMING);
-            for (final Relationship relationship : linkedRelationships) {
+            final Iterable<FountainRelationship> linkedRelationships = target.getRelationships(FountainRelationships.LINKED_CHILD, Direction.INCOMING);
+            for (final FountainRelationship relationship : linkedRelationships) {
                 relationship.delete();
             }
             assertHasOwner(target);
@@ -442,7 +440,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
     }
 
     private void assertHasOwner(@Nonnull final FountainEntity poolObject) {
-        final Relationship ownerRel = poolObject.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
+        final FountainRelationship ownerRel = poolObject.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
         if (ownerRel == null) {
             throw new IllegalStateException("We have a pool object with no owner.");
         }
@@ -565,7 +563,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             throw new DeletedEntityException("The entity %s is already deleted so cannot be deleted again.", fountainEntity.hasAttribute(LSDAttribute.URI) ? fountainEntity.getAttribute(LSDAttribute.URI) : "<unknown-uri>");
         }
         fountainNeo.delete(fountainEntity);
-        final Relationship relationship = fountainEntity.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
+        final FountainRelationship relationship = fountainEntity.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
         if (relationship == null) {
             throw new OrphanedEntityException("The entity %s is orphaned so cannot be deleted.", fountainEntity.hasAttribute(LSDAttribute.URI) ? fountainEntity.getAttribute(LSDAttribute.URI) : "<unknown-uri>");
         }
@@ -580,11 +578,11 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         try {
             final LiquidUUID session = identity.getSession();
             final FountainEntity sessionFountainEntity = fountainNeo.findByUUID(session);
-            for (final Relationship relationship : sessionFountainEntity.getRelationships(FountainRelationships.VISITING, Direction.OUTGOING)) {
+            for (final FountainRelationship relationship : sessionFountainEntity.getRelationships(FountainRelationships.VISITING, Direction.OUTGOING)) {
                 relationship.delete();
             }
             final FountainEntity pool = convertToPoolFromPoolOrObject(fountainEntityImpl);
-            final Relationship relationshipTo = sessionFountainEntity.createRelationshipTo(pool, FountainRelationships.VISITING);
+            final FountainRelationship relationshipTo = sessionFountainEntity.createRelationshipTo(pool, FountainRelationships.VISITING);
             relationshipTo.setProperty(LSDAttribute.UPDATED.getKeyName(), String.valueOf(System.currentTimeMillis()));
             sessionFountainEntity.setAttribute(LSDAttribute.ACTIVE, true);
             sessionFountainEntity.timestamp();
@@ -637,7 +635,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         fountainNeo.begin();
         try {
             final FountainEntity fountainEntity = fountainNeo.findByURI(object);
-            final Relationship relationship = fountainEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
+            final FountainRelationship relationship = fountainEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
             if (relationship == null) {
                 throw new RelationshipNotFoundException("No view relationship for %s(%s)", fountainEntity.getAttribute(LSDAttribute.URI), object);
             }
@@ -656,7 +654,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             }
 
             viewFountainEntity.setAttribute(LSDAttribute.VIEW_RADIUS, String.valueOf(fountainEntity.calculateRadius()));
-            final Relationship parentRel = fountainEntity.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
+            final FountainRelationship parentRel = fountainEntity.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
             if (parentRel == null) {
                 throw new OrphanedEntityException("The entity %s (%s) is orphaned so cannot be moved.", object.toString(), fountainEntity.hasAttribute(LSDAttribute.URI) ? fountainEntity.getAttribute(LSDAttribute.URI) : "<unknown-uri>");
             }
@@ -681,8 +679,8 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             boolean done = false;
             final LiquidRequestDetailLevel aliasDetailLevel = detail == LiquidRequestDetailLevel.COMPLETE ? LiquidRequestDetailLevel.COMPLETE : LiquidRequestDetailLevel.PERSON_MINIMAL;
 
-            final Iterable<Relationship> iterable = fountainEntity.getRelationships(VIEW, Direction.OUTGOING);
-            for (final Relationship relationship : iterable) {
+            final Iterable<FountainRelationship> iterable = fountainEntity.getRelationships(VIEW, Direction.OUTGOING);
+            for (final FountainRelationship relationship : iterable) {
                 if (done) {
                     throw new DuplicateEntityException("Found a second view for a single object.");
                 }
@@ -691,18 +689,18 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             }
 
             if (detail == LiquidRequestDetailLevel.COMPLETE || detail == LiquidRequestDetailLevel.NORMAL || detail == LiquidRequestDetailLevel.BOARD_LIST) {
-                final Relationship ownerRel = fountainEntity.getSingleRelationship(OWNER, Direction.OUTGOING);
+                final FountainRelationship ownerRel = fountainEntity.getSingleRelationship(OWNER, Direction.OUTGOING);
                 if (ownerRel != null) {
                     entity.addSubEntity(LSDAttribute.OWNER, userDAO.getAliasFromNode(ownerRel.getOtherNode(fountainEntity), internal, aliasDetailLevel), true);
                 }
 
                 if (detail != LiquidRequestDetailLevel.BOARD_LIST) {
-                    final Relationship relationship = fountainEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
+                    final FountainRelationship relationship = fountainEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
                     if (relationship != null) {
                         entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(relationship.getOtherNode(fountainEntity), internal, aliasDetailLevel), true);
                     }
 
-                    final Relationship editorRel = fountainEntity.getSingleRelationship(EDITOR, Direction.OUTGOING);
+                    final FountainRelationship editorRel = fountainEntity.getSingleRelationship(EDITOR, Direction.OUTGOING);
                     if (editorRel != null) {
                         entity.addSubEntity(LSDAttribute.EDITOR, userDAO.getAliasFromNode(editorRel.getOtherNode(fountainEntity), internal, aliasDetailLevel), true);
                     }
@@ -754,11 +752,11 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             commentFountainEntity.setAttribute(LSDAttribute.URI, uri);
 
             if (targetFountainEntity.hasRelationship(COMMENT, Direction.OUTGOING)) {
-                final Iterable<Relationship> comments = targetFountainEntity.getRelationships(COMMENT, Direction.OUTGOING);
-                for (final Relationship relationship : comments) {
+                final Iterable<FountainRelationship> comments = targetFountainEntity.getRelationships(COMMENT, Direction.OUTGOING);
+                for (final FountainRelationship relationship : comments) {
                     final FountainEntity previous = relationship.getEndNode();
                     relationship.delete();
-                    final Relationship previousRel = commentFountainEntity.createRelationshipTo(previous, PREVIOUS);
+                    final FountainRelationship previousRel = commentFountainEntity.createRelationshipTo(previous, PREVIOUS);
                 }
             }
             targetFountainEntity.createRelationshipTo(commentFountainEntity, COMMENT);

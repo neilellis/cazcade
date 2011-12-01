@@ -1,7 +1,5 @@
-package cazcade.fountain.datastore;
+package cazcade.fountain.datastore.impl;
 
-import cazcade.fountain.datastore.impl.FountainRelationships;
-import cazcade.fountain.datastore.impl.NodeCallback;
 import cazcade.liquid.api.LiquidPermission;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -21,25 +19,25 @@ public interface FountainEntity extends LSDEntity {
     void deleteNeo();
 
     @Nonnull
-    Iterable<Relationship> getRelationships();
+    Iterable<FountainRelationship> getRelationships();
 
     @Nonnull
-    Iterable<Relationship> getRelationships(FountainRelationships... types);
+    Iterable<FountainRelationship> getRelationships(FountainRelationships... types);
 
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
-    Iterable<Relationship> getRelationships(FountainRelationships type, Direction dir);
+    Iterable<FountainRelationship> getRelationships(FountainRelationships type, Direction dir);
 
     @SuppressWarnings({"TypeMayBeWeakened"})
     boolean hasRelationship(FountainRelationships type, Direction dir);
 
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nullable
-    Relationship getSingleRelationship(FountainRelationships type, Direction dir);
+    FountainRelationship getSingleRelationship(FountainRelationships type, Direction dir);
 
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
-    Relationship createRelationshipTo(@Nonnull FountainEntity otherEntity, FountainRelationships type);
+    FountainRelationship createRelationshipTo(@Nonnull FountainEntity otherEntity, FountainRelationships type);
 
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, FountainRelationships relationshipType, Direction direction);
 

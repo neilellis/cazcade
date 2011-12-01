@@ -15,7 +15,7 @@
     <task:scheduler id="scheduler" pool-size="1"/>
 
 
-    <bean id="compensator" class="cazcade.fountain.datastore.impl.FountainRequestCompensatorImpl">
+    <bean id="compensator" class="cazcade.fountain.datastore.impl.services.persistence.FountainRequestCompensatorImpl">
         <property name="requestMap" ref="requestMap"/>
     </bean>
 
@@ -335,18 +335,21 @@
         </property>
     </bean>
 
-    <bean id="fountainNeo" class="cazcade.fountain.datastore.impl.FountainNeoImpl" destroy-method="stop"
+    <bean id="fountainNeo" class="cazcade.fountain.datastore.impl.services.persistence.FountainNeoImpl"
+          destroy-method="stop"
           init-method="start">
     </bean>
 
-    <bean id="fountainIndexService" class="cazcade.fountain.datastore.impl.FountainIndexServiceImpl"/>
-    <bean id="poolDAO" class="cazcade.fountain.datastore.impl.FountainPoolDAOImpl"/>
-    <bean id="userDAO" class="cazcade.fountain.datastore.impl.FountainUserDAOImpl"/>
-    <bean id="socialDAO" class="cazcade.fountain.datastore.impl.FountainSocialDAOImpl"/>
-    <bean id="poolQueryDAO" class="cazcade.fountain.datastore.impl.FountainBoardQueryDAOImpl"/>
-    <bean id="fountainNeoInitializer" class="cazcade.fountain.datastore.impl.FountainNeoIntializer"
+    <bean id="fountainIndexService"
+          class="cazcade.fountain.datastore.impl.services.persistence.FountainIndexServiceImpl"/>
+    <bean id="poolDAO" class="cazcade.fountain.datastore.impl.services.persistence.FountainPoolDAOImpl"/>
+    <bean id="userDAO" class="cazcade.fountain.datastore.impl.services.persistence.FountainUserDAOImpl"/>
+    <bean id="socialDAO" class="cazcade.fountain.datastore.impl.services.persistence.FountainSocialDAOImpl"/>
+    <bean id="poolQueryDAO" class="cazcade.fountain.datastore.impl.services.persistence.FountainBoardQueryDAOImpl"/>
+    <bean id="fountainNeoInitializer" class="cazcade.fountain.datastore.impl.services.persistence.FountainNeoIntializer"
           init-method="initGraph" depends-on="fountainNeo" p:fountainNeo-ref="fountainNeo"/>
-    <bean id="fountainEmailService" class="cazcade.fountain.datastore.impl.FountainEmailService"/>
-    <bean id="fountainUserUpdateService" class="cazcade.fountain.datastore.impl.FountainUserUpdateService"/>
+    <bean id="fountainEmailService" class="cazcade.fountain.datastore.impl.services.persistence.FountainEmailService"/>
+    <bean id="fountainUserUpdateService"
+          class="cazcade.fountain.datastore.impl.services.persistence.FountainUserUpdateService"/>
 
 </beans>

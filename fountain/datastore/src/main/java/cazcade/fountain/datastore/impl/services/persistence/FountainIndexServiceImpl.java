@@ -1,7 +1,9 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.Relationship;
+import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainRelationship;
+import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.index.model.BoardType;
 import cazcade.fountain.index.persistence.dao.AliasDAO;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
@@ -85,19 +87,19 @@ public class FountainIndexServiceImpl {
     }
 
     private void addOwnershipToBoard(@Nonnull final FountainEntity fountainEntity, @Nonnull final BoardIndexEntity board) {
-        final Relationship ownerRel = fountainEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
+        final FountainRelationship ownerRel = fountainEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
         if (ownerRel != null) {
             final String owner = ownerRel.getOtherNode(fountainEntity).getAttribute(LSDAttribute.URI, "unknown");
             log.debug("Setting owner as {0} on {1}", owner, board.getUri());
             board.setOwner(aliasDAO.getOrCreateAlias(owner));
         }
-        final Relationship authorRel = fountainEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
+        final FountainRelationship authorRel = fountainEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
         if (authorRel != null) {
             final String author = authorRel.getOtherNode(fountainEntity).getAttribute(LSDAttribute.URI, "unknown");
             log.debug("Setting author as {0} on {1}", author, board.getUri());
             board.setAuthor(aliasDAO.getOrCreateAlias(author));
         }
-        final Relationship creatorRel = fountainEntity.getSingleRelationship(FountainRelationships.CREATOR, Direction.OUTGOING);
+        final FountainRelationship creatorRel = fountainEntity.getSingleRelationship(FountainRelationships.CREATOR, Direction.OUTGOING);
         if (creatorRel != null) {
             final String creator = creatorRel.getOtherNode(fountainEntity).getAttribute(LSDAttribute.URI, "unknown");
             log.debug("Setting creator as {0} on {1}", creator, board.getUri());

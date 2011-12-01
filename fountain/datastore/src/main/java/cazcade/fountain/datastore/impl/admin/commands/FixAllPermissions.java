@@ -1,9 +1,9 @@
 package cazcade.fountain.datastore.impl.admin.commands;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.Relationship;
+import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.admin.AdminCommand;
 import cazcade.liquid.api.LiquidPermissionSet;
@@ -26,8 +26,8 @@ public class FixAllPermissions implements AdminCommand {
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
         final FountainEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
-        final Iterable<Relationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
-        for (final Relationship child : children) {
+        final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
+        for (final FountainRelationship child : children) {
             final FountainEntity personPool = child.getOtherNode(peoplePool);
             final String personPoolURI = personPool.getAttribute(LSDAttribute.URI);
             resetPermissions(fountainNeo, new LiquidURI(personPoolURI + "/profile"), LiquidPermissionSet.getDefaultPermissionsNoDelete());

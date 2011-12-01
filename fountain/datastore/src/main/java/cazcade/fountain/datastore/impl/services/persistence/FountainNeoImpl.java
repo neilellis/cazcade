@@ -1,12 +1,13 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
 import cazcade.fountain.common.service.AbstractServiceStateMachine;
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.FountainEntityImpl;
-import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.*;
+import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainRelationship;
+import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.io.FountainNeoExporter;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -352,7 +353,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 //        params.put("allow_store_upgrade", "true");
             params.put("enable_remote_shell", "true");
 
-            neo = new EmbeddedGraphDatabase(Constants.FOUNTAIN_NEO_STORE_DIR, params);
+            neo = new EmbeddedGraphDatabase(cazcade.fountain.datastore.impl.Constants.FOUNTAIN_NEO_STORE_DIR, params);
 //        wrappingNeoServerBootstrapper = new WrappingNeoServerBootstrapper(neo);
 //        wrappingNeoServerBootstrapper.start();
 //
@@ -431,14 +432,14 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     @Override
     public void migrateParentNode(@Nonnull final FountainEntity fountainEntity, @Nonnull final FountainEntity clone, final boolean fork) {
         fountainEntity.assertLatestVersion();
-        final Iterable<Relationship> relationships = fountainEntity.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
-        for (final Relationship relationship : relationships) {
+        final Iterable<FountainRelationship> relationships = fountainEntity.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
+        for (final FountainRelationship relationship : relationships) {
             final FountainEntity childFountainEntityImpl = relationship.getOtherNode(fountainEntity);
             clone.createRelationshipTo(childFountainEntityImpl, FountainRelationships.CHILD);
             relationship.delete();
         }
         if (!fork) {
-            final Relationship parentRel = fountainEntity.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
+            final FountainRelationship parentRel = fountainEntity.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
             if (parentRel != null) {
                 final FountainEntity parentFountainEntity = parentRel.getOtherNode(fountainEntity);
                 parentFountainEntity.createRelationshipTo(clone, FountainRelationships.CHILD);
@@ -498,8 +499,8 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             clone.createRelationshipTo(editorFountainEntityImpl, FountainRelationships.EDITOR);
         }
 
-        final Iterable<Relationship> relationships = fountainEntityImpl.getRelationships(FountainRelationships.FOLLOW_CONTENT, FountainRelationships.FOLLOW_ALIAS, FountainRelationships.AUTHOR, FountainRelationships.CREATOR, FountainRelationships.OWNER, FountainRelationships.VIEW, FountainRelationships.ALIAS);
-        for (final Relationship relationship : relationships) {
+        final Iterable<FountainRelationship> relationships = fountainEntityImpl.getRelationships(FountainRelationships.FOLLOW_CONTENT, FountainRelationships.FOLLOW_ALIAS, FountainRelationships.AUTHOR, FountainRelationships.CREATOR, FountainRelationships.OWNER, FountainRelationships.VIEW, FountainRelationships.ALIAS);
+        for (final FountainRelationship relationship : relationships) {
             if (relationship.getStartNode().equals(fountainEntityImpl)) {
                 clone.createRelationshipTo(relationship.getEndNode(), relationship.getType());
                 if (relationship.getType() == FountainRelationships.AUTHOR || relationship.getType() == FountainRelationships.CREATOR || relationship.getType() == FountainRelationships.OWNER || relationship.getType() == FountainRelationships.VIEW) {

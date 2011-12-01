@@ -1,10 +1,10 @@
 package cazcade.fountain.datastore.test;
 
-import cazcade.fountain.datastore.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
-import cazcade.fountain.datastore.impl.FountainPoolDAOImpl;
 import cazcade.fountain.datastore.impl.FountainSocialDAO;
-import cazcade.fountain.datastore.impl.FountainUserDAOImpl;
+import cazcade.fountain.datastore.impl.services.persistence.FountainPoolDAOImpl;
+import cazcade.fountain.datastore.impl.services.persistence.FountainUserDAOImpl;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;

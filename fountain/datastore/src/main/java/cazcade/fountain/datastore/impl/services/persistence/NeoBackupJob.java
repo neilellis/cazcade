@@ -1,6 +1,7 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
+import cazcade.fountain.datastore.impl.FountainNeo;
 
 import javax.annotation.Nonnull;
 

@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.io;
 
-import cazcade.fountain.datastore.impl.FountainNeoImpl;
 import cazcade.fountain.datastore.impl.FountainRelationships;
+import cazcade.fountain.datastore.impl.services.persistence.FountainNeoImpl;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;

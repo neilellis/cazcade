@@ -1,7 +1,8 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.fountain.datastore.api.FountainRequestCompensator;
+import cazcade.fountain.datastore.impl.FountainRequestMap;
 import cazcade.liquid.api.LiquidRequest;
 
 import javax.annotation.Nonnull;

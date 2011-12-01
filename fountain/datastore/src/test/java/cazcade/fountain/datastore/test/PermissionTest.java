@@ -1,9 +1,9 @@
 package cazcade.fountain.datastore.test;
 
-import cazcade.fountain.datastore.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
-import cazcade.fountain.datastore.impl.FountainPoolDAOImpl;
-import cazcade.fountain.datastore.impl.FountainUserDAOImpl;
+import cazcade.fountain.datastore.impl.services.persistence.FountainPoolDAOImpl;
+import cazcade.fountain.datastore.impl.services.persistence.FountainUserDAOImpl;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;

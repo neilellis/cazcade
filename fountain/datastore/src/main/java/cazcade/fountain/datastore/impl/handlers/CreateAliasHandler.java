@@ -1,9 +1,9 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
-import cazcade.fountain.datastore.impl.FountainNeoImpl;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.services.persistence.FountainNeoImpl;
 import cazcade.liquid.api.LiquidPermissionChangeType;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;

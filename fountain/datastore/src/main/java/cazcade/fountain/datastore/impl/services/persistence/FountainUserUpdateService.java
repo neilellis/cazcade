@@ -1,6 +1,9 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
+import cazcade.fountain.datastore.impl.ChangeReport;
+import cazcade.fountain.datastore.impl.FountainSocialDAO;
+import cazcade.fountain.datastore.impl.FountainUserDAO;
 import cazcade.fountain.index.persistence.dao.AliasDAO;
 import cazcade.fountain.index.persistence.entities.AliasEntity;
 import cazcade.liquid.api.lsd.LSDAttribute;

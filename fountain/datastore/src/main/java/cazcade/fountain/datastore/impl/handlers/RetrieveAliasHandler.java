@@ -1,9 +1,9 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
+import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrieveAliasRequestHandler;
@@ -55,8 +55,8 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
 
                 if (userFountainEntity.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
                     boolean found = false;
-                    final Iterable<Relationship> relationships = userFountainEntity.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
-                    for (final Relationship relationship : relationships) {
+                    final Iterable<FountainRelationship> relationships = userFountainEntity.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    for (final FountainRelationship relationship : relationships) {
                         final FountainEntity aliasFountainEntity = relationship.getOtherNode(userFountainEntity);
                         if (!aliasFountainEntity.isDeleted()) {
                             final LSDEntity child = aliasFountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal());

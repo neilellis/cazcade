@@ -1,4 +1,4 @@
-package cazcade.fountain.datastore;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.liquid.api.lsd.LSDPropertyStore;
 import org.neo4j.graphdb.Node;

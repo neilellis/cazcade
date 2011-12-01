@@ -2,13 +2,9 @@ package cazcade.fountain.datastore.impl.graph;
 
 import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.FountainEntityImpl;
-import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
-import cazcade.fountain.datastore.impl.FountainNeo;
-import cazcade.fountain.datastore.impl.FountainRelationships;
-import cazcade.fountain.datastore.impl.FountainUserDAO;
+import cazcade.fountain.datastore.impl.*;
+import cazcade.fountain.datastore.impl.services.persistence.FountainEntityImpl;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -128,7 +124,7 @@ public class LatestContentFinder {
                         }
 
                         if (currentFountainEntity.hasRelationship(FountainRelationships.COMMENT, Direction.INCOMING)) {
-                            final Relationship singleRelationship = currentFountainEntity.getSingleRelationship(FountainRelationships.COMMENT, Direction.INCOMING);
+                            final FountainRelationship singleRelationship = currentFountainEntity.getSingleRelationship(FountainRelationships.COMMENT, Direction.INCOMING);
                             assert singleRelationship != null;
                             if (isUnlisted(singleRelationship.getOtherNode(currentFountainEntity))) {
                                 return true;
@@ -296,7 +292,7 @@ public class LatestContentFinder {
         entity.setAttribute(LSDAttribute.TEXT_EXTENDED, fountainEntity.getAttribute(LSDAttribute.TEXT_EXTENDED));
 
         final LiquidURI objectURI = fountainEntity.getURI();
-        final Relationship authorRelationship = fountainEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
+        final FountainRelationship authorRelationship = fountainEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
         LSDEntity aliasEntity = null;
         if (authorRelationship != null) {
             final FountainEntity authorFountainEntity = authorRelationship.getOtherNode(fountainEntity);
@@ -368,7 +364,7 @@ public class LatestContentFinder {
             entity.setAttribute(LSDAttribute.IMAGE_URL, boardFountainEntity.getAttribute(LSDAttribute.IMAGE_URL));
         }
         //The author of this update is the owner of the entity :-)
-        final Relationship editorRelationship = fountainEntity.getSingleRelationship(FountainRelationships.EDITOR, Direction.OUTGOING);
+        final FountainRelationship editorRelationship = fountainEntity.getSingleRelationship(FountainRelationships.EDITOR, Direction.OUTGOING);
         if (editorRelationship != null) {
             final FountainEntity ownerFountainEntity = editorRelationship.getOtherNode(fountainEntity);
             final LSDEntity authorEntity = userDAO.getAliasFromNode(ownerFountainEntity, false, resultDetail);
@@ -384,7 +380,7 @@ public class LatestContentFinder {
         }
 
 
-        final Relationship viewRelationship = fountainEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
+        final FountainRelationship viewRelationship = fountainEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
         if (viewRelationship != null) {
             entity.addSubEntity(LSDAttribute.VIEW, viewRelationship.getOtherNode(fountainEntity).convertNodeToLSD(resultDetail, false), true);
         }
@@ -399,7 +395,7 @@ public class LatestContentFinder {
     @Nonnull
     private LSDEntity fromSessionNode(@Nonnull final FountainEntity sessionFountainEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
         final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.PRESENCE_UPDATE, UUIDFactory.randomUUID());
-        final Relationship ownerRelationship = sessionFountainEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
+        final FountainRelationship ownerRelationship = sessionFountainEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
         if (ownerRelationship == null) {
             throw new NullPointerException("Attempted to use a null ownerRelationship in 'fromSessionNode' in LatestContentFinder.");
         }
@@ -408,8 +404,8 @@ public class LatestContentFinder {
         final String aliasName = ownerRelationship.getOtherNode(sessionFountainEntity).getAttribute(LSDAttribute.NAME);
         final String aliasFullName = ownerRelationship.getOtherNode(sessionFountainEntity).getAttribute(LSDAttribute.FULL_NAME);
         entity.setAttribute(LSDAttribute.TITLE, aliasName);
-        final Iterable<Relationship> vistingRelationships = sessionFountainEntity.getRelationships(FountainRelationships.VISITING, Direction.OUTGOING);
-        for (final Relationship vistingRelationship : vistingRelationships) {
+        final Iterable<FountainRelationship> vistingRelationships = sessionFountainEntity.getRelationships(FountainRelationships.VISITING, Direction.OUTGOING);
+        for (final FountainRelationship vistingRelationship : vistingRelationships) {
             final FountainEntity poolFountainEntity = vistingRelationship.getOtherNode(sessionFountainEntity);
             final LiquidURI poolUri = poolFountainEntity.getURI();
 

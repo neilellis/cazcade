@@ -1,6 +1,5 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.fountain.datastore.FountainEntity;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;

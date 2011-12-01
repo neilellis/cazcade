@@ -1,9 +1,7 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.FountainEntityImpl;
-import cazcade.fountain.datastore.Relationship;
+import cazcade.fountain.datastore.impl.*;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
@@ -60,8 +58,8 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     @Nonnull
     Collection<LSDEntity> getRosterNoTX(@Nonnull final FountainEntity poolFountainEntity, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel detail) {
         final ArrayList<LSDEntity> entities = new ArrayList<LSDEntity>();
-        final Iterable<Relationship> visitingSessions = poolFountainEntity.getRelationships(FountainRelationships.VISITING, Direction.INCOMING);
-        for (final Relationship visitingSession : visitingSessions) {
+        final Iterable<FountainRelationship> visitingSessions = poolFountainEntity.getRelationships(FountainRelationships.VISITING, Direction.INCOMING);
+        for (final FountainRelationship visitingSession : visitingSessions) {
             try {
                 final FountainEntity sessionFountainEntity = visitingSession.getOtherNode(poolFountainEntity);
                 if (sessionFountainEntity.getUpdated() != null) {
@@ -105,7 +103,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         try {
             boolean following = false;
 
-            for (final Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, FountainRelationships.FOLLOW_CONTENT)) {
+            for (final FountainRelationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, FountainRelationships.FOLLOW_CONTENT)) {
                 if (relationship.getEndNode().equals(fountainEntity)) {
                     following = true;
                 }
@@ -185,7 +183,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
                 indexDAO.syncFollowerCount(resourceToFollow);
 
                 if (uri.getScheme() == LiquidURIScheme.alias) {
-                    for (final Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING)) {
+                    for (final FountainRelationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING)) {
                         if (relationship.getOtherNode(currentAlias).equals(resourceToFollow)) {
                             relationship.delete();
                             deltaFollowsAliasCount(currentAlias, -1);
@@ -193,7 +191,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
                     }
                     return getAliasAsProfile(sessionIdentifier, uri, detail, internal);
                 } else {
-                    for (final Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_CONTENT, Direction.OUTGOING)) {
+                    for (final FountainRelationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_CONTENT, Direction.OUTGOING)) {
                         if (relationship.getOtherNode(currentAlias).equals(resourceToFollow)) {
                             relationship.delete();
                             deltaFollowsResourcesCount(currentAlias, -1);

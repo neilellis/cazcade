@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
+import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
 import cazcade.liquid.api.LiquidURI;

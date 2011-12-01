@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.FountainEntity;
-import cazcade.fountain.datastore.Relationship;
+import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -38,12 +38,12 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
 
             final FountainEntity userFountainEntityImpl = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
             if (userFountainEntityImpl.hasRelationship(FountainRelationships.CLAIMED, Direction.OUTGOING)) {
-                final Iterable<Relationship> claims = userFountainEntityImpl.getRelationships(FountainRelationships.CLAIMED, Direction.OUTGOING);
-                for (final Relationship claim : claims) {
+                final Iterable<FountainRelationship> claims = userFountainEntityImpl.getRelationships(FountainRelationships.CLAIMED, Direction.OUTGOING);
+                for (final FountainRelationship claim : claims) {
                     final FountainEntity claimedFountainEntity = claim.getOtherNode(userFountainEntityImpl);
-                    final Iterable<Relationship> aliases = userFountainEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    final Iterable<FountainRelationship> aliases = userFountainEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
                     //clean up any multiple alias mess!
-                    for (final Relationship alias : aliases) {
+                    for (final FountainRelationship alias : aliases) {
                         if (alias.getOtherNode(userFountainEntityImpl).equals(claimedFountainEntity)) {
                             alias.delete();
                         }

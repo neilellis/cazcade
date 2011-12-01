@@ -1,4 +1,4 @@
-package cazcade.fountain.datastore.impl;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.fountain.datastore.impl.email.EmailUtil;
 import cazcade.fountain.datastore.impl.email.MailService;

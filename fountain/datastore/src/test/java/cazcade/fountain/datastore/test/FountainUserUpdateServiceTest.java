@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.test;
 
-import cazcade.fountain.datastore.impl.FountainUserUpdateService;
+import cazcade.fountain.datastore.impl.services.persistence.FountainUserUpdateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

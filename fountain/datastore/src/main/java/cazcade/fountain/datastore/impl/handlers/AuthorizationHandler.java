@@ -1,10 +1,10 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.api.DeletedEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
+import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;

@@ -1,8 +1,9 @@
-package cazcade.fountain.datastore;
+package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.*;
-import cazcade.fountain.datastore.impl.FountainNeoImpl;
+import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.NodeCallback;
 import cazcade.liquid.api.*;
@@ -73,7 +74,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     @Override
     @Nonnull
-    public Iterable<Relationship> getRelationships() {
+    public Iterable<FountainRelationship> getRelationships() {
         final Iterable<org.neo4j.graphdb.Relationship> relationships = neoNode.getRelationships();
         return new RelationshipIterable(relationships);
     }
@@ -81,7 +82,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     @Override
     @Nonnull
-    public Iterable<Relationship> getRelationships(final FountainRelationships... types) {
+    public Iterable<FountainRelationship> getRelationships(final FountainRelationships... types) {
         return new RelationshipIterable(neoNode.getRelationships(types));
     }
 
@@ -89,7 +90,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
     @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
-    public Iterable<Relationship> getRelationships(final FountainRelationships type, final Direction dir) {
+    public Iterable<FountainRelationship> getRelationships(final FountainRelationships type, final Direction dir) {
         return new RelationshipIterable(neoNode.getRelationships(type, dir));
     }
 
@@ -104,20 +105,20 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
     @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nullable
-    public Relationship getSingleRelationship(final FountainRelationships type, final Direction dir) {
+    public FountainRelationship getSingleRelationship(final FountainRelationships type, final Direction dir) {
         final org.neo4j.graphdb.Relationship relationship = neoNode.getSingleRelationship(type, dir);
         if (relationship == null) {
             return null;
         }
-        return new Relationship(relationship);
+        return new FountainRelationshipImpl(relationship);
     }
 
 
     @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
-    public Relationship createRelationshipTo(@Nonnull final FountainEntity otherFountainEntityImpl, final FountainRelationships type) {
-        return new Relationship(neoNode.createRelationshipTo(otherFountainEntityImpl.getNeoNode(), type));
+    public FountainRelationship createRelationshipTo(@Nonnull final FountainEntity otherFountainEntityImpl, final FountainRelationships type) {
+        return new FountainRelationshipImpl(neoNode.createRelationshipTo(otherFountainEntityImpl.getNeoNode(), type));
     }
 
 
@@ -199,7 +200,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
     public FountainEntity getLatestVersionFromFork() {
         log.debug("Getting latest version for {0}.", getAttribute(ID));
         if (hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
-            final Relationship rel = getSingleRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING);
+            final FountainRelationship rel = getSingleRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING);
             if (rel != null) {
                 return rel.getOtherNode(this).getLatestVersionFromFork();
             } else {
@@ -313,8 +314,8 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     @Override
     public boolean isOwner(final FountainEntity ownerFountainEntity) throws InterruptedException {
-        final Iterable<Relationship> relationships = getRelationships(FountainRelationships.OWNER, Direction.OUTGOING);
-        for (final Relationship relationship : relationships) {
+        final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.OWNER, Direction.OUTGOING);
+        for (final FountainRelationship relationship : relationships) {
             if (relationship.getOtherNode(this).equals(ownerFountainEntity)) {
                 return true;
             }
@@ -324,8 +325,8 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     @Override
     public boolean isAuthor(final FountainEntity ownerFountainEntity) throws InterruptedException {
-        final Iterable<Relationship> relationships = getRelationships(FountainRelationships.AUTHOR, Direction.OUTGOING);
-        for (final Relationship relationship : relationships) {
+        final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.AUTHOR, Direction.OUTGOING);
+        for (final FountainRelationship relationship : relationships) {
             if (relationship.getOtherNode(this).equals(ownerFountainEntity)) {
                 return true;
             }
@@ -369,16 +370,16 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     @Override
     public void forEachChild(@Nonnull final NodeCallback callback) throws Exception {
-        final Iterable<Relationship> relationships = getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
-        for (final Relationship relationship : relationships) {
+        final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
+        for (final FountainRelationship relationship : relationships) {
             final FountainEntity poolObjectFountainEntity = relationship.getOtherNode(this);
             if (!poolObjectFountainEntity.isDeleted()) {
                 callback.call(poolObjectFountainEntity.getLatestVersionFromFork());
             }
         }
 
-        final Iterable<Relationship> linkedRelationships = getRelationships(FountainRelationships.LINKED_CHILD, Direction.OUTGOING);
-        for (final Relationship relationship : linkedRelationships) {
+        final Iterable<FountainRelationship> linkedRelationships = getRelationships(FountainRelationships.LINKED_CHILD, Direction.OUTGOING);
+        for (final FountainRelationship relationship : linkedRelationships) {
             final FountainEntity poolObjectFountainEntity = relationship.getOtherNode(this);
             if (!poolObjectFountainEntity.isDeleted()) {
                 callback.call(poolObjectFountainEntity);
@@ -444,7 +445,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
         }
         final LiquidPermissionSet permissionSet = LiquidPermissionSet.createPermissionSet(permissionsStr);
         try {
-            final Relationship ownerRelationship = getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
+            final FountainRelationship ownerRelationship = getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
             if (ownerRelationship == null) {
                 log.debug("No owner found on {0}/{1} .", getAttribute(ID), getAttribute(URI));
             } else {
@@ -521,7 +522,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
     }
 
 
-    private static class RelationshipIterable implements Iterable<Relationship> {
+    private static class RelationshipIterable implements Iterable<FountainRelationship> {
         private final Iterable<org.neo4j.graphdb.Relationship> relationships;
 
         private RelationshipIterable(final Iterable<org.neo4j.graphdb.Relationship> relationships) {
@@ -531,12 +532,12 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
         @Nonnull
         @Override
-        public Iterator<Relationship> iterator() {
+        public Iterator<FountainRelationship> iterator() {
             final Iterator<org.neo4j.graphdb.Relationship> iterator = relationships.iterator();
             return new RelationshipIterator(iterator);
         }
 
-        private static class RelationshipIterator implements Iterator<Relationship> {
+        private static class RelationshipIterator implements Iterator<FountainRelationship> {
             private final Iterator<org.neo4j.graphdb.Relationship> iterator;
 
             private RelationshipIterator(final Iterator<org.neo4j.graphdb.Relationship> iterator) {
@@ -551,8 +552,8 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
             @Nonnull
             @Override
-            public Relationship next() {
-                return new Relationship(iterator.next());
+            public FountainRelationship next() {
+                return new FountainRelationshipImpl(iterator.next());
             }
 
             @Override

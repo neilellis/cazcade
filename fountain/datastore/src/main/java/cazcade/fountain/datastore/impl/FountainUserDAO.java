@@ -1,6 +1,5 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.fountain.datastore.FountainEntity;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDEntity;
 

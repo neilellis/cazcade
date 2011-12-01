@@ -1,8 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
 
-import cazcade.fountain.datastore.FountainEntity;
-
 /**
  * @author neilellis@cazcade.com
  */
