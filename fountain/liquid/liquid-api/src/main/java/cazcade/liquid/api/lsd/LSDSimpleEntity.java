@@ -713,7 +713,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 
 
     @Override
-    public void addSubEntities(@Nonnull final LSDAttribute stem, @Nonnull final Collection<LSDBaseEntity> entities) {
+    public <T extends LSDBaseEntity> void addSubEntities(@Nonnull final LSDAttribute stem, @Nonnull final Collection<T> entities) {
         assertNotReadonly();
         if (!stem.isSubEntity()) {
             throw new IllegalArgumentException("Cannot add a sub entity to a non sub entity property '" + stem.getKeyName() + "'.");

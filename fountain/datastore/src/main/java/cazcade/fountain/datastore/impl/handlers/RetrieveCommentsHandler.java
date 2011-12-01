@@ -2,7 +2,10 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrieveCommentsRequestHandler;
-import cazcade.liquid.api.lsd.*;
+import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.impl.UUIDFactory;
 
@@ -16,7 +19,7 @@ public class RetrieveCommentsHandler extends AbstractRetrievalHandler<RetrieveCo
 
     @Nonnull
     public RetrieveCommentsRequest handle(@Nonnull final RetrieveCommentsRequest request) throws InterruptedException {
-        final Collection<LSDBaseEntity> entities;
+        final Collection<LSDTransferEntity> entities;
         final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT_LIST, UUIDFactory.randomUUID());
 
         entities = poolDAO.getCommentsTx(request.getSessionIdentifier(), request.getUri(), request.getMax(), request.isInternal(), request.getDetail());

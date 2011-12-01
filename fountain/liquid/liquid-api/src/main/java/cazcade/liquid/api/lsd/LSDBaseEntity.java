@@ -109,7 +109,7 @@ public interface LSDBaseEntity {
      */
     void addSubEntity(LSDAttribute stem, LSDBaseEntity entity, boolean requiresId);
 
-    void addSubEntities(LSDAttribute stem, Collection<LSDBaseEntity> entity);
+    <T extends LSDBaseEntity> void addSubEntities(LSDAttribute stem, Collection<T> entity);
 
     /**
      * Anonymous sub entities have no ID or TYPE, they are just a collection of attributes really.

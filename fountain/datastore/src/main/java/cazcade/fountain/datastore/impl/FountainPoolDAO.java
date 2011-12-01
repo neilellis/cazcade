@@ -4,7 +4,6 @@ import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.lsd.LSDType;
 
@@ -21,8 +20,6 @@ public interface FountainPoolDAO {
 
 
     //Pool & object Creation
-
-
     @Nonnull
     LSDPersistedEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, LSDPersistedEntity parent, String poolName, double x, double y, @Nullable String title, boolean listed) throws InterruptedException;
 
@@ -30,7 +27,7 @@ public interface FountainPoolDAO {
     LSDPersistedEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, LSDPersistedEntity parent, LSDType type, String poolName, double x, double y, String title, boolean listed) throws InterruptedException;
 
     @Nullable
-    LSDTransferEntity createPoolObjectTx(LSDPersistedEntity poolPersistedEntity, LiquidSessionIdentifier identity, LiquidURI owner, LiquidURI author, LSDTransferEntity entity, LiquidRequestDetailLevel detail, boolean internal, boolean createAuthor) throws Exception;
+    LSDTransferEntity createPoolObjectTx(LSDPersistedEntity pool, LiquidSessionIdentifier identity, LiquidURI owner, LiquidURI author, LSDTransferEntity entity, LiquidRequestDetailLevel detail, boolean internal, boolean createAuthor) throws Exception;
 
 
     //User pool Creation
@@ -77,7 +74,7 @@ public interface FountainPoolDAO {
     @Nonnull
     LSDPersistedEntity movePoolObjectNoTx(LiquidURI object, Double x, Double y, Double z) throws Exception;
 
-    void visitNodeNoTx(LSDPersistedEntity persistedEntityImpl, LiquidSessionIdentifier identity) throws InterruptedException;
+    void visitNodeNoTx(LSDPersistedEntity entity, LiquidSessionIdentifier identity) throws InterruptedException;
 
 
     //Link and unlink  (unlink is like delete)
@@ -104,10 +101,10 @@ public interface FountainPoolDAO {
     //Comments
 
     @Nonnull
-    LSDPersistedEntity addCommentNoTX(LSDPersistedEntity commentTargetPersistedEntity, LSDTransferEntity entity, LiquidURI alias) throws InterruptedException;
+    LSDPersistedEntity addCommentNoTX(LSDPersistedEntity commentEntity, LSDTransferEntity commentTransferEntity, LiquidURI alias) throws InterruptedException;
 
     @Nullable
-    Collection<LSDBaseEntity> getCommentsTx(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, int max, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    Collection<LSDTransferEntity> getCommentsTx(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, int max, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
 
 
     //Utility methods
