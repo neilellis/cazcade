@@ -3,6 +3,8 @@ package cazcade.fountain.datastore.impl;
 import javax.annotation.Nonnull;
 
 /**
+ * Currently this class just maps to a Neo Relationship but it will differ soon enough.
+ *
  * @author neilellis@cazcade.com
  */
 public interface FountainRelationship {

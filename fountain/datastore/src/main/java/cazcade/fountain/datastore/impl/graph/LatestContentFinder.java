@@ -139,7 +139,7 @@ public class LatestContentFinder {
                     public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
 
                         final FountainEntity currentFountainEntity = new FountainEntityImpl(currentPos.currentNode());
-                        if (!skip.contains(currentFountainEntity.getNeoId()) && !globalSkip.contains(currentFountainEntity.getNeoId())) {
+                        if (!skip.contains(currentFountainEntity.getPersistenceId()) && !globalSkip.contains(currentFountainEntity.getPersistenceId())) {
                             try {
                                 if (currentFountainEntity.hasAttribute(LSDAttribute.URI)) {
                                     final LiquidURI uri = currentFountainEntity.getURI();
@@ -166,7 +166,7 @@ public class LatestContentFinder {
                             } catch (InterruptedException e) {
                                 log.error(e.getMessage(), e);
                             }
-                            globalSkip.add(currentFountainEntity.getNeoId());
+                            globalSkip.add(currentFountainEntity.getPersistenceId());
                             return false;
                         } else {
                             //skipped
@@ -257,7 +257,7 @@ public class LatestContentFinder {
                             return true;
                         } else {
                             log.debug("FountainEntityImpl not listed: " + uri);
-                            globalSkip.add(currentFountainEntity.getNeoId());
+                            globalSkip.add(currentFountainEntity.getPersistenceId());
                             return false;
                         }
                     } else {
@@ -273,13 +273,13 @@ public class LatestContentFinder {
             }
         } else {
             if (nodeAge < minAge) {
-                globalSkip.add(currentFountainEntity.getNeoId());
+                globalSkip.add(currentFountainEntity.getPersistenceId());
                 log.debug("FountainEntityImpl is too old to be of interest " + nodeAge + " < " + minAge);
             } else {
                 log.debug("FountainEntityImpl is too old for this request " + nodeAge + " < " + since);
             }
         }
-        skip.add(currentFountainEntity.getNeoId());
+        skip.add(currentFountainEntity.getPersistenceId());
         return false;
     }
 
@@ -418,7 +418,7 @@ public class LatestContentFinder {
                 final long updated = Long.valueOf(vistingRelationship.getProperty(LSDAttribute.UPDATED.getKeyName()).toString());
                 if (updated >= since) {
                     //it's stale so add to skip list now
-                    skip.add(vistingRelationship.getOtherNode(sessionFountainEntity).getNeoId());
+                    skip.add(vistingRelationship.getOtherNode(sessionFountainEntity).getPersistenceId());
                 }
             }
             entity.setAttribute(LSDAttribute.SOURCE, poolUri);

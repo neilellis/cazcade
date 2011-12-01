@@ -11,12 +11,30 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
+ * This is the core persistent object used by Fountain. Like all LSDEntity objects it's type is derived from
+ * a type attribute and all apart from the compulsory (uuid, uri, updated) properties are optional. Their
+ * presence can usually be inferred by type. However we're deliberately working with sketchy data, because data
+ * always is, so check for an attributes presence and have a back up plan if it's not there.
+ *
  * @author neilellis@cazcade.com
  */
 public interface FountainEntity extends LSDEntity {
-    long getNeoId();
 
-    void deleteNeo();
+
+    /**
+     * This is a low impact identifier for the node, it should be treated with caution. If the entity
+     * is in Neo4J then consider the warnings here {@link org.neo4j.graphdb.Node#getId()}. Basically
+     * it's good for cache keys and that's about it.
+     *
+     * @return a numerical persistent identifier.
+     */
+    long getPersistenceId();
+
+    /**
+     * Use with great caution, deletes the underlying persistent store value, should only
+     * be used on extremely transient data like sessions.
+     */
+    void hardDelete();
 
     @Nonnull
     Iterable<FountainRelationship> getRelationships();
@@ -48,6 +66,7 @@ public interface FountainEntity extends LSDEntity {
     Iterable<String> getPropertyKeys();
 
     @Nonnull
+    @Deprecated
     org.neo4j.graphdb.Node getNeoNode();
 
     @Nonnull
@@ -85,13 +104,26 @@ public interface FountainEntity extends LSDEntity {
 
     void forEachChild(@Nonnull NodeCallback callback) throws Exception;
 
+    /**
+     * Okay so this should really go somewhere else., in fact I'm not sure if it's even relevant anymore.
+     *
+     * @return the radius.
+     */
     double calculateRadius();
 
+    /**
+     * Does this entity belong to a containing entity that is listed somewhere.
+     *
+     * @return true if it is.
+     */
     boolean isListed();
 
+    /**
+     * Inherit permissions from a parent entity.
+     *
+     * @param parent a parent entity.
+     */
     void inheritPermissions(@Nonnull LSDEntity parent);
-
-    boolean isAuthorizedInternal(@Nullable LiquidSessionIdentifier identity, @Nonnull LiquidPermission... permissions) throws InterruptedException;
 
     boolean isAuthorized(@Nonnull LiquidSessionIdentifier identity, @Nonnull LiquidPermission... permissions) throws InterruptedException;
 

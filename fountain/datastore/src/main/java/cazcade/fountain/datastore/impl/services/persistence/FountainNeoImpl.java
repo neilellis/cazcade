@@ -160,7 +160,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     @Override
     public void indexBy(@Nonnull final FountainEntity fountainEntity, @Nonnull final LSDAttribute key, @Nonnull final LSDAttribute luceneIndex, final boolean unique) throws InterruptedException {
         final String value = fountainEntity.getAttribute(key).toLowerCase();
-        log.debug("Indexing fountainEntityImpl " + fountainEntity.getNeoId() + " with key " + key + " with value " + value);
+        log.debug("Indexing fountainEntityImpl " + fountainEntity.getPersistenceId() + " with key " + key + " with value " + value);
         final IndexHits<org.neo4j.graphdb.Node> hits = indexService.get(luceneIndex.getKeyName(), value);
         if (hits.size() > 0 && unique) {
             for (final org.neo4j.graphdb.Node hit : hits) {
@@ -176,7 +176,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     public void reindex(@Nonnull final FountainEntity fountainEntity, @Nonnull final LSDAttribute key, @Nonnull final LSDAttribute luceneIndex) {
         indexService.remove(fountainEntity.getNeoNode(), luceneIndex.getKeyName());
         final String value = fountainEntity.getAttribute(key).toLowerCase();
-        log.debug("Indexing fountainEntityImpl " + fountainEntity.getNeoId() + " with key " + key + " with value " + value);
+        log.debug("Indexing fountainEntityImpl " + fountainEntity.getPersistenceId() + " with key " + key + " with value " + value);
         final IndexHits<org.neo4j.graphdb.Node> hits = indexService.get(luceneIndex.getKeyName(), value);
         for (final org.neo4j.graphdb.Node hit : hits) {
             indexService.remove(hit, luceneIndex.getKeyName(), value);
@@ -187,7 +187,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     @Override
     public void unindex(@Nonnull final FountainEntity fountainEntity, @Nonnull final LSDAttribute key, final String luceneIndex) {
         final String value = fountainEntity.getAttribute(key).toLowerCase();
-        log.debug("Un-indexing fountainEntityImpl " + fountainEntity.getNeoId() + " with key " + key + " with value " + value);
+        log.debug("Un-indexing fountainEntityImpl " + fountainEntity.getPersistenceId() + " with key " + key + " with value " + value);
         indexService.remove(fountainEntity.getNeoNode(), luceneIndex, value);
     }
 
@@ -775,7 +775,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             final LiquidPermissionSet newPermissions = LiquidPermissionSet.createPermissionSet(permissions).convertChangeRequestIntoPermissionSet(change);
             cloneFountainEntityImpl.setAttribute(PERMISSIONS, newPermissions.toString());
             //So we have cloned the start fountainEntityImpl and need to use the cloned version to build our result.
-            if (origNode.getId() == startFountainEntityImpl.getNeoId()) {
+            if (origNode.getId() == startFountainEntityImpl.getPersistenceId()) {
                 startFountainEntityImpl = cloneFountainEntityImpl;
             }
         }

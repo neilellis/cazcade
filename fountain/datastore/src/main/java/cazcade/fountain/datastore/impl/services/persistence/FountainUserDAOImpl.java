@@ -339,7 +339,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                         for (final FountainRelationship relationship : sessionFountainEntity.getRelationships()) {
                             relationship.delete();
                         }
-                        sessionFountainEntity.deleteNeo();
+                        sessionFountainEntity.hardDelete();
                     }
                 } else if (updated < System.currentTimeMillis() - FountainNeoImpl.SESSION_INACTIVE_MILLI) {
                     sessionFountainEntity.setAttribute(LSDAttribute.ACTIVE, false);

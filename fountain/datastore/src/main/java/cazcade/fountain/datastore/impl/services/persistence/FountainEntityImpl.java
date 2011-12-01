@@ -28,8 +28,8 @@ import static cazcade.liquid.api.lsd.LSDAttribute.*;
 /**
  * @author neilellis@cazcade.com
  */
-@SuppressWarnings({"PublicMethodNotExposedInInterface"})
-public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntity {
+@SuppressWarnings({"UnnecessaryFullyQualifiedName"})
+public final class FountainEntityImpl extends LSDSimpleEntity implements FountainEntity {
 
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainEntityImpl.class);
@@ -47,6 +47,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     }
 
+    @SuppressWarnings({"TransientFieldNotInitialized"})
     @Nonnull
     private final transient org.neo4j.graphdb.Node neoNode;
 
@@ -57,7 +58,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
 
     @Override
-    public long getNeoId() {
+    public long getPersistenceId() {
         return neoNode.getId();
     }
 
@@ -67,7 +68,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
      * will be removed in future.
      */
     @Override
-    public void deleteNeo() {
+    public void hardDelete() {
         neoNode.delete();
     }
 
@@ -157,6 +158,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
         return neoNode;
     }
 
+    @SuppressWarnings({"ReturnOfThis"})
     @Override
     @Nonnull
     public FountainEntity mergeProperties(@Nonnull final LSDEntity entity, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
@@ -195,6 +197,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
         return this;
     }
 
+    @SuppressWarnings({"ReturnOfThis"})
     @Override
     @Nonnull
     public FountainEntity getLatestVersionFromFork() {
@@ -215,8 +218,8 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
     @Override
     public int popularity() {
         int score = 0;
-        //noinspection UnusedDeclaration
         final Iterable<org.neo4j.graphdb.Relationship> relationships = neoNode.getRelationships();
+        //noinspection UnusedDeclaration
         for (final org.neo4j.graphdb.Relationship relationship : relationships) {
             score++;
         }
@@ -335,6 +338,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
     }
 
     @Override
+    @SuppressWarnings({"TypeMayBeWeakened"})
     public boolean isOwner(@Nonnull final LiquidSessionIdentifier identity) throws InterruptedException {
         //Here I am traversing from the node supplied to it's owner alias, to the identity node that the alias relates to.
         //It's cleaner using the traverser as there would be loads of conditional logic here as not all aliases have
@@ -415,14 +419,12 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     @Override
     public void inheritPermissions(@Nonnull final LSDEntity parent) {
-        final LiquidPermissionSet liquidPermissionSet = LiquidPermissionSet.createPermissionSet(parent.getAttribute(PERMISSIONS));
-        log.debug("Inheriting permission " + liquidPermissionSet);
-        setAttribute(PERMISSIONS, liquidPermissionSet.restoreDeletePermission().toString());
-        log.debug("Child now has " + getAttribute(PERMISSIONS));
+        //        log.debug("Inheriting permission " + liquidPermissionSet);
+        setAttribute(PERMISSIONS, LiquidPermissionSet.createPermissionSet(parent.getAttribute(PERMISSIONS)).restoreDeletePermission().toString());
+//        log.debug("Child now has " + getAttribute(PERMISSIONS));
     }
 
-    @Override
-    public boolean isAuthorizedInternal(@Nullable final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions) throws InterruptedException {
+    private boolean isAuthorizedInternal(@Nullable final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions) throws InterruptedException {
         assertLatestVersion();
         if (identity == null) {
             return false;
@@ -485,10 +487,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
 
     @Override
     public boolean isAuthorized(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions) throws InterruptedException {
-        if (this == null) {
-            return false;
-        }
-        final StringBuilder cacheKeyBuilder = new StringBuilder().append(getNeoId()).append(':').append(identity.getAliasURL()).append(':');
+        final StringBuilder cacheKeyBuilder = new StringBuilder().append(getPersistenceId()).append(':').append(identity.getAliasURL()).append(':');
         for (final LiquidPermission permission : permissions) {
             cacheKeyBuilder.append(permission.ordinal()).append(',');
         }
@@ -522,7 +521,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
     }
 
 
-    private static class RelationshipIterable implements Iterable<FountainRelationship> {
+    private static final class RelationshipIterable implements Iterable<FountainRelationship> {
         private final Iterable<org.neo4j.graphdb.Relationship> relationships;
 
         private RelationshipIterable(final Iterable<org.neo4j.graphdb.Relationship> relationships) {
@@ -537,7 +536,7 @@ public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntit
             return new RelationshipIterator(iterator);
         }
 
-        private static class RelationshipIterator implements Iterator<FountainRelationship> {
+        private static final class RelationshipIterator implements Iterator<FountainRelationship> {
             private final Iterator<org.neo4j.graphdb.Relationship> iterator;
 
             private RelationshipIterator(final Iterator<org.neo4j.graphdb.Relationship> iterator) {
