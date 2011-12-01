@@ -4,27 +4,31 @@ import org.webharvest.definition.ScraperConfiguration;
 import org.webharvest.runtime.variables.Variable;
 import org.xml.sax.InputSource;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Neil Ellis
  */
 
 public class FeedScraper implements FeedScrapeResult {
-    private static ScraperConfiguration config =
+    @Nonnull
+    private static final ScraperConfiguration config =
             new ScraperConfiguration(new InputSource(FeedScraper.class.getResourceAsStream("/rss-scrape.xml")));
 
-    private List<String> feeds = new ArrayList<String>();
-    private String url;
+    @Nonnull
+    private final List<String> feeds = new ArrayList<String>();
+    private final String url;
     private String page;
 
     public FeedScraper(String url) {
         this.url = url;
     }
 
+    @Nonnull
     public FeedScrapeResult scrape() {
         final File tempFile;
         try {
@@ -44,7 +48,7 @@ public class FeedScraper implements FeedScrapeResult {
 
             // takes variable created during execution
             Variable result = (Variable) scraper.getContext().get("feeds");
-            page = ((Variable) scraper.getContext().get("page")).toString();
+            page = scraper.getContext().get("page").toString();
 
             feeds.clear();
             for (Object o : result.toList()) {
@@ -60,6 +64,7 @@ public class FeedScraper implements FeedScrapeResult {
         }
     }
 
+    @Nonnull
     public List<String> getFeeds() {
         return feeds;
     }

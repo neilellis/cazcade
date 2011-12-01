@@ -7,6 +7,8 @@ import org.eclipse.jetty.security.IdentityService;
 import org.eclipse.jetty.security.LoginService;
 import org.eclipse.jetty.server.UserIdentity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.security.auth.Subject;
 import java.security.Principal;
 
@@ -14,10 +16,12 @@ import java.security.Principal;
  * @author neilelliz@cazcade.com
  */
 class CazcadeLoginService implements LoginService {
+    @Nonnull
     private final static Logger log = Logger.getLogger(CazcadeLoginService.class);
 
 
-    private SecurityProvider securityProvider;
+    @Nonnull
+    private final SecurityProvider securityProvider;
     public IdentityService identityService;
 
     CazcadeLoginService() throws Exception {
@@ -25,11 +29,13 @@ class CazcadeLoginService implements LoginService {
     }
 
 
+    @Nonnull
     public String getName() {
         return "Liquid REST Api";
     }
 
-    public UserIdentity login(String user, Object password) {
+    @Nullable
+    public UserIdentity login(@Nonnull String user, @Nonnull Object password) {
 
         try {
             log.debug("user: " + user);

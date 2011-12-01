@@ -3,6 +3,8 @@ package cazcade.vortex.gwt.util.client.analytics;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
@@ -36,7 +38,7 @@ public class Track implements ValueChangeHandler<String> {
      *
      * @param historyToken
      */
-    public void trackPage(String historyToken) {
+    public void trackPage(@Nullable String historyToken) {
 
         if (historyToken == null) {
             historyToken = "historyToken_null";
@@ -106,7 +108,7 @@ public class Track implements ValueChangeHandler<String> {
      * This is so this class can be registered  for history changes.
      */
     @Override
-    public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+    public void onValueChange(@Nonnull ValueChangeEvent<String> stringValueChangeEvent) {
         trackPage(stringValueChangeEvent.getValue());
     }
 

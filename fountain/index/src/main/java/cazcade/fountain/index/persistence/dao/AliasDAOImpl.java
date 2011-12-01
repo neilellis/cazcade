@@ -10,15 +10,18 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nonnull;
 import java.sql.SQLException;
 import java.util.List;
 
 @Transactional
 public class AliasDAOImpl implements AliasDAO {
 
+    @Nonnull
     private final Logger log = Logger.getLogger(AliasDAOImpl.class);
 
 
+    @Nonnull
     public static final String SYSTEM_USER = "hashbo";
     private HibernateTemplate hibernateTemplate;
 
@@ -43,8 +46,9 @@ public class AliasDAOImpl implements AliasDAO {
     @Override
     public AliasEntity getOrCreateAlias(final String uri) {
         return hibernateTemplate.execute(new HibernateCallback<AliasEntity>() {
+            @Nonnull
             @Override
-            public AliasEntity doInHibernate(Session session) throws HibernateException, SQLException {
+            public AliasEntity doInHibernate(@Nonnull Session session) throws HibernateException, SQLException {
                 String name = null;
                 List users = hibernateTemplate.find("from AliasEntity e where e.uri = ?", uri);
                 if (users.size() == 1) {
@@ -62,7 +66,7 @@ public class AliasDAOImpl implements AliasDAO {
     }
 
     @Override
-    public void forEachUser(UserDAOCallback userDAOCallback) {
+    public void forEachUser(@Nonnull UserDAOCallback userDAOCallback) {
         final List<AliasEntity> aliases = sessionFactory.getCurrentSession().createCriteria(AliasEntity.class).list();
         for (AliasEntity alias : aliases) {
             try {

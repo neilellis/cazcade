@@ -4,6 +4,9 @@ import cazcade.cli.ShellSession;
 import cazcade.fountain.common.service.ServiceStateMachine;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A Job is a generic course grained code block which can be executed periodically and takes arguments.
  *
@@ -14,12 +17,16 @@ public interface Command extends ServiceStateMachine {
 
     boolean isShortLived();
 
+    @Nonnull
     Options getOptions();
 
+    @Nonnull
     String getDescription();
 
+    @Nonnull
     String getName();
 
+    @Nullable
     String getShortName();
 
     /**
@@ -34,12 +41,11 @@ public interface Command extends ServiceStateMachine {
      * The arguments given specifically to this job e.g. run.sh "export -p 1000" whould pass -p 1000 as arguments to the
      * job named "export".
      *
-     *
-     * @param args arguments.
-     *
+     * @param args         arguments.
      * @param shellSession
      * @throws Exception if something goes wrong.
      */
+    @Nullable
     String run(String[] args, ShellSession shellSession) throws Exception;
 
     /**

@@ -3,10 +3,8 @@ package cazcade.fountain.datastore.impl;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import org.neo4j.graphdb.Node;
 
-import java.util.List;
+import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
@@ -14,14 +12,19 @@ import java.util.List;
 public interface FountainBoardQueryDAO {
 
 
+    @Nonnull
     LSDEntity getMyBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException;
 
+    @Nonnull
     LSDEntity getUserPublicBoards(int start, int end, LiquidSessionIdentifier session, LiquidURI alias) throws InterruptedException;
 
+    @Nonnull
     LSDEntity getRecentPublicBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException;
 
+    @Nonnull
     LSDEntity getMyVisitedBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException;
 
+    @Nonnull
     LSDEntity getPopularBoards(int max, int end, LiquidSessionIdentifier session) throws InterruptedException;
 
 }

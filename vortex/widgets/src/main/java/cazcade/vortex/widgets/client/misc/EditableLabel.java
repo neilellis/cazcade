@@ -32,6 +32,9 @@ import com.google.gwt.event.logical.shared.InitializeHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Editable Label class, funcionality displays a Label UI
  * Element until clicked on, then if element is set to be
@@ -65,6 +68,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
         SourcesChangeEvents,
         SourcesMouseEvents {
 
+    @Nonnull
     public static final String EDITABLE_LABEL_PLACEHOLDER_STYLE = "editableLabel-placeholder";
     /**
      * TextBox element to enable text to be changed if Label is not word wrapped
@@ -76,18 +80,21 @@ public class EditableLabel extends Composite implements HasWordWrap,
      */
     private RichTextArea changeTextArea;
 
+    @Nullable
     private FormatUtil formatter;
 
 
     /**
      * Label element, which is initially is diplayed.
      */
+    @Nonnull
     private HTML text;
 
     /**
      * String element that contains the original text of a
      * Label prior to it being edited.
      */
+    @Nullable
     private String originalText;
 
     /**
@@ -115,17 +122,20 @@ public class EditableLabel extends Composite implements HasWordWrap,
     /**
      * Default String value for OK button
      */
-    private String defaultOkButtonText = "OK";
+    @Nonnull
+    private final String defaultOkButtonText = "OK";
 
     /**
      * Default String value for Cancel button
      */
-    private String defaultCancelButtonText = "Cancel";
+    @Nonnull
+    private final String defaultCancelButtonText = "Cancel";
     private RichTextToolbar toolbar;
     private FlowPanel buttonPanel;
     private FlowPanel instance;
     private Runnable onEditAction;
     private Runnable onEditEndAction;
+    @Nullable
     private String plainText;
     private String okButtonText;
     private String cancelButtonText;
@@ -321,7 +331,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
         changeText.sinkEvents(Event.KEYEVENTS);
         changeText.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(@Nonnull KeyUpEvent event) {
                 switch (event.getNativeKeyCode()) {
                     case KeyCodes.KEY_ENTER:
                         setTextLabel();
@@ -380,7 +390,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
 
         changeText.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(@Nonnull KeyUpEvent event) {
                 switch (event.getNativeKeyCode()) {
                     case KeyCodes.KEY_ENTER:
                         if (event.isAnyModifierKeyDown()) {
@@ -423,6 +433,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
     /**
      * @param cancelButtonText
      */
+    @Nonnull
     protected Widget createCancelButton(String cancelButtonText) {
         if (text.getWordWrap()) {
             Button result = new Button();
@@ -445,6 +456,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
     /**
      * @param okButtonText
      */
+    @Nonnull
     protected Widget createConfirmButton(String okButtonText) {
         if (text.getWordWrap()) {
             Button result = new Button();
@@ -517,6 +529,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
     /**
      * Return the text value of the Label
      */
+    @Nullable
     public String getText() {
         return plainText;
     }
@@ -524,20 +537,17 @@ public class EditableLabel extends Composite implements HasWordWrap,
     /**
      * Set the text value of the Label
      */
-    public void setText(String newText) {
+    public void setText(@Nonnull String newText) {
         if (formatter != null) {
             this.plainText = formatter.sanitize(newText);
         } else {
             this.plainText = newText;
         }
         String displayText = newText;
-        if (editable && (displayText == null || displayText.isEmpty()) && placeholder != null && !placeholder.isEmpty()) {
+        if (editable && (displayText.isEmpty()) && placeholder != null && !placeholder.isEmpty()) {
             displayText = placeholder;
             text.addStyleName(EDITABLE_LABEL_PLACEHOLDER_STYLE);
         } else {
-            if (displayText == null) {
-                displayText = "";
-            }
             text.removeStyleName(EDITABLE_LABEL_PLACEHOLDER_STYLE);
         }
         if (showBrief) {
@@ -736,7 +746,6 @@ public class EditableLabel extends Composite implements HasWordWrap,
     public void removeChangeListener(ChangeListener listener) {
         if (changeListeners != null) {
             changeListeners.remove(listener);
-            ;
         }
     }
 
@@ -749,7 +758,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
         this.onEditEndAction = onEditEndAction;
     }
 
-    public void setFormatter(FormatUtil formatter) {
+    public void setFormatter(@Nullable FormatUtil formatter) {
         this.formatter = formatter;
     }
 

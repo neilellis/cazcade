@@ -4,18 +4,21 @@ package cazcade.fountain.datastore.server; /**
 
 import cazcade.common.Logger;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import javax.servlet.http.HttpSessionBindingEvent;
 
 public class FountainDataStoreContextListener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainDataStoreContextListener.class);
 
-    private FountainDataStoreServer dataStore;
+    @Nonnull
+    private final FountainDataStoreServer dataStore;
 
     // Public constructor is required by servlet spec
     public FountainDataStoreContextListener() {

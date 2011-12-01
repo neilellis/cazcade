@@ -1,20 +1,22 @@
 package cazcade.liquid.impl.xstream;
 
-import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.Dom4JDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
 import com.thoughtworks.xstream.io.xml.XppDriver;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class LiquidXStreamFactory {
 
-    private static final XStream xstream= new XStream(new XppDriver(new XmlFriendlyReplacer("__dollar__", "_")));
+    @Nonnull
+    private static final XStream xstream = new XStream(new XppDriver(new XmlFriendlyReplacer("__dollar__", "_")));
 
     static {
 //        xstream.alias("create-object-request", CreatePoolObjectRequest.class);
@@ -57,6 +59,7 @@ public class LiquidXStreamFactory {
 
     }
 
+    @Nonnull
     public static XStream getXstream() {
         return xstream;
     }

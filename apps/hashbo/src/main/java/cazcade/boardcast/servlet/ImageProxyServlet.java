@@ -7,6 +7,8 @@ import com.cazcade.billabong.image.ImageSize;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +24,11 @@ import java.net.URLEncoder;
  * @author neilellis@cazcade.com
  */
 public class ImageProxyServlet extends HttpServlet {
+    @Nullable
     private ClassPathXmlApplicationContext applicationContext;
     private ImageService imageService;
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(ImageProxyServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
@@ -74,7 +78,7 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
         int width = req.getParameter("width") != null ? Integer.parseInt(req.getParameter("width")) : 1024;
         int height = req.getParameter("height") != null ? Integer.parseInt(req.getParameter("height")) : -1;
@@ -144,11 +148,12 @@ public class ImageProxyServlet extends HttpServlet {
         }
     }
 
+    @Nonnull
     private String scaledImageLocation(String url, int width, int height) throws UnsupportedEncodingException {
         return "/_image-scale?url=" + URLEncoder.encode(url, "utf8") + "&width=" + width + "&height=" + height;
     }
 
-    private void sendAlternate(HttpServletResponse resp, int width, int height, String url, boolean image, long refreshIndicator) throws UnsupportedEncodingException {
+    private void sendAlternate(@Nonnull HttpServletResponse resp, int width, int height, String url, boolean image, long refreshIndicator) throws UnsupportedEncodingException {
         final String refreshInSecs = String.valueOf(refreshIndicator / 1000);
         if (image) {
             log.warn("Failed to scale {0}.", url);
@@ -164,7 +169,7 @@ public class ImageProxyServlet extends HttpServlet {
         }
     }
 
-    private void sendNotReady(HttpServletResponse resp, CacheResponse response, int width, int height) throws UnsupportedEncodingException {
+    private void sendNotReady(@Nonnull HttpServletResponse resp, @Nonnull CacheResponse response, int width, int height) throws UnsupportedEncodingException {
         final String refreshInSecs = String.valueOf(response.getRefreshIndicator() / 1000);
         resp.setStatus(307);
         resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=Image+Not+Ready");
@@ -175,14 +180,14 @@ public class ImageProxyServlet extends HttpServlet {
         resp.setHeader("Connection", "close");
     }
 
-    private void sendMissing(HttpServletResponse resp, int width, int height, String text) throws UnsupportedEncodingException {
+    private void sendMissing(@Nonnull HttpServletResponse resp, int width, int height, @Nullable String text) throws UnsupportedEncodingException {
         resp.setStatus(307);
         resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=" + (text != null && !text.isEmpty() ? URLEncoder.encode(text, "utf-8") : "Image+Missing"));
         resp.setHeader("Connection", "close");
     }
 
 
-    private void sendUrl2PngAlternate(HttpServletResponse resp, int width, int height, String url, String refreshInSecs) throws UnsupportedEncodingException {
+    private void sendUrl2PngAlternate(@Nonnull HttpServletResponse resp, int width, int height, String url, String refreshInSecs) throws UnsupportedEncodingException {
         resp.setStatus(307);
         url = URLEncoder.encode(url, "utf-8");
         String url2pngUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" + DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) + "/" + width + "x" + height + "/" + url;

@@ -1,18 +1,21 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.AddCommentRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.AddCommentRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> implements AddCommentRequestHandler {
+    @Nonnull
     @Override
-    public AddCommentRequest handle(AddCommentRequest request) throws InterruptedException {
+    public AddCommentRequest handle(@Nonnull AddCommentRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final Node commentTargetNode = request.getTarget() != null ? fountainNeo.findByUUID(request.getTarget()) : fountainNeo.findByURI(request.getUri());

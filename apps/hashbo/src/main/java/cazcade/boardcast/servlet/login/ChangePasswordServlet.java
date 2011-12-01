@@ -5,6 +5,7 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.request.ChangePasswordRequest;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,16 +16,17 @@ import java.io.IOException;
  * @author neilellis@cazcade.com
  */
 public class ChangePasswordServlet extends AbstractHashboServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(ChangePasswordServlet.class);
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/_pages/password.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String username = req.getParameter("username");
         final String password = req.getParameter("password");
         final String passwordConfirm = req.getParameter("password_confirm");

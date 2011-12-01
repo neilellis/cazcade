@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class WidgetUtil {
 
     public static final long BEGINNING_OF_BOARDCAST_TIME = 1319231131793L;
 
-    public static void removeAllChildren(ComplexPanel container) {
+    public static void removeAllChildren(@Nonnull ComplexPanel container) {
         List<Widget> widgets = new ArrayList<Widget>();
         final int widgetCount = container.getWidgetCount();
         for (int i = 0; i < widgetCount; i++) {
@@ -31,7 +32,7 @@ public class WidgetUtil {
 
     }
 
-    public static void removeFromParentGracefully(final IsWidget widgetToRemove, int transitionDelay) {
+    public static void removeFromParentGracefully(@Nonnull final IsWidget widgetToRemove, int transitionDelay) {
         widgetToRemove.asWidget().getElement().getStyle().setOpacity(0.0);
         new Timer() {
             @Override
@@ -41,15 +42,15 @@ public class WidgetUtil {
         }.schedule(transitionDelay);
     }
 
-    public static void removeFromParent(final IsWidget widgetToRemove) {
+    public static void removeFromParent(@Nonnull final IsWidget widgetToRemove) {
         widgetToRemove.asWidget().removeFromParent();
     }
 
-    public static void removeFromParentGracefully(final IsWidget widgetToRemove) {
+    public static void removeFromParentGracefully(@Nonnull final IsWidget widgetToRemove) {
         removeFromParentGracefully(widgetToRemove, 500);
     }
 
-    public static void swap(Widget widget, Widget replacement) {
+    public static void swap(@Nonnull Widget widget, @Nonnull Widget replacement) {
         if (widget.getParent() != null) {
             if (widget.getParent() == replacement.getParent()) {
                 widget.removeFromParent();
@@ -61,11 +62,11 @@ public class WidgetUtil {
         }
     }
 
-    public static void insert(final InsertPanel parentPanel, final IsWidget widget, final int pos) {
+    public static void insert(@Nonnull final InsertPanel parentPanel, @Nonnull final IsWidget widget, final int pos) {
         parentPanel.insert(widget.asWidget(), pos);
     }
 
-    public static void insertGracefully(final InsertPanel parentPanel, final IsWidget widget, final int pos) {
+    public static void insertGracefully(@Nonnull final InsertPanel parentPanel, @Nonnull final IsWidget widget, final int pos) {
         final Element childElement = widget.asWidget().getElement();
         widget.asWidget().getElement().getStyle().setProperty("maxHeight", "0");
         final Style style = childElement.getStyle();
@@ -92,7 +93,7 @@ public class WidgetUtil {
 
     }
 
-    public static void showGracefully(IsWidget widget, boolean verticalFlow) {
+    public static void showGracefully(@Nonnull IsWidget widget, boolean verticalFlow) {
         widget.asWidget().getElement().getStyle().setOpacity(1.0);
         widget.asWidget().getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
         if (verticalFlow) {
@@ -100,7 +101,7 @@ public class WidgetUtil {
         }
     }
 
-    public static void hideGracefully(final IsWidget widget, boolean verticalFlow) {
+    public static void hideGracefully(@Nonnull final IsWidget widget, boolean verticalFlow) {
         hide(widget.asWidget(), verticalFlow);
         widget.asWidget().getElement().getStyle().setOpacity(0.0);
         new Timer() {
@@ -111,16 +112,16 @@ public class WidgetUtil {
         }.schedule(500);
     }
 
-    public static void hide(final IsWidget widget, boolean verticalFlow) {
+    public static void hide(@Nonnull final IsWidget widget, boolean verticalFlow) {
         final Widget element = widget.asWidget();
         hide(element, verticalFlow);
     }
 
-    public static void hide(Widget element, boolean verticalFlow) {
+    public static void hide(@Nonnull Widget element, boolean verticalFlow) {
         hide(element.getElement(), verticalFlow);
     }
 
-    private static void hide(Element element, boolean verticalFlow) {
+    private static void hide(@Nonnull Element element, boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.HIDDEN);
         element.getStyle().setOpacity(0.0);
         if (verticalFlow) {
@@ -128,7 +129,7 @@ public class WidgetUtil {
         }
     }
 
-    public static void hide(com.google.gwt.dom.client.Element element, boolean verticalFlow) {
+    public static void hide(@Nonnull com.google.gwt.dom.client.Element element, boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.HIDDEN);
         element.getStyle().setOpacity(0.0);
         if (verticalFlow) {
@@ -136,7 +137,7 @@ public class WidgetUtil {
         }
     }
 
-    public static void showGracefully(com.google.gwt.dom.client.Element element, boolean verticalFlow) {
+    public static void showGracefully(@Nonnull com.google.gwt.dom.client.Element element, boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.VISIBLE);
         element.getStyle().setOpacity(1.0);
         if (verticalFlow) {
@@ -149,13 +150,13 @@ public class WidgetUtil {
         return (int) ((System.currentTimeMillis() - BEGINNING_OF_BOARDCAST_TIME) / 1000);
     }
 
-    public static void addGracefully(ComplexPanel panel, IsWidget view) {
+    public static void addGracefully(@Nonnull ComplexPanel panel, @Nonnull IsWidget view) {
         view.asWidget().getElement().getStyle().setOpacity(0.0);
         panel.add(view);
         view.asWidget().getElement().getStyle().setOpacity(1.0);
     }
 
-    public static void show(IsWidget isWidget) {
+    public static void show(@Nonnull IsWidget isWidget) {
         isWidget.asWidget().setVisible(true);
     }
 

@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
         this(null, identity, pool, target, null);
     }
 
-    public DeletePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, LiquidURI uri) {
+    public DeletePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID pool, @Nullable LiquidUUID target, @Nullable LiquidURI uri) {
         this.setId(id);
         this.setSessionId(identity);
         this.setPoolUUID(pool);
@@ -28,6 +30,7 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new DeletePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), super.getUri());
@@ -50,6 +53,7 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
         }
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.DELETE_POOL_OBJECT;
     }

@@ -8,6 +8,7 @@ import cazcade.liquid.api.lsd.LSDEntityFactory;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,21 +20,25 @@ import java.util.Properties;
 
 public class PoolTestRestHandler implements RestHandler {
 
+    @Nonnull
     private static final Logger log = Logger.getLogger(PoolTestRestHandler.class);
 
     private LSDEntityFactory lsdEntityFactory;
 
+    @Nonnull
     public LSDEntity update(LiquidUUID poolId, LSDEntity lsdEntity, Map<String, String[]> parameters) {
         log.debug("Update method called.");
         return lsdEntityFactory.createFromServletProperties(parameters);
     }
 
-    public LSDEntity create(LSDEntity lsdEntity, Map<String, String[]> parameters) {
+    @Nonnull
+    public LSDEntity create(LSDEntity lsdEntity, @Nonnull Map<String, String[]> parameters) {
         log.debug("Create method called with url of. " + parameters.get("url")[0]);
         return lsdEntityFactory.createFromServletProperties(parameters);
     }
 
-    public LSDEntity get(Map<String, String[]> parameters) {
+    @Nonnull
+    public LSDEntity get(@Nonnull Map<String, String[]> parameters) {
         final String url = parameters.get("url")[0];
         Properties props = new Properties();
         try {

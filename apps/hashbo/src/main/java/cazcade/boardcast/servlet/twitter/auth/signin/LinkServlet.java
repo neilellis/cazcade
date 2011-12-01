@@ -36,6 +36,7 @@ import cazcade.liquid.api.request.CreateAliasRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,19 +47,20 @@ import java.net.URLEncoder;
 import java.security.Principal;
 
 public class LinkServlet extends AbstractTwitterServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(LinkServlet.class);
     private static final long serialVersionUID = 1657390011452788111L;
     private SecurityProvider securityProvider;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(@Nonnull ServletConfig config) throws ServletException {
         super.init(config);
         securityProvider = new SecurityProvider(dataStore);
 
     }
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
             LSDSimpleEntity twitterAlias = (LSDSimpleEntity) session.getAttribute(TWITTER_ALIAS_KEY);

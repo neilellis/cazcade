@@ -7,6 +7,8 @@ import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
 import com.google.gwt.user.client.Command;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -27,6 +29,7 @@ public abstract class CreateContainerCommand extends AbstractCreateCommand imple
         });
     }
 
+    @Nonnull
     protected abstract String getInitialName();
 
 

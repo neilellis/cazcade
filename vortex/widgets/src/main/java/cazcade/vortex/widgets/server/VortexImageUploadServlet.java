@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,26 +23,25 @@ import java.util.concurrent.Executors;
  */
 public class VortexImageUploadServlet extends UploadAction {
     private final Logger log = LoggerFactory.getLogger(VortexImageUploadServlet.class);
+    @Nonnull
     private static final String TMP_DIR_PATH = "/tmp";
 
     private UserContentStore contentStore;
 
-    private Executor storeExecutor = Executors.newCachedThreadPool();
+    private final Executor storeExecutor = Executors.newCachedThreadPool();
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "classpath:liquid-spring-config.xml",
-                "classpath:spring/image-service.xml"
-        }
-        );
+                "classpath:spring/image-service.xml");
         contentStore = (UserContentStore) applicationContext.getBean("userContentStore");
 
     }
 
 
     @Override
-    public String executeAction(final HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
+    public String executeAction(final HttpServletRequest request, @Nonnull List<FileItem> sessionFiles) throws UploadActionException {
         try {
             String commaSeparated = "";
             for (final FileItem item : sessionFiles) {

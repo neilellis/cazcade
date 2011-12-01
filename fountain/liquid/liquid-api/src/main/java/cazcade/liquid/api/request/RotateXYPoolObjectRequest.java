@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
         this(null, identity, objectURI, poolId, object, angle);
     }
 
-    public RotateXYPoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID poolId, LiquidUUID object, Double angle) {
+    public RotateXYPoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID poolId, LiquidUUID object, Double angle) {
         this.setId(id);
         this.setSessionId(identity);
         this.setObjectUUID(object);
@@ -28,6 +30,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new RotateXYPoolObjectRequest(getId(), getSessionIdentifier(), getUri(), super.getPoolUUID(), super.getObjectUUID(), super.getAngle());
@@ -42,6 +45,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
         return Arrays.asList(super.getPoolUUID().toString());
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.ROTATE_XY_POOL_OBJECT;
     }

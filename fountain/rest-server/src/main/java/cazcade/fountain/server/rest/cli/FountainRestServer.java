@@ -9,17 +9,19 @@ import cazcade.fountain.server.rest.servlet.ObjectiveCDictionaryServlet;
 import org.eclipse.jetty.security.SecurityHandler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 
+import javax.annotation.Nonnull;
 import java.util.concurrent.CountDownLatch;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class FountainRestServer extends AbstractServiceStateMachine {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainRestServer.class);
 
-    private CountDownLatch initialisationLatch = new CountDownLatch(1);
+    @Nonnull
+    private final CountDownLatch initialisationLatch = new CountDownLatch(1);
     private Server server;
 
 

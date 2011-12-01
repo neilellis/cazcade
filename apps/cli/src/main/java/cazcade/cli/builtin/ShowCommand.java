@@ -8,27 +8,35 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.lsd.LSDEntity;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Neil Ellis
  */
 
 public class ShowCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(ShowCommand.class);
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Show a resource e.g. user, session etc.";
     }
 
+    @Nonnull
     public String getName() {
         return "show";
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    @Nullable
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
 
         if (args.length < 2) {
             System.err.println("show <resource-type> <resource-name>");
@@ -37,12 +45,12 @@ public class ShowCommand extends AbstractShortLivedCommand {
 
         LiquidMessage response;
         response = CommandSupport.retrieveObject(args, shellSession);
-        if(response == null) {
+        if (response == null) {
             return null;
         }
         final LSDEntity entity = response.getResponse();
         System.out.println(entity);
-        return entity.getID().toString();
+        return entity.getUUID().toString();
     }
 
 

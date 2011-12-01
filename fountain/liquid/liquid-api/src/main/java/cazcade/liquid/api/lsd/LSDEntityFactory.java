@@ -2,6 +2,7 @@ package cazcade.liquid.api.lsd;
 
 import cazcade.liquid.api.LiquidUUID;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Map;
 
 public interface LSDEntityFactory {
 
+    @Nonnull
     LSDEntity create(LiquidUUID uuid);
 
     /**
@@ -17,8 +19,10 @@ public interface LSDEntityFactory {
      * @param dotPrefixed true if it should only be built from properties starting with "."
      * @return
      */
+    @Nonnull
     LSDEntity create(Map<String, String> properties, boolean dotPrefixed);
 
+    @Nonnull
     LSDEntity createFromServletProperties(Map<String, String[]> properties);
 
 

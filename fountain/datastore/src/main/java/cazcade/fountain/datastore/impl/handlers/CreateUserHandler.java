@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -7,8 +8,9 @@ import cazcade.liquid.api.handler.CreateUserRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.CreateUserRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
@@ -20,7 +22,8 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
 
     }
 
-    public CreateUserRequest handle(CreateUserRequest request) throws Exception {
+    @Nonnull
+    public CreateUserRequest handle(@Nonnull CreateUserRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         Transaction transaction = neo.beginTx();
         Node userNode;
@@ -28,7 +31,7 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
 
             userNode = userDAO.createUser(request.getRequestEntity(), false);
 
-            LSDEntity entity = fountainNeo.convertNodeToLSD(userNode, request.getDetail(), request.isInternal());
+            LSDEntity entity = userNode.convertNodeToLSD(request.getDetail(), request.isInternal());
             String username = request.getRequestEntity().getAttribute(LSDAttribute.NAME);
             if (username == null) {
                 throw new DataStoreException("The name attribute was null on the entity passed in to create user.");

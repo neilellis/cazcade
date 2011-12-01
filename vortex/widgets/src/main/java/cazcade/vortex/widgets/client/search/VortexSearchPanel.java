@@ -1,6 +1,5 @@
 package cazcade.vortex.widgets.client.search;
 
-import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.SearchRequest;
@@ -14,6 +13,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -21,8 +21,9 @@ import java.util.List;
  */
 public class VortexSearchPanel extends HistoryAwareComposite {
 
-    private Bus bus = BusFactory.getInstance();
-    private ResultWidgetStrategy resultWidgetStrategy;
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
+    private final ResultWidgetStrategy resultWidgetStrategy;
 
     @Override
     public void onLocalHistoryTokenChanged(String token) {
@@ -34,11 +35,12 @@ public class VortexSearchPanel extends HistoryAwareComposite {
 
 
     public static interface ResultWidgetStrategy {
+        @Nonnull
         Widget getResultWidgetForEntity(LSDEntity subEntity);
     }
 
 
-    private static VortexSearchPanelUiBinder ourUiBinder = GWT.create(VortexSearchPanelUiBinder.class);
+    private static final VortexSearchPanelUiBinder ourUiBinder = GWT.create(VortexSearchPanelUiBinder.class);
 
     @UiField
     public VortexSearchBox searchBox;
@@ -66,7 +68,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
         searchResults.clear();
         bus.send(new SearchRequest(search), new AbstractResponseCallback<SearchRequest>() {
             @Override
-            public void onSuccess(SearchRequest message, SearchRequest response) {
+            public void onSuccess(SearchRequest message, @Nonnull SearchRequest response) {
                 final List<LSDEntity> subEntities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 for (LSDEntity subEntity : subEntities) {
                     final Widget widgetForEntity = VortexSearchPanel.this.resultWidgetStrategy.getResultWidgetForEntity(subEntity);
@@ -77,7 +79,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
             }
 
             @Override
-            public void onFailure(SearchRequest message, SearchRequest response) {
+            public void onFailure(SearchRequest message, @Nonnull SearchRequest response) {
             }
         });
     }

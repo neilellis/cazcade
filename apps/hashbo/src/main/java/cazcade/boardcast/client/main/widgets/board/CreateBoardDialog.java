@@ -22,6 +22,8 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -46,7 +48,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     }
 
     @Override
-    public void onLocalHistoryTokenChanged(String token) {
+    public void onLocalHistoryTokenChanged(@Nonnull String token) {
         //unlisted boards don't actually need the dialog, we just create them
         if (token.equals("unlisted")) {
             unlistedToken = true;
@@ -88,7 +90,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     interface NewBoardDialogUiBinder extends UiBinder<HTMLPanel, CreateBoardDialog> {
     }
 
-    private static NewBoardDialogUiBinder ourUiBinder = GWT.create(NewBoardDialogUiBinder.class);
+    private static final NewBoardDialogUiBinder ourUiBinder = GWT.create(NewBoardDialogUiBinder.class);
 
     @UiField
     HashtagTextBox tagBox;
@@ -138,7 +140,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         setText("Create New Board");
         listedCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
-            public void onValueChange(ValueChangeEvent<Boolean> booleanValueChangeEvent) {
+            public void onValueChange(@Nonnull ValueChangeEvent<Boolean> booleanValueChangeEvent) {
                 final Boolean listed = booleanValueChangeEvent.getValue();
                 showListed(listed);
             }

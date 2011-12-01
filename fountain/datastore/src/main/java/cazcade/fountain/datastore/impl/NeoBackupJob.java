@@ -2,12 +2,15 @@ package cazcade.fountain.datastore.impl;
 
 import cazcade.common.Logger;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 class NeoBackupJob implements Runnable {
+    @Nonnull
     private final static Logger log = Logger.getLogger(NeoBackupJob.class);
-    private FountainNeo fountainNeo;
+    private final FountainNeo fountainNeo;
 
     public NeoBackupJob(FountainNeo fountainNeo) {
         this.fountainNeo = fountainNeo;

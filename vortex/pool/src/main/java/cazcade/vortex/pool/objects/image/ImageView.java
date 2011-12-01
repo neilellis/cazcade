@@ -24,7 +24,7 @@ public class ImageView extends PoolObjectView {
     @UiField
     Image image;
 
-    private static ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
+    private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
     public ImageView() {
         HTMLPanel widget = ourUiBinder.createAndBindUi(this);

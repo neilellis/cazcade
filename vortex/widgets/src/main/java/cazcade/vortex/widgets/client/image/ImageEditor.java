@@ -8,10 +8,14 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class ImageEditor extends Composite implements PopupEditPanel {
+    @Nullable
     public String getUrl() {
         return changeImagePanel.getStringValue();
     }
@@ -24,11 +28,11 @@ public class ImageEditor extends Composite implements PopupEditPanel {
     interface ImageEditorUiBinder extends UiBinder<HTMLPanel, ImageEditor> {
     }
 
-    private static ImageEditorUiBinder ourUiBinder = GWT.create(ImageEditorUiBinder.class);
+    private static final ImageEditorUiBinder ourUiBinder = GWT.create(ImageEditorUiBinder.class);
     @UiField
     ChangeImageUrlPanel changeImagePanel;
 
-    public ImageEditor(final CachedImage displayImage) {
+    public ImageEditor(@Nonnull final CachedImage displayImage) {
         HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
         changeImagePanel.setValue(displayImage.getUnCachedUrl());

@@ -5,6 +5,8 @@ import cazcade.fountain.validation.api.FountainRequestValidator;
 import cazcade.fountain.validation.api.ValidationException;
 import cazcade.liquid.api.LiquidRequest;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -16,7 +18,7 @@ public abstract class AbstractRequestValidator<T extends LiquidRequest> implemen
         this.entityValidator = entityValidator;
     }
 
-    protected void validPoolObject(T request) {
+    protected void validPoolObject(@Nonnull T request) {
         boolean validType = true;
         //TODO: validate object types
 //        for (LSDTypes type : LSDTypeGroups.CORE_POOL_OBJECT_TYPES) {

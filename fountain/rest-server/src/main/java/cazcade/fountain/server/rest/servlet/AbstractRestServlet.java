@@ -8,6 +8,7 @@ import cazcade.liquid.api.LiquidUUID;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,7 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public abstract class AbstractRestServlet extends HttpServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(AbstractRestServlet.class);
 
 
@@ -46,7 +48,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
     }
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void service(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
         log.session(req.getPathInfo());
         String sessionId = req.getParameter("_session");
         log.addContext(req.getPathInfo());

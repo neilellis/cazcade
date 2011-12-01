@@ -18,6 +18,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class InboxPanel extends Composite {
     interface InboxPanelUiBinder extends UiBinder<HTMLPanel, InboxPanel> {
     }
 
-    private static InboxPanelUiBinder ourUiBinder = GWT.create(InboxPanelUiBinder.class);
+    private static final InboxPanelUiBinder ourUiBinder = GWT.create(InboxPanelUiBinder.class);
 
     @UiField
     ScrollableList list;
@@ -49,7 +50,7 @@ public class InboxPanel extends Composite {
     public void init() {
         BusFactory.getInstance().send(new RetrievePoolRequest(UserUtil.getInboxURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(RetrievePoolRequest request, RetrievePoolRequest response) {
+            public void onSuccess(RetrievePoolRequest request, @Nonnull RetrievePoolRequest response) {
                 List<LSDEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 for (LSDEntity message : messages) {
                     list.addEntry(new DirectMessageListEntryPanel(message, features));
@@ -58,7 +59,7 @@ public class InboxPanel extends Composite {
         });
         BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
             @Override
-            public void handle(SendRequest request) {
+            public void handle(@Nonnull SendRequest request) {
                 list.addEntry(new DirectMessageListEntryPanel(request.getResponse(), features));
             }
         });

@@ -12,27 +12,35 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.DeletePoolRequest;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Neil Ellis
  */
 
 public class DeletePoolCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(DeletePoolCommand.class);
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Deletes a pool";
     }
 
+    @Nonnull
     public String getName() {
         return "rmdir";
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    @Nullable
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("rmdir <pool>");
         }

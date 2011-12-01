@@ -4,6 +4,7 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +18,10 @@ import java.util.Arrays;
  */
 public class DictionaryServlet extends HttpServlet {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(DictionaryServlet.class);
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         try {
             LSDAttribute[] keys = LSDAttribute.values();
             Arrays.sort(keys);

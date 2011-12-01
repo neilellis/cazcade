@@ -1,19 +1,22 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.handler.LinkPoolObjectRequestHandler;
 import cazcade.liquid.api.request.LinkPoolObjectRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class LinkPoolHandler extends AbstractDataStoreHandler<LinkPoolObjectRequest> implements LinkPoolObjectRequestHandler {
-    public LinkPoolObjectRequest handle(LinkPoolObjectRequest request) throws InterruptedException {
+    @Nonnull
+    public LinkPoolObjectRequest handle(@Nonnull LinkPoolObjectRequest request) throws InterruptedException {
         Transaction transaction = fountainNeo.beginTx();
         try {
             LiquidUUID from = request.getFrom();
@@ -38,7 +41,7 @@ public class LinkPoolHandler extends AbstractDataStoreHandler<LinkPoolObjectRequ
             }
 
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.convertNodeToLSD(result, request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, result.convertNodeToLSD(request.getDetail(), request.isInternal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

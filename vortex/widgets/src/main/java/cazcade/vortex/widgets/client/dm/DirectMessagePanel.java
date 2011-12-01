@@ -10,14 +10,20 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.InitializeEvent;
 import com.google.gwt.event.logical.shared.InitializeHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RichTextArea;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
@@ -39,7 +45,7 @@ public class DirectMessagePanel extends Composite {
     interface DirectMessagePopupUiBinder extends UiBinder<HTMLPanel, DirectMessagePanel> {
     }
 
-    private static DirectMessagePopupUiBinder ourUiBinder = GWT.create(DirectMessagePopupUiBinder.class);
+    private static final DirectMessagePopupUiBinder ourUiBinder = GWT.create(DirectMessagePopupUiBinder.class);
 
     @UiField
     RichTextArea textBox;
@@ -55,7 +61,6 @@ public class DirectMessagePanel extends Composite {
         initWidget(rootElement);
         initTextBox();
     }
-
 
 
     public void start() {
@@ -119,13 +124,13 @@ public class DirectMessagePanel extends Composite {
                             }
 
                             @Override
-                            public void onFailure(SendRequest message, SendRequest response) {
+                            public void onFailure(SendRequest message, @Nonnull SendRequest response) {
                                 textBox.setText(text);
                                 super.onFailure(message, response);
                             }
 
                             @Override
-                            public void onException(SendRequest message, Throwable error) {
+                            public void onException(@Nonnull SendRequest message, @Nonnull Throwable error) {
                                 textBox.setText(text);
                                 super.onException(message, error);
                             }

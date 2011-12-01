@@ -9,14 +9,16 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.ChatRequest;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements ChatRequestHandler {
+    @Nonnull
     @Override
-    public ChatRequest handle(ChatRequest request) throws InterruptedException {
+    public ChatRequest handle(@Nonnull ChatRequest request) throws InterruptedException {
         socialDAO.recordChat(request.getSessionIdentifier(), request.getUri(), request.getRequestEntity());
         final LSDEntity response = request.getRequestEntity().copy();
         //fill in the author details for the recipient

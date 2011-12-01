@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
@@ -10,11 +12,11 @@ public class OrphanedEntityException extends DataStoreException {
         super(throwable);
     }
 
-    public OrphanedEntityException(String message, Object... params) {
+    public OrphanedEntityException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public OrphanedEntityException(Throwable cause, String message, Object... params) {
+    public OrphanedEntityException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 

@@ -5,11 +5,14 @@ import cazcade.liquid.api.handler.ChangePermissionRequestHandler;
 import cazcade.liquid.api.request.ChangePermissionRequest;
 import org.neo4j.graphdb.Transaction;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public class ChangePermissionHandler extends AbstractDataStoreHandler<ChangePermissionRequest> implements ChangePermissionRequestHandler {
-    public ChangePermissionRequest handle(ChangePermissionRequest request) throws Exception {
+    @Nonnull
+    public ChangePermissionRequest handle(@Nonnull ChangePermissionRequest request) throws Exception {
         Transaction transaction = fountainNeo.beginTx();
         try {
             ChangePermissionRequest message = LiquidResponseHelper.forServerSuccess(request, fountainNeo.changePermissionNoTx(request.getSessionIdentifier(), request.getUri(), request.getPermission(), request.getDetail(), request.isInternal()));

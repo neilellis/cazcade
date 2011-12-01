@@ -7,13 +7,18 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.request.CreateUserRequest;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public class CreateUserRequestValidator extends AbstractRequestValidator<CreateUserRequest> {
+    @Nonnull
     private final static Logger log = Logger.getLogger(CreateUserRequestValidator.class);
 
-    public void validate(CreateUserRequest request, ValidationLevel level) {
+    @Override
+    public void validate(@Nonnull CreateUserRequest request, ValidationLevel level) {
+
         log.debug("Validating create user request.");
         if (!request.getRequestEntity().isA(LSDDictionaryTypes.USER)) {
             throw new ValidationException("The entity supplied is not a user entity.");

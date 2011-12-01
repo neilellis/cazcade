@@ -2,6 +2,8 @@ package cazcade.fountain.datastore.impl.graph;
 
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 
+import javax.annotation.Nullable;
+
 /**
  * TODO: springify
  *
@@ -10,6 +12,7 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 public class StatusUpdateTranslator {
 
 
+    @Nullable
     public static LSDSimpleEntity translate(LSDSimpleEntity from) {
 //        if(from.canBe(LSDTypes.ALIAS)) {
 //        final LSDSimpleEntity lsdSimpleEntity = LSDSimpleEntity.createNewEntity(LSDTypes.)

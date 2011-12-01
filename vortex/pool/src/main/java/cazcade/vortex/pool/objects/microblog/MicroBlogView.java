@@ -16,7 +16,7 @@ public class MicroBlogView extends PoolObjectView {
     interface MicroBlogViewUiBinder extends UiBinder<HTMLPanel, MicroBlogView> {
     }
 
-    private static MicroBlogViewUiBinder ourUiBinder = GWT.create(MicroBlogViewUiBinder.class);
+    private static final MicroBlogViewUiBinder ourUiBinder = GWT.create(MicroBlogViewUiBinder.class);
     @UiField
     ImageElement image;
     @UiField

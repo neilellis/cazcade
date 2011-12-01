@@ -17,11 +17,14 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class YouTubeView extends PoolObjectView implements HasValueChangeHandlers<String> {
 
+    @Nonnull
     public static final String INVALID_URL_MESSAGE = "Please supply a valid YouTube id or URL (e.g. http://www.youtube.com/watch?v=hfjGRBFd7mQ or hfjGRBFd7mQ)";
     private String videoId;
 
@@ -128,7 +131,7 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
         super.onLoad();
     }
 
-    private static YouTubeUiBinder ourUiBinder = GWT.create(YouTubeUiBinder.class);
+    private static final YouTubeUiBinder ourUiBinder = GWT.create(YouTubeUiBinder.class);
 
     public YouTubeView() {
         HTMLPanel widget = ourUiBinder.createAndBindUi(this);

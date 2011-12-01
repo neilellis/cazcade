@@ -6,6 +6,8 @@ import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,13 +24,14 @@ public class CreateUserRequest extends AbstractCreationRequest {
         this(null, identity, entity);
     }
 
-    public CreateUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDEntity entity) {
+    public CreateUserRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LSDEntity entity) {
         this.setId(id);
         this.setSessionId(identity);
         this.setRequestEntity(entity);
     }
 
 
+    @Nullable
     @Override
     public LiquidMessage copy() {
         return new CreateUserRequest(getId(), getSessionIdentifier(), super.getRequestEntity());
@@ -39,12 +42,14 @@ public class CreateUserRequest extends AbstractCreationRequest {
     }
 
 
+    @Nullable
     @Override
     public String getNotificationSession() {
         //Don't notify anyone of a user creation request.
         return null;
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.CREATE_USER;
     }

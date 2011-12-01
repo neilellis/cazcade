@@ -5,15 +5,18 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.ui.PopupPanel;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class PoolObjectEditor {
 
-    private AbstractPoolObjectEditorPanel editorPanel;
-    private Runnable onFinishAction;
-    private int width;
-    private int height;
+    private final AbstractPoolObjectEditorPanel editorPanel;
+    private final Runnable onFinishAction;
+    private final int width;
+    private final int height;
 
 
     PoolObjectEditor(AbstractPoolObjectEditorPanel editorPanel, Runnable onFinishAction, int width, int height) {
@@ -35,11 +38,11 @@ public class PoolObjectEditor {
         popup.center();
     }
 
-    public static void showForCreate(AbstractPoolObjectEditorPanel editorPanel, Runnable onFinishAction) {
+    public static void showForCreate(@Nonnull AbstractPoolObjectEditorPanel editorPanel, @Nullable Runnable onFinishAction) {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).create();
     }
 
-    public static void showForEdit(AbstractPoolObjectEditorPanel editorPanel, Runnable onFinishAction) {
+    public static void showForEdit(@Nonnull AbstractPoolObjectEditorPanel editorPanel, @Nullable Runnable onFinishAction) {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).edit();
     }
 

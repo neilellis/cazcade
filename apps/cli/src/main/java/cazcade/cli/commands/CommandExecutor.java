@@ -2,6 +2,8 @@ package cazcade.cli.commands;
 
 import cazcade.cli.ShellSession;
 
+import javax.annotation.Nullable;
+
 /**
  * The JobExecutor, funnily enough, executes commands.
  *
@@ -9,7 +11,6 @@ import cazcade.cli.ShellSession;
  */
 
 public interface CommandExecutor {
-
 
 
     /**
@@ -28,5 +29,6 @@ public interface CommandExecutor {
     /**
      * Execute a Job with the arguments specified see {@link Command#run(String[], cazcade.cli.ShellSession)}
      */
+    @Nullable
     String execute(Command command, String[] jobArgs, CommandFactory commandFactory, ShellSession shellSession) throws Exception;
 }

@@ -9,6 +9,9 @@ import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -30,7 +33,7 @@ public class UserProfileImage extends EditableImage {
 
 
     @Override
-    public void bind(LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
+    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.getURI());
         setUrl(entity.getAttribute(attribute));
@@ -69,7 +72,7 @@ public class UserProfileImage extends EditableImage {
 
     }
 
-    public void setUrl(String url) {
+    public void setUrl(@Nullable String url) {
         if (url != null && !url.isEmpty()) {
             image.setUrl(url);
         }

@@ -7,11 +7,13 @@ import cazcade.fountain.server.rest.RestHandlerFactory;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.*;
+import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
 import cazcade.liquid.impl.LSDUnmarshallerFactory;
 import com.thoughtworks.xstream.io.StreamException;
 
-import javax.servlet.ServletException;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.util.Map;
  * @author Neil Ellis
  */
 public class LiquidRestServlet extends AbstractRestServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(LiquidRestServlet.class);
 
     public LiquidRestServlet() {
@@ -33,7 +36,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
     }
 
     @Override
-    public void doRestCall(HttpServletRequest req, HttpServletResponse resp, String pathWithQuery, String serviceName, String methodName, List<LiquidUUID> uuids, String sessionId, String format) throws Exception, ServletException, InvocationTargetException, IllegalAccessException {
+    public void doRestCall(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp, String pathWithQuery, @Nonnull String serviceName, @Nonnull String methodName, @Nonnull List<LiquidUUID> uuids, @Nullable String sessionId, String format) throws Exception, InvocationTargetException, IllegalAccessException {
         if ((sessionId == null)) {
             if ((methodName.equals("create") || methodName.equals("get")) && (serviceName.equals("user") || serviceName.equals("alias") || serviceName.equals("session"))) {
                 //then all is well
@@ -78,7 +81,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
         resp.sendError(400, "Failed to find method on handler for  " + pathWithQuery);
     }
 
-    private boolean matchMethod(HttpServletRequest req, HttpServletResponse resp, RestHandler restHandler, List<LiquidUUID> uuids, String methodName, Method method, String format, LSDEntity lsdEntity) throws Exception, ServletException, InvocationTargetException, IllegalAccessException {
+    private boolean matchMethod(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp, RestHandler restHandler, @Nonnull List<LiquidUUID> uuids, String methodName, @Nonnull Method method, String format, LSDEntity lsdEntity) throws Exception, InvocationTargetException, IllegalAccessException {
         List<Object> arguments = new ArrayList<Object>();
         if (Modifier.isPublic(method.getModifiers())) {
             if (method.getName().equals(methodName)) {
@@ -125,7 +128,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
 
     }
 
-    private void invoke(HttpServletResponse resp, RestHandler restHandler, Method method, String format, List<Object> arguments) throws Exception {
+    private void invoke(@Nonnull HttpServletResponse resp, RestHandler restHandler, @Nonnull Method method, String format, @Nonnull List<Object> arguments) throws Exception {
         log.debug("Invoking {0}{1}", method.getName(), arguments.toArray());
         Object result = null;
         try {
@@ -164,7 +167,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
     }
 
-    private void doLSDResponse(LSDEntity responseEntity, String format, HttpServletResponse resp) throws IOException {
+    private void doLSDResponse(@Nonnull LSDEntity responseEntity, String format, @Nonnull HttpServletResponse resp) throws IOException {
         //todo: separate this code out
         if (responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
             resp.sendError(404, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
@@ -192,7 +195,8 @@ public class LiquidRestServlet extends AbstractRestServlet {
         return parameterMap;
     }
 
-    private LSDEntity buildLSDObject(String format, HttpServletRequest req) throws IOException {
+    @Nonnull
+    private LSDEntity buildLSDObject(String format, @Nonnull HttpServletRequest req) throws IOException {
         String method = req.getMethod();
         if ("PUT".equals(method)) {
             return ((LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory")).getUnmarshalers().get(format).unmarshal(req.getInputStream());

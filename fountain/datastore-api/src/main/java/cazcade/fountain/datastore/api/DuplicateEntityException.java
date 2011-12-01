@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
@@ -10,11 +12,11 @@ public class DuplicateEntityException extends DataStoreException {
         super(throwable);
     }
 
-    public DuplicateEntityException(String message, Object... params) {
+    public DuplicateEntityException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public DuplicateEntityException(Throwable cause, String message, Object... params) {
+    public DuplicateEntityException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 

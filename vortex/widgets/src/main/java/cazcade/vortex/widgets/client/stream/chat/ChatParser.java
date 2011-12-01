@@ -7,6 +7,7 @@ import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,10 +18,10 @@ public class ChatParser {
 
     public static final List<String> DM_ALIASES = Arrays.asList("d", "direct", "dm", "privmsg", "w", "whisper", "t", "tell");
 
-    public boolean parse(String text) {
+    public boolean parse(@Nonnull String text) {
         final String[] args = text.substring(1).split(" ");
         if (DM_ALIASES.contains(args[0])) {
-            if(args.length < 2) {
+            if (args.length < 2) {
                 return false;
             }
             LSDSimpleEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
@@ -35,11 +36,11 @@ public class ChatParser {
         return false;
     }
 
-    private String remainder(String text, int args) {
-        int pos= -1;
-        for(int i= 0; i < args; i++) {
-            pos= text.indexOf(' ', pos+1);
+    private String remainder(@Nonnull String text, int args) {
+        int pos = -1;
+        for (int i = 0; i < args; i++) {
+            pos = text.indexOf(' ', pos + 1);
         }
-        return text.substring(pos+1);
+        return text.substring(pos + 1);
     }
 }

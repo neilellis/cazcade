@@ -33,6 +33,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,21 +49,27 @@ import java.util.UUID;
 //todo: backport the notification parts to the notification servlet.
 
 public class DataStoreServiceImpl extends RemoteServiceServlet implements DataStoreService {
+    @Nonnull
     private final static Logger log = Logger.getLogger(DataStoreServiceImpl.class);
 
     //TODO: make this retrieved from the web.xml so that client applications can change the web.xml at build time.
     public static final String APPLICATION_VERSION = UUID.randomUUID().toString();
     public static final boolean USE_CONTINUATIONS = false;
+    @Nonnull
     public static final String DEDUPCACHE = "dedupcache";
     public static final boolean ALLOW_DUPLICATES = true;
 
     private WebApplicationContext applicationContext;
     private FountainDataStore dataStore;
     private SecurityProvider securityProvider;
+    @Nonnull
     private static final String PAYLOAD = "com.google.gwt.payload";
 
+    @Nonnull
     private static final String JETTY_RETRY_REQUEST_EXCEPTION = "org.mortbay.jetty.RetryRequest";
+    @Nonnull
     public static final String NOTIFICATION_SESSION_ATTRIBUTE = "notificationSession";
+    @Nonnull
     public static final ArrayList<LiquidMessage> EMPTY_MESSAGE_LIST = new ArrayList<LiquidMessage>();
     private boolean supportsContinuations;
     private RabbitTemplate rabbitTemplate;
@@ -76,7 +84,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
      *
      * @param e the exception
      */
-    protected void doUnexpectedFailure(Throwable e) {
+    protected void doUnexpectedFailure(@Nonnull Throwable e) {
         throwIfRetryRequest(e);
         e.printStackTrace(System.err);
         log.error(e);
@@ -100,7 +108,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
 
     @Override
-    protected String readContent(HttpServletRequest request)
+    protected String readContent(@Nonnull HttpServletRequest request)
             throws IOException, ServletException {
         if (supportsContinuations) {
             String payload = (String) request.getAttribute(PAYLOAD);
@@ -117,8 +125,9 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(@Nonnull ServletConfig config) throws ServletException {
         super.init(config);
+        //noinspection EmptyCatchBlock
         try {
             Class.forName("org.eclipse.jetty.continuation.Jetty6Continuation");
             supportsContinuations = true;
@@ -147,7 +156,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
         if (req.getHeader(X_VORTEX_SINCE) != null && req.getHeader(X_VORTEX_SINCE).equals("-1")) {
             try {
                 resp.sendError(304);
@@ -164,7 +173,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         log.debug("Returning from service method.");
     }
 
-    public void logout(LiquidSessionIdentifier identity) {
+    public void logout(@Nonnull LiquidSessionIdentifier identity) {
         clientSessionManager.expireSession(identity.getSession().toString());
     }
 
@@ -173,7 +182,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         return APPLICATION_VERSION;
     }
 
-    public LiquidSessionIdentifier login(String username, String password) {
+    @Nullable
+    public LiquidSessionIdentifier login(@Nonnull String username, String password) {
         try {
             Principal principal = securityProvider.doAuthentication(username, password);
             if (principal == null) {
@@ -186,6 +196,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         }
     }
 
+    @Nullable
     @Override
     public LiquidSessionIdentifier loginQuick(boolean anon) {
         final String sessionUsername = (String) getThreadLocalRequest().getSession(true).getAttribute("username");
@@ -211,8 +222,9 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
 
+    @Nullable
     @Override
-    public LSDEntity register(String fullname, String username, String password, String emailAddress) {
+    public LSDEntity register(String fullname, @Nonnull String username, String password, String emailAddress) {
         final HttpSession session = getThreadLocalRequest().getSession(true);
         final LSDEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
@@ -229,7 +241,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
     @Override
-    public boolean checkUsernameAvailability(String username) {
+    public boolean checkUsernameAvailability(@Nonnull String username) {
         try {
             LiquidMessage message;
             message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin"), new LiquidURI(LiquidURIScheme.user, username), true));
@@ -243,7 +255,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
     }
 
-    public SerializedRequest process(SerializedRequest ser) {
+    @Nullable
+    public SerializedRequest process(@Nonnull SerializedRequest ser) {
         log.debug("{0}", LiquidXStreamFactory.getXstream().toXML(ser));
         final AbstractRequest request;
         try {
@@ -281,7 +294,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             log.debug(LiquidXStreamFactory.getXstream().toXML(response));
             getThreadLocalResponse().addHeader(X_VORTEX_CACHE_SCOPE, request.getCachingScope().name());
             getThreadLocalResponse().addHeader(X_VORTEX_CACHE_EXPIRY, String.valueOf(request.getCacheExpiry()));
-            return ((AbstractRequest) response).asSerializedRequest();
+            return response.asSerializedRequest();
         } catch (Exception e) {
             e.printStackTrace(System.err);
             return null;
@@ -303,7 +316,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
 
-    public ArrayList<SerializedRequest> collect(LiquidSessionIdentifier serverSession, ArrayList<String> locations) throws Exception {
+    @Nullable
+    public ArrayList<SerializedRequest> collect(@Nullable LiquidSessionIdentifier serverSession, @Nonnull ArrayList<String> locations) throws Exception {
         getThreadLocalRequest().setAttribute("com.newrelic.agent.IGNORE", true);
         NewRelic.ignoreTransaction();
 

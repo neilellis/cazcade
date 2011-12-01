@@ -4,6 +4,7 @@ import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
  * @author neilellis@cazcade.com
  */
 public class AbstractTwitterServlet extends HttpServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(AbstractTwitterServlet.class);
     private ClassPathXmlApplicationContext applicationContext;
     protected FountainDataStore dataStore;

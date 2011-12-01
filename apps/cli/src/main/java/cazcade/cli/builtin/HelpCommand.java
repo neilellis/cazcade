@@ -6,6 +6,7 @@ import cazcade.cli.commands.Command;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
@@ -13,10 +14,12 @@ import java.util.Collection;
  */
 
 public class HelpCommand extends AbstractShortLivedCommand {
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     public String getName() {
         return "help";
     }
@@ -26,12 +29,13 @@ public class HelpCommand extends AbstractShortLivedCommand {
         return "h";
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Does exactly what it says on the tin...";
     }
 
-    public String run(String[] args, ShellSession shellSession) throws Exception {
+    public String run(@Nonnull String[] args, ShellSession shellSession) throws Exception {
         final Collection<Command> all = getContext().getCommandFactory().getAll();
         if (args.length == 1) {
             for (Command command : all) {

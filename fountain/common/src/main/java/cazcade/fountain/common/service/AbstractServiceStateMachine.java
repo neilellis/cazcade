@@ -3,6 +3,7 @@ package cazcade.fountain.common.service;
 import cazcade.common.Logger;
 import cazcade.fountain.common.error.ErrorHandler;
 
+import javax.annotation.Nonnull;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class AbstractServiceStateMachine implements ServiceStateMachine {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(AbstractServiceStateMachine.class);
     public static final int LOCK_TRY_TIMEOUT_IN_SECS = 20;
 
@@ -20,10 +22,13 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
         STOPPED, INITIALISATION, STARTED, PAUSED
     }
 
+    @Nonnull
     private volatile State state = State.STOPPED;
 
 
+    @Nonnull
     private final AtomicInteger activeCount = new AtomicInteger(0);
+    @Nonnull
     private final AtomicBoolean locked = new AtomicBoolean(false);
 
     protected AbstractServiceStateMachine() {
@@ -45,16 +50,16 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
 
     private void waitUntilUnlocked() throws InterruptedException {
         log.info("Waiting for service lock...");
-        int count= 0;
-        while (locked.get()&& count++ < LOCK_TRY_TIMEOUT_IN_SECS*10) {
+        int count = 0;
+        while (locked.get() && count++ < LOCK_TRY_TIMEOUT_IN_SECS * 10) {
             Thread.sleep(100);
             System.err.print(".");
-            if (state == State.STOPPED  ) {
+            if (state == State.STOPPED) {
                 log.info("Service stopped, giving up on lock.");
                 throw new IllegalStateException("Cannot begin an action as the service is stopped.");
             }
         }
-        if(locked.get()) {
+        if (locked.get()) {
             throw new StateMachineFailure("Failed waiting for unlock with %s attempts.", count);
         }
 
@@ -118,12 +123,12 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
             } else {
                 locked.set(true);
             }
-            int count= 0;
+            int count = 0;
             while (activeCount.get() > 0 && count++ < LOCK_TRY_TIMEOUT_IN_SECS) {
                 Thread.sleep(1000);
                 log.info("Awaiting active count (" + activeCount.get() + ") on {0}.", getClass());
             }
-            if(count >= LOCK_TRY_TIMEOUT_IN_SECS) {
+            if (count >= LOCK_TRY_TIMEOUT_IN_SECS) {
                 unlock();
                 throw new StateMachineFailure("Lock failed with %s attempts %s active.", count, activeCount);
             }

@@ -19,6 +19,8 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * @author neilellis@cazcade.com
@@ -38,27 +40,29 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     @UiField
     EditableImage boardIcon;
 
+    @Nonnull
     @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
 
+    @Nonnull
     @Override
-    protected Runnable getUpdateEntityAction(final Bindable field) {
+    protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
 //                Window.alert("Sending..");
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolRequest message, UpdatePoolRequest response) {
+                    public void onSuccess(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
                         setEntity(response.getResponse().copy());
 //                        Window.alert("Success..");
                     }
 
                     @Override
-                    public void onFailure(UpdatePoolRequest message, UpdatePoolRequest response) {
+                    public void onFailure(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
 //                        Window.alert("Failed.");
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
@@ -80,7 +84,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {
     }
 
-    private static PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
+    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
     public PublicBoardHeader() {
         HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
@@ -103,7 +107,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(LSDEntity entity) {
+    protected void onChange(@Nonnull LSDEntity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(this, true);
         final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();

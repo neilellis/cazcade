@@ -1,5 +1,7 @@
 package cazcade.liquid.api.lsd;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +12,15 @@ import java.util.List;
 public class LSDTypeDefImpl implements LSDTypeDef {
 
     private LSDType primaryType;
-    private List<LSDType> secondaryTypes = new ArrayList<LSDType>();
+    @Nonnull
+    private final List<LSDType> secondaryTypes = new ArrayList<LSDType>();
     private String typeString;
 
 
     public LSDTypeDefImpl() {
     }
 
-    public LSDTypeDefImpl(String typeStringParam) {
+    public LSDTypeDefImpl(@Nullable String typeStringParam) {
         if (typeStringParam == null) {
             throw new LSDTypeDefException("Tried to create a type def from a null type string.");
         }
@@ -41,11 +44,12 @@ public class LSDTypeDefImpl implements LSDTypeDef {
 
     }
 
-    public LSDTypeDefImpl(LSDDictionaryTypes parentType, String subType) {
+    public LSDTypeDefImpl(@Nonnull LSDDictionaryTypes parentType, @Nullable String subType) {
         this(subType == null ? parentType.asString() : (parentType + "." + subType));
     }
 
-    private LSDType convertToType(String typeString) {
+    @Nonnull
+    private LSDType convertToType(@Nonnull String typeString) {
         return new LSDTypeImpl(typeString);
     }
 
@@ -53,6 +57,7 @@ public class LSDTypeDefImpl implements LSDTypeDef {
         return primaryType;
     }
 
+    @Nonnull
     public List<LSDType> getSecondaryTypes() {
         return secondaryTypes;
     }
@@ -80,5 +85,22 @@ public class LSDTypeDefImpl implements LSDTypeDef {
     @Override
     public String toString() {
         return asString();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LSDTypeDefImpl that = (LSDTypeDefImpl) o;
+
+        if (!typeString.equals(that.typeString)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return typeString.hashCode();
     }
 }

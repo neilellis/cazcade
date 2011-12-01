@@ -4,12 +4,15 @@ import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.DeletePoolObjectRequestHandler;
 import cazcade.liquid.api.request.DeletePoolObjectRequest;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public class DeletePoolObjectHandler extends AbstractDeletionHandler<DeletePoolObjectRequest> implements DeletePoolObjectRequestHandler {
 
-    public DeletePoolObjectRequest handle(DeletePoolObjectRequest request) throws Exception {
+    @Nonnull
+    public DeletePoolObjectRequest handle(@Nonnull DeletePoolObjectRequest request) throws Exception {
         if (request.getUri() != null) {
 
             return LiquidResponseHelper.forServerSuccess(request, poolDAO.deletePoolObjectTx(request.getUri(), request.isInternal(), request.getDetail()));

@@ -4,6 +4,7 @@ import cazcade.common.Logger;
 import cazcade.fountain.common.service.AbstractServiceStateMachine;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -14,10 +15,12 @@ import java.util.concurrent.CountDownLatch;
  */
 public class FountainDataStoreServer extends AbstractServiceStateMachine {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainDataStoreServer.class);
 
     private ClassPathXmlApplicationContext applicationContext;
-    private CountDownLatch initialisationLatch = new CountDownLatch(1);
+    @Nonnull
+    private final CountDownLatch initialisationLatch = new CountDownLatch(1);
 
     @Override
     public void start() throws Exception {
@@ -63,7 +66,6 @@ public class FountainDataStoreServer extends AbstractServiceStateMachine {
         }
         log.info("Stopped DataStore server.");
     }
-
 
 
 }

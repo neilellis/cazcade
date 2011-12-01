@@ -2,6 +2,7 @@ package cazcade.fountain.messaging.session;
 
 import cazcade.common.Logger;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -18,10 +19,12 @@ public class ClientSessionManager {
     public static final long SESSION_TIMEOUT = 1200 * 1000;
 //    public static final long SESSION_TIMEOUT = 400;
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(ClientSessionManager.class);
 
-    private ScheduledExecutorService reaper = Executors.newSingleThreadScheduledExecutor();
-    private ConcurrentHashMap<String, ClientSession> sessionMap = new ConcurrentHashMap<String, ClientSession>();
+    private final ScheduledExecutorService reaper = Executors.newSingleThreadScheduledExecutor();
+    @Nonnull
+    private final ConcurrentHashMap<String, ClientSession> sessionMap = new ConcurrentHashMap<String, ClientSession>();
 
     public void addSession(String sessionId, ClientSession session) {
         log.debug("Adding session for {0}", sessionId);
@@ -66,7 +69,7 @@ public class ClientSessionManager {
         closeSesions(sessionMap.keySet());
     }
 
-    private void closeSesions(Set<String> sessions) {
+    private void closeSesions(@Nonnull Set<String> sessions) {
         for (String session : sessions) {
             expireSession(session);
         }

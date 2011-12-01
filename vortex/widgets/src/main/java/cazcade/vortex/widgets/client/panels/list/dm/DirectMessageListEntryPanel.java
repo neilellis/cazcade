@@ -18,6 +18,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -31,16 +33,19 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         return entity;
     }
 
+    @Nullable
     @Override
     public String getListIdentifier() {
         return entity.getURI().toString();
     }
 
+    @Nullable
     @Override
     public String getStreamIdentifier() {
         return getListIdentifier();
     }
 
+    @Nullable
     @Override
     public Date getSortDate() {
         return entity.getUpdated();
@@ -52,14 +57,14 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
     }
 
     @Override
-    public int compareTo(ScrollableListEntry scrollableListEntry) {
+    public int compareTo(@Nonnull ScrollableListEntry scrollableListEntry) {
         return entity.getUpdated().compareTo(scrollableListEntry.getEntity().getUpdated());
     }
 
     interface DirectMessageListEntryPanelUiBinder extends UiBinder<HTMLPanel, DirectMessageListEntryPanel> {
     }
 
-    private static DirectMessageListEntryPanelUiBinder ourUiBinder = GWT.create(DirectMessageListEntryPanelUiBinder.class);
+    private static final DirectMessageListEntryPanelUiBinder ourUiBinder = GWT.create(DirectMessageListEntryPanelUiBinder.class);
 
     @UiField
     UserProfileImage profileImage;
@@ -75,12 +80,12 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
     protected DirectMessageListEntryPanel() {
     }
 
-    public DirectMessageListEntryPanel(LSDEntity streamEntry, final FormatUtil features) {
+    public DirectMessageListEntryPanel(@Nonnull LSDEntity streamEntry, @Nonnull final FormatUtil features) {
         initWidget(ourUiBinder.createAndBindUi(this));
         init(streamEntry, features);
     }
 
-    protected void init(LSDEntity streamEntry, FormatUtil features) {
+    protected void init(@Nonnull LSDEntity streamEntry, @Nonnull FormatUtil features) {
         this.entity = streamEntry;
         final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, true);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));

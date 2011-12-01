@@ -3,6 +3,8 @@ package cazcade.vortex.gwt.util.client.history;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -13,7 +15,7 @@ public abstract class AbstractLazyHistoryAwareFactory implements HistoryAwareFac
 
 
     @Override
-    public void withInstance(final HistoryAwareFactoryCallback callback) {
+    public void withInstance(@Nonnull final HistoryAwareFactoryCallback callback) {
         GWT.runAsync(new RunAsyncCallback() {
             @Override
             public void onFailure(Throwable reason) {
@@ -33,6 +35,7 @@ public abstract class AbstractLazyHistoryAwareFactory implements HistoryAwareFac
 
     }
 
+    @Nonnull
     protected abstract HistoryAware getInstanceInternal();
 
     @Override

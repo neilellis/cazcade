@@ -6,6 +6,8 @@ import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -16,7 +18,7 @@ public class ImagePresenter extends AbstractPoolObjectPresenter<ImageView> {
     }
 
     @Override
-    public void update(final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -25,7 +27,6 @@ public class ImagePresenter extends AbstractPoolObjectPresenter<ImageView> {
             }
         });
     }
-
 
 
 }

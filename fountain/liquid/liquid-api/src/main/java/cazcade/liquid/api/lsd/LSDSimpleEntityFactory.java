@@ -2,6 +2,7 @@ package cazcade.liquid.api.lsd;
 
 import cazcade.liquid.api.LiquidUUID;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,14 +12,16 @@ import java.util.Map;
 
 public class LSDSimpleEntityFactory implements LSDEntityFactory {
 
-    public LSDEntity create(LiquidUUID uuid) {
+    @Nonnull
+    public LSDEntity create(@Nonnull LiquidUUID uuid) {
         LSDEntity structuredPropertyLSDEntity = LSDSimpleEntity.createEmpty();
         structuredPropertyLSDEntity.setAttribute(LSDAttribute.ID, uuid.toString());
         structuredPropertyLSDEntity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         return structuredPropertyLSDEntity;
     }
 
-    public LSDEntity create(Map<String, String> properties, boolean dotPrefixed) {
+    @Nonnull
+    public LSDEntity create(@Nonnull Map<String, String> properties, boolean dotPrefixed) {
         Map<String, String> lsdProperties = new HashMap<String, String>();
         if (dotPrefixed) {
             for (Map.Entry<String, String> entry : properties.entrySet()) {
@@ -34,7 +37,8 @@ public class LSDSimpleEntityFactory implements LSDEntityFactory {
 
     }
 
-    public LSDEntity createFromServletProperties(Map<String, String[]> properties) {
+    @Nonnull
+    public LSDEntity createFromServletProperties(@Nonnull Map<String, String[]> properties) {
         Map<String, String> lsdProperties = new HashMap<String, String>();
         for (Map.Entry<String, String[]> entry : properties.entrySet()) {
             final String key = entry.getKey();

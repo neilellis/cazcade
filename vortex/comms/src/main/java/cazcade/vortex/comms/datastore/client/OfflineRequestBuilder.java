@@ -6,10 +6,12 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.storage.client.Storage;
 
+import javax.annotation.Nonnull;
+
 public class OfflineRequestBuilder extends RequestBuilder {
 
-    private LiquidSessionIdentifier identity;
-    private String applicationVersion;
+    private final LiquidSessionIdentifier identity;
+    private final String applicationVersion;
 
     public OfflineRequestBuilder(LiquidSessionIdentifier identity, Method httpMethod, String url, String applicationVersion) {
         super(httpMethod, url);
@@ -41,8 +43,9 @@ public class OfflineRequestBuilder extends RequestBuilder {
         return super.sendRequest(requestData, requestCallbackWrapper);
     }
 
+    @Nonnull
     private String cacheKey(String requestData) {
-        return identity.getName()+":"+applicationVersion+":"+requestData;
+        return identity.getName() + ":" + applicationVersion + ":" + requestData;
     }
 
 }

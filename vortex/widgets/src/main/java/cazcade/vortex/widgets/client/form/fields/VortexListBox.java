@@ -18,6 +18,8 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +28,9 @@ import java.util.List;
  */
 public class VortexListBox extends AbstractVortexFormField {
 
+    @Nonnull
     public static final String OTHER_FIELD_VALUE = "_______OTHER_________";
+    @Nonnull
     protected final Bus bus = BusFactory.getInstance();
 
     protected boolean useVisibleText;
@@ -55,7 +59,7 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void setValue(String text) {
+    public void setValue(@Nullable String text) {
         if (text == null || text.isEmpty()) {
             listBox.setItemSelected(0, true);
             otherBox.addStyleName("invisible");
@@ -78,7 +82,7 @@ public class VortexListBox extends AbstractVortexFormField {
             }
         }
         if (otherOption && !found) {
-            otherBox.setWidth(listBox.getOffsetWidth()+"px");
+            otherBox.setWidth(listBox.getOffsetWidth() + "px");
             otherBox.removeStyleName("invisible");
             listBox.setItemSelected(listBox.getItemCount() - 1, true);
             otherBox.setValue(text);
@@ -102,7 +106,7 @@ public class VortexListBox extends AbstractVortexFormField {
     interface VortexListBoxUiBinder extends UiBinder<HTMLPanel, VortexListBox> {
     }
 
-    private static VortexListBoxUiBinder listBoxBinder = GWT.create(VortexListBoxUiBinder.class);
+    private static final VortexListBoxUiBinder listBoxBinder = GWT.create(VortexListBoxUiBinder.class);
 
     public static UiBinder getUiBinder() {
         return listBoxBinder;
@@ -134,14 +138,14 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, final String initialValue) {
+    public void bind(@Nonnull LSDAttribute attribute, String prefix, final String initialValue) {
         boundAttribute = attribute;
         LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false);
         retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(RetrievePoolRequest message, RetrievePoolRequest response) {
+            public void onSuccess(RetrievePoolRequest message, @Nonnull RetrievePoolRequest response) {
                 final List<LSDEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entities);
                 for (LSDEntity entity : entities) {

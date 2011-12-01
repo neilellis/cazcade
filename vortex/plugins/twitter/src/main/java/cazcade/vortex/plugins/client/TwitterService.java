@@ -4,6 +4,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -14,8 +16,10 @@ public interface TwitterService extends RemoteService {
      * Use TwitterService.App.getInstance() to access static instance of TwitterServiceAsync
      */
     public static class App {
+        @Nonnull
         private static final TwitterServiceAsync ourInstance = (TwitterServiceAsync) GWT.create(TwitterService.class);
 
+        @Nonnull
         public static TwitterServiceAsync getInstance() {
             return ourInstance;
         }

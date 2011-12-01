@@ -13,7 +13,7 @@ public class AliasDetailPanel extends AbstractAliasDetailPanel {
     interface AliasDetailPanelUiBinder extends UiBinder<HTMLPanel, AliasDetailPanel> {
     }
 
-    private static AliasDetailPanelUiBinder ourUiBinder = GWT.create(AliasDetailPanelUiBinder.class);
+    private static final AliasDetailPanelUiBinder ourUiBinder = GWT.create(AliasDetailPanelUiBinder.class);
 
 
     public AliasDetailPanel() {

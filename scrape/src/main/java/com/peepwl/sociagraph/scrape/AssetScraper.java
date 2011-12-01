@@ -5,6 +5,7 @@ import org.webharvest.definition.ScraperConfiguration;
 import org.webharvest.runtime.variables.Variable;
 import org.xml.sax.InputSource;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -17,22 +18,31 @@ import java.util.regex.Pattern;
  */
 
 public class AssetScraper implements EntityScrapeResult {
+    @Nonnull
     private final static Logger log = Logger.getLogger(AssetScraper.class);
-    private static ScraperConfiguration config =
+    @Nonnull
+    private static final ScraperConfiguration config =
             new ScraperConfiguration(new InputSource(AssetScraper.class.getResourceAsStream("/asset-scrape.xml")));
 
-    private List<String> feeds = new ArrayList<String>();
-    private List<String> videos = new ArrayList<String>();
-    private List<String> images = new ArrayList<String>();
-    private String url;
+    @Nonnull
+    private final List<String> feeds = new ArrayList<String>();
+    @Nonnull
+    private final List<String> videos = new ArrayList<String>();
+    @Nonnull
+    private final List<String> images = new ArrayList<String>();
+    private final String url;
     private String page;
     private String favicon;
 
 
     public static final int IMAGE_SIZE_THRESHOLD = 5000;
+    @Nonnull
     public static final String YOU_TUBE_PREFIX = "http://www.youtube.com/watch?v=";
+    @Nonnull
     private static final String YOU_TUBE_DIRECT_PREFIX = "http://www.youtube.com/v/";
+    @Nonnull
     private static final String MOBILE_YOU_TUBE_PREFIX = "http://m.youtube.com";
+    @Nonnull
     public static final String YOU_TUBE_WATCH_PREFIX = YOU_TUBE_PREFIX;
     public static final Pattern VIDEO_PATTERN = Pattern.compile("&v=[a-zA-Z0-9]+");
 
@@ -40,6 +50,7 @@ public class AssetScraper implements EntityScrapeResult {
         this.url = url;
     }
 
+    @Nonnull
     public EntityScrapeResult scrape() {
 
         final File tempFile;
@@ -101,7 +112,7 @@ public class AssetScraper implements EntityScrapeResult {
         videos.add(urlMinusPrefix.split("&")[0].split("\\?")[0]);
     }
 
-    private void extractYouTubeVideoParam(String url) throws URISyntaxException {
+    private void extractYouTubeVideoParam(@Nonnull String url) throws URISyntaxException {
         final int videoParamIndex = url.indexOf("v=");
         if (videoParamIndex < 0) {
             return;
@@ -113,7 +124,7 @@ public class AssetScraper implements EntityScrapeResult {
         videos.add(url.substring(videoParamIndex + 2, nextParamIndex));
     }
 
-    private static void convertToStringList(Variable result, List<String> target) {
+    private static void convertToStringList(@Nonnull Variable result, @Nonnull List<String> target) {
         target.clear();
         for (Object o : result.toList()) {
             final String s = o.toString();
@@ -123,14 +134,17 @@ public class AssetScraper implements EntityScrapeResult {
         }
     }
 
+    @Nonnull
     public List<String> getFeeds() {
         return feeds;
     }
 
+    @Nonnull
     public List<String> getYouTubeVideos() {
         return videos;
     }
 
+    @Nonnull
     public List<String> getImages() {
         return images;
     }

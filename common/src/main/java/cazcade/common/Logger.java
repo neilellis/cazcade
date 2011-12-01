@@ -18,6 +18,8 @@ import org.apache.log4j.PropertyConfigurator;
 import org.jasypt.digest.StandardStringDigester;
 import org.jasypt.salt.SaltGenerator;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -37,22 +39,29 @@ import java.util.zip.ZipOutputStream;
 public class Logger {
 
     public static final boolean USE_JIRA = false;
+    @Nonnull
     private final org.apache.log4j.Logger logger;
-    private static Set<String> errorHashes = Collections.synchronizedSet(new HashSet<String>());
+    private static final Set<String> errorHashes = Collections.synchronizedSet(new HashSet<String>());
 
-    private static ThreadLocal<String> session = new ThreadLocal<String>();
-    private static ThreadLocal<String> username = new ThreadLocal<String>();
-    private static ThreadLocal<List> context = new ThreadLocal<List>() {
+    @Nonnull
+    private static final ThreadLocal<String> session = new ThreadLocal<String>();
+    @Nonnull
+    private static final ThreadLocal<String> username = new ThreadLocal<String>();
+    @Nonnull
+    private static final ThreadLocal<List> context = new ThreadLocal<List>() {
+        @Nonnull
         @Override
         protected List initialValue() {
             return new ArrayList();
         }
     };
 
-    private StandardStringDigester digester;
+    @Nonnull
+    private final StandardStringDigester digester;
+    @Nonnull
     public static final XStream XSTREAM = new XStream();
 
-    private Logger(final org.apache.log4j.Logger logger) {
+    private Logger(@Nonnull final org.apache.log4j.Logger logger) {
         this.logger = logger;
         digester = new StandardStringDigester();
         digester.setSaltGenerator(new SaltGenerator() {
@@ -92,11 +101,13 @@ public class Logger {
 
     }
 
+    @Nonnull
     public static Logger getLogger(String name) {
         return new Logger(org.apache.log4j.Logger.getLogger(name));
     }
 
 
+    @Nonnull
     public static Logger getLogger(Class clazz) {
         return new Logger(org.apache.log4j.Logger.getLogger(clazz));
     }
@@ -107,7 +118,7 @@ public class Logger {
     }
 
 
-    public void debug(String message, Object... params) {
+    public void debug(String message, @Nonnull Object... params) {
         if (logger != null && logger.isDebugEnabled()) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.debug(message, (Throwable) params[0]);
@@ -160,12 +171,12 @@ public class Logger {
         }
     }
 
-    public void error(Throwable t) {
+    public void error(@Nonnull Throwable t) {
         error(t, "{0}", t.getMessage());
     }
 
 
-    public void error(String message, Object... params) {
+    public void error(String message, @Nonnull Object... params) {
         if (logger != null && logger.isEnabledFor(Level.ERROR)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 error((Throwable) params[0], message);
@@ -177,7 +188,7 @@ public class Logger {
     }
 
 
-    public void error(Throwable t, String message, Object... params) {
+    public void error(@Nonnull Throwable t, String message, Object... params) {
         if (logger != null && logger.isEnabledFor(Level.ERROR)) {
             logger.error(getPrefix() + MessageFormat.format(message, params), t);
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
@@ -192,7 +203,7 @@ public class Logger {
     }
 
 
-    public void fatal(Throwable t) {
+    public void fatal(@Nonnull Throwable t) {
         error(t);
     }
 
@@ -202,7 +213,7 @@ public class Logger {
     }
 
 
-    public void fatal(Throwable t, String message, Object... params) {
+    public void fatal(@Nonnull Throwable t, String message, Object... params) {
         error(t, message, params);
     }
 
@@ -222,7 +233,7 @@ public class Logger {
     }
 
 
-    public void info(String message, Object... params) {
+    public void info(String message, @Nonnull Object... params) {
         if (logger != null && logger.isEnabledFor(Priority.INFO)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.info(message, (Throwable) params[0]);
@@ -247,7 +258,7 @@ public class Logger {
     }
 
 
-    public void warn(String message, Object... params) {
+    public void warn(String message, @Nonnull Object... params) {
         if (logger != null && logger.isEnabledFor(Priority.WARN)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.warn(message, (Throwable) params[0]);
@@ -275,7 +286,7 @@ public class Logger {
         return logger.isDebugEnabled();
     }
 
-    public void session(String message) {
+    public void session(@Nonnull String message) {
         try {
             session(message.getBytes(CommonConstants.STRING_ENCODING));
         } catch (UnsupportedEncodingException e) {
@@ -293,7 +304,7 @@ public class Logger {
         writeToSessionLog(message, "session");
     }
 
-    private void writeToSessionLog(String message, String... logTypes) {
+    private void writeToSessionLog(@Nonnull String message, String... logTypes) {
         try {
             writeToSessionLog(message.getBytes(CommonConstants.STRING_ENCODING), logTypes);
         } catch (UnsupportedEncodingException e) {
@@ -302,7 +313,7 @@ public class Logger {
 
     }
 
-    private void writeToSessionLog(byte[] message, String... logTypes) {
+    private void writeToSessionLog(byte[] message, @Nonnull String... logTypes) {
         if (session.get() != null) {
             try {
                 File parent = getSessionLogDirectory();
@@ -320,6 +331,7 @@ public class Logger {
         }
     }
 
+    @Nullable
     private File getSessionLogDirectory() {
         if (session.get() == null) {
             return null;
@@ -329,16 +341,16 @@ public class Logger {
         }
     }
 
-    public void setSession(String sessionId, String username) {
+    public void setSession(@Nullable String sessionId, @Nullable String username) {
         if (sessionId == null) {
             session.set(null);
         } else {
             session.set(sessionId);
         }
         if (username == null) {
-            this.username.set(null);
+            Logger.username.set(null);
         } else {
-            this.username.set(username);
+            Logger.username.set(username);
         }
     }
 
@@ -354,7 +366,7 @@ public class Logger {
 
     }
 
-    public void notifyOfError(Throwable t, String message) {
+    public void notifyOfError(@Nonnull Throwable t, String message) {
         String hashStr = t.getClass().getName();
         StackTraceElement[] stackTraceElements = t.getStackTrace();
         for (StackTraceElement stackTraceElement : stackTraceElements) {
@@ -400,7 +412,7 @@ public class Logger {
         sendToJira(message, hash, summary, description, component, null, null);
     }
 
-    public void sendToJira(String message, String hash, String summary, String description, String component, byte[] attachment, String filename) {
+    public void sendToJira(String message, String hash, String summary, String description, String component, @Nullable byte[] attachment, @Nullable String filename) {
 
 
         //reduce chances of duplicate JIRA spam.

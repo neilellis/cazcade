@@ -9,24 +9,27 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class RegexTextBox extends VortexTextBox {
 
     private String regex = "^.*$";
-    private String oldText = "";
+    @Nonnull
+    private final String oldText = "";
 
 
     interface RegexTextBoxUiBinder extends UiBinder<HTMLPanel, RegexTextBox> {
     }
 
-    private static RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
+    private static final RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
 
     public RegexTextBox() {
         initWidget(ourUiBinder.createAndBindUi(this));
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(KeyPressEvent event) {
+            public void onKeyPress(@Nonnull KeyPressEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
                     final int keyCode = event.getUnicodeCharCode();
 

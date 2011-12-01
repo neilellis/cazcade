@@ -2,23 +2,28 @@ package cazcade.vortex.dnd.client.touch.end;
 
 import cazcade.vortex.dnd.client.touch.TouchEvent;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class TouchEndEvent extends TouchEvent<TouchEndHandler> {
 
-    private static final Type<TouchEndHandler> TYPE =new Type<TouchEndHandler>("touchend", new TouchEndEvent());
+    @Nonnull
+    private static final Type<TouchEndHandler> TYPE = new Type<TouchEndHandler>("touchend", new TouchEndEvent());
 
+    @Nonnull
     public static Type<TouchEndHandler> getType() {
-         return TYPE;
+        return TYPE;
     }
 
 
+    @Nonnull
     public final Type<TouchEndHandler> getAssociatedType() {
         return TYPE;
     }
 
-    protected void dispatch(TouchEndHandler handler) {
+    protected void dispatch(@Nonnull TouchEndHandler handler) {
         handler.onTouchEnd(this);
     }
 }

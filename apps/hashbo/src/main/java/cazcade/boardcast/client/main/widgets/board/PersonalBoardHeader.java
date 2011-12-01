@@ -12,6 +12,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -24,25 +26,27 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
     @UiField
     VortexEditableLabel text;
 
+    @Nonnull
     @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
+    @Nonnull
     @Override
-    protected Runnable getUpdateEntityAction(final Bindable field) {
+    protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
 
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolRequest message, UpdatePoolRequest response) {
+                    public void onSuccess(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
                         setEntity(response.getResponse().copy());
                     }
 
                     @Override
-                    public void onFailure(UpdatePoolRequest message, UpdatePoolRequest response) {
+                    public void onFailure(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
 
@@ -62,7 +66,7 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
     interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PersonalBoardHeader> {
     }
 
-    private static PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
+    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
     public PersonalBoardHeader() {
         HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);

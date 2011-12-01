@@ -6,42 +6,55 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import com.google.gwt.storage.client.Storage;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
+@SuppressWarnings({"StaticNonFinalField"})
 public class UserUtil {
+    @Nullable
     private static LiquidSessionIdentifier identity;
+    @Nullable
     private static LSDEntity currentAlias;
+    @Nonnull
     public static final String ANON = "anon";
+    @Nonnull
     public static final String ANON_ALIAS = "alias:cazcade:anon";
+    @Nonnull
     public static final String VORTEX_IDENTITY = "boardcast.identity";
 
+    @Nullable
     public static LiquidSessionIdentifier getIdentity() {
         return identity;
     }
 
-    public static void setIdentity(LiquidSessionIdentifier identity) {
+    public static void setIdentity(@Nullable final LiquidSessionIdentifier identity) {
         UserUtil.identity = identity;
     }
 
     public static boolean isAnonymousOrLoggedOut() {
-        return identity == null || identity.getName().equals("anon");
+        return identity == null || "anon".equals(identity.getName());
     }
 
+    @Nullable
     public static LSDEntity getCurrentAlias() {
         return currentAlias;
     }
 
-    public static void setCurrentAlias(LSDEntity currentAlias) {
+    public static void setCurrentAlias(@Nullable final LSDEntity currentAlias) {
         UserUtil.currentAlias = currentAlias;
     }
 
-    public static void storeIdentity(LiquidSessionIdentifier identity) {
-        if (identity != null && identity.getSession() != null) {
-            Storage.getSessionStorageIfSupported().setItem(VORTEX_IDENTITY, identity.toString());
+    @SuppressWarnings({"MethodParameterOfConcreteClass"})
+    public static void storeIdentity(@Nullable final LiquidSessionIdentifier storeIdentity) {
+        if (storeIdentity != null && storeIdentity.getSession() != null) {
+            Storage.getSessionStorageIfSupported().setItem(VORTEX_IDENTITY, storeIdentity.toString());
         }
     }
 
+    @Nullable
     public static LiquidSessionIdentifier retrieveUser() {
         final Storage storage = Storage.getSessionStorageIfSupported();
         if (storage == null) {
@@ -57,19 +70,27 @@ public class UserUtil {
 
     }
 
-    public static boolean isAnonymousAliasURI(String value) {
+    public static boolean isAnonymousAliasURI(final String value) {
         return ANON_ALIAS.equalsIgnoreCase(value);
     }
 
     public static boolean isAdmin() {
-        return currentAlias.getURI().toString().equals("alias:cazcade:admin");
+        if (currentAlias == null) {
+            return false;
+        }
+        final LiquidURI uri = currentAlias.getURI();
+        return uri != null && "alias:cazcade:admin".equals(uri.toString());
     }
 
-    public static boolean isAlias(LiquidURI uri) {
+    public static boolean isAlias(final LiquidURI uri) {
         return identity != null && identity.getAliasURL().equals(uri);
     }
 
+    @Nonnull
     public static LiquidURI getInboxURI() {
+        if (currentAlias == null) {
+            throw new NullPointerException("Attempted to use a null currentAlias to 'getInboxURI' in UserUtil.");
+        }
         return new LiquidURI("pool:///people/" + currentAlias.getAttribute(LSDAttribute.NAME) + "/.inbox");
     }
 

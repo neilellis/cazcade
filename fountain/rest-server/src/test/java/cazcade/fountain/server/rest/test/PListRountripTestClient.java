@@ -2,9 +2,9 @@ package cazcade.fountain.server.rest.test;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDMarshaler;
-import cazcade.liquid.api.lsd.LSDUnmarshaler;
+import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
+import cazcade.liquid.impl.LSDUnmarshaler;
 import cazcade.liquid.impl.LSDUnmarshallerFactory;
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -54,7 +54,7 @@ public class PListRountripTestClient {
         LSDMarshaler marshaler = lsdMarshalerFactory.getMarshalers().get("xml");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         marshaler.marshal(poolEntity, byteArrayOutputStream);
-        String postURL = "http://localhost:8080/liquid/rest/1.0/pool/" + poolEntity.getID().toString();
+        String postURL = "http://localhost:8080/liquid/rest/1.0/pool/" + poolEntity.getUUID().toString();
         System.out.println("Calling " + postURL);
         PostMethod postMethod = new PostMethod(postURL);
         System.out.println("Sending: +" + byteArrayOutputStream.toString());

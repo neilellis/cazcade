@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Image;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     interface ChangeImageUrlPanelUiBinder extends UiBinder<HTMLPanel, ChangeImageUrlPanel> {
     }
 
-    private static ChangeImageUrlPanelUiBinder ourUiBinder = GWT.create(ChangeImageUrlPanelUiBinder.class);
+    private static final ChangeImageUrlPanelUiBinder ourUiBinder = GWT.create(ChangeImageUrlPanelUiBinder.class);
 
     @Override
     public boolean isValid() {
@@ -43,7 +44,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
 
         imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(IUploader uploader) {
+            public void onFinish(@Nonnull IUploader uploader) {
                 if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
                     setValue(uploader.getServerInfo().message);
                     callOnChangeAction();
@@ -84,7 +85,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     }
 
     @Override
-    public void setOnChangeAction(final Runnable onChangeAction) {
+    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
         urlField.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
@@ -116,7 +117,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     }
 
     @Override
-    public void bind(LSDEntity entity, LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String prefix) {
         urlField.bind(entity, attribute, prefix);
         imageUploader.setImageURL(urlField.getValue());
     }
@@ -135,6 +136,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
         return urlField.isCompoundField();
     }
 
+    @Nonnull
     @Override
     public List<String> getStringValues() {
         return urlField.getStringValues();
@@ -146,6 +148,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
         return urlField.getEntity();
     }
 
+    @Nonnull
     @Override
     public LSDEntity getEntityDiff() {
         return urlField.getEntityDiff();

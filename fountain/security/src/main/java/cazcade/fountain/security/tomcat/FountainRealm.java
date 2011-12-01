@@ -9,6 +9,8 @@ import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.SecurityConstraint;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -19,9 +21,11 @@ import java.security.cert.X509Certificate;
  * @author neilelliz@cazcade.com
  */
 public class FountainRealm extends SecurityProvider implements Realm {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainRealm.class);
 
-    private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    @Nonnull
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     public FountainRealm() throws Exception {
         super();
@@ -37,6 +41,7 @@ public class FountainRealm extends SecurityProvider implements Realm {
         this.container = container;
     }
 
+    @Nonnull
     public String getInfo() {
         return "Fountain Data Store Security Realm";
     }
@@ -45,7 +50,8 @@ public class FountainRealm extends SecurityProvider implements Realm {
         propertyChangeSupport.addPropertyChangeListener(propertyChangeListener);
     }
 
-    public Principal authenticate(String username, String password) {
+    @Nullable
+    public Principal authenticate(@Nonnull String username, String password) {
         try {
             return doAuthentication(username, password);
         } catch (Exception e) {
@@ -54,14 +60,17 @@ public class FountainRealm extends SecurityProvider implements Realm {
         }
     }
 
+    @Nonnull
     public Principal authenticate(String s, byte[] bytes) {
         throw new UnsupportedOperationException();
     }
 
+    @Nonnull
     public Principal authenticate(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
         throw new UnsupportedOperationException();
     }
 
+    @Nonnull
     public Principal authenticate(X509Certificate[] x509Certificates) {
         throw new UnsupportedOperationException();
     }
@@ -69,11 +78,12 @@ public class FountainRealm extends SecurityProvider implements Realm {
     public void backgroundProcess() {
     }
 
+    @Nonnull
     public SecurityConstraint[] findSecurityConstraints(Request request, Context context) {
         return new SecurityConstraint[0];
     }
 
-    public boolean hasResourcePermission(Request request, Response response, SecurityConstraint[] securityConstraints, Context context) throws IOException {
+    public boolean hasResourcePermission(@Nonnull Request request, Response response, SecurityConstraint[] securityConstraints, Context context) throws IOException {
         if (request.getPathInfo() == null) {
             return false;
         }
@@ -85,7 +95,7 @@ public class FountainRealm extends SecurityProvider implements Realm {
         }
     }
 
-    public boolean hasRole(Principal principal, String role) {
+    public boolean hasRole(@Nonnull Principal principal, @Nonnull String role) {
         log.debug("hasRole(" + role + ")");
         if (principal.getName().equals("anon")) {
             return role.equals("anon");

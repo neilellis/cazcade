@@ -38,6 +38,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,9 +48,13 @@ import java.util.Map;
  */
 public class Boardcast implements EntryPoint {
 
+    @Nonnull
     public static final String MAIN_PANEL_ID = "main-panel";
+    @Nonnull
     public static final String LOGIN_PANEL_ID = "login-panel";
+    @Nonnull
     public static final String PUBLIC_BOARD_PANEL_ID = "board-panel";
+    @Nonnull
     public static final String SNAPSHOT_PANEL_ID = "snapshot-panel";
     private HashboLoginOrRegisterPanel loginOrRegisterPanel;
     private HistoryManager historyManager;
@@ -187,6 +193,7 @@ public class Boardcast implements EntryPoint {
     private void addCreateDialog() {
 
         historyManager.registerTopLevelComposite("create", new AbstractLazyHistoryAwareFactory() {
+            @Nonnull
             @Override
             protected HistoryAware getInstanceInternal() {
                 final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
@@ -199,13 +206,13 @@ public class Boardcast implements EntryPoint {
                         if (!listed) {
                             BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
                                 @Override
-                                public void callback(LiquidUUID uuid) {
+                                public void callback(@Nonnull LiquidUUID uuid) {
                                     final String unlistedShortUrl = "-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
-                                    historyManager.navigate(unlistedShortUrl);
+                                    HistoryManager.navigate(unlistedShortUrl);
                                 }
                             });
                         } else {
-                            historyManager.navigate(board);
+                            HistoryManager.navigate(board);
                         }
                     }
                 });
@@ -217,6 +224,7 @@ public class Boardcast implements EntryPoint {
     private void addPublicBoard() {
         historyManager = new HistoryManager(PUBLIC_BOARD_PANEL_ID);
         historyManager.registerTopLevelComposite("default", new AbstractLazyHistoryAwareFactory() {
+            @Nonnull
             @Override
             protected HistoryAware getInstanceInternal() {
                 final PublicBoard board = new PublicBoard();
@@ -225,12 +233,14 @@ public class Boardcast implements EntryPoint {
             }
         });
         historyManager.registerTopLevelComposite("chat", new AbstractLazyHistoryAwareFactory() {
+            @Nonnull
             @Override
             protected HistoryAware getInstanceInternal() {
                 return new BoardcastChatView();
             }
         });
         historyManager.registerTopLevelComposite("activity", new AbstractLazyHistoryAwareFactory() {
+            @Nonnull
             @Override
             protected HistoryAware getInstanceInternal() {
                 return new ActivityStreamPanel();
@@ -245,7 +255,7 @@ public class Boardcast implements EntryPoint {
         historyManager.registerTopLevelComposite("embed", new SnapshotBoardFactory(true));
     }
 
-    private void createLoginPanel(final Runnable loginAction) {
+    private void createLoginPanel(@Nonnull final Runnable loginAction) {
         loginOrRegisterPanel = new HashboLoginOrRegisterPanel(registerRequest, new Runnable() {
             @Override
             public void run() {
@@ -264,7 +274,7 @@ public class Boardcast implements EntryPoint {
         );
     }
 
-    private void checkUserLoggedIn(final Runnable loginAction) {
+    private void checkUserLoggedIn(@Nonnull final Runnable loginAction) {
         final LiquidSessionIdentifier identity = UserUtil.retrieveUser();
         if (identity == null || identity.getSession() == null || registerRequest || (createRequest && UserUtil.isAnonymousOrLoggedOut())) {
             DataStoreService.App.getInstance().loginQuick(!ClientApplicationConfiguration.isLoginRequired() && !createRequest && !registerRequest, new AsyncCallback<LiquidSessionIdentifier>() {
@@ -274,7 +284,7 @@ public class Boardcast implements EntryPoint {
                 }
 
                 @Override
-                public void onSuccess(LiquidSessionIdentifier result) {
+                public void onSuccess(@Nullable LiquidSessionIdentifier result) {
                     if (result == null) {
 //                        Window.alert("Login required.");
                         loginOrRegisterPanel.center();
@@ -291,7 +301,7 @@ public class Boardcast implements EntryPoint {
         }
     }
 
-    private void loginUser(final LiquidSessionIdentifier identity, final Runnable onLogin) {
+    private void loginUser(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final Runnable onLogin) {
         UserUtil.setIdentity(identity);
         UserUtil.storeIdentity(identity);
         GWTDataStore dataStore = new GWTDataStore(identity, new Runnable() {
@@ -300,7 +310,7 @@ public class Boardcast implements EntryPoint {
                 BusFactory.getInstance().start();
                 BusFactory.getInstance().send(new RetrieveAliasRequest(identity.getAliasURL()), new AbstractResponseCallback<RetrieveAliasRequest>() {
                     @Override
-                    public void onSuccess(RetrieveAliasRequest message, RetrieveAliasRequest response) {
+                    public void onSuccess(RetrieveAliasRequest message, @Nonnull RetrieveAliasRequest response) {
                         final LSDEntity alias = response.getResponse();
                         UserUtil.setCurrentAlias(alias);
                         Map<String, String> propertyMap = new HashMap<String, String>();
@@ -331,7 +341,7 @@ public class Boardcast implements EntryPoint {
                     }
 
                     @Override
-                    public void onFailure(RetrieveAliasRequest message, RetrieveAliasRequest response) {
+                    public void onFailure(RetrieveAliasRequest message, @Nonnull RetrieveAliasRequest response) {
                         ClientLog.log(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
                 });
@@ -367,13 +377,14 @@ public class Boardcast implements EntryPoint {
     private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
 
 
-        private boolean embedded;
+        private final boolean embedded;
 
         public SnapshotBoardFactory(boolean embedded) {
 
             this.embedded = embedded;
         }
 
+        @Nonnull
         @Override
         protected HistoryAware getInstanceInternal() {
             final SnapshotBoard board = new SnapshotBoard(embedded);

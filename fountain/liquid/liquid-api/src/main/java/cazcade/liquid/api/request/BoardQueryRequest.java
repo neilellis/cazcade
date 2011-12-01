@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,24 +14,24 @@ public class BoardQueryRequest extends AbstractRequest {
     }
 
 
-    public BoardQueryRequest(LiquidSessionIdentifier liquidSessionId, QueryType type) {
+    public BoardQueryRequest(LiquidSessionIdentifier liquidSessionId, @Nonnull QueryType type) {
         this(null, liquidSessionId, type, null);
     }
 
-    public BoardQueryRequest(QueryType type) {
+    public BoardQueryRequest(@Nonnull QueryType type) {
         this(null, null, type, null);
     }
 
-    public BoardQueryRequest(QueryType type, LiquidURI alias) {
+    public BoardQueryRequest(@Nonnull QueryType type, LiquidURI alias) {
         this(null, null, type, alias);
     }
 
-    public BoardQueryRequest(LiquidSessionIdentifier sessionIdentifier, QueryType type, LiquidURI alias) {
+    public BoardQueryRequest(LiquidSessionIdentifier sessionIdentifier, @Nonnull QueryType type, LiquidURI alias) {
         this(null, sessionIdentifier, type, alias);
     }
 
 
-    public BoardQueryRequest(LiquidUUID id, LiquidSessionIdentifier identity, QueryType type, LiquidURI alias) {
+    public BoardQueryRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nonnull QueryType type, @Nullable LiquidURI alias) {
         this.setId(id);
         this.setQueryType(type);
         this.setAlias(alias);
@@ -37,6 +39,7 @@ public class BoardQueryRequest extends AbstractRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new BoardQueryRequest(getId(), getSessionIdentifier(), getQueryType(), super.getAlias());
@@ -56,6 +59,7 @@ public class BoardQueryRequest extends AbstractRequest {
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.BOARD_QUERY;
     }

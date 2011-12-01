@@ -3,6 +3,7 @@ package cazcade.vortex.gwt.util.client;
 
 import com.google.gwt.user.client.Timer;
 
+import javax.annotation.Nonnull;
 import java.util.Stack;
 
 /**
@@ -11,7 +12,8 @@ import java.util.Stack;
 public class VortexThreadSafeExecutor {
 
     public static final int SCHEDULER_DELAY_MIILLIS = 50;
-    private Stack<Runnable> stack = new Stack<Runnable>();
+    @Nonnull
+    private final Stack<Runnable> stack = new Stack<Runnable>();
 
     public VortexThreadSafeExecutor() {
         new Timer() {

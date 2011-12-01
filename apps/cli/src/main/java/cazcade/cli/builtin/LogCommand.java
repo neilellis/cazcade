@@ -10,20 +10,25 @@ import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.varia.LevelMatchFilter;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
 
 public class LogCommand extends AbstractShortLivedCommand {
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Set the console logging level.";
     }
 
+    @Nonnull
     public String getName() {
         return "log";
     }
@@ -32,7 +37,7 @@ public class LogCommand extends AbstractShortLivedCommand {
         return 0;
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, ShellSession shellSession) throws Exception {
         if (args.length == 0) {
             System.err.println("You must specify the new logging level, try either debug, info, warn or error.");
             return "";
@@ -44,7 +49,7 @@ public class LogCommand extends AbstractShortLivedCommand {
         final Level level = Level.toLevel(args[0]);
         appender.addFilter(new Filter() {
             @Override
-            public int decide(LoggingEvent loggingEvent) {
+            public int decide(@Nonnull LoggingEvent loggingEvent) {
                 return loggingEvent.getLevel().isGreaterOrEqual(level) ? ACCEPT : DENY;
             }
         });

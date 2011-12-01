@@ -1,7 +1,8 @@
 package cazcade.cli.commands;
 
-import java.util.List;
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Neil Ellis
@@ -9,12 +10,14 @@ import java.util.ArrayList;
 
 public class CommandGroup implements ExecutableCommand {
 
-    private List<ExecutableCommand> commands = new ArrayList<ExecutableCommand>();
+    @Nonnull
+    private final List<ExecutableCommand> commands = new ArrayList<ExecutableCommand>();
 
     public void add(ExecutableCommand command) {
         commands.add(command);
     }
 
+    @Nonnull
     public String execute() throws Exception {
         for (ExecutableCommand command : commands) {
             command.execute();

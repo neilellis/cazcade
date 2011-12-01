@@ -10,7 +10,7 @@ import com.google.gwt.user.client.Command;
  */
 public abstract class AbstractCreateCommand implements Command {
     protected LSDDictionaryTypes type;
-    protected LiquidURI pool;
+    protected final LiquidURI pool;
     protected AbstractCreateCommand.Size size;
     protected String theme;
 

@@ -1,7 +1,6 @@
 package cazcade.fountain.datastore.impl.io;
 
-import cazcade.fountain.datastore.impl.Constants;
-import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.liquid.api.lsd.LSDAttribute;
 import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
@@ -10,6 +9,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,8 +17,8 @@ import java.io.IOException;
  * @author neilellis@cazcade.com
  */
 public class FountainNeoExporter {
-
-    private GraphDatabaseService graphDatabase;
+    public static final String ID = LSDAttribute.ID.getKeyName();
+    private final GraphDatabaseService graphDatabase;
 
     public FountainNeoExporter(GraphDatabaseService graphDatabase) {
         this.graphDatabase = graphDatabase;
@@ -38,15 +38,15 @@ public class FountainNeoExporter {
         JsonGenerator relGen = f.createJsonGenerator(new File(dir, "rels.json"), JsonEncoding.UTF8);
         allNodes = graphDatabase.getAllNodes();
         for (Node node : allNodes) {
-            if (node.hasProperty(FountainNeo.ID)) {
+            if (node.hasProperty(ID)) {
                 relGen.writeStartObject();
-                relGen.writeStringField("id", node.getProperty(FountainNeo.ID).toString());
+                relGen.writeStringField("id", node.getProperty(ID).toString());
                 relGen.writeArrayFieldStart("rels");
                 Iterable<Relationship> relationships = node.getRelationships(Direction.OUTGOING);
                 for (Relationship relationship : relationships) {
                     relGen.writeStartObject();
                     relGen.writeStringField("t", relationship.getType().name());
-                    relGen.writeStringField("d", relationship.getEndNode().getProperty(FountainNeo.ID).toString());
+                    relGen.writeStringField("d", relationship.getEndNode().getProperty(ID).toString());
                     relGen.writeObjectFieldStart("p");
                     writeProperties(relGen, relationship);
                     relGen.writeEndObject();
@@ -60,14 +60,14 @@ public class FountainNeoExporter {
 
     }
 
-    private void writeProperties(JsonGenerator g, Node node) throws IOException {
+    private void writeProperties(@Nonnull JsonGenerator g, @Nonnull Node node) throws IOException {
         Iterable<String> propertyKeys = node.getPropertyKeys();
         for (String propertyKey : propertyKeys) {
             g.writeStringField(propertyKey, node.getProperty(propertyKey).toString());
         }
     }
 
-    private void writeProperties(JsonGenerator g, Relationship rel) throws IOException {
+    private void writeProperties(@Nonnull JsonGenerator g, @Nonnull Relationship rel) throws IOException {
         Iterable<String> propertyKeys = rel.getPropertyKeys();
         for (String propertyKey : propertyKeys) {
             g.writeStringField(propertyKey, rel.getProperty(propertyKey).toString());

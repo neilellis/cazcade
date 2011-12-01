@@ -27,6 +27,8 @@ import com.sun.syndication.io.XmlReader;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.HeadMethod;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
@@ -37,8 +39,10 @@ import java.util.concurrent.*;
 
 public class WebUtilRestHandler extends AbstractRestHandler {
 
-    private ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10000), new ThreadPoolExecutor.CallerRunsPolicy());
+    @Nonnull
+    private final ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10000), new ThreadPoolExecutor.CallerRunsPolicy());
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(WebUtilRestHandler.class);
     private DefaultImageService imageService;
     private Shortener shortener;
@@ -48,7 +52,8 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     public WebUtilRestHandler() {
     }
 
-    public LSDEntity shorten(Map<String, String[]> parameters) throws URISyntaxException {
+    @Nonnull
+    public LSDEntity shorten(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "url");
         final String url = parameters.get("url")[0];
         URI uri = shortener.getShortenedURI(url);
@@ -66,7 +71,8 @@ public class WebUtilRestHandler extends AbstractRestHandler {
 //        return entity;
 //    }
 
-    public LSDEntity get(Map<String, String[]> parameters) throws URISyntaxException, ExecutionException, InterruptedException {
+    @Nonnull
+    public LSDEntity get(@Nonnull Map<String, String[]> parameters) throws URISyntaxException, ExecutionException, InterruptedException {
         checkForSingleValueParams(parameters, "url", "size");
         final String url = parameters.get("url")[0];
         final String size = parameters.get("size")[0];
@@ -74,12 +80,14 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         return createWebsiteEntity(url, ImageSize.valueOf(size), generate);
     }
 
+    @Nonnull
     private LSDSimpleEntity createWebsiteEntity(String url, ImageSize size, boolean generate) throws URISyntaxException, ExecutionException, InterruptedException {
         Future<CacheResponse> futureResponse = getWebsiteSnapshot(url, size, generate);
         return convertSnapshotToEntity(url, futureResponse);
     }
 
-    private LSDSimpleEntity convertSnapshotToEntity(String url, Future<CacheResponse> futureResponse) throws InterruptedException, ExecutionException {
+    @Nonnull
+    private LSDSimpleEntity convertSnapshotToEntity(String url, @Nonnull Future<CacheResponse> futureResponse) throws InterruptedException, ExecutionException {
         LSDSimpleEntity responseEntity = LSDSimpleEntity.createEmpty();
         responseEntity.setID(UUIDFactory.randomUUID());
         responseEntity.setType(LSDDictionaryTypes.WEBPAGE);
@@ -104,6 +112,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
 
     private Future<CacheResponse> getWebsiteSnapshot(final String url, final ImageSize size, final boolean generate) {
         return snapshotExecutor.submit(new Callable<CacheResponse>() {
+            @Nullable
             public CacheResponse call() throws Exception {
                 CacheResponse response = null;
                 //temporary, need to get the client to do the polling!
@@ -124,7 +133,8 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         });
     }
 
-    public LSDEntity scrape(Map<String, String[]> parameters) throws URISyntaxException, ExecutionException, InterruptedException {
+    @Nonnull
+    public LSDEntity scrape(@Nonnull Map<String, String[]> parameters) throws URISyntaxException, ExecutionException, InterruptedException {
         ArrayList<LSDEntity> entities = new ArrayList<LSDEntity>();
         HttpClient client = new HttpClient();
         checkForSingleValueParams(parameters, "url");
@@ -177,7 +187,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         return collectionEntity;
     }
 
-    private void addFeeds(ArrayList<LSDEntity> entities, List<String> feeds) {
+    private void addFeeds(@Nonnull ArrayList<LSDEntity> entities, @Nonnull List<String> feeds) {
         int count = 1;
         for (String feed : feeds) {
             try {
@@ -228,7 +238,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     }
 
 
-    private void addYouTubeVideos(ArrayList<LSDEntity> entities, List<String> videos) {
+    private void addYouTubeVideos(@Nonnull ArrayList<LSDEntity> entities, @Nonnull List<String> videos) {
         int count = 1;
         for (String video : videos) {
             try {
@@ -301,7 +311,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     }
 
 
-    private void addImages(ArrayList<LSDEntity> entitiesToAddTo, List<String> images) {
+    private void addImages(@Nonnull ArrayList<LSDEntity> entitiesToAddTo, @Nonnull List<String> images) {
         ArrayList<LSDEntity> entities = new ArrayList<LSDEntity>();
         HttpClient client = new HttpClient();
         int count = 1;
@@ -341,7 +351,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
 
         }
         Collections.sort(entities, new Comparator<LSDEntity>() {
-            public int compare(LSDEntity o1, LSDEntity o2) {
+            public int compare(@Nonnull LSDEntity o1, @Nonnull LSDEntity o2) {
                 String sizeStr1 = o1.getAttribute(LSDAttribute.MEDIA_SIZE);
                 long size1 = Long.parseLong(sizeStr1);
                 String sizeStr2 = o2.getAttribute(LSDAttribute.MEDIA_SIZE);

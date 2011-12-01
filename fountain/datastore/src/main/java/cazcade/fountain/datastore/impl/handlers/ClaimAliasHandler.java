@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -12,10 +14,9 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.ClaimAliasRequest;
 import cazcade.liquid.impl.UUIDFactory;
 import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,8 @@ import java.util.List;
  */
 public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasRequest> implements ClaimAliasRequestHandler {
 
-    public ClaimAliasRequest handle(ClaimAliasRequest request) throws Exception {
+    @Nonnull
+    public ClaimAliasRequest handle(@Nonnull ClaimAliasRequest request) throws Exception {
         LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
         entity.timestamp();
         entity.setID(UUIDFactory.randomUUID());
@@ -47,7 +49,7 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
                         }
                     }
                     claimedNode.createRelationshipTo(userNode, FountainRelationships.ALIAS);
-                    LSDEntity child = fountainNeo.convertNodeToLSD(claimedNode, request.getDetail(), request.isInternal());
+                    LSDEntity child = claimedNode.convertNodeToLSD(request.getDetail(), request.isInternal());
                     children.add(child);
                     //todo: auto add feeds
                     if (child.attributeIs(LSDAttribute.NETWORK, "twitter")) {
@@ -71,7 +73,7 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
         }
     }
 
-    private void addTwitterFeed(LiquidSessionIdentifier identity, ClaimAliasRequest request, LSDEntity child) throws Exception {
+    private void addTwitterFeed(LiquidSessionIdentifier identity, @Nonnull ClaimAliasRequest request, @Nonnull LSDEntity child) throws Exception {
         LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TWITTER_FEED, UUIDFactory.randomUUID());
         String name = child.getAttribute(LSDAttribute.NAME);
         entity.setAttribute(LSDAttribute.EURI, String.format("timeline://%s@twitter/", name));

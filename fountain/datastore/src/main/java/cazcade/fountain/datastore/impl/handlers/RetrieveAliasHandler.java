@@ -1,6 +1,8 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
+import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -12,21 +14,21 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.impl.UUIDFactory;
 import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAliasRequest> implements RetrieveAliasRequestHandler {
+    @Nonnull
     private final static Logger log = Logger.getLogger(RetrieveAliasHandler.class);
 
-    public RetrieveAliasRequest handle(RetrieveAliasRequest request) throws Exception {
+    @Nonnull
+    public RetrieveAliasRequest handle(@Nonnull RetrieveAliasRequest request) throws Exception {
         LSDEntity result;
         if (request.getTarget() != null) {
             throw new UnsupportedOperationException("Retrieval by alias UUID not supported anymore.");
@@ -52,17 +54,17 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
                 }
 
                 if (userNode.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
-                    boolean found= false;
+                    boolean found = false;
                     Iterable<Relationship> relationships = userNode.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
                     for (Relationship relationship : relationships) {
                         Node aliasNode = relationship.getOtherNode(userNode);
-                        if (!fountainNeo.isDeleted(aliasNode)) {
-                            LSDEntity child = fountainNeo.convertNodeToLSD(aliasNode, request.getDetail(), request.isInternal());
+                        if (!aliasNode.isDeleted()) {
+                            LSDEntity child = aliasNode.convertNodeToLSD(request.getDetail(), request.isInternal());
                             children.add(child);
-                            found= true;
+                            found = true;
                         }
                     }
-                    if(!found) {
+                    if (!found) {
                         transaction.success();
                         return LiquidResponseHelper.forEmptyResultResponse(request);
                     }

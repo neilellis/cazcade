@@ -45,6 +45,7 @@ import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,10 +54,11 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 public class CallbackServlet extends AbstractTwitterServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(CallbackServlet.class);
     private static final long serialVersionUID = 1657390011452788111L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
             Twitter twitter = (Twitter) session.getAttribute("twitter");
@@ -104,7 +106,8 @@ public class CallbackServlet extends AbstractTwitterServlet {
         }
     }
 
-    private LSDSimpleEntity buildAlias(AccessToken authAccessToken, User user, boolean twitter) {
+    @Nonnull
+    private LSDSimpleEntity buildAlias(@Nonnull AccessToken authAccessToken, @Nonnull User user, boolean twitter) {
         LSDSimpleEntity alias = LSDSimpleEntity.createEmpty();
         alias.setType(LSDDictionaryTypes.ALIAS);
         alias.timestamp();

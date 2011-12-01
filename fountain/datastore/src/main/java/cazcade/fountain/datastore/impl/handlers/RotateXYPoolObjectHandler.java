@@ -1,20 +1,23 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RotateXYPoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.request.RotateXYPoolObjectRequest;
 import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXYPoolObjectRequest> implements RotateXYPoolObjectRequestHandler {
 
-    public RotateXYPoolObjectRequest handle(RotateXYPoolObjectRequest request) throws InterruptedException {
+    @Nonnull
+    public RotateXYPoolObjectRequest handle(@Nonnull RotateXYPoolObjectRequest request) throws InterruptedException {
         Transaction transaction = fountainNeo.beginTx();
         try {
             Node node = fountainNeo.findByUUID(request.getObjectUUID());
@@ -22,10 +25,10 @@ public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXY
 
             if (request.getAngle() != null) {
 
-                node.setProperty(LSDAttribute.VIEW_ROTATE_XY.getKeyName(), request.getAngle().toString());
+                node.setAttribute(LSDAttribute.VIEW_ROTATE_XY, request.getAngle());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.convertNodeToLSD(viewNode, request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, viewNode.convertNodeToLSD(request.getDetail(), request.isInternal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

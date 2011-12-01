@@ -6,6 +6,7 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Nonnull;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class FountainEmailService {
     MailService mailService;
 
 
-    public void send(LSDEntity user, LSDEntity alias, String templateName, String subject, Object data, boolean test) throws UnsupportedEncodingException {
+    public void send(@Nonnull LSDEntity user, @Nonnull LSDEntity alias, String templateName, String subject, Object data, boolean test) throws UnsupportedEncodingException {
 
         Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
@@ -36,7 +37,7 @@ public class FountainEmailService {
     }
 
 
-    public void sendRegistrationEmail(LSDEntity user) throws UnsupportedEncodingException {
+    public void sendRegistrationEmail(@Nonnull LSDEntity user) throws UnsupportedEncodingException {
         //Please click on this link to complete your registration
         String link = "http://boardcast.it/_login-confirm-reg?user=" +
                 java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
@@ -55,7 +56,7 @@ public class FountainEmailService {
     }
 
 
-    public void sendChangePasswordRequest(LSDEntity user, String hash) throws UnsupportedEncodingException {
+    public void sendChangePasswordRequest(@Nonnull LSDEntity user, String hash) throws UnsupportedEncodingException {
         String link = "http://boardcast.it/_password-change?username=" +
                 java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
                 "&hash=" + java.net.URLEncoder.encode(hash, "utf8");

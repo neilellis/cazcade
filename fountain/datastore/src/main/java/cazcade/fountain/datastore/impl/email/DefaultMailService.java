@@ -6,6 +6,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -23,6 +25,7 @@ public class DefaultMailService implements MailService {
     /**
      * System property to set to override default template directory of &quot;./mail-templates&quot;.
      */
+    @Nonnull
     public static final String TEMPLATE_DIR_PROP = "cazcade.template.dir";
 
     private static final Logger LOG = Logger.getLogger(DefaultMailService.class);
@@ -49,7 +52,7 @@ public class DefaultMailService implements MailService {
     }
 
     @Override
-    public void sendMailFromTemplate(String templateIdentifier, String subject, String[] to, String[] cc, String[] bcc,
+    public void sendMailFromTemplate(String templateIdentifier, String subject, String[] to, @Nonnull String[] cc, @Nonnull String[] bcc,
                                      Map<String, Object> templateParameters, boolean test) {
         try {
             Template template = velocity.getTemplate(templateIdentifier, "UTF-8");
@@ -87,7 +90,7 @@ public class DefaultMailService implements MailService {
         }
     }
 
-    private void addRecipients(MimeMessage message, String[] recipients, Message.RecipientType recipientType) throws MessagingException {
+    private void addRecipients(@Nonnull MimeMessage message, @Nonnull String[] recipients, Message.RecipientType recipientType) throws MessagingException {
         for (String recipient : recipients) {
             message.addRecipient(recipientType, new InternetAddress(recipient));
         }
@@ -101,7 +104,7 @@ public class DefaultMailService implements MailService {
         velocity.init();
     }
 
-    private void initialiseMailSession(String smtpHost, SMTPAuthenticator smtpAuthenticator) throws NoSuchProviderException {
+    private void initialiseMailSession(String smtpHost, @Nullable SMTPAuthenticator smtpAuthenticator) throws NoSuchProviderException {
         Properties mailProperties = new Properties();
         mailProperties.put("mail.transport.protocol", "smtp");
         mailProperties.put("mail.smtp.host", smtpHost);

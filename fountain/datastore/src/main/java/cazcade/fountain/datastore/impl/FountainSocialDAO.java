@@ -1,20 +1,24 @@
 package cazcade.fountain.datastore.impl;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDEntity;
-import org.neo4j.graphdb.Node;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collection;
 
 /**
  * @author neilellis@cazcade.com
  */
 public interface FountainSocialDAO {
+    @Nullable
     Collection<LSDEntity> getRosterNoTX(LiquidURI uri, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel request) throws InterruptedException;
 
+    @Nullable
     Collection<LSDEntity> getRosterNoTX(LiquidUUID target, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel detail) throws InterruptedException;
 
     boolean isFollowing(Node currentAlias, Node node) throws InterruptedException;
@@ -28,5 +32,6 @@ public interface FountainSocialDAO {
     void recordChat(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LSDEntity entity);
 
 
+    @Nonnull
     ChangeReport getUpdateSummaryForAlias(LiquidURI aliasURI, long since) throws InterruptedException;
 }

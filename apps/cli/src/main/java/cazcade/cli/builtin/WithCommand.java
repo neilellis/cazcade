@@ -8,34 +8,42 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDEntity;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Neil Ellis
  */
 
 public class WithCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(WithCommand.class);
 
-    private ExecutableCommand command;
+    private final ExecutableCommand command;
 
     public WithCommand(ExecutableCommand command) {
         this.command = command;
     }
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Executes commands within the context of an entity and then persists the changes.";
     }
 
+    @Nonnull
     public String getName() {
         return "with";
     }
 
 
-    public String run(final String[] args, final ShellSession shellSession) throws Exception {
+    @Nullable
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
         if (args.length < 2) {
             System.err.println("with (user|alias|pool) <identifier> { <commands> }");
             return null;

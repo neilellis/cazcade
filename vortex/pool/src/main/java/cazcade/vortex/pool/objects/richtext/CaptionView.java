@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  */
 public class CaptionView extends RichTextView {
 
-    protected static CaptionViewUIBinder ourUiBinder = GWT.create(CaptionViewUIBinder.class);
+    protected static final CaptionViewUIBinder ourUiBinder = GWT.create(CaptionViewUIBinder.class);
 
     interface CaptionViewUIBinder extends UiBinder<HTMLPanel, RichTextView> {
     }

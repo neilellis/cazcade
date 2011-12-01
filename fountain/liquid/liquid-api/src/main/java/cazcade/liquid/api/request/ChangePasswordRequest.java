@@ -3,6 +3,8 @@ package cazcade.liquid.api.request;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +24,7 @@ public class ChangePasswordRequest extends AbstractRequest {
         setSessionId(liquidSessionIdentifier);
     }
 
-    public ChangePasswordRequest(LSDEntity entity) {
+    public ChangePasswordRequest(@Nonnull LSDEntity entity) {
         setEntity(entity);
     }
 
@@ -51,6 +53,7 @@ public class ChangePasswordRequest extends AbstractRequest {
         return java.util.Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new ChangePasswordRequest(getEntity().copy());
@@ -69,10 +72,12 @@ public class ChangePasswordRequest extends AbstractRequest {
         return false;
     }
 
+    @Nullable
     public List<String> getNotificationLocations() {
         return null;
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.CHANGE_PASSWORD;
     }

@@ -3,7 +3,6 @@ package cazcade.vortex.pool.objects.website;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
-import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
 import cazcade.vortex.widgets.client.form.fields.UrlField;
 import cazcade.vortex.widgets.client.form.fields.VortexTextArea;
@@ -51,7 +50,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
     }
 
 
-    private static PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
+    private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
     @UiField
     VortexTextArea description;
     @UiField

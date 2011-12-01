@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrievePoolRosterRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -8,9 +9,9 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.RetrievePoolRosterRequest;
 import cazcade.liquid.impl.UUIDFactory;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
@@ -18,7 +19,8 @@ import java.util.Collection;
  */
 public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<RetrievePoolRosterRequest> implements RetrievePoolRosterRequestHandler {
 
-    public RetrievePoolRosterRequest handle(final RetrievePoolRosterRequest request) throws InterruptedException {
+    @Nonnull
+    public RetrievePoolRosterRequest handle(@Nonnull final RetrievePoolRosterRequest request) throws InterruptedException {
         Node node;
         final Transaction transaction = fountainNeo.beginTx();
         try {

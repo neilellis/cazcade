@@ -3,6 +3,7 @@ package cazcade.fountain.datastore.impl;
 import cazcade.fountain.datastore.impl.compensators.AbstractRequestCompensator;
 import cazcade.fountain.datastore.impl.handlers.AbstractDataStoreHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -29,7 +30,7 @@ public class FountainRequestMap {
         }
     }
 
-    public FountainRequestConfiguration getConfiguration(Class clazz) {
+    public FountainRequestConfiguration getConfiguration(@Nonnull Class clazz) {
         return map.get(clazz.getName());
     }
 }

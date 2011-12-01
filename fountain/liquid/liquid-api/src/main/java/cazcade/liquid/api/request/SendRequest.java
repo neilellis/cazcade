@@ -3,6 +3,8 @@ package cazcade.liquid.api.request;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,7 +20,7 @@ public class SendRequest extends AbstractRequest {
         this(null, identity, entity, recipient);
     }
 
-    public SendRequest(LiquidUUID id, LiquidSessionIdentifier identity, LSDEntity entity, String recipient) {
+    public SendRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LSDEntity entity, String recipient) {
         this.setId(id);
         this.setSessionId(identity);
         super.setRecipient(recipient);
@@ -34,6 +36,7 @@ public class SendRequest extends AbstractRequest {
         return Arrays.asList(getRecipientAlias());
     }
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new SendRequest(getId(), getSessionIdentifier(), getRequestEntity(), super.getRecipient());
@@ -43,6 +46,7 @@ public class SendRequest extends AbstractRequest {
         return Collections.emptyList();
     }
 
+    @Nonnull
     public LiquidURI getInboxURI() {
         return new LiquidURI("pool:///people/" + super.getRecipient() + "/.inbox");
     }
@@ -58,11 +62,13 @@ public class SendRequest extends AbstractRequest {
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.SEND;
     }
 
 
+    @Nonnull
     public LiquidURI getRecipientAlias() {
         return new LiquidURI("alias:cazcade:" + super.getRecipient());
     }

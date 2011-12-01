@@ -10,29 +10,34 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class YouTubeTextBox extends VortexTextBox {
 
+    @Nonnull
     public static final String YOU_TUBE_URL_REGEX = "http[s]?://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9\\-_]+).*";
     private String oldText = "";
 
+    @Nonnull
     private static final String VIDEO_REGEX = "[A-Za-z0-9\\-_]+";
 
 
+    @Nonnull
     public static final String INVALID_URL_MESSAGE = "Please supply a valid YouTube id or URL (e.g. http://www.youtube.com/watch?v=hfjGRBFd7mQ or hfjGRBFd7mQ)";
 
 
     interface RegexTextBoxUiBinder extends UiBinder<HTMLPanel, YouTubeTextBox> {
     }
 
-    private static RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
+    private static final RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
 
     public YouTubeTextBox() {
         initWidget(ourUiBinder.createAndBindUi(this));
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(KeyPressEvent event) {
+            public void onKeyPress(@Nonnull KeyPressEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
                     final int keyCode = event.getUnicodeCharCode();
 
@@ -54,7 +59,7 @@ public class YouTubeTextBox extends VortexTextBox {
 
         textBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(@Nonnull KeyUpEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
                     String text = textBox.getText();
                     if (!oldText.equals(text)) {
@@ -102,6 +107,7 @@ public class YouTubeTextBox extends VortexTextBox {
         return textBox.getText().matches(YOU_TUBE_URL_REGEX) || textBox.getText().matches(VIDEO_REGEX);
     }
 
+    @Nonnull
     @Override
     public LSDEntity getEntityDiff() {
         LSDEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());

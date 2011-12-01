@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class HorizontalScrollBar extends ScrollBar {
 
-    private BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
+    private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
 
     public HorizontalScrollBar(Widget outer, Widget inner) {
         super(outer, inner);

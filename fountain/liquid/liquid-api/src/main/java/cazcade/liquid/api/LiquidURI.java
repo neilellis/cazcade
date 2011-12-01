@@ -1,15 +1,19 @@
 package cazcade.liquid.api;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.Serializable;
 
 /**
  * @author neilellis@cazcade.com
  */
 public class LiquidURI implements Serializable {
+    @Nonnull
     protected String uri;
+    @Nonnull
     public static final String POOL_SCHEME_PREFIX = "pool://";
 
-    public LiquidURI(String uri) {
+    public LiquidURI(@Nullable String uri) {
         if (uri == null) {
             throw new NullPointerException("Attempted to create a LiquidURI with a null uri string parameter");
         }
@@ -27,11 +31,11 @@ public class LiquidURI implements Serializable {
     public LiquidURI() {
     }
 
-    public LiquidURI(LiquidURIScheme scheme, String path) {
+    public LiquidURI(@Nonnull LiquidURIScheme scheme, @Nonnull String path) {
         this((scheme.name() + ":" + lowerCaseIfRequired(scheme, path)));
     }
 
-    private static String lowerCaseIfRequired(LiquidURIScheme scheme, String path) {
+    private static String lowerCaseIfRequired(LiquidURIScheme scheme, @Nonnull String path) {
         if (scheme == LiquidURIScheme.alias || scheme == LiquidURIScheme.user || scheme == LiquidURIScheme.session) {
             return path.toLowerCase();
         } else {
@@ -39,14 +43,15 @@ public class LiquidURI implements Serializable {
         }
     }
 
-    public LiquidURI(LiquidURIScheme scheme, LiquidURI url) {
-        this((scheme.name() + ":" +  url.asString()));
+    public LiquidURI(@Nonnull LiquidURIScheme scheme, @Nonnull LiquidURI url) {
+        this((scheme.name() + ":" + url.asString()));
     }
 
-    public LiquidURI(LiquidURI url, String subPath) {
+    public LiquidURI(@Nonnull LiquidURI url, @Nonnull String subPath) {
         this(url.getPath().endsWith("/") ? (url + lowerCaseIfRequired(url.getScheme(), subPath)) : lowerCaseIfRequired(url.getScheme(), subPath) + "/" + subPath);
     }
 
+    @Nullable
     public String getSchemeAsString() {
         int index = uri.indexOf(":");
         if (index <= 0) {
@@ -72,6 +77,7 @@ public class LiquidURI implements Serializable {
         }
     }
 
+    @Nonnull
     public String getPath() {
         String withoutFragment;
         int i = uri.indexOf(":");
@@ -90,19 +96,23 @@ public class LiquidURI implements Serializable {
         }
     }
 
+    @Nullable
     public String toString() {
         return uri;
     }
 
+    @Nonnull
     public LiquidBoardURL asShortUrl() {
         return new LiquidBoardURL(this);
     }
 
 
+    @Nonnull
     public String asString() {
         return uri;
     }
 
+    @Nonnull
     public LiquidURI getSubURI() {
         int i = getColonPos();
         return new LiquidURI(uri.substring(i + 1));
@@ -121,6 +131,7 @@ public class LiquidURI implements Serializable {
      *
      * @return
      */
+    @Nonnull
     public LiquidURI getParentURI() {
         String scheme;
         if (uri.startsWith(POOL_SCHEME_PREFIX)) {
@@ -136,6 +147,7 @@ public class LiquidURI implements Serializable {
         return new LiquidURI(scheme + path.substring(0, i));
     }
 
+    @Nonnull
     public LiquidURI getWithoutFragment() {
         if (uri.contains("#")) {
             final int i = uri.indexOf('#');
@@ -146,6 +158,7 @@ public class LiquidURI implements Serializable {
 
     }
 
+    @Nullable
     public String getLastPathElement() {
         final String[] pathElements = getPathElements();
         if (pathElements == null || pathElements.length == 0) {
@@ -154,6 +167,7 @@ public class LiquidURI implements Serializable {
         return pathElements[pathElements.length - 1];
     }
 
+    @Nullable
     private String[] getPathElements() {
         final String path = getPath();
         if (path == null) {
@@ -162,6 +176,7 @@ public class LiquidURI implements Serializable {
         return path.split("/");
     }
 
+    @Nonnull
     public String asReverseDNSString() {
         String scheme = getSchemeAsString();
         String reverseDNS = "";
@@ -188,7 +203,7 @@ public class LiquidURI implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -204,6 +219,7 @@ public class LiquidURI implements Serializable {
         return uri != null ? uri.hashCode() : 0;
     }
 
+    @Nonnull
     public LiquidURI getWithoutFragmentOrComment() {
         String newStr = uri;
         if (uri.contains("#")) {

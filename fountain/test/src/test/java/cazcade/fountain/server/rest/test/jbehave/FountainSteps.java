@@ -16,6 +16,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -29,8 +30,10 @@ import static org.junit.Assert.*;
  */
 public class FountainSteps {
 
+    @Nonnull
     private static final Logger log = Logger.getLogger(FountainSteps.class);
-    private Map<String, UserDetails> userMap = new HashMap<String, UserDetails>();
+    @Nonnull
+    private final Map<String, UserDetails> userMap = new HashMap<String, UserDetails>();
     private static FountainDataStoreServer dataStore;
     private static FountainRestServer restServer;
     private Exception serverStartupException;
@@ -98,7 +101,7 @@ public class FountainSteps {
                     new ClientSession(client, null, username),
                     "user/create.xml?.email=neil.ellis@mangala.co.uk&.name=" + username +
                             "&.security.password.plain=test&.fn=Neil+Ellis&.type=" + LSDDictionaryTypes.USER.getValue());
-            LiquidUUID userId = userEntity.getID();
+            LiquidUUID userId = userEntity.getUUID();
             Credentials credentials = new UsernamePasswordCredentials(username, "test");
             client.getState().clearCredentials();
             client.getState().setCredentials(FountainTestClientSupport.AUTH_SCOPE, credentials);
@@ -106,7 +109,7 @@ public class FountainSteps {
             LSDEntity sessionEntity = FountainTestClientSupport.callRESTApiWithGet(
                     new ClientSession(client, null, username),
                     "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
-            String sessionId = sessionEntity.getID().toString();
+            String sessionId = sessionEntity.getUUID().toString();
             ClientSession userSession = new ClientSession(client, sessionId, username);
 
             FountainTestClientSupport.callRESTApiWithGet(userSession,
@@ -137,7 +140,7 @@ public class FountainSteps {
     }
 
     @Then("the user can retrieve an object called $objectName from a pool called $poolName of type $typeString")
-    public void theObjectOfTypeExistsInHomePool(String objectName, String poolName, String typeString) throws IOException {
+    public void theObjectOfTypeExistsInHomePool(String objectName, @Nonnull String poolName, String typeString) throws IOException {
         UserDetails details = userMap.get(currentUser);
         String actualPoolName = substitutePoolVariables(poolName);
         currentEntity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),
@@ -197,16 +200,16 @@ public class FountainSteps {
     }
 
     @When("the user relocates the object to the pool called $poolName")
-    public void relocateAnObject(String poolName) throws IOException {
+    public void relocateAnObject(@Nonnull String poolName) throws IOException {
         UserDetails details = userMap.get(currentUser);
         String toPoolId = FountainTestClientSupport.convertLiquidURIToId(details.getUserSession(),
                 substitutePoolVariables(poolName));
         FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),
-                "pool/" + currentPoolId + "/" + currentEntity.getID() + "/relocate?to=" + toPoolId);
+                "pool/" + currentPoolId + "/" + currentEntity.getUUID() + "/relocate?to=" + toPoolId);
     }
 
     @Then("there is no object called $objectName in the pool called $poolName")
-    public void noObjectWithIdInPool(String objectName, String poolName) throws IOException {
+    public void noObjectWithIdInPool(String objectName, @Nonnull String poolName) throws IOException {
         UserDetails details = userMap.get(currentUser);
         String actualPoolName = substitutePoolVariables(poolName);
         LSDEntity entity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),
@@ -215,16 +218,16 @@ public class FountainSteps {
     }
 
     @When("the user links to the object from the pool called $poolName")
-    public void objectIsLinkedTo(String poolName) throws IOException {
+    public void objectIsLinkedTo(@Nonnull String poolName) throws IOException {
         UserDetails details = userMap.get(currentUser);
         String pool = substitutePoolVariables(poolName);
         String poolId = FountainTestClientSupport.convertLiquidURIToId(details.getUserSession(), pool);
         FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),
-                "pool/" + currentPoolId + "/" + currentEntity.getID() + "/link?to=" + poolId);
+                "pool/" + currentPoolId + "/" + currentEntity.getUUID() + "/link?to=" + poolId);
     }
 
     @When("the user creates a pool called $childPoolName with a title of \"$childPoolTitle\" in the pool called $parentPoolName")
-    public void createAChildPool(String childPoolName, String childPoolTitle, String parentPoolName)
+    public void createAChildPool(String childPoolName, String childPoolTitle, @Nonnull String parentPoolName)
             throws IOException, InterruptedException {
         UserDetails details = userMap.get(currentUser);
         String parentPool = substitutePoolVariables(parentPoolName);
@@ -238,7 +241,7 @@ public class FountainSteps {
     }
 
     @Then("a pool called $poolName exists with a title of \"$title\"")
-    public void aPoolExists(String poolName, String title) throws IOException {
+    public void aPoolExists(@Nonnull String poolName, String title) throws IOException {
         UserDetails details = userMap.get(currentUser);
         String pool = substitutePoolVariables(poolName);
         LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),
@@ -249,7 +252,7 @@ public class FountainSteps {
 
 
     @When("the user creates objects of type $objectType in pool $poolName as $objectTable")
-    public void createObjectsInPool(String objectType, String poolName, ExamplesTable objectTable) throws IOException {
+    public void createObjectsInPool(String objectType, @Nonnull String poolName, @Nonnull ExamplesTable objectTable) throws IOException {
         UserDetails details = userMap.get(currentUser);
         String pool = substitutePoolVariables(poolName);
         String poolId = FountainTestClientSupport.convertLiquidURIToId(details.getUserSession(), pool);
@@ -263,7 +266,8 @@ public class FountainSteps {
     }
 
 
-    private String substitutePoolVariables(String poolString) {
+    @Nonnull
+    private String substitutePoolVariables(@Nonnull String poolString) {
         UserDetails details = userMap.get(currentUser);
         if (poolString.indexOf("%home%") == 0) {
             poolString = details.getHomePool() + poolString.substring(6);
@@ -271,6 +275,7 @@ public class FountainSteps {
         return poolString;
     }
 
+    @Nonnull
     private List<LSDEntity> getCurrentEntityComments() throws IOException {
         UserDetails details = userMap.get(currentUser);
         LSDEntity commentList = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),
@@ -283,7 +288,7 @@ public class FountainSteps {
         waitForSomeSeconds(4);
         UserDetails details = userMap.get(currentUser);
         FountainTestClientSupport.putEntityToURL(details.getUserSession(),
-                "pool/" + currentPoolId + "/" + currentEntity.getID(),
+                "pool/" + currentPoolId + "/" + currentEntity.getUUID(),
                 currentEntity, "alias:cazcade:" + details.getUsername());
         currentEntity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(),
                 "pool.xml?url=" + URLEncoder.encode(currentEntity.getAttribute(LSDAttribute.URI)));

@@ -16,6 +16,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -30,11 +32,13 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     }
 
 
+    @Nullable
     @Override
     public String getStreamIdentifier() {
         return entity.getURI().toString();
     }
 
+    @Nullable
     @Override
     public Date getSortDate() {
         return entity.getPublished();
@@ -48,7 +52,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     interface CommentEntryPanelUiBinder extends UiBinder<HTMLPanel, CommentEntryPanel> {
     }
 
-    private static CommentEntryPanelUiBinder ourUiBinder = GWT.create(CommentEntryPanelUiBinder.class);
+    private static final CommentEntryPanelUiBinder ourUiBinder = GWT.create(CommentEntryPanelUiBinder.class);
 
     @UiField
     UserProfileImage profileImage;
@@ -66,7 +70,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     protected CommentEntryPanel() {
     }
 
-    public CommentEntryPanel(LSDEntity streamEntry) {
+    public CommentEntryPanel(@Nonnull LSDEntity streamEntry) {
         this.entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
         final String locationText;

@@ -6,14 +6,21 @@ import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.Image;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class CachedImage extends Image {
+    @Nonnull
     public static final String PROFILE_SMALL = "PROFILE_SMALL";
+    @Nonnull
     public static final String SMALL = "CLIPPED_SMALL";
+    @Nonnull
     public static final String MEDIUM = "CLIPPED_MEDIUM";
+    @Nonnull
     public static final String CLIPPED_LARGE = "CLIPPED_LARGE";
+    @Nonnull
     public static final String LARGE = "LARGE";
     public static final boolean CACHING = true;
     private Runnable onChangeAction;
@@ -42,7 +49,7 @@ public class CachedImage extends Image {
         });
     }
 
-    public CachedImage(Image image, String size) {
+    public CachedImage(@Nonnull Image image, String size) {
         this(image.getUrl(), size);
     }
 
@@ -55,6 +62,7 @@ public class CachedImage extends Image {
         setUrl(this.url);
     }
 
+    @Nonnull
     private String placeholderImage() {
         return defaultDefaultMessage(notReadyText);
     }
@@ -63,6 +71,7 @@ public class CachedImage extends Image {
         defaultUrl = defaultDefaultMessage(message);
     }
 
+    @Nonnull
     private String defaultDefaultMessage(String message) {
         return "http://placehold.it/" + getWidthWithDefault() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
     }
@@ -70,7 +79,7 @@ public class CachedImage extends Image {
     public CachedImage() {
     }
 
-    public CachedImage(Image image) {
+    public CachedImage(@Nonnull Image image) {
         this();
         setUrl(image.getUrl());
     }
@@ -169,7 +178,7 @@ public class CachedImage extends Image {
     }
 
     @Override
-    public void setWidth(String width) {
+    public void setWidth(@Nonnull String width) {
         super.setWidth(width);
         getElement().getStyle().setProperty("minWidth", width);
         if (width.toLowerCase().endsWith("px")) {
@@ -178,7 +187,7 @@ public class CachedImage extends Image {
     }
 
     @Override
-    public void setHeight(String height) {
+    public void setHeight(@Nonnull String height) {
         super.setHeight(height);
         getElement().getStyle().setProperty("minHeight", height);
         if (height.toLowerCase().endsWith("px")) {

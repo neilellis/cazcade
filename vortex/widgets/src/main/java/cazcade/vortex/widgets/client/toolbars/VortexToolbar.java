@@ -14,7 +14,7 @@ public class VortexToolbar extends Composite {
     interface VortexToolbarUiBinder extends UiBinder<HTMLPanel, VortexToolbar> {
     }
 
-    private static VortexToolbarUiBinder ourUiBinder = GWT.create(VortexToolbarUiBinder.class);
+    private static final VortexToolbarUiBinder ourUiBinder = GWT.create(VortexToolbarUiBinder.class);
     @UiField
     HeadingElement title;
 

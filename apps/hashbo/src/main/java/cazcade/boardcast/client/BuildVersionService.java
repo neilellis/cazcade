@@ -4,6 +4,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -16,8 +18,10 @@ public interface BuildVersionService extends RemoteService {
      * Use BuildVersionService.App.getInstance() to access static instance of BuildVersionServiceAsync
      */
     public static class App {
+        @Nonnull
         private static final BuildVersionServiceAsync ourInstance = (BuildVersionServiceAsync) GWT.create(BuildVersionService.class);
 
+        @Nonnull
         public static BuildVersionServiceAsync getInstance() {
             return ourInstance;
         }

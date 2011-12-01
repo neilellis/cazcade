@@ -16,6 +16,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.ListBox;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 public class VortexMultiListBox extends AbstractVortexFormField {
 
+    @Nonnull
     protected final Bus bus = BusFactory.getInstance();
     protected boolean useVisibleText;
     protected boolean otherOption;
@@ -47,7 +49,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     interface VortexMultiListBoxUiBinder extends UiBinder<HTMLPanel, VortexMultiListBox> {
     }
 
-    private static VortexMultiListBoxUiBinder multiListBoxBinder = GWT.create(VortexMultiListBoxUiBinder.class);
+    private static final VortexMultiListBoxUiBinder multiListBoxBinder = GWT.create(VortexMultiListBoxUiBinder.class);
 
     public static UiBinder getUiBinder() {
         return multiListBoxBinder;
@@ -63,6 +65,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         });
     }
 
+    @Nonnull
     @Override
     public String getStringValue() {
         //todo: refactor classes so we don't have this mess
@@ -83,6 +86,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         listBox.setVisibleItemCount(visibleItemCount);
     }
 
+    @Nonnull
     public List<String> getStringValues() {
         List<String> values = new ArrayList<String>();
         final int max = listBox.getItemCount();
@@ -103,7 +107,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         return values;
     }
 
-    public void setValues(List<String> values) {
+    public void setValues(@Nonnull List<String> values) {
         final int max = listBox.getItemCount();
         for (int i = 0; i < max; i++) {
             if (useVisibleText) {
@@ -129,18 +133,18 @@ public class VortexMultiListBox extends AbstractVortexFormField {
                 otherBox.setValue(value);
             }
         }
-        otherBox.setWidth(listBox.getOffsetWidth()+"px");
+        otherBox.setWidth(listBox.getOffsetWidth() + "px");
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, final List<String> initialValues) {
-        boundAttribute= attribute;
+    public void bind(@Nonnull LSDAttribute attribute, String prefix, @Nonnull final List<String> initialValues) {
+        boundAttribute = attribute;
         LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, true, false);
         retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(RetrievePoolRequest message, RetrievePoolRequest response) {
+            public void onSuccess(RetrievePoolRequest message, @Nonnull RetrievePoolRequest response) {
                 final List<LSDEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entities);
                 for (LSDEntity entity : entities) {
@@ -163,7 +167,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
 
     public void setOtherOption(boolean otherOption) {
         this.otherOption = otherOption;
-        if(!otherOption) {
+        if (!otherOption) {
             otherBox.removeFromParent();
         }
     }

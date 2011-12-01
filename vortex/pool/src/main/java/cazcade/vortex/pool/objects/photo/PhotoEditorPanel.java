@@ -42,7 +42,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
     }
 
 
-    private static PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
+    private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
     @UiField
     ChangeImageUrlPanel changeImagePanel;
     @UiField

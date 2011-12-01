@@ -4,10 +4,8 @@ import cazcade.liquid.api.lsd.LSDPropertyFormatValidationException;
 import cazcade.liquid.api.lsd.LSDPropertyFormatValidator;
 import cazcade.liquid.api.lsd.LSDPropertyTypeValidator;
 
-import java.util.HashMap;
+import javax.annotation.Nonnull;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author neilelliz@cazcade.com
@@ -16,8 +14,8 @@ public class LSDPropertyFormatValidatorImpl implements LSDPropertyFormatValidato
 
     private Map<String, LSDPropertyTypeValidator> validators;
 
-    public boolean isValidFormat(String validationString, String value) {
-        if(validationString.isEmpty()) {
+    public boolean isValidFormat(@Nonnull String validationString, String value) {
+        if (validationString.isEmpty()) {
             return true;
         }
         int colonIndex = validationString.indexOf(":");
@@ -27,10 +25,10 @@ public class LSDPropertyFormatValidatorImpl implements LSDPropertyFormatValidato
             String schema = validationString.substring(0, colonIndex);
             String nextValidationString = validationString.substring(colonIndex + 1);
             LSDPropertyTypeValidator validator = validators.get(schema);
-            if(validator == null) {
-                throw new LSDPropertyFormatValidationException("Unrecognized property format schema "+schema);
+            if (validator == null) {
+                throw new LSDPropertyFormatValidationException("Unrecognized property format schema " + schema);
             }
-            return  validator.validate(this, nextValidationString, value);
+            return validator.validate(this, nextValidationString, value);
         }
     }
 

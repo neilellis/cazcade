@@ -29,7 +29,7 @@ public class HashboToolbarIcon extends Composite {
     interface ToolbarIconUiBinder extends UiBinder<HTMLPanel, HashboToolbarIcon> {
     }
 
-    private static ToolbarIconUiBinder ourUiBinder = GWT.create(ToolbarIconUiBinder.class);
+    private static final ToolbarIconUiBinder ourUiBinder = GWT.create(ToolbarIconUiBinder.class);
     @UiField
     Image image;
     @UiField

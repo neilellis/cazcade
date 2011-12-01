@@ -1,18 +1,21 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrievePoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRequest> implements RetrievePoolRequestHandler {
 
-    public RetrievePoolRequest handle(final RetrievePoolRequest request) throws Exception {
+    @Nonnull
+    public RetrievePoolRequest handle(@Nonnull final RetrievePoolRequest request) throws Exception {
         Node node;
         final Transaction transaction = fountainNeo.beginTx();
         try {

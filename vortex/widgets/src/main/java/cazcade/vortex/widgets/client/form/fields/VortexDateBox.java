@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * @author neilellis@cazcade.com
  */
-public class VortexDateBox extends AbstractVortexFormField{
+public class VortexDateBox extends AbstractVortexFormField {
     @Override
     public String getStringValue() {
         return String.valueOf(dateBox.getValue().getTime());
@@ -31,7 +31,7 @@ public class VortexDateBox extends AbstractVortexFormField{
 
     @Override
     public void bind(LSDAttribute attribute, String prefix, String initialValue) {
-        this.boundAttribute= attribute;
+        this.boundAttribute = attribute;
         DateTimeFormat dateFormat = DateTimeFormat.getLongDateFormat();
         dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
 
@@ -40,7 +40,7 @@ public class VortexDateBox extends AbstractVortexFormField{
     interface VortexDateBoxUiBinder extends UiBinder<HTMLPanel, VortexDateBox> {
     }
 
-    private static VortexDateBoxUiBinder ourUiBinder = GWT.create(VortexDateBoxUiBinder.class);
+    private static final VortexDateBoxUiBinder ourUiBinder = GWT.create(VortexDateBoxUiBinder.class);
     @UiField
     DateBox dateBox;
 

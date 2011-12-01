@@ -2,6 +2,7 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidPermission;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 public abstract class AbstractDeletionRequest extends AbstractRequest {
 
 
+    @Nullable
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (super.getTarget() != null) {
             return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.DELETE));
@@ -25,6 +27,7 @@ public abstract class AbstractDeletionRequest extends AbstractRequest {
     }
 
 
+    @Nullable
     public List<String> getNotificationLocations() {
         return null;
     }

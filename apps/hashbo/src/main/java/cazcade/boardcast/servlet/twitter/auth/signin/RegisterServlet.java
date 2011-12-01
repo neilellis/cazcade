@@ -38,6 +38,7 @@ import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
 import twitter4j.User;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,10 +48,11 @@ import java.net.URLEncoder;
 import java.util.UUID;
 
 public class RegisterServlet extends AbstractTwitterServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(RegisterServlet.class);
     private static final long serialVersionUID = 1657390011452788111L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(USER_KEY);

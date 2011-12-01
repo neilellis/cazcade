@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
@@ -7,15 +8,17 @@ import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.handler.UpdatePoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> implements UpdatePoolRequestHandler {
 
-    public UpdatePoolRequest handle(final UpdatePoolRequest request) throws Exception {
+    @Nonnull
+    public UpdatePoolRequest handle(@Nonnull final UpdatePoolRequest request) throws Exception {
 
         final Transaction transaction = fountainNeo.beginTx();
         try {

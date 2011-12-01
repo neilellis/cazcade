@@ -3,6 +3,9 @@ package cazcade.liquid.api.request;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class UpdatePoolRequest extends AbstractUpdateRequest {
 
     public UpdatePoolRequest() {
@@ -25,14 +28,14 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdatePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
+    public UpdatePoolRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
         this.setId(id);
         this.setSessionId(identity);
         this.setTarget(target);
         this.setRequestEntity(entity);
     }
 
-    public UpdatePoolRequest(LiquidSessionIdentifier identity, LiquidURI poolURI, LSDEntity newEntity) {
+    public UpdatePoolRequest(@Nullable LiquidSessionIdentifier identity, LiquidURI poolURI, LSDEntity newEntity) {
         this.setSessionId(identity);
         this.setUri(poolURI);
         this.setRequestEntity(newEntity);
@@ -46,16 +49,18 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
         this.setRequestEntity(entity);
     }
 
-    public UpdatePoolRequest(LSDEntity updateEntity) {
+    public UpdatePoolRequest(@Nonnull LSDEntity updateEntity) {
         this(null, updateEntity.getURI(), updateEntity);
     }
 
 
+    @Nullable
     @Override
     public LiquidMessage copy() {
         return new UpdatePoolRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.UPDATE_POOL;
     }

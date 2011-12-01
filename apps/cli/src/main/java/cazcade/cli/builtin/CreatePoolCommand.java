@@ -12,6 +12,8 @@ import cazcade.liquid.api.request.CreatePoolRequest;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
@@ -19,6 +21,7 @@ import java.util.Map;
  */
 
 public class CreatePoolCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(CreatePoolCommand.class);
 
     private Map<String, String> attributes;
@@ -30,20 +33,24 @@ public class CreatePoolCommand extends AbstractShortLivedCommand {
     public CreatePoolCommand() {
     }
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Create pool";
     }
 
+    @Nonnull
     public String getName() {
         return "mkdir";
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    @Nullable
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("You must specify the new pool's name");
             return "";
@@ -62,7 +69,7 @@ public class CreatePoolCommand extends AbstractShortLivedCommand {
                 for (Map.Entry<String, String> entry : attributes.entrySet()) {
                     responseEntity.setAttribute(LSDAttribute.valueOf(entry.getKey()), entry.getValue());
                 }
-                LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolRequest(shellSession.getIdentity(), responseEntity.getID(), responseEntity));
+                LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolRequest(shellSession.getIdentity(), responseEntity.getUUID(), responseEntity));
                 if (response2.getState() != LiquidMessageState.SUCCESS) {
                     System.err.println(response2.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     return null;

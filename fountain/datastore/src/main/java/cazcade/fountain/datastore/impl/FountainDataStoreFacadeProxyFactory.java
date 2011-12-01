@@ -13,6 +13,8 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.impl.UUIDFactory;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -22,6 +24,7 @@ import java.lang.reflect.Proxy;
  * @todo this needs to be a dynamic proxy.
  */
 public class FountainDataStoreFacadeProxyFactory {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainDataStoreFacadeProxyFactory.class);
 
     private FountainDataStore dataStore;
@@ -41,6 +44,7 @@ public class FountainDataStoreFacadeProxyFactory {
         this.authorizationService = authorizationService;
     }
 
+    @Nonnull
     public FountainDataStoreFacade create() {
         InvocationHandler handler = new MyInvocationHandler();
         FountainDataStoreFacade proxy = (FountainDataStoreFacade) Proxy.newProxyInstance(
@@ -61,6 +65,7 @@ public class FountainDataStoreFacadeProxyFactory {
 
 
     private class MyInvocationHandler implements InvocationHandler {
+        @Nullable
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             log.debug("Facade invoked.");
             LiquidRequest liquidRequest = (LiquidRequest) args[0];

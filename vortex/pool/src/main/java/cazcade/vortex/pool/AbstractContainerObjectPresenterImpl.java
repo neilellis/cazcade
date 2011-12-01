@@ -19,20 +19,23 @@ import cazcade.vortex.pool.objects.PoolObjectPresenterFactory;
 import cazcade.vortex.pool.objects.PoolObjectView;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectView> extends AbstractPoolObjectPresenter<T> implements PoolObjectDropTarget, PoolObjectPresenterContainer {
-    private HashMap<LiquidURI, Widget> poolObjectWidgetsByURI = new HashMap<LiquidURI, Widget>();
-    private HashMap<LiquidURI, PoolObjectPresenter> objectPresenters = new HashMap<LiquidURI, PoolObjectPresenter>();
+    @Nonnull
+    private final HashMap<LiquidURI, Widget> poolObjectWidgetsByURI = new HashMap<LiquidURI, Widget>();
+    @Nonnull
+    private final HashMap<LiquidURI, PoolObjectPresenter> objectPresenters = new HashMap<LiquidURI, PoolObjectPresenter>();
 
-    public AbstractContainerObjectPresenterImpl(PoolPresenter pool, LSDEntity entity, T widget, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
+    public AbstractContainerObjectPresenterImpl(PoolPresenter pool, @Nonnull LSDEntity entity, T widget, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
         super(pool, entity, widget, threadSafeExecutor);
         BusFactory.getInstance().listenForURIAndRequestType(entity.getURI(), LiquidRequestType.CREATE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(LiquidMessage message) {
+            public void handle(@Nonnull LiquidMessage message) {
                 if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                     try {
                         final LSDEntity requestEntity = message.getResponse();
@@ -51,7 +54,7 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
         });
         BusFactory.getInstance().listenForURIAndRequestType(entity.getURI(), LiquidRequestType.DELETE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(LiquidMessage message) {
+            public void handle(@Nonnull LiquidMessage message) {
                 if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                     try {
                         final LSDEntity response = message.getResponse();
@@ -70,7 +73,7 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
     }
 
     @Override
-    public void remove(PoolObjectPresenter presenter) {
+    public void remove(@Nonnull PoolObjectPresenter presenter) {
         final LiquidURI uri = presenter.getEntity().getURI();
         objectPresenters.remove(uri);
         poolObjectWidgetsByURI.remove(uri);
@@ -89,7 +92,7 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
     }
 
     @Override
-    public void add(PoolObjectPresenter presenter) {
+    public void add(@Nonnull PoolObjectPresenter presenter) {
         final LiquidURI uri = presenter.getEntity().getURI();
         objectPresenters.put(uri, presenter);
         poolObjectWidgetsByURI.put(uri, presenter.getPoolObjectView());

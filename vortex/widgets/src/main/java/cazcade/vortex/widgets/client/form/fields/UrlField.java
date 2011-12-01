@@ -3,17 +3,14 @@ package cazcade.vortex.widgets.client.form.fields;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.widgets.client.image.CachedImage;
-import cazcade.vortex.widgets.client.image.ImageUploader;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
-import gwtupload.client.IUploadStatus;
-import gwtupload.client.IUploader;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -25,7 +22,7 @@ public class UrlField extends Composite implements VortexFormField {
     interface ChangeImageUrlPanelUiBinder extends UiBinder<HTMLPanel, UrlField> {
     }
 
-    private static ChangeImageUrlPanelUiBinder ourUiBinder = GWT.create(ChangeImageUrlPanelUiBinder.class);
+    private static final ChangeImageUrlPanelUiBinder ourUiBinder = GWT.create(ChangeImageUrlPanelUiBinder.class);
 
     @Override
     public boolean isValid() {
@@ -69,7 +66,7 @@ public class UrlField extends Composite implements VortexFormField {
     }
 
     @Override
-    public void setOnChangeAction(final Runnable onChangeAction) {
+    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
         urlField.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
@@ -101,7 +98,7 @@ public class UrlField extends Composite implements VortexFormField {
     }
 
     @Override
-    public void bind(LSDEntity entity, LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String prefix) {
         urlField.bind(entity, attribute, prefix);
         previewImage.setUrl(urlField.getValue());
     }
@@ -120,6 +117,7 @@ public class UrlField extends Composite implements VortexFormField {
         return urlField.isCompoundField();
     }
 
+    @Nonnull
     @Override
     public List<String> getStringValues() {
         return urlField.getStringValues();
@@ -131,6 +129,7 @@ public class UrlField extends Composite implements VortexFormField {
         return urlField.getEntity();
     }
 
+    @Nonnull
     @Override
     public LSDEntity getEntityDiff() {
         return urlField.getEntityDiff();

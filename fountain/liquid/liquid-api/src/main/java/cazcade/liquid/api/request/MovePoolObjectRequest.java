@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class MovePoolObjectRequest extends AbstractRequest {
 //        this(null, identity, objectURI, pool, object, x, y, z);
     }
 
-    public MovePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID pool, LiquidUUID object, Double x, Double y, Double z) {
+    public MovePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI objectURI, @Nullable LiquidUUID pool, @Nullable LiquidUUID object, Double x, Double y, Double z) {
         this.setId(id);
         this.setSessionId(identity);
         this.setObjectUUID(object);
@@ -32,6 +34,7 @@ public class MovePoolObjectRequest extends AbstractRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new MovePoolObjectRequest(getId(), getSessionIdentifier(), getUri(), super.getPoolUUID(), super.getObjectUUID(), super.getX(), super.getY(), super.getZ());
@@ -54,6 +57,7 @@ public class MovePoolObjectRequest extends AbstractRequest {
         }
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.MOVE_POOL_OBJECT;
     }

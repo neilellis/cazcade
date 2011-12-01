@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +36,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         this(null, null, target, null, to, unlink);
     }
 
-    public LinkPoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidUUID from, LiquidUUID to, boolean unlink) {
+    public LinkPoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target, @Nullable LiquidUUID from, @Nullable LiquidUUID to, boolean unlink) {
         this.setFrom(from);
         this.setTo(to);
         this.setTarget(target);
@@ -61,6 +63,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         return super.getAffectedEntities();
     }
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new LinkPoolObjectRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getFrom(), super.getTo(), super.isUnlink());
@@ -70,6 +73,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         return true;
     }
 
+    @Nonnull
     public List<String> getNotificationLocations() {
         List<String> locations = new ArrayList<String>();
         if (super.getFrom() != null) {
@@ -81,10 +85,12 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         return locations;
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.LINK_POOL_OBJECT;
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (super.isUnlink()) {
             ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();

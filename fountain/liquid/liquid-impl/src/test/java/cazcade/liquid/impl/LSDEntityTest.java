@@ -36,7 +36,7 @@ public class LSDEntityTest extends TestCase {
                 System.out.printf("%s=%s%n", entry.getKey(), entry.getValue());
             }
         }
-        assertEquals("600E8400-ABCD-1234-5678-446677889900", lsdEntities.get(0).getID().toString().toUpperCase());
+        assertEquals("600E8400-ABCD-1234-5678-446677889900", lsdEntities.get(0).getUUID().toString().toUpperCase());
 
     }
 

@@ -5,9 +5,9 @@ import cazcade.cli.ShellSession;
 public class CommandExecutionContext implements ExecutableCommand {
     private final Command command;
     private final String[] jobArgs;
-    private CommandFactory commandFactory;
-    private CommandExecutor executor;
-    private ShellSession shellSession;
+    private final CommandFactory commandFactory;
+    private final CommandExecutor executor;
+    private final ShellSession shellSession;
 
 
     public CommandExecutionContext(Command command, String[] jobArgs, CommandFactory commandFactory, CommandExecutor executor, ShellSession shellSession) {
@@ -15,7 +15,7 @@ public class CommandExecutionContext implements ExecutableCommand {
         this.jobArgs = jobArgs;
         this.commandFactory = commandFactory;
         this.executor = executor;
-        this.shellSession= shellSession;
+        this.shellSession = shellSession;
     }
 
     public Command getCommand() {
@@ -31,6 +31,6 @@ public class CommandExecutionContext implements ExecutableCommand {
     }
 
     public String execute() throws Exception {
-       return executor.execute(command, jobArgs, commandFactory, shellSession);
+        return executor.execute(command, jobArgs, commandFactory, shellSession);
     }
 }

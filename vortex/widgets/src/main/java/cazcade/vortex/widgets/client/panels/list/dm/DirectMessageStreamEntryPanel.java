@@ -6,6 +6,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -13,9 +15,9 @@ public class DirectMessageStreamEntryPanel extends DirectMessageListEntryPanel {
     interface DirectMessageStreamEntryPanelUiBinder extends UiBinder<HTMLPanel, DirectMessageStreamEntryPanel> {
     }
 
-    private static DirectMessageStreamEntryPanelUiBinder ourUiBinder = GWT.create(DirectMessageStreamEntryPanelUiBinder.class);
+    private static final DirectMessageStreamEntryPanelUiBinder ourUiBinder = GWT.create(DirectMessageStreamEntryPanelUiBinder.class);
 
-    public DirectMessageStreamEntryPanel(LSDEntity streamEntry, FormatUtil features) {
+    public DirectMessageStreamEntryPanel(@Nonnull LSDEntity streamEntry, @Nonnull FormatUtil features) {
         initWidget(ourUiBinder.createAndBindUi(this));
         init(streamEntry, features);
     }

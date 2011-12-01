@@ -48,6 +48,7 @@
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.15" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sourceforge.findbugs:jsr305:1.3.7" level="project" />
     <orderEntry type="module" module-name="gwt-util" />
     <orderEntry type="module" module-name="dnd" />
     <orderEntry type="module" module-name="bus" />

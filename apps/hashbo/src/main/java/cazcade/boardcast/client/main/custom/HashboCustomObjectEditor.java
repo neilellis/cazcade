@@ -24,6 +24,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -33,7 +35,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
     private boolean sizeDirty;
 
     @Override
-    public void show(LSDEntity object) {
+    public void show(@Nonnull LSDEntity object) {
         updateEntity = object.asUpdateEntity();
         imageUploader.setImageURL(object.getAttribute(LSDAttribute.IMAGE_URL));
         LSDEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
@@ -66,7 +68,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
     interface EditorUiBinder extends UiBinder<HTMLPanel, HashboCustomObjectEditor> {
     }
 
-    private static EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
+    private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
 
     private ChangeAction onChangeAction;
 
@@ -92,7 +94,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
         initWidget(ourUiBinder.createAndBindUi(this));
         imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(IUploader uploader) {
+            public void onFinish(@Nonnull IUploader uploader) {
                 if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
                     final String url = uploader.getServerInfo().message;
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);

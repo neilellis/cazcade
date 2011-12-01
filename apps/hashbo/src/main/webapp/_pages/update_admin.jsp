@@ -21,7 +21,7 @@
     } else {
         final LSDEntity update = user.asUpdateEntity();
         update.setAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY, request.getParameter("frequency"));
-        dataStore.process(new cazcade.liquid.api.request.UpdateUserRequest(admin, user.getID(), update));
+        dataStore.process(new cazcade.liquid.api.request.UpdateUserRequest(admin, user.getUUID(), update));
     }
 
 

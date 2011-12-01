@@ -4,6 +4,9 @@ import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.fountain.datastore.api.FountainRequestCompensator;
 import cazcade.liquid.api.LiquidRequest;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -13,7 +16,8 @@ public class FountainRequestCompensatorImpl implements FountainRequestCompensato
 
     private FountainRequestMap requestMap;
 
-    public LiquidRequest compensate(LiquidRequest request) {
+    @Nullable
+    public LiquidRequest compensate(@Nonnull LiquidRequest request) {
         FountainRequestCompensator compensator = requestMap.getConfiguration(request.getClass()).getCompensator();
         if (compensator == null) {
             return null;

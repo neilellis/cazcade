@@ -9,6 +9,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -27,9 +29,9 @@ public class AliasReferenceView extends PoolObjectView {
         super.onLoad();
     }
 
-    private static ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
+    private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
-    public void setAliasURI(LiquidURI aliasURI) {
+    public void setAliasURI(@Nonnull LiquidURI aliasURI) {
         aliasDetailPanel.setAliasURI(aliasURI);
     }
 

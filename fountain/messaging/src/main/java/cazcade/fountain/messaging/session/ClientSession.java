@@ -10,6 +10,7 @@ import org.eclipse.jetty.continuation.Continuation;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +20,15 @@ import java.util.List;
  */
 public class ClientSession {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(ClientSession.class);
 
-    private ClassPathXmlApplicationContext springContext;
+    private final ClassPathXmlApplicationContext springContext;
     private Date lastUsed;
+    @Nonnull
     private final List<LiquidMessage> messages = new ArrayList<LiquidMessage>();
     private Continuation continuation;
-    private ArrayList<String> previousLocations= new ArrayList<String>();
+    private ArrayList<String> previousLocations = new ArrayList<String>();
     private Queue sessionQueue;
 
     public ClientSession(ClassPathXmlApplicationContext springContext, Date lastUsedDate) {
@@ -63,6 +66,7 @@ public class ClientSession {
         }
     }
 
+    @Nonnull
     public synchronized ArrayList<LiquidMessage> removeMessages() {
 //        log.debug("Removing messages from session.");
         final ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>(messages);

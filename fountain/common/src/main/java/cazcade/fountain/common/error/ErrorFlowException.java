@@ -1,5 +1,7 @@
 package cazcade.fountain.common.error;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -8,11 +10,11 @@ public class ErrorFlowException extends CazcadeException {
         super(throwable);
     }
 
-    public ErrorFlowException(String message, Object... params) {
+    public ErrorFlowException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public ErrorFlowException(Throwable cause, String message, Object... params) {
+    public ErrorFlowException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

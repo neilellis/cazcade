@@ -5,6 +5,8 @@ import cazcade.liquid.api.LiquidPermissionScope;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.*;
 
@@ -20,7 +22,7 @@ public interface LSDEntity extends Serializable {
      *
      * @return a universally unique identifier for this object
      */
-    LiquidUUID getID();
+    LiquidUUID getUUID();
 
     /**
      * Returns a un-aliased sub object from all properties with the common parent path.
@@ -29,12 +31,15 @@ public interface LSDEntity extends Serializable {
      * @param readonly the newly created sub entity should be readonly.
      * @return a new object from the sub properties.
      */
+    @Nonnull
     LSDEntity getSubEntity(LSDAttribute path, boolean readonly);
 
 
+    @Nonnull
     LSDEntity removeSubEntity(LSDAttribute path);
 
 
+    @Nullable
     LiquidURI getURI();
 
     /**
@@ -51,6 +56,7 @@ public interface LSDEntity extends Serializable {
      * @param key
      * @return
      */
+    @Nonnull
     List<LSDEntity> getSubEntities(LSDAttribute key);
 
     /**
@@ -65,15 +71,19 @@ public interface LSDEntity extends Serializable {
      *
      * @return
      */
+    @Nonnull
     Map<String, String> getCamelCaseMap();
 
 
+    @Nonnull
     Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
 
+    @Nonnull
     LSDNode asFormatIndependentTree();
 
     String getAttribute(LSDAttribute attribute);
 
+    @Nullable
     LiquidURI getAttributeAsURI(LSDAttribute attribute);
 
     /**
@@ -100,6 +110,9 @@ public interface LSDEntity extends Serializable {
      * @param value the value.
      */
     void setValue(String key, String value);
+
+
+    String getValue(String key);
 
     /**
      * Set's an attribute value, the empty string "" will remove the property.
@@ -145,6 +158,10 @@ public interface LSDEntity extends Serializable {
 
     boolean isA(LSDDictionaryTypes type);
 
+    boolean isA(LSDTypeDef typeDef);
+
+
+    @Nonnull
     LSDEntity copy();
 
     void setValues(LSDAttribute key, List values);
@@ -153,10 +170,13 @@ public interface LSDEntity extends Serializable {
 
     boolean attributeIs(LSDAttribute attribute, String comparison);
 
+    @Nonnull
     List<String> getAttributeAsList(LSDAttribute attribute);
 
+    @Nullable
     Date getUpdated();
 
+    @Nullable
     Date getPublished();
 
 
@@ -175,6 +195,7 @@ public interface LSDEntity extends Serializable {
 
     boolean wasPublishedAfter(LSDEntity entity);
 
+    @Nonnull
     LSDEntity asUpdateEntity();
 
     String getEURI();
@@ -193,7 +214,7 @@ public interface LSDEntity extends Serializable {
 
     Object get(String key);
 
-    Object set(String key, String value);
+    void set(String key, String value);
 
     String getAttribute(LSDAttribute attribute, String defaultValue);
 
@@ -207,10 +228,12 @@ public interface LSDEntity extends Serializable {
 
     Integer getIntegerAttribute(LSDAttribute attribute);
 
+    @Nullable
     LiquidUUID getUUIDAttribute(LSDAttribute attribute);
 
     void setAttribute(LSDAttribute attribute, LiquidUUID uuid);
 
+    @Nullable
     LiquidURI getURIAttribute(LSDAttribute attribute);
 
     void setAttribute(LSDAttribute attribute, LiquidURI uri);
@@ -235,17 +258,29 @@ public interface LSDEntity extends Serializable {
 
     String getSubAttribute(LSDAttribute attribute, LSDAttribute subAttribute, String defaultValue);
 
+    void setUpdated(Date updated);
+
+    public void setAttribute(LSDAttribute attribute, Date value);
+
+    void setPublished(Date published);
+
+    void copyAttribute(LSDEntity entity, LSDAttribute attribute);
+
+    void setType(@Nonnull LSDDictionaryTypes type);
+
+    void setID(@Nonnull LiquidUUID id);
+
 
     class EntityUpdatedComparator implements Comparator<LSDEntity> {
         @Override
-        public int compare(LSDEntity entity, LSDEntity entity1) {
+        public int compare(@Nonnull LSDEntity entity, @Nonnull LSDEntity entity1) {
             return entity.getUpdated().compareTo(entity1.getUpdated());
         }
     }
 
     class EntityPublishedComparator implements Comparator<LSDEntity> {
         @Override
-        public int compare(LSDEntity entity, LSDEntity entity1) {
+        public int compare(@Nonnull LSDEntity entity, @Nonnull LSDEntity entity1) {
             return entity.getPublished().compareTo(entity1.getPublished());
         }
     }

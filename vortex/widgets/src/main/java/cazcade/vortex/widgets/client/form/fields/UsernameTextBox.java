@@ -2,9 +2,7 @@ package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
-import cazcade.vortex.widgets.client.Resources;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.*;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,8 +14,9 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class UsernameTextBox extends AbstractServerValidatedTextBox {
 
 
-    private static UsernameTextBoxUiBinder ourUiBinder = GWT.create(UsernameTextBoxUiBinder.class);
-      interface UsernameTextBoxUiBinder extends UiBinder<HTMLPanel, UsernameTextBox> {
+    private static final UsernameTextBoxUiBinder ourUiBinder = GWT.create(UsernameTextBoxUiBinder.class);
+
+    interface UsernameTextBoxUiBinder extends UiBinder<HTMLPanel, UsernameTextBox> {
     }
 
     public UsernameTextBox() {
@@ -55,7 +54,7 @@ public class UsernameTextBox extends AbstractServerValidatedTextBox {
                         public void onSuccess(Boolean result) {
                             acceptable = result;
                             if (result) {
-                            showAvailable();
+                                showAvailable();
 
                             } else {
                                 showTaken();
@@ -72,7 +71,6 @@ public class UsernameTextBox extends AbstractServerValidatedTextBox {
     public boolean isValid() {
         return acceptable && textBox.getText().matches("[a-zA-Z][a-zA-Z0-9_]*");
     }
-
 
 
 }

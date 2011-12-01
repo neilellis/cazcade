@@ -9,12 +9,17 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 @RemoteServiceRelativePath("DataStoreService")
 public interface DataStoreService extends RemoteService {
+    @Nonnull
     String X_VORTEX_CACHE_SCOPE = "X-Vortex-Cache-Scope";
+    @Nonnull
     String X_VORTEX_CACHE_EXPIRY = "X-Vortex-Cache-Expiry";
+    @Nonnull
     String X_VORTEX_SINCE = "X-Vortex-Cache-Since";
     // Sample interface method of remote interface
 
@@ -27,16 +32,21 @@ public interface DataStoreService extends RemoteService {
      */
     String getApplicationIdentifier();
 
+    @Nullable
     LiquidSessionIdentifier login(String username, String password);
 
+    @Nullable
     LiquidSessionIdentifier loginQuick(boolean anon);
 
+    @Nullable
     LSDEntity register(String fullname, String username, String password, String emailAddress);
 
     boolean checkUsernameAvailability(String username);
 
+    @Nullable
     ArrayList<SerializedRequest> collect(LiquidSessionIdentifier identity, ArrayList<String> location) throws Exception;
 
+    @Nullable
     SerializedRequest process(SerializedRequest request);
 
     boolean checkBoardAvailability(LiquidURI board);
@@ -46,7 +56,7 @@ public interface DataStoreService extends RemoteService {
      * Use DataStoreService.App.getInstance () to access static instance of DataStoreServiceAsync
      */
     public static class App {
-        private static DataStoreServiceAsync ourInstance = GWT.create(DataStoreService.class);
+        private static final DataStoreServiceAsync ourInstance = GWT.create(DataStoreService.class);
 
         public static synchronized DataStoreServiceAsync getInstance() {
 

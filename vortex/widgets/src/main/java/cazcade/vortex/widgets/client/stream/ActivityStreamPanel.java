@@ -28,6 +28,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,15 +38,18 @@ import java.util.List;
 public class ActivityStreamPanel extends HistoryAwareComposite {
     public static final int UPDATE_LIEFTIME = 7 * 24 * 3600 * 1000;
     public static final int STATUS_CHECK_FREQUENCY = 30 * 1000;
-    private Bus bus = BusFactory.getInstance();
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
     private int maxRows = 10;
     private long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
-    private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
     private boolean initialized;
-    private SoundController soundController;
-    private Sound statusUpdateSound;
-    private Sound chatMessageSound;
+    @Nonnull
+    private final SoundController soundController;
+    private final Sound statusUpdateSound;
+    private final Sound chatMessageSound;
 
 
     public void setMaxRows(int maxRows) {
@@ -65,7 +69,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, ActivityStreamPanel> {
     }
 
-    private static VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
+    private static final VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
 
     @UiField
     VerticalPanel parentPanel;
@@ -93,7 +97,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
 
                     BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                         @Override
-                        public void handle(SendRequest request) {
+                        public void handle(@Nonnull SendRequest request) {
                             DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), FormatUtil.getInstance());
                             addToStream(content);
                             chatMessageSound.play();
@@ -118,14 +122,14 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
 
     }
 
-    private void addToStream(final StreamEntry content) {
+    private void addToStream(@Nonnull final StreamEntry content) {
         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, content, true, true);
     }
 
     private void retrieveUpdates() {
         bus.send(new RetrieveUpdatesRequest(lastUpdate), new AbstractResponseCallback<RetrieveUpdatesRequest>() {
             @Override
-            public void onSuccess(RetrieveUpdatesRequest message, RetrieveUpdatesRequest response) {
+            public void onSuccess(RetrieveUpdatesRequest message, @Nonnull RetrieveUpdatesRequest response) {
                 lastUpdate = System.currentTimeMillis();
                 final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entries);

@@ -3,9 +3,6 @@ package cazcade.vortex.pool.objects.youtube;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
-import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
-import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
-import cazcade.vortex.widgets.client.form.fields.VortexTextArea;
 import cazcade.vortex.widgets.client.form.fields.YouTubeTextBox;
 import cazcade.vortex.widgets.client.image.CachedImage;
 import com.google.gwt.core.client.GWT;
@@ -15,6 +12,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
@@ -51,7 +50,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     }
 
 
-    private static PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
+    private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
 
     @UiField
     YouTubeTextBox urlTextBox;
@@ -59,10 +58,10 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     CachedImage image;
 
 
-    public YouTubeEditorPanel(LSDEntity entity) {
+    public YouTubeEditorPanel(@Nonnull LSDEntity entity) {
         initWidget(ourUiBinder.createAndBindUi(this));
         setEntity(entity);
-        if(entity.hasAttribute(LSDAttribute.EURI)) {
+        if (entity.hasAttribute(LSDAttribute.EURI)) {
             urlTextBox.setValue(entity.getAttribute(LSDAttribute.EURI).split(":")[1]);
             showPreview();
         }
@@ -71,7 +70,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     @Override
     protected void onChange(LSDEntity entity) {
         super.onChange(entity);
-        if(urlTextBox.isValid()) {
+        if (urlTextBox.isValid()) {
             showPreview();
         }
         image.setSize(CachedImage.MEDIUM);

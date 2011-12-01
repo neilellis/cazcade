@@ -12,7 +12,7 @@ public class ActivityPanel extends Composite {
     interface InboxPanelUiBinder extends UiBinder<HTMLPanel, ActivityPanel> {
     }
 
-    private static InboxPanelUiBinder ourUiBinder = GWT.create(InboxPanelUiBinder.class);
+    private static final InboxPanelUiBinder ourUiBinder = GWT.create(InboxPanelUiBinder.class);
 
     public ActivityPanel() {
         HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);

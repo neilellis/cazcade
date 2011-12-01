@@ -13,7 +13,7 @@ public class AliasDetailFlowPanel extends AbstractAliasDetailPanel {
     interface AliasDetailPanelUiBinder extends UiBinder<HTMLPanel, AliasDetailFlowPanel> {
     }
 
-    private static AliasDetailPanelUiBinder ourUiBinder = GWT.create(AliasDetailPanelUiBinder.class);
+    private static final AliasDetailPanelUiBinder ourUiBinder = GWT.create(AliasDetailPanelUiBinder.class);
 
 
     public AliasDetailFlowPanel() {

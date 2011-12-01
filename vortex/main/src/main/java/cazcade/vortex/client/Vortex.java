@@ -13,6 +13,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Entry point classes define <code>onModuleLoad()</code>
  */
@@ -45,11 +48,11 @@ public class Vortex implements EntryPoint {
 
         }
         DataStoreService.App.getInstance().login("neil", "neil", new AsyncCallback<LiquidSessionIdentifier>() {
-            public void onFailure(Throwable caught) {
+            public void onFailure(@Nonnull Throwable caught) {
                 ClientLog.log(caught.getMessage(), caught);
             }
 
-            public void onSuccess(final LiquidSessionIdentifier result) {
+            public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
                 ClientLog.log("Logged in.");
                 if (result == null) {
                     ClientLog.log("Could not log in.");
@@ -67,7 +70,8 @@ public class Vortex implements EntryPoint {
                         public void run() {
 
                         }
-                    });
+                    }
+                    );
                 }
             }
         });

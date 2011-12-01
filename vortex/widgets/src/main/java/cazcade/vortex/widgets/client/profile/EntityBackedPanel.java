@@ -4,24 +4,28 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
-import com.google.gwt.user.client.ui.Composite;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class EntityBackedPanel extends HistoryAwareComposite {
+    @Nonnull
     private final Bus bus = BusFactory.getInstance();
+    @Nullable
     protected LSDEntity entity;
 
-    public void setEntity(LSDEntity entity) {
+    public void setEntity(@Nullable LSDEntity entity) {
         this.entity = entity;
         bind(entity);
 
     }
 
-    public void setEntityInternal(LSDEntity entity) {
-        this.entity= entity;
-        if(entity == null) {
+    public void setEntityInternal(@Nullable LSDEntity entity) {
+        this.entity = entity;
+        if (entity == null) {
             onInitial(entity);
         } else {
             onUpdate(entity);
@@ -42,10 +46,12 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite {
 
     }
 
+    @Nullable
     public LSDEntity getEntity() {
         return entity;
     }
 
+    @Nonnull
     public Bus getBus() {
         return bus;
     }

@@ -2,6 +2,7 @@ package cazcade.fountain.common.service.spring;
 
 import org.springframework.beans.factory.FactoryBean;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 /**
@@ -13,6 +14,7 @@ public class RandomUUIDFactoryBean implements FactoryBean {
         return UUID.randomUUID();
     }
 
+    @Nonnull
     public Class getObjectType() {
         return UUID.class;
     }

@@ -9,6 +9,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,12 +19,13 @@ import java.util.Map;
  */
 public class VortexAddressPicker extends VortexCompoundFormField {
 
+    @Nonnull
     Bus bus = BusFactory.getInstance();
 
     interface VortexAddressPickerUiBinder extends UiBinder<HTMLPanel, VortexAddressPicker> {
     }
 
-    private static VortexAddressPickerUiBinder ourUiBinder = GWT.create(VortexAddressPickerUiBinder.class);
+    private static final VortexAddressPickerUiBinder ourUiBinder = GWT.create(VortexAddressPickerUiBinder.class);
     @UiField
     RegexTextBox addressFirstLine;
     @UiField
@@ -42,7 +44,7 @@ public class VortexAddressPicker extends VortexCompoundFormField {
     }
 
     @Override
-    public void bind(final LSDEntity entity, final LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, String prefix) {
         setEntity(entity.getSubEntity(attribute, false));
         Map<LSDAttribute, VortexFormField> map = new HashMap<LSDAttribute, VortexFormField>();
         map.put(LSDAttribute.ADDRESS_FIRST_LINE, addressFirstLine);

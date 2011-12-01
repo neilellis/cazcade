@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.email;
 
+import javax.annotation.Nonnull;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
@@ -20,6 +21,7 @@ public class SMTPAuthenticator extends Authenticator {
         this.password = password;
     }
 
+    @Nonnull
     @Override
     protected PasswordAuthentication getPasswordAuthentication() {
         return new PasswordAuthentication(username, password);

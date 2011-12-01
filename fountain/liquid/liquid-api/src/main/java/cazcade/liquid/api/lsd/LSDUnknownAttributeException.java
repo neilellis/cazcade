@@ -2,6 +2,8 @@ package cazcade.liquid.api.lsd;
 
 import cazcade.fountain.common.error.CazcadeException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -10,11 +12,11 @@ public class LSDUnknownAttributeException extends CazcadeException {
         super(throwable);
     }
 
-    public LSDUnknownAttributeException(String message, Object... params) {
+    public LSDUnknownAttributeException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public LSDUnknownAttributeException(Throwable cause, String message, Object... params) {
+    public LSDUnknownAttributeException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

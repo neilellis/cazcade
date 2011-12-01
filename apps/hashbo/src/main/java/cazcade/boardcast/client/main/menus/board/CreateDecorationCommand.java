@@ -6,13 +6,15 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class CreateDecorationCommand extends CreateItemCommand {
 
 
-    private String urlForDecoration;
+    private final String urlForDecoration;
 
     public CreateDecorationCommand(LiquidURI pool, LSDDictionaryTypes type, String urlForDecoration, Size size, String theme) {
         super(pool, type, size, theme);
@@ -21,7 +23,7 @@ public class CreateDecorationCommand extends CreateItemCommand {
 
 
     @Override
-    protected void buildEntity(BuildCallback onBuilt) {
+    protected void buildEntity(@Nonnull BuildCallback onBuilt) {
         final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(getType());
         entity.setAttribute(LSDAttribute.IMAGE_URL, urlForDecoration);
         addDefaultView(entity);

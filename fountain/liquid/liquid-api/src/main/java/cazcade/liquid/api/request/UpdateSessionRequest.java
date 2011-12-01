@@ -6,6 +6,8 @@ import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class UpdateSessionRequest extends AbstractUpdateRequest {
@@ -21,7 +23,7 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity, internal);
     }
 
-    public UpdateSessionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity, boolean internal) {
+    public UpdateSessionRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity, boolean internal) {
         this.setId(id);
         this.setSessionId(identity);
         this.setTarget(target);
@@ -30,21 +32,25 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new UpdateSessionRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getRequestEntity(), isInternal());
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.UPDATE_SESSION;
     }
 
+    @Nullable
     @Override
     public List<String> getNotificationLocations() {
         return null;
     }
 
+    @Nullable
     @Override
     public String getNotificationSession() {
         //Don't notify anyone of a session update.

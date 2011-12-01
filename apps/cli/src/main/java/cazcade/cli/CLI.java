@@ -16,6 +16,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +31,7 @@ import java.util.List;
  */
 
 public class CLI {
+    @Nonnull
     private final static cazcade.common.Logger log = cazcade.common.Logger.getLogger(CLI.class);
 
     //private static final String CONTEXT_FILE = "applicationContext.xml";
@@ -36,6 +39,7 @@ public class CLI {
     private static boolean running = true;
     private static int shutdownCount = 0;
 
+    @Nonnull
     private static ApplicationLifecycleManager lifecycleManager = new ApplicationLifecycleManager();
 
     public static void main(String[] args) throws Exception {
@@ -99,7 +103,7 @@ public class CLI {
 
     }
 
-    private static void executeScript(InputStream stream, CommandFactory commandFactory, CommandExecutor commandExecutor, ShellSession shellSession, File file) {
+    private static void executeScript(InputStream stream, CommandFactory commandFactory, CommandExecutor commandExecutor, ShellSession shellSession, @Nullable File file) {
         final LiquidScriptParser LiquidScriptParser = new LiquidScriptParser(stream);
         LiquidScriptParser.commandFactory = commandFactory;
         LiquidScriptParser.executor = commandExecutor;
@@ -117,7 +121,7 @@ public class CLI {
         }
     }
 
-    private static void executeCommands(Options options, CommandFactory commandFactory, CommandExecutor commandExecutor, String[] strings, ShellSession shellSession) throws Exception {
+    private static void executeCommands(Options options, @Nonnull CommandFactory commandFactory, @Nonnull CommandExecutor commandExecutor, @Nonnull String[] strings, ShellSession shellSession) throws Exception {
 
 
         if (strings.length > 0) {
@@ -176,7 +180,7 @@ public class CLI {
 
     }
 
-    private static void listCommands(CommandFactory commandFactory) {
+    private static void listCommands(@Nonnull CommandFactory commandFactory) {
         Collection<Command> commands = commandFactory.getAll();
         System.out.printf("%-30s %s%n", "Command Name", "Description");
         System.out.printf("%-30s %s%n", "-----------------------", "------------------------------------------------");
@@ -190,7 +194,7 @@ public class CLI {
         }
     }
 
-    private static void execute(Options options, CommandFactory commandFactory, CommandExecutor commandExecutor, ShellSession shellSession, String string) throws Exception {
+    private static void execute(Options options, @Nonnull CommandFactory commandFactory, CommandExecutor commandExecutor, ShellSession shellSession, @Nonnull String string) throws Exception {
 
         final String[] subArgs = string.split("\\s");
         final Command command = commandFactory.getCommandByName(subArgs[0]);
@@ -255,7 +259,7 @@ public class CLI {
             this.commands = commands;
         }
 
-        public int complete(String s, int i, List list) {
+        public int complete(@Nonnull String s, int i, @Nonnull List list) {
             final List<String> commandNames = new ArrayList<String>(commands.size() * 2);
             int pos = 0;
             for (Command command : commands) {

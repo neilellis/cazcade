@@ -1,5 +1,7 @@
 package cazcade.fountain.common.error;
 
+import javax.annotation.Nonnull;
+
 /**
  * This exception and subclasses should be thrown if an error occurred that is
  * because of the Client behaving badly.
@@ -11,11 +13,11 @@ public class ClientCausedException extends CazcadeException {
         super(throwable);
     }
 
-    public ClientCausedException(String message, Object... params) {
+    public ClientCausedException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public ClientCausedException(Throwable cause, String message, Object... params) {
+    public ClientCausedException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 

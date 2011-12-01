@@ -11,6 +11,7 @@ import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.MultiUploader;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 
@@ -19,7 +20,8 @@ import java.util.ArrayList;
  */
 public class MultiImageUploader extends Composite {
 
-    private ArrayList<String> urls = new ArrayList<String>();
+    @Nonnull
+    private final ArrayList<String> urls = new ArrayList<String>();
     private Runnable onSuccess;
 
     public void hide() {
@@ -43,7 +45,7 @@ public class MultiImageUploader extends Composite {
     interface ImageUploaderUiBinder extends UiBinder<HTMLPanel, MultiImageUploader> {
     }
 
-    private static ImageUploaderUiBinder ourUiBinder = GWT.create(ImageUploaderUiBinder.class);
+    private static final ImageUploaderUiBinder ourUiBinder = GWT.create(ImageUploaderUiBinder.class);
 
 
     @UiField
@@ -63,7 +65,7 @@ public class MultiImageUploader extends Composite {
         loaderPanel.add(defaultUploader);
         defaultUploader.addOnFinishUploadHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(IUploader uploader) {
+            public void onFinish(@Nonnull IUploader uploader) {
                 if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
                     IUploader.UploadedInfo info = uploader.getServerInfo();
                     final String[] returnedUrls = info.message.split(",");
@@ -97,11 +99,12 @@ public class MultiImageUploader extends Composite {
                 hide();
                 urls.clear();
             }
-        }) ;
+        });
 
 
     }
 
+    @Nonnull
     public ArrayList<String> getUrls() {
         return urls;
     }

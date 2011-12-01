@@ -7,11 +7,11 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DragScrollEvent {
 
-    private int oldX;
-    private int oldY;
-    private int newX;
-    private int newY;
-    private Widget widget;
+    private final int oldX;
+    private final int oldY;
+    private final int newX;
+    private final int newY;
+    private final Widget widget;
 
     public DragScrollEvent(int oldX, int oldY, int newX, int newY, Widget widget) {
         this.oldX = oldX;

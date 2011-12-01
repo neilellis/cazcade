@@ -4,6 +4,7 @@ import cazcade.common.Logger;
 import cazcade.fountain.common.app.ApplicationLifecycle;
 import cazcade.fountain.common.app.ApplicationLifecycleListener;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +16,14 @@ import java.util.Map;
  */
 
 public class CommandFactory implements ApplicationLifecycleListener {
+    @Nonnull
     private final static Logger log = Logger.getLogger(CommandFactory.class);
 
     private Map<String, Command> jobMap = new HashMap<String, Command>();
 
-    public CommandFactory(ApplicationLifecycle applicationLifecycle, Map<String, Command> jobMap) {
+    public CommandFactory(@Nonnull ApplicationLifecycle applicationLifecycle, Map<String, Command> jobMap) {
         applicationLifecycle.register(this);
-        this.jobMap= jobMap;
+        this.jobMap = jobMap;
 
     }
 
@@ -30,7 +32,7 @@ public class CommandFactory implements ApplicationLifecycleListener {
 
     }
 
-    public void add(Command command) {
+    public void add(@Nonnull Command command) {
         if (jobMap.containsKey(command.getName())) {
             throw new Error("Cannot have two commands with the same name " + command.getName());
         }

@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -8,11 +10,11 @@ public class AuthorizationException extends DataStoreException {
         super(throwable);
     }
 
-    public AuthorizationException(String message, Object ... params) {
+    public AuthorizationException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public AuthorizationException(Throwable cause, String message, Object ... params) {
+    public AuthorizationException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

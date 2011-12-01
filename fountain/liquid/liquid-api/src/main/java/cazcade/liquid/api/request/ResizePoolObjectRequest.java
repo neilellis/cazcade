@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class ResizePoolObjectRequest extends AbstractRequest {
         this(null, identity, objectURI, pool, object, width, height);
     }
 
-    public ResizePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID pool, LiquidUUID object, Integer width, Integer height) {
+    public ResizePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI objectURI, @Nullable LiquidUUID pool, @Nullable LiquidUUID object, Integer width, Integer height) {
         this.setWidth(width);
         this.setHeight(height);
         this.setId(id);
@@ -33,6 +35,7 @@ public class ResizePoolObjectRequest extends AbstractRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new ResizePoolObjectRequest(getId(), getSessionIdentifier(), getUri(), getPoolUUID(), super.getObjectUUID(), super.getWidth(), super.getHeight());
@@ -55,6 +58,7 @@ public class ResizePoolObjectRequest extends AbstractRequest {
         }
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RESIZE_POOL_OBJECT;
     }

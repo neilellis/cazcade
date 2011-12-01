@@ -20,6 +20,7 @@ import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.ClientPreferences;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
+import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
@@ -39,24 +40,29 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ToggleButton;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * @author neilellis@cazcade.com
  */
 public class BoardcastChatView extends EntityBackedFormPanel {
 
+    @Nonnull
     public static final String RHS_MINIMIZED = "rhs-minimized";
-    private Bus bus = BusFactory.getInstance();
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
     private LiquidURI poolURI;
     private LiquidBoardURL boardURL;
-    private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
     private LiquidURI previousPoolURI;
     private LSDEntity poolEntity;
     private long changePermissionListener;
 
 
     @Override
-    public void onLocalHistoryTokenChanged(String token) {
+    public void onLocalHistoryTokenChanged(@Nonnull String token) {
         boardURL = new LiquidBoardURL(token);
         previousPoolURI = poolURI;
         poolURI = boardURL.asURI();
@@ -78,7 +84,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
         hideReveal.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
-            public void onValueChange(ValueChangeEvent<Boolean> booleanValueChangeEvent) {
+            public void onValueChange(@Nonnull ValueChangeEvent<Boolean> booleanValueChangeEvent) {
                 ClientPreferences.setBooleanPreference(ClientPreferences.Preference.RHS_HIDE, booleanValueChangeEvent.getValue());
                 if (!booleanValueChangeEvent.getValue()) {
                     showRhs();
@@ -92,7 +98,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         returnFromChatButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                getHistoryManager().navigate(boardURL.toString());
+                HistoryManager.navigate(boardURL.toString());
             }
         });
     }
@@ -114,7 +120,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI.asShortUrl().isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
 
             @Override
-            public void onFailure(VisitPoolRequest message, VisitPoolRequest response) {
+            public void onFailure(VisitPoolRequest message, @Nonnull VisitPoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
@@ -127,7 +133,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
             }
 
             @Override
-            public void onSuccess(VisitPoolRequest message, final VisitPoolRequest response) {
+            public void onSuccess(VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
 
                 StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
 
@@ -185,11 +191,13 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         });
     }
 
+    @Nonnull
     @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
+    @Nonnull
     @Override
     protected Runnable getUpdateEntityAction(Bindable field) {
         return new Runnable() {
@@ -204,7 +212,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     }
 
 
-    private static BoardUiBinder ourUiBinder = GWT.create(BoardUiBinder.class);
+    private static final BoardUiBinder ourUiBinder = GWT.create(BoardUiBinder.class);
 
     @UiField
     ChatStreamPanel stream;

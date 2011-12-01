@@ -42,16 +42,18 @@ import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class CallbackServlet extends AbstractTwitterServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(CallbackServlet.class);
     private static final long serialVersionUID = 1657390011452788111L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         try {
             Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
             RequestToken requestToken = (RequestToken) request.getSession().getAttribute("requestToken");

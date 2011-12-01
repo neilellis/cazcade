@@ -1,11 +1,12 @@
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDMarshaler;
 import cazcade.liquid.api.lsd.LSDNode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,8 +21,8 @@ import java.util.List;
  */
 
 public class PListMarshaler implements LSDMarshaler {
-    public void marshal(LSDEntity lsdEntity, OutputStream output) {
-        if(lsdEntity == null) {
+    public void marshal(@Nullable LSDEntity lsdEntity, OutputStream output) {
+        if (lsdEntity == null) {
             throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
         DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
@@ -56,11 +57,12 @@ public class PListMarshaler implements LSDMarshaler {
         }
     }
 
+    @Nonnull
     public String getMimeType() {
         return "text/plist";
     }
 
-    private void process(Document doc, Element currentElement, LSDNode lsdNode) {
+    private void process(@Nonnull Document doc, @Nonnull Element currentElement, @Nonnull LSDNode lsdNode) {
         for (LSDNode node : lsdNode.getChildren()) {
             final Element keyElement = doc.createElement("key");
             keyElement.setTextContent(node.getName());
@@ -85,7 +87,7 @@ public class PListMarshaler implements LSDMarshaler {
         }
     }
 
-    private void processArray(Document doc, Element currentElement, LSDNode node) {
+    private void processArray(@Nonnull Document doc, @Nonnull Element currentElement, @Nonnull LSDNode node) {
         Element valueElement = doc.createElement("array");
         currentElement.appendChild(valueElement);
         final List<LSDNode> children = node.getChildren();

@@ -10,11 +10,15 @@ import cazcade.liquid.api.request.AuthorizationRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
 import org.perf4j.log4j.Log4JStopWatch;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A handler that implements runnable allowing for asynchronous handling of data store requests on another thread.
  */
 public class DataStoreServerMessageHandler {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(DataStoreServerMessageHandler.class);
     private FountainRequestCompensator<LiquidRequest> compensator;
     private FountainDataStore store;
@@ -27,6 +31,7 @@ public class DataStoreServerMessageHandler {
         handle(message);
     }
 
+    @Nullable
     public LiquidMessage handle(LiquidMessage message) {
         try {
             LiquidRequest request = (LiquidRequest) message;
@@ -49,7 +54,7 @@ public class DataStoreServerMessageHandler {
             LiquidRequest response;
             try {
                 stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".1.prepro");
-                response = (LiquidRequest) store.process(request);
+                response = store.process(request);
                 stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".2.postpro");
             } catch (InterruptedException e) {
                 Thread.interrupted();
@@ -89,7 +94,8 @@ public class DataStoreServerMessageHandler {
     }
 
 
-    private LiquidRequest handleError(LiquidRequest request, Exception e) {
+    @Nonnull
+    private LiquidRequest handleError(@Nonnull LiquidRequest request, @Nonnull Exception e) {
         final LiquidRequest response = LiquidResponseHelper.forException(e, request);
         response.setOrigin(LiquidMessageOrigin.SERVER);
         messageSender.notifySession(response);

@@ -18,7 +18,7 @@ public class TwitterLoginBox extends Composite {
     interface TwitterLoginBoxUiBinder extends UiBinder<HTMLPanel, TwitterLoginBox> {
     }
 
-    private static TwitterLoginBoxUiBinder ourUiBinder = GWT.create(TwitterLoginBoxUiBinder.class);
+    private static final TwitterLoginBoxUiBinder ourUiBinder = GWT.create(TwitterLoginBoxUiBinder.class);
     @UiField
     Image imageButton;
     @UiField

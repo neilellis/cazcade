@@ -22,11 +22,15 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class BoardMenuBar extends MenuBar {
 
+    @Nullable
     private LiquidURI poolURI;
     private MenuBar addMenubar;
     private MenuBar accessMenuBar;
@@ -35,6 +39,7 @@ public class BoardMenuBar extends MenuBar {
 
     public interface SizeVariantBuilder<T extends CreateItemCommand> {
 
+        @Nonnull
         T create(CreateItemCommand.Size size);
 
     }
@@ -48,7 +53,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
 
-    public void init(final LSDEntity board, final boolean modifierOptions, final ChangeBackgroundDialog backgroundDialog) {
+    public void init(@Nonnull final LSDEntity board, final boolean modifierOptions, @Nullable final ChangeBackgroundDialog backgroundDialog) {
         this.poolURI = board.getURI();
         clearItems();
         GWT.runAsync(new RunAsyncCallback() {
@@ -78,7 +83,7 @@ public class BoardMenuBar extends MenuBar {
 
     }
 
-    private void createCollaborateMenu(final LSDEntity board) {
+    private void createCollaborateMenu(@Nonnull final LSDEntity board) {
         collaborateMenuBar = new MenuBar(true);
         addItem("Collaborate", collaborateMenuBar);
         collaborateMenuBar.addItem("Chat (Alpha)", new Command() {
@@ -90,7 +95,7 @@ public class BoardMenuBar extends MenuBar {
         });
     }
 
-    private void createAccessMenu(LSDEntity board) {
+    private void createAccessMenu(@Nonnull LSDEntity board) {
         if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
             if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                 accessMenuBar.addItem("Make Readonly", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
@@ -107,7 +112,7 @@ public class BoardMenuBar extends MenuBar {
 
     }
 
-    private void createAddMenu(final LiquidURI poolURI, final ChangeBackgroundDialog backgroundDialog, LSDEntity board) {
+    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull LSDEntity board) {
 
         if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
             addMenubar.addItem("Background", new Command() {
@@ -128,6 +133,7 @@ public class BoardMenuBar extends MenuBar {
 
 
         addMenubar.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+            @Nonnull
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "default");
@@ -135,6 +141,7 @@ public class BoardMenuBar extends MenuBar {
         }, false));
 
         addMenubar.addItem("Black on White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+            @Nonnull
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
@@ -143,6 +150,7 @@ public class BoardMenuBar extends MenuBar {
 
 
         addMenubar.addItem("White on Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
+            @Nonnull
             @Override
             public CreateItemCommand create(CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
@@ -152,6 +160,7 @@ public class BoardMenuBar extends MenuBar {
 
         addMenubar.addItem("Photograph",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                    @Nonnull
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
                         return new CreatePhotoCommand(poolURI, LSDDictionaryTypes.PHOTO2D, size, "default");
@@ -160,6 +169,7 @@ public class BoardMenuBar extends MenuBar {
 
         addMenubar.addItem("Webpage Link",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                    @Nonnull
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
                         return new CreateWebsiteCommand(poolURI, LSDDictionaryTypes.WEBPAGE, size, "default");
@@ -168,6 +178,7 @@ public class BoardMenuBar extends MenuBar {
 
         addMenubar.addItem("YouTube Video",
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                    @Nonnull
                     @Override
                     public CreateItemCommand create(CreateItemCommand.Size size) {
                         return new CreateYouTubeCommand(poolURI, LSDDictionaryTypes.YOUTUBE_MOVIE, size, "default");
@@ -183,7 +194,8 @@ public class BoardMenuBar extends MenuBar {
         }
     }
 
-    private MenuBar createMenuBarForSizeVariants(SizeVariantBuilder builder, boolean includeVerySmall) {
+    @Nonnull
+    private MenuBar createMenuBarForSizeVariants(@Nonnull SizeVariantBuilder builder, boolean includeVerySmall) {
         final MenuBar menuBar = new MenuBar(true);
         if (includeVerySmall) {
             menuBar.addItem("Very Small", builder.create(AbstractCreateCommand.Size.THUMBNAIL));
@@ -195,6 +207,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
 
+    @Nonnull
     private MenuBar createShapeMenuBar() {
         final MenuBar menuBar = new MenuBar(false);
         String[] names = new String[]{"arrow-down-1.png", "arrow-down-2.png", "arrow-left-1.png", "arrow-left-2.png", "arrow-right-1.png", "arrow-right-2.png", "arrow-up-1.png", "arrow-up-2.png", "circle_1.png", "circle_2.png", "circle_3.png", "star-1.png", "star-2.png", "star-3.png", "tick-1.png", "x-1.png"};
@@ -205,6 +218,7 @@ public class BoardMenuBar extends MenuBar {
         return menuBar;
     }
 
+    @Nonnull
     private MenuBar createMenuBarForShapeVariants(String name) {
         final MenuBar menuBar = new MenuBar(true);
         createMenuItemForDecoration(name, menuBar, "black");
@@ -214,7 +228,7 @@ public class BoardMenuBar extends MenuBar {
         return menuBar;
     }
 
-    private void createMenuItemForDecoration(String name, MenuBar menuBar, String variant) {
+    private void createMenuItemForDecoration(String name, @Nonnull MenuBar menuBar, String variant) {
         menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, variant) + "' width='24' height='24'/>").toSafeHtml(), new CreateDecorationCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D, createUrlForDecoration(name, variant), AbstractCreateCommand.Size.DEFAULT, "default"));
     }
 

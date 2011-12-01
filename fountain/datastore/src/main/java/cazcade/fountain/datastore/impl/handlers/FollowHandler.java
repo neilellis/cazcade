@@ -5,11 +5,14 @@ import cazcade.liquid.api.handler.FollowRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.FollowRequest;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public class FollowHandler extends AbstractDataStoreHandler<FollowRequest> implements FollowRequestHandler {
-    public FollowRequest handle(FollowRequest request) throws Exception {
+    @Nonnull
+    public FollowRequest handle(@Nonnull FollowRequest request) throws Exception {
         LSDEntity result;
         if (request.isFollow()) {
             result = socialDAO.followResourceTX(request.getSessionIdentifier(), request.getUri(), request.getDetail(), request.isInternal());

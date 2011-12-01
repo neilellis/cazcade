@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  */
 public class NoteView extends RichTextView {
 
-    protected static NoteViewUIBinder ourUiBinder = GWT.create(NoteViewUIBinder.class);
+    protected static final NoteViewUIBinder ourUiBinder = GWT.create(NoteViewUIBinder.class);
 
     interface NoteViewUIBinder extends UiBinder<HTMLPanel, RichTextView> {
     }

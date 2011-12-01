@@ -2,6 +2,7 @@ package cazcade.vortex.common.client;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ public class DateUtil {
     public static final int HOUR = 3600000;
     public static final int SECOND = 1000;
 
-    public static String toRelativeDate(Date date) {
+    public static String toRelativeDate(@Nonnull Date date) {
         long now = System.currentTimeMillis();
         long then = date.getTime();
         long signedDiffSec = (then - now) / 1000;
@@ -54,6 +55,7 @@ public class DateUtil {
 
     }
 
+    @Nonnull
     private static String plural(long amount) {
         return amount > 1 ? "s" : "";
     }

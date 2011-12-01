@@ -6,6 +6,8 @@ package cazcade.cli.commands;
 
 import cazcade.common.Logger;
 import org.apache.commons.io.IOUtils;
+
+import javax.annotation.Nonnull;
 import java.io.IOException;
 
 /**
@@ -13,6 +15,7 @@ import java.io.IOException;
  */
 
 public abstract class AbstractShortLivedCommand extends AbstractCommand implements Command {
+    @Nonnull
     private final static Logger log = Logger.getLogger(AbstractShortLivedCommand.class);
 
     public boolean isShortLived() {

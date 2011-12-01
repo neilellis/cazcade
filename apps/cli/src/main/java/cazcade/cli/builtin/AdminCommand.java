@@ -10,28 +10,36 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.AdminCommandRequest;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Neil Ellis
  */
 
 public class AdminCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(AdminCommand.class);
 
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Send admin request to server.";
     }
 
+    @Nonnull
     public String getName() {
         return "admin";
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    @Nullable
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("You must specify at least a command name");
             return "";

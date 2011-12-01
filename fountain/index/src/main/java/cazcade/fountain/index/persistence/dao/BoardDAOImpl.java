@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import javax.annotation.Nonnull;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -24,8 +25,6 @@ public class BoardDAOImpl implements BoardDAO {
 
     private final Logger log = LoggerFactory.getLogger(BoardDAOImpl.class);
 
-    public static final int THREE_DAYS = (3 * 24 * 60 * 60 * 1000);
-    public static final int ONE_MONTH = (30 * 24 * 60 * 60 * 1000);
     public static final SimpleExpression LISTED = Restrictions.eq("listed", true);
     public static final SimpleExpression PUBLIC_BOARD = Restrictions.eq("type", BoardType.PUBLIC);
     private HibernateTemplate hibernateTemplate;
@@ -49,8 +48,9 @@ public class BoardDAOImpl implements BoardDAO {
     @Override
     public BoardIndexEntity getOrCreateBoard(final String uri) {
         return hibernateTemplate.execute(new HibernateCallback<BoardIndexEntity>() {
+            @Nonnull
             @Override
-            public BoardIndexEntity doInHibernate(Session session) throws HibernateException, SQLException {
+            public BoardIndexEntity doInHibernate(@Nonnull Session session) throws HibernateException, SQLException {
                 List boards = hibernateTemplate.find("from BoardIndexEntity where uri=?", uri);
                 if (boards.size() == 0) {
 

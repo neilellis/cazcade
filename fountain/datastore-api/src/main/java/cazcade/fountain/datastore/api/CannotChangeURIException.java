@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -8,11 +10,11 @@ public class CannotChangeURIException extends DataStoreException {
         super(throwable);
     }
 
-    public CannotChangeURIException(String message, Object... params) {
+    public CannotChangeURIException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public CannotChangeURIException(Throwable cause, String message, Object... params) {
+    public CannotChangeURIException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

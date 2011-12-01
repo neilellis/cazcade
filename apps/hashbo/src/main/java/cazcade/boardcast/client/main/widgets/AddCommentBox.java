@@ -12,12 +12,14 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class AddCommentBox extends Composite {
 
-    public void init(LiquidURI poolURI) {
+    public void init(@Nonnull LiquidURI poolURI) {
         addCommentBox.init(poolURI);
         loginLink.setHref("/" + new LiquidBoardURL(poolURI).asUrlSafe() + "?forceLogin=true");
         if (UserUtil.isAnonymousOrLoggedOut()) {
@@ -32,7 +34,7 @@ public class AddCommentBox extends Composite {
     interface AddCommentBoxUiBinder extends UiBinder<HTMLPanel, AddCommentBox> {
     }
 
-    private static AddCommentBoxUiBinder ourUiBinder = GWT.create(AddCommentBoxUiBinder.class);
+    private static final AddCommentBoxUiBinder ourUiBinder = GWT.create(AddCommentBoxUiBinder.class);
     @UiField
     CommentBox addCommentBox;
     @UiField

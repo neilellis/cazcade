@@ -20,6 +20,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -42,7 +44,7 @@ public class ProfileEditor extends Composite {
     interface ProfileImageUiBinder extends UiBinder<HTMLPanel, ProfileEditor> {
     }
 
-    private static ProfileImageUiBinder ourUiBinder = GWT.create(ProfileImageUiBinder.class);
+    private static final ProfileImageUiBinder ourUiBinder = GWT.create(ProfileImageUiBinder.class);
 
     private ChangeAction onChangeAction;
 
@@ -56,13 +58,13 @@ public class ProfileEditor extends Composite {
     @UiField
     Label cancelButton;
 
-    public ProfileEditor(final LSDEntity alias) {
+    public ProfileEditor(@Nonnull final LSDEntity alias) {
         initWidget(ourUiBinder.createAndBindUi(this));
         final LSDEntity updateEntity = alias.asUpdateEntity();
         imageUploader.setImageURL(alias.getAttribute(LSDAttribute.IMAGE_URL));
         imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(IUploader uploader) {
+            public void onFinish(@Nonnull IUploader uploader) {
                 if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
                     final String url = uploader.getServerInfo().message;
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);

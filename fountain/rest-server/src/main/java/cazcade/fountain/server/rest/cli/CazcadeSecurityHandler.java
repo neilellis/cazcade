@@ -5,12 +5,15 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Response;
 import org.eclipse.jetty.server.UserIdentity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 /**
  * @author neilelliz@cazcade.com
  */
 class CazcadeSecurityHandler extends SecurityHandler {
+    @Nullable
     @Override
     protected Object prepareConstraintInfo(String pathInContext, Request request) {
         return null;
@@ -22,7 +25,7 @@ class CazcadeSecurityHandler extends SecurityHandler {
     }
 
     @Override
-    protected boolean isAuthMandatory(Request request, Response response, Object constraintInfo) {
+    protected boolean isAuthMandatory(@Nonnull Request request, Response response, Object constraintInfo) {
         return request.getPathInfo() != null
                 && !(
                 (request.getPathInfo().matches("/user/create[\\.a-z]*") && request.getMethod().equals("GET"))

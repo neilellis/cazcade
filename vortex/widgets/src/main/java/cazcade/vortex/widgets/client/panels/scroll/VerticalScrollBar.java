@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class VerticalScrollBar extends ScrollBar {
 
-    private BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
+    private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
 
     public VerticalScrollBar(Widget outer, Widget inner) {
         super(outer, inner);
@@ -41,7 +41,7 @@ public class VerticalScrollBar extends ScrollBar {
             double scale = ((double) (outerHeight) / ((double) innerHeight));
             browserUtil.translateXY(bar, 0, (int) ((-offset) * scale), 50);
 
-            if ((getOffsetHeight()*scale) > 8) {
+            if ((getOffsetHeight() * scale) > 8) {
                 bar.setHeight(String.valueOf((int) (getOffsetHeight() * scale) - 8) + "px");
             } else {
                 bar.setHeight("100%");

@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 @RemoteServiceRelativePath("UUIDService")
 public interface UUIDService extends RemoteService {
 
+    @Nonnull
     ArrayList<LiquidUUID> getRandomUUIDs(int count);
 
     /**
@@ -21,8 +23,10 @@ public interface UUIDService extends RemoteService {
      * Use UUIDService.App.getInstance() to access static instance of UUIDServiceAsync
      */
     public static class App {
+        @Nonnull
         private static final UUIDServiceAsync ourInstance = (UUIDServiceAsync) GWT.create(UUIDService.class);
 
+        @Nonnull
         public static UUIDServiceAsync getInstance() {
             return ourInstance;
         }

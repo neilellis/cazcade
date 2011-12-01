@@ -4,6 +4,7 @@ import cazcade.fountain.validation.api.TypeValidator;
 import cazcade.fountain.validation.api.ValidationLevel;
 import cazcade.liquid.api.lsd.*;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ public class FountainEntityValidator {
 
     private Map<String, TypeValidator> typeValidatorMap;
 
-    public void validate(LSDEntity entity, ValidationLevel level) {
+    public void validate(@Nonnull LSDEntity entity, ValidationLevel level) {
         validateFormat(entity);
         LSDTypeDef lsdTypeDef = entity.getTypeDef();
         if (lsdTypeDef == null) {
@@ -56,7 +57,7 @@ public class FountainEntityValidator {
     }
 
 
-    private void validateFormat(LSDEntity entity) {
+    private void validateFormat(@Nonnull LSDEntity entity) {
         Map<String, String> propertyMap = entity.getMap();
         for (Map.Entry<String, String> entry : propertyMap.entrySet()) {
             String key = entry.getKey();
@@ -66,7 +67,7 @@ public class FountainEntityValidator {
         }
     }
 
-    private void validateKeyValue(String key, String value) {
+    private void validateKeyValue(@Nonnull String key, String value) {
         String[] parts = key.split("\\.");
         if (parts.length > 0) {
             final LSDAttribute attribute = LSDAttribute.valueOf(parts[0]);

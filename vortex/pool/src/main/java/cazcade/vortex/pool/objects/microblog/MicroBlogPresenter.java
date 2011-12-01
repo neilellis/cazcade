@@ -6,6 +6,8 @@ import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -15,7 +17,7 @@ public class MicroBlogPresenter extends AbstractPoolObjectPresenter<MicroBlogVie
     }
 
     @Override
-    public void update(LSDEntity newEntity, boolean replaceEntity) {
+    public void update(@Nonnull LSDEntity newEntity, boolean replaceEntity) {
         super.update(newEntity, replaceEntity);
         getPoolObjectView().setProfileImage(newEntity.getAttribute(LSDAttribute.ICON_URL));
         getPoolObjectView().setMicroBlogShortText(newEntity.getAttribute(LSDAttribute.TEXT_BRIEF));

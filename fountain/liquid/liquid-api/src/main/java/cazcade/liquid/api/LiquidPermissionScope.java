@@ -1,5 +1,7 @@
 package cazcade.liquid.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -49,12 +51,13 @@ public enum LiquidPermissionScope {
     EDITOR('e');
 
 
-    private char shortForm;
+    private final char shortForm;
 
     LiquidPermissionScope(char shortForm) {
         this.shortForm = shortForm;
     }
 
+    @Nonnull
     public static LiquidPermissionScope fromChar(char c) {
         switch (Character.toLowerCase(c)) {
             case 'o':

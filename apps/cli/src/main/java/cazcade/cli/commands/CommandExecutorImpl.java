@@ -5,6 +5,8 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
@@ -17,10 +19,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 public class CommandExecutorImpl implements CommandExecutor {
+    @Nonnull
     private final static Logger log = Logger.getLogger(CommandExecutorImpl.class);
 
-    private ScheduledExecutorService schedulor;
-    private AtomicInteger count = new AtomicInteger(0);
+    @Nonnull
+    private final ScheduledExecutorService schedulor;
+    @Nonnull
+    private final AtomicInteger count = new AtomicInteger(0);
     private boolean shutdown;
 
 
@@ -29,7 +34,8 @@ public class CommandExecutorImpl implements CommandExecutor {
 
     }
 
-    public String execute(final Command command, final String[] args, CommandFactory commandFactory, final ShellSession shellSession) throws Exception {
+    @Nullable
+    public String execute(@Nonnull final Command command, @Nonnull final String[] args, CommandFactory commandFactory, @Nonnull final ShellSession shellSession) throws Exception {
         count.incrementAndGet();
         command.init(new CommandInitContext(this, commandFactory));
         command.start();
@@ -88,8 +94,8 @@ public class CommandExecutorImpl implements CommandExecutor {
 
     }
 
-    private String[] expand(String[] args, ShellSession shellSession) {
-        List<String> expanded= new ArrayList<String>();
+    private String[] expand(@Nonnull String[] args, @Nonnull ShellSession shellSession) {
+        List<String> expanded = new ArrayList<String>();
         for (String arg : args) {
             if (arg.contains("*")) {
                 String regex = arg.replaceAll("\\*", "(.*)");
@@ -102,14 +108,15 @@ public class CommandExecutorImpl implements CommandExecutor {
                         expanded.add(childPool.getURI().toString());
                     }
                 }
-            }else {
+            } else {
                 expanded.add(arg);
             }
         }
         return expanded.toArray(new String[expanded.size()]);
     }
 
-    private String runCommandDirect(Command command, String[] args, ShellSession shellSession) {
+    @Nullable
+    private String runCommandDirect(@Nonnull Command command, String[] args, ShellSession shellSession) {
         try {
             return command.run(args, shellSession);
         } catch (InterruptedException ie) {

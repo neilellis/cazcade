@@ -2,7 +2,10 @@ package cazcade.fountain.datastore.impl.io;
 
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainRelationships;
-import org.codehaus.jackson.*;
+import cazcade.liquid.api.lsd.LSDAttribute;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
@@ -15,6 +18,7 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.kernel.impl.batchinsert.BatchInserter;
 import org.neo4j.kernel.impl.batchinsert.BatchInserterImpl;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,8 +27,11 @@ import java.util.HashMap;
  * @author neilellis@cazcade.com
  */
 public class FountainNeoImporter {
+    public static final String ID = LSDAttribute.ID.getKeyName();
+    public static final String URI = LSDAttribute.URI.getKeyName();
 
-    private BatchInserter batchInserter;
+    @Nonnull
+    private final BatchInserter batchInserter;
 
     public FountainNeoImporter(String dir) {
         this.batchInserter = new BatchInserterImpl(dir);
@@ -45,12 +52,12 @@ public class FountainNeoImporter {
                 jp.nextToken();
                 String fieldValue = jp.getText();
                 properties.put(fieldname, fieldValue);
-                if (fieldname.equals(FountainNeo.ID)) {
+                if (fieldname.equals(ID)) {
                     id = fieldValue;
                 }
             }
             long node = batchInserter.createNode(properties);
-            uuidIndex.add(node, MapUtil.map(FountainNeo.ID, id));
+            uuidIndex.add(node, MapUtil.map(ID, id));
             System.out.println("Created node " + properties);
         }
         jp.close();
@@ -65,7 +72,7 @@ public class FountainNeoImporter {
                 throw new RuntimeException("Expected id attribute.");
             }
             jp.nextToken();
-            long startNode = uuidIndex.get(FountainNeo.ID, jp.getText()).getSingle();
+            long startNode = uuidIndex.get(ID, jp.getText()).getSingle();
             long endNode = 0;
             jp.nextToken();
             String relsName = jp.getCurrentName();
@@ -88,7 +95,7 @@ public class FountainNeoImporter {
                 if (!destinationName.equals("d")) {
                     throw new RuntimeException("Expected d attribute.");
                 }
-                endNode = uuidIndex.get(FountainNeo.ID, jp.getText()).getSingle();
+                endNode = uuidIndex.get(ID, jp.getText()).getSingle();
                 jp.nextToken();
 
                 String propertiesFieldName = jp.getCurrentName();
@@ -122,8 +129,8 @@ public class FountainNeoImporter {
         Index<Node> uriIndex = embeddedGraphDatabase.index().forNodes(FountainNeo.NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
         Iterable<Node> allNodes = embeddedGraphDatabase.getAllNodes();
         for (Node node : allNodes) {
-            if (node.hasProperty(FountainNeo.URI) && !node.hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
-                uriIndex.add(node, FountainNeo.URI, node.getProperty(FountainNeo.URI));
+            if (node.hasProperty(URI) && !node.hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
+                uriIndex.add(node, URI, node.getProperty(URI));
             }
         }
         transaction.success();
@@ -131,7 +138,6 @@ public class FountainNeoImporter {
         embeddedGraphDatabase.shutdown();
         System.out.println("Finished.");
     }
-
 
 
 }

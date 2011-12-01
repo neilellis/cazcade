@@ -4,10 +4,13 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class CreateChecklistCommand extends CreateContainerCommand {
+    @Nonnull
     @Override
     protected String getInitialName() {
         return "checklist" + System.currentTimeMillis();

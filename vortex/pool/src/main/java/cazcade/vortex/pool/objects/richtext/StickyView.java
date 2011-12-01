@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  */
 public class StickyView extends RichTextView {
 
-    protected static StickyViewUiBinder ourUiBinder = GWT.create(StickyViewUiBinder.class);
+    protected static final StickyViewUiBinder ourUiBinder = GWT.create(StickyViewUiBinder.class);
 
     interface StickyViewUiBinder extends UiBinder<HTMLPanel, RichTextView> {
     }

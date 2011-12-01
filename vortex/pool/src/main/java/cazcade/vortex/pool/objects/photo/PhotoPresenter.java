@@ -9,6 +9,8 @@ import cazcade.vortex.pool.objects.edit.PoolObjectEditor;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -26,7 +28,7 @@ public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
     }
 
     @Override
-    public void update(final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

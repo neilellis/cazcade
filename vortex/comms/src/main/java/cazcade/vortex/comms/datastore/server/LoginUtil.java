@@ -20,6 +20,8 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Properties;
@@ -28,22 +30,29 @@ import java.util.Properties;
  * @author neilellis@cazcade.com
  */
 public class LoginUtil {
+    @Nonnull
     private final static Logger log = Logger.getLogger(LoginUtil.class);
+    @Nonnull
     public static final String SESSION_KEY = "sessionId";
+    @Nonnull
     public static final String ALIAS_KEY = "alias_entity";
+    @Nonnull
     public static final String ALIAS_KEY_FOR_JSP = "alias";
+    @Nonnull
     private static final String USERNAME_KEY = "username";
 
 
+    @Nonnull
     public static final String APP_KEY = "123";
 
-    public static LiquidSessionIdentifier login(ClientSessionManager clientSessionManager, FountainDataStore dataStore, LiquidURI alias, HttpSession session) throws Exception {
+    @Nonnull
+    public static LiquidSessionIdentifier login(@Nonnull ClientSessionManager clientSessionManager, @Nonnull FountainDataStore dataStore, @Nonnull LiquidURI alias, @Nonnull HttpSession session) throws Exception {
         LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
         final LSDEntity responseEntity = response.getResponse();
         if (responseEntity.isA(LSDDictionaryTypes.SESSION)) {
-            LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getID());
+            LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getUUID());
             createClientSession(clientSessionManager, serverSession, true);
             if (!serverSession.isAnon()) {
                 placeServerSessionInHttpSession(dataStore, session, serverSession);
@@ -55,7 +64,7 @@ public class LoginUtil {
         }
     }
 
-    public static void placeServerSessionInHttpSession(FountainDataStore dataStore, HttpSession session, LiquidSessionIdentifier serverSession) {
+    public static void placeServerSessionInHttpSession(@Nonnull FountainDataStore dataStore, @Nonnull HttpSession session, @Nonnull LiquidSessionIdentifier serverSession) {
         final LSDEntity aliasEntity;
         try {
             aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
@@ -70,7 +79,7 @@ public class LoginUtil {
     }
 
 
-    public static ClientSession createClientSession(ClientSessionManager clientSessionManager, LiquidSessionIdentifier identity, boolean create) {
+    public static ClientSession createClientSession(@Nonnull ClientSessionManager clientSessionManager, @Nonnull LiquidSessionIdentifier identity, boolean create) {
         ClientSession clientSession;
         if (!clientSessionManager.hasSession(identity.getSession().toString()) && create) {
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
@@ -99,7 +108,8 @@ public class LoginUtil {
         return clientSession;
     }
 
-    public static LSDEntity register(HttpSession session, FountainDataStore theDataStore, String fullname, String username, String password, String emailAddress, boolean restricted) {
+    @Nullable
+    public static LSDEntity register(@Nonnull HttpSession session, @Nonnull FountainDataStore theDataStore, String fullname, @Nonnull String username, String password, String emailAddress, boolean restricted) {
         LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER, UUIDFactory.randomUUID());
         entity.setAttribute(LSDAttribute.FULL_NAME, fullname);
         entity.setAttribute(LSDAttribute.NAME, username);

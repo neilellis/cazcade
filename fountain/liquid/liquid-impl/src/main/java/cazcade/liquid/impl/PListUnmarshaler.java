@@ -4,13 +4,14 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDEntityFactory;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDUnmarshaler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,13 +24,14 @@ import java.io.InputStream;
 
 public class PListUnmarshaler implements LSDUnmarshaler {
 
-    private DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+    private final DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 
+    @Nonnull
     private static final Logger log = Logger.getLogger(PListUnmarshaler.class);
 
     private LSDEntityFactory lsdEntityFactory;
 
-    public void unmarshal(LSDEntity lsdEntity, InputStream input) {
+    public void unmarshal(@Nullable LSDEntity lsdEntity, InputStream input) {
         if (lsdEntity == null) {
             throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
@@ -53,7 +55,7 @@ public class PListUnmarshaler implements LSDUnmarshaler {
 
     }
 
-    private void walk(LSDEntity entity, String prefix, String lastKey, Element rootElement) {
+    private void walk(@Nonnull LSDEntity entity, @Nonnull String prefix, String lastKey, @Nonnull Element rootElement) {
         NodeList childNodes = rootElement.getChildNodes();
 
         for (int i = 0; i < childNodes.getLength(); i++) {
@@ -79,6 +81,7 @@ public class PListUnmarshaler implements LSDUnmarshaler {
         }
     }
 
+    @Nonnull
     public LSDEntity unmarshal(InputStream input) {
         LSDEntity lsdEntity = LSDSimpleEntity.createEmpty();
         unmarshal(lsdEntity, input);

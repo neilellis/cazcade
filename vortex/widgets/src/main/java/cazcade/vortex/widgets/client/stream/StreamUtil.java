@@ -4,12 +4,14 @@ import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import com.google.gwt.user.client.ui.InsertPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class StreamUtil {
 
-    public static void addStreamEntry(final int maxRows, final InsertPanel parentPanel, VortexThreadSafeExecutor threadSafeExecutor, final StreamEntry streamEntry, boolean autoDelete, final boolean allowUpdates) {
+    public static void addStreamEntry(final int maxRows, @Nonnull final InsertPanel parentPanel, @Nonnull VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final StreamEntry streamEntry, boolean autoDelete, final boolean allowUpdates) {
         if (autoDelete) {
             WidgetUtil.removeFromParentGracefully(streamEntry, streamEntry.getAutoDeleteLifetime() * 1000);
         }

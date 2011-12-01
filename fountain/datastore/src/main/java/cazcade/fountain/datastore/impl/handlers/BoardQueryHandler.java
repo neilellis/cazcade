@@ -10,18 +10,22 @@ import cazcade.liquid.api.request.BoardQueryRequest;
 import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class BoardQueryHandler extends AbstractDataStoreHandler<BoardQueryRequest> implements BoardQueryRequestHandler {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(BoardQueryHandler.class);
 
     @Autowired
     FountainBoardQueryDAO queryDAO;
 
-    public BoardQueryRequest handle(BoardQueryRequest request) throws InterruptedException {
+    @Nonnull
+    public BoardQueryRequest handle(@Nonnull BoardQueryRequest request) throws InterruptedException {
         Transaction transaction = fountainNeo.beginTx();
         try {
             log.debug("Processing Pool Query of type {0}", request.getQueryType());

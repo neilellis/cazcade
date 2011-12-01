@@ -9,14 +9,17 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.rpc.StatusCodeException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class OfflineRequestCallback implements RequestCallback {
 
     // This String we can save in localStorage.
     private String serializedResponse;
-    private String requestIdentifier;
-    private LiquidSessionIdentifier identity;
-    private RequestCallback callback;
-    private String applicationVersion;
+    private final String requestIdentifier;
+    private final LiquidSessionIdentifier identity;
+    private final RequestCallback callback;
+    private final String applicationVersion;
 
     public OfflineRequestCallback(String requestIdentifier, LiquidSessionIdentifier identity, RequestCallback callback, String applicationVersion) {
         this.requestIdentifier = requestIdentifier;
@@ -26,7 +29,7 @@ public class OfflineRequestCallback implements RequestCallback {
     }
 
     @Override
-    public void onResponseReceived(Request request, Response response) {
+    public void onResponseReceived(Request request, @Nonnull Response response) {
         if (response.getStatusCode() == 304 && Storage.isSessionStorageSupported()) {
             final Storage storage = Storage.getSessionStorageIfSupported();
             if (storage.getItem(cacheKey()) != null) {
@@ -58,8 +61,9 @@ public class OfflineRequestCallback implements RequestCallback {
 
     }
 
+    @Nonnull
     private String cacheKey() {
-        return identity.getName()+":"+applicationVersion+":"+requestIdentifier;
+        return identity.getName() + ":" + applicationVersion + ":" + requestIdentifier;
     }
 
 
@@ -82,7 +86,8 @@ public class OfflineRequestCallback implements RequestCallback {
         }
     }
 
-    Response getOldResponse(final Storage storage) {
+    @Nullable
+    Response getOldResponse(@Nonnull final Storage storage) {
 
         return new Response() {
 
@@ -91,6 +96,7 @@ public class OfflineRequestCallback implements RequestCallback {
                 return storage.getItem(cacheKey());
             }
 
+            @Nullable
             @Override
             public String getStatusText() {
                 return null;
@@ -101,16 +107,19 @@ public class OfflineRequestCallback implements RequestCallback {
                 return 200;
             }
 
+            @Nullable
             @Override
             public String getHeadersAsString() {
                 return null;
             }
 
+            @Nullable
             @Override
             public Header[] getHeaders() {
                 return null;
             }
 
+            @Nullable
             @Override
             public String getHeader(String header) {
                 return null;

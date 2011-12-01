@@ -13,7 +13,7 @@ public class TwitterLoginPopup extends PopupPanel {
     interface TwitterLoginPopupUiBinder extends UiBinder<HTMLPanel, TwitterLoginPopup> {
     }
 
-    private static TwitterLoginPopupUiBinder ourUiBinder = GWT.create(TwitterLoginPopupUiBinder.class);
+    private static final TwitterLoginPopupUiBinder ourUiBinder = GWT.create(TwitterLoginPopupUiBinder.class);
 
     public void showCenter() {
         Window.open("./_twitter/signin", "Sign In With Twitter", "width=700,height=512");

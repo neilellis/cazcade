@@ -12,6 +12,7 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -19,22 +20,27 @@ import java.util.List;
  */
 
 public class ListPoolCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(ListPoolCommand.class);
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "List contents of a pool";
     }
 
+    @Nonnull
     public String getName() {
         return "ls";
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    @Nonnull
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
 
 
         String pool;
@@ -56,7 +62,7 @@ public class ListPoolCommand extends AbstractShortLivedCommand {
         String result = "";
         for (LSDEntity subEntity : subEntities) {
             final String name = subEntity.getAttribute(LSDAttribute.NAME);
-            System.out.println(""+name);
+            System.out.println("" + name);
             result = result + " ";
         }
         return result;

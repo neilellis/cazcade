@@ -14,6 +14,7 @@ import cazcade.liquid.api.request.DeleteSessionRequest;
 import cazcade.liquid.api.request.RetrieveSessionRequest;
 import cazcade.liquid.api.request.UpdateSessionRequest;
 
+import javax.annotation.Nonnull;
 import java.net.URISyntaxException;
 import java.util.Map;
 
@@ -28,11 +29,13 @@ public class SessionRestHandler extends AbstractRestHandler {
     private FountainDataStoreFacade dataStoreFacade;
 
 
+    @Nonnull
     public LiquidMessage get(LiquidUUID userId) throws URISyntaxException {
         return dataStoreFacade.process(new RetrieveSessionRequest(RestContext.getContext().getCredentials(), userId));
     }
 
-    public LiquidMessage create(Map<String, String[]> parameters) throws URISyntaxException {
+    @Nonnull
+    public LiquidMessage create(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "client", "key", "hostinfo");
         final String name = parameters.get("client")[0];
         final String key = parameters.get("key")[0];
@@ -40,11 +43,13 @@ public class SessionRestHandler extends AbstractRestHandler {
         return dataStoreFacade.process(new CreateSessionRequest(RestContext.getContext().getCredentials().getAlias(), new ClientApplicationIdentifier(name, key, hostinfo)));
     }
 
+    @Nonnull
     public LiquidMessage update(LiquidUUID sessionId, LSDEntity lsdEntity) throws URISyntaxException {
         LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new UpdateSessionRequest(username, sessionId, lsdEntity, false));
     }
 
+    @Nonnull
     public LiquidMessage delete(LiquidUUID sessionId) throws URISyntaxException {
         return dataStoreFacade.process(new DeleteSessionRequest(RestContext.getContext().getCredentials(), sessionId));
     }

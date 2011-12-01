@@ -13,6 +13,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -20,6 +22,7 @@ public class HashboLoginPanel extends Composite {
     private Runnable onSuccessAction;
     private Runnable onFailureAction;
     private Runnable onSwitchToRegisterAction;
+    @Nullable
     private LiquidSessionIdentifier identity;
 
 
@@ -27,7 +30,7 @@ public class HashboLoginPanel extends Composite {
     }
 
 
-    private static LoginPanelUiBinder ourUiBinder = GWT.create(LoginPanelUiBinder.class);
+    private static final LoginPanelUiBinder ourUiBinder = GWT.create(LoginPanelUiBinder.class);
 
     @UiField
     UsernameTextBox username;
@@ -87,7 +90,7 @@ public class HashboLoginPanel extends Composite {
                 }
 
                 @Override
-                public void onSuccess(LiquidSessionIdentifier result) {
+                public void onSuccess(@Nullable LiquidSessionIdentifier result) {
                     if (result == null) {
                         doFailure();
                     } else {
@@ -117,6 +120,7 @@ public class HashboLoginPanel extends Composite {
         this.onFailureAction = onFailureAction;
     }
 
+    @Nullable
     public LiquidSessionIdentifier getIdentity() {
         return identity;
     }

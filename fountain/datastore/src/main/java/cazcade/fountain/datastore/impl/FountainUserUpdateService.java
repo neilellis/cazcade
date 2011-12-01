@@ -8,6 +8,7 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.annotation.Nonnull;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public class FountainUserUpdateService {
     public static final long HOUR_IN_MILLIS = 3600L * 1000L;
     public static final long DAY_IN_MILLIS = 24L * HOUR_IN_MILLIS;
 
+    @Nonnull
     private final Logger log = Logger.getLogger(FountainUserDAOImpl.class);
 
     @Autowired
@@ -58,7 +60,7 @@ public class FountainUserUpdateService {
 
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
-            public void process(LSDEntity userEntity, LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
+            public void process(@Nonnull LSDEntity userEntity, @Nonnull LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
                 log.info("Sending update to " + aliasEntity.getURI());
                 final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.getURI().asString());
                 long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null ? alias.getLastEmailUpdateDate().getTime() : yesterday;

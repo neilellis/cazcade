@@ -1,18 +1,21 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.UpdatePoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObjectRequest> implements UpdatePoolObjectRequestHandler {
+    @Nonnull
     @Override
-    public UpdatePoolObjectRequest handle(UpdatePoolObjectRequest request) throws InterruptedException {
+    public UpdatePoolObjectRequest handle(@Nonnull UpdatePoolObjectRequest request) throws InterruptedException {
         Node node;
         final Transaction transaction = fountainNeo.beginTx();
         try {

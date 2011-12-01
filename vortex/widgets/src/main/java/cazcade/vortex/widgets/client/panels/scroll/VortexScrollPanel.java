@@ -35,27 +35,31 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public final class VortexScrollPanel extends HTMLPanel implements GestureControllable, HasEndDragHandler, HasHoldDragHandler, HasDragHandler, HasMouseWheelHandlers, DragHandler, HoldDragHandler, EndDragHandler, MouseWheelHandler {
-    private BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
+    private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     private HorizontalScrollBar horizontalScrollBar;
     private VerticalScrollBar verticalScrollBar;
-    private Widget inner;
-    private boolean xMovementAllowed;
-    private boolean yMovementAllowed;
-    private boolean startInMiddle;
-    private Runnable onUserAction;
+    @Nonnull
+    private final Widget inner;
+    private final boolean xMovementAllowed;
+    private final boolean yMovementAllowed;
+    private final boolean startInMiddle;
+    private final Runnable onUserAction;
     private int offsetX;
-    private ScrollAreaPanel outer;
+    @Nonnull
+    private final ScrollAreaPanel outer;
     private int offsetY;
 
-    public VortexScrollPanel(Widget inner, boolean xMovementAllowed, boolean yMovementAllowed, boolean startInMiddle, Runnable onUserAction) {
+    public VortexScrollPanel(@Nonnull Widget inner, boolean xMovementAllowed, boolean yMovementAllowed, boolean startInMiddle, Runnable onUserAction) {
         this(inner, xMovementAllowed, yMovementAllowed, startInMiddle, false, onUserAction);
     }
 
-    public VortexScrollPanel(Widget inner, boolean xMovementAllowed, boolean yMovementAllowed, boolean startInMiddle, boolean pageFlow, Runnable onUserAction) {
+    public VortexScrollPanel(@Nonnull Widget inner, boolean xMovementAllowed, boolean yMovementAllowed, boolean startInMiddle, boolean pageFlow, Runnable onUserAction) {
         super("");
         this.inner = inner;
         this.xMovementAllowed = xMovementAllowed;
@@ -80,12 +84,12 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
     }
 
     private void setHeightForFlow(boolean pageFlow) {
-        if(pageFlow) {
+        if (pageFlow) {
             outer.setHeight("auto");
         } else {
             outer.setHeight("100%");
         }
-        if(pageFlow) {
+        if (pageFlow) {
             setHeight("auto");
         } else {
             setHeight("100%");
@@ -187,12 +191,12 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
         return addHandler(handler, MouseWheelEvent.getType());
     }
 
-    public void onDrag(DragEvent dragEvent) {
+    public void onDrag(@Nonnull DragEvent dragEvent) {
         onDragInternal(dragEvent);
     }
 
 
-    private void onDragInternal(GestureEvent event) {
+    private void onDragInternal(@Nonnull GestureEvent event) {
         userAction();
 
         int x = 0;
@@ -241,13 +245,13 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
         browserUtil.translateXY(inner, x, y, speed);
     }
 
-    public void onHoldDrag(HoldDragEvent holdDragEvent) {
+    public void onHoldDrag(@Nonnull HoldDragEvent holdDragEvent) {
         onDragInternal(holdDragEvent);
         userAction();
 
     }
 
-    public void onEndDrag(EndDragEvent endDragEvent) {
+    public void onEndDrag(@Nonnull EndDragEvent endDragEvent) {
         final int deltaX = endDragEvent.getDeltaX();
         final int deltaY = endDragEvent.getDeltaY();
         ClientLog.log("offset-x= " + offsetX + " and delta-x=" + deltaX);
@@ -315,7 +319,7 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
     }
 
     @Override
-    public void onMouseWheel(MouseWheelEvent event) {
+    public void onMouseWheel(@Nonnull MouseWheelEvent event) {
         moveToDelta(browserUtil.convertMouseScrollDeltaXToPixelDelta(event), browserUtil.convertMouseScrollDeltaYToPixelDelta(event));
         userAction();
     }
@@ -350,7 +354,6 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
     public void scrollToTopLeft() {
         moveTo(0, 0, 500);
     }
-
 
 
     private class ScrollAreaPanel extends AbsolutePanel implements HasAllMouseHandlers, HasAllTouchHandlers {

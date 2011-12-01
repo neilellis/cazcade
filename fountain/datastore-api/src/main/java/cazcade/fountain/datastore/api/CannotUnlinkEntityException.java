@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
@@ -10,11 +12,11 @@ public class CannotUnlinkEntityException extends DataStoreException {
         super(throwable);
     }
 
-    public CannotUnlinkEntityException(String message, Object... params) {
+    public CannotUnlinkEntityException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public CannotUnlinkEntityException(Throwable cause, String message, Object... params) {
+    public CannotUnlinkEntityException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 

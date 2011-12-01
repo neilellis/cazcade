@@ -7,6 +7,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,15 +21,16 @@ import java.util.Map;
 public class HistoryManager {
 
 
-    Map<String, HistoryAwareFactory> compositeMap = new HashMap<String, HistoryAwareFactory>();
-    private String mainPanelId;
+    @Nonnull
+    final Map<String, HistoryAwareFactory> compositeMap = new HashMap<String, HistoryAwareFactory>();
+    private final String mainPanelId;
 
     public HistoryManager(final String mainPanelId) {
         this.mainPanelId = mainPanelId;
         if (RootPanel.get(mainPanelId) != null) {
             com.google.gwt.user.client.History.addValueChangeHandler(new ValueChangeHandler<String>() {
                 @Override
-                public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+                public void onValueChange(@Nonnull ValueChangeEvent<String> stringValueChangeEvent) {
                     String newToken = stringValueChangeEvent.getValue();
                     handleTokenChange(newToken);
                 }
@@ -35,7 +38,7 @@ public class HistoryManager {
         }
     }
 
-    private void handleTokenChange(String newToken) {
+    private void handleTokenChange(@Nonnull String newToken) {
         String tokenFirstPart;
         //grrr Jsession id nonsense
         if (newToken.contains(";")) {
@@ -70,7 +73,7 @@ public class HistoryManager {
         historyAwareFactory.withInstance(
                 new HistoryAwareFactoryCallback() {
                     @Override
-                    public void withInstance(HistoryAware composite) {
+                    public void withInstance(@Nullable HistoryAware composite) {
                         if (composite != null) {
                             final Widget currentWidget = RootPanel.get(mainPanelId).iterator().next();
                             if (currentWidget != null) {
@@ -89,7 +92,7 @@ public class HistoryManager {
 
     }
 
-    public void registerTopLevelComposite(String token, HistoryAwareFactory composite) {
+    public void registerTopLevelComposite(String token, @Nonnull HistoryAwareFactory composite) {
         compositeMap.put(token, composite);
         composite.setHistoryManager(this);
         composite.setHistoryToken(token);
@@ -112,7 +115,7 @@ public class HistoryManager {
         }
     }
 
-    private static final native boolean isPushStateSupported()/*-{
+    private static native boolean isPushStateSupported()/*-{
         return typeof($wnd.history.pushState) == "function" && !$wnd.testNoPushState;
     }-*/;
 

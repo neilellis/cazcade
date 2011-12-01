@@ -25,24 +25,29 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class CommentPanel extends Composite {
     public static final int UPDATE_LIEFTIME = 1200 * 1000;
-    private Bus bus = BusFactory.getInstance();
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
     private int maxRows = 100;
-    private long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
+    private final long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
     private boolean showStatusUpdates = true;
-    private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
     private FormatUtil features;
     private boolean initialized;
     private LiquidURI pool;
-    private SoundController soundController;
-    private Sound userEnteredSound;
-    private Sound chatMessageSound;
-    private Sound statusUpdateSound;
+    @Nonnull
+    private final SoundController soundController;
+    private final Sound userEnteredSound;
+    private final Sound chatMessageSound;
+    private final Sound statusUpdateSound;
 
 
     public void setMaxRows(int maxRows) {
@@ -65,9 +70,9 @@ public class CommentPanel extends Composite {
     interface VortexStreamPanelUiBinder extends UiBinder<VerticalPanel, CommentPanel> {
     }
 
-    private static VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
+    private static final VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
 
-    VerticalPanel parentPanel;
+    final VerticalPanel parentPanel;
 
     public CommentPanel() {
         final VerticalPanel widget = ourUiBinder.createAndBindUi(this);
@@ -90,7 +95,7 @@ public class CommentPanel extends Composite {
 
     }
 
-    public void init(final LiquidURI newPool, final FormatUtil features) {
+    public void init(final LiquidURI newPool, @Nonnull final FormatUtil features) {
         this.pool = newPool;
         this.features = features;
 
@@ -100,7 +105,7 @@ public class CommentPanel extends Composite {
                 public void run() {
                     bus.listen(new AbstractBusListener() {
                         @Override
-                        public void handle(LiquidMessage message) {
+                        public void handle(@Nonnull LiquidMessage message) {
                             final LSDEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
@@ -117,7 +122,7 @@ public class CommentPanel extends Composite {
                     });
                     BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                         @Override
-                        public void handle(SendRequest request) {
+                        public void handle(@Nonnull SendRequest request) {
                             addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), features));
                         }
                     });
@@ -143,7 +148,7 @@ public class CommentPanel extends Composite {
     }
 
 
-    private void addStreamEntry(final StreamEntry vortexStreamContent) {
+    private void addStreamEntry(@Nonnull final StreamEntry vortexStreamContent) {
         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, vortexStreamContent, false, true);
 
     }

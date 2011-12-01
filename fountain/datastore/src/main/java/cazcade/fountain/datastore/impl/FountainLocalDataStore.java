@@ -11,6 +11,7 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.AuthorizationRequest;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -19,21 +20,23 @@ import java.util.List;
 
 public class FountainLocalDataStore extends AbstractServiceStateMachine implements FountainDataStore {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainLocalDataStore.class);
 
     private FountainNeo fountainNeo;
     private FountainRequestMap requestMap;
     private AuthorizationRequestHandler authHandler;
 
+    @Nonnull
     @Override
-    public <T extends LiquidRequest> T process(T request) throws Exception {
+    public <T extends LiquidRequest> T process(@Nonnull T request) throws Exception {
         try {
             final List<AuthorizationRequest> authorizationRequests = request.getAuthorizationRequests();
             for (AuthorizationRequest authorizationRequest : authorizationRequests) {
                 authorizationRequest.setSessionId(request.getSessionIdentifier());
                 final AuthorizationRequest result = authHandler.handle(authorizationRequest);
                 final LSDEntity responseEntity = result.getResponse();
-                if (!LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(responseEntity.getTypeDef())) {
+                if (!responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE)) {
                     LiquidResponseHelper.forFailure(request, result);
                 }
             }

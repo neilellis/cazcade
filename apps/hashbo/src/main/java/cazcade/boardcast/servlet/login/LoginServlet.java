@@ -5,6 +5,7 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +17,12 @@ import java.security.Principal;
  * @author neilellis@cazcade.com
  */
 public class LoginServlet extends AbstractHashboServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(LoginServlet.class);
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
         if (loggedIn(req.getSession(true))) {
             forwardAfterLogin(req, resp);
         } else {
@@ -29,7 +31,7 @@ public class LoginServlet extends AbstractHashboServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
         final String username = req.getParameter("username");
         final String password = req.getParameter("password");
         try {

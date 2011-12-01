@@ -22,15 +22,21 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class PoolObjectView extends GestureAwareView implements HasDragHandler, HasHoldDragHandler, HasEndDragHandler, HasClickHandlers {
 
+    @Nonnull
     public static final String THUMBNAIL = "thumbnail";
+    @Nonnull
     public static final String SMALL = "small";
+    @Nonnull
     public static final String MEDIUM = "medium";
+    @Nonnull
     public static final String LARGE = "large";
     public static final double GOLDEN_RATIO = 1.618;
     public static final int BOARD_WIDTH = 1024;
@@ -51,7 +57,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     private Runnable onDelete;
     private int logicalWidth;
     private int logicalHeight;
-    protected BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
+    protected final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     protected boolean editing;
     private boolean editable = false;
     private Widget innerWidget;
@@ -104,7 +110,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
 
 
     @Override
-    protected void initWidget(Widget widget) {
+    protected void initWidget(@Nonnull Widget widget) {
         this.innerWidget = widget;
         final SimplePanel simplePanel = new SimplePanel();
         simplePanel.addStyleName("pool-object");

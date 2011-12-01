@@ -13,13 +13,17 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.impl.UUIDFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public class LiquidResponseHelper {
+    @Nonnull
     private final static Logger log = Logger.getLogger(LiquidResponseHelper.class);
 
-    public static <T extends LiquidRequest> T forException(Exception e, T request) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forException(@Nonnull Exception e, @Nonnull T request) {
         if (e instanceof EntityNotFoundException) {
             return forResourceNotFound(e.getMessage(), request);
         } else {
@@ -45,7 +49,8 @@ public class LiquidResponseHelper {
         }
     }
 
-    public static <T extends LiquidRequest> T forFailure(T request, LiquidRequest failure) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forFailure(@Nonnull T request, @Nonnull LiquidRequest failure) {
 
         T message = (T) request.copy();
         message.setState(LiquidMessageState.FAIL);
@@ -62,7 +67,8 @@ public class LiquidResponseHelper {
 
     }
 
-    public static <T extends LiquidRequest> T forEmptyResultResponse(T request) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forEmptyResultResponse(@Nonnull T request) {
         T message = (T) request.copy();
         LSDEntity entity = LSDSimpleEntity.createEmpty();
         entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.EMPTY_RESULT.getValue());
@@ -78,7 +84,8 @@ public class LiquidResponseHelper {
         return message;
     }
 
-    public static <T extends LiquidRequest> T forResourceNotFound(String description, T request) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forResourceNotFound(String description, @Nonnull T request) {
         T message = (T) request.copy();
         LSDEntity entity = LSDSimpleEntity.createEmpty();
         entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.RESOURCE_NOT_FOUND.getValue());
@@ -94,7 +101,8 @@ public class LiquidResponseHelper {
         return message;
     }
 
-    public static <T extends LiquidRequest> T forDuplicateResource(String description, T request) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forDuplicateResource(String description, @Nonnull T request) {
         T message = (T) request.copy();
         LSDEntity entity = LSDSimpleEntity.createEmpty();
         entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.DUPLICATE_RESOURCE_ERROR.getValue());
@@ -110,7 +118,8 @@ public class LiquidResponseHelper {
         return message;
     }
 
-    public static <T extends LiquidRequest> T forServerSuccess(T request, LSDEntity entity) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forServerSuccess(@Nonnull T request, LSDEntity entity) {
         T message = (T) request.copy();
         message.setResponse(entity);
         message.setState(LiquidMessageState.SUCCESS);
@@ -118,7 +127,8 @@ public class LiquidResponseHelper {
         return message;
     }
 
-    public static <T extends LiquidRequest> T forServerSuccess(T request) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forServerSuccess(@Nonnull T request) {
         T message = (T) request.copy();
         message.setState(LiquidMessageState.SUCCESS);
         message.setOrigin(LiquidMessageOrigin.SERVER);
@@ -126,11 +136,12 @@ public class LiquidResponseHelper {
     }
 
 
-    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(T request, LSDEntity entity) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull T request, @Nonnull LSDEntity entity) {
         T message = (T) request.copy();
         LSDSimpleEntity response = LSDSimpleEntity.createEmpty();
         response.setType(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
-        response.setID(entity.getID());
+        response.setID(entity.getUUID());
         response.setAttribute(LSDAttribute.UPDATED, entity.getAttribute(LSDAttribute.UPDATED));
         message.setResponse(response);
         message.setState(LiquidMessageState.SUCCESS);
@@ -138,7 +149,8 @@ public class LiquidResponseHelper {
         return message;
     }
 
-    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(T request, String id, String timestamp) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull T request, String id, String timestamp) {
         T message = (T) request.copy();
         LSDSimpleEntity response = LSDSimpleEntity.createEmpty();
         response.setType(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
@@ -150,7 +162,8 @@ public class LiquidResponseHelper {
         return message;
     }
 
-    public static <T extends LiquidRequest> T forDeferral(T request) {
+    @Nonnull
+    public static <T extends LiquidRequest> T forDeferral(@Nonnull T request) {
         T message = (T) request.copy();
         LSDEntity entity = LSDSimpleEntity.createEmpty();
         entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.DATA_STORE_DEFERRED_RESULT.getValue());

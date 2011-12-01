@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
@@ -11,9 +12,9 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.impl.UUIDFactory;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +24,8 @@ import java.util.List;
  */
 public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpdatesRequest> implements RetrieveUpdatesRequestHandler {
 
-    public RetrieveUpdatesRequest handle(final RetrieveUpdatesRequest request) throws InterruptedException {
+    @Nonnull
+    public RetrieveUpdatesRequest handle(@Nonnull final RetrieveUpdatesRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
             LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();

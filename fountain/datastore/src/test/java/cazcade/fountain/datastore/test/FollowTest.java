@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.test;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainPoolDAOImpl;
 import cazcade.fountain.datastore.impl.FountainSocialDAO;
@@ -13,11 +14,12 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.Callable;
 
@@ -39,6 +41,7 @@ public class FollowTest {
     private FountainNeo fountainNeo;
     private String stickyName;
     private String userPublicPoolName;
+    @Nullable
     private LiquidSessionIdentifier session;
     private LiquidURI stickyURI;
     private LiquidURI publicPoolURI;
@@ -68,12 +71,13 @@ public class FollowTest {
     public void setUp() throws Exception {
         fountainNeo.doInTransaction(new Callable() {
 
+            @Nullable
             @Override
             public Object call() throws InterruptedException, UnsupportedEncodingException {
                 Node userNode = createUser();
                 Node otherUserNode = createUser();
-                username = (String) userNode.getProperty(LSDAttribute.NAME.getKeyName());
-                otherUsername = (String) otherUserNode.getProperty(LSDAttribute.NAME.getKeyName());
+                username = userNode.getProperty(LSDAttribute.NAME);
+                otherUsername = otherUserNode.getProperty(LSDAttribute.NAME);
                 otherUserURI = new LiquidURI("alias:cazcade:" + otherUsername);
                 userURI = new LiquidURI("alias:cazcade:" + username);
                 session = new LiquidSessionIdentifier(username, null);
@@ -102,6 +106,7 @@ public class FollowTest {
         });
     }
 
+    @Nonnull
     private Node createUser() throws InterruptedException, UnsupportedEncodingException {
         final LSDSimpleEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
@@ -112,10 +117,11 @@ public class FollowTest {
 
         Node newUser = userDAO.createUser(user, false);
         poolDAO.createPoolsForUserNoTx(username);
+        poolDAO.createPoolsForCazcadeAliasNoTx(username, user.getAttribute(LSDAttribute.FULL_NAME), false);
         return newUser;
     }
 
-    private void createSticky(Node subPool, String stickyName) throws InterruptedException {
+    private void createSticky(@Nonnull Node subPool, String stickyName) throws InterruptedException {
         final LSDSimpleEntity sticky = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.STICKY);
         sticky.setAttribute(LSDAttribute.TEXT_EXTENDED, "TEST");
         sticky.setAttribute(LSDAttribute.NAME, stickyName);

@@ -2,6 +2,8 @@ package cazcade.liquid.api.exception;
 
 import cazcade.fountain.common.error.CazcadeException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -10,11 +12,11 @@ public class UnclaimedAliasException extends CazcadeException {
         super(throwable);
     }
 
-    public UnclaimedAliasException(String message, Object... params) {
+    public UnclaimedAliasException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public UnclaimedAliasException(Throwable cause, String message, Object... params) {
+    public UnclaimedAliasException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

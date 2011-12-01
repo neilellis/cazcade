@@ -1,5 +1,7 @@
 package cazcade.fountain.common.mq;
 
+import javax.annotation.Nonnull;
+
 /**
  * An object that wishes to handle messages within the common mq package implements this interface.
  */
@@ -10,5 +12,6 @@ public interface MessageHandler {
      *
      * @param requestBytes the message to be processed.
      */
+    @Nonnull
     public byte[] handleMessage(byte[] requestBytes);
 }

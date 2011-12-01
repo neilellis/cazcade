@@ -25,12 +25,16 @@ import cazcade.vortex.pool.objects.website.WebsiteView;
 import cazcade.vortex.pool.objects.youtube.YouTubePresenter;
 import cazcade.vortex.pool.objects.youtube.YouTubeView;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class PoolObjectPresenterFactory {
 
-    public static PoolObjectPresenter getPresenterForEntity(PoolPresenter poolPresenter, LSDEntity entity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
+    @Nullable
+    public static PoolObjectPresenter getPresenterForEntity(PoolPresenter poolPresenter, @Nonnull LSDEntity entity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
         if (entity.canBe(LSDDictionaryTypes.PHOTO2D)) {
             return new PhotoPresenter(poolPresenter, entity, new PhotoView(), threadSafeExecutor);
         } else if (entity.canBe(LSDDictionaryTypes.WEBPAGE)) {
@@ -58,7 +62,8 @@ public class PoolObjectPresenterFactory {
         }
     }
 
-    public static PoolObjectPresenter getPresenterForEntity(PoolObjectPresenterContainer poolObjectPresenterContainer, LSDEntity entity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
+    @Nullable
+    public static PoolObjectPresenter getPresenterForEntity(@Nonnull PoolObjectPresenterContainer poolObjectPresenterContainer, @Nonnull LSDEntity entity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
         if (poolObjectPresenterContainer.getType().canBe(LSDDictionaryTypes.POOL2D)) {
             return getPresenterForEntity((PoolPresenter) poolObjectPresenterContainer, entity, features, threadSafeExecutor);
         } else {

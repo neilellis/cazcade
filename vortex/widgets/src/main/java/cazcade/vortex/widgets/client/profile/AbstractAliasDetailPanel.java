@@ -28,6 +28,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -78,25 +81,27 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     }
 
 
+    @Nonnull
     protected String getReferenceDataPrefix() {
         return "profile";
     }
 
-    protected Runnable getUpdateEntityAction(final Bindable field) {
+    @Nonnull
+    protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
 
                 getBus().send(new UpdateAliasRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdateAliasRequest>() {
                     @Override
-                    public void onSuccess(UpdateAliasRequest message, UpdateAliasRequest response) {
+                    public void onSuccess(UpdateAliasRequest message, @Nonnull UpdateAliasRequest response) {
                         setEntity(response.getResponse().copy());
                         getWidget().getElement().getStyle().setOpacity(1.0);
 
                     }
 
                     @Override
-                    public void onFailure(UpdateAliasRequest message, UpdateAliasRequest response) {
+                    public void onFailure(UpdateAliasRequest message, @Nonnull UpdateAliasRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
 
@@ -107,7 +112,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     }
 
 
-    public void setAliasURI(final LiquidURI aliasURI) {
+    public void setAliasURI(@Nonnull final LiquidURI aliasURI) {
         this.aliasURI = aliasURI;
 
 
@@ -133,7 +138,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         }
         followListenId = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(aliasURI, LiquidRequestType.FOLLOW, new AbstractBusListener<FollowRequest>() {
             @Override
-            public void handle(FollowRequest response) {
+            public void handle(@Nonnull FollowRequest response) {
                 if (response.getUri().equals(aliasURI)) {
                     bind(response.getResponse().copy());
                 }
@@ -144,7 +149,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         }
         updateAliasListenId = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(aliasURI, LiquidRequestType.UPDATE_ALIAS, new AbstractBusListener<UpdateAliasRequest>() {
             @Override
-            public void handle(UpdateAliasRequest response) {
+            public void handle(@Nonnull UpdateAliasRequest response) {
                 if (response.getUri().equals(aliasURI)) {
                     bind(response.getResponse().copy());
                 }
@@ -153,7 +158,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
 
         BusFactory.getInstance().send(new RetrieveAliasRequest(aliasURI), new AbstractResponseCallback<RetrieveAliasRequest>() {
             @Override
-            public void onSuccess(RetrieveAliasRequest message, RetrieveAliasRequest response) {
+            public void onSuccess(RetrieveAliasRequest message, @Nonnull RetrieveAliasRequest response) {
                 bind(response.getResponse().copy());
 
             }
@@ -162,7 +167,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
 
     }
 
-    private void initDMAndFollow(final LiquidURI aliasURI) {
+    private void initDMAndFollow(@Nonnull final LiquidURI aliasURI) {
         if (followHandler != null) {
             followHandler.removeHandler();
         }
@@ -198,7 +203,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     }
 
 
-    public void onChange(final LSDEntity entity) {
+    public void onChange(@Nullable final LSDEntity entity) {
         if (entity == null) {
             return;
         }

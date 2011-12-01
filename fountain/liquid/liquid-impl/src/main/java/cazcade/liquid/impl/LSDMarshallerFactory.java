@@ -1,7 +1,5 @@
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDMarshaler;
-
 import java.util.Map;
 
 /**

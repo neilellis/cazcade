@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,11 +40,11 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
         this(null, identity, null, uri, LiquidRequestDetailLevel.NORMAL, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LiquidRequestDetailLevel detail, boolean contents, boolean orCreate, ChildSortOrder order) {
+    public RetrievePoolRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID target, @Nullable LiquidURI uri, @Nonnull LiquidRequestDetailLevel detail, boolean contents, boolean orCreate, @Nullable ChildSortOrder order) {
         this(id, identity, target, uri, detail, contents, orCreate, order, 50);
     }
 
-    public RetrievePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LiquidRequestDetailLevel detail, boolean contents, boolean orCreate, ChildSortOrder order, int max) {
+    public RetrievePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, @Nonnull LiquidRequestDetailLevel detail, boolean contents, boolean orCreate, ChildSortOrder order, int max) {
         setOrCreate(orCreate);
         setSessionId(identity);
         setUri(uri);
@@ -54,7 +56,7 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
         setMax(max);
     }
 
-    public RetrievePoolRequest(LiquidURI uri, LiquidRequestDetailLevel detailLevel, boolean contents, boolean orCreate) {
+    public RetrievePoolRequest(LiquidURI uri, @Nonnull LiquidRequestDetailLevel detailLevel, boolean contents, boolean orCreate) {
         this(null, null, null, uri, detailLevel, contents, orCreate, null);
     }
 
@@ -62,11 +64,12 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
         this(null, sessionIdentifier, null, uri, LiquidRequestDetailLevel.NORMAL, true, orCreate, sortOrder);
     }
 
-    public RetrievePoolRequest(LiquidSessionIdentifier identity, LiquidURI uri, LiquidRequestDetailLevel detail, boolean contents, boolean orCreate) {
+    public RetrievePoolRequest(LiquidSessionIdentifier identity, LiquidURI uri, @Nonnull LiquidRequestDetailLevel detail, boolean contents, boolean orCreate) {
         this(null, identity, null, uri, detail, contents, orCreate, null);
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new RetrievePoolRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), getDetail(), isContents(), isOrCreate(), getOrder());
@@ -81,6 +84,7 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_POOL;
     }

@@ -1,5 +1,6 @@
 package cazcade.common;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.zip.ZipEntry;
@@ -11,7 +12,7 @@ import java.util.zip.ZipOutputStream;
 public class DirZip {
 
 
-    public static void zipDir(String dir2zip, ZipOutputStream zos, boolean recursive) {
+    public static void zipDir(String dir2zip, @Nonnull ZipOutputStream zos, boolean recursive) {
         try {
             //create a new File object based on the directory we have to zip
             File
@@ -45,8 +46,7 @@ public class DirZip {
                 //close the Stream
                 fis.close();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             //handle exception
         }
     }

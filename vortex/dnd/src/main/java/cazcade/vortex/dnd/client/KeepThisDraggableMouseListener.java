@@ -6,6 +6,8 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -13,14 +15,15 @@ public class KeepThisDraggableMouseListener
         implements MouseDownHandler, MouseUpHandler, MouseMoveHandler {
     private boolean dragging;
 
-    private AbsolutePanel container;
-    private Widget widget;
+    private final AbsolutePanel container;
+    @Nonnull
+    private final Widget widget;
     private String originalStyle;
     private int y;
     private int startY;
     private int delta;
 
-    public KeepThisDraggableMouseListener(AbsolutePanel container, Widget widget) {
+    public KeepThisDraggableMouseListener(AbsolutePanel container, @Nonnull Widget widget) {
         this.container = container;
         this.widget = widget;
         originalStyle = widget.getElement().getAttribute("style");
@@ -30,7 +33,7 @@ public class KeepThisDraggableMouseListener
     }
 
 
-    public void onMouseDown(MouseDownEvent event) {
+    public void onMouseDown(@Nonnull MouseDownEvent event) {
         dragging = true;
 
 // capturing the mouse to the dragged widget.
@@ -43,7 +46,7 @@ public class KeepThisDraggableMouseListener
     }
 
 
-    public void onMouseUp(MouseUpEvent event) {
+    public void onMouseUp(@Nonnull MouseUpEvent event) {
         dragging = false;
         DOM.releaseCapture(container.getElement());
         ClientLog.log("UP", null);
@@ -56,7 +59,7 @@ public class KeepThisDraggableMouseListener
     }
 
 
-    public void onMouseMove(MouseMoveEvent event) {
+    public void onMouseMove(@Nonnull MouseMoveEvent event) {
         if (dragging) {
 // we don't want the widget to go off-screen, so the top/left
 // values should always remain be positive.

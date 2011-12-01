@@ -1,14 +1,13 @@
 package cazcade.vortex.widgets.client.image;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.UListElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.elementparsers.HTMLPanelParser;
-import com.google.gwt.user.client.*;
-import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+
+import javax.annotation.Nonnull;
 
 
 /**
@@ -31,7 +30,7 @@ public class ImageSelection extends Composite {
     interface ImageSelectionUiBinder extends UiBinder<HTMLPanel, ImageSelection> {
     }
 
-    private static ImageSelectionUiBinder ourUiBinder = GWT.create(ImageSelectionUiBinder.class);
+    private static final ImageSelectionUiBinder ourUiBinder = GWT.create(ImageSelectionUiBinder.class);
 
     @UiField
     HTMLPanel panel;
@@ -44,7 +43,7 @@ public class ImageSelection extends Composite {
 
 
     @UiChild(tagname = "option")
-    public void addOption(ImageOption option) {
+    public void addOption(@Nonnull ImageOption option) {
         option.setImageSelection(this);
         grid.add(option);
     }

@@ -4,12 +4,15 @@ import cazcade.vortex.widgets.client.Resources;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
     public static final int MAX_USERNAME_LENGTH = 40;
     protected boolean acceptable;
+    @Nonnull
     protected String oldText = "";
     protected boolean showAvailability;
 
@@ -17,7 +20,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
     protected void init() {
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(KeyPressEvent event) {
+            public void onKeyPress(@Nonnull KeyPressEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
 //
                     final int keyCode = event.getUnicodeCharCode();
@@ -48,7 +51,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
         textBox.addKeyUpHandler(new CleanUpKeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(@Nonnull KeyUpEvent event) {
                 super.onKeyUp(event);
                 if (!isValidName()) {
                     showInvalidName();
@@ -60,8 +63,9 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
     }
 
+    @Nonnull
     @Override
-    protected String cleanUpText(String text) {
+    protected String cleanUpText(@Nonnull String text) {
         if (text.length() == 0) {
             return text;
         }

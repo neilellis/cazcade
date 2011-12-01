@@ -1,7 +1,7 @@
 package cazcade.fountain.notification.client.api;
 
-import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidRequest;
 
 /**
  * @author neilelliz@cazcade.com
@@ -9,7 +9,7 @@ import cazcade.liquid.api.LiquidMessage;
 public class RequestNotification {
 
     private RequestState state;
-    private LiquidRequest request;
+    private final LiquidRequest request;
     private LiquidMessage response;
 
     public RequestNotification(RequestState state, LiquidRequest request, LiquidMessage response) {

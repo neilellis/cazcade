@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -29,7 +31,7 @@ public class EditableImage extends Composite implements Bindable {
     protected boolean editable = true;
 
     @Override
-    public void bind(LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
+    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
         this.entity = entity;
         this.attribute = attribute;
         image.setUrl(entity.getAttribute(attribute));
@@ -47,6 +49,7 @@ public class EditableImage extends Composite implements Bindable {
     }
 
 
+    @Nonnull
     @Override
     public LSDEntity getEntityDiff() {
         final LSDEntity result = entity.asUpdateEntity();
@@ -62,7 +65,7 @@ public class EditableImage extends Composite implements Bindable {
     interface EditableImageUiBinder extends UiBinder<HTMLPanel, EditableImage> {
     }
 
-    private static EditableImageUiBinder ourUiBinder = GWT.create(EditableImageUiBinder.class);
+    private static final EditableImageUiBinder ourUiBinder = GWT.create(EditableImageUiBinder.class);
     @UiField
     CachedImage image;
     @UiField
@@ -99,14 +102,14 @@ public class EditableImage extends Composite implements Bindable {
     }
 
     @Override
-    public void setWidth(String width) {
+    public void setWidth(@Nonnull String width) {
         image.setWidth(width);
         super.setWidth(width);
     }
 
 
     @Override
-    public void setHeight(String height) {
+    public void setHeight(@Nonnull String height) {
         super.setHeight(height);
         image.setHeight(height);
     }

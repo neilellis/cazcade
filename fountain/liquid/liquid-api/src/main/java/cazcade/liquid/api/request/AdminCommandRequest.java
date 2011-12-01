@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,13 +27,14 @@ public class AdminCommandRequest extends AbstractRequest {
         this(null, null, args);
     }
 
-    public AdminCommandRequest(LiquidUUID id, LiquidSessionIdentifier identity, String... args) {
+    public AdminCommandRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, String... args) {
         this.setArgs(args);
         this.setId(id);
         this.setSessionId(identity);
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new AdminCommandRequest(getId(), getSessionIdentifier(), getArgs());
@@ -50,6 +53,7 @@ public class AdminCommandRequest extends AbstractRequest {
         return Arrays.asList(getUri().getWithoutFragment().asReverseDNSString(), getUri().asReverseDNSString());
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.ADMIN_COMMAND;
     }

@@ -6,6 +6,8 @@ import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -15,21 +17,23 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
     private boolean create;
 
 
+    @Nonnull
     @Override
     protected String getReferenceDataPrefix() {
         return "object";
     }
 
 
+    @Nonnull
     @Override
-    protected Runnable getUpdateEntityAction(final Bindable field) {
+    protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
                 if (field.isValid()) {
                     getBus().send(new UpdatePoolObjectRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                         @Override
-                        public void onSuccess(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
+                        public void onSuccess(UpdatePoolObjectRequest message, @Nonnull UpdatePoolObjectRequest response) {
                             setEntity(response.getResponse().copy());
                             if (autoCloseField(field)) {
                                 if (onFinishAction != null) {
@@ -39,7 +43,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                         }
 
                         @Override
-                        public void onFailure(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
+                        public void onFailure(UpdatePoolObjectRequest message, @Nonnull UpdatePoolObjectRequest response) {
                             field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                         }
                     });

@@ -5,6 +5,7 @@ import cazcade.liquid.api.LiquidBoardURL;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +16,11 @@ import java.io.IOException;
  */
 public class BoardIconServlet extends AbstractBoardListServlet {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(BoardIconServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
         try {
             final String board = req.getParameter("board");
             if (board == null) {

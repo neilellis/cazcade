@@ -1,9 +1,12 @@
 package cazcade.liquid.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public interface Constants {
 
-     String LIQUID_NAMESPACE ="http://schema.cazcade.com/liquid";
+    @Nonnull
+    String LIQUID_NAMESPACE = "http://schema.cazcade.com/liquid";
 }

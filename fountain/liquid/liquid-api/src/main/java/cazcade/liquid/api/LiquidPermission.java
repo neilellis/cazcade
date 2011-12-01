@@ -1,5 +1,7 @@
 package cazcade.liquid.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -8,12 +10,13 @@ public enum LiquidPermission {
     VIEW('v'), MODIFY('m'), EDIT('e'), SYSTEM('s'), DELETE('d'), /*EXECUTE('x')*/;
 
 
-    private char shortForm;
+    private final char shortForm;
 
     private LiquidPermission(char c) {
         this.shortForm = c;
     }
 
+    @Nonnull
     public static LiquidPermission fromChar(char c) {
         switch (Character.toLowerCase(c)) {
             case 'v':

@@ -36,7 +36,7 @@
         response.sendRedirect("failed.jsp?message=Confirm+Failed");
     } else {
         user.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "false");
-        dataStore.process(new cazcade.liquid.api.request.UpdateUserRequest(admin, user.getID(), user));
+        dataStore.process(new cazcade.liquid.api.request.UpdateUserRequest(admin, user.getUUID(), user));
         boolean sessionDebug = false;
         Properties props = System.getProperties();
         props.put("mail.host", host);

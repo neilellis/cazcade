@@ -2,6 +2,8 @@ package cazcade.liquid.api;
 
 import cazcade.liquid.api.request.AuthorizationRequest;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -12,8 +14,10 @@ public interface LiquidRequest extends LiquidMessage {
 
     boolean isMutationRequest();
 
+    @Nullable
     List<String> getNotificationLocations();
 
+    @Nullable
     public LiquidSessionIdentifier getSessionIdentifier();
 
     /**
@@ -22,10 +26,12 @@ public interface LiquidRequest extends LiquidMessage {
     public void setSessionId(LiquidSessionIdentifier identity);
 
 
+    @Nullable
     String getNotificationSession();
 
     boolean isAsyncRequest();
 
+    @Nonnull
     LiquidRequestType getRequestType();
 
 
@@ -35,6 +41,7 @@ public interface LiquidRequest extends LiquidMessage {
      *
      * @return
      */
+    @Nullable
     List<AuthorizationRequest> getAuthorizationRequests();
 
     void setId(LiquidUUID uuid);

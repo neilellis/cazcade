@@ -1,8 +1,12 @@
 package cazcade.fountain.server.rest.test;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.*;
+import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
+import cazcade.liquid.impl.LSDUnmarshaler;
 import cazcade.liquid.impl.LSDUnmarshallerFactory;
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -13,6 +17,8 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,15 +31,18 @@ import java.util.Properties;
  * @author neilelliz@cazcade.com
  */
 public class FountainTestClientSupport {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainTestClientSupport.class);
 
-    static LSDUnmarshaler unmarshaler;
-    static LSDMarshaler marshaler;
-    static String host;
+    static final LSDUnmarshaler unmarshaler;
+    static final LSDMarshaler marshaler;
+    static final String host;
     static int port = 80;
+    @Nonnull
     public static final AuthScope AUTH_SCOPE;
-    static String rootUrl;
-    static String rootPath;
+    @Nonnull
+    static final String rootUrl;
+    static final String rootPath;
 
     static {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("client-spring-config.xml");
@@ -46,6 +55,7 @@ public class FountainTestClientSupport {
         AUTH_SCOPE = new AuthScope(host, port, AuthScope.ANY_REALM);
     }
 
+    @Nonnull
     static LSDSimpleEntity createEntityFromPropertyfile(String entityName) {
         Properties props = new Properties();
         try {
@@ -58,7 +68,8 @@ public class FountainTestClientSupport {
         return LSDSimpleEntity.createFromProperties(propMap);
     }
 
-    public static LSDEntity putEntityToURL(ClientSession clientSession, String postURL, LSDEntity poolEntity, String author) throws IOException {
+    @Nonnull
+    public static LSDEntity putEntityToURL(@Nonnull ClientSession clientSession, String postURL, LSDEntity poolEntity, String author) throws IOException {
         postURL = addParameterToURL("_session", clientSession.getSessionId(), addParameterToURL("author", author, postURL));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         marshaler.marshal(poolEntity, byteArrayOutputStream);
@@ -82,7 +93,8 @@ public class FountainTestClientSupport {
         }
     }
 
-    static String addParameterToURL(String key, String value, String postURL) {
+    @Nonnull
+    static String addParameterToURL(String key, @Nullable String value, @Nonnull String postURL) {
         if (value != null) {
             if (postURL.contains("?")) {
                 String[] parts = postURL.split("\\?");
@@ -94,7 +106,7 @@ public class FountainTestClientSupport {
         return postURL;
     }
 
-    public static LSDEntity callRESTApiWithGet(ClientSession clientSession, String url) throws IOException {
+    public static LSDEntity callRESTApiWithGet(@Nonnull ClientSession clientSession, @Nonnull String url) throws IOException {
         String geturl = rootUrl + addParameterToURL("_session", clientSession.getSessionId(), url);
         log.debug("GET " + geturl);
         HttpMethod getMethod = new GetMethod(geturl);
@@ -116,9 +128,9 @@ public class FountainTestClientSupport {
         return poolEntity;
     }
 
-    public static void initStream(ClientSession clientSession) throws IOException {
+    public static void initStream(@Nonnull ClientSession clientSession) throws IOException {
         LSDEntity streamEntity = callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" + clientSession.getTestUsername() + "/stream");
-        String streamId = streamEntity.getID().toString();
+        String streamId = streamEntity.getUUID().toString();
         putEntityToURL(clientSession, "pool/" + streamId + ".xml", createEntityFromPropertyfile("TwitterFeed"), "alias:cazcade:" + clientSession.getTestUsername());
         putEntityToURL(clientSession, "pool/" + streamId + ".xml", createEntityFromPropertyfile("RSSFeed1"), "alias:cazcade:" + clientSession.getTestUsername());
         putEntityToURL(clientSession, "pool/" + streamId + ".xml", createEntityFromPropertyfile("RSSFeed2"), "alias:cazcade:" + clientSession.getTestUsername());
@@ -126,40 +138,42 @@ public class FountainTestClientSupport {
     }
 
 
-    public static LSDEntity writeTestPool(ClientSession clientSession, String LiquidURI) throws IOException {
+    @Nonnull
+    public static LSDEntity writeTestPool(@Nonnull ClientSession clientSession, String LiquidURI) throws IOException {
         String entityId = convertLiquidURIToId(clientSession, LiquidURI);
         return putEntityToURL(clientSession, "pool/" + entityId + ".xml", createTestPoolObject(), "alias:cazcade:" + clientSession.getTestUsername());
     }
 
-    public static LSDEntity writeThenGetTestPoolObject(ClientSession clientSession, String LiquidURI) throws IOException {
+    public static LSDEntity writeThenGetTestPoolObject(@Nonnull ClientSession clientSession, String LiquidURI) throws IOException {
         String poolId = convertLiquidURIToId(clientSession, LiquidURI);
         return writeThenGetTestPoolObject(clientSession, LiquidURI, poolId);
     }
 
-    public static LSDEntity getTestPoolObject(ClientSession clientSession, String LiquidURI, String poolObjectName) throws IOException {
+    public static LSDEntity getTestPoolObject(@Nonnull ClientSession clientSession, String LiquidURI, String poolObjectName) throws IOException {
         String poolId = convertLiquidURIToId(clientSession, LiquidURI);
         return callRESTApiWithGet(clientSession, "pool.xml?url=" + LiquidURI + "%23" + poolObjectName);
     }
 
 
+    @Nonnull
     public static LSDEntity createTestPoolObject() {
         LSDEntity objectEntity = createEntityFromPropertyfile("TestObject1");
         objectEntity.setAttribute(LSDAttribute.NAME, ("TestObject" + Math.random()).replace('.', '_'));
         return objectEntity;
     }
 
-    public static LSDEntity writeThenDeleteTestPoolObject(ClientSession clientSession, String uri) throws IOException {
+    public static LSDEntity writeThenDeleteTestPoolObject(@Nonnull ClientSession clientSession, String uri) throws IOException {
         String poolId = convertLiquidURIToId(clientSession, uri);
         LSDEntity toDeleteEntity = writeThenGetTestPoolObject(clientSession, uri, poolId);
         callRESTApiWithGet(clientSession, "pool/delete.xml?uri=" + URLEncoder.encode(toDeleteEntity.getURI().toString(), "utf8"));
         return toDeleteEntity;
     }
 
-    public static String convertLiquidURIToId(ClientSession clientSession, String uri) throws IOException {
-        return callRESTApiWithGet(clientSession, "pool.xml?uri=" + uri).getID().toString();
+    public static String convertLiquidURIToId(@Nonnull ClientSession clientSession, String uri) throws IOException {
+        return callRESTApiWithGet(clientSession, "pool.xml?uri=" + uri).getUUID().toString();
     }
 
-    public static LSDEntity writeThenGetTestPoolObject(ClientSession clientSession, String uri, String poolId) throws IOException {
+    public static LSDEntity writeThenGetTestPoolObject(@Nonnull ClientSession clientSession, String uri, String poolId) throws IOException {
         LSDEntity poolObject = createTestPoolObject();
         putEntityToURL(clientSession, "pool/" + poolId + ".xml", poolObject, "alias:cazcade:" + clientSession.getTestUsername());
         try {
@@ -170,15 +184,16 @@ public class FountainTestClientSupport {
         return callRESTApiWithGet(clientSession, "pool.xml?url=" + uri + "%23" + poolObject.getAttribute(LSDAttribute.NAME));
     }
 
-    public static void initHomePool(ClientSession clientSession) throws IOException {
+    public static void initHomePool(@Nonnull ClientSession clientSession) throws IOException {
         LSDEntity poolEntity = callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" + clientSession.getTestUsername());
-        String entityId = poolEntity.getID().toString();
+        String entityId = poolEntity.getUUID().toString();
         putEntityToURL(clientSession, "pool/" + entityId + ".xml", createEntityFromPropertyfile("TestObject1"), "alias:cazcade:" + clientSession.getTestUsername());
         putEntityToURL(clientSession, "pool/" + entityId + ".xml", createEntityFromPropertyfile("TestObject2"), "alias:cazcade:" + clientSession.getTestUsername());
         putEntityToURL(clientSession, "pool/" + entityId + ".xml", createEntityFromPropertyfile("TestObject3"), "alias:cazcade:" + clientSession.getTestUsername());
         putEntityToURL(clientSession, "pool/" + entityId + ".xml", createEntityFromPropertyfile("TestObject4"), "alias:cazcade:" + clientSession.getTestUsername());
     }
 
+    @Nonnull
     public static Thread listenToSession(final String sessionId, final String LiquidURI, final Credentials credentials) throws IOException {
         Thread thread = new Thread(new Runnable() {
 

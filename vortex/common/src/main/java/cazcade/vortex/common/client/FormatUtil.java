@@ -2,6 +2,9 @@ package cazcade.vortex.common.client;
 
 import cazcade.liquid.api.LiquidBoardURL;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 
 /**
  * @author neilellis@cazcade.com
@@ -39,18 +42,21 @@ public class FormatUtil {
 
     public static final String BUNNY = String.valueOf((char) 0x2649);
     public static final String DISABLED = String.valueOf((char) 0x267f);
+    @Nonnull
     public static final String NEWLINE_MARKER = "~~~NEWLINE~~~";
 
 
     private FormatUtil() {
     }
 
+    @Nonnull
     public static FormatUtil getInstance() {
         return new FormatUtil();
     }
 
 
-    public String sanitize(String text) {
+    @Nullable
+    public String sanitize(@Nullable String text) {
         if (text == null) {
             return null;
         }
@@ -78,7 +84,8 @@ public class FormatUtil {
     }
 
 
-    public String formatRichText(String text) {
+    @Nullable
+    public String formatRichText(@Nullable String text) {
         if (text == null) {
             return "";
         }
@@ -97,7 +104,8 @@ public class FormatUtil {
         return result;
     }
 
-    private String formatTextInternal(String text) {
+    @Nullable
+    private String formatTextInternal(@Nullable String text) {
         if (text == null) {
             return "";
         }
@@ -172,21 +180,22 @@ public class FormatUtil {
         return text;
     }
 
-    public String formatPoolName(String pool) {
+    public String formatPoolName(@Nullable String pool) {
         if (pool == null) {
             return "";
         }
         return LiquidBoardURL.convertToShort(pool);
     }
 
-    public String translateNamedEmoticonSymbol(String html, String symbol, String unicode) {
+    public String translateNamedEmoticonSymbol(@Nonnull String html, String symbol, String unicode) {
         return html.replaceAll("(\\(" + symbol + "\\))", "<span class='emoticon emoticon-" + symbol + "'>" + unicode + "</span>");
     }
 
-    public String translateEmoticonSymbol(String html, String symbol, String unicode) {
+    public String translateEmoticonSymbol(@Nonnull String html, String symbol, String unicode) {
         return html.replaceAll("(" + symbol + ")", "<span class='emoticon'>" + unicode + "</span>");
     }
 
+    @Nonnull
     private static native String prettyPrint(String s) /*-{
         return $wnd.prettyPrintOne(s);
     }-*/;

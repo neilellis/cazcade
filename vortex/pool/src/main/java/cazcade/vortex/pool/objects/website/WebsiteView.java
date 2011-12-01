@@ -34,7 +34,7 @@ public class WebsiteView extends PoolObjectView {
     HTMLPanel websiteSurround;
 
 
-    private static ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
+    private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
     public WebsiteView() {
         HTMLPanel widget = ourUiBinder.createAndBindUi(this);

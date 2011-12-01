@@ -1,6 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.api.DeletedEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
@@ -11,15 +12,16 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.AuthorizationRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class AuthorizationHandler extends AbstractDataStoreHandler<AuthorizationRequest> implements AuthorizationRequestHandler {
+    @Nonnull
     private final static Logger log = Logger.getLogger(AuthorizationHandler.class);
 
     /**
@@ -28,7 +30,8 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
      * @param request
      * @return
      */
-    public AuthorizationRequest handle(AuthorizationRequest request) throws InterruptedException {
+    @Nonnull
+    public AuthorizationRequest handle(@Nonnull AuthorizationRequest request) throws InterruptedException {
         final LSDEntity entity = LSDSimpleEntity.createEmpty();
         final Transaction transaction = fountainNeo.beginTx();
         try {
@@ -46,7 +49,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
                     return LiquidResponseHelper.forServerSuccess(request, entity);
                 }
             }
-            if (node.hasProperty(LSDAttribute.PERMISSIONS.getKeyName())) {
+            if (node.hasAttribute(LSDAttribute.PERMISSIONS)) {
                 boolean auth = isAuthorized(request, node);
                 if (auth) {
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.getValue());
@@ -75,9 +78,9 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
     }
 
-    private boolean isAuthorized(AuthorizationRequest request, Node node) throws InterruptedException {
+    private boolean isAuthorized(@Nonnull AuthorizationRequest request, @Nonnull Node node) throws InterruptedException {
         boolean auth;
-        auth = fountainNeo.isAuthorized(node, request.getSessionIdentifier(), request.getActions());
+        auth = node.isAuthorized(request.getSessionIdentifier(), request.getActions());
         List<AuthorizationRequest> and = request.getAnd();
         for (AuthorizationRequest andRequest : and) {
             if (isAuthorized(andRequest, node)) {

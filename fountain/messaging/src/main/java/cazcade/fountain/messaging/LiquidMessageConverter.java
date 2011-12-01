@@ -8,13 +8,17 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.MessageConversionException;
 import org.springframework.amqp.support.converter.MessageConverter;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class LiquidMessageConverter implements MessageConverter {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(LiquidMessageConverter.class);
 
+    @Nonnull
     @Override
     public Message toMessage(Object object, MessageProperties messageProperties) throws MessageConversionException {
         final String xml = LiquidXStreamFactory.getXstream().toXML(object);
@@ -23,7 +27,7 @@ public class LiquidMessageConverter implements MessageConverter {
     }
 
     @Override
-    public Object fromMessage(Message message) throws MessageConversionException {
+    public Object fromMessage(@Nonnull Message message) throws MessageConversionException {
         final String xml = new String(message.getBody());
         log.debug("<<<<< Converting from {0}", xml);
         Object object = LiquidXStreamFactory.getXstream().fromXML(xml);

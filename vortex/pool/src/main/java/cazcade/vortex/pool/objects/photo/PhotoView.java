@@ -36,7 +36,7 @@ public class PhotoView extends PoolObjectView {
     Image effect;
 
 
-    private static ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
+    private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
     public PhotoView() {
         HTMLPanel widget = ourUiBinder.createAndBindUi(this);

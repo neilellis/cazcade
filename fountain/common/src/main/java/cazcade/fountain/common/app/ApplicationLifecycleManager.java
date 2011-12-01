@@ -3,6 +3,7 @@ package cazcade.fountain.common.app;
 
 import cazcade.common.Logger;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +11,12 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public class ApplicationLifecycleManager implements ApplicationLifecycle {
+    @Nonnull
     private final static Logger log = Logger.getLogger(ApplicationLifecycleManager.class);
     public boolean shutdown = false;
 
-    private List<ApplicationLifecycleListener> listeners = new ArrayList<ApplicationLifecycleListener>();
+    @Nonnull
+    private final List<ApplicationLifecycleListener> listeners = new ArrayList<ApplicationLifecycleListener>();
 
     public void register(ApplicationLifecycleListener listener) {
         listeners.add(listener);

@@ -18,6 +18,9 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 
 /**
  * @author neilellis@cazcade.com
@@ -26,22 +29,26 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     public static final int BORDER_BEFORE_PAGEFLOW_STARTS = 0;
     public static final int DEFAULT_HEIGHT = 636;
-    private VortexScrollPanel scrollPanel;
-    private AbsolutePanel panel;
-    private LSDEntity entity;
-    private boolean pageFlow;
-    private VortexThreadSafeExecutor threadSafeExecutor;
-    private int width = 1024;
+    @Nonnull
+    private final VortexScrollPanel scrollPanel;
+    @Nonnull
+    private final AbsolutePanel panel;
+    @Nonnull
+    private final LSDEntity entity;
+    private final boolean pageFlow;
+    private final VortexThreadSafeExecutor threadSafeExecutor;
+    private final int width = 1024;
     private int height = DEFAULT_HEIGHT;
 
+    @Nonnull
     private final PoolObjectContainerManager poolObjectContainerManager;
 
-    public PoolPresenterImpl(VortexScrollPanel scrollPanel, AbsolutePanel panel, final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull VortexScrollPanel scrollPanel, @Nonnull AbsolutePanel panel, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
 
         this(scrollPanel, panel, entity, false, features, threadSafeExecutor);
     }
 
-    public PoolPresenterImpl(VortexScrollPanel scrollPanel, final AbsolutePanel panel, final LSDEntity entity, boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDEntity entity, boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
         this.panel = panel;
         this.entity = entity;
@@ -73,6 +80,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     }
 
+    @Nullable
     public PoolMode getMode() {
         return null;
     }
@@ -101,16 +109,18 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         return false; //TODO
     }
 
+    @Nonnull
     public AbsolutePanel getPanel() {
         return panel;
     }
 
+    @Nonnull
     public LSDEntity getEntity() {
         return entity;
     }
 
     @Override
-    public void move(PoolObjectPresenter presenter, final double x, final double y, boolean onServer) {
+    public void move(@Nonnull PoolObjectPresenter presenter, final double x, final double y, boolean onServer) {
         if (onServer) {
             BusFactory.getInstance().dispatch(new MovePoolObjectRequest(presenter.getEntity().getURI(), x, y, 0.0));
         } else {
@@ -160,7 +170,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Override
-    public void moveToVisibleCentre(PoolObjectPresenter poolObjectPresenter) {
+    public void moveToVisibleCentre(@Nonnull PoolObjectPresenter poolObjectPresenter) {
         move(poolObjectPresenter, scrollPanel.getOffsetX() + scrollPanel.getOffsetWidth() / 2, scrollPanel.getOffsetY() + scrollPanel.getOffsetHeight() / 2, true);
     }
 
@@ -172,15 +182,16 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         return panel.getAbsoluteTop();
     }
 
+    @Nonnull
     public AbsolutePanel getDragBoundContainer() {
         return panel;
     }
 
-    public void add(final PoolObjectPresenter poolObjectPresenter) {
+    public void add(@Nonnull final PoolObjectPresenter poolObjectPresenter) {
         poolObjectContainerManager.add(poolObjectPresenter, false);
     }
 
-    public void remove(PoolObjectPresenter poolObjectPresenter) {
+    public void remove(@Nonnull PoolObjectPresenter poolObjectPresenter) {
         poolObjectContainerManager.remove(poolObjectPresenter);
     }
 
@@ -193,11 +204,12 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Override
-    public void transfer(PoolObjectPresenter source, PoolObjectPresenterContainer destination) {
+    public void transfer(@Nonnull PoolObjectPresenter source, @Nonnull PoolObjectPresenterContainer destination) {
 
         poolObjectContainerManager.transfer(source, destination);
     }
 
+    @Nonnull
     @Override
     public LSDDictionaryTypes getType() {
         return LSDDictionaryTypes.POOL2D;
@@ -239,11 +251,11 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         return threadSafeExecutor;
     }
 
-    public void addView(Widget view) {
+    public void addView(@Nonnull Widget view) {
         WidgetUtil.addGracefully(panel, view);
     }
 
-    public void removeView(Widget widget) {
+    public void removeView(@Nonnull Widget widget) {
         WidgetUtil.removeFromParentGracefully(widget);
     }
 }

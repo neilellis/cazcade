@@ -35,20 +35,24 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> implements PoolObjectPresenter<T>, GestureControllable, EndDragHandler, DragHandler, HoldDragHandler {
 
-    protected BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
+    protected final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     protected Bus bus;
     protected LSDEntity entity;
     final private T poolObjectView;
-    protected VortexThreadSafeExecutor threadSafeExecutor;
-    private PoolPresenter pool;
+    protected final VortexThreadSafeExecutor threadSafeExecutor;
+    private final PoolPresenter pool;
     private boolean locked;
     private EventBasedGestureController gestureController;
+    @Nullable
     private Widget clone;
     private long listenerId;
     private boolean modifiable;
@@ -69,7 +73,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         update(entity, true);
     }
 
-    private void positionToView(final PoolPresenter pool, final LSDEntity viewEntity, final T widget) {
+    private void positionToView(@Nonnull final PoolPresenter pool, @Nonnull final LSDEntity viewEntity, @Nonnull final T widget) {
         if (viewEntity.hasAttribute(LSDAttribute.VIEW_WIDTH)) {
             widget.setLogicalWidth(Integer.parseInt(viewEntity.getAttribute(LSDAttribute.VIEW_WIDTH)));
         } else {
@@ -206,7 +210,8 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
 
-    public LiquidMessage handle(UpdatePoolObjectRequest request) {
+    @Nullable
+    public LiquidMessage handle(@Nonnull UpdatePoolObjectRequest request) {
         final LSDEntity responseEntity = request.getResponse();
         if (responseEntity != null) {
             update(responseEntity, true);
@@ -225,7 +230,8 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
     }
 
-    public LiquidMessage handle(final MovePoolObjectRequest request) {
+    @Nullable
+    public LiquidMessage handle(@Nonnull final MovePoolObjectRequest request) {
         oldX = x;
         oldY = y;
         browserUtil.translateXY(poolObjectView, 0, 0, 0);
@@ -233,12 +239,14 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return null;
     }
 
-    public LiquidMessage handle(final ResizePoolObjectRequest request) {
+    @Nullable
+    public LiquidMessage handle(@Nonnull final ResizePoolObjectRequest request) {
         browserUtil.resize(poolObjectView, request.getWidth(), request.getHeight(), 100);
         return null;
     }
 
-    public LiquidMessage handle(final RotateXYPoolObjectRequest request) {
+    @Nullable
+    public LiquidMessage handle(@Nonnull final RotateXYPoolObjectRequest request) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -308,7 +316,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         }
     }
 
-    public void onDrag(DragEvent dragEvent) {
+    public void onDrag(@Nonnull DragEvent dragEvent) {
         if (isDraggable()) {
             deltaX = dragEvent.getDeltaX();
             deltaY = dragEvent.getDeltaY();
@@ -348,7 +356,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
 
-    public void onHoldDrag(HoldDragEvent dragEvent) {
+    public void onHoldDrag(@Nonnull HoldDragEvent dragEvent) {
         if (isDraggable()) {
 //            if (clone == null) {
 //                startClone();
@@ -420,7 +428,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
 
     private class PoolObjectPresenterBusAdapter implements BusListener {
-        public void handle(LiquidMessage message) {
+        public void handle(@Nonnull LiquidMessage message) {
             ClientLog.log("Received message with id of " + message.getId());
             LiquidMessageState state = message.getState();
             if (state == LiquidMessageState.SUCCESS && message instanceof LiquidRequest) {

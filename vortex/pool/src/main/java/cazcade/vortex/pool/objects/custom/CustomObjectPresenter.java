@@ -12,6 +12,7 @@ import cazcade.vortex.pool.EditStart;
 import cazcade.vortex.pool.EditStartHandler;
 import cazcade.vortex.pool.api.PoolPresenter;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObjectView> {
 
-    private CustomObjectEditor customObjectEditor;
+    private final CustomObjectEditor customObjectEditor;
 
     public CustomObjectPresenter(PoolPresenter pool, LSDEntity entity, final CustomObjectView widget, CustomObjectEditor customObjectEditor, VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
@@ -27,7 +28,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
     }
 
     @Override
-    public void update(final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -47,10 +48,10 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
 
                 customObjectEditor.setOnChangeAction(new CustomObjectEditor.ChangeAction() {
                     @Override
-                    public void run(LSDEntity updateEntity) {
+                    public void run(@Nonnull LSDEntity updateEntity) {
                         bus.send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                             @Override
-                            public void onSuccess(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
+                            public void onSuccess(UpdatePoolObjectRequest message, @Nonnull UpdatePoolObjectRequest response) {
                                 update(response.getResponse().copy(), true);
                             }
                         });
@@ -61,7 +62,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
         });
     }
 
-    private void registerHandlerWithView(CustomObjectView poolObjectView, LSDEntity handler) {
+    private void registerHandlerWithView(@Nonnull CustomObjectView poolObjectView, @Nonnull LSDEntity handler) {
         if (handler.canBe(LSDDictionaryTypes.ACTIVATE_EVENT_HANDLER)) {
             if (entity.hasAttribute(LSDAttribute.NAVIGATION_URL)) {
                 poolObjectView.setHref(handler.getAttribute(LSDAttribute.NAVIGATION_URL));

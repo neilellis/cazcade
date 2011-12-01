@@ -7,6 +7,8 @@ import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.user.client.Window;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -15,7 +17,7 @@ public abstract class AbstractResponseCallback<T extends LiquidMessage> implemen
     public void onSuccess(T message, T response) {
     }
 
-    public void onFailure(T message, T response) {
+    public void onFailure(T message, @Nonnull T response) {
         final LSDEntity responseEntity = response.getResponse();
         ClientLog.log(responseEntity.toString());
         if (ClientApplicationConfiguration.isDebug()) {
@@ -28,7 +30,7 @@ public abstract class AbstractResponseCallback<T extends LiquidMessage> implemen
         }
     }
 
-    public void onException(T message, Throwable error) {
+    public void onException(@Nonnull T message, @Nonnull Throwable error) {
         String msg = "Message " + message.getId() + " of type " + message.getMessageType().name() + " had error " + error.getMessage();
         ClientLog.log(msg, error);
     }

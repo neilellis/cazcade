@@ -12,16 +12,20 @@ import cazcade.liquid.api.lsd.LSDType;
 import cazcade.liquid.api.request.AbstractRetrievalRequest;
 import cazcade.liquid.api.request.AuthorizationRequest;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class AuthorizationServiceImpl implements AuthorizationService {
+    @Nonnull
     private final static Logger log = Logger.getLogger(AuthorizationServiceImpl.class);
 
     private FountainDataStore dataStore;
 
+    @Nonnull
     public AuthorizationStatus authorize(LiquidSessionIdentifier identity, LiquidUUID resource, LiquidPermission permission) throws Exception {
         LiquidMessage message = dataStore.process(new AuthorizationRequest(identity, resource, permission));
         final LSDEntity response = message.getResponse();
@@ -46,13 +50,14 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
     }
 
-    public LiquidMessage postAuthorize(LiquidSessionIdentifier identity, AbstractRetrievalRequest message, LiquidPermission permission) throws Exception {
+    @Nonnull
+    public LiquidMessage postAuthorize(LiquidSessionIdentifier identity, @Nonnull AbstractRetrievalRequest message, LiquidPermission permission) throws Exception {
         log.debug("Post authorizing: {0}", message.getClass().getSimpleName());
         final LSDEntity response = message.getResponse();
         if (response.getTypeDef().getPrimaryType().isSystemType()) {
             return message;
         }
-        LiquidUUID resource = response.getID();
+        LiquidUUID resource = response.getUUID();
         LiquidMessage authMessage = dataStore.process(new AuthorizationRequest(identity, resource, permission));
         LSDType lsdType = authMessage.getResponse().getTypeDef().getPrimaryType();
         if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
@@ -65,7 +70,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
 
-    public LiquidRequest authorize(LiquidRequest liquidRequest) throws Exception {
+    @Nullable
+    public LiquidRequest authorize(@Nonnull LiquidRequest liquidRequest) throws Exception {
         List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
         for (AuthorizationRequest authRequest : authRequests) {
             log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.getTarget());

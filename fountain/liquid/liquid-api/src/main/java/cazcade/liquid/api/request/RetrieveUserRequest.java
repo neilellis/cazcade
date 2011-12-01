@@ -2,6 +2,9 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class RetrieveUserRequest extends AbstractRetrievalRequest {
 
 
@@ -28,13 +31,13 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this(null, identity, uri, internal);
     }
 
-    public RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
+    public RetrieveUserRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setId(id);
         this.setSessionId(identity);
         this.setTarget(target);
     }
 
-    public RetrieveUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean internal) {
+    public RetrieveUserRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri, boolean internal) {
         this.setId(id);
         this.setSessionId(identity);
         this.setUri(uri);
@@ -48,12 +51,14 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this.setUri(uri);
     }
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new RetrieveUserRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri());
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_USER;
     }

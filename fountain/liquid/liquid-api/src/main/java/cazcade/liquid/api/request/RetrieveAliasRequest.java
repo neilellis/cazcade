@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,13 +32,13 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         this(null, identity, uri);
     }
 
-    public RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
+    public RetrieveAliasRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setId(id);
         this.setSessionId(identity);
         this.setTarget(target);
     }
 
-    public RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri) {
+    public RetrieveAliasRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri) {
         this.setId(id);
         this.setSessionId(identity);
         this.setUri(uri);
@@ -50,11 +52,13 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new RetrieveAliasRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri());
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_ALIAS;
     }

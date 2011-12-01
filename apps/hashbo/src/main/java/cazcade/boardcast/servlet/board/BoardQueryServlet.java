@@ -7,6 +7,7 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.BoardQueryRequest;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,12 +23,15 @@ import java.util.Map;
  */
 public class BoardQueryServlet extends AbstractBoardListServlet {
 
-    private Map<String, BoardQueryRequest.QueryType> queryLookup = new HashMap<String, BoardQueryRequest.QueryType>();
-    private Map<String, String> titleLookup = new HashMap<String, String>();
+    @Nonnull
+    private final Map<String, BoardQueryRequest.QueryType> queryLookup = new HashMap<String, BoardQueryRequest.QueryType>();
+    @Nonnull
+    private final Map<String, String> titleLookup = new HashMap<String, String>();
+    @Nonnull
     private final static Logger log = Logger.getLogger(BoardQueryServlet.class);
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(@Nonnull ServletConfig config) throws ServletException {
         super.init(config);
         queryLookup.put("history", BoardQueryRequest.QueryType.HISTORY);
         titleLookup.put("history", "Recently Visited");
@@ -51,12 +55,12 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String username = req.getParameter("user");
 //            final String queryName = req.getServletPath().substring(1, req.getServletPath().indexOf('.'));

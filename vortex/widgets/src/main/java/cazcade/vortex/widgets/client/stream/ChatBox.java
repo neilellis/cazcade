@@ -24,19 +24,23 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RichTextArea;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class ChatBox extends Composite {
 
-    private Bus bus = BusFactory.getInstance();
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
     private LiquidURI uri;
-    private ChatParser chatParser = new ChatParser();
+    @Nonnull
+    private final ChatParser chatParser = new ChatParser();
 
     interface VortexAddCommentBoxUiBinder extends UiBinder<HTMLPanel, ChatBox> {
     }
 
-    private static VortexAddCommentBoxUiBinder ourUiBinder = GWT.create(VortexAddCommentBoxUiBinder.class);
+    private static final VortexAddCommentBoxUiBinder ourUiBinder = GWT.create(VortexAddCommentBoxUiBinder.class);
     @UiField
     RichTextArea textBox;
 
@@ -77,7 +81,7 @@ public class ChatBox extends Composite {
 //        head.appendChild(style);
         textBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(@Nonnull KeyUpEvent event) {
                 if (uri != null) {
                     if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER && !textBox.getText().isEmpty()) {
                         Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
@@ -105,13 +109,13 @@ public class ChatBox extends Composite {
                                     }
 
                                     @Override
-                                    public void onFailure(ChatRequest message, ChatRequest response) {
+                                    public void onFailure(ChatRequest message, @Nonnull ChatRequest response) {
                                         textBox.setText(text);
                                         super.onFailure(message, response);
                                     }
 
                                     @Override
-                                    public void onException(ChatRequest message, Throwable error) {
+                                    public void onException(@Nonnull ChatRequest message, @Nonnull Throwable error) {
                                         textBox.setText(text);
                                         super.onException(message, error);
                                     }

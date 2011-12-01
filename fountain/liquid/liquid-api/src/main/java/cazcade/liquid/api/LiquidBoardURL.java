@@ -1,6 +1,9 @@
 package cazcade.liquid.api;
 
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A form of URI that relates only to actual boards, not to generic pools.
  *
@@ -8,19 +11,23 @@ package cazcade.liquid.api;
  */
 public class LiquidBoardURL {
 
+    @Nonnull
     private static final String PUBLIC_BOARD_USER_STEM = "pool:///boards";
+    @Nonnull
     private static final String USER_STEM = "pool:///people";
+    @Nonnull
     public static final String BOARD_PREFIX = "";
 
-    private LiquidURI uri;
+    @Nonnull
+    private final LiquidURI uri;
     private String shortURL;
 
-    public LiquidBoardURL(LiquidURI uri) {
+    public LiquidBoardURL(@Nonnull LiquidURI uri) {
         this.uri = uri;
         shortURL = convertToShort(uri.getWithoutFragmentOrComment().asString());
     }
 
-    public LiquidBoardURL(String shortURL) {
+    public LiquidBoardURL(@Nonnull String shortURL) {
         this.shortURL = shortURL;
         uri = new LiquidURI(convertFromShort(shortURL));
     }
@@ -31,7 +38,7 @@ public class LiquidBoardURL {
         return shortURL = convertToShort(uri.asString());
     }
 
-    public static String convertToShort(String longURL) {
+    public static String convertToShort(@Nullable String longURL) {
         if (longURL == null) {
             throw new NullPointerException("Attempted to pass in a null longURL to LiquidBoardURL.converToShort()");
         }
@@ -62,7 +69,7 @@ public class LiquidBoardURL {
         return result;
     }
 
-    public static String convertFromShort(String url) {
+    public static String convertFromShort(@Nonnull String url) {
         String shortURL = url.replaceAll("~", "@");
         String str;
         if (shortURL.contains("@")) {
@@ -96,6 +103,7 @@ public class LiquidBoardURL {
         return str;
     }
 
+    @Nonnull
     public LiquidURI asURI() {
         return uri;
     }
@@ -104,9 +112,8 @@ public class LiquidBoardURL {
         return !shortURL.startsWith("@") && !shortURL.startsWith("$");
     }
 
-    public static boolean isConvertable(LiquidURI uri) {
-        String longURL = uri.asString();
-        return isConvertable(longURL);
+    public static boolean isConvertable(@Nullable LiquidURI uri) {
+        return uri != null && isConvertable(uri.asString());
     }
 
     public static boolean isConvertable(String longURL) {

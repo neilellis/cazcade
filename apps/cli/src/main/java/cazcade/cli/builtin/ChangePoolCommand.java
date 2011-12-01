@@ -12,28 +12,36 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Neil Ellis
  */
 
 public class ChangePoolCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(ChangePoolCommand.class);
 
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Change current pool";
     }
 
+    @Nonnull
     public String getName() {
         return "cd";
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    @Nullable
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("You must specify the new pool");
             return "";

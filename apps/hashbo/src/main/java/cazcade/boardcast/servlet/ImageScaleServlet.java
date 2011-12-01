@@ -8,6 +8,7 @@ import net.sf.ehcache.Element;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
+import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -43,12 +44,15 @@ import java.net.URL;
  */
 public class ImageScaleServlet extends HttpServlet {
     private static final long serialVersionUID = 896323877253822771L;
+    @Nonnull
     private static final Logger logger = Logger.getLogger(ImageScaleServlet.class.getName());
     //todo get this from the original image, or make param or something :-)
     public static final int DEFAULT_SCALED_IMAGE_TTL_SECS = 24 * 3600;
+    @Nonnull
     public static final String IF_MODIFIED_SINCE = "If-Modified-Since";
 
     private Cache scaleCache;
+    @Nonnull
     private static final String IMAGE_SCALE_CACHE = "image-scale-cache";
 
     public void init(ServletConfig config) throws ServletException {
@@ -61,7 +65,7 @@ public class ImageScaleServlet extends HttpServlet {
 
 
     @Override
-    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doHead(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
         super.doHead(req, resp);
         final String url = req.getAttribute("url") == null ? req.getParameter("url") : (String) req.getAttribute("url");
         final String w = req.getParameter("width");
@@ -81,7 +85,7 @@ public class ImageScaleServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
         final boolean debug = !Logger.isProduction() || req.getParameter("debug") != null;
         long start = System.currentTimeMillis(); // Just for debugging
 
@@ -160,14 +164,14 @@ public class ImageScaleServlet extends HttpServlet {
         resp.flushBuffer();
     }
 
-    private void setDateHeaders(HttpServletResponse resp, Element element) {
+    private void setDateHeaders(@Nonnull HttpServletResponse resp, @Nonnull Element element) {
         resp.setDateHeader("Date", System.currentTimeMillis());
         resp.setDateHeader("Last-Modified", element.getLatestOfCreationAndUpdateTime());
         resp.setDateHeader("Expires", element.getExpirationTime());
         resp.setHeader("Cache-Control", "max-age=" + element.getTimeToLive());
     }
 
-    private DimensionConstrain getDimentionConstrainFromRequest(HttpServletRequest req,
+    private DimensionConstrain getDimentionConstrainFromRequest(@Nonnull HttpServletRequest req,
                                                                 int defwidth,
                                                                 int defheight) {
         final String w = req.getParameter("width");
@@ -209,7 +213,8 @@ public class ImageScaleServlet extends HttpServlet {
         }
     }
 
-    public static BufferedImage fillTransparentPixels(BufferedImage image,
+    @Nonnull
+    public static BufferedImage fillTransparentPixels(@Nonnull BufferedImage image,
                                                       Color fillColor) {
         int w = image.getWidth();
         int h = image.getHeight();

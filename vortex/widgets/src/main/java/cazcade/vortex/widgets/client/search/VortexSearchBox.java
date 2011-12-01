@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -26,7 +28,7 @@ public class VortexSearchBox extends Composite {
         void onSearch(String search);
     }
 
-    private static VortexSearchBoxUiBinder ourUiBinder = GWT.create(VortexSearchBoxUiBinder.class);
+    private static final VortexSearchBoxUiBinder ourUiBinder = GWT.create(VortexSearchBoxUiBinder.class);
 
     @UiField
     public SuggestBox suggestionBox;
@@ -35,7 +37,7 @@ public class VortexSearchBox extends Composite {
         init();
         suggestionBox.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
-            public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+            public void onValueChange(@Nonnull ValueChangeEvent<String> stringValueChangeEvent) {
                 onSearchAction.onSearch(stringValueChangeEvent.getValue());
             }
         });

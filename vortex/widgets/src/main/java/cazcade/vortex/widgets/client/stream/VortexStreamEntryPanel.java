@@ -16,6 +16,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -30,11 +32,13 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
     }
 
 
+    @Nullable
     @Override
     public String getStreamIdentifier() {
         return entity.getURI().toString();
     }
 
+    @Nullable
     @Override
     public Date getSortDate() {
         return entity.getUpdated();
@@ -48,7 +52,7 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
     interface VortexStreamEntryPanelUiBinder extends UiBinder<HTMLPanel, VortexStreamEntryPanel> {
     }
 
-    private static VortexStreamEntryPanelUiBinder ourUiBinder = GWT.create(VortexStreamEntryPanelUiBinder.class);
+    private static final VortexStreamEntryPanelUiBinder ourUiBinder = GWT.create(VortexStreamEntryPanelUiBinder.class);
 
     @UiField
     UserProfileImage profileImage;
@@ -66,7 +70,7 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
     protected VortexStreamEntryPanel() {
     }
 
-    public VortexStreamEntryPanel(LSDEntity streamEntry, final FormatUtil features) {
+    public VortexStreamEntryPanel(@Nonnull LSDEntity streamEntry, @Nonnull final FormatUtil features) {
         this.entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
         final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);

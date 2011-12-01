@@ -4,19 +4,21 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class SafariBrowserUtil extends BrowserUtil {
 
     @Override
-    public void initDraggable(Widget widget) {
+    public void initDraggable(@Nonnull Widget widget) {
 //        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionProperty", "-webkit-transform, left, top");
         DOM.setStyleAttribute(widget.getElement(), "webkitTransformStyle", "preserve-3d");
     }
 
     @Override
-    public void translateXY(Widget widget, double x, double y, int millisecondTransitionTime) {
+    public void translateXY(@Nonnull Widget widget, double x, double y, int millisecondTransitionTime) {
 //        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "webkitTransform", "translate3d(" + x + "px," + y + "px, 0px)");
     }
@@ -27,14 +29,14 @@ public class SafariBrowserUtil extends BrowserUtil {
     }
 
     @Override
-    public void resize(Widget widget, Integer width, Integer height, int millisecondTransitionTime) {
+    public void resize(@Nonnull Widget widget, Integer width, Integer height, int millisecondTransitionTime) {
 //        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "width", width + "px");
         DOM.setStyleAttribute(widget.getElement(), "height", height + "px");
     }
 
     @Override
-    public void rotate(Widget widget, Double rotationInDegrees, int millisecondTransitionTime) {
+    public void rotate(@Nonnull Widget widget, Double rotationInDegrees, int millisecondTransitionTime) {
 //        DOM.setStyleAttribute(widget.getElement(), "webkitTransitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "webkitTransform", "rotate(" + rotationInDegrees + "deg)");
     }

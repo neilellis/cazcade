@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +25,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         this(null, null, pool, target, historical);
     }
 
-    public RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean historical) {
+    public RetrievePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri, boolean historical) {
         this.setId(id);
         this.setSessionId(identity);
         this.setUri(uri);
@@ -34,7 +36,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         this(null, identity, pool, target, historical);
     }
 
-    public RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, boolean historical) {
+    public RetrievePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, boolean historical) {
         this.setSessionId(authenticatedUser);
         this.setPoolUUID(pool);
         this.setTarget(target);
@@ -50,6 +52,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new RetrievePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), getUri());
@@ -63,6 +66,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         }
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_POOL_OBJECT;
     }

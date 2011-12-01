@@ -11,28 +11,34 @@ import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
 
 public class LoginCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(LoginCommand.class);
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Login to the server.";
     }
 
+    @Nonnull
     public String getName() {
         return "login";
     }
 
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
         if (args.length < 2) {
             System.err.println("You must specify the username and password");
             return "";
@@ -45,7 +51,7 @@ public class LoginCommand extends AbstractShortLivedCommand {
         String password = args[1];
         LiquidMessage response = shellSession.getDataStore().process(new CreateSessionRequest(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username), new ClientApplicationIdentifier("Shell Client", "123", "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
-        final LiquidUUID sessionId = response.getResponse().getID();
+        final LiquidUUID sessionId = response.getResponse().getUUID();
         if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
             LiquidSessionIdentifier identity = new LiquidSessionIdentifier(username, sessionId);
             final LiquidMessage visitPoolResponse = shellSession.getDataStore().process(new VisitPoolRequest(identity, new LiquidURI("pool:///people/" + username)));

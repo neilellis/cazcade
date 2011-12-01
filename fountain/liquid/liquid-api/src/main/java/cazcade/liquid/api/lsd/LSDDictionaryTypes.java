@@ -3,6 +3,8 @@ package cazcade.liquid.api.lsd;
 
 import cazcade.liquid.api.LiquidUUID;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,8 +172,10 @@ public enum LSDDictionaryTypes implements LSDType {
         return value.canBe(type);
     }
 
-    private LSDType value;
-    private LiquidUUID id = null;
+    @Nonnull
+    private final LSDType value;
+    @Nullable
+    private final LiquidUUID id = null;
     private String description = "";
 
     public String getDescription() {
@@ -184,24 +188,27 @@ public enum LSDDictionaryTypes implements LSDType {
 
 
     private static class ReverseLookup {
-        private static Map<String, String> map = new HashMap<String, String>();
+        @Nonnull
+        private static final Map<String, String> map = new HashMap<String, String>();
     }
 
-    private LSDDictionaryTypes(String value) {
+    private LSDDictionaryTypes(@Nonnull String value) {
         this.value = new LSDTypeImpl(value, false);
         ReverseLookup.map.put(value, name());
     }
 
-    private LSDDictionaryTypes(String value, String description) {
+    private LSDDictionaryTypes(@Nonnull String value, String description) {
         this.value = new LSDTypeImpl(value, false);
         this.description = description;
         ReverseLookup.map.put(value, name());
     }
 
+    @Nullable
     public String getValue() {
         return value.asString();
     }
 
+    @Nullable
     public LiquidUUID getId() {
         return id;
     }

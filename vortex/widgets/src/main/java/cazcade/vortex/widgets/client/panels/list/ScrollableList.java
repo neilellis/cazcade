@@ -7,7 +7,12 @@ import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.panels.scroll.VortexScrollPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
@@ -16,13 +21,16 @@ public class ScrollableList extends Composite {
     interface ScrollableListUiBinder extends UiBinder<HTMLPanel, ScrollableList> {
     }
 
-    private static ScrollableListUiBinder ourUiBinder = GWT.create(ScrollableListUiBinder.class);
+    private static final ScrollableListUiBinder ourUiBinder = GWT.create(ScrollableListUiBinder.class);
 
-    private Bus bus = BusFactory.getInstance();
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
     private int maxRows = 100;
-    private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
-    private VortexScrollPanel scrollPanel;
+    @Nonnull
+    private final VortexScrollPanel scrollPanel;
 
     public void setMaxRows(int maxRows) {
         this.maxRows = maxRows;
@@ -34,7 +42,8 @@ public class ScrollableList extends Composite {
     }
 
 
-    VerticalPanel parentPanel;
+    @Nonnull
+    final VerticalPanel parentPanel;
 
     public ScrollableList() {
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
@@ -48,7 +57,7 @@ public class ScrollableList extends Composite {
     }
 
 
-    public void addEntry(final ScrollableListEntry scrollableStreamContent) {
+    public void addEntry(@Nonnull final ScrollableListEntry scrollableStreamContent) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

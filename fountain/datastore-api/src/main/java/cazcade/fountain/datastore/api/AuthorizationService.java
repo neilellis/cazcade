@@ -3,13 +3,18 @@ package cazcade.fountain.datastore.api;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.request.AbstractRetrievalRequest;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public interface AuthorizationService {
 
+    @Nonnull
     AuthorizationStatus authorize(LiquidSessionIdentifier identity, LiquidUUID resource, LiquidPermission permission) throws Exception;
 
+    @Nullable
     LiquidRequest authorize(LiquidRequest liquidRequest) throws Exception;
 
     /**
@@ -28,5 +33,6 @@ public interface AuthorizationService {
      * @param permission the action which we wish to perform.
      * @return the entity passed in or an authorization failure entity.
      */
+    @Nonnull
     LiquidMessage postAuthorize(LiquidSessionIdentifier identity, AbstractRetrievalRequest request, LiquidPermission permission) throws Exception;
 }

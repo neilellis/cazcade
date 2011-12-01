@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
@@ -10,11 +12,11 @@ public class EntityNotFoundException extends DataStoreException {
         super(throwable);
     }
 
-    public EntityNotFoundException(String message, Object ... params) {
+    public EntityNotFoundException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public EntityNotFoundException(Throwable cause, String message, Object ... params) {
+    public EntityNotFoundException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -7,8 +8,9 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.handler.CreatePoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.CreatePoolObjectRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
@@ -16,7 +18,8 @@ import org.neo4j.graphdb.Transaction;
 public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePoolObjectRequest> implements CreatePoolObjectRequestHandler {
 
 
-    public CreatePoolObjectRequest handle(CreatePoolObjectRequest request) throws Exception {
+    @Nonnull
+    public CreatePoolObjectRequest handle(@Nonnull CreatePoolObjectRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {

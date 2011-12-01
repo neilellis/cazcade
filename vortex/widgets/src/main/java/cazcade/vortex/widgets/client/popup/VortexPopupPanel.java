@@ -23,7 +23,7 @@ public class VortexPopupPanel extends PopupPanel {
     interface VortexPopupPanelUiBinder extends UiBinder<HTMLPanel, VortexPopupPanel> {
     }
 
-    private static VortexPopupPanelUiBinder ourUiBinder = GWT.create(VortexPopupPanelUiBinder.class);
+    private static final VortexPopupPanelUiBinder ourUiBinder = GWT.create(VortexPopupPanelUiBinder.class);
 
 
     @UiField

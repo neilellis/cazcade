@@ -1,14 +1,16 @@
 package cazcade.fountain.datastore.impl;
 
 import cazcade.common.Logger;
+import cazcade.fountain.datastore.Node;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.Callable;
 
@@ -16,12 +18,18 @@ import java.util.concurrent.Callable;
  * @author neilellis@cazcade.com
  */
 public class FountainNeoIntializer {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainNeoIntializer.class);
 
+    @Nonnull
     public static final String DEFAULT_PASSWORD = "npt78eb&AB--gi7";
+    @Nonnull
     public static final String ADMIN = "admin";
+    @Nonnull
     public static final LiquidSessionIdentifier ADMIN_SESSION = new LiquidSessionIdentifier(ADMIN, null);
+    @Nonnull
     public static final String ANON = "anon";
+    @Nonnull
     public static final String HASHBO = "hashbo";
 
 
@@ -45,6 +53,7 @@ public class FountainNeoIntializer {
             final LiquidURI boardsUri = new LiquidURI("pool:///boards");
             if (fountainNeo.findByURI(boardsUri, false) == null) {
                 fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
+                    @Nullable
                     @Override
                     public Object call() throws Exception {
                         Node boardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeo.ADMIN_ALIAS_URI, fountainNeo.getRootPool(), "boards", 0, 0, FountainNeo.privatePermissionValue, false);
@@ -56,10 +65,11 @@ public class FountainNeoIntializer {
                 });
             } else {
                 fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
+                    @Nullable
                     @Override
                     public Object call() throws Exception {
                         final Node boardsNode = fountainNeo.findByURI(boardsUri, false);
-                        if (!LiquidPermissionSet.createPermissionSet(boardsNode.getProperty(FountainNeo.PERMISSIONS).toString()).hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+                        if (!LiquidPermissionSet.createPermissionSet(boardsNode.getProperty(LSDAttribute.PERMISSIONS)).hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                             fountainNeo.changePermissionNoTx(ADMIN_SESSION, boardsUri, LiquidPermissionChangeType.MAKE_PUBLIC, LiquidRequestDetailLevel.MINIMAL, true);
                         }
                         return null;
@@ -91,7 +101,7 @@ public class FountainNeoIntializer {
         double y1 = -210;
 
         Node cazcadePublicPool = poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, cazcadePool, "playground", x1, y1, "Playground", false);
-        cazcadePublicPool.setProperty(FountainNeo.PERMISSIONS, FountainNeo.publicPermissionValue);
+        cazcadePublicPool.setProperty(LSDAttribute.PERMISSIONS, FountainNeo.publicPermissionValue);
         double x = -210;
 
         poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, cazcadePool, "welcome", x, (double) 210, "Welcome", false);

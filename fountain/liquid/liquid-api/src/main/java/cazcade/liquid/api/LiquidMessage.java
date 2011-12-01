@@ -3,6 +3,8 @@ package cazcade.liquid.api;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.SerializedRequest;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -15,6 +17,7 @@ public interface LiquidMessage extends Serializable {
 
     void setId(LiquidUUID id);
 
+    @Nullable
     LSDEntity getRequestEntity();
 
     /**
@@ -28,6 +31,7 @@ public interface LiquidMessage extends Serializable {
 
     void setOrigin(LiquidMessageOrigin origin);
 
+    @Nonnull
     LiquidMessageType getMessageType();
 
 
@@ -36,6 +40,7 @@ public interface LiquidMessage extends Serializable {
      *
      * @return a copy of this message.
      */
+    @Nullable
     LiquidMessage copy();
 
     LiquidMessageState getState();
@@ -45,8 +50,10 @@ public interface LiquidMessage extends Serializable {
 
     void setResponse(LSDEntity entity);
 
+    @Nullable
     LSDEntity getResponse();
 
+    @Nonnull
     String getCacheIdentifier();
 
     boolean isCacheable();
@@ -55,13 +62,16 @@ public interface LiquidMessage extends Serializable {
 
     void setCachingScope(LiquidCachingScope cachingScope);
 
+    @Nonnull
     String getDeduplicationIdentifier();
 
     /**
      * If there is a response entity returns that otherwise returns the original entity from the request.
      */
+    @Nullable
     LSDEntity getResponseOrRequestEntity();
 
 
+    @Nonnull
     SerializedRequest asSerializedRequest();
 }

@@ -10,6 +10,9 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -37,7 +40,7 @@ public class RichTextView extends PoolObjectView {
         }, DoubleClickEvent.getType());
     }
 
-    public void setText(String value) {
+    public void setText(@Nonnull String value) {
 //        label.setWordWrap(true);
 //        label.setText(SimpleHtmlSanitizer.sanitizeHtml(value));
         label.setText(value);
@@ -61,6 +64,7 @@ public class RichTextView extends PoolObjectView {
         this.onChangeAction = onChangeAction;
     }
 
+    @Nullable
     public String getText() {
         return label.getText();
     }

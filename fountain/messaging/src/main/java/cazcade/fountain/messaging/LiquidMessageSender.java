@@ -2,10 +2,9 @@ package cazcade.fountain.messaging;
 
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidRequest;
-import com.rabbitmq.client.Channel;
-import org.springframework.amqp.rabbit.core.ChannelCallback;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -13,6 +12,7 @@ import java.util.List;
  */
 public class LiquidMessageSender {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(LiquidMessageSender.class);
 
     private RabbitTemplate template;
@@ -23,19 +23,19 @@ public class LiquidMessageSender {
     }
 
 
-    public void sendNotifications(LiquidRequest request)  {
+    public void sendNotifications(@Nonnull LiquidRequest request) {
         notifySession(request);
         notifyLocation(request);
     }
 
-    public void notifySession(LiquidRequest request)  {
+    public void notifySession(@Nonnull LiquidRequest request) {
         log.debug("Ready to send notification to session(s).");
         String session = request.getNotificationSession();
         template.convertAndSend("session." + session, request);
         log.debug("Notification(s) sent.");
     }
 
-    public void notifyLocation(LiquidRequest request)  {
+    public void notifyLocation(@Nonnull LiquidRequest request) {
         log.debug("Ready to send location notification(s).");
 
         List<String> locations = request.getNotificationLocations();

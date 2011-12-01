@@ -4,6 +4,7 @@ import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class ShellSession {
     private LSDEntity currentPool;
 
     private String lastCommand;
-    private List<LSDEntity> entityStack = new ArrayList<LSDEntity>();
+    @Nonnull
+    private final List<LSDEntity> entityStack = new ArrayList<LSDEntity>();
 
     private FountainDataStore dataStore;
 
@@ -49,14 +51,14 @@ public class ShellSession {
     }
 
     public LSDEntity popEntity() {
-        if(entityStack.size() == 0) {
+        if (entityStack.size() == 0) {
             throw new IllegalStateException("Cannot pop entity as stack is empty, how did this happen?");
         }
         return entityStack.remove(entityStack.size() - 1);
     }
 
-     public LSDEntity getCurrentEntity() {
-        if(entityStack.size() == 0) {
+    public LSDEntity getCurrentEntity() {
+        if (entityStack.size() == 0) {
             throw new IllegalStateException("Not within the context of an entity.");
         }
         return entityStack.get(entityStack.size() - 1);

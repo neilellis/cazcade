@@ -4,6 +4,7 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,10 @@ import java.util.Date;
  */
 public class ObjectiveCDictionaryServlet extends HttpServlet {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(ObjectiveCDictionaryServlet.class);
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("text/plain");
             LSDAttribute[] keys = LSDAttribute.values();
@@ -85,13 +87,14 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
 
     }
 
-    private void writeOutAttribute(PrintWriter out, LSDAttribute key, StringBuffer newName) {
+    private void writeOutAttribute(@Nonnull PrintWriter out, @Nonnull LSDAttribute key, StringBuffer newName) {
         out.printf("//%s%n", key.getDescription());
         out.printf("#define kAttr%s @\"%s\" //Format is '%s'%n", newName, key.getKeyName(), key.getFormatValidationString());
         out.println();
     }
 
-    private StringBuffer convertEnumToCamelCase(String name) {
+    @Nonnull
+    private StringBuffer convertEnumToCamelCase(@Nonnull String name) {
         StringBuffer newName = new StringBuffer();
         for (int i = 0; i < name.length(); i++) {
             if (i == 0) {

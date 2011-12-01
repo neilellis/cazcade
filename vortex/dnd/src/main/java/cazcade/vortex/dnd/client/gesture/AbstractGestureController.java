@@ -17,6 +17,9 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -33,11 +36,11 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     private static final boolean FLICK_SUPPORTED = false;
 
 
-    GestureControllable controllable;
+    final GestureControllable controllable;
     /**
      * Events are passed onto the alternate when the controllable is disabled.
      */
-    private Widget alternate;
+    private final Widget alternate;
 
 
     protected int y;
@@ -51,21 +54,25 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
 
     protected long duration;
     protected long endTime;
+    @Nullable
     protected DomEvent event;
     protected final int offsetX = 0;
     protected final int offsetY = 0;
     protected int oldX;
     protected int oldY;
+    @Nullable
     private Timer longPressTimer;
+    @Nullable
     private Timer shortPressTimer;
     private long lastTap;
     private boolean moved;
     private boolean withinGesture;
+    @Nullable
     private Timer tapTimer;
     private boolean holdThenDragThresholdExceeded;
-    private boolean xMovementAllowed;
-    private boolean yMovementAllowed;
-    private BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
+    private final boolean xMovementAllowed;
+    private final boolean yMovementAllowed;
+    private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     private boolean active = true;
     private boolean boundsCheck;
 
@@ -193,7 +200,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     public abstract void onShortPress();
 
 
-    public void onMouseDown(MouseDownEvent event) {
+    public void onMouseDown(@Nonnull MouseDownEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -226,6 +233,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         longPressTimer = new Timer() {
             @Override
             public void run() {
+                //noinspection ConstantConditions
                 if (!moved) {
                     ClientLog.log("******* LONG HOLD ******");
 //                    DOM.releaseCapture(container.getElement());
@@ -253,7 +261,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     protected abstract void onGestureStart();
 
 
-    public final void onMouseMove(MouseMoveEvent event) {
+    public final void onMouseMove(@Nonnull MouseMoveEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -329,7 +337,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     public abstract void onDrag();
 
 
-    public final void onMouseUp(MouseUpEvent event) {
+    public final void onMouseUp(@Nonnull MouseUpEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -349,7 +357,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
 
     public abstract void onSend();
 
-    public final void onTouchCancel(final TouchCancelEvent event) {
+    public final void onTouchCancel(@Nonnull final TouchCancelEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -369,7 +377,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         withinGesture = false;
     }
 
-    public final void onTouchEnd(final TouchEndEvent event) {
+    public final void onTouchEnd(@Nonnull final TouchEndEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -399,7 +407,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         //todo
     }
 
-    public final void onTouchMove(final TouchMoveEvent event) {
+    public final void onTouchMove(@Nonnull final TouchMoveEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -424,7 +432,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         }
     }
 
-    private void onMultiTouchMove(final TouchMoveEvent event) {
+    private void onMultiTouchMove(@Nonnull final TouchMoveEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -436,7 +444,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         }
     }
 
-    public void onTouchStart(TouchStartEvent event) {
+    public void onTouchStart(@Nonnull TouchStartEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;

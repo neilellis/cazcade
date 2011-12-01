@@ -6,6 +6,7 @@ import com.cazcade.billabong.image.ImageService;
 import com.cazcade.billabong.image.ImageSize;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,7 @@ public class ImageProxyServlet extends HttpServlet {
     private ClassPathXmlApplicationContext applicationContext;
     private ImageService imageService;
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(ImageProxyServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
@@ -38,7 +40,7 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
 
         final String url = req.getParameter("url");

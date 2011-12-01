@@ -6,6 +6,7 @@ import cazcade.liquid.api.handler.AdminCommandRequestHandler;
 import cazcade.liquid.api.request.AdminCommandRequest;
 import org.neo4j.graphdb.Transaction;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -14,8 +15,9 @@ import java.util.Map;
 public class AdminCommandHandler extends AbstractDataStoreHandler<AdminCommandRequest> implements AdminCommandRequestHandler {
     private Map<String, AdminCommand> adminCommands;
 
+    @Nonnull
     @Override
-    public AdminCommandRequest handle(AdminCommandRequest request) throws InterruptedException {
+    public AdminCommandRequest handle(@Nonnull AdminCommandRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
             String command = request.getArgs()[0];

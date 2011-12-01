@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidURI;
@@ -7,15 +8,17 @@ import cazcade.liquid.api.handler.VisitPoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest> implements VisitPoolRequestHandler {
 
-    public VisitPoolRequest handle(final VisitPoolRequest request) throws Exception {
+    @Nonnull
+    public VisitPoolRequest handle(@Nonnull final VisitPoolRequest request) throws Exception {
         Node node;
         final Transaction transaction = fountainNeo.beginTx();
         try {
@@ -65,16 +68,16 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 node = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed());
                 if (request.getPermission() != null) {
                     node = fountainNeo.changeNodePermissionNoTx(node, request.getSessionIdentifier(), request.getPermission());
-                    fountainNeo.assertLatestVersion(node);
+                    node.assertLatestVersion();
                 }
             }
 
             if (node == null) {
                 return LiquidResponseHelper.forResourceNotFound("Could not find pool " + request.getUri(), request);
             } else {
-                fountainNeo.assertLatestVersion(node);
+                node.assertLatestVersion();
                 poolDAO.visitNodeNoTx(node, request.getSessionIdentifier());
-                fountainNeo.assertLatestVersion(node);
+                node.assertLatestVersion();
                 entity = poolDAO.getPoolAndContentsNoTx(node, request.getDetail(), true, ChildSortOrder.AGE, request.isInternal(), request.getSessionIdentifier(), null, null, request.isHistorical());
                 final LSDEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURI(request.getAlias()), request.isInternal(), request.getDetail());
                 entity.addSubEntity(LSDAttribute.VISITOR, visitor, true);

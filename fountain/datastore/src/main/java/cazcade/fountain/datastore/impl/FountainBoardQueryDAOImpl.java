@@ -12,6 +12,7 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainBoardQueryDAO.class);
 
     @Autowired
@@ -32,14 +34,16 @@ public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
     private BoardDAO boardDAO;
 
 
+    @Nonnull
     @Override
-    public LSDEntity getMyBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException {
+    public LSDEntity getMyBoards(int start, int end, @Nonnull LiquidSessionIdentifier session) throws InterruptedException {
         List<BoardIndexEntity> boards = boardDAO.getMyBoards(start, end, session.getAliasURL().toString());
         return convertToEntityResult(session, boards);
 
     }
 
-    private LSDSimpleEntity convertToEntityResult(LiquidSessionIdentifier session, List<BoardIndexEntity> boards) throws InterruptedException {
+    @Nonnull
+    private LSDSimpleEntity convertToEntityResult(LiquidSessionIdentifier session, @Nonnull List<BoardIndexEntity> boards) throws InterruptedException {
         List<LSDEntity> subEntities = new ArrayList<LSDEntity>();
         LSDSimpleEntity result = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.BOARD_LIST);
         for (BoardIndexEntity board : boards) {
@@ -54,24 +58,28 @@ public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
         return result;
     }
 
+    @Nonnull
     @Override
-    public LSDEntity getUserPublicBoards(int start, int end, LiquidSessionIdentifier session, LiquidURI alias) throws InterruptedException {
+    public LSDEntity getUserPublicBoards(int start, int end, LiquidSessionIdentifier session, @Nonnull LiquidURI alias) throws InterruptedException {
         List<BoardIndexEntity> boards = boardDAO.getUserBoards(start, end, alias.toString());
         return convertToEntityResult(session, boards);
     }
 
+    @Nonnull
     @Override
     public LSDEntity getRecentPublicBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException {
         List<BoardIndexEntity> boards = boardDAO.getRecentBoards(start, end);
         return convertToEntityResult(session, boards);
     }
 
+    @Nonnull
     @Override
-    public LSDEntity getMyVisitedBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException {
+    public LSDEntity getMyVisitedBoards(int start, int end, @Nonnull LiquidSessionIdentifier session) throws InterruptedException {
         List<BoardIndexEntity> boards = boardDAO.getVisitedBoards(start, end, session.getAliasURL().toString());
         return convertToEntityResult(session, boards);
     }
 
+    @Nonnull
     @Override
     public LSDEntity getPopularBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException {
         List<BoardIndexEntity> boards = boardDAO.getPopularBoards(start, end);

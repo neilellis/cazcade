@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class ChangePermissionRequest extends AbstractRequest {
         this(null, null, objectURI, change);
     }
 
-    public ChangePermissionRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidPermissionChangeType change) {
+    public ChangePermissionRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidPermissionChangeType change) {
         this.setPermission(change);
         this.setId(id);
         this.setSessionId(identity);
@@ -23,6 +25,7 @@ public class ChangePermissionRequest extends AbstractRequest {
     }
 
 
+    @Nullable
     @Override
     public LiquidMessage copy() {
         return new ChangePermissionRequest(getId(), getSessionIdentifier(), getUri(), this.getPermission());
@@ -36,6 +39,7 @@ public class ChangePermissionRequest extends AbstractRequest {
         return Arrays.asList(getUri().getWithoutFragment().asReverseDNSString(), getUri().asReverseDNSString());
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.CHANGE_PERMISSION;
     }

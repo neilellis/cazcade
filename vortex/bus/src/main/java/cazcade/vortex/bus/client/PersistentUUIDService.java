@@ -3,6 +3,7 @@ package cazcade.vortex.bus.client;
 import cazcade.liquid.api.LiquidUUID;
 import com.google.gwt.storage.client.Storage;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 /**
@@ -12,6 +13,7 @@ public class PersistentUUIDService {
 
     private String uuids;
     private int size = 0;
+    @Nonnull
     public static final String LOCAL_STORAGE_KEY = "cazcade.vortex.uuids";
 
     public PersistentUUIDService() {
@@ -32,7 +34,7 @@ public class PersistentUUIDService {
         return size;
     }
 
-    public void topUp(ArrayList<LiquidUUID> result) {
+    public void topUp(@Nonnull ArrayList<LiquidUUID> result) {
         StringBuilder s = new StringBuilder(uuids);
         for (LiquidUUID uuid : result) {
             s.append(uuid.toString()).append(" ");
@@ -47,6 +49,7 @@ public class PersistentUUIDService {
 
     }
 
+    @Nonnull
     public LiquidUUID pop() {
         int pos = uuids.indexOf(' ');
         if (pos == 0) {

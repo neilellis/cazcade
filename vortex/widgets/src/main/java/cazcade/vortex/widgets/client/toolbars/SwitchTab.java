@@ -16,7 +16,7 @@ public class SwitchTab extends Composite {
     interface MyUiBinder extends UiBinder<HorizontalPanel, SwitchTab> {
     }
 
-    private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+    private static final MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
     @UiField
     SpanElement optionLeftLabel;

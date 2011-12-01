@@ -7,6 +7,7 @@ import cazcade.fountain.validation.api.ValidationLevel;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.LiquidRequestType;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -16,9 +17,10 @@ public class FountainRequestValidatorImpl<T extends LiquidRequest> implements Fo
 
     private Map<String, FountainRequestValidator> requestTypeValidatorMap;
     private FountainRequestValidator defaultValidator;
-    private Logger log = Logger.getLogger(FountainRequestValidatorImpl.class);
+    @Nonnull
+    private final Logger log = Logger.getLogger(FountainRequestValidatorImpl.class);
 
-    public void validate(T request, ValidationLevel level) {
+    public void validate(@Nonnull T request, ValidationLevel level) {
         LiquidRequestType requestType = request.getRequestType();
 
         if (requestType == null) {

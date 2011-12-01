@@ -1,6 +1,7 @@
 package cazcade.fountain.datastore.impl;
 
-import org.neo4j.graphdb.Node;
+
+import cazcade.fountain.datastore.Node;
 
 /**
  * @author neilellis@cazcade.com

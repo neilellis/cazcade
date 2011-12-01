@@ -3,23 +3,17 @@ package cazcade.vortex.widgets.client.image;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.*;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Image;
 
 
 /**
  * @author neilellis@cazcade.com
  */
-public class ImageOption extends Composite{
+public class ImageOption extends Composite {
 
     private ImageSelection imageSelection;
     private String url;
@@ -44,7 +38,7 @@ public class ImageOption extends Composite{
     interface ImageOptionUiBinder extends UiBinder<HTMLPanel, ImageOption> {
     }
 
-    private static ImageOptionUiBinder ourUiBinder = GWT.create(ImageOptionUiBinder.class);
+    private static final ImageOptionUiBinder ourUiBinder = GWT.create(ImageOptionUiBinder.class);
 
     @UiField
     CachedImage image;

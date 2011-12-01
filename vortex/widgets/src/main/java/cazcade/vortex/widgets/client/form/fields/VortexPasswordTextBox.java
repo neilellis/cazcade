@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -18,12 +20,12 @@ public class VortexPasswordTextBox extends VortexTextBox {
     interface VortexPasswordTextBoxUiBinder extends UiBinder<HTMLPanel, VortexPasswordTextBox> {
     }
 
-    private static VortexPasswordTextBoxUiBinder ourUiBinder = GWT.create(VortexPasswordTextBoxUiBinder.class);
+    private static final VortexPasswordTextBoxUiBinder ourUiBinder = GWT.create(VortexPasswordTextBoxUiBinder.class);
 
     public VortexPasswordTextBox() {
         initWidget(ourUiBinder.createAndBindUi(this));
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(KeyPressEvent event) {
+            public void onKeyPress(@Nonnull KeyPressEvent event) {
                 final int keyCode = event.getUnicodeCharCode();
 
                 if (keyCode == KeyCodes.KEY_ENTER) {
@@ -50,7 +52,7 @@ public class VortexPasswordTextBox extends VortexTextBox {
         if (!showValidityFlag) {
             return true;
         }
-        if(pairedBox != null && pairedBox.getStringValue() != null && !pairedBox.getStringValue().isEmpty() && !pairedBox.getStringValue().equals(getStringValue())) {
+        if (pairedBox != null && pairedBox.getStringValue() != null && !pairedBox.getStringValue().isEmpty() && !pairedBox.getStringValue().equals(getStringValue())) {
             errorMessage.setText("Passwords don't match");
             return false;
         } else {
@@ -60,7 +62,6 @@ public class VortexPasswordTextBox extends VortexTextBox {
         return text.length() != 0 && text.matches(".*[^a-zA-Z].*") && text.matches(".*[a-zA-Z].*") && text.length() > MIN_PASSWORD_LENGTH;
 
     }
-
 
 
     public String getStringValue() {

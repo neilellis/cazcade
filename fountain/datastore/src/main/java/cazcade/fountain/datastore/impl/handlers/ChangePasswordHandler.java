@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
@@ -8,8 +9,9 @@ import cazcade.liquid.api.handler.ChangePasswordRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.request.ChangePasswordRequest;
 import org.jasypt.util.password.StrongPasswordEncryptor;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
@@ -17,7 +19,8 @@ import org.neo4j.graphdb.Transaction;
 public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswordRequest> implements ChangePasswordRequestHandler {
     public static final String HASHED_PASSWORD = LSDAttribute.HASHED_AND_SALTED_PASSWORD.getKeyName();
 
-    public ChangePasswordRequest handle(ChangePasswordRequest request) throws Exception {
+    @Nonnull
+    public ChangePasswordRequest handle(@Nonnull ChangePasswordRequest request) throws Exception {
         Transaction transaction = fountainNeo.beginTx();
         try {
             final LiquidURI userURL = request.getSessionIdentifier().getUserURL();
@@ -33,14 +36,14 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
             if (request.getPassword() == null) {
                 userDAO.sendPasswordChangeRequest(userURL);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, fountainNeo.convertNodeToLSD(node, LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, node.convertNodeToLSD(LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
             } else {
                 String plainPassword = request.getPassword();
                 StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
                 String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
-                node.setProperty(HASHED_PASSWORD, encryptedPassword);
+                node.setProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, fountainNeo.convertNodeToLSD(node, request.getDetail(), request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, node.convertNodeToLSD(request.getDetail(), request.isInternal()));
             }
         } catch (RuntimeException e) {
             transaction.failure();

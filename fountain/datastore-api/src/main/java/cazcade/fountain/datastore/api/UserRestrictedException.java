@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
@@ -10,11 +12,11 @@ public class UserRestrictedException extends DataStoreException {
         super(throwable);
     }
 
-    public UserRestrictedException(String message, Object... params) {
+    public UserRestrictedException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public UserRestrictedException(Throwable cause, String message, Object... params) {
+    public UserRestrictedException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

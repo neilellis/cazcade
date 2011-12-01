@@ -6,11 +6,15 @@ import cazcade.vortex.pool.PoolMode;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public interface PoolPresenter {
 
+    @Nullable
     PoolMode getMode();
 
     int getWidth();
@@ -26,6 +30,7 @@ public interface PoolPresenter {
     boolean isWithinYBounds(int i);
 
 
+    @Nonnull
     LSDEntity getEntity();
 
     void move(PoolObjectPresenter presenter, double x, double y, boolean onServer);
@@ -34,6 +39,7 @@ public interface PoolPresenter {
 
     int getAbsoluteTop();
 
+    @Nonnull
     AbsolutePanel getDragBoundContainer();
 
     void add(PoolObjectPresenter poolObjectPresenter);
@@ -44,6 +50,7 @@ public interface PoolPresenter {
 
     void transfer(PoolObjectPresenter source, PoolObjectPresenterContainer destination);
 
+    @Nonnull
     LSDDictionaryTypes getType();
 
     void destroy();

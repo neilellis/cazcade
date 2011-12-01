@@ -15,6 +15,7 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,7 @@ import static cazcade.common.CommonConstants.QUEUE_ATTRIBUTE;
  */
 public class LiquidNotificationServlet extends AbstractRestServlet {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(LiquidNotificationServlet.class);
 
     private RabbitAdmin rabbitAdmin;
@@ -46,7 +48,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
     }
 
     @Override
-    public void doRestCall(HttpServletRequest req, HttpServletResponse resp, String pathWithQuery, String serviceName, String methodName, List<LiquidUUID> uuids, String sessionId, String format) throws RuntimeException, ServletException, IOException {
+    public void doRestCall(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp, String pathWithQuery, String serviceName, String methodName, @Nonnull List<LiquidUUID> uuids, String sessionId, String format) throws RuntimeException, ServletException, IOException {
         LSDSimpleEntity sessionStateEntity = LSDSimpleEntity.createEmpty();
         sessionStateEntity.setType(LSDDictionaryTypes.SESSION);
         LiquidUUID sessionUUID = LiquidUUID.fromString(sessionId);
@@ -61,7 +63,8 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
     }
 
 
-    public ArrayList<LiquidMessage> collect(Queue queue, HttpServletResponse response) {
+    @Nonnull
+    public ArrayList<LiquidMessage> collect(Queue queue, @Nonnull HttpServletResponse response) {
         try {
             final ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>();
             LiquidMessage message;
@@ -97,7 +100,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
     }
 
 
-    private boolean authorize(HttpServletResponse resp, LiquidUUID uuid) {
+    private boolean authorize(@Nonnull HttpServletResponse resp, LiquidUUID uuid) {
         try {
             AuthorizationService authorizationService = (AuthorizationService) applicationContext.getBean("authorizationService");
             AuthorizationStatus authorizationStatus = authorizationService.authorize(RestContext.getContext().getCredentials(), uuid, LiquidPermission.EDIT);
@@ -112,12 +115,12 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         return true;
     }
 
-    private void doAuthorizationError(HttpServletResponse resp) throws IOException {
+    private void doAuthorizationError(@Nonnull HttpServletResponse resp) throws IOException {
         resp.sendError(401, "You are not authorized to listen to notifications from this resource.");
     }
 
 
-    private Queue getQueue(HttpServletRequest request) {
+    private Queue getQueue(@Nonnull HttpServletRequest request) {
         final HttpSession session = request.getSession(true);
         Queue queue = (Queue) session.getAttribute(QUEUE_ATTRIBUTE);
         if (queue == null) {
@@ -127,7 +130,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         return queue;
     }
 
-    private void declareBindings(Queue queue, LiquidSessionIdentifier identity) {
+    private void declareBindings(Queue queue, @Nonnull LiquidSessionIdentifier identity) {
         rabbitAdmin.declareBinding(new Binding(queue, exchange, "session." + identity.getSession()));
         rabbitAdmin.declareBinding(new Binding(queue, exchange, "user." + identity.getUserURL()));
         rabbitAdmin.declareBinding(new Binding(queue, exchange, "alias." + identity.getAliasURL()));
@@ -138,7 +141,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         VisitPoolRequest request = (VisitPoolRequest) messageObject;
         if (request.getState() == LiquidMessageState.SUCCESS) {
             log.debug("Switching pools....");
-            final LiquidUUID uuid = request.getResponse().getID();
+            final LiquidUUID uuid = request.getResponse().getUUID();
             addLocation(queue, uuid);
             final LiquidURI uri = request.getResponse().getURI();
             addLocation(queue, uri);

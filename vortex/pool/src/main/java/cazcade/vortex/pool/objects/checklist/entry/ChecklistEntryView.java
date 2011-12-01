@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -29,12 +31,13 @@ public class ChecklistEntryView extends Composite {
     public static final String BALLOT_CROSSED = String.valueOf((char) 0x2612);
 
     private boolean checked;
-    private LSDEntity entity;
+    @Nonnull
+    private final LSDEntity entity;
 
     interface ChecklistEntryViewUiBinder extends UiBinder<HTMLPanel, ChecklistEntryView> {
     }
 
-    private static ChecklistEntryViewUiBinder ourUiBinder = GWT.create(ChecklistEntryViewUiBinder.class);
+    private static final ChecklistEntryViewUiBinder ourUiBinder = GWT.create(ChecklistEntryViewUiBinder.class);
     @UiField
     EditableLabel label;
     @UiField
@@ -42,14 +45,14 @@ public class ChecklistEntryView extends Composite {
     @UiField
     Label author;
 
-    public ChecklistEntryView(LSDEntity newEntity) {
+    public ChecklistEntryView(@Nonnull LSDEntity newEntity) {
         this.entity = newEntity;
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setShowBrief(true);
         update(newEntity);
         BusFactory.getInstance().listenForResponsesForURIAndType(newEntity.getURI(), LiquidRequestType.UPDATE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(LiquidMessage message) {
+            public void handle(@Nonnull LiquidMessage message) {
                 if (message.getState() != LiquidMessageState.PROVISIONAL) {
                     update(message.getResponse().copy());
                 }
@@ -87,7 +90,7 @@ public class ChecklistEntryView extends Composite {
         }
     }
 
-    private void update(LSDEntity entity) {
+    private void update(@Nonnull LSDEntity entity) {
         if (entity.hasAttribute(LSDAttribute.CHECKED)) {
             this.checked = entity.getBooleanAttribute(LSDAttribute.CHECKED);
         }

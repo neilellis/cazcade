@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,13 +28,13 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
         this(null, identity, uri);
     }
 
-    public RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target) {
+    public RetrievePoolRosterRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
         this.setTarget(target);
         this.setId(id);
         this.setSessionId(identity);
     }
 
-    public RetrievePoolRosterRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri) {
+    public RetrievePoolRosterRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri) {
         this.setId(id);
         this.setSessionId(identity);
         this.setUri(uri);
@@ -46,6 +48,7 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new RetrievePoolRosterRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri());
@@ -60,6 +63,7 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_POOL_ROSTER;
     }

@@ -12,7 +12,7 @@ public class VortexLHSPanel extends Composite {
     interface VortexLHSPanelUiBinder extends UiBinder<SimplePanel, VortexLHSPanel> {
     }
 
-    private static VortexLHSPanelUiBinder ourUiBinder = GWT.create(VortexLHSPanelUiBinder.class);
+    private static final VortexLHSPanelUiBinder ourUiBinder = GWT.create(VortexLHSPanelUiBinder.class);
 
     public VortexLHSPanel() {
         initWidget(ourUiBinder.createAndBindUi(this));

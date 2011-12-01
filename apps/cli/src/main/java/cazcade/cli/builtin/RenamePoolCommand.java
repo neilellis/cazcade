@@ -9,27 +9,35 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import org.apache.commons.cli.Options;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Neil Ellis
  */
 
 public class RenamePoolCommand extends AbstractShortLivedCommand {
+    @Nonnull
     private final static Logger log = Logger.getLogger(RenamePoolCommand.class);
 
+    @Nonnull
     public Options getOptions() {
         return new Options();
     }
 
+    @Nonnull
     @Override
     public String getDescription() {
         return "Rename a pool";
     }
 
+    @Nonnull
     public String getName() {
         return "rename";
     }
 
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    @Nullable
+    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
 
 
         String from;
@@ -44,8 +52,9 @@ public class RenamePoolCommand extends AbstractShortLivedCommand {
         LiquidURI poolURI;
         poolURI = CommandSupport.resolvePoolOrObject(shellSession, from);
         return CommandSupport.alterPool(shellSession, poolURI, new CommandSupport.AlterEntityCallback() {
+            @Nonnull
             @Override
-            public LSDEntity alter(LSDEntity entity) {
+            public LSDEntity alter(@Nonnull LSDEntity entity) {
                 entity.setAttribute(LSDAttribute.NAME, to);
                 return entity;
 

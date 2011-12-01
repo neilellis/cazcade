@@ -14,6 +14,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -21,8 +23,10 @@ public class RegisterPanel extends Composite {
 
     private Runnable onSwitchToLoginAction;
     private Runnable onSuccessAction;
+    @Nullable
     private LSDEntity newUser;
 
+    @Nullable
     public LSDEntity getNewUser() {
         return newUser;
     }
@@ -31,7 +35,7 @@ public class RegisterPanel extends Composite {
     interface RegisterPanelUiBinder extends UiBinder<HTMLPanel, RegisterPanel> {
     }
 
-    private static RegisterPanelUiBinder ourUiBinder = GWT.create(RegisterPanelUiBinder.class);
+    private static final RegisterPanelUiBinder ourUiBinder = GWT.create(RegisterPanelUiBinder.class);
     @UiField
     UsernameTextBox username;
     @UiField
@@ -113,11 +117,11 @@ public class RegisterPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(LSDEntity result) {
+            public void onSuccess(@Nullable LSDEntity result) {
                 if (result == null) {
                     registerErrorMessage.setText("Could not register you.");
                 } else {
-                    newUser= result;
+                    newUser = result;
                     onSuccessAction.run();
                 }
             }

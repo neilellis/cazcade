@@ -9,13 +9,15 @@ import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * @author neilellis@cazcade.com
  */
 public class ChangePermissionCommand implements Command {
     private final LiquidPermissionChangeType change;
-    private LiquidURI poolURI;
+    private final LiquidURI poolURI;
 
     public ChangePermissionCommand(LiquidPermissionChangeType change, LiquidURI poolURI) {
         this.change = change;
@@ -31,7 +33,7 @@ public class ChangePermissionCommand implements Command {
             }
 
             @Override
-            public void onFailure(ChangePermissionRequest message, ChangePermissionRequest response) {
+            public void onFailure(ChangePermissionRequest message, @Nonnull ChangePermissionRequest response) {
                 Window.alert("Failed to (un)lock.");
             }
         });

@@ -3,8 +3,6 @@ package cazcade.vortex.pool.objects.youtube;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.request.UpdatePoolObjectRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.dnd.client.gesture.drag.DragEvent;
 import cazcade.vortex.dnd.client.gesture.enddrag.EndDragEvent;
 import cazcade.vortex.dnd.client.gesture.hdrag.HoldDragEvent;
@@ -14,8 +12,8 @@ import cazcade.vortex.pool.api.PoolPresenter;
 import cazcade.vortex.pool.objects.edit.PoolObjectEditor;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
@@ -34,7 +32,7 @@ public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
     }
 
     @Override
-    public void update(final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -48,13 +46,13 @@ public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
     }
 
     @Override
-    public void onHoldDrag(HoldDragEvent dragEvent) {
+    public void onHoldDrag(@Nonnull HoldDragEvent dragEvent) {
         getPoolObjectView().imageViewOn();
         super.onHoldDrag(dragEvent);
     }
 
     @Override
-    public void onDrag(DragEvent dragEvent) {
+    public void onDrag(@Nonnull DragEvent dragEvent) {
         getPoolObjectView().imageViewOn();
         super.onDrag(dragEvent);
     }

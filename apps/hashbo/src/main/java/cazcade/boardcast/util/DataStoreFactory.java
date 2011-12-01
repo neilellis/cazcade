@@ -4,12 +4,16 @@ import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class DataStoreFactory {
-    public static FountainDataStore dataStore;
+    @Nonnull
+    public static final FountainDataStore dataStore;
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(DataStoreFactory.class);
 
     static {
@@ -22,6 +26,7 @@ public class DataStoreFactory {
         }
     }
 
+    @Nonnull
     public static FountainDataStore getDataStore() {
         return dataStore;
     }

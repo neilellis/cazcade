@@ -5,6 +5,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.StatusCodeException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -15,13 +17,17 @@ import java.util.Date;
  * @author Neil Ellis
  */
 
+@SuppressWarnings({"UseOfSystemOutOrSystemErr"})
 public class ClientLog {
     private static boolean loginWindowActive;
+    @Nonnull
     private static StringBuffer logBuffer = new StringBuffer();
     private static final int MAX_BUFFER_LENGTH = 50000;
+    @Nullable
     public static Element logWidget = null;
     private static boolean debugMode;
-    private static VortexThreadSafeExecutor executor = new VortexThreadSafeExecutor();
+    @Nonnull
+    private static final VortexThreadSafeExecutor executor = new VortexThreadSafeExecutor();
 
     public static String getLog() {
         return logBuffer.toString();
@@ -39,7 +45,7 @@ public class ClientLog {
         return !GWT.isScript() || logWidget != null;
     }
 
-    public static void log(String message, Throwable exception) {
+    public static void log(@Nullable final String message, @Nullable final Throwable exception) {
         if (exception instanceof StatusCodeException && ((StatusCodeException) exception).getStatusCode() == 0) {
             return;
         }
@@ -63,21 +69,21 @@ public class ClientLog {
                 e = e.getCause();
             }
             if (debugMode) {
-                Window.alert(message + ":" + exception.getMessage() + "\n" + trace);
+                Window.alert(message + ':' + exception.getMessage() + '\n' + trace);
             }
         }
     }
 
-    private static String buildTrace(Throwable exception, String trace) {
+    private static String buildTrace(@Nonnull Throwable exception, String trace) {
         final StackTraceElement[] stackTrace = exception.getStackTrace();
-        for (StackTraceElement stackTraceElement : stackTrace) {
+        for (final StackTraceElement stackTraceElement : stackTrace) {
             trace = trace + stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() + "(" + stackTraceElement.getFileName() + ":" + stackTraceElement.getLineNumber() + ")\n";
         }
         return trace;
     }
 
 
-    public static void log(Throwable exception) {
+    public static void log(final Throwable exception) {
         log(null, exception);
     }
 
@@ -87,7 +93,7 @@ public class ClientLog {
     }
 
 
-    private static void logInternal(String message, Throwable exception) {
+    private static void logInternal(@Nullable String message, @Nullable Throwable exception) {
         if (isDebugMode()) {
             final StringBuffer localBuffer = new StringBuffer();
             if (exception != null) {
@@ -119,7 +125,8 @@ public class ClientLog {
         }
     }
 
-    private static String exceptionToString(Throwable throwable) {
+    @Nonnull
+    private static String exceptionToString(@Nonnull Throwable throwable) {
         if (throwable instanceof StatusCodeException) {
             StatusCodeException sce = (StatusCodeException) throwable;
             if (sce.getStatusCode() == 401 && !loginWindowActive) {
@@ -138,12 +145,12 @@ public class ClientLog {
     }
 
     public static void assertTrue(boolean b, String message) {
-        if(!b && ClientApplicationConfiguration.isDebug()) {
-            Window.alert("Assertion failed "+message);
+        if (!b && ClientApplicationConfiguration.isDebug()) {
+            Window.alert("Assertion failed " + message);
         }
     }
 
-    public static void warn(Exception e) {
+    public static void warn(@Nonnull Exception e) {
         log(e.getMessage());
         e.printStackTrace(System.err);
     }

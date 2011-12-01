@@ -3,23 +3,28 @@ package cazcade.vortex.dnd.client.touch.start;
 import cazcade.vortex.dnd.client.touch.TouchEvent;
 import com.google.gwt.event.dom.client.DomEvent;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
-public class TouchStartEvent  extends TouchEvent<TouchStartHandler> {
+public class TouchStartEvent extends TouchEvent<TouchStartHandler> {
 
-    private static final DomEvent.Type<TouchStartHandler> TYPE =new DomEvent.Type<TouchStartHandler>("touchstart", new TouchStartEvent());
+    @Nonnull
+    private static final DomEvent.Type<TouchStartHandler> TYPE = new DomEvent.Type<TouchStartHandler>("touchstart", new TouchStartEvent());
 
+    @Nonnull
     public static DomEvent.Type<TouchStartHandler> getType() {
-         return TYPE;
+        return TYPE;
     }
 
 
+    @Nonnull
     public final DomEvent.Type<TouchStartHandler> getAssociatedType() {
         return TYPE;
     }
 
-    protected void dispatch(TouchStartHandler handler) {
+    protected void dispatch(@Nonnull TouchStartHandler handler) {
         handler.onTouchStart(this);
     }
 }

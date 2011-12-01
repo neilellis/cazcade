@@ -2,6 +2,7 @@ package cazcade.boardcast.servlet.board;
 
 import cazcade.common.Logger;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,11 +13,12 @@ import java.io.IOException;
  */
 public class BoardServlet extends AbstractBoardListServlet {
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(BoardServlet.class);
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
 
 //            RetrieveAliasRequest response = dataStore.process(new RetrieveAliasRequest(getLiquidSessionId(), new LiquidURI("alias:cazcade:"+parts[0])));

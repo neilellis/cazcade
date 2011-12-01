@@ -5,6 +5,8 @@ import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
     }
 
 
-    public RetrieveUpdatesRequest(LiquidUUID id, LiquidSessionIdentifier identity, long since) {
+    public RetrieveUpdatesRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, long since) {
         this.setSince(since);
         this.setId(id);
         this.setSessionId(identity);
@@ -30,6 +32,7 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new RetrieveUpdatesRequest(getId(), getSessionIdentifier(), getSince());
@@ -40,6 +43,7 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_UPDATES;
     }

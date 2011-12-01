@@ -1,15 +1,19 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.impl.*;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageHandler;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.lsd.LSDAttribute;
 import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author neilelliz@cazcade.com
@@ -36,7 +40,8 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
         this.fountainNeo = fountainNeo;
     }
 
-    protected LiquidURI defaultAndCheckOwner(LiquidRequest request, LiquidURI owner) throws InterruptedException {
+    @Nullable
+    protected LiquidURI defaultAndCheckOwner(@Nonnull LiquidRequest request, @Nullable LiquidURI owner) throws InterruptedException {
         if (request.getSessionIdentifier() == null) {
             throw new IllegalArgumentException("Could not check ownership as request has no identity associated with it.");
         }
@@ -55,10 +60,10 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
             if (ownerNode == null) {
                 throw new AuthorizationException("Could not locate owner node for alias %s", owner);
             }
-            if (!ownerNode.hasProperty(FountainNeo.URI)) {
+            if (!ownerNode.hasAttribute(LSDAttribute.URI)) {
                 throw new AuthorizationException("Could not locate owner URI for alias %s", owner);
             }
-            final String ownerURL = (String) ownerNode.getProperty(FountainNeo.URI);
+            final String ownerURL = ownerNode.getProperty(LSDAttribute.URI);
             if (!ownerURL.equals(request.getSessionIdentifier().getUserURL().asString())) {
                 throw new AuthorizationException("Attempted to create a pool object when you are not the owner of the alias %s", owner);
             }
@@ -66,7 +71,6 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
         }
         return owner;
     }
-
 
 
 }

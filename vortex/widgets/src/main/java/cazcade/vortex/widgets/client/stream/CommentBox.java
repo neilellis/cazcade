@@ -22,6 +22,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RichTextArea;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -32,7 +34,7 @@ public class CommentBox extends Composite {
     interface VortexAddCommentBoxUiBinder extends UiBinder<HTMLPanel, CommentBox> {
     }
 
-    private static VortexAddCommentBoxUiBinder ourUiBinder = GWT.create(VortexAddCommentBoxUiBinder.class);
+    private static final VortexAddCommentBoxUiBinder ourUiBinder = GWT.create(VortexAddCommentBoxUiBinder.class);
     @UiField
     RichTextArea textBox;
     @UiField
@@ -96,13 +98,13 @@ public class CommentBox extends Composite {
                             }
 
                             @Override
-                            public void onFailure(AddCommentRequest message, AddCommentRequest response) {
+                            public void onFailure(AddCommentRequest message, @Nonnull AddCommentRequest response) {
                                 textBox.setText(text);
                                 super.onFailure(message, response);
                             }
 
                             @Override
-                            public void onException(AddCommentRequest message, Throwable error) {
+                            public void onException(@Nonnull AddCommentRequest message, @Nonnull Throwable error) {
                                 textBox.setText(text);
                                 super.onException(message, error);
                             }

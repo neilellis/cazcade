@@ -12,13 +12,15 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractVortexFormField extends Composite implements VortexFormField {
-    private BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
+    private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     protected Runnable onChangeAction;
     protected boolean showValidityFlag = true;
 
@@ -33,6 +35,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     private LSDEntity entity;
 
 
+    @Nullable
     @Override
     public String getStringValue() {
         throw new UnsupportedOperationException("This widget does not support single string values.");
@@ -75,7 +78,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     @Override
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(@Nullable String errorMessage) {
         this.errorMessage.setText(errorMessage);
         if (errorMessage != null && !errorMessage.isEmpty()) {
             this.errorMessage.setVisible(true);
@@ -92,7 +95,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
 
 
     @Override
-    public void bind(LSDEntity entity, LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull LSDEntity entity, @Nullable LSDAttribute attribute, String prefix) {
         setEntity(entity);
         setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
         if (attribute != null) {
@@ -124,6 +127,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         return false;
     }
 
+    @Nonnull
     @Override
     public List<String> getStringValues() {
         throw new UnsupportedOperationException("This widget does not support multiple values");
@@ -153,6 +157,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
 
+    @Nonnull
     @Override
     public LSDEntity getEntityDiff() {
         LSDEntity newEntity = LSDSimpleEntity.createEmpty();
@@ -167,7 +172,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
 
-    public void setEntity(LSDEntity entity) {
+    public void setEntity(@Nonnull LSDEntity entity) {
         if (entity.isReadonly()) {
             throw new IllegalArgumentException("Cannot accept readonly entities.");
         }

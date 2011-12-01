@@ -11,6 +11,8 @@ import com.thoughtworks.xstream.converters.reflection.ReflectionConverter;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -18,11 +20,13 @@ import java.lang.reflect.InvocationTargetException;
  * @author neilelliz@cazcade.com
  */
 public class RequestConverter implements Converter {
+    @Nonnull
     private final static Logger log = Logger.getLogger(RequestConverter.class);
 
+    @Nonnull
     private static final ReflectionConverter CONVERTER = new ReflectionConverter(LiquidXStreamFactory.getXstream().getMapper(), LiquidXStreamFactory.getXstream().getReflectionProvider());
 
-    public void marshal(Object o, HierarchicalStreamWriter hierarchicalStreamWriter, MarshallingContext marshallingContext) {
+    public void marshal(@Nonnull Object o, @Nonnull HierarchicalStreamWriter hierarchicalStreamWriter, MarshallingContext marshallingContext) {
         LiquidRequest request = (LiquidRequest) o;
         hierarchicalStreamWriter.startNode("type");
         hierarchicalStreamWriter.setValue(request.getRequestType().name().toLowerCase());
@@ -52,7 +56,7 @@ public class RequestConverter implements Converter {
 //        }
     }
 
-    public Object unmarshal(HierarchicalStreamReader hierarchicalStreamReader, UnmarshallingContext unmarshallingContext) {
+    public Object unmarshal(@Nonnull HierarchicalStreamReader hierarchicalStreamReader, @Nonnull UnmarshallingContext unmarshallingContext) {
         hierarchicalStreamReader.moveDown();
         if (!hierarchicalStreamReader.getNodeName().equals("type")) {
             throw new IllegalStateException("Expected to find 'type' node here.");
@@ -88,10 +92,12 @@ public class RequestConverter implements Converter {
     }
 
 
+    @Nullable
     public String toString(Object o) {
         return null;
     }
 
+    @Nullable
     public Object fromString(String s) {
         return null;
     }

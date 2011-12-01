@@ -4,6 +4,7 @@ import org.webharvest.definition.ScraperConfiguration;
 import org.webharvest.runtime.ScraperContext;
 import org.xml.sax.InputSource;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 
@@ -12,7 +13,8 @@ import java.io.IOException;
  */
 
 public class Scraper {
-    private ScraperConfiguration config;
+    @Nonnull
+    private final ScraperConfiguration config;
     private String url;
     private String page;
 

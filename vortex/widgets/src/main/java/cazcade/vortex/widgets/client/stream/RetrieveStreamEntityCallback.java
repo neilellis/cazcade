@@ -12,6 +12,7 @@ import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import com.google.gwt.user.client.ui.InsertPanel;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,12 +20,12 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequest> {
-    private FormatUtil features;
-    private int maxRows;
-    private InsertPanel parentPanel;
-    private LiquidURI pool;
-    private VortexThreadSafeExecutor threadSafeExecutor;
-    private boolean autoDelete;
+    private final FormatUtil features;
+    private final int maxRows;
+    private final InsertPanel parentPanel;
+    private final LiquidURI pool;
+    private final VortexThreadSafeExecutor threadSafeExecutor;
+    private final boolean autoDelete;
 
     public RetrieveStreamEntityCallback(FormatUtil features, int maxRows, InsertPanel parentPanel, LiquidURI pool, VortexThreadSafeExecutor threadSafeExecutor, boolean autoDelete) {
         this.features = features;
@@ -36,7 +37,7 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
     }
 
     @Override
-    public void onSuccess(AbstractRequest message, AbstractRequest response) {
+    public void onSuccess(AbstractRequest message, @Nonnull AbstractRequest response) {
         final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
         Collections.reverse(entries);
         for (LSDEntity entry : entries) {

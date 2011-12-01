@@ -1,5 +1,7 @@
 package cazcade.liquid.api;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.Serializable;
 
 /**
@@ -8,25 +10,30 @@ import java.io.Serializable;
 public class LiquidSessionIdentifier implements Serializable {
 
     private LiquidUUID session;
+
+    @Nonnull
     private LiquidURI alias;
+
+    @Nonnull
     public static final LiquidSessionIdentifier ANON = new LiquidSessionIdentifier("anon", null);
 
     public LiquidSessionIdentifier() {
     }
 
-    public LiquidSessionIdentifier(String name) {
+    public LiquidSessionIdentifier(@Nonnull String name) {
         this.alias = new LiquidURI(LiquidURIScheme.alias, "cazcade:" + name.toLowerCase());
     }
 
-    public LiquidSessionIdentifier(String name, LiquidUUID session) {
+    public LiquidSessionIdentifier(@Nonnull String name, LiquidUUID session) {
         this(name);
         this.session = session;
     }
 
-    public LiquidSessionIdentifier(LiquidURI aliasURI) {
+    public LiquidSessionIdentifier(@Nonnull LiquidURI aliasURI) {
         this.alias = aliasURI;
     }
 
+    @Nonnull
     public String getName() {
         return alias.getSubURI().getSubURI().asString();
     }
@@ -40,17 +47,19 @@ public class LiquidSessionIdentifier implements Serializable {
         this.session = LiquidUUID.fromString(session);
     }
 
+    @Nonnull
     public LiquidURI getUserURL() {
         return new LiquidURI(LiquidURIScheme.user, getName());
     }
 
+    @Nonnull
     public LiquidURI getAliasURL() {
         return alias;
     }
 
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -66,12 +75,14 @@ public class LiquidSessionIdentifier implements Serializable {
         return session.hashCode();
     }
 
+    @Nonnull
     public LiquidURI getAlias() {
         return alias;
 
     }
 
-    public static LiquidSessionIdentifier fromString(String s) {
+    @Nullable
+    public static LiquidSessionIdentifier fromString(@Nullable String s) {
         if (s == null || s.isEmpty()) {
             return null;
         }
@@ -86,6 +97,7 @@ public class LiquidSessionIdentifier implements Serializable {
         }
     }
 
+    @Nullable
     @Override
     public String toString() {
         if (session != null) {

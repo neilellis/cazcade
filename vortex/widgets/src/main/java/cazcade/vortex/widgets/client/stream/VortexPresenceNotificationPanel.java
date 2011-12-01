@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -27,18 +28,21 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
     @UiField
     SelfUpdatingRelativeDate dateTime;
 
-    private LSDEntity entity;
-    private Date date = new Date();
-    private LSDEntity visitor;
-    private String id;
+    @Nonnull
+    private final LSDEntity entity;
+    @Nonnull
+    private final Date date = new Date();
+    @Nonnull
+    private final LSDEntity visitor;
+    private final String id;
 
     interface VortexPresenceNotificationPanelUiBinder extends UiBinder<HTMLPanel, VortexPresenceNotificationPanel> {
     }
 
-    private static VortexPresenceNotificationPanelUiBinder ourUiBinder = GWT.create(VortexPresenceNotificationPanelUiBinder.class);
+    private static final VortexPresenceNotificationPanelUiBinder ourUiBinder = GWT.create(VortexPresenceNotificationPanelUiBinder.class);
 
 
-    public VortexPresenceNotificationPanel(LSDEntity streamEntry, LiquidURI pool, String id) {
+    public VortexPresenceNotificationPanel(@Nonnull LSDEntity streamEntry, @Nonnull LiquidURI pool, String id) {
         this.id = id;
 
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -53,6 +57,7 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
         dateTime.setDate(date);
     }
 
+    @Nonnull
     @Override
     public LSDEntity getEntity() {
         return entity;
@@ -64,6 +69,7 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
         return id;
     }
 
+    @Nonnull
     @Override
     public Date getSortDate() {
         return date;

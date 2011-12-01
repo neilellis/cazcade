@@ -10,15 +10,19 @@ import com.rabbitmq.client.ShutdownSignalException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 /**
  * @author neilellis@cazcade.com
  */
 public class FountainDataStoreRPCServer {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainDataStoreRPCServer.class);
     private RabbitTemplate template;
     private DataStoreServerMessageHandler handler;
+    @Nullable
     private RpcServer rpcServer;
     private String queue;
     private LiquidMessageSender messageSender;

@@ -1,10 +1,11 @@
 package cazcade.fountain.common.app;
 
-import cazcade.fountain.common.error.ErrorHandler;
-
 import cazcade.common.Logger;
+import cazcade.fountain.common.error.ErrorHandler;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
@@ -12,10 +13,11 @@ import sun.misc.SignalHandler;
 public class AppSignalHandler implements SignalHandler {
     private int shutdownCount = 0;
     private boolean running = true;
+    @Nonnull
     private final static Logger log = Logger.getLogger(AppSignalHandler.class);
-    private Runnable onFirst;
-    private Runnable onSecond;
-    private Runnable onThird;
+    private final Runnable onFirst;
+    private final Runnable onSecond;
+    private final Runnable onThird;
 
     public AppSignalHandler(Runnable onFirst, Runnable onSecond, Runnable onThird) {
         this.onFirst = onFirst;

@@ -15,6 +15,8 @@ import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.SingleUploader;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
@@ -22,13 +24,14 @@ import java.util.Set;
  */
 public class ImageUploader extends Composite {
 
-    private SingleUploader defaultUploader;
+    @Nonnull
+    private final SingleUploader defaultUploader;
 
 
     interface ImageUploaderUiBinder extends UiBinder<HTMLPanel, ImageUploader> {
     }
 
-    private static ImageUploaderUiBinder ourUiBinder = GWT.create(ImageUploaderUiBinder.class);
+    private static final ImageUploaderUiBinder ourUiBinder = GWT.create(ImageUploaderUiBinder.class);
     @UiField
     HTMLPanel loaderPanel;
     @UiField
@@ -56,7 +59,7 @@ public class ImageUploader extends Composite {
     }
 
 
-    public void setImageURL(String url) {
+    public void setImageURL(@Nullable String url) {
         if (url != null && !url.isEmpty()) {
             changeImage(new Image(url));
         }
@@ -87,7 +90,7 @@ public class ImageUploader extends Composite {
     }
 
 
-    private void changeImage(Image image) {
+    private void changeImage(@Nonnull Image image) {
         statusText.setInnerText("Processing");
         spinner.setVisible(false);
 
@@ -108,8 +111,10 @@ public class ImageUploader extends Composite {
     private class UploadStatusHandler implements IUploadStatus {
         private Status status;
         private UploadStatusChangedHandler handler;
+        @Nullable
         private UploadCancelHandler cancelHandler;
 
+        @Nullable
         @Override
         public HandlerRegistration addCancelHandler(UploadCancelHandler handler) {
             cancelHandler = handler;
@@ -131,6 +136,7 @@ public class ImageUploader extends Composite {
             return statusWidget;
         }
 
+        @Nonnull
         @Override
         public IUploadStatus newInstance() {
             return new UploadStatusHandler();

@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -25,7 +27,7 @@ public class VortexSearchResultList extends Composite {
         }
     }
 
-    public void addResult(final Widget result) {
+    public void addResult(@Nonnull final Widget result) {
         result.addStyleName("invisible");
         resultPanel.add(result);
         new Timer() {
@@ -39,7 +41,7 @@ public class VortexSearchResultList extends Composite {
     interface VortexSearchResultListUiBinder extends UiBinder<HTMLPanel, VortexSearchResultList> {
     }
 
-    private static VortexSearchResultListUiBinder ourUiBinder = GWT.create(VortexSearchResultListUiBinder.class);
+    private static final VortexSearchResultListUiBinder ourUiBinder = GWT.create(VortexSearchResultListUiBinder.class);
 
     @UiField
     public HTMLPanel resultPanel;

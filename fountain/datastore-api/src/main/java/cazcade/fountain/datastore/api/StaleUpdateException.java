@@ -1,5 +1,7 @@
 package cazcade.fountain.datastore.api;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Neil Ellis
  */
@@ -10,11 +12,11 @@ public class StaleUpdateException extends DataStoreException {
         super(throwable);
     }
 
-    public StaleUpdateException(String message, Object ... params) {
+    public StaleUpdateException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public StaleUpdateException(Throwable cause, String message, Object ... params) {
+    public StaleUpdateException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

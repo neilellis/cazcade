@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.server;
 
+import cazcade.common.Logger;
 import cazcade.fountain.common.app.AppSignalHandler;
 import cazcade.fountain.common.app.ApplicationLifecycleListener;
 import cazcade.fountain.common.app.ApplicationLifecycleManager;
@@ -7,15 +8,16 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
-
-import cazcade.common.Logger;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class FountainDataStoreMain {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainDataStoreMain.class);
 
     //private static final String CONTEXT_FILE = "applicationContext.xml";
@@ -23,7 +25,8 @@ public class FountainDataStoreMain {
     private static FountainDataStoreServer dataStore;
 
 
-    private static ApplicationLifecycleManager lifecycleManager = new ApplicationLifecycleManager();
+    @Nonnull
+    private static final ApplicationLifecycleManager lifecycleManager = new ApplicationLifecycleManager();
 
     public static void main(String[] args) throws Exception {
 
@@ -55,7 +58,8 @@ public class FountainDataStoreMain {
                 log.info("Forcing shutdown of Fountain DataStore...");
 
             }
-        });
+        }
+        );
 
         Signal.handle(new Signal("INT"), handler);
         Signal.handle(new Signal("TERM"), handler);
@@ -74,6 +78,7 @@ public class FountainDataStoreMain {
         dataStore = new FountainDataStoreServer();
 
         final String[] strings = line.getArgs();
+        log.info("Arguments " + java.util.Arrays.toString(strings));
 
         lifecycleManager.register(new ApplicationLifecycleListener() {
             public void shutdown() throws Exception {

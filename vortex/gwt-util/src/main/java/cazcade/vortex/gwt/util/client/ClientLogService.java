@@ -1,8 +1,10 @@
 package cazcade.vortex.gwt.util.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.google.gwt.core.client.GWT;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
@@ -16,8 +18,10 @@ public interface ClientLogService extends RemoteService {
      * Use ClientLogService.App.getInstance() to access static instance of ClientLogServiceAsync
      */
     public static class App {
+        @Nonnull
         private static final ClientLogServiceAsync ourInstance = (ClientLogServiceAsync) GWT.create(ClientLogService.class);
 
+        @Nonnull
         public static ClientLogServiceAsync getInstance() {
             return ourInstance;
         }

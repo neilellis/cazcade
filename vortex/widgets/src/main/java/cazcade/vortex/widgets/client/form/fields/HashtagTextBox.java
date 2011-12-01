@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class HashtagTextBox extends AbstractServerValidatedTextBox {
 
 
-    private static HashtagTextBoxUiBinder ourUiBinder = GWT.create(HashtagTextBoxUiBinder.class);
+    private static final HashtagTextBoxUiBinder ourUiBinder = GWT.create(HashtagTextBoxUiBinder.class);
 
     interface HashtagTextBoxUiBinder extends UiBinder<HTMLPanel, HashtagTextBox> {
     }

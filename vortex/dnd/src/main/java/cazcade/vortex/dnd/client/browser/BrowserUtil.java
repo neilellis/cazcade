@@ -8,11 +8,14 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class BrowserUtil {
-    public static String convertRelativeUrlToAbsolute(String url) {
+    public static String convertRelativeUrlToAbsolute(@Nonnull String url) {
         if (url.startsWith("./")) {
             url = url.substring(2);
         }
@@ -49,11 +52,11 @@ public class BrowserUtil {
         return keyCode > 46;
     }
 
-    public int convertMouseScrollDeltaYToPixelDelta(MouseWheelEvent event) {
+    public int convertMouseScrollDeltaYToPixelDelta(@Nonnull MouseWheelEvent event) {
         return -this.getDeltaY(event.getNativeEvent()) * 10;
     }
 
-    public int convertMouseScrollDeltaXToPixelDelta(MouseWheelEvent event) {
+    public int convertMouseScrollDeltaXToPixelDelta(@Nonnull MouseWheelEvent event) {
         return -this.getDeltaX(event.getNativeEvent()) * 10;
     }
 
@@ -63,11 +66,11 @@ public class BrowserUtil {
      * http://closure-library.googlecode.com/svn/docs/closure_goog_events_mousewheelhandler.js.source.html
      */
 
-    private final native int getDeltaX(NativeEvent evt)/*-{
+    private native int getDeltaX(NativeEvent evt)/*-{
         return evt.deltaX;
     }-*/;
 
-    private final native int getDeltaY(NativeEvent evt)/*-{
+    private native int getDeltaY(NativeEvent evt)/*-{
         return evt.deltaY;
     }-*/;
 
@@ -79,15 +82,15 @@ public class BrowserUtil {
         return deltaY * 40;
     }
 
-    public int getScreenTop(UIObject w) {
+    public int getScreenTop(@Nonnull UIObject w) {
         return getScreenTop(w.getElement());
     }
 
-    public int getScreenLeft(UIObject w) {
+    public int getScreenLeft(@Nonnull UIObject w) {
         return getScreenLeft(w.getElement());
     }
 
-    private final native int getScreenTop(Element el)/*-{
+    private native int getScreenTop(Element el)/*-{
         var _y = 0;
         while (el && !isNaN(el.offsetTop)) {
             _y += el.offsetTop - el.scrollTop;
@@ -97,7 +100,7 @@ public class BrowserUtil {
 
     }-*/;
 
-    private final native int getScreenLeft(Element el)/*-{
+    private native int getScreenLeft(Element el)/*-{
         var _x = 0;
         while (el && !isNaN(el.offsetLeft)) {
             _x += el.offsetLeft - el.scrollLeft;
@@ -106,13 +109,13 @@ public class BrowserUtil {
         return  _x;
     }-*/;
 
-    public static boolean isInternalImage(String url) {
+    public static boolean isInternalImage(@Nonnull String url) {
         int pathStart = url.indexOf("/", url.indexOf(':') + 3);
         final String pathString = url.substring(pathStart + 1);
         return (pathString.startsWith("_images") || pathString.startsWith("_decorations") || pathString.startsWith("_background"));
     }
 
-    public static boolean isImage(String url) {
+    public static boolean isImage(@Nullable String url) {
         if (url == null) {
             return false;
         }

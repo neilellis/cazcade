@@ -7,6 +7,8 @@ import com.rabbitmq.client.Channel;
 import org.eclipse.jetty.continuation.Continuation;
 import org.eclipse.jetty.continuation.ContinuationListener;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,16 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class NotificationSession {
+    @Nonnull
     private final static Logger log = Logger.getLogger(NotificationSession.class);
 
+    @Nullable
     private Continuation continuation;
+    @Nullable
     private Channel channel;
-    private List<LiquidMessage> messages = new ArrayList<LiquidMessage>();
-    private String queueName = UUIDFactory.randomUUID().toString();
+    @Nonnull
+    private final List<LiquidMessage> messages = new ArrayList<LiquidMessage>();
+    private final String queueName = UUIDFactory.randomUUID().toString();
     private boolean closed;
 
     public NotificationSession() {
@@ -31,6 +37,7 @@ public class NotificationSession {
     }
 
 
+    @Nullable
     public Channel getChannel() {
         return channel;
     }
@@ -44,6 +51,7 @@ public class NotificationSession {
     }
 
 
+    @Nonnull
     public ArrayList<LiquidMessage> getMessages() {
         ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>(messages);
         messages.removeAll(result);
@@ -54,7 +62,7 @@ public class NotificationSession {
         return queueName;
     }
 
-    public void setChannel(Channel channel) {
+    public void setChannel(@Nullable Channel channel) {
         this.channel = channel;
     }
 
@@ -113,7 +121,7 @@ public class NotificationSession {
         return closed;
     }
 
-    public void resetContinuation(Continuation continuation) {
+    public void resetContinuation(@Nonnull Continuation continuation) {
         if (!continuation.equals(this.continuation)) {
             this.continuation = continuation;
             continuation.setTimeout(0);

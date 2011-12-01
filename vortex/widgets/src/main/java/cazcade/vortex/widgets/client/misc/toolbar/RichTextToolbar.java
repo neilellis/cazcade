@@ -19,19 +19,9 @@ package cazcade.vortex.widgets.client.misc.toolbar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.google.gwt.user.client.ui.ChangeListener;
-import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ImageBundle;
-import com.google.gwt.user.client.ui.KeyboardListener;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.PushButton;
-import com.google.gwt.user.client.ui.RichTextArea;
-import com.google.gwt.user.client.ui.ToggleButton;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
+
+import javax.annotation.Nonnull;
 
 /**
  * A sample toolbar for use with {@link RichTextArea}. It provides a simple UI
@@ -50,91 +40,109 @@ public class RichTextToolbar extends Composite {
         /**
          * @gwt.resource bold.gif
          */
+        @Nonnull
         AbstractImagePrototype bold();
 
         /**
          * @gwt.resource createLink.gif
          */
+        @Nonnull
         AbstractImagePrototype createLink();
 
         /**
          * @gwt.resource hr.gif
          */
+        @Nonnull
         AbstractImagePrototype hr();
 
         /**
          * @gwt.resource indent.gif
          */
+        @Nonnull
         AbstractImagePrototype indent();
 
         /**
          * @gwt.resource insertImage.gif
          */
+        @Nonnull
         AbstractImagePrototype insertImage();
 
         /**
          * @gwt.resource italic.gif
          */
+        @Nonnull
         AbstractImagePrototype italic();
 
         /**
          * @gwt.resource justifyCenter.gif
          */
+        @Nonnull
         AbstractImagePrototype justifyCenter();
 
         /**
          * @gwt.resource justifyLeft.gif
          */
+        @Nonnull
         AbstractImagePrototype justifyLeft();
 
         /**
          * @gwt.resource justifyRight.gif
          */
+        @Nonnull
         AbstractImagePrototype justifyRight();
 
         /**
          * @gwt.resource ol.gif
          */
+        @Nonnull
         AbstractImagePrototype ol();
 
         /**
          * @gwt.resource outdent.gif
          */
+        @Nonnull
         AbstractImagePrototype outdent();
 
         /**
          * @gwt.resource removeFormat.gif
          */
+        @Nonnull
         AbstractImagePrototype removeFormat();
 
         /**
          * @gwt.resource removeLink.gif
          */
+        @Nonnull
         AbstractImagePrototype removeLink();
 
         /**
          * @gwt.resource strikeThrough.gif
          */
+        @Nonnull
         AbstractImagePrototype strikeThrough();
 
         /**
          * @gwt.resource subscript.gif
          */
+        @Nonnull
         AbstractImagePrototype subscript();
 
         /**
          * @gwt.resource superscript.gif
          */
+        @Nonnull
         AbstractImagePrototype superscript();
 
         /**
          * @gwt.resource ul.gif
          */
+        @Nonnull
         AbstractImagePrototype ul();
 
         /**
          * @gwt.resource underline.gif
          */
+        @Nonnull
         AbstractImagePrototype underline();
     }
 
@@ -144,74 +152,109 @@ public class RichTextToolbar extends Composite {
      */
     public interface Strings extends Constants {
 
+        @Nonnull
         String black();
 
+        @Nonnull
         String blue();
 
+        @Nonnull
         String bold();
 
+        @Nonnull
         String color();
 
+        @Nonnull
         String createLink();
 
+        @Nonnull
         String font();
 
+        @Nonnull
         String green();
 
+        @Nonnull
         String hr();
 
+        @Nonnull
         String indent();
 
+        @Nonnull
         String insertImage();
 
+        @Nonnull
         String italic();
 
+        @Nonnull
         String justifyCenter();
 
+        @Nonnull
         String justifyLeft();
 
+        @Nonnull
         String justifyRight();
 
+        @Nonnull
         String large();
 
+        @Nonnull
         String medium();
 
+        @Nonnull
         String normal();
 
+        @Nonnull
         String ol();
 
+        @Nonnull
         String outdent();
 
+        @Nonnull
         String red();
 
+        @Nonnull
         String removeFormat();
 
+        @Nonnull
         String removeLink();
 
+        @Nonnull
         String size();
 
+        @Nonnull
         String small();
 
+        @Nonnull
         String strikeThrough();
 
+        @Nonnull
         String subscript();
 
+        @Nonnull
         String superscript();
 
+        @Nonnull
         String ul();
 
+        @Nonnull
         String underline();
 
+        @Nonnull
         String white();
 
+        @Nonnull
         String xlarge();
 
+        @Nonnull
         String xsmall();
 
+        @Nonnull
         String xxlarge();
 
+        @Nonnull
         String xxsmall();
 
+        @Nonnull
         String yellow();
     }
 
@@ -305,23 +348,31 @@ public class RichTextToolbar extends Composite {
         }
     }
 
+    @Nonnull
     private static final RichTextArea.FontSize[] fontSizesConstants = new RichTextArea.FontSize[]{
             RichTextArea.FontSize.XX_SMALL, RichTextArea.FontSize.X_SMALL,
             RichTextArea.FontSize.SMALL, RichTextArea.FontSize.MEDIUM,
             RichTextArea.FontSize.LARGE, RichTextArea.FontSize.X_LARGE,
             RichTextArea.FontSize.XX_LARGE};
 
-    private Images images = (Images) GWT.create(Images.class);
-    private Strings strings = (Strings) GWT.create(Strings.class);
-    private EventListener listener = new EventListener();
+    @Nonnull
+    private final Images images = (Images) GWT.create(Images.class);
+    @Nonnull
+    private final Strings strings = (Strings) GWT.create(Strings.class);
+    @Nonnull
+    private final EventListener listener = new EventListener();
 
-    private RichTextArea richText;
-    private RichTextArea.BasicFormatter basic;
-    private RichTextArea.ExtendedFormatter extended;
+    @Nonnull
+    private final RichTextArea richText;
+    private final RichTextArea.BasicFormatter basic;
+    private final RichTextArea.ExtendedFormatter extended;
 
-    private VerticalPanel outer = new VerticalPanel();
-    private HorizontalPanel topPanel = new HorizontalPanel();
-    private HorizontalPanel bottomPanel = new HorizontalPanel();
+    @Nonnull
+    private final VerticalPanel outer = new VerticalPanel();
+    @Nonnull
+    private final HorizontalPanel topPanel = new HorizontalPanel();
+    @Nonnull
+    private final HorizontalPanel bottomPanel = new HorizontalPanel();
     private ToggleButton bold;
     private ToggleButton italic;
     private ToggleButton underline;
@@ -351,7 +402,7 @@ public class RichTextToolbar extends Composite {
      *
      * @param richText the rich text area to be controlled
      */
-    public RichTextToolbar(RichTextArea richText, boolean large) {
+    public RichTextToolbar(@Nonnull RichTextArea richText, boolean large) {
         this.richText = richText;
         this.basic = richText.getBasicFormatter();
         this.extended = richText.getExtendedFormatter();
@@ -420,6 +471,7 @@ public class RichTextToolbar extends Composite {
         }
     }
 
+    @Nonnull
     private ListBox createColorList(String caption) {
         ListBox lb = new ListBox();
         lb.addChangeListener(listener);
@@ -435,6 +487,7 @@ public class RichTextToolbar extends Composite {
         return lb;
     }
 
+    @Nonnull
     private ListBox createFontList() {
         ListBox lb = new ListBox();
         lb.addChangeListener(listener);
@@ -451,6 +504,7 @@ public class RichTextToolbar extends Composite {
         return lb;
     }
 
+    @Nonnull
     private ListBox createFontSizes() {
         ListBox lb = new ListBox();
         lb.addChangeListener(listener);
@@ -467,14 +521,16 @@ public class RichTextToolbar extends Composite {
         return lb;
     }
 
-    private PushButton createPushButton(AbstractImagePrototype img, String tip) {
+    @Nonnull
+    private PushButton createPushButton(@Nonnull AbstractImagePrototype img, String tip) {
         PushButton pb = new PushButton(img.createImage());
         pb.addClickListener(listener);
         pb.setTitle(tip);
         return pb;
     }
 
-    private ToggleButton createToggleButton(AbstractImagePrototype img, String tip) {
+    @Nonnull
+    private ToggleButton createToggleButton(@Nonnull AbstractImagePrototype img, String tip) {
         ToggleButton tb = new ToggleButton(img.createImage());
         tb.addClickListener(listener);
         tb.setTitle(tip);

@@ -12,7 +12,7 @@ public class VortexIconSet extends Composite {
     interface VortexIconToolbarUiBinder extends UiBinder<HTMLPanel, VortexIconSet> {
     }
 
-    private static VortexIconToolbarUiBinder ourUiBinder = GWT.create(VortexIconToolbarUiBinder.class);
+    private static final VortexIconToolbarUiBinder ourUiBinder = GWT.create(VortexIconToolbarUiBinder.class);
 
     public VortexIconSet() {
         initWidget(ourUiBinder.createAndBindUi(this));

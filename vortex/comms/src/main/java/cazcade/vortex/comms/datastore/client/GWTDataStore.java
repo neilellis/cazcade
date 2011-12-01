@@ -18,6 +18,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.client.rpc.StatusCodeException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,19 +30,24 @@ public class GWTDataStore {
 
     public static final int UNIQUE_ID_CACHE_SIZE = 200;
     public static final int MAX_RETRY = 10;
-    private Bus bus;
+    @Nonnull
+    private final Bus bus;
+    @Nullable
     private LiquidSessionIdentifier identity;
     //todo locations!
-    private ArrayList<String> locations = new ArrayList<String>();
+    @Nonnull
+    private final ArrayList<String> locations = new ArrayList<String>();
     private boolean collecting;
 
     //todo: revisit offline behaviour and caching
     private static final boolean SUPPORT_OFFLINE = false;
-    private Runnable onLoggedOutAction;
-    private ArrayList<String> ids = new ArrayList<String>();
-    private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    private final Runnable onLoggedOutAction;
+    @Nonnull
+    private final ArrayList<String> ids = new ArrayList<String>();
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
-    public GWTDataStore(final LiquidSessionIdentifier newIdentity, final Runnable onStartup, Runnable onLoggedOutAction) {
+    public GWTDataStore(@Nonnull final LiquidSessionIdentifier newIdentity, @Nonnull final Runnable onStartup, Runnable onLoggedOutAction) {
         this.onLoggedOutAction = onLoggedOutAction;
         this.identity = newIdentity;
         bus = BusFactory.getInstance();
@@ -73,10 +80,10 @@ public class GWTDataStore {
 
     }
 
-    private void setupListeners(final LiquidSessionIdentifier newIdentity) {
+    private void setupListeners(@Nonnull final LiquidSessionIdentifier newIdentity) {
         bus.listen(new AbstractBusListener() {
             @Override
-            public void handle(LiquidMessage message) {
+            public void handle(@Nonnull LiquidMessage message) {
                 if (((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
                     VisitPoolRequest request = (VisitPoolRequest) message;
                     if (request.getSessionIdentifier() == null || request.getSessionIdentifier().getAlias().equals(identity.getAlias())) {
@@ -85,7 +92,7 @@ public class GWTDataStore {
                             locations.add(newIdentity.getAlias().asReverseDNSString());
                             final LSDEntity responseEntity = request.getResponse();
                             locations.add(responseEntity.getURI().asReverseDNSString() + ".#");
-                            locations.add(responseEntity.getID().toString());
+                            locations.add(responseEntity.getUUID().toString());
                         } else if (request.getState() == LiquidMessageState.PROVISIONAL || request.getState() == LiquidMessageState.INITIAL) {
                             if (request.getUri() != null) {
                                 locations.add(request.getUri().asReverseDNSString() + ".#");
@@ -109,7 +116,7 @@ public class GWTDataStore {
         });
         bus.listenForAllButTheseTypes(Arrays.asList(LiquidMessageType.RESPONSE), new AbstractBusListener() {
             @Override
-            public void handle(final LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 ClientLog.log("Received a potential message to be stored " + message);
                 if (message.getOrigin() == LiquidMessageOrigin.UNASSIGNED && message.getMessageType() == LiquidMessageType.REQUEST) {
                     ClientLog.log("Storing " + message);
@@ -136,7 +143,7 @@ public class GWTDataStore {
                             }
                         }
 
-                        public void onSuccess(SerializedRequest result) {
+                        public void onSuccess(@Nullable SerializedRequest result) {
 //                                    result.setId(id);
                             if (result != null) {
                                 final AbstractRequest response = deserializeRequest(result);
@@ -149,7 +156,8 @@ public class GWTDataStore {
         });
     }
 
-    private AbstractRequest deserializeRequest(SerializedRequest result) {
+    @Nullable
+    private AbstractRequest deserializeRequest(@Nonnull SerializedRequest result) {
         final AbstractRequest response = result.getType().createInGWT();
         response.setEntity(result.getEntity());
         return response;
@@ -181,7 +189,7 @@ public class GWTDataStore {
 //        }
 //    }
 
-    public void process(LiquidRequest request, final AsyncCallback<LiquidMessage> callback) {
+    public void process(@Nonnull LiquidRequest request, @Nonnull final AsyncCallback<LiquidMessage> callback) {
         request.setSessionId(identity);
         DataStoreService.App.getInstance().process(request.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
             @Override
@@ -190,7 +198,7 @@ public class GWTDataStore {
             }
 
             @Override
-            public void onSuccess(SerializedRequest result) {
+            public void onSuccess(@Nonnull SerializedRequest result) {
                 final AbstractRequest response = deserializeRequest(result);
                 callback.onSuccess(response);
             }
@@ -244,7 +252,7 @@ public class GWTDataStore {
 
         }
 
-        public void onSuccess(ArrayList<SerializedRequest> requests) {
+        public void onSuccess(@Nullable ArrayList<SerializedRequest> requests) {
             new Timer() {
                 @Override
                 public void run() {

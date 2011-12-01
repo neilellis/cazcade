@@ -10,12 +10,16 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class HashboLoginOrRegisterPanel extends DialogBox {
     private boolean registerPanelShowing;
 
+    @Nullable
     public LiquidSessionIdentifier getIdentity() {
         if (registerPanelShowing) {
             return null;
@@ -28,12 +32,13 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
     interface LoginOrRegisterPanelUiBinder extends UiBinder<HTMLPanel, HashboLoginOrRegisterPanel> {
     }
 
-    private static LoginOrRegisterPanelUiBinder ourUiBinder = GWT.create(LoginOrRegisterPanelUiBinder.class);
+    private static final LoginOrRegisterPanelUiBinder ourUiBinder = GWT.create(LoginOrRegisterPanelUiBinder.class);
 
     @UiField
     HashboLoginPanel loginPanel;
 
-    HashboRegisterPanel registerPanel;
+    @Nonnull
+    final HashboRegisterPanel registerPanel;
 
     public HashboLoginOrRegisterPanel(boolean register, final Runnable loginAction, final Runnable registerAction) {
         setWidget(ourUiBinder.createAndBindUi(this));

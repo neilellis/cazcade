@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +23,7 @@ public class FollowRequest extends AbstractRequest {
         this(null, identity, uri, follow);
     }
 
-    public FollowRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, boolean follow) {
+    public FollowRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri, boolean follow) {
         this.setId(id);
         this.setSessionId(identity);
         this.setFollow(follow);
@@ -41,11 +43,13 @@ public class FollowRequest extends AbstractRequest {
         }
     }
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new FollowRequest(getId(), getSessionIdentifier(), getUri(), super.isFollow());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return new ArrayList<AuthorizationRequest>();
     }
@@ -61,6 +65,7 @@ public class FollowRequest extends AbstractRequest {
     }
 
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.FOLLOW;
     }

@@ -16,12 +16,15 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class VortexEditableLabel extends AbstractVortexFormField {
 
-    private int maxLength = Integer.MAX_VALUE;
+    private final int maxLength = Integer.MAX_VALUE;
     private boolean readonly;
 
     public void setWordwrap(boolean wordwrap) {
@@ -53,7 +56,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     interface VortexEditableLabelUiBinder extends UiBinder<HTMLPanel, VortexEditableLabel> {
     }
 
-    private static VortexEditableLabelUiBinder ourUiBinder = GWT.create(VortexEditableLabelUiBinder.class);
+    private static final VortexEditableLabelUiBinder ourUiBinder = GWT.create(VortexEditableLabelUiBinder.class);
 
     public VortexEditableLabel() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -93,6 +96,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         return true;
     }
 
+    @Nullable
     @Override
     public String getStringValue() {
         return label.getText();
@@ -140,17 +144,18 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         label.setInputType(type);
     }
 
+    @Nullable
     public String getValue() {
         return label.getText();
     }
 
     @Override
-    public void setValue(String text) {
+    public void setValue(@Nonnull String text) {
         label.setText(text);
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, String initialValue) {
+    public void bind(LSDAttribute attribute, String prefix, @Nonnull String initialValue) {
         this.boundAttribute = attribute;
         setValue(initialValue);
     }

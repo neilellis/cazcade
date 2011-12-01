@@ -2,6 +2,8 @@ package cazcade.liquid.api.lsd;
 
 import cazcade.fountain.common.error.CazcadeException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -11,11 +13,11 @@ public class LSDSerializationException extends CazcadeException {
         super(throwable);
     }
 
-    public LSDSerializationException(String message, Object... params) {
+    public LSDSerializationException(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public LSDSerializationException(Throwable cause, String message, Object... params) {
+    public LSDSerializationException(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

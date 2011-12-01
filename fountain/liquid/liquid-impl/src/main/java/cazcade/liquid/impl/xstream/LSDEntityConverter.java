@@ -7,19 +7,21 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class LSDEntityConverter implements Converter {
-    public void marshal(Object o, HierarchicalStreamWriter hierarchicalStreamWriter, MarshallingContext marshallingContext) {
+    public void marshal(Object o, @Nonnull HierarchicalStreamWriter hierarchicalStreamWriter, MarshallingContext marshallingContext) {
         LSDEntity entity = (LSDEntity) o;
         LSDNode lsdNode = entity.asFormatIndependentTree();
         marshal(hierarchicalStreamWriter, lsdNode);
     }
 
-    private void marshal(HierarchicalStreamWriter hierarchicalStreamWriter, LSDNode lsdNode) {
+    private void marshal(@Nonnull HierarchicalStreamWriter hierarchicalStreamWriter, @Nonnull LSDNode lsdNode) {
         if (lsdNode.isLeaf()) {
 //            hierarchicalStreamWriter.startNode(lsdNode.getName());
             hierarchicalStreamWriter.setValue(lsdNode.getLeafValue());
@@ -45,15 +47,16 @@ public class LSDEntityConverter implements Converter {
     }
 
 
-
-    public Object unmarshal(HierarchicalStreamReader hierarchicalStreamReader, UnmarshallingContext unmarshallingContext) {
+    @Nonnull
+    public Object unmarshal(@Nonnull HierarchicalStreamReader hierarchicalStreamReader, UnmarshallingContext unmarshallingContext) {
         Map<String, List> map = unmarshal(hierarchicalStreamReader);
         LSDSimpleNode lsdNode = new LSDSimpleNode("root", Arrays.asList(map));
         LSDSimpleEntity entity = LSDSimpleEntity.createFromNode(lsdNode);
         return entity;
     }
 
-    private Map<String, List> unmarshal(HierarchicalStreamReader hierarchicalStreamReader) {
+    @Nonnull
+    private Map<String, List> unmarshal(@Nonnull HierarchicalStreamReader hierarchicalStreamReader) {
         Map<String, List> map = new HashMap<String, List>();
         while (hierarchicalStreamReader.hasMoreChildren()) {
             hierarchicalStreamReader.moveDown();
@@ -78,15 +81,17 @@ public class LSDEntityConverter implements Converter {
     }
 
 
+    @Nullable
     public String toString(Object o) {
         return null;
     }
 
+    @Nullable
     public Object fromString(String s) {
         return null;
     }
 
-    public boolean canConvert(Class aClass) {
+    public boolean canConvert(@Nonnull Class aClass) {
         return aClass.equals(LSDSimpleEntity.class);
     }
 }

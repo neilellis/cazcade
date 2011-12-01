@@ -3,6 +3,8 @@ package cazcade.vortex.dnd.client.browser;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -16,7 +18,7 @@ public class FirefoxBrowserUtil extends BrowserUtil {
     }
 
     @Override
-    public void translateXY(Widget widget, double x, double y, int millisecondTransitionTime) {
+    public void translateXY(@Nonnull Widget widget, double x, double y, int millisecondTransitionTime) {
 //        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "MozTransform", "translate(" + x + "px," + y + "px)");
     }
@@ -27,14 +29,14 @@ public class FirefoxBrowserUtil extends BrowserUtil {
     }
 
     @Override
-    public void resize(Widget widget, Integer width, Integer height, int millisecondTransitionTime) {
+    public void resize(@Nonnull Widget widget, Integer width, Integer height, int millisecondTransitionTime) {
 //        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "width", width + "px");
         DOM.setStyleAttribute(widget.getElement(), "height", height + "px");
     }
 
     @Override
-    public void rotate(Widget widget, Double rotationInDegrees, int millisecondTransitionTime) {
+    public void rotate(@Nonnull Widget widget, Double rotationInDegrees, int millisecondTransitionTime) {
 //        DOM.setStyleAttribute(widget.getElement(), "transitionDuration", millisecondTransitionTime + "ms");
         DOM.setStyleAttribute(widget.getElement(), "MozTransform", "rotate(" + rotationInDegrees + "deg)");
     }

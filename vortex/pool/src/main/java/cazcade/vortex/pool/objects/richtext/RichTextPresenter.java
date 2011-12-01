@@ -8,11 +8,13 @@ import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView> {
-    public RichTextPresenter(PoolPresenter poolPresenter, final LSDEntity entity, final RichTextView view, VortexThreadSafeExecutor threadSafeExecutor) {
+    public RichTextPresenter(PoolPresenter poolPresenter, final LSDEntity entity, @Nonnull final RichTextView view, VortexThreadSafeExecutor threadSafeExecutor) {
         super(poolPresenter, entity, view, threadSafeExecutor);
         //make sure we set editable before setText (very important)
         view.setOnChangeAction(new Runnable() {
@@ -30,7 +32,7 @@ public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView>
     }
 
     @Override
-    public void update(final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

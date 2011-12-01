@@ -10,6 +10,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextArea;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -39,14 +41,14 @@ public class VortexTextArea extends AbstractVortexFormField {
     interface VortexTextAreaUiBinder extends UiBinder<HTMLPanel, VortexTextArea> {
     }
 
-    private static VortexTextAreaUiBinder ourUiBinder = GWT.create(VortexTextAreaUiBinder.class);
+    private static final VortexTextAreaUiBinder ourUiBinder = GWT.create(VortexTextAreaUiBinder.class);
     @UiField
     TextArea textArea;
 
     public VortexTextArea() {
         initWidget(ourUiBinder.createAndBindUi(this));
         textArea.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(KeyPressEvent event) {
+            public void onKeyPress(@Nonnull KeyPressEvent event) {
                 final int keyCode = event.getUnicodeCharCode();
 
                 if (keyCode == KeyCodes.KEY_ENTER) {

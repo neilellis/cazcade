@@ -33,7 +33,7 @@ public class AddChatBox extends Composite {
     interface LoginOrCommentBoxUiBinder extends UiBinder<HTMLPanel, AddChatBox> {
     }
 
-    private static LoginOrCommentBoxUiBinder ourUiBinder = GWT.create(LoginOrCommentBoxUiBinder.class);
+    private static final LoginOrCommentBoxUiBinder ourUiBinder = GWT.create(LoginOrCommentBoxUiBinder.class);
     @UiField
     ChatBox addChatBox;
     @UiField

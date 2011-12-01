@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -8,8 +9,9 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.handler.SendRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.SendRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
@@ -17,7 +19,8 @@ import org.neo4j.graphdb.Transaction;
 public class SendHandler extends AbstractDataStoreHandler<SendRequest> implements SendRequestHandler {
 
 
-    public SendRequest handle(SendRequest request) throws Exception {
+    @Nonnull
+    public SendRequest handle(@Nonnull SendRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {

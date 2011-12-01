@@ -17,6 +17,7 @@ import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.analytics.Track;
+import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
 import cazcade.vortex.widgets.client.profile.AliasDetailFlowPanel;
@@ -39,6 +40,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import static com.google.gwt.http.client.URL.encode;
 
 /**
@@ -56,25 +60,27 @@ public class PublicBoard extends EntityBackedFormPanel {
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
+    @Nonnull
     @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
+    @Nonnull
     @Override
-    protected Runnable getUpdateEntityAction(final Bindable field) {
+    protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
 
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolRequest message, UpdatePoolRequest response) {
+                    public void onSuccess(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
                         setEntity(response.getResponse().copy());
                     }
 
                     @Override
-                    public void onFailure(UpdatePoolRequest message, UpdatePoolRequest response) {
+                    public void onFailure(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
 
@@ -84,7 +90,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         };
     }
 
-    public void navigate(String value) {
+    public void navigate(@Nullable String value) {
         Track.getInstance().trackEvent("Board", value);
         if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
@@ -130,13 +136,15 @@ public class PublicBoard extends EntityBackedFormPanel {
     interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {
     }
 
-    private static NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
+    private static final NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
 
 
-    private Bus bus = BusFactory.getInstance();
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
     private LiquidURI poolURI;
     private LiquidURI previousPoolURI;
-    private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
     private long changePermissionListener;
     private Element sharethisElement;
 
@@ -228,7 +236,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), listed, listed ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY : null), new AbstractResponseCallback<VisitPoolRequest>() {
 
             @Override
-            public void onFailure(VisitPoolRequest message, VisitPoolRequest response) {
+            public void onFailure(VisitPoolRequest message, @Nonnull VisitPoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
@@ -241,12 +249,12 @@ public class PublicBoard extends EntityBackedFormPanel {
             }
 
             @Override
-            public void onSuccess(VisitPoolRequest message, final VisitPoolRequest response) {
+            public void onSuccess(VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 final LSDEntity responseEntity = response.getResponse();
                 if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                     if (previousPoolURI != null) {
-                        getHistoryManager().navigate(previousPoolURI.asShortUrl().toString());
+                        HistoryManager.navigate(previousPoolURI.asShortUrl().toString());
                     }
                 } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
                     bind(responseEntity.copy());
@@ -258,12 +266,12 @@ public class PublicBoard extends EntityBackedFormPanel {
         });
     }
 
-    private void update(LiquidRequest response) {
+    private void update(@Nonnull LiquidRequest response) {
         bind(response.getResponse().copy());
     }
 
     @Override
-    protected void onChange(LSDEntity entity) {
+    protected void onChange(@Nonnull LSDEntity entity) {
         addStyleName("readonly");
         addStyleName("loading");
         LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER, true);
@@ -355,6 +363,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         });
     }
 
+    @Nonnull
     private String buildVisibilityDescription() {
         String description = "";
         if (entity == null) {
@@ -464,7 +473,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     //TODO: Change all this into a proper command class type thing.
     private class LockIconClickHandler implements ClickHandler {
-        private boolean lock;
+        private final boolean lock;
 
         public LockIconClickHandler(boolean lock) {
             this.lock = lock;
@@ -486,7 +495,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 }
 
                 @Override
-                public void onFailure(ChangePermissionRequest message, ChangePermissionRequest response) {
+                public void onFailure(ChangePermissionRequest message, @Nonnull ChangePermissionRequest response) {
                     Window.alert("Failed to (un)lock.");
                 }
             });

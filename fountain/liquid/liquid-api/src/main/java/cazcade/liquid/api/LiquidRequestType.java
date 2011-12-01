@@ -3,6 +3,8 @@ package cazcade.liquid.api;
 import cazcade.liquid.api.request.*;
 import com.google.gwt.core.client.GWT;
 
+import javax.annotation.Nullable;
+
 /**
  * @author neilelliz@cazcade.com
  */
@@ -57,7 +59,7 @@ public enum LiquidRequestType {
     SEARCH(SearchRequest.class),
     BOARD_QUERY(BoardQueryRequest.class);
 
-    private Class<? extends LiquidMessage> requestClass;
+    private final Class<? extends LiquidMessage> requestClass;
 
 
     LiquidRequestType(Class<? extends LiquidMessage> requestClass) {
@@ -68,6 +70,7 @@ public enum LiquidRequestType {
         return requestClass;
     }
 
+    @Nullable
     public AbstractRequest createInGWT() {
         if (this == CREATE_POOL) {
             return GWT.create(CreatePoolRequest.class);

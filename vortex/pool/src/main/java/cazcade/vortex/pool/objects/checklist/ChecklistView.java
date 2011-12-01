@@ -24,11 +24,10 @@ public class ChecklistView extends PoolObjectView {
     }
 
 
-
     interface ChecklistViewUiBinder extends UiBinder<HTMLPanel, ChecklistView> {
     }
 
-    private static ChecklistViewUiBinder ourUiBinder = GWT.create(ChecklistViewUiBinder.class);
+    private static final ChecklistViewUiBinder ourUiBinder = GWT.create(ChecklistViewUiBinder.class);
     @UiField
     VerticalPanel listPanel;
 

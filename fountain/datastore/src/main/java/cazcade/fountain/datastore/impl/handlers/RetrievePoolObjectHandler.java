@@ -5,12 +5,15 @@ import cazcade.liquid.api.handler.RetrievePoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrievePoolObjectRequest;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilelliz@cazcade.com
  */
 public class RetrievePoolObjectHandler extends AbstractRetrievalHandler<RetrievePoolObjectRequest> implements RetrievePoolObjectRequestHandler {
 
-    public RetrievePoolObjectRequest handle(RetrievePoolObjectRequest request) throws InterruptedException {
+    @Nonnull
+    public RetrievePoolObjectRequest handle(@Nonnull RetrievePoolObjectRequest request) throws InterruptedException {
         LSDEntity entity;
         if (request.getTarget() == null) {
             entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.isHistorical(), request.getDetail());

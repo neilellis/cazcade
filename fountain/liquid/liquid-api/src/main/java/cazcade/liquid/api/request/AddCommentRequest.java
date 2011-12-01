@@ -6,6 +6,8 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +29,7 @@ public class AddCommentRequest extends AbstractUpdateRequest {
         this(null, identity, null, uri, entity);
     }
 
-    public AddCommentRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri, LSDEntity entity) {
+    public AddCommentRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID target, @Nullable LiquidURI uri, LSDEntity entity) {
         this.setId(id);
         this.setSessionId(identity);
         this.setTarget(target);
@@ -53,11 +55,13 @@ public class AddCommentRequest extends AbstractUpdateRequest {
     }
 
 
+    @Nullable
     @Override
     public LiquidMessage copy() {
         return new AddCommentRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.ADD_COMMENT;
     }

@@ -1,6 +1,8 @@
 package cazcade.liquid.api;
 
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.Serializable;
 
 /**
@@ -17,6 +19,7 @@ public class LiquidUUID implements Serializable {
         this.s = s;
     }
 
+    @Nonnull
     public static LiquidUUID fromString(String s) {
         return new LiquidUUID(s);
     }
@@ -27,7 +30,7 @@ public class LiquidUUID implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

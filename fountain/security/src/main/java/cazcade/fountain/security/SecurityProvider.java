@@ -10,16 +10,20 @@ import cazcade.liquid.api.request.RetrieveUserRequest;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.security.Principal;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class SecurityProvider {
+    @Nonnull
     private final static Logger log = Logger.getLogger(SecurityProvider.class);
 
-    private FountainDataStore dataStore;
+    private final FountainDataStore dataStore;
 
+    @Nonnull
     private static final LiquidSessionIdentifier ANON_IDENTITY = new LiquidSessionIdentifier("anon");
 
     public SecurityProvider(FountainDataStore dataStore) {
@@ -32,7 +36,8 @@ public class SecurityProvider {
         dataStore.start();
     }
 
-    public Principal doAuthentication(String username, String password) throws Exception {
+    @Nullable
+    public Principal doAuthentication(@Nonnull String username, String password) throws Exception {
         if (username.equals("anon")) {
             return new LiquidPrincipal(ANON_IDENTITY.getName());
 
@@ -52,7 +57,8 @@ public class SecurityProvider {
         }
     }
 
-    public LSDEntity loadUserInternal(String username) throws Exception {
+    @Nullable
+    public LSDEntity loadUserInternal(@Nonnull String username) throws Exception {
         LiquidMessage message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier(username), new LiquidURI(LiquidURIScheme.user, username), true));
         LSDEntity lsdEntity = message.getResponse();
         return lsdEntity;

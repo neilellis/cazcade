@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.Node;
 import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -8,15 +9,17 @@ import cazcade.liquid.api.handler.CreatePoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.CreatePoolRequest;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolRequest> implements CreatePoolRequestHandler {
 
-    public CreatePoolRequest handle(CreatePoolRequest request) throws InterruptedException {
+    @Nonnull
+    public CreatePoolRequest handle(@Nonnull CreatePoolRequest request) throws InterruptedException {
         if (!request.getName().matches("[a-z0-9A-Z._-]+")) {
             throw new DataStoreException("Invalid poolName, should be alphanumeric.");
         }
@@ -42,7 +45,7 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
             owner = defaultAndCheckOwner(request, owner);
 
             Node pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
-            pool.setProperty(LSDAttribute.DESCRIPTION.getKeyName(), request.getDescription());
+            pool.setProperty(LSDAttribute.DESCRIPTION, request.getDescription());
             final LSDEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request.getDetail(), request.isInternal(), false);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

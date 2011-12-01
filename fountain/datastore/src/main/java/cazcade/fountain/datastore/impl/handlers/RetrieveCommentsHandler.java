@@ -9,6 +9,7 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.impl.UUIDFactory;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
@@ -16,7 +17,8 @@ import java.util.Collection;
  */
 public class RetrieveCommentsHandler extends AbstractRetrievalHandler<RetrieveCommentsRequest> implements RetrieveCommentsRequestHandler {
 
-    public RetrieveCommentsRequest handle(RetrieveCommentsRequest request) throws InterruptedException {
+    @Nonnull
+    public RetrieveCommentsRequest handle(@Nonnull RetrieveCommentsRequest request) throws InterruptedException {
         Collection<LSDEntity> entities;
         final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT_LIST, UUIDFactory.randomUUID());
 

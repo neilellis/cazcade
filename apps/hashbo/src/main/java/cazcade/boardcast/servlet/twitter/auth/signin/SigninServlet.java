@@ -32,6 +32,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,13 +47,17 @@ public class SigninServlet extends HttpServlet {
 //    public static final String LIVE_CONSUMER_SECRET = "K4O7i09RdyIGArpZ7QNw9eGWPd97RUV1W2aTRcTq70";
 
 
+    @Nonnull
     public static final String DEV_CONSUMER_KEY = "EfmjgI7O3GmLCK3IxBBZA";
+    @Nonnull
     public static final String DEV_CONSUMER_SECRET = "1AlgHVMJ3jcuigT5560Qgho0KAIVI6tZZy2XAtM";
+    @Nonnull
     public static final String LIVE_CONSUMER_KEY = "ee7d5nMi59j5WsbLXfAjMQ";
+    @Nonnull
     public static final String LIVE_CONSUMER_SECRET = "XLO3cqTyXP3h20nl0OzEDC5OOkJsks02yczL0k8vQ0";
 
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         try {
             ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.setDebugEnabled(true);

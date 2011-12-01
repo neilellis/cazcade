@@ -15,6 +15,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -23,13 +25,13 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
 
 
     @Override
-    public void bind(LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
+    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
         this.oldEntity = entity.copy();
         changeBackgroundPanel.bind(entity, attribute, referenceDataPrefix);
     }
 
     @Override
-    public void setOnChangeAction(Runnable onChangeAction) {
+    public void setOnChangeAction(@Nonnull Runnable onChangeAction) {
         changeBackgroundPanel.setOnChangeAction(onChangeAction);
     }
 
@@ -56,7 +58,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     interface ChangeBackgroundDialogUiBinder extends UiBinder<HTMLPanel, ChangeBackgroundDialog> {
     }
 
-    private static ChangeBackgroundDialogUiBinder ourUiBinder = GWT.create(ChangeBackgroundDialogUiBinder.class);
+    private static final ChangeBackgroundDialogUiBinder ourUiBinder = GWT.create(ChangeBackgroundDialogUiBinder.class);
     @UiField
     ChangeImageUrlPanel changeBackgroundPanel;
     @UiField
@@ -86,7 +88,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
         initWidget(ourUiBinder.createAndBindUi(this));
         imageSelector.setSelectionAction(new ImageSelection.SelectionAction() {
             @Override
-            public void onSelect(ImageOption imageOption) {
+            public void onSelect(@Nonnull ImageOption imageOption) {
                 changeBackgroundPanel.setValue(imageOption.getUrl());
                 changeBackgroundPanel.callOnChangeAction();
             }

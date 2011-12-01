@@ -4,6 +4,7 @@ import cazcade.vortex.common.client.DateUtil;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 import static cazcade.vortex.common.client.DateUtil.*;
@@ -25,7 +26,7 @@ public class SelfUpdatingRelativeDate extends Label {
     }
 
 
-    public void setDate(final Date date) {
+    public void setDate(@Nullable final Date date) {
 
         if (date == null) {
             throw new NullPointerException("Passed a null date into SelfUpdatingRelativeDate.setDate");

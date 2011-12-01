@@ -17,6 +17,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -25,6 +27,7 @@ import java.util.Date;
 public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
 
 
+    @Nonnull
     public static final String THE_VOID = "the void";
     @UiField
     UserProfileImage profileImage;
@@ -33,20 +36,23 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     @UiField
     SelfUpdatingRelativeDate dateTime;
 
-    private LSDEntity entity;
-    private LSDEntity author;
-    private String authorFullName;
-    private String typeAsString;
-    private String locationName;
-    private Date date;
+    @Nonnull
+    private final LSDEntity entity;
+    @Nonnull
+    private final LSDEntity author;
+    private final String authorFullName;
+    private final String typeAsString;
+    private final String locationName;
+    @Nullable
+    private final Date date;
 
     interface VortexStatusUpdatePanelUiBinder extends UiBinder<HTMLPanel, VortexStatusUpdatePanel> {
     }
 
-    private static VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
+    private static final VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
 
 
-    public VortexStatusUpdatePanel(LSDEntity statusUpdate, boolean large) {
+    public VortexStatusUpdatePanel(@Nonnull LSDEntity statusUpdate, boolean large) {
         initWidget(ourUiBinder.createAndBindUi(this));
         if (large) {
             profileImage.setWidth("48px");
@@ -88,17 +94,20 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
         dateTime.setDate(date);
     }
 
+    @Nonnull
     @Override
     public LSDEntity getEntity() {
         return entity;
     }
 
 
+    @Nonnull
     @Override
     public String getStreamIdentifier() {
         return authorFullName + locationName + typeAsString;
     }
 
+    @Nullable
     @Override
     public Date getSortDate() {
         return date;

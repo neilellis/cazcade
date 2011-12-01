@@ -6,6 +6,7 @@ import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.RetrieveDictionaryRequest;
 import cazcade.liquid.impl.UUIDFactory;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class DictionaryRestHandler extends AbstractRestHandler {
     private LSDEntityFactory lsdEntityFactory;
 
+    @Nonnull
     public LiquidMessage keys() {
         RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.KEYS);
         LSDEntity dictionary = LSDSimpleEntity.createEmpty();
@@ -39,6 +41,7 @@ public class DictionaryRestHandler extends AbstractRestHandler {
     }
 
 
+    @Nonnull
     public RetrieveDictionaryRequest types() {
         RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.TYPES);
         LSDEntity dictionary = LSDSimpleEntity.createEmpty();

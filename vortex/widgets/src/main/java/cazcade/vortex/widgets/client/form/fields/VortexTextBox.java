@@ -8,6 +8,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -35,6 +38,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
         return true;
     }
 
+    @Nullable
     @Override
     public String getStringValue() {
         return textBox.getText();
@@ -85,7 +89,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
 
     protected class CleanUpKeyUpHandler implements KeyUpHandler {
         @Override
-        public void onKeyUp(KeyUpEvent event) {
+        public void onKeyUp(@Nonnull KeyUpEvent event) {
             if (!event.isAnyModifierKeyDown()) {
                 String text = textBox.getText();
                 if (!oldText.equals(text)) {

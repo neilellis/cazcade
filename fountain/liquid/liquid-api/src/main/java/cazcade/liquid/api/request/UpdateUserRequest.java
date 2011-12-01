@@ -3,6 +3,8 @@ package cazcade.liquid.api.request;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity);
     }
 
-    public UpdateUserRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
+    public UpdateUserRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
         this.setId(id);
         this.setSessionId(identity);
         this.setTarget(target);
@@ -32,6 +34,7 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
     }
 
 
+    @Nullable
     @Override
     public LiquidMessage copy() {
         return new UpdateUserRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getRequestEntity());
@@ -41,6 +44,7 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
         return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.EDIT));
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.UPDATE_USER;
     }

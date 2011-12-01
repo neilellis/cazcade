@@ -31,6 +31,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,19 +44,23 @@ import static com.google.gwt.http.client.URL.encode;
 public class PoolContentArea extends Composite {
     public static final int DEFAULT_WIDTH = 1024;
 
-    private static PoolContentAreaUiBinder ourUiBinder = GWT.create(PoolContentAreaUiBinder.class);
+    private static final PoolContentAreaUiBinder ourUiBinder = GWT.create(PoolContentAreaUiBinder.class);
 
     @UiField
     AbsolutePanel container;
     @UiField
     Label visibilityRibbon;
 
-    private Bus bus;
+    @Nonnull
+    private final Bus bus;
 
-    private VortexScrollPanel scrollPanel;
+    @Nullable
+    private final VortexScrollPanel scrollPanel;
+    @Nullable
     private VortexThreadSafeExecutor threadSafeExecutor;
+    @Nullable
     private PoolPresenter poolPresenter;
-    private boolean pageFlow;
+    private final boolean pageFlow;
 
     public PoolContentArea() {
         this(false, false);
@@ -75,11 +81,11 @@ public class PoolContentArea extends Composite {
     }
 
 
-    public void init(final LiquidURI uri, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor, LSDType type, boolean listed) {
+    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull LSDType type, boolean listed) {
         this.threadSafeExecutor = threadSafeExecutor;
         bus.send(new VisitPoolRequest(type, uri, uri, true, listed), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
-            public void onSuccess(VisitPoolRequest message, final VisitPoolRequest response) {
+            public void onSuccess(VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 ClientLog.log("Got response.");
                 LSDEntity poolEntity = response.getResponse().copy();
                 ClientLog.log(poolEntity.dump());
@@ -89,7 +95,7 @@ public class PoolContentArea extends Composite {
         });
     }
 
-    public void init(LSDEntity poolEntity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
+    public void init(@Nonnull LSDEntity poolEntity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
         final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
         setBackgroundImage(imageUrl);
 //        backgroundImage.setWidth("100%");
@@ -162,7 +168,7 @@ public class PoolContentArea extends Composite {
         }
     }
 
-    public void setBackgroundImage(String imageUrl) {
+    public void setBackgroundImage(@Nullable String imageUrl) {
         if (container != null && imageUrl != null) {
 //            Window.alert("setting background "+imageUrl);
             if (BrowserUtil.isInternalImage(imageUrl)) {

@@ -11,6 +11,7 @@ import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDEntityFactory;
 import cazcade.liquid.api.request.*;
 
+import javax.annotation.Nonnull;
 import java.net.URISyntaxException;
 import java.util.Map;
 
@@ -26,7 +27,8 @@ public class UserRestHandler extends AbstractRestHandler {
 
     private AuthorizationService authorizationService;
 
-    public LiquidMessage get(Map<String, String[]> parameters) throws Exception {
+    @Nonnull
+    public LiquidMessage get(@Nonnull Map<String, String[]> parameters) throws Exception {
         checkForSingleValueParams(parameters, "name");
         final String username = parameters.get("name")[0];
         LiquidMessage message = dataStoreFacade.process(new RetrieveUserRequest(RestContext.getContext().getCredentials(), new LiquidURI(LiquidURIScheme.user, username), false));
@@ -34,10 +36,12 @@ public class UserRestHandler extends AbstractRestHandler {
         return authorizationService.postAuthorize(RestContext.getContext().getCredentials(), (AbstractRetrievalRequest) message, LiquidPermission.VIEW);
     }
 
+    @Nonnull
     public LiquidMessage get(LiquidUUID userId) throws URISyntaxException {
         return dataStoreFacade.process(new RetrieveUserRequest(RestContext.getContext().getCredentials(), userId));
     }
 
+    @Nonnull
     public LiquidMessage create(LSDEntity lsdEntity, Map<String, String[]> parameters) throws URISyntaxException {
         LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new CreateUserRequest(identity, lsdEntity));
@@ -60,7 +64,8 @@ public class UserRestHandler extends AbstractRestHandler {
 //        return dataStoreFacade.process(new RetrieveFollowersRequest(identity,  true));
 //    }
 
-    public LiquidMessage update(LiquidUUID userId, LSDEntity lsdEntity, Map<String, String[]> parameters) throws URISyntaxException {
+    @Nonnull
+    public LiquidMessage update(LiquidUUID userId, @Nonnull LSDEntity lsdEntity, Map<String, String[]> parameters) throws URISyntaxException {
 
         LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         if ((username != null) && !lsdEntity.getAttribute(LSDAttribute.NAME).equalsIgnoreCase(username.getName())) {
@@ -70,12 +75,14 @@ public class UserRestHandler extends AbstractRestHandler {
         return dataStoreFacade.process(new UpdateUserRequest(username, userId, lsdEntity));
     }
 
-    public LiquidMessage password(Map<String, String[]> parameters) throws URISyntaxException {
+    @Nonnull
+    public LiquidMessage password(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "password");
         final String password = parameters.get("password")[0];
         return dataStoreFacade.process(new ChangePasswordRequest(RestContext.getContext().getCredentials(), password));
     }
 
+    @Nonnull
     public LiquidMessage delete(LiquidUUID userId) throws URISyntaxException {
         return dataStoreFacade.process(new DeleteUserRequest(RestContext.getContext().getCredentials(), userId));
     }

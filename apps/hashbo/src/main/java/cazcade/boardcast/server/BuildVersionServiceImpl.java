@@ -4,6 +4,7 @@ import cazcade.boardcast.client.BuildVersionService;
 import cazcade.common.Logger;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.jar.Manifest;
  * @author neilellis@cazcade.com
  */
 public class BuildVersionServiceImpl extends RemoteServiceServlet implements BuildVersionService {
+    @Nonnull
     private final static Logger log = Logger.getLogger(BuildVersionServiceImpl.class);
 
     @Override

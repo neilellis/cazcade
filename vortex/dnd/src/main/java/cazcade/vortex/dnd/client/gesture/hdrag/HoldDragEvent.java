@@ -4,13 +4,17 @@ import cazcade.vortex.dnd.client.GestureEvent;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.shared.GwtEvent;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class HoldDragEvent extends GestureEvent<HoldDragHandler> {
 
+    @Nonnull
     private static final Type<HoldDragHandler> TYPE = new Type<HoldDragHandler>();
 
+    @Nonnull
     public static GwtEvent.Type<HoldDragHandler> getType() {
         return TYPE;
     }
@@ -20,12 +24,12 @@ public class HoldDragEvent extends GestureEvent<HoldDragHandler> {
     }
 
 
-
+    @Nonnull
     public final Type<HoldDragHandler> getAssociatedType() {
         return TYPE;
     }
 
-    protected void dispatch(HoldDragHandler handler) {
+    protected void dispatch(@Nonnull HoldDragHandler handler) {
         handler.onHoldDrag(this);
     }
 

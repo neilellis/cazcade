@@ -1,5 +1,6 @@
 package cazcade.fountain.server.rest;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Map;
  */
 public class AbstractRestHandler implements RestHandler {
 
-    protected void checkForSingleValueParams(Map<String, String[]> params, String... expected) {
+    protected void checkForSingleValueParams(@Nonnull Map<String, String[]> params, @Nonnull String... expected) {
         for (String expectedKey : expected) {
             String[] paramArray = params.get(expectedKey);
             if (paramArray == null) {

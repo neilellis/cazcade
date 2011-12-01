@@ -1,7 +1,7 @@
 package cazcade.apps.upload;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDMarshaler;
+import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
 import com.cazcade.billabong.store.impl.UserContentStore;
 import org.apache.commons.fileupload.FileItem;
@@ -10,6 +10,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,20 +24,20 @@ import java.util.concurrent.Executors;
 
 
 public class LogUploadServlet extends HttpServlet {
+    @Nonnull
     private final static Logger log = Logger.getLogger(LogUploadServlet.class);
+    @Nonnull
     private static final String TMP_DIR_PATH = "/tmp";
     private File tmpDir;
     private ClassPathXmlApplicationContext applicationContext;
     private UserContentStore contentStore;
-    private Executor storeExecutor = Executors.newCachedThreadPool();
+    private final Executor storeExecutor = Executors.newCachedThreadPool();
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        applicationContext = new ClassPathXmlApplicationContext(new String[]{
+        applicationContext = new ClassPathXmlApplicationContext(
                 "liquid-spring-config.xml",
-                "spring/image-service.xml"
-        }
-        );
+                "spring/image-service.xml");
         contentStore = (UserContentStore) applicationContext.getBean("userContentStore");
 
         tmpDir = new File(TMP_DIR_PATH);
@@ -44,7 +45,7 @@ public class LogUploadServlet extends HttpServlet {
 
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
         final LSDMarshaler marshaler = ((LSDMarshallerFactory) applicationContext.getBean("marshalerFactory")).getMarshalers().get("xml");
         response.setContentType(marshaler.getMimeType());
 

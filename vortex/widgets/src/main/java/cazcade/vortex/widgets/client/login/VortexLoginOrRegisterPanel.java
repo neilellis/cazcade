@@ -1,24 +1,28 @@
 package cazcade.vortex.widgets.client.login;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
-import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author neilellis@cazcade.com
  */
 public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
-   private boolean registerPanelShowing;
+    private boolean registerPanelShowing;
 
+    @Nullable
     public LiquidSessionIdentifier getIdentity() {
-         if(registerPanelShowing) {
+        if (registerPanelShowing) {
             return null;
-        }   else {
+        } else {
             return loginPanel.getIdentity();
         }
     }
@@ -31,16 +35,17 @@ public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
     interface LoginOrRegisterPanelUiBinder extends UiBinder<SimplePanel, VortexLoginOrRegisterPanel> {
     }
 
-    private static LoginOrRegisterPanelUiBinder ourUiBinder = GWT.create(LoginOrRegisterPanelUiBinder.class);
-    
+    private static final LoginOrRegisterPanelUiBinder ourUiBinder = GWT.create(LoginOrRegisterPanelUiBinder.class);
+
     @UiField
     LoginPanel loginPanel;
 
-    RegisterPanel registerPanel;
+    @Nonnull
+    final RegisterPanel registerPanel;
 
     public VortexLoginOrRegisterPanel(final Runnable loginAction, final Runnable registerAction) {
         initWidget(ourUiBinder.createAndBindUi(this));
-        registerPanel= new RegisterPanel();
+        registerPanel = new RegisterPanel();
         loginPanel.setOnSuccessAction(loginAction);
         registerPanel.setOnSuccessAction(registerAction);
 
@@ -61,7 +66,7 @@ public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
         loginPanel.setOnSwitchToRegisterAction(new Runnable() {
             @Override
             public void run() {
-                registerPanelShowing= true;
+                registerPanelShowing = true;
                 loginPanel.addStyleName("invisible");
                 getWidget().removeStyleName("login-panel");
                 getWidget().addStyleName("register-panel");
@@ -76,11 +81,11 @@ public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
                 }.schedule(600);
             }
         });
-        
+
         registerPanel.setOnSwitchToLoginAction(new Runnable() {
             @Override
             public void run() {
-                registerPanelShowing= false;
+                registerPanelShowing = false;
                 registerPanel.addStyleName("invisible");
                 getWidget().removeStyleName("register-panel");
                 getWidget().addStyleName("login-panel");

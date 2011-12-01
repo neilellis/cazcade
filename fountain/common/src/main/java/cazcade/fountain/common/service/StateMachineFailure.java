@@ -2,7 +2,7 @@ package cazcade.fountain.common.service;
 
 import cazcade.fountain.common.error.CazcadeException;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
@@ -13,11 +13,11 @@ public class StateMachineFailure extends CazcadeException {
         super(throwable);
     }
 
-    public StateMachineFailure(String message, Object... params) {
+    public StateMachineFailure(@Nonnull String message, Object... params) {
         super(message, params);
     }
 
-    public StateMachineFailure(Throwable cause, String message, Object... params) {
+    public StateMachineFailure(Throwable cause, @Nonnull String message, Object... params) {
         super(cause, message, params);
     }
 }

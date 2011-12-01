@@ -46,7 +46,7 @@ public class FountainEmailTest {
     @Transactional
     public void test() throws InterruptedException, UnsupportedEncodingException {
         final LSDEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"), true), true, LiquidRequestDetailLevel.COMPLETE);
-        final LSDEntity userFromNode = fountainNeo.convertNodeToLSD(fountainNeo.findByURI(new LiquidURI("user:admin"), true), LiquidRequestDetailLevel.COMPLETE, true);
+        final LSDEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).convertNodeToLSD(LiquidRequestDetailLevel.COMPLETE, true);
         mailService.send(userFromNode, aliasFromNode, "test-email.html", "Welcome", "", false);
     }
 

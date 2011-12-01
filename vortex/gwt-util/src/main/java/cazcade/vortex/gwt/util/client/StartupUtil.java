@@ -4,6 +4,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -13,7 +15,7 @@ public class StartupUtil {
 //        RootPanel.get("loading-panel").getElement().getStyle().setOpacity(0.0);
     }
 
-    public static void showLiveVersion(Element panel) {
+    public static void showLiveVersion(@Nonnull Element panel) {
         if (RootPanel.get("loading-panel") != null) {
             RootPanel.get("loading-panel").getElement().getStyle().setOpacity(0.0);
             RootPanel.get("loading-panel").getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);

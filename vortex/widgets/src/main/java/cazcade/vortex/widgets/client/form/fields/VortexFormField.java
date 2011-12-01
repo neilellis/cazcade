@@ -1,10 +1,11 @@
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.user.client.ui.Image;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public interface VortexFormField extends Bindable {
 
+    @Nullable
     String getStringValue();
 
 
@@ -31,13 +33,16 @@ public interface VortexFormField extends Bindable {
 
     boolean isCompoundField();
 
+    @Nonnull
     List<String> getStringValues();
 
     LSDEntity getEntity();
 
     /**
      * Returns a stripped down entity with only the information required for an update.
+     *
      * @return a lightweight entity.
      */
+    @Nonnull
     LSDEntity getEntityDiff();
 }

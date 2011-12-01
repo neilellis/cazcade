@@ -19,8 +19,8 @@ public abstract class GestureEvent<H extends EventHandler> extends GwtEvent<H> {
     private int startY;
     private int x;
     private int y;
-    private int offsetX;
-    private int offsetY;
+    private final int offsetX;
+    private final int offsetY;
 
     protected GestureEvent(int offsetX, int offsetY) {
         this.offsetX = offsetX;
@@ -83,16 +83,16 @@ public abstract class GestureEvent<H extends EventHandler> extends GwtEvent<H> {
     }
 
     /**
-     * @deprecated
      * @return
+     * @deprecated
      */
     public int getOffsetX() {
         return offsetX;
     }
 
     /**
-     * @deprecated
      * @return
+     * @deprecated
      */
     public int getOffsetY() {
         return offsetY;

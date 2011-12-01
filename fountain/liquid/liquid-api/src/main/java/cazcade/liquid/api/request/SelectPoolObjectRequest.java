@@ -2,6 +2,8 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
         this(null, identity, target, selected);
     }
 
-    public SelectPoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, boolean selected) {
+    public SelectPoolObjectRequest(@Nullable LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, boolean selected) {
         this.setId(id);
         this.setSessionId(identity);
         this.setTarget(target);
@@ -23,6 +25,7 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
     }
 
 
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new SelectPoolObjectRequest(getId(), getSessionIdentifier(), super.getTarget(), isSelected());
@@ -32,10 +35,12 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
         return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.MODIFY));
     }
 
+    @Nullable
     public List<String> getNotificationLocations() {
         return null;
     }
 
+    @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.SELECT_POOL_OBJECT;
     }

@@ -1,5 +1,6 @@
 package cazcade.liquid.api;
 
+import javax.annotation.Nonnull;
 import java.io.Serializable;
 
 /**
@@ -32,12 +33,14 @@ public class ClientApplicationIdentifier implements Serializable {
         return hostinfo;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return name + ":" + hostinfo + ":" + key;
     }
 
-    public static ClientApplicationIdentifier valueOf(String s) {
+    @Nonnull
+    public static ClientApplicationIdentifier valueOf(@Nonnull String s) {
         final String[] strings = s.split(":");
         return new ClientApplicationIdentifier(strings[0], strings[1], strings[2]);
     }

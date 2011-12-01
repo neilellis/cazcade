@@ -5,10 +5,11 @@ import cazcade.fountain.datastore.api.AuthorizationService;
 import cazcade.fountain.datastore.api.FountainDataStoreFacade;
 import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 
+import javax.annotation.Nonnull;
 import java.net.URISyntaxException;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import java.util.Map;
 public class UpdatesRestHandler extends AbstractRestHandler {
 
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(UpdatesRestHandler.class);
 
     private FountainDataStoreFacade dataStoreFacade;
@@ -27,7 +29,8 @@ public class UpdatesRestHandler extends AbstractRestHandler {
     public UpdatesRestHandler() {
     }
 
-    public LiquidMessage get(Map<String, String[]> parameters) throws URISyntaxException {
+    @Nonnull
+    public LiquidMessage get(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
         LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         checkForSingleValueParams(parameters, "since");
         final String since = parameters.get("since")[0];

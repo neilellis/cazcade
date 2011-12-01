@@ -25,23 +25,28 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class NotificationPanel extends Composite {
     public static final int UPDATE_LIEFTIME = 1200 * 1000;
     public static final int STATUS_CHECK_FREQUENCY = 30000;
-    private Bus bus = BusFactory.getInstance();
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
     private int maxRows = 10;
-    private long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
-    private VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    private final long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
     private FormatUtil features;
     private boolean initialized;
     private LiquidURI pool;
-    private SoundController soundController;
-    private Sound userEnteredSound;
-    private Sound statusUpdateSound;
+    @Nonnull
+    private final SoundController soundController;
+    private final Sound userEnteredSound;
+    private final Sound statusUpdateSound;
 
 
     public void setMaxRows(int maxRows) {
@@ -56,7 +61,7 @@ public class NotificationPanel extends Composite {
     interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, NotificationPanel> {
     }
 
-    private static VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
+    private static final VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
 
     @UiField
     HorizontalPanel parentPanel;
@@ -87,7 +92,7 @@ public class NotificationPanel extends Composite {
 
     }
 
-    public void init(final LiquidURI newPool, final FormatUtil formatter) {
+    public void init(final LiquidURI newPool, @Nonnull final FormatUtil formatter) {
         this.pool = newPool;
         this.features = formatter;
         clear();
@@ -98,7 +103,7 @@ public class NotificationPanel extends Composite {
                 public void run() {
                     bus.listen(new AbstractBusListener() {
                         @Override
-                        public void handle(LiquidMessage message) {
+                        public void handle(@Nonnull LiquidMessage message) {
                             final LSDEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
@@ -120,7 +125,7 @@ public class NotificationPanel extends Composite {
 
                     BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                         @Override
-                        public void handle(SendRequest request) {
+                        public void handle(@Nonnull SendRequest request) {
                             DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), formatter);
                             addToStream(content);
                         }
@@ -148,7 +153,7 @@ public class NotificationPanel extends Composite {
         }
     }
 
-    private void addToStream(final StreamEntry content) {
+    private void addToStream(@Nonnull final StreamEntry content) {
         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, content, true, true);
     }
 

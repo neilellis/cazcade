@@ -6,6 +6,8 @@ import com.cazcade.billabong.image.ImageService;
 import com.cazcade.billabong.image.ImageSize;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,13 +23,15 @@ import java.util.concurrent.*;
  */
 public class SnapshotServlet extends HttpServlet {
 
-    private ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10000), new ThreadPoolExecutor.CallerRunsPolicy());
+    @Nonnull
+    private final ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10000), new ThreadPoolExecutor.CallerRunsPolicy());
 
     public static final int MAX_SNAPSHOT_RETRIES = 3;
 
     private ClassPathXmlApplicationContext applicationContext;
     private ImageService imageService;
 
+    @Nonnull
     private final static Logger log = Logger.getLogger(SnapshotServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
@@ -44,7 +48,7 @@ public class SnapshotServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
 
         final String url = req.getParameter("url");
@@ -78,6 +82,7 @@ public class SnapshotServlet extends HttpServlet {
 
     private Future<CacheResponse> getWebsiteSnapshot(final String url, final ImageSize size, final boolean generate) {
         return snapshotExecutor.submit(new Callable<CacheResponse>() {
+            @Nullable
             public CacheResponse call() throws Exception {
                 CacheResponse response = null;
                 //temporary, need to get the client to do the polling!

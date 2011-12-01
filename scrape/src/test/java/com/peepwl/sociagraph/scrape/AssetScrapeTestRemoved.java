@@ -3,6 +3,7 @@ package com.peepwl.sociagraph.scrape;
 import cazcade.common.Logger;
 import junit.framework.TestCase;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class AssetScrapeTestRemoved extends TestCase {
 
+    @Nonnull
     final static Logger log = Logger.getLogger(AssetScrapeTestRemoved.class);
 
     public void testBBCFeed() {

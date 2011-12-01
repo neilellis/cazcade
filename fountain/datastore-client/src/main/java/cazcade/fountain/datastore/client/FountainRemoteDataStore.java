@@ -20,6 +20,7 @@ import org.springframework.amqp.rabbit.core.ChannelCallback;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 
 import static cazcade.common.CommonConstants.RABBITMQ_FOUNTAIN_STORE_REQUEST_KEY;
@@ -30,8 +31,10 @@ import static cazcade.common.CommonConstants.RABBITMQ_RPC_EXCHANGE_NAME;
  *         TODO: move all the async messaging stuff in here too.
  */
 public class FountainRemoteDataStore extends AbstractServiceStateMachine implements FountainDataStore {
+    @Nonnull
     private final static Logger log = Logger.getLogger(FountainRemoteDataStore.class);
-    private static ThreadLocal<RpcClient> rpcClientThreadLocal = new ThreadLocal<RpcClient>();
+    @Nonnull
+    private static final ThreadLocal<RpcClient> rpcClientThreadLocal = new ThreadLocal<RpcClient>();
 
     private FountainRequestValidator requestValidator;
     private SecurityValidator securityValidator;
@@ -47,7 +50,8 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
     public FountainRemoteDataStore() {
     }
 
-    public LiquidRequest process(final LiquidRequest request) throws InterruptedException {
+    @Nonnull
+    public LiquidRequest process(@Nonnull final LiquidRequest request) throws InterruptedException {
         log.debug("Processing request " + request.getId());
         begin();
         try {
@@ -106,13 +110,14 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
     }
 
 
-    private LiquidMessage processAsync(LiquidRequest request) throws IOException {
+    @Nonnull
+    private LiquidMessage processAsync(@Nonnull LiquidRequest request) throws IOException {
         log.debug("Sending Asynchronous Request");
         messageSender.dispatch(RABBITMQ_FOUNTAIN_STORE_REQUEST_KEY, request);
         return LiquidResponseHelper.forDeferral(request);
     }
 
-    private void notifyOfRequest(LiquidRequest request) {
+    private void notifyOfRequest(@Nonnull LiquidRequest request) {
         log.debug("Sending notifications");
         messageSender.sendNotifications(request);
     }

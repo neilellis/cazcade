@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.UIObject;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -19,7 +21,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 
     private static ViewAliasDetailPanel current;
 
-    public static ViewAliasDetailPanel createViewAliasDetailPanel(LiquidURI aliasURI, FormatUtil features) {
+    public static ViewAliasDetailPanel createViewAliasDetailPanel(@Nonnull LiquidURI aliasURI, FormatUtil features) {
         if (current == null) {
             current = new ViewAliasDetailPanel(aliasURI, features);
         } else {
@@ -29,7 +31,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
     }
 
 
-    public void show(final UIObject container, final int relativeX, final int relativeY) {
+    public void show(@Nonnull final UIObject container, final int relativeX, final int relativeY) {
         setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             public void setPosition(int offsetWidth, int offsetHeight) {
                 int x = relativeX;
@@ -48,7 +50,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
     interface ViewUserDetailPanelUiBinder extends UiBinder<HTMLPanel, ViewAliasDetailPanel> {
     }
 
-    private static ViewUserDetailPanelUiBinder ourUiBinder = GWT.create(ViewUserDetailPanelUiBinder.class);
+    private static final ViewUserDetailPanelUiBinder ourUiBinder = GWT.create(ViewUserDetailPanelUiBinder.class);
 
 
     @UiField
@@ -60,7 +62,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 //        popup.showRelativeTo(trigger);
 //    }
 
-    private ViewAliasDetailPanel(LiquidURI aliasURI, FormatUtil features) {
+    private ViewAliasDetailPanel(@Nonnull LiquidURI aliasURI, FormatUtil features) {
         setAutoHideEnabled(true);
         setAutoHideOnHistoryEventsEnabled(true);
         setWidget(ourUiBinder.createAndBindUi(this));
@@ -73,7 +75,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 
     }
 
-    private void init(LiquidURI aliasURI, FormatUtil features) {
+    private void init(@Nonnull LiquidURI aliasURI, FormatUtil features) {
         detailPanel.setAliasURI(aliasURI);
         detailPanel.setFeatures(features);
     }
