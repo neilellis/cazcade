@@ -2,8 +2,8 @@ package cazcade.liquid.impl.xstream;
 
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
 import com.thoughtworks.xstream.io.xml.XppDriver;
@@ -49,7 +49,7 @@ public class LiquidXStreamFactory {
 //        xstream.alias("scale-object-request", ScalePoolObjectRequest.class);
         xstream.aliasType("request", LiquidRequest.class);
         xstream.alias("response", LiquidMessage.class);
-        xstream.alias("entity", LSDEntity.class, LSDSimpleEntity.class);
+        xstream.alias("entity", LSDTransferEntity.class, LSDSimpleEntity.class);
 
         xstream.registerConverter(new RequestConverter());
         xstream.registerConverter(new LSDEntityConverter());

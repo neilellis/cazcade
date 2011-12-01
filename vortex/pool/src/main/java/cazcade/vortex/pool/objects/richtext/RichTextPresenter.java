@@ -1,7 +1,7 @@
 package cazcade.vortex.pool.objects.richtext;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
@@ -14,13 +14,13 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView> {
-    public RichTextPresenter(final PoolPresenter poolPresenter, final LSDEntity entity, @Nonnull final RichTextView view, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public RichTextPresenter(final PoolPresenter poolPresenter, final LSDTransferEntity entity, @Nonnull final RichTextView view, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(poolPresenter, entity, view, threadSafeExecutor);
         //make sure we set editable before setText (very important)
         view.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                final LSDEntity minimalEntity = getEntity().asUpdateEntity();
+                final LSDTransferEntity minimalEntity = getEntity().asUpdateEntity();
                 minimalEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, view.getText());
                 bus.send(new UpdatePoolObjectRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                     @Override
@@ -32,7 +32,7 @@ public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView>
     }
 
     @Override
-    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

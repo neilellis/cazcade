@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,25 +16,25 @@ public interface FountainUserDAO {
 
 
     @Nullable
-    LSDEntity unlinkAliasTX(LiquidSessionIdentifier identity, LiquidUUID target, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    LSDTransferEntity unlinkAliasTX(LiquidSessionIdentifier identity, LiquidUUID target, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
 
 
-    //Migrate from FountainEntity based methods, parameters should include URIs and return LSDEntity where appropriate
-
-    @Nullable
-    LSDEntity getAliasFromNode(FountainEntity fountainEntity, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
-
-//    FountainEntity createAlias(LSDEntity entity) throws InterruptedException;
-
-    FountainEntity createUser(LSDEntity user, boolean systemUser) throws InterruptedException, UnsupportedEncodingException;
+    //Migrate from LSDPersistedEntity based methods, parameters should include URIs and return LSDTransferEntity where appropriate
 
     @Nullable
-    FountainEntity createAlias(FountainEntity userFountainEntity, LSDEntity entity, boolean me, boolean orupdate, boolean claim, boolean systemUser) throws InterruptedException;
+    LSDTransferEntity getAliasFromNode(LSDPersistedEntity persistedEntity, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+
+//    LSDPersistedEntity createAlias(LSDTransferEntity entity) throws InterruptedException;
+
+    LSDPersistedEntity createUser(LSDTransferEntity user, boolean systemUser) throws InterruptedException, UnsupportedEncodingException;
+
+    @Nullable
+    LSDPersistedEntity createAlias(LSDPersistedEntity userPersistedEntity, LSDTransferEntity entity, boolean me, boolean orupdate, boolean claim, boolean systemUser) throws InterruptedException;
 
     @Nonnull
-    FountainEntity createSession(LiquidURI aliasUri, ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException;
+    LSDPersistedEntity createSession(LiquidURI aliasUri, ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException;
 
-    void addAuthorToNodeNoTX(LiquidURI author, boolean createAuthor, FountainEntity fountainEntity) throws InterruptedException;
+    void addAuthorToNodeNoTX(LiquidURI author, boolean createAuthor, LSDPersistedEntity persistedEntity) throws InterruptedException;
 
     /**
      * Performs some action on each user in the system, there is no guarantees of sequence or timeliness here, just that
@@ -54,7 +54,7 @@ public interface FountainUserDAO {
          * @param userEntity  the entity for the user.
          * @param aliasEntity the entity for the primary alias node.
          */
-        void process(LSDEntity userEntity, LSDEntity aliasEntity) throws Exception;
+        void process(LSDTransferEntity userEntity, LSDTransferEntity aliasEntity) throws Exception;
     }
 
 

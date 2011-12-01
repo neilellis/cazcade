@@ -4,7 +4,7 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -43,7 +43,7 @@ public class UnsetCommand extends AbstractShortLivedCommand {
             System.err.println("unset <attribute-name>");
         }
 
-        final LSDEntity currentEntity = shellSession.getCurrentEntity();
+        final LSDBaseEntity currentEntity = shellSession.getCurrentEntity();
         //The empty string causes the server to remove the value completely.
         currentEntity.setValue(args[0], "");
         return args[0];

@@ -1,12 +1,12 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.handler.UpdatePoolRequestHandler;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -22,8 +22,8 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
 
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final LSDEntity entity;
-            final FountainEntity fountainEntityImpl;
+            final LSDTransferEntity entity;
+            final LSDPersistedEntity persistedEntityImpl;
 
             if (request.getUri() == null) {
                 throw new UnsupportedOperationException("Only URI based updates of pools supported");
@@ -39,22 +39,22 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
             final boolean contents = true;
 
 
-            fountainEntityImpl = fountainNeo.findByURI(request.getUri());
+            persistedEntityImpl = fountainNeo.findByURI(request.getUri());
             final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
-            final LSDEntity requestEntity = request.getRequestEntity();
+            final LSDTransferEntity requestEntity = request.getRequestEntity();
 
             final Runnable onRenameAction = new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        poolDAO.recalculatePoolURIs(fountainEntityImpl);
+                        poolDAO.recalculatePoolURIs(persistedEntityImpl);
                     } catch (InterruptedException e) {
                         return;
                     }
                 }
             };
 
-            entity = poolDAO.updatePool(sessionIdentifier, fountainEntityImpl, detail, internal, historical, end, start, order, contents, requestEntity, onRenameAction);
+            entity = poolDAO.updatePool(sessionIdentifier, persistedEntityImpl, detail, internal, historical, end, start, order, contents, requestEntity, onRenameAction);
 
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

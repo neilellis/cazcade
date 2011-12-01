@@ -4,6 +4,7 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
 import cazcade.liquid.impl.UUIDFactory;
@@ -79,7 +80,7 @@ public class ImageUploadServlet extends HttpServlet {
                 /*
                      * Handle Form Fields.
                      */
-                final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.BITMAP_IMAGE_2D, UUIDFactory.randomUUID());
+                final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.BITMAP_IMAGE_2D, UUIDFactory.randomUUID());
                 entity.setAttribute(LSDAttribute.MEDIA_SIZE, String.valueOf(item.getSize()));
                 final String suffix = item.getName().substring(item.getName().lastIndexOf('.'));
                 final String id = entity.getUUID().toString() + suffix;

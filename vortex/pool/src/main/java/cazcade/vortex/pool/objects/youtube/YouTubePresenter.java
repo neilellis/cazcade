@@ -2,7 +2,7 @@ package cazcade.vortex.pool.objects.youtube;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.dnd.client.gesture.drag.DragEvent;
 import cazcade.vortex.dnd.client.gesture.enddrag.EndDragEvent;
 import cazcade.vortex.dnd.client.gesture.hdrag.HoldDragEvent;
@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
-    public YouTubePresenter(final PoolPresenter pool, final LSDEntity entity, final YouTubeView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public YouTubePresenter(final PoolPresenter pool, final LSDTransferEntity entity, final YouTubeView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addHandler(new DoubleClickHandler() {
             @Override
@@ -32,7 +32,7 @@ public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
     }
 
     @Override
-    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
@@ -25,9 +25,9 @@ import java.util.Date;
  */
 public class VortexStreamEntryPanel extends Composite implements StreamEntry {
 
-    LSDEntity entity;
+    LSDBaseEntity entity;
 
-    public LSDEntity getEntity() {
+    public LSDBaseEntity getEntity() {
         return entity;
     }
 
@@ -71,11 +71,11 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
         super();
     }
 
-    public VortexStreamEntryPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+    public VortexStreamEntryPanel(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final FormatUtil features) {
         super();
         entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
-        final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);
+        final LSDBaseEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         profileImage.setAliasUri(author.getURI());
         profileName.setText('@' + author.getAttribute(LSDAttribute.NAME));

@@ -2,7 +2,7 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,23 +16,23 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
         super();
     }
 
-    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDEntity entity, final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDTransferEntity entity, final LiquidURI authorURI) {
         this(authenticatedUser, null, uri, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(final LiquidURI uri, final LSDEntity entity) {
+    public CreatePoolObjectRequest(final LiquidURI uri, final LSDTransferEntity entity) {
         this(null, null, uri, null, entity, null);
     }
 
-    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDEntity entity) {
+    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDTransferEntity entity) {
         this(authenticatedUser, null, uri, null, entity, authenticatedUser.getAlias());
     }
 
-    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LSDEntity entity, final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LSDTransferEntity entity, final LiquidURI authorURI) {
         this(authenticatedUser, pool, null, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(@Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final LSDEntity entity, @Nullable final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(@Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final LSDTransferEntity entity, @Nullable final LiquidURI authorURI) {
         super();
         setUri(uri);
         setId(id);

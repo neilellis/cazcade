@@ -1,7 +1,7 @@
 package cazcade.vortex.pool.objects.photo;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
-    public PhotoPresenter(final PoolPresenter pool, final LSDEntity entity, final PhotoView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PhotoPresenter(final PoolPresenter pool, final LSDTransferEntity entity, final PhotoView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addDoubleClickHandler(new DoubleClickHandler() {
             @Override
@@ -28,7 +28,7 @@ public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
     }
 
     @Override
-    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

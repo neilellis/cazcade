@@ -1,9 +1,9 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.AbstractRetrievalRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -14,18 +14,18 @@ import javax.annotation.Nonnull;
  */
 public class AbstractRetrievalHandler<T extends AbstractRetrievalRequest> extends AbstractDataStoreHandler<T> {
     public T handle(@Nonnull final T request) throws Exception {
-        LSDEntity entity;
+        LSDTransferEntity entity;
         if (request.getTarget() != null) {
             entity = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
         } else {
             final FountainNeo neo = fountainNeo;
             final Transaction transaction = neo.beginTx();
             try {
-                final FountainEntity fountainEntity = fountainNeo.findByURI(request.getUri());
-                if (fountainEntity == null) {
+                final LSDPersistedEntity persistedEntity = fountainNeo.findByURI(request.getUri());
+                if (persistedEntity == null) {
                     return LiquidResponseHelper.forEmptyResultResponse(request);
                 }
-                entity = fountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
+                entity = persistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
             } catch (RuntimeException e) {
                 transaction.failure();
                 throw e;

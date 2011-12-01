@@ -1,8 +1,8 @@
 package cazcade.fountain.datastore.test;
 
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainSocialDAO;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.services.persistence.FountainPoolDAOImpl;
 import cazcade.fountain.datastore.impl.services.persistence.FountainUserDAOImpl;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
@@ -11,6 +11,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +49,7 @@ public class FollowTest {
     private LiquidURI subPoolURI;
     private String sticky2Name;
     private LiquidURI sticky2URI;
-    private FountainEntity subPool;
+    private LSDPersistedEntity subPool;
     private String userProfilePoolName;
     private LiquidURI sticky3URI;
     private String sticky3Name;
@@ -74,14 +75,14 @@ public class FollowTest {
             @Nullable
             @Override
             public Object call() throws InterruptedException, UnsupportedEncodingException {
-                final FountainEntity userFountainEntity = createUser();
-                final FountainEntity otherUserFountainEntity = createUser();
-                username = userFountainEntity.getAttribute(LSDAttribute.NAME);
-                otherUsername = otherUserFountainEntity.getAttribute(LSDAttribute.NAME);
+                final LSDPersistedEntity userPersistedEntity = createUser();
+                final LSDPersistedEntity otherUserPersistedEntity = createUser();
+                username = userPersistedEntity.getAttribute(LSDAttribute.NAME);
+                otherUsername = otherUserPersistedEntity.getAttribute(LSDAttribute.NAME);
                 otherUserURI = new LiquidURI("alias:cazcade:" + otherUsername);
                 userURI = new LiquidURI("alias:cazcade:" + username);
                 session = new LiquidSessionIdentifier(username, null);
-                System.out.println(userFountainEntity);
+                System.out.println(userPersistedEntity);
                 userPublicPoolName = "pool:///people/" + username + "/public";
                 userProfilePoolName = "pool:///people/" + username + "/profile";
                 otherUserPublicPoolName = "pool:///people/" + otherUsername + "/public";
@@ -95,34 +96,34 @@ public class FollowTest {
                 stickyURI = new LiquidURI(userPublicPoolName + "/sub#" + stickyName);
                 sticky2URI = new LiquidURI(userPublicPoolName + "/sub#" + sticky2Name);
                 sticky3URI = new LiquidURI(userProfilePoolName + "#" + sticky3Name);
-                final FountainEntity publicPoolFountainEntity = fountainNeo.findByURI(publicPoolURI);
-                final FountainEntity profilePoolFountainEntity = fountainNeo.findByURI(profilePoolURI);
+                final LSDPersistedEntity publicPoolPersistedEntity = fountainNeo.findByURI(publicPoolURI);
+                final LSDPersistedEntity profilePoolPersistedEntity = fountainNeo.findByURI(profilePoolURI);
 
-                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolFountainEntity, "sub", (double) 0, (double) 0, "sub", false);
+                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolPersistedEntity, "sub", (double) 0, (double) 0, "sub", false);
                 createSticky(subPool, stickyName);
-                createSticky(profilePoolFountainEntity, sticky3Name);
+                createSticky(profilePoolPersistedEntity, sticky3Name);
                 return null;
             }
         });
     }
 
     @Nonnull
-    private FountainEntity createUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDSimpleEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
+    private LSDPersistedEntity createUser() throws InterruptedException, UnsupportedEncodingException {
+        final LSDTransferEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
         user.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");
         final String username = "test" + System.currentTimeMillis();
         user.setAttribute(LSDAttribute.NAME, username);
         user.setAttribute(LSDAttribute.FULL_NAME, "Anonymous");
 
-        final FountainEntity newUser = userDAO.createUser(user, false);
+        final LSDPersistedEntity newUser = userDAO.createUser(user, false);
         poolDAO.createPoolsForUserNoTx(username);
         poolDAO.createPoolsForCazcadeAliasNoTx(username, user.getAttribute(LSDAttribute.FULL_NAME), false);
         return newUser;
     }
 
-    private void createSticky(@Nonnull final FountainEntity subPool, final String stickyName) throws InterruptedException {
-        final LSDSimpleEntity sticky = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.STICKY);
+    private void createSticky(@Nonnull final LSDPersistedEntity subPool, final String stickyName) throws InterruptedException {
+        final LSDTransferEntity sticky = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.STICKY);
         sticky.setAttribute(LSDAttribute.TEXT_EXTENDED, "TEST");
         sticky.setAttribute(LSDAttribute.NAME, stickyName);
         poolDAO.createPoolObjectNoTx(session, subPool, sticky, session.getAliasURL(), session.getAliasURL(), false);

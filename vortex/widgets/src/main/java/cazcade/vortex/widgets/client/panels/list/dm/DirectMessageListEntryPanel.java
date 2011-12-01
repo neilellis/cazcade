@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.panels.list.dm;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
@@ -27,9 +27,9 @@ import java.util.Date;
  */
 public class DirectMessageListEntryPanel extends Composite implements ScrollableListEntry, StreamEntry {
 
-    LSDEntity entity;
+    LSDBaseEntity entity;
 
-    public LSDEntity getEntity() {
+    public LSDBaseEntity getEntity() {
         return entity;
     }
 
@@ -81,15 +81,15 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         super();
     }
 
-    public DirectMessageListEntryPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+    public DirectMessageListEntryPanel(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final FormatUtil features) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         init(streamEntry, features);
     }
 
-    protected void init(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+    protected void init(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final FormatUtil features) {
         entity = streamEntry;
-        final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, true);
+        final LSDBaseEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, true);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         profileImage.setAliasUri(author.getURI());
 

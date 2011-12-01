@@ -2,7 +2,7 @@ package cazcade.vortex.bus.client;
 
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.user.client.Window;
@@ -18,7 +18,7 @@ public abstract class AbstractResponseCallback<T extends LiquidMessage> implemen
     }
 
     public void onFailure(final T message, @Nonnull final T response) {
-        final LSDEntity responseEntity = response.getResponse();
+        final LSDBaseEntity responseEntity = response.getResponse();
         ClientLog.log(responseEntity.toString());
         if (ClientApplicationConfiguration.isDebug()) {
             if (responseEntity.hasAttribute(LSDAttribute.DESCRIPTION)) {

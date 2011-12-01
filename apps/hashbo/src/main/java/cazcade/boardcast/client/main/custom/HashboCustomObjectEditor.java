@@ -1,7 +1,8 @@
 package cazcade.boardcast.client.main.custom;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.ResizePoolObjectRequest;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -31,14 +32,14 @@ import javax.annotation.Nonnull;
  */
 public class HashboCustomObjectEditor extends Composite implements CustomObjectEditor {
 
-    private LSDEntity updateEntity;
+    private LSDTransferEntity updateEntity;
     private boolean sizeDirty;
 
     @Override
-    public void show(@Nonnull final LSDEntity object) {
+    public void show(@Nonnull final LSDTransferEntity object) {
         updateEntity = object.asUpdateEntity();
         imageUploader.setImageURL(object.getAttribute(LSDAttribute.IMAGE_URL));
-        final LSDEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
+        final LSDBaseEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
         widthField.setValue(view.getAttribute(LSDAttribute.VIEW_WIDTH));
         heightField.setValue(view.getAttribute(LSDAttribute.VIEW_HEIGHT));
         final Runnable sizeDirtyAction = new Runnable() {

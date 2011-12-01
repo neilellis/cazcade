@@ -1,7 +1,7 @@
 package cazcade.vortex.pool;
 
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.common.client.FormatUtil;
@@ -34,7 +34,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     @Nonnull
     private final AbsolutePanel panel;
     @Nonnull
-    private final LSDEntity entity;
+    private final LSDTransferEntity entity;
     private final boolean pageFlow;
     private final VortexThreadSafeExecutor threadSafeExecutor;
     private final int width = 1024;
@@ -43,12 +43,12 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     @Nonnull
     private final PoolObjectContainerManager poolObjectContainerManager;
 
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
 
         this(scrollPanel, panel, entity, false, features, threadSafeExecutor);
     }
 
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDEntity entity, final boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
         this.panel = panel;
         this.entity = entity;
@@ -115,7 +115,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Nonnull
-    public LSDEntity getEntity() {
+    public LSDTransferEntity getEntity() {
         return entity;
     }
 

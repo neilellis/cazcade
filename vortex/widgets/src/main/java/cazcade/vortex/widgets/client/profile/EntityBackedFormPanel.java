@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
     @Nonnull
     private final Map<LSDAttribute, Bindable> bindings = new HashMap<LSDAttribute, Bindable>();
 
-    public void addBinding(final LSDEntity otherEntity, @Nonnull final Bindable field, final LSDAttribute attribute) {
+    public void addBinding(final LSDTransferEntity otherEntity, @Nonnull final Bindable field, final LSDAttribute attribute) {
         field.bind(otherEntity, attribute, getReferenceDataPrefix());
         final Runnable onEnterAction = getUpdateEntityAction(field);
         field.setOnChangeAction(onEnterAction);
@@ -32,7 +32,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
 
 
     @Override
-    protected void bind(@Nullable final LSDEntity entity) {
+    protected void bind(@Nullable final LSDTransferEntity entity) {
         if (entity == null) {
             throw new NullPointerException("Attempted to bind to a null entity.");
         }

@@ -1,9 +1,10 @@
 package cazcade.liquid.impl;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDEntityFactory;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -31,7 +32,7 @@ public class PListUnmarshaler implements LSDUnmarshaler {
 
     private LSDEntityFactory lsdEntityFactory;
 
-    public void unmarshal(@Nullable final LSDEntity lsdEntity, final InputStream input) {
+    public void unmarshal(@Nullable final LSDBaseEntity lsdEntity, final InputStream input) {
         if (lsdEntity == null) {
             throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
@@ -55,7 +56,7 @@ public class PListUnmarshaler implements LSDUnmarshaler {
 
     }
 
-    private void walk(@Nonnull final LSDEntity entity, @Nonnull final String prefix, String lastKey, @Nonnull final Element rootElement) {
+    private void walk(@Nonnull final LSDBaseEntity entity, @Nonnull final String prefix, String lastKey, @Nonnull final Element rootElement) {
         final NodeList childNodes = rootElement.getChildNodes();
 
         for (int i = 0; i < childNodes.getLength(); i++) {
@@ -82,8 +83,8 @@ public class PListUnmarshaler implements LSDUnmarshaler {
     }
 
     @Nonnull
-    public LSDEntity unmarshal(final InputStream input) {
-        final LSDEntity lsdEntity = LSDSimpleEntity.createEmpty();
+    public LSDTransferEntity unmarshal(final InputStream input) {
+        final LSDTransferEntity lsdEntity = LSDSimpleEntity.createEmpty();
         unmarshal(lsdEntity, input);
         return lsdEntity;
     }

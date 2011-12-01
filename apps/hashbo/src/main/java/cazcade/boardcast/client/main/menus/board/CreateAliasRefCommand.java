@@ -4,6 +4,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 
 import javax.annotation.Nonnull;
@@ -23,7 +24,7 @@ public class CreateAliasRefCommand extends CreateItemCommand {
 
     @Override
     protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
-        final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(getType());
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
         entity.setAttribute(LSDAttribute.SOURCE, uri.asString());
         addDefaultView(entity);
         onBuilt.onBuilt(entity);

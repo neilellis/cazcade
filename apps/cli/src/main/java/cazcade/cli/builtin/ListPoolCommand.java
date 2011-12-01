@@ -8,7 +8,8 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import org.apache.commons.cli.Options;
 
@@ -56,11 +57,11 @@ public class ListPoolCommand extends AbstractShortLivedCommand {
             poolURI = CommandSupport.resolvePoolOrObject(shellSession, pool);
         }
         final LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false));
-        final LSDEntity listPoolEntity = response.getResponse();
-        final List<LSDEntity> subEntities = listPoolEntity.getSubEntities(LSDAttribute.CHILD);
+        final LSDBaseEntity listPoolEntity = response.getResponse();
+        final List<LSDTransferEntity> subEntities = listPoolEntity.getSubEntities(LSDAttribute.CHILD);
 //        System.out.println(visitPoolResponseEntity);
         String result = "";
-        for (final LSDEntity subEntity : subEntities) {
+        for (final LSDBaseEntity subEntity : subEntities) {
             final String name = subEntity.getAttribute(LSDAttribute.NAME);
             System.out.println(name);
             result = result + " ";

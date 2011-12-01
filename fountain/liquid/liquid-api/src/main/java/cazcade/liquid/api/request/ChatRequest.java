@@ -3,8 +3,8 @@ package cazcade.liquid.api.request;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,19 +18,19 @@ public class ChatRequest extends AbstractUpdateRequest {
         super();
     }
 
-    public ChatRequest(final LiquidUUID target, final LSDEntity entity) {
+    public ChatRequest(final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, null, target, null, entity);
     }
 
-    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
+    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, identity, target, null, entity);
     }
 
-    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDEntity entity) {
+    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDTransferEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
-    public ChatRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDEntity entity) {
+    public ChatRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -57,7 +57,7 @@ public class ChatRequest extends AbstractUpdateRequest {
     }
 
 
-    @Nullable
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new ChatRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());

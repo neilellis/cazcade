@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class LSDEntityConverter implements Converter {
     public void marshal(final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
-        final LSDEntity entity = (LSDEntity) o;
+        final LSDTransferEntity entity = (LSDTransferEntity) o;
         final LSDNode lsdNode = entity.asFormatIndependentTree();
         marshal(hierarchicalStreamWriter, lsdNode);
     }

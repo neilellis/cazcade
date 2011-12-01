@@ -7,8 +7,8 @@ import cazcade.fountain.server.rest.RestContext;
 import cazcade.fountain.server.rest.RestHandlerException;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDEntityFactory;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.*;
 
 import javax.annotation.Nonnull;
@@ -42,7 +42,7 @@ public class UserRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage create(final LSDEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage create(final LSDTransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
         final LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new CreateUserRequest(identity, lsdEntity));
     }
@@ -65,7 +65,7 @@ public class UserRestHandler extends AbstractRestHandler {
 //    }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID userId, @Nonnull final LSDEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage update(final LiquidUUID userId, @Nonnull final LSDTransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
 
         final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         if (username != null && !lsdEntity.getAttribute(LSDAttribute.NAME).equalsIgnoreCase(username.getName())) {

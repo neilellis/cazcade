@@ -1,6 +1,6 @@
 package cazcade.vortex.widgets.client.panels.list.dm;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -17,7 +17,7 @@ public class DirectMessageStreamEntryPanel extends DirectMessageListEntryPanel {
 
     private static final DirectMessageStreamEntryPanelUiBinder ourUiBinder = GWT.create(DirectMessageStreamEntryPanelUiBinder.class);
 
-    public DirectMessageStreamEntryPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+    public DirectMessageStreamEntryPanel(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final FormatUtil features) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         init(streamEntry, features);

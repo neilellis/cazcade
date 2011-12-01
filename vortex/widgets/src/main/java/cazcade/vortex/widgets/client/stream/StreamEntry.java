@@ -1,6 +1,6 @@
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import com.google.gwt.user.client.ui.IsWidget;
 
 import javax.annotation.Nullable;
@@ -10,7 +10,7 @@ import java.util.Date;
  * @author neilellis@cazcade.com
  */
 public interface StreamEntry extends IsWidget {
-    LSDEntity getEntity();
+    LSDBaseEntity getEntity();
 
     @Nullable
     String getStreamIdentifier();

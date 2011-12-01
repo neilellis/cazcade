@@ -1,7 +1,7 @@
 package cazcade.vortex.pool.objects.website;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
 import cazcade.vortex.widgets.client.form.fields.UrlField;
@@ -29,7 +29,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
 
 
     @Override
-    public void bind(final LSDEntity entity) {
+    public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(urlField, LSDAttribute.SOURCE);
         addBinding(description, LSDAttribute.DESCRIPTION);
@@ -59,7 +59,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
     UrlField urlField;
 
 
-    public WebsiteEditorPanel(final LSDEntity entity) {
+    public WebsiteEditorPanel(final LSDTransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         bind(entity);

@@ -5,7 +5,7 @@ import cazcade.fountain.datastore.impl.FountainUserDAO;
 import cazcade.fountain.datastore.impl.services.persistence.FountainEmailService;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,8 +45,8 @@ public class FountainEmailTest {
     @Test
     @Transactional
     public void test() throws InterruptedException, UnsupportedEncodingException {
-        final LSDEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"), true), true, LiquidRequestDetailLevel.COMPLETE);
-        final LSDEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).convertNodeToLSD(LiquidRequestDetailLevel.COMPLETE, true);
+        final LSDTransferEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"), true), true, LiquidRequestDetailLevel.COMPLETE);
+        final LSDTransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).convertNodeToLSD(LiquidRequestDetailLevel.COMPLETE, true);
         mailService.send(userFromNode, aliasFromNode, "test-email.html", "Welcome", "", false);
     }
 

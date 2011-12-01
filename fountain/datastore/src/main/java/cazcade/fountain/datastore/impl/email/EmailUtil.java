@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.email;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import org.jasypt.digest.StandardStringDigester;
 
 import javax.annotation.Nonnull;
@@ -18,7 +18,7 @@ public class EmailUtil {
     public static final String SALT = "MindPrecedesEverythingMindMattersMost";
 
 
-    public static String getEmailHash(@Nonnull final LSDEntity entity) {
+    public static String getEmailHash(@Nonnull final LSDBaseEntity entity) {
         return digester.digest(encodeEmail(entity.getAttribute(LSDAttribute.EMAIL_ADDRESS)));
     }
 

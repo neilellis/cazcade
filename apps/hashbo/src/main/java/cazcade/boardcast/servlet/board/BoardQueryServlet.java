@@ -4,7 +4,7 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.BoardQueryRequest;
 
 import javax.annotation.Nonnull;
@@ -73,7 +73,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             }
             final BoardQueryRequest response = dataStore.process(new BoardQueryRequest(liquidSessionId, type, alias));
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
-            final List<LSDEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+            final List<LSDTransferEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             req.setAttribute("boards", makeJSPFriendly(boards));
             req.setAttribute("title", titleLookup.get(queryName));
             req.getRequestDispatcher("_pages/boards.jsp").forward(req, resp);

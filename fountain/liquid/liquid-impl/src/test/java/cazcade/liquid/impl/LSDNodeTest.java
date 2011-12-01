@@ -1,9 +1,6 @@
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDNode;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import junit.framework.TestCase;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -55,7 +52,7 @@ public class LSDNodeTest extends TestCase {
 
 
     public void testArrayMarshalling() throws IOException {
-        final LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
+        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
         entity.setValues(LSDAttribute.valueOf("x.test_with_underscore"), Arrays.asList("1", "2", "3"));
         System.err.println(entity);
         final LSDNode lsdNode = entity.asFormatIndependentTree();
@@ -73,7 +70,7 @@ public class LSDNodeTest extends TestCase {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         marshallerFactory.getMarshalers().get("xml").marshal(entity, byteArrayOutputStream);
         System.err.println(new String(byteArrayOutputStream.toByteArray(), "utf8"));
-        final LSDEntity unmarshalledEntity = unmarshallerFactory.getUnmarshalers().get("xml").unmarshal(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+        final LSDBaseEntity unmarshalledEntity = unmarshallerFactory.getUnmarshalers().get("xml").unmarshal(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
         final List<String> values = unmarshalledEntity.getAttributeAsList(LSDAttribute.valueOf("x.test_with_underscore"));
         assertEquals("1", values.get(0));
         assertEquals("2", values.get(1));

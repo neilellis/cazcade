@@ -1,7 +1,8 @@
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.image.ImageOption;
 import cazcade.vortex.widgets.client.image.ImageSelection;
@@ -21,11 +22,11 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class ChangeBackgroundDialog extends Composite implements Bindable, PopupEditPanel {
-    private LSDEntity oldEntity;
+    private LSDBaseEntity oldEntity;
 
 
     @Override
-    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
+    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         oldEntity = entity.copy();
         changeBackgroundPanel.bind(entity, attribute, referenceDataPrefix);
     }
@@ -41,8 +42,8 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     }
 
     @Override
-    public LSDEntity getEntityDiff() {
-        final LSDEntity updateEntity = changeBackgroundPanel.getEntityDiff();
+    public LSDTransferEntity getEntityDiff() {
+        final LSDTransferEntity updateEntity = changeBackgroundPanel.getEntityDiff();
 //        final String oldIconUrl = oldEntity.getAttribute(LSDAttribute.ICON_URL);
 //        if (oldIconUrl == null || oldIconUrl.equals(oldEntity.getAttribute(LSDAttribute.IMAGE_URL))) {
 //            updateEntity.setAttribute(LSDAttribute.ICON_URL, changeBackgroundPanel.getStringValue());

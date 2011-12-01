@@ -7,8 +7,8 @@ import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.AuthorizationRequest;
 
 import javax.annotation.Nonnull;
@@ -35,7 +35,7 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
             for (final AuthorizationRequest authorizationRequest : authorizationRequests) {
                 authorizationRequest.setSessionId(request.getSessionIdentifier());
                 final AuthorizationRequest result = authHandler.handle(authorizationRequest);
-                final LSDEntity responseEntity = result.getResponse();
+                final LSDBaseEntity responseEntity = result.getResponse();
                 if (!responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE)) {
                     LiquidResponseHelper.forFailure(request, result);
                 }

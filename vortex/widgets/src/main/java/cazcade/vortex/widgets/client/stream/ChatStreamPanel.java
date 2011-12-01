@@ -2,8 +2,8 @@ package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.api.request.SendRequest;
@@ -42,7 +42,7 @@ public class ChatStreamPanel extends Composite {
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
     @Nonnull
-    private final List<LSDEntity> entryEntities = new ArrayList<LSDEntity>();
+    private final List<LSDBaseEntity> entryEntities = new ArrayList<LSDBaseEntity>();
     private FormatUtil features;
     @Nonnull
     private final VortexScrollPanel scrollPanel;
@@ -143,7 +143,7 @@ public class ChatStreamPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            final LSDEntity response = message.getResponse();
+                            final LSDBaseEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.CHAT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                                 addStreamEntry(new VortexStreamEntryPanel(response, features));
@@ -254,23 +254,23 @@ public class ChatStreamPanel extends Composite {
     }
 
     @Nonnull
-    private String entryComparisonString(@Nonnull final LSDEntity entity) {
-        final LSDEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, true);
+    private String entryComparisonString(@Nonnull final LSDBaseEntity entity) {
+        final LSDBaseEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, true);
         return entity.getAttribute(LSDAttribute.TEXT_BRIEF) + (author == null ? "null" : author.getAttribute(LSDAttribute.NAME));
     }
 
     private class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequest> {
         @Override
         public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
-            final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-            for (final LSDEntity entry : entries) {
+            final List<LSDBaseEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+            for (final LSDBaseEntity entry : entries) {
                 if (entry.isA(LSDDictionaryTypes.COMMENT)
                         && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                     addStreamEntry(new VortexStreamEntryPanel(entry, features));
                 } else {
                     if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
-                        final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
+                        final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
                         final boolean isMe = author.getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
                         final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));

@@ -8,7 +8,7 @@
 <%@ page import="cazcade.liquid.api.LiquidURIScheme" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDEntity" %>
+<%@ page import="cazcade.liquid.api.lsd.LSDTransferEntity" %>
 <%@ page import="cazcade.liquid.api.request.RetrieveUserRequest" %>
 <%@ page import="cazcade.liquid.api.request.UpdateUserRequest" %>
 <%@ page import="org.jasypt.digest.StandardStringDigester" %>
@@ -25,7 +25,7 @@
     final FountainDataStore dataStore = DataStoreFactory.getDataStore();
     final LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin");
     final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(LiquidURIScheme.user, request.getParameter("user").toLowerCase())));
-    final LSDEntity user = retrieveUserResponse.getResponse();
+    final LSDTransferEntity user = retrieveUserResponse.getResponse();
 
     final String host = "smtp.postmarkapp.com";
     final String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);

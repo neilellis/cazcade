@@ -25,4 +25,6 @@ public interface LSDPropertyStore extends Serializable {
 
     @Nonnull
     LSDPropertyStore copy();
+
+    boolean isSerializable();
 }

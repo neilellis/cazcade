@@ -2,7 +2,7 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.widgets.client.profile.ViewAliasDetailPanel;
 import com.google.gwt.event.dom.client.MouseEvent;
@@ -33,7 +33,7 @@ public class UserProfileImage extends EditableImage {
 
 
     @Override
-    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
+    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.getURI());
         setUrl(entity.getAttribute(attribute));

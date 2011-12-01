@@ -6,10 +6,7 @@ import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.*;
 import cazcade.fountain.datastore.impl.services.persistence.FountainEntityImpl;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.impl.UUIDFactory;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -36,7 +33,7 @@ public class LatestContentFinder {
     @Nonnull
     public static final String GLOBAL_SKIP = "global.skip";
     @Nonnull
-    private final Map<String, LSDEntity> nodes = new HashMap<String, LSDEntity>();
+    private final Map<String, LSDTransferEntity> nodes = new HashMap<String, LSDTransferEntity>();
     @Nonnull
     private final Set<Long> visited = new HashSet<Long>();
     @Nonnull
@@ -66,7 +63,7 @@ public class LatestContentFinder {
 
     }
 
-    public LatestContentFinder(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final FountainNeo fountainNeo, @Nonnull final FountainEntity startFountainEntity, final long since, final int maxReturnNodes, final int maxTraversal, final LiquidRequestDetailLevel detail, final int maxDepth, final FountainUserDAO userDAO) throws InterruptedException {
+    public LatestContentFinder(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final FountainNeo fountainNeo, @Nonnull final LSDPersistedEntity startPersistedEntity, final long since, final int maxReturnNodes, final int maxTraversal, final LiquidRequestDetailLevel detail, final int maxDepth, final FountainUserDAO userDAO) throws InterruptedException {
         this.identity = identity;
         this.userDAO = userDAO;
         this.since = since;
@@ -94,11 +91,11 @@ public class LatestContentFinder {
         }
 
 //        findContentNodesNewMethod(startNode, true, false, fountainNeo.findByURI(identity.getAliasURL()), detail, 0);
-        final FountainEntity aliasFountainEntity = fountainNeo.findByURI(identity.getAliasURL());
-        if (aliasFountainEntity == null) {
+        final LSDPersistedEntity aliasPersistedEntity = fountainNeo.findByURI(identity.getAliasURL());
+        if (aliasPersistedEntity == null) {
             throw new EntityNotFoundException("Could not locate alias %s", identity.getAliasURL());
         }
-        findContentNodesNewMethod(startFountainEntity, aliasFountainEntity, detail);
+        findContentNodesNewMethod(startPersistedEntity, aliasPersistedEntity, detail);
 
         final Element element = new Element(getCacheKey(), skip);
         nodeCache.put(element);
@@ -111,22 +108,22 @@ public class LatestContentFinder {
     }
 
     @SuppressWarnings({"OverlyComplexAnonymousInnerClass"})
-    private void findContentNodesNewMethod(@Nonnull final FountainEntity startFountainEntity, @Nonnull final FountainEntity myAliasFountainEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
+    private void findContentNodesNewMethod(@Nonnull final LSDPersistedEntity startPersistedEntity, @Nonnull final LSDPersistedEntity myAliasPersistedEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
         final int[] count = new int[1];
         final LiquidURI currentAliasURI = identity.getAliasURL();
 
-        final Traverser traverser = startFountainEntity.traverse(Traverser.Order.BREADTH_FIRST, new StopEvaluator() {
+        final Traverser traverser = startPersistedEntity.traverse(Traverser.Order.BREADTH_FIRST, new StopEvaluator() {
                     @Override
                     public boolean isStopNode(@Nonnull final TraversalPosition currentPos) {
-                        final FountainEntity currentFountainEntity = new FountainEntityImpl(currentPos.currentNode());
-                        if (isUnlisted(currentFountainEntity)) {
+                        final LSDPersistedEntity currentPersistedEntity = new FountainEntityImpl(currentPos.currentNode());
+                        if (isUnlisted(currentPersistedEntity)) {
                             return true;
                         }
 
-                        if (currentFountainEntity.hasRelationship(FountainRelationships.COMMENT, Direction.INCOMING)) {
-                            final FountainRelationship singleRelationship = currentFountainEntity.getSingleRelationship(FountainRelationships.COMMENT, Direction.INCOMING);
+                        if (currentPersistedEntity.hasRelationship(FountainRelationships.COMMENT, Direction.INCOMING)) {
+                            final FountainRelationship singleRelationship = currentPersistedEntity.getSingleRelationship(FountainRelationships.COMMENT, Direction.INCOMING);
                             assert singleRelationship != null;
-                            if (isUnlisted(singleRelationship.getOtherNode(currentFountainEntity))) {
+                            if (isUnlisted(singleRelationship.getOtherNode(currentPersistedEntity))) {
                                 return true;
                             }
                         }
@@ -138,11 +135,11 @@ public class LatestContentFinder {
                     @Override
                     public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
 
-                        final FountainEntity currentFountainEntity = new FountainEntityImpl(currentPos.currentNode());
-                        if (!skip.contains(currentFountainEntity.getPersistenceId()) && !globalSkip.contains(currentFountainEntity.getPersistenceId())) {
+                        final LSDPersistedEntity currentPersistedEntity = new FountainEntityImpl(currentPos.currentNode());
+                        if (!skip.contains(currentPersistedEntity.getPersistenceId()) && !globalSkip.contains(currentPersistedEntity.getPersistenceId())) {
                             try {
-                                if (currentFountainEntity.hasAttribute(LSDAttribute.URI)) {
-                                    final LiquidURI uri = currentFountainEntity.getURI();
+                                if (currentPersistedEntity.hasAttribute(LSDAttribute.URI)) {
+                                    final LiquidURI uri = currentPersistedEntity.getURI();
                                     if (uri == null) {
                                         throw new NullPointerException("Attempted to use a null uri in 'isReturnableNode' in LatestContentFinder.");
                                     }
@@ -151,8 +148,8 @@ public class LatestContentFinder {
                                     if (scheme == LiquidURIScheme.session && INCLUDE_SESSION_INFORMATION ||
                                             scheme == LiquidURIScheme.comment ||
                                             scheme == LiquidURIScheme.pool) {
-                                        if (currentFountainEntity.isLatestVersion()) {
-                                            return validForThisRequest(currentFountainEntity, uri, myAliasFountainEntity, currentAliasURI);
+                                        if (currentPersistedEntity.isLatestVersion()) {
+                                            return validForThisRequest(currentPersistedEntity, uri, myAliasPersistedEntity, currentAliasURI);
                                         } else {
                                             log.debug("FountainEntityImpl not latest version: " + uri);
                                         }
@@ -166,7 +163,7 @@ public class LatestContentFinder {
                             } catch (InterruptedException e) {
                                 log.error(e.getMessage(), e);
                             }
-                            globalSkip.add(currentFountainEntity.getPersistenceId());
+                            globalSkip.add(currentPersistedEntity.getPersistenceId());
                             return false;
                         } else {
                             //skipped
@@ -186,21 +183,21 @@ public class LatestContentFinder {
         final Collection<org.neo4j.graphdb.Node> candidateNodes = traverser.getAllNodes();
         log.debug("Found " + candidateNodes.size() + " candidate nodes:");
         for (final org.neo4j.graphdb.Node cNode : candidateNodes) {
-            final FountainEntity candidateFountainEntity = new FountainEntityImpl(cNode);
-            final LiquidURI uri = candidateFountainEntity.getURI();
+            final LSDPersistedEntity candidatePersistedEntity = new FountainEntityImpl(cNode);
+            final LiquidURI uri = candidatePersistedEntity.getURI();
             if (uri == null) {
                 throw new NullPointerException("Attempted to use a null uri in 'findContentNodesNewMethod' in LatestContentFinder.");
             }
-            final LSDEntity entity;
+            final LSDTransferEntity entity;
             //noinspection PointlessBooleanExpression,ConstantConditions
-            if (candidateFountainEntity.canBe(LSDDictionaryTypes.SESSION) && INCLUDE_SESSION_INFORMATION) {
-                entity = fromSessionNode(candidateFountainEntity, resultDetail);
-            } else if (candidateFountainEntity.canBe(LSDDictionaryTypes.COMMENT)) {
-                entity = fromComment(candidateFountainEntity, resultDetail);
+            if (candidatePersistedEntity.canBe(LSDDictionaryTypes.SESSION) && INCLUDE_SESSION_INFORMATION) {
+                entity = fromSessionNode(candidatePersistedEntity, resultDetail);
+            } else if (candidatePersistedEntity.canBe(LSDDictionaryTypes.COMMENT)) {
+                entity = fromComment(candidatePersistedEntity, resultDetail);
             } else if (uri.getScheme() == LiquidURIScheme.pool) {
-                entity = fromObjectNode(candidateFountainEntity, resultDetail);
+                entity = fromObjectNode(candidatePersistedEntity, resultDetail);
             } else {
-                log.debug("FountainEntityImpl {0} was filtered because of type {1}", uri, candidateFountainEntity.getTypeDef());
+                log.debug("FountainEntityImpl {0} was filtered because of type {1}", uri, candidatePersistedEntity.getTypeDef());
                 continue;
             }
             if (entity.hasAttribute(LSDAttribute.TITLE)) {
@@ -224,27 +221,27 @@ public class LatestContentFinder {
     }
 
     @SuppressWarnings({"MethodOnlyUsedFromInnerClass"})
-    private static boolean isUnlisted(@Nonnull final LSDEntity currentNode) {
+    private static boolean isUnlisted(@Nonnull final LSDBaseEntity currentNode) {
 
         return (currentNode.canBe(LSDDictionaryTypes.POOL2D) || currentNode.canBe(LSDDictionaryTypes.BOARD)) && !currentNode.getBooleanAttribute(LSDAttribute.LISTED, false);
     }
 
     @SuppressWarnings({"MethodOnlyUsedFromInnerClass"})
-    private boolean validForThisRequest(@Nonnull final FountainEntity currentFountainEntity, @Nonnull final LiquidURI uri, @Nonnull final FountainEntity myAliasFountainEntity, @Nonnull final LiquidURI currentAliasURI) throws InterruptedException {
+    private boolean validForThisRequest(@Nonnull final LSDPersistedEntity currentPersistedEntity, @Nonnull final LiquidURI uri, @Nonnull final LSDPersistedEntity myAliasPersistedEntity, @Nonnull final LiquidURI currentAliasURI) throws InterruptedException {
         final LiquidURIScheme scheme = uri.getScheme();
-        final Date updated = currentFountainEntity.getUpdated();
+        final Date updated = currentPersistedEntity.getUpdated();
         if (updated == null) {
             throw new NullPointerException("Attempted to use a null updated in 'validForThisRequest' in LatestContentFinder.");
         }
         final Long nodeAge = updated.getTime();
         if (nodeAge >= since) {
-            if (currentFountainEntity.isAuthorized(identity, LiquidPermission.VIEW)) {
-                final boolean authoredByMe = currentFountainEntity.isAuthor(myAliasFountainEntity);
+            if (currentPersistedEntity.isAuthorized(identity, LiquidPermission.VIEW)) {
+                final boolean authoredByMe = currentPersistedEntity.isAuthor(myAliasPersistedEntity);
                 if (!authoredByMe) {
                     if (scheme == LiquidURIScheme.session) {
                         if (!uri.equals(currentAliasURI) && !CommonConstants.ANONYMOUS_ALIAS.equals(uri.asString())) {
-                            if (currentFountainEntity.getBooleanAttribute(LSDAttribute.ACTIVE)
-                                    && currentFountainEntity.hasRelationship(FountainRelationships.VISITING, Direction.OUTGOING)) {
+                            if (currentPersistedEntity.getBooleanAttribute(LSDAttribute.ACTIVE)
+                                    && currentPersistedEntity.hasRelationship(FountainRelationships.VISITING, Direction.OUTGOING)) {
                                 return true;
                             } else {
                                 log.debug("FountainEntityImpl was a session but not of interest: " + uri);
@@ -253,11 +250,11 @@ public class LatestContentFinder {
                             log.debug("FountainEntityImpl was a session but was own or anonymous: " + uri);
                         }
                     } else if (uri.asString().startsWith("pool") || scheme == LiquidURIScheme.comment) {
-                        if (currentFountainEntity.isListed()) {
+                        if (currentPersistedEntity.isListed()) {
                             return true;
                         } else {
                             log.debug("FountainEntityImpl not listed: " + uri);
-                            globalSkip.add(currentFountainEntity.getPersistenceId());
+                            globalSkip.add(currentPersistedEntity.getPersistenceId());
                             return false;
                         }
                     } else {
@@ -273,38 +270,38 @@ public class LatestContentFinder {
             }
         } else {
             if (nodeAge < minAge) {
-                globalSkip.add(currentFountainEntity.getPersistenceId());
+                globalSkip.add(currentPersistedEntity.getPersistenceId());
                 log.debug("FountainEntityImpl is too old to be of interest " + nodeAge + " < " + minAge);
             } else {
                 log.debug("FountainEntityImpl is too old for this request " + nodeAge + " < " + since);
             }
         }
-        skip.add(currentFountainEntity.getPersistenceId());
+        skip.add(currentPersistedEntity.getPersistenceId());
         return false;
     }
 
 
     @Nonnull
-    private LSDEntity fromComment(@Nonnull final FountainEntity fountainEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
-        final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT_UPDATE, UUIDFactory.randomUUID());
-        entity.setAttribute(LSDAttribute.TEXT_BRIEF, fountainEntity.getAttribute(LSDAttribute.TEXT_BRIEF));
-        entity.setPublished(fountainEntity.getUpdated());
-        entity.setAttribute(LSDAttribute.TEXT_EXTENDED, fountainEntity.getAttribute(LSDAttribute.TEXT_EXTENDED));
+    private LSDTransferEntity fromComment(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT_UPDATE, UUIDFactory.randomUUID());
+        entity.setAttribute(LSDAttribute.TEXT_BRIEF, persistedEntity.getAttribute(LSDAttribute.TEXT_BRIEF));
+        entity.setPublished(persistedEntity.getUpdated());
+        entity.setAttribute(LSDAttribute.TEXT_EXTENDED, persistedEntity.getAttribute(LSDAttribute.TEXT_EXTENDED));
 
-        final LiquidURI objectURI = fountainEntity.getURI();
-        final FountainRelationship authorRelationship = fountainEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
-        LSDEntity aliasEntity = null;
+        final LiquidURI objectURI = persistedEntity.getURI();
+        final FountainRelationship authorRelationship = persistedEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
+        LSDTransferEntity aliasEntity = null;
         if (authorRelationship != null) {
-            final FountainEntity authorFountainEntity = authorRelationship.getOtherNode(fountainEntity);
-            aliasEntity = userDAO.getAliasFromNode(authorFountainEntity, false, resultDetail);
+            final LSDPersistedEntity authorPersistedEntity = authorRelationship.getOtherNode(persistedEntity);
+            aliasEntity = userDAO.getAliasFromNode(authorPersistedEntity, false, resultDetail);
             entity.addSubEntity(LSDAttribute.AUTHOR, aliasEntity, true);
 //            entity.setAttribute(LSDAttribute.TITLE, (String) authorNode.getProperty(LSDAttribute.NAME.getKeyName()));
 //            if (authorNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
 //                entity.setAttribute(LSDAttribute.ICON_URL, (String) authorNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
 //            }
         }
-        FountainEntity poolOrObjectFountainEntity = null;
-        final Traverser traverse = fountainEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
+        LSDPersistedEntity poolOrObjectPersistedEntity = null;
+        final Traverser traverse = persistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
             @Override
             public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
                 return !new FountainEntityImpl(currentPos.currentNode()).canBe(LSDDictionaryTypes.COMMENT);
@@ -312,14 +309,14 @@ public class LatestContentFinder {
         }, FountainRelationships.PREVIOUS, Direction.INCOMING, FountainRelationships.COMMENT, Direction.INCOMING);
         final Collection<org.neo4j.graphdb.Node> nonCommentNodes = traverse.getAllNodes();
         if (!nonCommentNodes.isEmpty()) {
-            poolOrObjectFountainEntity = new FountainEntityImpl(nonCommentNodes.iterator().next());
+            poolOrObjectPersistedEntity = new FountainEntityImpl(nonCommentNodes.iterator().next());
         }
-        if (poolOrObjectFountainEntity != null) {
-            entity.setAttribute(LSDAttribute.SOURCE, poolOrObjectFountainEntity.getURI());
-            entity.copyAttribute(poolOrObjectFountainEntity, LSDAttribute.IMAGE_URL);
-            entity.copyAttribute(poolOrObjectFountainEntity, LSDAttribute.ICON_URL);
-            if (aliasEntity != null && poolOrObjectFountainEntity.isListed()) {
-                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), poolOrObjectFountainEntity.getAttribute(LSDAttribute.TITLE, poolOrObjectFountainEntity.getAttribute(LSDAttribute.NAME, "Unknown"))));
+        if (poolOrObjectPersistedEntity != null) {
+            entity.setAttribute(LSDAttribute.SOURCE, poolOrObjectPersistedEntity.getURI());
+            entity.copyAttribute(poolOrObjectPersistedEntity, LSDAttribute.IMAGE_URL);
+            entity.copyAttribute(poolOrObjectPersistedEntity, LSDAttribute.ICON_URL);
+            if (aliasEntity != null && poolOrObjectPersistedEntity.isListed()) {
+                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), poolOrObjectPersistedEntity.getAttribute(LSDAttribute.TITLE, poolOrObjectPersistedEntity.getAttribute(LSDAttribute.NAME, "Unknown"))));
             }
 
         }
@@ -331,22 +328,22 @@ public class LatestContentFinder {
 
 
     @Nonnull
-    private LSDEntity fromObjectNode(@Nonnull final FountainEntity fountainEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
-        final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.OBJECT_UPDATE, UUIDFactory.randomUUID());
-        FountainEntity boardFountainEntity = null;
-        final Iterator<org.neo4j.graphdb.Node> parentIterator = fountainEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
+    private LSDTransferEntity fromObjectNode(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.OBJECT_UPDATE, UUIDFactory.randomUUID());
+        LSDPersistedEntity boardPersistedEntity = null;
+        final Iterator<org.neo4j.graphdb.Node> parentIterator = persistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
             @Override
             public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
                 return new FountainEntityImpl(currentPos.currentNode()).canBe(LSDDictionaryTypes.BOARD);
             }
         }, FountainRelationships.CHILD, Direction.INCOMING).iterator();
         if (parentIterator.hasNext()) {
-            boardFountainEntity = new FountainEntityImpl(parentIterator.next());
+            boardPersistedEntity = new FountainEntityImpl(parentIterator.next());
         }
-        if (fountainEntity.hasAttribute(LSDAttribute.MOTIVE_TEXT)) {
-            final String motiveText = fountainEntity.getAttribute(LSDAttribute.MOTIVE_TEXT);
-            if (motiveText.isEmpty() && fountainEntity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
-                final String extendedText = fountainEntity.getAttribute(LSDAttribute.TEXT_EXTENDED);
+        if (persistedEntity.hasAttribute(LSDAttribute.MOTIVE_TEXT)) {
+            final String motiveText = persistedEntity.getAttribute(LSDAttribute.MOTIVE_TEXT);
+            if (motiveText.isEmpty() && persistedEntity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
+                final String extendedText = persistedEntity.getAttribute(LSDAttribute.TEXT_EXTENDED);
                 entity.setAttribute(LSDAttribute.TEXT_BRIEF, extendedText);
                 entity.setAttribute(LSDAttribute.TEXT_EXTENDED, extendedText);
             } else {
@@ -356,58 +353,58 @@ public class LatestContentFinder {
             entity.setAttribute(LSDAttribute.TEXT_BRIEF, motiveText);
             entity.setAttribute(LSDAttribute.TEXT_EXTENDED, motiveText);
         }
-        entity.setPublished(fountainEntity.getUpdated());
-        entity.setAttribute(LSDAttribute.SOURCE, fountainEntity.getURI());
-        if (fountainEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
-            entity.copyAttribute(fountainEntity, LSDAttribute.IMAGE_URL);
-        } else if (boardFountainEntity != null && fountainEntity.hasAttribute(LSDAttribute.ICON_URL)) {
-            entity.setAttribute(LSDAttribute.IMAGE_URL, boardFountainEntity.getAttribute(LSDAttribute.IMAGE_URL));
+        entity.setPublished(persistedEntity.getUpdated());
+        entity.setAttribute(LSDAttribute.SOURCE, persistedEntity.getURI());
+        if (persistedEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
+            entity.copyAttribute(persistedEntity, LSDAttribute.IMAGE_URL);
+        } else if (boardPersistedEntity != null && persistedEntity.hasAttribute(LSDAttribute.ICON_URL)) {
+            entity.setAttribute(LSDAttribute.IMAGE_URL, boardPersistedEntity.getAttribute(LSDAttribute.IMAGE_URL));
         }
         //The author of this update is the owner of the entity :-)
-        final FountainRelationship editorRelationship = fountainEntity.getSingleRelationship(FountainRelationships.EDITOR, Direction.OUTGOING);
+        final FountainRelationship editorRelationship = persistedEntity.getSingleRelationship(FountainRelationships.EDITOR, Direction.OUTGOING);
         if (editorRelationship != null) {
-            final FountainEntity ownerFountainEntity = editorRelationship.getOtherNode(fountainEntity);
-            final LSDEntity authorEntity = userDAO.getAliasFromNode(ownerFountainEntity, false, resultDetail);
+            final LSDPersistedEntity ownerPersistedEntity = editorRelationship.getOtherNode(persistedEntity);
+            final LSDTransferEntity authorEntity = userDAO.getAliasFromNode(ownerPersistedEntity, false, resultDetail);
             entity.addSubEntity(LSDAttribute.AUTHOR, authorEntity, true);
 //            entity.setAttribute(LSDAttribute.TITLE, (String) ownerNode.getProperty(LSDAttribute.NAME.getKeyName()));
 //            if (ownerNode.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
 //                entity.setAttribute(LSDAttribute.ICON_URL, (String) ownerNode.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
 //            }
-            if (boardFountainEntity != null && authorEntity != null) {
-                entity.setAttribute(LSDAttribute.SOURCE, boardFountainEntity.getURI());
-                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s made changes to '%s'", authorEntity.getAttribute(LSDAttribute.NAME), boardFountainEntity.getAttribute(LSDAttribute.TITLE, boardFountainEntity.getAttribute(LSDAttribute.NAME, "Unknown"))));
+            if (boardPersistedEntity != null && authorEntity != null) {
+                entity.setAttribute(LSDAttribute.SOURCE, boardPersistedEntity.getURI());
+                entity.setAttribute(LSDAttribute.TITLE, String.format("@%s made changes to '%s'", authorEntity.getAttribute(LSDAttribute.NAME), boardPersistedEntity.getAttribute(LSDAttribute.TITLE, boardPersistedEntity.getAttribute(LSDAttribute.NAME, "Unknown"))));
             }
         }
 
 
-        final FountainRelationship viewRelationship = fountainEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
+        final FountainRelationship viewRelationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
         if (viewRelationship != null) {
-            entity.addSubEntity(LSDAttribute.VIEW, viewRelationship.getOtherNode(fountainEntity).convertNodeToLSD(resultDetail, false), true);
+            entity.addSubEntity(LSDAttribute.VIEW, viewRelationship.getOtherNode(persistedEntity).convertNodeToLSD(resultDetail, false), true);
         }
 
         //The URI keeps it unique in the stream
-        entity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.status, "object:" + fountainEntity.getURI()).asString());
+        entity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.status, "object:" + persistedEntity.getURI()).asString());
         return entity;
 
     }
 
 
     @Nonnull
-    private LSDEntity fromSessionNode(@Nonnull final FountainEntity sessionFountainEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
-        final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.PRESENCE_UPDATE, UUIDFactory.randomUUID());
-        final FountainRelationship ownerRelationship = sessionFountainEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
+    private LSDTransferEntity fromSessionNode(@Nonnull final LSDPersistedEntity sessionPersistedEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.PRESENCE_UPDATE, UUIDFactory.randomUUID());
+        final FountainRelationship ownerRelationship = sessionPersistedEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
         if (ownerRelationship == null) {
             throw new NullPointerException("Attempted to use a null ownerRelationship in 'fromSessionNode' in LatestContentFinder.");
         }
-        final FountainEntity aliasFountainEntity = ownerRelationship.getOtherNode(sessionFountainEntity);
-        entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(ownerRelationship.getOtherNode(sessionFountainEntity), false, resultDetail), true);
-        final String aliasName = ownerRelationship.getOtherNode(sessionFountainEntity).getAttribute(LSDAttribute.NAME);
-        final String aliasFullName = ownerRelationship.getOtherNode(sessionFountainEntity).getAttribute(LSDAttribute.FULL_NAME);
+        final LSDPersistedEntity aliasPersistedEntity = ownerRelationship.getOtherNode(sessionPersistedEntity);
+        entity.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(ownerRelationship.getOtherNode(sessionPersistedEntity), false, resultDetail), true);
+        final String aliasName = ownerRelationship.getOtherNode(sessionPersistedEntity).getAttribute(LSDAttribute.NAME);
+        final String aliasFullName = ownerRelationship.getOtherNode(sessionPersistedEntity).getAttribute(LSDAttribute.FULL_NAME);
         entity.setAttribute(LSDAttribute.TITLE, aliasName);
-        final Iterable<FountainRelationship> vistingRelationships = sessionFountainEntity.getRelationships(FountainRelationships.VISITING, Direction.OUTGOING);
+        final Iterable<FountainRelationship> vistingRelationships = sessionPersistedEntity.getRelationships(FountainRelationships.VISITING, Direction.OUTGOING);
         for (final FountainRelationship vistingRelationship : vistingRelationships) {
-            final FountainEntity poolFountainEntity = vistingRelationship.getOtherNode(sessionFountainEntity);
-            final LiquidURI poolUri = poolFountainEntity.getURI();
+            final LSDPersistedEntity poolPersistedEntity = vistingRelationship.getOtherNode(sessionPersistedEntity);
+            final LiquidURI poolUri = poolPersistedEntity.getURI();
 
             entity.setAttribute(LSDAttribute.TITLE, '@' + aliasName + " was spotted in " + poolUri);
             entity.setAttribute(LSDAttribute.TEXT_BRIEF, aliasFullName + " was spotted in " + poolUri);
@@ -418,12 +415,12 @@ public class LatestContentFinder {
                 final long updated = Long.valueOf(vistingRelationship.getProperty(LSDAttribute.UPDATED.getKeyName()).toString());
                 if (updated >= since) {
                     //it's stale so add to skip list now
-                    skip.add(vistingRelationship.getOtherNode(sessionFountainEntity).getPersistenceId());
+                    skip.add(vistingRelationship.getOtherNode(sessionPersistedEntity).getPersistenceId());
                 }
             }
             entity.setAttribute(LSDAttribute.SOURCE, poolUri);
-            entity.copyAttribute(aliasFountainEntity, LSDAttribute.IMAGE_URL);
-            entity.copyAttribute(aliasFountainEntity, LSDAttribute.ICON_URL);
+            entity.copyAttribute(aliasPersistedEntity, LSDAttribute.IMAGE_URL);
+            entity.copyAttribute(aliasPersistedEntity, LSDAttribute.ICON_URL);
             //The URI keeps it unique in the stream
             entity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.status, "presence:" + aliasName).asString());
 
@@ -433,7 +430,7 @@ public class LatestContentFinder {
     }
 
     @Nonnull
-    public Collection<LSDEntity> getNodes() {
+    public Collection<LSDTransferEntity> getNodes() {
         return nodes.values();
     }
 

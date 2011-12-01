@@ -7,8 +7,8 @@ import cazcade.liquid.api.LiquidPermissionChangeType;
 import cazcade.liquid.api.LiquidPermissionScope;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
@@ -53,7 +53,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
 
-    public void init(@Nonnull final LSDEntity board, final boolean modifierOptions, @Nullable final ChangeBackgroundDialog backgroundDialog) {
+    public void init(@Nonnull final LSDBaseEntity board, final boolean modifierOptions, @Nullable final ChangeBackgroundDialog backgroundDialog) {
         poolURI = board.getURI();
         clearItems();
         GWT.runAsync(new RunAsyncCallback() {
@@ -83,7 +83,7 @@ public class BoardMenuBar extends MenuBar {
 
     }
 
-    private void createCollaborateMenu(@Nonnull final LSDEntity board) {
+    private void createCollaborateMenu(@Nonnull final LSDBaseEntity board) {
         collaborateMenuBar = new MenuBar(true);
         addItem("Collaborate", collaborateMenuBar);
         collaborateMenuBar.addItem("Chat (Alpha)", new Command() {
@@ -95,7 +95,7 @@ public class BoardMenuBar extends MenuBar {
         });
     }
 
-    private void createAccessMenu(@Nonnull final LSDEntity board) {
+    private void createAccessMenu(@Nonnull final LSDBaseEntity board) {
         if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
             if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                 accessMenuBar.addItem("Make Readonly", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
@@ -112,7 +112,7 @@ public class BoardMenuBar extends MenuBar {
 
     }
 
-    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull final LSDEntity board) {
+    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull final LSDBaseEntity board) {
 
         if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
             addMenubar.addItem("Background", new Command() {

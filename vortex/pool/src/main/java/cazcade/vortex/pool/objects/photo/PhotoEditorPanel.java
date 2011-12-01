@@ -1,7 +1,7 @@
 package cazcade.vortex.pool.objects.photo;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
@@ -21,7 +21,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
 
 
     @Override
-    public void bind(final LSDEntity entity) {
+    public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(changeImagePanel, LSDAttribute.IMAGE_URL);
         addBinding(description, LSDAttribute.DESCRIPTION);
@@ -51,7 +51,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
     RegexTextBox title;
 
 
-    public PhotoEditorPanel(final LSDEntity entity) {
+    public PhotoEditorPanel(final LSDTransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         bind(entity);

@@ -8,7 +8,7 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.request.DeletePoolRequest;
 import org.apache.commons.cli.Options;
 
@@ -46,7 +46,7 @@ public class DeletePoolCommand extends AbstractShortLivedCommand {
         }
         final LiquidURI poolURI = CommandSupport.resolvePoolOrObject(shellSession, args[0]);
         final LiquidMessage response = shellSession.getDataStore().process(new DeletePoolRequest(shellSession.getIdentity(), poolURI));
-        final LSDEntity entity = response.getResponse();
+        final LSDBaseEntity entity = response.getResponse();
         if (response.getState() != LiquidMessageState.SUCCESS) {
             System.err.println(entity.getAttribute(LSDAttribute.DESCRIPTION));
             return null;

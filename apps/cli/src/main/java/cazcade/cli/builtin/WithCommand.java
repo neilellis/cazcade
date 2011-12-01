@@ -5,7 +5,7 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.cli.commands.ExecutableCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -51,7 +51,7 @@ public class WithCommand extends AbstractShortLivedCommand {
         } else {
             final CommandSupport.AlterEntityCallback callback = new CommandSupport.AlterEntityCallback() {
                 @Override
-                public LSDEntity alter(final LSDEntity entity) {
+                public LSDTransferEntity alter(final LSDTransferEntity entity) {
                     shellSession.pushEntity(entity);
                     try {
                         command.execute();

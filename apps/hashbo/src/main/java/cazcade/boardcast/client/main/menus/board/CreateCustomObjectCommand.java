@@ -3,6 +3,7 @@ package cazcade.boardcast.client.main.menus.board;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +19,7 @@ public class CreateCustomObjectCommand extends CreateItemCommand {
 
     @Override
     protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
-        final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(getType());
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
         addDefaultView(entity);
         onBuilt.onBuilt(entity);
     }

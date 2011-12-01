@@ -7,8 +7,9 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -57,7 +58,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
     private LiquidURI previousPoolURI;
-    private LSDEntity poolEntity;
+    private LSDTransferEntity poolEntity;
     private long changePermissionListener;
 
 
@@ -278,7 +279,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
 
     @Override
-    protected void onChange(final LSDEntity entity) {
+    protected void onChange(final LSDBaseEntity entity) {
         super.onChange(entity);
         refresh();
     }

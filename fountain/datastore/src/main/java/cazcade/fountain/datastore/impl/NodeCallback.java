@@ -6,5 +6,5 @@ package cazcade.fountain.datastore.impl;
  */
 public interface NodeCallback {
 
-    void call(FountainEntity fountainEntity) throws Exception;
+    void call(LSDPersistedEntity persistedEntity) throws Exception;
 }

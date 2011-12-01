@@ -1,7 +1,8 @@
 package cazcade.vortex.pool;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.DeletePoolObjectRequest;
 import cazcade.liquid.api.request.LinkPoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -51,7 +52,7 @@ public class PoolObjectContainerManager {
                         Window.alert("Failed to add pool object.");
                     } else if (message.getState() == LiquidMessageState.SUCCESS) {
                         try {
-                            final LSDEntity requestEntity = message.getResponse();
+                            final LSDTransferEntity requestEntity = message.getResponse();
                             ClientLog.log("Adding " + requestEntity.getTypeDef().asString());
                             final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(container, requestEntity, features, executor);
                             if (poolObjectPresenter != null) {
@@ -81,7 +82,7 @@ public class PoolObjectContainerManager {
                     } else {
 
                         try {
-                            final LSDEntity response = message.getResponse();
+                            final LSDBaseEntity response = message.getResponse();
                             final LiquidURI uri = response.getURI();
                             if (getObjectPresenters().containsKey(uri)) {
                                 remove(getObjectPresenters().get(uri));

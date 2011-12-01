@@ -19,14 +19,14 @@ public class DictionaryRestHandler extends AbstractRestHandler {
     @Nonnull
     public LiquidMessage keys() {
         final RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.KEYS);
-        final LSDEntity dictionary = LSDSimpleEntity.createEmpty();
+        final LSDTransferEntity dictionary = LSDSimpleEntity.createEmpty();
         dictionary.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
         dictionary.setAttribute(LSDAttribute.NAME, "LiquidKeyDictionary");
         dictionary.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_KEY_DICTIONARY.getValue());
         final LSDAttribute[] values = LSDAttribute.values();
-        final List<LSDEntity> entries = new ArrayList<LSDEntity>();
+        final List<LSDBaseEntity> entries = new ArrayList<LSDBaseEntity>();
         for (final LSDAttribute value : values) {
-            final LSDEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
+            final LSDBaseEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
             dictionaryEntry.setAttribute(LSDAttribute.ID, value.getId().toString());
             dictionaryEntry.setAttribute(LSDAttribute.NAME, value.getKeyName());
             dictionaryEntry.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_KEY_DICTIONARY_ENTRY.getValue());
@@ -44,13 +44,13 @@ public class DictionaryRestHandler extends AbstractRestHandler {
     @Nonnull
     public RetrieveDictionaryRequest types() {
         final RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.TYPES);
-        final LSDEntity dictionary = LSDSimpleEntity.createEmpty();
+        final LSDTransferEntity dictionary = LSDSimpleEntity.createEmpty();
         dictionary.setAttribute(LSDAttribute.NAME, "LiquidTypeDictionary");
         dictionary.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_TYPE_DICTIONARY.getValue());
         final LSDDictionaryTypes[] values = LSDDictionaryTypes.values();
-        final List<LSDEntity> entries = new ArrayList<LSDEntity>();
+        final List<LSDBaseEntity> entries = new ArrayList<LSDBaseEntity>();
         for (final LSDDictionaryTypes value : values) {
-            final LSDEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
+            final LSDBaseEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
             dictionaryEntry.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
             dictionaryEntry.setAttribute(LSDAttribute.NAME, value.getValue());
             dictionaryEntry.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_TYPE_DICTIONARY_ENTRY.getValue());

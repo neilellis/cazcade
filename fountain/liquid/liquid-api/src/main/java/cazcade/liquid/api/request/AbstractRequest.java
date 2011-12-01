@@ -14,9 +14,9 @@ public abstract class AbstractRequest implements LiquidRequest {
 
 
     @Nonnull
-    private LSDEntity entity = LSDSimpleEntity.createNewEntity(new LSDTypeDefImpl(LSDDictionaryTypes.REQUEST, getClass().getName().substring(getClass().getName().lastIndexOf('.') + 1)));
+    private LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(new LSDTypeDefImpl(LSDDictionaryTypes.REQUEST, getClass().getName().substring(getClass().getName().lastIndexOf('.') + 1)));
 
-    public void setEntity(@Nonnull final LSDEntity entity) {
+    public void setEntity(@Nonnull final LSDTransferEntity entity) {
         if (!entity.hasAttribute(LSDAttribute.TYPE)) {
             throw new IllegalArgumentException("Entities must always have a type.");
         }
@@ -489,7 +489,7 @@ public abstract class AbstractRequest implements LiquidRequest {
         entity.setAttribute(LSDAttribute.REQUEST_ORIGIN, origin.name());
     }
 
-    @Nullable
+    @Nonnull
     public abstract LiquidMessage copy();
 
     public final LiquidMessageState getState() {
@@ -524,12 +524,15 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
 
-    public final void setResponse(final LSDEntity response) {
+    public final void setResponse(final LSDTransferEntity response) {
+        if (!response.isSerializable()) {
+            throw new IllegalArgumentException("Oops, you've tried to pass in a raw persistent entity!");
+        }
         entity.addSubEntity(LSDAttribute.REQUEST_RESULT, response, false);
     }
 
     @Nullable
-    public final LSDEntity getRequestEntity() {
+    public final LSDTransferEntity getRequestEntity() {
         if (entity.hasSubEntity(LSDAttribute.REQUEST_ENTITY)) {
             return entity.getSubEntity(LSDAttribute.REQUEST_ENTITY, true);
         } else {
@@ -539,7 +542,7 @@ public abstract class AbstractRequest implements LiquidRequest {
 
 
     @Nullable
-    public final LSDEntity getResponse() {
+    public final LSDTransferEntity getResponse() {
         if (entity.hasSubEntity(LSDAttribute.REQUEST_RESULT)) {
             return entity.getSubEntity(LSDAttribute.REQUEST_RESULT, true);
         } else {
@@ -585,7 +588,7 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     @Nullable
     @Override
-    public final LSDEntity getResponseOrRequestEntity() {
+    public final LSDBaseEntity getResponseOrRequestEntity() {
         if (getResponse() != null) {
             return getResponse();
         } else {
@@ -651,7 +654,7 @@ public abstract class AbstractRequest implements LiquidRequest {
         return false;
     }
 
-    public final void setRequestEntity(final LSDEntity requestEntity) {
+    public final void setRequestEntity(final LSDTransferEntity requestEntity) {
         entity.addSubEntity(LSDAttribute.REQUEST_ENTITY, requestEntity, false);
     }
 
@@ -663,7 +666,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public LSDEntity getEntity() {
+    public LSDTransferEntity getEntity() {
         return entity;
     }
 

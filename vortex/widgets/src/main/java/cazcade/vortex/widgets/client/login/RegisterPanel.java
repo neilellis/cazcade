@@ -1,6 +1,7 @@
 package cazcade.vortex.widgets.client.login;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
@@ -24,10 +25,10 @@ public class RegisterPanel extends Composite {
     private Runnable onSwitchToLoginAction;
     private Runnable onSuccessAction;
     @Nullable
-    private LSDEntity newUser;
+    private LSDBaseEntity newUser;
 
     @Nullable
-    public LSDEntity getNewUser() {
+    public LSDBaseEntity getNewUser() {
         return newUser;
     }
 
@@ -111,14 +112,14 @@ public class RegisterPanel extends Composite {
             registerErrorMessage.setText("Password must include letters and numbers.");
             return;
         }
-        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDEntity>() {
+        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
             @Override
             public void onFailure(final Throwable caught) {
                 ClientLog.log(caught);
             }
 
             @Override
-            public void onSuccess(@Nullable final LSDEntity result) {
+            public void onSuccess(@Nullable final LSDTransferEntity result) {
                 if (result == null) {
                     registerErrorMessage.setText("Could not register you.");
                 } else {

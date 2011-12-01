@@ -1,7 +1,7 @@
 package cazcade.vortex.pool.objects.website;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
-    public WebsitePresenter(final PoolPresenter pool, final LSDEntity entity, final WebsiteView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public WebsitePresenter(final PoolPresenter pool, final LSDTransferEntity entity, final WebsiteView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addHandler(new DoubleClickHandler() {
             @Override
@@ -28,7 +28,7 @@ public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
     }
 
     @Override
-    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

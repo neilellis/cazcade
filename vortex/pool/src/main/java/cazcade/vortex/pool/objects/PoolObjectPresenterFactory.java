@@ -1,7 +1,7 @@
 package cazcade.vortex.pool.objects;
 
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.api.PoolObjectPresenterContainer;
@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 public class PoolObjectPresenterFactory {
 
     @Nullable
-    public static PoolObjectPresenter getPresenterForEntity(final PoolPresenter poolPresenter, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public static PoolObjectPresenter getPresenterForEntity(final PoolPresenter poolPresenter, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         if (entity.canBe(LSDDictionaryTypes.PHOTO2D)) {
             return new PhotoPresenter(poolPresenter, entity, new PhotoView(), threadSafeExecutor);
         } else if (entity.canBe(LSDDictionaryTypes.WEBPAGE)) {
@@ -63,7 +63,7 @@ public class PoolObjectPresenterFactory {
     }
 
     @Nullable
-    public static PoolObjectPresenter getPresenterForEntity(@Nonnull final PoolObjectPresenterContainer poolObjectPresenterContainer, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public static PoolObjectPresenter getPresenterForEntity(@Nonnull final PoolObjectPresenterContainer poolObjectPresenterContainer, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         if (poolObjectPresenterContainer.getType().canBe(LSDDictionaryTypes.POOL2D)) {
             return getPresenterForEntity((PoolPresenter) poolObjectPresenterContainer, entity, features, threadSafeExecutor);
         } else {

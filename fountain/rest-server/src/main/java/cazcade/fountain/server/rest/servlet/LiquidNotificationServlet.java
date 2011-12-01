@@ -7,6 +7,7 @@ import cazcade.fountain.server.rest.RestContext;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import org.springframework.amqp.core.Binding;
@@ -49,7 +50,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
 
     @Override
     public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final String pathWithQuery, final String serviceName, final String methodName, @Nonnull final List<LiquidUUID> uuids, final String sessionId, final String format) throws RuntimeException, ServletException, IOException {
-        final LSDSimpleEntity sessionStateEntity = LSDSimpleEntity.createEmpty();
+        final LSDTransferEntity sessionStateEntity = LSDSimpleEntity.createEmpty();
         sessionStateEntity.setType(LSDDictionaryTypes.SESSION);
         final LiquidUUID sessionUUID = LiquidUUID.fromString(sessionId);
         sessionStateEntity.setID(sessionUUID);

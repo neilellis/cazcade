@@ -1,7 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,15 +19,15 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
         return true;
     }
 
-    public UpdateUserRequest(final LiquidUUID target, final LSDEntity entity) {
+    public UpdateUserRequest(final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, null, target, entity);
     }
 
-    public UpdateUserRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
+    public UpdateUserRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, identity, target, entity);
     }
 
-    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
+    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -36,7 +36,7 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
     }
 
 
-    @Nullable
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new UpdateUserRequest(getId(), getSessionIdentifier(), getTarget(), getRequestEntity());

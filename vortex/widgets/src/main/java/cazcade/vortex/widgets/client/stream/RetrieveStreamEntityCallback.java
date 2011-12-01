@@ -3,8 +3,9 @@ package cazcade.vortex.widgets.client.stream;
 import cazcade.liquid.api.LiquidBoardURL;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.common.client.FormatUtil;
@@ -39,16 +40,16 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
 
     @Override
     public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
-        final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+        final List<LSDTransferEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
         Collections.reverse(entries);
-        for (final LSDEntity entry : entries) {
+        for (final LSDTransferEntity entry : entries) {
             if (entry.isA(LSDDictionaryTypes.COMMENT)
                     && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                 StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), autoDelete, true);
             } else {
                 if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                     //TODO: This should all be done on the serverside (see LatestContentFinder).
-                    final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
+                    final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
                     final boolean isMe = author.getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
                     final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                     final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));

@@ -4,7 +4,8 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -32,7 +33,7 @@ public class ChecklistEntryView extends Composite {
 
     private boolean checked;
     @Nonnull
-    private final LSDEntity entity;
+    private final LSDTransferEntity entity;
 
     interface ChecklistEntryViewUiBinder extends UiBinder<HTMLPanel, ChecklistEntryView> {
     }
@@ -45,7 +46,7 @@ public class ChecklistEntryView extends Composite {
     @UiField
     Label author;
 
-    public ChecklistEntryView(@Nonnull final LSDEntity newEntity) {
+    public ChecklistEntryView(@Nonnull final LSDTransferEntity newEntity) {
         super();
         entity = newEntity;
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -65,7 +66,7 @@ public class ChecklistEntryView extends Composite {
             public void onClick(final ClickEvent event) {
                 checked = !checked;
                 updateCheckStatus();
-                final LSDEntity updateEntity = entity.asUpdateEntity();
+                final LSDTransferEntity updateEntity = entity.asUpdateEntity();
                 updateEntity.setAttribute(LSDAttribute.CHECKED, checked);
                 BusFactory.getInstance().send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                 });
@@ -75,7 +76,7 @@ public class ChecklistEntryView extends Composite {
         label.setOnEditEndAction(new Runnable() {
             @Override
             public void run() {
-                final LSDEntity updateEntity = entity.asUpdateEntity();
+                final LSDTransferEntity updateEntity = entity.asUpdateEntity();
                 updateEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, label.getText());
                 BusFactory.getInstance().send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                 });
@@ -91,14 +92,14 @@ public class ChecklistEntryView extends Composite {
         }
     }
 
-    private void update(@Nonnull final LSDEntity entity) {
+    private void update(@Nonnull final LSDBaseEntity entity) {
         if (entity.hasAttribute(LSDAttribute.CHECKED)) {
             checked = entity.getBooleanAttribute(LSDAttribute.CHECKED);
         }
         if (entity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
             label.setText(entity.getAttribute(LSDAttribute.TEXT_EXTENDED));
         }
-        final LSDEntity authorEntity = entity.getSubEntity(LSDAttribute.AUTHOR, true);
+        final LSDBaseEntity authorEntity = entity.getSubEntity(LSDAttribute.AUTHOR, true);
         if (authorEntity != null) {
             author.setText(authorEntity.getAttribute(LSDAttribute.NAME));
         } else {

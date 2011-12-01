@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainRelationships;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RotateXYPoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -20,15 +20,15 @@ public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXY
     public RotateXYPoolObjectRequest handle(@Nonnull final RotateXYPoolObjectRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final FountainEntity fountainEntity = fountainNeo.findByUUID(request.getObjectUUID());
-            final FountainEntity viewFountainEntity = fountainEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(fountainEntity);
+            final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(request.getObjectUUID());
+            final LSDPersistedEntity viewPersistedEntity = persistedEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(persistedEntity);
 
             if (request.getAngle() != null) {
 
-                fountainEntity.setAttribute(LSDAttribute.VIEW_ROTATE_XY, request.getAngle());
+                persistedEntity.setAttribute(LSDAttribute.VIEW_ROTATE_XY, request.getAngle());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewFountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

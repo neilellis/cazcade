@@ -4,13 +4,13 @@ import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.api.DeletedEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
-import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.AuthorizationRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -32,25 +32,25 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
      */
     @Nonnull
     public AuthorizationRequest handle(@Nonnull final AuthorizationRequest request) throws InterruptedException {
-        final LSDEntity entity = LSDSimpleEntity.createEmpty();
+        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
         final Transaction transaction = fountainNeo.beginTx();
         try {
             if (request.getSessionIdentifier() == null) {
                 throw new AuthorizationException("No identity supplied.");
             }
-            final FountainEntity fountainEntity;
+            final LSDPersistedEntity persistedEntity;
             if (request.getTarget() != null) {
-                fountainEntity = fountainNeo.findByUUID(request.getTarget());
+                persistedEntity = fountainNeo.findByUUID(request.getTarget());
             } else {
-                fountainEntity = fountainNeo.findByURI(request.getUri());
-                if (fountainEntity == null) {
+                persistedEntity = fountainNeo.findByURI(request.getUri());
+                if (persistedEntity == null) {
                     log.warn("Client asked for authorization on  " + request.getUri() + " which could not be found.");
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_DENIAL.getValue());
                     return LiquidResponseHelper.forServerSuccess(request, entity);
                 }
             }
-            if (fountainEntity.hasAttribute(LSDAttribute.PERMISSIONS)) {
-                final boolean auth = isAuthorized(request, fountainEntity);
+            if (persistedEntity.hasAttribute(LSDAttribute.PERMISSIONS)) {
+                final boolean auth = isAuthorized(request, persistedEntity);
                 if (auth) {
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.getValue());
                 } else {
@@ -78,19 +78,19 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
     }
 
-    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final FountainEntity fountainEntity) throws InterruptedException {
+    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final LSDPersistedEntity persistedEntity) throws InterruptedException {
         boolean auth;
-        auth = fountainEntity.isAuthorized(request.getSessionIdentifier(), request.getActions());
+        auth = persistedEntity.isAuthorized(request.getSessionIdentifier(), request.getActions());
         final List<AuthorizationRequest> and = request.getAnd();
         for (final AuthorizationRequest andRequest : and) {
-            if (isAuthorized(andRequest, fountainEntity)) {
+            if (isAuthorized(andRequest, persistedEntity)) {
                 auth = false;
             }
         }
         if (!auth) {
             final List<AuthorizationRequest> alternates = request.getOr();
             for (final AuthorizationRequest orRequest : alternates) {
-                if (isAuthorized(orRequest, fountainEntity)) {
+                if (isAuthorized(orRequest, persistedEntity)) {
                     auth = true;
                     break;
                 }

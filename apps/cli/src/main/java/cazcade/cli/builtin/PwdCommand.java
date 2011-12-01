@@ -4,7 +4,7 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -36,7 +36,7 @@ public class PwdCommand extends AbstractShortLivedCommand {
 
     @Nullable
     public String run(final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
-        final LSDEntity currentPool = shellSession.getCurrentPool();
+        final LSDBaseEntity currentPool = shellSession.getCurrentPool();
         if (currentPool == null) {
             System.err.println("No current pool, please login.");
             return null;

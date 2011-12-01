@@ -2,7 +2,7 @@ package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import com.google.gwt.user.client.Command;
 
 /**
@@ -37,7 +37,7 @@ public abstract class AbstractCreateCommand implements Command {
 
 
     protected interface BuildCallback {
-        void onBuilt(LSDEntity entity);
+        void onBuilt(LSDTransferEntity entity);
 
     }
 

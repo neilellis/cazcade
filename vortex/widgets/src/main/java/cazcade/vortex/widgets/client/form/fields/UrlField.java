@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.widgets.client.image.CachedImage;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -99,7 +99,7 @@ public class UrlField extends Composite implements VortexFormField {
     }
 
     @Override
-    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String prefix) {
+    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);
         previewImage.setUrl(urlField.getValue());
     }
@@ -126,13 +126,13 @@ public class UrlField extends Composite implements VortexFormField {
 
 
     @Override
-    public LSDEntity getEntity() {
+    public LSDTransferEntity getEntity() {
         return urlField.getEntity();
     }
 
     @Nonnull
     @Override
-    public LSDEntity getEntityDiff() {
+    public LSDTransferEntity getEntityDiff() {
         return urlField.getEntityDiff();
     }
 

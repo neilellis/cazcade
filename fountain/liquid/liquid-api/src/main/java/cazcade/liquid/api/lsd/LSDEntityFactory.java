@@ -12,7 +12,7 @@ import java.util.Map;
 public interface LSDEntityFactory {
 
     @Nonnull
-    LSDEntity create(LiquidUUID uuid);
+    LSDBaseEntity create(LiquidUUID uuid);
 
     /**
      * @param properties
@@ -20,10 +20,10 @@ public interface LSDEntityFactory {
      * @return
      */
     @Nonnull
-    LSDEntity create(Map<String, String> properties, boolean dotPrefixed);
+    LSDBaseEntity create(Map<String, String> properties, boolean dotPrefixed);
 
     @Nonnull
-    LSDEntity createFromServletProperties(Map<String, String[]> properties);
+    LSDTransferEntity createFromServletProperties(Map<String, String[]> properties);
 
 
 }

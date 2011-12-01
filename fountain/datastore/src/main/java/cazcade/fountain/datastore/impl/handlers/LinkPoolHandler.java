@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
@@ -22,8 +22,8 @@ public class LinkPoolHandler extends AbstractDataStoreHandler<LinkPoolObjectRequ
             final LiquidUUID from = request.getFrom();
             final LiquidUUID to = request.getTo();
             final LiquidUUID target = request.getTarget();
-            final FountainEntity result;
-            final FountainEntity targetPool = fountainNeo.findByUUID(target);
+            final LSDPersistedEntity result;
+            final LSDPersistedEntity targetPool = fountainNeo.findByUUID(target);
 
             if (request.isUnlink()) {
 
@@ -32,7 +32,7 @@ public class LinkPoolHandler extends AbstractDataStoreHandler<LinkPoolObjectRequ
             } else {
 
                 final LiquidURI alias = request.getAlias();
-                final FountainEntity newOwner = fountainNeo.findByURI(alias);
+                final LSDPersistedEntity newOwner = fountainNeo.findByURI(alias);
                 if (from == null) {
                     result = poolDAO.linkPool(newOwner, targetPool, fountainNeo.findByUUID(to));
                 } else {

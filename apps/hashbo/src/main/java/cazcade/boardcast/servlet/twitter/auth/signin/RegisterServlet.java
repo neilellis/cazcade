@@ -28,7 +28,7 @@ package cazcade.boardcast.servlet.twitter.auth.signin;
 
 import cazcade.common.Logger;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.request.CreateAliasRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
@@ -72,7 +72,7 @@ public class RegisterServlet extends AbstractTwitterServlet {
                 response.sendRedirect(request.getContextPath() + "/_twitter/register.jsp?username=" + URLEncoder.encode(username, "utf8") + "&email=" + URLEncoder.encode(email, "utf8"));
             } else {
                 //create user
-                final LSDEntity userEntity = LoginUtil.register(session, dataStore, user.getName(), username, UUID.randomUUID().toString(), email, false);
+                final LSDBaseEntity userEntity = LoginUtil.register(session, dataStore, user.getName(), username, UUID.randomUUID().toString(), email, false);
 //                RetrieveAliasRequest retrieveAliasResponse = dataStore.process(new RetrieveAliasRequest(new LiquidSessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
 //                if(RequestUtil.positiveResponse(retrieveAliasResponse)) {
 //                    session.setAttribute(TWITTER_ALIAS_KEY, retrieveAliasResponse.getResponse());

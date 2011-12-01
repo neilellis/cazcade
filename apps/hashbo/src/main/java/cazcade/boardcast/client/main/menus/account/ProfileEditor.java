@@ -1,7 +1,8 @@
 package cazcade.boardcast.client.main.menus.account;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdateAliasRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -58,10 +59,10 @@ public class ProfileEditor extends Composite {
     @UiField
     Label cancelButton;
 
-    public ProfileEditor(@Nonnull final LSDEntity alias) {
+    public ProfileEditor(@Nonnull final LSDTransferEntity alias) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        final LSDEntity updateEntity = alias.asUpdateEntity();
+        final LSDTransferEntity updateEntity = alias.asUpdateEntity();
         imageUploader.setImageURL(alias.getAttribute(LSDAttribute.IMAGE_URL));
         imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
@@ -120,6 +121,6 @@ public class ProfileEditor extends Composite {
     }
 
     public interface ChangeAction {
-        void run(LSDEntity newAlias);
+        void run(LSDBaseEntity newAlias);
     }
 }

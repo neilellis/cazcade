@@ -13,13 +13,13 @@ public interface FountainRelationship {
     void delete();
 
     @Nonnull
-    FountainEntity getStartNode();
+    LSDPersistedEntity getStartNode();
 
     @Nonnull
-    FountainEntity getEndNode();
+    LSDPersistedEntity getEndNode();
 
     @Nonnull
-    FountainEntity getOtherNode(@Nonnull FountainEntity fountainEntity);
+    LSDPersistedEntity getOtherNode(@Nonnull LSDPersistedEntity persistedEntity);
 
     FountainRelationships getType();
 

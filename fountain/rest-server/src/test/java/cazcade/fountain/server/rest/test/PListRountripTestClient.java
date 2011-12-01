@@ -1,7 +1,7 @@
 package cazcade.fountain.server.rest.test;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
 import cazcade.liquid.impl.LSDUnmarshaler;
@@ -34,7 +34,7 @@ public class PListRountripTestClient {
         final HttpMethod getMethod = new GetMethod("http://localhost:8080/liquid/rest/1.0/pool?url=pool:///people/neil");
         getMethod.setDoAuthentication(true);
         client.executeMethod(getMethod);
-        LSDEntity poolEntity;
+        LSDTransferEntity poolEntity;
         try {
             final InputStream bodyAsStream = getMethod.getResponseBodyAsStream();
             final LSDUnmarshallerFactory lsdUnmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory");

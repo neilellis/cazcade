@@ -1,6 +1,7 @@
 package cazcade.liquid.api;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.SerializedRequest;
 
 import javax.annotation.Nonnull;
@@ -18,7 +19,7 @@ public interface LiquidMessage extends Serializable {
     void setId(LiquidUUID id);
 
     @Nullable
-    LSDEntity getRequestEntity();
+    LSDTransferEntity getRequestEntity();
 
     /**
      * TODO: Deprecate this, it's used by the GWT Bus only.
@@ -40,7 +41,7 @@ public interface LiquidMessage extends Serializable {
      *
      * @return a copy of this message.
      */
-    @Nullable
+    @Nonnull
     LiquidMessage copy();
 
     LiquidMessageState getState();
@@ -48,10 +49,10 @@ public interface LiquidMessage extends Serializable {
     void setState(LiquidMessageState status);
 
 
-    void setResponse(LSDEntity entity);
+    void setResponse(LSDTransferEntity entity);
 
     @Nullable
-    LSDEntity getResponse();
+    LSDTransferEntity getResponse();
 
     @Nonnull
     String getCacheIdentifier();
@@ -69,7 +70,7 @@ public interface LiquidMessage extends Serializable {
      * If there is a response entity returns that otherwise returns the original entity from the request.
      */
     @Nullable
-    LSDEntity getResponseOrRequestEntity();
+    LSDBaseEntity getResponseOrRequestEntity();
 
 
     @Nonnull

@@ -2,15 +2,12 @@ package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.*;
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.NodeCallback;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.impl.UUIDFactory;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -29,7 +26,7 @@ import static cazcade.liquid.api.lsd.LSDAttribute.*;
  * @author neilellis@cazcade.com
  */
 @SuppressWarnings({"UnnecessaryFullyQualifiedName"})
-public final class FountainEntityImpl extends LSDSimpleEntity implements FountainEntity {
+public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPersistedEntity {
 
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainEntityImpl.class);
@@ -118,8 +115,8 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
-    public FountainRelationship createRelationshipTo(@Nonnull final FountainEntity otherFountainEntityImpl, final FountainRelationships type) {
-        return new FountainRelationshipImpl(neoNode.createRelationshipTo(otherFountainEntityImpl.getNeoNode(), type));
+    public FountainRelationship createRelationshipTo(@Nonnull final LSDPersistedEntity otherPersistedEntityImpl, final FountainRelationships type) {
+        return new FountainRelationshipImpl(neoNode.createRelationshipTo(otherPersistedEntityImpl.getNeoNode(), type));
     }
 
 
@@ -161,7 +158,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     @SuppressWarnings({"ReturnOfThis"})
     @Override
     @Nonnull
-    public FountainEntity mergeProperties(@Nonnull final LSDEntity entity, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
+    public LSDPersistedEntity mergeProperties(@Nonnull final LSDTransferEntity entity, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
         if (hasAttribute(TYPE) && entity.hasAttribute(TYPE) && !ignoreType) {
             if (!isA(entity.getTypeDef())) {
                 throw new CannotChangeTypeException("The entity type used to be %s the request was to change it to %s", getTypeDef(), entity.getTypeDef());
@@ -200,7 +197,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     @SuppressWarnings({"ReturnOfThis"})
     @Override
     @Nonnull
-    public FountainEntity getLatestVersionFromFork() {
+    public LSDPersistedEntity getLatestVersionFromFork() {
         log.debug("Getting latest version for {0}.", getAttribute(ID));
         if (hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
             final FountainRelationship rel = getSingleRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING);
@@ -228,7 +225,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
 
     @Override
     @Nonnull
-    public FountainEntity parentNode() {
+    public LSDPersistedEntity parentNode() {
         final org.neo4j.graphdb.Relationship parentRelationship = neoNode.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
         if (parentRelationship == null) {
             throw new OrphanedEntityException("The entity with URI %s has no parent.", getAttribute(URI));
@@ -257,7 +254,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     }
 
     @Override
-    public void copyValuesToEntity(@Nonnull final LSDEntity entity, @Nonnull final LSDAttribute... attributes) {
+    public void copyValuesToEntity(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDAttribute... attributes) {
         for (final LSDAttribute attribute : attributes) {
             if (hasAttribute(attribute)) {
                 entity.copyAttribute(this, attribute);
@@ -267,9 +264,9 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
 
     @Override
     @Nullable
-    public LSDEntity convertNodeToLSD(final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
+    public LSDTransferEntity convertNodeToLSD(final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
 
-        final LSDSimpleEntity entity = createEmpty();
+        final LSDTransferEntity entity = createEmpty();
         if (hasAttribute(TYPE)) {
             entity.setAttribute(LSDAttribute.TYPE, getAttribute(TYPE));
         } else {
@@ -316,10 +313,10 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     }
 
     @Override
-    public boolean isOwner(final FountainEntity ownerFountainEntity) throws InterruptedException {
+    public boolean isOwner(final LSDPersistedEntity ownerPersistedEntity) throws InterruptedException {
         final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.OWNER, Direction.OUTGOING);
         for (final FountainRelationship relationship : relationships) {
-            if (relationship.getOtherNode(this).equals(ownerFountainEntity)) {
+            if (relationship.getOtherNode(this).equals(ownerPersistedEntity)) {
                 return true;
             }
         }
@@ -327,10 +324,10 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     }
 
     @Override
-    public boolean isAuthor(final FountainEntity ownerFountainEntity) throws InterruptedException {
+    public boolean isAuthor(final LSDPersistedEntity ownerPersistedEntity) throws InterruptedException {
         final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.AUTHOR, Direction.OUTGOING);
         for (final FountainRelationship relationship : relationships) {
-            if (relationship.getOtherNode(this).equals(ownerFountainEntity)) {
+            if (relationship.getOtherNode(this).equals(ownerPersistedEntity)) {
                 return true;
             }
         }
@@ -346,13 +343,13 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
         final Traverser traverser = traverse(Traverser.Order.DEPTH_FIRST, new StopEvaluator() {
                     @Override
                     public boolean isStopNode(@Nonnull final TraversalPosition currentPos) {
-                        final FountainEntity entity = new FountainEntityImpl(currentPos.currentNode());
+                        final LSDPersistedEntity entity = new FountainEntityImpl(currentPos.currentNode());
                         return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(identity.getUserURL().asString());
                     }
                 }, new ReturnableEvaluator() {
                     @Override
                     public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
-                        final FountainEntity entity = new FountainEntityImpl(currentPos.currentNode());
+                        final LSDPersistedEntity entity = new FountainEntityImpl(currentPos.currentNode());
                         return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(identity.getUserURL().asString());
                     }
                 }, FountainRelationships.OWNER, Direction.OUTGOING, FountainRelationships.ALIAS, Direction.OUTGOING
@@ -376,17 +373,17 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     public void forEachChild(@Nonnull final NodeCallback callback) throws Exception {
         final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final FountainRelationship relationship : relationships) {
-            final FountainEntity poolObjectFountainEntity = relationship.getOtherNode(this);
-            if (!poolObjectFountainEntity.isDeleted()) {
-                callback.call(poolObjectFountainEntity.getLatestVersionFromFork());
+            final LSDPersistedEntity poolObjectPersistedEntity = relationship.getOtherNode(this);
+            if (!poolObjectPersistedEntity.isDeleted()) {
+                callback.call(poolObjectPersistedEntity.getLatestVersionFromFork());
             }
         }
 
         final Iterable<FountainRelationship> linkedRelationships = getRelationships(FountainRelationships.LINKED_CHILD, Direction.OUTGOING);
         for (final FountainRelationship relationship : linkedRelationships) {
-            final FountainEntity poolObjectFountainEntity = relationship.getOtherNode(this);
-            if (!poolObjectFountainEntity.isDeleted()) {
-                callback.call(poolObjectFountainEntity);
+            final LSDPersistedEntity poolObjectPersistedEntity = relationship.getOtherNode(this);
+            if (!poolObjectPersistedEntity.isDeleted()) {
+                callback.call(poolObjectPersistedEntity);
             }
         }
     }
@@ -404,7 +401,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
 
     @Override
     public boolean isListed() {
-        FountainEntity boardFountainEntity = null;
+        LSDPersistedEntity boardPersistedEntity = null;
         final Iterator<org.neo4j.graphdb.Node> parentIterator = traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
             @Override
             public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
@@ -412,13 +409,13 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
             }
         }, FountainRelationships.CHILD, Direction.INCOMING, FountainRelationships.COMMENT, Direction.INCOMING).iterator();
         if (parentIterator.hasNext()) {
-            boardFountainEntity = new FountainEntityImpl(parentIterator.next());
+            boardPersistedEntity = new FountainEntityImpl(parentIterator.next());
         }
-        return boardFountainEntity != null && boardFountainEntity.getBooleanAttribute(LSDAttribute.LISTED);
+        return boardPersistedEntity != null && boardPersistedEntity.getBooleanAttribute(LSDAttribute.LISTED);
     }
 
     @Override
-    public void inheritPermissions(@Nonnull final LSDEntity parent) {
+    public void inheritPermissions(@Nonnull final LSDBaseEntity parent) {
         //        log.debug("Inheriting permission " + liquidPermissionSet);
         setAttribute(PERMISSIONS, LiquidPermissionSet.createPermissionSet(parent.getAttribute(PERMISSIONS)).restoreDeletePermission().toString());
 //        log.debug("Child now has " + getAttribute(PERMISSIONS));
@@ -507,7 +504,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements Fountai
     }
 
     @Override
-    public void setPermissionFlagsOnEntity(@Nonnull final LiquidSessionIdentifier session, @Nullable final FountainEntity parent, @Nonnull final LSDEntity entity) throws InterruptedException {
+    public void setPermissionFlagsOnEntity(@Nonnull final LiquidSessionIdentifier session, @Nullable final LSDPersistedEntity parent, @Nonnull final LSDBaseEntity entity) throws InterruptedException {
         if (parent == null) {
             entity.setAttribute(LSDAttribute.MODIFIABLE, isAuthorized(session, LiquidPermission.MODIFY));
             entity.setAttribute(LSDAttribute.EDITABLE, isAuthorized(session, LiquidPermission.EDIT));

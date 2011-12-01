@@ -3,7 +3,8 @@ package cazcade.fountain.datastore.impl.services.persistence;
 import cazcade.fountain.datastore.impl.email.EmailUtil;
 import cazcade.fountain.datastore.impl.email.MailService;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nonnull;
@@ -24,7 +25,7 @@ public class FountainEmailService {
     MailService mailService;
 
 
-    public void send(@Nonnull final LSDEntity user, @Nonnull final LSDEntity alias, final String templateName, final String subject, final Object data, final boolean test) throws UnsupportedEncodingException {
+    public void send(@Nonnull final LSDTransferEntity user, @Nonnull final LSDTransferEntity alias, final String templateName, final String subject, final Object data, final boolean test) throws UnsupportedEncodingException {
 
         final Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
@@ -38,7 +39,7 @@ public class FountainEmailService {
     }
 
 
-    public void sendRegistrationEmail(@Nonnull final LSDEntity user) throws UnsupportedEncodingException {
+    public void sendRegistrationEmail(@Nonnull final LSDTransferEntity user) throws UnsupportedEncodingException {
         //Please click on this link to complete your registration
         final String link = "http://boardcast.it/_login-confirm-reg?user=" +
                 URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
@@ -52,12 +53,12 @@ public class FountainEmailService {
 
     }
 
-    public void sendWelcomeEmail(final LSDEntity user) {
+    public void sendWelcomeEmail(final LSDBaseEntity user) {
 
     }
 
 
-    public void sendChangePasswordRequest(@Nonnull final LSDEntity user, final String hash) throws UnsupportedEncodingException {
+    public void sendChangePasswordRequest(@Nonnull final LSDTransferEntity user, final String hash) throws UnsupportedEncodingException {
         final String link = "http://boardcast.it/_password-change?username=" +
                 URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
                 "&hash=" + URLEncoder.encode(hash, "utf8");

@@ -31,10 +31,7 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidURIScheme;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
 import cazcade.liquid.api.request.UpdateAliasRequest;
@@ -70,12 +67,12 @@ public class CallbackServlet extends AbstractTwitterServlet {
             final User user = twitter.verifyCredentials();
             session.setAttribute(USER_KEY, user);
 
-            final LSDSimpleEntity twitterAlias = buildAlias(authAccessToken, user, true);
+            final LSDTransferEntity twitterAlias = buildAlias(authAccessToken, user, true);
 
             final RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new LiquidSessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
 
             if (RequestUtil.positiveResponse(retrieveAliasRequest)) {
-                final LSDEntity responseEntity = retrieveAliasRequest.getResponse();
+                final LSDBaseEntity responseEntity = retrieveAliasRequest.getResponse();
                 final LiquidMessage createSessionRequest = createSession(responseEntity.getURI());
                 if (createSessionRequest.getResponse().isA(LSDDictionaryTypes.SESSION)) {
                     final LiquidSessionIdentifier serverSession = createClientSession(session, createSessionRequest);
@@ -92,7 +89,7 @@ public class CallbackServlet extends AbstractTwitterServlet {
                 }
             }
             session.setAttribute(TWITTER_ALIAS_KEY, twitterAlias);
-            final LSDSimpleEntity cazcadeAlias = buildAlias(authAccessToken, user, false);
+            final LSDTransferEntity cazcadeAlias = buildAlias(authAccessToken, user, false);
             session.setAttribute(CAZCADE_ALIAS_KEY, cazcadeAlias);
             final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, user.getScreenName()), true));
             if (RequestUtil.positiveResponse(retrieveUserRequest)) {
@@ -107,8 +104,8 @@ public class CallbackServlet extends AbstractTwitterServlet {
     }
 
     @Nonnull
-    private LSDSimpleEntity buildAlias(@Nonnull final AccessToken authAccessToken, @Nonnull final User user, final boolean twitter) {
-        final LSDSimpleEntity alias = LSDSimpleEntity.createEmpty();
+    private LSDTransferEntity buildAlias(@Nonnull final AccessToken authAccessToken, @Nonnull final User user, final boolean twitter) {
+        final LSDTransferEntity alias = LSDSimpleEntity.createEmpty();
         alias.setType(LSDDictionaryTypes.ALIAS);
         alias.timestamp();
         if (twitter) {

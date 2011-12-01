@@ -3,6 +3,7 @@ package cazcade.vortex.widgets.client.stream.chat;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -24,7 +25,7 @@ public class ChatParser {
             if (args.length < 2) {
                 return false;
             }
-            final LSDSimpleEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
+            final LSDTransferEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
             messageEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, remainder(text, 2));
             BusFactory.getInstance().send(new SendRequest(messageEntity, args[1]), new AbstractResponseCallback<SendRequest>() {
                 @Override

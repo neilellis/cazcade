@@ -5,7 +5,7 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -44,7 +44,7 @@ public class RestrictUserCommand extends AbstractShortLivedCommand {
             return CommandSupport.alterUser(shellSession, CommandSupport.resolveUser(shellSession, args[0]), new CommandSupport.AlterEntityCallback() {
                 @Nonnull
                 @Override
-                public LSDEntity alter(@Nonnull final LSDEntity entity) {
+                public LSDTransferEntity alter(@Nonnull final LSDTransferEntity entity) {
                     entity.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "true");
                     return entity;
 

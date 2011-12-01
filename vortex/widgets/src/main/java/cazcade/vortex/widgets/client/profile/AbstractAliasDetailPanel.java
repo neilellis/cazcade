@@ -3,7 +3,8 @@ package cazcade.vortex.widgets.client.profile;
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.FollowRequest;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.api.request.UpdateAliasRequest;
@@ -72,7 +73,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     private static final boolean DM_SUPPORTED = false;
 
 
-    public void bind(final LSDEntity entity) {
+    public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(userShortName, LSDAttribute.NAME);
         addBinding(userFullName, LSDAttribute.FULL_NAME);
@@ -203,7 +204,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     }
 
 
-    public void onChange(@Nullable final LSDEntity entity) {
+    public void onChange(@Nullable final LSDBaseEntity entity) {
         if (entity == null) {
             return;
         }

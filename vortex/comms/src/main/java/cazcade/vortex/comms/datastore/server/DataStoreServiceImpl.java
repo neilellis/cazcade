@@ -6,8 +6,9 @@ import cazcade.fountain.messaging.session.ClientSession;
 import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.fountain.security.SecurityProvider;
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
@@ -225,9 +226,9 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
     @Nullable
     @Override
-    public LSDEntity register(final String fullname, @Nonnull final String username, final String password, final String emailAddress) {
+    public LSDTransferEntity register(final String fullname, @Nonnull final String username, final String password, final String emailAddress) {
         final HttpSession session = getThreadLocalRequest().getSession(true);
-        final LSDEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
+        final LSDTransferEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
             if (entity.isA(LSDDictionaryTypes.USER)) {
                 LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session);
@@ -247,7 +248,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             final LiquidMessage message;
             message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin"), new LiquidURI(LiquidURIScheme.user, username), true));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
-            final LSDEntity responseEntity = message.getResponse();
+            final LSDBaseEntity responseEntity = message.getResponse();
             return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -314,7 +315,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             final LiquidMessage message;
             message = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("admin"), board, false, false));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
-            final LSDEntity responseEntity = message.getResponse();
+            final LSDBaseEntity responseEntity = message.getResponse();
             return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -399,7 +400,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
     //todo: hacked into here temp.
-    /*   private void sendEmail(LSDEntity user) throws UnsupportedEncodingException, MessagingException {
+    /*   private void sendEmail(LSDTransferEntity user) throws UnsupportedEncodingException, MessagingException {
      if (user == null) {
          throw new RuntimeException("No user to end email to.");
      }

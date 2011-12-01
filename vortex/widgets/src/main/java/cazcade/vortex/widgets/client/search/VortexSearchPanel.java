@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.search;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.request.SearchRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -36,7 +36,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
 
     public interface ResultWidgetStrategy {
         @Nonnull
-        Widget getResultWidgetForEntity(LSDEntity subEntity);
+        Widget getResultWidgetForEntity(LSDBaseEntity subEntity);
     }
 
 
@@ -70,8 +70,8 @@ public class VortexSearchPanel extends HistoryAwareComposite {
         bus.send(new SearchRequest(search), new AbstractResponseCallback<SearchRequest>() {
             @Override
             public void onSuccess(final SearchRequest message, @Nonnull final SearchRequest response) {
-                final List<LSDEntity> subEntities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (final LSDEntity subEntity : subEntities) {
+                final List<LSDBaseEntity> subEntities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                for (final LSDBaseEntity subEntity : subEntities) {
                     final Widget widgetForEntity = resultWidgetStrategy.getResultWidgetForEntity(subEntity);
                     if (widgetForEntity != null) {
                         searchResults.addResult(widgetForEntity);

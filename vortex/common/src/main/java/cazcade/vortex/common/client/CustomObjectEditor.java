@@ -1,16 +1,16 @@
 package cazcade.vortex.common.client;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 /**
  * @author neilellis@cazcade.com
  */
 public interface CustomObjectEditor {
 
-    void show(LSDEntity object);
+    void show(LSDTransferEntity object);
 
     interface ChangeAction {
-        void run(LSDEntity updateEntity);
+        void run(LSDTransferEntity updateEntity);
     }
 
     void setOnChangeAction(ChangeAction onChangeAction);

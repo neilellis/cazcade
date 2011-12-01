@@ -5,8 +5,9 @@ import cazcade.fountain.datastore.server.FountainDataStoreServer;
 import cazcade.fountain.server.rest.cli.FountainRestServer;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.LinkPoolObjectRequest;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -111,18 +112,18 @@ public class FountainIntegrationTest {
 
     private void initaliseTestUser() throws IOException {
         testUsername = randomName("cazcadetest");
-        final LSDEntity userEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, testUsername), "user/create.xml?.email=neil.ellis@mangala.co.uk&.name=" + testUsername + "&.security.password.plain=test&.fn=Neil+Ellis&.type=" + LSDDictionaryTypes.USER.getValue());
+        final LSDBaseEntity userEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, testUsername), "user/create.xml?.email=neil.ellis@mangala.co.uk&.name=" + testUsername + "&.security.password.plain=test&.fn=Neil+Ellis&.type=" + LSDDictionaryTypes.USER.getValue());
         userId = userEntity.getUUID();
         credentials = new UsernamePasswordCredentials(testUsername, "test");
         client.getState().clearCredentials();
         client.getState().setCredentials(FountainTestClientSupport.AUTH_SCOPE, credentials);
 
-        final LSDEntity sessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, testUsername), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
+        final LSDBaseEntity sessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, testUsername), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
         sessionId = sessionEntity.getUUID().toString();
         userSession = new ClientSession(client, sessionId, testUsername);
 
         FountainTestClientSupport.callRESTApiWithGet(userSession, "alias/create.xml?me&.network=twitter&.name=" + testUsername + "&.type=Identity.Person.Alias");
-        final LSDEntity aliasEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "alias.xml?uri=alias:twitter:" + testUsername);
+        final LSDBaseEntity aliasEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "alias.xml?uri=alias:twitter:" + testUsername);
         assertTrue(aliasEntity.getTypeDef().getPrimaryType().asString().equals(LSDDictionaryTypes.ALIAS.getValue()));
 
         testUserHomePool = "pool:///people/" + testUsername;
@@ -140,14 +141,14 @@ public class FountainIntegrationTest {
 
     private void initialiseOtherUser() throws IOException {
         otherUsername = randomName("other");
-        final LSDEntity otherEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, otherUsername), "user/create.xml?.email=other@cazcade.com&.name=" + otherUsername + "&.security.password.plain=other&.fn=Other+User&.type=" + LSDDictionaryTypes.USER.getValue());
+        final LSDBaseEntity otherEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, otherUsername), "user/create.xml?.email=other@cazcade.com&.name=" + otherUsername + "&.security.password.plain=other&.fn=Other+User&.type=" + LSDDictionaryTypes.USER.getValue());
         otherId = otherEntity.getUUID();
         userId = otherEntity.getUUID();
         credentials = new UsernamePasswordCredentials(otherUsername, "other");
         client.getState().clearCredentials();
         client.getState().setCredentials(FountainTestClientSupport.AUTH_SCOPE, credentials);
 
-        final LSDEntity otherSessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, otherUsername), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
+        final LSDBaseEntity otherSessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, otherUsername), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
         sessionId = otherSessionEntity.getUUID().toString();
 
         otherUserSession = new ClientSession(client, sessionId, otherUsername);
@@ -164,11 +165,11 @@ public class FountainIntegrationTest {
     @Test
     public void test() throws IOException, InterruptedException {
         Thread.sleep(1000);
-        final LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
+        final LSDBaseEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         System.err.println(testEntity.toString());
         Assert.assertTrue(testEntity.getTypeDef().getPrimaryType().getClassOnlyType().asString().equals(LSDDictionaryTypes.BITMAP_IMAGE_2D.getValue()));
 
-        final LSDEntity testEntity2 = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/stream%23rssdfeed01");
+        final LSDBaseEntity testEntity2 = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/stream%23rssdfeed01");
         System.err.println(testEntity2.toString());
         Assert.assertEquals("http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml", testEntity2.getAttribute(LSDAttribute.SOURCE));
         Assert.assertEquals("pool:///people/" + testUsername + "/stream#rssdfeed01", testEntity2.getAttribute(LSDAttribute.URI));
@@ -178,7 +179,7 @@ public class FountainIntegrationTest {
     @Test
     public void testWithContents() throws IOException, InterruptedException {
         Thread.sleep(1000);
-        final LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "&contents");
+        final LSDBaseEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "&contents");
         System.err.println(testEntity.toString());
         Assert.assertTrue(testEntity.getTypeDef().asString().equals(LSDDictionaryTypes.POOL2D.getValue()));
     }
@@ -188,22 +189,22 @@ public class FountainIntegrationTest {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
         final String objectURL = testUserHomePool + "%23TestObject4";
 
-        LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
+        LSDTransferEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
         FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID(), testEntity, "alias:cazcade:" + testUsername);
         FountainTestClientSupport.callRESTApiWithGet(userSession, "comment/create.xml?uri=" + objectURL + "&text=HelloWorld&image=" + URLEncoder.encode("http://www.google.co.uk/logos/2011/calder11-sr.png"));
         Thread.sleep(2000);
-        LSDEntity commentList = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?uri=" + objectURL);
-        List<LSDEntity> comments = commentList.getSubEntities(LSDAttribute.CHILD);
+        LSDBaseEntity commentList = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?uri=" + objectURL);
+        List<LSDBaseEntity> comments = commentList.getSubEntities(LSDAttribute.CHILD);
         Assert.assertEquals(1, comments.size());
         log.debug("Child");
-        log.debug(comments.get(0).dump());
+        log.debug("{0}", comments.get(0));
         log.debug("Child finished.");
         Assert.assertEquals("HelloWorld", comments.get(0).getAttribute(LSDAttribute.TEXT_EXTENDED));
 
 
-        LSDEntity updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
+        LSDBaseEntity updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
         Assert.assertEquals(CAZCADE_COPYRIGHT_STATEMENT, updatedEntity.getAttribute(LSDAttribute.RIGHTS));
         Assert.assertNotSame("999", updatedEntity.getAttribute(LSDAttribute.VIEW_X));
 
@@ -220,7 +221,7 @@ public class FountainIntegrationTest {
         Assert.assertEquals(1, comments.size());
         Assert.assertEquals("HelloWorld", comments.get(0).getAttribute(LSDAttribute.TEXT_EXTENDED));
         listenThread.stop();
-        //LSDEntity comments = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?url=" + objectURL);
+        //LSDTransferEntity comments = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?url=" + objectURL);
     }
 
     @Test
@@ -230,14 +231,14 @@ public class FountainIntegrationTest {
         }
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
 
-        final LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
+        final LSDTransferEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
         FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID(), testEntity, "alias:cazcade:" + testUsername);
         Thread.sleep(3000);
 
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID() + "/link?to=" + testUserPublicPoolId);
-        final LSDEntity copy = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/public%23TestObject4");
+        final LSDBaseEntity copy = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/public%23TestObject4");
         Assert.assertEquals(testUserHomePool + "/public#TestObject4", copy.getAttribute(LSDAttribute.URI));
         listenThread.stop();
     }
@@ -246,12 +247,12 @@ public class FountainIntegrationTest {
     public void testRelocateObject() throws IOException, InterruptedException {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
 
-        final LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
+        final LSDBaseEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID() + "/relocate?to=" + testUserPublicPoolId);
         Thread.sleep(1000);
-        final LSDEntity relocated = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/public%23TestObject4");
+        final LSDBaseEntity relocated = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/public%23TestObject4");
         Assert.assertEquals(testUserHomePool + "/public#TestObject4", relocated.getAttribute(LSDAttribute.URI));
-        final LSDEntity original = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
+        final LSDBaseEntity original = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         Assert.assertEquals("System.Entity.Empty", original.getTypeDef().getPrimaryType().asString());
 
         listenThread.stop();
@@ -261,7 +262,7 @@ public class FountainIntegrationTest {
     public void testRelocateFail() throws IOException, InterruptedException {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
 
-        final LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
+        final LSDTransferEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
         FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID(), testEntity, "alias:cazcade:" + testUsername);
@@ -269,7 +270,7 @@ public class FountainIntegrationTest {
 
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID() + "/relocate?to=" + testUserPublicPoolId);
         Thread.sleep(1000);
-        final LSDEntity relocated = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/public%23TestObject4");
+        final LSDBaseEntity relocated = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "/public%23TestObject4");
         Assert.assertEquals("System.Entity.Empty", relocated.getTypeDef().getPrimaryType().asString());
 
         listenThread.stop();
@@ -279,7 +280,7 @@ public class FountainIntegrationTest {
     public void testUnlinkObject() throws IOException, InterruptedException {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
 
-        LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
+        LSDTransferEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         testEntity.setAttribute(LSDAttribute.VIEW_X, "999");
         FountainTestClientSupport.putEntityToURL(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID(), testEntity, "alias:cazcade:" + testUsername);
@@ -288,7 +289,7 @@ public class FountainIntegrationTest {
         testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + testUserHomePoolId + "/" + testEntity.getUUID() + "/unlink");
         Thread.sleep(1000);
-        final LSDEntity deletedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
+        final LSDBaseEntity deletedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "%23TestObject4");
         Assert.assertEquals("Image.Bitmap.2DBitmap", deletedEntity.getAttribute(LSDAttribute.TYPE));
         listenThread.stop();
     }
@@ -296,11 +297,11 @@ public class FountainIntegrationTest {
     @Test
     public void testUpdatePool() throws IOException, InterruptedException {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, testUserHomePool, credentials);
-        final LSDEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + testUserHomePool);
+        final LSDTransferEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + testUserHomePool);
         testEntity.setAttribute(LSDAttribute.RIGHTS, CAZCADE_COPYRIGHT_STATEMENT);
         FountainTestClientSupport.putEntityToURL(userSession, "pool/update?uri=" + testUserHomePool, testEntity, "alias:cazcade:" + testUsername);
         Thread.sleep(1000);
-        final LSDEntity updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + testUserHomePool);
+        final LSDBaseEntity updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + testUserHomePool);
         Assert.assertEquals(CAZCADE_COPYRIGHT_STATEMENT, updatedEntity.getAttribute(LSDAttribute.RIGHTS));
         listenThread.stop();
     }
@@ -315,17 +316,17 @@ public class FountainIntegrationTest {
     @Test
     public void testDeleteObject() throws IOException, InterruptedException {
         writeThenDeleteObjectTest(testUserHomePool);
-        final LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "&contents");
+        final LSDBaseEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + testUserHomePool + "&contents");
     }
 
     @Test
     public void testCannotDeletePublicPool() throws InterruptedException, IOException {
         final String LiquidURI = testUserHomePool + "/public";
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, LiquidURI, credentials);
-        final LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + LiquidURI);
+        final LSDBaseEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + LiquidURI);
         Thread.sleep(500);
         try {
-            final LSDEntity deletionEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + poolEntity.getUUID().toString() + "/delete");
+            final LSDBaseEntity deletionEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/" + poolEntity.getUUID().toString() + "/delete");
             Assert.fail("Was able to delete public pool, fool!");
         } catch (ClientTestStatusCodeException e) {
         } finally {
@@ -339,7 +340,7 @@ public class FountainIntegrationTest {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, LiquidURI, credentials);
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/create.xml?parent=" + LiquidURI + "&name=testchild&title=" + URLEncoder.encode(TITLE) + "&description=&x=0&y=0");
         Thread.sleep(500);
-        final LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + LiquidURI + "/testchild");
+        final LSDBaseEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + LiquidURI + "/testchild");
         Assert.assertEquals(TITLE, poolEntity.getAttribute(LSDAttribute.TITLE));
         listenThread.stop();
     }
@@ -350,11 +351,11 @@ public class FountainIntegrationTest {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, LiquidURI, credentials);
         FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/create.xml?parent=" + LiquidURI + "&name=testchildfordelete&title=&description=&x=0&y=0");
         Thread.sleep(500);
-        final LSDEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + LiquidURI + "/testchildfordelete");
-        final LSDEntity deletionEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/delete?uri=" + poolEntity.getURI());
+        final LSDBaseEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + LiquidURI + "/testchildfordelete");
+        final LSDBaseEntity deletionEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool/delete?uri=" + poolEntity.getURI());
         Thread.sleep(500);
         try {
-            final LSDEntity entityToTest = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + LiquidURI + "/testchildfordelete");
+            final LSDBaseEntity entityToTest = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + LiquidURI + "/testchildfordelete");
             Assert.fail("Was able to retrieve deleted pool, fool!");
         } catch (ClientTestStatusCodeException e) {
         } finally {
@@ -366,11 +367,11 @@ public class FountainIntegrationTest {
     @Test
     public void testOtherPool() throws IOException, InterruptedException {
         final String LiquidURI = "pool:///people/" + otherUsername;
-        final LSDEntity readTestEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + LiquidURI + "%23TestObject4");
+        final LSDBaseEntity readTestEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?uri=" + LiquidURI + "%23TestObject4");
         Assert.assertEquals("Failed to read test object.", "TestObject4", readTestEntity.getAttribute(LSDAttribute.NAME));
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, LiquidURI, credentials);
         try {
-            final LSDEntity entity = FountainTestClientSupport.writeThenGetTestPoolObject(userSession, LiquidURI);
+            final LSDBaseEntity entity = FountainTestClientSupport.writeThenGetTestPoolObject(userSession, LiquidURI);
             Assert.fail("Was able to add to non-public pool, fool!");
         } catch (ClientTestStatusCodeException e) {
         } finally {
@@ -382,7 +383,7 @@ public class FountainIntegrationTest {
     public void testOtherPublicPool() throws IOException, InterruptedException {
         final String LiquidURI = "pool:///people/" + otherUsername + "/public";
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, LiquidURI, credentials);
-        final LSDEntity entity = FountainTestClientSupport.writeThenGetTestPoolObject(userSession, LiquidURI);
+        final LSDBaseEntity entity = FountainTestClientSupport.writeThenGetTestPoolObject(userSession, LiquidURI);
         Thread.sleep(100);
         Assert.assertEquals("Should be able to add to other user's public pool.", "Image.Bitmap.2DBitmap", entity.getTypeDef().getPrimaryType().asString());
         listenThread.stop();
@@ -390,19 +391,19 @@ public class FountainIntegrationTest {
 
 //    public void testOtherDropPool() throws IOException, InterruptedException {
 //        String LiquidURI = "pool:///users/" + otherUsername+"/drop";
-//        LSDEntity entity = writeTestPool(userSession, LiquidURI);
+//        LSDTransferEntity entity = writeTestPool(userSession, LiquidURI);
 //        Thread.sleep(100);
 //        assertEquals("Should be able to add to other user's drop pool.", "Image.Bitmap.2DBitmap.GIF", entity.getTypeDef().getPrimaryType().toString());
-//        LSDEntity readTestEntity = getTestPoolObject(userSession, LiquidURI, "TestObject4");
+//        LSDTransferEntity readTestEntity = getTestPoolObject(userSession, LiquidURI, "TestObject4");
 //        assertEquals("Failed to read test object.", "TestObject4", readTestEntity.getAttribute(LSDDictionary.NAME));
 //    }
 
     private void writeThenDeleteObjectTest(final String poolURI) throws IOException, InterruptedException {
         final Thread listenThread = FountainTestClientSupport.listenToSession(sessionId, poolURI, credentials);
-        final LSDEntity createdObject = FountainTestClientSupport.writeThenGetTestPoolObject(userSession, poolURI);
-        final LSDEntity deletedEntity = FountainTestClientSupport.writeThenDeleteTestPoolObject(userSession, poolURI);
+        final LSDBaseEntity createdObject = FountainTestClientSupport.writeThenGetTestPoolObject(userSession, poolURI);
+        final LSDBaseEntity deletedEntity = FountainTestClientSupport.writeThenDeleteTestPoolObject(userSession, poolURI);
         Thread.sleep(1000);
-        final LSDEntity entityToTest = FountainTestClientSupport.getTestPoolObject(userSession, poolURI, deletedEntity.getAttribute(LSDAttribute.NAME));
+        final LSDBaseEntity entityToTest = FountainTestClientSupport.getTestPoolObject(userSession, poolURI, deletedEntity.getAttribute(LSDAttribute.NAME));
         Assert.assertEquals("System.Entity.Empty", entityToTest.getTypeDef().getPrimaryType().asString());
         Thread.sleep(1000);
         listenThread.stop();

@@ -7,7 +7,7 @@ import cazcade.fountain.datastore.impl.FountainUserDAO;
 import cazcade.fountain.index.persistence.dao.AliasDAO;
 import cazcade.fountain.index.persistence.entities.AliasEntity;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -63,7 +63,7 @@ public class FountainUserUpdateService {
 
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
-            public void process(@Nonnull final LSDEntity userEntity, @Nonnull final LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
+            public void process(@Nonnull final LSDTransferEntity userEntity, @Nonnull final LSDTransferEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
                 log.info("Sending update to " + aliasEntity.getURI());
                 final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.getURI().asString());
                 long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null ? alias.getLastEmailUpdateDate().getTime() : yesterday;

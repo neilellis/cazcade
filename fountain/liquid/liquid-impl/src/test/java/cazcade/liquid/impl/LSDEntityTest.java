@@ -1,8 +1,8 @@
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import junit.framework.TestCase;
 
@@ -28,8 +28,8 @@ public class LSDEntityTest extends TestCase {
 //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
 //        LSDNode lsdNode = entity.asFormatIndependentTree();
         System.out.println(entity.dump());
-        final List<LSDEntity> lsdEntities = entity.getSubEntities(LSDAttribute.CHILD);
-        for (final LSDEntity lsdEntity : lsdEntities) {
+        final List<LSDTransferEntity> lsdEntities = (List<LSDTransferEntity>) entity.getSubEntities(LSDAttribute.CHILD);
+        for (final LSDTransferEntity lsdEntity : lsdEntities) {
             System.out.printf("****** %s ******%n", lsdEntity.dump());
             final Map<String, String> stringMap = lsdEntity.getMap();
             for (final Map.Entry<String, String> entry : stringMap.entrySet()) {

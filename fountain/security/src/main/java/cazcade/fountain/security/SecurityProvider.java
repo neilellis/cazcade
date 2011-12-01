@@ -5,7 +5,7 @@ import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.request.RetrieveUserRequest;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -44,7 +44,7 @@ public class SecurityProvider {
         }
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         try {
-            final LSDEntity lsdEntity = loadUserInternal(username);
+            final LSDBaseEntity lsdEntity = loadUserInternal(username);
             final String hashedPassword = lsdEntity.getAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD);
             if (!lsdEntity.getBooleanAttribute(LSDAttribute.SECURITY_BLOCKED) && passwordEncryptor.checkPassword(password, hashedPassword)) {
                 return new LiquidPrincipal(new LiquidSessionIdentifier(username).getName());
@@ -58,9 +58,9 @@ public class SecurityProvider {
     }
 
     @Nullable
-    public LSDEntity loadUserInternal(@Nonnull final String username) throws Exception {
+    public LSDBaseEntity loadUserInternal(@Nonnull final String username) throws Exception {
         final LiquidMessage message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier(username), new LiquidURI(LiquidURIScheme.user, username), true));
-        final LSDEntity lsdEntity = message.getResponse();
+        final LSDBaseEntity lsdEntity = message.getResponse();
         return lsdEntity;
     }
 }

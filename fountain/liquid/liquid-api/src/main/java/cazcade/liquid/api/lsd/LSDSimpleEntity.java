@@ -11,7 +11,7 @@ import java.util.*;
  * @author Neil Ellis
  */
 
-public class LSDSimpleEntity implements LSDEntity {
+public class LSDSimpleEntity implements LSDTransferEntity {
     private static final String ID_KEY = LSDAttribute.ID.getKeyName();
     private static final String TYPE_KEY = LSDAttribute.TYPE.getKeyName();
 
@@ -114,14 +114,14 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     @Nonnull
-    public LSDEntity getSubEntity(@Nonnull final LSDAttribute path, final boolean readonlyEntity) {
+    public LSDTransferEntity getSubEntity(@Nonnull final LSDAttribute path, final boolean readonlyEntity) {
         final String keyString = path.getKeyName();
         return getSubEntity(keyString, readonlyEntity);
     }
 
     @Nonnull
-    private LSDEntity getSubEntity(@Nonnull final String keyString, final boolean readonlyEntity) {
-        final LSDEntity subEntity = createEmpty();
+    private LSDTransferEntity getSubEntity(@Nonnull final String keyString, final boolean readonlyEntity) {
+        final LSDTransferEntity subEntity = createEmpty();
         for (final String key : lsdProperties.getProperties()) {
             if (key.startsWith(keyString + '.')) {
                 final String subEntityKey = key.substring(keyString.length() + 1);
@@ -135,9 +135,9 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     @Nonnull
-    public LSDEntity removeSubEntity(@Nonnull final LSDAttribute path) {
+    public LSDTransferEntity removeSubEntity(@Nonnull final LSDAttribute path) {
         final String keyString = path.getKeyName();
-        final LSDSimpleEntity subEntity = createEmpty();
+        final LSDTransferEntity subEntity = createEmpty();
         final Collection<String> toDelete = new ArrayList<String>();
         for (final String key : lsdProperties.getProperties()) {
             if (key.startsWith(keyString + '.')) {
@@ -314,7 +314,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Override
-    public void copyAttribute(@Nonnull final LSDEntity entity, final LSDAttribute attribute) {
+    public void copyAttribute(@Nonnull final LSDBaseEntity entity, final LSDAttribute attribute) {
         setAttribute(attribute, entity.getAttribute(attribute));
     }
 
@@ -336,7 +336,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     @Nonnull
-    public List<LSDEntity> getSubEntities(@Nonnull final LSDAttribute key) {
+    public List<? extends LSDBaseEntity> getSubEntities(@Nonnull final LSDAttribute key) {
         final String keyString = key.getKeyName();
         final TreeMap<Integer, LSDSimpleEntity> entities = new TreeMap<Integer, LSDSimpleEntity>();
         for (final String property : lsdProperties.getProperties()) {
@@ -360,14 +360,14 @@ public class LSDSimpleEntity implements LSDEntity {
                 }
                 LSDSimpleEntity subEntity = entities.get(subEntityNumber);
                 if (subEntity == null) {
-                    subEntity = createEmpty();
+                    subEntity = (LSDSimpleEntity) createEmpty();
                     entities.put(subEntityNumber, subEntity);
                 }
                 subEntity.setValue(subEntityKey, lsdProperties.get(property));
             }
 
         }
-        return new ArrayList<LSDEntity>(entities.values());
+        return new ArrayList<LSDBaseEntity>(entities.values());
     }
 
     @Nonnull
@@ -442,7 +442,7 @@ public class LSDSimpleEntity implements LSDEntity {
     public String getAttribute(@Nonnull final LSDAttribute attribute) {
         final String value = lsdProperties.get(attribute.getKeyName());
 //        if (value != null && !key.isValidFormat(FORMAT_VALIDATOR, (value))) {
-//            throw new IllegalArgumentException("The value in this LSDEntity for " + key.name() + " was " + value + " which is invalid according to the dictionary.");
+//            throw new IllegalArgumentException("The value in this LSDTransferEntity for " + key.name() + " was " + value + " which is invalid according to the dictionary.");
 //        }
         return value;
     }
@@ -682,7 +682,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Override
-    public void addAnonymousSubEntity(@Nonnull final LSDAttribute stem, @Nonnull final LSDEntity entity) {
+    public void addAnonymousSubEntity(@Nonnull final LSDAttribute stem, @Nonnull final LSDTransferEntity entity) {
         assertNotReadonly();
         final Map<String, String> map = entity.getMap();
         for (final Map.Entry<String, String> entry : map.entrySet()) {
@@ -691,7 +691,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Override
-    public void addSubEntity(@Nonnull final LSDAttribute stem, @Nullable final LSDEntity entity, final boolean requiresId) {
+    public void addSubEntity(@Nonnull final LSDAttribute stem, @Nullable final LSDTransferEntity entity, final boolean requiresId) {
         assertNotReadonly();
         if (entity == null) {
             throw new NullPointerException("Attempted to add a null sub entity using stem " + stem);
@@ -713,13 +713,13 @@ public class LSDSimpleEntity implements LSDEntity {
 
 
     @Override
-    public void addSubEntities(@Nonnull final LSDAttribute stem, @Nonnull final Collection<LSDEntity> entities) {
+    public void addSubEntities(@Nonnull final LSDAttribute stem, @Nonnull final Collection<LSDBaseEntity> entities) {
         assertNotReadonly();
         if (!stem.isSubEntity()) {
             throw new IllegalArgumentException("Cannot add a sub entity to a non sub entity property '" + stem.getKeyName() + "'.");
         }
         int count = 1;
-        for (final LSDEntity entity : entities) {
+        for (final LSDBaseEntity entity : entities) {
             if (entity.getUUID() == null) {
                 throw new IllegalArgumentException("Attempted to add a sub entity which had no id.");
             }
@@ -762,7 +762,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
     @Override
     @Nonnull
-    public LSDEntity copy() {
+    public LSDTransferEntity copy() {
         return createFromProperties(lsdProperties.asMap());
     }
 
@@ -864,6 +864,11 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Override
+    public boolean isSerializable() {
+        return lsdProperties.isSerializable();
+    }
+
+    @Override
     public void timestamp() {
         lsdProperties.put(LSDAttribute.UPDATED.getKeyName(), String.valueOf(System.currentTimeMillis()));
     }
@@ -871,7 +876,7 @@ public class LSDSimpleEntity implements LSDEntity {
     @Override
     public boolean equals(@Nullable final Object o) {
         final LiquidURI uri = getURI();
-        return this == o || !(o == null || getClass() != o.getClass()) && uri != null && uri.equals(((LSDEntity) o).getURI());
+        return this == o || !(o == null || getClass() != o.getClass()) && uri != null && uri.equals(((LSDBaseEntity) o).getURI());
     }
 
     @Override
@@ -881,7 +886,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Nonnull
-    public static LSDSimpleEntity createEmpty() {
+    public static LSDTransferEntity createEmpty() {
         final LSDSimpleEntity entity = new LSDSimpleEntity();
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         return entity;
@@ -889,7 +894,7 @@ public class LSDSimpleEntity implements LSDEntity {
 
 
     @Nonnull
-    public static LSDSimpleEntity createNewEntity(@Nonnull final LSDDictionaryTypes type, @Nonnull final LiquidUUID uuid) {
+    public static LSDTransferEntity createNewTransferEntity(@Nonnull final LSDDictionaryTypes type, @Nonnull final LiquidUUID uuid) {
         final LSDSimpleEntity entity = new LSDSimpleEntity();
         entity.setType(type);
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
@@ -899,7 +904,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Nonnull
-    public static LSDSimpleEntity createNewEntity(@Nonnull final LSDDictionaryTypes type) {
+    public static LSDTransferEntity createNewEntity(@Nonnull final LSDDictionaryTypes type) {
         final LSDSimpleEntity entity = new LSDSimpleEntity();
         entity.setType(type);
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
@@ -908,7 +913,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Nonnull
-    public static LSDSimpleEntity createNewEntity(@Nonnull final LSDTypeDef type, @Nonnull final LiquidUUID uuid) {
+    public static LSDTransferEntity createNewEntity(@Nonnull final LSDTypeDef type, @Nonnull final LiquidUUID uuid) {
         final LSDSimpleEntity entity = new LSDSimpleEntity();
         entity.setTypeDef(type);
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
@@ -918,7 +923,7 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Nonnull
-    public static LSDSimpleEntity createNewEntity(@Nonnull final LSDTypeDef type) {
+    public static LSDTransferEntity createNewEntity(@Nonnull final LSDTypeDef type) {
         final LSDSimpleEntity entity = new LSDSimpleEntity();
         entity.setTypeDef(type);
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
@@ -947,21 +952,21 @@ public class LSDSimpleEntity implements LSDEntity {
     }
 
     @Override
-    public boolean isNewerThan(@Nonnull final LSDEntity entity) {
+    public boolean isNewerThan(@Nonnull final LSDBaseEntity entity) {
         final Date updated = getUpdated();
         return updated != null && updated.after(entity.getUpdated());
     }
 
     @Override
-    public boolean wasPublishedAfter(@Nonnull final LSDEntity entity) {
+    public boolean wasPublishedAfter(@Nonnull final LSDBaseEntity entity) {
         final Date published = getPublished();
         return published != null && published.after(entity.getPublished());
     }
 
     @Nonnull
     @Override
-    public LSDEntity asUpdateEntity() {
-        final LSDSimpleEntity newEntity = createNewEntity(getTypeDef(), getUUID());
+    public LSDTransferEntity asUpdateEntity() {
+        final LSDSimpleEntity newEntity = (LSDSimpleEntity) createNewEntity(getTypeDef(), getUUID());
         final LiquidURI uri = getURI();
         if (uri == null) {
             throw new NullPointerException("Attempted to user a null uri in 'asUpdateEntity' in LSDSimpleEntity.");

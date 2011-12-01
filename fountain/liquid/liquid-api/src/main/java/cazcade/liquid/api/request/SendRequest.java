@@ -1,7 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,11 +17,11 @@ public class SendRequest extends AbstractRequest {
         super();
     }
 
-    public SendRequest(final LiquidSessionIdentifier identity, final LSDEntity entity, final String recipient) {
+    public SendRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
         this(null, identity, entity, recipient);
     }
 
-    public SendRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LSDEntity entity, final String recipient) {
+    public SendRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
         super();
         setId(id);
         setSessionId(identity);
@@ -29,7 +29,7 @@ public class SendRequest extends AbstractRequest {
         setRequestEntity(entity);
     }
 
-    public SendRequest(final LSDEntity entity, final String recipient) {
+    public SendRequest(final LSDTransferEntity entity, final String recipient) {
         this(null, null, entity, recipient);
     }
 

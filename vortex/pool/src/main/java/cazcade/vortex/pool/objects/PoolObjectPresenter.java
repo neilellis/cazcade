@@ -1,6 +1,6 @@
 package cazcade.vortex.pool.objects;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public interface PoolObjectPresenter<T extends PoolObjectView> {
 
-    LSDEntity getEntity();
+    LSDTransferEntity getEntity();
 
     Widget getPoolObjectView();
 

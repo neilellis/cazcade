@@ -4,8 +4,8 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
@@ -107,7 +107,7 @@ public class CommentPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            final LSDEntity response = message.getResponse();
+                            final LSDBaseEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                                 addStreamEntry(new CommentEntryPanel(response));

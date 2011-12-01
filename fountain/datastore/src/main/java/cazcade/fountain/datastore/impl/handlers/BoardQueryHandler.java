@@ -5,7 +5,7 @@ import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainBoardQueryDAO;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.BoardQueryRequestHandler;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.BoardQueryRequest;
 import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class BoardQueryHandler extends AbstractDataStoreHandler<BoardQueryReques
         try {
             log.debug("Processing Pool Query of type {0}", request.getQueryType());
 
-            final LSDEntity searchResultEntity;
+            final LSDTransferEntity searchResultEntity;
             if (request.getQueryType() == BoardQueryRequest.QueryType.POPULAR) {
                 searchResultEntity = queryDAO.getPopularBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
             } else if (request.getQueryType() == BoardQueryRequest.QueryType.HISTORY) {

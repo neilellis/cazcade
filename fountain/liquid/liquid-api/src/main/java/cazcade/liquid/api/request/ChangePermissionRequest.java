@@ -27,7 +27,7 @@ public class ChangePermissionRequest extends AbstractRequest {
     }
 
 
-    @Nullable
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new ChangePermissionRequest(getId(), getSessionIdentifier(), getUri(), getPermission());

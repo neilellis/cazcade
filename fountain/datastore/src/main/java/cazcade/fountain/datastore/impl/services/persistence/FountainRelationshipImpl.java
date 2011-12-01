@@ -1,8 +1,8 @@
 package cazcade.fountain.datastore.impl.services.persistence;
 
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 import javax.annotation.Nonnull;
@@ -38,32 +38,32 @@ public class FountainRelationshipImpl implements FountainRelationship {
 
     @Override
     @Nonnull
-    public FountainEntity getStartNode() {
+    public LSDPersistedEntity getStartNode() {
         return new FountainEntityImpl(relationship.getStartNode());
     }
 
 
     @Override
     @Nonnull
-    public FountainEntity getEndNode() {
+    public LSDPersistedEntity getEndNode() {
         return new FountainEntityImpl(relationship.getEndNode());
     }
 
 
     @Override
     @Nonnull
-    public FountainEntity getOtherNode(@Nonnull final FountainEntity fountainEntity) {
-        return new FountainEntityImpl(relationship.getOtherNode(fountainEntity.getNeoNode()));
+    public LSDPersistedEntity getOtherNode(@Nonnull final LSDPersistedEntity persistedEntity) {
+        return new FountainEntityImpl(relationship.getOtherNode(persistedEntity.getNeoNode()));
     }
 
 
-    public FountainEntity[] getNodes() {
-        final List<FountainEntity> fountainFountainEntities = new ArrayList<FountainEntity>();
+    public LSDPersistedEntity[] getNodes() {
+        final List<LSDPersistedEntity> fountainPersistedEntities = new ArrayList<LSDPersistedEntity>();
         final org.neo4j.graphdb.Node[] nodes = relationship.getNodes();
         for (final org.neo4j.graphdb.Node node : nodes) {
-            fountainFountainEntities.add(new FountainEntityImpl(node));
+            fountainPersistedEntities.add(new FountainEntityImpl(node));
         }
-        return fountainFountainEntities.toArray(new FountainEntity[fountainFountainEntities.size()]);
+        return fountainPersistedEntities.toArray(new LSDPersistedEntity[fountainPersistedEntities.size()]);
     }
 
 

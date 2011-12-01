@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import com.google.gwt.core.client.GWT;
@@ -45,7 +45,7 @@ public class VortexAddressPicker extends VortexCompoundFormField {
     }
 
     @Override
-    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String prefix) {
+    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
         setEntity(entity.getSubEntity(attribute, false));
         final Map<LSDAttribute, VortexFormField> map = new HashMap<LSDAttribute, VortexFormField>();
         map.put(LSDAttribute.ADDRESS_FIRST_LINE, addressFirstLine);

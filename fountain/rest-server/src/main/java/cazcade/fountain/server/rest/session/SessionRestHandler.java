@@ -7,8 +7,8 @@ import cazcade.liquid.api.ClientApplicationIdentifier;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDEntityFactory;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.liquid.api.request.DeleteSessionRequest;
 import cazcade.liquid.api.request.RetrieveSessionRequest;
@@ -44,7 +44,7 @@ public class SessionRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID sessionId, final LSDEntity lsdEntity) throws URISyntaxException {
+    public LiquidMessage update(final LiquidUUID sessionId, final LSDTransferEntity lsdEntity) throws URISyntaxException {
         final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new UpdateSessionRequest(username, sessionId, lsdEntity, false));
     }

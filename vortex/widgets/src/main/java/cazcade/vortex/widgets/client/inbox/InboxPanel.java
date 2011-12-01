@@ -2,7 +2,7 @@ package cazcade.vortex.widgets.client.inbox;
 
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -52,8 +52,8 @@ public class InboxPanel extends Composite {
         BusFactory.getInstance().send(new RetrievePoolRequest(UserUtil.getInboxURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
             public void onSuccess(final RetrievePoolRequest request, @Nonnull final RetrievePoolRequest response) {
-                final List<LSDEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (final LSDEntity message : messages) {
+                final List<LSDBaseEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                for (final LSDBaseEntity message : messages) {
                     list.addEntry(new DirectMessageListEntryPanel(message, features));
                 }
             }

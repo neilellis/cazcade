@@ -9,6 +9,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.AddCommentRequest;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.impl.UUIDFactory;
@@ -30,7 +31,7 @@ public class CommentRestHandler extends AbstractRestHandler {
         final String text = parameters.get("text")[0];
         final String image = parameters.get("image")[0];
         final String uri = parameters.get("uri")[0];
-        final LSDSimpleEntity message = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT, UUIDFactory.randomUUID());
+        final LSDTransferEntity message = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT, UUIDFactory.randomUUID());
         message.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
         message.setAttribute(LSDAttribute.IMAGE_URL, image);
         message.setAttribute(LSDAttribute.ICON_URL, image);

@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.search;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -27,7 +27,7 @@ public class VortexSearchResult extends Composite {
     @UiField
     Label uri;
 
-    public VortexSearchResult(@Nonnull final LSDEntity subEntity) {
+    public VortexSearchResult(@Nonnull final LSDBaseEntity subEntity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         title.setText(subEntity.getAttribute(LSDAttribute.TITLE));

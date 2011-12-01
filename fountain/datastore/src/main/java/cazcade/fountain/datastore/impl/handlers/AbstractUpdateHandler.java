@@ -4,7 +4,7 @@ import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.AbstractUpdateRequest;
 
 import javax.annotation.Nonnull;
@@ -16,7 +16,7 @@ public class AbstractUpdateHandler<T extends AbstractUpdateRequest> extends Abst
     public T handle(@Nonnull final T request) throws Exception {
         final LiquidURI uri = request.getUri();
         final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
-        final LSDEntity requestEntity = request.getRequestEntity();
+        final LSDTransferEntity requestEntity = request.getRequestEntity();
         if (sessionIdentifier == null) {
             throw new NullPointerException("Attempted to call an update handler with a null session identifier.");
         }

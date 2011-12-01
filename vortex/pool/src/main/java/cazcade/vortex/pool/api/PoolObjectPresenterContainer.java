@@ -1,7 +1,7 @@
 package cazcade.vortex.pool.api;
 
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 
 import javax.annotation.Nonnull;
@@ -18,5 +18,5 @@ public interface PoolObjectPresenterContainer {
     @Nonnull
     LSDDictionaryTypes getType();
 
-    LSDEntity getEntity();
+    LSDTransferEntity getEntity();
 }

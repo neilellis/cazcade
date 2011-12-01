@@ -1,20 +1,20 @@
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 /**
  * @author neilellis@cazcade.com
  */
 public interface Bindable {
 
-    void bind(LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix);
+    void bind(LSDTransferEntity entity, LSDAttribute attribute, String referenceDataPrefix);
 
     void setOnChangeAction(Runnable onEnterAction);
 
     void setErrorMessage(String message);
 
-    LSDEntity getEntityDiff();
+    LSDTransferEntity getEntityDiff();
 
     boolean isValid();
 }

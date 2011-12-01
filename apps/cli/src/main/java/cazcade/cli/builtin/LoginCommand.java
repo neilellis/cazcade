@@ -4,8 +4,8 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
@@ -55,7 +55,7 @@ public class LoginCommand extends AbstractShortLivedCommand {
         if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
             final LiquidSessionIdentifier identity = new LiquidSessionIdentifier(username, sessionId);
             final LiquidMessage visitPoolResponse = shellSession.getDataStore().process(new VisitPoolRequest(identity, new LiquidURI("pool:///people/" + username)));
-            final LSDEntity visitPoolEntity = visitPoolResponse.getResponse();
+            final LSDBaseEntity visitPoolEntity = visitPoolResponse.getResponse();
             shellSession.setCurrentPool(visitPoolEntity);
             shellSession.setIdentity(identity);
             log.info("Logged in with session id of {0}", sessionId);

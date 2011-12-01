@@ -6,8 +6,8 @@ import cazcade.fountain.datastore.api.AuthorizationStatus;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDType;
 import cazcade.liquid.api.request.AbstractRetrievalRequest;
 import cazcade.liquid.api.request.AuthorizationRequest;
@@ -28,7 +28,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Nonnull
     public AuthorizationStatus authorize(final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidPermission permission) throws Exception {
         final LiquidMessage message = dataStore.process(new AuthorizationRequest(identity, resource, permission));
-        final LSDEntity response = message.getResponse();
+        final LSDBaseEntity response = message.getResponse();
         final LSDType lsdType = response.getTypeDef().getPrimaryType();
         if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
             return AuthorizationStatus.ACCEPTED;
@@ -53,7 +53,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Nonnull
     public LiquidMessage postAuthorize(final LiquidSessionIdentifier identity, @Nonnull final AbstractRetrievalRequest message, final LiquidPermission permission) throws Exception {
         log.debug("Post authorizing: {0}", message.getClass().getSimpleName());
-        final LSDEntity response = message.getResponse();
+        final LSDBaseEntity response = message.getResponse();
         if (response.getTypeDef().getPrimaryType().isSystemType()) {
             return message;
         }

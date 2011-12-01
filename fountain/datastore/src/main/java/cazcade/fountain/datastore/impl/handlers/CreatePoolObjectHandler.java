@@ -1,12 +1,12 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.DataStoreException;
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.handler.CreatePoolObjectRequestHandler;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.CreatePoolObjectRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -23,15 +23,15 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            final FountainEntity poolFountainEntity;
+            final LSDPersistedEntity poolPersistedEntity;
             if (request.getPoolURI() != null) {
-                poolFountainEntity = fountainNeo.findByURI(request.getPoolURI());
-                if (poolFountainEntity == null) {
+                poolPersistedEntity = fountainNeo.findByURI(request.getPoolURI());
+                if (poolPersistedEntity == null) {
                     throw new DataStoreException("No such parent pool " + request.getPoolURI());
                 }
             } else {
-                poolFountainEntity = fountainNeo.findByUUID(request.getPool());
-                if (poolFountainEntity == null) {
+                poolPersistedEntity = fountainNeo.findByUUID(request.getPool());
+                if (poolPersistedEntity == null) {
                     throw new DataStoreException("No such parent pool " + request.getPool());
                 }
             }
@@ -43,7 +43,7 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
             } else {
                 result = request.getAuthor();
             }
-            final LSDEntity entity = poolDAO.createPoolObjectTx(poolFountainEntity, request.getSessionIdentifier(), owner, result, request.getRequestEntity(), request.getDetail(), request.isInternal(), true);
+            final LSDTransferEntity entity = poolDAO.createPoolObjectTx(poolPersistedEntity, request.getSessionIdentifier(), owner, result, request.getRequestEntity(), request.getDetail(), request.isInternal(), true);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

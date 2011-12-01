@@ -1,7 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +28,7 @@ public class ChangePasswordRequest extends AbstractRequest {
         setSessionId(liquidSessionIdentifier);
     }
 
-    public ChangePasswordRequest(@Nonnull final LSDEntity entity) {
+    public ChangePasswordRequest(@Nonnull final LSDTransferEntity entity) {
         super();
         setEntity(entity);
     }

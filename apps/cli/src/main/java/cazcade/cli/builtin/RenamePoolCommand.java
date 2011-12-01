@@ -6,7 +6,7 @@ import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -54,7 +54,7 @@ public class RenamePoolCommand extends AbstractShortLivedCommand {
         return CommandSupport.alterPool(shellSession, poolURI, new CommandSupport.AlterEntityCallback() {
             @Nonnull
             @Override
-            public LSDEntity alter(@Nonnull final LSDEntity entity) {
+            public LSDTransferEntity alter(@Nonnull final LSDTransferEntity entity) {
                 entity.setAttribute(LSDAttribute.NAME, to);
                 return entity;
 

@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.AuthorizationException;
-import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
@@ -24,8 +24,8 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LiquidURI userURL = request.getSessionIdentifier().getUserURL();
-            final FountainEntity fountainEntity = fountainNeo.findByURI(userURL);
-            if (fountainEntity == null) {
+            final LSDPersistedEntity persistedEntity = fountainNeo.findByURI(userURL);
+            if (persistedEntity == null) {
                 throw new AuthorizationException("No such user " + userURL);
             }
             if (request.getChangePasswordSecurityHash() != null) {
@@ -36,14 +36,14 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
             if (request.getPassword() == null) {
                 userDAO.sendPasswordChangeRequest(userURL);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, fountainEntity.convertNodeToLSD(LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
             } else {
                 final String plainPassword = request.getPassword();
                 final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
                 final String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
-                fountainEntity.setAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
+                persistedEntity.setAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, fountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
             }
         } catch (RuntimeException e) {
             transaction.failure();

@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
@@ -26,12 +26,12 @@ import javax.annotation.Nonnull;
  */
 public class EditableImage extends Composite implements Bindable {
     private Runnable onChangeAction;
-    protected LSDEntity entity;
+    protected LSDTransferEntity entity;
     private LSDAttribute attribute;
     protected boolean editable = true;
 
     @Override
-    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
+    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         this.entity = entity;
         this.attribute = attribute;
         image.setUrl(entity.getAttribute(attribute));
@@ -51,8 +51,8 @@ public class EditableImage extends Composite implements Bindable {
 
     @Nonnull
     @Override
-    public LSDEntity getEntityDiff() {
-        final LSDEntity result = entity.asUpdateEntity();
+    public LSDTransferEntity getEntityDiff() {
+        final LSDTransferEntity result = entity.asUpdateEntity();
         result.setAttribute(attribute, image.getUnCachedUrl());
         return result;
     }

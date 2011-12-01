@@ -7,10 +7,7 @@ import cazcade.fountain.messaging.continuations.ClientSessionMessageListener;
 import cazcade.fountain.messaging.session.ClientSession;
 import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.liquid.api.request.CreateUserRequest;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
@@ -50,7 +47,7 @@ public class LoginUtil {
         final LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
-        final LSDEntity responseEntity = response.getResponse();
+        final LSDBaseEntity responseEntity = response.getResponse();
         if (responseEntity.isA(LSDDictionaryTypes.SESSION)) {
             final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getUUID());
             createClientSession(clientSessionManager, serverSession, true);
@@ -65,7 +62,7 @@ public class LoginUtil {
     }
 
     public static void placeServerSessionInHttpSession(@Nonnull final FountainDataStore dataStore, @Nonnull final HttpSession session, @Nonnull final LiquidSessionIdentifier serverSession) {
-        final LSDEntity aliasEntity;
+        final LSDTransferEntity aliasEntity;
         try {
             aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
         } catch (Exception e) {
@@ -109,8 +106,8 @@ public class LoginUtil {
     }
 
     @Nullable
-    public static LSDEntity register(@Nonnull final HttpSession session, @Nonnull final FountainDataStore theDataStore, final String fullname, @Nonnull final String username, final String password, final String emailAddress, final boolean restricted) {
-        final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER, UUIDFactory.randomUUID());
+    public static LSDTransferEntity register(@Nonnull final HttpSession session, @Nonnull final FountainDataStore theDataStore, final String fullname, @Nonnull final String username, final String password, final String emailAddress, final boolean restricted) {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.USER, UUIDFactory.randomUUID());
         entity.setAttribute(LSDAttribute.FULL_NAME, fullname);
         entity.setAttribute(LSDAttribute.NAME, username);
         entity.setAttribute(LSDAttribute.PLAIN_PASSWORD, password);

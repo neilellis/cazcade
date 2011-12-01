@@ -58,4 +58,9 @@ public class NeoPropertyStore implements LSDPropertyStore {
     public LSDPropertyStore copy() {
         return new NeoPropertyStore(neoNode);
     }
+
+    @Override
+    public boolean isSerializable() {
+        return false;
+    }
 }

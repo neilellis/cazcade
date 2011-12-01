@@ -1,8 +1,9 @@
 package cazcade.vortex.pool.objects.custom;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.common.client.CustomObjectEditor;
@@ -22,19 +23,19 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
 
     private final CustomObjectEditor customObjectEditor;
 
-    public CustomObjectPresenter(final PoolPresenter pool, final LSDEntity entity, final CustomObjectView widget, final CustomObjectEditor customObjectEditor, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public CustomObjectPresenter(final PoolPresenter pool, final LSDTransferEntity entity, final CustomObjectView widget, final CustomObjectEditor customObjectEditor, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         this.customObjectEditor = customObjectEditor;
     }
 
     @Override
-    public void update(@Nonnull final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 getPoolObjectView().setImageUrl(newEntity.getAttribute(LSDAttribute.IMAGE_URL));
-                final List<LSDEntity> handlers = newEntity.getSubEntities(LSDAttribute.EVENT_HANDLER);
-                for (final LSDEntity handler : handlers) {
+                final List<LSDBaseEntity> handlers = newEntity.getSubEntities(LSDAttribute.EVENT_HANDLER);
+                for (final LSDBaseEntity handler : handlers) {
                     registerHandlerWithView(getPoolObjectView(), handler);
                 }
                 getPoolObjectView().addHandler(new EditStartHandler() {
@@ -48,7 +49,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
 
                 customObjectEditor.setOnChangeAction(new CustomObjectEditor.ChangeAction() {
                     @Override
-                    public void run(@Nonnull final LSDEntity updateEntity) {
+                    public void run(@Nonnull final LSDTransferEntity updateEntity) {
                         bus.send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                             @Override
                             public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
@@ -62,7 +63,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
         });
     }
 
-    private void registerHandlerWithView(@Nonnull final CustomObjectView poolObjectView, @Nonnull final LSDEntity handler) {
+    private void registerHandlerWithView(@Nonnull final CustomObjectView poolObjectView, @Nonnull final LSDBaseEntity handler) {
         if (handler.canBe(LSDDictionaryTypes.ACTIVATE_EVENT_HANDLER)) {
             if (entity.hasAttribute(LSDAttribute.NAVIGATION_URL)) {
                 poolObjectView.setHref(handler.getAttribute(LSDAttribute.NAVIGATION_URL));

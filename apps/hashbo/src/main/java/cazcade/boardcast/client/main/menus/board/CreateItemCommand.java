@@ -1,10 +1,7 @@
 package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.CreatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -32,8 +29,8 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
     protected abstract void buildEntity(BuildCallback onBuilt);
 
     @Nonnull
-    LSDSimpleEntity createEntityWithDefaultView() {
-        final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(getType());
+    LSDTransferEntity createEntityWithDefaultView() {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
         addDefaultView(entity);
         return entity;
     }
@@ -43,7 +40,7 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
     public void execute() {
         buildEntity(new BuildCallback() {
             @Override
-            public void onBuilt(final LSDEntity entity) {
+            public void onBuilt(final LSDTransferEntity entity) {
                 create(entity, new CreateCallback() {
                     @Override
                     public void onCreate(final CreatePoolObjectRequest response) {
@@ -54,7 +51,7 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
         });
     }
 
-    protected void create(final LSDEntity entity, @Nonnull final CreateCallback callback) {
+    protected void create(final LSDTransferEntity entity, @Nonnull final CreateCallback callback) {
         BusFactory.getInstance().send(new CreatePoolObjectRequest(pool, entity), new AbstractResponseCallback<CreatePoolObjectRequest>() {
             @Override
             public void onSuccess(final CreatePoolObjectRequest message, final CreatePoolObjectRequest response) {
@@ -68,9 +65,9 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
         });
     }
 
-    protected void addDefaultView(@Nonnull final LSDEntity entity) {
+    protected void addDefaultView(@Nonnull final LSDBaseEntity entity) {
         //todo: give a more sensible starting point
-        final LSDSimpleEntity view = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.VIEW);
+        final LSDTransferEntity view = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.VIEW);
         view.setAttribute(LSDAttribute.VIEW_X, "0");
         view.setAttribute(LSDAttribute.VIEW_Y, "0");
         if (theme != null) {

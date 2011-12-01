@@ -1,13 +1,13 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.DataStoreException;
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.handler.CreatePoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.CreatePoolRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -36,17 +36,17 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
                 return LiquidResponseHelper.forDuplicateResource("Pool already exists.", request);
             }
 
-            final FountainEntity parentFountainEntity = neo.findByURI(request.getParent());
+            final LSDPersistedEntity parentPersistedEntity = neo.findByURI(request.getParent());
 
-            if (parentFountainEntity == null) {
+            if (parentPersistedEntity == null) {
                 throw new DataStoreException("No such parent pool " + request.getParent());
             }
             LiquidURI owner = request.getAlias();
             owner = defaultAndCheckOwner(request, owner);
 
-            final FountainEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentFountainEntity, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
+            final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
             pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription());
-            final LSDEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request.getDetail(), request.isInternal(), false);
+            final LSDTransferEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request.getDetail(), request.isInternal(), false);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

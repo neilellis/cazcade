@@ -4,8 +4,9 @@ import cazcade.boardcast.client.main.widgets.AddCommentBox;
 import cazcade.boardcast.client.main.widgets.BoardMenuBar;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.ChangePermissionRequest;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.liquid.api.request.VisitPoolRequest;
@@ -54,7 +55,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     private ChangeBackgroundDialog changeBackgroundDialog;
     private boolean inited;
 
-    public void bind(final LSDEntity entity) {
+    public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(getChangeBackgroundDialog(), LSDAttribute.IMAGE_URL);
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
@@ -176,7 +177,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
     /*
     private void addUserInfo() {
-        final LSDEntity alias = UserUtil.getCurrentAlias();
+        final LSDTransferEntity alias = UserUtil.getCurrentAlias();
         if (alias == null || UserUtil.isAnonymousOrLoggedOut()) {
             userImage.setVisible(false);
             //TODO: Change this to 'Login' when bug found
@@ -250,7 +251,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
             @Override
             public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
-                final LSDEntity responseEntity = response.getResponse();
+                final LSDTransferEntity responseEntity = response.getResponse();
                 if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                     if (previousPoolURI != null) {
@@ -271,10 +272,10 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(@Nonnull final LSDEntity entity) {
+    protected void onChange(@Nonnull final LSDBaseEntity entity) {
         addStyleName("readonly");
         addStyleName("loading");
-        final LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER, true);
+        final LSDBaseEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER, true);
 
         if (entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
             addStyleName("modifiable-board");

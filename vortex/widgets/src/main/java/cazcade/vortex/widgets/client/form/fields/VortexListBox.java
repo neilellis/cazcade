@@ -4,7 +4,7 @@ import cazcade.liquid.api.LiquidCachingScope;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -147,9 +147,9 @@ public class VortexListBox extends AbstractVortexFormField {
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
             public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final List<LSDEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                final List<LSDTransferEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entities);
-                for (final LSDEntity entity : entities) {
+                for (final LSDTransferEntity entity : entities) {
                     listBox.addItem(entity.getAttribute(LSDAttribute.TITLE), entity.getAttribute(LSDAttribute.NAME));
                 }
                 if (otherOption) {

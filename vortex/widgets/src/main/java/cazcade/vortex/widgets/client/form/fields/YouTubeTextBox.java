@@ -1,8 +1,8 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -110,8 +110,8 @@ public class YouTubeTextBox extends VortexTextBox {
 
     @Nonnull
     @Override
-    public LSDEntity getEntityDiff() {
-        final LSDEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());
+    public LSDTransferEntity getEntityDiff() {
+        final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());
         newEntity.setAttribute(LSDAttribute.URI, getEntity().getURI().toString());
 
         newEntity.setAttribute(LSDAttribute.EURI, "youtube:" + getValue());

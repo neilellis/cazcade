@@ -1,10 +1,10 @@
 package cazcade.fountain.datastore.impl.admin.commands;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.admin.AdminCommand;
 import cazcade.liquid.api.LiquidPermissionSet;
 import cazcade.liquid.api.LiquidURI;
@@ -25,10 +25,10 @@ public class FixAllPermissions implements AdminCommand {
 
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
-        final FountainEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
+        final LSDPersistedEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
         final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final FountainRelationship child : children) {
-            final FountainEntity personPool = child.getOtherNode(peoplePool);
+            final LSDPersistedEntity personPool = child.getOtherNode(peoplePool);
             final String personPoolURI = personPool.getAttribute(LSDAttribute.URI);
             resetPermissions(fountainNeo, new LiquidURI(personPoolURI + "/profile"), LiquidPermissionSet.getDefaultPermissionsNoDelete());
             resetPermissions(fountainNeo, new LiquidURI(personPoolURI + "/private"), LiquidPermissionSet.getPrivateNoDeletePermissionSet());
@@ -37,7 +37,7 @@ public class FixAllPermissions implements AdminCommand {
 
     private void resetPermissions(@Nonnull final FountainNeo fountainNeo, @Nonnull final LiquidURI uri, @Nonnull final LiquidPermissionSet permissionSet) throws InterruptedException {
         log.info("Fixing permissions on {0}", uri);
-        final FountainEntity profilePool = fountainNeo.findByURI(uri);
+        final LSDPersistedEntity profilePool = fountainNeo.findByURI(uri);
         if (profilePool != null) {
             final String permissionString = permissionSet.toString();
             final Traverser traverse = profilePool.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.END_OF_GRAPH,

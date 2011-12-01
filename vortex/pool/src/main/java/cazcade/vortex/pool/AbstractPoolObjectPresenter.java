@@ -4,7 +4,8 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
 import cazcade.liquid.api.request.ResizePoolObjectRequest;
 import cazcade.liquid.api.request.RotateXYPoolObjectRequest;
@@ -46,7 +47,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
     protected final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     protected Bus bus;
-    protected LSDEntity entity;
+    protected LSDTransferEntity entity;
     private final T poolObjectView;
     protected final VortexThreadSafeExecutor threadSafeExecutor;
     private final PoolPresenter pool;
@@ -65,7 +66,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     private static final int SNAP_BORDER_X = 20;
     private static final int SNAP_BORDER_Y = 20;
 
-    public AbstractPoolObjectPresenter(final PoolPresenter pool, final LSDEntity entity, final T poolObjectView, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public AbstractPoolObjectPresenter(final PoolPresenter pool, final LSDTransferEntity entity, final T poolObjectView, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.pool = pool;
         this.entity = entity;
         this.poolObjectView = poolObjectView;
@@ -73,7 +74,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         update(entity, true);
     }
 
-    private void positionToView(@Nonnull final PoolPresenter pool, @Nonnull final LSDEntity viewEntity, @Nonnull final T widget) {
+    private void positionToView(@Nonnull final PoolPresenter pool, @Nonnull final LSDBaseEntity viewEntity, @Nonnull final T widget) {
         if (viewEntity.hasAttribute(LSDAttribute.VIEW_WIDTH)) {
             widget.setLogicalWidth(Integer.parseInt(viewEntity.getAttribute(LSDAttribute.VIEW_WIDTH)));
         } else {
@@ -105,7 +106,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return 300;
     }
 
-    public LSDEntity getEntity() {
+    public LSDTransferEntity getEntity() {
         return entity;
     }
 
@@ -121,7 +122,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         if (poolObjectView.getParent() == null) {
             throw new RuntimeException("Cannot add pool object to pool with a widget parent of null.");
         }
-        final LSDEntity viewEntity = entity.getSubEntity(LSDAttribute.VIEW, true);
+        final LSDBaseEntity viewEntity = entity.getSubEntity(LSDAttribute.VIEW, true);
         browserUtil.initDraggable(poolObjectView);
         gestureController = new EventBasedGestureController(this, poolObjectView.getInnerWidget(), true, true);
 
@@ -212,7 +213,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
     @Nullable
     public LiquidMessage handle(@Nonnull final UpdatePoolObjectRequest request) {
-        final LSDEntity responseEntity = request.getResponse();
+        final LSDTransferEntity responseEntity = request.getResponse();
         if (responseEntity != null) {
             update(responseEntity, true);
         } else if (request.getRequestEntity() != null) {
@@ -222,7 +223,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return null;
     }
 
-    protected void update(final LSDEntity newEntity, final boolean replaceEntity) {
+    protected void update(final LSDTransferEntity newEntity, final boolean replaceEntity) {
         if (replaceEntity) {
             entity = newEntity;
         }

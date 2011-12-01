@@ -4,21 +4,22 @@ import cazcade.liquid.api.LiquidPermission;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import org.neo4j.graphdb.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * This is the core persistent object used by Fountain. Like all LSDEntity objects it's type is derived from
+ * This is the core persistent object used by Fountain. Like all LSDBaseEntity objects it's type is derived from
  * a type attribute and all apart from the compulsory (uuid, uri, updated) properties are optional. Their
  * presence can usually be inferred by type. However we're deliberately working with sketchy data, because data
  * always is, so check for an attributes presence and have a back up plan if it's not there.
  *
  * @author neilellis@cazcade.com
  */
-public interface FountainEntity extends LSDEntity {
+public interface LSDPersistedEntity extends LSDBaseEntity {
 
 
     /**
@@ -55,7 +56,7 @@ public interface FountainEntity extends LSDEntity {
 
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
-    FountainRelationship createRelationshipTo(@Nonnull FountainEntity otherEntity, FountainRelationships type);
+    FountainRelationship createRelationshipTo(@Nonnull LSDPersistedEntity otherEntity, FountainRelationships type);
 
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, FountainRelationships relationshipType, Direction direction);
 
@@ -70,15 +71,15 @@ public interface FountainEntity extends LSDEntity {
     org.neo4j.graphdb.Node getNeoNode();
 
     @Nonnull
-    FountainEntity mergeProperties(@Nonnull LSDEntity entity, boolean update, boolean ignoreType, @Nullable Runnable onRenameAction) throws InterruptedException;
+    LSDPersistedEntity mergeProperties(@Nonnull LSDTransferEntity entity, boolean update, boolean ignoreType, @Nullable Runnable onRenameAction) throws InterruptedException;
 
     @Nonnull
-    FountainEntity getLatestVersionFromFork();
+    LSDPersistedEntity getLatestVersionFromFork();
 
     int popularity();
 
     @Nonnull
-    FountainEntity parentNode();
+    LSDPersistedEntity parentNode();
 
     void setIDIfNotSetOnNode();
 
@@ -87,14 +88,14 @@ public interface FountainEntity extends LSDEntity {
 
     boolean isDeleted() throws InterruptedException;
 
-    void copyValuesToEntity(@Nonnull LSDEntity entity, @Nonnull LSDAttribute... attributes);
+    void copyValuesToEntity(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute... attributes);
 
     @Nullable
-    LSDEntity convertNodeToLSD(LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
+    LSDTransferEntity convertNodeToLSD(LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
 
-    boolean isOwner(FountainEntity ownerFountainEntity) throws InterruptedException;
+    boolean isOwner(LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
 
-    boolean isAuthor(FountainEntity ownerFountainEntity) throws InterruptedException;
+    boolean isAuthor(LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
 
     boolean isOwner(@Nonnull LiquidSessionIdentifier identity) throws InterruptedException;
 
@@ -123,9 +124,9 @@ public interface FountainEntity extends LSDEntity {
      *
      * @param parent a parent entity.
      */
-    void inheritPermissions(@Nonnull LSDEntity parent);
+    void inheritPermissions(@Nonnull LSDBaseEntity parent);
 
     boolean isAuthorized(@Nonnull LiquidSessionIdentifier identity, @Nonnull LiquidPermission... permissions) throws InterruptedException;
 
-    void setPermissionFlagsOnEntity(@Nonnull LiquidSessionIdentifier session, @Nullable FountainEntity parent, @Nonnull LSDEntity entity) throws InterruptedException;
+    void setPermissionFlagsOnEntity(@Nonnull LiquidSessionIdentifier session, @Nullable LSDPersistedEntity parent, @Nonnull LSDBaseEntity entity) throws InterruptedException;
 }

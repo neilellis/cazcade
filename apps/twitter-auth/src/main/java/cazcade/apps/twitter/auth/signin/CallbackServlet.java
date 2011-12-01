@@ -34,6 +34,7 @@ import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.CreateAliasRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import org.apache.commons.lang.StringUtils;
@@ -61,7 +62,7 @@ public class CallbackServlet extends AbstractTwitterServlet {
 
             final AccessToken authAccessToken = twitter.getOAuthAccessToken(requestToken, verifier);
             final LiquidSessionIdentifier identity = (LiquidSessionIdentifier) request.getSession().getAttribute(CommonConstants.IDENTITY_ATTRIBUTE);
-            final LSDSimpleEntity alias = LSDSimpleEntity.createEmpty();
+            final LSDTransferEntity alias = LSDSimpleEntity.createEmpty();
             alias.setType(LSDDictionaryTypes.ALIAS);
             alias.timestamp();
             final User user = twitter.verifyCredentials();

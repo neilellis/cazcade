@@ -4,7 +4,7 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -43,7 +43,7 @@ public class SetCommand extends AbstractShortLivedCommand {
             System.err.println("set <attribute-name> <value>");
         }
 
-        final LSDEntity currentEntity = shellSession.getCurrentEntity();
+        final LSDBaseEntity currentEntity = shellSession.getCurrentEntity();
         currentEntity.setValue(args[0], args[1]);
         return args[1];
     }

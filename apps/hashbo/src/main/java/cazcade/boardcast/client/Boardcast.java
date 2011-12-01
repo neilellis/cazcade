@@ -11,7 +11,7 @@ import cazcade.boardcast.client.resources.HashboClientBundle;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -311,7 +311,7 @@ public class Boardcast implements EntryPoint {
                 BusFactory.getInstance().send(new RetrieveAliasRequest(identity.getAliasURL()), new AbstractResponseCallback<RetrieveAliasRequest>() {
                     @Override
                     public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                        final LSDEntity alias = response.getResponse();
+                        final LSDTransferEntity alias = response.getResponse();
                         UserUtil.setCurrentAlias(alias);
                         final Map<String, String> propertyMap = new HashMap<String, String>();
                         propertyMap.putAll(alias.getMap());

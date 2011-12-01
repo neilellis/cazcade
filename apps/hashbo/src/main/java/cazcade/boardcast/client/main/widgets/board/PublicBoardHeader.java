@@ -1,7 +1,8 @@
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -73,7 +74,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         };
     }
 
-    public void bind(final LSDEntity entity) {
+    public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(title, LSDAttribute.TITLE);
         addBinding(description, LSDAttribute.DESCRIPTION);
@@ -108,7 +109,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(@Nonnull final LSDEntity entity) {
+    protected void onChange(@Nonnull final LSDBaseEntity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(this, true);
         final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();

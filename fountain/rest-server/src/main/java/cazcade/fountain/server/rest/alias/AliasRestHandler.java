@@ -7,8 +7,8 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDEntityFactory;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.*;
 
 import javax.annotation.Nonnull;
@@ -42,7 +42,7 @@ public class AliasRestHandler extends AbstractRestHandler {
 
 
     @Nonnull
-    public LiquidMessage create(final LSDEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage create(final LSDTransferEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         final boolean me = parameters.containsKey("me");
         final boolean orupdate = parameters.containsKey("orupdate");
 
@@ -51,7 +51,7 @@ public class AliasRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID aliasId, final LSDEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage update(final LiquidUUID aliasId, final LSDTransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
 
         final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new UpdateAliasRequest(username, aliasId, lsdEntity));

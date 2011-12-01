@@ -2,8 +2,8 @@ package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.CachedImage;
@@ -37,9 +37,9 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     SelfUpdatingRelativeDate dateTime;
 
     @Nonnull
-    private final LSDEntity entity;
+    private final LSDBaseEntity entity;
     @Nonnull
-    private final LSDEntity author;
+    private final LSDBaseEntity author;
     private final String authorFullName;
     private final String typeAsString;
     private final String locationName;
@@ -52,7 +52,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     private static final VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
 
 
-    public VortexStatusUpdatePanel(@Nonnull final LSDEntity statusUpdate, final boolean large) {
+    public VortexStatusUpdatePanel(@Nonnull final LSDBaseEntity statusUpdate, final boolean large) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         if (large) {
@@ -97,7 +97,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
 
     @Nonnull
     @Override
-    public LSDEntity getEntity() {
+    public LSDBaseEntity getEntity() {
         return entity;
     }
 

@@ -3,7 +3,7 @@ package cazcade.vortex.common.client;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import com.google.gwt.storage.client.Storage;
 
 import javax.annotation.Nonnull;
@@ -17,7 +17,7 @@ public class UserUtil {
     @Nullable
     private static LiquidSessionIdentifier identity;
     @Nullable
-    private static LSDEntity currentAlias;
+    private static LSDBaseEntity currentAlias;
     @Nonnull
     public static final String ANON = "anon";
     @Nonnull
@@ -39,11 +39,11 @@ public class UserUtil {
     }
 
     @Nullable
-    public static LSDEntity getCurrentAlias() {
+    public static LSDBaseEntity getCurrentAlias() {
         return currentAlias;
     }
 
-    public static void setCurrentAlias(@Nullable final LSDEntity currentAlias) {
+    public static void setCurrentAlias(@Nullable final LSDBaseEntity currentAlias) {
         UserUtil.currentAlias = currentAlias;
     }
 

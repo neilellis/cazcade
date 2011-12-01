@@ -4,7 +4,8 @@ import cazcade.liquid.api.LiquidPermission;
 import cazcade.liquid.api.LiquidPermissionScope;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.lsd.LSDType;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -34,7 +35,6 @@ import com.google.gwt.user.client.ui.Label;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
-import java.util.Set;
 
 import static com.google.gwt.http.client.URL.encode;
 
@@ -88,7 +88,7 @@ public class PoolContentArea extends Composite {
             @Override
             public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 ClientLog.log("Got response.");
-                final LSDEntity poolEntity = response.getResponse().copy();
+                final LSDTransferEntity poolEntity = response.getResponse().copy();
                 ClientLog.log(poolEntity.dump());
 
                 init(poolEntity, features, threadSafeExecutor);
@@ -96,7 +96,7 @@ public class PoolContentArea extends Composite {
         });
     }
 
-    public void init(@Nonnull final LSDEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
         setBackgroundImage(imageUrl);
 //        backgroundImage.setWidth("100%");
@@ -144,11 +144,11 @@ public class PoolContentArea extends Composite {
         clear();
         poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);
         poolPresenter.showInitMode();
-        final Set<LSDEntity> entities = new HashSet<LSDEntity>(poolEntity.getSubEntities(LSDAttribute.CHILD));
-        for (final LSDEntity entity : entities) {
+        final HashSet<LSDBaseEntity> entities = new HashSet<LSDBaseEntity>(poolEntity.getSubEntities(LSDAttribute.CHILD));
+        for (final LSDBaseEntity entity : entities) {
             try {
                 ClientLog.log(entity.getTypeDef().asString());
-                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, entity, features, threadSafeExecutor);
+                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, (LSDTransferEntity) entity, features, threadSafeExecutor);
                 if (poolObjectPresenter != null) {
                     ClientLog.assertTrue(poolObjectPresenter != null, "Pool Object Presenter was null");
                     poolObjectPresenter.setX(scrollPanel.getOffsetX() + 200);

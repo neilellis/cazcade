@@ -3,8 +3,8 @@ package cazcade.liquid.api.request;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,19 +18,19 @@ public class AddCommentRequest extends AbstractUpdateRequest {
         super();
     }
 
-    public AddCommentRequest(final LiquidUUID target, final LSDEntity entity) {
+    public AddCommentRequest(final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, null, target, null, entity);
     }
 
-    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
+    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, identity, target, null, entity);
     }
 
-    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDEntity entity) {
+    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDTransferEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
-    public AddCommentRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDEntity entity) {
+    public AddCommentRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -41,7 +41,7 @@ public class AddCommentRequest extends AbstractUpdateRequest {
 
     public AddCommentRequest(final LiquidURI uri, final String text) {
         super();
-        final LSDSimpleEntity requestEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT);
+        final LSDTransferEntity requestEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT);
         requestEntity.remove(LSDAttribute.PUBLISHED);
         requestEntity.setAttribute(LSDAttribute.TEXT_BRIEF, text);
         setRequestEntity(requestEntity);
@@ -58,7 +58,7 @@ public class AddCommentRequest extends AbstractUpdateRequest {
     }
 
 
-    @Nullable
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new AddCommentRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());

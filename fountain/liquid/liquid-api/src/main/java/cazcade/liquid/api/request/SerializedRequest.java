@@ -1,7 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import java.io.Serializable;
 
@@ -10,17 +10,17 @@ import java.io.Serializable;
  */
 public final class SerializedRequest implements Serializable {
     private LiquidRequestType type;
-    private LSDEntity entity;
+    private LSDTransferEntity entity;
 
     public SerializedRequest() {
     }
 
-    public SerializedRequest(final LiquidRequestType type, final LSDEntity entity) {
+    public SerializedRequest(final LiquidRequestType type, final LSDTransferEntity entity) {
         this.type = type;
         this.entity = entity;
     }
 
-    public LSDEntity getEntity() {
+    public LSDTransferEntity getEntity() {
         return entity;
     }
 

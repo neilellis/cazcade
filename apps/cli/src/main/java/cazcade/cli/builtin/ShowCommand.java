@@ -5,7 +5,7 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -48,7 +48,7 @@ public class ShowCommand extends AbstractShortLivedCommand {
         if (response == null) {
             return null;
         }
-        final LSDEntity entity = response.getResponse();
+        final LSDBaseEntity entity = response.getResponse();
         System.out.println(entity);
         return entity.getUUID().toString();
     }

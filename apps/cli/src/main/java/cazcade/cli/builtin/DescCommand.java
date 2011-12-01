@@ -6,7 +6,7 @@ import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.request.RetrievePoolObjectRequest;
 import org.apache.commons.cli.Options;
 
@@ -53,7 +53,7 @@ public class DescCommand extends AbstractShortLivedCommand {
         }
         final LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolObjectRequest(shellSession.getIdentity(), poolURI, true));
         System.err.println(poolURI);
-        final LSDEntity entity = response.getResponse();
+        final LSDBaseEntity entity = response.getResponse();
         System.out.println(entity);
         return entity.getUUID().toString();
     }

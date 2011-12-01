@@ -1,6 +1,7 @@
 package cazcade.boardcast.client.main.widgets.login;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.analytics.Track;
@@ -25,10 +26,10 @@ public class HashboRegisterPanel extends Composite {
     private Runnable onSwitchToLoginAction;
     private Runnable onSuccessAction;
     @Nullable
-    private LSDEntity newUser;
+    private LSDBaseEntity newUser;
 
     @Nullable
-    public LSDEntity getNewUser() {
+    public LSDBaseEntity getNewUser() {
         return newUser;
     }
 
@@ -114,7 +115,7 @@ public class HashboRegisterPanel extends Composite {
         }
         Track.getInstance().trackEvent("Register", "Submit");
 
-        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDEntity>() {
+        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
             @Override
             public void onFailure(final Throwable caught) {
                 ClientLog.log(caught);
@@ -123,7 +124,7 @@ public class HashboRegisterPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(@Nullable final LSDEntity result) {
+            public void onSuccess(@Nullable final LSDTransferEntity result) {
                 if (result == null) {
                     registerErrorMessage.setText("Could not register you.");
                     Track.getInstance().trackEvent("Register", "Fail");

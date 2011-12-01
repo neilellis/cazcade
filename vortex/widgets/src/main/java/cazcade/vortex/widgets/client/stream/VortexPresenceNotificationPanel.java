@@ -2,7 +2,7 @@ package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.core.client.GWT;
@@ -29,11 +29,11 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
     SelfUpdatingRelativeDate dateTime;
 
     @Nonnull
-    private final LSDEntity entity;
+    private final LSDBaseEntity entity;
     @Nonnull
     private final Date date = new Date();
     @Nonnull
-    private final LSDEntity visitor;
+    private final LSDBaseEntity visitor;
     private final String id;
 
     interface VortexPresenceNotificationPanelUiBinder extends UiBinder<HTMLPanel, VortexPresenceNotificationPanel> {
@@ -42,7 +42,7 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
     private static final VortexPresenceNotificationPanelUiBinder ourUiBinder = GWT.create(VortexPresenceNotificationPanelUiBinder.class);
 
 
-    public VortexPresenceNotificationPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final LiquidURI pool, final String id) {
+    public VortexPresenceNotificationPanel(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final LiquidURI pool, final String id) {
         super();
         this.id = id;
 
@@ -60,7 +60,7 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
 
     @Nonnull
     @Override
-    public LSDEntity getEntity() {
+    public LSDBaseEntity getEntity() {
         return entity;
     }
 

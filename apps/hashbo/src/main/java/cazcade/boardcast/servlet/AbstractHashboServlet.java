@@ -9,7 +9,7 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
 import org.springframework.web.context.WebApplicationContext;
@@ -68,9 +68,9 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected List<Map<String, String>> makeJSPFriendly(@Nonnull final List<LSDEntity> entities) throws UnsupportedEncodingException {
+    protected List<Map<String, String>> makeJSPFriendly(@Nonnull final List<LSDTransferEntity> entities) throws UnsupportedEncodingException {
         final List<Map<String, String>> result = new ArrayList<Map<String, String>>();
-        for (final LSDEntity entity : entities) {
+        for (final LSDTransferEntity entity : entities) {
             final Map<String, String> map = entity.getCamelCaseMap();
             result.add(map);
             if (entity.getURI().toString().startsWith("pool")) {

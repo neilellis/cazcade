@@ -36,7 +36,7 @@ public class ClaimAliasRequest extends AbstractRequest {
         return Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new ClaimAliasRequest(getId(), getSessionIdentifier());

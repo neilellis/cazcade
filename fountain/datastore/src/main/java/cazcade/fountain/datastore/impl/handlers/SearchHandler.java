@@ -1,13 +1,10 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.FountainEntity;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.services.persistence.FountainEntityImpl;
 import cazcade.liquid.api.handler.SearchRequestHandler;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.SearchRequest;
 import cazcade.liquid.impl.UUIDFactory;
 import org.neo4j.graphdb.Transaction;
@@ -28,11 +25,11 @@ public class SearchHandler extends AbstractDataStoreHandler<SearchRequest> imple
         try {
 
             final IndexHits<org.neo4j.graphdb.Node> results = fountainNeo.freeTextSearch(request.getSearchText());
-            final LSDSimpleEntity searchResultEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.SEARCH_RESULTS, UUIDFactory.randomUUID());
-            final List<LSDEntity> resultEntities = new ArrayList<LSDEntity>();
+            final LSDTransferEntity searchResultEntity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.SEARCH_RESULTS, UUIDFactory.randomUUID());
+            final List<LSDBaseEntity> resultEntities = new ArrayList<LSDBaseEntity>();
             final List<String> dedupUrls = new ArrayList<String>();
             for (final org.neo4j.graphdb.Node r : results) {
-                final FountainEntity result = new FountainEntityImpl(r);
+                final LSDPersistedEntity result = new FountainEntityImpl(r);
                 if (!dedupUrls.contains(result.getAttribute(LSDAttribute.URI))) {
                     resultEntities.add(result.convertNodeToLSD(request.getDetail(), request.isInternal()));
                 }

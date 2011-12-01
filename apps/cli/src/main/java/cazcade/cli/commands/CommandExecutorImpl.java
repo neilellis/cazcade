@@ -3,7 +3,8 @@ package cazcade.cli.commands;
 import cazcade.cli.ShellSession;
 import cazcade.common.Logger;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -101,9 +102,9 @@ public class CommandExecutorImpl implements CommandExecutor {
                 String regex = arg.replaceAll("\\*", "(.*)");
                 regex = regex.replaceAll("\\.", "\\.");
                 regex = regex.replaceAll("\\+", "\\+");
-                final LSDEntity curr = shellSession.getCurrentPool();
-                final List<LSDEntity> childPools = curr.getSubEntities(LSDAttribute.CHILD);
-                for (final LSDEntity childPool : childPools) {
+                final LSDBaseEntity curr = shellSession.getCurrentPool();
+                final List<LSDTransferEntity> childPools = curr.getSubEntities(LSDAttribute.CHILD);
+                for (final LSDTransferEntity childPool : childPools) {
                     if (childPool.getAttribute(LSDAttribute.NAME).matches(regex)) {
                         expanded.add(childPool.getURI().toString());
                     }

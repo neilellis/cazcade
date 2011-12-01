@@ -1,7 +1,8 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
@@ -25,9 +26,9 @@ import java.util.Date;
  */
 public class CommentEntryPanel extends Composite implements StreamEntry {
 
-    LSDEntity entity;
+    LSDBaseEntity entity;
 
-    public LSDEntity getEntity() {
+    public LSDBaseEntity getEntity() {
         return entity;
     }
 
@@ -71,7 +72,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
         super();
     }
 
-    public CommentEntryPanel(@Nonnull final LSDEntity streamEntry) {
+    public CommentEntryPanel(@Nonnull final LSDBaseEntity streamEntry) {
         super();
         entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -84,7 +85,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
             locationText = streamEntry.getURI().toString();
         }
 //        location.setText(locationText);
-        final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);
+        final LSDTransferEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.bind(author, LSDAttribute.IMAGE_URL, "");
         final String name = author.getAttribute(LSDAttribute.NAME);
         profileName.setText("@" + name);

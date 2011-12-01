@@ -1,7 +1,8 @@
 package cazcade.vortex.pool.objects.youtube;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.YouTubeTextBox;
 import cazcade.vortex.widgets.client.image.CachedImage;
@@ -30,7 +31,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
 
 
     @Override
-    public void bind(final LSDEntity entity) {
+    public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         //no attribute required for binding YouTube videos
         addBinding(urlTextBox, null);
@@ -58,7 +59,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     CachedImage image;
 
 
-    public YouTubeEditorPanel(@Nonnull final LSDEntity entity) {
+    public YouTubeEditorPanel(@Nonnull final LSDTransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         setEntity(entity);
@@ -69,7 +70,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     }
 
     @Override
-    protected void onChange(final LSDEntity entity) {
+    protected void onChange(final LSDBaseEntity entity) {
         super.onChange(entity);
         if (urlTextBox.isValid()) {
             showPreview();

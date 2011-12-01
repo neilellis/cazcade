@@ -2,8 +2,8 @@ package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
@@ -105,7 +105,7 @@ public class NotificationPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            final LSDEntity response = message.getResponse();
+                            final LSDBaseEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                                 addToStream(new CommentEntryPanel(response));

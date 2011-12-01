@@ -31,7 +31,7 @@ public class PoolRestHandler extends AbstractRestHandler {
     private AuthorizationService authorizationService;
 
     @Nonnull
-    public LiquidMessage update(final LSDEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) {
+    public LiquidMessage update(final LSDTransferEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) {
 
         final LiquidURI uri = new LiquidURI(parameters.get("uri")[0]);
         if (uri.hasFragment()) {
@@ -42,12 +42,12 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID poolId, final LSDEntity lsdEntity) {
+    public LiquidMessage update(final LiquidUUID poolId, final LSDTransferEntity lsdEntity) {
         return dataStoreFacade.process(new UpdatePoolRequest(RestContext.getContext().getCredentials(), poolId, lsdEntity));
     }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID poolId, final LiquidUUID objectId, final LSDEntity lsdEntity) {
+    public LiquidMessage update(final LiquidUUID poolId, final LiquidUUID objectId, final LSDTransferEntity lsdEntity) {
         return dataStoreFacade.process(new UpdatePoolObjectRequest(RestContext.getContext().getCredentials(), poolId, objectId, lsdEntity));
     }
 
@@ -148,7 +148,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         checkForSingleValueParams(parameters, "text", "image");
         final String text = parameters.get("text")[0];
         final String image = parameters.get("image")[0];
-        final LSDSimpleEntity message = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT, UUIDFactory.randomUUID());
+        final LSDTransferEntity message = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.CHAT, UUIDFactory.randomUUID());
         message.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
         message.setAttribute(LSDAttribute.IMAGE_URL, image);
         message.setAttribute(LSDAttribute.ICON_URL, image);
@@ -282,7 +282,7 @@ public class PoolRestHandler extends AbstractRestHandler {
 
 
     @Nonnull
-    public LiquidMessage create(final LiquidUUID poolId, @Nonnull final LSDEntity entity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage create(final LiquidUUID poolId, @Nonnull final LSDTransferEntity entity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "author");
         final String author = parameters.get("author")[0];
         if (entity.getUUID() != null && entity.getUUID().equals(poolId)) {
@@ -293,7 +293,7 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage createPUT(final LSDEntity entity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage createPUT(final LSDTransferEntity entity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "uri");
         final String uri = parameters.get("uri")[0];
         return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext().getCredentials(), new LiquidURI(uri), entity));
@@ -301,7 +301,7 @@ public class PoolRestHandler extends AbstractRestHandler {
 
 
     @Nonnull
-    public LiquidMessage create(final LiquidUUID poolId, final LiquidUUID objectId, final LSDEntity entity) throws URISyntaxException {
+    public LiquidMessage create(final LiquidUUID poolId, final LiquidUUID objectId, final LSDTransferEntity entity) throws URISyntaxException {
         return update(poolId, objectId, entity);
     }
 

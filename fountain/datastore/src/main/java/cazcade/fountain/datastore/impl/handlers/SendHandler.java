@@ -1,13 +1,13 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.EntityNotFoundException;
-import cazcade.fountain.datastore.impl.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.handler.SendRequestHandler;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.SendRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -24,16 +24,16 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            final FountainEntity poolFountainEntity = fountainNeo.findByURI(request.getInboxURI());
-            if (poolFountainEntity == null) {
+            final LSDPersistedEntity poolPersistedEntity = fountainNeo.findByURI(request.getInboxURI());
+            if (poolPersistedEntity == null) {
                 throw new EntityNotFoundException("No such inbox pool " + request.getInboxURI());
             }
             final LiquidURI owner = request.getRecipientAlias();
             //Note we run this as the recipient -- just like in email, the receiver owns the message.
-            final LSDEntity entity;
+            final LSDTransferEntity entity;
             final LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
             if (request.getRequestEntity() != null) {
-                entity = poolDAO.createPoolObjectTx(poolFountainEntity, recipientSessionId, owner, request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(), request.getDetail(), request.isInternal(), false);
+                entity = poolDAO.createPoolObjectTx(poolPersistedEntity, recipientSessionId, owner, request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(), request.getDetail(), request.isInternal(), false);
             } else {
                 entity = poolDAO.linkPoolObjectTx(recipientSessionId, request.getRecipientAlias(), request.getUri(), request.getInboxURI(), request.getDetail(), request.isInternal());
             }

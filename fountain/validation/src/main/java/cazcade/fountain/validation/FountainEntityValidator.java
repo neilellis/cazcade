@@ -15,7 +15,7 @@ public class FountainEntityValidator {
 
     private Map<String, TypeValidator> typeValidatorMap;
 
-    public void validate(@Nonnull final LSDEntity entity, final ValidationLevel level) {
+    public void validate(@Nonnull final LSDTransferEntity entity, final ValidationLevel level) {
         validateFormat(entity);
         final LSDTypeDef lsdTypeDef = entity.getTypeDef();
         if (lsdTypeDef == null) {
@@ -29,7 +29,7 @@ public class FountainEntityValidator {
         validateForType(primaryType, entity, level);
     }
 
-    private void validateForType(final LSDType primaryType, final LSDEntity entity, final ValidationLevel level) {
+    private void validateForType(final LSDType primaryType, final LSDBaseEntity entity, final ValidationLevel level) {
         String typeString;
         String name;
         LSDType lsdType;
@@ -57,7 +57,7 @@ public class FountainEntityValidator {
     }
 
 
-    private void validateFormat(@Nonnull final LSDEntity entity) {
+    private void validateFormat(@Nonnull final LSDTransferEntity entity) {
         final Map<String, String> propertyMap = entity.getMap();
         for (final Map.Entry<String, String> entry : propertyMap.entrySet()) {
             final String key = entry.getKey();

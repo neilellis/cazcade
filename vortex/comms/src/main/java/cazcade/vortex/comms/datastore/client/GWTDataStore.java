@@ -1,7 +1,7 @@
 package cazcade.vortex.comms.datastore.client;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.SerializedRequest;
 import cazcade.liquid.api.request.VisitPoolRequest;
@@ -90,7 +90,7 @@ public class GWTDataStore {
                         if (request.getState() == LiquidMessageState.SUCCESS) {
                             locations.clear();
                             locations.add(newIdentity.getAlias().asReverseDNSString());
-                            final LSDEntity responseEntity = request.getResponse();
+                            final LSDBaseEntity responseEntity = request.getResponse();
                             locations.add(responseEntity.getURI().asReverseDNSString() + ".#");
                             locations.add(responseEntity.getUUID().toString());
                         } else if (request.getState() == LiquidMessageState.PROVISIONAL || request.getState() == LiquidMessageState.INITIAL) {

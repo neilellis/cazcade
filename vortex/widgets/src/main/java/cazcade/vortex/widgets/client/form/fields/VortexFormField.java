@@ -1,6 +1,6 @@
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.user.client.ui.Image;
 
@@ -36,7 +36,7 @@ public interface VortexFormField extends Bindable {
     @Nonnull
     List<String> getStringValues();
 
-    LSDEntity getEntity();
+    LSDTransferEntity getEntity();
 
     /**
      * Returns a stripped down entity with only the information required for an update.
@@ -44,5 +44,5 @@ public interface VortexFormField extends Bindable {
      * @return a lightweight entity.
      */
     @Nonnull
-    LSDEntity getEntityDiff();
+    LSDTransferEntity getEntityDiff();
 }

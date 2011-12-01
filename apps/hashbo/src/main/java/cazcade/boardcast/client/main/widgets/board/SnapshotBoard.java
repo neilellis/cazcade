@@ -2,8 +2,9 @@ package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -37,7 +38,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     private long updatePoolListener;
     private boolean inited;
 
-    public void bind(final LSDEntity entity) {
+    public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
     }
 
@@ -151,7 +152,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
             @Override
             public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final LSDEntity responseEntity = response.getResponse();
+                final LSDTransferEntity responseEntity = response.getResponse();
                 if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                 } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
@@ -169,7 +170,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(final LSDEntity entity) {
+    protected void onChange(final LSDBaseEntity entity) {
         addStyleName("readonly");
         addStyleName("loading");
         final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);

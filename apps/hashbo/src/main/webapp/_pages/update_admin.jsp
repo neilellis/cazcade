@@ -7,7 +7,7 @@
 <%@ page import="cazcade.liquid.api.LiquidSessionIdentifier" %>
 <%@ page import="cazcade.liquid.api.LiquidURI" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDEntity" %>
+<%@ page import="cazcade.liquid.api.lsd.LSDTransferEntity" %>
 <%@ page import="cazcade.liquid.api.request.RetrieveUserRequest" %>
 <%@ page import="cazcade.liquid.api.request.UpdateUserRequest" %>
 <%@ page import="java.net.URLEncoder" %>
@@ -17,13 +17,13 @@
     final FountainDataStore dataStore = DataStoreFactory.getDataStore();
     final LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin", null);
     final LiquidRequest retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(request.getParameter("user"))));
-    final LSDEntity user = retrieveUserResponse.getResponse();
+    final LSDTransferEntity user = retrieveUserResponse.getResponse();
     if (retrieveUserResponse.getResponse().isError()) {
         response.sendRedirect("/_pages/failed.jsp?message=" + URLEncoder.encode(retrieveUserResponse.getResponse().getAttribute(LSDAttribute.DESCRIPTION), "utf8"));
     } else if (!EmailUtil.confirmEmailHash(user.getAttribute(LSDAttribute.EMAIL_ADDRESS), request.getParameter("hash"))) {
         response.sendRedirect("/_pages/failed.jsp?message=Incorrect+URL");
     } else {
-        final LSDEntity update = user.asUpdateEntity();
+        final LSDTransferEntity update = user.asUpdateEntity();
         update.setAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY, request.getParameter("frequency"));
         dataStore.process(new UpdateUserRequest(admin, user.getUUID(), update));
     }

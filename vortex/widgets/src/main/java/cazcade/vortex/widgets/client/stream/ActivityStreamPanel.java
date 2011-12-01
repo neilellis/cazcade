@@ -4,8 +4,9 @@ import cazcade.liquid.api.LiquidBoardURL;
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -132,14 +133,14 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
             @Override
             public void onSuccess(final RetrieveUpdatesRequest message, @Nonnull final RetrieveUpdatesRequest response) {
                 lastUpdate = System.currentTimeMillis();
-                final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                final List<LSDTransferEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entries);
-                for (final LSDEntity entry : entries) {
+                for (final LSDTransferEntity entry : entries) {
                     if (entry.isA(LSDDictionaryTypes.COMMENT)
                             && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false, true);
                     } else {
-                        final LSDEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
+                        final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
                         final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
 

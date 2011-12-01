@@ -64,6 +64,11 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
     }
 
     @Override
+    public boolean isSerializable() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("LSDMapPropertyStore");

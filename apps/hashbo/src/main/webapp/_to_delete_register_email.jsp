@@ -1,6 +1,6 @@
 <%@ page import="cazcade.common.CommonConstants" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDEntity" %>
+<%@ page import="cazcade.liquid.api.lsd.LSDBaseEntity" %>
 <%@ page import="org.jasypt.digest.StandardStringDigester" %>
 <%@ page import="javax.mail.Message" %>
 <%@ page import="javax.mail.Session" %>
@@ -13,7 +13,7 @@
 <%@ page import="java.util.Properties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    final LSDEntity user = (LSDEntity) session.getAttribute(CommonConstants.NEW_USER_ATTRIBUTE);
+    final LSDBaseEntity user = (LSDBaseEntity) session.getAttribute(CommonConstants.NEW_USER_ATTRIBUTE);
     if (user == null) {
         throw new RuntimeException("No user in session.");
     }

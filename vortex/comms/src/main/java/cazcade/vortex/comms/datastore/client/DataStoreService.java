@@ -3,7 +3,7 @@ package cazcade.vortex.comms.datastore.client;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.SerializedRequest;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -39,7 +39,7 @@ public interface DataStoreService extends RemoteService {
     LiquidSessionIdentifier loginQuick(boolean anon);
 
     @Nullable
-    LSDEntity register(String fullname, String username, String password, String emailAddress);
+    LSDTransferEntity register(String fullname, String username, String password, String emailAddress);
 
     boolean checkUsernameAvailability(String username);
 

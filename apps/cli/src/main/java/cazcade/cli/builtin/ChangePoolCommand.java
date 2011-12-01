@@ -8,7 +8,7 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import org.apache.commons.cli.Options;
 
@@ -51,7 +51,7 @@ public class ChangePoolCommand extends AbstractShortLivedCommand {
         final LiquidURI poolURI;
         poolURI = CommandSupport.resolvePoolOrObject(shellSession, pool);
         final LiquidMessage response = shellSession.getDataStore().process(new VisitPoolRequest(shellSession.getIdentity(), poolURI));
-        final LSDEntity responseEntity = response.getResponse();
+        final LSDBaseEntity responseEntity = response.getResponse();
         if (response.getState() != LiquidMessageState.SUCCESS) {
             System.err.println(responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
             return null;

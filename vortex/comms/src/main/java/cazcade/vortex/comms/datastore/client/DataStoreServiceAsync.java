@@ -2,7 +2,7 @@ package cazcade.vortex.comms.datastore.client;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.SerializedRequest;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -16,7 +16,7 @@ public interface DataStoreServiceAsync {
 
     void checkUsernameAvailability(String username, AsyncCallback<Boolean> async);
 
-    void register(String fullname, String username, String password, String emailAddress, AsyncCallback<LSDEntity> async);
+    void register(String fullname, String username, String password, String emailAddress, AsyncCallback<LSDTransferEntity> async);
 
 
     /**

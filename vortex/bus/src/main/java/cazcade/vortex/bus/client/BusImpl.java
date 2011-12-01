@@ -1,7 +1,7 @@
 package cazcade.vortex.bus.client;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -153,7 +153,7 @@ public class BusImpl implements Bus {
                 keys.add("*:" + affectedEntity);
             }
         }
-        final LSDEntity response = message.getResponse();
+        final LSDBaseEntity response = message.getResponse();
         final String responseEntityId = response == null ? "" : response.getUUID().toString();
 
         keys.add(message.getMessageType().name() + ":" + responseEntityId);
@@ -378,7 +378,7 @@ public class BusImpl implements Bus {
         public void handleResponse(@Nonnull final LiquidMessage response) {
 //            ClientLog.log("Callback processor processing " + response.getId());
             for (final ResponseCallback responseCallback : callbacks) {
-                final LSDEntity responseEntity = response.getResponse();
+                final LSDBaseEntity responseEntity = response.getResponse();
                 if (message.getState() == LiquidMessageState.FAIL || message.getResponse() != null && message.getResponse().isError()) {
                     if (responseEntity == null) {
                         ClientLog.log("Callback handling failed and response entity was null. ");

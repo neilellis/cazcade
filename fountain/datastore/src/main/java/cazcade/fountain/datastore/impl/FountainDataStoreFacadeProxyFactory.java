@@ -9,7 +9,7 @@ import cazcade.fountain.validation.api.ValidationLevel;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageOrigin;
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.impl.UUIDFactory;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 
@@ -82,7 +82,7 @@ public class FountainDataStoreFacadeProxyFactory {
                 if (response == null) {
                     log.debug("SUCCESS Authorized.");
                     response = dataStore.process(liquidRequest);
-                    final LSDEntity responseEntity = response.getResponse();
+                    final LSDTransferEntity responseEntity = response.getResponse();
                     if (responseEntity == null) {
                         log.warn("Null response.");
                     }

@@ -64,13 +64,238 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDTransferEntity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEntity.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/LSDPersistedEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/ShellSession.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/ShellSession.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/AdminCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/AdminCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/ChangePoolCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/ChangePoolCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/CreatePoolCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/CreatePoolCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/DeletePoolCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/DeletePoolCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/DescCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/DescCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/DestrictUserCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/DestrictUserCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/ListPoolCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/ListPoolCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/LoginCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/LoginCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/PwdCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/PwdCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/RenamePoolCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/RenamePoolCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/RestrictUserCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/RestrictUserCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/SetCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/SetCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/ShowCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/ShowCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/UnsetCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/UnsetCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/WithCommand.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/WithCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/support/CommandSupport.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/builtin/support/CommandSupport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/commands/CommandExecutorImpl.java" afterPath="$PROJECT_DIR$/apps/cli/src/main/java/cazcade/cli/commands/CommandExecutorImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/custom/HashboCustomObjectEditor.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/custom/HashboCustomObjectEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account/ProfileEditor.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account/ProfileEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/AbstractCreateCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/AbstractCreateCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateAliasRefCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateAliasRefCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateCustomObjectCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateCustomObjectCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateDecorationCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateDecorationCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateItemCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateItemCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/BoardcastChatView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PersonalBoardHeader.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PersonalBoardHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoardHeader.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoardHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboRegisterPanel.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/login/HashboRegisterPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardQueryServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardQueryServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/CallbackServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/CallbackServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/RegisterServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/RegisterServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_reg.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/confirm_reg.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/update_admin.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/update_admin.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_to_delete_register_email.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_to_delete_register_email.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/twitter-auth/src/main/java/cazcade/apps/twitter/auth/signin/CallbackServlet.java" afterPath="$PROJECT_DIR$/apps/twitter-auth/src/main/java/cazcade/apps/twitter/auth/signin/CallbackServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/upload/src/main/java/cazcade/apps/upload/ImageUploadServlet.java" afterPath="$PROJECT_DIR$/apps/upload/src/main/java/cazcade/apps/upload/ImageUploadServlet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEntity.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-client/src/main/java/cazcade/fountain/datastore/client/validation/AuthorizationServiceImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore-client/src/main/java/cazcade/fountain/datastore/client/validation/AuthorizationServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/ChangeReport.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/ChangeReport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainBoardQueryDAO.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainBoardQueryDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainDataStoreFacadeProxyFactory.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainDataStoreFacadeProxyFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainLocalDataStore.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainLocalDataStore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainNeo.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainNeo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainPoolDAO.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainPoolDAO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationship.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationship.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainSocialDAO.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainSocialDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAO.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/LiquidResponseHelper.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/LiquidResponseHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/NodeCallback.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/NodeCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/admin/commands/FixAllAliases.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/admin/commands/FixAllAliases.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/admin/commands/FixAllPermissions.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/admin/commands/FixAllPermissions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/EmailUtil.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/email/EmailUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/graph/LatestContentFinder.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/graph/LatestContentFinder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractDataStoreHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractDataStoreHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractRetrievalHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractRetrievalHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractUpdateHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AbstractUpdateHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AddCommentHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AddCommentHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AuthorizationHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/AuthorizationHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/BoardQueryHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/BoardQueryHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ChangePasswordHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ChangePasswordHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ChatHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ChatHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ClaimAliasHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ClaimAliasHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateAliasHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateAliasHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreatePoolHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreatePoolHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreatePoolObjectHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreatePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateSessionHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateSessionHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateUserHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/CreateUserHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/FollowHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/FollowHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/LinkPoolHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/LinkPoolHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/LinkPoolObjectHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/LinkPoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/MovePoolObjectHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/MovePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ResizePoolObjectHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/ResizePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveAliasHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveAliasHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveCommentsHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveCommentsHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolObjectHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolRosterHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrievePoolRosterHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveSessionHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveSessionHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveUpdatesHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RetrieveUpdatesHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RotateXYPoolObjectHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/RotateXYPoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/SearchHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/SearchHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/SendHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/SendHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/UpdatePoolHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/UpdatePoolHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/UpdatePoolObjectHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/UpdatePoolObjectHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/VisitPoolHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/VisitPoolHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainBoardQueryDAOImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainBoardQueryDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEmailService.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEmailService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainIndexServiceImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainIndexServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoIntializer.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoIntializer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainRelationshipImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainRelationshipImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainSocialDAOImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainSocialDAOImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserDAOImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserUpdateService.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserUpdateService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/NeoPropertyStore.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/NeoPropertyStore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/LiquidMessage.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/LiquidMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/LiquidPrincipal.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/LiquidPrincipal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntityFactory.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntityFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDMapPropertyStore.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDMapPropertyStore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDPropertyStore.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDPropertyStore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntityFactory.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntityFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/AbstractRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/AbstractRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/AddCommentRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/AddCommentRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ChangePasswordRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ChangePasswordRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ChangePermissionRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ChangePermissionRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ChatRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ChatRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ClaimAliasRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/ClaimAliasRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreateAliasRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreateAliasRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreatePoolObjectRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreatePoolObjectRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreateUserRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/CreateUserRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/SendRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/SendRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/SerializedRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/SerializedRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateAliasRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateAliasRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdatePoolObjectRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdatePoolObjectRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdatePoolRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdatePoolRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateSessionRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateSessionRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateUserRequest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateUserRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/util/RequestUtil.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/util/RequestUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/LSDMarshaler.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/LSDMarshaler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/LSDUnmarshaler.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/LSDUnmarshaler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/PListMarshaler.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/PListMarshaler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/PListUnmarshaler.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/PListUnmarshaler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/SortUtil.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/SortUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/XMLMarshaler.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/XMLMarshaler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/XMLUnmarshaler.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/XMLUnmarshaler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/xstream/LSDEntityConverter.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/xstream/LSDEntityConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/xstream/LiquidXStreamFactory.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/xstream/LiquidXStreamFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/test/java/cazcade/liquid/impl/LSDEntityTest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/test/java/cazcade/liquid/impl/LSDEntityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/test/java/cazcade/liquid/impl/LSDNodeTest.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/src/test/java/cazcade/liquid/impl/LSDNodeTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/alias/AliasRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/alias/AliasRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/dictionary/DictionaryRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/dictionary/DictionaryRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/message/CommentRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/message/CommentRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/pool/PoolRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/pool/PoolRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidNotificationServlet.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidNotificationServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidRestServlet.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidRestServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/session/SessionRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/session/SessionRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/test/PoolTestRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/test/PoolTestRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/user/UserRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/user/UserRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/test/java/cazcade/fountain/server/rest/test/PListRountripTestClient.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/test/java/cazcade/fountain/server/rest/test/PListRountripTestClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/security/src/main/java/cazcade/fountain/security/SecurityProvider.java" afterPath="$PROJECT_DIR$/fountain/security/src/main/java/cazcade/fountain/security/SecurityProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainIntegrationTest.java" afterPath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainIntegrationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainTestClientSupport.java" afterPath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainTestClientSupport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainTestDataBuilderClient.java" afterPath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainTestDataBuilderClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/jbehave/FountainSteps.java" afterPath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/jbehave/FountainSteps.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/FountainEntityValidator.java" afterPath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/FountainEntityValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/api/TypeValidator.java" afterPath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/api/TypeValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/entity/AbstractEntityValidator.java" afterPath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/entity/AbstractEntityValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/entity/UserEntityValidator.java" afterPath="$PROJECT_DIR$/fountain/validation/src/main/java/cazcade/fountain/validation/entity/UserEntityValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/AbstractResponseCallback.java" afterPath="$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/AbstractResponseCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/BusImpl.java" afterPath="$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/BusImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/CustomObjectEditor.java" afterPath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/CustomObjectEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/UserUtil.java" afterPath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/UserUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/DataStoreService.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/DataStoreService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/DataStoreServiceAsync.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/DataStoreServiceAsync.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/GWTDataStore.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/GWTDataStore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/LoginUtil.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/LoginUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/AbstractContainerObjectPresenterImpl.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/AbstractContainerObjectPresenterImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/AbstractPoolObjectPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/AbstractPoolObjectPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/PoolObjectContainerManager.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/PoolObjectContainerManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/PoolPresenterImpl.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/PoolPresenterImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/api/PoolObjectPresenterContainer.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/api/PoolObjectPresenterContainer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/api/PoolPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/api/PoolPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectPresenterFactory.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectPresenterFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/alias/AliasReferencePresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/alias/AliasReferencePresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/checklist/ChecklistPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/checklist/ChecklistPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/checklist/entry/ChecklistEntryView.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/checklist/entry/ChecklistEntryView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/custom/CustomObjectPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/custom/CustomObjectPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/image/ImagePresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/image/ImagePresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/microblog/MicroBlogPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/microblog/MicroBlogPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/richtext/RichTextPresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/richtext/RichTextPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsitePresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsitePresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/youtube/YouTubeEditorPanel.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/youtube/YouTubeEditorPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/youtube/YouTubePresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/youtube/YouTubePresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/dm/DirectMessagePanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/dm/DirectMessagePanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractVortexFormField.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractVortexFormField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexAddressPicker.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexAddressPicker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexCompoundFormField.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexCompoundFormField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexFormField.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexFormField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexListBox.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexListBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexMultiListBox.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexMultiListBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/YouTubeTextBox.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/YouTubeTextBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/EditableImage.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/EditableImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/UserProfileImage.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/UserProfileImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/inbox/InboxPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/inbox/InboxPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/login/RegisterPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/login/RegisterPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/panels/list/ScrollableListEntry.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/panels/list/ScrollableListEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/panels/list/dm/DirectMessageListEntryPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/panels/list/dm/DirectMessageListEntryPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/panels/list/dm/DirectMessageStreamEntryPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/panels/list/dm/DirectMessageStreamEntryPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/Bindable.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/Bindable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/EntityBackedFormPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/EntityBackedFormPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/EntityBackedPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/EntityBackedPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/ProfileBoardHeader.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/ProfileBoardHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/search/VortexSearchPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/search/VortexSearchPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/search/VortexSearchResult.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/search/VortexSearchResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/ActivityStreamPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/ActivityStreamPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/ChatStreamPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/ChatStreamPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/CommentEntryPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/CommentEntryPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/CommentPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/CommentPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/NotificationPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/NotificationPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/RetrieveStreamEntityCallback.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/RetrieveStreamEntityCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/StreamEntry.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/StreamEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/VortexPresenceNotificationPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/VortexPresenceNotificationPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/VortexStatusUpdatePanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/VortexStatusUpdatePanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/VortexStreamEntryPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/VortexStreamEntryPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/chat/ChatParser.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/chat/ChatParser.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -170,7 +395,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/dm/DirectMessagePanel.java" line="115" class="cazcade.vortex.widgets.client.dm.DirectMessagePanel$3$1" package="cazcade.vortex.widgets.client.dm">
+      <breakpoint url="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/dm/DirectMessagePanel.java" line="120" class="cazcade.vortex.widgets.client.dm.DirectMessagePanel$3$1" package="cazcade.vortex.widgets.client.dm">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -183,7 +408,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/SendRequest.java" line="31" class="cazcade.liquid.api.request.SendRequest" package="cazcade.liquid.api.request">
+      <breakpoint url="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/SendRequest.java" line="28" class="cazcade.liquid.api.request.SendRequest" package="cazcade.liquid.api.request">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -196,7 +421,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java" line="37" class="cazcade.vortex.widgets.client.profile.AbstractAliasDetailPanel" package="cazcade.vortex.widgets.client.profile">
+      <breakpoint url="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java" line="38" class="cazcade.vortex.widgets.client.profile.AbstractAliasDetailPanel" package="cazcade.vortex.widgets.client.profile">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -306,95 +531,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FountainRequestConfiguration.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRequestConfiguration.java">
+      <file leaf-file-name="CallbackServlet.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/CallbackServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0">
+            <state line="91" column="35" selection-start="5278" selection-end="5278" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LiquidResponseHelper.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/LiquidResponseHelper.java">
+      <file leaf-file-name="CallbackServlet.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/twitter-auth/src/main/java/cazcade/apps/twitter/auth/signin/CallbackServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="13" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0">
+            <state line="64" column="35" selection-start="3359" selection-end="3359" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainRelationshipImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainRelationshipImpl.java">
+      <file leaf-file-name="ImageUploadServlet.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/upload/src/main/java/cazcade/apps/upload/ImageUploadServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="42" selection-start="2968" selection-end="2968" vertical-scroll-proportion="0.0">
+            <state line="82" column="39" selection-start="3462" selection-end="3462" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LSDUnmarshaler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/LSDUnmarshaler.java">
+      <file leaf-file-name="PoolRestHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/pool/PoolRestHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="24" selection-start="298" selection-end="298" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FountainRelationship.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationship.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="46" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0">
+            <state line="150" column="31" selection-start="7332" selection-end="7332" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainEntity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEntity.java">
+      <file leaf-file-name="CommentRestHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/message/CommentRestHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="20" selection-start="3994" selection-end="3994" vertical-scroll-proportion="0.0">
+            <state line="33" column="31" selection-start="1412" selection-end="1412" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainEntityImpl.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java">
+      <file leaf-file-name="WebUtilRestHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="523" column="25" selection-start="23592" selection-end="23592" vertical-scroll-proportion="11.634275">
+            <state line="81" column="29" selection-start="3456" selection-end="3456" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LSDSimpleEntity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java">
+      <file leaf-file-name="LiquidNotificationServlet.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidNotificationServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="499" column="0" selection-start="16848" selection-end="16848" vertical-scroll-proportion="0.0">
+            <state line="54" column="18" selection-start="2369" selection-end="2369" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LSDEntity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java">
+      <file leaf-file-name="LSDBaseEntity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="210" column="37" selection-start="5226" selection-end="5231" vertical-scroll-proportion="-7.076923">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="12" column="17" selection-start="311" selection-end="311" vertical-scroll-proportion="0.11867089">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LatestContentFinder.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/graph/LatestContentFinder.java">
+      <file leaf-file-name="CreateRichTextCommand.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="70" selection-start="6785" selection-end="6785" vertical-scroll-proportion="0.0">
+            <state line="17" column="31" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -414,22 +626,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/LinkPoolObjectHandler.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/UpdatePoolHandler.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/UpdatePoolObjectHandler.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/handlers/VisitPoolHandler.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainSocialDAOImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAOImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainPoolDAOImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainNeoImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/FountainEntityImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Relationship.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationshipImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainRelationshipImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationship.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEntity.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream/chat/ChatParser.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/dm/DirectMessagePanel.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateItemCommand.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateDecorationCommand.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateCustomObjectCommand.java" />
+        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateAliasRequest.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateAliasRefCommand.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/CallbackServlet.java" />
+        <option value="$PROJECT_DIR$/apps/twitter-auth/src/main/java/cazcade/apps/twitter/auth/signin/CallbackServlet.java" />
+        <option value="$PROJECT_DIR$/apps/upload/src/main/java/cazcade/apps/upload/ImageUploadServlet.java" />
+        <option value="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/pool/PoolRestHandler.java" />
+        <option value="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/message/CommentRestHandler.java" />
+        <option value="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java" />
+        <option value="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidNotificationServlet.java" />
+        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java" />
       </list>
     </option>
   </component>
@@ -4540,11 +4752,11 @@
       <recent name="$PROJECT_DIR$/fountain/datastore/src/test/resources" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="cazcade.liquid.api.lsd" />
       <recent name="cazcade.fountain.datastore.impl" />
       <recent name="cazcade.fountain.datastore" />
       <recent name="cazcade.vortex.gwt.util.client.history" />
       <recent name="cazcade.vortex.widgets.client.form.fields" />
-      <recent name="cazcade.vortex.widgets.client.profile" />
     </key>
     <key name="IntroduceConstantDialog.RECENTS_KEY">
       <recent name="cazcade.cyclone.client.CycloneLogin" />
@@ -4592,6 +4804,118 @@
     <option name="referenceOn" value="false" />
     <option name="referencePos" value="0" />
     <option name="showLabels" value="true" />
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="Moments ago" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+            <PATH vcs="svn" revision="233">$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with tree conflicts" />
+          <option name="myStatusName" value="Merged with tree conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with property conflicts" />
+          <option name="myStatusName" value="Will be merged with property conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
   </component>
   <component name="RunManager" selected="JUnit.FollowTest">
     <configuration default="false" name="FountainUserUpdateServiceTest" type="JUnit" factoryName="JUnit" temporary="true">
@@ -5794,8 +6118,8 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43336624" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37883285" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3264095" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37883285" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
@@ -5803,7 +6127,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.6211672" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977018" sideWeight="0.6735905" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4174085" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45598418" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -5925,121 +6249,109 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java">
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/dm/DirectMessagePanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="770" column="32" selection-start="36761" selection-end="36761" vertical-scroll-proportion="0.0">
+        <state line="118" column="30" selection-start="4534" selection-end="4534" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/ChangeReport.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateItemCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0">
+        <state line="69" column="31" selection-start="2432" selection-end="2432" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainDataStoreFacadeProxyFactory.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateDecorationCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="910" selection-end="910" vertical-scroll-proportion="0.0">
+        <state line="27" column="31" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/resources/rest-server-spring-config.xml">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateCustomObjectCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="84" selection-start="1542" selection-end="1542" vertical-scroll-proportion="-4.3404255">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainLocalDataStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="671" selection-end="671" vertical-scroll-proportion="0.0">
+        <state line="21" column="31" selection-start="605" selection-end="622" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationships.java">
+    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/request/UpdateAliasRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="12" selection-start="128" selection-end="128" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRequestConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/LiquidResponseHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-impl/src/main/java/cazcade/liquid/impl/LSDUnmarshaler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="24" selection-start="298" selection-end="298" vertical-scroll-proportion="0.0">
+        <state line="66" column="111" selection-start="2120" selection-end="2120" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainRelationshipImpl.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateAliasRefCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="42" selection-start="2968" selection-end="2968" vertical-scroll-proportion="0.0">
+        <state line="26" column="31" selection-start="792" selection-end="792" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainRelationship.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/board/CreateRichTextCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="46" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0">
+        <state line="17" column="31" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/graph/LatestContentFinder.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/CallbackServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="70" selection-start="6785" selection-end="6785" vertical-scroll-proportion="0.0">
+        <state line="91" column="35" selection-start="5278" selection-end="5278" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainEntity.java">
+    <entry file="file://$PROJECT_DIR$/apps/twitter-auth/src/main/java/cazcade/apps/twitter/auth/signin/CallbackServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="20" selection-start="3994" selection-end="3994" vertical-scroll-proportion="0.0">
+        <state line="64" column="35" selection-start="3359" selection-end="3359" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDEntity.java">
+    <entry file="file://$PROJECT_DIR$/apps/upload/src/main/java/cazcade/apps/upload/ImageUploadServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="210" column="37" selection-start="5226" selection-end="5231" vertical-scroll-proportion="-7.076923">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="499" column="0" selection-start="16848" selection-end="16848" vertical-scroll-proportion="0.0">
+        <state line="82" column="39" selection-start="3462" selection-end="3462" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java">
+    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/pool/PoolRestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="523" column="25" selection-start="23592" selection-end="23592" vertical-scroll-proportion="11.634275">
+        <state line="150" column="31" selection-start="7332" selection-end="7332" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/message/CommentRestHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="31" selection-start="1412" selection-end="1412" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="29" selection-start="3456" selection-end="3456" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidNotificationServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="18" selection-start="2369" selection-end="2369" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="17" selection-start="311" selection-end="311" vertical-scroll-proportion="0.11867089">
           <folding />
         </state>
       </provider>

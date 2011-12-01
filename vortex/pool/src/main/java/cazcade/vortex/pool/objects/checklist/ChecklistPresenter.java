@@ -2,7 +2,7 @@ package cazcade.vortex.pool.objects.checklist;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.lsd.LSDTypeDef;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.UpdatePoolRequest;
@@ -21,13 +21,13 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<ChecklistView> {
-    public ChecklistPresenter(final PoolPresenter poolPresenter, @Nonnull final LSDEntity entity, @Nonnull final ChecklistView view, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
+    public ChecklistPresenter(final PoolPresenter poolPresenter, @Nonnull final LSDTransferEntity entity, @Nonnull final ChecklistView view, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
         super(poolPresenter, entity, view, threadSafeExecutor, features);
         //make sure we set editable before setText (very important)
         view.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                final LSDEntity minimalEntity = getEntity().asUpdateEntity();
+                final LSDTransferEntity minimalEntity = getEntity().asUpdateEntity();
                 BusFactory.getInstance().send(new UpdatePoolRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(final UpdatePoolRequest message, final UpdatePoolRequest response) {
@@ -39,8 +39,8 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
         BusFactory.getInstance().send(new RetrievePoolRequest(getEntity().getURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
             public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final List<LSDEntity> children = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (final LSDEntity child : children) {
+                final List<LSDTransferEntity> children = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                for (final LSDTransferEntity child : children) {
 
                     final String text = child.getAttribute(LSDAttribute.TEXT_EXTENDED);
                     if (text != null) {
@@ -54,7 +54,7 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
     }
 
     @Override
-    public void update(final LSDEntity newEntity, final boolean replaceEntity) {
+    public void update(final LSDTransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {

@@ -1,7 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,7 +19,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
 
-    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LSDEntity entity) {
+    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, identity, pool, target, entity);
     }
 
@@ -27,7 +27,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
 
-    public UpdatePoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LSDEntity entity) {
+    public UpdatePoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -37,7 +37,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     }
 
     @Deprecated
-    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LSDEntity newEntity) {
+    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LSDTransferEntity newEntity) {
         super();
         setSessionId(identity);
         setUri(objectURI);
@@ -45,13 +45,13 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     }
 
     @Deprecated
-    public UpdatePoolObjectRequest(final LiquidURI poolURI, @Nonnull final LSDEntity newEntity) {
+    public UpdatePoolObjectRequest(final LiquidURI poolURI, @Nonnull final LSDTransferEntity newEntity) {
         super();
         setUri(newEntity.getURI());
         setRequestEntity(newEntity);
     }
 
-    public UpdatePoolObjectRequest(@Nonnull final LSDEntity newEntity) {
+    public UpdatePoolObjectRequest(@Nonnull final LSDTransferEntity newEntity) {
         super();
         if (newEntity.getURI() == null) {
             throw new IllegalArgumentException("To update a pool object the entity should have a URI");
@@ -64,7 +64,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     }
 
 
-    protected UpdatePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri, final LSDEntity entity) {
+    protected UpdatePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -75,7 +75,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     }
 
 
-    @Nullable
+    @Nonnull
     @Override
     public LiquidMessage copy() {
         return new UpdatePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), getTarget(), getUri(), getRequestEntity());

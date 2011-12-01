@@ -1,7 +1,7 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDBaseEntity;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class VortexCompoundFormField extends AbstractVortexFormField {
         return true;
     }
 
-    public void bindAll(@Nonnull final LSDEntity parentEntity, @Nonnull final Map<LSDAttribute, VortexFormField> fields, final String prefix, final LSDAttribute parentAttribute) {
+    public void bindAll(@Nonnull final LSDBaseEntity parentEntity, @Nonnull final Map<LSDAttribute, VortexFormField> fields, final String prefix, final LSDAttribute parentAttribute) {
         for (final Map.Entry<LSDAttribute, VortexFormField> entry : fields.entrySet()) {
             entry.getValue().bind(getEntity(), entry.getKey(), prefix);
             entry.getValue().setOnChangeAction(new Runnable() {

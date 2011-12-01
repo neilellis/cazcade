@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public class ChangeReport {
     @Nonnull
     private final List<Map> latestChanges = new ArrayList<Map>();
 
-    public void addChangedFollowedBoard(@Nonnull final LSDEntity boardEntity) {
+    public void addChangedFollowedBoard(@Nonnull final LSDTransferEntity boardEntity) {
         changedFollowedBoards.add(boardEntity.getCamelCaseMap());
     }
 
-    public void addChangedOwnedBoard(@Nonnull final LSDEntity boardEntity) {
+    public void addChangedOwnedBoard(@Nonnull final LSDTransferEntity boardEntity) {
         changedOwnedBoards.add(boardEntity.getCamelCaseMap());
     }
 
@@ -55,8 +55,8 @@ public class ChangeReport {
         return !changedOwnedBoards.isEmpty();
     }
 
-    public void setLatestChanges(@Nonnull final Collection<LSDEntity> changes) {
-        for (final LSDEntity change : changes) {
+    public void setLatestChanges(@Nonnull final Collection<LSDTransferEntity> changes) {
+        for (final LSDTransferEntity change : changes) {
             latestChanges.add(change.getCamelCaseMap());
         }
     }

@@ -46,7 +46,7 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
         if (owner == null) {
             owner = request.getSessionIdentifier().getAlias();
         } else {
-            final FountainEntity ownerAlias = fountainNeo.findByURI(owner);
+            final LSDPersistedEntity ownerAlias = fountainNeo.findByURI(owner);
             if (ownerAlias == null) {
                 throw new AuthorizationException("Could not locate owner %s", owner);
             }
@@ -54,14 +54,14 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
             if (ownerRelationship == null) {
                 throw new AuthorizationException("Could not locate owner relationship for alias %s", owner);
             }
-            final FountainEntity ownerFountainEntity = ownerRelationship.getOtherNode(ownerAlias);
-            if (ownerFountainEntity == null) {
+            final LSDPersistedEntity ownerPersistedEntity = ownerRelationship.getOtherNode(ownerAlias);
+            if (ownerPersistedEntity == null) {
                 throw new AuthorizationException("Could not locate owner node for alias %s", owner);
             }
-            if (!ownerFountainEntity.hasAttribute(LSDAttribute.URI)) {
+            if (!ownerPersistedEntity.hasAttribute(LSDAttribute.URI)) {
                 throw new AuthorizationException("Could not locate owner URI for alias %s", owner);
             }
-            final String ownerURL = ownerFountainEntity.getAttribute(LSDAttribute.URI);
+            final String ownerURL = ownerPersistedEntity.getAttribute(LSDAttribute.URI);
             if (!ownerURL.equals(request.getSessionIdentifier().getUserURL().asString())) {
                 throw new AuthorizationException("Attempted to create a pool object when you are not the owner of the alias %s", owner);
             }

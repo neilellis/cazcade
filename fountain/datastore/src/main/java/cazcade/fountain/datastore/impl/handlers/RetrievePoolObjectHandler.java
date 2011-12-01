@@ -2,7 +2,7 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrievePoolObjectRequestHandler;
-import cazcade.liquid.api.lsd.LSDEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.RetrievePoolObjectRequest;
 
 import javax.annotation.Nonnull;
@@ -14,7 +14,7 @@ public class RetrievePoolObjectHandler extends AbstractRetrievalHandler<Retrieve
 
     @Nonnull
     public RetrievePoolObjectRequest handle(@Nonnull final RetrievePoolObjectRequest request) throws InterruptedException {
-        final LSDEntity entity;
+        final LSDTransferEntity entity;
         if (request.getTarget() == null) {
             entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.isHistorical(), request.getDetail());
             if (entity == null) {

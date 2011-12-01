@@ -1,8 +1,8 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.widgets.client.Resources;
@@ -32,7 +32,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     Image validityImage;
 
     protected LSDAttribute boundAttribute;
-    private LSDEntity entity;
+    private LSDTransferEntity entity;
 
 
     @Nullable
@@ -95,7 +95,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
 
 
     @Override
-    public void bind(@Nonnull final LSDEntity entity, @Nullable final LSDAttribute attribute, final String prefix) {
+    public void bind(@Nonnull final LSDTransferEntity entity, @Nullable final LSDAttribute attribute, final String prefix) {
         setEntity(entity);
         setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
         if (attribute != null) {
@@ -152,15 +152,15 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     @Override
-    public LSDEntity getEntity() {
+    public LSDTransferEntity getEntity() {
         return entity;
     }
 
 
     @Nonnull
     @Override
-    public LSDEntity getEntityDiff() {
-        final LSDEntity newEntity = LSDSimpleEntity.createEmpty();
+    public LSDTransferEntity getEntityDiff() {
+        final LSDTransferEntity newEntity = LSDSimpleEntity.createEmpty();
         newEntity.setAttribute(LSDAttribute.URI, entity.getURI().toString());
         newEntity.setTypeDef(entity.getTypeDef());
         if (isMultiValue()) {
@@ -172,7 +172,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
 
-    public void setEntity(@Nonnull final LSDEntity entity) {
+    public void setEntity(@Nonnull final LSDTransferEntity entity) {
         if (entity.isReadonly()) {
             throw new IllegalArgumentException("Cannot accept readonly entities.");
         }
