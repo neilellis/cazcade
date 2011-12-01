@@ -31,7 +31,7 @@ public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements C
 
 //        final Transaction transaction = fountainNeo.beginTx();
 //        try {
-//            final Node commentTargetNode = request.getTarget() != null ? fountainNeo.findByUUID(request.getTarget()) : fountainNeo.findByURI(request.getUri());
+//            final FountainEntityImpl commentTargetNode = request.getTarget() != null ? fountainNeo.findByUUID(request.getTarget()) : fountainNeo.findByURI(request.getUri());
 //            final LSDEntity response = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), poolDAO.addCommentNoTX(commentTargetNode, request.getEntity(), request.getAlias()), null, request.getDetail(), request.isInternal(), false);
 //
 //            //This is an iPad app hack//

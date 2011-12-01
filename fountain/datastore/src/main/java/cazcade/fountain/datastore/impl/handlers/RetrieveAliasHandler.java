@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.FountainRelationships;
@@ -48,18 +48,18 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
             final Transaction transaction = fountainNeo.beginTx();
             try {
 
-                final Node userNode = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
-                if (userNode == null) {
+                final FountainEntity userFountainEntity = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
+                if (userFountainEntity == null) {
                     throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.", request.getSessionIdentifier().getName());
                 }
 
-                if (userNode.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
+                if (userFountainEntity.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
                     boolean found = false;
-                    final Iterable<Relationship> relationships = userNode.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    final Iterable<Relationship> relationships = userFountainEntity.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
                     for (final Relationship relationship : relationships) {
-                        final Node aliasNode = relationship.getOtherNode(userNode);
-                        if (!aliasNode.isDeleted()) {
-                            final LSDEntity child = aliasNode.convertNodeToLSD(request.getDetail(), request.isInternal());
+                        final FountainEntity aliasFountainEntity = relationship.getOtherNode(userFountainEntity);
+                        if (!aliasFountainEntity.isDeleted()) {
+                            final LSDEntity child = aliasFountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
                             children.add(child);
                             found = true;
                         }

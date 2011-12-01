@@ -35,30 +35,30 @@ public class Relationship {
 
 
     @Nonnull
-    public Node getStartNode() {
-        return new Node(relationship.getStartNode());
+    public FountainEntity getStartNode() {
+        return new FountainEntityImpl(relationship.getStartNode());
     }
 
 
     @Nonnull
-    public Node getEndNode() {
-        return new Node(relationship.getEndNode());
+    public FountainEntity getEndNode() {
+        return new FountainEntityImpl(relationship.getEndNode());
     }
 
 
     @Nonnull
-    public Node getOtherNode(@Nonnull final Node node) {
-        return new Node(relationship.getOtherNode(node.getNeoNode()));
+    public FountainEntity getOtherNode(@Nonnull final FountainEntity fountainEntity) {
+        return new FountainEntityImpl(relationship.getOtherNode(fountainEntity.getNeoNode()));
     }
 
 
-    public Node[] getNodes() {
-        final List<Node> fountainNodes = new ArrayList<Node>();
+    public FountainEntity[] getNodes() {
+        final List<FountainEntity> fountainFountainEntities = new ArrayList<FountainEntity>();
         final org.neo4j.graphdb.Node[] nodes = relationship.getNodes();
         for (final org.neo4j.graphdb.Node node : nodes) {
-            fountainNodes.add(new Node(node));
+            fountainFountainEntities.add(new FountainEntityImpl(node));
         }
-        return fountainNodes.toArray(new Node[fountainNodes.size()]);
+        return fountainFountainEntities.toArray(new FountainEntity[fountainFountainEntities.size()]);
     }
 
 

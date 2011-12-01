@@ -335,7 +335,7 @@
         </property>
     </bean>
 
-    <bean id="fountainNeo" class="cazcade.fountain.datastore.impl.FountainNeo" destroy-method="stop"
+    <bean id="fountainNeo" class="cazcade.fountain.datastore.impl.FountainNeoImpl" destroy-method="stop"
           init-method="start">
     </bean>
 

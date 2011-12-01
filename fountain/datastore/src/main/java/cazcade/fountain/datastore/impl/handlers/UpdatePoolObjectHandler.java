@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.UpdatePoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
@@ -16,19 +16,19 @@ public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObj
     @Nonnull
     @Override
     public UpdatePoolObjectRequest handle(@Nonnull final UpdatePoolObjectRequest request) throws InterruptedException {
-        final Node node;
+        final FountainEntity fountainEntityImpl;
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDEntity entity;
-            Node pool = null;
+            FountainEntity pool = null;
             if (request.getUri() != null) {
-                node = fountainNeo.findByURI(request.getUri());
+                fountainEntityImpl = fountainNeo.findByURI(request.getUri());
                 pool = fountainNeo.findByURI(request.getUri().getWithoutFragment());
             } else {
-                node = fountainNeo.findByUUID(request.getTarget());
+                fountainEntityImpl = fountainNeo.findByUUID(request.getTarget());
             }
 
-            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(), request.getRequestEntity(), pool, node, request.isInternal(), request.getDetail());
+            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(), request.getRequestEntity(), pool, fountainEntityImpl, request.isInternal(), request.getDetail());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

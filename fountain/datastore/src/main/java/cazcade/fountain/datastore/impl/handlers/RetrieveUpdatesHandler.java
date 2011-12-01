@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
@@ -33,12 +33,12 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
             entity.setID(UUIDFactory.randomUUID());
             entity.setType(LSDDictionaryTypes.ENTITY_LIST);
             final LiquidURI initialURI = request.getSessionIdentifier().getAlias();
-            final Node startNode = fountainNeo.findByURI(initialURI);
-            if (startNode == null) {
+            final FountainEntity startFountainEntity = fountainNeo.findByURI(initialURI);
+            if (startFountainEntity == null) {
                 throw new EntityNotFoundException("Could not find start point at " + initialURI);
             }
             //todo:tune parameters and make them part of the request too...
-            final List<LSDEntity> entities = new ArrayList<LSDEntity>(new LatestContentFinder(request.getSessionIdentifier(), fountainNeo, startNode, request.getSince(), 20, 50000, request.getDetail(), 100, userDAO).getNodes());
+            final List<LSDEntity> entities = new ArrayList<LSDEntity>(new LatestContentFinder(request.getSessionIdentifier(), fountainNeo, startFountainEntity, request.getSince(), 20, 50000, request.getDetail(), 100, userDAO).getNodes());
             Collections.sort(entities, new LSDEntity.EntityPublishedComparator());
             transaction.success();
             if (entities == null || entities.isEmpty()) {

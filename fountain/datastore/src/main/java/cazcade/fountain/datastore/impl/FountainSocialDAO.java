@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
@@ -21,7 +21,7 @@ public interface FountainSocialDAO {
     @Nullable
     Collection<LSDEntity> getRosterNoTX(LiquidUUID target, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel detail) throws InterruptedException;
 
-    boolean isFollowing(Node currentAlias, Node node) throws InterruptedException;
+    boolean isFollowing(FountainEntity currentAlias, FountainEntity fountainEntity) throws InterruptedException;
 
     LSDEntity followResourceTX(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LiquidRequestDetailLevel detail, boolean internal) throws Exception;
 

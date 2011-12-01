@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidURI;
@@ -19,19 +19,19 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
 
     @Nonnull
     public VisitPoolRequest handle(@Nonnull final VisitPoolRequest request) throws Exception {
-        Node node;
+        FountainEntity fountainEntity;
         final Transaction transaction = fountainNeo.beginTx();
         try {
             LSDEntity entity = null;
 
             if (request.getUri() != null) {
-                node = fountainNeo.findByURI(request.getUri());
+                fountainEntity = fountainNeo.findByURI(request.getUri());
             } else {
-                node = fountainNeo.findByUUID(request.getTarget());
+                fountainEntity = fountainNeo.findByUUID(request.getTarget());
             }
 
-            if (node == null && request.isOrCreate() && !request.getSessionIdentifier().isAnon()) {
-                final Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
+            if (fountainEntity == null && request.isOrCreate() && !request.getSessionIdentifier().isAnon()) {
+                final FountainEntity parentFountainEntity = fountainNeo.findByURI(request.getUri().getParentURI());
                 final LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
                 final String name = request.getUri().getLastPathElement();
@@ -65,20 +65,20 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                         previousCharWhitespace = false;
                     }
                 }
-                node = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed());
+                fountainEntity = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentFountainEntity, request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed());
                 if (request.getPermission() != null) {
-                    node = fountainNeo.changeNodePermissionNoTx(node, request.getSessionIdentifier(), request.getPermission());
-                    node.assertLatestVersion();
+                    fountainEntity = fountainNeo.changeNodePermissionNoTx(fountainEntity, request.getSessionIdentifier(), request.getPermission());
+                    fountainEntity.assertLatestVersion();
                 }
             }
 
-            if (node == null) {
+            if (fountainEntity == null) {
                 return LiquidResponseHelper.forResourceNotFound("Could not find pool " + request.getUri(), request);
             } else {
-                node.assertLatestVersion();
-                poolDAO.visitNodeNoTx(node, request.getSessionIdentifier());
-                node.assertLatestVersion();
-                entity = poolDAO.getPoolAndContentsNoTx(node, request.getDetail(), true, ChildSortOrder.AGE, request.isInternal(), request.getSessionIdentifier(), null, null, request.isHistorical());
+                fountainEntity.assertLatestVersion();
+                poolDAO.visitNodeNoTx(fountainEntity, request.getSessionIdentifier());
+                fountainEntity.assertLatestVersion();
+                entity = poolDAO.getPoolAndContentsNoTx(fountainEntity, request.getDetail(), true, ChildSortOrder.AGE, request.isInternal(), request.getSessionIdentifier(), null, null, request.isHistorical());
                 final LSDEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURI(request.getAlias()), request.isInternal(), request.getDetail());
                 entity.addSubEntity(LSDAttribute.VISITOR, visitor, true);
                 transaction.success();

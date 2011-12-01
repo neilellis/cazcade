@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.api.DuplicateEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
@@ -48,26 +48,26 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     private FountainEmailService emailService;
 
     @Nonnull
-    private Node createUserInternal(@Nonnull final LSDEntity entity, final boolean systemUser) throws InterruptedException {
+    private FountainEntity createUserInternal(@Nonnull final LSDEntity entity, final boolean systemUser) throws InterruptedException {
         fountainNeo.begin();
         try {
-            final Node userNode = fountainNeo.createNode();
-            userNode.setProperty(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
-            userNode.timestamp();
+            final FountainEntity userFountainEntityImpl = fountainNeo.createNode();
+            userFountainEntityImpl.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
+            userFountainEntityImpl.timestamp();
             final String username = entity.getAttribute(LSDAttribute.NAME).toLowerCase();
-            userNode.setProperty(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.user, username).asString());
-            userNode.mergeProperties(entity, false, false, null);
-            fountainNeo.freeTextIndexNoTx(userNode);
+            userFountainEntityImpl.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.user, username).asString());
+            userFountainEntityImpl.mergeProperties(entity, false, false, null);
+            fountainNeo.freeTextIndexNoTx(userFountainEntityImpl);
 
-            userNode.setIDIfNotSetOnNode();
-            fountainNeo.indexBy(userNode, LSDAttribute.ID, LSDAttribute.ID, true);
-            fountainNeo.indexBy(userNode, LSDAttribute.URI, LSDAttribute.URI, true);
+            userFountainEntityImpl.setIDIfNotSetOnNode();
+            fountainNeo.indexBy(userFountainEntityImpl, LSDAttribute.ID, LSDAttribute.ID, true);
+            fountainNeo.indexBy(userFountainEntityImpl, LSDAttribute.URI, LSDAttribute.URI, true);
 
             //create the associated alias
 
             final LiquidURI uri = new LiquidURI(LiquidURIScheme.alias, new LiquidURI("cazcade:" + username));
-            final Node existingNode = fountainNeo.findByURI(uri);
-            if (existingNode != null) {
+            final FountainEntity existingFountainEntity = fountainNeo.findByURI(uri);
+            if (existingFountainEntity != null) {
                 throw new DuplicateEntityException("Attempted to create an alias for a user, but that alias already exists .");
             }
 
@@ -80,8 +80,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             }
             alias.setAttribute(LSDAttribute.NETWORK, "cazcade");
             alias.setAttribute(LSDAttribute.NAME, username);
-            createAlias(userNode, alias, true, true, false, systemUser);
-            return userNode;
+            createAlias(userFountainEntityImpl, alias, true, true, false, systemUser);
+            return userFountainEntityImpl;
         } finally {
             fountainNeo.end();
         }
@@ -95,13 +95,13 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             public void process(@Nonnull final AliasEntity alias) throws Exception {
                 final String uri = alias.getUri();
                 if (uri.startsWith("alias:cazcade:")) {
-                    final Node aliasNode = fountainNeo.findByURI(new LiquidURI(alias.getUri()));
-                    if (aliasNode == null) {
+                    final FountainEntity aliasFountainEntity = fountainNeo.findByURI(new LiquidURI(alias.getUri()));
+                    if (aliasFountainEntity == null) {
                         log.warn("Skipping " + uri + " as alias node not found.");
                         return;
                     }
-                    final LSDEntity aliasEntity = getAliasFromNode(aliasNode, true, LiquidRequestDetailLevel.COMPLETE);
-                    final Relationship ownerRel = aliasNode.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
+                    final LSDEntity aliasEntity = getAliasFromNode(aliasFountainEntity, true, LiquidRequestDetailLevel.COMPLETE);
+                    final Relationship ownerRel = aliasFountainEntity.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
                     if (ownerRel == null) {
                         log.warn("No owner for alias " + uri);
                     } else {
@@ -118,17 +118,17 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         return fountainNeo.doInTransactionAndBeginBlock(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                final Node userNode = fountainNeo.findByURI(user);
-                final String hashString = createUserHashableString(userNode);
+                final FountainEntity userFountainEntity = fountainNeo.findByURI(user);
+                final String hashString = createUserHashableString(userFountainEntity);
                 return FountainUserDAOImpl.digester.matches(hashString, changePasswordSecurityHash);
             }
         });
     }
 
     @Nonnull
-    private String createUserHashableString(@Nonnull final Node userNode) {
-        final Object id = userNode.getProperty(LSDAttribute.ID);
-        final Object password = userNode.getProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD);
+    private String createUserHashableString(@Nonnull final FountainEntity userFountainEntity) {
+        final Object id = userFountainEntity.getAttribute(LSDAttribute.ID);
+        final Object password = userFountainEntity.getAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD);
         return id + ":" + password + ":" + FountainUserDAOImpl.USER_HASH_SALT;
     }
 
@@ -138,10 +138,10 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             @Nullable
             @Override
             public Object call() throws Exception {
-                final Node userNode = fountainNeo.findByURI(userURI);
-                final LSDEntity userEntity = userNode.convertNodeToLSD(LiquidRequestDetailLevel.COMPLETE, true);
+                final FountainEntity userFountainEntity = fountainNeo.findByURI(userURI);
+                final LSDEntity userEntity = userFountainEntity.convertNodeToLSD(LiquidRequestDetailLevel.COMPLETE, true);
 
-                emailService.sendChangePasswordRequest(userEntity, FountainUserDAOImpl.digester.digest(createUserHashableString(userNode)));
+                emailService.sendChangePasswordRequest(userEntity, FountainUserDAOImpl.digester.digest(createUserHashableString(userFountainEntity)));
                 return null;
             }
         });
@@ -150,27 +150,27 @@ public class FountainUserDAOImpl implements FountainUserDAO {
 
     @Nonnull
     @Override
-    public Node createUser(@Nonnull final LSDEntity entity, final boolean systemUser) throws InterruptedException, UnsupportedEncodingException {
+    public FountainEntity createUser(@Nonnull final LSDEntity entity, final boolean systemUser) throws InterruptedException, UnsupportedEncodingException {
         fountainNeo.begin();
         try {
 
-            final Node userNode;
+            final FountainEntity userFountainEntity;
             final String username = entity.getAttribute(LSDAttribute.NAME).toLowerCase();
             final LiquidURI userURI = new LiquidURI(LiquidURIScheme.user, username);
             final LiquidURI aliasURI = new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username);
             if (fountainNeo.findByURI(userURI) != null) {
                 throw new DuplicateEntityException("Attempted to create a user (" + username + ") that already exists.");
             }
-            userNode = createUserInternal(entity, systemUser);
+            userFountainEntity = createUserInternal(entity, systemUser);
             if (!systemUser) {
                 final String plainPassword = entity.getAttribute(LSDAttribute.PLAIN_PASSWORD);
                 final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
                 final String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
-                userNode.setProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
+                userFountainEntity.setAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 emailService.sendRegistrationEmail(entity);
             }
 
-            return userNode;
+            return userFountainEntity;
         } finally {
             fountainNeo.end();
         }
@@ -179,7 +179,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
 
     @Nullable
     @Override
-    public Node createAlias(@Nonnull final Node userNode, @Nonnull final LSDEntity entity, final boolean me, final boolean orupdate, final boolean claim, final boolean systemUser) throws InterruptedException {
+    public FountainEntity createAlias(@Nonnull final FountainEntity userFountainEntityImpl, @Nonnull final LSDEntity entity, final boolean me, final boolean orupdate, final boolean claim, final boolean systemUser) throws InterruptedException {
         fountainNeo.begin();
         try {
             final LiquidURI aliasURI;
@@ -191,75 +191,75 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 network = "cazcade";
             }
             aliasURI = new LiquidURI(LiquidURIScheme.alias, network + ':' + name);
-            final Node existingNode = fountainNeo.findByURI(aliasURI);
-            if (existingNode != null && !orupdate) {
+            final FountainEntity existingFountainEntityImpl = fountainNeo.findByURI(aliasURI);
+            if (existingFountainEntityImpl != null && !orupdate) {
                 throw new DuplicateEntityException("Attempted to create an alias that exists already without first setting the 'orupdate' flag to 'true'.");
             }
-            final Node node;
+            final FountainEntity fountainEntityImpl;
             final String uriString = aliasURI.asString();
-            if (existingNode == null) {
-                node = fountainNeo.createNode();
+            if (existingFountainEntityImpl == null) {
+                fountainEntityImpl = fountainNeo.createNode();
                 if (me) {
-                    node.createRelationshipTo(userNode, FountainRelationships.ALIAS);
-                    node.createRelationshipTo(userNode, FountainRelationships.OWNER);
+                    fountainEntityImpl.createRelationshipTo(userFountainEntityImpl, FountainRelationships.ALIAS);
+                    fountainEntityImpl.createRelationshipTo(userFountainEntityImpl, FountainRelationships.OWNER);
                 }
 
-                node.mergeProperties(entity, false, false, null);
-                fountainNeo.freeTextIndexNoTx(node);
+                fountainEntityImpl.mergeProperties(entity, false, false, null);
+                fountainNeo.freeTextIndexNoTx(fountainEntityImpl);
 
-                node.setProperty(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
-                node.setIDIfNotSetOnNode();
-                node.setProperty(LSDAttribute.URI, uriString);
+                fountainEntityImpl.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
+                fountainEntityImpl.setIDIfNotSetOnNode();
+                fountainEntityImpl.setAttribute(LSDAttribute.URI, uriString);
                 final LiquidURI networkURI = new LiquidURI(LiquidURIScheme.network, network);
-                Node networkNode = fountainNeo.findByURI(networkURI);
-                if (networkNode == null) {
-                    networkNode = createSocialNetwork(networkURI);
+                FountainEntity networkFountainEntityImpl = fountainNeo.findByURI(networkURI);
+                if (networkFountainEntityImpl == null) {
+                    networkFountainEntityImpl = createSocialNetwork(networkURI);
                 }
-                node.createRelationshipTo(networkNode, FountainRelationships.NETWORK_MEMBER);
-                fountainNeo.indexBy(node, LSDAttribute.ID, LSDAttribute.ID, true);
-                fountainNeo.indexBy(node, LSDAttribute.URI, LSDAttribute.URI, true);
+                fountainEntityImpl.createRelationshipTo(networkFountainEntityImpl, FountainRelationships.NETWORK_MEMBER);
+                fountainNeo.indexBy(fountainEntityImpl, LSDAttribute.ID, LSDAttribute.ID, true);
+                fountainNeo.indexBy(fountainEntityImpl, LSDAttribute.URI, LSDAttribute.URI, true);
 
 
             } else {
-                node = existingNode;
-                node.mergeProperties(entity, true, false, null);
-                fountainNeo.freeTextIndexNoTx(node);
+                fountainEntityImpl = existingFountainEntityImpl;
+                fountainEntityImpl.mergeProperties(entity, true, false, null);
+                fountainNeo.freeTextIndexNoTx(fountainEntityImpl);
                 if (me) {
-                    for (final Relationship relationship : node.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING)) {
+                    for (final Relationship relationship : fountainEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING)) {
                         //todo: throw an exception instead!
                         relationship.delete();
                     }
-                    node.createRelationshipTo(userNode, FountainRelationships.ALIAS);
+                    fountainEntityImpl.createRelationshipTo(userFountainEntityImpl, FountainRelationships.ALIAS);
                 }
 
             }
             if (claim) {
-                userNode.createRelationshipTo(node, FountainRelationships.CLAIMED);
+                userFountainEntityImpl.createRelationshipTo(fountainEntityImpl, FountainRelationships.CLAIMED);
             }
-            node.timestamp();
-            return node;
+            fountainEntityImpl.timestamp();
+            return fountainEntityImpl;
         } finally {
             fountainNeo.end();
         }
     }
 
     @Nonnull
-    Node createSocialNetwork(@Nonnull final LiquidURI uri) throws InterruptedException {
-        final Node node = fountainNeo.createNode();
-        node.setProperty(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
-        node.setIDIfNotSetOnNode();
-        node.setProperty(LSDAttribute.TYPE, LSDDictionaryTypes.SOCIAL_NETWORK.getValue());
-        node.setProperty(LSDAttribute.NAME, uri.getSubURI().asString());
-        node.setProperty(LSDAttribute.URI, uri.asString());
-        fountainNeo.indexBy(node, LSDAttribute.ID, LSDAttribute.ID, true);
-        fountainNeo.indexBy(node, LSDAttribute.URI, LSDAttribute.URI, true);
-        node.timestamp();
-        return node;
+    FountainEntity createSocialNetwork(@Nonnull final LiquidURI uri) throws InterruptedException {
+        final FountainEntity entity = fountainNeo.createNode();
+        entity.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
+        entity.setIDIfNotSetOnNode();
+        entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.SOCIAL_NETWORK.getValue());
+        entity.setAttribute(LSDAttribute.NAME, uri.getSubURI().asString());
+        entity.setAttribute(LSDAttribute.URI, uri.asString());
+        fountainNeo.indexBy(entity, LSDAttribute.ID, LSDAttribute.ID, true);
+        fountainNeo.indexBy(entity, LSDAttribute.URI, LSDAttribute.URI, true);
+        entity.timestamp();
+        return entity;
     }
 
-    public void addAuthorToNodeNoTX(@Nonnull final LiquidURI author, final boolean createAuthor, @Nonnull final Node node) throws InterruptedException {
-        final Node authorNode = fountainNeo.findByURI(author);
-        if (authorNode == null) {
+    public void addAuthorToNodeNoTX(@Nonnull final LiquidURI author, final boolean createAuthor, @Nonnull final FountainEntity fountainEntity) throws InterruptedException {
+        final FountainEntity authorFountainEntityImpl = fountainNeo.findByURI(author);
+        if (authorFountainEntityImpl == null) {
             if (createAuthor) {
                 throw new UnsupportedOperationException("Feature no longer supported.");
                 /*
@@ -269,91 +269,91 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 alias.setType(LSDDictionaryTypes.ALIAS);
                 alias.setAttribute(LSDAttribute.NETWORK, aliasSubURI.getSchemeAsString());
                 alias.setAttribute(LSDAttribute.NAME, aliasSubURI.getSubURI().asString());
-                authorNode = createAlias(null, alias, false, true, false, false);
+                authorFountainEntityImpl = createAlias(null, alias, false, true, false, false);
                 */
             } else {
                 throw new EntityNotFoundException("Could not locate the author %s", author);
             }
         }
-        node.createRelationshipTo(authorNode, FountainRelationships.AUTHOR);
+        fountainEntity.createRelationshipTo(authorFountainEntityImpl, FountainRelationships.AUTHOR);
     }
 
     @Nonnull
     @Override
-    public Node createSession(@Nonnull final LiquidURI aliasUri, @Nonnull final ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException {
+    public FountainEntity createSession(@Nonnull final LiquidURI aliasUri, @Nonnull final ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException {
         fountainNeo.begin();
         try {
-            final Node node = fountainNeo.createNode();
+            final FountainEntity fountainEntity = fountainNeo.createNode();
 
-            node.setIDIfNotSetOnNode();
-            node.setProperty(LSDAttribute.TYPE, LSDDictionaryTypes.SESSION.getValue());
-            node.setProperty(LSDAttribute.CLIENT_APPLICATION_NAME, clientApplicationIdentifier.getName());
-            node.setProperty(LSDAttribute.CLIENT_APPLICATION_KEY, clientApplicationIdentifier.getKey());
-            node.setProperty(LSDAttribute.CLIENT_HOST, clientApplicationIdentifier.getHostinfo());
+            fountainEntity.setIDIfNotSetOnNode();
+            fountainEntity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.SESSION.getValue());
+            fountainEntity.setAttribute(LSDAttribute.CLIENT_APPLICATION_NAME, clientApplicationIdentifier.getName());
+            fountainEntity.setAttribute(LSDAttribute.CLIENT_APPLICATION_KEY, clientApplicationIdentifier.getKey());
+            fountainEntity.setAttribute(LSDAttribute.CLIENT_HOST, clientApplicationIdentifier.getHostinfo());
             final LiquidPermissionSet sessionPermissionSet = LiquidPermissionSet.getMinimalPermissionSet();
             LiquidPermissionSet.addReadPermissions(LiquidPermissionScope.WORLD, sessionPermissionSet);
-            node.setProperty(LSDAttribute.PERMISSIONS, sessionPermissionSet.toString());
-            node.setAttribute(LSDAttribute.ACTIVE, true);
+            fountainEntity.setAttribute(LSDAttribute.PERMISSIONS, sessionPermissionSet.toString());
+            fountainEntity.setAttribute(LSDAttribute.ACTIVE, true);
 
-            final Node ownerNode;
-            final Node userNode;
+            final FountainEntity ownerFountainEntityImpl;
+            final FountainEntity userFountainEntity;
             if ("cazcade".equals(aliasUri.getSubURI().getSchemeAsString())) {
-                ownerNode = fountainNeo.findByURI(aliasUri);
-                if (ownerNode == null) {
+                ownerFountainEntityImpl = fountainNeo.findByURI(aliasUri);
+                if (ownerFountainEntityImpl == null) {
                     throw new EntityNotFoundException("Could not find alias for %s", aliasUri);
                 }
-                userNode = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.user, aliasUri.getSubURI().getSubURI()));
-                if (userNode == null) {
+                userFountainEntity = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.user, aliasUri.getSubURI().getSubURI()));
+                if (userFountainEntity == null) {
                     throw new EntityNotFoundException("Could not find user for %s", aliasUri);
                 }
             } else {
-                final Node otherNetworkAlias = fountainNeo.findByURI(aliasUri);
+                final FountainEntity otherNetworkAlias = fountainNeo.findByURI(aliasUri);
                 if (otherNetworkAlias == null) {
                     throw new EntityNotFoundException("Could not find alias for %s", aliasUri);
                 }
                 final Relationship userRelationship = otherNetworkAlias.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
-                userNode = userRelationship.getEndNode();
-                ownerNode = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + userNode.getAttribute(LSDAttribute.NAME)));
-                if (ownerNode == null) {
+                userFountainEntity = userRelationship.getEndNode();
+                ownerFountainEntityImpl = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + userFountainEntity.getAttribute(LSDAttribute.NAME)));
+                if (ownerFountainEntityImpl == null) {
                     throw new EntityNotFoundException("Could not owner for alias %s", aliasUri);
                 }
             }
 
 
             //noinspection PointlessBooleanExpression
-            if (userNode.hasAttribute(LSDAttribute.SECURITY_RESTRICTED) && USER_MUST_CONFIRM_EMAIL) {
-                final String restricted = userNode.getAttribute(LSDAttribute.SECURITY_RESTRICTED);
+            if (userFountainEntity.hasAttribute(LSDAttribute.SECURITY_RESTRICTED) && USER_MUST_CONFIRM_EMAIL) {
+                final String restricted = userFountainEntity.getAttribute(LSDAttribute.SECURITY_RESTRICTED);
                 if ("true".equals(restricted)) {
                     throw new UserRestrictedException("User account for alias %s is restricted.", aliasUri);
                 }
             }
 
             //Remove stale sessions
-            final Iterable<Relationship> existingSessionRelationships = ownerNode.getRelationships(FountainRelationships.HAS_SESSION, Direction.OUTGOING);
+            final Iterable<Relationship> existingSessionRelationships = ownerFountainEntityImpl.getRelationships(FountainRelationships.HAS_SESSION, Direction.OUTGOING);
             for (final Relationship existingSessionRelationship : existingSessionRelationships) {
-                final Node sessionNode = existingSessionRelationship.getOtherNode(ownerNode);
-                final long updated = sessionNode.getUpdated().getTime();
-                final boolean active = sessionNode.getBooleanAttribute(LSDAttribute.ACTIVE);
-                if (updated < System.currentTimeMillis() - FountainNeo.SESSION_EXPIRES_MILLI) {
+                final FountainEntity sessionFountainEntity = existingSessionRelationship.getOtherNode(ownerFountainEntityImpl);
+                final long updated = sessionFountainEntity.getUpdated().getTime();
+                final boolean active = sessionFountainEntity.getBooleanAttribute(LSDAttribute.ACTIVE);
+                if (updated < System.currentTimeMillis() - FountainNeoImpl.SESSION_EXPIRES_MILLI) {
                     if (!active) {
                         existingSessionRelationship.delete();
-                        for (final Relationship relationship : sessionNode.getRelationships()) {
+                        for (final Relationship relationship : sessionFountainEntity.getRelationships()) {
                             relationship.delete();
                         }
-                        sessionNode.deleteNeo();
+                        sessionFountainEntity.deleteNeo();
                     }
-                } else if (updated < System.currentTimeMillis() - FountainNeo.SESSION_INACTIVE_MILLI) {
-                    sessionNode.setAttribute(LSDAttribute.ACTIVE, false);
+                } else if (updated < System.currentTimeMillis() - FountainNeoImpl.SESSION_INACTIVE_MILLI) {
+                    sessionFountainEntity.setAttribute(LSDAttribute.ACTIVE, false);
                 }
             }
-            node.setProperty(LSDAttribute.NAME, userNode.getAttribute(LSDAttribute.NAME));
-            node.createRelationshipTo(ownerNode, FountainRelationships.OWNER);
-            ownerNode.createRelationshipTo(node, FountainRelationships.HAS_SESSION);
-            node.setProperty(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.session, node.getAttribute(LSDAttribute.ID)).toString());
-            fountainNeo.indexBy(node, LSDAttribute.ID, LSDAttribute.ID, true);
-            fountainNeo.indexBy(node, LSDAttribute.URI, LSDAttribute.URI, true);
-            node.timestamp();
-            return node;
+            fountainEntity.setAttribute(LSDAttribute.NAME, userFountainEntity.getAttribute(LSDAttribute.NAME));
+            fountainEntity.createRelationshipTo(ownerFountainEntityImpl, FountainRelationships.OWNER);
+            ownerFountainEntityImpl.createRelationshipTo(fountainEntity, FountainRelationships.HAS_SESSION);
+            fountainEntity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.session, fountainEntity.getAttribute(LSDAttribute.ID)).toString());
+            fountainNeo.indexBy(fountainEntity, LSDAttribute.ID, LSDAttribute.ID, true);
+            fountainNeo.indexBy(fountainEntity, LSDAttribute.URI, LSDAttribute.URI, true);
+            fountainEntity.timestamp();
+            return fountainEntity;
         } finally {
             fountainNeo.end();
         }
@@ -362,10 +362,10 @@ public class FountainUserDAOImpl implements FountainUserDAO {
 
     @Nullable
     @Override
-    public LSDEntity getAliasFromNode(@Nonnull final Node node, final boolean internal, final LiquidRequestDetailLevel detail) throws InterruptedException {
+    public LSDEntity getAliasFromNode(@Nonnull final FountainEntity fountainEntity, final boolean internal, final LiquidRequestDetailLevel detail) throws InterruptedException {
         fountainNeo.begin();
         try {
-            return node.convertNodeToLSD(detail, internal);
+            return fountainEntity.convertNodeToLSD(detail, internal);
         } finally {
             fountainNeo.end();
         }
@@ -378,21 +378,21 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         try {
             final Transaction transaction = fountainNeo.beginTx();
             try {
-                final Node node = fountainNeo.findByUUID(target);
-                final Node ownerNode = fountainNeo.findByURI(identity.getUserURL());
-                final Iterable<Relationship> relationships = node.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING);
+                final FountainEntity fountainEntity = fountainNeo.findByUUID(target);
+                final FountainEntity ownerFountainEntity = fountainNeo.findByURI(identity.getUserURL());
+                final Iterable<Relationship> relationships = fountainEntity.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING);
                 boolean deleted = false;
                 for (final Relationship relationship : relationships) {
-                    if (relationship.getOtherNode(node).equals(ownerNode)) {
+                    if (relationship.getOtherNode(fountainEntity).equals(ownerFountainEntity)) {
                         deleted = true;
                         relationship.delete();
                     }
                 }
                 if (!deleted) {
-                    throw new RelationshipNotFoundException("{0} does not have alias {1}", identity.getName(), node.getAttribute(LSDAttribute.URI));
+                    throw new RelationshipNotFoundException("{0} does not have alias {1}", identity.getName(), fountainEntity.getAttribute(LSDAttribute.URI));
                 }
                 transaction.success();
-                return node.convertNodeToLSD(detail, internal);
+                return fountainEntity.convertNodeToLSD(detail, internal);
             } catch (RuntimeException e) {
                 transaction.failure();
                 throw e;
@@ -405,7 +405,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     }
 
 
-    public void setFountainNeo(final FountainNeo fountainNeo) {
+    public void setFountainNeo(final FountainNeoImpl fountainNeo) {
         this.fountainNeo = fountainNeo;
     }
 }

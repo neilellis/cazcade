@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrievePoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDEntity;
@@ -16,7 +16,7 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
 
     @Nonnull
     public RetrievePoolRequest handle(@Nonnull final RetrievePoolRequest request) throws Exception {
-        Node node;
+        FountainEntity fountainEntity;
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDEntity entity;
@@ -29,10 +29,10 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
             transaction.success();
             if (entity == null) {
                 if (request.isOrCreate()) {
-                    final Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
+                    final FountainEntity parentFountainEntity = fountainNeo.findByURI(request.getUri().getParentURI());
 
-                    final Node pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), parentNode, request.getUri().getLastPathElement(), 0.0, 0.0, request.getUri().getLastPathElement(), request.isListed());
-                    final LSDEntity newPoolEntity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, parentNode, request.getDetail(), request.isInternal(), false);
+                    final FountainEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), parentFountainEntity, request.getUri().getLastPathElement(), 0.0, 0.0, request.getUri().getLastPathElement(), request.isListed());
+                    final LSDEntity newPoolEntity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, parentFountainEntity, request.getDetail(), request.isInternal(), false);
                     transaction.success();
                     return LiquidResponseHelper.forServerSuccess(request, newPoolEntity);
 

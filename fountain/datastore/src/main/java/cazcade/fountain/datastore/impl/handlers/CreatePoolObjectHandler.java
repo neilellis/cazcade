@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -23,15 +23,15 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            final Node poolNode;
+            final FountainEntity poolFountainEntity;
             if (request.getPoolURI() != null) {
-                poolNode = fountainNeo.findByURI(request.getPoolURI());
-                if (poolNode == null) {
+                poolFountainEntity = fountainNeo.findByURI(request.getPoolURI());
+                if (poolFountainEntity == null) {
                     throw new DataStoreException("No such parent pool " + request.getPoolURI());
                 }
             } else {
-                poolNode = fountainNeo.findByUUID(request.getPool());
-                if (poolNode == null) {
+                poolFountainEntity = fountainNeo.findByUUID(request.getPool());
+                if (poolFountainEntity == null) {
                     throw new DataStoreException("No such parent pool " + request.getPool());
                 }
             }
@@ -43,7 +43,7 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
             } else {
                 result = request.getAuthor();
             }
-            final LSDEntity entity = poolDAO.createPoolObjectTx(poolNode, request.getSessionIdentifier(), owner, result, request.getRequestEntity(), request.getDetail(), request.isInternal(), true);
+            final LSDEntity entity = poolDAO.createPoolObjectTx(poolFountainEntity, request.getSessionIdentifier(), owner, result, request.getRequestEntity(), request.getDetail(), request.isInternal(), true);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

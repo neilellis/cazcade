@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.lsd.LSDEntity;
@@ -21,11 +21,11 @@ public class AbstractRetrievalHandler<T extends AbstractRetrievalRequest> extend
             final FountainNeo neo = fountainNeo;
             final Transaction transaction = neo.beginTx();
             try {
-                final Node node = fountainNeo.findByURI(request.getUri());
-                if (node == null) {
+                final FountainEntity fountainEntity = fountainNeo.findByURI(request.getUri());
+                if (fountainEntity == null) {
                     return LiquidResponseHelper.forEmptyResultResponse(request);
                 }
-                entity = node.convertNodeToLSD(request.getDetail(), request.isInternal());
+                entity = fountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
             } catch (RuntimeException e) {
                 transaction.failure();
                 throw e;

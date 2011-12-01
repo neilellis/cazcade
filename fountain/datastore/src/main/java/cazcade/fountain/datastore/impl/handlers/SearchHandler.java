@@ -1,6 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
+import cazcade.fountain.datastore.FountainEntityImpl;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.SearchRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -31,11 +32,11 @@ public class SearchHandler extends AbstractDataStoreHandler<SearchRequest> imple
             final List<LSDEntity> resultEntities = new ArrayList<LSDEntity>();
             final List<String> dedupUrls = new ArrayList<String>();
             for (final org.neo4j.graphdb.Node r : results) {
-                final Node result = new Node(r);
-                if (!dedupUrls.contains(result.getProperty(LSDAttribute.URI))) {
+                final FountainEntity result = new FountainEntityImpl(r);
+                if (!dedupUrls.contains(result.getAttribute(LSDAttribute.URI))) {
                     resultEntities.add(result.convertNodeToLSD(request.getDetail(), request.isInternal()));
                 }
-                dedupUrls.add(result.getProperty(LSDAttribute.URI));
+                dedupUrls.add(result.getAttribute(LSDAttribute.URI));
             }
             searchResultEntity.addSubEntities(LSDAttribute.CHILD, resultEntities);
             return LiquidResponseHelper.forServerSuccess(request, searchResultEntity);

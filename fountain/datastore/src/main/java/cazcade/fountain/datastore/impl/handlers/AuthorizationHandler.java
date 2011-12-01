@@ -1,7 +1,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.api.DeletedEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
@@ -38,19 +38,19 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
             if (request.getSessionIdentifier() == null) {
                 throw new AuthorizationException("No identity supplied.");
             }
-            final Node node;
+            final FountainEntity fountainEntity;
             if (request.getTarget() != null) {
-                node = fountainNeo.findByUUID(request.getTarget());
+                fountainEntity = fountainNeo.findByUUID(request.getTarget());
             } else {
-                node = fountainNeo.findByURI(request.getUri());
-                if (node == null) {
+                fountainEntity = fountainNeo.findByURI(request.getUri());
+                if (fountainEntity == null) {
                     log.warn("Client asked for authorization on  " + request.getUri() + " which could not be found.");
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_DENIAL.getValue());
                     return LiquidResponseHelper.forServerSuccess(request, entity);
                 }
             }
-            if (node.hasAttribute(LSDAttribute.PERMISSIONS)) {
-                final boolean auth = isAuthorized(request, node);
+            if (fountainEntity.hasAttribute(LSDAttribute.PERMISSIONS)) {
+                final boolean auth = isAuthorized(request, fountainEntity);
                 if (auth) {
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.getValue());
                 } else {
@@ -78,19 +78,19 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
     }
 
-    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final Node node) throws InterruptedException {
+    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final FountainEntity fountainEntity) throws InterruptedException {
         boolean auth;
-        auth = node.isAuthorized(request.getSessionIdentifier(), request.getActions());
+        auth = fountainEntity.isAuthorized(request.getSessionIdentifier(), request.getActions());
         final List<AuthorizationRequest> and = request.getAnd();
         for (final AuthorizationRequest andRequest : and) {
-            if (isAuthorized(andRequest, node)) {
+            if (isAuthorized(andRequest, fountainEntity)) {
                 auth = false;
             }
         }
         if (!auth) {
             final List<AuthorizationRequest> alternates = request.getOr();
             for (final AuthorizationRequest orRequest : alternates) {
-                if (isAuthorized(orRequest, node)) {
+                if (isAuthorized(orRequest, fountainEntity)) {
                     auth = true;
                     break;
                 }

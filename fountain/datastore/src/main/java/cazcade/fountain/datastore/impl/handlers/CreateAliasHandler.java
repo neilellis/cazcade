@@ -1,7 +1,8 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainNeoImpl;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidPermissionChangeType;
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -26,12 +27,12 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
         final Transaction transaction = neo.beginTx();
         try {
             final LiquidSessionIdentifier session = request.getSessionIdentifier();
-            final Node userNode = fountainNeo.findByURI(session.getUserURL());
-            final Node aliasNode = userDAO.createAlias(userNode, request.getRequestEntity(), request.isMe(), request.isOrCreate(), request.isClaim(), false);
-            final LSDEntity entity = aliasNode.convertNodeToLSD(request.getDetail(), request.isInternal());
+            final FountainEntity userFountainEntityImpl = fountainNeo.findByURI(session.getUserURL());
+            final FountainEntity aliasFountainEntity = userDAO.createAlias(userFountainEntityImpl, request.getRequestEntity(), request.isMe(), request.isOrCreate(), request.isClaim(), false);
+            final LSDEntity entity = aliasFountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
             poolDAO.createPoolsForAliasNoTx(entity.getURI(), entity.getAttribute(LSDAttribute.NAME), entity.getAttribute(LSDAttribute.FULL_NAME), false);
             //we reserve boards with user's name to avoid confusion with their profile boards.
-            final Node reservedPool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), fountainNeo.findByURI(new LiquidURI(FountainNeo.BOARDS_URI)), entity.getAttribute(LSDAttribute.NAME), 0, 0, entity.getAttribute(LSDAttribute.FULL_NAME), true);
+            final FountainEntity reservedPool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), fountainNeo.findByURI(new LiquidURI(FountainNeoImpl.BOARDS_URI)), entity.getAttribute(LSDAttribute.NAME), 0, 0, entity.getAttribute(LSDAttribute.FULL_NAME), true);
 //            fountainNeo.removeAllPermissions(reservedPool);
             fountainNeo.changeNodePermissionNoTx(reservedPool, request.getSessionIdentifier(), LiquidPermissionChangeType.MAKE_PUBLIC_READONLY);
             transaction.success();

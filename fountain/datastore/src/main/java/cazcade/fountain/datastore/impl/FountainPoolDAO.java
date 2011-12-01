@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -17,20 +17,20 @@ import java.util.Collection;
  */
 public interface FountainPoolDAO {
 
-    //todo: remove all Node based API calls, replace with URI and LSDEntity parameters and return types
+    //todo: remove all FountainEntity based API calls, replace with URI and LSDEntity parameters and return types
 
 
     //Pool & object Creation
 
 
     @Nonnull
-    Node createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, Node parent, String poolName, double x, double y, @Nullable String title, boolean listed) throws InterruptedException;
+    FountainEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, FountainEntity parent, String poolName, double x, double y, @Nullable String title, boolean listed) throws InterruptedException;
 
     @Nonnull
-    Node createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, Node parent, LSDType type, String poolName, double x, double y, String title, boolean listed) throws InterruptedException;
+    FountainEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, FountainEntity parent, LSDType type, String poolName, double x, double y, String title, boolean listed) throws InterruptedException;
 
     @Nullable
-    LSDEntity createPoolObjectTx(Node poolNode, LiquidSessionIdentifier identity, LiquidURI owner, LiquidURI author, LSDEntity entity, LiquidRequestDetailLevel detail, boolean internal, boolean createAuthor) throws Exception;
+    LSDEntity createPoolObjectTx(FountainEntity poolFountainEntity, LiquidSessionIdentifier identity, LiquidURI owner, LiquidURI author, LSDEntity entity, LiquidRequestDetailLevel detail, boolean internal, boolean createAuthor) throws Exception;
 
 
     //User pool Creation
@@ -45,18 +45,18 @@ public interface FountainPoolDAO {
 
     //todo: this should be a utility method not public API
     @Nullable
-    LSDEntity convertNodeToEntityWithRelatedEntitiesNoTX(LiquidSessionIdentifier sessionIdentifier, Node pool, @Nullable Node parentNode, LiquidRequestDetailLevel detail, boolean internal, boolean b) throws InterruptedException;
+    LSDEntity convertNodeToEntityWithRelatedEntitiesNoTX(LiquidSessionIdentifier sessionIdentifier, FountainEntity pool, @Nullable FountainEntity parentFountainEntity, LiquidRequestDetailLevel detail, boolean internal, boolean b) throws InterruptedException;
 
     @Nullable
     LSDEntity getPoolObjectTx(LiquidSessionIdentifier identity, LiquidURI uri, boolean internal, boolean historical, LiquidRequestDetailLevel detail) throws InterruptedException;
 
     @Nullable
-    LSDEntity getPoolAndContentsNoTx(Node targetNode, LiquidRequestDetailLevel detail, boolean contents, ChildSortOrder order, boolean internal, LiquidSessionIdentifier identity, @Nullable Integer start, @Nullable Integer end, boolean historical) throws Exception;
+    LSDEntity getPoolAndContentsNoTx(FountainEntity targetFountainEntity, LiquidRequestDetailLevel detail, boolean contents, ChildSortOrder order, boolean internal, LiquidSessionIdentifier identity, @Nullable Integer start, @Nullable Integer end, boolean historical) throws Exception;
 
 
     //Pool and object Update
     @Nullable
-    LSDEntity updatePoolObjectNoTx(LiquidSessionIdentifier identity, LiquidSessionIdentifier editor, LSDEntity entity, Node pool, Node origNode, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    LSDEntity updatePoolObjectNoTx(LiquidSessionIdentifier identity, LiquidSessionIdentifier editor, LSDEntity entity, FountainEntity pool, FountainEntity origFountainEntity, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
 
 
     LSDEntity linkPoolObjectTx(LiquidSessionIdentifier editor, LiquidURI newOwner, LiquidURI target, LiquidURI to, LiquidRequestDetailLevel detail, boolean internal) throws Exception;
@@ -75,36 +75,36 @@ public interface FountainPoolDAO {
 
 
     @Nonnull
-    Node movePoolObjectNoTx(LiquidURI object, Double x, Double y, Double z) throws Exception;
+    FountainEntity movePoolObjectNoTx(LiquidURI object, Double x, Double y, Double z) throws Exception;
 
-    void visitNodeNoTx(Node node, LiquidSessionIdentifier identity) throws InterruptedException;
+    void visitNodeNoTx(FountainEntity fountainEntityImpl, LiquidSessionIdentifier identity) throws InterruptedException;
 
 
     //Link and unlink  (unlink is like delete)
 
     @Nonnull
-    Node linkPoolObject(LiquidSessionIdentifier editor, Node newOwner, Node target, Node to) throws InterruptedException;
+    FountainEntity linkPoolObject(LiquidSessionIdentifier editor, FountainEntity newOwner, FountainEntity target, FountainEntity to) throws InterruptedException;
 
     @Nonnull
-    Node linkPoolObject(LiquidSessionIdentifier editor, Node newOwner, Node target, Node from, Node to) throws InterruptedException;
+    FountainEntity linkPoolObject(LiquidSessionIdentifier editor, FountainEntity newOwner, FountainEntity target, FountainEntity from, FountainEntity to) throws InterruptedException;
 
     @Nonnull
-    Node unlinkPoolObject(Node target) throws InterruptedException;
+    FountainEntity unlinkPoolObject(FountainEntity target) throws InterruptedException;
 
     @Nonnull
-    Node linkPool(Node newOwner, Node target, Node to) throws InterruptedException;
+    FountainEntity linkPool(FountainEntity newOwner, FountainEntity target, FountainEntity to) throws InterruptedException;
 
     @Nonnull
-    Node linkPool(Node newOwner, Node target, Node from, Node to) throws InterruptedException;
+    FountainEntity linkPool(FountainEntity newOwner, FountainEntity target, FountainEntity from, FountainEntity to) throws InterruptedException;
 
     @Nonnull
-    Node unlinkPool(Node target) throws InterruptedException;
+    FountainEntity unlinkPool(FountainEntity target) throws InterruptedException;
 
 
     //Comments
 
     @Nonnull
-    Node addCommentNoTX(Node commentTargetNode, LSDEntity entity, LiquidURI alias) throws InterruptedException;
+    FountainEntity addCommentNoTX(FountainEntity commentTargetFountainEntity, LSDEntity entity, LiquidURI alias) throws InterruptedException;
 
     @Nullable
     Collection<LSDEntity> getCommentsTx(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, int max, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
@@ -112,9 +112,9 @@ public interface FountainPoolDAO {
 
     //Utility methods
 
-    void recalculatePoolURIs(Node node) throws InterruptedException;
+    void recalculatePoolURIs(FountainEntity fountainEntity) throws InterruptedException;
 
 
     @Nullable
-    LSDEntity updatePool(LiquidSessionIdentifier sessionIdentifier, Node node, LiquidRequestDetailLevel detail, boolean internal, boolean historical, Integer end, int start, ChildSortOrder order, boolean contents, LSDEntity requestEntity, Runnable onRenameAction) throws Exception;
+    LSDEntity updatePool(LiquidSessionIdentifier sessionIdentifier, FountainEntity fountainEntityImpl, LiquidRequestDetailLevel detail, boolean internal, boolean historical, Integer end, int start, ChildSortOrder order, boolean contents, LSDEntity requestEntity, Runnable onRenameAction) throws Exception;
 }

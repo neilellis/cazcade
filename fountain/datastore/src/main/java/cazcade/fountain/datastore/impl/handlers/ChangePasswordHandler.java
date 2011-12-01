@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
@@ -24,8 +24,8 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LiquidURI userURL = request.getSessionIdentifier().getUserURL();
-            final Node node = fountainNeo.findByURI(userURL);
-            if (node == null) {
+            final FountainEntity fountainEntity = fountainNeo.findByURI(userURL);
+            if (fountainEntity == null) {
                 throw new AuthorizationException("No such user " + userURL);
             }
             if (request.getChangePasswordSecurityHash() != null) {
@@ -36,14 +36,14 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
             if (request.getPassword() == null) {
                 userDAO.sendPasswordChangeRequest(userURL);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, node.convertNodeToLSD(LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, fountainEntity.convertNodeToLSD(LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
             } else {
                 final String plainPassword = request.getPassword();
                 final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
                 final String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
-                node.setProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
+                fountainEntity.setAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, node.convertNodeToLSD(request.getDetail(), request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, fountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
             }
         } catch (RuntimeException e) {
             transaction.failure();

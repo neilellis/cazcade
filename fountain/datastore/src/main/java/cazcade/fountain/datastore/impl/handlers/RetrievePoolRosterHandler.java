@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrievePoolRosterRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -21,7 +21,7 @@ public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<Retrieve
 
     @Nonnull
     public RetrievePoolRosterRequest handle(@Nonnull final RetrievePoolRosterRequest request) throws InterruptedException {
-        Node node;
+        FountainEntity fountainEntity;
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final Collection<LSDEntity> entities;

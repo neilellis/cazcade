@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -36,16 +36,16 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
                 return LiquidResponseHelper.forDuplicateResource("Pool already exists.", request);
             }
 
-            final Node parentNode = neo.findByURI(request.getParent());
+            final FountainEntity parentFountainEntity = neo.findByURI(request.getParent());
 
-            if (parentNode == null) {
+            if (parentFountainEntity == null) {
                 throw new DataStoreException("No such parent pool " + request.getParent());
             }
             LiquidURI owner = request.getAlias();
             owner = defaultAndCheckOwner(request, owner);
 
-            final Node pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
-            pool.setProperty(LSDAttribute.DESCRIPTION, request.getDescription());
+            final FountainEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentFountainEntity, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
+            pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription());
             final LSDEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request.getDetail(), request.isInternal(), false);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

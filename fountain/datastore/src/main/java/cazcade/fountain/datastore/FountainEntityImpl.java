@@ -2,7 +2,7 @@ package cazcade.fountain.datastore;
 
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.*;
-import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainNeoImpl;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.NodeCallback;
 import cazcade.liquid.api.*;
@@ -28,10 +28,10 @@ import static cazcade.liquid.api.lsd.LSDAttribute.*;
  * @author neilellis@cazcade.com
  */
 @SuppressWarnings({"PublicMethodNotExposedInInterface"})
-public class Node extends LSDSimpleEntity {
+public class FountainEntityImpl extends LSDSimpleEntity implements FountainEntity {
 
     @Nonnull
-    private static final Logger log = Logger.getLogger(Node.class);
+    private static final Logger log = Logger.getLogger(FountainEntityImpl.class);
 
     private static final long serialVersionUID = -1697240636351951371L;
 
@@ -49,12 +49,13 @@ public class Node extends LSDSimpleEntity {
     @Nonnull
     private final transient org.neo4j.graphdb.Node neoNode;
 
-    public Node(@Nonnull final org.neo4j.graphdb.Node neoNode) {
+    public FountainEntityImpl(@Nonnull final org.neo4j.graphdb.Node neoNode) {
         super(new NeoPropertyStore(neoNode));
         this.neoNode = neoNode;
     }
 
 
+    @Override
     public long getNeoId() {
         return neoNode.getId();
     }
@@ -64,11 +65,13 @@ public class Node extends LSDSimpleEntity {
      * There are some exceptions (like session nodes). However even those exceptions
      * will be removed in future.
      */
+    @Override
     public void deleteNeo() {
         neoNode.delete();
     }
 
 
+    @Override
     @Nonnull
     public Iterable<Relationship> getRelationships() {
         final Iterable<org.neo4j.graphdb.Relationship> relationships = neoNode.getRelationships();
@@ -76,12 +79,14 @@ public class Node extends LSDSimpleEntity {
     }
 
 
+    @Override
     @Nonnull
     public Iterable<Relationship> getRelationships(final FountainRelationships... types) {
         return new RelationshipIterable(neoNode.getRelationships(types));
     }
 
 
+    @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
     public Iterable<Relationship> getRelationships(final FountainRelationships type, final Direction dir) {
@@ -89,12 +94,14 @@ public class Node extends LSDSimpleEntity {
     }
 
 
+    @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     public boolean hasRelationship(final FountainRelationships type, final Direction dir) {
         return neoNode.hasRelationship(type, dir);
     }
 
 
+    @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nullable
     public Relationship getSingleRelationship(final FountainRelationships type, final Direction dir) {
@@ -106,60 +113,52 @@ public class Node extends LSDSimpleEntity {
     }
 
 
+    @Override
     @SuppressWarnings({"TypeMayBeWeakened"})
     @Nonnull
-    public Relationship createRelationshipTo(@Nonnull final Node otherNode, final FountainRelationships type) {
-        return new Relationship(neoNode.createRelationshipTo(otherNode.neoNode, type));
+    public Relationship createRelationshipTo(@Nonnull final FountainEntity otherFountainEntityImpl, final FountainRelationships type) {
+        return new Relationship(neoNode.createRelationshipTo(otherFountainEntityImpl.getNeoNode(), type));
     }
 
 
+    @Override
     public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final FountainRelationships relationshipType, final Direction direction) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, relationshipType, direction);
     }
 
 
+    @Override
     public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final RelationshipType firstRelationshipType, final Direction firstDirection, final RelationshipType secondRelationshipType, final Direction secondDirection) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, firstRelationshipType, firstDirection, secondRelationshipType, secondDirection);
     }
 
 
+    @Override
     public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final Object... relationshipTypesAndDirections) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, relationshipTypesAndDirections);
     }
 
 
-    public String getProperty(@Nonnull final LSDAttribute key) {
-        return getAttribute(key);
-    }
+//    public void removeProperty(@Nonnull final LSDAttribute key) {
+//        remove(key);
+//    }
 
 
-    public String getProperty(@Nonnull final LSDAttribute key, @Nullable final String defaultValue) {
-        return getAttribute(key, defaultValue);
-    }
-
-
-    public void setProperty(final LSDAttribute key, final String value) {
-        setAttribute(key, value);
-    }
-
-
-    public void removeProperty(@Nonnull final LSDAttribute key) {
-        remove(key);
-    }
-
-
+    @Override
     public Iterable<String> getPropertyKeys() {
         return neoNode.getPropertyKeys();
     }
 
 
+    @Override
     @Nonnull
     public org.neo4j.graphdb.Node getNeoNode() {
         return neoNode;
     }
 
+    @Override
     @Nonnull
-    public Node mergeProperties(@Nonnull final LSDEntity entity, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
+    public FountainEntity mergeProperties(@Nonnull final LSDEntity entity, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
         if (hasAttribute(TYPE) && entity.hasAttribute(TYPE) && !ignoreType) {
             if (!isA(entity.getTypeDef())) {
                 throw new CannotChangeTypeException("The entity type used to be %s the request was to change it to %s", getTypeDef(), entity.getTypeDef());
@@ -182,7 +181,7 @@ public class Node extends LSDSimpleEntity {
                 }
             } else if (entry.getKey().equals(NAME.getKeyName()) && hasAttribute(NAME)) {
                 //trigger a URL recalculation
-                if (!entry.getValue().equals(getProperty(LSDAttribute.NAME))) {
+                if (!entry.getValue().equals(getAttribute(LSDAttribute.NAME))) {
                     setAttribute(LSDAttribute.NAME, entry.getValue());
                     if (onRenameAction != null) {
                         onRenameAction.run();
@@ -195,8 +194,9 @@ public class Node extends LSDSimpleEntity {
         return this;
     }
 
+    @Override
     @Nonnull
-    public Node getLatestVersionFromFork() {
+    public FountainEntity getLatestVersionFromFork() {
         log.debug("Getting latest version for {0}.", getAttribute(ID));
         if (hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
             final Relationship rel = getSingleRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING);
@@ -211,6 +211,7 @@ public class Node extends LSDSimpleEntity {
 
     }
 
+    @Override
     public int popularity() {
         int score = 0;
         //noinspection UnusedDeclaration
@@ -221,18 +222,20 @@ public class Node extends LSDSimpleEntity {
         return score;
     }
 
+    @Override
     @Nonnull
-    public Node parentNode() {
+    public FountainEntity parentNode() {
         final org.neo4j.graphdb.Relationship parentRelationship = neoNode.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
         if (parentRelationship == null) {
             throw new OrphanedEntityException("The entity with URI %s has no parent.", getAttribute(URI));
         }
-        return new Node(parentRelationship.getOtherNode(neoNode));
+        return new FountainEntityImpl(parentRelationship.getOtherNode(neoNode));
     }
 
+    @Override
     public void setIDIfNotSetOnNode() {
         if (!hasAttribute(ID) || getAttribute(ID).isEmpty()) {
-            setProperty(ID, UUIDFactory.randomUUID().toString().toLowerCase());
+            setAttribute(ID, UUIDFactory.randomUUID().toString().toLowerCase());
         }
     }
 
@@ -240,14 +243,16 @@ public class Node extends LSDSimpleEntity {
     public void timestamp() {
         super.timestamp();
         if (!hasAttribute(LSDAttribute.PUBLISHED)) {
-            setProperty(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+            setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
     }
 
+    @Override
     public boolean isDeleted() throws InterruptedException {
         return hasAttribute(DELETED);
     }
 
+    @Override
     public void copyValuesToEntity(@Nonnull final LSDEntity entity, @Nonnull final LSDAttribute... attributes) {
         for (final LSDAttribute attribute : attributes) {
             if (hasAttribute(attribute)) {
@@ -256,6 +261,7 @@ public class Node extends LSDSimpleEntity {
         }
     }
 
+    @Override
     @Nullable
     public LSDEntity convertNodeToLSD(final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
 
@@ -263,7 +269,7 @@ public class Node extends LSDSimpleEntity {
         if (hasAttribute(TYPE)) {
             entity.setAttribute(LSDAttribute.TYPE, getAttribute(TYPE));
         } else {
-            throw new DataStoreException("Node had no type");
+            throw new DataStoreException("FountainEntityImpl had no type");
         }
         if (detail == LiquidRequestDetailLevel.COMPLETE || detail == LiquidRequestDetailLevel.NORMAL || detail == LiquidRequestDetailLevel.FREE_TEXT_SEARCH_INDEX) {
             final Iterable<String> iterable = getPropertyKeys();
@@ -305,26 +311,29 @@ public class Node extends LSDSimpleEntity {
 
     }
 
-    public boolean isOwner(final Node ownerNode) throws InterruptedException {
+    @Override
+    public boolean isOwner(final FountainEntity ownerFountainEntity) throws InterruptedException {
         final Iterable<Relationship> relationships = getRelationships(FountainRelationships.OWNER, Direction.OUTGOING);
         for (final Relationship relationship : relationships) {
-            if (relationship.getOtherNode(this).equals(ownerNode)) {
+            if (relationship.getOtherNode(this).equals(ownerFountainEntity)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isAuthor(final Node ownerNode) throws InterruptedException {
+    @Override
+    public boolean isAuthor(final FountainEntity ownerFountainEntity) throws InterruptedException {
         final Iterable<Relationship> relationships = getRelationships(FountainRelationships.AUTHOR, Direction.OUTGOING);
         for (final Relationship relationship : relationships) {
-            if (relationship.getOtherNode(this).equals(ownerNode)) {
+            if (relationship.getOtherNode(this).equals(ownerFountainEntity)) {
                 return true;
             }
         }
         return false;
     }
 
+    @Override
     public boolean isOwner(@Nonnull final LiquidSessionIdentifier identity) throws InterruptedException {
         //Here I am traversing from the node supplied to it's owner alias, to the identity node that the alias relates to.
         //It's cleaner using the traverser as there would be loads of conditional logic here as not all aliases have
@@ -332,48 +341,52 @@ public class Node extends LSDSimpleEntity {
         final Traverser traverser = traverse(Traverser.Order.DEPTH_FIRST, new StopEvaluator() {
                     @Override
                     public boolean isStopNode(@Nonnull final TraversalPosition currentPos) {
-                        final Node currNode = new Node(currentPos.currentNode());
-                        return currNode.hasAttribute(URI) && currNode.getAttribute(URI).equals(identity.getUserURL().asString());
+                        final FountainEntity entity = new FountainEntityImpl(currentPos.currentNode());
+                        return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(identity.getUserURL().asString());
                     }
                 }, new ReturnableEvaluator() {
                     @Override
                     public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
-                        final Node currNode = new Node(currentPos.currentNode());
-                        return currNode.hasAttribute(URI) && currNode.getAttribute(URI).equals(identity.getUserURL().asString());
+                        final FountainEntity entity = new FountainEntityImpl(currentPos.currentNode());
+                        return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(identity.getUserURL().asString());
                     }
                 }, FountainRelationships.OWNER, Direction.OUTGOING, FountainRelationships.ALIAS, Direction.OUTGOING
         );
         return traverser.iterator().hasNext();
     }
 
+    @Override
     public boolean isLatestVersion() {
         return getSingleRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING) == null;
     }
 
+    @Override
     public void assertLatestVersion() {
         if (!isLatestVersion()) {
             throw new StaleUpdateException("Attempted to reference a stale node %s which has already been updated (i.e. stale version).", getAttribute(URI));
         }
     }
 
+    @Override
     public void forEachChild(@Nonnull final NodeCallback callback) throws Exception {
         final Iterable<Relationship> relationships = getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final Relationship relationship : relationships) {
-            final Node poolObjectNode = relationship.getOtherNode(this);
-            if (!poolObjectNode.isDeleted()) {
-                callback.call(poolObjectNode.getLatestVersionFromFork());
+            final FountainEntity poolObjectFountainEntity = relationship.getOtherNode(this);
+            if (!poolObjectFountainEntity.isDeleted()) {
+                callback.call(poolObjectFountainEntity.getLatestVersionFromFork());
             }
         }
 
         final Iterable<Relationship> linkedRelationships = getRelationships(FountainRelationships.LINKED_CHILD, Direction.OUTGOING);
         for (final Relationship relationship : linkedRelationships) {
-            final Node poolObjectNode = relationship.getOtherNode(this);
-            if (!poolObjectNode.isDeleted()) {
-                callback.call(poolObjectNode);
+            final FountainEntity poolObjectFountainEntity = relationship.getOtherNode(this);
+            if (!poolObjectFountainEntity.isDeleted()) {
+                callback.call(poolObjectFountainEntity);
             }
         }
     }
 
+    @Override
     public double calculateRadius() {
         if (hasAttribute(LSDAttribute.VIEW_X) && hasAttribute(LSDAttribute.VIEW_Y)) {
             final double x = Double.valueOf(getAttribute(LSDAttribute.VIEW_X));
@@ -384,27 +397,30 @@ public class Node extends LSDSimpleEntity {
         }
     }
 
+    @Override
     public boolean isListed() {
-        Node boardNode = null;
+        FountainEntity boardFountainEntity = null;
         final Iterator<org.neo4j.graphdb.Node> parentIterator = traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
             @Override
             public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
-                return new Node(currentPos.currentNode()).canBe(LSDDictionaryTypes.BOARD);
+                return new FountainEntityImpl(currentPos.currentNode()).canBe(LSDDictionaryTypes.BOARD);
             }
         }, FountainRelationships.CHILD, Direction.INCOMING, FountainRelationships.COMMENT, Direction.INCOMING).iterator();
         if (parentIterator.hasNext()) {
-            boardNode = new Node(parentIterator.next());
+            boardFountainEntity = new FountainEntityImpl(parentIterator.next());
         }
-        return boardNode != null && boardNode.getBooleanAttribute(LSDAttribute.LISTED);
+        return boardFountainEntity != null && boardFountainEntity.getBooleanAttribute(LSDAttribute.LISTED);
     }
 
+    @Override
     public void inheritPermissions(@Nonnull final LSDEntity parent) {
         final LiquidPermissionSet liquidPermissionSet = LiquidPermissionSet.createPermissionSet(parent.getAttribute(PERMISSIONS));
         log.debug("Inheriting permission " + liquidPermissionSet);
-        setProperty(PERMISSIONS, liquidPermissionSet.restoreDeletePermission().toString());
+        setAttribute(PERMISSIONS, liquidPermissionSet.restoreDeletePermission().toString());
         log.debug("Child now has " + getAttribute(PERMISSIONS));
     }
 
+    @Override
     public boolean isAuthorizedInternal(@Nullable final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions) throws InterruptedException {
         assertLatestVersion();
         if (identity == null) {
@@ -418,7 +434,7 @@ public class Node extends LSDSimpleEntity {
             log.debug("Admin user privilege used.");
             return true;
         }
-        if (identity.getName().equals(FountainNeo.SYSTEM)) {
+        if (identity.getName().equals(FountainNeoImpl.SYSTEM)) {
             log.debug("System user privilege used.");
             return true;
         }
@@ -466,6 +482,7 @@ public class Node extends LSDSimpleEntity {
 
     }
 
+    @Override
     public boolean isAuthorized(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions) throws InterruptedException {
         if (this == null) {
             return false;
@@ -489,7 +506,8 @@ public class Node extends LSDSimpleEntity {
 
     }
 
-    public void setPermissionFlagsOnEntity(@Nonnull final LiquidSessionIdentifier session, @Nullable final Node parent, @Nonnull final LSDEntity entity) throws InterruptedException {
+    @Override
+    public void setPermissionFlagsOnEntity(@Nonnull final LiquidSessionIdentifier session, @Nullable final FountainEntity parent, @Nonnull final LSDEntity entity) throws InterruptedException {
         if (parent == null) {
             entity.setAttribute(LSDAttribute.MODIFIABLE, isAuthorized(session, LiquidPermission.MODIFY));
             entity.setAttribute(LSDAttribute.EDITABLE, isAuthorized(session, LiquidPermission.EDIT));
@@ -546,7 +564,7 @@ public class Node extends LSDSimpleEntity {
 
     @Override
     public boolean equals(@Nullable final Object o) {
-        return this == o || !(o == null || getClass() != o.getClass()) && neoNode.equals(((Node) o).neoNode);
+        return this == o || !(o == null || getClass() != o.getClass()) && neoNode.equals(((FountainEntityImpl) o).neoNode);
 
     }
 
@@ -558,7 +576,7 @@ public class Node extends LSDSimpleEntity {
     @Nonnull
     @Override
     public String toString() {
-        return "Node{" +
+        return "FountainEntityImpl{" +
                 "neoNode=" + neoNode +
                 '}';
     }

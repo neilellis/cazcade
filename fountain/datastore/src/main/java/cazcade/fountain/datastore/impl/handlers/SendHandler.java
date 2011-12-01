@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -24,8 +24,8 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            final Node poolNode = fountainNeo.findByURI(request.getInboxURI());
-            if (poolNode == null) {
+            final FountainEntity poolFountainEntity = fountainNeo.findByURI(request.getInboxURI());
+            if (poolFountainEntity == null) {
                 throw new EntityNotFoundException("No such inbox pool " + request.getInboxURI());
             }
             final LiquidURI owner = request.getRecipientAlias();
@@ -33,7 +33,7 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
             final LSDEntity entity;
             final LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
             if (request.getRequestEntity() != null) {
-                entity = poolDAO.createPoolObjectTx(poolNode, recipientSessionId, owner, request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(), request.getDetail(), request.isInternal(), false);
+                entity = poolDAO.createPoolObjectTx(poolFountainEntity, recipientSessionId, owner, request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(), request.getDetail(), request.isInternal(), false);
             } else {
                 entity = poolDAO.linkPoolObjectTx(recipientSessionId, request.getRecipientAlias(), request.getUri(), request.getInboxURI(), request.getDetail(), request.isInternal());
             }

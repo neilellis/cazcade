@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.io;
 
-import cazcade.fountain.datastore.impl.FountainNeo;
+import cazcade.fountain.datastore.impl.FountainNeoImpl;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import org.codehaus.jackson.JsonFactory;
@@ -40,7 +40,7 @@ public class FountainNeoImporter {
 
     public void importJson(final String dir) throws IOException {
         final BatchInserterIndexProvider indexProvider = new LuceneBatchInserterIndexProvider(batchInserter);
-        final BatchInserterIndex uuidIndex = indexProvider.nodeIndex(FountainNeo.NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
+        final BatchInserterIndex uuidIndex = indexProvider.nodeIndex(FountainNeoImpl.NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
         final JsonFactory f = new JsonFactory();
         JsonParser jp = f.createJsonParser(new File(dir, "nodes.json"));
         while (jp.nextToken() != null) {
@@ -126,7 +126,7 @@ public class FountainNeoImporter {
         System.out.println("Adding URI index.");
         final EmbeddedGraphDatabase embeddedGraphDatabase = new EmbeddedGraphDatabase(batchInserter.getStore());
         final Transaction transaction = embeddedGraphDatabase.beginTx();
-        final Index<Node> uriIndex = embeddedGraphDatabase.index().forNodes(FountainNeo.NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
+        final Index<Node> uriIndex = embeddedGraphDatabase.index().forNodes(FountainNeoImpl.NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
         final Iterable<Node> allNodes = embeddedGraphDatabase.getAllNodes();
         for (final Node node : allNodes) {
             if (node.hasProperty(URI) && !node.hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {

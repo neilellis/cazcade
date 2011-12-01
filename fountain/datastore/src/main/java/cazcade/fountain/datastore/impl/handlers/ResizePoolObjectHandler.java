@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.ResizePoolObjectRequestHandler;
@@ -19,16 +19,16 @@ public class ResizePoolObjectHandler extends AbstractDataStoreHandler<ResizePool
     public ResizePoolObjectRequest handle(@Nonnull final ResizePoolObjectRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final Node node = fountainNeo.findByUUID(request.getObjectUUID());
-            final Node viewNode = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(node);
+            final FountainEntity fountainEntity = fountainNeo.findByUUID(request.getObjectUUID());
+            final FountainEntity viewFountainEntity = fountainEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(fountainEntity);
             if (request.getWidth() != null) {
-                viewNode.setAttribute(LSDAttribute.VIEW_WIDTH, request.getWidth());
+                viewFountainEntity.setAttribute(LSDAttribute.VIEW_WIDTH, request.getWidth());
             }
             if (request.getHeight() != null) {
-                viewNode.setAttribute(LSDAttribute.VIEW_HEIGHT, request.getHeight());
+                viewFountainEntity.setAttribute(LSDAttribute.VIEW_HEIGHT, request.getHeight());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewNode.convertNodeToLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, viewFountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.test;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainPoolDAOImpl;
 import cazcade.fountain.datastore.impl.FountainUserDAOImpl;
@@ -46,7 +46,7 @@ public class PermissionTest {
     private LiquidURI subPoolURI;
     private String sticky2Name;
     private LiquidURI sticky2URI;
-    private Node subPool;
+    private FountainEntity subPool;
     private String userProfilePoolName;
     private LiquidURI sticky3URI;
     private String sticky3Name;
@@ -72,7 +72,7 @@ public class PermissionTest {
                 user.setAttribute(LSDAttribute.NAME, username);
                 user.setAttribute(LSDAttribute.FULL_NAME, "Anonymous");
 
-                final Node userNode = userDAO.createUser(user, false);
+                final FountainEntity userFountainEntity = userDAO.createUser(user, false);
                 poolDAO.createPoolsForUserNoTx(username);
                 poolDAO.createPoolsForCazcadeAliasNoTx(username, user.getAttribute(LSDAttribute.FULL_NAME), false);
 
@@ -88,19 +88,19 @@ public class PermissionTest {
                 stickyURI = new LiquidURI(userPublicPoolName + "/sub#" + stickyName);
                 sticky2URI = new LiquidURI(userPublicPoolName + "/sub#" + sticky2Name);
                 sticky3URI = new LiquidURI(userProfilePoolName + "#" + sticky3Name);
-                final Node publicPoolNode = fountainNeo.findByURI(publicPoolURI, true);
-                final Node profilePoolNode = fountainNeo.findByURI(profilePoolURI, true);
-                assertNotNull(publicPoolNode);
+                final FountainEntity publicPoolFountainEntity = fountainNeo.findByURI(publicPoolURI, true);
+                final FountainEntity profilePoolFountainEntity = fountainNeo.findByURI(profilePoolURI, true);
+                assertNotNull(publicPoolFountainEntity);
                 assertNotNull(session);
-                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolNode, "sub", (double) 0, (double) 0, "sub", false);
+                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolFountainEntity, "sub", (double) 0, (double) 0, "sub", false);
                 createSticky(subPool, stickyName);
-                createSticky(profilePoolNode, sticky3Name);
+                createSticky(profilePoolFountainEntity, sticky3Name);
                 return null;
             }
         });
     }
 
-    private void createSticky(@Nonnull final Node subPool, final String stickyName) throws InterruptedException {
+    private void createSticky(@Nonnull final FountainEntity subPool, final String stickyName) throws InterruptedException {
         final LSDSimpleEntity sticky = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.STICKY);
         sticky.setAttribute(LSDAttribute.TEXT_EXTENDED, "TEST");
         sticky.setAttribute(LSDAttribute.NAME, stickyName);
@@ -149,8 +149,8 @@ public class PermissionTest {
                 assertFalse(stickyEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(stickyEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
 
-                final Node newSubPool = fountainNeo.findByURI(subPoolURI);
-                assertEquals("o=vmeds,f=v,m=vm,v=v,w=v,u=v,a=vmeds,t=vmeds,c=,e=", newSubPool.getProperty(LSDAttribute.PERMISSIONS));
+                final FountainEntity newSubPool = fountainNeo.findByURI(subPoolURI);
+                assertEquals("o=vmeds,f=v,m=vm,v=v,w=v,u=v,a=vmeds,t=vmeds,c=,e=", newSubPool.getAttribute(LSDAttribute.PERMISSIONS));
                 createSticky(newSubPool, sticky2Name);
 
                 final LSDEntity sticky2Entity = poolDAO.getPoolObjectTx(session, sticky2URI, false, false, LiquidRequestDetailLevel.NORMAL);

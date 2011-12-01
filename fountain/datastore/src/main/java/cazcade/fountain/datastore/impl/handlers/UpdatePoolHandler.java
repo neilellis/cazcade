@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.ChildSortOrder;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
@@ -23,7 +23,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDEntity entity;
-            final Node node;
+            final FountainEntity fountainEntityImpl;
 
             if (request.getUri() == null) {
                 throw new UnsupportedOperationException("Only URI based updates of pools supported");
@@ -39,7 +39,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
             final boolean contents = true;
 
 
-            node = fountainNeo.findByURI(request.getUri());
+            fountainEntityImpl = fountainNeo.findByURI(request.getUri());
             final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
             final LSDEntity requestEntity = request.getRequestEntity();
 
@@ -47,14 +47,14 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
                 @Override
                 public void run() {
                     try {
-                        poolDAO.recalculatePoolURIs(node);
+                        poolDAO.recalculatePoolURIs(fountainEntityImpl);
                     } catch (InterruptedException e) {
                         return;
                     }
                 }
             };
 
-            entity = poolDAO.updatePool(sessionIdentifier, node, detail, internal, historical, end, start, order, contents, requestEntity, onRenameAction);
+            entity = poolDAO.updatePool(sessionIdentifier, fountainEntityImpl, detail, internal, historical, end, start, order, contents, requestEntity, onRenameAction);
 
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.Relationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -36,20 +36,20 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
         final Transaction transaction = fountainNeo.beginTx();
         try {
 
-            final Node userNode = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
-            if (userNode.hasRelationship(FountainRelationships.CLAIMED, Direction.OUTGOING)) {
-                final Iterable<Relationship> claims = userNode.getRelationships(FountainRelationships.CLAIMED, Direction.OUTGOING);
+            final FountainEntity userFountainEntityImpl = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
+            if (userFountainEntityImpl.hasRelationship(FountainRelationships.CLAIMED, Direction.OUTGOING)) {
+                final Iterable<Relationship> claims = userFountainEntityImpl.getRelationships(FountainRelationships.CLAIMED, Direction.OUTGOING);
                 for (final Relationship claim : claims) {
-                    final Node claimedNode = claim.getOtherNode(userNode);
-                    final Iterable<Relationship> aliases = userNode.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    final FountainEntity claimedFountainEntity = claim.getOtherNode(userFountainEntityImpl);
+                    final Iterable<Relationship> aliases = userFountainEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
                     //clean up any multiple alias mess!
                     for (final Relationship alias : aliases) {
-                        if (alias.getOtherNode(userNode).equals(claimedNode)) {
+                        if (alias.getOtherNode(userFountainEntityImpl).equals(claimedFountainEntity)) {
                             alias.delete();
                         }
                     }
-                    claimedNode.createRelationshipTo(userNode, FountainRelationships.ALIAS);
-                    final LSDEntity child = claimedNode.convertNodeToLSD(request.getDetail(), request.isInternal());
+                    claimedFountainEntity.createRelationshipTo(userFountainEntityImpl, FountainRelationships.ALIAS);
+                    final LSDEntity child = claimedFountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
                     children.add(child);
                     //todo: auto add feeds
                     if (child.attributeIs(LSDAttribute.NETWORK, "twitter")) {
@@ -80,7 +80,7 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
         entity.setAttribute(LSDAttribute.SOURCE, String.format("http://twitter.com/%s", name));
         entity.setAttribute(LSDAttribute.DESCRIPTION, String.format("%s's Twitter Feed", child.getAttribute(LSDAttribute.FULL_NAME)));
         entity.setAttribute(LSDAttribute.NAME, String.format("twitter_%s_%d", name, System.currentTimeMillis()));
-        final Node pool = fountainNeo.findByURI(new LiquidURI("pool:///people/" + request.getSessionIdentifier().getName() + "/stream"));
+        final FountainEntity pool = fountainNeo.findByURI(new LiquidURI("pool:///people/" + request.getSessionIdentifier().getName() + "/stream"));
         final LSDEntity feed = poolDAO.createPoolObjectTx(pool, identity, request.getSessionIdentifier().getAlias(), child.getURI(), entity, request.getDetail(), request.isInternal(), false);
     }
 }

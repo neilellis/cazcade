@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -27,12 +27,12 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
     public CreateUserRequest handle(@Nonnull final CreateUserRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
-        final Node userNode;
+        final FountainEntity userFountainEntity;
         try {
 
-            userNode = userDAO.createUser(request.getRequestEntity(), false);
+            userFountainEntity = userDAO.createUser(request.getRequestEntity(), false);
 
-            final LSDEntity entity = userNode.convertNodeToLSD(request.getDetail(), request.isInternal());
+            final LSDEntity entity = userFountainEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
             final String username = request.getRequestEntity().getAttribute(LSDAttribute.NAME);
             if (username == null) {
                 throw new DataStoreException("The name attribute was null on the entity passed in to create user.");

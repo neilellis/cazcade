@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
@@ -22,30 +22,30 @@ public class LinkPoolObjectHandler extends AbstractDataStoreHandler<LinkPoolObje
             final LiquidUUID from = request.getFrom();
             final LiquidUUID to = request.getTo();
             final LiquidUUID target = request.getTarget();
-            final Node result;
-            final Node targetNode = fountainNeo.findByUUID(target);
-            final LiquidURI uri = targetNode.getURI();
+            final FountainEntity result;
+            final FountainEntity targetFountainEntityImpl = fountainNeo.findByUUID(target);
+            final LiquidURI uri = targetFountainEntityImpl.getURI();
 
             final LiquidURI alias = request.getAlias();
-            final Node newOwner = fountainNeo.findByURI(alias);
+            final FountainEntity newOwner = fountainNeo.findByURI(alias);
 
 
             if (request.isUnlink()) {
-//                if(targetNode.) {
+//                if(targetFountainEntityImpl.) {
 //                    System.err.println("Exists.");
 //                    System.err.println(fountainNeo.convertNodeToLSD(fountainNeo.findByURI(new LiquidURI(uri)), true).toString());
 //                    System.err.println("Target.");
-//                    System.err.println(fountainNeo.convertNodeToLSD(targetNode, true).toString());
+//                    System.err.println(fountainNeo.convertNodeToLSD(targetFountainEntityImpl, true).toString());
 //                    System.exit(-1);
 //                }
-                poolDAO.unlinkPoolObject(targetNode);
+                poolDAO.unlinkPoolObject(targetFountainEntityImpl);
 
             }
 
             if (from == null) {
-                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetNode, fountainNeo.findByUUID(to));
+                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetFountainEntityImpl, fountainNeo.findByUUID(to));
             } else {
-                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetNode, fountainNeo.findByUUID(from), fountainNeo.findByUUID(to));
+                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetFountainEntityImpl, fountainNeo.findByUUID(from), fountainNeo.findByUUID(to));
             }
 
 

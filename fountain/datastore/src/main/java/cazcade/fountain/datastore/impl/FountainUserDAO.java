@@ -1,6 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.fountain.datastore.Node;
+import cazcade.fountain.datastore.FountainEntity;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDEntity;
 
@@ -20,22 +20,22 @@ public interface FountainUserDAO {
     LSDEntity unlinkAliasTX(LiquidSessionIdentifier identity, LiquidUUID target, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
 
 
-    //Migrate from Node based methods, parameters should include URIs and return LSDEntity where appropriate
+    //Migrate from FountainEntity based methods, parameters should include URIs and return LSDEntity where appropriate
 
     @Nullable
-    LSDEntity getAliasFromNode(Node node, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    LSDEntity getAliasFromNode(FountainEntity fountainEntity, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
 
-//    Node createAlias(LSDEntity entity) throws InterruptedException;
+//    FountainEntity createAlias(LSDEntity entity) throws InterruptedException;
 
-    Node createUser(LSDEntity user, boolean systemUser) throws InterruptedException, UnsupportedEncodingException;
+    FountainEntity createUser(LSDEntity user, boolean systemUser) throws InterruptedException, UnsupportedEncodingException;
 
     @Nullable
-    Node createAlias(Node userNode, LSDEntity entity, boolean me, boolean orupdate, boolean claim, boolean systemUser) throws InterruptedException;
+    FountainEntity createAlias(FountainEntity userFountainEntity, LSDEntity entity, boolean me, boolean orupdate, boolean claim, boolean systemUser) throws InterruptedException;
 
     @Nonnull
-    Node createSession(LiquidURI aliasUri, ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException;
+    FountainEntity createSession(LiquidURI aliasUri, ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException;
 
-    void addAuthorToNodeNoTX(LiquidURI author, boolean createAuthor, Node node) throws InterruptedException;
+    void addAuthorToNodeNoTX(LiquidURI author, boolean createAuthor, FountainEntity fountainEntity) throws InterruptedException;
 
     /**
      * Performs some action on each user in the system, there is no guarantees of sequence or timeliness here, just that
