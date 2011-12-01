@@ -10,6 +10,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 /**
+ * The interface which all entities must extend.
+ *
  * @author neilellis@cazcade.com
  */
 public interface LSDBaseEntity {
@@ -29,10 +31,10 @@ public interface LSDBaseEntity {
      * @return a new object from the sub properties.
      */
     @Nonnull
-    LSDTransferEntity getSubEntity(LSDAttribute path, boolean readonly);
+    <T extends LSDBaseEntity> T getSubEntity(LSDAttribute path, boolean readonly);
 
     @Nonnull
-    LSDTransferEntity removeSubEntity(LSDAttribute path);
+    <T extends LSDBaseEntity> T removeSubEntity(LSDAttribute path);
 
     @Nullable
     LiquidURI getURI();
@@ -74,7 +76,7 @@ public interface LSDBaseEntity {
      * <b>Avoid using this method, it is primarily for internal use.</b>
      * It set's an attribute value, the empty string "" will remove the property.
      * null is invalid, for potentially null values
-     * use {@link #setAttributeConditonally(cazcade.liquid.api.lsd.LSDAttribute, String)} instead.
+     * use {@link #setAttributeConditonally(LSDAttribute, String)} instead.
      *
      * @param key   the attribute key.
      * @param value the value.
@@ -86,7 +88,7 @@ public interface LSDBaseEntity {
     /**
      * Set's an attribute value, the empty string "" will remove the property.
      * null is invalid, for potentially null values use
-     * {@link #setAttributeConditonally(cazcade.liquid.api.lsd.LSDAttribute, String)} instead.
+     * {@link #setAttributeConditonally(LSDAttribute, String)} instead.
      *
      * @param key   the attribute key.
      * @param value the value.
@@ -98,14 +100,14 @@ public interface LSDBaseEntity {
     /**
      * You can only add one object at a given root. If you
      * want to add an array of objects at a root use the
-     * {@link #addSubEntities(cazcade.liquid.api.lsd.LSDAttribute, java.util.Collection < LSDTransferEntity >)}
+     * {@link #addSubEntities(LSDAttribute, Collection < LSDTransferEntity >)}
      * method.
      *
      * @param stem       the stem property to which the sub entities properties
      *                   are appended to.
      * @param requiresId
      */
-    void addSubEntity(LSDAttribute stem, LSDTransferEntity entity, boolean requiresId);
+    void addSubEntity(LSDAttribute stem, LSDBaseEntity entity, boolean requiresId);
 
     void addSubEntities(LSDAttribute stem, Collection<LSDBaseEntity> entity);
 
@@ -116,7 +118,7 @@ public interface LSDBaseEntity {
      *               are appended to.
      * @param entity the collection of attributes to add.
      */
-    void addAnonymousSubEntity(LSDAttribute stem, LSDTransferEntity entity);
+    void addAnonymousSubEntity(LSDAttribute stem, LSDBaseEntity entity);
 
     boolean canBe(LSDDictionaryTypes type);
 
@@ -153,8 +155,6 @@ public interface LSDBaseEntity {
     boolean isNewerThan(LSDBaseEntity entity);
 
     boolean wasPublishedAfter(LSDBaseEntity entity);
-
-    String getEURI();
 
     void remove(LSDAttribute id);
 

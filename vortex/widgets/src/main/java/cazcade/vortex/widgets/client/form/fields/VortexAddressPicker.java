@@ -46,7 +46,8 @@ public class VortexAddressPicker extends VortexCompoundFormField {
 
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
-        setEntity(entity.getSubEntity(attribute, false));
+        final LSDTransferEntity subEntity = entity.getSubEntity(attribute, false);
+        setEntity(subEntity);
         final Map<LSDAttribute, VortexFormField> map = new HashMap<LSDAttribute, VortexFormField>();
         map.put(LSDAttribute.ADDRESS_FIRST_LINE, addressFirstLine);
         map.put(LSDAttribute.ADDRESS_SECOND_LINE, addressSecondLine);

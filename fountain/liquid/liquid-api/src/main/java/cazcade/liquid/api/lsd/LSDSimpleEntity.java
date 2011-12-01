@@ -682,7 +682,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public void addAnonymousSubEntity(@Nonnull final LSDAttribute stem, @Nonnull final LSDTransferEntity entity) {
+    public void addAnonymousSubEntity(@Nonnull final LSDAttribute stem, @Nonnull final LSDBaseEntity entity) {
         assertNotReadonly();
         final Map<String, String> map = entity.getMap();
         for (final Map.Entry<String, String> entry : map.entrySet()) {
@@ -691,7 +691,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public void addSubEntity(@Nonnull final LSDAttribute stem, @Nullable final LSDTransferEntity entity, final boolean requiresId) {
+    public void addSubEntity(@Nonnull final LSDAttribute stem, @Nullable final LSDBaseEntity entity, final boolean requiresId) {
         assertNotReadonly();
         if (entity == null) {
             throw new NullPointerException("Attempted to add a null sub entity using stem " + stem);
@@ -973,11 +973,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         }
         newEntity.setURI(uri);
         return newEntity;
-    }
-
-    @Override
-    public String getEURI() {
-        return getAttribute(LSDAttribute.EURI);
     }
 
 
