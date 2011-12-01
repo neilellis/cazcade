@@ -31,12 +31,12 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
             }
 
             if (node == null && request.isOrCreate() && !request.getSessionIdentifier().isAnon()) {
-                Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
-                LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
+                final Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
+                final LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
                 final String name = request.getUri().getLastPathElement();
-                String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-") || name.startsWith("-")) ? "Untitled" : name;
-                StringBuilder newTitle = new StringBuilder();
+                final String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-") || name.startsWith("-")) ? "Untitled" : name;
+                final StringBuilder newTitle = new StringBuilder();
                 boolean previousCharWhitespace = true;
                 for (int i = 0; i < boardTitle.length(); i++) {
                     final char c = boardTitle.charAt(i);

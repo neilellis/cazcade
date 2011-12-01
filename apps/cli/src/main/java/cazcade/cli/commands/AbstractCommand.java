@@ -13,11 +13,11 @@ import javax.annotation.Nullable;
 
 public abstract class AbstractCommand extends AbstractServiceStateMachine implements Command {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractCommand.class);
+    private static final Logger log = Logger.getLogger(AbstractCommand.class);
     private CommandInitContext context;
 
 
-    public void init(CommandInitContext context) throws Exception {
+    public void init(final CommandInitContext context) throws Exception {
         log.info("Initing {0}.", getName());
         this.context = context;
     }
@@ -37,12 +37,12 @@ public abstract class AbstractCommand extends AbstractServiceStateMachine implem
         return 0;
     }
 
-    public CommandLine parse(String[] args) throws ParseException {
-        CommandLineParser parser = new PosixParser();
+    public CommandLine parse(final String[] args) throws ParseException {
+        final CommandLineParser parser = new PosixParser();
 
         final CommandLine line = parser.parse(getOptions(), args);
         if (line.getArgList().contains("help")) {
-            HelpFormatter f = new HelpFormatter();
+            final HelpFormatter f = new HelpFormatter();
             f.printHelp(getName(), getOptions());
         }
         return line;

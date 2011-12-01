@@ -18,8 +18,8 @@ import java.util.Collection;
 public class RetrieveCommentsHandler extends AbstractRetrievalHandler<RetrieveCommentsRequest> implements RetrieveCommentsRequestHandler {
 
     @Nonnull
-    public RetrieveCommentsRequest handle(@Nonnull RetrieveCommentsRequest request) throws InterruptedException {
-        Collection<LSDEntity> entities;
+    public RetrieveCommentsRequest handle(@Nonnull final RetrieveCommentsRequest request) throws InterruptedException {
+        final Collection<LSDEntity> entities;
         final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT_LIST, UUIDFactory.randomUUID());
 
         entities = poolDAO.getCommentsTx(request.getSessionIdentifier(), request.getUri(), request.getMax(), request.isInternal(), request.getDetail());

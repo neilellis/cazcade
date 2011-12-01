@@ -17,13 +17,13 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite {
     @Nullable
     protected LSDEntity entity;
 
-    public void setEntity(@Nullable LSDEntity entity) {
+    public void setEntity(@Nullable final LSDEntity entity) {
         this.entity = entity;
         bind(entity);
 
     }
 
-    public void setEntityInternal(@Nullable LSDEntity entity) {
+    public void setEntityInternal(@Nullable final LSDEntity entity) {
         this.entity = entity;
         if (entity == null) {
             onInitial(entity);
@@ -34,15 +34,15 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite {
     }
 
 
-    protected void onChange(LSDEntity entity) {
+    protected void onChange(final LSDEntity entity) {
 
     }
 
-    protected void onUpdate(LSDEntity entity) {
+    protected void onUpdate(final LSDEntity entity) {
 
     }
 
-    protected void onInitial(LSDEntity entity) {
+    protected void onInitial(final LSDEntity entity) {
 
     }
 

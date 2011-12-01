@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> implements AddCommentRequestHandler {
     @Nonnull
     @Override
-    public AddCommentRequest handle(@Nonnull AddCommentRequest request) throws InterruptedException {
+    public AddCommentRequest handle(@Nonnull final AddCommentRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final Node commentTargetNode = request.getTarget() != null ? fountainNeo.findByUUID(request.getTarget()) : fountainNeo.findByURI(request.getUri());

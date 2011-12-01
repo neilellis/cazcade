@@ -16,9 +16,9 @@ import javax.annotation.Nonnull;
  * @author Neil Ellis
  */
 
-public abstract class AbstractRecurringCommand extends AbstractCommand implements Command {
+public abstract class AbstractRecurringCommand extends AbstractCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractRecurringCommand.class);
+    private static final Logger log = Logger.getLogger(AbstractRecurringCommand.class);
 
     public boolean isShortLived() {
         return false;

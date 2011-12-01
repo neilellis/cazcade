@@ -27,7 +27,7 @@ public class Track implements ValueChangeHandler<String> {
     }
 
 
-    public void registerUser(String id, String fullname, Map<String, String> map) {
+    public void registerUser(final String id, final String fullname, final Map<String, String> map) {
         identifyUserMixpanel(id);
         identifyUserNameMixpanel(fullname);
         registerUserMixpanel(map);
@@ -108,19 +108,19 @@ public class Track implements ValueChangeHandler<String> {
      * This is so this class can be registered  for history changes.
      */
     @Override
-    public void onValueChange(@Nonnull ValueChangeEvent<String> stringValueChangeEvent) {
+    public void onValueChange(@Nonnull final ValueChangeEvent<String> stringValueChangeEvent) {
         trackPage(stringValueChangeEvent.getValue());
     }
 
-    public static void setGoogleId(String googleId) {
+    public static void setGoogleId(final String googleId) {
         Track.googleId = googleId;
     }
 
-    public void trackEvent(String event, String details) {
+    public void trackEvent(final String event, final String details) {
         trackMixpanelEvent(event, details);
     }
 
-    public void userRegistered(String id, String username, Map<String, String> map) {
+    public void userRegistered(final String id, final String username, final Map<String, String> map) {
         trackMixpanel("$born");
         trackMixpanelEvent("Registered", username + " registered.");
         identifyUserMixpanel(id);

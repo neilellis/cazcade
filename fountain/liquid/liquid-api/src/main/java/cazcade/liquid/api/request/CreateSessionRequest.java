@@ -11,20 +11,22 @@ import java.util.Collection;
 public class CreateSessionRequest extends AbstractCreationRequest {
 
     public CreateSessionRequest() {
+        super();
     }
 
-    public CreateSessionRequest(@Nonnull ClientApplicationIdentifier client) {
+    public CreateSessionRequest(@Nonnull final ClientApplicationIdentifier client) {
         this(null, null, client);
     }
 
-    public CreateSessionRequest(LiquidURI alias, @Nonnull ClientApplicationIdentifier client) {
+    public CreateSessionRequest(final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
         this(null, alias, client);
     }
 
-    public CreateSessionRequest(@Nullable LiquidUUID id, @Nullable LiquidURI alias, @Nonnull ClientApplicationIdentifier client) {
-        this.setId(id);
-        this.setUri(alias);
-        this.setClient(client);
+    public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
+        super();
+        setId(id);
+        setUri(alias);
+        setClient(client);
     }
 
 

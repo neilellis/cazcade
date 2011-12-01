@@ -23,7 +23,7 @@ public class TouchMoveEvent extends TouchEvent<TouchMoveHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull TouchMoveHandler handler) {
+    protected void dispatch(@Nonnull final TouchMoveHandler handler) {
         handler.onTouchMove(this);
     }
 }

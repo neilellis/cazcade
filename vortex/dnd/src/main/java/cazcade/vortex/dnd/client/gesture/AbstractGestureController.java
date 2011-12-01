@@ -77,7 +77,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     private boolean boundsCheck;
 
 
-    public AbstractGestureController(final GestureControllable controllable, Widget alternate, boolean xMovementAllowed, boolean yMovementAllowed) {
+    public AbstractGestureController(final GestureControllable controllable, final Widget alternate, final boolean xMovementAllowed, final boolean yMovementAllowed) {
         this.alternate = alternate;
         this.controllable = controllable;
         this.xMovementAllowed = xMovementAllowed;
@@ -174,7 +174,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         oldY = offsetY;
 
         withinGesture = false;
-        double multiplier = 1.0;
+        final double multiplier = 1.0;
 //        if (deltaTime > FLICK_LOWER_THRESHOLD && deltaTime < FLICK_UPPER_THRESHOLD) {
 //            multiplier = (FLICK_UPPER_THRESHOLD - deltaTime) / 10;
 //        }
@@ -200,7 +200,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     public abstract void onShortPress();
 
 
-    public void onMouseDown(@Nonnull MouseDownEvent event) {
+    public void onMouseDown(@Nonnull final MouseDownEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -261,7 +261,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     protected abstract void onGestureStart();
 
 
-    public final void onMouseMove(@Nonnull MouseMoveEvent event) {
+    public final void onMouseMove(@Nonnull final MouseMoveEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -272,8 +272,8 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
             x = event.getScreenX();
             y = event.getScreenY();
             if (boundsCheck) {
-                double relativeX = event.getRelativeX(controllable.getBoundingElement());
-                double relativeY = event.getRelativeY(controllable.getBoundingElement());
+                final double relativeX = event.getRelativeX(controllable.getBoundingElement());
+                final double relativeY = event.getRelativeY(controllable.getBoundingElement());
                 if (relativeX < controllable.getLeftBounds() - DRAG_BOUNDS_TOLERANCE || relativeX > controllable.getRightBounds() + DRAG_BOUNDS_TOLERANCE
                         || relativeY > controllable.getBottomBounds() + DRAG_BOUNDS_TOLERANCE || relativeY < controllable.getTopBounds() - DRAG_BOUNDS_TOLERANCE) {
                     ClientLog.log("**** GESTURE EXCEEDED BOUNDS ****");
@@ -337,7 +337,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
     public abstract void onDrag();
 
 
-    public final void onMouseUp(@Nonnull MouseUpEvent event) {
+    public final void onMouseUp(@Nonnull final MouseUpEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -399,7 +399,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         }
     }
 
-    private void endMultiTouchGesture(TouchEndEvent event) {
+    private void endMultiTouchGesture(final TouchEndEvent event) {
         if (!active) {
             return;
         }
@@ -444,7 +444,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         }
     }
 
-    public void onTouchStart(@Nonnull TouchStartEvent event) {
+    public void onTouchStart(@Nonnull final TouchStartEvent event) {
         if (!active) {
             alternate.fireEvent(event);
             return;
@@ -464,7 +464,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
         } else if (event.getTargetTouches().length() == 1) {
             event.preventDefault();
             event.stopPropagation();
-            Touch touch = event.getTargetTouches().get(0);
+            final Touch touch = event.getTargetTouches().get(0);
             startY = touch.getScreenY();
             startX = touch.getScreenX();
             x = startX;
@@ -477,7 +477,7 @@ public abstract class AbstractGestureController implements MouseWheelHandler, Mo
 
     public abstract void onMultiTouchStart();
 
-    public void setActive(boolean active) {
+    public void setActive(final boolean active) {
         this.active = active;
     }
 

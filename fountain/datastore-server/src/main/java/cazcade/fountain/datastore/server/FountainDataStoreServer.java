@@ -16,7 +16,7 @@ import java.util.concurrent.CountDownLatch;
 public class FountainDataStoreServer extends AbstractServiceStateMachine {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainDataStoreServer.class);
+    private static final Logger log = Logger.getLogger(FountainDataStoreServer.class);
 
     private ClassPathXmlApplicationContext applicationContext;
     @Nonnull

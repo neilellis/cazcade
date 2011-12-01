@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "alias")
-public class AliasEntity extends CommonBase implements Serializable {
+public class AliasEntity extends CommonBase {
 
 
     protected Boolean registered;
@@ -31,7 +30,7 @@ public class AliasEntity extends CommonBase implements Serializable {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 
@@ -40,8 +39,8 @@ public class AliasEntity extends CommonBase implements Serializable {
         return name;
     }
 
-    public void setName(String userName) {
-        this.name = userName;
+    public void setName(final String userName) {
+        name = userName;
     }
 
     @Column(name = "fullname", nullable = true)
@@ -49,7 +48,7 @@ public class AliasEntity extends CommonBase implements Serializable {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public void setFullName(final String fullName) {
         this.fullName = fullName;
     }
 
@@ -58,7 +57,7 @@ public class AliasEntity extends CommonBase implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -68,7 +67,7 @@ public class AliasEntity extends CommonBase implements Serializable {
         return registered;
     }
 
-    public void setRegistered(Boolean registered) {
+    public void setRegistered(final Boolean registered) {
         this.registered = registered;
     }
 
@@ -78,7 +77,7 @@ public class AliasEntity extends CommonBase implements Serializable {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(final String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -87,12 +86,12 @@ public class AliasEntity extends CommonBase implements Serializable {
         return thumbnailUrl;
     }
 
-    public void setThumbnailUrl(String thumbnailUrl) {
+    public void setThumbnailUrl(final String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
 
 
-    public void setVisits(Set<VisitEntity> visits) {
+    public void setVisits(final Set<VisitEntity> visits) {
         this.visits = visits;
     }
 
@@ -103,7 +102,7 @@ public class AliasEntity extends CommonBase implements Serializable {
                 toString();
     }
 
-    public void setLastEmailUpdateDate(Date lastEmailUpdateDate) {
+    public void setLastEmailUpdateDate(final Date lastEmailUpdateDate) {
         this.lastEmailUpdateDate = lastEmailUpdateDate;
     }
 

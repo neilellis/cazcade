@@ -15,24 +15,24 @@ import java.util.*;
  * @author neilelliz@cazcade.com
  */
 public class LSDEntityConverter implements Converter {
-    public void marshal(Object o, @Nonnull HierarchicalStreamWriter hierarchicalStreamWriter, MarshallingContext marshallingContext) {
-        LSDEntity entity = (LSDEntity) o;
-        LSDNode lsdNode = entity.asFormatIndependentTree();
+    public void marshal(final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
+        final LSDEntity entity = (LSDEntity) o;
+        final LSDNode lsdNode = entity.asFormatIndependentTree();
         marshal(hierarchicalStreamWriter, lsdNode);
     }
 
-    private void marshal(@Nonnull HierarchicalStreamWriter hierarchicalStreamWriter, @Nonnull LSDNode lsdNode) {
+    private void marshal(@Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, @Nonnull final LSDNode lsdNode) {
         if (lsdNode.isLeaf()) {
 //            hierarchicalStreamWriter.startNode(lsdNode.getName());
             hierarchicalStreamWriter.setValue(lsdNode.getLeafValue());
 //            hierarchicalStreamWriter.endNode();
         } else {
-            List<LSDNode> lsdNodeList = lsdNode.getChildren();
-            for (LSDNode node : lsdNodeList) {
+            final List<LSDNode> lsdNodeList = lsdNode.getChildren();
+            for (final LSDNode node : lsdNodeList) {
 
                 if (node.isArray()) {
-                    List<LSDNode> children = node.getChildren();
-                    for (LSDNode child : children) {
+                    final List<LSDNode> children = node.getChildren();
+                    for (final LSDNode child : children) {
                         hierarchicalStreamWriter.startNode(child.getName());
                         marshal(hierarchicalStreamWriter, child);
                         hierarchicalStreamWriter.endNode();
@@ -48,19 +48,19 @@ public class LSDEntityConverter implements Converter {
 
 
     @Nonnull
-    public Object unmarshal(@Nonnull HierarchicalStreamReader hierarchicalStreamReader, UnmarshallingContext unmarshallingContext) {
-        Map<String, List> map = unmarshal(hierarchicalStreamReader);
-        LSDSimpleNode lsdNode = new LSDSimpleNode("root", Arrays.asList(map));
-        LSDSimpleEntity entity = LSDSimpleEntity.createFromNode(lsdNode);
+    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader, final UnmarshallingContext unmarshallingContext) {
+        final Map<String, List> map = unmarshal(hierarchicalStreamReader);
+        final LSDSimpleNode lsdNode = new LSDSimpleNode("root", Arrays.asList(map));
+        final LSDSimpleEntity entity = LSDSimpleEntity.createFromNode(lsdNode);
         return entity;
     }
 
     @Nonnull
-    private Map<String, List> unmarshal(@Nonnull HierarchicalStreamReader hierarchicalStreamReader) {
-        Map<String, List> map = new HashMap<String, List>();
+    private Map<String, List> unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader) {
+        final Map<String, List> map = new HashMap<String, List>();
         while (hierarchicalStreamReader.hasMoreChildren()) {
             hierarchicalStreamReader.moveDown();
-            String name = hierarchicalStreamReader.getNodeName();
+            final String name = hierarchicalStreamReader.getNodeName();
             if (!name.matches("[a-z]+[a-z0-9\\-_]*")) {
                 throw new LSDSerializationException("The XML node '" + name + "' contains an illegal charcter.");
             }
@@ -82,16 +82,16 @@ public class LSDEntityConverter implements Converter {
 
 
     @Nullable
-    public String toString(Object o) {
+    public String toString(final Object o) {
         return null;
     }
 
     @Nullable
-    public Object fromString(String s) {
+    public Object fromString(final String s) {
         return null;
     }
 
-    public boolean canConvert(@Nonnull Class aClass) {
+    public boolean canConvert(@Nonnull final Class aClass) {
         return aClass.equals(LSDSimpleEntity.class);
     }
 }

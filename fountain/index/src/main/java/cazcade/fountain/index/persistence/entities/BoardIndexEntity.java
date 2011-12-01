@@ -5,11 +5,6 @@ import cazcade.fountain.index.model.BoardType;
 import cazcade.fountain.index.model.CommonBase;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.io.Serializable;
-import java.lang.String;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +15,7 @@ import java.util.Set;
 @org.hibernate.annotations.Entity
 @Entity
 @Table(name = "board")
-public class BoardIndexEntity extends CommonBase implements Serializable {
+public class BoardIndexEntity extends CommonBase {
 
     private long commentCount;
     private long visitCount;
@@ -48,7 +43,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 
@@ -62,8 +57,8 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return shortUrl;
     }
 
-    public void setShortUrl(String boardName) {
-        this.shortUrl = boardName;
+    public void setShortUrl(final String boardName) {
+        shortUrl = boardName;
     }
 
     @Column(name = "title", nullable = true)
@@ -71,7 +66,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -80,25 +75,25 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
     @OneToMany(mappedBy = "board")
     public Set<MessageEntity> getComments() {
-        return this.comments;
+        return comments;
     }
 
-    public void setComments(Set<MessageEntity> comments) {
+    public void setComments(final Set<MessageEntity> comments) {
         this.comments = comments;
     }
 
     @OneToMany(mappedBy = "board")
     public Set<VisitEntity> getVisits() {
-        return this.visits;
+        return visits;
     }
 
-    public void setVisits(Set<VisitEntity> visits) {
+    public void setVisits(final Set<VisitEntity> visits) {
         this.visits = visits;
     }
 
@@ -108,8 +103,8 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return type;
     }
 
-    public void setType(BoardType model) {
-        this.type = model;
+    public void setType(final BoardType model) {
+        type = model;
     }
 
     @Column(name = "text", nullable = true)
@@ -117,7 +112,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return text;
     }
 
-    public void setText(String text) {
+    public void setText(final String text) {
         this.text = text;
     }
 
@@ -128,7 +123,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return creator;
     }
 
-    public void setCreator(AliasEntity creator) {
+    public void setCreator(final AliasEntity creator) {
         this.creator = creator;
     }
 
@@ -138,7 +133,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return owner;
     }
 
-    public void setOwner(AliasEntity owner) {
+    public void setOwner(final AliasEntity owner) {
         this.owner = owner;
     }
 
@@ -149,7 +144,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return author;
     }
 
-    public void setAuthor(AliasEntity author) {
+    public void setAuthor(final AliasEntity author) {
         this.author = author;
     }
 
@@ -160,7 +155,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return members;
     }
 
-    public void setMembers(Set<AliasEntity> members) {
+    public void setMembers(final Set<AliasEntity> members) {
         this.members = members;
     }
 
@@ -178,7 +173,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return commentCount;
     }
 
-    public void setCommentCount(long commentCount) {
+    public void setCommentCount(final long commentCount) {
         this.commentCount = commentCount;
     }
 
@@ -187,7 +182,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return visitCount;
     }
 
-    public void setVisitCount(long visitCount) {
+    public void setVisitCount(final long visitCount) {
         this.visitCount = visitCount;
     }
 
@@ -196,7 +191,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return likeCount;
     }
 
-    public void setLikeCount(long likeCount) {
+    public void setLikeCount(final long likeCount) {
         this.likeCount = likeCount;
     }
 
@@ -205,7 +200,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return followerCount;
     }
 
-    public void setFollowerCount(long followerCount) {
+    public void setFollowerCount(final long followerCount) {
         this.followerCount = followerCount;
     }
 
@@ -215,7 +210,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return followers;
     }
 
-    public void setFollowers(Set<AliasEntity> followers) {
+    public void setFollowers(final Set<AliasEntity> followers) {
         this.followers = followers;
     }
 
@@ -224,7 +219,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return chats;
     }
 
-    public void setChats(Set<MessageEntity> chats) {
+    public void setChats(final Set<MessageEntity> chats) {
         this.chats = chats;
     }
 
@@ -238,7 +233,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return activityCount;
     }
 
-    public void setActivityCount(long activityCount) {
+    public void setActivityCount(final long activityCount) {
         this.activityCount = activityCount;
     }
 
@@ -248,11 +243,11 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return popularity;
     }
 
-    public void setPopularity(long popularity) {
+    public void setPopularity(final long popularity) {
         this.popularity = popularity;
     }
 
-    public void setListed(boolean listed) {
+    public void setListed(final boolean listed) {
         this.listed = listed;
     }
 
@@ -266,7 +261,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(final Date updated) {
         this.updated = updated;
     }
 
@@ -281,7 +276,7 @@ public class BoardIndexEntity extends CommonBase implements Serializable {
     }
 
 
-    public void setCreated(Date created) {
+    public void setCreated(final Date created) {
         this.created = created;
     }
 }

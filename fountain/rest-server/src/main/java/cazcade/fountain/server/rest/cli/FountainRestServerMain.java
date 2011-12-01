@@ -12,13 +12,14 @@ import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 
 /**
  * @author neilelliz@cazcade.com
  */
 public class FountainRestServerMain {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainRestServerMain.class);
+    private static final Logger log = Logger.getLogger(FountainRestServerMain.class);
 
     //private static final String CONTEXT_FILE = "applicationContext.xml";
 //    private static final String SVN_ID = "SVN Identification : $Id$";
@@ -28,7 +29,7 @@ public class FountainRestServerMain {
     @Nonnull
     private static final ApplicationLifecycleManager lifecycleManager = new ApplicationLifecycleManager();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
@@ -39,7 +40,7 @@ public class FountainRestServerMain {
             }
         });
 
-        SignalHandler handler = new AppSignalHandler(new Runnable() {
+        final SignalHandler handler = new AppSignalHandler(new Runnable() {
             public void run() {
                 log.info("Shutting down Fountain REST server ...");
                 lifecycleManager.shutdown();
@@ -68,8 +69,8 @@ public class FountainRestServerMain {
         //ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(CONTEXT_FILE);
 
 
-        CommandLineParser parser = new PosixParser();
-        Options options = new Options();
+        final CommandLineParser parser = new PosixParser();
+        final Options options = new Options();
         options.addOption("d", "debug", false, "Display debug information.");
         options.addOption("i", "info", false, "Display informational messages.");
 
@@ -78,7 +79,7 @@ public class FountainRestServerMain {
         restServer = new FountainRestServer();
 
         final String[] strings = line.getArgs();
-        log.info("Arguments " + java.util.Arrays.toString(strings));
+        log.info("Arguments " + Arrays.toString(strings));
 
         lifecycleManager.register(new ApplicationLifecycleListener() {
             public void shutdown() throws Exception {

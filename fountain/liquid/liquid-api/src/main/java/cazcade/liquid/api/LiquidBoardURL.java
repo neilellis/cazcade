@@ -22,12 +22,12 @@ public class LiquidBoardURL {
     private final LiquidURI uri;
     private String shortURL;
 
-    public LiquidBoardURL(@Nonnull LiquidURI uri) {
+    public LiquidBoardURL(@Nonnull final LiquidURI uri) {
         this.uri = uri;
         shortURL = convertToShort(uri.getWithoutFragmentOrComment().asString());
     }
 
-    public LiquidBoardURL(@Nonnull String shortURL) {
+    public LiquidBoardURL(@Nonnull final String shortURL) {
         this.shortURL = shortURL;
         uri = new LiquidURI(convertFromShort(shortURL));
     }
@@ -38,7 +38,7 @@ public class LiquidBoardURL {
         return shortURL = convertToShort(uri.asString());
     }
 
-    public static String convertToShort(@Nullable String longURL) {
+    public static String convertToShort(@Nullable final String longURL) {
         if (longURL == null) {
             throw new NullPointerException("Attempted to pass in a null longURL to LiquidBoardURL.converToShort()");
         }
@@ -47,16 +47,16 @@ public class LiquidBoardURL {
             result = longURL.substring(PUBLIC_BOARD_USER_STEM.length() + 1);
 
         } else if (longURL.startsWith(USER_STEM)) {
-            String str = longURL.substring(USER_STEM.length() + 1);
+            final String str = longURL.substring(USER_STEM.length() + 1);
             final String[] strings = str.split("/");
             if (strings.length > 1) {
-                if (strings.length == 1 || (!strings[1].equals("public") && !strings[1].equals("profile"))) {
+                if (strings.length == 1 || !"public".equals(strings[1]) && !"profile".equals(strings[1])) {
                     throw new IllegalArgumentException("Format not valid for conversion to short url, needs to be in the boards pool to be a short url, '" + longURL + "'.");
                 }
-                if (strings[1].equals("profile")) {
+                if ("profile".equals(strings[1])) {
                     result = "@" + strings[0];
                 } else {
-                    String board = str.substring(strings[0].length() + strings[1].length() + 2);
+                    final String board = str.substring(strings[0].length() + strings[1].length() + 2);
                     result = board + "@" + strings[0];
                 }
 
@@ -69,8 +69,8 @@ public class LiquidBoardURL {
         return result;
     }
 
-    public static String convertFromShort(@Nonnull String url) {
-        String shortURL = url.replaceAll("~", "@");
+    public static String convertFromShort(@Nonnull final String url) {
+        final String shortURL = url.replaceAll("~", "@");
         String str;
         if (shortURL.contains("@")) {
             str = USER_STEM + "/";
@@ -112,11 +112,11 @@ public class LiquidBoardURL {
         return !shortURL.startsWith("@") && !shortURL.startsWith("$");
     }
 
-    public static boolean isConvertable(@Nullable LiquidURI uri) {
+    public static boolean isConvertable(@Nullable final LiquidURI uri) {
         return uri != null && isConvertable(uri.asString());
     }
 
-    public static boolean isConvertable(String longURL) {
+    public static boolean isConvertable(final String longURL) {
         try {
             convertToShort(longURL);
             return true;

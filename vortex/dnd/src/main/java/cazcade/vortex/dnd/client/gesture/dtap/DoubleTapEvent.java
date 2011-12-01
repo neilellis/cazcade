@@ -20,7 +20,7 @@ public class DoubleTapEvent extends GestureEvent<DoubleTapHandler> {
     }
 
 
-    public DoubleTapEvent(long duration, long endTime, DomEvent event, long startTime, int x, int y) {
+    public DoubleTapEvent(final long duration, final long endTime, final DomEvent event, final long startTime, final int x, final int y) {
         super(0, 0, duration, endTime, event, startTime, 0, 0, x, y, 0, 0);
     }
 
@@ -30,7 +30,7 @@ public class DoubleTapEvent extends GestureEvent<DoubleTapHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull DoubleTapHandler handlerDouble) {
+    protected void dispatch(@Nonnull final DoubleTapHandler handlerDouble) {
         handlerDouble.onDoubleTap(this);
     }
 }

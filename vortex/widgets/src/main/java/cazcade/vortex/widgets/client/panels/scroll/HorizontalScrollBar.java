@@ -12,7 +12,7 @@ public class HorizontalScrollBar extends ScrollBar {
 
     private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
 
-    public HorizontalScrollBar(Widget outer, Widget inner) {
+    public HorizontalScrollBar(final Widget outer, final Widget inner) {
         super(outer, inner);
         setHeight("8px");
         setWidth("100%");
@@ -28,17 +28,17 @@ public class HorizontalScrollBar extends ScrollBar {
     }
 
 
-    public void update(int offset) {
+    public void update(final int offset) {
 //        Window.alert("Updated "+outer.getElement().getOffsetWidth());
         if (inner.getElement().getOffsetWidth() > 0) {
-            int outerWidth = outer.getElement().getOffsetWidth();
-            int innerWidth = inner.getElement().getOffsetWidth();
-            int max = (innerWidth - outerWidth);
-            double scale = ((double) (outerWidth) / ((double) innerWidth));
-            browserUtil.translateXY(bar, (int) ((-offset) * scale), 0, 50);
+            final int outerWidth = outer.getElement().getOffsetWidth();
+            final int innerWidth = inner.getElement().getOffsetWidth();
+            final int max = innerWidth - outerWidth;
+            final double scale = (double) outerWidth / (double) innerWidth;
+            browserUtil.translateXY(bar, (int) (-offset * scale), 0, 50);
 
             if (getOffsetWidth() > 8) {
-                bar.setWidth(String.valueOf((int) (getOffsetWidth() * scale) - 8) + "px");
+                bar.setWidth((int) (getOffsetWidth() * scale) - 8 + "px");
             } else {
                 bar.setWidth("100%");
             }

@@ -25,7 +25,7 @@ import java.util.concurrent.Executors;
 
 public class LogUploadServlet extends HttpServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LogUploadServlet.class);
+    private static final Logger log = Logger.getLogger(LogUploadServlet.class);
     @Nonnull
     private static final String TMP_DIR_PATH = "/tmp";
     private File tmpDir;
@@ -33,7 +33,7 @@ public class LogUploadServlet extends HttpServlet {
     private UserContentStore contentStore;
     private final Executor storeExecutor = Executors.newCachedThreadPool();
 
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         super.init(config);
         applicationContext = new ClassPathXmlApplicationContext(
                 "liquid-spring-config.xml",
@@ -45,11 +45,11 @@ public class LogUploadServlet extends HttpServlet {
 
     }
 
-    protected void doPost(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         final LSDMarshaler marshaler = ((LSDMarshallerFactory) applicationContext.getBean("marshalerFactory")).getMarshalers().get("xml");
         response.setContentType(marshaler.getMimeType());
 
-        DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+        final DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
         /*
            *Set the size threshold, above which content will be stored on disk.
            */
@@ -59,20 +59,20 @@ public class LogUploadServlet extends HttpServlet {
            */
         fileItemFactory.setRepository(tmpDir);
 
-        ServletFileUpload uploadHandler = new ServletFileUpload(fileItemFactory);
+        final ServletFileUpload uploadHandler = new ServletFileUpload(fileItemFactory);
         try {
             /*
                 * Parse the request
                 */
-            List items = uploadHandler.parseRequest(request);
-            for (Object item1 : items) {
+            final List items = uploadHandler.parseRequest(request);
+            for (final Object item1 : items) {
                 final FileItem item = (FileItem) item1;
                 item.getInputStream();
-                String message = request.getParameter("message");
-                String summary = request.getParameter("summary");
-                String description = request.getParameter("description");
-                String session = request.getParameter("session");
-                String user = request.getParameter("user");
+                final String message = request.getParameter("message");
+                final String summary = request.getParameter("summary");
+                final String description = request.getParameter("description");
+                final String session = request.getParameter("session");
+                final String user = request.getParameter("user");
                 log.setSession(session, user);
                 log.sendToJira(message, log.hash(summary), "BUG (CLIENT): " + summary, description, "maelstrom", item.get(), item.getName());
             }

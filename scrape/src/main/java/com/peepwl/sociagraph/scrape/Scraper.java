@@ -22,7 +22,7 @@ public class Scraper {
         config = new ScraperConfiguration(new InputSource(Scraper.class.getResourceAsStream(configFile)));
     }
 
-    public ScraperContext scrape(String url) {
+    public ScraperContext scrape(final String url) {
 
         final File tempFile;
         try {
@@ -31,7 +31,7 @@ public class Scraper {
             throw new ScrapeException("Could not create tempfile for scraping : " + e.getMessage(), e);
         }
         try {
-            org.webharvest.runtime.Scraper scraper = new org.webharvest.runtime.Scraper(config, tempFile.getAbsolutePath());
+            final org.webharvest.runtime.Scraper scraper = new org.webharvest.runtime.Scraper(config, tempFile.getAbsolutePath());
             scraper.getHttpClientManager().getHttpClient().getParams().setParameter("http.useragent", "www.cazcade.com - multi-touch social networking");
             scraper.addVariableToContext("url", url);
             scraper.setDebug(false);

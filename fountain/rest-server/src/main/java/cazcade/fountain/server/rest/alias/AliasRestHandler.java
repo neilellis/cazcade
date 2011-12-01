@@ -26,7 +26,7 @@ public class AliasRestHandler extends AbstractRestHandler {
     private FountainDataStoreFacade dataStoreFacade;
 
     @Nonnull
-    public LiquidMessage get(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage get(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         if (parameters.get("uri") != null) {
             final String uri = parameters.get("uri")[0];
             return dataStoreFacade.process(new RetrieveAliasRequest(RestContext.getContext().getCredentials(), new LiquidURI(uri)));
@@ -36,24 +36,24 @@ public class AliasRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage get(LiquidUUID id) throws URISyntaxException {
+    public LiquidMessage get(final LiquidUUID id) throws URISyntaxException {
         return dataStoreFacade.process(new RetrieveAliasRequest(RestContext.getContext().getCredentials(), id));
     }
 
 
     @Nonnull
-    public LiquidMessage create(LSDEntity lsdEntity, @Nonnull Map<String, String[]> parameters) throws URISyntaxException {
-        boolean me = (parameters.containsKey("me"));
-        boolean orupdate = (parameters.containsKey("orupdate"));
+    public LiquidMessage create(final LSDEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+        final boolean me = parameters.containsKey("me");
+        final boolean orupdate = parameters.containsKey("orupdate");
 
-        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new CreateAliasRequest(username, lsdEntity, me, orupdate, false));
     }
 
     @Nonnull
-    public LiquidMessage update(LiquidUUID aliasId, LSDEntity lsdEntity, Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage update(final LiquidUUID aliasId, final LSDEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
 
-        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new UpdateAliasRequest(username, aliasId, lsdEntity));
     }
 
@@ -64,16 +64,16 @@ public class AliasRestHandler extends AbstractRestHandler {
 
 
     @Nonnull
-    public LiquidMessage delete(LiquidUUID userId) throws URISyntaxException {
+    public LiquidMessage delete(final LiquidUUID userId) throws URISyntaxException {
         return dataStoreFacade.process(new UnlinkAliasRequest(RestContext.getContext().getCredentials(), userId));
     }
 
-    public void setLsdFactory(LSDEntityFactory lsdEntityFactory) {
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
         this.lsdEntityFactory = lsdEntityFactory;
     }
 
 
-    public void setDataStore(FountainDataStoreFacade dataStoreFacade) {
+    public void setDataStore(final FountainDataStoreFacade dataStoreFacade) {
         this.dataStoreFacade = dataStoreFacade;
     }
 

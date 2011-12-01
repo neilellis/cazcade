@@ -17,20 +17,22 @@ public class FollowRequest extends AbstractRequest {
 
 
     public FollowRequest() {
+        super();
     }
 
-    public FollowRequest(LiquidSessionIdentifier identity, LiquidURI uri, boolean follow) {
+    public FollowRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean follow) {
         this(null, identity, uri, follow);
     }
 
-    public FollowRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri, boolean follow) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setFollow(follow);
-        this.setUri(uri);
+    public FollowRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean follow) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setFollow(follow);
+        setUri(uri);
     }
 
-    public FollowRequest(LiquidURI uri, boolean follow) {
+    public FollowRequest(final LiquidURI uri, final boolean follow) {
         this(null, null, uri, follow);
     }
 
@@ -46,7 +48,7 @@ public class FollowRequest extends AbstractRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new FollowRequest(getId(), getSessionIdentifier(), getUri(), super.isFollow());
+        return new FollowRequest(getId(), getSessionIdentifier(), getUri(), isFollow());
     }
 
     @Nonnull

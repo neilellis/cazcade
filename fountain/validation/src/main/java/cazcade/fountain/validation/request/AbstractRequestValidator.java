@@ -14,12 +14,12 @@ public abstract class AbstractRequestValidator<T extends LiquidRequest> implemen
 
     protected FountainEntityValidator entityValidator;
 
-    public void setEntityValidator(FountainEntityValidator entityValidator) {
+    public void setEntityValidator(final FountainEntityValidator entityValidator) {
         this.entityValidator = entityValidator;
     }
 
-    protected void validPoolObject(@Nonnull T request) {
-        boolean validType = true;
+    protected void validPoolObject(@Nonnull final T request) {
+        final boolean validType = true;
         //TODO: validate object types
 //        for (LSDTypes type : LSDTypeGroups.CORE_POOL_OBJECT_TYPES) {
 //            if (request.getEntity().canBe(type)) {

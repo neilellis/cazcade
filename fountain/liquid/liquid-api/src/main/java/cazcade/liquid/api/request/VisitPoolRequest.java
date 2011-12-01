@@ -13,40 +13,42 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
 
 
     public VisitPoolRequest() {
+        super();
     }
 
-    public VisitPoolRequest(@Nonnull LSDType type, LiquidURI uri, LiquidURI previous, boolean orCreate, boolean listed, LiquidPermissionChangeType permission) {
+    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final LiquidPermissionChangeType permission) {
         this(null, null, type, uri, previous, orCreate, 60, listed, permission);
     }
 
-    public VisitPoolRequest(@Nonnull LSDType type, LiquidURI uri, LiquidURI previous, boolean orCreate, boolean listed) {
+    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed) {
         this(null, null, type, uri, previous, orCreate, listed);
     }
 
-    public VisitPoolRequest(LiquidSessionIdentifier identity, @Nonnull LSDType type, LiquidURI uri, boolean orCreate, boolean listed) {
+    public VisitPoolRequest(final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, final boolean orCreate, final boolean listed) {
         this(null, identity, type, uri, null, orCreate, listed);
     }
 
-    public VisitPoolRequest(LiquidSessionIdentifier identity, LiquidURI uri) {
+    public VisitPoolRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
         this(null, identity, null, uri, null, false, false);
     }
 
 
-    private VisitPoolRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nonnull LSDType type, LiquidURI uri, @Nullable LiquidURI previous, boolean orCreate, boolean listed) {
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final boolean listed) {
         this(id, identity, type, uri, previous, orCreate, 60, listed, null);
     }
 
 
-    private VisitPoolRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nonnull LSDType type, LiquidURI uri, LiquidURI previous, boolean orCreate, int max, boolean listed, @Nullable LiquidPermissionChangeType permission) {
-        this.setOrCreate(orCreate);
-        this.setListed(listed);
-        this.setPermission(permission);
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setUri(uri);
-        this.setPreviousPool(previous);
-        this.setMax(max);
-        this.setPoolType(type);
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final int max, final boolean listed, @Nullable final LiquidPermissionChangeType permission) {
+        super();
+        setOrCreate(orCreate);
+        setListed(listed);
+        setPermission(permission);
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
+        setPreviousPool(previous);
+        setMax(max);
+        setPoolType(type);
 
     }
 

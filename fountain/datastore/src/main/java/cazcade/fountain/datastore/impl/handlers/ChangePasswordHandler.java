@@ -20,11 +20,11 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
     public static final String HASHED_PASSWORD = LSDAttribute.HASHED_AND_SALTED_PASSWORD.getKeyName();
 
     @Nonnull
-    public ChangePasswordRequest handle(@Nonnull ChangePasswordRequest request) throws Exception {
-        Transaction transaction = fountainNeo.beginTx();
+    public ChangePasswordRequest handle(@Nonnull final ChangePasswordRequest request) throws Exception {
+        final Transaction transaction = fountainNeo.beginTx();
         try {
             final LiquidURI userURL = request.getSessionIdentifier().getUserURL();
-            Node node = fountainNeo.findByURI(userURL);
+            final Node node = fountainNeo.findByURI(userURL);
             if (node == null) {
                 throw new AuthorizationException("No such user " + userURL);
             }
@@ -38,9 +38,9 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
                 transaction.success();
                 return LiquidResponseHelper.forServerSuccess(request, node.convertNodeToLSD(LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
             } else {
-                String plainPassword = request.getPassword();
-                StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-                String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
+                final String plainPassword = request.getPassword();
+                final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+                final String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
                 node.setProperty(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 transaction.success();
                 return LiquidResponseHelper.forServerSuccess(request, node.convertNodeToLSD(request.getDetail(), request.isInternal()));

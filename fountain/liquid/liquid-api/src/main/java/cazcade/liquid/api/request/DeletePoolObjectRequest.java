@@ -10,46 +10,48 @@ import java.util.List;
 public class DeletePoolObjectRequest extends AbstractDeletionRequest {
 
     public DeletePoolObjectRequest() {
+        super();
     }
 
 
-    public DeletePoolObjectRequest(LiquidURI uri) {
+    public DeletePoolObjectRequest(final LiquidURI uri) {
         this(null, null, null, null, uri);
     }
 
-    public DeletePoolObjectRequest(LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target) {
+    public DeletePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target) {
         this(null, identity, pool, target, null);
     }
 
-    public DeletePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID pool, @Nullable LiquidUUID target, @Nullable LiquidURI uri) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setPoolUUID(pool);
-        this.setTarget(target);
-        this.setUri(uri);
+    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setPoolUUID(pool);
+        setTarget(target);
+        setUri(uri);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new DeletePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), super.getUri());
+        return new DeletePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), getTarget(), getUri());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (super.getUri() != null) {
-            return Arrays.asList(new AuthorizationRequest(super.getUri(), LiquidPermission.DELETE).or(new AuthorizationRequest(super.getUri().getWithoutFragment(), LiquidPermission.EDIT)), new AuthorizationRequest(super.getUri().getWithoutFragment(), LiquidPermission.MODIFY));
+        if (getUri() != null) {
+            return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.DELETE).or(new AuthorizationRequest(getUri().getWithoutFragment(), LiquidPermission.EDIT)), new AuthorizationRequest(getUri().getWithoutFragment(), LiquidPermission.MODIFY));
         } else {
-            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.DELETE).or(new AuthorizationRequest(getPoolUUID(), LiquidPermission.EDIT)), new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY));
+            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.DELETE).or(new AuthorizationRequest(getPoolUUID(), LiquidPermission.EDIT)), new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY));
         }
     }
 
 
     public List<String> getNotificationLocations() {
-        if (super.getUri() != null) {
-            return Arrays.asList(super.getUri().asReverseDNSString(), super.getUri().getWithoutFragment().asReverseDNSString());
+        if (getUri() != null) {
+            return Arrays.asList(getUri().asReverseDNSString(), getUri().getWithoutFragment().asReverseDNSString());
         } else {
-            return Arrays.asList(getPoolUUID().toString(), super.getTarget().toString());
+            return Arrays.asList(getPoolUUID().toString(), getTarget().toString());
         }
     }
 

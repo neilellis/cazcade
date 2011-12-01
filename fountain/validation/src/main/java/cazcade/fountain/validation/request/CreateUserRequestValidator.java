@@ -14,10 +14,10 @@ import javax.annotation.Nonnull;
  */
 public class CreateUserRequestValidator extends AbstractRequestValidator<CreateUserRequest> {
     @Nonnull
-    private final static Logger log = Logger.getLogger(CreateUserRequestValidator.class);
+    private static final Logger log = Logger.getLogger(CreateUserRequestValidator.class);
 
     @Override
-    public void validate(@Nonnull CreateUserRequest request, ValidationLevel level) {
+    public void validate(@Nonnull final CreateUserRequest request, final ValidationLevel level) {
 
         log.debug("Validating create user request.");
         if (!request.getRequestEntity().isA(LSDDictionaryTypes.USER)) {

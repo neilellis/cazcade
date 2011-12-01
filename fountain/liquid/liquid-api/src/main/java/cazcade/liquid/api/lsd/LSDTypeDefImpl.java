@@ -20,23 +20,23 @@ public class LSDTypeDefImpl implements LSDTypeDef {
     public LSDTypeDefImpl() {
     }
 
-    public LSDTypeDefImpl(@Nullable String typeStringParam) {
+    public LSDTypeDefImpl(@Nullable final String typeStringParam) {
         if (typeStringParam == null) {
             throw new LSDTypeDefException("Tried to create a type def from a null type string.");
         }
-        this.typeString = typeStringParam.replace(" ", "");
-        int firstParen = typeString.indexOf("(");
+        typeString = typeStringParam.replace(" ", "");
+        final int firstParen = typeString.indexOf('(');
         if (firstParen < 0) {
             primaryType = convertToType(typeString);
         } else {
             primaryType = convertToType(typeString.substring(0, firstParen));
-            int secondParen = typeString.indexOf(")");
+            final int secondParen = typeString.indexOf(')');
             if (secondParen < firstParen) {
                 throw new LSDTypeDefException("There should be one open parenthesis matched by one closed parenthesis in a type definition");
             }
-            String typeList = typeString.substring(firstParen, secondParen);
-            String[] typeStrings = typeList.split(",");
-            for (String secondaryTypeString : typeStrings) {
+            final String typeList = typeString.substring(firstParen, secondParen);
+            final String[] typeStrings = typeList.split(",");
+            for (final String secondaryTypeString : typeStrings) {
                 secondaryTypes.add(convertToType(secondaryTypeString));
 
             }
@@ -44,12 +44,12 @@ public class LSDTypeDefImpl implements LSDTypeDef {
 
     }
 
-    public LSDTypeDefImpl(@Nonnull LSDDictionaryTypes parentType, @Nullable String subType) {
-        this(subType == null ? parentType.asString() : (parentType + "." + subType));
+    public LSDTypeDefImpl(@Nonnull final LSDDictionaryTypes parentType, @Nullable final String subType) {
+        this(subType == null ? parentType.asString() : parentType + "." + subType);
     }
 
     @Nonnull
-    private LSDType convertToType(@Nonnull String typeString) {
+    private LSDType convertToType(@Nonnull final String typeString) {
         return new LSDTypeImpl(typeString);
     }
 
@@ -66,15 +66,15 @@ public class LSDTypeDefImpl implements LSDTypeDef {
         return typeString;
     }
 
-    public boolean isA(LSDDictionaryTypes type) {
+    public boolean isA(final LSDDictionaryTypes type) {
         return primaryType.isA(type);
     }
 
-    public boolean canBe(LSDDictionaryTypes type) {
+    public boolean canBe(final LSDDictionaryTypes type) {
         if (primaryType.canBe(type)) {
             return true;
         }
-        for (LSDType secondaryType : secondaryTypes) {
+        for (final LSDType secondaryType : secondaryTypes) {
             if (secondaryType.canBe(type)) {
                 return true;
             }
@@ -88,13 +88,19 @@ public class LSDTypeDefImpl implements LSDTypeDef {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(@Nullable final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        LSDTypeDefImpl that = (LSDTypeDefImpl) o;
+        final LSDTypeDefImpl that = (LSDTypeDefImpl) o;
 
-        if (!typeString.equals(that.typeString)) return false;
+        if (!typeString.equals(that.typeString)) {
+            return false;
+        }
 
         return true;
     }

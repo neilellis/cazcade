@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public interface Resources extends ClientBundle {
-    public static final Resources INSTANCE = GWT.create(Resources.class);
+    Resources INSTANCE = GWT.create(Resources.class);
 
     @Nonnull
     @Source("blank.png")

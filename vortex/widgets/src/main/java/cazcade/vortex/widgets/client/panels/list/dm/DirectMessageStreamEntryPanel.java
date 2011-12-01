@@ -17,7 +17,8 @@ public class DirectMessageStreamEntryPanel extends DirectMessageListEntryPanel {
 
     private static final DirectMessageStreamEntryPanelUiBinder ourUiBinder = GWT.create(DirectMessageStreamEntryPanelUiBinder.class);
 
-    public DirectMessageStreamEntryPanel(@Nonnull LSDEntity streamEntry, @Nonnull FormatUtil features) {
+    public DirectMessageStreamEntryPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         init(streamEntry, features);
     }

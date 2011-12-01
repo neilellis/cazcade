@@ -40,13 +40,14 @@ public class VortexAddressPicker extends VortexCompoundFormField {
     VortexListBox country;
 
     public VortexAddressPicker() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
     @Override
-    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String prefix) {
         setEntity(entity.getSubEntity(attribute, false));
-        Map<LSDAttribute, VortexFormField> map = new HashMap<LSDAttribute, VortexFormField>();
+        final Map<LSDAttribute, VortexFormField> map = new HashMap<LSDAttribute, VortexFormField>();
         map.put(LSDAttribute.ADDRESS_FIRST_LINE, addressFirstLine);
         map.put(LSDAttribute.ADDRESS_SECOND_LINE, addressSecondLine);
         map.put(LSDAttribute.ADDRESS_CITY, city);

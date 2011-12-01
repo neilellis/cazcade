@@ -21,7 +21,7 @@ public class ShellSession {
 
     private FountainDataStore dataStore;
 
-    public void setIdentity(LiquidSessionIdentifier identity) {
+    public void setIdentity(final LiquidSessionIdentifier identity) {
         this.identity = identity;
     }
 
@@ -33,11 +33,11 @@ public class ShellSession {
         return currentPool;
     }
 
-    public void setCurrentPool(LSDEntity currentPool) {
+    public void setCurrentPool(final LSDEntity currentPool) {
         this.currentPool = currentPool;
     }
 
-    public void setDataStore(FountainDataStore dataStore) {
+    public void setDataStore(final FountainDataStore dataStore) {
         this.dataStore = dataStore;
     }
 
@@ -46,25 +46,25 @@ public class ShellSession {
     }
 
 
-    public void pushEntity(LSDEntity entity) {
+    public void pushEntity(final LSDEntity entity) {
         entityStack.add(entity);
     }
 
     public LSDEntity popEntity() {
-        if (entityStack.size() == 0) {
+        if (entityStack.isEmpty()) {
             throw new IllegalStateException("Cannot pop entity as stack is empty, how did this happen?");
         }
         return entityStack.remove(entityStack.size() - 1);
     }
 
     public LSDEntity getCurrentEntity() {
-        if (entityStack.size() == 0) {
+        if (entityStack.isEmpty()) {
             throw new IllegalStateException("Not within the context of an entity.");
         }
         return entityStack.get(entityStack.size() - 1);
     }
 
     public boolean hasEntityOnStack() {
-        return entityStack.size() > 0;
+        return !entityStack.isEmpty();
     }
 }

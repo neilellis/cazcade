@@ -25,7 +25,7 @@ import java.lang.reflect.Proxy;
  */
 public class FountainDataStoreFacadeProxyFactory {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainDataStoreFacadeProxyFactory.class);
+    private static final Logger log = Logger.getLogger(FountainDataStoreFacadeProxyFactory.class);
 
     private FountainDataStore dataStore;
     private AuthorizationService authorizationService;
@@ -40,35 +40,35 @@ public class FountainDataStoreFacadeProxyFactory {
         dataStore.stopIfNotStopped();
     }
 
-    public void setAuthorizationService(AuthorizationService authorizationService) {
+    public void setAuthorizationService(final AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;
     }
 
     @Nonnull
     public FountainDataStoreFacade create() {
-        InvocationHandler handler = new MyInvocationHandler();
-        FountainDataStoreFacade proxy = (FountainDataStoreFacade) Proxy.newProxyInstance(
+        final InvocationHandler handler = new MyInvocationHandler();
+        final FountainDataStoreFacade proxy = (FountainDataStoreFacade) Proxy.newProxyInstance(
                 FountainDataStoreFacade.class.getClassLoader(),
                 new Class[]{FountainDataStoreFacade.class},
                 handler);
         return proxy;
     }
 
-    public void setDataStore(FountainDataStore dataStore) {
+    public void setDataStore(final FountainDataStore dataStore) {
         this.dataStore = dataStore;
     }
 
 
-    public void setEntityValidator(FountainEntityValidator entityValidator) {
+    public void setEntityValidator(final FountainEntityValidator entityValidator) {
         this.entityValidator = entityValidator;
     }
 
 
     private class MyInvocationHandler implements InvocationHandler {
         @Nullable
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
             log.debug("Facade invoked.");
-            LiquidRequest liquidRequest = (LiquidRequest) args[0];
+            final LiquidRequest liquidRequest = (LiquidRequest) args[0];
             if (liquidRequest.getId() == null) {
                 liquidRequest.setId(UUIDFactory.randomUUID());
             }

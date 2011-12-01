@@ -21,7 +21,7 @@ import java.util.List;
 public class FountainLocalDataStore extends AbstractServiceStateMachine implements FountainDataStore {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainLocalDataStore.class);
+    private static final Logger log = Logger.getLogger(FountainLocalDataStore.class);
 
     private FountainNeo fountainNeo;
     private FountainRequestMap requestMap;
@@ -29,10 +29,10 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
 
     @Nonnull
     @Override
-    public <T extends LiquidRequest> T process(@Nonnull T request) throws Exception {
+    public <T extends LiquidRequest> T process(@Nonnull final T request) throws Exception {
         try {
             final List<AuthorizationRequest> authorizationRequests = request.getAuthorizationRequests();
-            for (AuthorizationRequest authorizationRequest : authorizationRequests) {
+            for (final AuthorizationRequest authorizationRequest : authorizationRequests) {
                 authorizationRequest.setSessionId(request.getSessionIdentifier());
                 final AuthorizationRequest result = authHandler.handle(authorizationRequest);
                 final LSDEntity responseEntity = result.getResponse();
@@ -41,7 +41,7 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
                 }
             }
 
-            FountainRequestConfiguration config = requestMap.getConfiguration(request.getRequestType().getRequestClass());
+            final FountainRequestConfiguration config = requestMap.getConfiguration(request.getRequestType().getRequestClass());
             if (config == null) {
                 throw new Error("No configuration for " + request.getClass());
             }
@@ -64,7 +64,7 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
     }
 
 
-    public void setFountainNeo(FountainNeo fountainNeo) {
+    public void setFountainNeo(final FountainNeo fountainNeo) {
         this.fountainNeo = fountainNeo;
     }
 
@@ -74,7 +74,7 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
 
     }
 
-    public void setRequestMap(FountainRequestMap requestMap) {
+    public void setRequestMap(final FountainRequestMap requestMap) {
         this.requestMap = requestMap;
     }
 
@@ -82,7 +82,7 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
         return requestMap;
     }
 
-    public void setAuthHandler(AuthorizationRequestHandler authHandler) {
+    public void setAuthHandler(final AuthorizationRequestHandler authHandler) {
         this.authHandler = authHandler;
     }
 }

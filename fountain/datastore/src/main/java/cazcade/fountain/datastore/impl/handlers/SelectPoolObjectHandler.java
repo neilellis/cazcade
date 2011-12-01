@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public class SelectPoolObjectHandler extends AbstractUpdateHandler<SelectPoolObjectRequest> implements SelectPoolObjectRequestHandler {
     @Nonnull
     @Override
-    public SelectPoolObjectRequest handle(@Nonnull SelectPoolObjectRequest request) throws InterruptedException {
+    public SelectPoolObjectRequest handle(@Nonnull final SelectPoolObjectRequest request) throws InterruptedException {
         return LiquidResponseHelper.forServerSuccess(request, poolDAO.selectPoolObjectTx(request.getSessionIdentifier(), request.isSelected(), request.getUri(), request.isInternal(), request.getDetail()));
 
     }

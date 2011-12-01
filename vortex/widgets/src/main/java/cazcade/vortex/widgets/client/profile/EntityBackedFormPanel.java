@@ -16,7 +16,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
     @Nonnull
     private final Map<LSDAttribute, Bindable> bindings = new HashMap<LSDAttribute, Bindable>();
 
-    public void addBinding(LSDEntity otherEntity, @Nonnull final Bindable field, final LSDAttribute attribute) {
+    public void addBinding(final LSDEntity otherEntity, @Nonnull final Bindable field, final LSDAttribute attribute) {
         field.bind(otherEntity, attribute, getReferenceDataPrefix());
         final Runnable onEnterAction = getUpdateEntityAction(field);
         field.setOnChangeAction(onEnterAction);
@@ -32,7 +32,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
 
 
     @Override
-    protected void bind(@Nullable LSDEntity entity) {
+    protected void bind(@Nullable final LSDEntity entity) {
         if (entity == null) {
             throw new NullPointerException("Attempted to bind to a null entity.");
         }
@@ -46,7 +46,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
     protected abstract Runnable getUpdateEntityAction(Bindable field);
 
     public boolean isValid() {
-        for (Bindable bindable : bindings.values()) {
+        for (final Bindable bindable : bindings.values()) {
             if (!bindable.isValid()) {
                 return false;
             }

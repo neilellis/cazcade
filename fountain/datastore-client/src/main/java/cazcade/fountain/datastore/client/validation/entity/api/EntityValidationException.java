@@ -8,15 +8,15 @@ public class EntityValidationException extends RuntimeException {
         super();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public EntityValidationException(String message) {
+    public EntityValidationException(final String message) {
         super(message);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public EntityValidationException(String message, Throwable cause) {
+    public EntityValidationException(final String message, final Throwable cause) {
         super(message, cause);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public EntityValidationException(Throwable cause) {
+    public EntityValidationException(final Throwable cause) {
         super(cause);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

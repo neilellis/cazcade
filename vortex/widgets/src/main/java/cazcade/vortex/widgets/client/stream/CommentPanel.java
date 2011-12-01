@@ -50,7 +50,7 @@ public class CommentPanel extends Composite {
     private final Sound statusUpdateSound;
 
 
-    public void setMaxRows(int maxRows) {
+    public void setMaxRows(final int maxRows) {
         this.maxRows = maxRows;
     }
 
@@ -58,7 +58,7 @@ public class CommentPanel extends Composite {
         return showStatusUpdates;
     }
 
-    public void setShowStatusUpdates(boolean showStatusUpdates) {
+    public void setShowStatusUpdates(final boolean showStatusUpdates) {
         this.showStatusUpdates = showStatusUpdates;
     }
 
@@ -75,6 +75,7 @@ public class CommentPanel extends Composite {
     final VerticalPanel parentPanel;
 
     public CommentPanel() {
+        super();
         final VerticalPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         parentPanel = widget;
@@ -96,7 +97,7 @@ public class CommentPanel extends Composite {
     }
 
     public void init(final LiquidURI newPool, @Nonnull final FormatUtil features) {
-        this.pool = newPool;
+        pool = newPool;
         this.features = features;
 
         if (!initialized) {
@@ -105,7 +106,7 @@ public class CommentPanel extends Composite {
                 public void run() {
                     bus.listen(new AbstractBusListener() {
                         @Override
-                        public void handle(@Nonnull LiquidMessage message) {
+                        public void handle(@Nonnull final LiquidMessage message) {
                             final LSDEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
@@ -122,7 +123,7 @@ public class CommentPanel extends Composite {
                     });
                     BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                         @Override
-                        public void handle(@Nonnull SendRequest request) {
+                        public void handle(@Nonnull final SendRequest request) {
                             addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), features));
                         }
                     });

@@ -42,11 +42,12 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
     private static final VortexPresenceNotificationPanelUiBinder ourUiBinder = GWT.create(VortexPresenceNotificationPanelUiBinder.class);
 
 
-    public VortexPresenceNotificationPanel(@Nonnull LSDEntity streamEntry, @Nonnull LiquidURI pool, String id) {
+    public VortexPresenceNotificationPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final LiquidURI pool, final String id) {
+        super();
         this.id = id;
 
         initWidget(ourUiBinder.createAndBindUi(this));
-        this.entity = streamEntry;
+        entity = streamEntry;
         visitor = streamEntry.getSubEntity(LSDAttribute.VISITOR, false);
         profileImage.setUrl(visitor.getAttribute(LSDAttribute.IMAGE_URL));
         if (pool.equals(entity.getURI())) {

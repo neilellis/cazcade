@@ -13,6 +13,7 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDEntity;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import org.jasypt.digest.StandardStringDigester;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Transaction;
@@ -30,7 +31,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     private final Logger log = LoggerFactory.getLogger(FountainUserDAOImpl.class);
 
     @Nonnull
-    private static final org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
+    private static final StandardStringDigester digester = new StandardStringDigester();
     @Nonnull
     public static final String USER_HASH_SALT = "EverythingThatArisesMustPass";
 

@@ -12,17 +12,17 @@ public class RequestNotification {
     private final LiquidRequest request;
     private LiquidMessage response;
 
-    public RequestNotification(RequestState state, LiquidRequest request, LiquidMessage response) {
+    public RequestNotification(final RequestState state, final LiquidRequest request, final LiquidMessage response) {
         this.state = state;
         this.request = request;
         this.response = response;
     }
 
-    public RequestNotification(RequestState state, LiquidRequest request) {
+    public RequestNotification(final RequestState state, final LiquidRequest request) {
         this.request = request;
     }
 
-    public void setState(RequestState state) {
+    public void setState(final RequestState state) {
         this.state = state;
     }
 

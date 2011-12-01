@@ -12,7 +12,7 @@ public class VerticalScrollBar extends ScrollBar {
 
     private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
 
-    public VerticalScrollBar(Widget outer, Widget inner) {
+    public VerticalScrollBar(final Widget outer, final Widget inner) {
         super(outer, inner);
         addStyleName("vortex-vertical-scroll-bar");
 //        DOM.setStyleAttribute(getElement(), "border", "1px solid purple");
@@ -32,17 +32,17 @@ public class VerticalScrollBar extends ScrollBar {
         update(0);
     }
 
-    public void update(int offset) {
+    public void update(final int offset) {
 //        Window.alert("Updated "+outer.getElement().getOffsetHeight());
         if (inner.getElement().getOffsetHeight() > 0) {
-            int outerHeight = outer.getElement().getOffsetHeight();
-            int innerHeight = inner.getElement().getOffsetHeight();
-            int max = (innerHeight - outerHeight);
-            double scale = ((double) (outerHeight) / ((double) innerHeight));
-            browserUtil.translateXY(bar, 0, (int) ((-offset) * scale), 50);
+            final int outerHeight = outer.getElement().getOffsetHeight();
+            final int innerHeight = inner.getElement().getOffsetHeight();
+            final int max = innerHeight - outerHeight;
+            final double scale = (double) outerHeight / (double) innerHeight;
+            browserUtil.translateXY(bar, 0, (int) (-offset * scale), 50);
 
-            if ((getOffsetHeight() * scale) > 8) {
-                bar.setHeight(String.valueOf((int) (getOffsetHeight() * scale) - 8) + "px");
+            if (getOffsetHeight() * scale > 8) {
+                bar.setHeight((int) (getOffsetHeight() * scale) - 8 + "px");
             } else {
                 bar.setHeight("100%");
             }

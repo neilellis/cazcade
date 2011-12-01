@@ -36,7 +36,7 @@ public class Node extends LSDSimpleEntity {
     private static final long serialVersionUID = -1697240636351951371L;
 
 
-    private static Cache nodeAuthCache;
+    private static final Cache nodeAuthCache;
 
     static {
         if (!CacheManager.getInstance().cacheExists("nodeauth")) {

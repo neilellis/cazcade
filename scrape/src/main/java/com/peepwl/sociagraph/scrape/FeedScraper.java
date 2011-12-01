@@ -1,6 +1,7 @@
 package com.peepwl.sociagraph.scrape;
 
 import org.webharvest.definition.ScraperConfiguration;
+import org.webharvest.runtime.Scraper;
 import org.webharvest.runtime.variables.Variable;
 import org.xml.sax.InputSource;
 
@@ -24,7 +25,7 @@ public class FeedScraper implements FeedScrapeResult {
     private final String url;
     private String page;
 
-    public FeedScraper(String url) {
+    public FeedScraper(final String url) {
         this.url = url;
     }
 
@@ -37,7 +38,7 @@ public class FeedScraper implements FeedScrapeResult {
             throw new RuntimeException("Could not create tempfile for scraping : " + e.getMessage(), e);
         }
         try {
-            org.webharvest.runtime.Scraper scraper = new org.webharvest.runtime.Scraper(config, tempFile.getAbsolutePath());
+            final Scraper scraper = new Scraper(config, tempFile.getAbsolutePath());
             scraper.getHttpClientManager().getHttpClient().getParams().setParameter("http.useragent", "www.peepwl.com - social search");
 
             scraper.addVariableToContext("url", url);
@@ -47,11 +48,11 @@ public class FeedScraper implements FeedScrapeResult {
             scraper.execute();
 
             // takes variable created during execution
-            Variable result = (Variable) scraper.getContext().get("feeds");
+            final Variable result = (Variable) scraper.getContext().get("feeds");
             page = scraper.getContext().get("page").toString();
 
             feeds.clear();
-            for (Object o : result.toList()) {
+            for (final Object o : result.toList()) {
                 final String s = o.toString();
                 if (!feeds.contains(s) && s.length() > 0) {
                     feeds.add(o.toString());

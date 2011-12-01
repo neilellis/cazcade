@@ -23,7 +23,7 @@ import java.util.concurrent.Callable;
 public class FountainSocialDAOImpl implements FountainSocialDAO {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainSocialDAOImpl.class);
+    private static final Logger log = Logger.getLogger(FountainSocialDAOImpl.class);
 
     @Autowired
     private FountainNeo fountainNeo;
@@ -43,10 +43,10 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
 
     @Nullable
     @Override
-    public Collection<LSDEntity> getRosterNoTX(@Nonnull LiquidURI uri, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel request) throws InterruptedException {
+    public Collection<LSDEntity> getRosterNoTX(@Nonnull final LiquidURI uri, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel request) throws InterruptedException {
         fountainNeo.begin();
         try {
-            Node node = fountainNeo.findByURI(uri);
+            final Node node = fountainNeo.findByURI(uri);
             if (node == null) {
                 return null;
             }
@@ -57,24 +57,24 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nonnull
-    Collection<LSDEntity> getRosterNoTX(@Nonnull Node poolNode, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel detail) {
-        ArrayList<LSDEntity> entities = new ArrayList<LSDEntity>();
-        Iterable<Relationship> visitingSessions = poolNode.getRelationships(FountainRelationships.VISITING, Direction.INCOMING);
-        for (Relationship visitingSession : visitingSessions) {
+    Collection<LSDEntity> getRosterNoTX(@Nonnull final Node poolNode, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel detail) {
+        final ArrayList<LSDEntity> entities = new ArrayList<LSDEntity>();
+        final Iterable<Relationship> visitingSessions = poolNode.getRelationships(FountainRelationships.VISITING, Direction.INCOMING);
+        for (final Relationship visitingSession : visitingSessions) {
             try {
-                Node sessionNode = visitingSession.getOtherNode(poolNode);
-                String updatedStr = sessionNode.getProperty(LSDAttribute.UPDATED);
+                final Node sessionNode = visitingSession.getOtherNode(poolNode);
+                final String updatedStr = sessionNode.getProperty(LSDAttribute.UPDATED);
                 if (updatedStr != null) {
-                    long updated = sessionNode.getUpdated().getTime();
-                    if (updated < (System.currentTimeMillis() - FountainNeo.SESSION_INACTIVE_MILLI)) {
+                    final long updated = sessionNode.getUpdated().getTime();
+                    if (updated < System.currentTimeMillis() - FountainNeo.SESSION_INACTIVE_MILLI) {
                         sessionNode.setAttribute(LSDAttribute.ACTIVE, false);
                     }
                 }
                 if (sessionNode.hasAttribute(LSDAttribute.ACTIVE) && sessionNode.getBooleanAttribute(LSDAttribute.ACTIVE)) {
-                    Node aliasNode = sessionNode.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING).getOtherNode(sessionNode);
+                    final Node aliasNode = sessionNode.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING).getOtherNode(sessionNode);
                     //If the alias has no profile image, take it from the profile pool!
                     fountainNeo.putProfileInformationIntoAlias(aliasNode);
-                    LSDEntity aliasEntity = aliasNode.convertNodeToLSD(detail, internal);
+                    final LSDEntity aliasEntity = aliasNode.convertNodeToLSD(detail, internal);
                     entities.add(aliasEntity);
                 }
             } catch (Exception e) {
@@ -86,10 +86,10 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
 
     @Nullable
     @Override
-    public Collection<LSDEntity> getRosterNoTX(@Nonnull LiquidUUID target, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel detail) throws InterruptedException {
+    public Collection<LSDEntity> getRosterNoTX(@Nonnull final LiquidUUID target, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel detail) throws InterruptedException {
         fountainNeo.begin();
         try {
-            Node node = fountainNeo.findByUUID(target);
+            final Node node = fountainNeo.findByUUID(target);
             if (node == null) {
                 return null;
             }
@@ -100,12 +100,12 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Override
-    public boolean isFollowing(@Nonnull Node currentAlias, Node node) throws InterruptedException {
+    public boolean isFollowing(@Nonnull final Node currentAlias, final Node node) throws InterruptedException {
         fountainNeo.begin();
         try {
             boolean following = false;
 
-            for (Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, FountainRelationships.FOLLOW_CONTENT)) {
+            for (final Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, FountainRelationships.FOLLOW_CONTENT)) {
                 if (relationship.getEndNode().equals(node)) {
                     following = true;
                 }
@@ -123,8 +123,8 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
             @Nullable
             @Override
             public LSDEntity call() throws Exception {
-                Node currentAlias = fountainNeo.findByURI(sessionIdentifier.getAlias(), true);
-                Node resourceToFollow = fountainNeo.findByURI(uri, true);
+                final Node currentAlias = fountainNeo.findByURI(sessionIdentifier.getAlias(), true);
+                final Node resourceToFollow = fountainNeo.findByURI(uri, true);
 
                 deltaFollowersCount(resourceToFollow, 1);
                 indexDAO.syncFollowerCount(resourceToFollow);
@@ -149,21 +149,21 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         });
     }
 
-    private void deltaFollowersCount(@Nonnull Node node, int delta) {
+    private void deltaFollowersCount(@Nonnull final Node node, final int delta) {
         deltaCount(LSDAttribute.FOLLOWERS_COUNT, node, delta);
     }
 
-    private void deltaFollowsAliasCount(@Nonnull Node node, int delta) {
+    private void deltaFollowsAliasCount(@Nonnull final Node node, final int delta) {
         deltaCount(LSDAttribute.FOLLOWS_ALIAS_COUNT, node, delta);
     }
 
-    private void deltaFollowsResourcesCount(@Nonnull Node node, int delta) {
+    private void deltaFollowsResourcesCount(@Nonnull final Node node, final int delta) {
         deltaCount(LSDAttribute.FOLLOWS_RESOURCES_COUNT, node, delta);
     }
 
-    private void deltaCount(@Nonnull LSDAttribute attribute, @Nonnull Node resourceToFollow, int delta) {
-        int followerCount;
-        String attributeKey = attribute.getKeyName();
+    private void deltaCount(@Nonnull final LSDAttribute attribute, @Nonnull final Node resourceToFollow, final int delta) {
+        final int followerCount;
+        final String attributeKey = attribute.getKeyName();
         if (resourceToFollow.hasAttribute(attribute)) {
             followerCount = resourceToFollow.getIntegerAttribute(attribute);
         } else {
@@ -179,13 +179,13 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
             @Nullable
             @Override
             public LSDEntity call() throws Exception {
-                Node currentAlias = fountainNeo.findByURI(sessionIdentifier.getAlias(), true);
-                Node resourceToFollow = fountainNeo.findByURI(uri, true);
+                final Node currentAlias = fountainNeo.findByURI(sessionIdentifier.getAlias(), true);
+                final Node resourceToFollow = fountainNeo.findByURI(uri, true);
                 deltaFollowersCount(resourceToFollow, -1);
                 indexDAO.syncFollowerCount(resourceToFollow);
 
                 if (uri.getScheme() == LiquidURIScheme.alias) {
-                    for (Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING)) {
+                    for (final Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING)) {
                         if (relationship.getOtherNode(currentAlias).equals(resourceToFollow)) {
                             relationship.delete();
                             deltaFollowsAliasCount(currentAlias, -1);
@@ -193,7 +193,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
                     }
                     return getAliasAsProfile(sessionIdentifier, uri, detail, internal);
                 } else {
-                    for (Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_CONTENT, Direction.OUTGOING)) {
+                    for (final Relationship relationship : currentAlias.getRelationships(FountainRelationships.FOLLOW_CONTENT, Direction.OUTGOING)) {
                         if (relationship.getOtherNode(currentAlias).equals(resourceToFollow)) {
                             relationship.delete();
                             deltaFollowsResourcesCount(currentAlias, -1);
@@ -219,23 +219,23 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Override
-    public void recordChat(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LSDEntity entity) {
+    public void recordChat(final LiquidSessionIdentifier sessionIdentifier, final LiquidURI uri, final LSDEntity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Nonnull
     @Override
-    public ChangeReport getUpdateSummaryForAlias(@Nonnull LiquidURI aliasURI, long since) throws InterruptedException {
-        ChangeReport report = new ChangeReport();
+    public ChangeReport getUpdateSummaryForAlias(@Nonnull final LiquidURI aliasURI, final long since) throws InterruptedException {
+        final ChangeReport report = new ChangeReport();
         final Node aliasNode = fountainNeo.findByURI(aliasURI);
         final Traverser traverse = aliasNode.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.DEPTH_ONE, new ReturnableEvaluator() {
             @Override
-            public boolean isReturnableNode(@Nonnull TraversalPosition currentPos) {
+            public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
                 return currentPos.currentNode().getProperty(LSDAttribute.TYPE.getKeyName()).toString().startsWith(LSDDictionaryTypes.BOARD.asString());
             }
         }, FountainRelationships.FOLLOW_CONTENT, Direction.INCOMING);
-        for (org.neo4j.graphdb.Node node : traverse) {
+        for (final org.neo4j.graphdb.Node node : traverse) {
             final Node currNode = new Node(node);
             final long updated = currNode.getUpdated().getTime();
             if (updated > since) {
@@ -243,7 +243,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
             }
         }
         final List<BoardIndexEntity> ownedBoards = boardDao.getMyBoards(0, 10000, aliasURI.asString());
-        for (BoardIndexEntity ownedBoard : ownedBoards) {
+        for (final BoardIndexEntity ownedBoard : ownedBoards) {
             if (ownedBoard.getUpdated().getTime() > since) {
                 report.addChangedOwnedBoard(fountainNeo.findByURI(new LiquidURI(ownedBoard.getUri())).convertNodeToLSD(LiquidRequestDetailLevel.NORMAL, true));
             }
@@ -256,16 +256,16 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nullable
-    LSDEntity getAliasAsProfile(@Nonnull LiquidSessionIdentifier sessionIdentifier, @Nonnull LiquidURI uri, LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException {
-        Node currentAlias = fountainNeo.findByURI(sessionIdentifier.getAlias());
-        Node node = fountainNeo.findByURI(uri, true);
-        LSDEntity result = node.convertNodeToLSD(detail, internal);
+    LSDEntity getAliasAsProfile(@Nonnull final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
+        final Node currentAlias = fountainNeo.findByURI(sessionIdentifier.getAlias());
+        final Node node = fountainNeo.findByURI(uri, true);
+        final LSDEntity result = node.convertNodeToLSD(detail, internal);
 
 //        int follows = node.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.DEPTH_ONE, ReturnableEvaluator.ALL_BUT_START_NODE, FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING).getAllNodes().size();
 //        int followers = node.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.DEPTH_ONE, ReturnableEvaluator.ALL_BUT_START_NODE, FountainRelationships.FOLLOW_ALIAS, Direction.INCOMING).getAllNodes().size();
 //        result.setAttribute(LSDAttribute.FOLLOWS_ALIAS_COUNT, String.valueOf(follows));
 
-        boolean following = isFollowing(currentAlias, node);
+        final boolean following = isFollowing(currentAlias, node);
         result.setAttribute(LSDAttribute.FOLLOWING, following);
         node.setPermissionFlagsOnEntity(sessionIdentifier, null, result);
 

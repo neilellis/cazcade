@@ -24,13 +24,13 @@ public class LSDTypeImpl implements LSDType {
     public LSDTypeImpl() {
     }
 
-    public LSDTypeImpl(@Nonnull String typeString) {
+    public LSDTypeImpl(@Nonnull final String typeString) {
         this(typeString, true);
     }
 
-    protected LSDTypeImpl(@Nonnull String typeString, boolean fullType) {
+    protected LSDTypeImpl(@Nonnull final String typeString, final boolean fullType) {
         this.typeString = typeString;
-        String[] types = typeString.split("\\.");
+        final String[] types = typeString.split("\\.");
         if (fullType && types.length < 3) {
             throw new LSDTypeException("Types must be at least Genus.Family.Class");
         }
@@ -46,7 +46,7 @@ public class LSDTypeImpl implements LSDType {
         }
     }
 
-    public LSDTypeImpl(@Nullable String genus, @Nullable String family, @Nullable String typeClass) {
+    public LSDTypeImpl(@Nullable final String genus, @Nullable final String family, @Nullable final String typeClass) {
 
         if (genus == null || family == null || typeClass == null) {
             throw new LSDTypeException("Types must be at least Genus.Family.Class");
@@ -92,11 +92,11 @@ public class LSDTypeImpl implements LSDType {
         return typeString.startsWith("System");
     }
 
-    public boolean isA(@Nonnull LSDDictionaryTypes dictionaryType) {
+    public boolean isA(@Nonnull final LSDDictionaryTypes dictionaryType) {
         return typeString.equals(dictionaryType.getValue());
     }
 
-    public boolean canBe(@Nonnull LSDDictionaryTypes type) {
+    public boolean canBe(@Nonnull final LSDDictionaryTypes type) {
         return isA(type) || typeString.startsWith(type.getValue() + ".");
     }
 
@@ -107,7 +107,7 @@ public class LSDTypeImpl implements LSDType {
 
     @Nonnull
     public LSDType getParentType() {
-        int index = typeString.lastIndexOf('.');
+        final int index = typeString.lastIndexOf('.');
         if (index < 0) {
             throw new LSDTypeException("Cannot get the parent of a Genus only.");
         }
@@ -115,13 +115,19 @@ public class LSDTypeImpl implements LSDType {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(@Nullable final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        LSDTypeImpl lsdType = (LSDTypeImpl) o;
+        final LSDTypeImpl lsdType = (LSDTypeImpl) o;
 
-        if (!typeString.equals(lsdType.typeString)) return false;
+        if (!typeString.equals(lsdType.typeString)) {
+            return false;
+        }
 
         return true;
     }

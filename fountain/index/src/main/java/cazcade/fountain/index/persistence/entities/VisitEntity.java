@@ -6,7 +6,6 @@ import cazcade.fountain.index.model.MessageType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "visit")
-public class VisitEntity extends MessageBase implements Serializable {
+public class VisitEntity extends MessageBase {
 
     private AliasEntity visitor;
     private BoardIndexEntity board;
@@ -28,10 +27,9 @@ public class VisitEntity extends MessageBase implements Serializable {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
-
 
 
     @ManyToOne(targetEntity = AliasEntity.class)
@@ -40,7 +38,7 @@ public class VisitEntity extends MessageBase implements Serializable {
         return visitor;
     }
 
-    public void setVisitor(AliasEntity visitor) {
+    public void setVisitor(final AliasEntity visitor) {
         this.visitor = visitor;
     }
 
@@ -49,7 +47,7 @@ public class VisitEntity extends MessageBase implements Serializable {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(final Date created) {
         this.created = created;
     }
 
@@ -58,10 +56,9 @@ public class VisitEntity extends MessageBase implements Serializable {
         return deleted;
     }
 
-    public void setDeleted(Date deleted) {
+    public void setDeleted(final Date deleted) {
         this.deleted = deleted;
     }
-
 
 
     @ManyToOne(targetEntity = BoardIndexEntity.class)
@@ -70,10 +67,9 @@ public class VisitEntity extends MessageBase implements Serializable {
         return board;
     }
 
-    public void setBoard(BoardIndexEntity board) {
+    public void setBoard(final BoardIndexEntity board) {
         this.board = board;
     }
-
 
 
 }

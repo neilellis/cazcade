@@ -21,7 +21,7 @@ public class OfflineRequestCallback implements RequestCallback {
     private final RequestCallback callback;
     private final String applicationVersion;
 
-    public OfflineRequestCallback(String requestIdentifier, LiquidSessionIdentifier identity, RequestCallback callback, String applicationVersion) {
+    public OfflineRequestCallback(final String requestIdentifier, final LiquidSessionIdentifier identity, final RequestCallback callback, final String applicationVersion) {
         this.requestIdentifier = requestIdentifier;
         this.identity = identity;
         this.callback = callback;
@@ -29,7 +29,7 @@ public class OfflineRequestCallback implements RequestCallback {
     }
 
     @Override
-    public void onResponseReceived(Request request, @Nonnull Response response) {
+    public void onResponseReceived(final Request request, @Nonnull final Response response) {
         if (response.getStatusCode() == 304 && Storage.isSessionStorageSupported()) {
             final Storage storage = Storage.getSessionStorageIfSupported();
             if (storage.getItem(cacheKey()) != null) {
@@ -68,7 +68,7 @@ public class OfflineRequestCallback implements RequestCallback {
 
 
     @Override
-    public void onError(Request request, Throwable exception) {
+    public void onError(final Request request, final Throwable exception) {
         if (exception instanceof StatusCodeException) {
             if (Storage.isSessionStorageSupported()) {
                 final Storage storage = Storage.getSessionStorageIfSupported();
@@ -121,7 +121,7 @@ public class OfflineRequestCallback implements RequestCallback {
 
             @Nullable
             @Override
-            public String getHeader(String header) {
+            public String getHeader(final String header) {
                 return null;
             }
         };

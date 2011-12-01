@@ -22,7 +22,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
 
     private final CustomObjectEditor customObjectEditor;
 
-    public CustomObjectPresenter(PoolPresenter pool, LSDEntity entity, final CustomObjectView widget, CustomObjectEditor customObjectEditor, VortexThreadSafeExecutor threadSafeExecutor) {
+    public CustomObjectPresenter(final PoolPresenter pool, final LSDEntity entity, final CustomObjectView widget, final CustomObjectEditor customObjectEditor, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         this.customObjectEditor = customObjectEditor;
     }
@@ -33,13 +33,13 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
             @Override
             public void run() {
                 getPoolObjectView().setImageUrl(newEntity.getAttribute(LSDAttribute.IMAGE_URL));
-                List<LSDEntity> handlers = newEntity.getSubEntities(LSDAttribute.EVENT_HANDLER);
-                for (LSDEntity handler : handlers) {
+                final List<LSDEntity> handlers = newEntity.getSubEntities(LSDAttribute.EVENT_HANDLER);
+                for (final LSDEntity handler : handlers) {
                     registerHandlerWithView(getPoolObjectView(), handler);
                 }
                 getPoolObjectView().addHandler(new EditStartHandler() {
                     @Override
-                    public void onEditStart(EditStart event) {
+                    public void onEditStart(final EditStart event) {
                         customObjectEditor.show(newEntity);
                     }
                 }, EditStart.TYPE);
@@ -48,10 +48,10 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
 
                 customObjectEditor.setOnChangeAction(new CustomObjectEditor.ChangeAction() {
                     @Override
-                    public void run(@Nonnull LSDEntity updateEntity) {
+                    public void run(@Nonnull final LSDEntity updateEntity) {
                         bus.send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                             @Override
-                            public void onSuccess(UpdatePoolObjectRequest message, @Nonnull UpdatePoolObjectRequest response) {
+                            public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
                                 update(response.getResponse().copy(), true);
                             }
                         });
@@ -62,7 +62,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
         });
     }
 
-    private void registerHandlerWithView(@Nonnull CustomObjectView poolObjectView, @Nonnull LSDEntity handler) {
+    private void registerHandlerWithView(@Nonnull final CustomObjectView poolObjectView, @Nonnull final LSDEntity handler) {
         if (handler.canBe(LSDDictionaryTypes.ACTIVATE_EVENT_HANDLER)) {
             if (entity.hasAttribute(LSDAttribute.NAVIGATION_URL)) {
                 poolObjectView.setHref(handler.getAttribute(LSDAttribute.NAVIGATION_URL));

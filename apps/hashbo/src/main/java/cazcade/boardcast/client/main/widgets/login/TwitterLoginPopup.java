@@ -21,10 +21,10 @@ public class TwitterLoginPopup extends PopupPanel {
 
     public TwitterLoginPopup() {
         super(true, true);
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         //    <g:PopupPanel glassEnabled="true" modal="true" width="700" height="512" ui:field="popup" >
         setGlassEnabled(true);
-        this.add(rootElement);
+        add(rootElement);
 
     }
 

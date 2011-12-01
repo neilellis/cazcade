@@ -13,23 +13,25 @@ import java.util.List;
 public class SearchRequest extends AbstractRequest {
 
     public SearchRequest() {
+        super();
     }
 
-    public SearchRequest(String searchText) {
+    public SearchRequest(final String searchText) {
         this(null, null, searchText);
     }
 
-    public SearchRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, String searchText) {
-        this.setId(id);
-        this.setSearchText(searchText);
-        this.setSessionId(identity);
+    public SearchRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final String searchText) {
+        super();
+        setId(id);
+        setSearchText(searchText);
+        setSessionId(identity);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new SearchRequest(getId(), getSessionIdentifier(), super.getSearchText());
+        return new SearchRequest(getId(), getSessionIdentifier(), getSearchText());
     }
 
     @Nullable

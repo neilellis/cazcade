@@ -14,13 +14,13 @@ public abstract class AbstractCreateCommand implements Command {
     protected AbstractCreateCommand.Size size;
     protected String theme;
 
-    public AbstractCreateCommand(LiquidURI pool, LSDDictionaryTypes type) {
+    public AbstractCreateCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         this.pool = pool;
         this.type = type;
     }
 
 
-    protected AbstractCreateCommand(LiquidURI pool, LSDDictionaryTypes type, Size size, String theme) {
+    protected AbstractCreateCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         this.type = type;
         this.pool = pool;
         this.size = size;
@@ -31,7 +31,7 @@ public abstract class AbstractCreateCommand implements Command {
         return type;
     }
 
-    public void setType(LSDDictionaryTypes type) {
+    public void setType(final LSDDictionaryTypes type) {
         this.type = type;
     }
 

@@ -25,10 +25,10 @@ import java.util.List;
  */
 public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAliasRequest> implements RetrieveAliasRequestHandler {
     @Nonnull
-    private final static Logger log = Logger.getLogger(RetrieveAliasHandler.class);
+    private static final Logger log = Logger.getLogger(RetrieveAliasHandler.class);
 
     @Nonnull
-    public RetrieveAliasRequest handle(@Nonnull RetrieveAliasRequest request) throws Exception {
+    public RetrieveAliasRequest handle(@Nonnull final RetrieveAliasRequest request) throws Exception {
         LSDEntity result;
         if (request.getTarget() != null) {
             throw new UnsupportedOperationException("Retrieval by alias UUID not supported anymore.");
@@ -40,26 +40,26 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
         } else {
             log.debug("Retrieving aliases for current user {0}", request.getSessionIdentifier().getUserURL());
             //todo: make this part of FountainNeo
-            LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
+            final LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
             entity.timestamp();
             entity.setID(UUIDFactory.randomUUID());
             entity.setType(LSDDictionaryTypes.ALIAS_LIST);
-            List<LSDEntity> children = new ArrayList<LSDEntity>();
+            final List<LSDEntity> children = new ArrayList<LSDEntity>();
             final Transaction transaction = fountainNeo.beginTx();
             try {
 
-                Node userNode = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
+                final Node userNode = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
                 if (userNode == null) {
                     throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.", request.getSessionIdentifier().getName());
                 }
 
                 if (userNode.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
                     boolean found = false;
-                    Iterable<Relationship> relationships = userNode.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
-                    for (Relationship relationship : relationships) {
-                        Node aliasNode = relationship.getOtherNode(userNode);
+                    final Iterable<Relationship> relationships = userNode.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    for (final Relationship relationship : relationships) {
+                        final Node aliasNode = relationship.getOtherNode(userNode);
                         if (!aliasNode.isDeleted()) {
-                            LSDEntity child = aliasNode.convertNodeToLSD(request.getDetail(), request.isInternal());
+                            final LSDEntity child = aliasNode.convertNodeToLSD(request.getDetail(), request.isInternal());
                             children.add(child);
                             found = true;
                         }

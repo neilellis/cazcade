@@ -11,11 +11,12 @@ import javax.annotation.Nonnull;
 public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
 
     public RetrieveDictionaryRequest() {
+        super();
     }
 
-    public RetrieveDictionaryRequest(@Nonnull Category category) {
+    public RetrieveDictionaryRequest(@Nonnull final Category category) {
         super();
-        this.setCategory(category);
+        setCategory(category);
     }
 
     @Nonnull

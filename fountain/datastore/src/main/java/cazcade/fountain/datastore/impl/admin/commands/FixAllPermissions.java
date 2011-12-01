@@ -21,28 +21,28 @@ import javax.annotation.Nonnull;
  */
 public class FixAllPermissions implements AdminCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FixAllPermissions.class);
+    private static final Logger log = Logger.getLogger(FixAllPermissions.class);
 
     @Override
-    public void execute(String[] args, @Nonnull FountainNeo fountainNeo) throws InterruptedException {
-        Node peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
-        Iterable<Relationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
-        for (Relationship child : children) {
-            Node personPool = child.getOtherNode(peoplePool);
-            String personPoolURI = personPool.getProperty(LSDAttribute.URI);
+    public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
+        final Node peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
+        final Iterable<Relationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
+        for (final Relationship child : children) {
+            final Node personPool = child.getOtherNode(peoplePool);
+            final String personPoolURI = personPool.getProperty(LSDAttribute.URI);
             resetPermissions(fountainNeo, new LiquidURI(personPoolURI + "/profile"), LiquidPermissionSet.getDefaultPermissionsNoDelete());
             resetPermissions(fountainNeo, new LiquidURI(personPoolURI + "/private"), LiquidPermissionSet.getPrivateNoDeletePermissionSet());
         }
     }
 
-    private void resetPermissions(@Nonnull FountainNeo fountainNeo, @Nonnull LiquidURI uri, @Nonnull LiquidPermissionSet permissionSet) throws InterruptedException {
+    private void resetPermissions(@Nonnull final FountainNeo fountainNeo, @Nonnull final LiquidURI uri, @Nonnull final LiquidPermissionSet permissionSet) throws InterruptedException {
         log.info("Fixing permissions on {0}", uri);
-        Node profilePool = fountainNeo.findByURI(uri);
+        final Node profilePool = fountainNeo.findByURI(uri);
         if (profilePool != null) {
-            String permissionString = permissionSet.toString();
-            Traverser traverse = profilePool.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.END_OF_GRAPH,
+            final String permissionString = permissionSet.toString();
+            final Traverser traverse = profilePool.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.END_OF_GRAPH,
                     ReturnableEvaluator.ALL, FountainRelationships.CHILD, Direction.OUTGOING, FountainRelationships.VIEW, Direction.OUTGOING);
-            for (org.neo4j.graphdb.Node node : traverse) {
+            for (final org.neo4j.graphdb.Node node : traverse) {
                 node.setProperty(LSDAttribute.PERMISSIONS.getKeyName(), permissionString);
             }
 

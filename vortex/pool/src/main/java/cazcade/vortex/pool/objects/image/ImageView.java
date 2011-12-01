@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.Image;
 public class ImageView extends PoolObjectView {
 
 
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         image.setUrl(url);
     }
 
@@ -27,7 +27,8 @@ public class ImageView extends PoolObjectView {
     private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
     public ImageView() {
-        HTMLPanel widget = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         getElement().getStyle().setZIndex(9000);
     }
@@ -46,13 +47,13 @@ public class ImageView extends PoolObjectView {
     }
 
     @Override
-    public void setLogicalWidth(int width) {
+    public void setLogicalWidth(final int width) {
         super.setLogicalWidth(width);
 //        image.setWidth(width + "px");
     }
 
     @Override
-    public void setLogicalHeight(int height) {
+    public void setLogicalHeight(final int height) {
         super.setLogicalHeight(height);
 //        image.setHeight(height + "px");
     }

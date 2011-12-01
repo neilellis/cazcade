@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class PersistentUUIDService {
 
     private String uuids;
-    private int size = 0;
+    private int size;
     @Nonnull
     public static final String LOCAL_STORAGE_KEY = "cazcade.vortex.uuids";
 
@@ -34,9 +34,9 @@ public class PersistentUUIDService {
         return size;
     }
 
-    public void topUp(@Nonnull ArrayList<LiquidUUID> result) {
-        StringBuilder s = new StringBuilder(uuids);
-        for (LiquidUUID uuid : result) {
+    public void topUp(@Nonnull final ArrayList<LiquidUUID> result) {
+        final StringBuilder s = new StringBuilder(uuids);
+        for (final LiquidUUID uuid : result) {
             s.append(uuid.toString()).append(" ");
         }
         uuids = s.toString();
@@ -51,12 +51,12 @@ public class PersistentUUIDService {
 
     @Nonnull
     public LiquidUUID pop() {
-        int pos = uuids.indexOf(' ');
+        final int pos = uuids.indexOf(' ');
         if (pos == 0) {
             uuids = uuids.substring(1);
             return pop();
         }
-        LiquidUUID result = new LiquidUUID(uuids.substring(0, pos));
+        final LiquidUUID result = new LiquidUUID(uuids.substring(0, pos));
         uuids = uuids.substring(pos);
         recount();
         persistUUIDs();

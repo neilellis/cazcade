@@ -23,12 +23,13 @@ import java.util.List;
  */
 public abstract class AbstractRestServlet extends HttpServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractRestServlet.class);
+    private static final Logger log = Logger.getLogger(AbstractRestServlet.class);
 
 
     protected ClassPathXmlApplicationContext applicationContext;
 
     public AbstractRestServlet() {
+        super();
         try {
             applicationContext = new ClassPathXmlApplicationContext("classpath:rest-server-spring-config.xml");
         } catch (Exception e) {
@@ -37,7 +38,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
     }
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
 
     }
 
@@ -48,9 +49,9 @@ public abstract class AbstractRestServlet extends HttpServlet {
     }
 
     @Override
-    public void service(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    public void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         log.session(req.getPathInfo());
-        String sessionId = req.getParameter("_session");
+        final String sessionId = req.getParameter("_session");
         log.addContext(req.getPathInfo());
         log.addContext(req.getQueryString());
         log.setSession(sessionId, req.getUserPrincipal() == null ? null : req.getUserPrincipal().getName());
@@ -65,7 +66,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
             if (sessionId != null) {
                 RestContext.getContext().getCredentials().setSession(sessionId);
             }
-            String pathWithQuery = req.getPathInfo();
+            final String pathWithQuery = req.getPathInfo();
             final String[] pathAndQuery = pathWithQuery.split("\\?");
             String path = pathAndQuery[0];
 
@@ -74,7 +75,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
             //parameter _format. The default is XML
             String format = req.getParameter("_format");
             if (path.contains(".")) {
-                String[] splitPath = path.split("\\.");
+                final String[] splitPath = path.split("\\.");
                 path = splitPath[0];
                 format = splitPath[1];
             }
@@ -82,8 +83,8 @@ public abstract class AbstractRestServlet extends HttpServlet {
                 format = "xml";
             }
             final String[] pathElements = path.substring(1).split("/");
-            String serviceName = pathElements[0];
-            List<LiquidUUID> uuids = new ArrayList<LiquidUUID>();
+            final String serviceName = pathElements[0];
+            final List<LiquidUUID> uuids = new ArrayList<LiquidUUID>();
             String methodName = null;
             for (int i = 1; i < pathElements.length; i++) {
                 if (pathElements[i].contains("-")) {
@@ -103,16 +104,16 @@ public abstract class AbstractRestServlet extends HttpServlet {
 
             //If no method was supplied we can use the default for the HTTP METHOD type.
             if (methodName == null) {
-                if (req.getMethod().equals("GET")) {
+                if ("GET".equals(req.getMethod())) {
                     methodName = "get";
                 }
-                if (req.getMethod().equals("DELETE")) {
+                if ("DELETE".equals(req.getMethod())) {
                     methodName = "delete";
                 }
-                if (req.getMethod().equals("POST")) {
+                if ("POST".equals(req.getMethod())) {
                     methodName = "create";
                 }
-                if (req.getMethod().equals("PUT")) {
+                if ("PUT".equals(req.getMethod())) {
                     methodName = "create";
                 }
 
@@ -139,7 +140,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
 
     public abstract void doRestCall(HttpServletRequest req, HttpServletResponse resp, String pathWithQuery, String serviceName, String methodName, List<LiquidUUID> uuids, String sessionId, String format) throws Exception;
 
-    public void doError(HttpServletRequest req, HttpServletResponse resp, String message) throws ServletException {
+    public void doError(final HttpServletRequest req, final HttpServletResponse resp, final String message) throws ServletException {
         throw new ServletException(message);
     }
 }

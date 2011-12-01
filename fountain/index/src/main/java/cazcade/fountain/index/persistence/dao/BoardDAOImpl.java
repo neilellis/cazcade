@@ -35,13 +35,13 @@ public class BoardDAOImpl implements BoardDAO {
         return Pattern.compile("@[a-zA-Z_0-9]+");
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+    public void setSessionFactory(final SessionFactory sessionFactory) {
+        hibernateTemplate = new HibernateTemplate(sessionFactory);
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void saveBoard(BoardIndexEntity board) {
+    public void saveBoard(final BoardIndexEntity board) {
         hibernateTemplate.saveOrUpdate(board);
     }
 
@@ -50,11 +50,11 @@ public class BoardDAOImpl implements BoardDAO {
         return hibernateTemplate.execute(new HibernateCallback<BoardIndexEntity>() {
             @Nonnull
             @Override
-            public BoardIndexEntity doInHibernate(@Nonnull Session session) throws HibernateException, SQLException {
-                List boards = hibernateTemplate.find("from BoardIndexEntity where uri=?", uri);
-                if (boards.size() == 0) {
+            public BoardIndexEntity doInHibernate(@Nonnull final Session session) throws HibernateException, SQLException {
+                final List boards = hibernateTemplate.find("from BoardIndexEntity where uri=?", uri);
+                if (boards.isEmpty()) {
 
-                    BoardIndexEntity board = new BoardIndexEntity();
+                    final BoardIndexEntity board = new BoardIndexEntity();
                     board.setUri(uri);
                     board.setUpdated(new Date());
                     board.setCreated(new Date());
@@ -147,38 +147,38 @@ public class BoardDAOImpl implements BoardDAO {
      */
 
     @Override
-    public List<BoardIndexEntity> getRecentBoards(int from, final int size) {
+    public List<BoardIndexEntity> getRecentBoards(final int from, final int size) {
         return sessionFactory.getCurrentSession().createCriteria(BoardIndexEntity.class).add(PUBLIC_BOARD).add(LISTED).addOrder(Order.desc("updated")).setFirstResult(from).setMaxResults(size).list();
     }
 
     @Override
-    public List<BoardIndexEntity> getVisitedBoards(int from, final int size, final String aliasURI) {
+    public List<BoardIndexEntity> getVisitedBoards(final int from, final int size, final String aliasURI) {
         return sessionFactory.getCurrentSession().createQuery("select v.board from VisitEntity v where v.visitor.uri= :visitor group by v.board order by max(v.created) desc").setParameter("visitor", aliasURI).setFirstResult(from).setMaxResults(size).list();
     }
 
 
     @Override
-    public List<BoardIndexEntity> getMyBoards(int from, final int size, final String aliasURI) {
+    public List<BoardIndexEntity> getMyBoards(final int from, final int size, final String aliasURI) {
         return sessionFactory.getCurrentSession().createQuery("from BoardIndexEntity b where b.owner.uri = :alias  or b.author.uri= :alias or b.creator.uri=:alias order by b.updated desc").setParameter("alias", aliasURI).setFirstResult(from).setMaxResults(size).list();
     }
 
     @Override
-    public List<BoardIndexEntity> getUserBoards(int from, final int size, final String aliasURI) {
+    public List<BoardIndexEntity> getUserBoards(final int from, final int size, final String aliasURI) {
         return sessionFactory.getCurrentSession().createQuery("from BoardIndexEntity b where  b.listed=true and (b.owner.uri = :alias  or b.author.uri= :alias or b.creator.uri=:alias) order by b.updated desc").setParameter("alias", aliasURI).setFirstResult(from).setMaxResults(size).list();
     }
 
     //    @Override
-    public List<BoardIndexEntity> getPopularBoards(int from, final int size) {
+    public List<BoardIndexEntity> getPopularBoards(final int from, final int size) {
         return sessionFactory.getCurrentSession().createCriteria(BoardIndexEntity.class).add(PUBLIC_BOARD).add(LISTED).addOrder(Order.desc("popularity")).setFirstResult(from).setMaxResults(size).list();
     }
 
     @Override
-    public void addVisit(VisitEntity visitEntity) {
+    public void addVisit(final VisitEntity visitEntity) {
         hibernateTemplate.persist(visitEntity);
     }
 
     @Override
-    public String getUniqueVisitorCount(BoardIndexEntity board) {
+    public String getUniqueVisitorCount(final BoardIndexEntity board) {
         return sessionFactory.getCurrentSession().createQuery("select count(distinct ve.visitor) from VisitEntity ve where ve.board= :board").setParameter("board", board).uniqueResult().toString();
 
     }

@@ -27,9 +27,10 @@ public class RegexTextBox extends VortexTextBox {
     private static final RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
 
     public RegexTextBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(@Nonnull KeyPressEvent event) {
+            public void onKeyPress(@Nonnull final KeyPressEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
                     final int keyCode = event.getUnicodeCharCode();
 
@@ -50,7 +51,7 @@ public class RegexTextBox extends VortexTextBox {
 
         textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
-            public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+            public void onValueChange(final ValueChangeEvent<String> stringValueChangeEvent) {
                 callOnChangeAction();
             }
         });
@@ -67,7 +68,7 @@ public class RegexTextBox extends VortexTextBox {
     }
 
     @Override
-    protected String cleanUpText(String text) {
+    protected String cleanUpText(final String text) {
         return super.cleanUpText(text);
     }
 
@@ -77,7 +78,7 @@ public class RegexTextBox extends VortexTextBox {
         return textBox.getText().matches(regex);
     }
 
-    public void setRegex(String regex) {
+    public void setRegex(final String regex) {
         this.regex = regex;
     }
 

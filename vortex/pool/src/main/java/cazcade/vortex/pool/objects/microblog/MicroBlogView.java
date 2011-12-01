@@ -25,20 +25,21 @@ public class MicroBlogView extends PoolObjectView {
     SpanElement shortText;
 
     public MicroBlogView() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         setLogicalWidth(300);
         setLogicalHeight(100);
     }
 
-    public void setProfileImage(String url) {
+    public void setProfileImage(final String url) {
         image.setSrc(url);
     }
 
-    public void setMicroBlogTitle(String title) {
+    public void setMicroBlogTitle(final String title) {
         this.title.setInnerText(title);
     }
 
-    public void setMicroBlogShortText(String text) {
-        this.shortText.setInnerText(text);
+    public void setMicroBlogShortText(final String text) {
+        shortText.setInnerText(text);
     }
 }

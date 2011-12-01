@@ -20,7 +20,7 @@ public class GestureStartEvent extends GestureEvent<GestureStartHandler> {
     }
 
 
-    public GestureStartEvent(DomEvent event, long startTime, int x, int y) {
+    public GestureStartEvent(final DomEvent event, final long startTime, final int x, final int y) {
         super(0, 0, 0, 0, event, startTime, 0, 0, x, y, 0, 0);
     }
 
@@ -30,7 +30,7 @@ public class GestureStartEvent extends GestureEvent<GestureStartHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull GestureStartHandler handler) {
+    protected void dispatch(@Nonnull final GestureStartHandler handler) {
         handler.onGestureStart(this);
     }
 }

@@ -16,7 +16,7 @@ public class CreateAliasRefCommand extends CreateItemCommand {
 
     private final LiquidURI uri;
 
-    public CreateAliasRefCommand(LiquidURI pool, LSDDictionaryTypes type, LiquidURI uri) {
+    public CreateAliasRefCommand(final LiquidURI pool, final LSDDictionaryTypes type, final LiquidURI uri) {
         super(pool, type);
         this.uri = uri;
     }

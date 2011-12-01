@@ -30,7 +30,7 @@ public class ExecCommand extends AbstractShortLivedCommand {
 
 
     @Nullable
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    public String run(final String[] args, final ShellSession shellSession) throws Exception {
         return null;
     }
 

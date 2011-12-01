@@ -28,7 +28,7 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
     public static final String INVALID_URL_MESSAGE = "Please supply a valid YouTube id or URL (e.g. http://www.youtube.com/watch?v=hfjGRBFd7mQ or hfjGRBFd7mQ)";
     private String videoId;
 
-    public void setVideoId(String videoId) {
+    public void setVideoId(final String videoId) {
         this.videoId = videoId;
         //wmode=transparent is required to stop visual artifacts, but we do need to look at a way to optimize this
         //because transparent is a lot slower.
@@ -58,7 +58,7 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> stringValueChangeHandler) {
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<String> stringValueChangeHandler) {
         return addHandler(stringValueChangeHandler, ValueChangeEvent.getType());
     }
 
@@ -134,18 +134,19 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
     private static final YouTubeUiBinder ourUiBinder = GWT.create(YouTubeUiBinder.class);
 
     public YouTubeView() {
-        HTMLPanel widget = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         addDomHandler(new DoubleClickHandler() {
             @Override
-            public void onDoubleClick(DoubleClickEvent event) {
+            public void onDoubleClick(final DoubleClickEvent event) {
                 editMode();
             }
         }, DoubleClickEvent.getType());
 
         image.addMouseOverHandler(new MouseOverHandler() {
             @Override
-            public void onMouseOver(MouseOverEvent event) {
+            public void onMouseOver(final MouseOverEvent event) {
                 imageViewOff();
             }
         });
@@ -154,13 +155,13 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
     }
 
     @Override
-    public void setLogicalWidth(int width) {
+    public void setLogicalWidth(final int width) {
         super.setLogicalWidth(width);
 //        videoFrameHolder.setWidth(width + "px");
     }
 
     @Override
-    public void setLogicalHeight(int height) {
+    public void setLogicalHeight(final int height) {
         //resizing not supported
         super.setLogicalHeight(height);
 //        videoFrameHolder.setHeight(height + "px");

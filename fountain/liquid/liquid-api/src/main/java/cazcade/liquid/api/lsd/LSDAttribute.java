@@ -479,14 +479,14 @@ public final class LSDAttribute {
     private boolean isTransient;
 
 
-    public static LSDAttribute valueOf(@Nonnull String key) {
+    public static LSDAttribute valueOf(@Nonnull final String key) {
         if (key.startsWith("x.")) {
             return new LSDAttribute(key);
         }
         return ReverseLookup.map.get(key);
     }
 
-    private LSDAttribute(@Nonnull String key) {
+    private LSDAttribute(@Nonnull final String key) {
         this(key, "", "", false, false, false, false, false, false, false);
         if (!key.startsWith("x.")) {
             throw new IllegalArgumentException("Attempted to create an attribute from a non 'x.' key.");
@@ -494,35 +494,35 @@ public final class LSDAttribute {
     }
 
     @Nonnull
-    private static LSDAttribute create(String key, String description, boolean nonupdateable, boolean systemGenerated, boolean subEntity, boolean topLevel, boolean hidden, boolean common, boolean isTransient) {
+    private static LSDAttribute create(final String key, final String description, final boolean nonupdateable, final boolean systemGenerated, final boolean subEntity, final boolean topLevel, final boolean hidden, final boolean common, final boolean isTransient) {
         final LSDAttribute attribute = new LSDAttribute(key, "", description, nonupdateable, systemGenerated, subEntity, topLevel, hidden, common, isTransient);
         ReverseLookup.map.put(key, attribute);
         return attribute;
     }
 
     @Nonnull
-    private static LSDAttribute create(String key, String validationString, String description, boolean nonupdateable, boolean systemGenerated, boolean subEntity, boolean topLevel, boolean hidden, boolean common, boolean isTransient) {
+    private static LSDAttribute create(final String key, final String validationString, final String description, final boolean nonupdateable, final boolean systemGenerated, final boolean subEntity, final boolean topLevel, final boolean hidden, final boolean common, final boolean isTransient) {
         final LSDAttribute attribute = new LSDAttribute(key, validationString, description, nonupdateable, systemGenerated, subEntity, topLevel, hidden, common, isTransient);
         ReverseLookup.map.put(key, attribute);
         return attribute;
     }
 
 
-    private LSDAttribute(String key, String description, boolean nonupdateable, boolean systemGenerated, boolean subEntity, boolean hidden, boolean common, boolean isTransient) {
+    private LSDAttribute(final String key, final String description, final boolean nonupdateable, final boolean systemGenerated, final boolean subEntity, final boolean hidden, final boolean common, final boolean isTransient) {
         this(key, "", description, nonupdateable, systemGenerated, subEntity, false, hidden, common, isTransient);
     }
 
-    private LSDAttribute(String key, String validationString, String description, boolean nonupdateable, boolean systemGenerated, boolean subEntity, boolean topLevel, boolean hidden, boolean common, boolean isTransient) {
+    private LSDAttribute(final String key, final String validationString, final String description, final boolean nonupdateable, final boolean systemGenerated, final boolean subEntity, final boolean topLevel, final boolean hidden, final boolean common, final boolean isTransient) {
         this.key = key;
         this.validationString = validationString;
         this.description = description;
         this.nonupdateable = nonupdateable;
         this.systemGenerated = systemGenerated;
         this.subEntity = subEntity;
-        this.topLevelEntity = topLevel;
+        topLevelEntity = topLevel;
         this.hidden = hidden;
         this.common = common;
-        this.nonPersistable = isTransient;
+        nonPersistable = isTransient;
         if (!nonupdateable && systemGenerated) {
             throw new IllegalArgumentException("Can't be writeable and system generated.");
         }
@@ -593,7 +593,7 @@ public final class LSDAttribute {
         return (isPersistable() || isTransient())
                 && (isUpdateable() || !update)
                 && !isSystemGenerated()
-                && (this != TYPE || !ignoreType);
+                && (!this.equals(TYPE) || !ignoreType);
     }
 
     private static class ReverseLookup {

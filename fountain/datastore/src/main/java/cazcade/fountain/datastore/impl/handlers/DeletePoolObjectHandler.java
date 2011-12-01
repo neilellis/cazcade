@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public class DeletePoolObjectHandler extends AbstractDeletionHandler<DeletePoolObjectRequest> implements DeletePoolObjectRequestHandler {
 
     @Nonnull
-    public DeletePoolObjectRequest handle(@Nonnull DeletePoolObjectRequest request) throws Exception {
+    public DeletePoolObjectRequest handle(@Nonnull final DeletePoolObjectRequest request) throws Exception {
         if (request.getUri() != null) {
 
             return LiquidResponseHelper.forServerSuccess(request, poolDAO.deletePoolObjectTx(request.getUri(), request.isInternal(), request.getDetail()));

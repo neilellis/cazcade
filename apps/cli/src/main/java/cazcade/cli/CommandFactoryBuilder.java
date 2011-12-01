@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 public class CommandFactoryBuilder {
 
 
-    public static void build(@Nonnull CommandFactory commandFactory) throws Exception {
+    public static void build(@Nonnull final CommandFactory commandFactory) throws Exception {
         commandFactory.add(new HelpCommand());
         commandFactory.add(new LogCommand());
         commandFactory.add(new EchoCommand());

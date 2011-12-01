@@ -15,7 +15,7 @@ public interface WebScrapeService extends RemoteService {
      * Utility/Convenience class.
      * Use WebScrapeService.App.getInstance() to access static instance of WebScrapeServiceAsync
      */
-    public static class App {
+    class App {
         @Nonnull
         private static final WebScrapeServiceAsync ourInstance = (WebScrapeServiceAsync) GWT.create(WebScrapeService.class);
 

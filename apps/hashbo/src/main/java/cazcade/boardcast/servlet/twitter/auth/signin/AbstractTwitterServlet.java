@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  */
 public class AbstractTwitterServlet extends AbstractHashboServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractTwitterServlet.class);
+    private static final Logger log = Logger.getLogger(AbstractTwitterServlet.class);
     @Nonnull
     public static final String USER_KEY = "twitter_user";
     @Nonnull

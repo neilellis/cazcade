@@ -29,11 +29,11 @@ public class ImageProxyServlet extends HttpServlet {
     private ImageService imageService;
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(ImageProxyServlet.class);
+    private static final Logger log = Logger.getLogger(ImageProxyServlet.class);
 
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         super.init(config);
-        boolean initialised = initialise();
+        final boolean initialised = initialise();
 //        if (!initialised) {
 //            new Thread(new Runnable() {
 //                @Override
@@ -78,10 +78,10 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
-        int width = req.getParameter("width") != null ? Integer.parseInt(req.getParameter("width")) : 1024;
-        int height = req.getParameter("height") != null ? Integer.parseInt(req.getParameter("height")) : -1;
+        final int width = req.getParameter("width") != null ? Integer.parseInt(req.getParameter("width")) : 1024;
+        final int height = req.getParameter("height") != null ? Integer.parseInt(req.getParameter("height")) : -1;
 
         final String url = req.getParameter("url");
         final String size = req.getParameter("size");
@@ -94,7 +94,7 @@ public class ImageProxyServlet extends HttpServlet {
 
         final String urlCompareStr = url.toLowerCase();
         //todo: bit of a hack
-        boolean isImage = req.getParameter("isImage") != null ||
+        final boolean isImage = req.getParameter("isImage") != null ||
                 urlCompareStr.contains("cloudfiles.rackspacecloud.com") ||
                 urlCompareStr.endsWith(".jpeg") ||
                 urlCompareStr.endsWith(".gif") ||
@@ -149,11 +149,11 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
     @Nonnull
-    private String scaledImageLocation(String url, int width, int height) throws UnsupportedEncodingException {
+    private String scaledImageLocation(final String url, final int width, final int height) throws UnsupportedEncodingException {
         return "/_image-scale?url=" + URLEncoder.encode(url, "utf8") + "&width=" + width + "&height=" + height;
     }
 
-    private void sendAlternate(@Nonnull HttpServletResponse resp, int width, int height, String url, boolean image, long refreshIndicator) throws UnsupportedEncodingException {
+    private void sendAlternate(@Nonnull final HttpServletResponse resp, final int width, final int height, final String url, final boolean image, final long refreshIndicator) throws UnsupportedEncodingException {
         final String refreshInSecs = String.valueOf(refreshIndicator / 1000);
         if (image) {
             log.warn("Failed to scale {0}.", url);
@@ -169,7 +169,7 @@ public class ImageProxyServlet extends HttpServlet {
         }
     }
 
-    private void sendNotReady(@Nonnull HttpServletResponse resp, @Nonnull CacheResponse response, int width, int height) throws UnsupportedEncodingException {
+    private void sendNotReady(@Nonnull final HttpServletResponse resp, @Nonnull final CacheResponse response, final int width, final int height) throws UnsupportedEncodingException {
         final String refreshInSecs = String.valueOf(response.getRefreshIndicator() / 1000);
         resp.setStatus(307);
         resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=Image+Not+Ready");
@@ -180,17 +180,17 @@ public class ImageProxyServlet extends HttpServlet {
         resp.setHeader("Connection", "close");
     }
 
-    private void sendMissing(@Nonnull HttpServletResponse resp, int width, int height, @Nullable String text) throws UnsupportedEncodingException {
+    private void sendMissing(@Nonnull final HttpServletResponse resp, final int width, final int height, @Nullable final String text) throws UnsupportedEncodingException {
         resp.setStatus(307);
         resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=" + (text != null && !text.isEmpty() ? URLEncoder.encode(text, "utf-8") : "Image+Missing"));
         resp.setHeader("Connection", "close");
     }
 
 
-    private void sendUrl2PngAlternate(@Nonnull HttpServletResponse resp, int width, int height, String url, String refreshInSecs) throws UnsupportedEncodingException {
+    private void sendUrl2PngAlternate(@Nonnull final HttpServletResponse resp, final int width, final int height, String url, final String refreshInSecs) throws UnsupportedEncodingException {
         resp.setStatus(307);
         url = URLEncoder.encode(url, "utf-8");
-        String url2pngUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" + DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) + "/" + width + "x" + height + "/" + url;
+        final String url2pngUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" + DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) + "/" + width + "x" + height + "/" + url;
         resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
         resp.setHeader("Location", url2pngUrl);
 //        if (response == null) {
@@ -208,8 +208,8 @@ public class ImageProxyServlet extends HttpServlet {
         return url;
     }
 
-    private CacheResponse getCachedImage(ImageSize imageSize, URI imageUrl, boolean isImage) {
-        CacheResponse response;
+    private CacheResponse getCachedImage(final ImageSize imageSize, final URI imageUrl, final boolean isImage) {
+        final CacheResponse response;
         if (isImage) {
             response = imageService.getCacheURIForImage(imageUrl, imageSize, true);
         } else {

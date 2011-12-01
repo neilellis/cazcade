@@ -10,9 +10,10 @@ import javax.annotation.Nullable;
 public class UpdateAliasRequest extends AbstractUpdateRequest {
 
     public UpdateAliasRequest() {
+        super();
     }
 
-    public UpdateAliasRequest(@Nonnull LSDEntity entity) {
+    public UpdateAliasRequest(@Nonnull final LSDEntity entity) {
         this(null, entity.getURI(), entity);
     }
 
@@ -20,47 +21,51 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
 
-    public UpdateAliasRequest(LiquidUUID target, LSDEntity entity) {
+    public UpdateAliasRequest(final LiquidUUID target, final LSDEntity entity) {
         this(null, null, target, entity);
     }
 
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdateAliasRequest(LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
+    public UpdateAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
         this(null, identity, target, entity);
     }
 
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdateAliasRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setRequestEntity(entity);
+    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
     }
 
-    public UpdateAliasRequest(@Nullable LiquidSessionIdentifier identity, LiquidURI uri, LSDEntity newEntity) {
-        this.setUri(uri);
-        this.setSessionId(identity);
-        this.setRequestEntity(newEntity);
+    public UpdateAliasRequest(@Nullable final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDEntity newEntity) {
+        super();
+        setUri(uri);
+        setSessionId(identity);
+        setRequestEntity(newEntity);
     }
 
-    public UpdateAliasRequest(LiquidURI uri, LSDEntity newEntity) {
-        this.setUri(uri);
-        this.setRequestEntity(newEntity);
+    public UpdateAliasRequest(final LiquidURI uri, final LSDEntity newEntity) {
+        super();
+        setUri(uri);
+        setRequestEntity(newEntity);
     }
 
-    public UpdateAliasRequest(@Nullable LiquidUUID id, LiquidSessionIdentifier identity, @Nullable LiquidUUID target, LiquidURI uri, LSDEntity entity) {
-        this.setUri(uri);
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setRequestEntity(entity);
+    public UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final LSDEntity entity) {
+        super();
+        setUri(uri);
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
     }
 
-    public UpdateAliasRequest(LiquidSessionIdentifier sessionIdentifier, @Nonnull LSDSimpleEntity alias) {
+    public UpdateAliasRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LSDSimpleEntity alias) {
         this(null, sessionIdentifier, null, alias.getURI(), alias);
     }
 
@@ -68,7 +73,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     @Nullable
     @Override
     public LiquidMessage copy() {
-        return new UpdateAliasRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
+        return new UpdateAliasRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());
     }
 
     @Nonnull

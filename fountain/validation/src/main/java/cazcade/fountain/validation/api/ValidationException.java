@@ -8,15 +8,15 @@ public class ValidationException extends RuntimeException {
         super();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public ValidationException(String message) {
+    public ValidationException(final String message) {
         super(message);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public ValidationException(String message, Throwable cause) {
+    public ValidationException(final String message, final Throwable cause) {
         super(message, cause);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public ValidationException(Throwable cause) {
+    public ValidationException(final Throwable cause) {
         super(cause);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

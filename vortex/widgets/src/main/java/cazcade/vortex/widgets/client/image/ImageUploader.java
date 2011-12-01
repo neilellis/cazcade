@@ -44,6 +44,7 @@ public class ImageUploader extends Composite {
     Image spinner;
 
     public ImageUploader() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         defaultUploader = new SingleUploader();
         defaultUploader.setServletPath("/_image-upload");
@@ -59,42 +60,42 @@ public class ImageUploader extends Composite {
     }
 
 
-    public void setImageURL(@Nullable String url) {
+    public void setImageURL(@Nullable final String url) {
         if (url != null && !url.isEmpty()) {
             changeImage(new Image(url));
         }
     }
 
-    public HandlerRegistration addOnCancelUploadHandler(IUploader.OnCancelUploaderHandler handler) {
+    public HandlerRegistration addOnCancelUploadHandler(final IUploader.OnCancelUploaderHandler handler) {
         return defaultUploader.addOnCancelUploadHandler(handler);
     }
 
-    public HandlerRegistration addOnChangeUploadHandler(IUploader.OnChangeUploaderHandler handler) {
+    public HandlerRegistration addOnChangeUploadHandler(final IUploader.OnChangeUploaderHandler handler) {
         return defaultUploader.addOnChangeUploadHandler(handler);
     }
 
-    public HandlerRegistration addOnFinishUploadHandler(IUploader.OnFinishUploaderHandler handler) {
+    public HandlerRegistration addOnFinishUploadHandler(final IUploader.OnFinishUploaderHandler handler) {
         return defaultUploader.addOnFinishUploadHandler(handler);
     }
 
-    public HandlerRegistration addOnStartUploadHandler(IUploader.OnStartUploaderHandler handler) {
+    public HandlerRegistration addOnStartUploadHandler(final IUploader.OnStartUploaderHandler handler) {
         return defaultUploader.addOnStartUploadHandler(handler);
     }
 
-    public HandlerRegistration addOnStatusChangedHandler(IUploader.OnStatusChangedHandler handler) {
+    public HandlerRegistration addOnStatusChangedHandler(final IUploader.OnStatusChangedHandler handler) {
         return defaultUploader.addOnStatusChangedHandler(handler);
     }
 
-    public void addOnFinishHandler(IUploader.OnFinishUploaderHandler onFinishUploaderHandler) {
+    public void addOnFinishHandler(final IUploader.OnFinishUploaderHandler onFinishUploaderHandler) {
         defaultUploader.addOnFinishUploadHandler(onFinishUploaderHandler);
     }
 
 
-    private void changeImage(@Nonnull Image image) {
+    private void changeImage(@Nonnull final Image image) {
         statusText.setInnerText("Processing");
         spinner.setVisible(false);
 
-        CachedImage cachedImage = new CachedImage();
+        final CachedImage cachedImage = new CachedImage();
         cachedImage.setCached(!BrowserUtil.isImage(image.getUrl()));
         cachedImage.setWidth("300px");
         cachedImage.setHeight("200px");
@@ -116,7 +117,7 @@ public class ImageUploader extends Composite {
 
         @Nullable
         @Override
-        public HandlerRegistration addCancelHandler(UploadCancelHandler handler) {
+        public HandlerRegistration addCancelHandler(final UploadCancelHandler handler) {
             cancelHandler = handler;
             return new HandlerRegistration() {
                 @Override
@@ -143,25 +144,25 @@ public class ImageUploader extends Composite {
         }
 
         @Override
-        public void setCancelConfiguration(Set<CancelBehavior> config) {
+        public void setCancelConfiguration(final Set<CancelBehavior> config) {
             //TODO
         }
 
         @Override
-        public void setError(String error) {
+        public void setError(final String error) {
             statusWidget.getElement().setInnerText(error);
         }
 
         @Override
-        public void setFileName(String name) {
+        public void setFileName(final String name) {
         }
 
         @Override
-        public void setI18Constants(UploadStatusConstants strs) {
+        public void setI18Constants(final UploadStatusConstants strs) {
         }
 
         @Override
-        public void setStatus(Status status) {
+        public void setStatus(final Status status) {
             if (status == Status.ERROR) {
                 statusWidget.addStyleName("error");
             }
@@ -170,20 +171,20 @@ public class ImageUploader extends Composite {
         }
 
         @Override
-        public void setStatusChangedHandler(UploadStatusChangedHandler handler) {
+        public void setStatusChangedHandler(final UploadStatusChangedHandler handler) {
 
             this.handler = handler;
         }
 
         @Override
-        public void setVisible(boolean visible) {
+        public void setVisible(final boolean visible) {
             statusWidget.setVisible(visible);
         }
 
         @Override
-        public void setProgress(int done, int total) {
+        public void setProgress(final int done, final int total) {
             if (total > 0 && done != total) {
-                statusText.setInnerText(((int) (((double) done / (double) total) * 100)) + "%");
+                statusText.setInnerText((int) ((double) done / (double) total * 100) + "%");
             }
             if (done == total && total > 0) {
                 statusText.setInnerText("Processing");

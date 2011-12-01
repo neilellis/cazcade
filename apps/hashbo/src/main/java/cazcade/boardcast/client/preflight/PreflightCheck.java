@@ -29,7 +29,7 @@ public class PreflightCheck {
     }
 
 
-    public static void check(boolean condition, String message) {
+    public static void check(final boolean condition, final String message) {
         if (!condition) {
             Window.Location.assign("../preflight_fail.html?message=" + URL.encode(message + " is not supported by this browser."));
         }

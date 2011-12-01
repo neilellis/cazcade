@@ -19,7 +19,7 @@ public interface ScriptService extends RemoteService {
      * Utility/Convenience class.
      * Use ScriptService.App.getInstance() to access static instance of ScriptServiceAsync
      */
-    public static class App {
+    class App {
         @Nonnull
         private static final ScriptServiceAsync ourInstance = (ScriptServiceAsync) GWT.create(ScriptService.class);
 

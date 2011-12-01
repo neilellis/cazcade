@@ -9,15 +9,15 @@ import javax.annotation.Nonnull;
 
 public class LiquidURIConverter extends AbstractSingleValueConverter {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LiquidURIConverter.class);
+    private static final Logger log = Logger.getLogger(LiquidURIConverter.class);
 
 
-    public boolean canConvert(Class clazz) {
+    public boolean canConvert(final Class clazz) {
         return LiquidURI.class.isAssignableFrom(clazz);
     }
 
     @Nonnull
-    public Object fromString(String str) {
+    public Object fromString(final String str) {
         return new LiquidURI(str);
     }
 }

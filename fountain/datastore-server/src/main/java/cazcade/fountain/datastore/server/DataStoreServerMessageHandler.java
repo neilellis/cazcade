@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 public class DataStoreServerMessageHandler {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(DataStoreServerMessageHandler.class);
+    private static final Logger log = Logger.getLogger(DataStoreServerMessageHandler.class);
     private FountainRequestCompensator<LiquidRequest> compensator;
     private FountainDataStore store;
     private LiquidMessageSender messageSender;
@@ -27,19 +27,19 @@ public class DataStoreServerMessageHandler {
     public DataStoreServerMessageHandler() {
     }
 
-    public void onMessage(LiquidMessage message) {
+    public void onMessage(final LiquidMessage message) {
         handle(message);
     }
 
     @Nullable
-    public LiquidMessage handle(LiquidMessage message) {
+    public LiquidMessage handle(final LiquidMessage message) {
         try {
-            LiquidRequest request = (LiquidRequest) message;
-            Log4JStopWatch stopWatch = new Log4JStopWatch("recv.message." + request.getRequestType().name().toLowerCase());
+            final LiquidRequest request = (LiquidRequest) message;
+            final Log4JStopWatch stopWatch = new Log4JStopWatch("recv.message." + request.getRequestType().name().toLowerCase());
 
             log.addContext(request);
             if (request.getSessionIdentifier() != null) {
-                LiquidUUID session = request.getSessionIdentifier().getSession();
+                final LiquidUUID session = request.getSessionIdentifier().getSession();
                 log.setSession(session == null ? null : session.toString(), request.getSessionIdentifier() == null ? null : request.getSessionIdentifier().getName());
             }
             if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
@@ -51,7 +51,7 @@ public class DataStoreServerMessageHandler {
                 log.debug("Received request {0}", request);
             }
 
-            LiquidRequest response;
+            final LiquidRequest response;
             try {
                 stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".1.prepro");
                 response = store.process(request);
@@ -95,11 +95,11 @@ public class DataStoreServerMessageHandler {
 
 
     @Nonnull
-    private LiquidRequest handleError(@Nonnull LiquidRequest request, @Nonnull Exception e) {
+    private LiquidRequest handleError(@Nonnull final LiquidRequest request, @Nonnull final Exception e) {
         final LiquidRequest response = LiquidResponseHelper.forException(e, request);
         response.setOrigin(LiquidMessageOrigin.SERVER);
         messageSender.notifySession(response);
-        LiquidRequest compensation = compensator.compensate(request);
+        final LiquidRequest compensation = compensator.compensate(request);
         if (compensation != null) {
             messageSender.sendNotifications(compensation);
         }
@@ -107,15 +107,15 @@ public class DataStoreServerMessageHandler {
     }
 
 
-    public void setCompensator(FountainRequestCompensator<LiquidRequest> compensator) {
+    public void setCompensator(final FountainRequestCompensator<LiquidRequest> compensator) {
         this.compensator = compensator;
     }
 
-    public void setStore(FountainDataStore store) {
+    public void setStore(final FountainDataStore store) {
         this.store = store;
     }
 
-    public void setMessageSender(LiquidMessageSender messageSender) {
+    public void setMessageSender(final LiquidMessageSender messageSender) {
         this.messageSender = messageSender;
     }
 }

@@ -33,7 +33,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                 if (field.isValid()) {
                     getBus().send(new UpdatePoolObjectRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                         @Override
-                        public void onSuccess(UpdatePoolObjectRequest message, @Nonnull UpdatePoolObjectRequest response) {
+                        public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
                             setEntity(response.getResponse().copy());
                             if (autoCloseField(field)) {
                                 if (onFinishAction != null) {
@@ -43,7 +43,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                         }
 
                         @Override
-                        public void onFailure(UpdatePoolObjectRequest message, @Nonnull UpdatePoolObjectRequest response) {
+                        public void onFailure(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
                             field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                         }
                     });
@@ -54,11 +54,11 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
         };
     }
 
-    protected boolean autoCloseField(Bindable field) {
+    protected boolean autoCloseField(final Bindable field) {
         return false;
     }
 
-    public void setOnFinishAction(Runnable onFinishAction) {
+    public void setOnFinishAction(final Runnable onFinishAction) {
         this.onFinishAction = onFinishAction;
     }
 
@@ -68,7 +68,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
     public abstract int getWidth();
 
 
-    public void setCreate(boolean create) {
+    public void setCreate(final boolean create) {
         this.create = create;
     }
 

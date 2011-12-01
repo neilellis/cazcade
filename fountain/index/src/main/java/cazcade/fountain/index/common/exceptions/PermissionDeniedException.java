@@ -8,7 +8,7 @@ public class PermissionDeniedException extends RuntimeException {
         super();
     }
 
-    public PermissionDeniedException(String s) {
+    public PermissionDeniedException(final String s) {
         super(s);
     }
 }

@@ -21,7 +21,7 @@ public class ImageSelection extends Composite {
 
     private SelectionAction selectionAction;
 
-    public void selected(ImageOption imageOption) {
+    public void selected(final ImageOption imageOption) {
         if (selectionAction != null) {
             selectionAction.onSelect(imageOption);
         }
@@ -38,17 +38,18 @@ public class ImageSelection extends Composite {
     HTMLPanel grid;
 
     public ImageSelection() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
 
     @UiChild(tagname = "option")
-    public void addOption(@Nonnull ImageOption option) {
+    public void addOption(@Nonnull final ImageOption option) {
         option.setImageSelection(this);
         grid.add(option);
     }
 
-    public void setSelectionAction(SelectionAction selectionAction) {
+    public void setSelectionAction(final SelectionAction selectionAction) {
         this.selectionAction = selectionAction;
     }
 }

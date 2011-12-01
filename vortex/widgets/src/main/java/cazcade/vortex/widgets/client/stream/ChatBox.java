@@ -45,6 +45,7 @@ public class ChatBox extends Composite {
     RichTextArea textBox;
 
     public ChatBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         initTextBox();
 
@@ -60,13 +61,13 @@ public class ChatBox extends Composite {
         DOM.setStyleAttribute(textBox.getElement(), "marginTop", "7px");
         DOM.setStyleAttribute(textBox.getElement(), "borderRadius", "4px");
         textBox.addInitializeHandler(new InitializeHandler() {
-            public void onInitialize(InitializeEvent ie) {
-                IFrameElement fe = (IFrameElement)
+            public void onInitialize(final InitializeEvent ie) {
+                final IFrameElement fe = (IFrameElement)
                         textBox.getElement().cast();
                 fe.setFrameBorder(0);
                 fe.setMarginWidth(0);
                 fe.setScrolling("no");
-                Style s = fe.getContentDocument().getBody().getStyle();
+                final Style s = fe.getContentDocument().getBody().getStyle();
                 s.setProperty("fontFamily", "'Helvetica Neue',Arial,sans- serif");
                 s.setProperty("fontSize", "0.8em");
                 s.setProperty("width", "480x");
@@ -81,7 +82,7 @@ public class ChatBox extends Composite {
 //        head.appendChild(style);
         textBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(@Nonnull KeyUpEvent event) {
+            public void onKeyUp(@Nonnull final KeyUpEvent event) {
                 if (uri != null) {
                     if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER && !textBox.getText().isEmpty()) {
                         Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
@@ -105,17 +106,17 @@ public class ChatBox extends Composite {
 
                                 bus.send(new ChatRequest(uri, text), new AbstractResponseCallback<ChatRequest>() {
                                     @Override
-                                    public void onSuccess(ChatRequest message, ChatRequest response) {
+                                    public void onSuccess(final ChatRequest message, final ChatRequest response) {
                                     }
 
                                     @Override
-                                    public void onFailure(ChatRequest message, @Nonnull ChatRequest response) {
+                                    public void onFailure(final ChatRequest message, @Nonnull final ChatRequest response) {
                                         textBox.setText(text);
                                         super.onFailure(message, response);
                                     }
 
                                     @Override
-                                    public void onException(@Nonnull ChatRequest message, @Nonnull Throwable error) {
+                                    public void onException(@Nonnull final ChatRequest message, @Nonnull final Throwable error) {
                                         textBox.setText(text);
                                         super.onException(message, error);
                                     }
@@ -130,7 +131,7 @@ public class ChatBox extends Composite {
 
 
     private void rebuildTextBox() {
-        RichTextArea oldTextBox = textBox;
+        final RichTextArea oldTextBox = textBox;
         textBox = new RichTextArea();
         textBox.setVisible(false);
         initTextBox();

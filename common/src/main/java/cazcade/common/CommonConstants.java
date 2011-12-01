@@ -39,7 +39,7 @@ public interface CommonConstants {
     String RABBITMQ_USER_NOTIFICATION_EXCHANGE = "user-notification-queue";
     @Nonnull
     String STRING_ENCODING = "utf-8";
-    boolean IS_PRODUCTION = System.getProperty("production") != null && !System.getProperty("production").equals("false");
+    boolean IS_PRODUCTION = System.getProperty("production") != null && !"false".equals(System.getProperty("production"));
     int NOTIFICATION_TIMEOUT = 30 * 1000;
     @Nonnull
     String CHANNEL_ATTRIBUTE = "channel";

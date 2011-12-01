@@ -10,8 +10,8 @@ import java.net.URLEncoder;
  */
 
 public class ScrapeUtil {
-    public static String cleanURI(String url) {
-        String s;
+    public static String cleanURI(final String url) {
+        final String s;
         try {
             s = URLEncoder.encode(url, CommonConstants.STRING_ENCODING).replace("%3A", ":").replace("%2F", "/");
         } catch (UnsupportedEncodingException e) {

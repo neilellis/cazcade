@@ -11,7 +11,7 @@ public class ObjectToStringFactoryBean implements FactoryBean {
 
     private final Object object;
 
-    public ObjectToStringFactoryBean(Object object) {
+    public ObjectToStringFactoryBean(final Object object) {
         this.object = object;
     }
 

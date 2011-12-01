@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
 
 
 public class StaleUpdateException extends DataStoreException {
-    public StaleUpdateException(Throwable throwable) {
+    public StaleUpdateException(final Throwable throwable) {
         super(throwable);
     }
 
-    public StaleUpdateException(@Nonnull String message, Object... params) {
+    public StaleUpdateException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public StaleUpdateException(Throwable cause, @Nonnull String message, Object... params) {
+    public StaleUpdateException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

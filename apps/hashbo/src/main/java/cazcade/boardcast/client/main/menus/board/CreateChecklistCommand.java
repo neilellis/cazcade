@@ -16,7 +16,7 @@ public class CreateChecklistCommand extends CreateContainerCommand {
         return "checklist" + System.currentTimeMillis();
     }
 
-    public CreateChecklistCommand(LiquidURI pool, LSDDictionaryTypes type) {
+    public CreateChecklistCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
 

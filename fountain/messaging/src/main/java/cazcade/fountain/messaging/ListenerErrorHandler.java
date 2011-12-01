@@ -10,10 +10,10 @@ import javax.annotation.Nonnull;
  */
 public class ListenerErrorHandler implements ErrorHandler {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ListenerErrorHandler.class);
+    private static final Logger log = Logger.getLogger(ListenerErrorHandler.class);
 
     @Override
-    public void handleError(@Nonnull Throwable t) {
+    public void handleError(@Nonnull final Throwable t) {
         log.error(t);
     }
 }

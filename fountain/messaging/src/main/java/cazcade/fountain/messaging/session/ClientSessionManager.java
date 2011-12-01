@@ -20,18 +20,18 @@ public class ClientSessionManager {
 //    public static final long SESSION_TIMEOUT = 400;
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(ClientSessionManager.class);
+    private static final Logger log = Logger.getLogger(ClientSessionManager.class);
 
     private final ScheduledExecutorService reaper = Executors.newSingleThreadScheduledExecutor();
     @Nonnull
     private final ConcurrentHashMap<String, ClientSession> sessionMap = new ConcurrentHashMap<String, ClientSession>();
 
-    public void addSession(String sessionId, ClientSession session) {
+    public void addSession(final String sessionId, final ClientSession session) {
         log.debug("Adding session for {0}", sessionId);
         sessionMap.put(sessionId, session);
     }
 
-    public boolean hasSession(String sessionId) {
+    public boolean hasSession(final String sessionId) {
         final boolean result = sessionMap.containsKey(sessionId);
         if (!result) {
             log.debug("Session not found for {0}", sessionId);
@@ -39,7 +39,7 @@ public class ClientSessionManager {
         return result;
     }
 
-    public ClientSession getSession(String sessionId) {
+    public ClientSession getSession(final String sessionId) {
         log.debug("Retrieving session for {0}", sessionId);
         final ClientSession clientSession = sessionMap.get(sessionId);
         if (clientSession != null) {
@@ -52,9 +52,9 @@ public class ClientSessionManager {
         log.info("Starting up Client Session Manager");
         reaper.scheduleWithFixedDelay(new Runnable() {
             public void run() {
-                Set<String> expiredSessions = new HashSet<String>();
-                for (Map.Entry<String, ClientSession> entry : sessionMap.entrySet()) {
-                    if (entry.getValue().getLastUsed().getTime() < (System.currentTimeMillis() - SESSION_TIMEOUT)) {
+                final Set<String> expiredSessions = new HashSet<String>();
+                for (final Map.Entry<String, ClientSession> entry : sessionMap.entrySet()) {
+                    if (entry.getValue().getLastUsed().getTime() < System.currentTimeMillis() - SESSION_TIMEOUT) {
                         expiredSessions.add(entry.getKey());
                     }
                 }
@@ -69,13 +69,13 @@ public class ClientSessionManager {
         closeSesions(sessionMap.keySet());
     }
 
-    private void closeSesions(@Nonnull Set<String> sessions) {
-        for (String session : sessions) {
+    private void closeSesions(@Nonnull final Set<String> sessions) {
+        for (final String session : sessions) {
             expireSession(session);
         }
     }
 
-    public void expireSession(String sessionIdentifier) {
+    public void expireSession(final String sessionIdentifier) {
         log.info("Expiring session for {0}", sessionIdentifier);
         final ClientSession clientSession = sessionMap.get(sessionIdentifier);
         clientSession.close();

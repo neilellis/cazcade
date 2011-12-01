@@ -74,8 +74,8 @@ public class FollowTest {
             @Nullable
             @Override
             public Object call() throws InterruptedException, UnsupportedEncodingException {
-                Node userNode = createUser();
-                Node otherUserNode = createUser();
+                final Node userNode = createUser();
+                final Node otherUserNode = createUser();
                 username = userNode.getProperty(LSDAttribute.NAME);
                 otherUsername = otherUserNode.getProperty(LSDAttribute.NAME);
                 otherUserURI = new LiquidURI("alias:cazcade:" + otherUsername);
@@ -95,8 +95,8 @@ public class FollowTest {
                 stickyURI = new LiquidURI(userPublicPoolName + "/sub#" + stickyName);
                 sticky2URI = new LiquidURI(userPublicPoolName + "/sub#" + sticky2Name);
                 sticky3URI = new LiquidURI(userProfilePoolName + "#" + sticky3Name);
-                Node publicPoolNode = fountainNeo.findByURI(publicPoolURI);
-                Node profilePoolNode = fountainNeo.findByURI(profilePoolURI);
+                final Node publicPoolNode = fountainNeo.findByURI(publicPoolURI);
+                final Node profilePoolNode = fountainNeo.findByURI(profilePoolURI);
 
                 subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolNode, "sub", (double) 0, (double) 0, "sub", false);
                 createSticky(subPool, stickyName);
@@ -111,17 +111,17 @@ public class FollowTest {
         final LSDSimpleEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
         user.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");
-        String username = "test" + System.currentTimeMillis();
+        final String username = "test" + System.currentTimeMillis();
         user.setAttribute(LSDAttribute.NAME, username);
         user.setAttribute(LSDAttribute.FULL_NAME, "Anonymous");
 
-        Node newUser = userDAO.createUser(user, false);
+        final Node newUser = userDAO.createUser(user, false);
         poolDAO.createPoolsForUserNoTx(username);
         poolDAO.createPoolsForCazcadeAliasNoTx(username, user.getAttribute(LSDAttribute.FULL_NAME), false);
         return newUser;
     }
 
-    private void createSticky(@Nonnull Node subPool, String stickyName) throws InterruptedException {
+    private void createSticky(@Nonnull final Node subPool, final String stickyName) throws InterruptedException {
         final LSDSimpleEntity sticky = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.STICKY);
         sticky.setAttribute(LSDAttribute.TEXT_EXTENDED, "TEST");
         sticky.setAttribute(LSDAttribute.NAME, stickyName);

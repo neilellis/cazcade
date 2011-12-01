@@ -16,8 +16,8 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
 
     @Nullable
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (super.getTarget() != null) {
-            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW));
+        if (getTarget() != null) {
+            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
         } else {
             if (getUri() != null) {
                 return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
@@ -31,7 +31,7 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
     @Nonnull
     @Override
     public String getCacheIdentifier() {
-        return getRequestType().name() + ":" + getState().name() + ":" + getDetail() + ":" + ((getUri() != null) ? getUri() : super.getTarget()) + ":" + (super.isHistorical() ? "historical" : "latest");
+        return getRequestType().name() + ":" + getState().name() + ":" + getDetail() + ":" + (getUri() != null ? getUri() : getTarget()) + ":" + (isHistorical() ? "historical" : "latest");
     }
 
     @Nullable

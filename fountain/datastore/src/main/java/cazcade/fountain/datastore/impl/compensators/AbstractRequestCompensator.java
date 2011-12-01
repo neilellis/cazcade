@@ -10,7 +10,7 @@ import cazcade.liquid.api.LiquidRequest;
 public abstract class AbstractRequestCompensator<T extends LiquidRequest> implements FountainRequestCompensator<T> {
     private FountainNeo fountainNeo;
 
-    public void setFountainNeo(FountainNeo fountainNeo) {
+    public void setFountainNeo(final FountainNeo fountainNeo) {
         this.fountainNeo = fountainNeo;
     }
 }

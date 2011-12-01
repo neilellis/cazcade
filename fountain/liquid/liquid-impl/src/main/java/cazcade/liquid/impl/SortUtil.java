@@ -14,9 +14,9 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class SortUtil {
-    public static void dateSortEntities(List<LSDEntity> entities) {
+    public static void dateSortEntities(final List<LSDEntity> entities) {
         Collections.sort(entities, new Comparator<LSDEntity>() {
-            public int compare(@Nonnull LSDEntity lsdEntity, @Nonnull LSDEntity lsdEntity1) {
+            public int compare(@Nonnull final LSDEntity lsdEntity, @Nonnull final LSDEntity lsdEntity1) {
                 if (lsdEntity.hasAttribute(LSDAttribute.UPDATED) && lsdEntity1.hasAttribute(LSDAttribute.UPDATED)) {
                     final Long updated = Long.valueOf(lsdEntity.getAttribute(LSDAttribute.UPDATED));
                     final Long updated1 = Long.valueOf(lsdEntity1.getAttribute(LSDAttribute.UPDATED));
@@ -28,9 +28,9 @@ public class SortUtil {
         });
     }
 
-    public static void popularitySortEntities(List<LSDEntity> entities) {
+    public static void popularitySortEntities(final List<LSDEntity> entities) {
         Collections.sort(entities, new Comparator<LSDEntity>() {
-            public int compare(@Nonnull LSDEntity lsdEntity, @Nonnull LSDEntity lsdEntity1) {
+            public int compare(@Nonnull final LSDEntity lsdEntity, @Nonnull final LSDEntity lsdEntity1) {
                 if (lsdEntity.hasAttribute(LSDAttribute.POPULARITY_METRIC) && lsdEntity1.hasAttribute(LSDAttribute.POPULARITY_METRIC)) {
                     final Long popularity = Long.valueOf(lsdEntity.getAttribute(LSDAttribute.POPULARITY_METRIC));
                     final Long popularity1 = Long.valueOf(lsdEntity1.getAttribute(LSDAttribute.POPULARITY_METRIC));
@@ -42,7 +42,7 @@ public class SortUtil {
         });
     }
 
-    public static void sort(List<LSDEntity> entities, @Nullable ChildSortOrder order) {
+    public static void sort(final List<LSDEntity> entities, @Nullable final ChildSortOrder order) {
         if (order == ChildSortOrder.AGE || order == null) {
             dateSortEntities(entities);
         } else if (order == ChildSortOrder.POPULARITY) {

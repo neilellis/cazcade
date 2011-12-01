@@ -32,7 +32,7 @@ public class ScrollableList extends Composite {
     @Nonnull
     private final VortexScrollPanel scrollPanel;
 
-    public void setMaxRows(int maxRows) {
+    public void setMaxRows(final int maxRows) {
         this.maxRows = maxRows;
     }
 
@@ -46,6 +46,7 @@ public class ScrollableList extends Composite {
     final VerticalPanel parentPanel;
 
     public ScrollableList() {
+        super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         parentPanel = new VerticalPanel();

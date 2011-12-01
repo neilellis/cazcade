@@ -16,7 +16,7 @@ public class VortexScrollEvent extends GwtEvent<VortexScrollHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull VortexScrollHandler handler) {
+    protected void dispatch(@Nonnull final VortexScrollHandler handler) {
         handler.onVortexScroll(this);
     }
 }

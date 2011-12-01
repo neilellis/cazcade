@@ -11,27 +11,29 @@ import javax.annotation.Nullable;
 public class DeleteSessionRequest extends AbstractDeletionRequest {
 
     public DeleteSessionRequest() {
+        super();
     }
 
-    public DeleteSessionRequest(LiquidUUID target) {
+    public DeleteSessionRequest(final LiquidUUID target) {
         this(null, null, target);
     }
 
-    public DeleteSessionRequest(LiquidSessionIdentifier identity, LiquidUUID target) {
+    public DeleteSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
-    public DeleteSessionRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
+    public DeleteSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new DeleteSessionRequest(getId(), getSessionIdentifier(), super.getTarget());
+        return new DeleteSessionRequest(getId(), getSessionIdentifier(), getTarget());
     }
 
 

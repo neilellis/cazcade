@@ -14,17 +14,17 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView> {
-    public RichTextPresenter(PoolPresenter poolPresenter, final LSDEntity entity, @Nonnull final RichTextView view, VortexThreadSafeExecutor threadSafeExecutor) {
+    public RichTextPresenter(final PoolPresenter poolPresenter, final LSDEntity entity, @Nonnull final RichTextView view, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(poolPresenter, entity, view, threadSafeExecutor);
         //make sure we set editable before setText (very important)
         view.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                LSDEntity minimalEntity = getEntity().asUpdateEntity();
+                final LSDEntity minimalEntity = getEntity().asUpdateEntity();
                 minimalEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, view.getText());
                 bus.send(new UpdatePoolObjectRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
+                    public void onSuccess(final UpdatePoolObjectRequest message, final UpdatePoolObjectRequest response) {
                     }
                 });
             }

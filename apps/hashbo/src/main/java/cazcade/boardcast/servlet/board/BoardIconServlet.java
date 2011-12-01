@@ -17,10 +17,10 @@ import java.io.IOException;
 public class BoardIconServlet extends AbstractBoardListServlet {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(BoardIconServlet.class);
+    private static final Logger log = Logger.getLogger(BoardIconServlet.class);
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         try {
             final String board = req.getParameter("board");
             if (board == null) {

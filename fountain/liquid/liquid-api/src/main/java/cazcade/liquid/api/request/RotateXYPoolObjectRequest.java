@@ -10,39 +10,41 @@ import java.util.List;
 public class RotateXYPoolObjectRequest extends AbstractRequest {
 
     public RotateXYPoolObjectRequest() {
+        super();
     }
 
-    public RotateXYPoolObjectRequest(LiquidUUID poolId, LiquidUUID object, Double angle, LiquidURI objectURI) {
+    public RotateXYPoolObjectRequest(final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
         this(null, null, objectURI, poolId, object, angle);
     }
 
-    public RotateXYPoolObjectRequest(LiquidSessionIdentifier identity, LiquidUUID poolId, LiquidUUID object, Double angle, LiquidURI objectURI) {
+    public RotateXYPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
         this(null, identity, objectURI, poolId, object, angle);
     }
 
-    public RotateXYPoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidUUID poolId, LiquidUUID object, Double angle) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setObjectUUID(object);
-        this.setPoolUUID(poolId);
-        this.setAngle(angle);
-        this.setUri(objectURI);
+    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object, final Double angle) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setObjectUUID(object);
+        setPoolUUID(poolId);
+        setAngle(angle);
+        setUri(objectURI);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RotateXYPoolObjectRequest(getId(), getSessionIdentifier(), getUri(), super.getPoolUUID(), super.getObjectUUID(), super.getAngle());
+        return new RotateXYPoolObjectRequest(getId(), getSessionIdentifier(), getUri(), getPoolUUID(), getObjectUUID(), getAngle());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(super.getPoolUUID(), LiquidPermission.MODIFY));
+        return Arrays.asList(new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY));
     }
 
 
     public List<String> getNotificationLocations() {
-        return Arrays.asList(super.getPoolUUID().toString());
+        return Arrays.asList(getPoolUUID().toString());
     }
 
     @Nonnull

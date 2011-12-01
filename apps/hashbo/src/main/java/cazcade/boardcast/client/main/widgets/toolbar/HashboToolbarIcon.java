@@ -18,11 +18,11 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class HashboToolbarIcon extends Composite {
 
-    public void setSrc(String src) {
+    public void setSrc(final String src) {
         image.setUrl(src);
     }
 
-    public void setText(String text) {
+    public void setText(final String text) {
         label.setText(text);
     }
 
@@ -36,6 +36,7 @@ public class HashboToolbarIcon extends Composite {
     Label label;
 
     public HashboToolbarIcon() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         getWidget().sinkEvents(Event.ONCLICK);
     }

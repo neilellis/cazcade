@@ -24,7 +24,7 @@ public class ClientLog {
     private static StringBuffer logBuffer = new StringBuffer();
     private static final int MAX_BUFFER_LENGTH = 50000;
     @Nullable
-    public static Element logWidget = null;
+    public static Element logWidget;
     private static boolean debugMode;
     @Nonnull
     private static final VortexThreadSafeExecutor executor = new VortexThreadSafeExecutor();
@@ -37,7 +37,7 @@ public class ClientLog {
         return debugMode;
     }
 
-    public static void setDebugMode(boolean debugMode) {
+    public static void setDebugMode(final boolean debugMode) {
         ClientLog.debugMode = debugMode;
     }
 
@@ -74,7 +74,7 @@ public class ClientLog {
         }
     }
 
-    private static String buildTrace(@Nonnull Throwable exception, String trace) {
+    private static String buildTrace(@Nonnull final Throwable exception, String trace) {
         final StackTraceElement[] stackTrace = exception.getStackTrace();
         for (final StackTraceElement stackTraceElement : stackTrace) {
             trace = trace + stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() + "(" + stackTraceElement.getFileName() + ":" + stackTraceElement.getLineNumber() + ")\n";
@@ -88,12 +88,12 @@ public class ClientLog {
     }
 
 
-    public static void log(String message) {
+    public static void log(final String message) {
         log(message, null);
     }
 
 
-    private static void logInternal(@Nullable String message, @Nullable Throwable exception) {
+    private static void logInternal(@Nullable final String message, @Nullable final Throwable exception) {
         if (isDebugMode()) {
             final StringBuffer localBuffer = new StringBuffer();
             if (exception != null) {
@@ -118,7 +118,7 @@ public class ClientLog {
 
                     }
                     if (logWidget != null) {
-                        logWidget.setInnerHTML("<pre>" + logBuffer.toString() + "</pre>");
+                        logWidget.setInnerHTML("<pre>" + logBuffer + "</pre>");
                     }
                 }
             });
@@ -126,9 +126,9 @@ public class ClientLog {
     }
 
     @Nonnull
-    private static String exceptionToString(@Nonnull Throwable throwable) {
+    private static String exceptionToString(@Nonnull final Throwable throwable) {
         if (throwable instanceof StatusCodeException) {
-            StatusCodeException sce = (StatusCodeException) throwable;
+            final StatusCodeException sce = (StatusCodeException) throwable;
             if (sce.getStatusCode() == 401 && !loginWindowActive) {
                 //Unauthorized
                 loginWindowActive = true;
@@ -138,19 +138,19 @@ public class ClientLog {
         final StackTraceElement[] stackTraceElements = throwable.getStackTrace();
         String details = throwable.getClass().getName() + ":" + throwable.getMessage();
 
-        for (StackTraceElement stackTraceElement : stackTraceElements) {
+        for (final StackTraceElement stackTraceElement : stackTraceElements) {
             details += "<p><font color='red'>" + stackTraceElement.getClassName() + ".<b>" + stackTraceElement.getMethodName() + "(" + stackTraceElement.getLineNumber() + ")</b></font><br/></p>";
         }
         return details;
     }
 
-    public static void assertTrue(boolean b, String message) {
+    public static void assertTrue(final boolean b, final String message) {
         if (!b && ClientApplicationConfiguration.isDebug()) {
             Window.alert("Assertion failed " + message);
         }
     }
 
-    public static void warn(@Nonnull Exception e) {
+    public static void warn(@Nonnull final Exception e) {
         log(e.getMessage());
         e.printStackTrace(System.err);
     }

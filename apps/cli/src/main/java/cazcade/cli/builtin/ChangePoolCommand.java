@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 public class ChangePoolCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ChangePoolCommand.class);
+    private static final Logger log = Logger.getLogger(ChangePoolCommand.class);
 
 
     @Nonnull
@@ -41,16 +41,16 @@ public class ChangePoolCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("You must specify the new pool");
             return "";
         }
 
-        String pool = args[0];
-        LiquidURI poolURI;
+        final String pool = args[0];
+        final LiquidURI poolURI;
         poolURI = CommandSupport.resolvePoolOrObject(shellSession, pool);
-        LiquidMessage response = shellSession.getDataStore().process(new VisitPoolRequest(shellSession.getIdentity(), poolURI));
+        final LiquidMessage response = shellSession.getDataStore().process(new VisitPoolRequest(shellSession.getIdentity(), poolURI));
         final LSDEntity responseEntity = response.getResponse();
         if (response.getState() != LiquidMessageState.SUCCESS) {
             System.err.println(responseEntity.getAttribute(LSDAttribute.DESCRIPTION));

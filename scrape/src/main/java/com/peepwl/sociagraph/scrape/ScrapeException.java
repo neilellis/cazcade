@@ -9,15 +9,15 @@ public class ScrapeException extends RuntimeException {
         super();
     }
 
-    public ScrapeException(String s) {
+    public ScrapeException(final String s) {
         super(s);
     }
 
-    public ScrapeException(String s, Throwable throwable) {
+    public ScrapeException(final String s, final Throwable throwable) {
         super(s, throwable);
     }
 
-    public ScrapeException(Throwable throwable) {
+    public ScrapeException(final Throwable throwable) {
         super(throwable);
     }
 }

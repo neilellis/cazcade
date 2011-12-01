@@ -24,17 +24,17 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     private String oldText = "";
 
     @Override
-    protected void initWidget(Widget widget) {
+    protected void initWidget(final Widget widget) {
         super.initWidget(widget);
         validityImage.setResource(Resources.INSTANCE.blank());
     }
 
-    protected String cleanUpText(String text) {
+    protected String cleanUpText(final String text) {
         return text;
     }
 
 
-    protected boolean validCharacter(int keyCode) {
+    protected boolean validCharacter(final int keyCode) {
         return true;
     }
 
@@ -48,7 +48,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
         return textBox;
     }
 
-    public void setTextBox(TextBox textBox) {
+    public void setTextBox(final TextBox textBox) {
         this.textBox = textBox;
     }
 
@@ -56,11 +56,11 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
         return maxLength;
     }
 
-    public void setMaxLength(int maxLength) {
+    public void setMaxLength(final int maxLength) {
         this.maxLength = maxLength;
     }
 
-    public void setInputType(String type) {
+    public void setInputType(final String type) {
         textBox.getElement().setAttribute("type", type);
     }
 
@@ -69,13 +69,13 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void setValue(String text) {
+    public void setValue(final String text) {
         textBox.setText(text);
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, String initialValue) {
-        this.boundAttribute = attribute;
+    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+        boundAttribute = attribute;
         setValue(initialValue);
     }
 
@@ -83,13 +83,13 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
         return textBox.getVisibleLength();
     }
 
-    public void setVisibleLength(int length) {
+    public void setVisibleLength(final int length) {
         textBox.setVisibleLength(length);
     }
 
     protected class CleanUpKeyUpHandler implements KeyUpHandler {
         @Override
-        public void onKeyUp(@Nonnull KeyUpEvent event) {
+        public void onKeyUp(@Nonnull final KeyUpEvent event) {
             if (!event.isAnyModifierKeyDown()) {
                 String text = textBox.getText();
                 if (!oldText.equals(text)) {

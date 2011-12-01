@@ -35,7 +35,7 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
     @Nullable
     @Override
     public String getStreamIdentifier() {
-        return entity.getURI().toString();
+        return String.valueOf(entity.getURI());
     }
 
     @Nullable
@@ -68,18 +68,20 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
     HTMLPanel imageSurround;
 
     protected VortexStreamEntryPanel() {
+        super();
     }
 
-    public VortexStreamEntryPanel(@Nonnull LSDEntity streamEntry, @Nonnull final FormatUtil features) {
-        this.entity = streamEntry;
+    public VortexStreamEntryPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+        super();
+        entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
         final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         profileImage.setAliasUri(author.getURI());
-        profileName.setText("@" + author.getAttribute(LSDAttribute.NAME));
+        profileName.setText('@' + author.getAttribute(LSDAttribute.NAME));
         profileName.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent clickEvent) {
+            public void onClick(final ClickEvent clickEvent) {
                 History.newItem(profileName.getText());
             }
         });
@@ -95,7 +97,7 @@ public class VortexStreamEntryPanel extends Composite implements StreamEntry {
             dateTime.setDate(new Date(publishedInMillis));
             final double logTime = Math.log10((System.currentTimeMillis() - publishedInMillis) / 500000);
             //fade out older messages
-            this.getElement().getStyle().setOpacity(1 - (logTime / 10));
+            getElement().getStyle().setOpacity(1 - logTime / 10);
         }
     }
 }

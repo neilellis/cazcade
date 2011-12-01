@@ -20,7 +20,7 @@ public class EndDragEvent extends GestureEvent<EndDragHandler> {
     }
 
 
-    public EndDragEvent(int deltaX, int deltaY, long duration, long endTime, DomEvent mostRecentDOMEvent, long startTime, int startX, int startY, int x, int y, int offsetX, int offsetY) {
+    public EndDragEvent(final int deltaX, final int deltaY, final long duration, final long endTime, final DomEvent mostRecentDOMEvent, final long startTime, final int startX, final int startY, final int x, final int y, final int offsetX, final int offsetY) {
         super(deltaX, deltaY, duration, endTime, mostRecentDOMEvent, startTime, startX, startY, x, y, offsetX, offsetY);
     }
 
@@ -30,7 +30,7 @@ public class EndDragEvent extends GestureEvent<EndDragHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull EndDragHandler handlerEnd) {
+    protected void dispatch(@Nonnull final EndDragHandler handlerEnd) {
         handlerEnd.onEndDrag(this);
     }
 }

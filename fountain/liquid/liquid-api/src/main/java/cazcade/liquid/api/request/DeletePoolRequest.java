@@ -8,39 +8,43 @@ import javax.annotation.Nullable;
 public class DeletePoolRequest extends AbstractDeletionRequest {
 
     public DeletePoolRequest() {
+        super();
     }
 
-    public DeletePoolRequest(LiquidUUID target) {
+    public DeletePoolRequest(final LiquidUUID target) {
         this(null, null, target);
     }
 
-    public DeletePoolRequest(LiquidSessionIdentifier identity, LiquidUUID target) {
+    public DeletePoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
-    public DeletePoolRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
+    public DeletePoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
     }
 
-    public DeletePoolRequest(LiquidSessionIdentifier identity, LiquidURI poolURI) {
-        this.setSessionId(identity);
-        this.setUri(poolURI);
+    public DeletePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI poolURI) {
+        super();
+        setSessionId(identity);
+        setUri(poolURI);
     }
 
-    public DeletePoolRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setUri(uri);
+    public DeletePoolRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setUri(uri);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new DeletePoolRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getUri());
+        return new DeletePoolRequest(getId(), getSessionIdentifier(), getTarget(), getUri());
     }
 
 

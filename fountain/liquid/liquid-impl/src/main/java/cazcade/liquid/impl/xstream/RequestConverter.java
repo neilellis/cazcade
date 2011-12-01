@@ -21,13 +21,13 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class RequestConverter implements Converter {
     @Nonnull
-    private final static Logger log = Logger.getLogger(RequestConverter.class);
+    private static final Logger log = Logger.getLogger(RequestConverter.class);
 
     @Nonnull
     private static final ReflectionConverter CONVERTER = new ReflectionConverter(LiquidXStreamFactory.getXstream().getMapper(), LiquidXStreamFactory.getXstream().getReflectionProvider());
 
-    public void marshal(@Nonnull Object o, @Nonnull HierarchicalStreamWriter hierarchicalStreamWriter, MarshallingContext marshallingContext) {
-        LiquidRequest request = (LiquidRequest) o;
+    public void marshal(@Nonnull final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
+        final LiquidRequest request = (LiquidRequest) o;
         hierarchicalStreamWriter.startNode("type");
         hierarchicalStreamWriter.setValue(request.getRequestType().name().toLowerCase());
         hierarchicalStreamWriter.endNode();
@@ -56,20 +56,20 @@ public class RequestConverter implements Converter {
 //        }
     }
 
-    public Object unmarshal(@Nonnull HierarchicalStreamReader hierarchicalStreamReader, @Nonnull UnmarshallingContext unmarshallingContext) {
+    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader, @Nonnull final UnmarshallingContext unmarshallingContext) {
         hierarchicalStreamReader.moveDown();
-        if (!hierarchicalStreamReader.getNodeName().equals("type")) {
+        if (!"type".equals(hierarchicalStreamReader.getNodeName())) {
             throw new IllegalStateException("Expected to find 'type' node here.");
         }
-        String type = hierarchicalStreamReader.getValue();
+        final String type = hierarchicalStreamReader.getValue();
         hierarchicalStreamReader.moveUp();
 
-        LiquidRequestType liquidRequestType = LiquidRequestType.valueOf(type.toUpperCase());
-        Class<? extends LiquidMessage> requestClass = liquidRequestType.getRequestClass();
+        final LiquidRequestType liquidRequestType = LiquidRequestType.valueOf(type.toUpperCase());
+        final Class<? extends LiquidMessage> requestClass = liquidRequestType.getRequestClass();
         LiquidRequest liquidRequest = null;
         try {
-            Class[] empty = {};
-            Constructor<? extends LiquidMessage> c = requestClass.getConstructor(empty);
+            final Class[] empty = {};
+            final Constructor<? extends LiquidMessage> c = requestClass.getConstructor(empty);
             c.setAccessible(true);
             liquidRequest = (LiquidRequest) c.newInstance();
         } catch (InstantiationException e) {
@@ -82,10 +82,10 @@ public class RequestConverter implements Converter {
             log.error(e.getMessage(), e);
         }
         hierarchicalStreamReader.moveDown();
-        if (!hierarchicalStreamReader.getNodeName().equals("body")) {
+        if (!"body".equals(hierarchicalStreamReader.getNodeName())) {
             throw new IllegalStateException("Expected to find 'body' node here.");
         }
-        Object result = unmarshallingContext.convertAnother(liquidRequest, requestClass, CONVERTER);
+        final Object result = unmarshallingContext.convertAnother(liquidRequest, requestClass, CONVERTER);
         hierarchicalStreamReader.moveUp();
 //        System.out.println(liquidRequest.getId().toString());
         return result;
@@ -93,16 +93,16 @@ public class RequestConverter implements Converter {
 
 
     @Nullable
-    public String toString(Object o) {
+    public String toString(final Object o) {
         return null;
     }
 
     @Nullable
-    public Object fromString(String s) {
+    public Object fromString(final String s) {
         return null;
     }
 
-    public boolean canConvert(Class aClass) {
+    public boolean canConvert(final Class aClass) {
         return LiquidRequest.class.isAssignableFrom(aClass);
     }
 }

@@ -19,7 +19,7 @@ public class ChangePermissionCommand implements Command {
     private final LiquidPermissionChangeType change;
     private final LiquidURI poolURI;
 
-    public ChangePermissionCommand(LiquidPermissionChangeType change, LiquidURI poolURI) {
+    public ChangePermissionCommand(final LiquidPermissionChangeType change, final LiquidURI poolURI) {
         this.change = change;
         this.poolURI = poolURI;
     }
@@ -29,11 +29,11 @@ public class ChangePermissionCommand implements Command {
         Track.getInstance().trackEvent("Permission Change", "Changed board permission to " + change);
         BusFactory.getInstance().send(new ChangePermissionRequest(poolURI, change), new AbstractResponseCallback<ChangePermissionRequest>() {
             @Override
-            public void onSuccess(ChangePermissionRequest message, ChangePermissionRequest response) {
+            public void onSuccess(final ChangePermissionRequest message, final ChangePermissionRequest response) {
             }
 
             @Override
-            public void onFailure(ChangePermissionRequest message, @Nonnull ChangePermissionRequest response) {
+            public void onFailure(final ChangePermissionRequest message, @Nonnull final ChangePermissionRequest response) {
                 Window.alert("Failed to (un)lock.");
             }
         });

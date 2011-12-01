@@ -16,11 +16,13 @@ public class StickyView extends RichTextView {
     }
 
     public StickyView() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }
 
-    public StickyView(FormatUtil formatter) {
+    public StickyView(final FormatUtil formatter) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setFormatter(formatter);
 

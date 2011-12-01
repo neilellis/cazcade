@@ -6,15 +6,15 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class CannotChangeURIException extends DataStoreException {
-    public CannotChangeURIException(Throwable throwable) {
+    public CannotChangeURIException(final Throwable throwable) {
         super(throwable);
     }
 
-    public CannotChangeURIException(@Nonnull String message, Object... params) {
+    public CannotChangeURIException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public CannotChangeURIException(Throwable cause, @Nonnull String message, Object... params) {
+    public CannotChangeURIException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

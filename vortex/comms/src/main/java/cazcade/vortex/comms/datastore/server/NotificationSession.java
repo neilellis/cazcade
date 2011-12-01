@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class NotificationSession {
     @Nonnull
-    private final static Logger log = Logger.getLogger(NotificationSession.class);
+    private static final Logger log = Logger.getLogger(NotificationSession.class);
 
     @Nullable
     private Continuation continuation;
@@ -53,7 +53,7 @@ public class NotificationSession {
 
     @Nonnull
     public ArrayList<LiquidMessage> getMessages() {
-        ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>(messages);
+        final ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>(messages);
         messages.removeAll(result);
         return result;
     }
@@ -62,7 +62,7 @@ public class NotificationSession {
         return queueName;
     }
 
-    public void setChannel(@Nullable Channel channel) {
+    public void setChannel(@Nullable final Channel channel) {
         this.channel = channel;
     }
 
@@ -73,12 +73,12 @@ public class NotificationSession {
         closed = true;
     }
 
-    public void addMessage(LiquidMessage message) {
+    public void addMessage(final LiquidMessage message) {
         messages.add(message);
     }
 
     public boolean hasMessages() {
-        return messages.size() > 0;
+        return !messages.isEmpty();
     }
 
     public void endContinuation() {
@@ -121,17 +121,17 @@ public class NotificationSession {
         return closed;
     }
 
-    public void resetContinuation(@Nonnull Continuation continuation) {
+    public void resetContinuation(@Nonnull final Continuation continuation) {
         if (!continuation.equals(this.continuation)) {
             this.continuation = continuation;
             continuation.setTimeout(0);
             continuation.addContinuationListener(new ContinuationListener() {
 
-                public void onComplete(Continuation con) {
+                public void onComplete(final Continuation con) {
                     log.debug("Completed continuation.");
                 }
 
-                public void onTimeout(Continuation con) {
+                public void onTimeout(final Continuation con) {
                     log.debug("Timeout on continuation.");
                 }
             });

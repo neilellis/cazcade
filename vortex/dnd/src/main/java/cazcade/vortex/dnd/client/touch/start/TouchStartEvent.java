@@ -24,7 +24,7 @@ public class TouchStartEvent extends TouchEvent<TouchStartHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull TouchStartHandler handler) {
+    protected void dispatch(@Nonnull final TouchStartHandler handler) {
         handler.onTouchStart(this);
     }
 }

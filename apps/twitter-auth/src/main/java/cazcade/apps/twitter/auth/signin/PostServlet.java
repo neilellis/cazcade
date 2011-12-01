@@ -39,10 +39,10 @@ import java.io.IOException;
 public class PostServlet extends HttpServlet {
     private static final long serialVersionUID = 2132731135996613711L;
 
-    protected void doPost(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String text = request.getParameter("text");
-        Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
+        final String text = request.getParameter("text");
+        final Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
         try {
             twitter.updateStatus(text);
         } catch (TwitterException e) {

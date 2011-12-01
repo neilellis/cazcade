@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 
 public class ErrorHandler {
 
-    public static void handle(@Nonnull Throwable t) {
+    public static void handle(@Nonnull final Throwable t) {
         t.printStackTrace(System.err);
     }
 

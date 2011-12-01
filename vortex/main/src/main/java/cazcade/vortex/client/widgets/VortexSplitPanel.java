@@ -24,7 +24,8 @@ public class VortexSplitPanel extends Composite {
     @UiField
     PoolContentArea contentArea;
 
-    public VortexSplitPanel(LiquidSessionIdentifier identity) {
+    public VortexSplitPanel(final LiquidSessionIdentifier identity) {
+        super();
         // bind XML file of same name of this class to this class
         initWidget(uiBinder.createAndBindUi(this));
         contentArea.init(new LiquidURI("pool:///cazcade/playground"), FormatUtil.getInstance(), null, LSDDictionaryTypes.POOL2D, false);

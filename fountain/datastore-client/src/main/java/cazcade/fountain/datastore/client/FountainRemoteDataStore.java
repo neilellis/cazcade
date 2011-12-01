@@ -32,7 +32,7 @@ import static cazcade.common.CommonConstants.RABBITMQ_RPC_EXCHANGE_NAME;
  */
 public class FountainRemoteDataStore extends AbstractServiceStateMachine implements FountainDataStore {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainRemoteDataStore.class);
+    private static final Logger log = Logger.getLogger(FountainRemoteDataStore.class);
     @Nonnull
     private static final ThreadLocal<RpcClient> rpcClientThreadLocal = new ThreadLocal<RpcClient>();
 
@@ -48,6 +48,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
 
 
     public FountainRemoteDataStore() {
+        super();
     }
 
     @Nonnull
@@ -65,7 +66,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
 
             //pre-validate provisional messages
             if (securityValidator != null && request.shouldSendProvisional()) {
-                LiquidRequest failureMessage = securityValidator.validate(request);
+                final LiquidRequest failureMessage = securityValidator.validate(request);
                 if (failureMessage != null) {
                     return LiquidResponseHelper.forFailure(request, failureMessage);
                 }
@@ -80,9 +81,9 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
             if (request.isAsyncRequest() && !alwaysSynchronous) {
                 return (LiquidRequest) processAsync(request);
             } else {
-                Object result;
+                final Object result;
                 result = processSync(request);
-                if (result instanceof LiquidMessage) {
+                if (result instanceof LiquidRequest) {
                     return (LiquidRequest) result;
                 } else if (result instanceof Exception) {
                     throw (Exception) result;
@@ -101,7 +102,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
     private Object processSync(final LiquidRequest request) {
         return template.execute(new ChannelCallback<Object>() {
             @Override
-            public Object doInRabbit(Channel channel) throws Exception {
+            public Object doInRabbit(final Channel channel) throws Exception {
                 final RpcClient rpcClient = new RpcClient(channel, RABBITMQ_RPC_EXCHANGE_NAME, "");
                 return template.getMessageConverter().fromMessage(new Message(rpcClient.primitiveCall(template.getMessageConverter().toMessage(request, null).getBody()), null));
             }
@@ -111,13 +112,13 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
 
 
     @Nonnull
-    private LiquidMessage processAsync(@Nonnull LiquidRequest request) throws IOException {
+    private LiquidMessage processAsync(@Nonnull final LiquidRequest request) throws IOException {
         log.debug("Sending Asynchronous Request");
         messageSender.dispatch(RABBITMQ_FOUNTAIN_STORE_REQUEST_KEY, request);
         return LiquidResponseHelper.forDeferral(request);
     }
 
-    private void notifyOfRequest(@Nonnull LiquidRequest request) {
+    private void notifyOfRequest(@Nonnull final LiquidRequest request) {
         log.debug("Sending notifications");
         messageSender.sendNotifications(request);
     }
@@ -133,30 +134,30 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         super.stop();
     }
 
-    public void setRequestValidator(FountainRequestValidator requestValidator) {
+    public void setRequestValidator(final FountainRequestValidator requestValidator) {
         this.requestValidator = requestValidator;
     }
 
-    public void setSecurityValidator(SecurityValidatorImpl securityValidator) {
+    public void setSecurityValidator(final SecurityValidatorImpl securityValidator) {
         this.securityValidator = securityValidator;
     }
 
 
-    public void setAlwaysSynchronous(boolean alwaysSynchronous) {
+    public void setAlwaysSynchronous(final boolean alwaysSynchronous) {
         this.alwaysSynchronous = alwaysSynchronous;
     }
 
-    public void setMessageSender(LiquidMessageSender messageSender) {
+    public void setMessageSender(final LiquidMessageSender messageSender) {
         this.messageSender = messageSender;
     }
 
 
-    public void setTemplate(RabbitTemplate template) {
+    public void setTemplate(final RabbitTemplate template) {
         this.template = template;
     }
 
 
-    public void setRabbitAdmin(RabbitAdmin rabbitAdmin) {
+    public void setRabbitAdmin(final RabbitAdmin rabbitAdmin) {
         this.rabbitAdmin = rabbitAdmin;
     }
 

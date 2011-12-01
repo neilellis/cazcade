@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class AliasClaimedBySomeoneElseException extends CazcadeException {
-    public AliasClaimedBySomeoneElseException(Throwable throwable) {
+    public AliasClaimedBySomeoneElseException(final Throwable throwable) {
         super(throwable);
     }
 
-    public AliasClaimedBySomeoneElseException(@Nonnull String message, Object... params) {
+    public AliasClaimedBySomeoneElseException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public AliasClaimedBySomeoneElseException(Throwable cause, @Nonnull String message, Object... params) {
+    public AliasClaimedBySomeoneElseException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

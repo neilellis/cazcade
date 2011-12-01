@@ -35,6 +35,7 @@ public class UrlField extends Composite implements VortexFormField {
     CachedImage previewImage;
 
     public UrlField() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 //
 //        imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
@@ -83,22 +84,22 @@ public class UrlField extends Composite implements VortexFormField {
     }
 
     @Override
-    public void setValidityImage(Image validityImage) {
+    public void setValidityImage(final Image validityImage) {
         urlField.setValidityImage(validityImage);
     }
 
     @Override
-    public void setShowValidity(boolean showValidity) {
+    public void setShowValidity(final boolean showValidity) {
         urlField.setShowValidity(showValidity);
     }
 
     @Override
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(final String errorMessage) {
         urlField.setErrorMessage(errorMessage);
     }
 
     @Override
-    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);
         previewImage.setUrl(urlField.getValue());
     }

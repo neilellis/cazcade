@@ -32,7 +32,7 @@ public class TwitterLoginBox extends Composite {
 
         imageButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 popup.showCenter();
             }
         });
@@ -41,7 +41,8 @@ public class TwitterLoginBox extends Composite {
     }
 
     public TwitterLoginBox() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
     }
 

@@ -33,14 +33,14 @@ public class RichTextView extends PoolObjectView {
         getWidget().sinkEvents(Event.MOUSEEVENTS);
         getWidget().addHandler(new DoubleClickHandler() {
             @Override
-            public void onDoubleClick(DoubleClickEvent event) {
+            public void onDoubleClick(final DoubleClickEvent event) {
                 Window.alert("edit.");
                 label.startEdit();
             }
         }, DoubleClickEvent.getType());
     }
 
-    public void setText(@Nonnull String value) {
+    public void setText(@Nonnull final String value) {
 //        label.setWordWrap(true);
 //        label.setText(SimpleHtmlSanitizer.sanitizeHtml(value));
         label.setText(value);
@@ -60,7 +60,7 @@ public class RichTextView extends PoolObjectView {
         });
     }
 
-    public void setOnChangeAction(Runnable onChangeAction) {
+    public void setOnChangeAction(final Runnable onChangeAction) {
         this.onChangeAction = onChangeAction;
     }
 
@@ -70,7 +70,7 @@ public class RichTextView extends PoolObjectView {
     }
 
     @Override
-    public void onBrowserEvent(Event event) {
+    public void onBrowserEvent(final Event event) {
         if (isEditing()) {
             ClientLog.log("Browser event while edit mode on.");
 //            label.onBrowserEvent(event);

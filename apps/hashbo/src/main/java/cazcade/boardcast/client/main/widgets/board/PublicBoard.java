@@ -54,7 +54,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     private ChangeBackgroundDialog changeBackgroundDialog;
     private boolean inited;
 
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
         addBinding(getChangeBackgroundDialog(), LSDAttribute.IMAGE_URL);
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
@@ -75,12 +75,12 @@ public class PublicBoard extends EntityBackedFormPanel {
 
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
+                    public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         setEntity(response.getResponse().copy());
                     }
 
                     @Override
-                    public void onFailure(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
+                    public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
 
@@ -90,7 +90,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         };
     }
 
-    public void navigate(@Nullable String value) {
+    public void navigate(@Nullable final String value) {
         Track.getInstance().trackEvent("Board", value);
         if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
@@ -104,7 +104,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         if (isAttached()) {
             GWT.runAsync(new RunAsyncCallback() {
                 @Override
-                public void onFailure(Throwable reason) {
+                public void onFailure(final Throwable reason) {
                     ClientLog.log(reason);
                 }
 
@@ -117,7 +117,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     @Override
-    public void onLocalHistoryTokenChanged(String token) {
+    public void onLocalHistoryTokenChanged(final String token) {
         navigate(token);
     }
 
@@ -129,7 +129,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     }
 
-    public void setChangeBackgroundDialog(ChangeBackgroundDialog changeBackgroundDialog) {
+    public void setChangeBackgroundDialog(final ChangeBackgroundDialog changeBackgroundDialog) {
         this.changeBackgroundDialog = changeBackgroundDialog;
     }
 
@@ -162,7 +162,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private void init() {
         //sharethis button
-        RootPanel sharethis = RootPanel.get("sharethis");
+        final RootPanel sharethis = RootPanel.get("sharethis");
         sharethisElement = sharethis.getElement();
         sharethisElement.removeFromParent();
         sharethisElement.getStyle().setVisibility(Style.Visibility.VISIBLE);
@@ -209,7 +209,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         changePermissionListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.CHANGE_PERMISSION, new BusListener() {
             @Override
-            public void handle(LiquidMessage message) {
+            public void handle(final LiquidMessage message) {
                 Window.alert("The access rights have just changed for this board, please refresh the page in your browser.");
 //                refresh();
             }
@@ -221,7 +221,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         updatePoolListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL, new BusListener() {
             @Override
-            public void handle(LiquidMessage response) {
+            public void handle(final LiquidMessage response) {
                 update((LiquidRequest) response);
 
             }
@@ -236,7 +236,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), listed, listed ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY : null), new AbstractResponseCallback<VisitPoolRequest>() {
 
             @Override
-            public void onFailure(VisitPoolRequest message, @Nonnull VisitPoolRequest response) {
+            public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
@@ -249,7 +249,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             }
 
             @Override
-            public void onSuccess(VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
+            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 final LSDEntity responseEntity = response.getResponse();
                 if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
@@ -266,15 +266,15 @@ public class PublicBoard extends EntityBackedFormPanel {
         });
     }
 
-    private void update(@Nonnull LiquidRequest response) {
+    private void update(@Nonnull final LiquidRequest response) {
         bind(response.getResponse().copy());
     }
 
     @Override
-    protected void onChange(@Nonnull LSDEntity entity) {
+    protected void onChange(@Nonnull final LSDEntity entity) {
         addStyleName("readonly");
         addStyleName("loading");
-        LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER, true);
+        final LSDEntity owner = getEntity().getSubEntity(LSDAttribute.OWNER, true);
 
         if (entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
             addStyleName("modifiable-board");
@@ -313,7 +313,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
 //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
 
-        boolean adminPermission = getEntity().getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
+        final boolean adminPermission = getEntity().getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
         final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
         Window.setTitle("Boardcast : " + boardTitle);
 
@@ -321,7 +321,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
             GWT.runAsync(new RunAsyncCallback() {
                 @Override
-                public void onFailure(Throwable reason) {
+                public void onFailure(final Throwable reason) {
                     ClientLog.log(reason);
                 }
 
@@ -346,7 +346,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         GWT.runAsync(new RunAsyncCallback() {
             @Override
-            public void onFailure(Throwable reason) {
+            public void onFailure(final Throwable reason) {
                 ClientLog.log(reason);
             }
 
@@ -407,7 +407,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
 
-    private native static void replaceState(String title, String state) /*-{
+    private static native void replaceState(String title, String state) /*-{
         if (window.history.replaceState != 'undefined') {
             window.history.replaceState(state, title, state);
         }
@@ -455,11 +455,12 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     public PublicBoard() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         WidgetUtil.hide(getWidget(), false);
         Window.addResizeHandler(new ResizeHandler() {
             @Override
-            public void onResize(ResizeEvent event) {
+            public void onResize(final ResizeEvent event) {
                 sizeNotificationPanel();
             }
         });
@@ -475,7 +476,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     private class LockIconClickHandler implements ClickHandler {
         private final boolean lock;
 
-        public LockIconClickHandler(boolean lock) {
+        public LockIconClickHandler(final boolean lock) {
             this.lock = lock;
         }
 
@@ -491,11 +492,11 @@ public class PublicBoard extends EntityBackedFormPanel {
 
             BusFactory.getInstance().send(new ChangePermissionRequest(poolURI, change), new AbstractResponseCallback<ChangePermissionRequest>() {
                 @Override
-                public void onSuccess(ChangePermissionRequest message, ChangePermissionRequest response) {
+                public void onSuccess(final ChangePermissionRequest message, final ChangePermissionRequest response) {
                 }
 
                 @Override
-                public void onFailure(ChangePermissionRequest message, @Nonnull ChangePermissionRequest response) {
+                public void onFailure(final ChangePermissionRequest message, @Nonnull final ChangePermissionRequest response) {
                     Window.alert("Failed to (un)lock.");
                 }
             });

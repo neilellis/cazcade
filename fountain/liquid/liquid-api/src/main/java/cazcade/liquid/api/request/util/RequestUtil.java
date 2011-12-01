@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class RequestUtil {
-    public static boolean positiveResponse(@Nonnull LiquidRequest response) {
+    public static boolean positiveResponse(@Nonnull final LiquidRequest response) {
         final LSDEntity responseEntity = response.getResponse();
         return !(responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
     }

@@ -57,7 +57,7 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
     }
 
     @Override
-    public int compareTo(@Nonnull ScrollableListEntry scrollableListEntry) {
+    public int compareTo(@Nonnull final ScrollableListEntry scrollableListEntry) {
         return entity.getUpdated().compareTo(scrollableListEntry.getEntity().getUpdated());
     }
 
@@ -78,15 +78,17 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
     HTMLPanel imageSurround;
 
     protected DirectMessageListEntryPanel() {
+        super();
     }
 
-    public DirectMessageListEntryPanel(@Nonnull LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+    public DirectMessageListEntryPanel(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         init(streamEntry, features);
     }
 
-    protected void init(@Nonnull LSDEntity streamEntry, @Nonnull FormatUtil features) {
-        this.entity = streamEntry;
+    protected void init(@Nonnull final LSDEntity streamEntry, @Nonnull final FormatUtil features) {
+        entity = streamEntry;
         final LSDEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, true);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         profileImage.setAliasUri(author.getURI());
@@ -94,7 +96,7 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         profileName.setText("@" + author.getAttribute(LSDAttribute.NAME));
         profileName.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent clickEvent) {
+            public void onClick(final ClickEvent clickEvent) {
                 History.newItem(profileName.getText());
             }
         });

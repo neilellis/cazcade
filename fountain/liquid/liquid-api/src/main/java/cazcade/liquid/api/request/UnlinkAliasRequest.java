@@ -11,27 +11,29 @@ import javax.annotation.Nullable;
 public class UnlinkAliasRequest extends AbstractDeletionRequest {
 
     public UnlinkAliasRequest() {
+        super();
     }
 
-    public UnlinkAliasRequest(LiquidUUID target) {
+    public UnlinkAliasRequest(final LiquidUUID target) {
         this(null, null, target);
     }
 
-    public UnlinkAliasRequest(LiquidSessionIdentifier identity, LiquidUUID target) {
+    public UnlinkAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
-    public UnlinkAliasRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
+    public UnlinkAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new UnlinkAliasRequest(getId(), getSessionIdentifier(), super.getTarget());
+        return new UnlinkAliasRequest(getId(), getSessionIdentifier(), getTarget());
     }
 
     @Nonnull

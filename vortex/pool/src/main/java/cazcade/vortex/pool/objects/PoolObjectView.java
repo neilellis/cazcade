@@ -50,33 +50,34 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     public static final int SMALL_WIDTH = (int) (BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_WIDTH;
     public static final int SMALL_HEIGHT = (int) ((BOARD_WIDTH - BOARD_WIDTH / GOLDEN_RATIO) / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
     public static final int MEDIUM_WIDTH = (int) (BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_WIDTH;
-    public static final int MEDIUM_HEIGHT = (int) ((BOARD_WIDTH / GOLDEN_RATIO) / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
+    public static final int MEDIUM_HEIGHT = (int) (BOARD_WIDTH / GOLDEN_RATIO / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
     public static final int LARGE_WIDTH = BOARD_WIDTH - ADDITIONAL_WIDTH;
-    public static final int LARGE_HEIGHT = (int) ((BOARD_WIDTH) / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
+    public static final int LARGE_HEIGHT = (int) (BOARD_WIDTH / GOLDEN_RATIO) - ADDITIONAL_HEIGHT;
 
     private Runnable onDelete;
     private int logicalWidth;
     private int logicalHeight;
     protected final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     protected boolean editing;
-    private boolean editable = false;
+    private boolean editable;
     private Widget innerWidget;
     protected String size;
     protected String theme;
 
 
     protected PoolObjectView() {
+        super();
     }
 
 
-    public void setStyleSize(String size) {
+    public void setStyleSize(final String size) {
         this.size = size;
         getInnerWidget().addStyleName("size-" + size);
 
     }
 
 
-    public void setStyleTheme(String theme) {
+    public void setStyleTheme(final String theme) {
         this.theme = theme;
         getInnerWidget().addStyleName("theme-" + theme);
 
@@ -100,7 +101,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
         return editing;
     }
 
-    public void setEditable(boolean editable) {
+    public void setEditable(final boolean editable) {
         this.editable = editable;
     }
 
@@ -110,8 +111,8 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
 
 
     @Override
-    protected void initWidget(@Nonnull Widget widget) {
-        this.innerWidget = widget;
+    protected void initWidget(@Nonnull final Widget widget) {
+        innerWidget = widget;
         final SimplePanel simplePanel = new SimplePanel();
         simplePanel.addStyleName("pool-object");
         simplePanel.add(widget);
@@ -125,14 +126,14 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
         deleteButton.sinkEvents(Event.ONCLICK);
         deleteButton.addHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 onDelete.run();
             }
         }, ClickEvent.getType());
 
         addMouseOverHandler(new MouseOverHandler() {
             @Override
-            public void onMouseOver(MouseOverEvent event) {
+            public void onMouseOver(final MouseOverEvent event) {
                 if (isEditable()) {
                     deleteButton.removeStyleName("invisible");
                 }
@@ -140,7 +141,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
         });
         addMouseOutHandler(new MouseOutHandler() {
             @Override
-            public void onMouseOut(MouseOutEvent event) {
+            public void onMouseOut(final MouseOutEvent event) {
                 deleteButton.addStyleName("invisible");
             }
         });
@@ -148,31 +149,31 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
 
     }
 
-    public HandlerRegistration addDragHandler(DragHandler dragHandler) {
+    public HandlerRegistration addDragHandler(final DragHandler dragHandler) {
         return addHandler(dragHandler, DragEvent.getType());
     }
 
 
-    public HandlerRegistration addHoldDragHandler(HoldDragHandler dragHandler) {
+    public HandlerRegistration addHoldDragHandler(final HoldDragHandler dragHandler) {
         return addHandler(dragHandler, HoldDragEvent.getType());
     }
 
-    public HandlerRegistration addEndDragHandler(EndDragHandler endDragHandler) {
+    public HandlerRegistration addEndDragHandler(final EndDragHandler endDragHandler) {
         return addHandler(endDragHandler, EndDragEvent.getType());
     }
 
-    public void setLogicalWidth(int width) {
+    public void setLogicalWidth(final int width) {
         //resizing not supported
 
 //        super.setWidth(width + "px");
-        this.logicalWidth = width;
+        logicalWidth = width;
     }
 
-    public void setLogicalHeight(int height) {
+    public void setLogicalHeight(final int height) {
         //resizing not supported
 
 //        super.setHeight(height + "px");
-        this.logicalHeight = height;
+        logicalHeight = height;
     }
 
     public int getLogicalWidth() {
@@ -200,15 +201,15 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
         return y;
     }
 
-    public void setOnDelete(Runnable onDelete) {
+    public void setOnDelete(final Runnable onDelete) {
         this.onDelete = onDelete;
     }
 
-    public void removeView(Widget widget) {
+    public void removeView(final Widget widget) {
         throw new UnsupportedOperationException("This view does not support removing child views.");
     }
 
-    public void addView(Widget widget) {
+    public void addView(final Widget widget) {
         throw new UnsupportedOperationException("This view does not support adding child views.");
     }
 

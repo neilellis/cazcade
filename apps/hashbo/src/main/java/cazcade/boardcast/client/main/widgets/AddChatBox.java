@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  */
 public class AddChatBox extends Composite {
 
-    public void init(LiquidURI poolURI) {
+    public void init(final LiquidURI poolURI) {
         addChatBox.init(poolURI);
         loginLink.setHref("login?loginNextUrl=" + URL.encode(Window.Location.getHref()));
         if (UserUtil.isAnonymousOrLoggedOut()) {
@@ -44,6 +44,7 @@ public class AddChatBox extends Composite {
     TwitterLoginBox twitterLoginBox;
 
     public AddChatBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }

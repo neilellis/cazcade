@@ -6,15 +6,15 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class LSDPropertyFormatValidationException extends LSDValidationException {
-    public LSDPropertyFormatValidationException(@Nonnull String message) {
+    public LSDPropertyFormatValidationException(@Nonnull final String message) {
         super(message);
     }
 
-    public LSDPropertyFormatValidationException(@Nonnull String message, Throwable cause) {
+    public LSDPropertyFormatValidationException(@Nonnull final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public LSDPropertyFormatValidationException(Throwable cause) {
+    public LSDPropertyFormatValidationException(final Throwable cause) {
         super(cause);
     }
 }

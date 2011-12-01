@@ -19,7 +19,7 @@ public class PoolObjectEditor {
     private final int height;
 
 
-    PoolObjectEditor(AbstractPoolObjectEditorPanel editorPanel, Runnable onFinishAction, int width, int height) {
+    PoolObjectEditor(final AbstractPoolObjectEditorPanel editorPanel, final Runnable onFinishAction, final int width, final int height) {
         this.editorPanel = editorPanel;
         this.onFinishAction = onFinishAction;
 
@@ -38,11 +38,11 @@ public class PoolObjectEditor {
         popup.center();
     }
 
-    public static void showForCreate(@Nonnull AbstractPoolObjectEditorPanel editorPanel, @Nullable Runnable onFinishAction) {
+    public static void showForCreate(@Nonnull final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction) {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).create();
     }
 
-    public static void showForEdit(@Nonnull AbstractPoolObjectEditorPanel editorPanel, @Nullable Runnable onFinishAction) {
+    public static void showForEdit(@Nonnull final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction) {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).edit();
     }
 
@@ -51,6 +51,7 @@ public class PoolObjectEditor {
         boolean finished;
 
         private PoolObjectEditorPopup() {
+            super();
             setAutoHideEnabled(true);
             setAutoHideOnHistoryEventsEnabled(true);
             setHeight(height + "px");
@@ -61,7 +62,7 @@ public class PoolObjectEditor {
             setGlassStyleName("pool-object-editor-popup-glass");
             addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
-                public void onClose(CloseEvent<PopupPanel> popupPanelCloseEvent) {
+                public void onClose(final CloseEvent<PopupPanel> popupPanelCloseEvent) {
                     finish();
                 }
             });

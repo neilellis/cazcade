@@ -8,15 +8,15 @@ public class NotificationException extends RuntimeException {
         super();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public NotificationException(String message) {
+    public NotificationException(final String message) {
         super(message);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public NotificationException(String message, Throwable cause) {
+    public NotificationException(final String message, final Throwable cause) {
         super(message, cause);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public NotificationException(Throwable cause) {
+    public NotificationException(final Throwable cause) {
         super(cause);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

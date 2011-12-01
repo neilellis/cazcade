@@ -10,23 +10,23 @@ import javax.annotation.Nonnull;
 
 public class CazcadeException extends RuntimeException {
 
-    public CazcadeException(Throwable throwable) {
+    public CazcadeException(final Throwable throwable) {
         super(throwable);
     }
 
-    public CazcadeException(@Nonnull String message, Object... params) {
+    public CazcadeException(@Nonnull final String message, final Object... params) {
         super(format(message, params));
     }
 
-    public CazcadeException(Throwable cause, @Nonnull String message, Object... params) {
+    public CazcadeException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(format(message, params));
     }
 
-    private static String format(@Nonnull String message, Object[] params) {
-        StringBuilder buffer = new StringBuilder();
+    private static String format(@Nonnull final String message, final Object[] params) {
+        final StringBuilder buffer = new StringBuilder();
         int oldI = 0;
         int paramCount = 0;
-        for (int i = message.indexOf("%s"); i > 0 && (oldI < message.length()); i = message.indexOf("%s", oldI)) {
+        for (int i = message.indexOf("%s"); i > 0 && oldI < message.length(); i = message.indexOf("%s", oldI)) {
             buffer.append(message.substring(oldI, i));
             buffer.append(params[paramCount++]);
             oldI = i + 2;

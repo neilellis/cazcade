@@ -23,9 +23,10 @@ public class GestureAwareView extends Composite {
     private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
 
     public GestureAwareView() {
+        super();
     }
 
-    public void initHandlers(AbstractGestureController controller) {
+    public void initHandlers(final AbstractGestureController controller) {
         addMouseUpHandler(controller);
         addMouseDownHandler(controller);
         addMouseMoveHandler(controller);
@@ -42,43 +43,43 @@ public class GestureAwareView extends Composite {
         return addDomHandler(mouseUpHandler, MouseUpEvent.getType());
     }
 
-    public HandlerRegistration addMouseOutHandler(MouseOutHandler mouseOutHandler) {
+    public HandlerRegistration addMouseOutHandler(final MouseOutHandler mouseOutHandler) {
         return addDomHandler(mouseOutHandler, MouseOutEvent.getType());
     }
 
-    public HandlerRegistration addMouseOverHandler(MouseOverHandler mouseOverHandler) {
+    public HandlerRegistration addMouseOverHandler(final MouseOverHandler mouseOverHandler) {
         return addDomHandler(mouseOverHandler, MouseOverEvent.getType());
     }
 
-    public HandlerRegistration addMouseWheelHandler(MouseWheelHandler mouseWheelHandler) {
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler mouseWheelHandler) {
         return addDomHandler(mouseWheelHandler, MouseWheelEvent.getType());
     }
 
-    public HandlerRegistration addMouseDownHandler(MouseDownHandler mouseDownHandler) {
+    public HandlerRegistration addMouseDownHandler(final MouseDownHandler mouseDownHandler) {
         return addDomHandler(mouseDownHandler, MouseDownEvent.getType());
     }
 
-    public HandlerRegistration addMouseMoveHandler(MouseMoveHandler mouseMoveHandler) {
+    public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler mouseMoveHandler) {
         return addDomHandler(mouseMoveHandler, MouseMoveEvent.getType());
     }
 
-    public HandlerRegistration addTouchStartHandler(TouchStartHandler touchStartHandler) {
+    public HandlerRegistration addTouchStartHandler(final TouchStartHandler touchStartHandler) {
         return addDomHandler(touchStartHandler, TouchStartEvent.getType());
     }
 
-    public HandlerRegistration addTouchEndHandler(TouchEndHandler touchEndHandler) {
+    public HandlerRegistration addTouchEndHandler(final TouchEndHandler touchEndHandler) {
         return addDomHandler(touchEndHandler, TouchEndEvent.getType());
     }
 
-    public HandlerRegistration addTouchMoveHandler(TouchMoveHandler touchMoveHandler) {
+    public HandlerRegistration addTouchMoveHandler(final TouchMoveHandler touchMoveHandler) {
         return addDomHandler(touchMoveHandler, TouchMoveEvent.getType());
     }
 
-    public HandlerRegistration addTouchCancelHandler(TouchCancelHandler touchCancelHandler) {
+    public HandlerRegistration addTouchCancelHandler(final TouchCancelHandler touchCancelHandler) {
         return addDomHandler(touchCancelHandler, TouchCancelEvent.getType());
     }
 
-    public HandlerRegistration addClickHandler(ClickHandler clickHandler) {
+    public HandlerRegistration addClickHandler(final ClickHandler clickHandler) {
         return addDomHandler(clickHandler, ClickEvent.getType());
     }
 

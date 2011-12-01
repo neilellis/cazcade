@@ -12,8 +12,8 @@ import javax.annotation.Nonnull;
  */
 public class RetrieveSessionHandler extends AbstractDataStoreHandler<RetrieveSessionRequest> implements RetrieveSessionRequestHandler {
     @Nonnull
-    public RetrieveSessionRequest handle(@Nonnull RetrieveSessionRequest request) throws InterruptedException {
-        LSDEntity entity = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
+    public RetrieveSessionRequest handle(@Nonnull final RetrieveSessionRequest request) throws InterruptedException {
+        final LSDEntity entity = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
         if (entity == null) {
             return LiquidResponseHelper.forEmptyResultResponse(request);
 

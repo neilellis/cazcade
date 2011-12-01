@@ -33,7 +33,7 @@ public class UserProfileImage extends EditableImage {
 
 
     @Override
-    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
+    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.getURI());
         setUrl(entity.getAttribute(attribute));
@@ -42,7 +42,7 @@ public class UserProfileImage extends EditableImage {
                 private ViewAliasDetailPanel aliasDetailPanel;
 
                 @Override
-                public void onMouseOver(MouseOverEvent event) {
+                public void onMouseOver(final MouseOverEvent event) {
                     if (aliasDetailPanel == null) {
                         aliasDetailPanel = ViewAliasDetailPanel.createViewAliasDetailPanel(getAliasUri(), FormatUtil.getInstance());
                         showPopup(event);
@@ -51,7 +51,7 @@ public class UserProfileImage extends EditableImage {
                     }
                 }
 
-                private void showPopup(MouseEvent event) {
+                private void showPopup(final MouseEvent event) {
                     aliasDetailPanel.showRelativeTo(getWidget());
 //                    aliasDetailPanel.show(RootPanel.get(), event.getRelativeX(RootPanel.get().getElement()), event.getRelativeY(RootPanel.get().getElement()));
                 }
@@ -60,19 +60,20 @@ public class UserProfileImage extends EditableImage {
     }
 
     public UserProfileImage() {
+        super();
         setDefaultUrl("http://placehold.it/32x32");
         addStyleName("user-profile-image");
 
     }
 
 
-    public UserProfileImage(String url) {
+    public UserProfileImage(final String url) {
         this();
         setUrl(url);
 
     }
 
-    public void setUrl(@Nullable String url) {
+    public void setUrl(@Nullable final String url) {
         if (url != null && !url.isEmpty()) {
             image.setUrl(url);
         }
@@ -82,12 +83,12 @@ public class UserProfileImage extends EditableImage {
         return aliasUri;
     }
 
-    public void setAliasUri(LiquidURI aliasUri) {
+    public void setAliasUri(final LiquidURI aliasUri) {
         this.aliasUri = aliasUri;
     }
 
 
-    public void setDefaultUrl(String defaultUrl) {
+    public void setDefaultUrl(final String defaultUrl) {
         image.setDefaultUrl(defaultUrl);
     }
 

@@ -66,7 +66,7 @@ public class LiquidPermissionSet {
 
     }
 
-    public static void removeAllPermissions(@Nonnull LiquidPermissionScope liquidPermissionScope, @Nonnull LiquidPermissionSet set) {
+    public static void removeAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.removePermission(liquidPermissionScope, VIEW);
 //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.removePermission(liquidPermissionScope, MODIFY);
@@ -75,7 +75,7 @@ public class LiquidPermissionSet {
         set.removePermission(liquidPermissionScope, SYSTEM);
     }
 
-    public static void addAllPermissions(@Nonnull LiquidPermissionScope liquidPermissionScope, @Nonnull LiquidPermissionSet set) {
+    public static void addAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
 //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.addPermission(liquidPermissionScope, MODIFY);
@@ -84,7 +84,7 @@ public class LiquidPermissionSet {
         set.addPermission(liquidPermissionScope, SYSTEM);
     }
 
-    public static void addEditPermissions(@Nonnull LiquidPermissionScope liquidPermissionScope, @Nonnull LiquidPermissionSet set) {
+    public static void addEditPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
 //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.addPermission(liquidPermissionScope, MODIFY);
@@ -92,13 +92,13 @@ public class LiquidPermissionSet {
         set.addPermission(liquidPermissionScope, DELETE);
     }
 
-    public static void addModifyPermissions(@Nonnull LiquidPermissionScope liquidPermissionScope, @Nonnull LiquidPermissionSet set) {
+    public static void addModifyPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
 //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.addPermission(liquidPermissionScope, MODIFY);
     }
 
-    public static void addReadPermissions(@Nonnull LiquidPermissionScope liquidPermissionScope, @Nonnull LiquidPermissionSet set) {
+    public static void addReadPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
 //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
     }
@@ -107,20 +107,20 @@ public class LiquidPermissionSet {
     private LiquidPermissionSet() {
     }
 
-    private LiquidPermissionSet(@Nonnull String permissions) {
+    private LiquidPermissionSet(@Nonnull final String permissions) {
         parse(permissions);
     }
 
-    private LiquidPermissionSet(long permissions, boolean readonly) {
+    private LiquidPermissionSet(final long permissions, final boolean readonly) {
         this.permissions = permissions;
         this.readonly = readonly;
     }
 
 
-    private void parse(@Nonnull String permissions) {
-        String[] permissionGroups = permissions.split(",");
-        for (String permissionGroup : permissionGroups) {
-            LiquidPermissionScope permissionScope = LiquidPermissionScope.fromChar(permissionGroup.charAt(0));
+    private void parse(@Nonnull final String permissions) {
+        final String[] permissionGroups = permissions.split(",");
+        for (final String permissionGroup : permissionGroups) {
+            final LiquidPermissionScope permissionScope = LiquidPermissionScope.fromChar(permissionGroup.charAt(0));
             for (int i = 2; i < permissionGroup.length(); i++) {
                 addPermission(permissionScope, fromChar(permissionGroup.charAt(i)));
             }
@@ -128,13 +128,13 @@ public class LiquidPermissionSet {
         }
     }
 
-    private LiquidPermissionSet(@Nonnull String permissions, boolean readonly) {
+    private LiquidPermissionSet(@Nonnull final String permissions, final boolean readonly) {
         parse(permissions);
         this.readonly = readonly;
     }
 
 
-    public void addPermission(@Nonnull LiquidPermissionScope scope, @Nonnull LiquidPermission permission) {
+    public void addPermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
         checkNotReadOnly();
         permissions |= toPermissionBit(scope, permission);
 
@@ -146,49 +146,49 @@ public class LiquidPermissionSet {
         }
     }
 
-    private long toPermissionBit(@Nonnull LiquidPermissionScope scope, @Nonnull LiquidPermission permission) {
-        return (1L << permission.ordinal()) << (BITS_PER_SCOPE * scope.ordinal());
+    private long toPermissionBit(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
+        return 1L << permission.ordinal() << BITS_PER_SCOPE * scope.ordinal();
     }
 
-    public void removePermission(@Nonnull LiquidPermissionScope scope, @Nonnull LiquidPermission permission) {
+    public void removePermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
         checkNotReadOnly();
 
-        permissions &= (~toPermissionBit(scope, permission));
+        permissions &= ~toPermissionBit(scope, permission);
 
     }
 
-    public boolean hasPermission(@Nonnull LiquidPermissionScope scope, @Nonnull LiquidPermission permission) {
+    public boolean hasPermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
 
         return (permissions & toPermissionBit(scope, permission)) != 0;
 
     }
 
-    public void addPermissions(@Nonnull LiquidPermissionScope scope, @Nonnull List<LiquidPermission> permissions) {
+    public void addPermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final List<LiquidPermission> permissions) {
         checkNotReadOnly();
-        for (LiquidPermission permission : permissions) {
+        for (final LiquidPermission permission : permissions) {
             addPermission(scope, permission);
         }
     }
 
 
-    public void addPermissions(@Nonnull LiquidPermissionScope scope, @Nonnull LiquidPermission... permissions) {
+    public void addPermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission... permissions) {
         checkNotReadOnly();
-        for (LiquidPermission permission : permissions) {
+        for (final LiquidPermission permission : permissions) {
             addPermission(scope, permission);
         }
     }
 
 
-    public void removePermissions(@Nonnull LiquidPermissionScope scope, @Nonnull List<LiquidPermission> permissions) {
+    public void removePermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final List<LiquidPermission> permissions) {
         checkNotReadOnly();
-        for (LiquidPermission permission : permissions) {
+        for (final LiquidPermission permission : permissions) {
             removePermission(scope, permission);
         }
     }
 
-    public void removePermissions(@Nonnull LiquidPermissionScope scope, @Nonnull LiquidPermission... permissions) {
+    public void removePermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission... permissions) {
         checkNotReadOnly();
-        for (LiquidPermission permission : permissions) {
+        for (final LiquidPermission permission : permissions) {
             removePermission(scope, permission);
         }
     }
@@ -222,7 +222,7 @@ public class LiquidPermissionSet {
     }
 
     @Nonnull
-    public static LiquidPermissionSet createPermissionSet(@Nullable String permissions) {
+    public static LiquidPermissionSet createPermissionSet(@Nullable final String permissions) {
         if (permissions == null) {
             return defaultPermissionSet.copy();
         } else {
@@ -243,7 +243,7 @@ public class LiquidPermissionSet {
 
     public String asFriendlyString() {
         final StringBuilder sb = new StringBuilder();
-        for (LiquidPermissionScope liquidPermissionScope : LiquidPermissionScope.values()) {
+        for (final LiquidPermissionScope liquidPermissionScope : LiquidPermissionScope.values()) {
             sb.append(Character.toLowerCase(liquidPermissionScope.asShortForm()));
             sb.append('=');
             if (hasPermission(liquidPermissionScope, VIEW)) {

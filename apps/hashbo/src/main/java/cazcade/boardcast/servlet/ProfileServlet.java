@@ -15,11 +15,11 @@ import java.io.IOException;
 public class ProfileServlet extends AbstractBoardListServlet {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(ProfileServlet.class);
+    private static final Logger log = Logger.getLogger(ProfileServlet.class);
 
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.getRequestDispatcher("_pages/profile.jsp").forward(req, resp);
         } catch (Exception e) {

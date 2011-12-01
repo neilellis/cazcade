@@ -18,31 +18,31 @@ import javax.annotation.Nullable;
  */
 public class FixAllAliases implements AdminCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FixAllAliases.class);
+    private static final Logger log = Logger.getLogger(FixAllAliases.class);
 
     @Override
-    public void execute(String[] args, @Nonnull FountainNeo fountainNeo) throws InterruptedException {
-        Node peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
-        Iterable<Relationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
-        for (Relationship child : children) {
-            Node personPool = child.getOtherNode(peoplePool);
+    public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
+        final Node peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
+        final Iterable<Relationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
+        for (final Relationship child : children) {
+            final Node personPool = child.getOtherNode(peoplePool);
             log.info("Repairing " + personPool.getProperty(LSDAttribute.URI));
 
-            FountainRelationships relationshipType = FountainRelationships.OWNER;
-            Relationship ownerRel = fixRelationship(fountainNeo, personPool, relationshipType);
-            Node ownerAlias = ownerRel.getOtherNode(personPool);
-            Relationship aliasToUserRel = fixRelationship(fountainNeo, ownerAlias, FountainRelationships.ALIAS);
+            final FountainRelationships relationshipType = FountainRelationships.OWNER;
+            final Relationship ownerRel = fixRelationship(fountainNeo, personPool, relationshipType);
+            final Node ownerAlias = ownerRel.getOtherNode(personPool);
+            final Relationship aliasToUserRel = fixRelationship(fountainNeo, ownerAlias, FountainRelationships.ALIAS);
         }
     }
 
     @Nullable
-    private Relationship fixRelationship(@Nonnull FountainNeo fountainNeo, @Nonnull Node startNode, FountainRelationships relationshipType) throws InterruptedException {
-        Iterable<Relationship> currentRels = startNode.getRelationships(relationshipType, Direction.OUTGOING);
+    private Relationship fixRelationship(@Nonnull final FountainNeo fountainNeo, @Nonnull final Node startNode, final FountainRelationships relationshipType) throws InterruptedException {
+        final Iterable<Relationship> currentRels = startNode.getRelationships(relationshipType, Direction.OUTGOING);
 
         String otherNodeURI = null;
 
         //remove stale relationships
-        for (Relationship ownerRel : currentRels) {
+        for (final Relationship ownerRel : currentRels) {
             otherNodeURI = ownerRel.getOtherNode(startNode).getProperty(LSDAttribute.URI);
             removeIfStale(startNode, ownerRel);
         }
@@ -56,8 +56,8 @@ public class FixAllAliases implements AdminCommand {
         return rel;
     }
 
-    private boolean removeIfStale(@Nonnull Node node, @Nonnull Relationship rel) {
-        Node otherNode = rel.getOtherNode(node);
+    private boolean removeIfStale(@Nonnull final Node node, @Nonnull final Relationship rel) {
+        final Node otherNode = rel.getOtherNode(node);
         if (otherNode.hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
             rel.delete();
             log.info("Removed stale relationship to " + otherNode.getProperty(LSDAttribute.URI));

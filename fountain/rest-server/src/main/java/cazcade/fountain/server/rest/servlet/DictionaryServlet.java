@@ -19,19 +19,19 @@ import java.util.Arrays;
 public class DictionaryServlet extends HttpServlet {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(DictionaryServlet.class);
+    private static final Logger log = Logger.getLogger(DictionaryServlet.class);
 
-    public void doGet(HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
-            LSDAttribute[] keys = LSDAttribute.values();
+            final LSDAttribute[] keys = LSDAttribute.values();
             Arrays.sort(keys);
-            LSDDictionaryTypes[] types = LSDDictionaryTypes.values();
-            PrintWriter out = response.getWriter();
+            final LSDDictionaryTypes[] types = LSDDictionaryTypes.values();
+            final PrintWriter out = response.getWriter();
             out.println("<html<head><title>Dictionary</title></head><body>");
             out.println("<h1>Types</h1>");
             out.println("<table>");
 
-            for (LSDDictionaryTypes type : types) {
+            for (final LSDDictionaryTypes type : types) {
                 out.printf("<tr><td>%s</td><td>%s</td></tr>%n", type.getValue(), type.getDescription());
             }
 
@@ -39,7 +39,7 @@ public class DictionaryServlet extends HttpServlet {
 
             out.println("<h1>Keys</h1>");
             out.println("<table>");
-            for (LSDAttribute key : keys) {
+            for (final LSDAttribute key : keys) {
                 if (!key.isUpdateable()) {
                     out.print("<i>");
                 }

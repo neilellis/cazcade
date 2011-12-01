@@ -18,15 +18,15 @@ public class DictionaryRestHandler extends AbstractRestHandler {
 
     @Nonnull
     public LiquidMessage keys() {
-        RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.KEYS);
-        LSDEntity dictionary = LSDSimpleEntity.createEmpty();
+        final RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.KEYS);
+        final LSDEntity dictionary = LSDSimpleEntity.createEmpty();
         dictionary.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
         dictionary.setAttribute(LSDAttribute.NAME, "LiquidKeyDictionary");
         dictionary.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_KEY_DICTIONARY.getValue());
-        LSDAttribute[] values = LSDAttribute.values();
-        List<LSDEntity> entries = new ArrayList<LSDEntity>();
-        for (LSDAttribute value : values) {
-            LSDEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
+        final LSDAttribute[] values = LSDAttribute.values();
+        final List<LSDEntity> entries = new ArrayList<LSDEntity>();
+        for (final LSDAttribute value : values) {
+            final LSDEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
             dictionaryEntry.setAttribute(LSDAttribute.ID, value.getId().toString());
             dictionaryEntry.setAttribute(LSDAttribute.NAME, value.getKeyName());
             dictionaryEntry.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_KEY_DICTIONARY_ENTRY.getValue());
@@ -43,14 +43,14 @@ public class DictionaryRestHandler extends AbstractRestHandler {
 
     @Nonnull
     public RetrieveDictionaryRequest types() {
-        RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.TYPES);
-        LSDEntity dictionary = LSDSimpleEntity.createEmpty();
+        final RetrieveDictionaryRequest request = new RetrieveDictionaryRequest(RetrieveDictionaryRequest.Category.TYPES);
+        final LSDEntity dictionary = LSDSimpleEntity.createEmpty();
         dictionary.setAttribute(LSDAttribute.NAME, "LiquidTypeDictionary");
         dictionary.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_TYPE_DICTIONARY.getValue());
-        LSDDictionaryTypes[] values = LSDDictionaryTypes.values();
-        List<LSDEntity> entries = new ArrayList<LSDEntity>();
-        for (LSDDictionaryTypes value : values) {
-            LSDEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
+        final LSDDictionaryTypes[] values = LSDDictionaryTypes.values();
+        final List<LSDEntity> entries = new ArrayList<LSDEntity>();
+        for (final LSDDictionaryTypes value : values) {
+            final LSDEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
             dictionaryEntry.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
             dictionaryEntry.setAttribute(LSDAttribute.NAME, value.getValue());
             dictionaryEntry.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_TYPE_DICTIONARY_ENTRY.getValue());
@@ -61,7 +61,7 @@ public class DictionaryRestHandler extends AbstractRestHandler {
         return request;
     }
 
-    public void setLsdFactory(LSDEntityFactory lsdEntityFactory) {
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
         this.lsdEntityFactory = lsdEntityFactory;
     }
 

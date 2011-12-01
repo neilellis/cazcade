@@ -47,6 +47,7 @@ public class VortexSearchResultList extends Composite {
     public HTMLPanel resultPanel;
 
     public VortexSearchResultList() {
+        super();
         init();
 
     }

@@ -1,13 +1,10 @@
 package cazcade.vortex.dnd.client;
 
-import cazcade.vortex.gwt.util.client.ClientLog;
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.impl.DOMImpl;
+import com.google.gwt.user.client.DOM;
 
 /**
- * Native implementation associated with {@link com.google.gwt.user.client.DOM}.
+ * Native implementation associated with {@link DOM}.
+ *
  * @deprecated this is now implemented in GWT 2.3 :-)
  */
 public class DOMImplMobileSafari {

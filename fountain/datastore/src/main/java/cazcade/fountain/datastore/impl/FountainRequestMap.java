@@ -12,7 +12,7 @@ import java.util.Map;
 public class FountainRequestMap {
     private Map<String, FountainRequestConfiguration> map;
 
-    public void setMap(Map map) {
+    public void setMap(final Map map) {
         this.map = map;
     }
 
@@ -20,17 +20,17 @@ public class FountainRequestMap {
         return map;
     }
 
-    public void injectNeo(FountainNeo fountainNeo) {
-        for (FountainRequestConfiguration configuration : map.values()) {
+    public void injectNeo(final FountainNeo fountainNeo) {
+        for (final FountainRequestConfiguration configuration : map.values()) {
             ((AbstractDataStoreHandler) configuration.getHandler()).setFountainNeo(fountainNeo);
-            AbstractRequestCompensator compensator = (AbstractRequestCompensator) configuration.getCompensator();
+            final AbstractRequestCompensator compensator = (AbstractRequestCompensator) configuration.getCompensator();
             if (compensator != null) {
                 compensator.setFountainNeo(fountainNeo);
             }
         }
     }
 
-    public FountainRequestConfiguration getConfiguration(@Nonnull Class clazz) {
+    public FountainRequestConfiguration getConfiguration(@Nonnull final Class clazz) {
         return map.get(clazz.getName());
     }
 }

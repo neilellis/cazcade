@@ -17,16 +17,16 @@ import java.io.IOException;
  */
 public class ChangePasswordServlet extends AbstractHashboServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ChangePasswordServlet.class);
+    private static final Logger log = Logger.getLogger(ChangePasswordServlet.class);
 
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/_pages/password.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         final String username = req.getParameter("username");
         final String password = req.getParameter("password");
         final String passwordConfirm = req.getParameter("password_confirm");

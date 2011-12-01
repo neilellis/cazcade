@@ -14,11 +14,11 @@ import java.io.IOException;
  */
 public class LogoutServlet extends AbstractHashboServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LogoutServlet.class);
+    private static final Logger log = Logger.getLogger(LogoutServlet.class);
 
 
     @Override
-    protected void service(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         logOut(req.getSession(true));
         resp.sendRedirect(req.getParameter("next"));
     }

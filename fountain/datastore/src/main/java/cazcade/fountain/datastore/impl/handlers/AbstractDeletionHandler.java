@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class AbstractDeletionHandler<T extends AbstractDeletionRequest> extends AbstractDataStoreHandler<T> {
-    public T handle(@Nonnull T request) throws Exception {
+    public T handle(@Nonnull final T request) throws Exception {
         return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getTarget(), true, request.isInternal(), request.getDetail()));
     }
 }

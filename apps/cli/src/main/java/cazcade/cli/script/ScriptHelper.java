@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public class ScriptHelper {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(ScriptHelper.class);
+    private static final Logger log = Logger.getLogger(ScriptHelper.class);
 
     public ScriptHelper() {
     }
@@ -22,7 +22,7 @@ public class ScriptHelper {
     public void stop() throws Exception {
     }
 
-    public void logError(@Nonnull Throwable e) {
+    public void logError(@Nonnull final Throwable e) {
         log.error(e);
     }
 

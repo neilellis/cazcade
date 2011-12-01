@@ -55,7 +55,7 @@ public interface DataStoreService extends RemoteService {
      * Utility/Convenience class.
      * Use DataStoreService.App.getInstance () to access static instance of DataStoreServiceAsync
      */
-    public static class App {
+    class App {
         private static final DataStoreServiceAsync ourInstance = GWT.create(DataStoreService.class);
 
         public static synchronized DataStoreServiceAsync getInstance() {

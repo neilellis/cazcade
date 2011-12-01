@@ -15,7 +15,7 @@ public class ClientApplicationIdentifier implements Serializable {
     public ClientApplicationIdentifier() {
     }
 
-    public ClientApplicationIdentifier(String name, String key, String hostinfo) {
+    public ClientApplicationIdentifier(final String name, final String key, final String hostinfo) {
         this.name = name;
         this.key = key;
         this.hostinfo = hostinfo;
@@ -40,7 +40,7 @@ public class ClientApplicationIdentifier implements Serializable {
     }
 
     @Nonnull
-    public static ClientApplicationIdentifier valueOf(@Nonnull String s) {
+    public static ClientApplicationIdentifier valueOf(@Nonnull final String s) {
         final String[] strings = s.split(":");
         return new ClientApplicationIdentifier(strings[0], strings[1], strings[2]);
     }

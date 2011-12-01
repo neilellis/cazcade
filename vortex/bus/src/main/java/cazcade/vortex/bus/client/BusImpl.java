@@ -45,11 +45,11 @@ public class BusImpl implements Bus {
         if (uuids.size() < UUID_THRESHOLD) {
 
             UUIDService.App.getInstance().getRandomUUIDs(UUID_BATCH_SIZE, new AsyncCallback<ArrayList<LiquidUUID>>() {
-                public void onFailure(@Nonnull Throwable caught) {
+                public void onFailure(@Nonnull final Throwable caught) {
                     ClientLog.log(caught.getMessage(), caught);
                 }
 
-                public void onSuccess(@Nonnull ArrayList<LiquidUUID> result) {
+                public void onSuccess(@Nonnull final ArrayList<LiquidUUID> result) {
                     uuids.topUp(result);
                     then.run();
                 }
@@ -77,13 +77,13 @@ public class BusImpl implements Bus {
 
     @Override
     public void start() {
-        this.started = true;
+        started = true;
     }
 
     @Override
-    public void removeListener(long listenerId) {
+    public void removeListener(final long listenerId) {
         listenerLookup.remove(listenerId);
-        for (ListenerCollection collection : listenerCollections.values()) {
+        for (final ListenerCollection collection : listenerCollections.values()) {
             collection.removeListener(listenerId);
         }
     }
@@ -119,13 +119,13 @@ public class BusImpl implements Bus {
         }
     }
 
-    private <T extends LiquidMessage> void handleCorrelationEvent(@Nonnull LiquidMessage message) {
-        LiquidUUID id = message.getId();
+    private <T extends LiquidMessage> void handleCorrelationEvent(@Nonnull final LiquidMessage message) {
+        final LiquidUUID id = message.getId();
         ClientLog.log(responseCallbacks.containsKey(id) ? "Callback found" : "No callback found for " + id);
         ClientLog.log("Message state is " + message.getState());
         ClientLog.log(responseCallbacks.toString());
         if (message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.DEFERRED && message.getState() != LiquidMessageState.INITIAL && responseCallbacks.containsKey(id)) {
-            CallbackProcessor responseCallbackProcessor = responseCallbacks.get(id);
+            final CallbackProcessor responseCallbackProcessor = responseCallbacks.get(id);
             try {
                 responseCallbackProcessor.handleResponse(message);
             } catch (Exception e) {
@@ -136,7 +136,7 @@ public class BusImpl implements Bus {
         }
     }
 
-    private <T extends LiquidMessage> void dispatchInternal(@Nonnull T message) {
+    private <T extends LiquidMessage> void dispatchInternal(@Nonnull final T message) {
         if (message.getState() == LiquidMessageState.DEFERRED) {
             return;
         }
@@ -144,25 +144,25 @@ public class BusImpl implements Bus {
             throw new RuntimeException("Bus has not been started yet.");
         }
 //        ClientLog.log("" + listenerCollections.size());
-        List<String> keys = new ArrayList<String>();
-        Collection<LiquidURI> affectedEntities = message.getAffectedEntities();
+        final List<String> keys = new ArrayList<String>();
+        final Collection<LiquidURI> affectedEntities = message.getAffectedEntities();
         if (affectedEntities != null) {
-            for (LiquidURI affectedEntity : affectedEntities) {
+            for (final LiquidURI affectedEntity : affectedEntities) {
                 ClientLog.log("Affected entity: " + affectedEntity);
                 keys.add(message.getMessageType().name() + ":" + affectedEntity);
                 keys.add("*:" + affectedEntity);
             }
         }
         final LSDEntity response = message.getResponse();
-        String responseEntityId = response == null ? "" : response.getUUID().toString();
+        final String responseEntityId = response == null ? "" : response.getUUID().toString();
 
         keys.add(message.getMessageType().name() + ":" + responseEntityId);
         keys.add(message.getMessageType().name() + ":*");
         keys.add("*:" + responseEntityId);
         keys.add("*:*");
-        for (String key : keys) {
+        for (final String key : keys) {
 //            ClientLog.log("Looking for match for '" + key + "'");
-            ListenerCollection listenerCollection = listenerCollections.get(key);
+            final ListenerCollection listenerCollection = listenerCollections.get(key);
             if (listenerCollection != null) {
                 ClientLog.log("Matched " + key);
                 try {
@@ -174,18 +174,18 @@ public class BusImpl implements Bus {
         }
     }
 
-    public long listen(BusListener listener) {
-        long listenerId = generateId();
+    public long listen(final BusListener listener) {
+        final long listenerId = generateId();
         addListener("*:*", listenerId, listener);
         return listenerId;
     }
 
 
     private long generateId() {
-        return System.currentTimeMillis() * 10000 + ((long) (Math.random() * 10000.0));
+        return System.currentTimeMillis() * 10000 + (long) (Math.random() * 10000.0);
     }
 
-    private void addListener(String key, long listenerId, BusListener listener) {
+    private void addListener(final String key, final long listenerId, final BusListener listener) {
         ClientLog.log("Adding listener for '" + key + "' with id of " + listenerId);
         ListenerCollection listenerCollection = listenerCollections.get(key);
         if (listenerCollection == null) {
@@ -199,9 +199,9 @@ public class BusImpl implements Bus {
         listenerLookup.put(listenerId, listener);
     }
 
-    public long listenForAllButTheseTypes(@Nonnull List<LiquidMessageType> types, BusListener listener) {
-        long listenerId = generateId();
-        for (LiquidMessageType type : LiquidMessageType.values()) {
+    public long listenForAllButTheseTypes(@Nonnull final List<LiquidMessageType> types, final BusListener listener) {
+        final long listenerId = generateId();
+        for (final LiquidMessageType type : LiquidMessageType.values()) {
             if (!types.contains(type)) {
                 addListener(type.name() + ":*", listenerId, listener);
             }
@@ -209,8 +209,8 @@ public class BusImpl implements Bus {
         return listenerId;
     }
 
-    public long listenForURI(LiquidURI uri, BusListener listener) {
-        long listenerId = generateId();
+    public long listenForURI(final LiquidURI uri, final BusListener listener) {
+        final long listenerId = generateId();
         addListener("*:" + uri, listenerId, listener);
         return listenerId;
     }
@@ -219,7 +219,7 @@ public class BusImpl implements Bus {
     public long listenForResponsesForURIAndType(final LiquidURI uri, final LiquidRequestType type, @Nonnull final BusListener listener) {
         return listenForURI(uri, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (message instanceof LiquidRequest && message.getOrigin() == LiquidMessageOrigin.SERVER) {
                     ClientLog.log("Not calling " + listener.getClass().getName() + " for " + uri + " as the origin should be " + message.getOrigin() + " when it needs to be SERVER");
                     if (((LiquidRequest) message).getRequestType() == type) {
@@ -237,7 +237,7 @@ public class BusImpl implements Bus {
     public long listenForURIAndRequestType(final LiquidURI uri, final LiquidRequestType type, @Nonnull final BusListener listener) {
         return listenForURI(uri, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (message instanceof LiquidRequest) {
                     if (((LiquidRequest) message).getRequestType() == type) {
                         ClientLog.log("Calling " + listener.getClass().getName() + " for " + uri);
@@ -254,7 +254,7 @@ public class BusImpl implements Bus {
     public long listenForURIAndSuccessfulRequestType(final LiquidURI uri, final LiquidRequestType type, @Nonnull final BusListener listener) {
         return listenForURI(uri, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (message instanceof LiquidRequest) {
                     if (((LiquidRequest) message).getRequestType() == type && message.getState() == LiquidMessageState.SUCCESS) {
                         listener.handle(message);
@@ -265,45 +265,45 @@ public class BusImpl implements Bus {
     }
 
 
-    public long listenForIdAndType(LiquidURI uri, LiquidMessageType type, BusListener listener) {
+    public long listenForIdAndType(final LiquidURI uri, final LiquidMessageType type, final BusListener listener) {
         return listenForIdsAndTypes(Arrays.asList(uri), Arrays.asList(type), listener);
     }
 
-    public long listenForIdsAndTypes(@Nonnull List<LiquidURI> ids, @Nonnull List<LiquidMessageType> types, BusListener listener) {
-        long listenerId = generateId();
-        for (LiquidMessageType type : types) {
-            for (LiquidURI id : ids) {
+    public long listenForIdsAndTypes(@Nonnull final List<LiquidURI> ids, @Nonnull final List<LiquidMessageType> types, final BusListener listener) {
+        final long listenerId = generateId();
+        for (final LiquidMessageType type : types) {
+            for (final LiquidURI id : ids) {
                 addListener(type.name() + ":" + id, listenerId, listener);
             }
         }
         return listenerId;
     }
 
-    public long listenForIdAndTypes(LiquidURI id, LiquidMessageType types, BusListener listener) {
+    public long listenForIdAndTypes(final LiquidURI id, final LiquidMessageType types, final BusListener listener) {
         return listenForIdsAndTypes(Arrays.asList(id), Arrays.asList(types), listener);
     }
 
-    public long listenForIds(@Nonnull List<LiquidURI> ids, BusListener listener) {
-        long listenerId = generateId();
-        for (LiquidURI id : ids) {
+    public long listenForIds(@Nonnull final List<LiquidURI> ids, final BusListener listener) {
+        final long listenerId = generateId();
+        for (final LiquidURI id : ids) {
             addListener("*:" + id, listenerId, listener);
         }
         return listenerId;
     }
 
-    public long listenForUrisAndType(@Nonnull List<LiquidURI> uris, LiquidMessageType type, BusListener listener) {
+    public long listenForUrisAndType(@Nonnull final List<LiquidURI> uris, final LiquidMessageType type, final BusListener listener) {
         return listenForIdsAndTypes(uris, Arrays.asList(type), listener);
     }
 
-    public long listenForType(LiquidMessageType type, BusListener listener) {
-        long listenerId = generateId();
+    public long listenForType(final LiquidMessageType type, final BusListener listener) {
+        final long listenerId = generateId();
         addListener(type + ":*", listenerId, listener);
         return listenerId;
     }
 
-    public long listenForTypes(@Nonnull List<LiquidMessageType> types, BusListener listener) {
-        long listenerId = generateId();
-        for (LiquidMessageType type : types) {
+    public long listenForTypes(@Nonnull final List<LiquidMessageType> types, final BusListener listener) {
+        final long listenerId = generateId();
+        for (final LiquidMessageType type : types) {
             addListener(type.name() + ":*", listenerId, listener);
         }
         return listenerId;
@@ -320,8 +320,8 @@ public class BusImpl implements Bus {
         });
     }
 
-    private <T extends LiquidMessage> void addCallback(@Nonnull LiquidMessage message, ResponseCallback<T> callback) {
-        LiquidUUID messageId = message.getId();
+    private <T extends LiquidMessage> void addCallback(@Nonnull final LiquidMessage message, final ResponseCallback<T> callback) {
+        final LiquidUUID messageId = message.getId();
         ClientLog.log("Adding callback for " + messageId.toString());
         CallbackProcessor callbackProcessor = responseCallbacks.get(messageId);
         if (callbackProcessor == null) {
@@ -335,14 +335,14 @@ public class BusImpl implements Bus {
         @Nonnull
         private final List<Long> listenerIds = new ArrayList<Long>();
 
-        public void addListener(Long id) {
+        public void addListener(final Long id) {
             listenerIds.add(id);
         }
 
-        public void call(LiquidMessage message) {
-            List<Long> deleteThese = new ArrayList<Long>();
-            for (Long listenerId : new ArrayList<Long>(listenerIds)) {
-                BusListener listener = listenerLookup.get(listenerId);
+        public void call(final LiquidMessage message) {
+            final List<Long> deleteThese = new ArrayList<Long>();
+            for (final Long listenerId : new ArrayList<Long>(listenerIds)) {
+                final BusListener listener = listenerLookup.get(listenerId);
                 if (listener == null) {
                     ClientLog.log("Removing stale listener " + listenerId);
                     deleteThese.add(listenerId);
@@ -357,7 +357,7 @@ public class BusImpl implements Bus {
             listenerIds.removeAll(deleteThese);
         }
 
-        public void removeListener(long listenerId) {
+        public void removeListener(final long listenerId) {
             listenerIds.remove(listenerId);
         }
     }
@@ -367,19 +367,19 @@ public class BusImpl implements Bus {
         private final List<ResponseCallback> callbacks = new ArrayList<ResponseCallback>();
         private final LiquidMessage message;
 
-        private CallbackProcessor(LiquidMessage message) {
+        private CallbackProcessor(final LiquidMessage message) {
             this.message = message;
         }
 
-        public void addCallback(ResponseCallback callback) {
+        public void addCallback(final ResponseCallback callback) {
             callbacks.add(callback);
         }
 
-        public void handleResponse(@Nonnull LiquidMessage response) {
+        public void handleResponse(@Nonnull final LiquidMessage response) {
 //            ClientLog.log("Callback processor processing " + response.getId());
-            for (ResponseCallback responseCallback : callbacks) {
+            for (final ResponseCallback responseCallback : callbacks) {
                 final LSDEntity responseEntity = response.getResponse();
-                if (message.getState() == LiquidMessageState.FAIL || (message.getResponse() != null && message.getResponse().isError())) {
+                if (message.getState() == LiquidMessageState.FAIL || message.getResponse() != null && message.getResponse().isError()) {
                     if (responseEntity == null) {
                         ClientLog.log("Callback handling failed and response entity was null. ");
                     } else {

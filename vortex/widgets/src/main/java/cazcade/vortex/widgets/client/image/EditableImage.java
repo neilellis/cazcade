@@ -31,20 +31,20 @@ public class EditableImage extends Composite implements Bindable {
     protected boolean editable = true;
 
     @Override
-    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
+    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         this.entity = entity;
         this.attribute = attribute;
         image.setUrl(entity.getAttribute(attribute));
     }
 
     @Override
-    public void setOnChangeAction(Runnable onChangeAction) {
+    public void setOnChangeAction(final Runnable onChangeAction) {
         this.onChangeAction = onChangeAction;
 //        Window.alert("On Change Action is "+onChangeAction);
     }
 
     @Override
-    public void setErrorMessage(String message) {
+    public void setErrorMessage(final String message) {
         Window.alert(message);
     }
 
@@ -72,18 +72,19 @@ public class EditableImage extends Composite implements Bindable {
     SpanElement editText;
 
     public EditableImage() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
         image.setOnChangeAction(onChangeAction);
     }
 
     @UiHandler("image")
-    public void onClick(ClickEvent e) {
+    public void onClick(final ClickEvent e) {
         if (entity.getBooleanAttribute(LSDAttribute.EDITABLE) && editable) {
             final ImageEditorDialogBox imageEditorDialogBox = new ImageEditorDialogBox();
             imageEditorDialogBox.addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
-                public void onClose(CloseEvent<PopupPanel> popupPanelCloseEvent) {
+                public void onClose(final CloseEvent<PopupPanel> popupPanelCloseEvent) {
                     Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                         @Override
                         public void execute() {
@@ -97,24 +98,24 @@ public class EditableImage extends Composite implements Bindable {
         }
     }
 
-    public void setSize(String size) {
+    public void setSize(final String size) {
         image.setSize(size);
     }
 
     @Override
-    public void setWidth(@Nonnull String width) {
+    public void setWidth(@Nonnull final String width) {
         image.setWidth(width);
         super.setWidth(width);
     }
 
 
     @Override
-    public void setHeight(@Nonnull String height) {
+    public void setHeight(@Nonnull final String height) {
         super.setHeight(height);
         image.setHeight(height);
     }
 
-    public void setEditable(boolean editable) {
+    public void setEditable(final boolean editable) {
         this.editable = editable;
         editText.getStyle().setVisibility(editable ? Style.Visibility.VISIBLE : Style.Visibility.HIDDEN);
     }

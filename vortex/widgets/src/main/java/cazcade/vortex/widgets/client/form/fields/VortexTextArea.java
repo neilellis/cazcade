@@ -28,13 +28,13 @@ public class VortexTextArea extends AbstractVortexFormField {
     }
 
     @Override
-    public void setValue(String text) {
+    public void setValue(final String text) {
         textArea.setValue(text);
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, String initialValue) {
-        this.boundAttribute = attribute;
+    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+        boundAttribute = attribute;
         setValue(initialValue);
     }
 
@@ -46,9 +46,10 @@ public class VortexTextArea extends AbstractVortexFormField {
     TextArea textArea;
 
     public VortexTextArea() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         textArea.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(@Nonnull KeyPressEvent event) {
+            public void onKeyPress(@Nonnull final KeyPressEvent event) {
                 final int keyCode = event.getUnicodeCharCode();
 
                 if (keyCode == KeyCodes.KEY_ENTER) {
@@ -61,21 +62,21 @@ public class VortexTextArea extends AbstractVortexFormField {
 
         textArea.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
-            public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+            public void onValueChange(final ValueChangeEvent<String> stringValueChangeEvent) {
                 callOnChangeAction();
             }
         });
 
         textArea.addBlurHandler(new BlurHandler() {
             @Override
-            public void onBlur(BlurEvent event) {
+            public void onBlur(final BlurEvent event) {
                 callOnChangeAction();
             }
         });
 
         textArea.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(final KeyUpEvent event) {
                 showValidity();
             }
         });

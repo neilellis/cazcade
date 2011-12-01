@@ -52,7 +52,8 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     private static final VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
 
 
-    public VortexStatusUpdatePanel(@Nonnull LSDEntity statusUpdate, boolean large) {
+    public VortexStatusUpdatePanel(@Nonnull final LSDEntity statusUpdate, final boolean large) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         if (large) {
             profileImage.setWidth("48px");
@@ -63,7 +64,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
             profileImage.setHeight("18px");
             profileImage.setSize(CachedImage.SMALL);
         }
-        this.entity = statusUpdate;
+        entity = statusUpdate;
         author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         if (statusUpdate.hasAttribute(LSDAttribute.SOURCE)) {
@@ -84,7 +85,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
         }
         addDomHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 if (locationName != null && !THE_VOID.equals(locationName)) {
                     HistoryManager.navigate(locationName);
                 }

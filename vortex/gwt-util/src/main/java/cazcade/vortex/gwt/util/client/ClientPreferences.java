@@ -13,21 +13,21 @@ import javax.annotation.Nonnull;
  */
 public class ClientPreferences {
 
-    public static enum Preference {
+    public enum Preference {
         RHS_HIDE
     }
 
-    public static boolean booleanPreference(@Nonnull Preference pref) {
-        String value = Storage.getLocalStorageIfSupported().getItem(prefToKey(pref));
+    public static boolean booleanPreference(@Nonnull final Preference pref) {
+        final String value = Storage.getLocalStorageIfSupported().getItem(prefToKey(pref));
         return "true".equals(value);
     }
 
     @Nonnull
-    private static String prefToKey(@Nonnull Preference pref) {
+    private static String prefToKey(@Nonnull final Preference pref) {
         return "cazcade.pref." + pref.name().toLowerCase();
     }
 
-    public static void setBooleanPreference(@Nonnull Preference pref, boolean value) {
+    public static void setBooleanPreference(@Nonnull final Preference pref, final boolean value) {
         Storage.getLocalStorageIfSupported().setItem(prefToKey(pref), value ? "true" : "false");
     }
 

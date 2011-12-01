@@ -24,8 +24,8 @@ public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<Retrieve
         Node node;
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            Collection<LSDEntity> entities;
-            LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
+            final Collection<LSDEntity> entities;
+            final LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
             entity.timestamp();
             entity.setID(UUIDFactory.randomUUID());
             entity.setType(LSDDictionaryTypes.ALIAS_LIST);
@@ -36,7 +36,7 @@ public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<Retrieve
                 entities = socialDAO.getRosterNoTX(request.getTarget(), request.isInternal(), request.getSessionIdentifier(), request.getDetail());
             }
             transaction.success();
-            if (entities == null || entities.size() == 0) {
+            if (entities == null || entities.isEmpty()) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
 
             } else {

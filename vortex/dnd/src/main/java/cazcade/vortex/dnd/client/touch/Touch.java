@@ -11,6 +11,7 @@ import javax.annotation.Nonnull;
 public class Touch extends JavaScriptObject {
 
     protected Touch() {
+        super();
     }
 
     public final native int getPageX() /*-{

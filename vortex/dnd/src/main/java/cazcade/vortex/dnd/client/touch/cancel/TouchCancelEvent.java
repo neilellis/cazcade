@@ -23,7 +23,7 @@ public class TouchCancelEvent extends TouchEvent<TouchCancelHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull TouchCancelHandler handler) {
+    protected void dispatch(@Nonnull final TouchCancelHandler handler) {
         handler.onTouchCancel(this);
     }
 }

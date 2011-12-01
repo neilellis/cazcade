@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @author neilellis@cazcade.com
  */
-public class PositionBase extends BaseBase{
+public class PositionBase extends BaseBase {
 
     protected String positionId;
     protected String resourceUri;
@@ -17,7 +17,7 @@ public class PositionBase extends BaseBase{
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 }

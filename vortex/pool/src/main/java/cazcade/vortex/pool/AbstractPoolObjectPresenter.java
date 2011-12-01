@@ -47,7 +47,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     protected final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     protected Bus bus;
     protected LSDEntity entity;
-    final private T poolObjectView;
+    private final T poolObjectView;
     protected final VortexThreadSafeExecutor threadSafeExecutor;
     private final PoolPresenter pool;
     private boolean locked;
@@ -65,7 +65,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     private static final int SNAP_BORDER_X = 20;
     private static final int SNAP_BORDER_Y = 20;
 
-    public AbstractPoolObjectPresenter(PoolPresenter pool, LSDEntity entity, T poolObjectView, VortexThreadSafeExecutor threadSafeExecutor) {
+    public AbstractPoolObjectPresenter(final PoolPresenter pool, final LSDEntity entity, final T poolObjectView, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.pool = pool;
         this.entity = entity;
         this.poolObjectView = poolObjectView;
@@ -121,20 +121,20 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         if (poolObjectView.getParent() == null) {
             throw new RuntimeException("Cannot add pool object to pool with a widget parent of null.");
         }
-        LSDEntity viewEntity = entity.getSubEntity(LSDAttribute.VIEW, true);
+        final LSDEntity viewEntity = entity.getSubEntity(LSDAttribute.VIEW, true);
         browserUtil.initDraggable(poolObjectView);
         gestureController = new EventBasedGestureController(this, poolObjectView.getInnerWidget(), true, true);
 
         poolObjectView.addHandler(new EditStartHandler() {
             @Override
-            public void onEditStart(EditStart event) {
+            public void onEditStart(final EditStart event) {
                 //gestureController.setActive(false);
             }
         }, EditStart.TYPE);
 
         poolObjectView.addHandler(new EditFinishHandler() {
             @Override
-            public void onEditFinish(EditFinish event) {
+            public void onEditFinish(final EditFinish event) {
                 //gestureController.setActive(true);
             }
         }, EditFinish.TYPE);
@@ -170,7 +170,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
     @Override
-    public void setOnDelete(Runnable runnable) {
+    public void setOnDelete(final Runnable runnable) {
         poolObjectView.setOnDelete(runnable);
     }
 
@@ -211,7 +211,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
 
     @Nullable
-    public LiquidMessage handle(@Nonnull UpdatePoolObjectRequest request) {
+    public LiquidMessage handle(@Nonnull final UpdatePoolObjectRequest request) {
         final LSDEntity responseEntity = request.getResponse();
         if (responseEntity != null) {
             update(responseEntity, true);
@@ -222,7 +222,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return null;
     }
 
-    protected void update(LSDEntity newEntity, boolean replaceEntity) {
+    protected void update(final LSDEntity newEntity, final boolean replaceEntity) {
         if (replaceEntity) {
             entity = newEntity;
         }
@@ -256,7 +256,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return null;
     }
 
-    public void handleRequestInternal(LiquidRequest request) {
+    public void handleRequestInternal(final LiquidRequest request) {
         gestureController.reset();
         if (request instanceof MovePoolObjectRequest) {
             handle((MovePoolObjectRequest) request);
@@ -316,7 +316,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         }
     }
 
-    public void onDrag(@Nonnull DragEvent dragEvent) {
+    public void onDrag(@Nonnull final DragEvent dragEvent) {
         if (isDraggable()) {
             deltaX = dragEvent.getDeltaX();
             deltaY = dragEvent.getDeltaY();
@@ -331,21 +331,21 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
     private void constrainMovement() {
-        int offsetWidth = poolObjectView.getOffsetWidth();
-        int offsetHeight = poolObjectView.getOffsetHeight();
-        if (x + deltaX + offsetWidth > (pool.getWidth() - SNAP_BORDER_X)) {
+        final int offsetWidth = poolObjectView.getOffsetWidth();
+        final int offsetHeight = poolObjectView.getOffsetHeight();
+        if (x + deltaX + offsetWidth > pool.getWidth() - SNAP_BORDER_X) {
             deltaX = pool.getWidth() - offsetWidth - x;
 //            deltaX= 0;
         }
-        if (x + deltaX < (SNAP_BORDER_X)) {
+        if (x + deltaX < SNAP_BORDER_X) {
             deltaX = -x;
 //            deltaX= 0
         }
-        if ((y + deltaY + offsetHeight > (pool.getHeight() - SNAP_BORDER_Y)) && !pool.isPageFlow()) {
+        if (y + deltaY + offsetHeight > pool.getHeight() - SNAP_BORDER_Y && !pool.isPageFlow()) {
             deltaY = pool.getHeight() - offsetHeight / 2 - y;
 //            deltaY= 0;
         }
-        if (y + deltaY < (SNAP_BORDER_Y)) {
+        if (y + deltaY < SNAP_BORDER_Y) {
             deltaY = -y;
 //            deltaY= 0;
         }
@@ -356,7 +356,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
 
-    public void onHoldDrag(@Nonnull HoldDragEvent dragEvent) {
+    public void onHoldDrag(@Nonnull final HoldDragEvent dragEvent) {
         if (isDraggable()) {
 //            if (clone == null) {
 //                startClone();
@@ -375,7 +375,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
 
-    public void onEndDrag(EndDragEvent dragEvent) {
+    public void onEndDrag(final EndDragEvent dragEvent) {
 //        int oldLeft= widget.getAbsoluteLeft();
 //        int oldTop= widget.getAbsoluteTop();
 //        pool.setWidgetLogicalPosition(widget, x, y);
@@ -414,7 +414,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         }
     }
 
-    public void fireEvent(GwtEvent<?> event) {
+    public void fireEvent(final GwtEvent<?> event) {
         poolObjectView.fireEvent(event);
     }
 
@@ -422,17 +422,17 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         if (entity.hasAttribute(LSDAttribute.EDITABLE)) {
             getPoolObjectView().setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
         }
-        modifiable = this.entity.hasAttribute(LSDAttribute.MODIFIABLE) && this.entity.getBooleanAttribute(LSDAttribute.MODIFIABLE);
+        modifiable = entity.hasAttribute(LSDAttribute.MODIFIABLE) && entity.getBooleanAttribute(LSDAttribute.MODIFIABLE);
 
     }
 
 
     private class PoolObjectPresenterBusAdapter implements BusListener {
-        public void handle(@Nonnull LiquidMessage message) {
+        public void handle(@Nonnull final LiquidMessage message) {
             ClientLog.log("Received message with id of " + message.getId());
-            LiquidMessageState state = message.getState();
+            final LiquidMessageState state = message.getState();
             if (state == LiquidMessageState.SUCCESS && message instanceof LiquidRequest) {
-                LiquidRequest response = (LiquidRequest) message;
+                final LiquidRequest response = (LiquidRequest) message;
                 ClientLog.log("** Successful **  PoolObject message " + response.getRequestType() + " affecting " + response.getAffectedEntities() + " and sent to locations " + response.getNotificationLocations());
                 handleRequestInternal(response);
 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid green");
@@ -442,7 +442,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 //                handleRequestInternal(request);
 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid orange");
             } else if (state == LiquidMessageState.PROVISIONAL && message instanceof LiquidRequest) {
-                LiquidRequest request = (LiquidRequest) message;
+                final LiquidRequest request = (LiquidRequest) message;
                 handleRequestInternal(request);
                 ClientLog.log("** Provisional ** PoolObject message " + request.getRequestType() + " affecting " + request.getAffectedEntities());
 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid yellow");
@@ -472,12 +472,12 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
     @Override
-    public void setX(double x) {
+    public void setX(final double x) {
         this.x = x;
     }
 
     @Override
-    public void setY(double y) {
+    public void setY(final double y) {
         this.y = y;
     }
 

@@ -15,10 +15,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class AbstractServiceStateMachine implements ServiceStateMachine {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractServiceStateMachine.class);
+    private static final Logger log = Logger.getLogger(AbstractServiceStateMachine.class);
     public static final int LOCK_TRY_TIMEOUT_IN_SECS = 20;
 
-    private static enum State {
+    private enum State {
         STOPPED, INITIALISATION, STARTED, PAUSED
     }
 
@@ -125,7 +125,8 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
             }
             int count = 0;
             while (activeCount.get() > 0 && count++ < LOCK_TRY_TIMEOUT_IN_SECS) {
-                Thread.sleep(1000);
+                //noinspection WaitWithoutCorrespondingNotify
+                locked.wait(1000);
                 log.info("Awaiting active count (" + activeCount.get() + ") on {0}.", getClass());
             }
             if (count >= LOCK_TRY_TIMEOUT_IN_SECS) {

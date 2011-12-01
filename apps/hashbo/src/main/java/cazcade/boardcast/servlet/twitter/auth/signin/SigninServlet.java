@@ -57,11 +57,11 @@ public class SigninServlet extends HttpServlet {
     public static final String LIVE_CONSUMER_SECRET = "XLO3cqTyXP3h20nl0OzEDC5OOkJsks02yczL0k8vQ0";
 
 
-    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
-            ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+            final ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.setDebugEnabled(true);
-            Twitter twitter = (new TwitterFactory(configurationBuilder.build())).getInstance();
+            final Twitter twitter = new TwitterFactory(configurationBuilder.build()).getInstance();
             if (CommonConstants.IS_PRODUCTION) {
                 twitter.setOAuthConsumer(LIVE_CONSUMER_KEY, LIVE_CONSUMER_SECRET);
             } else {
@@ -77,11 +77,11 @@ public class SigninServlet extends HttpServlet {
 //            }
 
 
-            StringBuffer callbackURL = request.getRequestURL();
-            int index = callbackURL.lastIndexOf("/");
+            final StringBuffer callbackURL = request.getRequestURL();
+            final int index = callbackURL.lastIndexOf("/");
             callbackURL.replace(index, callbackURL.length(), "").append("/callback");
             System.err.println("Callback URL=" + callbackURL);
-            RequestToken requestToken = twitter.getOAuthRequestToken(callbackURL.toString());
+            final RequestToken requestToken = twitter.getOAuthRequestToken(callbackURL.toString());
             request.getSession().setAttribute("requestToken", requestToken);
             response.sendRedirect(requestToken.getAuthenticationURL());
 

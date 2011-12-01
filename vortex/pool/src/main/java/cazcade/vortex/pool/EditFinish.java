@@ -16,7 +16,7 @@ public class EditFinish extends GwtEvent<EditFinishHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull EditFinishHandler handler) {
+    protected void dispatch(@Nonnull final EditFinishHandler handler) {
         handler.onEditFinish(this);
     }
 }

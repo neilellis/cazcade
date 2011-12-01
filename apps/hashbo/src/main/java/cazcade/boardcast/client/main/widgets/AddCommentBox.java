@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  */
 public class AddCommentBox extends Composite {
 
-    public void init(@Nonnull LiquidURI poolURI) {
+    public void init(@Nonnull final LiquidURI poolURI) {
         addCommentBox.init(poolURI);
         loginLink.setHref("/" + new LiquidBoardURL(poolURI).asUrlSafe() + "?forceLogin=true");
         if (UserUtil.isAnonymousOrLoggedOut()) {
@@ -45,6 +45,7 @@ public class AddCommentBox extends Composite {
     TwitterLoginBox twitterLoginBox;
 
     public AddCommentBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }

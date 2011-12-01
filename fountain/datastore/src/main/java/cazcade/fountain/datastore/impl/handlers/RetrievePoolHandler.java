@@ -19,7 +19,7 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
         Node node;
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            LSDEntity entity;
+            final LSDEntity entity;
             if (request.getUri() != null) {
                 entity = poolDAO.getPoolAndContentsNoTx(request.getUri(), request.getDetail(), request.getOrder(), request.isContents(), request.isInternal(), request.getSessionIdentifier(), 0, request.getMax(), request.isHistorical());
             } else {
@@ -29,9 +29,9 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
             transaction.success();
             if (entity == null) {
                 if (request.isOrCreate()) {
-                    Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
+                    final Node parentNode = fountainNeo.findByURI(request.getUri().getParentURI());
 
-                    Node pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), parentNode, request.getUri().getLastPathElement(), 0.0, 0.0, request.getUri().getLastPathElement(), request.isListed());
+                    final Node pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), parentNode, request.getUri().getLastPathElement(), 0.0, 0.0, request.getUri().getLastPathElement(), request.isListed());
                     final LSDEntity newPoolEntity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, parentNode, request.getDetail(), request.isInternal(), false);
                     transaction.success();
                     return LiquidResponseHelper.forServerSuccess(request, newPoolEntity);

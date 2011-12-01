@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ListPoolCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ListPoolCommand.class);
+    private static final Logger log = Logger.getLogger(ListPoolCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -40,29 +40,29 @@ public class ListPoolCommand extends AbstractShortLivedCommand {
     }
 
     @Nonnull
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
 
 
-        String pool;
+        final String pool;
         if (args.length > 0) {
             pool = args[0];
         } else {
             pool = "";
         }
-        LiquidURI poolURI;
+        final LiquidURI poolURI;
         if (pool.isEmpty()) {
             poolURI = shellSession.getCurrentPool().getURI();
         } else {
             poolURI = CommandSupport.resolvePoolOrObject(shellSession, pool);
         }
-        LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false));
+        final LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false));
         final LSDEntity listPoolEntity = response.getResponse();
         final List<LSDEntity> subEntities = listPoolEntity.getSubEntities(LSDAttribute.CHILD);
 //        System.out.println(visitPoolResponseEntity);
         String result = "";
-        for (LSDEntity subEntity : subEntities) {
+        for (final LSDEntity subEntity : subEntities) {
             final String name = subEntity.getAttribute(LSDAttribute.NAME);
-            System.out.println("" + name);
+            System.out.println(name);
             result = result + " ";
         }
         return result;

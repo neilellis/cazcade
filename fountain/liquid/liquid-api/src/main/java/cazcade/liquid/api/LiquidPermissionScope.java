@@ -53,12 +53,12 @@ public enum LiquidPermissionScope {
 
     private final char shortForm;
 
-    LiquidPermissionScope(char shortForm) {
+    LiquidPermissionScope(final char shortForm) {
         this.shortForm = shortForm;
     }
 
     @Nonnull
-    public static LiquidPermissionScope fromChar(char c) {
+    public static LiquidPermissionScope fromChar(final char c) {
         switch (Character.toLowerCase(c)) {
             case 'o':
                 return OWNER;

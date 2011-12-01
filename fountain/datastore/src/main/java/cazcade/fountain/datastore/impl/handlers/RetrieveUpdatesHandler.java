@@ -28,12 +28,12 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
     public RetrieveUpdatesRequest handle(@Nonnull final RetrieveUpdatesRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
+            final LSDSimpleEntity entity = LSDSimpleEntity.createEmpty();
             entity.timestamp();
             entity.setID(UUIDFactory.randomUUID());
             entity.setType(LSDDictionaryTypes.ENTITY_LIST);
             final LiquidURI initialURI = request.getSessionIdentifier().getAlias();
-            Node startNode = fountainNeo.findByURI(initialURI);
+            final Node startNode = fountainNeo.findByURI(initialURI);
             if (startNode == null) {
                 throw new EntityNotFoundException("Could not find start point at " + initialURI);
             }
@@ -41,7 +41,7 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
             final List<LSDEntity> entities = new ArrayList<LSDEntity>(new LatestContentFinder(request.getSessionIdentifier(), fountainNeo, startNode, request.getSince(), 20, 50000, request.getDetail(), 100, userDAO).getNodes());
             Collections.sort(entities, new LSDEntity.EntityPublishedComparator());
             transaction.success();
-            if (entities == null || entities.size() == 0) {
+            if (entities == null || entities.isEmpty()) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
 
             } else {

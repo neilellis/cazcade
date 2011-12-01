@@ -20,7 +20,7 @@ public class TapEvent extends GestureEvent<TapHandler> {
     }
 
 
-    public TapEvent(long duration, long endTime, DomEvent event, long startTime, int x, int y) {
+    public TapEvent(final long duration, final long endTime, final DomEvent event, final long startTime, final int x, final int y) {
         super(0, 0, duration, endTime, event, startTime, 0, 0, x, y, 0, 0);
     }
 
@@ -30,7 +30,7 @@ public class TapEvent extends GestureEvent<TapHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull TapHandler handler) {
+    protected void dispatch(@Nonnull final TapHandler handler) {
         handler.onTap(this);
     }
 }

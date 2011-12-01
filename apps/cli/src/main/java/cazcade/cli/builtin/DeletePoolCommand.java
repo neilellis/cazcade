@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 public class DeletePoolCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(DeletePoolCommand.class);
+    private static final Logger log = Logger.getLogger(DeletePoolCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -40,12 +40,12 @@ public class DeletePoolCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("rmdir <pool>");
         }
-        LiquidURI poolURI = CommandSupport.resolvePoolOrObject(shellSession, args[0]);
-        LiquidMessage response = shellSession.getDataStore().process(new DeletePoolRequest(shellSession.getIdentity(), poolURI));
+        final LiquidURI poolURI = CommandSupport.resolvePoolOrObject(shellSession, args[0]);
+        final LiquidMessage response = shellSession.getDataStore().process(new DeletePoolRequest(shellSession.getIdentity(), poolURI));
         final LSDEntity entity = response.getResponse();
         if (response.getState() != LiquidMessageState.SUCCESS) {
             System.err.println(entity.getAttribute(LSDAttribute.DESCRIPTION));

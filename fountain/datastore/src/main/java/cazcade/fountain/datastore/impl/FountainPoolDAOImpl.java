@@ -22,7 +22,7 @@ import static cazcade.fountain.datastore.impl.FountainRelationships.*;
 public class FountainPoolDAOImpl implements FountainPoolDAO {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainPoolDAOImpl.class);
+    private static final Logger log = Logger.getLogger(FountainPoolDAOImpl.class);
 
     @Autowired
     private FountainNeo fountainNeo;
@@ -182,7 +182,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         }
 
         if (!node.hasAttribute(LSDAttribute.VIEW_Y)) {
-            node.setAttribute(LSDAttribute.VIEW_Y, (Math.random() * 100) - 50);
+            node.setAttribute(LSDAttribute.VIEW_Y, Math.random() * 100 - 50);
         }
 
         fountainNeo.indexBy(node, LSDAttribute.ID, LSDAttribute.ID, true);

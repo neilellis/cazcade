@@ -28,9 +28,9 @@ public class EchoCommand extends AbstractShortLivedCommand {
     }
 
 
-    public String run(@Nonnull final String[] args, ShellSession shellSession) throws Exception {
-        StringBuffer returnValue = new StringBuffer();
-        for (String arg : args) {
+    public String run(@Nonnull final String[] args, final ShellSession shellSession) throws Exception {
+        final StringBuffer returnValue = new StringBuffer();
+        for (final String arg : args) {
             returnValue.append(arg).append(" ");
         }
         System.out.println(returnValue);

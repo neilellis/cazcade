@@ -8,9 +8,9 @@ import java.util.Map;
  */
 public class AbstractRestHandler implements RestHandler {
 
-    protected void checkForSingleValueParams(@Nonnull Map<String, String[]> params, @Nonnull String... expected) {
-        for (String expectedKey : expected) {
-            String[] paramArray = params.get(expectedKey);
+    protected void checkForSingleValueParams(@Nonnull final Map<String, String[]> params, @Nonnull final String... expected) {
+        for (final String expectedKey : expected) {
+            final String[] paramArray = params.get(expectedKey);
             if (paramArray == null) {
                 throw new RestHandlerException("Expected parameter " + expectedKey + " was missing for this call.");
             }

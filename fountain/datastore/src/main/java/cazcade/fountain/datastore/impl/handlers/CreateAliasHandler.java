@@ -21,13 +21,13 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
 
 
     @Nonnull
-    public CreateAliasRequest handle(@Nonnull CreateAliasRequest request) throws Exception {
+    public CreateAliasRequest handle(@Nonnull final CreateAliasRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            LiquidSessionIdentifier session = request.getSessionIdentifier();
-            Node userNode = fountainNeo.findByURI(session.getUserURL());
-            Node aliasNode = userDAO.createAlias(userNode, request.getRequestEntity(), request.isMe(), request.isOrCreate(), request.isClaim(), false);
+            final LiquidSessionIdentifier session = request.getSessionIdentifier();
+            final Node userNode = fountainNeo.findByURI(session.getUserURL());
+            final Node aliasNode = userDAO.createAlias(userNode, request.getRequestEntity(), request.isMe(), request.isOrCreate(), request.isClaim(), false);
             final LSDEntity entity = aliasNode.convertNodeToLSD(request.getDetail(), request.isInternal());
             poolDAO.createPoolsForAliasNoTx(entity.getURI(), entity.getAttribute(LSDAttribute.NAME), entity.getAttribute(LSDAttribute.FULL_NAME), false);
             //we reserve boards with user's name to avoid confusion with their profile boards.

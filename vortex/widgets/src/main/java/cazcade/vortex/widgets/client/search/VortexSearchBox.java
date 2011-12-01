@@ -17,14 +17,14 @@ import javax.annotation.Nonnull;
 public class VortexSearchBox extends Composite {
     private OnSearchAction onSearchAction;
 
-    public void setOnSearchAction(OnSearchAction onSearchAction) {
+    public void setOnSearchAction(final OnSearchAction onSearchAction) {
         this.onSearchAction = onSearchAction;
     }
 
     interface VortexSearchBoxUiBinder extends UiBinder<HTMLPanel, VortexSearchBox> {
     }
 
-    public static interface OnSearchAction {
+    public interface OnSearchAction {
         void onSearch(String search);
     }
 
@@ -34,10 +34,11 @@ public class VortexSearchBox extends Composite {
     public SuggestBox suggestionBox;
 
     public VortexSearchBox() {
+        super();
         init();
         suggestionBox.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
-            public void onValueChange(@Nonnull ValueChangeEvent<String> stringValueChangeEvent) {
+            public void onValueChange(@Nonnull final ValueChangeEvent<String> stringValueChangeEvent) {
                 onSearchAction.onSearch(stringValueChangeEvent.getValue());
             }
         });

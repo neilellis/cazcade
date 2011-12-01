@@ -24,13 +24,13 @@ public class CommentRestHandler extends AbstractRestHandler {
     private FountainDataStoreFacade dataStore;
 
     @Nonnull
-    public LiquidMessage create(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
-        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+    public LiquidMessage create(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         checkForSingleValueParams(parameters, "text", "image", "uri");
         final String text = parameters.get("text")[0];
         final String image = parameters.get("image")[0];
         final String uri = parameters.get("uri")[0];
-        LSDSimpleEntity message = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT, UUIDFactory.randomUUID());
+        final LSDSimpleEntity message = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT, UUIDFactory.randomUUID());
         message.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
         message.setAttribute(LSDAttribute.IMAGE_URL, image);
         message.setAttribute(LSDAttribute.ICON_URL, image);
@@ -38,15 +38,15 @@ public class CommentRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage get(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
-        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+    public LiquidMessage get(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         checkForSingleValueParams(parameters, "uri");
         final String uri = parameters.get("uri")[0];
 
         return dataStore.process(new RetrieveCommentsRequest(username, new LiquidURI(uri), 20, false));
     }
 
-    public void setDataStore(FountainDataStoreFacade dataStore) {
+    public void setDataStore(final FountainDataStoreFacade dataStore) {
         this.dataStore = dataStore;
     }
 

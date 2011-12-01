@@ -14,13 +14,13 @@ import java.util.Map;
 public class ErrorRestHandler extends AbstractRestHandler {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(ErrorRestHandler.class);
+    private static final Logger log = Logger.getLogger(ErrorRestHandler.class);
 
 
-    public void create(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
-        String error = parameters.get("error")[0];
-        String detail = parameters.get("detail")[0];
-        String hash = log.hash(detail.replaceAll("0x[0-9a-z]+", ""));
+    public void create(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+        final String error = parameters.get("error")[0];
+        final String detail = parameters.get("detail")[0];
+        final String hash = log.hash(detail.replaceAll("0x[0-9a-z]+", ""));
         log.sendToJira(error, hash, error, detail, "maelstrom");
     }
 

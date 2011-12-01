@@ -1,6 +1,7 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
+import com.cazcade.billabong.image.ImageSize;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.http.client.URL;
@@ -26,7 +27,7 @@ public class CachedImage extends Image {
     private Runnable onChangeAction;
 
     /**
-     * @see com.cazcade.billabong.image.ImageSize
+     * @see ImageSize
      */
     private String size = SMALL;
 
@@ -37,29 +38,30 @@ public class CachedImage extends Image {
     private int requestedWidth;
     private int requestedHeight;
 
-    public CachedImage(String url, String size) {
+    public CachedImage(final String url, final String size) {
+        super();
         setVisible(false);
         setSize(size);
         setUrl(url);
         addLoadHandler(new LoadHandler() {
             @Override
-            public void onLoad(LoadEvent event) {
+            public void onLoad(final LoadEvent event) {
                 setVisible(true);
             }
         });
     }
 
-    public CachedImage(@Nonnull Image image, String size) {
+    public CachedImage(@Nonnull final Image image, final String size) {
         this(image.getUrl(), size);
     }
 
     @Override
     protected void onAttach() {
         super.onAttach();
-        if (super.getUrl() == null || super.getUrl().isEmpty()) {
+        if (getUrl() == null || getUrl().isEmpty()) {
             super.setUrl(placeholderImage());
         }
-        setUrl(this.url);
+        setUrl(url);
     }
 
     @Nonnull
@@ -67,26 +69,27 @@ public class CachedImage extends Image {
         return defaultDefaultMessage(notReadyText);
     }
 
-    public void setDefaultMessage(String message) {
+    public void setDefaultMessage(final String message) {
         defaultUrl = defaultDefaultMessage(message);
     }
 
     @Nonnull
-    private String defaultDefaultMessage(String message) {
+    private String defaultDefaultMessage(final String message) {
         return "http://placehold.it/" + getWidthWithDefault() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
     }
 
     public CachedImage() {
+        super();
     }
 
-    public CachedImage(@Nonnull Image image) {
+    public CachedImage(@Nonnull final Image image) {
         this();
         setUrl(image.getUrl());
     }
 
     @Override
-    public void setUrl(String url) {
-        String oldUrl = this.url;
+    public void setUrl(final String url) {
+        final String oldUrl = this.url;
         this.url = url;
         updateImageUrl();
         if (isAttached() && (oldUrl == null || !oldUrl.equals(url)) && onChangeAction != null) {
@@ -144,12 +147,12 @@ public class CachedImage extends Image {
         }
     }
 
-    public void setSize(String size) {
+    public void setSize(final String size) {
         this.size = size;
         updateImageUrl();
     }
 
-    public void setDefaultUrl(String defaultUrl) {
+    public void setDefaultUrl(final String defaultUrl) {
         this.defaultUrl = defaultUrl;
         if (getUrl() == null) {
             super.setUrl(defaultUrl);
@@ -160,15 +163,15 @@ public class CachedImage extends Image {
         return url;
     }
 
-    public void setOnChangeAction(Runnable onChangeAction) {
+    public void setOnChangeAction(final Runnable onChangeAction) {
         this.onChangeAction = onChangeAction;
     }
 
-    public void setNotReadyText(String notReadyText) {
+    public void setNotReadyText(final String notReadyText) {
         this.notReadyText = notReadyText;
     }
 
-    public void setCached(boolean cached) {
+    public void setCached(final boolean cached) {
         this.cached = cached;
     }
 
@@ -178,20 +181,20 @@ public class CachedImage extends Image {
     }
 
     @Override
-    public void setWidth(@Nonnull String width) {
+    public void setWidth(@Nonnull final String width) {
         super.setWidth(width);
         getElement().getStyle().setProperty("minWidth", width);
         if (width.toLowerCase().endsWith("px")) {
-            this.requestedWidth = Integer.parseInt(width.substring(0, width.length() - 2));
+            requestedWidth = Integer.parseInt(width.substring(0, width.length() - 2));
         }
     }
 
     @Override
-    public void setHeight(@Nonnull String height) {
+    public void setHeight(@Nonnull final String height) {
         super.setHeight(height);
         getElement().getStyle().setProperty("minHeight", height);
         if (height.toLowerCase().endsWith("px")) {
-            this.requestedHeight = Integer.parseInt(height.substring(0, height.length() - 2));
+            requestedHeight = Integer.parseInt(height.substring(0, height.length() - 2));
         }
     }
 }

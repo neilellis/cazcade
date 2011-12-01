@@ -13,10 +13,10 @@ import javax.annotation.Nonnull;
  */
 public class MovePoolObjectHandler extends AbstractDataStoreHandler<MovePoolObjectRequest> implements MovePoolObjectRequestHandler {
     @Nonnull
-    public MovePoolObjectRequest handle(@Nonnull MovePoolObjectRequest request) throws Exception {
-        Transaction transaction = fountainNeo.beginTx();
+    public MovePoolObjectRequest handle(@Nonnull final MovePoolObjectRequest request) throws Exception {
+        final Transaction transaction = fountainNeo.beginTx();
         try {
-            Node viewNode = poolDAO.movePoolObjectNoTx(request.getUri(), request.getX(), request.getY(), request.getZ());
+            final Node viewNode = poolDAO.movePoolObjectNoTx(request.getUri(), request.getX(), request.getY(), request.getZ());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, viewNode.convertNodeToLSD(request.getDetail(), request.isInternal()));
         } catch (RuntimeException e) {

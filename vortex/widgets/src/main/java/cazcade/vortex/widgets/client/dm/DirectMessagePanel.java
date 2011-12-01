@@ -33,11 +33,11 @@ public class DirectMessagePanel extends Composite {
     private Runnable onFinish;
     private IFrameElement fe;
 
-    public void setRecipient(String recipient) {
+    public void setRecipient(final String recipient) {
         this.recipient = recipient;
     }
 
-    public void setOnFinish(Runnable onFinish) {
+    public void setOnFinish(final Runnable onFinish) {
         this.onFinish = onFinish;
     }
 
@@ -57,7 +57,8 @@ public class DirectMessagePanel extends Composite {
     Label sendButton;
 
     public DirectMessagePanel() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
         initTextBox();
     }
@@ -81,13 +82,13 @@ public class DirectMessagePanel extends Composite {
         DOM.setStyleAttribute(textBox.getElement(), "borderTop", "1px solid #ddd");
         DOM.setStyleAttribute(textBox.getElement(), "borderLeft", "1px solid #ddd");
         textBox.addInitializeHandler(new InitializeHandler() {
-            public void onInitialize(InitializeEvent ie) {
+            public void onInitialize(final InitializeEvent ie) {
                 fe = (IFrameElement)
                         textBox.getElement().cast();
                 fe.setFrameBorder(0);
                 fe.setMarginWidth(0);
                 fe.setScrolling("no");
-                Style s = fe.getContentDocument().getBody().getStyle();
+                final Style s = fe.getContentDocument().getBody().getStyle();
                 s.setProperty("fontFamily", "'Helvetica Neue',Arial,sans- serif");
                 s.setProperty("fontSize", "1em");
                 s.setProperty("width", "100%");
@@ -101,7 +102,7 @@ public class DirectMessagePanel extends Composite {
 
         cancelButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 textBox.setText("");
                 onFinish.run();
             }
@@ -109,28 +110,28 @@ public class DirectMessagePanel extends Composite {
 
         sendButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                     @Override
                     public void execute() {
                         final String text = SafeHtmlUtils.fromString(textBox.getText()).asString();
                         textBox.setText("");
-                        LSDSimpleEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
+                        final LSDSimpleEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
                         messageEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
                         BusFactory.getInstance().send(new SendRequest(messageEntity, recipient), new AbstractResponseCallback<SendRequest>() {
                             @Override
-                            public void onSuccess(SendRequest message, SendRequest response) {
+                            public void onSuccess(final SendRequest message, final SendRequest response) {
                                 onFinish.run();
                             }
 
                             @Override
-                            public void onFailure(SendRequest message, @Nonnull SendRequest response) {
+                            public void onFailure(final SendRequest message, @Nonnull final SendRequest response) {
                                 textBox.setText(text);
                                 super.onFailure(message, response);
                             }
 
                             @Override
-                            public void onException(@Nonnull SendRequest message, @Nonnull Throwable error) {
+                            public void onException(@Nonnull final SendRequest message, @Nonnull final Throwable error) {
                                 textBox.setText(text);
                                 super.onException(message, error);
                             }

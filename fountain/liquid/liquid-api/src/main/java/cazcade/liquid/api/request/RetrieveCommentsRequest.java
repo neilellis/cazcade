@@ -9,22 +9,24 @@ public class RetrieveCommentsRequest extends AbstractRetrievalRequest {
 
 
     public RetrieveCommentsRequest() {
+        super();
     }
 
 
-    public RetrieveCommentsRequest(@Nullable LiquidSessionIdentifier identity, LiquidURI uri, int max, boolean historical) {
+    public RetrieveCommentsRequest(@Nullable final LiquidSessionIdentifier identity, final LiquidURI uri, final int max, final boolean historical) {
         this(null, identity, uri, max, historical);
     }
 
-    public RetrieveCommentsRequest(@Nullable LiquidUUID id, LiquidSessionIdentifier identity, LiquidURI uri, int max, boolean historical) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setUri(uri);
-        this.setHistorical(historical);
-        this.setMax(max);
+    public RetrieveCommentsRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidURI uri, final int max, final boolean historical) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
+        setHistorical(historical);
+        setMax(max);
     }
 
-    public RetrieveCommentsRequest(LiquidURI pool, int max) {
+    public RetrieveCommentsRequest(final LiquidURI pool, final int max) {
         this(null, pool, max, false);
     }
 
@@ -32,7 +34,7 @@ public class RetrieveCommentsRequest extends AbstractRetrievalRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrieveCommentsRequest(getId(), getSessionIdentifier(), getUri(), getMax(), super.isHistorical());
+        return new RetrieveCommentsRequest(getId(), getSessionIdentifier(), getUri(), getMax(), isHistorical());
     }
 
     @Nonnull

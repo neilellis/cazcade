@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class EventBasedGestureController extends AbstractGestureController {
 
-    public EventBasedGestureController(GestureControllable widget, Widget alternate,boolean xMovementAllowed, boolean yMovementAllowed) {
+    public EventBasedGestureController(final GestureControllable widget, final Widget alternate, final boolean xMovementAllowed, final boolean yMovementAllowed) {
         super(widget, alternate, xMovementAllowed, yMovementAllowed);
     }
 
@@ -88,12 +88,12 @@ public class EventBasedGestureController extends AbstractGestureController {
     }
 
     @Override
-    public void onMouseWheel(MouseWheelEvent event) {
+    public void onMouseWheel(final MouseWheelEvent event) {
         controllable.fireEvent(event);
     }
 
     @Override
-    public void onClick(ClickEvent event) {
+    public void onClick(final ClickEvent event) {
         controllable.fireEvent(event);
     }
 }

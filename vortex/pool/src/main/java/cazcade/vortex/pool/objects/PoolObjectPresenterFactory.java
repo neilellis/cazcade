@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 public class PoolObjectPresenterFactory {
 
     @Nullable
-    public static PoolObjectPresenter getPresenterForEntity(PoolPresenter poolPresenter, @Nonnull LSDEntity entity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
+    public static PoolObjectPresenter getPresenterForEntity(final PoolPresenter poolPresenter, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         if (entity.canBe(LSDDictionaryTypes.PHOTO2D)) {
             return new PhotoPresenter(poolPresenter, entity, new PhotoView(), threadSafeExecutor);
         } else if (entity.canBe(LSDDictionaryTypes.WEBPAGE)) {
@@ -63,7 +63,7 @@ public class PoolObjectPresenterFactory {
     }
 
     @Nullable
-    public static PoolObjectPresenter getPresenterForEntity(@Nonnull PoolObjectPresenterContainer poolObjectPresenterContainer, @Nonnull LSDEntity entity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
+    public static PoolObjectPresenter getPresenterForEntity(@Nonnull final PoolObjectPresenterContainer poolObjectPresenterContainer, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         if (poolObjectPresenterContainer.getType().canBe(LSDDictionaryTypes.POOL2D)) {
             return getPresenterForEntity((PoolPresenter) poolObjectPresenterContainer, entity, features, threadSafeExecutor);
         } else {

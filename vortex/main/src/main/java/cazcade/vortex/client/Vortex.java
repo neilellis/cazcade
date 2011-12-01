@@ -30,7 +30,7 @@ public class Vortex implements EntryPoint {
     public void onModuleLoad() {
 
         if (Window.Location.getParameterMap().containsKey("debug")) {
-            HTMLPanel logPanel = new HTMLPanel("log");
+            final HTMLPanel logPanel = new HTMLPanel("log");
             DOM.setStyleAttribute(logPanel.getElement(), "background", "white");
             final ScrollPanel scrollPanel = new ScrollPanel();
             scrollPanel.setWidth("100%");
@@ -48,7 +48,7 @@ public class Vortex implements EntryPoint {
 
         }
         DataStoreService.App.getInstance().login("neil", "neil", new AsyncCallback<LiquidSessionIdentifier>() {
-            public void onFailure(@Nonnull Throwable caught) {
+            public void onFailure(@Nonnull final Throwable caught) {
                 ClientLog.log(caught.getMessage(), caught);
             }
 
@@ -60,7 +60,7 @@ public class Vortex implements EntryPoint {
                     new GWTDataStore(result, new Runnable() {
                         @Override
                         public void run() {
-                            VortexSplitPanel vortexSplitPanel = new VortexSplitPanel(result);
+                            final VortexSplitPanel vortexSplitPanel = new VortexSplitPanel(result);
                             vortexSplitPanel.setHeight("100%");
                             vortexSplitPanel.setWidth("100%");
                             mainPanelParent.add(vortexSplitPanel);

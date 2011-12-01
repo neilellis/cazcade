@@ -31,13 +31,13 @@ public class PListUnmarshaler implements LSDUnmarshaler {
 
     private LSDEntityFactory lsdEntityFactory;
 
-    public void unmarshal(@Nullable LSDEntity lsdEntity, InputStream input) {
+    public void unmarshal(@Nullable final LSDEntity lsdEntity, final InputStream input) {
         if (lsdEntity == null) {
             throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
         System.out.println("Unmarshalling.");
         DocumentBuilder docBuilder = null;
-        Document document;
+        final Document document;
         try {
             docBuilder = dbfac.newDocumentBuilder();
             document = docBuilder.parse(input);
@@ -48,30 +48,30 @@ public class PListUnmarshaler implements LSDUnmarshaler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Element rootElement = document.getDocumentElement();
-        assertThat(rootElement.getNodeName().equals("plist"), "Root node of a plist must be 'plist'.");
+        final Element rootElement = document.getDocumentElement();
+        assertThat("plist".equals(rootElement.getNodeName()), "Root node of a plist must be 'plist'.");
         walk(lsdEntity, "", "", rootElement);
 
 
     }
 
-    private void walk(@Nonnull LSDEntity entity, @Nonnull String prefix, String lastKey, @Nonnull Element rootElement) {
-        NodeList childNodes = rootElement.getChildNodes();
+    private void walk(@Nonnull final LSDEntity entity, @Nonnull final String prefix, String lastKey, @Nonnull final Element rootElement) {
+        final NodeList childNodes = rootElement.getChildNodes();
 
         for (int i = 0; i < childNodes.getLength(); i++) {
-            Node node = childNodes.item(i);
+            final Node node = childNodes.item(i);
             assertThat(node.getNodeType() == Document.ELEMENT_NODE, "Elements should only contain XML elements as children in a plist.");
-            String nodeName = node.getNodeName();
-            if (nodeName.equals("dict")) {
+            final String nodeName = node.getNodeName();
+            if ("dict".equals(nodeName)) {
                 walk(entity, prefix.isEmpty() ? lastKey : prefix + "." + lastKey, lastKey, (Element) node);
-            } else if (nodeName.equals("key")) {
+            } else if ("key".equals(nodeName)) {
                 lastKey = node.getTextContent();
-            } else if (nodeName.equals("string")) {
+            } else if ("string".equals(nodeName)) {
                 entity.setValue(prefix.isEmpty() ? lastKey : prefix + "." + lastKey, node.getTextContent());
-            } else if (nodeName.equals("array")) {
-                NodeList grandChildNodes = node.getChildNodes();
+            } else if ("array".equals(nodeName)) {
+                final NodeList grandChildNodes = node.getChildNodes();
                 for (int j = 0; j < grandChildNodes.getLength(); j++) {
-                    Node grandChildNode = grandChildNodes.item(i);
+                    final Node grandChildNode = grandChildNodes.item(i);
                     assertThat(node.getNodeType() == Document.ELEMENT_NODE, "Arrays should only contain XML elements in a plist.");
                     walk(entity, prefix.isEmpty() ? lastKey + "." + j : prefix + "." + lastKey + j, lastKey, (Element) grandChildNode);
                 }
@@ -82,19 +82,19 @@ public class PListUnmarshaler implements LSDUnmarshaler {
     }
 
     @Nonnull
-    public LSDEntity unmarshal(InputStream input) {
-        LSDEntity lsdEntity = LSDSimpleEntity.createEmpty();
+    public LSDEntity unmarshal(final InputStream input) {
+        final LSDEntity lsdEntity = LSDSimpleEntity.createEmpty();
         unmarshal(lsdEntity, input);
         return lsdEntity;
     }
 
-    private void assertThat(boolean condition, String message) {
+    private void assertThat(final boolean condition, final String message) {
         if (!condition) {
             throw new RuntimeException(message);
         }
     }
 
-    public void setLsdFactory(LSDEntityFactory lsdEntityFactory) {
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
         this.lsdEntityFactory = lsdEntityFactory;
     }
 }

@@ -20,11 +20,11 @@ import javax.annotation.Nonnull;
  */
 public abstract class CreateItemCommand extends AbstractCreateCommand {
 
-    public CreateItemCommand(LiquidURI pool, LSDDictionaryTypes type) {
+    public CreateItemCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
 
-    public CreateItemCommand(LiquidURI pool, LSDDictionaryTypes type, Size size, String theme) {
+    public CreateItemCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 
@@ -43,10 +43,10 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
     public void execute() {
         buildEntity(new BuildCallback() {
             @Override
-            public void onBuilt(LSDEntity entity) {
+            public void onBuilt(final LSDEntity entity) {
                 create(entity, new CreateCallback() {
                     @Override
-                    public void onCreate(CreatePoolObjectRequest response) {
+                    public void onCreate(final CreatePoolObjectRequest response) {
 
                     }
                 });
@@ -54,21 +54,21 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
         });
     }
 
-    protected void create(LSDEntity entity, @Nonnull final CreateCallback callback) {
+    protected void create(final LSDEntity entity, @Nonnull final CreateCallback callback) {
         BusFactory.getInstance().send(new CreatePoolObjectRequest(pool, entity), new AbstractResponseCallback<CreatePoolObjectRequest>() {
             @Override
-            public void onSuccess(CreatePoolObjectRequest message, CreatePoolObjectRequest response) {
+            public void onSuccess(final CreatePoolObjectRequest message, final CreatePoolObjectRequest response) {
                 callback.onCreate(response);
             }
 
             @Override
-            public void onFailure(CreatePoolObjectRequest message, @Nonnull CreatePoolObjectRequest response) {
+            public void onFailure(final CreatePoolObjectRequest message, @Nonnull final CreatePoolObjectRequest response) {
                 Window.alert("Failed to create object, permissions issue?");
             }
         });
     }
 
-    protected void addDefaultView(@Nonnull LSDEntity entity) {
+    protected void addDefaultView(@Nonnull final LSDEntity entity) {
         //todo: give a more sensible starting point
         final LSDSimpleEntity view = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.VIEW);
         view.setAttribute(LSDAttribute.VIEW_X, "0");
@@ -90,7 +90,7 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
     protected void showEditorPanel(@Nonnull final AbstractPoolObjectEditorPanel editorPanel) {
         create(editorPanel.getEntity(), new CreateCallback() {
             @Override
-            public void onCreate(@Nonnull CreatePoolObjectRequest response) {
+            public void onCreate(@Nonnull final CreatePoolObjectRequest response) {
                 editorPanel.setEntity(response.getResponse().copy());
                 PoolObjectEditor.showForCreate(editorPanel, null);
             }

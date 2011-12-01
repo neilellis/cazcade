@@ -20,7 +20,7 @@ public class DragEvent extends GestureEvent<DragHandler> {
     }
 
 
-    public DragEvent(int deltaX, int deltaY, DomEvent mostRecentDOMEvent, long startTime, int startX, int startY, int x, int y, int offsetX, int offsetY) {
+    public DragEvent(final int deltaX, final int deltaY, final DomEvent mostRecentDOMEvent, final long startTime, final int startX, final int startY, final int x, final int y, final int offsetX, final int offsetY) {
         super(deltaX, deltaY, 0, 0, mostRecentDOMEvent, startTime, startX, startY, x, y, offsetX, offsetY);
     }
 
@@ -30,7 +30,7 @@ public class DragEvent extends GestureEvent<DragHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull DragHandler handler) {
+    protected void dispatch(@Nonnull final DragHandler handler) {
         handler.onDrag(this);
     }
 }

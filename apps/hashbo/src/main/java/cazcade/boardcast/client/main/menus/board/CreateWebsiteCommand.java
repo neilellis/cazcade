@@ -11,7 +11,7 @@ import cazcade.vortex.pool.objects.website.WebsiteEditorPanel;
 public class CreateWebsiteCommand extends CreateItemCommand {
 
 
-    public CreateWebsiteCommand(LiquidURI pool, LSDDictionaryTypes type, Size size, String theme) {
+    public CreateWebsiteCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 

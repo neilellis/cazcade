@@ -21,7 +21,7 @@ import java.util.List;
 public class ClientSession {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(ClientSession.class);
+    private static final Logger log = Logger.getLogger(ClientSession.class);
 
     private final ClassPathXmlApplicationContext springContext;
     private Date lastUsed;
@@ -31,9 +31,9 @@ public class ClientSession {
     private ArrayList<String> previousLocations = new ArrayList<String>();
     private Queue sessionQueue;
 
-    public ClientSession(ClassPathXmlApplicationContext springContext, Date lastUsedDate) {
+    public ClientSession(final ClassPathXmlApplicationContext springContext, final Date lastUsedDate) {
         this.springContext = springContext;
-        this.lastUsed = lastUsedDate;
+        lastUsed = lastUsedDate;
     }
 
     public ClassPathXmlApplicationContext getSpringContext() {
@@ -54,7 +54,7 @@ public class ClientSession {
         springContext.stop();
     }
 
-    public void addMessage(LiquidMessage message) {
+    public void addMessage(final LiquidMessage message) {
         log.debug("Adding message to session.");
         synchronized (messages) {
             messages.add(message);
@@ -77,12 +77,12 @@ public class ClientSession {
     }
 
 
-    public void setContinuation(Continuation continuation) {
+    public void setContinuation(final Continuation continuation) {
         this.continuation = continuation;
     }
 
-    public void setPreviousLocations(ArrayList<String> location) {
-        this.previousLocations = location;
+    public void setPreviousLocations(final ArrayList<String> location) {
+        previousLocations = location;
     }
 
     public ArrayList<String> getPreviousLocations() {
@@ -90,11 +90,11 @@ public class ClientSession {
     }
 
     @Deprecated
-    public void addPreviousLocations(ArrayList<String> locations) {
+    public void addPreviousLocations(final ArrayList<String> locations) {
         previousLocations.addAll(locations);
     }
 
-    public void setSessionQueue(Queue sessionQueue) {
+    public void setSessionQueue(final Queue sessionQueue) {
         this.sessionQueue = sessionQueue;
     }
 

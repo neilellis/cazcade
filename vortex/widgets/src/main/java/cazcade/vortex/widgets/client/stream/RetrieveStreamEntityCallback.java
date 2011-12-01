@@ -27,7 +27,8 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
     private final VortexThreadSafeExecutor threadSafeExecutor;
     private final boolean autoDelete;
 
-    public RetrieveStreamEntityCallback(FormatUtil features, int maxRows, InsertPanel parentPanel, LiquidURI pool, VortexThreadSafeExecutor threadSafeExecutor, boolean autoDelete) {
+    public RetrieveStreamEntityCallback(final FormatUtil features, final int maxRows, final InsertPanel parentPanel, final LiquidURI pool, final VortexThreadSafeExecutor threadSafeExecutor, final boolean autoDelete) {
+        super();
         this.features = features;
         this.maxRows = maxRows;
         this.parentPanel = parentPanel;
@@ -37,10 +38,10 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
     }
 
     @Override
-    public void onSuccess(AbstractRequest message, @Nonnull AbstractRequest response) {
+    public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
         final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
         Collections.reverse(entries);
-        for (LSDEntity entry : entries) {
+        for (final LSDEntity entry : entries) {
             if (entry.isA(LSDDictionaryTypes.COMMENT)
                     && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                 StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), autoDelete, true);

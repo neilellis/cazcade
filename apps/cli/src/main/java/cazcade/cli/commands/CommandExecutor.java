@@ -27,7 +27,7 @@ public interface CommandExecutor {
     void waitForCompletion() throws InterruptedException;
 
     /**
-     * Execute a Job with the arguments specified see {@link Command#run(String[], cazcade.cli.ShellSession)}
+     * Execute a Job with the arguments specified see {@link Command#run(String[], ShellSession)}
      */
     @Nullable
     String execute(Command command, String[] jobArgs, CommandFactory commandFactory, ShellSession shellSession) throws Exception;

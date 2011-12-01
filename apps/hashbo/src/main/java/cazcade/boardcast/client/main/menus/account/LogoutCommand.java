@@ -16,12 +16,12 @@ public class LogoutCommand implements Command {
     public void execute() {
         DataStoreService.App.getInstance().logout(UserUtil.getIdentity(), new AsyncCallback<Void>() {
             @Override
-            public void onFailure(Throwable caught) {
+            public void onFailure(final Throwable caught) {
                 ClientLog.log(caught);
             }
 
             @Override
-            public void onSuccess(Void result) {
+            public void onSuccess(final Void result) {
                 Window.Location.reload();
             }
         });

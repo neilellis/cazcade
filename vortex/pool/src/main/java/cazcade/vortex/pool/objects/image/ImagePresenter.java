@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class ImagePresenter extends AbstractPoolObjectPresenter<ImageView> {
-    public ImagePresenter(PoolPresenter pool, LSDEntity entity, final ImageView widget, VortexThreadSafeExecutor threadSafeExecutor) {
+    public ImagePresenter(final PoolPresenter pool, final LSDEntity entity, final ImageView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
 
     }

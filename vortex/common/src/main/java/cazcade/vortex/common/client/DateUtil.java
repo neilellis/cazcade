@@ -13,12 +13,12 @@ public class DateUtil {
     public static final int HOUR = 3600000;
     public static final int SECOND = 1000;
 
-    public static String toRelativeDate(@Nonnull Date date) {
-        long now = System.currentTimeMillis();
-        long then = date.getTime();
-        long signedDiffSec = (then - now) / 1000;
-        long diffSec = Math.abs(signedDiffSec);
-        boolean past = (signedDiffSec < 0);
+    public static String toRelativeDate(@Nonnull final Date date) {
+        final long now = System.currentTimeMillis();
+        final long then = date.getTime();
+        final long signedDiffSec = (then - now) / 1000;
+        final long diffSec = Math.abs(signedDiffSec);
+        final boolean past = signedDiffSec < 0;
 
         if (diffSec <= 1) {
             return "just now";
@@ -30,7 +30,7 @@ public class DateUtil {
                 return "in " + diffSec + "s";
             }
         }
-        long diffMin = diffSec / 60;
+        final long diffMin = diffSec / 60;
         if (diffMin < 60) {
             if (past) {
                 return diffMin + " min" + plural(diffMin) + " ago";
@@ -38,7 +38,7 @@ public class DateUtil {
                 return "in " + diffMin + " min" + plural(diffMin);
             }
         }
-        long diffHour = diffMin / 60;
+        final long diffHour = diffMin / 60;
         if (diffHour < 12) {
             if (past) {
                 return diffHour + " hour" + plural(diffHour) + " ago";
@@ -56,7 +56,7 @@ public class DateUtil {
     }
 
     @Nonnull
-    private static String plural(long amount) {
+    private static String plural(final long amount) {
         return amount > 1 ? "s" : "";
     }
 }

@@ -21,7 +21,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 
     private static ViewAliasDetailPanel current;
 
-    public static ViewAliasDetailPanel createViewAliasDetailPanel(@Nonnull LiquidURI aliasURI, FormatUtil features) {
+    public static ViewAliasDetailPanel createViewAliasDetailPanel(@Nonnull final LiquidURI aliasURI, final FormatUtil features) {
         if (current == null) {
             current = new ViewAliasDetailPanel(aliasURI, features);
         } else {
@@ -33,7 +33,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 
     public void show(@Nonnull final UIObject container, final int relativeX, final int relativeY) {
         setPopupPositionAndShow(new PopupPanel.PositionCallback() {
-            public void setPosition(int offsetWidth, int offsetHeight) {
+            public void setPosition(final int offsetWidth, final int offsetHeight) {
                 int x = relativeX;
                 int y = relativeY;
                 if (relativeX + POPUP_WIDTH > container.getOffsetWidth()) {
@@ -62,7 +62,8 @@ public class ViewAliasDetailPanel extends PopupPanel {
 //        popup.showRelativeTo(trigger);
 //    }
 
-    private ViewAliasDetailPanel(@Nonnull LiquidURI aliasURI, FormatUtil features) {
+    private ViewAliasDetailPanel(@Nonnull final LiquidURI aliasURI, final FormatUtil features) {
+        super();
         setAutoHideEnabled(true);
         setAutoHideOnHistoryEventsEnabled(true);
         setWidget(ourUiBinder.createAndBindUi(this));
@@ -75,7 +76,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 
     }
 
-    private void init(@Nonnull LiquidURI aliasURI, FormatUtil features) {
+    private void init(@Nonnull final LiquidURI aliasURI, final FormatUtil features) {
         detailPanel.setAliasURI(aliasURI);
         detailPanel.setFeatures(features);
     }

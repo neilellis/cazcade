@@ -17,11 +17,11 @@ import javax.annotation.Nonnull;
 public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXYPoolObjectRequest> implements RotateXYPoolObjectRequestHandler {
 
     @Nonnull
-    public RotateXYPoolObjectRequest handle(@Nonnull RotateXYPoolObjectRequest request) throws InterruptedException {
-        Transaction transaction = fountainNeo.beginTx();
+    public RotateXYPoolObjectRequest handle(@Nonnull final RotateXYPoolObjectRequest request) throws InterruptedException {
+        final Transaction transaction = fountainNeo.beginTx();
         try {
-            Node node = fountainNeo.findByUUID(request.getObjectUUID());
-            Node viewNode = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(node);
+            final Node node = fountainNeo.findByUUID(request.getObjectUUID());
+            final Node viewNode = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(node);
 
             if (request.getAngle() != null) {
 

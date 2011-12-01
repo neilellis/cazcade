@@ -26,21 +26,21 @@ public class PoolTestRestHandler implements RestHandler {
     private LSDEntityFactory lsdEntityFactory;
 
     @Nonnull
-    public LSDEntity update(LiquidUUID poolId, LSDEntity lsdEntity, Map<String, String[]> parameters) {
+    public LSDEntity update(final LiquidUUID poolId, final LSDEntity lsdEntity, final Map<String, String[]> parameters) {
         log.debug("Update method called.");
         return lsdEntityFactory.createFromServletProperties(parameters);
     }
 
     @Nonnull
-    public LSDEntity create(LSDEntity lsdEntity, @Nonnull Map<String, String[]> parameters) {
+    public LSDEntity create(final LSDEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) {
         log.debug("Create method called with url of. " + parameters.get("url")[0]);
         return lsdEntityFactory.createFromServletProperties(parameters);
     }
 
     @Nonnull
-    public LSDEntity get(@Nonnull Map<String, String[]> parameters) {
+    public LSDEntity get(@Nonnull final Map<String, String[]> parameters) {
         final String url = parameters.get("url")[0];
-        Properties props = new Properties();
+        final Properties props = new Properties();
         try {
             props.load(getClass().getResourceAsStream("test.properties"));
         } catch (IOException e) {
@@ -48,12 +48,12 @@ public class PoolTestRestHandler implements RestHandler {
             throw new RuntimeException(e);
         }
         final HashMap propMap = new HashMap(props);
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
+        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
         log.debug("Get method called with url of. " + url);
         return LSDSimpleEntity.createFromProperties(propMap);
     }
 
-    public void setLsdFactory(LSDEntityFactory lsdEntityFactory) {
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
         this.lsdEntityFactory = lsdEntityFactory;
     }
 

@@ -40,7 +40,8 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
     @Nonnull
     final HashboRegisterPanel registerPanel;
 
-    public HashboLoginOrRegisterPanel(boolean register, final Runnable loginAction, final Runnable registerAction) {
+    public HashboLoginOrRegisterPanel(final boolean register, final Runnable loginAction, final Runnable registerAction) {
+        super();
         setWidget(ourUiBinder.createAndBindUi(this));
         setWidth("600px");
         setHeight("280px");

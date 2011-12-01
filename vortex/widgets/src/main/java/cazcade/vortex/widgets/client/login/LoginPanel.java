@@ -48,10 +48,11 @@ public class LoginPanel extends Composite {
     Hyperlink register;
 
     public LoginPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         loginButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 submit();
             }
         });
@@ -73,7 +74,7 @@ public class LoginPanel extends Composite {
 
         register.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 onSwitchToRegisterAction.run();
             }
         });
@@ -85,12 +86,12 @@ public class LoginPanel extends Composite {
         if (password.isValid() && username.isValid()) {
             DataStoreService.App.getInstance().login(username.getStringValue(), password.getStringValue(), new AsyncCallback<LiquidSessionIdentifier>() {
                 @Override
-                public void onFailure(Throwable caught) {
+                public void onFailure(final Throwable caught) {
                     ClientLog.log(caught);
                 }
 
                 @Override
-                public void onSuccess(@Nullable LiquidSessionIdentifier result) {
+                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
                     if (result == null) {
                         doFailure();
                     } else {
@@ -103,20 +104,20 @@ public class LoginPanel extends Composite {
     }
 
     private void doFailure() {
-        this.onFailureAction.run();
+        onFailureAction.run();
         loginErrorMessage.setText("Login failed");
     }
 
 
-    public void setOnSuccessAction(Runnable onSuccessAction) {
+    public void setOnSuccessAction(final Runnable onSuccessAction) {
         this.onSuccessAction = onSuccessAction;
     }
 
-    public void setOnSwitchToRegisterAction(Runnable onSwitchToRegisterAction) {
+    public void setOnSwitchToRegisterAction(final Runnable onSwitchToRegisterAction) {
         this.onSwitchToRegisterAction = onSwitchToRegisterAction;
     }
 
-    public void setOnFailureAction(Runnable onFailureAction) {
+    public void setOnFailureAction(final Runnable onFailureAction) {
         this.onFailureAction = onFailureAction;
     }
 

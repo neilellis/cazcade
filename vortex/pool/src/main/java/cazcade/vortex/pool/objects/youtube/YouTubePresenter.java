@@ -19,11 +19,11 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
-    public YouTubePresenter(PoolPresenter pool, LSDEntity entity, final YouTubeView widget, VortexThreadSafeExecutor threadSafeExecutor) {
+    public YouTubePresenter(final PoolPresenter pool, final LSDEntity entity, final YouTubeView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addHandler(new DoubleClickHandler() {
             @Override
-            public void onDoubleClick(DoubleClickEvent event) {
+            public void onDoubleClick(final DoubleClickEvent event) {
                 PoolObjectEditor.showForEdit(new YouTubeEditorPanel(getEntity()), null);
 
             }
@@ -46,19 +46,19 @@ public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
     }
 
     @Override
-    public void onHoldDrag(@Nonnull HoldDragEvent dragEvent) {
+    public void onHoldDrag(@Nonnull final HoldDragEvent dragEvent) {
         getPoolObjectView().imageViewOn();
         super.onHoldDrag(dragEvent);
     }
 
     @Override
-    public void onDrag(@Nonnull DragEvent dragEvent) {
+    public void onDrag(@Nonnull final DragEvent dragEvent) {
         getPoolObjectView().imageViewOn();
         super.onDrag(dragEvent);
     }
 
     @Override
-    public void onEndDrag(EndDragEvent dragEvent) {
+    public void onEndDrag(final EndDragEvent dragEvent) {
         super.onEndDrag(dragEvent);
         getPoolObjectView().imageViewOff();
     }

@@ -15,22 +15,24 @@ public class AdminCommandRequest extends AbstractRequest {
         return args;
     }
 
-    public final void setArgs(String[] args) {
+    public final void setArgs(final String[] args) {
         this.args = args;
     }
 
 
     public AdminCommandRequest() {
+        super();
     }
 
-    public AdminCommandRequest(String... args) {
+    public AdminCommandRequest(final String... args) {
         this(null, null, args);
     }
 
-    public AdminCommandRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, String... args) {
-        this.setArgs(args);
-        this.setId(id);
-        this.setSessionId(identity);
+    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final String... args) {
+        super();
+        setArgs(args);
+        setId(id);
+        setSessionId(identity);
     }
 
 

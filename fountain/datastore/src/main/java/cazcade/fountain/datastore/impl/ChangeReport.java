@@ -20,11 +20,11 @@ public class ChangeReport {
     @Nonnull
     private final List<Map> latestChanges = new ArrayList<Map>();
 
-    public void addChangedFollowedBoard(@Nonnull LSDEntity boardEntity) {
+    public void addChangedFollowedBoard(@Nonnull final LSDEntity boardEntity) {
         changedFollowedBoards.add(boardEntity.getCamelCaseMap());
     }
 
-    public void addChangedOwnedBoard(@Nonnull LSDEntity boardEntity) {
+    public void addChangedOwnedBoard(@Nonnull final LSDEntity boardEntity) {
         changedOwnedBoards.add(boardEntity.getCamelCaseMap());
     }
 
@@ -48,15 +48,15 @@ public class ChangeReport {
     }
 
     public boolean hasChangedFollowedBoards() {
-        return changedFollowedBoards.size() > 0;
+        return !changedFollowedBoards.isEmpty();
     }
 
     public boolean hasChangedOwnedBoards() {
-        return changedOwnedBoards.size() > 0;
+        return !changedOwnedBoards.isEmpty();
     }
 
-    public void setLatestChanges(@Nonnull Collection<LSDEntity> changes) {
-        for (LSDEntity change : changes) {
+    public void setLatestChanges(@Nonnull final Collection<LSDEntity> changes) {
+        for (final LSDEntity change : changes) {
             latestChanges.add(change.getCamelCaseMap());
         }
     }
@@ -67,6 +67,6 @@ public class ChangeReport {
     }
 
     public boolean hasLatestChanges() {
-        return latestChanges.size() > 0;
+        return !latestChanges.isEmpty();
     }
 }

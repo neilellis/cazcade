@@ -13,7 +13,7 @@ public class DragScrollEvent {
     private final int newY;
     private final Widget widget;
 
-    public DragScrollEvent(int oldX, int oldY, int newX, int newY, Widget widget) {
+    public DragScrollEvent(final int oldX, final int oldY, final int newX, final int newY, final Widget widget) {
         this.oldX = oldX;
         this.oldY = oldY;
         this.newX = newX;

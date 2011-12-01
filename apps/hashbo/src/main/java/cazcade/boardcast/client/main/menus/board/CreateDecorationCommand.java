@@ -16,14 +16,14 @@ public class CreateDecorationCommand extends CreateItemCommand {
 
     private final String urlForDecoration;
 
-    public CreateDecorationCommand(LiquidURI pool, LSDDictionaryTypes type, String urlForDecoration, Size size, String theme) {
+    public CreateDecorationCommand(final LiquidURI pool, final LSDDictionaryTypes type, final String urlForDecoration, final Size size, final String theme) {
         super(pool, type, size, theme);
         this.urlForDecoration = urlForDecoration;
     }
 
 
     @Override
-    protected void buildEntity(@Nonnull BuildCallback onBuilt) {
+    protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
         final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(getType());
         entity.setAttribute(LSDAttribute.IMAGE_URL, urlForDecoration);
         addDefaultView(entity);

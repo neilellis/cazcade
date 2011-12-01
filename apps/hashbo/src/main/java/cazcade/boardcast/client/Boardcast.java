@@ -71,7 +71,7 @@ public class Boardcast implements EntryPoint {
         ClientLog.setDebugMode(ClientApplicationConfiguration.isDebug());
 
 
-        RootPanel logPanel = RootPanel.get("log-panel");
+        final RootPanel logPanel = RootPanel.get("log-panel");
         if (ClientApplicationConfiguration.isDebug()) {
             ClientLog.logWidget = ((FrameElement) logPanel.getElement().cast()).getContentDocument().getBody();
             logPanel.setHeight("400px");
@@ -85,7 +85,7 @@ public class Boardcast implements EntryPoint {
 
         GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
             @Override
-            public void onUncaughtException(Throwable e) {
+            public void onUncaughtException(final Throwable e) {
                 ClientLog.log(e);
             }
         });
@@ -109,7 +109,7 @@ public class Boardcast implements EntryPoint {
 
         GWT.runAsync(new RunAsyncCallback() {
             @Override
-            public void onFailure(Throwable reason) {
+            public void onFailure(final Throwable reason) {
                 ClientLog.log(reason);
             }
 
@@ -201,12 +201,12 @@ public class Boardcast implements EntryPoint {
                     @Override
                     public void run() {
                         createBoardDialog.hide();
-                        String board = createBoardDialog.getBoard();
+                        final String board = createBoardDialog.getBoard();
                         final boolean listed = createBoardDialog.isListed();
                         if (!listed) {
                             BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
                                 @Override
-                                public void callback(@Nonnull LiquidUUID uuid) {
+                                public void callback(@Nonnull final LiquidUUID uuid) {
                                     final String unlistedShortUrl = "-" + uuid.toString().toLowerCase() + "~" + UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
                                     HistoryManager.navigate(unlistedShortUrl);
                                 }
@@ -276,15 +276,15 @@ public class Boardcast implements EntryPoint {
 
     private void checkUserLoggedIn(@Nonnull final Runnable loginAction) {
         final LiquidSessionIdentifier identity = UserUtil.retrieveUser();
-        if (identity == null || identity.getSession() == null || registerRequest || (createRequest && UserUtil.isAnonymousOrLoggedOut())) {
+        if (identity == null || identity.getSession() == null || registerRequest || createRequest && UserUtil.isAnonymousOrLoggedOut()) {
             DataStoreService.App.getInstance().loginQuick(!ClientApplicationConfiguration.isLoginRequired() && !createRequest && !registerRequest, new AsyncCallback<LiquidSessionIdentifier>() {
                 @Override
-                public void onFailure(Throwable caught) {
+                public void onFailure(final Throwable caught) {
                     ClientLog.log(caught);
                 }
 
                 @Override
-                public void onSuccess(@Nullable LiquidSessionIdentifier result) {
+                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
                     if (result == null) {
 //                        Window.alert("Login required.");
                         loginOrRegisterPanel.center();
@@ -304,16 +304,16 @@ public class Boardcast implements EntryPoint {
     private void loginUser(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final Runnable onLogin) {
         UserUtil.setIdentity(identity);
         UserUtil.storeIdentity(identity);
-        GWTDataStore dataStore = new GWTDataStore(identity, new Runnable() {
+        final GWTDataStore dataStore = new GWTDataStore(identity, new Runnable() {
             @Override
             public void run() {
                 BusFactory.getInstance().start();
                 BusFactory.getInstance().send(new RetrieveAliasRequest(identity.getAliasURL()), new AbstractResponseCallback<RetrieveAliasRequest>() {
                     @Override
-                    public void onSuccess(RetrieveAliasRequest message, @Nonnull RetrieveAliasRequest response) {
+                    public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
                         final LSDEntity alias = response.getResponse();
                         UserUtil.setCurrentAlias(alias);
-                        Map<String, String> propertyMap = new HashMap<String, String>();
+                        final Map<String, String> propertyMap = new HashMap<String, String>();
                         propertyMap.putAll(alias.getMap());
                         propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
                         propertyMap.put("alpha.mode", ClientApplicationConfiguration.isAlphaFeatures() ? "true" : "false");
@@ -326,7 +326,7 @@ public class Boardcast implements EntryPoint {
                             public void run() {
                                 GWT.runAsync(new RunAsyncCallback() {
                                     @Override
-                                    public void onFailure(Throwable reason) {
+                                    public void onFailure(final Throwable reason) {
                                         ClientLog.log(reason);
                                     }
 
@@ -341,7 +341,7 @@ public class Boardcast implements EntryPoint {
                     }
 
                     @Override
-                    public void onFailure(RetrieveAliasRequest message, @Nonnull RetrieveAliasRequest response) {
+                    public void onFailure(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
                         ClientLog.log(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
                 });
@@ -379,7 +379,8 @@ public class Boardcast implements EntryPoint {
 
         private final boolean embedded;
 
-        public SnapshotBoardFactory(boolean embedded) {
+        public SnapshotBoardFactory(final boolean embedded) {
+            super();
 
             this.embedded = embedded;
         }

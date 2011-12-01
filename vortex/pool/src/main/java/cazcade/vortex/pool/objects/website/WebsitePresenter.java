@@ -15,11 +15,11 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
-    public WebsitePresenter(PoolPresenter pool, LSDEntity entity, final WebsiteView widget, VortexThreadSafeExecutor threadSafeExecutor) {
+    public WebsitePresenter(final PoolPresenter pool, final LSDEntity entity, final WebsiteView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addHandler(new DoubleClickHandler() {
             @Override
-            public void onDoubleClick(DoubleClickEvent event) {
+            public void onDoubleClick(final DoubleClickEvent event) {
                 PoolObjectEditor.showForEdit(new WebsiteEditorPanel(getEntity()), null);
 
             }

@@ -9,10 +9,10 @@ import javax.annotation.Nonnull;
  */
 class NeoBackupJob implements Runnable {
     @Nonnull
-    private final static Logger log = Logger.getLogger(NeoBackupJob.class);
+    private static final Logger log = Logger.getLogger(NeoBackupJob.class);
     private final FountainNeo fountainNeo;
 
-    public NeoBackupJob(FountainNeo fountainNeo) {
+    public NeoBackupJob(final FountainNeo fountainNeo) {
         this.fountainNeo = fountainNeo;
     }
 

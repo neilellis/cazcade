@@ -3,6 +3,7 @@ package cazcade.liquid.impl;
 import cazcade.liquid.api.LiquidUUID;
 
 import javax.annotation.Nonnull;
+import java.util.UUID;
 
 /**
  * @author neilellis@cazcade.com
@@ -10,6 +11,6 @@ import javax.annotation.Nonnull;
 public class UUIDFactory {
     @Nonnull
     public static LiquidUUID randomUUID() {
-        return new LiquidUUID(java.util.UUID.randomUUID().toString());
+        return new LiquidUUID(UUID.randomUUID().toString());
     }
 }

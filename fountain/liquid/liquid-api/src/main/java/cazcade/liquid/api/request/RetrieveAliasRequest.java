@@ -10,52 +10,57 @@ import java.util.List;
 public class RetrieveAliasRequest extends AbstractRetrievalRequest {
 
     public RetrieveAliasRequest() {
+        super();
     }
 
-    public RetrieveAliasRequest(LiquidUUID target) {
+    public RetrieveAliasRequest(final LiquidUUID target) {
         this(null, null, target);
     }
 
-    public RetrieveAliasRequest(LiquidURI uri) {
+    public RetrieveAliasRequest(final LiquidURI uri) {
         this(null, null, uri);
     }
 
-    public RetrieveAliasRequest(LiquidSessionIdentifier identity) {
-        this.setSessionId(identity);
+    public RetrieveAliasRequest(final LiquidSessionIdentifier identity) {
+        super();
+        setSessionId(identity);
     }
 
-    public RetrieveAliasRequest(LiquidSessionIdentifier identity, LiquidUUID target) {
+    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
-    public RetrieveAliasRequest(LiquidSessionIdentifier identity, LiquidURI uri) {
+    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
         this(null, identity, uri);
     }
 
-    public RetrieveAliasRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
     }
 
-    public RetrieveAliasRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setUri(uri);
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
     }
 
-    private RetrieveAliasRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, LiquidURI uri) {
-        this.setTarget(target);
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setUri(uri);
+    private RetrieveAliasRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+        super();
+        setTarget(target);
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrieveAliasRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri());
+        return new RetrieveAliasRequest(getId(), getSessionIdentifier(), getTarget(), getUri());
     }
 
     @Nonnull

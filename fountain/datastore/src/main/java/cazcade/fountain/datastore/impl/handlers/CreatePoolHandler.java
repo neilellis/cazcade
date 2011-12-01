@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolRequest> implements CreatePoolRequestHandler {
 
     @Nonnull
-    public CreatePoolRequest handle(@Nonnull CreatePoolRequest request) throws InterruptedException {
+    public CreatePoolRequest handle(@Nonnull final CreatePoolRequest request) throws InterruptedException {
         if (!request.getName().matches("[a-z0-9A-Z._-]+")) {
             throw new DataStoreException("Invalid poolName, should be alphanumeric.");
         }
@@ -44,7 +44,7 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
             LiquidURI owner = request.getAlias();
             owner = defaultAndCheckOwner(request, owner);
 
-            Node pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
+            final Node pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentNode, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
             pool.setProperty(LSDAttribute.DESCRIPTION, request.getDescription());
             final LSDEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request.getDetail(), request.isInternal(), false);
             transaction.success();

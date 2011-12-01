@@ -28,22 +28,22 @@ public class UserRestHandler extends AbstractRestHandler {
     private AuthorizationService authorizationService;
 
     @Nonnull
-    public LiquidMessage get(@Nonnull Map<String, String[]> parameters) throws Exception {
+    public LiquidMessage get(@Nonnull final Map<String, String[]> parameters) throws Exception {
         checkForSingleValueParams(parameters, "name");
         final String username = parameters.get("name")[0];
-        LiquidMessage message = dataStoreFacade.process(new RetrieveUserRequest(RestContext.getContext().getCredentials(), new LiquidURI(LiquidURIScheme.user, username), false));
+        final LiquidMessage message = dataStoreFacade.process(new RetrieveUserRequest(RestContext.getContext().getCredentials(), new LiquidURI(LiquidURIScheme.user, username), false));
 
         return authorizationService.postAuthorize(RestContext.getContext().getCredentials(), (AbstractRetrievalRequest) message, LiquidPermission.VIEW);
     }
 
     @Nonnull
-    public LiquidMessage get(LiquidUUID userId) throws URISyntaxException {
+    public LiquidMessage get(final LiquidUUID userId) throws URISyntaxException {
         return dataStoreFacade.process(new RetrieveUserRequest(RestContext.getContext().getCredentials(), userId));
     }
 
     @Nonnull
-    public LiquidMessage create(LSDEntity lsdEntity, Map<String, String[]> parameters) throws URISyntaxException {
-        LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
+    public LiquidMessage create(final LSDEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
+        final LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new CreateUserRequest(identity, lsdEntity));
     }
 
@@ -65,10 +65,10 @@ public class UserRestHandler extends AbstractRestHandler {
 //    }
 
     @Nonnull
-    public LiquidMessage update(LiquidUUID userId, @Nonnull LSDEntity lsdEntity, Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage update(final LiquidUUID userId, @Nonnull final LSDEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
 
-        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
-        if ((username != null) && !lsdEntity.getAttribute(LSDAttribute.NAME).equalsIgnoreCase(username.getName())) {
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+        if (username != null && !lsdEntity.getAttribute(LSDAttribute.NAME).equalsIgnoreCase(username.getName())) {
             throw new RestHandlerException("You tried to update a different username than yourself. Naughty! make sure the "
                     + LSDAttribute.NAME.getKeyName() + " property is equal to you (in this case " + username + ")");
         }
@@ -76,18 +76,18 @@ public class UserRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage password(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage password(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "password");
         final String password = parameters.get("password")[0];
         return dataStoreFacade.process(new ChangePasswordRequest(RestContext.getContext().getCredentials(), password));
     }
 
     @Nonnull
-    public LiquidMessage delete(LiquidUUID userId) throws URISyntaxException {
+    public LiquidMessage delete(final LiquidUUID userId) throws URISyntaxException {
         return dataStoreFacade.process(new DeleteUserRequest(RestContext.getContext().getCredentials(), userId));
     }
 
-    public void setLsdFactory(LSDEntityFactory lsdEntityFactory) {
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
         this.lsdEntityFactory = lsdEntityFactory;
     }
 
@@ -95,7 +95,7 @@ public class UserRestHandler extends AbstractRestHandler {
         return lsdEntityFactory;
     }
 
-    public void setDataStore(FountainDataStoreFacade dataStoreFacade) {
+    public void setDataStore(final FountainDataStoreFacade dataStoreFacade) {
         this.dataStoreFacade = dataStoreFacade;
     }
 
@@ -104,7 +104,7 @@ public class UserRestHandler extends AbstractRestHandler {
     }
 
 
-    public void setAuthorizationService(AuthorizationService authorizationService) {
+    public void setAuthorizationService(final AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;
     }
 }

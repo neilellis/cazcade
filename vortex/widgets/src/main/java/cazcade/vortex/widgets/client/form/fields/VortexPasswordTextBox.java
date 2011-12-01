@@ -23,9 +23,10 @@ public class VortexPasswordTextBox extends VortexTextBox {
     private static final VortexPasswordTextBoxUiBinder ourUiBinder = GWT.create(VortexPasswordTextBoxUiBinder.class);
 
     public VortexPasswordTextBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(@Nonnull KeyPressEvent event) {
+            public void onKeyPress(@Nonnull final KeyPressEvent event) {
                 final int keyCode = event.getUnicodeCharCode();
 
                 if (keyCode == KeyCodes.KEY_ENTER) {
@@ -36,13 +37,13 @@ public class VortexPasswordTextBox extends VortexTextBox {
 
         textBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(final KeyUpEvent event) {
                 showValidity();
             }
         });
         textBox.addChangeHandler(new ChangeHandler() {
             @Override
-            public void onChange(ChangeEvent event) {
+            public void onChange(final ChangeEvent event) {
                 showValidity();
             }
         });
@@ -58,7 +59,7 @@ public class VortexPasswordTextBox extends VortexTextBox {
         } else {
             errorMessage.setText("Too simple, letters & numbers please.");
         }
-        String text = textBox.getText();
+        final String text = textBox.getText();
         return text.length() != 0 && text.matches(".*[^a-zA-Z].*") && text.matches(".*[a-zA-Z].*") && text.length() > MIN_PASSWORD_LENGTH;
 
     }
@@ -68,7 +69,7 @@ public class VortexPasswordTextBox extends VortexTextBox {
         return textBox.getText();
     }
 
-    public void setPairedBox(VortexPasswordTextBox pairedBox) {
+    public void setPairedBox(final VortexPasswordTextBox pairedBox) {
         this.pairedBox = pairedBox;
     }
 

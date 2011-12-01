@@ -4,6 +4,7 @@ import cazcade.liquid.api.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class ClaimAliasRequest extends AbstractRequest {
 
     public ClaimAliasRequest() {
+        super();
     }
 
     @Override
@@ -19,18 +21,19 @@ public class ClaimAliasRequest extends AbstractRequest {
     }
 
 
-    public ClaimAliasRequest(LiquidSessionIdentifier identity) {
+    public ClaimAliasRequest(final LiquidSessionIdentifier identity) {
         this(null, identity);
     }
 
-    public ClaimAliasRequest(@Nullable LiquidUUID id, LiquidSessionIdentifier identity) {
-        this.setId(id);
-        this.setSessionId(identity);
+    public ClaimAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity) {
+        super();
+        setId(id);
+        setSessionId(identity);
     }
 
 
     public Collection<LiquidURI> getAffectedEntities() {
-        return java.util.Arrays.asList(getSessionIdentifier().getAliasURL());
+        return Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
     @Nullable

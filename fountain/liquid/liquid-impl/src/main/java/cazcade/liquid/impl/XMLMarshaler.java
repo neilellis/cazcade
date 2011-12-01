@@ -13,8 +13,8 @@ import java.io.OutputStream;
 
 public class XMLMarshaler implements LSDMarshaler {
 
-    public void marshal(LSDEntity lsdEntity, OutputStream output) {
-        XStream xstream = LiquidXStreamFactory.getXstream();
+    public void marshal(final LSDEntity lsdEntity, final OutputStream output) {
+        final XStream xstream = LiquidXStreamFactory.getXstream();
         xstream.toXML(lsdEntity, output);
     }
 

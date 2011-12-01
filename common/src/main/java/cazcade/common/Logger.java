@@ -65,7 +65,7 @@ public class Logger {
         this.logger = logger;
         digester = new StandardStringDigester();
         digester.setSaltGenerator(new SaltGenerator() {
-            public byte[] generateSalt(int lengthBytes) {
+            public byte[] generateSalt(final int lengthBytes) {
                 return logger.getName().getBytes();
             }
 
@@ -86,9 +86,9 @@ public class Logger {
         try {
             production = System.getProperty("production") != null;
 //        System.setProperty(org.apache.log4j.LogManager.DEFAULT_INIT_OVERRIDE_KEY, "true");
-            String log4JConfig = System.getProperty("log4j.configuration");
+            final String log4JConfig = System.getProperty("log4j.configuration");
             if (log4JConfig == null) {
-                URL resource = Logger.class.getResource("/log4j.properties");
+                final URL resource = Logger.class.getResource("/log4j.properties");
                 if (resource != null) {
                     PropertyConfigurator.configure(resource);
                 }
@@ -102,23 +102,23 @@ public class Logger {
     }
 
     @Nonnull
-    public static Logger getLogger(String name) {
+    public static Logger getLogger(final String name) {
         return new Logger(org.apache.log4j.Logger.getLogger(name));
     }
 
 
     @Nonnull
-    public static Logger getLogger(Class clazz) {
+    public static Logger getLogger(final Class clazz) {
         return new Logger(org.apache.log4j.Logger.getLogger(clazz));
     }
 
 
-    public void assertLog(boolean assertion, String msg) {
+    public void assertLog(final boolean assertion, final String msg) {
         logger.assertLog(assertion, msg);
     }
 
 
-    public void debug(String message, @Nonnull Object... params) {
+    public void debug(final String message, @Nonnull final Object... params) {
         if (logger != null && logger.isDebugEnabled()) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.debug(message, (Throwable) params[0]);
@@ -135,11 +135,11 @@ public class Logger {
     @SuppressWarnings({"ThrowableInstanceNeverThrown"})
     private String getPrefix() {
         if (logger != null && logger.isDebugEnabled() && !production) {
-            StackTraceElement[] stackTraceElements = new Throwable().getStackTrace();
-            for (StackTraceElement stackTraceElement : stackTraceElements) {
-                String className = stackTraceElement.getClassName();
+            final StackTraceElement[] stackTraceElements = new Throwable().getStackTrace();
+            for (final StackTraceElement stackTraceElement : stackTraceElements) {
+                final String className = stackTraceElement.getClassName();
                 if (!className.equals(Logger.class.getCanonicalName())) {
-                    String name = className.substring(className.lastIndexOf('.') + 1);
+                    final String name = className.substring(className.lastIndexOf('.') + 1);
                     return MessageFormat.format("{0}:{1}({2}) ",
                             name,
                             stackTraceElement.getMethodName(),
@@ -153,7 +153,7 @@ public class Logger {
     }
 
 
-    public void debug(Throwable t, String message, Object... params) {
+    public void debug(final Throwable t, final String message, final Object... params) {
         if (logger != null && logger.isDebugEnabled()) {
             logger.debug(message, t);
             logger.debug(getPrefix() + MessageFormat.format(message, params));
@@ -162,7 +162,7 @@ public class Logger {
         }
     }
 
-    public void debug(Throwable t, String message) {
+    public void debug(final Throwable t, final String message) {
         if (logger != null && logger.isDebugEnabled()) {
             logger.debug(message, t);
             logger.debug(getPrefix() + message);
@@ -171,12 +171,12 @@ public class Logger {
         }
     }
 
-    public void error(@Nonnull Throwable t) {
+    public void error(@Nonnull final Throwable t) {
         error(t, "{0}", t.getMessage());
     }
 
 
-    public void error(String message, @Nonnull Object... params) {
+    public void error(final String message, @Nonnull final Object... params) {
         if (logger != null && logger.isEnabledFor(Level.ERROR)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 error((Throwable) params[0], message);
@@ -188,7 +188,7 @@ public class Logger {
     }
 
 
-    public void error(@Nonnull Throwable t, String message, Object... params) {
+    public void error(@Nonnull final Throwable t, final String message, final Object... params) {
         if (logger != null && logger.isEnabledFor(Level.ERROR)) {
             logger.error(getPrefix() + MessageFormat.format(message, params), t);
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
@@ -203,17 +203,17 @@ public class Logger {
     }
 
 
-    public void fatal(@Nonnull Throwable t) {
+    public void fatal(@Nonnull final Throwable t) {
         error(t);
     }
 
 
-    public void fatal(String message, Object... params) {
+    public void fatal(final String message, final Object... params) {
         error(message, params);
     }
 
 
-    public void fatal(@Nonnull Throwable t, String message, Object... params) {
+    public void fatal(@Nonnull final Throwable t, final String message, final Object... params) {
         error(t, message, params);
     }
 
@@ -233,7 +233,7 @@ public class Logger {
     }
 
 
-    public void info(String message, @Nonnull Object... params) {
+    public void info(final String message, @Nonnull final Object... params) {
         if (logger != null && logger.isEnabledFor(Priority.INFO)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.info(message, (Throwable) params[0]);
@@ -247,7 +247,7 @@ public class Logger {
     }
 
 
-    public void info(Throwable t, String message, Object... params) {
+    public void info(final Throwable t, final String message, final Object... params) {
         if (logger != null && logger.isEnabledFor(Priority.INFO)) {
             logger.info(message, t);
             logger.info(getPrefix() + MessageFormat.format(message, params));
@@ -258,7 +258,7 @@ public class Logger {
     }
 
 
-    public void warn(String message, @Nonnull Object... params) {
+    public void warn(final String message, @Nonnull final Object... params) {
         if (logger != null && logger.isEnabledFor(Priority.WARN)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.warn(message, (Throwable) params[0]);
@@ -272,7 +272,7 @@ public class Logger {
     }
 
 
-    public void warn(Throwable t, String message, Object... params) {
+    public void warn(final Throwable t, final String message, final Object... params) {
         if (logger != null && logger.isEnabledFor(Priority.WARN)) {
             logger.warn(message, t);
             logger.warn(getPrefix() + MessageFormat.format(message, params));
@@ -286,7 +286,7 @@ public class Logger {
         return logger.isDebugEnabled();
     }
 
-    public void session(@Nonnull String message) {
+    public void session(@Nonnull final String message) {
         try {
             session(message.getBytes(CommonConstants.STRING_ENCODING));
         } catch (UnsupportedEncodingException e) {
@@ -295,7 +295,7 @@ public class Logger {
     }
 
 
-    public void session(byte[] message) {
+    public void session(final byte[] message) {
         try {
             debug("Session: {0}", new String(message, CommonConstants.STRING_ENCODING));
         } catch (UnsupportedEncodingException e) {
@@ -304,7 +304,7 @@ public class Logger {
         writeToSessionLog(message, "session");
     }
 
-    private void writeToSessionLog(@Nonnull String message, String... logTypes) {
+    private void writeToSessionLog(@Nonnull final String message, final String... logTypes) {
         try {
             writeToSessionLog(message.getBytes(CommonConstants.STRING_ENCODING), logTypes);
         } catch (UnsupportedEncodingException e) {
@@ -313,14 +313,14 @@ public class Logger {
 
     }
 
-    private void writeToSessionLog(byte[] message, @Nonnull String... logTypes) {
+    private void writeToSessionLog(final byte[] message, @Nonnull final String... logTypes) {
         if (session.get() != null) {
             try {
-                File parent = getSessionLogDirectory();
+                final File parent = getSessionLogDirectory();
                 parent.mkdirs();
-                for (String logType : logTypes) {
-                    File file = new File(parent, logType + ".txt");
-                    FileOutputStream fileOutputStream = new FileOutputStream(file, true);
+                for (final String logType : logTypes) {
+                    final File file = new File(parent, logType + ".txt");
+                    final FileOutputStream fileOutputStream = new FileOutputStream(file, true);
                     IOUtils.write(message, fileOutputStream);
                     IOUtils.write("\n", fileOutputStream);
                     IOUtils.closeQuietly(fileOutputStream);
@@ -336,12 +336,12 @@ public class Logger {
         if (session.get() == null) {
             return null;
         } else {
-            Calendar today = Calendar.getInstance();
+            final Calendar today = Calendar.getInstance();
             return new File(CommonConstants.DATASTORE_SESSION_LOGS + "/" + today.get(Calendar.DAY_OF_MONTH) + "." + (today.get(Calendar.MONTH) + 1) + "." + today.get(Calendar.YEAR) + "/" + (username.get() == null ? "" : username.get()), session.get());
         }
     }
 
-    public void setSession(@Nullable String sessionId, @Nullable String username) {
+    public void setSession(@Nullable final String sessionId, @Nullable final String username) {
         if (sessionId == null) {
             session.set(null);
         } else {
@@ -360,37 +360,37 @@ public class Logger {
     }
 
 
-    public String hash(String message) {
+    public String hash(final String message) {
 
         return digester.digest(message);
 
     }
 
-    public void notifyOfError(@Nonnull Throwable t, String message) {
+    public void notifyOfError(@Nonnull final Throwable t, final String message) {
         String hashStr = t.getClass().getName();
-        StackTraceElement[] stackTraceElements = t.getStackTrace();
-        for (StackTraceElement stackTraceElement : stackTraceElements) {
+        final StackTraceElement[] stackTraceElements = t.getStackTrace();
+        for (final StackTraceElement stackTraceElement : stackTraceElements) {
             if (stackTraceElement.getClassName().startsWith("cazcade")) {
                 hashStr = hashStr + stackTraceElement.getClassName() + stackTraceElement.getMethodName();
             }
 
         }
         System.out.println("Hash String " + hashStr);
-        String hash = hash(hashStr);
+        final String hash = hash(hashStr);
         String location = "unknown location";
-        for (StackTraceElement stackTraceElement : stackTraceElements) {
+        for (final StackTraceElement stackTraceElement : stackTraceElements) {
             if (stackTraceElement.getClassName().startsWith("cazcade")) {
                 location = stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() + "(...) : " + stackTraceElement.getLineNumber();
             }
 
         }
 
-        String summary = StringUtils.abbreviate("BUG (SERVER)" + message + "   " + t.getClass().getSimpleName() + ": '" + t.getMessage() + "' at " + location + ")", 250);
+        final String summary = StringUtils.abbreviate("BUG (SERVER)" + message + "   " + t.getClass().getSimpleName() + ": '" + t.getMessage() + "' at " + location + ")", 250);
         String contextStr = "\n(No context available)\n";
         if (context != null) {
             contextStr = "\nContext:\n" + XSTREAM.toXML(context.get()) + "\n";
         }
-        String description = "Automatically logged exception for " + username.get() + " (session='" + session.get() + "').\n\n" + message + "\n" + ExceptionUtils.getFullStackTrace(t)
+        final String description = "Automatically logged exception for " + username.get() + " (session='" + session.get() + "').\n\n" + message + "\n" + ExceptionUtils.getFullStackTrace(t)
                 + contextStr;
 
         if (errorHashes.contains(hash)) {
@@ -408,11 +408,11 @@ public class Logger {
 
     }
 
-    public void sendToJira(String message, String hash, String summary, String description, String component) {
+    public void sendToJira(final String message, final String hash, final String summary, final String description, final String component) {
         sendToJira(message, hash, summary, description, component, null, null);
     }
 
-    public void sendToJira(String message, String hash, String summary, String description, String component, @Nullable byte[] attachment, @Nullable String filename) {
+    public void sendToJira(final String message, final String hash, final String summary, final String description, final String component, @Nullable final byte[] attachment, @Nullable final String filename) {
 
 
         //reduce chances of duplicate JIRA spam.
@@ -422,28 +422,28 @@ public class Logger {
 
         errorHashes.add(hash);
         try {
-            SOAPSession soapSession;
-            JiraSoapService jira;
+            final SOAPSession soapSession;
+            final JiraSoapService jira;
             soapSession = new SOAPSession(new URL("http://jira.cazcade.com/rpc/soap/jirasoapservice-v2"));
             soapSession.connect("neilellis", "vipassana");
             jira = soapSession.getJiraSoapService();
-            RemoteIssue[] issues = jira.getIssuesFromJqlSearch(soapSession.getAuthenticationToken(), "project = CAZCADE AND description ~ '" + hash + "'", 10);
+            final RemoteIssue[] issues = jira.getIssuesFromJqlSearch(soapSession.getAuthenticationToken(), "project = CAZCADE AND description ~ '" + hash + "'", 10);
             if (issues.length == 0) {
-                RemoteIssue issue = new RemoteIssue();
+                final RemoteIssue issue = new RemoteIssue();
                 issue.setSummary(summary);
                 issue.setReporter("neilellis");
                 issue.setAssignee("neilellis");
                 issue.setType("1");
                 issue.setProject("CAZCADE");
                 issue.setDescription(description + "\n HASH=" + hash + "\n");
-                RemoteIssue remoteIssue = jira.createIssue(soapSession.getAuthenticationToken(), issue);
+                final RemoteIssue remoteIssue = jira.createIssue(soapSession.getAuthenticationToken(), issue);
                 logger.info("Created issue: " + remoteIssue.getKey());
-                File sessionLogDirectory = getSessionLogDirectory();
+                final File sessionLogDirectory = getSessionLogDirectory();
                 if (sessionLogDirectory != null) {
                     try {
                         //create a ZipOutputStream to zip the data to
-                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                        ZipOutputStream zos = new ZipOutputStream(byteArrayOutputStream);
+                        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        final ZipOutputStream zos = new ZipOutputStream(byteArrayOutputStream);
                         //assuming that there is a directory named inFolder (If there
                         //isn't create one) in the same directory as the one the code runs from,
                         //call the zipDir method
@@ -460,22 +460,22 @@ public class Logger {
                     }
                 }
             } else {
-                for (RemoteIssue issue : issues) {
-                    Calendar yesterday = Calendar.getInstance();
+                for (final RemoteIssue issue : issues) {
+                    final Calendar yesterday = Calendar.getInstance();
                     yesterday.add(Calendar.DATE, -1);
-                    String comment = "Logged again for " + username.get() + " (session='" + session.get() + "', message " + message + ").\n" + description + "\n";
+                    final String comment = "Logged again for " + username.get() + " (session='" + session.get() + "', message " + message + ").\n" + description + "\n";
                     //If it's closed - reopen.
-                    if (issue.getStatus().equals("6")) {
+                    if ("6".equals(issue.getStatus())) {
                         jira.progressWorkflowAction(soapSession.getAuthenticationToken(), issue.getKey(), "3", new RemoteFieldValue[]{new RemoteFieldValue("comment", new String[]{comment})});
                     } else {
                         //Has it been updated since yesterday, if not add comment
                         if (issue.getUpdated() == null || issue.getUpdated().before(yesterday)) {
 
                             //If it was resolved yesterday, clearly it isn't resolved now. So reopen.
-                            if (issue.getStatus().equals("5")) {
+                            if ("5".equals(issue.getStatus())) {
                                 jira.progressWorkflowAction(soapSession.getAuthenticationToken(), issue.getKey(), "3", new RemoteFieldValue[]{new RemoteFieldValue("comment", new String[]{comment})});
                             }
-                            RemoteComment remoteComment = new RemoteComment();
+                            final RemoteComment remoteComment = new RemoteComment();
                             remoteComment.setBody(comment);
                             jira.addComment(soapSession.getAuthenticationToken(), issue.getKey(), remoteComment);
                         }
@@ -495,30 +495,30 @@ public class Logger {
      * "send" method to send the message.
      */
 
-    public static void send(String subject, String body) {
+    public static void send(final String subject, final String body) {
         try {
 
 
-            String host = "localhost";
-            String to = "support@boardcast.zendesk.com";
-            String from = "neil@boardcast.it";
+            final String host = "localhost";
+            final String to = "support@boardcast.zendesk.com";
+            final String from = "neil@boardcast.it";
 
-            boolean sessionDebug = false;
-            Properties props = System.getProperties();
-            props.put("mail.host", host);
-            props.put("mail.transport.protocol", "smtp");
+            final boolean sessionDebug = false;
+            final Properties props = System.getProperties();
+            props.setProperty("mail.host", host);
+            props.setProperty("mail.transport.protocol", "smtp");
 //            props.put("mail.smtp.auth", "false");
-            Session mailSession = Session.getDefaultInstance(props, null);
+            final Session mailSession = Session.getDefaultInstance(props, null);
             mailSession.setDebug(sessionDebug);
-            Message msg = new MimeMessage(mailSession);
+            final Message msg = new MimeMessage(mailSession);
             msg.setFrom(new InternetAddress(from, "Bug Reporter"));
-            InternetAddress[] address = {new InternetAddress(to)};
+            final InternetAddress[] address = {new InternetAddress(to)};
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);
             msg.setSentDate(new Date());
             msg.setText(body);
             msg.saveChanges();
-            Transport transport = mailSession.getTransport("smtp");
+            final Transport transport = mailSession.getTransport("smtp");
             transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
@@ -528,7 +528,7 @@ public class Logger {
         }
     }
 
-    public void addContext(Object o) {
+    public void addContext(final Object o) {
         context.get().add(o);
     }
 

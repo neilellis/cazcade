@@ -13,21 +13,23 @@ import java.util.List;
 public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
 
     public RetrieveUpdatesRequest() {
+        super();
     }
 
 
-    public RetrieveUpdatesRequest(LiquidSessionIdentifier identity, long since) {
+    public RetrieveUpdatesRequest(final LiquidSessionIdentifier identity, final long since) {
         this(null, identity, since);
     }
 
 
-    public RetrieveUpdatesRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, long since) {
-        this.setSince(since);
-        this.setId(id);
-        this.setSessionId(identity);
+    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final long since) {
+        super();
+        setSince(since);
+        setId(id);
+        setSessionId(identity);
     }
 
-    public RetrieveUpdatesRequest(long since) {
+    public RetrieveUpdatesRequest(final long since) {
         this(null, null, since);
     }
 

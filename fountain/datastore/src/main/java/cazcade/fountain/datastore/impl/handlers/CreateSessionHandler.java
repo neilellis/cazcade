@@ -17,11 +17,11 @@ public class CreateSessionHandler extends AbstractDataStoreHandler<CreateSession
 
 
     @Nonnull
-    public CreateSessionRequest handle(@Nonnull CreateSessionRequest request) throws InterruptedException {
+    public CreateSessionRequest handle(@Nonnull final CreateSessionRequest request) throws InterruptedException {
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            Node sessionNode = userDAO.createSession(request.getUri(), request.getClient());
+            final Node sessionNode = userDAO.createSession(request.getUri(), request.getClient());
             final LSDEntity entity = sessionNode.convertNodeToLSD(request.getDetail(), request.isInternal());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

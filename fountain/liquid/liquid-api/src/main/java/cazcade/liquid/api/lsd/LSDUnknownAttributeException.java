@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class LSDUnknownAttributeException extends CazcadeException {
-    public LSDUnknownAttributeException(Throwable throwable) {
+    public LSDUnknownAttributeException(final Throwable throwable) {
         super(throwable);
     }
 
-    public LSDUnknownAttributeException(@Nonnull String message, Object... params) {
+    public LSDUnknownAttributeException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public LSDUnknownAttributeException(Throwable cause, @Nonnull String message, Object... params) {
+    public LSDUnknownAttributeException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

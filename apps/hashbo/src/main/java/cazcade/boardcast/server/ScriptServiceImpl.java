@@ -9,7 +9,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 public class ScriptServiceImpl extends RemoteServiceServlet implements ScriptService {
     @Override
-    public void execute(LiquidSessionIdentifier session, String script) {
+    public void execute(final LiquidSessionIdentifier session, final String script) {
 
     }
 }

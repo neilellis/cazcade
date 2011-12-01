@@ -1016,7 +1016,7 @@
           <option name="m_limit" value="15" />
         </inspection_tool>
         <inspection_tool class="ClassEscapesItsScope" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="ClassHasNoToStringMethod" enabled="true" level="WARNING" enabled_by_default="true">
+        <inspection_tool class="ClassHasNoToStringMethod" enabled="true" level="INFO" enabled_by_default="true">
           <option name="excludeClassNames" value=".*Itera.*" />
           <option name="excludeException" value="true" />
           <option name="excludeDeprecated" value="true" />
@@ -1177,7 +1177,7 @@
           <option name="m_ignoreInHashCode" value="true" />
         </inspection_tool>
         <inspection_tool class="MapReplaceableByEnumMap" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="MarkerInterface" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="MarkerInterface" enabled="true" level="INFO" enabled_by_default="true" />
         <inspection_tool class="MethodCount" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_limit" value="50" />
           <option name="ignoreGettersAndSetters" value="true" />

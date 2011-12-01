@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 
 public class RestrictUserCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(RestrictUserCommand.class);
+    private static final Logger log = Logger.getLogger(RestrictUserCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -36,7 +36,7 @@ public class RestrictUserCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("restrict <user>");
             return null;
@@ -44,7 +44,7 @@ public class RestrictUserCommand extends AbstractShortLivedCommand {
             return CommandSupport.alterUser(shellSession, CommandSupport.resolveUser(shellSession, args[0]), new CommandSupport.AlterEntityCallback() {
                 @Nonnull
                 @Override
-                public LSDEntity alter(@Nonnull LSDEntity entity) {
+                public LSDEntity alter(@Nonnull final LSDEntity entity) {
                     entity.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "true");
                     return entity;
 

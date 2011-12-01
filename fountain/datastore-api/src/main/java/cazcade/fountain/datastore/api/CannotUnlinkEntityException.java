@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
 
 
 public class CannotUnlinkEntityException extends DataStoreException {
-    public CannotUnlinkEntityException(Throwable throwable) {
+    public CannotUnlinkEntityException(final Throwable throwable) {
         super(throwable);
     }
 
-    public CannotUnlinkEntityException(@Nonnull String message, Object... params) {
+    public CannotUnlinkEntityException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public CannotUnlinkEntityException(Throwable cause, @Nonnull String message, Object... params) {
+    public CannotUnlinkEntityException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 

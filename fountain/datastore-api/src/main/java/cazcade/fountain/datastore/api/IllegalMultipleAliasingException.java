@@ -6,15 +6,15 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class IllegalMultipleAliasingException extends DataStoreException {
-    public IllegalMultipleAliasingException(Throwable throwable) {
+    public IllegalMultipleAliasingException(final Throwable throwable) {
         super(throwable);
     }
 
-    public IllegalMultipleAliasingException(@Nonnull String message, Object... params) {
+    public IllegalMultipleAliasingException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public IllegalMultipleAliasingException(Throwable cause, @Nonnull String message, Object... params) {
+    public IllegalMultipleAliasingException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

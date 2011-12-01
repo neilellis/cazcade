@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
 
 
 public class OrphanedEntityException extends DataStoreException {
-    public OrphanedEntityException(Throwable throwable) {
+    public OrphanedEntityException(final Throwable throwable) {
         super(throwable);
     }
 
-    public OrphanedEntityException(@Nonnull String message, Object... params) {
+    public OrphanedEntityException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public OrphanedEntityException(Throwable cause, @Nonnull String message, Object... params) {
+    public OrphanedEntityException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 

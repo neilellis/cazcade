@@ -17,11 +17,12 @@ import javax.annotation.Nullable;
 
 public class WithCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(WithCommand.class);
+    private static final Logger log = Logger.getLogger(WithCommand.class);
 
     private final ExecutableCommand command;
 
-    public WithCommand(ExecutableCommand command) {
+    public WithCommand(final ExecutableCommand command) {
+        super();
         this.command = command;
     }
 
@@ -50,7 +51,7 @@ public class WithCommand extends AbstractShortLivedCommand {
         } else {
             final CommandSupport.AlterEntityCallback callback = new CommandSupport.AlterEntityCallback() {
                 @Override
-                public LSDEntity alter(LSDEntity entity) {
+                public LSDEntity alter(final LSDEntity entity) {
                     shellSession.pushEntity(entity);
                     try {
                         command.execute();
@@ -61,13 +62,13 @@ public class WithCommand extends AbstractShortLivedCommand {
 
                 }
             };
-            if (args[0].equals("user")) {
+            if ("user".equals(args[0])) {
                 return CommandSupport.alterUser(shellSession, CommandSupport.resolveUser(shellSession, args[1]), callback);
-            } else if (args[0].equals("alias")) {
+            } else if ("alias".equals(args[0])) {
                 return CommandSupport.alterAlias(shellSession, CommandSupport.resolveAlias(shellSession, args[1]), callback);
-            } else if (args[0].equals("pool")) {
+            } else if ("pool".equals(args[0])) {
                 return CommandSupport.alterPool(shellSession, CommandSupport.resolvePoolOrObject(shellSession, args[1]), callback);
-            } else if (args[0].equals("object")) {
+            } else if ("object".equals(args[0])) {
                 return CommandSupport.alterObject(shellSession, CommandSupport.resolvePoolOrObject(shellSession, args[1]), callback);
             } else {
                 System.err.println("with (user|alias|pool|object) <identifier> { <commands> }");

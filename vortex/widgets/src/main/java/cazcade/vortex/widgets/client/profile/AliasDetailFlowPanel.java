@@ -17,6 +17,7 @@ public class AliasDetailFlowPanel extends AbstractAliasDetailPanel {
 
 
     public AliasDetailFlowPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
 

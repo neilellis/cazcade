@@ -13,29 +13,31 @@ import java.util.List;
 public class UpdateSessionRequest extends AbstractUpdateRequest {
 
     public UpdateSessionRequest() {
+        super();
     }
 
-    public UpdateSessionRequest(LiquidUUID target, LSDEntity entity, boolean internal) {
+    public UpdateSessionRequest(final LiquidUUID target, final LSDEntity entity, final boolean internal) {
         this(null, null, target, entity, internal);
     }
 
-    public UpdateSessionRequest(LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity, boolean internal) {
+    public UpdateSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity, final boolean internal) {
         this(null, identity, target, entity, internal);
     }
 
-    public UpdateSessionRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity, boolean internal) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setRequestEntity(entity);
-        this.setInternal(internal);
+    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity, final boolean internal) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
+        setInternal(internal);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new UpdateSessionRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getRequestEntity(), isInternal());
+        return new UpdateSessionRequest(getId(), getSessionIdentifier(), getTarget(), getRequestEntity(), isInternal());
     }
 
 

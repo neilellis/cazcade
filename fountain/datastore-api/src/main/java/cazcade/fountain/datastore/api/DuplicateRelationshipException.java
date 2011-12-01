@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
 
 
 public class DuplicateRelationshipException extends DataStoreException {
-    public DuplicateRelationshipException(Throwable throwable) {
+    public DuplicateRelationshipException(final Throwable throwable) {
         super(throwable);
     }
 
-    public DuplicateRelationshipException(@Nonnull String message, Object... params) {
+    public DuplicateRelationshipException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public DuplicateRelationshipException(Throwable cause, @Nonnull String message, Object... params) {
+    public DuplicateRelationshipException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

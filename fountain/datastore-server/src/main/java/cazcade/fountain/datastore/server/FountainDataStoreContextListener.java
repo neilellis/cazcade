@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSessionListener;
 public class FountainDataStoreContextListener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainDataStoreContextListener.class);
+    private static final Logger log = Logger.getLogger(FountainDataStoreContextListener.class);
 
     @Nonnull
     private final FountainDataStoreServer dataStore;
@@ -34,7 +34,7 @@ public class FountainDataStoreContextListener implements ServletContextListener,
     // -------------------------------------------------------
     // ServletContextListener implementation
     // -------------------------------------------------------
-    public void contextInitialized(ServletContextEvent sce) {
+    public void contextInitialized(final ServletContextEvent sce) {
         try {
             dataStore.start();
         } catch (Exception e) {
@@ -43,18 +43,18 @@ public class FountainDataStoreContextListener implements ServletContextListener,
 
     }
 
-    public void contextDestroyed(ServletContextEvent sce) {
+    public void contextDestroyed(final ServletContextEvent sce) {
         dataStore.stopIfNotStopped();
     }
 
     // -------------------------------------------------------
     // HttpSessionListener implementation
     // -------------------------------------------------------
-    public void sessionCreated(HttpSessionEvent se) {
+    public void sessionCreated(final HttpSessionEvent se) {
         /* Session is created. */
     }
 
-    public void sessionDestroyed(HttpSessionEvent se) {
+    public void sessionDestroyed(final HttpSessionEvent se) {
         /* Session is destroyed. */
     }
 
@@ -62,19 +62,19 @@ public class FountainDataStoreContextListener implements ServletContextListener,
     // HttpSessionAttributeListener implementation
     // -------------------------------------------------------
 
-    public void attributeAdded(HttpSessionBindingEvent sbe) {
+    public void attributeAdded(final HttpSessionBindingEvent sbe) {
         /* This method is called when an attribute 
            is added to a session.
         */
     }
 
-    public void attributeRemoved(HttpSessionBindingEvent sbe) {
+    public void attributeRemoved(final HttpSessionBindingEvent sbe) {
         /* This method is called when an attribute
            is removed from a session.
         */
     }
 
-    public void attributeReplaced(HttpSessionBindingEvent sbe) {
+    public void attributeReplaced(final HttpSessionBindingEvent sbe) {
         /* This method is invoked when an attibute
            is replaced in a session.
         */

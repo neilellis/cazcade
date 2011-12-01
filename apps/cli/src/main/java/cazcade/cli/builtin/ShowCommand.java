@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 
 public class ShowCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ShowCommand.class);
+    private static final Logger log = Logger.getLogger(ShowCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -36,14 +36,14 @@ public class ShowCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
 
         if (args.length < 2) {
             System.err.println("show <resource-type> <resource-name>");
             return null;
         }
 
-        LiquidMessage response;
+        final LiquidMessage response;
         response = CommandSupport.retrieveObject(args, shellSession);
         if (response == null) {
             return null;

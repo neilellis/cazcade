@@ -15,41 +15,44 @@ import java.util.List;
 public class ChatRequest extends AbstractUpdateRequest {
 
     public ChatRequest() {
+        super();
     }
 
-    public ChatRequest(LiquidUUID target, LSDEntity entity) {
+    public ChatRequest(final LiquidUUID target, final LSDEntity entity) {
         this(null, null, target, null, entity);
     }
 
-    public ChatRequest(LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
+    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
         this(null, identity, target, null, entity);
     }
 
-    public ChatRequest(LiquidSessionIdentifier identity, LiquidURI uri, LSDEntity entity) {
+    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
-    public ChatRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID target, @Nullable LiquidURI uri, LSDEntity entity) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setRequestEntity(entity);
-        this.setUri(uri);
+    public ChatRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDEntity entity) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
+        setUri(uri);
     }
 
-    public ChatRequest(LiquidURI uri, String value) {
-        this.setRequestEntity(LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT));
+    public ChatRequest(final LiquidURI uri, final String value) {
+        super();
+        setRequestEntity(LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT));
         //Time clocks vary so we don't want this set.
-        super.getRequestEntity().remove(LSDAttribute.PUBLISHED);
-        super.getRequestEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
-        this.setUri(uri);
+        getRequestEntity().remove(LSDAttribute.PUBLISHED);
+        getRequestEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
+        setUri(uri);
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri().getScheme().equals(LiquidURIScheme.alias)) {
+        if (getUri().getScheme() == LiquidURIScheme.alias) {
             return Collections.EMPTY_LIST;
         } else {
-            return super.getTarget() != null ? Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
+            return getTarget() != null ? Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
         }
     }
 
@@ -57,7 +60,7 @@ public class ChatRequest extends AbstractUpdateRequest {
     @Nullable
     @Override
     public LiquidMessage copy() {
-        return new ChatRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
+        return new ChatRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());
     }
 
     @Nonnull

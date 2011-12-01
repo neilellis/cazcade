@@ -5,14 +5,7 @@ import cazcade.fountain.index.model.MessageBase;
 import cazcade.fountain.index.model.MessageSource;
 import cazcade.fountain.index.model.MessageType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import java.io.Serializable;
-import java.lang.String;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -20,7 +13,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "message")
-public class MessageEntity extends MessageBase implements Serializable {
+public class MessageEntity extends MessageBase {
 
     private AliasEntity author;
     private BoardIndexEntity board;
@@ -32,7 +25,7 @@ public class MessageEntity extends MessageBase implements Serializable {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 
@@ -42,8 +35,8 @@ public class MessageEntity extends MessageBase implements Serializable {
         return messageText;
     }
 
-    public void setMessageText(String entryText) {
-        this.messageText = entryText;
+    public void setMessageText(final String entryText) {
+        messageText = entryText;
     }
 
     @ManyToOne(targetEntity = AliasEntity.class)
@@ -52,7 +45,7 @@ public class MessageEntity extends MessageBase implements Serializable {
         return author;
     }
 
-    public void setAuthor(AliasEntity author) {
+    public void setAuthor(final AliasEntity author) {
         this.author = author;
     }
 
@@ -61,7 +54,7 @@ public class MessageEntity extends MessageBase implements Serializable {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(final Date created) {
         this.created = created;
     }
 
@@ -70,7 +63,7 @@ public class MessageEntity extends MessageBase implements Serializable {
         return deleted;
     }
 
-    public void setDeleted(Date deleted) {
+    public void setDeleted(final Date deleted) {
         this.deleted = deleted;
     }
 
@@ -80,8 +73,8 @@ public class MessageEntity extends MessageBase implements Serializable {
         return externalEntryURL;
     }
 
-    public void setExternalEntryURL(String externalEntryId) {
-        this.externalEntryURL = externalEntryId;
+    public void setExternalEntryURL(final String externalEntryId) {
+        externalEntryURL = externalEntryId;
     }
 
     @Column(name = "source", nullable = true, columnDefinition = "int(1) default 0")
@@ -89,7 +82,7 @@ public class MessageEntity extends MessageBase implements Serializable {
         return source;
     }
 
-    public void setSource(MessageSource source) {
+    public void setSource(final MessageSource source) {
         this.source = source;
     }
 
@@ -99,7 +92,7 @@ public class MessageEntity extends MessageBase implements Serializable {
         return board;
     }
 
-    public void setBoard(BoardIndexEntity board) {
+    public void setBoard(final BoardIndexEntity board) {
         this.board = board;
     }
 
@@ -108,7 +101,7 @@ public class MessageEntity extends MessageBase implements Serializable {
         return type;
     }
 
-    public void setType(MessageType type) {
+    public void setType(final MessageType type) {
         this.type = type;
     }
 }

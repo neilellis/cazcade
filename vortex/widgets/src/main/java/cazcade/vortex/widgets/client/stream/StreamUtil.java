@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  */
 public class StreamUtil {
 
-    public static void addStreamEntry(final int maxRows, @Nonnull final InsertPanel parentPanel, @Nonnull VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final StreamEntry streamEntry, boolean autoDelete, final boolean allowUpdates) {
+    public static void addStreamEntry(final int maxRows, @Nonnull final InsertPanel parentPanel, @Nonnull final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final StreamEntry streamEntry, final boolean autoDelete, final boolean allowUpdates) {
         if (autoDelete) {
             WidgetUtil.removeFromParentGracefully(streamEntry, streamEntry.getAutoDeleteLifetime() * 1000);
         }

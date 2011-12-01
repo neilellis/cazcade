@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nonnull;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,26 +24,26 @@ public class FountainEmailService {
     MailService mailService;
 
 
-    public void send(@Nonnull LSDEntity user, @Nonnull LSDEntity alias, String templateName, String subject, Object data, boolean test) throws UnsupportedEncodingException {
+    public void send(@Nonnull final LSDEntity user, @Nonnull final LSDEntity alias, final String templateName, final String subject, final Object data, final boolean test) throws UnsupportedEncodingException {
 
-        Map<String, Object> templateData = new HashMap<String, Object>();
+        final Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
         templateData.put("alias", alias.getCamelCaseMap());
         templateData.put("subject", subject);
         templateData.put("data", data);
         //We use the hash when confirming user actions
-        templateData.put("hash", java.net.URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8"));
+        templateData.put("hash", URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8"));
         mailService.sendMailFromTemplate(templateName, subject, new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)},
                 new String[0], new String[0], templateData, test);
     }
 
 
-    public void sendRegistrationEmail(@Nonnull LSDEntity user) throws UnsupportedEncodingException {
+    public void sendRegistrationEmail(@Nonnull final LSDEntity user) throws UnsupportedEncodingException {
         //Please click on this link to complete your registration
-        String link = "http://boardcast.it/_login-confirm-reg?user=" +
-                java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
-                "&hash=" + java.net.URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8");
-        Map<String, Object> templateData = new HashMap<String, Object>();
+        final String link = "http://boardcast.it/_login-confirm-reg?user=" +
+                URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                "&hash=" + URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8");
+        final Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
         templateData.put("link", link);
         mailService.sendMailFromTemplate("welcome.html", "Welcome to Boardcast", new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)}, new String[0],
@@ -51,16 +52,16 @@ public class FountainEmailService {
 
     }
 
-    public void sendWelcomeEmail(LSDEntity user) {
+    public void sendWelcomeEmail(final LSDEntity user) {
 
     }
 
 
-    public void sendChangePasswordRequest(@Nonnull LSDEntity user, String hash) throws UnsupportedEncodingException {
-        String link = "http://boardcast.it/_password-change?username=" +
-                java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
-                "&hash=" + java.net.URLEncoder.encode(hash, "utf8");
-        Map<String, Object> templateData = new HashMap<String, Object>();
+    public void sendChangePasswordRequest(@Nonnull final LSDEntity user, final String hash) throws UnsupportedEncodingException {
+        final String link = "http://boardcast.it/_password-change?username=" +
+                URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                "&hash=" + URLEncoder.encode(hash, "utf8");
+        final Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
         templateData.put("link", link);
         mailService.sendMailFromTemplate("password.vm", "Password change request", new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)}, new String[0],

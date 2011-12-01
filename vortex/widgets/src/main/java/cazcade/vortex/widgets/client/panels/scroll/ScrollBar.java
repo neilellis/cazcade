@@ -16,10 +16,11 @@ public class ScrollBar extends AbsolutePanel {
     protected final Bar bar;
 
 
-    public ScrollBar(Widget outer, Widget inner) {
+    public ScrollBar(final Widget outer, final Widget inner) {
+        super();
         this.outer = outer;
         this.inner = inner;
-        this.bar = new Bar();
+        bar = new Bar();
         setStyleName("vortex-scroll-bar");
         DOM.setStyleAttribute(getElement(), "position", "absolute");
         add(bar);

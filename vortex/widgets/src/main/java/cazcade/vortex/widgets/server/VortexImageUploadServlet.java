@@ -30,9 +30,9 @@ public class VortexImageUploadServlet extends UploadAction {
 
     private final Executor storeExecutor = Executors.newCachedThreadPool();
 
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         super.init(config);
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "classpath:liquid-spring-config.xml",
                 "classpath:spring/image-service.xml");
         contentStore = (UserContentStore) applicationContext.getBean("userContentStore");
@@ -41,7 +41,7 @@ public class VortexImageUploadServlet extends UploadAction {
 
 
     @Override
-    public String executeAction(final HttpServletRequest request, @Nonnull List<FileItem> sessionFiles) throws UploadActionException {
+    public String executeAction(final HttpServletRequest request, @Nonnull final List<FileItem> sessionFiles) throws UploadActionException {
         try {
             String commaSeparated = "";
             for (final FileItem item : sessionFiles) {
@@ -49,11 +49,11 @@ public class VortexImageUploadServlet extends UploadAction {
                 /*
                 * Handle Form Fields.
                 */
-                final int suffixIndex = item.getName().lastIndexOf(".");
-                String suffix = suffixIndex >= 0 ? item.getName().substring(suffixIndex) : "";
+                final int suffixIndex = item.getName().lastIndexOf('.');
+                final String suffix = suffixIndex >= 0 ? item.getName().substring(suffixIndex) : "";
 
                 final String id = UUID.randomUUID().toString() + suffix;
-                String url = contentStore.getStoreURI(id).toString();
+                final String url = contentStore.getStoreURI(id).toString();
                 try {
                     contentStore.placeInStore(id, item.getInputStream(), item.getContentType(), true);
                     log.debug("Stored {0}", contentStore.getStoreURI(id));

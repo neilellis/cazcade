@@ -55,7 +55,7 @@ public class ImageScaleServlet extends HttpServlet {
     @Nonnull
     private static final String IMAGE_SCALE_CACHE = "image-scale-cache";
 
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         super.init(config);
         if (!CacheManager.getInstance().cacheExists(IMAGE_SCALE_CACHE)) {
             CacheManager.getInstance().addCache(IMAGE_SCALE_CACHE);
@@ -65,7 +65,7 @@ public class ImageScaleServlet extends HttpServlet {
 
 
     @Override
-    protected void doHead(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void doHead(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         super.doHead(req, resp);
         final String url = req.getAttribute("url") == null ? req.getParameter("url") : (String) req.getAttribute("url");
         final String w = req.getParameter("width");
@@ -74,7 +74,7 @@ public class ImageScaleServlet extends HttpServlet {
         if (scaleCache.get(key) != null && req.getHeader(IF_MODIFIED_SINCE) != null) {
             final Element element = scaleCache.get(key);
             element.getCreationTime();
-            if (req.getDateHeader(IF_MODIFIED_SINCE) > (element.getCreationTime() - 1000)) {
+            if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime() - 1000) {
                 resp.setStatus(304);
             } else {
                 resp.setStatus(200);
@@ -85,9 +85,9 @@ public class ImageScaleServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         final boolean debug = !Logger.isProduction() || req.getParameter("debug") != null;
-        long start = System.currentTimeMillis(); // Just for debugging
+        final long start = System.currentTimeMillis(); // Just for debugging
 
         // Get the requested uri as an inputstream
         final String url = req.getAttribute("url") == null ? req.getParameter("url") : (String) req.getAttribute("url");
@@ -97,7 +97,7 @@ public class ImageScaleServlet extends HttpServlet {
 
         if (scaleCache.get(key) == null) {
 
-            InputStream is = new URL(url).openStream();
+            final InputStream is = new URL(url).openStream();
             if (is == null) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, String.format("Could not find the requested resource (%s)", req.getRequestURI()));
                 return;
@@ -109,21 +109,25 @@ public class ImageScaleServlet extends HttpServlet {
             }
 
             // Compute the dimentions of the scaled image:
-            DimensionConstrain dims = getDimentionConstrainFromRequest(req, originalImage.getWidth(), originalImage.getHeight());
+            final DimensionConstrain dims = getDimentionConstrainFromRequest(req, originalImage.getWidth(), originalImage.getHeight());
 
             // Initialize a resample operation based on the computed dims
-            ResampleOp op = new ResampleOp(dims);
+            final ResampleOp op = new ResampleOp(dims);
 
             // If the user defined a filter parameter set it on the operation:
-            String filter = req.getParameter("f");
-            if (filter != null) op.setFilter(getResampleFilterByName(filter));
+            final String filter = req.getParameter("f");
+            if (filter != null) {
+                op.setFilter(getResampleFilterByName(filter));
+            }
 
             // If the user defined a unsharpenmask parameter set it on the operation:
-            String unsharpenmask = req.getParameter("um");
-            if (unsharpenmask != null) op.setUnsharpenMask(getUnsharpenMaskByName(unsharpenmask));
+            final String unsharpenmask = req.getParameter("um");
+            if (unsharpenmask != null) {
+                op.setUnsharpenMask(getUnsharpenMaskByName(unsharpenmask));
+            }
 
             // Create a scaled image:
-            BufferedImage scaledImage = op.filter(originalImage, null);
+            final BufferedImage scaledImage = op.filter(originalImage, null);
             logger.debug(String.format("Serving image %sx%s scalled to %sx%s with filter '%s' and unshurpenmask '%s' within %smillis", originalImage.getWidth(), originalImage.getHeight(), scaledImage.getWidth(), scaledImage.getHeight(), op.getFilter().getClass(), op.getUnsharpenMask(), System.currentTimeMillis() - start));
 
             if (debug) {
@@ -153,36 +157,36 @@ public class ImageScaleServlet extends HttpServlet {
             //
             final Element element = scaleCache.get(key);
             setDateHeaders(resp, element);
-            if (req.getDateHeader(IF_MODIFIED_SINCE) > (element.getCreationTime() - 1000)) {
+            if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime() - 1000) {
                 resp.setStatus(304);
             } else {
                 resp.setContentType("image/jpeg");
-                IOUtils.write((byte[]) (element.getValue()), resp.getOutputStream());
+                IOUtils.write((byte[]) element.getValue(), resp.getOutputStream());
             }
 
         }
         resp.flushBuffer();
     }
 
-    private void setDateHeaders(@Nonnull HttpServletResponse resp, @Nonnull Element element) {
+    private void setDateHeaders(@Nonnull final HttpServletResponse resp, @Nonnull final Element element) {
         resp.setDateHeader("Date", System.currentTimeMillis());
         resp.setDateHeader("Last-Modified", element.getLatestOfCreationAndUpdateTime());
         resp.setDateHeader("Expires", element.getExpirationTime());
         resp.setHeader("Cache-Control", "max-age=" + element.getTimeToLive());
     }
 
-    private DimensionConstrain getDimentionConstrainFromRequest(@Nonnull HttpServletRequest req,
-                                                                int defwidth,
-                                                                int defheight) {
+    private DimensionConstrain getDimentionConstrainFromRequest(@Nonnull final HttpServletRequest req,
+                                                                final int defwidth,
+                                                                final int defheight) {
         final String w = req.getParameter("width");
-        int width = getInt(w, defwidth);
+        final int width = getInt(w, defwidth);
         final String h = req.getParameter("height");
-        int height = getInt(h, defheight);
+        final int height = getInt(h, defheight);
 
         return DimensionConstrain.createMaxDimension(width, height);
     }
 
-    private int getInt(String val, int defaultvalue) {
+    private int getInt(final String val, final int defaultvalue) {
         try {
             final int i = Integer.parseInt(val);
             return i > 0 ? i : defaultvalue;
@@ -191,21 +195,37 @@ public class ImageScaleServlet extends HttpServlet {
         }
     }
 
-    private ResampleFilter getResampleFilterByName(String filter) {
-        if ("bicubic".equalsIgnoreCase(filter)) return ResampleFilters.getBiCubicFilter();
-        if ("bicubichfr".equalsIgnoreCase(filter)) return ResampleFilters.getBiCubicHighFreqResponse();
-        if ("bell".equalsIgnoreCase(filter)) return ResampleFilters.getBellFilter();
-        if ("box".equalsIgnoreCase(filter)) return ResampleFilters.getBoxFilter();
-        if ("bspline".equalsIgnoreCase(filter)) return ResampleFilters.getBSplineFilter();
-        if ("hermite".equalsIgnoreCase(filter)) return ResampleFilters.getHermiteFilter();
-        if ("mitchell".equalsIgnoreCase(filter)) return ResampleFilters.getMitchellFilter();
-        if ("triangle".equalsIgnoreCase(filter)) return ResampleFilters.getTriangleFilter();
+    private ResampleFilter getResampleFilterByName(final String filter) {
+        if ("bicubic".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getBiCubicFilter();
+        }
+        if ("bicubichfr".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getBiCubicHighFreqResponse();
+        }
+        if ("bell".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getBellFilter();
+        }
+        if ("box".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getBoxFilter();
+        }
+        if ("bspline".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getBSplineFilter();
+        }
+        if ("hermite".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getHermiteFilter();
+        }
+        if ("mitchell".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getMitchellFilter();
+        }
+        if ("triangle".equalsIgnoreCase(filter)) {
+            return ResampleFilters.getTriangleFilter();
+        }
 
         // Return the default filter:
         return ResampleFilters.getLanczos3Filter();
     }
 
-    private AdvancedResizeOp.UnsharpenMask getUnsharpenMaskByName(String mask) {
+    private AdvancedResizeOp.UnsharpenMask getUnsharpenMaskByName(final String mask) {
         try {
             return AdvancedResizeOp.UnsharpenMask.valueOf(mask);
         } catch (Exception e) {
@@ -214,13 +234,13 @@ public class ImageScaleServlet extends HttpServlet {
     }
 
     @Nonnull
-    public static BufferedImage fillTransparentPixels(@Nonnull BufferedImage image,
-                                                      Color fillColor) {
-        int w = image.getWidth();
-        int h = image.getHeight();
-        BufferedImage image2 = new BufferedImage(w, h,
+    public static BufferedImage fillTransparentPixels(@Nonnull final BufferedImage image,
+                                                      final Color fillColor) {
+        final int w = image.getWidth();
+        final int h = image.getHeight();
+        final BufferedImage image2 = new BufferedImage(w, h,
                 BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = image2.createGraphics();
+        final Graphics2D g = image2.createGraphics();
         g.setColor(fillColor);
         g.fillRect(0, 0, w, h);
         g.drawRenderedImage(image, null);

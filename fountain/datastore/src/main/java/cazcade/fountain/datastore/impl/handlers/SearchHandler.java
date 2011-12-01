@@ -22,16 +22,16 @@ import java.util.List;
  */
 public class SearchHandler extends AbstractDataStoreHandler<SearchRequest> implements SearchRequestHandler {
     @Nonnull
-    public SearchRequest handle(@Nonnull SearchRequest request) throws InterruptedException {
-        Transaction transaction = fountainNeo.beginTx();
+    public SearchRequest handle(@Nonnull final SearchRequest request) throws InterruptedException {
+        final Transaction transaction = fountainNeo.beginTx();
         try {
 
-            IndexHits<org.neo4j.graphdb.Node> results = fountainNeo.freeTextSearch(request.getSearchText());
-            LSDSimpleEntity searchResultEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.SEARCH_RESULTS, UUIDFactory.randomUUID());
-            List<LSDEntity> resultEntities = new ArrayList<LSDEntity>();
-            List<String> dedupUrls = new ArrayList<String>();
-            for (org.neo4j.graphdb.Node r : results) {
-                Node result = new Node(r);
+            final IndexHits<org.neo4j.graphdb.Node> results = fountainNeo.freeTextSearch(request.getSearchText());
+            final LSDSimpleEntity searchResultEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.SEARCH_RESULTS, UUIDFactory.randomUUID());
+            final List<LSDEntity> resultEntities = new ArrayList<LSDEntity>();
+            final List<String> dedupUrls = new ArrayList<String>();
+            for (final org.neo4j.graphdb.Node r : results) {
+                final Node result = new Node(r);
                 if (!dedupUrls.contains(result.getProperty(LSDAttribute.URI))) {
                     resultEntities.add(result.convertNodeToLSD(request.getDetail(), request.isInternal()));
                 }

@@ -10,31 +10,33 @@ import java.util.List;
 public class RetrieveSessionRequest extends AbstractRetrievalRequest {
 
     public RetrieveSessionRequest() {
+        super();
     }
 
-    public RetrieveSessionRequest(LiquidUUID target) {
+    public RetrieveSessionRequest(final LiquidUUID target) {
         this(null, null, target);
     }
 
-    public RetrieveSessionRequest(LiquidSessionIdentifier identity, LiquidUUID target) {
+    public RetrieveSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
-    public RetrieveSessionRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
+    public RetrieveSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrieveSessionRequest(getId(), getSessionIdentifier(), super.getTarget());
+        return new RetrieveSessionRequest(getId(), getSessionIdentifier(), getTarget());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW));
+        return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
     }
 
 

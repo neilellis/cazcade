@@ -25,12 +25,12 @@ public class VersionNumberChecker {
     private static void getVersionFromServer() {
         BuildVersionService.App.getInstance().getBuildVersion(new AsyncCallback<String>() {
             @Override
-            public void onFailure(Throwable caught) {
+            public void onFailure(final Throwable caught) {
                 ClientLog.log("Failed to obtain version number.");
             }
 
             @Override
-            public void onSuccess(String result) {
+            public void onSuccess(final String result) {
                 ClientLog.log("Build version is " + result);
                 if (version == null) {
                     version = result;

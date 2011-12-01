@@ -12,17 +12,17 @@ import java.util.Map;
 public class NeoPropertyStore implements LSDPropertyStore {
     private final Node neoNode;
 
-    public NeoPropertyStore(Node neoNode) {
+    public NeoPropertyStore(final Node neoNode) {
         this.neoNode = neoNode;
     }
 
     @Override
-    public void put(String property, String value) {
+    public void put(final String property, final String value) {
         neoNode.setProperty(property, value);
     }
 
     @Override
-    public String get(String property) {
+    public String get(final String property) {
         return String.valueOf(neoNode.getProperty(property));
     }
 
@@ -32,7 +32,7 @@ public class NeoPropertyStore implements LSDPropertyStore {
     }
 
     @Override
-    public void remove(String property) {
+    public void remove(final String property) {
         neoNode.removeProperty(property);
     }
 
@@ -43,7 +43,7 @@ public class NeoPropertyStore implements LSDPropertyStore {
     }
 
     @Override
-    public boolean containsProperty(String property) {
+    public boolean containsProperty(final String property) {
         return neoNode.hasProperty(property);
     }
 

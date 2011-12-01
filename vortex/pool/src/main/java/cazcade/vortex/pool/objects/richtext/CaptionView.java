@@ -16,11 +16,13 @@ public class CaptionView extends RichTextView {
     }
 
     public CaptionView() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }
 
-    public CaptionView(FormatUtil formatter) {
+    public CaptionView(final FormatUtil formatter) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setFormatter(formatter);
 

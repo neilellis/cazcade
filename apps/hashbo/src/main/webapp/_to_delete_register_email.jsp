@@ -1,47 +1,51 @@
+<%@ page import="cazcade.common.CommonConstants" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
+<%@ page import="cazcade.liquid.api.lsd.LSDEntity" %>
+<%@ page import="org.jasypt.digest.StandardStringDigester" %>
 <%@ page import="javax.mail.Message" %>
 <%@ page import="javax.mail.Session" %>
 <%@ page import="javax.mail.Transport" %>
+<%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
 <%@ page import="javax.mail.internet.InternetAddress" %>
 <%@ page import="javax.mail.internet.MimeMessage" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
 <%@ page import="java.util.Properties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    cazcade.liquid.api.lsd.LSDEntity user = (cazcade.liquid.api.lsd.LSDEntity) session.getAttribute(cazcade.common.CommonConstants.NEW_USER_ATTRIBUTE);
+    final LSDEntity user = (LSDEntity) session.getAttribute(CommonConstants.NEW_USER_ATTRIBUTE);
     if (user == null) {
         throw new RuntimeException("No user in session.");
     }
-    String host = "smtp.sendgrid.net";
-    String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-    String from = "info@hashbo.com";
+    final String host = "smtp.sendgrid.net";
+    final String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
+    final String from = "info@hashbo.com";
 
-    String name = user.getAttribute(LSDAttribute.FULL_NAME);
-    String subject = "Welcome!";
+    final String name = user.getAttribute(LSDAttribute.FULL_NAME);
+    final String subject = "Welcome!";
 
-    org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
-    String messageText = "Please click on this link to register: http://beta.hashbo.com/confirm_reg.jsp?user=" +
-            java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
-            "&hash=" + java.net.URLEncoder.encode(digester.digest(to), "utf8");
+    final StandardStringDigester digester = new StandardStringDigester();
+    final String messageText = "Please click on this link to register: http://beta.hashbo.com/confirm_reg.jsp?user=" +
+            URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+            "&hash=" + URLEncoder.encode(digester.digest(to), "utf8");
 
-    boolean sessionDebug = false;
-    Properties props = System.getProperties();
-    props.put("mail.host", host);
-    props.put("mail.transport.protocol", "smtp");
-    props.put("mail.smtp.auth", "true");
-    Session mailSession = Session.getDefaultInstance(props, null);
+    final boolean sessionDebug = false;
+    final Properties props = System.getProperties();
+    props.setProperty("mail.host", host);
+    props.setProperty("mail.transport.protocol", "smtp");
+    props.setProperty("mail.smtp.auth", "true");
+    final Session mailSession = Session.getDefaultInstance(props, null);
     mailSession.setDebug(sessionDebug);
-    Message msg = new MimeMessage(mailSession);
+    final Message msg = new MimeMessage(mailSession);
     msg.setFrom(new InternetAddress(from, "Hashbo"));
-    InternetAddress[] address = {new InternetAddress(to)};
+    final InternetAddress[] address = {new InternetAddress(to)};
     msg.setRecipients(Message.RecipientType.TO, address);
     msg.setSubject(subject);
     msg.setSentDate(new Date());
     msg.setText(messageText);
 
     msg.saveChanges();
-    Transport transport = mailSession.getTransport("smtp");
+    final Transport transport = mailSession.getTransport("smtp");
     transport.connect(host, "hashbo", "thx1139");
     transport.sendMessage(msg, msg.getAllRecipients());
     transport.close();

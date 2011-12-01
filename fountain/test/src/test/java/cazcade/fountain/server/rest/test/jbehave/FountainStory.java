@@ -20,7 +20,7 @@ public abstract class FountainStory extends JUnitStory {
     public Configuration configuration() {
 
         //Simple default configuration for now.
-        return new MostUsefulConfiguration().useStoryLoader(new LoadFromClasspath(this.getClass().getClassLoader()))
+        return new MostUsefulConfiguration().useStoryLoader(new LoadFromClasspath(getClass().getClassLoader()))
                 .useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats().withFormats(StoryReporterBuilder.Format.CONSOLE,
                         StoryReporterBuilder.Format.TXT));
     }

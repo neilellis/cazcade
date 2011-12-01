@@ -41,6 +41,7 @@ public class CommentBox extends Composite {
     Button sendButton;
 
     public CommentBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         initTextBox();
 
@@ -56,13 +57,13 @@ public class CommentBox extends Composite {
         DOM.setStyleAttribute(textBox.getElement(), "marginTop", "7px");
         DOM.setStyleAttribute(textBox.getElement(), "borderRadius", "4px");
         textBox.addInitializeHandler(new InitializeHandler() {
-            public void onInitialize(InitializeEvent ie) {
-                IFrameElement fe = (IFrameElement)
+            public void onInitialize(final InitializeEvent ie) {
+                final IFrameElement fe = (IFrameElement)
                         textBox.getElement().cast();
                 fe.setFrameBorder(0);
                 fe.setMarginWidth(0);
                 fe.setScrolling("no");
-                Style s = fe.getContentDocument().getBody().getStyle();
+                final Style s = fe.getContentDocument().getBody().getStyle();
                 s.setProperty("fontFamily", "'Helvetica Neue',Arial,sans- serif");
                 s.setProperty("fontSize", "0.8em");
                 s.setProperty("width", "480x");
@@ -79,7 +80,7 @@ public class CommentBox extends Composite {
 
         sendButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                     @Override
                     public void execute() {
@@ -93,18 +94,18 @@ public class CommentBox extends Composite {
 
                         BusFactory.getInstance().send(new AddCommentRequest(uri, text), new AbstractResponseCallback<AddCommentRequest>() {
                             @Override
-                            public void onSuccess(AddCommentRequest message, AddCommentRequest response) {
+                            public void onSuccess(final AddCommentRequest message, final AddCommentRequest response) {
                                 Track.getInstance().trackEvent("Comment", "Comment Added");
                             }
 
                             @Override
-                            public void onFailure(AddCommentRequest message, @Nonnull AddCommentRequest response) {
+                            public void onFailure(final AddCommentRequest message, @Nonnull final AddCommentRequest response) {
                                 textBox.setText(text);
                                 super.onFailure(message, response);
                             }
 
                             @Override
-                            public void onException(@Nonnull AddCommentRequest message, @Nonnull Throwable error) {
+                            public void onException(@Nonnull final AddCommentRequest message, @Nonnull final Throwable error) {
                                 textBox.setText(text);
                                 super.onException(message, error);
                             }

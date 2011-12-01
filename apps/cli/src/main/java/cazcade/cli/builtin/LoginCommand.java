@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 
 public class LoginCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LoginCommand.class);
+    private static final Logger log = Logger.getLogger(LoginCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -38,7 +38,7 @@ public class LoginCommand extends AbstractShortLivedCommand {
     }
 
 
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
         if (args.length < 2) {
             System.err.println("You must specify the username and password");
             return "";
@@ -47,13 +47,13 @@ public class LoginCommand extends AbstractShortLivedCommand {
 //        if (principal == null) {
 //            return null;
 //        }
-        String username = args[0];
-        String password = args[1];
-        LiquidMessage response = shellSession.getDataStore().process(new CreateSessionRequest(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username), new ClientApplicationIdentifier("Shell Client", "123", "UNKNOWN")));
+        final String username = args[0];
+        final String password = args[1];
+        final LiquidMessage response = shellSession.getDataStore().process(new CreateSessionRequest(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username), new ClientApplicationIdentifier("Shell Client", "123", "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
         final LiquidUUID sessionId = response.getResponse().getUUID();
         if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
-            LiquidSessionIdentifier identity = new LiquidSessionIdentifier(username, sessionId);
+            final LiquidSessionIdentifier identity = new LiquidSessionIdentifier(username, sessionId);
             final LiquidMessage visitPoolResponse = shellSession.getDataStore().process(new VisitPoolRequest(identity, new LiquidURI("pool:///people/" + username)));
             final LSDEntity visitPoolEntity = visitPoolResponse.getResponse();
             shellSession.setCurrentPool(visitPoolEntity);

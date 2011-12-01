@@ -20,7 +20,7 @@ public class LongPressEvent extends GestureEvent<LongPressHandler> {
     }
 
 
-    public LongPressEvent(long duration, long endTime, DomEvent event, long startTime, int x, int y) {
+    public LongPressEvent(final long duration, final long endTime, final DomEvent event, final long startTime, final int x, final int y) {
         super(0, 0, duration, endTime, event, startTime, 0, 0, x, y, 0, 0);
     }
 
@@ -30,7 +30,7 @@ public class LongPressEvent extends GestureEvent<LongPressHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull LongPressHandler handler) {
+    protected void dispatch(@Nonnull final LongPressHandler handler) {
         handler.onLongPress(this);
     }
 }

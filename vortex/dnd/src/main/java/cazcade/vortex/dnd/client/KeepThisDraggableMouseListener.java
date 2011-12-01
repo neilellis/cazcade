@@ -23,7 +23,7 @@ public class KeepThisDraggableMouseListener
     private int startY;
     private int delta;
 
-    public KeepThisDraggableMouseListener(AbsolutePanel container, @Nonnull Widget widget) {
+    public KeepThisDraggableMouseListener(final AbsolutePanel container, @Nonnull final Widget widget) {
         this.container = container;
         this.widget = widget;
         originalStyle = widget.getElement().getAttribute("style");
@@ -33,7 +33,7 @@ public class KeepThisDraggableMouseListener
     }
 
 
-    public void onMouseDown(@Nonnull MouseDownEvent event) {
+    public void onMouseDown(@Nonnull final MouseDownEvent event) {
         dragging = true;
 
 // capturing the mouse to the dragged widget.
@@ -46,7 +46,7 @@ public class KeepThisDraggableMouseListener
     }
 
 
-    public void onMouseUp(@Nonnull MouseUpEvent event) {
+    public void onMouseUp(@Nonnull final MouseUpEvent event) {
         dragging = false;
         DOM.releaseCapture(container.getElement());
         ClientLog.log("UP", null);
@@ -59,7 +59,7 @@ public class KeepThisDraggableMouseListener
     }
 
 
-    public void onMouseMove(@Nonnull MouseMoveEvent event) {
+    public void onMouseMove(@Nonnull final MouseMoveEvent event) {
         if (dragging) {
 // we don't want the widget to go off-screen, so the top/left
 // values should always remain be positive.

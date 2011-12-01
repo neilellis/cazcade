@@ -15,7 +15,7 @@ public final class SerializedRequest implements Serializable {
     public SerializedRequest() {
     }
 
-    public SerializedRequest(LiquidRequestType type, LSDEntity entity) {
+    public SerializedRequest(final LiquidRequestType type, final LSDEntity entity) {
         this.type = type;
         this.entity = entity;
     }

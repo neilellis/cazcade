@@ -28,7 +28,7 @@ public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
     }
 
     @Override
-    public void onLocalHistoryTokenChanged(String token) {
+    public void onLocalHistoryTokenChanged(final String token) {
 
     }
 
@@ -44,6 +44,7 @@ public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
     final RegisterPanel registerPanel;
 
     public VortexLoginOrRegisterPanel(final Runnable loginAction, final Runnable registerAction) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         registerPanel = new RegisterPanel();
         loginPanel.setOnSuccessAction(loginAction);

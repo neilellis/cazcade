@@ -24,17 +24,17 @@ public class PositionEntity extends PositionBase {
         return positionId;
     }
 
-    public void setBoardPositionId(String boardPositionId) {
-        this.positionId = boardPositionId;
+    public void setBoardPositionId(final String boardPositionId) {
+        positionId = boardPositionId;
     }
 
 
     @Column(name = "last_read", nullable = true)
     public Date getLastRead() {
-        return this.lastRead;
+        return lastRead;
     }
 
-    public void setLastRead(Date lastRead) {
+    public void setLastRead(final Date lastRead) {
         this.lastRead = lastRead;
     }
 
@@ -43,7 +43,7 @@ public class PositionEntity extends PositionBase {
         return lastWrote;
     }
 
-    public void setLastWrote(Date lastWrote) {
+    public void setLastWrote(final Date lastWrote) {
         this.lastWrote = lastWrote;
     }
 
@@ -53,7 +53,7 @@ public class PositionEntity extends PositionBase {
         return alias;
     }
 
-    public void setAlias(AliasEntity alias) {
+    public void setAlias(final AliasEntity alias) {
         this.alias = alias;
     }
 
@@ -62,10 +62,9 @@ public class PositionEntity extends PositionBase {
         return resourceUri;
     }
 
-    public void setResourceUri(String uri) {
-        this.resourceUri = uri;
+    public void setResourceUri(final String uri) {
+        resourceUri = uri;
     }
-
 
 
 }

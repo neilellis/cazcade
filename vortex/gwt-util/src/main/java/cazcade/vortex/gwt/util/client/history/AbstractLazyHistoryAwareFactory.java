@@ -18,7 +18,7 @@ public abstract class AbstractLazyHistoryAwareFactory implements HistoryAwareFac
     public void withInstance(@Nonnull final HistoryAwareFactoryCallback callback) {
         GWT.runAsync(new RunAsyncCallback() {
             @Override
-            public void onFailure(Throwable reason) {
+            public void onFailure(final Throwable reason) {
                 //TODO
             }
 
@@ -39,12 +39,12 @@ public abstract class AbstractLazyHistoryAwareFactory implements HistoryAwareFac
     protected abstract HistoryAware getInstanceInternal();
 
     @Override
-    public void setHistoryManager(HistoryManager historyManager) {
+    public void setHistoryManager(final HistoryManager historyManager) {
         this.historyManager = historyManager;
     }
 
     @Override
-    public void setHistoryToken(String token) {
+    public void setHistoryToken(final String token) {
         this.token = token;
     }
 }

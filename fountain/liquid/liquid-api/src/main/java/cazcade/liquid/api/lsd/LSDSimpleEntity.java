@@ -248,7 +248,7 @@ public class LSDSimpleEntity implements LSDEntity {
         return hasSubEntity(keyString);
     }
 
-    private boolean hasSubEntity(String keyString) {
+    private boolean hasSubEntity(final String keyString) {
         for (final String key : lsdProperties.getProperties()) {
             if (key.startsWith(keyString + '.')) {
                 return true;

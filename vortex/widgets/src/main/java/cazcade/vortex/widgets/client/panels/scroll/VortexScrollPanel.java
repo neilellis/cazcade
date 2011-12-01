@@ -55,11 +55,11 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
     private final ScrollAreaPanel outer;
     private int offsetY;
 
-    public VortexScrollPanel(@Nonnull Widget inner, boolean xMovementAllowed, boolean yMovementAllowed, boolean startInMiddle, Runnable onUserAction) {
+    public VortexScrollPanel(@Nonnull final Widget inner, final boolean xMovementAllowed, final boolean yMovementAllowed, final boolean startInMiddle, final Runnable onUserAction) {
         this(inner, xMovementAllowed, yMovementAllowed, startInMiddle, false, onUserAction);
     }
 
-    public VortexScrollPanel(@Nonnull Widget inner, boolean xMovementAllowed, boolean yMovementAllowed, boolean startInMiddle, boolean pageFlow, Runnable onUserAction) {
+    public VortexScrollPanel(@Nonnull final Widget inner, final boolean xMovementAllowed, final boolean yMovementAllowed, final boolean startInMiddle, final boolean pageFlow, final Runnable onUserAction) {
         super("");
         this.inner = inner;
         this.xMovementAllowed = xMovementAllowed;
@@ -83,7 +83,7 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
 
     }
 
-    private void setHeightForFlow(boolean pageFlow) {
+    private void setHeightForFlow(final boolean pageFlow) {
         if (pageFlow) {
             outer.setHeight("auto");
         } else {
@@ -126,12 +126,12 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
 
     @Override
     public double getRightBounds() {
-        return this.getOffsetWidth();
+        return getOffsetWidth();
     }
 
     @Override
     public double getBottomBounds() {
-        return this.getOffsetHeight();
+        return getOffsetHeight();
     }
 
     @Override
@@ -141,7 +141,7 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
 
     @Override
     public Element getBoundingElement() {
-        return this.getElement();
+        return getElement();
     }
 
     @Override
@@ -158,9 +158,9 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
             add(horizontalScrollBar);
             add(verticalScrollBar);
             //Now it's all set up, add the event handler.
-            EventBasedGestureController handler = new EventBasedGestureController(this, inner, xMovementAllowed, yMovementAllowed);
+            final EventBasedGestureController handler = new EventBasedGestureController(this, inner, xMovementAllowed, yMovementAllowed);
             outer.init(handler);
-            this.getElement().setId((System.currentTimeMillis() + "-" + Math.random()).replace(',', '_'));
+            getElement().setId((System.currentTimeMillis() + "-" + Math.random()).replace(',', '_'));
             new Timer() {
                 @Override
                 public void run() {
@@ -170,33 +170,33 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
 
                 }
             }.schedule(100);
-            setScrollHandler(this, this.getElement().getId());
+            setScrollHandler(this, getElement().getId());
         }
     }
 
 
-    public HandlerRegistration addEndDragHandler(EndDragHandler endDragHandler) {
+    public HandlerRegistration addEndDragHandler(final EndDragHandler endDragHandler) {
         return addHandler(endDragHandler, EndDragEvent.getType());
     }
 
-    public HandlerRegistration addDragHandler(DragHandler dragHandler) {
+    public HandlerRegistration addDragHandler(final DragHandler dragHandler) {
         return addHandler(dragHandler, DragEvent.getType());
     }
 
-    public HandlerRegistration addHoldDragHandler(HoldDragHandler dragHandler) {
+    public HandlerRegistration addHoldDragHandler(final HoldDragHandler dragHandler) {
         return addHandler(dragHandler, HoldDragEvent.getType());
     }
 
-    public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+    public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler handler) {
         return addHandler(handler, MouseWheelEvent.getType());
     }
 
-    public void onDrag(@Nonnull DragEvent dragEvent) {
+    public void onDrag(@Nonnull final DragEvent dragEvent) {
         onDragInternal(dragEvent);
     }
 
 
-    private void onDragInternal(@Nonnull GestureEvent event) {
+    private void onDragInternal(@Nonnull final GestureEvent event) {
         userAction();
 
         int x = 0;
@@ -220,7 +220,7 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
                 if (inner.getOffsetHeight() > offsetLimitY()) {
                     y = offsetLimitY() + (int) ((offsetY + event.getDeltaY() - offsetLimitY()) * 0.2);
                 }
-            } else if ((offsetY + event.getDeltaY() > 0)) {
+            } else if (offsetY + event.getDeltaY() > 0) {
                 y = (int) ((offsetY + event.getDeltaY()) * 0.2);
             } else {
                 y = offsetY + event.getDeltaY();
@@ -232,26 +232,26 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
     }
 
     private int offsetLimitY() {
-        return (-inner.getOffsetHeight() + outer.getOffsetHeight());
+        return -inner.getOffsetHeight() + outer.getOffsetHeight();
     }
 
     private int offsetLimitX() {
-        return (-inner.getOffsetWidth() + outer.getOffsetWidth());
+        return -inner.getOffsetWidth() + outer.getOffsetWidth();
     }
 
-    private void moveTo(int x, int y, int speed) {
+    private void moveTo(final int x, final int y, final int speed) {
         horizontalScrollBar.update(x);
         verticalScrollBar.update(y);
         browserUtil.translateXY(inner, x, y, speed);
     }
 
-    public void onHoldDrag(@Nonnull HoldDragEvent holdDragEvent) {
+    public void onHoldDrag(@Nonnull final HoldDragEvent holdDragEvent) {
         onDragInternal(holdDragEvent);
         userAction();
 
     }
 
-    public void onEndDrag(@Nonnull EndDragEvent endDragEvent) {
+    public void onEndDrag(@Nonnull final EndDragEvent endDragEvent) {
         final int deltaX = endDragEvent.getDeltaX();
         final int deltaY = endDragEvent.getDeltaY();
         ClientLog.log("offset-x= " + offsetX + " and delta-x=" + deltaX);
@@ -260,9 +260,9 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
 
     }
 
-    private void moveToDelta(double deltaX, double deltaY) {
+    private void moveToDelta(final double deltaX, final double deltaY) {
         if (xMovementAllowed) {
-            if (-(offsetX + deltaX) > (inner.getOffsetWidth() - outer.getOffsetWidth())) {
+            if (-(offsetX + deltaX) > inner.getOffsetWidth() - outer.getOffsetWidth()) {
                 if (inner.getOffsetWidth() > offsetLimitX()) {
                     ClientLog.log("Snapped to end X.");
                     offsetX = -inner.getOffsetWidth() + outer.getOffsetWidth();
@@ -278,12 +278,12 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
         }
 
         if (yMovementAllowed) {
-            if (-(offsetY + deltaY) > (inner.getOffsetHeight() - outer.getOffsetHeight())) {
+            if (-(offsetY + deltaY) > inner.getOffsetHeight() - outer.getOffsetHeight()) {
                 if (inner.getOffsetHeight() > offsetLimitY()) {
                     offsetY = outer.getOffsetHeight() - inner.getOffsetHeight();
                     ClientLog.log("Snapped to end Y, offsetY=" + offsetY);
                 }
-            } else if ((offsetY + deltaY > 0)) {
+            } else if (offsetY + deltaY > 0) {
                 ClientLog.log("Snapped back Y.");
                 offsetY = 0;
             } else if (offsetY + inner.getOffsetHeight() < outer.getOffsetHeight()) {
@@ -310,7 +310,7 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
     }
 
     public boolean isAtBottom() {
-        return offsetY > (outer.getOffsetHeight() - inner.getOffsetHeight() - 40);
+        return offsetY > outer.getOffsetHeight() - inner.getOffsetHeight() - 40;
     }
 
     public void scrollToBottom() {
@@ -319,12 +319,12 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
     }
 
     @Override
-    public void onMouseWheel(@Nonnull MouseWheelEvent event) {
+    public void onMouseWheel(@Nonnull final MouseWheelEvent event) {
         moveToDelta(browserUtil.convertMouseScrollDeltaXToPixelDelta(event), browserUtil.convertMouseScrollDeltaYToPixelDelta(event));
         userAction();
     }
 
-    private void mouseScrollHandler(double deltaX, double deltaY) {
+    private void mouseScrollHandler(final double deltaX, final double deltaY) {
         moveToDelta(browserUtil.convertMouseScrollDeltaXToPixelDelta(deltaX), browserUtil.convertMouseScrollDeltaYToPixelDelta(deltaY));
         userAction();
     }
@@ -343,12 +343,12 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
         $wnd.setupScrolling(objectID, scrollEvent);
     }-*/;
 
-    public void scrollToX(double x, int speed) {
-        moveToDelta(offsetX - ((int) x), speed);
+    public void scrollToX(final double x, final int speed) {
+        moveToDelta(offsetX - (int) x, speed);
     }
 
-    public void scrollToY(double y) {
-        moveToDelta(0, offsetY - ((int) y));
+    public void scrollToY(final double y) {
+        moveToDelta(0, offsetY - (int) y);
     }
 
     public void scrollToTopLeft() {
@@ -358,7 +358,7 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
 
     private class ScrollAreaPanel extends AbsolutePanel implements HasAllMouseHandlers, HasAllTouchHandlers {
 
-        private void init(EventBasedGestureController handler) {
+        private void init(final EventBasedGestureController handler) {
             addMouseUpHandler(handler);
             addMouseDownHandler(handler);
             addMouseMoveHandler(handler);
@@ -376,39 +376,39 @@ public final class VortexScrollPanel extends HTMLPanel implements GestureControl
             return addDomHandler(mouseUpHandler, MouseUpEvent.getType());
         }
 
-        public HandlerRegistration addMouseOutHandler(MouseOutHandler mouseOutHandler) {
+        public HandlerRegistration addMouseOutHandler(final MouseOutHandler mouseOutHandler) {
             return addDomHandler(mouseOutHandler, MouseOutEvent.getType());
         }
 
-        public HandlerRegistration addMouseOverHandler(MouseOverHandler mouseOverHandler) {
+        public HandlerRegistration addMouseOverHandler(final MouseOverHandler mouseOverHandler) {
             return addDomHandler(mouseOverHandler, MouseOverEvent.getType());
         }
 
-        public HandlerRegistration addMouseWheelHandler(MouseWheelHandler mouseWheelHandler) {
+        public HandlerRegistration addMouseWheelHandler(final MouseWheelHandler mouseWheelHandler) {
             return addDomHandler(mouseWheelHandler, MouseWheelEvent.getType());
         }
 
-        public HandlerRegistration addMouseDownHandler(MouseDownHandler mouseDownHandler) {
+        public HandlerRegistration addMouseDownHandler(final MouseDownHandler mouseDownHandler) {
             return addDomHandler(mouseDownHandler, MouseDownEvent.getType());
         }
 
-        public HandlerRegistration addMouseMoveHandler(MouseMoveHandler mouseMoveHandler) {
+        public HandlerRegistration addMouseMoveHandler(final MouseMoveHandler mouseMoveHandler) {
             return addDomHandler(mouseMoveHandler, MouseMoveEvent.getType());
         }
 
-        public HandlerRegistration addTouchStartHandler(TouchStartHandler touchStartHandler) {
+        public HandlerRegistration addTouchStartHandler(final TouchStartHandler touchStartHandler) {
             return addDomHandler(touchStartHandler, TouchStartEvent.getType());
         }
 
-        public HandlerRegistration addTouchEndHandler(TouchEndHandler touchEndHandler) {
+        public HandlerRegistration addTouchEndHandler(final TouchEndHandler touchEndHandler) {
             return addDomHandler(touchEndHandler, TouchEndEvent.getType());
         }
 
-        public HandlerRegistration addTouchMoveHandler(TouchMoveHandler touchMoveHandler) {
+        public HandlerRegistration addTouchMoveHandler(final TouchMoveHandler touchMoveHandler) {
             return addDomHandler(touchMoveHandler, TouchMoveEvent.getType());
         }
 
-        public HandlerRegistration addTouchCancelHandler(TouchCancelHandler touchCancelHandler) {
+        public HandlerRegistration addTouchCancelHandler(final TouchCancelHandler touchCancelHandler) {
             return addDomHandler(touchCancelHandler, TouchCancelEvent.getType());
         }
 

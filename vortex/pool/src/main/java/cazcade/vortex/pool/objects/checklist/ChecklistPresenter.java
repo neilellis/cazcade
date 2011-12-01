@@ -21,16 +21,16 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<ChecklistView> {
-    public ChecklistPresenter(PoolPresenter poolPresenter, @Nonnull final LSDEntity entity, @Nonnull final ChecklistView view, VortexThreadSafeExecutor threadSafeExecutor, FormatUtil features) {
+    public ChecklistPresenter(final PoolPresenter poolPresenter, @Nonnull final LSDEntity entity, @Nonnull final ChecklistView view, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
         super(poolPresenter, entity, view, threadSafeExecutor, features);
         //make sure we set editable before setText (very important)
         view.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                LSDEntity minimalEntity = getEntity().asUpdateEntity();
+                final LSDEntity minimalEntity = getEntity().asUpdateEntity();
                 BusFactory.getInstance().send(new UpdatePoolRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolRequest message, UpdatePoolRequest response) {
+                    public void onSuccess(final UpdatePoolRequest message, final UpdatePoolRequest response) {
                     }
                 });
             }
@@ -38,9 +38,9 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
 
         BusFactory.getInstance().send(new RetrievePoolRequest(getEntity().getURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(RetrievePoolRequest message, @Nonnull RetrievePoolRequest response) {
+            public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
                 final List<LSDEntity> children = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (LSDEntity child : children) {
+                for (final LSDEntity child : children) {
 
                     final String text = child.getAttribute(LSDAttribute.TEXT_EXTENDED);
                     if (text != null) {
@@ -80,7 +80,7 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
     }
 
     @Override
-    public boolean willAccept(@Nonnull LSDTypeDef type) {
+    public boolean willAccept(@Nonnull final LSDTypeDef type) {
         return type.canBe(LSDDictionaryTypes.TEXT);
     }
 }

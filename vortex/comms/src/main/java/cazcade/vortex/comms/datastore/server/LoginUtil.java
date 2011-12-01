@@ -31,7 +31,7 @@ import java.util.Properties;
  */
 public class LoginUtil {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LoginUtil.class);
+    private static final Logger log = Logger.getLogger(LoginUtil.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
     @Nonnull
@@ -46,13 +46,13 @@ public class LoginUtil {
     public static final String APP_KEY = "123";
 
     @Nonnull
-    public static LiquidSessionIdentifier login(@Nonnull ClientSessionManager clientSessionManager, @Nonnull FountainDataStore dataStore, @Nonnull LiquidURI alias, @Nonnull HttpSession session) throws Exception {
-        LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
+    public static LiquidSessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias, @Nonnull final HttpSession session) throws Exception {
+        final LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
         final LSDEntity responseEntity = response.getResponse();
         if (responseEntity.isA(LSDDictionaryTypes.SESSION)) {
-            LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getUUID());
+            final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getUUID());
             createClientSession(clientSessionManager, serverSession, true);
             if (!serverSession.isAnon()) {
                 placeServerSessionInHttpSession(dataStore, session, serverSession);
@@ -64,7 +64,7 @@ public class LoginUtil {
         }
     }
 
-    public static void placeServerSessionInHttpSession(@Nonnull FountainDataStore dataStore, @Nonnull HttpSession session, @Nonnull LiquidSessionIdentifier serverSession) {
+    public static void placeServerSessionInHttpSession(@Nonnull final FountainDataStore dataStore, @Nonnull final HttpSession session, @Nonnull final LiquidSessionIdentifier serverSession) {
         final LSDEntity aliasEntity;
         try {
             aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
@@ -79,12 +79,12 @@ public class LoginUtil {
     }
 
 
-    public static ClientSession createClientSession(@Nonnull ClientSessionManager clientSessionManager, @Nonnull LiquidSessionIdentifier identity, boolean create) {
-        ClientSession clientSession;
+    public static ClientSession createClientSession(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final LiquidSessionIdentifier identity, final boolean create) {
+        final ClientSession clientSession;
         if (!clientSessionManager.hasSession(identity.getSession().toString()) && create) {
-            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
-            PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
-            Properties properties = new Properties();
+            final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
+            final PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
+            final Properties properties = new Properties();
             properties.setProperty("username", identity.getName());
             properties.setProperty("client.device", "web");
             properties.setProperty("client.type", "web");
@@ -99,7 +99,7 @@ public class LoginUtil {
 
             //The session manager looks after spring contexts and expires them.
             clientSession = new ClientSession(context, new Date());
-            ClientSessionMessageListener listener = (ClientSessionMessageListener) context.getBean("clientSessionMessageListener");
+            final ClientSessionMessageListener listener = (ClientSessionMessageListener) context.getBean("clientSessionMessageListener");
             listener.setSessionManager(clientSessionManager);
             clientSessionManager.addSession(identity.getSession().toString(), clientSession);
         } else {
@@ -109,8 +109,8 @@ public class LoginUtil {
     }
 
     @Nullable
-    public static LSDEntity register(@Nonnull HttpSession session, @Nonnull FountainDataStore theDataStore, String fullname, @Nonnull String username, String password, String emailAddress, boolean restricted) {
-        LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER, UUIDFactory.randomUUID());
+    public static LSDEntity register(@Nonnull final HttpSession session, @Nonnull final FountainDataStore theDataStore, final String fullname, @Nonnull final String username, final String password, final String emailAddress, final boolean restricted) {
+        final LSDEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER, UUIDFactory.randomUUID());
         entity.setAttribute(LSDAttribute.FULL_NAME, fullname);
         entity.setAttribute(LSDAttribute.NAME, username);
         entity.setAttribute(LSDAttribute.PLAIN_PASSWORD, password);
@@ -118,7 +118,7 @@ public class LoginUtil {
         entity.setAttribute(LSDAttribute.SECURITY_RESTRICTED, restricted);
         entity.setAttribute(LSDAttribute.IMAGE_URL, "http://boardcast.it/_images/user/blank.png");
         try {
-            LiquidMessage response = theDataStore.process(new CreateUserRequest(new LiquidSessionIdentifier(username), entity));
+            final LiquidMessage response = theDataStore.process(new CreateUserRequest(new LiquidSessionIdentifier(username), entity));
             if (response.getState() == LiquidMessageState.SUCCESS) {
                 session.setAttribute(CommonConstants.NEW_USER_ATTRIBUTE, response.getResponse());
                 session.setAttribute(CommonConstants.NEW_USER_PASSWORD_ATTRIBUTE, password);

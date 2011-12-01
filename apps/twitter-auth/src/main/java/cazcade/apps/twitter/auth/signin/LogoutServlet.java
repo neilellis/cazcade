@@ -36,7 +36,7 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = -4433102460849019660L;
 
-    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath() + "/");
     }

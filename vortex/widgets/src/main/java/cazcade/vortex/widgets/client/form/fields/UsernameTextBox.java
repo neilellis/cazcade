@@ -20,6 +20,7 @@ public class UsernameTextBox extends AbstractServerValidatedTextBox {
     }
 
     public UsernameTextBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         init();
 
@@ -46,12 +47,12 @@ public class UsernameTextBox extends AbstractServerValidatedTextBox {
 
 
                         @Override
-                        public void onFailure(Throwable caught) {
+                        public void onFailure(final Throwable caught) {
                             ClientLog.log(caught);
                         }
 
                         @Override
-                        public void onSuccess(Boolean result) {
+                        public void onSuccess(final Boolean result) {
                             acceptable = result;
                             if (result) {
                                 showAvailable();

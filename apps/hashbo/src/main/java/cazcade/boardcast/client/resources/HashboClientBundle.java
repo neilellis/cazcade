@@ -12,7 +12,7 @@ public interface HashboClientBundle extends ClientBundle {
     @Nonnull
     @Source("hashbo.css")
     @CssResource.NotStrict
-    public CssResource css();
+    CssResource css();
 
-    public static final HashboClientBundle INSTANCE = GWT.create(HashboClientBundle.class);
+    HashboClientBundle INSTANCE = GWT.create(HashboClientBundle.class);
 }

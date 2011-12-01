@@ -21,34 +21,34 @@ import java.util.List;
  */
 
 public class PListMarshaler implements LSDMarshaler {
-    public void marshal(@Nullable LSDEntity lsdEntity, OutputStream output) {
+    public void marshal(@Nullable final LSDEntity lsdEntity, final OutputStream output) {
         if (lsdEntity == null) {
             throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
-        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+        final DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = null;
         try {
             docBuilder = dbfac.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
-        Document doc = docBuilder.newDocument();
-        Element plist = doc.createElement("plist");
+        final Document doc = docBuilder.newDocument();
+        final Element plist = doc.createElement("plist");
         plist.setAttribute("version", "1.0");
         doc.appendChild(plist);
-        Element root = doc.createElement("dict");
+        final Element root = doc.createElement("dict");
         plist.appendChild(root);
         final LSDNode lsdNode = lsdEntity.asFormatIndependentTree();
         process(doc, root, lsdNode);
         try {
             // Prepare the DOM document for writing
-            Source source = new DOMSource(doc);
+            final Source source = new DOMSource(doc);
 
             // Prepare the output file
 
-            Result result = new StreamResult(output);
+            final Result result = new StreamResult(output);
             // Write the DOM document to the file
-            Transformer xformer = TransformerFactory.newInstance().newTransformer();
+            final Transformer xformer = TransformerFactory.newInstance().newTransformer();
             xformer.transform(source, result);
         } catch (TransformerConfigurationException e) {
             throw new RuntimeException(e);
@@ -62,8 +62,8 @@ public class PListMarshaler implements LSDMarshaler {
         return "text/plist";
     }
 
-    private void process(@Nonnull Document doc, @Nonnull Element currentElement, @Nonnull LSDNode lsdNode) {
-        for (LSDNode node : lsdNode.getChildren()) {
+    private void process(@Nonnull final Document doc, @Nonnull final Element currentElement, @Nonnull final LSDNode lsdNode) {
+        for (final LSDNode node : lsdNode.getChildren()) {
             final Element keyElement = doc.createElement("key");
             keyElement.setTextContent(node.getName());
             currentElement.appendChild(keyElement);
@@ -79,7 +79,7 @@ public class PListMarshaler implements LSDMarshaler {
                 if (node.isArray()) {
                     processArray(doc, currentElement, node);
                 } else {
-                    Element root = doc.createElement("dict");
+                    final Element root = doc.createElement("dict");
                     currentElement.appendChild(root);
                     process(doc, root, node);
                 }
@@ -87,17 +87,17 @@ public class PListMarshaler implements LSDMarshaler {
         }
     }
 
-    private void processArray(@Nonnull Document doc, @Nonnull Element currentElement, @Nonnull LSDNode node) {
-        Element valueElement = doc.createElement("array");
+    private void processArray(@Nonnull final Document doc, @Nonnull final Element currentElement, @Nonnull final LSDNode node) {
+        final Element valueElement = doc.createElement("array");
         currentElement.appendChild(valueElement);
         final List<LSDNode> children = node.getChildren();
-        for (LSDNode child : children) {
+        for (final LSDNode child : children) {
             if (child.isLeaf()) {
                 final Element arrayElement = doc.createElement("string");
                 arrayElement.setTextContent(child.getLeafValue());
                 valueElement.appendChild(arrayElement);
             } else {
-                Element root = doc.createElement("dict");
+                final Element root = doc.createElement("dict");
                 valueElement.appendChild(root);
                 process(doc, root, child);
             }

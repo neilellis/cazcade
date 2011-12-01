@@ -9,15 +9,15 @@ import javax.annotation.Nonnull;
 
 public class LiquidUUIDConverter extends AbstractSingleValueConverter {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LiquidUUIDConverter.class);
+    private static final Logger log = Logger.getLogger(LiquidUUIDConverter.class);
 
 
-    public boolean canConvert(Class clazz) {
+    public boolean canConvert(final Class clazz) {
         return LiquidUUID.class.isAssignableFrom(clazz);
     }
 
     @Nonnull
-    public Object fromString(String str) {
+    public Object fromString(final String str) {
         return new LiquidUUID(str);
     }
 }

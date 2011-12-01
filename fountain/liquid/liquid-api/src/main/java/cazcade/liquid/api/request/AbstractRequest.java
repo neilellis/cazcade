@@ -5,19 +5,18 @@ import cazcade.liquid.api.lsd.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.Serializable;
 import java.util.*;
 
 /**
  * @author neilelliz@cazcade.com
  */
-public abstract class AbstractRequest implements Serializable, LiquidRequest {
+public abstract class AbstractRequest implements LiquidRequest {
 
 
     @Nonnull
     private LSDEntity entity = LSDSimpleEntity.createNewEntity(new LSDTypeDefImpl(LSDDictionaryTypes.REQUEST, getClass().getName().substring(getClass().getName().lastIndexOf('.') + 1)));
 
-    public void setEntity(@Nonnull LSDEntity entity) {
+    public void setEntity(@Nonnull final LSDEntity entity) {
         if (!entity.hasAttribute(LSDAttribute.TYPE)) {
             throw new IllegalArgumentException("Entities must always have a type.");
         }
@@ -28,7 +27,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getLongAttribute(LSDAttribute.SINCE);
     }
 
-    public final void setSince(long since) {
+    public final void setSince(final long since) {
         entity.setAttribute(LSDAttribute.SINCE, since);
     }
 
@@ -36,7 +35,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.CONTENTS, true);
     }
 
-    public final void setContents(boolean contents) {
+    public final void setContents(final boolean contents) {
         entity.setAttribute(LSDAttribute.CONTENTS, contents);
     }
 
@@ -44,7 +43,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.CREATE_OR_UPDATE);
     }
 
-    public final void setOrCreate(boolean orCreate) {
+    public final void setOrCreate(final boolean orCreate) {
         entity.setAttribute(LSDAttribute.CREATE_OR_UPDATE, orCreate);
     }
 
@@ -52,7 +51,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return ChildSortOrder.valueOf(entity.getAttribute(LSDAttribute.SORT_BY));
     }
 
-    public final void setOrder(@Nullable ChildSortOrder order) {
+    public final void setOrder(@Nullable final ChildSortOrder order) {
         entity.setAttribute(LSDAttribute.SORT_BY, order != null ? order.name() : ChildSortOrder.NONE.name());
     }
 
@@ -60,7 +59,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return Category.valueOf(entity.getAttribute(LSDAttribute.DICTIONARY_CATEGORY));
     }
 
-    public final void setCategory(@Nonnull Category category) {
+    public final void setCategory(@Nonnull final Category category) {
         entity.setAttribute(LSDAttribute.DICTIONARY_CATEGORY, category.name());
     }
 
@@ -69,11 +68,11 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return LiquidSessionIdentifier.fromString(entity.getAttribute(LSDAttribute.REQUEST_SESSION_ID));
     }
 
-    public final void setInternal(boolean internal) {
+    public final void setInternal(final boolean internal) {
         entity.setAttribute(LSDAttribute.INTERNAL_REQUEST, internal);
     }
 
-    public final void setUri(@Nullable LiquidURI uri) {
+    public final void setUri(@Nullable final LiquidURI uri) {
         if (uri != null) {
             entity.setAttribute(LSDAttribute.REQUEST_URI, uri);
         }
@@ -84,7 +83,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getUUIDAttribute(LSDAttribute.REQUEST_UUID);
     }
 
-    public final void setTarget(@Nullable LiquidUUID target) {
+    public final void setTarget(@Nullable final LiquidUUID target) {
         if (target != null && target.toString() != null) {
             entity.setAttribute(LSDAttribute.REQUEST_UUID, target);
         }
@@ -94,7 +93,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.HISTORICAL_REQUEST);
     }
 
-    public final void setHistorical(boolean historical) {
+    public final void setHistorical(final boolean historical) {
         entity.setAttribute(LSDAttribute.HISTORICAL_REQUEST, historical);
     }
 
@@ -103,11 +102,11 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return QueryType.valueOf(entity.getAttribute(LSDAttribute.BOARD_QUERY_TYPE));
     }
 
-    public final void setQueryType(@Nonnull QueryType queryType) {
+    public final void setQueryType(@Nonnull final QueryType queryType) {
         entity.setAttribute(LSDAttribute.BOARD_QUERY_TYPE, queryType.name());
     }
 
-    public final void setAlias(@Nullable LiquidURI alias) {
+    public final void setAlias(@Nullable final LiquidURI alias) {
         if (alias != null) {
             entity.setAttribute(LSDAttribute.REQUEST_ALIAS, alias.asString());
         }
@@ -117,7 +116,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getIntegerAttribute(LSDAttribute.QUERY_START_OFFSET, 0);
     }
 
-    public final void setStart(int start) {
+    public final void setStart(final int start) {
         entity.setAttribute(LSDAttribute.QUERY_START_OFFSET, start);
     }
 
@@ -125,7 +124,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getIntegerAttribute(LSDAttribute.QUERY_MAX, 60);
     }
 
-    public final void setMax(int max) {
+    public final void setMax(final int max) {
         entity.setAttribute(LSDAttribute.QUERY_MAX, max);
     }
 
@@ -134,7 +133,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getAttribute(LSDAttribute.PLAIN_PASSWORD);
     }
 
-    public final void setPassword(String password) {
+    public final void setPassword(final String password) {
         entity.setAttribute(LSDAttribute.PLAIN_PASSWORD, password);
     }
 
@@ -142,7 +141,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.IS_ME);
     }
 
-    public final void setMe(boolean me) {
+    public final void setMe(final boolean me) {
         entity.setAttribute(LSDAttribute.IS_ME, me);
     }
 
@@ -150,7 +149,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.IS_CLAIM);
     }
 
-    public final void setClaim(boolean claim) {
+    public final void setClaim(final boolean claim) {
         entity.setAttribute(LSDAttribute.IS_CLAIM, claim);
     }
 
@@ -159,7 +158,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getUUIDAttribute(LSDAttribute.REQUEST_POOL_UUID);
     }
 
-    public final void setPoolUUID(@Nullable LiquidUUID poolUUID) {
+    public final void setPoolUUID(@Nullable final LiquidUUID poolUUID) {
         if (poolUUID != null) {
             entity.setAttribute(LSDAttribute.REQUEST_POOL_UUID, poolUUID);
         }
@@ -170,7 +169,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getURIAttribute(LSDAttribute.REQUEST_AUTHOR);
     }
 
-    public final void setAuthor(@Nullable LiquidURI author) {
+    public final void setAuthor(@Nullable final LiquidURI author) {
         if (author != null) {
             entity.setAttribute(LSDAttribute.REQUEST_AUTHOR, author);
         }
@@ -181,7 +180,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getURIAttribute(LSDAttribute.REQUEST_PARENT_URI);
     }
 
-    public final void setParent(@Nullable LiquidURI parent) {
+    public final void setParent(@Nullable final LiquidURI parent) {
         if (parent != null) {
             entity.setAttribute(LSDAttribute.REQUEST_PARENT_URI, parent);
         }
@@ -191,7 +190,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return LSDDictionaryTypes.valueOf(LSDDictionaryTypes.getNameForValue(entity.getAttribute(LSDAttribute.REQUEST_RESOURCE_TYPE)));
     }
 
-    public final void setType(@Nonnull LSDDictionaryTypes type) {
+    public final void setType(@Nonnull final LSDDictionaryTypes type) {
         entity.setAttribute(LSDAttribute.REQUEST_RESOURCE_TYPE, type.asString());
     }
 
@@ -199,7 +198,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getAttribute(LSDAttribute.NAME);
     }
 
-    public final void setName(String name) {
+    public final void setName(final String name) {
         entity.setAttribute(LSDAttribute.NAME, name);
     }
 
@@ -207,7 +206,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getAttribute(LSDAttribute.TITLE);
     }
 
-    public final void setTitle(String title) {
+    public final void setTitle(final String title) {
         entity.setAttribute(LSDAttribute.TITLE, title);
     }
 
@@ -215,7 +214,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getAttribute(LSDAttribute.DESCRIPTION);
     }
 
-    public final void setDescription(String description) {
+    public final void setDescription(final String description) {
         entity.setAttribute(LSDAttribute.DESCRIPTION, description);
     }
 
@@ -223,7 +222,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.LISTED);
     }
 
-    public final void setListed(boolean listed) {
+    public final void setListed(final boolean listed) {
         entity.setAttribute(LSDAttribute.LISTED, listed);
     }
 
@@ -232,7 +231,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return ClientApplicationIdentifier.valueOf(entity.getAttribute(LSDAttribute.CLIENT_APPLICATION_IDENTIFIER));
     }
 
-    public final void setClient(@Nonnull ClientApplicationIdentifier client) {
+    public final void setClient(@Nonnull final ClientApplicationIdentifier client) {
         entity.setAttribute(LSDAttribute.CLIENT_APPLICATION_IDENTIFIER, client.toString());
     }
 
@@ -240,7 +239,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.FOLLOW);
     }
 
-    public final void setFollow(boolean follow) {
+    public final void setFollow(final boolean follow) {
         entity.setAttribute(LSDAttribute.FOLLOW, follow);
     }
 
@@ -249,7 +248,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getUUIDAttribute(LSDAttribute.FROM);
     }
 
-    public final void setFrom(@Nullable LiquidUUID from) {
+    public final void setFrom(@Nullable final LiquidUUID from) {
         if (from != null) {
             entity.setAttribute(LSDAttribute.FROM, from);
         }
@@ -260,7 +259,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getUUIDAttribute(LSDAttribute.TO);
     }
 
-    public final void setTo(@Nullable LiquidUUID to) {
+    public final void setTo(@Nullable final LiquidUUID to) {
         if (to != null) {
             entity.setAttribute(LSDAttribute.TO, to);
         }
@@ -270,7 +269,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.UNLINK);
     }
 
-    public final void setUnlink(boolean unlink) {
+    public final void setUnlink(final boolean unlink) {
         entity.setAttribute(LSDAttribute.UNLINK, unlink);
     }
 
@@ -279,7 +278,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getUUIDAttribute(LSDAttribute.REQUEST_OBJECT_UUID);
     }
 
-    public final void setObjectUUID(@Nullable LiquidUUID objectUUID) {
+    public final void setObjectUUID(@Nullable final LiquidUUID objectUUID) {
         if (objectUUID != null) {
             entity.setAttribute(LSDAttribute.REQUEST_OBJECT_UUID, objectUUID);
         }
@@ -289,7 +288,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getDoubleAttribute(LSDAttribute.VIEW_X);
     }
 
-    public final void setX(Double x) {
+    public final void setX(final Double x) {
         entity.setAttribute(LSDAttribute.VIEW_X, x);
     }
 
@@ -297,7 +296,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getDoubleAttribute(LSDAttribute.VIEW_Y);
     }
 
-    public final void setY(Double y) {
+    public final void setY(final Double y) {
         entity.setAttribute(LSDAttribute.VIEW_Y, y);
     }
 
@@ -305,7 +304,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getDoubleAttribute(LSDAttribute.VIEW_Z);
     }
 
-    public final void setZ(Double z) {
+    public final void setZ(final Double z) {
         entity.setAttribute(LSDAttribute.VIEW_Z, z);
     }
 
@@ -313,7 +312,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getIntegerAttribute(LSDAttribute.VIEW_WIDTH);
     }
 
-    public final void setWidth(Integer width) {
+    public final void setWidth(final Integer width) {
         entity.setAttribute(LSDAttribute.VIEW_WIDTH, width);
     }
 
@@ -321,7 +320,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getIntegerAttribute(LSDAttribute.VIEW_WIDTH);
     }
 
-    public final void setHeight(Integer height) {
+    public final void setHeight(final Integer height) {
         entity.setAttribute(LSDAttribute.VIEW_HEIGHT, height);
     }
 
@@ -329,7 +328,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getDoubleAttribute(LSDAttribute.VIEW_ROTATE_XY);
     }
 
-    public final void setAngle(Double angle) {
+    public final void setAngle(final Double angle) {
         entity.setAttribute(LSDAttribute.VIEW_ROTATE_XY, angle);
     }
 
@@ -337,7 +336,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getAttribute(LSDAttribute.TEXT_BRIEF);
     }
 
-    public final void setSearchText(String searchText) {
+    public final void setSearchText(final String searchText) {
         entity.setAttribute(LSDAttribute.TEXT_BRIEF, searchText);
     }
 
@@ -345,7 +344,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getBooleanAttribute(LSDAttribute.SELECTED);
     }
 
-    public final void setSelected(boolean selected) {
+    public final void setSelected(final boolean selected) {
         entity.setAttribute(LSDAttribute.SELECTED, selected);
     }
 
@@ -353,7 +352,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getAttribute(LSDAttribute.RECIPIENT);
     }
 
-    public final void setRecipient(String recipient) {
+    public final void setRecipient(final String recipient) {
         entity.setAttribute(LSDAttribute.RECIPIENT, recipient);
     }
 
@@ -371,13 +370,13 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return entity.getURIAttribute(LSDAttribute.REQUEST_PREVIOUS_POOL_URI);
     }
 
-    public final void setPreviousPool(@Nullable LiquidURI previousPool) {
+    public final void setPreviousPool(@Nullable final LiquidURI previousPool) {
         if (previousPool != null) {
             entity.setAttribute(LSDAttribute.REQUEST_PREVIOUS_POOL_URI, previousPool);
         }
     }
 
-    public final void setPoolType(@Nonnull LSDType poolType) {
+    public final void setPoolType(@Nonnull final LSDType poolType) {
         entity.setAttribute(LSDAttribute.REQUEST_RESOURCE_TYPE, poolType.asString());
     }
 
@@ -390,7 +389,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         }
     }
 
-    public final void setPermission(@Nullable LiquidPermissionChangeType permission) {
+    public final void setPermission(@Nullable final LiquidPermissionChangeType permission) {
         if (permission != null) {
             entity.setAttribute(LSDAttribute.PERMISSION_CHANGE, permission.name());
         }
@@ -406,7 +405,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         }
     }
 
-    public final void setDetail(@Nonnull LiquidRequestDetailLevel detail) {
+    public final void setDetail(@Nonnull final LiquidRequestDetailLevel detail) {
         entity.setAttribute(LSDAttribute.QUERY_DETAIL, detail.name());
     }
 
@@ -414,7 +413,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         MY, USERS_BOARDS, RECENT, HISTORY, POPULAR
     }
 
-    public static enum Category {
+    public enum Category {
         KEYS, TYPES
     }
 
@@ -427,7 +426,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     }
 
 
-    public final void setId(@Nullable LiquidUUID id) {
+    public final void setId(@Nullable final LiquidUUID id) {
         if (id != null && id.toString() != null) {
             entity.setId(id.toString());
         } else {
@@ -449,7 +448,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return -1;
     }
 
-    public void setChangePasswordSecurityHash(String hash) {
+    public void setChangePasswordSecurityHash(final String hash) {
         entity.setAttribute(LSDAttribute.SECURITY_CONFIRMATION_HASH, hash);
     }
 
@@ -472,7 +471,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     }
 
 
-    public final void setSessionId(@Nullable LiquidSessionIdentifier sessionId) {
+    public final void setSessionId(@Nullable final LiquidSessionIdentifier sessionId) {
         if (sessionId != null && sessionId.equals(getSessionIdentifier())) {
             return;
         }
@@ -486,7 +485,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return LiquidMessageOrigin.valueOf(entity.getAttribute(LSDAttribute.REQUEST_ORIGIN, LiquidMessageOrigin.UNASSIGNED.name()));
     }
 
-    public final void setOrigin(@Nonnull LiquidMessageOrigin origin) {
+    public final void setOrigin(@Nonnull final LiquidMessageOrigin origin) {
         entity.setAttribute(LSDAttribute.REQUEST_ORIGIN, origin.name());
     }
 
@@ -520,12 +519,12 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         }
     }
 
-    public final void setState(@Nonnull LiquidMessageState state) {
+    public final void setState(@Nonnull final LiquidMessageState state) {
         entity.setAttribute(LSDAttribute.REQUEST_STATE, state.name());
     }
 
 
-    public final void setResponse(LSDEntity response) {
+    public final void setResponse(final LSDEntity response) {
         entity.addSubEntity(LSDAttribute.REQUEST_RESULT, response, false);
     }
 
@@ -574,7 +573,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     }
 
     @Override
-    public final void setCachingScope(@Nonnull LiquidCachingScope cachingScope) {
+    public final void setCachingScope(@Nonnull final LiquidCachingScope cachingScope) {
         entity.setAttribute(LSDAttribute.REQUEST_CACHING_SCOPE, cachingScope.name());
     }
 
@@ -600,7 +599,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     }
 
     @Nonnull
-    protected final Set<LiquidURI> getStandardAffectedEntitiesInternalPlus(LiquidURI... uris) {
+    protected final Set<LiquidURI> getStandardAffectedEntitiesInternalPlus(final LiquidURI... uris) {
         final Set<LiquidURI> result = new HashSet<LiquidURI>();
         if (getRequestEntity() != null) {
             result.addAll(getAffectedEntitiesInternal(getRequestEntity().getURI()));
@@ -617,9 +616,9 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
     }
 
     @Nonnull
-    protected final Set<LiquidURI> getAffectedEntitiesInternal(@Nonnull LiquidURI... uris) {
+    protected final Set<LiquidURI> getAffectedEntitiesInternal(@Nonnull final LiquidURI... uris) {
         final Set<LiquidURI> result = new HashSet<LiquidURI>();
-        for (LiquidURI uri : uris) {
+        for (final LiquidURI uri : uris) {
             if (uri != null) {
                 result.addAll(uriSplitToParent(uri));
             }
@@ -627,7 +626,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return result;
     }
 
-    private List<LiquidURI> uriSplitToParent(@Nonnull LiquidURI theURI) {
+    private List<LiquidURI> uriSplitToParent(@Nonnull final LiquidURI theURI) {
         if (theURI.hasFragment()) {
             return Arrays.asList(theURI, theURI.getWithoutFragment());
         } else {
@@ -635,7 +634,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         }
     }
 
-    public final void setRpc(Boolean rpc) {
+    public final void setRpc(final Boolean rpc) {
         entity.setAttribute(LSDAttribute.REQUEST_EXPLICIT_RPC, rpc);
     }
 
@@ -652,7 +651,7 @@ public abstract class AbstractRequest implements Serializable, LiquidRequest {
         return false;
     }
 
-    public final void setRequestEntity(LSDEntity requestEntity) {
+    public final void setRequestEntity(final LSDEntity requestEntity) {
         entity.addSubEntity(LSDAttribute.REQUEST_ENTITY, requestEntity, false);
     }
 

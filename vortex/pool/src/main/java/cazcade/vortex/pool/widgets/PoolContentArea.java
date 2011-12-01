@@ -72,7 +72,8 @@ public class PoolContentArea extends Composite {
     }
 
     @UiConstructor
-    public PoolContentArea(boolean scrollX, boolean scrollY) {
+    public PoolContentArea(final boolean scrollX, final boolean scrollY) {
+        super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         scrollPanel = new VortexScrollPanel(widget, scrollX, scrollY, true, null);
         initWidget(scrollPanel);
@@ -81,21 +82,21 @@ public class PoolContentArea extends Composite {
     }
 
 
-    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull LSDType type, boolean listed) {
+    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final LSDType type, final boolean listed) {
         this.threadSafeExecutor = threadSafeExecutor;
         bus.send(new VisitPoolRequest(type, uri, uri, true, listed), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
-            public void onSuccess(VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
+            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 ClientLog.log("Got response.");
-                LSDEntity poolEntity = response.getResponse().copy();
+                final LSDEntity poolEntity = response.getResponse().copy();
                 ClientLog.log(poolEntity.dump());
 
-                PoolContentArea.this.init(poolEntity, features, threadSafeExecutor);
+                init(poolEntity, features, threadSafeExecutor);
             }
         });
     }
 
-    public void init(@Nonnull LSDEntity poolEntity, FormatUtil features, VortexThreadSafeExecutor threadSafeExecutor) {
+    public void init(@Nonnull final LSDEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
         setBackgroundImage(imageUrl);
 //        backgroundImage.setWidth("100%");
@@ -143,11 +144,11 @@ public class PoolContentArea extends Composite {
         clear();
         poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);
         poolPresenter.showInitMode();
-        Set<LSDEntity> entities = new HashSet<LSDEntity>(poolEntity.getSubEntities(LSDAttribute.CHILD));
-        for (LSDEntity entity : entities) {
+        final Set<LSDEntity> entities = new HashSet<LSDEntity>(poolEntity.getSubEntities(LSDAttribute.CHILD));
+        for (final LSDEntity entity : entities) {
             try {
                 ClientLog.log(entity.getTypeDef().asString());
-                PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, entity, features, threadSafeExecutor);
+                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, entity, features, threadSafeExecutor);
                 if (poolObjectPresenter != null) {
                     ClientLog.assertTrue(poolObjectPresenter != null, "Pool Object Presenter was null");
                     poolObjectPresenter.setX(scrollPanel.getOffsetX() + 200);
@@ -168,7 +169,7 @@ public class PoolContentArea extends Composite {
         }
     }
 
-    public void setBackgroundImage(@Nullable String imageUrl) {
+    public void setBackgroundImage(@Nullable final String imageUrl) {
         if (container != null && imageUrl != null) {
 //            Window.alert("setting background "+imageUrl);
             if (BrowserUtil.isInternalImage(imageUrl)) {

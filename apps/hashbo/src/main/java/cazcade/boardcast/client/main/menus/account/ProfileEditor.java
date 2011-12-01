@@ -30,13 +30,13 @@ public class ProfileEditor extends Composite {
     public void show() {
         popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             @Override
-            public void setPosition(int offsetWidth, int offsetHeight) {
+            public void setPosition(final int offsetWidth, final int offsetHeight) {
                 popup.setPopupPosition(Window.getClientWidth() / 2 - offsetWidth / 2, Window.getClientHeight() / 2 - offsetHeight / 2);
             }
         });
     }
 
-    public void setOnChangeAction(ChangeAction onChangeAction) {
+    public void setOnChangeAction(final ChangeAction onChangeAction) {
         this.onChangeAction = onChangeAction;
     }
 
@@ -59,19 +59,20 @@ public class ProfileEditor extends Composite {
     Label cancelButton;
 
     public ProfileEditor(@Nonnull final LSDEntity alias) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         final LSDEntity updateEntity = alias.asUpdateEntity();
         imageUploader.setImageURL(alias.getAttribute(LSDAttribute.IMAGE_URL));
         imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(@Nonnull IUploader uploader) {
-                if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
+            public void onFinish(@Nonnull final IUploader uploader) {
+                if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
                     final String url = uploader.getServerInfo().message;
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
                     updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
                     imageUploader.setImageURL(url);
                     // The server sends useful information to the client by default
-                    IUploader.UploadedInfo info = uploader.getServerInfo();
+                    final IUploader.UploadedInfo info = uploader.getServerInfo();
 //                    System.out.println("File name " + info.name);
 //                    System.out.println("File content-type " + info.ctype);
 //                    System.out.println("File size " + info.size);
@@ -89,10 +90,10 @@ public class ProfileEditor extends Composite {
 
         changeButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 BusFactory.getInstance().send(new UpdateAliasRequest(updateEntity), new AbstractResponseCallback<UpdateAliasRequest>() {
                     @Override
-                    public void onSuccess(UpdateAliasRequest message, UpdateAliasRequest response) {
+                    public void onSuccess(final UpdateAliasRequest message, final UpdateAliasRequest response) {
                         try {
                             popup.hide();
                         } catch (Exception e) {
@@ -106,7 +107,7 @@ public class ProfileEditor extends Composite {
 
         cancelButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 try {
                     popup.hide();
                 } catch (Exception e) {

@@ -8,7 +8,7 @@ public class NotLoggedInException extends RuntimeException {
         super();
     }
 
-    public NotLoggedInException(String s) {
+    public NotLoggedInException(final String s) {
         super(s);
     }
 }

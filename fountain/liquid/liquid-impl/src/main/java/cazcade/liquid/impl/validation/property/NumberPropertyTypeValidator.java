@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class NumberPropertyTypeValidator implements LSDPropertyTypeValidator {
-    public boolean validate(@Nonnull LSDPropertyFormatValidator propertyFormatValidator, String nextValidationString, String value) {
+    public boolean validate(@Nonnull final LSDPropertyFormatValidator propertyFormatValidator, final String nextValidationString, final String value) {
         try {
             Double.parseDouble(value);
         } catch (NumberFormatException nfe) {

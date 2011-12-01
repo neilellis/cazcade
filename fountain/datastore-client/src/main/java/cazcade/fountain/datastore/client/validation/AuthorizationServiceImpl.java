@@ -21,15 +21,15 @@ import java.util.List;
  */
 public class AuthorizationServiceImpl implements AuthorizationService {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AuthorizationServiceImpl.class);
+    private static final Logger log = Logger.getLogger(AuthorizationServiceImpl.class);
 
     private FountainDataStore dataStore;
 
     @Nonnull
-    public AuthorizationStatus authorize(LiquidSessionIdentifier identity, LiquidUUID resource, LiquidPermission permission) throws Exception {
-        LiquidMessage message = dataStore.process(new AuthorizationRequest(identity, resource, permission));
+    public AuthorizationStatus authorize(final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidPermission permission) throws Exception {
+        final LiquidMessage message = dataStore.process(new AuthorizationRequest(identity, resource, permission));
         final LSDEntity response = message.getResponse();
-        LSDType lsdType = response.getTypeDef().getPrimaryType();
+        final LSDType lsdType = response.getTypeDef().getPrimaryType();
         if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
             return AuthorizationStatus.ACCEPTED;
         } else if (LSDDictionaryTypes.AUTHORIZATION_DENIAL.equals(lsdType)) {
@@ -51,15 +51,15 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Nonnull
-    public LiquidMessage postAuthorize(LiquidSessionIdentifier identity, @Nonnull AbstractRetrievalRequest message, LiquidPermission permission) throws Exception {
+    public LiquidMessage postAuthorize(final LiquidSessionIdentifier identity, @Nonnull final AbstractRetrievalRequest message, final LiquidPermission permission) throws Exception {
         log.debug("Post authorizing: {0}", message.getClass().getSimpleName());
         final LSDEntity response = message.getResponse();
         if (response.getTypeDef().getPrimaryType().isSystemType()) {
             return message;
         }
-        LiquidUUID resource = response.getUUID();
-        LiquidMessage authMessage = dataStore.process(new AuthorizationRequest(identity, resource, permission));
-        LSDType lsdType = authMessage.getResponse().getTypeDef().getPrimaryType();
+        final LiquidUUID resource = response.getUUID();
+        final LiquidMessage authMessage = dataStore.process(new AuthorizationRequest(identity, resource, permission));
+        final LSDType lsdType = authMessage.getResponse().getTypeDef().getPrimaryType();
         if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
             log.debug("SUCCESS authorizing: {0}", message.getClass().getSimpleName());
             return message;
@@ -71,19 +71,19 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
 
     @Nullable
-    public LiquidRequest authorize(@Nonnull LiquidRequest liquidRequest) throws Exception {
-        List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
-        for (AuthorizationRequest authRequest : authRequests) {
+    public LiquidRequest authorize(@Nonnull final LiquidRequest liquidRequest) throws Exception {
+        final List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
+        for (final AuthorizationRequest authRequest : authRequests) {
             log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.getTarget());
             authRequest.setSessionId(liquidRequest.getSessionIdentifier());
-            LiquidMessage message = dataStore.process(authRequest);
+            final LiquidMessage message = dataStore.process(authRequest);
             if (message == null) {
                 throw new NullPointerException("Received a null message back from the data store during authorization.");
             }
             if (message.getResponse() == null) {
                 throw new NullPointerException("Received a null response back from the data store during authorization.");
             }
-            LSDType lsdType = message.getResponse().getTypeDef().getPrimaryType();
+            final LSDType lsdType = message.getResponse().getTypeDef().getPrimaryType();
             if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
                 log.debug("SUCCESS for authorization.");
             } else {
@@ -95,7 +95,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         return null;
     }
 
-    public void setDataStore(FountainDataStore dataStore) {
+    public void setDataStore(final FountainDataStore dataStore) {
         this.dataStore = dataStore;
     }
 }

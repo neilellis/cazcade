@@ -22,7 +22,8 @@ public class ProfileBoardHeader extends AbstractAliasDetailPanel {
     DivElement contentArea;
 
     public ProfileBoardHeader() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
         WidgetUtil.hide(contentArea, false);
 
@@ -30,7 +31,7 @@ public class ProfileBoardHeader extends AbstractAliasDetailPanel {
 
 
     @Override
-    public void onChange(LSDEntity entity) {
+    public void onChange(final LSDEntity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(contentArea, false);
     }

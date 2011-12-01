@@ -18,8 +18,8 @@ public interface MailService {
      * @param templateParameters Any parameters to be passed into the template.
      * @param test
      */
-    public void sendMailFromTemplate(String templateIdentifier, String subject, String[] to,
-                                     String[] cc, String[] bcc,
-                                     Map<String, Object> templateParameters, boolean test);
+    void sendMailFromTemplate(String templateIdentifier, String subject, String[] to,
+                              String[] cc, String[] bcc,
+                              Map<String, Object> templateParameters, boolean test);
 
 }

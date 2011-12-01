@@ -27,12 +27,12 @@ public class VortexThreadSafeExecutor {
                         ClientLog.log(e);
                     }
                 }
-                this.schedule(SCHEDULER_DELAY_MIILLIS);
+                schedule(SCHEDULER_DELAY_MIILLIS);
             }
         }.schedule(1);
     }
 
-    public void execute(Runnable run) {
+    public void execute(final Runnable run) {
         stack.push(run);
     }
 }

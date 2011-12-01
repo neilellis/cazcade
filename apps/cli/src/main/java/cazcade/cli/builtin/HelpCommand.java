@@ -35,12 +35,12 @@ public class HelpCommand extends AbstractShortLivedCommand {
         return "Does exactly what it says on the tin...";
     }
 
-    public String run(@Nonnull String[] args, ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, final ShellSession shellSession) throws Exception {
         final Collection<Command> all = getContext().getCommandFactory().getAll();
         if (args.length == 1) {
-            for (Command command : all) {
+            for (final Command command : all) {
                 if (command.getName().equals(args[0])) {
-                    HelpFormatter f = new HelpFormatter();
+                    final HelpFormatter f = new HelpFormatter();
                     f.printHelp(command.getName(), command.getOptions());
                 }
             }

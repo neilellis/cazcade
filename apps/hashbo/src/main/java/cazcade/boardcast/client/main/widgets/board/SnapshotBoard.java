@@ -37,7 +37,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     private long updatePoolListener;
     private boolean inited;
 
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
     }
 
@@ -53,7 +53,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         throw new UnsupportedOperationException("Readonly snapshot board.");
     }
 
-    public void navigate(@Nullable String value) {
+    public void navigate(@Nullable final String value) {
 
         if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
@@ -66,7 +66,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         if (isAttached()) {
             GWT.runAsync(new RunAsyncCallback() {
                 @Override
-                public void onFailure(Throwable reason) {
+                public void onFailure(final Throwable reason) {
                     ClientLog.log(reason);
                 }
 
@@ -79,7 +79,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     }
 
     @Override
-    public void onLocalHistoryTokenChanged(String token) {
+    public void onLocalHistoryTokenChanged(final String token) {
         navigate(token);
     }
 
@@ -124,7 +124,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
         updatePoolListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL, new BusListener() {
             @Override
-            public void handle(LiquidMessage response) {
+            public void handle(final LiquidMessage response) {
                 update((LiquidRequest) response);
 
             }
@@ -137,7 +137,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         bus.send(new RetrievePoolRequest(poolURI, true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
 
             @Override
-            public void onFailure(RetrievePoolRequest message, @Nonnull RetrievePoolRequest response) {
+            public void onFailure(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
@@ -150,7 +150,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
             }
 
             @Override
-            public void onSuccess(RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
+            public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
                 final LSDEntity responseEntity = response.getResponse();
                 if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
@@ -164,12 +164,12 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         });
     }
 
-    private void update(@Nonnull LiquidRequest response) {
+    private void update(@Nonnull final LiquidRequest response) {
         bind(response.getResponse().copy());
     }
 
     @Override
-    protected void onChange(LSDEntity entity) {
+    protected void onChange(final LSDEntity entity) {
         addStyleName("readonly");
         addStyleName("loading");
         final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
@@ -193,7 +193,8 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
     }
 
-    public SnapshotBoard(boolean embedded) {
+    public SnapshotBoard(final boolean embedded) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         WidgetUtil.hide(getWidget(), false);
         if (embedded) {

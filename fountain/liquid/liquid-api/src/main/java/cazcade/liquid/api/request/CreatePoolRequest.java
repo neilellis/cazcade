@@ -13,31 +13,33 @@ public class CreatePoolRequest extends AbstractCreationRequest {
 
 
     public CreatePoolRequest() {
+        super();
     }
 
-    public CreatePoolRequest(LiquidSessionIdentifier identity, LiquidURI parent, String name, String title, String description, double x, double y) {
+    public CreatePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
         this(LSDDictionaryTypes.POOL2D, null, identity, parent, name, title, description, x, y);
     }
 
 
-    public CreatePoolRequest(@Nonnull LSDDictionaryTypes type, LiquidURI parent, String name, String title, String description, double x, double y) {
+    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
         this(type, null, null, parent, name, title, description, x, y);
     }
 
-    public CreatePoolRequest(LiquidURI parent, String name, String title, String description, double x, double y) {
+    public CreatePoolRequest(final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
         this(LSDDictionaryTypes.POOL2D, null, null, parent, name, title, description, x, y);
     }
 
-    public CreatePoolRequest(@Nonnull LSDDictionaryTypes type, @Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI parent, String name, String title, String description, double x, double y) {
-        this.setTitle(title);
-        this.setDescription(description);
-        this.setX(x);
-        this.setY(y);
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setParent(parent);
-        this.setName(name);
-        this.setType(type);
+    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, @Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+        super();
+        setTitle(title);
+        setDescription(description);
+        setX(x);
+        setY(y);
+        setId(id);
+        setSessionId(identity);
+        setParent(parent);
+        setName(name);
+        setType(type);
     }
 
 

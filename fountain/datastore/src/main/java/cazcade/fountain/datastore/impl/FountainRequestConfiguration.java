@@ -13,11 +13,11 @@ public class FountainRequestConfiguration<T extends LiquidRequest> {
     private FountainRequestCompensator<T> compensator;
 
 
-    public void setHandler(LiquidMessageHandler<T> handler) {
+    public void setHandler(final LiquidMessageHandler<T> handler) {
         this.handler = handler;
     }
 
-    public void setCompensator(FountainRequestCompensator<T> compensator) {
+    public void setCompensator(final FountainRequestCompensator<T> compensator) {
         this.compensator = compensator;
     }
 

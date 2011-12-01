@@ -22,7 +22,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
 
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            LSDEntity entity;
+            final LSDEntity entity;
             final Node node;
 
             if (request.getUri() == null) {
@@ -40,10 +40,10 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
 
 
             node = fountainNeo.findByURI(request.getUri());
-            LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
+            final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
             final LSDEntity requestEntity = request.getRequestEntity();
 
-            Runnable onRenameAction = new Runnable() {
+            final Runnable onRenameAction = new Runnable() {
                 @Override
                 public void run() {
                     try {

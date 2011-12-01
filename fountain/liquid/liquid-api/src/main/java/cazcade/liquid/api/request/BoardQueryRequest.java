@@ -11,38 +11,40 @@ public class BoardQueryRequest extends AbstractRequest {
 
 
     public BoardQueryRequest() {
+        super();
     }
 
 
-    public BoardQueryRequest(LiquidSessionIdentifier liquidSessionId, @Nonnull QueryType type) {
+    public BoardQueryRequest(final LiquidSessionIdentifier liquidSessionId, @Nonnull final QueryType type) {
         this(null, liquidSessionId, type, null);
     }
 
-    public BoardQueryRequest(@Nonnull QueryType type) {
+    public BoardQueryRequest(@Nonnull final QueryType type) {
         this(null, null, type, null);
     }
 
-    public BoardQueryRequest(@Nonnull QueryType type, LiquidURI alias) {
+    public BoardQueryRequest(@Nonnull final QueryType type, final LiquidURI alias) {
         this(null, null, type, alias);
     }
 
-    public BoardQueryRequest(LiquidSessionIdentifier sessionIdentifier, @Nonnull QueryType type, LiquidURI alias) {
+    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type, final LiquidURI alias) {
         this(null, sessionIdentifier, type, alias);
     }
 
 
-    public BoardQueryRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nonnull QueryType type, @Nullable LiquidURI alias) {
-        this.setId(id);
-        this.setQueryType(type);
-        this.setAlias(alias);
-        this.setSessionId(identity);
+    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+        super();
+        setId(id);
+        setQueryType(type);
+        setAlias(alias);
+        setSessionId(identity);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new BoardQueryRequest(getId(), getSessionIdentifier(), getQueryType(), super.getAlias());
+        return new BoardQueryRequest(getId(), getSessionIdentifier(), getQueryType(), getAlias());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {

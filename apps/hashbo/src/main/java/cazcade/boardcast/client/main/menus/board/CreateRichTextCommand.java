@@ -13,14 +13,14 @@ import javax.annotation.Nonnull;
 public class CreateRichTextCommand extends CreateItemCommand {
 
     @Override
-    protected void buildEntity(@Nonnull BuildCallback onBuilt) {
+    protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
         final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(getType());
 //        entity.setAttribute(LSDAttribute.TEXT_EXTENDED, "Double click to edit");
         addDefaultView(entity);
         onBuilt.onBuilt(entity);
     }
 
-    public CreateRichTextCommand(LiquidURI pool, LSDDictionaryTypes type, Size size, String theme) {
+    public CreateRichTextCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 

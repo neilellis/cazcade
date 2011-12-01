@@ -11,6 +11,7 @@ import java.util.List;
 public class UpdateUserRequest extends AbstractUpdateRequest {
 
     public UpdateUserRequest() {
+        super();
     }
 
     @Override
@@ -18,30 +19,31 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
         return true;
     }
 
-    public UpdateUserRequest(LiquidUUID target, LSDEntity entity) {
+    public UpdateUserRequest(final LiquidUUID target, final LSDEntity entity) {
         this(null, null, target, entity);
     }
 
-    public UpdateUserRequest(LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
+    public UpdateUserRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
         this(null, identity, target, entity);
     }
 
-    public UpdateUserRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setRequestEntity(entity);
+    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
     }
 
 
     @Nullable
     @Override
     public LiquidMessage copy() {
-        return new UpdateUserRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getRequestEntity());
+        return new UpdateUserRequest(getId(), getSessionIdentifier(), getTarget(), getRequestEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.EDIT));
+        return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.EDIT));
     }
 
     @Nonnull

@@ -15,11 +15,11 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
-    public PhotoPresenter(PoolPresenter pool, LSDEntity entity, final PhotoView widget, VortexThreadSafeExecutor threadSafeExecutor) {
+    public PhotoPresenter(final PoolPresenter pool, final LSDEntity entity, final PhotoView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addDoubleClickHandler(new DoubleClickHandler() {
             @Override
-            public void onDoubleClick(DoubleClickEvent event) {
+            public void onDoubleClick(final DoubleClickEvent event) {
                 PoolObjectEditor.showForEdit(new PhotoEditorPanel(getEntity()), null);
 
             }

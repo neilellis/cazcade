@@ -2,8 +2,12 @@
 
 <%@ page import="cazcade.boardcast.util.DataStoreFactory" %>
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
-<%@ page import="cazcade.liquid.api.LiquidMessageState" %>
+<%@ page import="cazcade.liquid.api.LiquidMessage" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
+<%@ page import="cazcade.liquid.api.LiquidMessageState" %>
+<%@ page import="cazcade.liquid.api.LiquidURI" %>
+<%@ page import="cazcade.liquid.api.LiquidURIScheme" %>
+<%@ page import="cazcade.liquid.api.request.RetrieveUserRequest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -23,8 +27,8 @@
 <div id="message-block">
     <%
 
-        FountainDataStore dataStore = DataStoreFactory.getDataStore();
-        final cazcade.liquid.api.LiquidMessage retrieveUserResponse = dataStore.process(new cazcade.liquid.api.request.RetrieveUserRequest(new cazcade.liquid.api.LiquidURI(cazcade.liquid.api.LiquidURIScheme.user, "admin")));
+        final FountainDataStore dataStore = DataStoreFactory.getDataStore();
+        final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(new LiquidURI(LiquidURIScheme.user, "admin")));
         if (retrieveUserResponse.getState() == LiquidMessageState.SUCCESS) {
     %>
     RETRIEVE_USER: SUCCESS

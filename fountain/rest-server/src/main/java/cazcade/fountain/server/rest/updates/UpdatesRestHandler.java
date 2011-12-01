@@ -21,28 +21,29 @@ public class UpdatesRestHandler extends AbstractRestHandler {
 
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(UpdatesRestHandler.class);
+    private static final Logger log = Logger.getLogger(UpdatesRestHandler.class);
 
     private FountainDataStoreFacade dataStoreFacade;
     private AuthorizationService authorizationService;
 
     public UpdatesRestHandler() {
+        super();
     }
 
     @Nonnull
-    public LiquidMessage get(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
-        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+    public LiquidMessage get(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         checkForSingleValueParams(parameters, "since");
         final String since = parameters.get("since")[0];
 
         return dataStoreFacade.process(new RetrieveUpdatesRequest(username, Long.parseLong(since)));
     }
 
-    public void setDataStore(FountainDataStoreFacade dataStore) {
-        this.dataStoreFacade = dataStore;
+    public void setDataStore(final FountainDataStoreFacade dataStore) {
+        dataStoreFacade = dataStore;
     }
 
-    public void setAuthorizationService(AuthorizationService authorizationService) {
+    public void setAuthorizationService(final AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;
     }
 }

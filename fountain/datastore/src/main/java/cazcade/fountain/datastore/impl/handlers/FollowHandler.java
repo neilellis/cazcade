@@ -12,8 +12,8 @@ import javax.annotation.Nonnull;
  */
 public class FollowHandler extends AbstractDataStoreHandler<FollowRequest> implements FollowRequestHandler {
     @Nonnull
-    public FollowRequest handle(@Nonnull FollowRequest request) throws Exception {
-        LSDEntity result;
+    public FollowRequest handle(@Nonnull final FollowRequest request) throws Exception {
+        final LSDEntity result;
         if (request.isFollow()) {
             result = socialDAO.followResourceTX(request.getSessionIdentifier(), request.getUri(), request.getDetail(), request.isInternal());
         } else {

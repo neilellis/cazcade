@@ -1,7 +1,5 @@
 package cazcade.vortex.bus.client.simpleevent;
 
-import cazcade.vortex.bus.client.simpleevent.SimpleEvent;
-
 /**
  * Being totally fed up with GWT's insanely complex event model
  * I decided to write something that actually met my needs without adding
@@ -11,16 +9,15 @@ import cazcade.vortex.bus.client.simpleevent.SimpleEvent;
 public class SimpleEventDispatcher {
 
 
-
-    public void dispatch(SimpleEvent event, String key) {
-
-    }
-
-    public void addListener(Class<? extends SimpleEvent> type, String keyPattern, SimpleEventListener listener) {
+    public void dispatch(final SimpleEvent event, final String key) {
 
     }
 
-    public void addListener( String keyPattern,SimpleEventListener listener) {
+    public void addListener(final Class<? extends SimpleEvent> type, final String keyPattern, final SimpleEventListener listener) {
+
+    }
+
+    public void addListener(final String keyPattern, final SimpleEventListener listener) {
 
     }
 

@@ -2,11 +2,18 @@
 <%@ page import="cazcade.boardcast.util.DataStoreFactory" %>
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
 <%@ page import="cazcade.fountain.datastore.impl.email.EmailUtil" %>
+<%@ page import="cazcade.liquid.api.LiquidMessage" %>
 <%@ page import="cazcade.liquid.api.LiquidSessionIdentifier" %>
+<%@ page import="cazcade.liquid.api.LiquidURI" %>
+<%@ page import="cazcade.liquid.api.LiquidURIScheme" %>
+<%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
 <%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
+<%@ page import="cazcade.liquid.api.lsd.LSDEntity" %>
+<%@ page import="cazcade.liquid.api.request.RetrieveUserRequest" %>
+<%@ page import="cazcade.liquid.api.request.UpdateUserRequest" %>
+<%@ page import="org.jasypt.digest.StandardStringDigester" %>
 <%@ page import="javax.mail.Message" %>
 <%@ page import="javax.mail.Session" %>
-<%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
 <%@ page import="javax.mail.Transport" %>
 <%@ page import="javax.mail.internet.InternetAddress" %>
 <%@ page import="javax.mail.internet.MimeMessage" %>
@@ -15,45 +22,45 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
-    FountainDataStore dataStore = DataStoreFactory.getDataStore();
-    LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin");
-    final cazcade.liquid.api.LiquidMessage retrieveUserResponse = dataStore.process(new cazcade.liquid.api.request.RetrieveUserRequest(admin, new cazcade.liquid.api.LiquidURI(cazcade.liquid.api.LiquidURIScheme.user, request.getParameter("user").toLowerCase())));
-    cazcade.liquid.api.lsd.LSDEntity user = retrieveUserResponse.getResponse();
+    final FountainDataStore dataStore = DataStoreFactory.getDataStore();
+    final LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin");
+    final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(LiquidURIScheme.user, request.getParameter("user").toLowerCase())));
+    final LSDEntity user = retrieveUserResponse.getResponse();
 
-    String host = "smtp.postmarkapp.com";
-    String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-    String from = "support@boardcast.it";
+    final String host = "smtp.postmarkapp.com";
+    final String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
+    final String from = "support@boardcast.it";
 
-    String name = user.getAttribute(LSDAttribute.FULL_NAME);
-    String subject = "Welcome!";
+    final String name = user.getAttribute(LSDAttribute.FULL_NAME);
+    final String subject = "Welcome!";
 
-    org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
+    final StandardStringDigester digester = new StandardStringDigester();
 
     final String url = "http://boardcast.it/_welcome";
-    String messageText = "Welcome aboard! We're a pretty young application, so we're really looking for your feedback and help. Please feel free to email us at support@boardcast.it and let us know what we can do for you. You can now click on this link " + url + " and sign in using the username and password you supplied.\n";
+    final String messageText = "Welcome aboard! We're a pretty young application, so we're really looking for your feedback and help. Please feel free to email us at support@boardcast.it and let us know what we can do for you. You can now click on this link " + url + " and sign in using the username and password you supplied.\n";
 
     if (!EmailUtil.confirmEmailHash(to, request.getParameter("hash"))) {
         response.sendRedirect("failed.jsp?message=Confirm+Failed");
     } else {
         user.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "false");
-        dataStore.process(new cazcade.liquid.api.request.UpdateUserRequest(admin, user.getUUID(), user));
-        boolean sessionDebug = false;
-        Properties props = System.getProperties();
-        props.put("mail.host", host);
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        Session mailSession = Session.getDefaultInstance(props, null);
+        dataStore.process(new UpdateUserRequest(admin, user.getUUID(), user));
+        final boolean sessionDebug = false;
+        final Properties props = System.getProperties();
+        props.setProperty("mail.host", host);
+        props.setProperty("mail.transport.protocol", "smtp");
+        props.setProperty("mail.smtp.auth", "true");
+        final Session mailSession = Session.getDefaultInstance(props, null);
         mailSession.setDebug(sessionDebug);
-        Message msg = new MimeMessage(mailSession);
+        final Message msg = new MimeMessage(mailSession);
         msg.setFrom(new InternetAddress(from, "Boardcast"));
-        InternetAddress[] address = {new InternetAddress(to)};
+        final InternetAddress[] address = {new InternetAddress(to)};
         msg.setRecipients(Message.RecipientType.TO, address);
         msg.setSubject(subject);
         msg.setSentDate(new Date());
         msg.setText(messageText);
 
         msg.saveChanges();
-        Transport transport = mailSession.getTransport("smtp");
+        final Transport transport = mailSession.getTransport("smtp");
         transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
         transport.sendMessage(msg, msg.getAllRecipients());
         transport.close();

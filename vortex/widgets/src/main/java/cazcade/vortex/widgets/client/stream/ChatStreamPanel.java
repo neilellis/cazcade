@@ -58,7 +58,7 @@ public class ChatStreamPanel extends Composite {
     private boolean autoScrollOn = true;
 
 
-    public void setMaxRows(int maxRows) {
+    public void setMaxRows(final int maxRows) {
         this.maxRows = maxRows;
     }
 
@@ -66,7 +66,7 @@ public class ChatStreamPanel extends Composite {
         return showStatusUpdates;
     }
 
-    public void setShowStatusUpdates(boolean showStatusUpdates) {
+    public void setShowStatusUpdates(final boolean showStatusUpdates) {
         this.showStatusUpdates = showStatusUpdates;
     }
 
@@ -84,6 +84,7 @@ public class ChatStreamPanel extends Composite {
     final VerticalPanel parentPanel;
 
     public ChatStreamPanel() {
+        super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         parentPanel = new VerticalPanel();
@@ -121,7 +122,7 @@ public class ChatStreamPanel extends Composite {
     }
 
     public void init(final LiquidURI newPool, @Nonnull final FormatUtil features) {
-        this.pool = newPool;
+        pool = newPool;
         this.features = features;
         threadSafeExecutor.execute(new Runnable() {
             @Override
@@ -141,7 +142,7 @@ public class ChatStreamPanel extends Composite {
                 public void run() {
                     bus.listen(new AbstractBusListener() {
                         @Override
-                        public void handle(@Nonnull LiquidMessage message) {
+                        public void handle(@Nonnull final LiquidMessage message) {
                             final LSDEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.CHAT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
@@ -158,7 +159,7 @@ public class ChatStreamPanel extends Composite {
                     });
                     BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                         @Override
-                        public void handle(@Nonnull SendRequest request) {
+                        public void handle(@Nonnull final SendRequest request) {
                             addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), features));
                         }
                     });
@@ -184,7 +185,7 @@ public class ChatStreamPanel extends Composite {
         //warm it up with a few and then ask for the rest later :-)
         bus.send(new RetrieveCommentsRequest(pool, 50), new RetrieveStreamEntityCallback() {
             @Override
-            public void onSuccess(AbstractRequest message, @Nonnull AbstractRequest response) {
+            public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
                 super.onSuccess(message, response);
             }
         });
@@ -202,7 +203,7 @@ public class ChatStreamPanel extends Composite {
             public void run() {
 //        entryEntities.add(vortexStreamContent.getEntity());
                 boolean inserted = false;
-                boolean atBottom = scrollPanel.isAtBottom();
+                final boolean atBottom = scrollPanel.isAtBottom();
                 int i = parentPanel.getWidgetCount();
                 while (i > 0) {
                     i--;
@@ -253,16 +254,16 @@ public class ChatStreamPanel extends Composite {
     }
 
     @Nonnull
-    private String entryComparisonString(@Nonnull LSDEntity entity) {
+    private String entryComparisonString(@Nonnull final LSDEntity entity) {
         final LSDEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, true);
         return entity.getAttribute(LSDAttribute.TEXT_BRIEF) + (author == null ? "null" : author.getAttribute(LSDAttribute.NAME));
     }
 
     private class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequest> {
         @Override
-        public void onSuccess(AbstractRequest message, @Nonnull AbstractRequest response) {
+        public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
             final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-            for (LSDEntity entry : entries) {
+            for (final LSDEntity entry : entries) {
                 if (entry.isA(LSDDictionaryTypes.COMMENT)
                         && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                     addStreamEntry(new VortexStreamEntryPanel(entry, features));

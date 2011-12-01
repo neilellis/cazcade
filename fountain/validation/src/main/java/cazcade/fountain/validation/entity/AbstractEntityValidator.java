@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AbstractEntityValidator implements TypeValidator {
 
-    void assertHasKey(@Nonnull LSDEntity entity, @Nonnull LSDAttribute key) {
+    void assertHasKey(@Nonnull final LSDEntity entity, @Nonnull final LSDAttribute key) {
         if (!entity.hasAttribute(key)) {
             throw new ValidationException("Entity of type " + entity.getTypeDef() + " did not posses key " + key.getKeyName());
         }

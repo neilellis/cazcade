@@ -5,16 +5,15 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.request.CreatePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
-import com.google.gwt.user.client.Command;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author neilellis@cazcade.com
  */
-public abstract class CreateContainerCommand extends AbstractCreateCommand implements Command {
+public abstract class CreateContainerCommand extends AbstractCreateCommand {
 
-    public CreateContainerCommand(LiquidURI pool, LSDDictionaryTypes type) {
+    public CreateContainerCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
 
@@ -24,7 +23,7 @@ public abstract class CreateContainerCommand extends AbstractCreateCommand imple
 
         BusFactory.getInstance().send(new CreatePoolRequest(getType(), pool, getInitialName(), getInitialName(), getInitialName(), 200.0, 200.0), new AbstractResponseCallback<CreatePoolRequest>() {
             @Override
-            public void onSuccess(CreatePoolRequest message, CreatePoolRequest response) {
+            public void onSuccess(final CreatePoolRequest message, final CreatePoolRequest response) {
             }
         });
     }

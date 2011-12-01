@@ -13,14 +13,14 @@ public interface ServiceStateMachine {
      *
      * @throws Exception if the implementing method throws an exception.
      */
-    public void start() throws Exception;
+    void start() throws Exception;
 
     /**
      * This method should call lock() then trigger deallocation of resources and terminate background threads.
      * <p/>
      * This method should never throw exceptions.
      */
-    public void stop();
+    void stop();
 
     /**
      * Pauses the service, i.e. it waits for all methods to finish and stops new ones from being called. However no
@@ -28,14 +28,14 @@ public interface ServiceStateMachine {
      *
      * @throws Exception if the implementing method throws an exception.
      */
-    public void pause() throws Exception;
+    void pause() throws Exception;
 
     /**
      * Calls unlock and resumes the service.
      *
      * @throws Exception if the implementing method throws an exception.
      */
-    public void resume() throws Exception;
+    void resume() throws Exception;
 
 
     /**

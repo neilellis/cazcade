@@ -20,7 +20,7 @@ public class FlickEvent extends GestureEvent<FlickHandler> {
     }
 
 
-    public FlickEvent(int deltaX, int deltaY, long duration, long endTime, DomEvent mostRecentDOMEvent, long startTime, int startX, int startY, int x, int y, int offsetX, int offsetY) {
+    public FlickEvent(final int deltaX, final int deltaY, final long duration, final long endTime, final DomEvent mostRecentDOMEvent, final long startTime, final int startX, final int startY, final int x, final int y, final int offsetX, final int offsetY) {
         super(deltaX, deltaY, duration, endTime, mostRecentDOMEvent, startTime, startX, startY, x, y, offsetX, offsetY);
     }
 
@@ -29,7 +29,7 @@ public class FlickEvent extends GestureEvent<FlickHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull FlickHandler handler) {
+    protected void dispatch(@Nonnull final FlickHandler handler) {
         handler.onFlick(this);
     }
 }

@@ -18,7 +18,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class FountainRestServer extends AbstractServiceStateMachine {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainRestServer.class);
+    private static final Logger log = Logger.getLogger(FountainRestServer.class);
 
     @Nonnull
     private final CountDownLatch initialisationLatch = new CountDownLatch(1);
@@ -30,9 +30,9 @@ public class FountainRestServer extends AbstractServiceStateMachine {
 
         super.start();
         server = new Server(8088);
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SECURITY);
+        final ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SECURITY);
         context.setContextPath("/");
-        SecurityHandler securityHandler = new CazcadeSecurityHandler();
+        final SecurityHandler securityHandler = new CazcadeSecurityHandler();
         securityHandler.setLoginService(new CazcadeLoginService());
         securityHandler.setAuthMethod("BASIC");
         securityHandler.setRealmName("Rest API");

@@ -49,7 +49,7 @@ public class NotificationPanel extends Composite {
     private final Sound statusUpdateSound;
 
 
-    public void setMaxRows(int maxRows) {
+    public void setMaxRows(final int maxRows) {
         this.maxRows = maxRows;
     }
 
@@ -67,6 +67,7 @@ public class NotificationPanel extends Composite {
     HorizontalPanel parentPanel;
 
     public NotificationPanel() {
+        super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         soundController = new SoundController();
@@ -93,8 +94,8 @@ public class NotificationPanel extends Composite {
     }
 
     public void init(final LiquidURI newPool, @Nonnull final FormatUtil formatter) {
-        this.pool = newPool;
-        this.features = formatter;
+        pool = newPool;
+        features = formatter;
         clear();
 
         if (!initialized) {
@@ -103,7 +104,7 @@ public class NotificationPanel extends Composite {
                 public void run() {
                     bus.listen(new AbstractBusListener() {
                         @Override
-                        public void handle(@Nonnull LiquidMessage message) {
+                        public void handle(@Nonnull final LiquidMessage message) {
                             final LSDEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
                                     && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
@@ -112,7 +113,7 @@ public class NotificationPanel extends Composite {
                             if (response != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
                                     && !UserUtil.isAnonymousAliasURI(response.getSubEntity(LSDAttribute.VISITOR, false).getURI().toString())
                                     ) {
-                                VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(response, pool, message.getId().toString());
+                                final VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(response, pool, message.getId().toString());
                                 addToStream(content);
                                 try {
                                     userEnteredSound.play();
@@ -125,8 +126,8 @@ public class NotificationPanel extends Composite {
 
                     BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                         @Override
-                        public void handle(@Nonnull SendRequest request) {
-                            DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), formatter);
+                        public void handle(@Nonnull final SendRequest request) {
+                            final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), formatter);
                             addToStream(content);
                         }
                     });

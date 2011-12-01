@@ -19,20 +19,20 @@ import java.util.Properties;
 public class LSDEntityTest extends TestCase {
 
     public void test() throws IOException {
-        Properties props = new Properties();
+        final Properties props = new Properties();
         props.load(getClass().getResourceAsStream("test.properties"));
         final HashMap<String, String> propMap = new HashMap(props);
 //        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
-        LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
+        final LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
 //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
 //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
 //        LSDNode lsdNode = entity.asFormatIndependentTree();
         System.out.println(entity.dump());
-        List<LSDEntity> lsdEntities = entity.getSubEntities(LSDAttribute.CHILD);
-        for (LSDEntity lsdEntity : lsdEntities) {
+        final List<LSDEntity> lsdEntities = entity.getSubEntities(LSDAttribute.CHILD);
+        for (final LSDEntity lsdEntity : lsdEntities) {
             System.out.printf("****** %s ******%n", lsdEntity.dump());
-            Map<String, String> stringMap = lsdEntity.getMap();
-            for (Map.Entry<String, String> entry : stringMap.entrySet()) {
+            final Map<String, String> stringMap = lsdEntity.getMap();
+            for (final Map.Entry<String, String> entry : stringMap.entrySet()) {
                 System.out.printf("%s=%s%n", entry.getKey(), entry.getValue());
             }
         }
@@ -41,7 +41,7 @@ public class LSDEntityTest extends TestCase {
     }
 
     public void testUnMarshall() {
-        String entityString = " <entity>\n" +
+        final String entityString = " <entity>\n" +
                 "      <icon>\n" +
                 "        <url>http://mashable.com/wp-content/authors/Ben%20Parr-507.jpg</url>\n" +
                 "      </icon>\n" +

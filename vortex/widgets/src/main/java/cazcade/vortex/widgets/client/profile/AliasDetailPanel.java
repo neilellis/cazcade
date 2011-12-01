@@ -17,6 +17,7 @@ public class AliasDetailPanel extends AbstractAliasDetailPanel {
 
 
     public AliasDetailPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
 

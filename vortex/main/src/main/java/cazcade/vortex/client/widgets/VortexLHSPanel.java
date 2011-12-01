@@ -15,6 +15,7 @@ public class VortexLHSPanel extends Composite {
     private static final VortexLHSPanelUiBinder ourUiBinder = GWT.create(VortexLHSPanelUiBinder.class);
 
     public VortexLHSPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }

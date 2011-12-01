@@ -38,11 +38,11 @@ public class DefaultMailService implements MailService {
     private String sender;
     private String senderFullname;
 
-    public void setSmtpHost(String smtpHost) {
+    public void setSmtpHost(final String smtpHost) {
         this.smtpHost = smtpHost;
     }
 
-    public void setSmtpAuthenticator(SMTPAuthenticator smtpAuthenticator) {
+    public void setSmtpAuthenticator(final SMTPAuthenticator smtpAuthenticator) {
         this.smtpAuthenticator = smtpAuthenticator;
     }
 
@@ -52,14 +52,14 @@ public class DefaultMailService implements MailService {
     }
 
     @Override
-    public void sendMailFromTemplate(String templateIdentifier, String subject, String[] to, @Nonnull String[] cc, @Nonnull String[] bcc,
-                                     Map<String, Object> templateParameters, boolean test) {
+    public void sendMailFromTemplate(final String templateIdentifier, final String subject, String[] to, @Nonnull final String[] cc, @Nonnull final String[] bcc,
+                                     final Map<String, Object> templateParameters, final boolean test) {
         try {
-            Template template = velocity.getTemplate(templateIdentifier, "UTF-8");
-            StringWriter output = new StringWriter();
-            VelocityContext context = new VelocityContext(templateParameters);
+            final Template template = velocity.getTemplate(templateIdentifier, "UTF-8");
+            final StringWriter output = new StringWriter();
+            final VelocityContext context = new VelocityContext(templateParameters);
             template.merge(context, output);
-            String messageBody = output.toString();
+            final String messageBody = output.toString();
 
             if (test) {
                 System.out.println("To: " + Arrays.toString(to));
@@ -71,7 +71,7 @@ public class DefaultMailService implements MailService {
             }
 
 
-            MimeMessage message = new MimeMessage(mailSession);
+            final MimeMessage message = new MimeMessage(mailSession);
             message.setContent(messageBody, "text/html");
             message.setFrom(new InternetAddress(sender, senderFullname));
             message.setSubject(subject);
@@ -90,35 +90,36 @@ public class DefaultMailService implements MailService {
         }
     }
 
-    private void addRecipients(@Nonnull MimeMessage message, @Nonnull String[] recipients, Message.RecipientType recipientType) throws MessagingException {
-        for (String recipient : recipients) {
+    private void addRecipients(@Nonnull final MimeMessage message, @Nonnull final String[] recipients, final Message.RecipientType recipientType) throws MessagingException {
+        for (final String recipient : recipients) {
             message.addRecipient(recipientType, new InternetAddress(recipient));
         }
     }
 
     private void initialiseVelocity() throws IOException {
-        ExtendedProperties extendedProperties = new ExtendedProperties();
+        final ExtendedProperties extendedProperties = new ExtendedProperties();
         extendedProperties.load(DefaultMailService.class.getResourceAsStream("/email-velocity.properties"));
         velocity = new VelocityEngine();
         velocity.setExtendedProperties(extendedProperties);
         velocity.init();
     }
 
-    private void initialiseMailSession(String smtpHost, @Nullable SMTPAuthenticator smtpAuthenticator) throws NoSuchProviderException {
-        Properties mailProperties = new Properties();
-        mailProperties.put("mail.transport.protocol", "smtp");
-        mailProperties.put("mail.smtp.host", smtpHost);
-        mailProperties.put("mail.smtp.auth", smtpAuthenticator == null ? "false" : "true");
+    private void initialiseMailSession(final String smtpHost, @Nullable final SMTPAuthenticator smtpAuthenticator) throws NoSuchProviderException {
+        final Properties mailProperties = new Properties();
+        mailProperties.setProperty("mail.transport.protocol", "smtp");
+        mailProperties.setProperty("mail.smtp.host", smtpHost);
+        //noinspection VariableNotUsedInsideIf
+        mailProperties.setProperty("mail.smtp.auth", smtpAuthenticator == null ? "false" : "true");
         mailSession = Session.getInstance(mailProperties, smtpAuthenticator);
         mailTransport = mailSession.getTransport();
     }
 
 
-    public void setSender(String sender) {
+    public void setSender(final String sender) {
         this.sender = sender;
     }
 
-    public void setSenderFullname(String senderFullname) {
+    public void setSenderFullname(final String senderFullname) {
         this.senderFullname = senderFullname;
     }
 }

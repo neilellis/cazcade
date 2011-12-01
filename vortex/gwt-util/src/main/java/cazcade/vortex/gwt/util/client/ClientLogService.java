@@ -17,7 +17,7 @@ public interface ClientLogService extends RemoteService {
      * Utility/Convenience class.
      * Use ClientLogService.App.getInstance() to access static instance of ClientLogServiceAsync
      */
-    public static class App {
+    class App {
         @Nonnull
         private static final ClientLogServiceAsync ourInstance = (ClientLogServiceAsync) GWT.create(ClientLogService.class);
 

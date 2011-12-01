@@ -14,10 +14,10 @@ public class DataStoreFactory {
     public static final FountainDataStore dataStore;
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(DataStoreFactory.class);
+    private static final Logger log = Logger.getLogger(DataStoreFactory.class);
 
     static {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:datastore-client-spring-config.xml");
+        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:datastore-client-spring-config.xml");
         dataStore = (FountainDataStore) applicationContext.getBean("remoteDataStore");
         try {
             dataStore.startIfNotStarted();

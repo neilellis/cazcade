@@ -29,16 +29,16 @@ import java.util.Map;
  */
 public class LiquidRestServlet extends AbstractRestServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LiquidRestServlet.class);
+    private static final Logger log = Logger.getLogger(LiquidRestServlet.class);
 
     public LiquidRestServlet() {
         super();
     }
 
     @Override
-    public void doRestCall(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp, String pathWithQuery, @Nonnull String serviceName, @Nonnull String methodName, @Nonnull List<LiquidUUID> uuids, @Nullable String sessionId, String format) throws Exception, InvocationTargetException, IllegalAccessException {
-        if ((sessionId == null)) {
-            if ((methodName.equals("create") || methodName.equals("get")) && (serviceName.equals("user") || serviceName.equals("alias") || serviceName.equals("session"))) {
+    public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final String pathWithQuery, @Nonnull final String serviceName, @Nonnull final String methodName, @Nonnull final List<LiquidUUID> uuids, @Nullable final String sessionId, final String format) throws Exception, InvocationTargetException, IllegalAccessException {
+        if (sessionId == null) {
+            if (("create".equals(methodName) || "get".equals(methodName)) && ("user".equals(serviceName) || "alias".equals(serviceName) || "session".equals(serviceName))) {
                 //then all is well
             } else {
                 resp.sendError(400, "Session must be supplied as a parameter (_session).");
@@ -50,7 +50,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
             log.error("No Spring context.");
             return;
         }
-        RestHandlerFactory handlerFactory = (RestHandlerFactory) applicationContext.getBean("restHandlerFactory");
+        final RestHandlerFactory handlerFactory = (RestHandlerFactory) applicationContext.getBean("restHandlerFactory");
         final RestHandler restHandler = handlerFactory.getHandlers().get(serviceName);
         if (restHandler == null) {
             log.warn("Unrecognized service{0}", serviceName);
@@ -59,8 +59,8 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
         final Class<? extends RestHandler> restHandlerClass = restHandler.getClass();
         final Method[] methods = restHandlerClass.getDeclaredMethods();
-        boolean handlerCalled = false;
-        LSDEntity entity = buildLSDObject(format, req);
+        final boolean handlerCalled = false;
+        final LSDEntity entity = buildLSDObject(format, req);
         log.addContext(entity);
         if (log.isDebugEnabled()) {
             log.debug("Entity passed in was {0}", entity.dump());
@@ -68,26 +68,29 @@ public class LiquidRestServlet extends AbstractRestServlet {
         //All entities must be timestamped at source on the server side. We don't trust client applications to have the correct time on them!
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         //Look for methods which explicitly specify the HTTP method
-        for (Method method : methods) {
-            if (matchMethod(req, resp, restHandler, uuids, methodName + req.getMethod(), method, format, entity))
+        for (final Method method : methods) {
+            if (matchMethod(req, resp, restHandler, uuids, methodName + req.getMethod(), method, format, entity)) {
                 return;
+            }
 
         }
-        for (Method method : methods) {
-            if (matchMethod(req, resp, restHandler, uuids, methodName, method, format, entity)) return;
+        for (final Method method : methods) {
+            if (matchMethod(req, resp, restHandler, uuids, methodName, method, format, entity)) {
+                return;
+            }
 
         }
         log.warn("Failed to find method on handler for  {0}", pathWithQuery);
         resp.sendError(400, "Failed to find method on handler for  " + pathWithQuery);
     }
 
-    private boolean matchMethod(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp, RestHandler restHandler, @Nonnull List<LiquidUUID> uuids, String methodName, @Nonnull Method method, String format, LSDEntity lsdEntity) throws Exception, InvocationTargetException, IllegalAccessException {
-        List<Object> arguments = new ArrayList<Object>();
+    private boolean matchMethod(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final RestHandler restHandler, @Nonnull final List<LiquidUUID> uuids, final String methodName, @Nonnull final Method method, final String format, final LSDEntity lsdEntity) throws Exception, InvocationTargetException, IllegalAccessException {
+        final List<Object> arguments = new ArrayList<Object>();
         if (Modifier.isPublic(method.getModifiers())) {
             if (method.getName().equals(methodName)) {
                 int pos = 0;
                 final Class<?>[] methodParamTypes = method.getParameterTypes();
-                if (uuids.size() > 0) {
+                if (!uuids.isEmpty()) {
                     for (int i = 0; i < uuids.size(); i++) {
                         if (i >= methodParamTypes.length || !methodParamTypes[i].equals(LiquidUUID.class)) {
                             log.debug("UUID match failed on {0}, with {1} UUIDs .", method.getName(), uuids.size());
@@ -128,7 +131,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
 
     }
 
-    private void invoke(@Nonnull HttpServletResponse resp, RestHandler restHandler, @Nonnull Method method, String format, @Nonnull List<Object> arguments) throws Exception {
+    private void invoke(@Nonnull final HttpServletResponse resp, final RestHandler restHandler, @Nonnull final Method method, final String format, @Nonnull final List<Object> arguments) throws Exception {
         log.debug("Invoking {0}{1}", method.getName(), arguments.toArray());
         Object result = null;
         try {
@@ -149,17 +152,17 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
         log.debug("SUCCESS invoked.");
         if (method.getReturnType().equals(LiquidMessage.class)) {
-            LiquidMessage message = (LiquidMessage) result;
+            final LiquidMessage message = (LiquidMessage) result;
             if (message == null) {
                 throw new NullPointerException("FAIL The method " + method.getName() + " returned a null message.");
             }
-            LSDEntity responseEntity = message.getResponse();
+            final LSDEntity responseEntity = message.getResponse();
             if (responseEntity == null) {
                 throw new NullPointerException("FAIL The method " + method.getName() + " returned a message with a null response entity.");
             }
             doLSDResponse(responseEntity, format, resp);
         } else if (method.getReturnType().equals(LSDEntity.class)) {
-            LSDEntity entity = (LSDEntity) result;
+            final LSDEntity entity = (LSDEntity) result;
             if (entity == null) {
                 throw new NullPointerException("FAIL The method " + method.getName() + " returned a null message.");
             }
@@ -167,7 +170,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
     }
 
-    private void doLSDResponse(@Nonnull LSDEntity responseEntity, String format, @Nonnull HttpServletResponse resp) throws IOException {
+    private void doLSDResponse(@Nonnull final LSDEntity responseEntity, final String format, @Nonnull final HttpServletResponse resp) throws IOException {
         //todo: separate this code out
         if (responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
             resp.sendError(404, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
@@ -191,17 +194,17 @@ public class LiquidRestServlet extends AbstractRestServlet {
         log.debug("Marshalled.");
     }
 
-    private Map<String, String> extractRestParameters(Map parameterMap) {
+    private Map<String, String> extractRestParameters(final Map parameterMap) {
         return parameterMap;
     }
 
     @Nonnull
-    private LSDEntity buildLSDObject(String format, @Nonnull HttpServletRequest req) throws IOException {
-        String method = req.getMethod();
+    private LSDEntity buildLSDObject(final String format, @Nonnull final HttpServletRequest req) throws IOException {
+        final String method = req.getMethod();
         if ("PUT".equals(method)) {
             return ((LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory")).getUnmarshalers().get(format).unmarshal(req.getInputStream());
         } else {
-            Map parameters = req.getParameterMap();
+            final Map parameters = req.getParameterMap();
             return ((LSDEntityFactory) applicationContext.getBean("LSDFactory")).createFromServletProperties(parameters);
         }
     }

@@ -42,11 +42,11 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     @Override
-    public void setOnChangeAction(Runnable onChangeAction) {
+    public void setOnChangeAction(final Runnable onChangeAction) {
         this.onChangeAction = onChangeAction;
     }
 
-    protected boolean isVisibleKeyPress(int keyCode) {
+    protected boolean isVisibleKeyPress(final int keyCode) {
         return browserUtil.isVisibleKeyPress(keyCode);
     }
 
@@ -68,17 +68,17 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     @Override
-    public void setValidityImage(Image validityImage) {
+    public void setValidityImage(final Image validityImage) {
         this.validityImage = validityImage;
     }
 
     @Override
-    public void setShowValidity(boolean showValidity) {
-        this.showValidityFlag = showValidity;
+    public void setShowValidity(final boolean showValidity) {
+        showValidityFlag = showValidity;
     }
 
     @Override
-    public void setErrorMessage(@Nullable String errorMessage) {
+    public void setErrorMessage(@Nullable final String errorMessage) {
         this.errorMessage.setText(errorMessage);
         if (errorMessage != null && !errorMessage.isEmpty()) {
             this.errorMessage.setVisible(true);
@@ -88,14 +88,14 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     @Override
-    public void setValue(String text) {
+    public void setValue(final String text) {
         throw new UnsupportedOperationException("This widget does not support single string values.");
 
     }
 
 
     @Override
-    public void bind(@Nonnull LSDEntity entity, @Nullable LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull final LSDEntity entity, @Nullable final LSDAttribute attribute, final String prefix) {
         setEntity(entity);
         setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
         if (attribute != null) {
@@ -107,12 +107,12 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         }
     }
 
-    void setEditable(boolean editable) {
+    void setEditable(final boolean editable) {
         /** override this behaviour*/
     }
 
 
-    public void bind(LSDAttribute attribute, String profile, List<String> initialValues) {
+    public void bind(final LSDAttribute attribute, final String profile, final List<String> initialValues) {
 
         throw new UnsupportedOperationException("This widget does not support multiple values binding.");
     }
@@ -147,7 +147,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         }
     }
 
-    void bind(LSDAttribute attribute, String prefix, String initialValue) {
+    void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
         throw new UnsupportedOperationException("This widget does not support single value binding.");
     }
 
@@ -160,7 +160,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     @Nonnull
     @Override
     public LSDEntity getEntityDiff() {
-        LSDEntity newEntity = LSDSimpleEntity.createEmpty();
+        final LSDEntity newEntity = LSDSimpleEntity.createEmpty();
         newEntity.setAttribute(LSDAttribute.URI, entity.getURI().toString());
         newEntity.setTypeDef(entity.getTypeDef());
         if (isMultiValue()) {
@@ -172,7 +172,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
 
-    public void setEntity(@Nonnull LSDEntity entity) {
+    public void setEntity(@Nonnull final LSDEntity entity) {
         if (entity.isReadonly()) {
             throw new IllegalArgumentException("Cannot accept readonly entities.");
         }

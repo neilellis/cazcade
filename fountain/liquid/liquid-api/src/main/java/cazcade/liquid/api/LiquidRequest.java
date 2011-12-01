@@ -18,12 +18,12 @@ public interface LiquidRequest extends LiquidMessage {
     List<String> getNotificationLocations();
 
     @Nullable
-    public LiquidSessionIdentifier getSessionIdentifier();
+    LiquidSessionIdentifier getSessionIdentifier();
 
     /**
      * This can only be called if no identity has yet been set. *
      */
-    public void setSessionId(LiquidSessionIdentifier identity);
+    void setSessionId(LiquidSessionIdentifier identity);
 
 
     @Nullable

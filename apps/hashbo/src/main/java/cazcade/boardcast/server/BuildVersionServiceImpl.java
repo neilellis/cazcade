@@ -16,23 +16,23 @@ import java.util.jar.Manifest;
  */
 public class BuildVersionServiceImpl extends RemoteServiceServlet implements BuildVersionService {
     @Nonnull
-    private final static Logger log = Logger.getLogger(BuildVersionServiceImpl.class);
+    private static final Logger log = Logger.getLogger(BuildVersionServiceImpl.class);
 
     @Override
     public String getBuildVersion() {
 
-        String appServerHome = getServletContext().getRealPath("/");
+        final String appServerHome = getServletContext().getRealPath("/");
 
-        File manifestFile = new File(appServerHome, "META-INF/MANIFEST.MF");
+        final File manifestFile = new File(appServerHome, "META-INF/MANIFEST.MF");
 
-        Manifest mf = new Manifest();
+        final Manifest mf = new Manifest();
         try {
             mf.read(new FileInputStream(manifestFile));
         } catch (IOException e) {
             log.warn(e.getMessage());
         }
 
-        Attributes atts = mf.getMainAttributes();
+        final Attributes atts = mf.getMainAttributes();
 
         return atts.getValue("Implementation-Build");
 

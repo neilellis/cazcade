@@ -17,8 +17,8 @@ import java.util.*;
 public interface LSDEntity extends Serializable {
 
     /**
-     * All LSD Objects have an id attribute which confirms to Java's {@link java.util.UUID} format, but for
-     * GWT related reasons we use instead {@link cazcade.liquid.api.LiquidUUID} class.
+     * All LSD Objects have an id attribute which confirms to Java's {@link UUID} format, but for
+     * GWT related reasons we use instead {@link LiquidUUID} class.
      *
      * @return a universally unique identifier for this object
      */
@@ -260,7 +260,7 @@ public interface LSDEntity extends Serializable {
 
     void setUpdated(Date updated);
 
-    public void setAttribute(LSDAttribute attribute, Date value);
+    void setAttribute(LSDAttribute attribute, Date value);
 
     void setPublished(Date published);
 
@@ -273,14 +273,14 @@ public interface LSDEntity extends Serializable {
 
     class EntityUpdatedComparator implements Comparator<LSDEntity> {
         @Override
-        public int compare(@Nonnull LSDEntity entity, @Nonnull LSDEntity entity1) {
+        public int compare(@Nonnull final LSDEntity entity, @Nonnull final LSDEntity entity1) {
             return entity.getUpdated().compareTo(entity1.getUpdated());
         }
     }
 
     class EntityPublishedComparator implements Comparator<LSDEntity> {
         @Override
-        public int compare(@Nonnull LSDEntity entity, @Nonnull LSDEntity entity1) {
+        public int compare(@Nonnull final LSDEntity entity, @Nonnull final LSDEntity entity1) {
             return entity.getPublished().compareTo(entity1.getPublished());
         }
     }

@@ -594,7 +594,7 @@ public final class FountainNeo extends AbstractServiceStateMachine {
     }
 
     @Nullable
-    public LSDEntity updateEntityByURITx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidURI uri, @Nonnull final LSDEntity entity, final boolean internal, final LiquidRequestDetailLevel detail, @javax.annotation.Nullable final Runnable onRenameAction) throws Exception {
+    public LSDEntity updateEntityByURITx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidURI uri, @Nonnull final LSDEntity entity, final boolean internal, final LiquidRequestDetailLevel detail, @Nullable final Runnable onRenameAction) throws Exception {
         begin();
         try {
             final Transaction transaction = neo.beginTx();

@@ -1,11 +1,9 @@
 package cazcade.fountain.index.model;
 
-import java.io.Serializable;
-
 /**
  * @author neilellis@cazcade.com
  */
-public class MessageBase extends CommonBase implements Serializable {
+public class MessageBase extends CommonBase {
 
     protected String messageText;
     protected String externalEntryURL;
@@ -15,7 +13,7 @@ public class MessageBase extends CommonBase implements Serializable {
         return messageText;
     }
 
-    public void setMessageText(String messageText) {
+    public void setMessageText(final String messageText) {
         this.messageText = messageText;
     }
 

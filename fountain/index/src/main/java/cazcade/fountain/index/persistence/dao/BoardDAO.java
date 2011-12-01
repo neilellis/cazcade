@@ -9,7 +9,7 @@ import java.util.List;
 public interface BoardDAO {
 
     @Transactional
-    public void saveBoard(BoardIndexEntity user);
+    void saveBoard(BoardIndexEntity user);
 
     @Transactional
     BoardIndexEntity getOrCreateBoard(String uri);

@@ -52,7 +52,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     private final Sound chatMessageSound;
 
 
-    public void setMaxRows(int maxRows) {
+    public void setMaxRows(final int maxRows) {
         this.maxRows = maxRows;
     }
 
@@ -61,7 +61,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     }
 
     @Override
-    public void onLocalHistoryTokenChanged(String token) {
+    public void onLocalHistoryTokenChanged(final String token) {
         super.onLocalHistoryTokenChanged(token);
         init();
     }
@@ -75,6 +75,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     VerticalPanel parentPanel;
 
     public ActivityStreamPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         soundController = new SoundController();
 
@@ -97,8 +98,8 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
 
                     BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                         @Override
-                        public void handle(@Nonnull SendRequest request) {
-                            DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), FormatUtil.getInstance());
+                        public void handle(@Nonnull final SendRequest request) {
+                            final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), FormatUtil.getInstance());
                             addToStream(content);
                             chatMessageSound.play();
                         }
@@ -129,11 +130,11 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     private void retrieveUpdates() {
         bus.send(new RetrieveUpdatesRequest(lastUpdate), new AbstractResponseCallback<RetrieveUpdatesRequest>() {
             @Override
-            public void onSuccess(RetrieveUpdatesRequest message, @Nonnull RetrieveUpdatesRequest response) {
+            public void onSuccess(final RetrieveUpdatesRequest message, @Nonnull final RetrieveUpdatesRequest response) {
                 lastUpdate = System.currentTimeMillis();
                 final List<LSDEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entries);
-                for (LSDEntity entry : entries) {
+                for (final LSDEntity entry : entries) {
                     if (entry.isA(LSDDictionaryTypes.COMMENT)
                             && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false, true);

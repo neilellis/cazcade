@@ -18,7 +18,7 @@ public class CustomObjectView extends PoolObjectView {
 
     private String href;
 
-    public void setImageUrl(String url) {
+    public void setImageUrl(final String url) {
         image.setUrl(url);
     }
 
@@ -43,7 +43,7 @@ public class CustomObjectView extends PoolObjectView {
         }
     }
 
-    public void setHref(String href) {
+    public void setHref(final String href) {
         this.href = href;
     }
 
@@ -63,11 +63,12 @@ public class CustomObjectView extends PoolObjectView {
     private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
     public CustomObjectView() {
-        HTMLPanel widget = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         addDomHandler(new DoubleClickHandler() {
             @Override
-            public void onDoubleClick(DoubleClickEvent event) {
+            public void onDoubleClick(final DoubleClickEvent event) {
                 editMode();
             }
         }, DoubleClickEvent.getType());
@@ -76,13 +77,13 @@ public class CustomObjectView extends PoolObjectView {
     }
 
     @Override
-    public void setLogicalWidth(int width) {
+    public void setLogicalWidth(final int width) {
         super.setLogicalWidth(width);
         image.setWidth(width + "px");
     }
 
     @Override
-    public void setLogicalHeight(int height) {
+    public void setLogicalHeight(final int height) {
         super.setLogicalHeight(height);
         image.setHeight(height + "px");
     }
@@ -90,7 +91,7 @@ public class CustomObjectView extends PoolObjectView {
 
     private static class CustomObjectClickHandler implements ClickHandler {
         @Override
-        public void onClick(ClickEvent event) {
+        public void onClick(final ClickEvent event) {
 
         }
     }

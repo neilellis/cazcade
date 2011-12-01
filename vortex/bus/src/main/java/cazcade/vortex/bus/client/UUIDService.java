@@ -22,7 +22,7 @@ public interface UUIDService extends RemoteService {
      * Utility/Convenience class.
      * Use UUIDService.App.getInstance() to access static instance of UUIDServiceAsync
      */
-    public static class App {
+    class App {
         @Nonnull
         private static final UUIDServiceAsync ourInstance = (UUIDServiceAsync) GWT.create(UUIDService.class);
 

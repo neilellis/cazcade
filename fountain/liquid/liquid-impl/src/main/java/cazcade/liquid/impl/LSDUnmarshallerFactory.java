@@ -9,7 +9,7 @@ import java.util.Map;
 public class LSDUnmarshallerFactory {
     private Map<String, LSDUnmarshaler> marshallers;
 
-    public void setUnmarshalers(Map<String, LSDUnmarshaler> marshallers) {
+    public void setUnmarshalers(final Map<String, LSDUnmarshaler> marshallers) {
         this.marshallers = marshallers;
     }
 

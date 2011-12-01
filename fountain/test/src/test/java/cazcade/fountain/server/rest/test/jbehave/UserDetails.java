@@ -17,8 +17,8 @@ public class UserDetails {
     private final String homePoolId;
     private final String publicPoolId;
 
-    public UserDetails(String username, LiquidUUID userId, Credentials credentials, String sessionId,
-                       ClientSession userSession, String homePool, String homePoolId, String publicPoolId) {
+    public UserDetails(final String username, final LiquidUUID userId, final Credentials credentials, final String sessionId,
+                       final ClientSession userSession, final String homePool, final String homePoolId, final String publicPoolId) {
         this.username = username;
         this.userId = userId;
         this.credentials = credentials;

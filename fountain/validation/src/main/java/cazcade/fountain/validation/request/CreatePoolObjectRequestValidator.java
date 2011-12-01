@@ -11,9 +11,9 @@ import javax.annotation.Nonnull;
  */
 public class CreatePoolObjectRequestValidator extends AbstractRequestValidator<CreatePoolObjectRequest> {
     @Nonnull
-    private final static Logger log = Logger.getLogger(CreatePoolObjectRequestValidator.class);
+    private static final Logger log = Logger.getLogger(CreatePoolObjectRequestValidator.class);
 
-    public void validate(@Nonnull CreatePoolObjectRequest request, ValidationLevel level) {
+    public void validate(@Nonnull final CreatePoolObjectRequest request, final ValidationLevel level) {
         log.debug("Validating create pool object request.");
         validPoolObject(request);
 

@@ -59,7 +59,7 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void setValue(@Nullable String text) {
+    public void setValue(@Nullable final String text) {
         if (text == null || text.isEmpty()) {
             listBox.setItemSelected(0, true);
             otherBox.addStyleName("invisible");
@@ -94,11 +94,11 @@ public class VortexListBox extends AbstractVortexFormField {
         return useVisibleText;
     }
 
-    public void setUseVisibleText(boolean useVisibleText) {
+    public void setUseVisibleText(final boolean useVisibleText) {
         this.useVisibleText = useVisibleText;
     }
 
-    public void setCacheOptions(boolean cacheOptions) {
+    public void setCacheOptions(final boolean cacheOptions) {
         this.cacheOptions = cacheOptions;
     }
 
@@ -119,10 +119,11 @@ public class VortexListBox extends AbstractVortexFormField {
     RegexTextBox otherBox;
 
     public VortexListBox() {
+        super();
         initWidget((Widget) getUiBinder().createAndBindUi(this));
         listBox.addChangeHandler(new ChangeHandler() {
             @Override
-            public void onChange(ChangeEvent event) {
+            public void onChange(final ChangeEvent event) {
                 if (otherOption) {
                     if (listBox.getSelectedIndex() == listBox.getItemCount() - 1) {
                         otherBox.removeStyleName("invisible");
@@ -138,17 +139,17 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(@Nonnull LSDAttribute attribute, String prefix, final String initialValue) {
+    public void bind(@Nonnull final LSDAttribute attribute, final String prefix, final String initialValue) {
         boundAttribute = attribute;
-        LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
+        final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false);
         retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(RetrievePoolRequest message, @Nonnull RetrievePoolRequest response) {
+            public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
                 final List<LSDEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entities);
-                for (LSDEntity entity : entities) {
+                for (final LSDEntity entity : entities) {
                     listBox.addItem(entity.getAttribute(LSDAttribute.TITLE), entity.getAttribute(LSDAttribute.NAME));
                 }
                 if (otherOption) {
@@ -161,12 +162,12 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void setOnChangeAction(Runnable onChangeAction) {
+    public void setOnChangeAction(final Runnable onChangeAction) {
         super.setOnChangeAction(onChangeAction);
         otherBox.setOnChangeAction(onChangeAction);
     }
 
-    public void setOtherOption(boolean otherOption) {
+    public void setOtherOption(final boolean otherOption) {
         this.otherOption = otherOption;
         if (!otherOption) {
             otherBox.removeFromParent();

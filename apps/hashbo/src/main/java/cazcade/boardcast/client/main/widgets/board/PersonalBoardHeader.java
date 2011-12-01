@@ -41,12 +41,12 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
 
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
+                    public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         setEntity(response.getResponse().copy());
                     }
 
                     @Override
-                    public void onFailure(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
+                    public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
 
@@ -56,7 +56,7 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
         };
     }
 
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
         addBinding(title, LSDAttribute.TITLE);
         addBinding(description, LSDAttribute.DESCRIPTION);
@@ -69,7 +69,8 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
     private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
     public PersonalBoardHeader() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
 
     }

@@ -12,12 +12,12 @@ public enum LiquidPermission {
 
     private final char shortForm;
 
-    private LiquidPermission(char c) {
-        this.shortForm = c;
+    LiquidPermission(final char c) {
+        shortForm = c;
     }
 
     @Nonnull
-    public static LiquidPermission fromChar(char c) {
+    public static LiquidPermission fromChar(final char c) {
         switch (Character.toLowerCase(c)) {
             case 'v':
                 return VIEW;

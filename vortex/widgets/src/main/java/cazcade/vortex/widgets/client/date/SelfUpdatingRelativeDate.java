@@ -22,6 +22,7 @@ public class SelfUpdatingRelativeDate extends Label {
     }
 
     public SelfUpdatingRelativeDate() {
+        super();
         addStyleName("self-updating-relative-date");
     }
 

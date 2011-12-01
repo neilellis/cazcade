@@ -20,7 +20,7 @@ public class ShortPressEvent extends GestureEvent<ShortPressHandler> {
     }
 
 
-    public ShortPressEvent(long duration, long endTime, DomEvent event, long startTime, int x, int y) {
+    public ShortPressEvent(final long duration, final long endTime, final DomEvent event, final long startTime, final int x, final int y) {
         super(0, 0, duration, endTime, event, startTime, 0, 0, x, y, 0, 0);
     }
 
@@ -30,7 +30,7 @@ public class ShortPressEvent extends GestureEvent<ShortPressHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull ShortPressHandler handler) {
+    protected void dispatch(@Nonnull final ShortPressHandler handler) {
         handler.onShortPress(this);
     }
 }

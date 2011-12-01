@@ -56,13 +56,13 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
 //                Window.alert("Sending..");
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
+                    public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         setEntity(response.getResponse().copy());
 //                        Window.alert("Success..");
                     }
 
                     @Override
-                    public void onFailure(UpdatePoolRequest message, @Nonnull UpdatePoolRequest response) {
+                    public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
 //                        Window.alert("Failed.");
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
@@ -73,7 +73,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         };
     }
 
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
         addBinding(title, LSDAttribute.TITLE);
         addBinding(description, LSDAttribute.DESCRIPTION);
@@ -87,19 +87,20 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
     public PublicBoardHeader() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
         WidgetUtil.hide(contentArea, false);
 
         tag.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 Window.alert("What did you expect to happen when you clicked this? Please let us know (info@hashbo.com)");
             }
         });
         url.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 Window.Location.replace(url.getValue());
             }
         });
@@ -107,7 +108,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(@Nonnull LSDEntity entity) {
+    protected void onChange(@Nonnull final LSDEntity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(this, true);
         final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();

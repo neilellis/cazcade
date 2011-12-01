@@ -20,17 +20,17 @@ public class LiquidSessionIdentifier implements Serializable {
     public LiquidSessionIdentifier() {
     }
 
-    public LiquidSessionIdentifier(@Nonnull String name) {
-        this.alias = new LiquidURI(LiquidURIScheme.alias, "cazcade:" + name.toLowerCase());
+    public LiquidSessionIdentifier(@Nonnull final String name) {
+        alias = new LiquidURI(LiquidURIScheme.alias, "cazcade:" + name.toLowerCase());
     }
 
-    public LiquidSessionIdentifier(@Nonnull String name, LiquidUUID session) {
+    public LiquidSessionIdentifier(@Nonnull final String name, final LiquidUUID session) {
         this(name);
         this.session = session;
     }
 
-    public LiquidSessionIdentifier(@Nonnull LiquidURI aliasURI) {
-        this.alias = aliasURI;
+    public LiquidSessionIdentifier(@Nonnull final LiquidURI aliasURI) {
+        alias = aliasURI;
     }
 
     @Nonnull
@@ -43,7 +43,7 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
 
-    public void setSession(String session) {
+    public void setSession(final String session) {
         this.session = LiquidUUID.fromString(session);
     }
 
@@ -59,13 +59,19 @@ public class LiquidSessionIdentifier implements Serializable {
 
 
     @Override
-    public boolean equals(@Nullable Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(@Nullable final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        LiquidSessionIdentifier that = (LiquidSessionIdentifier) o;
+        final LiquidSessionIdentifier that = (LiquidSessionIdentifier) o;
 
-        if (!session.equals(that.session)) return false;
+        if (!session.equals(that.session)) {
+            return false;
+        }
 
         return true;
     }
@@ -82,7 +88,7 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
     @Nullable
-    public static LiquidSessionIdentifier fromString(@Nullable String s) {
+    public static LiquidSessionIdentifier fromString(@Nullable final String s) {
         if (s == null || s.isEmpty()) {
             return null;
         }
@@ -141,6 +147,6 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
     public boolean isAnon() {
-        return alias.asString().equals("alias:cazcade:anon");
+        return "alias:cazcade:anon".equals(alias.asString());
     }
 }

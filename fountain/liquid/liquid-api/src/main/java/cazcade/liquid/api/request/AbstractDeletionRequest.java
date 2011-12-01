@@ -15,11 +15,11 @@ public abstract class AbstractDeletionRequest extends AbstractRequest {
 
     @Nullable
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (super.getTarget() != null) {
-            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.DELETE));
+        if (getTarget() != null) {
+            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.DELETE));
         } else {
-            if (super.getUri() != null) {
-                return Arrays.asList(new AuthorizationRequest(super.getUri(), LiquidPermission.DELETE));
+            if (getUri() != null) {
+                return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.DELETE));
             } else {
                 return Collections.emptyList();
             }

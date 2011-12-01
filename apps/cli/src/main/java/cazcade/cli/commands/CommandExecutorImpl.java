@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CommandExecutorImpl implements CommandExecutor {
     @Nonnull
-    private final static Logger log = Logger.getLogger(CommandExecutorImpl.class);
+    private static final Logger log = Logger.getLogger(CommandExecutorImpl.class);
 
     @Nonnull
     private final ScheduledExecutorService schedulor;
@@ -29,13 +29,13 @@ public class CommandExecutorImpl implements CommandExecutor {
     private boolean shutdown;
 
 
-    public CommandExecutorImpl(int threads) {
+    public CommandExecutorImpl(final int threads) {
         schedulor = new ScheduledThreadPoolExecutor(threads);
 
     }
 
     @Nullable
-    public String execute(@Nonnull final Command command, @Nonnull final String[] args, CommandFactory commandFactory, @Nonnull final ShellSession shellSession) throws Exception {
+    public String execute(@Nonnull final Command command, @Nonnull final String[] args, final CommandFactory commandFactory, @Nonnull final ShellSession shellSession) throws Exception {
         count.incrementAndGet();
         command.init(new CommandInitContext(this, commandFactory));
         command.start();
@@ -94,16 +94,16 @@ public class CommandExecutorImpl implements CommandExecutor {
 
     }
 
-    private String[] expand(@Nonnull String[] args, @Nonnull ShellSession shellSession) {
-        List<String> expanded = new ArrayList<String>();
-        for (String arg : args) {
+    private String[] expand(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) {
+        final List<String> expanded = new ArrayList<String>();
+        for (final String arg : args) {
             if (arg.contains("*")) {
                 String regex = arg.replaceAll("\\*", "(.*)");
                 regex = regex.replaceAll("\\.", "\\.");
                 regex = regex.replaceAll("\\+", "\\+");
-                LSDEntity curr = shellSession.getCurrentPool();
+                final LSDEntity curr = shellSession.getCurrentPool();
                 final List<LSDEntity> childPools = curr.getSubEntities(LSDAttribute.CHILD);
-                for (LSDEntity childPool : childPools) {
+                for (final LSDEntity childPool : childPools) {
                     if (childPool.getAttribute(LSDAttribute.NAME).matches(regex)) {
                         expanded.add(childPool.getURI().toString());
                     }
@@ -116,7 +116,7 @@ public class CommandExecutorImpl implements CommandExecutor {
     }
 
     @Nullable
-    private String runCommandDirect(@Nonnull Command command, String[] args, ShellSession shellSession) {
+    private String runCommandDirect(@Nonnull final Command command, final String[] args, final ShellSession shellSession) {
         try {
             return command.run(args, shellSession);
         } catch (InterruptedException ie) {

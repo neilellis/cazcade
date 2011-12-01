@@ -18,11 +18,11 @@ public class ImageOption extends Composite {
     private ImageSelection imageSelection;
     private String url;
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(final String thumbnail) {
         image.setUrl(thumbnail);
     }
 
-    public void setImageSelection(ImageSelection imageSelection) {
+    public void setImageSelection(final ImageSelection imageSelection) {
         this.imageSelection = imageSelection;
     }
 
@@ -30,7 +30,7 @@ public class ImageOption extends Composite {
         return BrowserUtil.convertRelativeUrlToAbsolute(url);
     }
 
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
 
@@ -44,13 +44,14 @@ public class ImageOption extends Composite {
     CachedImage image;
 
     public ImageOption() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
 //        image.sinkEvents(Event.MOUSEEVENTS);
     }
 
     @UiHandler("image")
-    public void handleClick(ClickEvent e) {
+    public void handleClick(final ClickEvent e) {
         imageSelection.selected(ImageOption.this);
     }
 

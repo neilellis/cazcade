@@ -22,15 +22,17 @@ import java.util.Map;
 
 public class CreatePoolCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(CreatePoolCommand.class);
+    private static final Logger log = Logger.getLogger(CreatePoolCommand.class);
 
     private Map<String, String> attributes;
 
-    public CreatePoolCommand(Map attributes) {
+    public CreatePoolCommand(final Map attributes) {
+        super();
         this.attributes = attributes;
     }
 
     public CreatePoolCommand() {
+        super();
     }
 
     @Nonnull
@@ -50,15 +52,15 @@ public class CreatePoolCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
         if (args.length < 1) {
             System.err.println("You must specify the new pool's name");
             return "";
         }
 
-        String pool = args[0];
+        final String pool = args[0];
         LiquidURI poolURI;
-        LiquidMessage response = shellSession.getDataStore().process(new CreatePoolRequest(shellSession.getIdentity(),
+        final LiquidMessage response = shellSession.getDataStore().process(new CreatePoolRequest(shellSession.getIdentity(),
                 shellSession.getCurrentPool().getURI(), pool, pool, pool, 0, 0));
         final LSDEntity responseEntity = response.getResponse();
         if (response.getState() != LiquidMessageState.SUCCESS) {
@@ -66,10 +68,10 @@ public class CreatePoolCommand extends AbstractShortLivedCommand {
             return null;
         } else {
             if (attributes != null) {
-                for (Map.Entry<String, String> entry : attributes.entrySet()) {
+                for (final Map.Entry<String, String> entry : attributes.entrySet()) {
                     responseEntity.setAttribute(LSDAttribute.valueOf(entry.getKey()), entry.getValue());
                 }
-                LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolRequest(shellSession.getIdentity(), responseEntity.getUUID(), responseEntity));
+                final LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolRequest(shellSession.getIdentity(), responseEntity.getUUID(), responseEntity));
                 if (response2.getState() != LiquidMessageState.SUCCESS) {
                     System.err.println(response2.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     return null;

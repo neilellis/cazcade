@@ -8,7 +8,7 @@ public class NotAuthorizedException extends RuntimeException {
         super();
     }
 
-    public NotAuthorizedException(String s) {
+    public NotAuthorizedException(final String s) {
         super(s);
     }
 }

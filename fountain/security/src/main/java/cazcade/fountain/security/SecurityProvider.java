@@ -19,33 +19,33 @@ import java.security.Principal;
  */
 public class SecurityProvider {
     @Nonnull
-    private final static Logger log = Logger.getLogger(SecurityProvider.class);
+    private static final Logger log = Logger.getLogger(SecurityProvider.class);
 
     private final FountainDataStore dataStore;
 
     @Nonnull
     private static final LiquidSessionIdentifier ANON_IDENTITY = new LiquidSessionIdentifier("anon");
 
-    public SecurityProvider(FountainDataStore dataStore) {
+    public SecurityProvider(final FountainDataStore dataStore) {
         this.dataStore = dataStore;
     }
 
     public SecurityProvider() throws Exception {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:datastore-client-spring-config.xml");
+        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:datastore-client-spring-config.xml");
         dataStore = (FountainDataStore) applicationContext.getBean("authDataStore");
         dataStore.start();
     }
 
     @Nullable
-    public Principal doAuthentication(@Nonnull String username, String password) throws Exception {
-        if (username.equals("anon")) {
+    public Principal doAuthentication(@Nonnull final String username, final String password) throws Exception {
+        if ("anon".equals(username)) {
             return new LiquidPrincipal(ANON_IDENTITY.getName());
 
         }
-        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         try {
-            LSDEntity lsdEntity = loadUserInternal(username);
-            String hashedPassword = lsdEntity.getAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD);
+            final LSDEntity lsdEntity = loadUserInternal(username);
+            final String hashedPassword = lsdEntity.getAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD);
             if (!lsdEntity.getBooleanAttribute(LSDAttribute.SECURITY_BLOCKED) && passwordEncryptor.checkPassword(password, hashedPassword)) {
                 return new LiquidPrincipal(new LiquidSessionIdentifier(username).getName());
 
@@ -58,9 +58,9 @@ public class SecurityProvider {
     }
 
     @Nullable
-    public LSDEntity loadUserInternal(@Nonnull String username) throws Exception {
-        LiquidMessage message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier(username), new LiquidURI(LiquidURIScheme.user, username), true));
-        LSDEntity lsdEntity = message.getResponse();
+    public LSDEntity loadUserInternal(@Nonnull final String username) throws Exception {
+        final LiquidMessage message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier(username), new LiquidURI(LiquidURIScheme.user, username), true));
+        final LSDEntity lsdEntity = message.getResponse();
         return lsdEntity;
     }
 }

@@ -13,7 +13,7 @@ public class StatusUpdateTranslator {
 
 
     @Nullable
-    public static LSDSimpleEntity translate(LSDSimpleEntity from) {
+    public static LSDSimpleEntity translate(final LSDSimpleEntity from) {
 //        if(from.canBe(LSDTypes.ALIAS)) {
 //        final LSDSimpleEntity lsdSimpleEntity = LSDSimpleEntity.createNewEntity(LSDTypes.)
         return null;

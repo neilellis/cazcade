@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
 
 
 public class DuplicateEntityException extends DataStoreException {
-    public DuplicateEntityException(Throwable throwable) {
+    public DuplicateEntityException(final Throwable throwable) {
         super(throwable);
     }
 
-    public DuplicateEntityException(@Nonnull String message, Object... params) {
+    public DuplicateEntityException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public DuplicateEntityException(Throwable cause, @Nonnull String message, Object... params) {
+    public DuplicateEntityException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 

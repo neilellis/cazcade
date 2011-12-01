@@ -10,7 +10,7 @@ public class CommandExecutionContext implements ExecutableCommand {
     private final ShellSession shellSession;
 
 
-    public CommandExecutionContext(Command command, String[] jobArgs, CommandFactory commandFactory, CommandExecutor executor, ShellSession shellSession) {
+    public CommandExecutionContext(final Command command, final String[] jobArgs, final CommandFactory commandFactory, final CommandExecutor executor, final ShellSession shellSession) {
         this.command = command;
         this.jobArgs = jobArgs;
         this.commandFactory = commandFactory;

@@ -24,9 +24,9 @@ public class ImageProxyServlet extends HttpServlet {
     private ImageService imageService;
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(ImageProxyServlet.class);
+    private static final Logger log = Logger.getLogger(ImageProxyServlet.class);
 
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         try {
             super.init(config);
             applicationContext = new ClassPathXmlApplicationContext(new String[]{
@@ -40,7 +40,7 @@ public class ImageProxyServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
 
         final String url = req.getParameter("url");

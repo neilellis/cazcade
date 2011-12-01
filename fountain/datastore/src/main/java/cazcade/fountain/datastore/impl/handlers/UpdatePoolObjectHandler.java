@@ -15,11 +15,11 @@ import javax.annotation.Nonnull;
 public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObjectRequest> implements UpdatePoolObjectRequestHandler {
     @Nonnull
     @Override
-    public UpdatePoolObjectRequest handle(@Nonnull UpdatePoolObjectRequest request) throws InterruptedException {
-        Node node;
+    public UpdatePoolObjectRequest handle(@Nonnull final UpdatePoolObjectRequest request) throws InterruptedException {
+        final Node node;
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            LSDEntity entity;
+            final LSDEntity entity;
             Node pool = null;
             if (request.getUri() != null) {
                 node = fountainNeo.findByURI(request.getUri());

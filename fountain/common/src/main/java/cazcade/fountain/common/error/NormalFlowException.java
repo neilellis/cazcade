@@ -9,15 +9,15 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class NormalFlowException extends CazcadeException {
-    public NormalFlowException(Throwable throwable) {
+    public NormalFlowException(final Throwable throwable) {
         super(throwable);
     }
 
-    public NormalFlowException(@Nonnull String message, Object... params) {
+    public NormalFlowException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public NormalFlowException(Throwable cause, @Nonnull String message, Object... params) {
+    public NormalFlowException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

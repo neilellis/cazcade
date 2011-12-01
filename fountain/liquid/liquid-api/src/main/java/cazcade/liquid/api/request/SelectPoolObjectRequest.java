@@ -10,29 +10,31 @@ import java.util.List;
 public class SelectPoolObjectRequest extends AbstractUpdateRequest {
 
     public SelectPoolObjectRequest() {
+        super();
     }
 
 
-    public SelectPoolObjectRequest(LiquidSessionIdentifier identity, LiquidUUID target, boolean selected) {
+    public SelectPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
         this(null, identity, target, selected);
     }
 
-    public SelectPoolObjectRequest(@Nullable LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID target, boolean selected) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setSelected(selected);
+    public SelectPoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setSelected(selected);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new SelectPoolObjectRequest(getId(), getSessionIdentifier(), super.getTarget(), isSelected());
+        return new SelectPoolObjectRequest(getId(), getSessionIdentifier(), getTarget(), isSelected());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.MODIFY));
+        return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.MODIFY));
     }
 
     @Nullable

@@ -6,8 +6,8 @@ import cazcade.liquid.api.LiquidMessage;
  * @author neilellis@cazcade.com
  */
 public class AbstractBusListener<T extends LiquidMessage> implements BusListener<T> {
-    
-    public void handle(T message) {
+
+    public void handle(final T message) {
     }
 
 }

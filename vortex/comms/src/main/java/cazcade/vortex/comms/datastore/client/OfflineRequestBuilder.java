@@ -13,7 +13,7 @@ public class OfflineRequestBuilder extends RequestBuilder {
     private final LiquidSessionIdentifier identity;
     private final String applicationVersion;
 
-    public OfflineRequestBuilder(LiquidSessionIdentifier identity, Method httpMethod, String url, String applicationVersion) {
+    public OfflineRequestBuilder(final LiquidSessionIdentifier identity, final Method httpMethod, final String url, final String applicationVersion) {
         super(httpMethod, url);
         this.identity = identity;
         this.applicationVersion = applicationVersion;
@@ -23,7 +23,7 @@ public class OfflineRequestBuilder extends RequestBuilder {
     @Override
     public Request send() throws RequestException {
         //todo add dates to the since field :-)
-        String requestData = super.getRequestData();
+        final String requestData = getRequestData();
         if (Storage.isSessionStorageSupported()) {
             final Storage storage = Storage.getSessionStorageIfSupported();
             if (storage.getItem(cacheKey(requestData)) != null) {
@@ -36,15 +36,15 @@ public class OfflineRequestBuilder extends RequestBuilder {
                 setHeader(DataStoreService.X_VORTEX_SINCE, "-1");
             }
         }
-        OfflineRequestCallback requestCallbackWrapper = new
+        final OfflineRequestCallback requestCallbackWrapper = new
                 OfflineRequestCallback(requestData, identity,
-                super.getCallback(), applicationVersion);
+                getCallback(), applicationVersion);
 
-        return super.sendRequest(requestData, requestCallbackWrapper);
+        return sendRequest(requestData, requestCallbackWrapper);
     }
 
     @Nonnull
-    private String cacheKey(String requestData) {
+    private String cacheKey(final String requestData) {
         return identity.getName() + ":" + applicationVersion + ":" + requestData;
     }
 

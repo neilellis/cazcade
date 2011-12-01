@@ -19,20 +19,21 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
 
 
     public CreateUserHandler() {
+        super();
 
     }
 
     @Nonnull
-    public CreateUserRequest handle(@Nonnull CreateUserRequest request) throws Exception {
+    public CreateUserRequest handle(@Nonnull final CreateUserRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
-        Transaction transaction = neo.beginTx();
-        Node userNode;
+        final Transaction transaction = neo.beginTx();
+        final Node userNode;
         try {
 
             userNode = userDAO.createUser(request.getRequestEntity(), false);
 
-            LSDEntity entity = userNode.convertNodeToLSD(request.getDetail(), request.isInternal());
-            String username = request.getRequestEntity().getAttribute(LSDAttribute.NAME);
+            final LSDEntity entity = userNode.convertNodeToLSD(request.getDetail(), request.isInternal());
+            final String username = request.getRequestEntity().getAttribute(LSDAttribute.NAME);
             if (username == null) {
                 throw new DataStoreException("The name attribute was null on the entity passed in to create user.");
             }

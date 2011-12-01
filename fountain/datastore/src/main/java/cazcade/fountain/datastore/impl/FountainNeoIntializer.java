@@ -19,7 +19,7 @@ import java.util.concurrent.Callable;
  */
 public class FountainNeoIntializer {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainNeoIntializer.class);
+    private static final Logger log = Logger.getLogger(FountainNeoIntializer.class);
 
     @Nonnull
     public static final String DEFAULT_PASSWORD = "npt78eb&AB--gi7";
@@ -56,7 +56,7 @@ public class FountainNeoIntializer {
                     @Nullable
                     @Override
                     public Object call() throws Exception {
-                        Node boardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeo.ADMIN_ALIAS_URI, fountainNeo.getRootPool(), "boards", 0, 0, FountainNeo.privatePermissionValue, false);
+                        final Node boardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeo.ADMIN_ALIAS_URI, fountainNeo.getRootPool(), "boards", 0, 0, FountainNeo.privatePermissionValue, false);
                         poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeo.ADMIN_ALIAS_URI, boardsPool, "public", 0, 0, FountainNeo.publicPermissionNoDeleteValue, false);
                         poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeo.ADMIN_ALIAS_URI, boardsPool, "geo", 0, 0, FountainNeo.publicPermissionNoDeleteValue, false);
                         log.info("Created core boards pools");
@@ -88,7 +88,7 @@ public class FountainNeoIntializer {
         fountainNeo.setRootPool(fountainNeo.createSystemPool("pool:///"));
 
         createSystemUser();
-        LiquidSessionIdentifier identity = new LiquidSessionIdentifier(FountainNeo.SYSTEM, null);
+        final LiquidSessionIdentifier identity = new LiquidSessionIdentifier(FountainNeo.SYSTEM, null);
 
         poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, fountainNeo.getRootPool(), "users", (double) 0, (double) 0, null, false);
 
@@ -96,16 +96,16 @@ public class FountainNeoIntializer {
 
         poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, fountainNeo.getRootPool(), "system", (double) 0, (double) 0, null, false);
 
-        Node cazcadePool = poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, fountainNeo.getRootPool(), "cazcade", (double) 0, (double) 0, null, false);
-        double x1 = -210;
-        double y1 = -210;
+        final Node cazcadePool = poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, fountainNeo.getRootPool(), "cazcade", (double) 0, (double) 0, null, false);
+        final double x1 = -210;
+        final double y1 = -210;
 
-        Node cazcadePublicPool = poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, cazcadePool, "playground", x1, y1, "Playground", false);
+        final Node cazcadePublicPool = poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, cazcadePool, "playground", x1, y1, "Playground", false);
         cazcadePublicPool.setProperty(LSDAttribute.PERMISSIONS, FountainNeo.publicPermissionValue);
-        double x = -210;
+        final double x = -210;
 
         poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, cazcadePool, "welcome", x, (double) 210, "Welcome", false);
-        double y = -210;
+        final double y = -210;
 
         poolDAO.createPoolNoTx(identity, FountainNeo.ADMIN_ALIAS_URI, cazcadePool, "help", (double) 210, y, "Help", false);
 
@@ -143,7 +143,7 @@ public class FountainNeoIntializer {
         hashboUser.setAttribute(LSDAttribute.FULL_NAME, "Admin");
         hashboUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");
 
-        Node user = userDAO.createUser(hashboUser, false);
+        final Node user = userDAO.createUser(hashboUser, false);
         poolDAO.createPoolsForUserNoTx(ADMIN);
         poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:admin"), ADMIN, "Admin", false);
 
@@ -162,7 +162,7 @@ public class FountainNeoIntializer {
 
 
     private void createSystemUser() throws InterruptedException, UnsupportedEncodingException {
-        LSDEntity systemUser = LSDSimpleEntity.createEmpty();
+        final LSDEntity systemUser = LSDSimpleEntity.createEmpty();
         systemUser.setAttribute(LSDAttribute.NAME, FountainNeo.SYSTEM);
         systemUser.setAttribute(LSDAttribute.FULL_NAME, "Administrator");
         systemUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");
@@ -173,15 +173,15 @@ public class FountainNeoIntializer {
 
     }
 
-    public void setFountainNeo(FountainNeo fountainNeo) {
+    public void setFountainNeo(final FountainNeo fountainNeo) {
         this.fountainNeo = fountainNeo;
     }
 
-    public void setPoolDAO(FountainPoolDAO poolDAO) {
+    public void setPoolDAO(final FountainPoolDAO poolDAO) {
         this.poolDAO = poolDAO;
     }
 
-    public void setUserDAO(FountainUserDAO userDAO) {
+    public void setUserDAO(final FountainUserDAO userDAO) {
         this.userDAO = userDAO;
     }
 }

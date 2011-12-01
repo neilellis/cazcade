@@ -1,11 +1,6 @@
 package cazcade.vortex.pool.objects;
 
-import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.lsd.LSDEntity;
-import cazcade.liquid.api.request.MovePoolObjectRequest;
-import cazcade.liquid.api.request.ResizePoolObjectRequest;
-import cazcade.liquid.api.request.RotateXYPoolObjectRequest;
-import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -13,7 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public interface PoolObjectPresenter<T extends PoolObjectView> {
 
-    public LSDEntity getEntity();
+    LSDEntity getEntity();
 
     Widget getPoolObjectView();
 

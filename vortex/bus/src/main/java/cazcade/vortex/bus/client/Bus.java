@@ -14,11 +14,11 @@ public interface Bus {
 
     void removeListener(long listenerId);
 
-    public static interface UUIDCallback {
+    interface UUIDCallback {
         void callback(LiquidUUID uuid);
     }
 
-    public void retrieveUUID(final UUIDCallback callback);
+    void retrieveUUID(final UUIDCallback callback);
 
 
     /**

@@ -32,13 +32,13 @@ public class MultiImageUploader extends Composite {
         urls.clear();
         popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             @Override
-            public void setPosition(int offsetWidth, int offsetHeight) {
+            public void setPosition(final int offsetWidth, final int offsetHeight) {
                 popup.setPopupPosition(Window.getClientWidth() / 2 - offsetWidth / 2, Window.getClientHeight() / 2 - offsetHeight / 2);
             }
         });
     }
 
-    public void setOnSuccess(Runnable onSuccess) {
+    public void setOnSuccess(final Runnable onSuccess) {
         this.onSuccess = onSuccess;
     }
 
@@ -60,16 +60,17 @@ public class MultiImageUploader extends Composite {
     Label cancelLink;
 
     public MultiImageUploader() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        MultiUploader defaultUploader = new MultiUploader();
+        final MultiUploader defaultUploader = new MultiUploader();
         loaderPanel.add(defaultUploader);
         defaultUploader.addOnFinishUploadHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(@Nonnull IUploader uploader) {
+            public void onFinish(@Nonnull final IUploader uploader) {
                 if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
-                    IUploader.UploadedInfo info = uploader.getServerInfo();
+                    final IUploader.UploadedInfo info = uploader.getServerInfo();
                     final String[] returnedUrls = info.message.split(",");
-                    for (String url : returnedUrls) {
+                    for (final String url : returnedUrls) {
                         imageLoadedPanel.add(new Image(url));
                         urls.add(url);
                     }
@@ -87,7 +88,7 @@ public class MultiImageUploader extends Composite {
         });
         addButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 hide();
                 onSuccess.run();
             }
@@ -95,7 +96,7 @@ public class MultiImageUploader extends Composite {
 
         cancelLink.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 hide();
                 urls.clear();
             }

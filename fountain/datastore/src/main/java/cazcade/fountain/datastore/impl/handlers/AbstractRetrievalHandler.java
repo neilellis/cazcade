@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class AbstractRetrievalHandler<T extends AbstractRetrievalRequest> extends AbstractDataStoreHandler<T> {
-    public T handle(@Nonnull T request) throws Exception {
+    public T handle(@Nonnull final T request) throws Exception {
         LSDEntity entity;
         if (request.getTarget() != null) {
             entity = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
@@ -21,7 +21,7 @@ public class AbstractRetrievalHandler<T extends AbstractRetrievalRequest> extend
             final FountainNeo neo = fountainNeo;
             final Transaction transaction = neo.beginTx();
             try {
-                Node node = fountainNeo.findByURI(request.getUri());
+                final Node node = fountainNeo.findByURI(request.getUri());
                 if (node == null) {
                     return LiquidResponseHelper.forEmptyResultResponse(request);
                 }

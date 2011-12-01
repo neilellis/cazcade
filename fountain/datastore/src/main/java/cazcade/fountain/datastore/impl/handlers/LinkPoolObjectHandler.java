@@ -16,18 +16,18 @@ import javax.annotation.Nonnull;
  */
 public class LinkPoolObjectHandler extends AbstractDataStoreHandler<LinkPoolObjectRequest> implements LinkPoolObjectRequestHandler {
     @Nonnull
-    public LinkPoolObjectRequest handle(@Nonnull LinkPoolObjectRequest request) throws InterruptedException {
-        Transaction transaction = fountainNeo.beginTx();
+    public LinkPoolObjectRequest handle(@Nonnull final LinkPoolObjectRequest request) throws InterruptedException {
+        final Transaction transaction = fountainNeo.beginTx();
         try {
-            LiquidUUID from = request.getFrom();
-            LiquidUUID to = request.getTo();
-            LiquidUUID target = request.getTarget();
-            Node result;
-            Node targetNode = fountainNeo.findByUUID(target);
-            LiquidURI uri = targetNode.getURI();
+            final LiquidUUID from = request.getFrom();
+            final LiquidUUID to = request.getTo();
+            final LiquidUUID target = request.getTarget();
+            final Node result;
+            final Node targetNode = fountainNeo.findByUUID(target);
+            final LiquidURI uri = targetNode.getURI();
 
-            LiquidURI alias = request.getAlias();
-            Node newOwner = fountainNeo.findByURI(alias);
+            final LiquidURI alias = request.getAlias();
+            final Node newOwner = fountainNeo.findByURI(alias);
 
 
             if (request.isUnlink()) {

@@ -16,11 +16,11 @@ import javax.annotation.Nonnull;
  */
 public class ResizePoolObjectHandler extends AbstractDataStoreHandler<ResizePoolObjectRequest> implements ResizePoolObjectRequestHandler {
     @Nonnull
-    public ResizePoolObjectRequest handle(@Nonnull ResizePoolObjectRequest request) throws InterruptedException {
-        Transaction transaction = fountainNeo.beginTx();
+    public ResizePoolObjectRequest handle(@Nonnull final ResizePoolObjectRequest request) throws InterruptedException {
+        final Transaction transaction = fountainNeo.beginTx();
         try {
-            Node node = fountainNeo.findByUUID(request.getObjectUUID());
-            Node viewNode = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(node);
+            final Node node = fountainNeo.findByUUID(request.getObjectUUID());
+            final Node viewNode = node.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(node);
             if (request.getWidth() != null) {
                 viewNode.setAttribute(LSDAttribute.VIEW_WIDTH, request.getWidth());
             }

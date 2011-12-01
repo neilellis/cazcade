@@ -11,56 +11,60 @@ import java.util.List;
 public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
 
     public RetrievePoolObjectRequest() {
+        super();
     }
 
-    public RetrievePoolObjectRequest(LiquidURI uri, boolean historical) {
+    public RetrievePoolObjectRequest(final LiquidURI uri, final boolean historical) {
         this(null, null, uri, historical);
     }
 
-    public RetrievePoolObjectRequest(LiquidSessionIdentifier identity, LiquidURI uri, boolean historical) {
+    public RetrievePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean historical) {
         this(null, identity, uri, historical);
     }
 
-    public RetrievePoolObjectRequest(LiquidUUID pool, LiquidUUID target, boolean historical) {
+    public RetrievePoolObjectRequest(final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
         this(null, null, pool, target, historical);
     }
 
-    public RetrievePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI uri, boolean historical) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setUri(uri);
-        this.setHistorical(historical);
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean historical) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
+        setHistorical(historical);
     }
 
-    public RetrievePoolObjectRequest(LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID target, boolean historical) {
+    public RetrievePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
         this(null, identity, pool, target, historical);
     }
 
-    public RetrievePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, boolean historical) {
-        this.setSessionId(authenticatedUser);
-        this.setPoolUUID(pool);
-        this.setTarget(target);
-        this.setHistorical(historical);
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
+        super();
+        setSessionId(authenticatedUser);
+        setPoolUUID(pool);
+        setTarget(target);
+        setHistorical(historical);
     }
 
-    private RetrievePoolObjectRequest(LiquidUUID id, LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LiquidUUID target, LiquidURI uri) {
-        this.setId(id);
-        this.setSessionId(authenticatedUser);
-        this.setPoolUUID(pool);
-        this.setTarget(target);
-        this.setUri(uri);
+    private RetrievePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri) {
+        super();
+        setId(id);
+        setSessionId(authenticatedUser);
+        setPoolUUID(pool);
+        setTarget(target);
+        setUri(uri);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrievePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), super.getTarget(), getUri());
+        return new RetrievePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), getTarget(), getUri());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getPoolUUID() != null) {
-            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(getPoolUUID(), LiquidPermission.VIEW));
+            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(getPoolUUID(), LiquidPermission.VIEW));
         } else {
             return Collections.EMPTY_LIST;
         }

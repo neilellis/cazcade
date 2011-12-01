@@ -19,7 +19,7 @@ public class HoldDragEvent extends GestureEvent<HoldDragHandler> {
         return TYPE;
     }
 
-    public HoldDragEvent(int deltaX, int deltaY, DomEvent mostRecentDOMEvent, long startTime, int startX, int startY, int x, int y, int offsetX, int offsetY) {
+    public HoldDragEvent(final int deltaX, final int deltaY, final DomEvent mostRecentDOMEvent, final long startTime, final int startX, final int startY, final int x, final int y, final int offsetX, final int offsetY) {
         super(deltaX, deltaY, 0, 0, mostRecentDOMEvent, startTime, startX, startY, x, y, offsetX, offsetY);
     }
 
@@ -29,7 +29,7 @@ public class HoldDragEvent extends GestureEvent<HoldDragHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull HoldDragHandler handler) {
+    protected void dispatch(@Nonnull final HoldDragHandler handler) {
         handler.onHoldDrag(this);
     }
 

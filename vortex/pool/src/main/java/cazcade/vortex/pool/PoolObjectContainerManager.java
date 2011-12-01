@@ -37,13 +37,13 @@ public class PoolObjectContainerManager {
         return objectPresenters;
     }
 
-    public PoolObjectContainerManager(@Nonnull final PoolObjectContainer container, final VortexThreadSafeExecutor executor, LiquidURI poolURI, final FormatUtil features) {
+    public PoolObjectContainerManager(@Nonnull final PoolObjectContainer container, final VortexThreadSafeExecutor executor, final LiquidURI poolURI, final FormatUtil features) {
         this.container = container;
         this.executor = executor;
 
         createListenerId = BusFactory.getInstance().listenForURIAndRequestType(poolURI, LiquidRequestType.CREATE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 ClientLog.log("Received create pool object request.");
                 if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                     ClientLog.log("Received create pool object request from server - processing it.");
@@ -51,9 +51,9 @@ public class PoolObjectContainerManager {
                         Window.alert("Failed to add pool object.");
                     } else if (message.getState() == LiquidMessageState.SUCCESS) {
                         try {
-                            LSDEntity requestEntity = message.getResponse();
+                            final LSDEntity requestEntity = message.getResponse();
                             ClientLog.log("Adding " + requestEntity.getTypeDef().asString());
-                            PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(container, requestEntity, features, executor);
+                            final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(container, requestEntity, features, executor);
                             if (poolObjectPresenter != null) {
                                 add(poolObjectPresenter, true);
                             }
@@ -74,7 +74,7 @@ public class PoolObjectContainerManager {
         });
         deleteListenerId = BusFactory.getInstance().listenForURIAndRequestType(poolURI, LiquidRequestType.DELETE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                     if (message.getState() == LiquidMessageState.FAIL) {
                         Window.alert("Failed to delete pool object.");
@@ -116,7 +116,7 @@ public class PoolObjectContainerManager {
                         public void run() {
                             BusFactory.getInstance().send(new DeletePoolObjectRequest(uri), new AbstractResponseCallback<DeletePoolObjectRequest>() {
                                 @Override
-                                public void onSuccess(DeletePoolObjectRequest message, DeletePoolObjectRequest response) {
+                                public void onSuccess(final DeletePoolObjectRequest message, final DeletePoolObjectRequest response) {
 //                                    executor.execute(new Runnable() {
 //                                        @Override
 //                                        public void run() {
@@ -132,7 +132,7 @@ public class PoolObjectContainerManager {
         });
     }
 
-    void remove(@Nonnull PoolObjectPresenter poolObjectPresenter) {
+    void remove(@Nonnull final PoolObjectPresenter poolObjectPresenter) {
         container.removeView(poolObjectPresenter.getPoolObjectView());
         final LiquidURI uri = poolObjectPresenter.getEntity().getURI();
         poolObjectWidgetsByURI.remove(uri);
@@ -144,7 +144,7 @@ public class PoolObjectContainerManager {
         source.hide();
         BusFactory.getInstance().send(new LinkPoolObjectRequest(source.getEntity().getUUID(), destination.getEntity().getUUID(), true), new AbstractResponseCallback<LinkPoolObjectRequest>() {
             @Override
-            public void onSuccess(LinkPoolObjectRequest message, LinkPoolObjectRequest response) {
+            public void onSuccess(final LinkPoolObjectRequest message, final LinkPoolObjectRequest response) {
                 remove(source);
                 destination.add(source);
             }
@@ -157,14 +157,15 @@ public class PoolObjectContainerManager {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                double x = source.getX();
-                double y = source.getY();
+                final double x = source.getX();
+                final double y = source.getY();
                 for (final PoolObjectPresenter presenter : objectPresenters.values()) {
+                    //noinspection ObjectEquality
                     if (presenter instanceof PoolObjectDropTarget && presenter != source) {
-                        double left = presenter.getLeft();
-                        double right = presenter.getRight();
-                        double top = presenter.getTop();
-                        double bottom = presenter.getBottom();
+                        final double left = presenter.getLeft();
+                        final double right = presenter.getRight();
+                        final double top = presenter.getTop();
+                        final double bottom = presenter.getBottom();
                         if (x > left && x < right && y > top && y < bottom) {
                             executor.execute(new Runnable() {
                                 @Override

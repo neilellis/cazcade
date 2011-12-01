@@ -29,6 +29,7 @@ public class SwitchTab extends Composite {
 
 
     public SwitchTab() {
+        super();
         // bind XML file of same name of this class to this class
         initWidget(uiBinder.createAndBindUi(this));
         optionLeftLabel.setInnerHTML("Left");

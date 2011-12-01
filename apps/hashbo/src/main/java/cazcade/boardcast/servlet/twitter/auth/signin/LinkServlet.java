@@ -48,33 +48,33 @@ import java.security.Principal;
 
 public class LinkServlet extends AbstractTwitterServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LinkServlet.class);
+    private static final Logger log = Logger.getLogger(LinkServlet.class);
     private static final long serialVersionUID = 1657390011452788111L;
     private SecurityProvider securityProvider;
 
     @Override
-    public void init(@Nonnull ServletConfig config) throws ServletException {
+    public void init(@Nonnull final ServletConfig config) throws ServletException {
         super.init(config);
         securityProvider = new SecurityProvider(dataStore);
 
     }
 
 
-    protected void doPost(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession();
-            LSDSimpleEntity twitterAlias = (LSDSimpleEntity) session.getAttribute(TWITTER_ALIAS_KEY);
+            final HttpSession session = request.getSession();
+            final LSDSimpleEntity twitterAlias = (LSDSimpleEntity) session.getAttribute(TWITTER_ALIAS_KEY);
 
             //from the register.jsp
-            String username = request.getParameter(USERNAME_PARAM);
-            String password = request.getParameter(PASSWORD_PARAM);
-            Principal principal = securityProvider.doAuthentication(username, password);
+            final String username = request.getParameter(USERNAME_PARAM);
+            final String password = request.getParameter(PASSWORD_PARAM);
+            final Principal principal = securityProvider.doAuthentication(username, password);
             if (principal == null) {
                 response.sendRedirect(request.getContextPath() + "/_twitter/link.jsp?username=" + URLEncoder.encode(username, "utf8") + "&message=Login+failed.");
             } else {
-                LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new LiquidSessionIdentifier(username), twitterAlias, true, true, true));
+                final LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new LiquidSessionIdentifier(username), twitterAlias, true, true, true));
                 if (createAliasResponse.getState() == LiquidMessageState.SUCCESS) {
-                    LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI(), session);
+                    final LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI(), session);
                     session.setAttribute(SESSION_KEY, sessionIdentifier);
                     response.sendRedirect(request.getContextPath() + "/_twitter/login.jsp");
                 } else {

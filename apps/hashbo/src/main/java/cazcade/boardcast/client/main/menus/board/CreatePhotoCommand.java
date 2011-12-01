@@ -11,7 +11,7 @@ import cazcade.vortex.pool.objects.photo.PhotoEditorPanel;
 public class CreatePhotoCommand extends CreateItemCommand {
 
 
-    public CreatePhotoCommand(LiquidURI pool, LSDDictionaryTypes type, Size size, String theme) {
+    public CreatePhotoCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 

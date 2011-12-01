@@ -14,7 +14,7 @@ public class SecurityValidatorImpl implements SecurityValidator {
     private AuthorizationService authorizationService;
 
     @Nullable
-    public LiquidRequest validate(LiquidRequest request) {
+    public LiquidRequest validate(final LiquidRequest request) {
         try {
             return authorizationService.authorize(request);
         } catch (AuthorizationException ae) {
@@ -25,7 +25,7 @@ public class SecurityValidatorImpl implements SecurityValidator {
 
     }
 
-    public void setAuthorizationService(AuthorizationService authorizationService) {
+    public void setAuthorizationService(final AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;
     }
 }

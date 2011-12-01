@@ -15,12 +15,12 @@ public class LiquidUUID implements Serializable {
     public LiquidUUID() {
     }
 
-    public LiquidUUID(String s) {
+    public LiquidUUID(final String s) {
         this.s = s;
     }
 
     @Nonnull
-    public static LiquidUUID fromString(String s) {
+    public static LiquidUUID fromString(final String s) {
         return new LiquidUUID(s);
     }
 
@@ -30,13 +30,19 @@ public class LiquidUUID implements Serializable {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(@Nullable final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        LiquidUUID that = (LiquidUUID) o;
+        final LiquidUUID that = (LiquidUUID) o;
 
-        if (s != null ? !s.equals(that.s) : that.s != null) return false;
+        if (s != null ? !s.equals(that.s) : that.s != null) {
+            return false;
+        }
 
         return true;
     }

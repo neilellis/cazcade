@@ -28,10 +28,10 @@ public class HistoryManager {
     public HistoryManager(final String mainPanelId) {
         this.mainPanelId = mainPanelId;
         if (RootPanel.get(mainPanelId) != null) {
-            com.google.gwt.user.client.History.addValueChangeHandler(new ValueChangeHandler<String>() {
+            History.addValueChangeHandler(new ValueChangeHandler<String>() {
                 @Override
-                public void onValueChange(@Nonnull ValueChangeEvent<String> stringValueChangeEvent) {
-                    String newToken = stringValueChangeEvent.getValue();
+                public void onValueChange(@Nonnull final ValueChangeEvent<String> stringValueChangeEvent) {
+                    final String newToken = stringValueChangeEvent.getValue();
                     handleTokenChange(newToken);
                 }
             });
@@ -39,7 +39,7 @@ public class HistoryManager {
     }
 
     private void handleTokenChange(@Nonnull String newToken) {
-        String tokenFirstPart;
+        final String tokenFirstPart;
         //grrr Jsession id nonsense
         if (newToken.contains(";")) {
             newToken = newToken.substring(0, newToken.lastIndexOf(';'));
@@ -54,7 +54,7 @@ public class HistoryManager {
             tokenFirstPart = strings[0];
             localToken = strings[1];
         } else if (newToken.startsWith("_")) {
-            int dashPosition = newToken.indexOf("-");
+            final int dashPosition = newToken.indexOf('-');
             if (dashPosition <= 1) {
                 tokenFirstPart = newToken.substring(1);
                 localToken = "";
@@ -73,7 +73,7 @@ public class HistoryManager {
         historyAwareFactory.withInstance(
                 new HistoryAwareFactoryCallback() {
                     @Override
-                    public void withInstance(@Nullable HistoryAware composite) {
+                    public void withInstance(@Nullable final HistoryAware composite) {
                         if (composite != null) {
                             final Widget currentWidget = RootPanel.get(mainPanelId).iterator().next();
                             if (currentWidget != null) {
@@ -92,22 +92,22 @@ public class HistoryManager {
 
     }
 
-    public void registerTopLevelComposite(String token, @Nonnull HistoryAwareFactory composite) {
+    public void registerTopLevelComposite(final String token, @Nonnull final HistoryAwareFactory composite) {
         compositeMap.put(token, composite);
         composite.setHistoryManager(this);
         composite.setHistoryToken(token);
     }
 
 
-    public void addHistory(String historyToken, String localHistory) {
+    public void addHistory(final String historyToken, final String localHistory) {
         navigate(historyToken + ":" + localHistory);
     }
 
-    public static void navigate(String action, String local) {
+    public static void navigate(final String action, final String local) {
         navigate("_" + action + "-" + local);
     }
 
-    public static void navigate(String url) {
+    public static void navigate(final String url) {
         if (isPushStateSupported()) {
             History.newItem(url);
         } else {

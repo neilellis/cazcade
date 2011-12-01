@@ -68,10 +68,12 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     Label authorFullname;
 
     protected CommentEntryPanel() {
+        super();
     }
 
-    public CommentEntryPanel(@Nonnull LSDEntity streamEntry) {
-        this.entity = streamEntry;
+    public CommentEntryPanel(@Nonnull final LSDEntity streamEntry) {
+        super();
+        entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
         final String locationText;
         if (streamEntry.hasAttribute(LSDAttribute.EURI)) {
@@ -88,14 +90,14 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
         profileName.setText("@" + name);
         profileName.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 HistoryManager.navigate("~" + name);
             }
         });
         authorFullname.setText(author.getAttribute(LSDAttribute.FULL_NAME));
         authorFullname.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 HistoryManager.navigate("~" + name);
             }
         });
@@ -117,7 +119,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
             dateTime.setDate(new Date(publishedInMillis));
             final double logTime = Math.log10((System.currentTimeMillis() - publishedInMillis) / 500000);
             //fade out older messages
-            this.getElement().getStyle().setOpacity(1 - (logTime / 10));
+            getElement().getStyle().setOpacity(1 - logTime / 10);
         }
     }
 }

@@ -85,14 +85,14 @@ public class FormatUtil {
 
 
     @Nullable
-    public String formatRichText(@Nullable String text) {
+    public String formatRichText(@Nullable final String text) {
         if (text == null) {
             return "";
         }
-        String[] split = text.split("`");
+        final String[] split = text.split("`");
         String result = "";
         int count = 0;
-        for (String s : split) {
+        for (final String s : split) {
 
             if (count++ % 2 == 0) {
                 result += formatTextInternal(s);
@@ -180,18 +180,18 @@ public class FormatUtil {
         return text;
     }
 
-    public String formatPoolName(@Nullable String pool) {
+    public String formatPoolName(@Nullable final String pool) {
         if (pool == null) {
             return "";
         }
         return LiquidBoardURL.convertToShort(pool);
     }
 
-    public String translateNamedEmoticonSymbol(@Nonnull String html, String symbol, String unicode) {
+    public String translateNamedEmoticonSymbol(@Nonnull final String html, final String symbol, final String unicode) {
         return html.replaceAll("(\\(" + symbol + "\\))", "<span class='emoticon emoticon-" + symbol + "'>" + unicode + "</span>");
     }
 
-    public String translateEmoticonSymbol(@Nonnull String html, String symbol, String unicode) {
+    public String translateEmoticonSymbol(@Nonnull final String html, final String symbol, final String unicode) {
         return html.replaceAll("(" + symbol + ")", "<span class='emoticon'>" + unicode + "</span>");
     }
 

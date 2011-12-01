@@ -17,24 +17,24 @@ import java.util.Properties;
 public class LSDXMLTest extends TestCase {
 
     public void test() throws IOException {
-        Properties props = new Properties();
+        final Properties props = new Properties();
         props.load(getClass().getResourceAsStream("test.properties"));
         final HashMap<String, String> propMap = new HashMap(props);
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
-        LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
+        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
+        final LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
 //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
 //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
 //        LSDNode lsdNode = entity.asFormatIndependentTree();
-        String xmlEntity = LiquidXStreamFactory.getXstream().toXML(entity);
+        final String xmlEntity = LiquidXStreamFactory.getXstream().toXML(entity);
 
 
         System.out.println(xmlEntity);
-        LSDSimpleEntity convertedEntity = (LSDSimpleEntity) LiquidXStreamFactory.getXstream().fromXML(xmlEntity);
-        Map<String, String> convertedMap = convertedEntity.getMap();
-        for (Map.Entry<String, String> entry : convertedMap.entrySet()) {
+        final LSDSimpleEntity convertedEntity = (LSDSimpleEntity) LiquidXStreamFactory.getXstream().fromXML(xmlEntity);
+        final Map<String, String> convertedMap = convertedEntity.getMap();
+        for (final Map.Entry<String, String> entry : convertedMap.entrySet()) {
             System.out.println(entry.getKey() + "=" + entry.getValue());
         }
-        for (Map.Entry<String, String> entry : propMap.entrySet()) {
+        for (final Map.Entry<String, String> entry : propMap.entrySet()) {
             System.out.println(entry.getKey());
             assertEquals(entry.getValue(), convertedMap.get(entry.getKey()));
 

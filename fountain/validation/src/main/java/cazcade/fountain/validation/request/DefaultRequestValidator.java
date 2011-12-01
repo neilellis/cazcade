@@ -14,7 +14,7 @@ public class DefaultRequestValidator extends AbstractRequestValidator<LiquidRequ
     @Nonnull
     private static final Logger log = Logger.getLogger(DefaultRequestValidator.class);
 
-    public void validate(@Nonnull LiquidRequest request, ValidationLevel level) {
+    public void validate(@Nonnull final LiquidRequest request, final ValidationLevel level) {
         log.debug("Default validator.");
         if (request.getRequestEntity() != null) {
             entityValidator.validate(request.getRequestEntity(), level);

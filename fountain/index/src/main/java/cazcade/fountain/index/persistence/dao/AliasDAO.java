@@ -9,9 +9,9 @@ import java.util.List;
 public interface AliasDAO {
 
     @Transactional
-    public void saveUser(AliasEntity alias);
+    void saveUser(AliasEntity alias);
 
-    public List<AliasEntity> listUsers();
+    List<AliasEntity> listUsers();
 
     @Transactional
     AliasEntity getOrCreateAlias(String uri);

@@ -5,17 +5,18 @@ import com.google.gwt.user.client.ui.Composite;
 /**
  * @author neilellis@cazcade.com
  */
-public  class HistoryAwareComposite extends Composite implements HistoryAware {
+public class HistoryAwareComposite extends Composite implements HistoryAware {
 
     private HistoryManager historyManager;
     private String historyToken;
 
     @Override
-    public  void onLocalHistoryTokenChanged(String token) {}
+    public void onLocalHistoryTokenChanged(final String token) {
+    }
 
 
     @Override
-    public void setHistoryManager(HistoryManager historyManager) {
+    public void setHistoryManager(final HistoryManager historyManager) {
         this.historyManager = historyManager;
     }
 
@@ -25,7 +26,7 @@ public  class HistoryAwareComposite extends Composite implements HistoryAware {
     }
 
     @Override
-    public void setHistoryToken(String historyToken) {
+    public void setHistoryToken(final String historyToken) {
         this.historyToken = historyToken;
     }
 

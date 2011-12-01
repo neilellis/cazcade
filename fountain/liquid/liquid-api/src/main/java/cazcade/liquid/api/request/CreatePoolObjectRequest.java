@@ -13,31 +13,33 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
 
 
     public CreatePoolObjectRequest() {
+        super();
     }
 
-    public CreatePoolObjectRequest(LiquidSessionIdentifier authenticatedUser, LiquidURI uri, LSDEntity entity, LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDEntity entity, final LiquidURI authorURI) {
         this(authenticatedUser, null, uri, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(LiquidURI uri, LSDEntity entity) {
+    public CreatePoolObjectRequest(final LiquidURI uri, final LSDEntity entity) {
         this(null, null, uri, null, entity, null);
     }
 
-    public CreatePoolObjectRequest(@Nonnull LiquidSessionIdentifier authenticatedUser, LiquidURI uri, LSDEntity entity) {
+    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDEntity entity) {
         this(authenticatedUser, null, uri, null, entity, authenticatedUser.getAlias());
     }
 
-    public CreatePoolObjectRequest(LiquidSessionIdentifier authenticatedUser, LiquidUUID pool, LSDEntity entity, LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LSDEntity entity, final LiquidURI authorURI) {
         this(authenticatedUser, pool, null, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(@Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID pool, @Nullable LiquidURI uri, @Nullable LiquidUUID id, LSDEntity entity, @Nullable LiquidURI authorURI) {
-        this.setUri(uri);
-        this.setId(id);
-        this.setAuthor(authorURI);
-        this.setSessionId(identity);
-        this.setPoolUUID(pool);
-        this.setRequestEntity(entity);
+    public CreatePoolObjectRequest(@Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final LSDEntity entity, @Nullable final LiquidURI authorURI) {
+        super();
+        setUri(uri);
+        setId(id);
+        setAuthor(authorURI);
+        setSessionId(identity);
+        setPoolUUID(pool);
+        setRequestEntity(entity);
     }
 
 
@@ -49,7 +51,7 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new CreatePoolObjectRequest(getSessionIdentifier(), getPoolUUID(), getUri(), getId(), super.getRequestEntity(), getAuthor());
+        return new CreatePoolObjectRequest(getSessionIdentifier(), getPoolUUID(), getUri(), getId(), getRequestEntity(), getAuthor());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -61,12 +63,12 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
     }
 
     public List<String> getNotificationLocations() {
-        if (super.getRequestEntity() != null) {
+        if (getRequestEntity() != null) {
             if (getUri() != null) {
-                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString() + "." + super.getRequestEntity().getAttribute(LSDAttribute.NAME));
+                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString() + "." + getRequestEntity().getAttribute(LSDAttribute.NAME));
             } else {
-                if (super.getRequestEntity().getUUID() != null) {
-                    return Arrays.asList(getPoolUUID().toString(), super.getRequestEntity().getUUID().toString());
+                if (getRequestEntity().getUUID() != null) {
+                    return Arrays.asList(getPoolUUID().toString(), getRequestEntity().getUUID().toString());
                 } else {
                     return Arrays.asList(getPoolUUID().toString());
                 }

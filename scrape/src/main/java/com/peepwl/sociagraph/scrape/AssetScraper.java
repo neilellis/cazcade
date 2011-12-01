@@ -2,6 +2,7 @@ package com.peepwl.sociagraph.scrape;
 
 import cazcade.common.Logger;
 import org.webharvest.definition.ScraperConfiguration;
+import org.webharvest.runtime.Scraper;
 import org.webharvest.runtime.variables.Variable;
 import org.xml.sax.InputSource;
 
@@ -19,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class AssetScraper implements EntityScrapeResult {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AssetScraper.class);
+    private static final Logger log = Logger.getLogger(AssetScraper.class);
     @Nonnull
     private static final ScraperConfiguration config =
             new ScraperConfiguration(new InputSource(AssetScraper.class.getResourceAsStream("/asset-scrape.xml")));
@@ -46,7 +47,7 @@ public class AssetScraper implements EntityScrapeResult {
     public static final String YOU_TUBE_WATCH_PREFIX = YOU_TUBE_PREFIX;
     public static final Pattern VIDEO_PATTERN = Pattern.compile("&v=[a-zA-Z0-9]+");
 
-    public AssetScraper(String url) {
+    public AssetScraper(final String url) {
         this.url = url;
     }
 
@@ -59,7 +60,7 @@ public class AssetScraper implements EntityScrapeResult {
         } catch (IOException e) {
             throw new RuntimeException("Could not create tempfile for scraping : " + e.getMessage(), e);
         }
-        String lowerUrl = this.url.toLowerCase();
+        final String lowerUrl = url.toLowerCase();
         try {
             if (lowerUrl.endsWith(".png") || lowerUrl.endsWith(".jpg") || lowerUrl.endsWith(".gif")) {
                 images.add(url);
@@ -69,13 +70,13 @@ public class AssetScraper implements EntityScrapeResult {
                 return this;
                 //http://m.youtube.com/#/watch?desktop_uri=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dxw31AI9N8BY&v=xw31AI9N8BY&gl=GB
             } else if (lowerUrl.startsWith(YOU_TUBE_PREFIX) || lowerUrl.startsWith(MOBILE_YOU_TUBE_PREFIX)) {
-                extractYouTubeVideoParam(this.url);
+                extractYouTubeVideoParam(url);
             } else if (lowerUrl.startsWith(YOU_TUBE_DIRECT_PREFIX)) {
                 addDirectYouTubeVideoURL(url);
                 return this;
             }
 
-            org.webharvest.runtime.Scraper scraper = new org.webharvest.runtime.Scraper(config, tempFile.getAbsolutePath());
+            final Scraper scraper = new Scraper(config, tempFile.getAbsolutePath());
             scraper.getHttpClientManager().getHttpClient().getParams().setParameter("http.useragent", "www.cazcade.com - multi-touch social-networking ");
 
             scraper.addVariableToContext("url", url);
@@ -89,7 +90,7 @@ public class AssetScraper implements EntityScrapeResult {
             favicon = scraper.getContext().get("favicon").toString();
             convertToStringList((Variable) scraper.getContext().get("feeds"), feeds);
             convertToStringList((Variable) scraper.getContext().get("images"), images);
-            for (Object video : ((Variable) scraper.getContext().get("videos")).toList()) {
+            for (final Object video : ((Variable) scraper.getContext().get("videos")).toList()) {
                 try {
                     addDirectYouTubeVideoURL(video.toString());
                 } catch (Exception e) {
@@ -112,7 +113,7 @@ public class AssetScraper implements EntityScrapeResult {
         videos.add(urlMinusPrefix.split("&")[0].split("\\?")[0]);
     }
 
-    private void extractYouTubeVideoParam(@Nonnull String url) throws URISyntaxException {
+    private void extractYouTubeVideoParam(@Nonnull final String url) throws URISyntaxException {
         final int videoParamIndex = url.indexOf("v=");
         if (videoParamIndex < 0) {
             return;
@@ -124,9 +125,9 @@ public class AssetScraper implements EntityScrapeResult {
         videos.add(url.substring(videoParamIndex + 2, nextParamIndex));
     }
 
-    private static void convertToStringList(@Nonnull Variable result, @Nonnull List<String> target) {
+    private static void convertToStringList(@Nonnull final Variable result, @Nonnull final List<String> target) {
         target.clear();
-        for (Object o : result.toList()) {
+        for (final Object o : result.toList()) {
             final String s = o.toString();
             if (!target.contains(s) && s.length() > 0) {
                 target.add(o.toString());

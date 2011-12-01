@@ -16,7 +16,7 @@ public class EditStart extends GwtEvent<EditStartHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull EditStartHandler handler) {
+    protected void dispatch(@Nonnull final EditStartHandler handler) {
         handler.onEditStart(this);
     }
 }

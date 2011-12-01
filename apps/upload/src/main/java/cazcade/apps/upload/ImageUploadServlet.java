@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 
 public class ImageUploadServlet extends HttpServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ImageUploadServlet.class);
+    private static final Logger log = Logger.getLogger(ImageUploadServlet.class);
     @Nonnull
     private static final String TMP_DIR_PATH = "/tmp";
     private File tmpDir;
@@ -38,7 +38,7 @@ public class ImageUploadServlet extends HttpServlet {
     private UserContentStore contentStore;
     private final Executor storeExecutor = Executors.newCachedThreadPool();
 
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         super.init(config);
         applicationContext = new ClassPathXmlApplicationContext(new String[]{
                 "liquid-spring-config.xml",
@@ -53,11 +53,11 @@ public class ImageUploadServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         final LSDMarshaler marshaler = ((LSDMarshallerFactory) applicationContext.getBean("marshalerFactory")).getMarshalers().get("xml");
         response.setContentType(marshaler.getMimeType());
 
-        DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+        final DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
         /*
            *Set the size threshold, above which content will be stored on disk.
            */
@@ -67,23 +67,23 @@ public class ImageUploadServlet extends HttpServlet {
            */
         fileItemFactory.setRepository(tmpDir);
 
-        ServletFileUpload uploadHandler = new ServletFileUpload(fileItemFactory);
+        final ServletFileUpload uploadHandler = new ServletFileUpload(fileItemFactory);
         try {
             /*
                 * Parse the request
                 */
-            List items = uploadHandler.parseRequest(request);
-            for (Object item1 : items) {
+            final List items = uploadHandler.parseRequest(request);
+            for (final Object item1 : items) {
                 final FileItem item = (FileItem) item1;
                 log.debug("Uploading {0} (size={1})", item.getName(), item.getSize());
                 /*
                      * Handle Form Fields.
                      */
-                LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.BITMAP_IMAGE_2D, UUIDFactory.randomUUID());
+                final LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.BITMAP_IMAGE_2D, UUIDFactory.randomUUID());
                 entity.setAttribute(LSDAttribute.MEDIA_SIZE, String.valueOf(item.getSize()));
-                String suffix = item.getName().substring(item.getName().lastIndexOf("."));
+                final String suffix = item.getName().substring(item.getName().lastIndexOf('.'));
                 final String id = entity.getUUID().toString() + suffix;
-                String url = contentStore.getStoreURI(id).toString();
+                final String url = contentStore.getStoreURI(id).toString();
                 entity.setAttribute(LSDAttribute.IMAGE_URL, url);
                 entity.setAttribute(LSDAttribute.SOURCE, url);
                 entity.setAttribute(LSDAttribute.NAME, id);

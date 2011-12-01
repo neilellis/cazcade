@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServlet;
  */
 public class AbstractTwitterServlet extends HttpServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractTwitterServlet.class);
+    private static final Logger log = Logger.getLogger(AbstractTwitterServlet.class);
     private ClassPathXmlApplicationContext applicationContext;
     protected FountainDataStore dataStore;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         super.init(config);
         applicationContext = new ClassPathXmlApplicationContext("classpath:datastore-client-spring-config.xml");
         dataStore = (FountainDataStore) applicationContext.getBean("remoteDataStore");

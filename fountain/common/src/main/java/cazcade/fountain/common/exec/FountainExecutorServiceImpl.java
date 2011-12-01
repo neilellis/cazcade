@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class FountainExecutorServiceImpl extends AbstractServiceStateMachine implements FountainExecutorService {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainExecutorServiceImpl.class);
+    private static final Logger log = Logger.getLogger(FountainExecutorServiceImpl.class);
 
     private final int maxRetry;
 
@@ -34,7 +34,8 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
     @Nonnull
     private final AtomicLong count = new AtomicLong();
 
-    public FountainExecutorServiceImpl(int maxRetry, int threadPoolSize, int queueSize, int requeueDelay, int threadsPerBucket) {
+    public FountainExecutorServiceImpl(final int maxRetry, final int threadPoolSize, final int queueSize, final int requeueDelay, final int threadsPerBucket) {
+        super();
         this.maxRetry = maxRetry;
         this.threadPoolSize = threadPoolSize;
         this.queueSize = queueSize;
@@ -69,10 +70,10 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
     }
 
 
-    public void execute(final boolean retry, @Nonnull Object key, @Nonnull final FountainExecutable executable) throws InterruptedException {
+    public void execute(final boolean retry, @Nonnull final Object key, @Nonnull final FountainExecutable executable) throws InterruptedException {
         begin();
         try {
-            int executorId = Math.abs(key.hashCode() % threadPoolSize);
+            final int executorId = Math.abs(key.hashCode() % threadPoolSize);
             final ThreadPoolExecutor threadPoolExecutor = executors.get(executorId);
             executeInternal(retry, executable, threadPoolExecutor);
         } finally {
@@ -80,7 +81,7 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
         }
     }
 
-    public void execute(@Nonnull FountainExecutable executable) throws InterruptedException {
+    public void execute(@Nonnull final FountainExecutable executable) throws InterruptedException {
         final ThreadPoolExecutor threadPoolExecutor = executors.get((int) (threadPoolSize * Math.random()));
         executeInternal(false, executable, threadPoolExecutor);
     }
@@ -88,9 +89,9 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
     public void execute(final boolean retry, @Nonnull final FountainExecutable executable) throws InterruptedException {
         begin();
         try {
-            int minimum = Integer.MAX_VALUE;
+            final int minimum = Integer.MAX_VALUE;
             ThreadPoolExecutor executor = null;
-            for (ThreadPoolExecutor threadPoolExecutor : executors) {
+            for (final ThreadPoolExecutor threadPoolExecutor : executors) {
                 final int i = threadPoolExecutor.getQueue().size();
                 if (i < minimum) {
                     executor = threadPoolExecutor;
@@ -103,7 +104,7 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
         }
     }
 
-    private void executeInternal(final boolean retry, @Nonnull final FountainExecutable executable, @Nonnull ThreadPoolExecutor threadPoolExecutor) throws InterruptedException {
+    private void executeInternal(final boolean retry, @Nonnull final FountainExecutable executable, @Nonnull final ThreadPoolExecutor threadPoolExecutor) throws InterruptedException {
         boolean cont = true;
         while (cont) {
             try {

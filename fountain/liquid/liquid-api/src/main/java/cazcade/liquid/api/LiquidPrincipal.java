@@ -6,27 +6,33 @@ import java.io.Serializable;
 import java.security.Principal;
 
 /**
-* @author neilelliz@cazcade.com
-*/
+ * @author neilelliz@cazcade.com
+ */
 public class LiquidPrincipal implements Principal, Serializable {
     private String name;
     private LSDEntity aliasEntity;
 
-    public LiquidPrincipal(String name) {
+    public LiquidPrincipal(final String name) {
         this.name = name;
     }
 
-    public LiquidPrincipal(String name, LSDEntity aliasEntity) {
-        this.aliasEntity= aliasEntity;
+    public LiquidPrincipal(final String name, final LSDEntity aliasEntity) {
+        this.aliasEntity = aliasEntity;
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Principal)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Principal)) {
+            return false;
+        }
 
-        Principal that = (Principal) o;
+        final Principal that = (Principal) o;
 
-        if (!name.equals(that.getName())) return false;
+        if (!name.equals(that.getName())) {
+            return false;
+        }
 
         return true;
     }

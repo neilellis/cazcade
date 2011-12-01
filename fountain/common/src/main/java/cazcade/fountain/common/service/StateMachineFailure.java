@@ -9,15 +9,15 @@ import javax.annotation.Nonnull;
  */
 public class StateMachineFailure extends CazcadeException {
 
-    public StateMachineFailure(Throwable throwable) {
+    public StateMachineFailure(final Throwable throwable) {
         super(throwable);
     }
 
-    public StateMachineFailure(@Nonnull String message, Object... params) {
+    public StateMachineFailure(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public StateMachineFailure(Throwable cause, @Nonnull String message, Object... params) {
+    public StateMachineFailure(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

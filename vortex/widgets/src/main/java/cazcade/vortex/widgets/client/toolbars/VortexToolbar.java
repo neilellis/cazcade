@@ -19,6 +19,7 @@ public class VortexToolbar extends Composite {
     HeadingElement title;
 
     public VortexToolbar() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }

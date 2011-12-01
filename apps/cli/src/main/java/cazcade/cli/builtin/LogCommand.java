@@ -37,7 +37,7 @@ public class LogCommand extends AbstractShortLivedCommand {
         return 0;
     }
 
-    public String run(@Nonnull final String[] args, ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, final ShellSession shellSession) throws Exception {
         if (args.length == 0) {
             System.err.println("You must specify the new logging level, try either debug, info, warn or error.");
             return "";
@@ -49,7 +49,7 @@ public class LogCommand extends AbstractShortLivedCommand {
         final Level level = Level.toLevel(args[0]);
         appender.addFilter(new Filter() {
             @Override
-            public int decide(@Nonnull LoggingEvent loggingEvent) {
+            public int decide(@Nonnull final LoggingEvent loggingEvent) {
                 return loggingEvent.getLevel().isGreaterOrEqual(level) ? ACCEPT : DENY;
             }
         });

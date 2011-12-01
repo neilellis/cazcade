@@ -62,7 +62,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
 
     @Override
-    public void onLocalHistoryTokenChanged(@Nonnull String token) {
+    public void onLocalHistoryTokenChanged(@Nonnull final String token) {
         boardURL = new LiquidBoardURL(token);
         previousPoolURI = poolURI;
         poolURI = boardURL.asURI();
@@ -84,7 +84,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
         hideReveal.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
-            public void onValueChange(@Nonnull ValueChangeEvent<Boolean> booleanValueChangeEvent) {
+            public void onValueChange(@Nonnull final ValueChangeEvent<Boolean> booleanValueChangeEvent) {
                 ClientPreferences.setBooleanPreference(ClientPreferences.Preference.RHS_HIDE, booleanValueChangeEvent.getValue());
                 if (!booleanValueChangeEvent.getValue()) {
                     showRhs();
@@ -97,7 +97,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
         returnFromChatButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 HistoryManager.navigate(boardURL.toString());
             }
         });
@@ -111,7 +111,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
         changePermissionListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.CHANGE_PERMISSION, new BusListener() {
             @Override
-            public void handle(LiquidMessage message) {
+            public void handle(final LiquidMessage message) {
                 refresh();
             }
         });
@@ -120,7 +120,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI.asShortUrl().isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
 
             @Override
-            public void onFailure(VisitPoolRequest message, @Nonnull VisitPoolRequest response) {
+            public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
@@ -133,7 +133,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
             }
 
             @Override
-            public void onSuccess(VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
+            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
 
                 StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
 
@@ -141,7 +141,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 poolEntity = response.getResponse().copy();
                 GWT.runAsync(new RunAsyncCallback() {
                     @Override
-                    public void onFailure(Throwable reason) {
+                    public void onFailure(final Throwable reason) {
                         ClientLog.log(reason);
                     }
 
@@ -154,7 +154,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 });
                 GWT.runAsync(new RunAsyncCallback() {
                     @Override
-                    public void onFailure(Throwable reason) {
+                    public void onFailure(final Throwable reason) {
                         ClientLog.log(reason);
                     }
 
@@ -176,7 +176,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 });
                 GWT.runAsync(new RunAsyncCallback() {
                     @Override
-                    public void onFailure(Throwable reason) {
+                    public void onFailure(final Throwable reason) {
                         ClientLog.log(reason);
                     }
 
@@ -199,7 +199,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
     @Nonnull
     @Override
-    protected Runnable getUpdateEntityAction(Bindable field) {
+    protected Runnable getUpdateEntityAction(final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
@@ -242,6 +242,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
 
     public BoardcastChatView() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }
@@ -257,7 +258,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
     private class RHSMouseOutHandler implements MouseOutHandler {
         @Override
-        public void onMouseOut(MouseOutEvent mouseOutEvent) {
+        public void onMouseOut(final MouseOutEvent mouseOutEvent) {
             if (hideReveal.getValue()) {
 //                board.addStyleName(RHS_MINIMIZED);
                 hideRhs();
@@ -268,7 +269,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
     private class RHSMouseOverHandler implements MouseOverHandler {
         @Override
-        public void onMouseOver(MouseOverEvent mouseOverEvent) {
+        public void onMouseOver(final MouseOverEvent mouseOverEvent) {
 //            board.removeStyleName(RHS_MINIMIZED);
             showRhs();
         }
@@ -277,7 +278,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
 
     @Override
-    protected void onChange(LSDEntity entity) {
+    protected void onChange(final LSDEntity entity) {
         super.onChange(entity);
         refresh();
     }

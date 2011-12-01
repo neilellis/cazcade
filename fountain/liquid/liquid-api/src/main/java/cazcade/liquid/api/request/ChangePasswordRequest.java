@@ -5,6 +5,7 @@ import cazcade.liquid.api.lsd.LSDEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -12,19 +13,23 @@ import java.util.List;
 public class ChangePasswordRequest extends AbstractRequest {
 
     public ChangePasswordRequest() {
+        super();
     }
 
-    public ChangePasswordRequest(LiquidSessionIdentifier identity, String password, String hash) {
+    public ChangePasswordRequest(final LiquidSessionIdentifier identity, final String password, final String hash) {
+        super();
         setSessionId(identity);
         setPassword(password);
         setChangePasswordSecurityHash(hash);
     }
 
-    public ChangePasswordRequest(LiquidSessionIdentifier liquidSessionIdentifier) {
+    public ChangePasswordRequest(final LiquidSessionIdentifier liquidSessionIdentifier) {
+        super();
         setSessionId(liquidSessionIdentifier);
     }
 
-    public ChangePasswordRequest(@Nonnull LSDEntity entity) {
+    public ChangePasswordRequest(@Nonnull final LSDEntity entity) {
+        super();
         setEntity(entity);
     }
 
@@ -33,24 +38,27 @@ public class ChangePasswordRequest extends AbstractRequest {
         return true;
     }
 
-    public ChangePasswordRequest(String password) {
+    public ChangePasswordRequest(final String password) {
+        super();
         setPassword(password);
     }
 
-    public ChangePasswordRequest(LiquidSessionIdentifier identity, String password) {
+    public ChangePasswordRequest(final LiquidSessionIdentifier identity, final String password) {
+        super();
         setSessionId(identity);
         setPassword(password);
     }
 
-    public ChangePasswordRequest(LiquidUUID id, LiquidSessionIdentifier identity, String password) {
-        this.setPassword(password);
-        this.setId(id);
-        this.setSessionId(identity);
+    public ChangePasswordRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final String password) {
+        super();
+        setPassword(password);
+        setId(id);
+        setSessionId(identity);
     }
 
 
     public Collection<LiquidURI> getAffectedEntities() {
-        return java.util.Arrays.asList(getSessionIdentifier().getAliasURL());
+        return Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
     @Nonnull

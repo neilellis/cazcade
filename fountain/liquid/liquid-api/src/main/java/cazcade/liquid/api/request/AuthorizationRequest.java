@@ -16,37 +16,39 @@ public class AuthorizationRequest extends AbstractRequest {
     private LiquidPermission[] permission;
 
     public AuthorizationRequest() {
+        super();
     }
 
-    public AuthorizationRequest(LiquidUUID resource, LiquidPermission... permission) {
+    public AuthorizationRequest(final LiquidUUID resource, final LiquidPermission... permission) {
         this(null, null, resource, null, permission);
     }
 
-    public AuthorizationRequest(LiquidURI uri, LiquidPermission... permission) {
+    public AuthorizationRequest(final LiquidURI uri, final LiquidPermission... permission) {
         this(null, null, null, uri, permission);
     }
 
 
-    public AuthorizationRequest(LiquidSessionIdentifier identity, LiquidUUID resource, LiquidPermission... permission) {
+    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidPermission... permission) {
         this(null, identity, resource, null, permission);
     }
 
-    public AuthorizationRequest(LiquidSessionIdentifier identity, LiquidURI uri, LiquidPermission... permission) {
+    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LiquidPermission... permission) {
         this(null, identity, null, uri, permission);
     }
 
-    public AuthorizationRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID resource, @Nullable LiquidURI uri, LiquidPermission... permission) {
+    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri, final LiquidPermission... permission) {
+        super();
         if (resource == null && uri == null) {
             throw new NullPointerException("Cannot create an authorization request with a null resource id and uri.");
         }
-        this.setId(id);
-        this.setUri(uri);
-        this.setTarget(resource);
+        setId(id);
+        setUri(uri);
+        setTarget(resource);
         this.permission = permission;
-        this.setSessionId(identity);
+        setSessionId(identity);
     }
 
-    public AuthorizationRequest(LiquidUUID id, LiquidSessionIdentifier identity, LiquidUUID resource, LiquidURI uri, LiquidPermission[] permission, List<AuthorizationRequest> or, List<AuthorizationRequest> and) {
+    public AuthorizationRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidURI uri, final LiquidPermission[] permission, final List<AuthorizationRequest> or, final List<AuthorizationRequest> and) {
         this(id, identity, resource, uri, permission);
         this.or.addAll(or);
         this.and.addAll(and);
@@ -54,13 +56,13 @@ public class AuthorizationRequest extends AbstractRequest {
 
 
     @Nonnull
-    public AuthorizationRequest or(AuthorizationRequest... authorizationRequests) {
+    public AuthorizationRequest or(final AuthorizationRequest... authorizationRequests) {
         Collections.addAll(or, authorizationRequests);
         return this;
     }
 
     @Nonnull
-    public AuthorizationRequest and(AuthorizationRequest... authorizationRequests) {
+    public AuthorizationRequest and(final AuthorizationRequest... authorizationRequests) {
         Collections.addAll(and, authorizationRequests);
         return this;
     }
@@ -79,7 +81,7 @@ public class AuthorizationRequest extends AbstractRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new AuthorizationRequest(getId(), getSessionIdentifier(), super.getTarget(), super.getUri(), permission, or, and);
+        return new AuthorizationRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), permission, or, and);
     }
 
     public LiquidPermission[] getActions() {

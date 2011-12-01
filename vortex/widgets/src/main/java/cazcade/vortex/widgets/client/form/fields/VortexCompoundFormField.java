@@ -15,14 +15,14 @@ public class VortexCompoundFormField extends AbstractVortexFormField {
         return true;
     }
 
-    public void bindAll(@Nonnull final LSDEntity parentEntity, @Nonnull Map<LSDAttribute, VortexFormField> fields, String prefix, final LSDAttribute parentAttribute) {
+    public void bindAll(@Nonnull final LSDEntity parentEntity, @Nonnull final Map<LSDAttribute, VortexFormField> fields, final String prefix, final LSDAttribute parentAttribute) {
         for (final Map.Entry<LSDAttribute, VortexFormField> entry : fields.entrySet()) {
-            entry.getValue().bind(this.getEntity(), entry.getKey(), prefix);
+            entry.getValue().bind(getEntity(), entry.getKey(), prefix);
             entry.getValue().setOnChangeAction(new Runnable() {
                 @Override
                 public void run() {
                     parentEntity.removeSubEntity(parentAttribute);
-                    parentEntity.addAnonymousSubEntity(parentAttribute, VortexCompoundFormField.this.getEntity());
+                    parentEntity.addAnonymousSubEntity(parentAttribute, getEntity());
                     onChangeAction.run();
                 }
             });

@@ -12,13 +12,13 @@ import java.util.List;
  */
 public class ApplicationLifecycleManager implements ApplicationLifecycle {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ApplicationLifecycleManager.class);
-    public boolean shutdown = false;
+    private static final Logger log = Logger.getLogger(ApplicationLifecycleManager.class);
+    public boolean shutdown;
 
     @Nonnull
     private final List<ApplicationLifecycleListener> listeners = new ArrayList<ApplicationLifecycleListener>();
 
-    public void register(ApplicationLifecycleListener listener) {
+    public void register(final ApplicationLifecycleListener listener) {
         listeners.add(listener);
     }
 
@@ -28,7 +28,7 @@ public class ApplicationLifecycleManager implements ApplicationLifecycle {
             return;
         }
         shutdown = true;
-        for (ApplicationLifecycleListener listener : listeners) {
+        for (final ApplicationLifecycleListener listener : listeners) {
             try {
                 listener.shutdown();
             } catch (Exception e) {

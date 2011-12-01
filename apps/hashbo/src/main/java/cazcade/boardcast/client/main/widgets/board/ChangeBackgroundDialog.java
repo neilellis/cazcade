@@ -25,18 +25,18 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
 
 
     @Override
-    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String referenceDataPrefix) {
-        this.oldEntity = entity.copy();
+    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
+        oldEntity = entity.copy();
         changeBackgroundPanel.bind(entity, attribute, referenceDataPrefix);
     }
 
     @Override
-    public void setOnChangeAction(@Nonnull Runnable onChangeAction) {
+    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
         changeBackgroundPanel.setOnChangeAction(onChangeAction);
     }
 
     @Override
-    public void setErrorMessage(String message) {
+    public void setErrorMessage(final String message) {
         Window.alert(message);
     }
 
@@ -85,10 +85,11 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
 
 
     public ChangeBackgroundDialog() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         imageSelector.setSelectionAction(new ImageSelection.SelectionAction() {
             @Override
-            public void onSelect(@Nonnull ImageOption imageOption) {
+            public void onSelect(@Nonnull final ImageOption imageOption) {
                 changeBackgroundPanel.setValue(imageOption.getUrl());
                 changeBackgroundPanel.callOnChangeAction();
             }

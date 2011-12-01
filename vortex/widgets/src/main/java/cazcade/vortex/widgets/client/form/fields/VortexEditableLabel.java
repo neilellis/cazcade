@@ -27,7 +27,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     private final int maxLength = Integer.MAX_VALUE;
     private boolean readonly;
 
-    public void setWordwrap(boolean wordwrap) {
+    public void setWordwrap(final boolean wordwrap) {
         if (wordwrap) {
             container.addClassName("word-wrap");
         } else {
@@ -37,11 +37,11 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         label.setWordWrap(wordwrap);
     }
 
-    public void setPrefix(String prefix) {
-        this.label.setPrefix(prefix);
+    public void setPrefix(final String prefix) {
+        label.setPrefix(prefix);
     }
 
-    public void setFormat(boolean format) {
+    public void setFormat(final boolean format) {
         if (format) {
             label.setFormatter(FormatUtil.getInstance());
         } else {
@@ -49,7 +49,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         }
     }
 
-    public void addClickHandler(ClickHandler clickHandler) {
+    public void addClickHandler(final ClickHandler clickHandler) {
         label.addDomHandler(clickHandler, ClickEvent.getType());
     }
 
@@ -59,6 +59,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     private static final VortexEditableLabelUiBinder ourUiBinder = GWT.create(VortexEditableLabelUiBinder.class);
 
     public VortexEditableLabel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setOnEditEndAction(new Runnable() {
             @Override
@@ -77,22 +78,22 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     SpanElement container;
 
     @UiHandler("hoverEdit")
-    void onHoverEditClick(ClickEvent e) {
+    void onHoverEditClick(final ClickEvent e) {
         label.startEdit();
     }
 
     @Override
-    protected void initWidget(Widget widget) {
+    protected void initWidget(final Widget widget) {
         super.initWidget(widget);
         validityImage.setResource(Resources.INSTANCE.blank());
     }
 
-    protected String cleanUpText(String text) {
+    protected String cleanUpText(final String text) {
         return text;
     }
 
 
-    protected boolean validCharacter(int keyCode) {
+    protected boolean validCharacter(final int keyCode) {
         return true;
     }
 
@@ -111,7 +112,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         return label;
     }
 
-    public void setLabel(EditableLabel label) {
+    public void setLabel(final EditableLabel label) {
         this.label = label;
     }
 
@@ -119,28 +120,28 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         return label.getMaxLength();
     }
 
-    public void setVisibleLines(int number) {
+    public void setVisibleLines(final int number) {
         label.setVisibleLines(number);
     }
 
-    public void setVisibleLength(int length) {
+    public void setVisibleLength(final int length) {
         label.setVisibleLength(length);
     }
 
-    public void setHorizontalAlignment(HasHorizontalAlignment.HorizontalAlignmentConstant align) {
+    public void setHorizontalAlignment(final HasHorizontalAlignment.HorizontalAlignmentConstant align) {
         label.setHorizontalAlignment(align);
     }
 
-    public void setShowBrief(boolean b) {
+    public void setShowBrief(final boolean b) {
         label.setShowBrief(b);
     }
 
 
-    public void setMaxLength(int maxLength) {
+    public void setMaxLength(final int maxLength) {
         label.setMaxLength(maxLength);
     }
 
-    public void setInputType(String type) {
+    public void setInputType(final String type) {
         label.setInputType(type);
     }
 
@@ -150,18 +151,18 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     }
 
     @Override
-    public void setValue(@Nonnull String text) {
+    public void setValue(@Nonnull final String text) {
         label.setText(text);
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, @Nonnull String initialValue) {
-        this.boundAttribute = attribute;
+    public void bind(final LSDAttribute attribute, final String prefix, @Nonnull final String initialValue) {
+        boundAttribute = attribute;
         setValue(initialValue);
     }
 
     @Override
-    void setEditable(boolean editable) {
+    void setEditable(final boolean editable) {
         if (!readonly) {
             label.setEditable(editable);
             if (editable) {
@@ -173,7 +174,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         }
     }
 
-    public void setReadonly(boolean readonly) {
+    public void setReadonly(final boolean readonly) {
         this.readonly = readonly;
         if (readonly) {
             container.addClassName("readonly");
@@ -191,7 +192,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         return label.getPlaceholder();
     }
 
-    public void setPlaceholder(String placeholder) {
+    public void setPlaceholder(final String placeholder) {
         label.setPlaceholder(placeholder);
     }
 }

@@ -49,39 +49,39 @@ import java.util.UUID;
 
 public class RegisterServlet extends AbstractTwitterServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(RegisterServlet.class);
+    private static final Logger log = Logger.getLogger(RegisterServlet.class);
     private static final long serialVersionUID = 1657390011452788111L;
 
-    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute(USER_KEY);
-            LSDSimpleEntity twitterAlias = (LSDSimpleEntity) session.getAttribute(TWITTER_ALIAS_KEY);
-            LSDSimpleEntity cazcadeAlias = (LSDSimpleEntity) session.getAttribute(CAZCADE_ALIAS_KEY);
+            final HttpSession session = request.getSession();
+            final User user = (User) session.getAttribute(USER_KEY);
+            final LSDSimpleEntity twitterAlias = (LSDSimpleEntity) session.getAttribute(TWITTER_ALIAS_KEY);
+            final LSDSimpleEntity cazcadeAlias = (LSDSimpleEntity) session.getAttribute(CAZCADE_ALIAS_KEY);
 
             //from the register.jsp
             String username = request.getParameter(USERNAME_PARAM);
             if (username == null || username.isEmpty()) {
                 username = user.getScreenName();
             }
-            String email = request.getParameter(EMAIL_PARAM);
+            final String email = request.getParameter(EMAIL_PARAM);
 
-            RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, username), true));
+            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, username), true));
 
             if (RequestUtil.positiveResponse(retrieveUserRequest)) {
                 response.sendRedirect(request.getContextPath() + "/_twitter/register.jsp?username=" + URLEncoder.encode(username, "utf8") + "&email=" + URLEncoder.encode(email, "utf8"));
             } else {
                 //create user
-                LSDEntity userEntity = LoginUtil.register(session, dataStore, user.getName(), username, UUID.randomUUID().toString(), email, false);
+                final LSDEntity userEntity = LoginUtil.register(session, dataStore, user.getName(), username, UUID.randomUUID().toString(), email, false);
 //                RetrieveAliasRequest retrieveAliasResponse = dataStore.process(new RetrieveAliasRequest(new LiquidSessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
 //                if(RequestUtil.positiveResponse(retrieveAliasResponse)) {
 //                    session.setAttribute(TWITTER_ALIAS_KEY, retrieveAliasResponse.getResponse());
 //                    LoginUtil.login(clientSessionManager, dataStore, retrieveAliasResponse.getResponse().getURI());
 //                    response.sendRedirect(request.getContextPath() + "/_twitter/login.jsp");
 //                } else {
-                LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new LiquidSessionIdentifier(username), twitterAlias, true, true, true));
+                final LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new LiquidSessionIdentifier(username), twitterAlias, true, true, true));
                 if (createAliasResponse.getState() == LiquidMessageState.SUCCESS) {
-                    LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI(), session);
+                    final LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI(), session);
                     dataStore.process(new UpdateAliasRequest(sessionIdentifier, sessionIdentifier.getAlias(), cazcadeAlias));
                     session.setAttribute(SESSION_KEY, sessionIdentifier);
                     LoginUtil.login(clientSessionManager, dataStore, twitterAlias.getURI(), session);

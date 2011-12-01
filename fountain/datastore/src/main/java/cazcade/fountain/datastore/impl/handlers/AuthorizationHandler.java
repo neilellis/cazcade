@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class AuthorizationHandler extends AbstractDataStoreHandler<AuthorizationRequest> implements AuthorizationRequestHandler {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AuthorizationHandler.class);
+    private static final Logger log = Logger.getLogger(AuthorizationHandler.class);
 
     /**
      * Authorizes a user to
@@ -31,7 +31,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
      * @return
      */
     @Nonnull
-    public AuthorizationRequest handle(@Nonnull AuthorizationRequest request) throws InterruptedException {
+    public AuthorizationRequest handle(@Nonnull final AuthorizationRequest request) throws InterruptedException {
         final LSDEntity entity = LSDSimpleEntity.createEmpty();
         final Transaction transaction = fountainNeo.beginTx();
         try {
@@ -50,7 +50,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
                 }
             }
             if (node.hasAttribute(LSDAttribute.PERMISSIONS)) {
-                boolean auth = isAuthorized(request, node);
+                final boolean auth = isAuthorized(request, node);
                 if (auth) {
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.getValue());
                 } else {
@@ -78,18 +78,18 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
     }
 
-    private boolean isAuthorized(@Nonnull AuthorizationRequest request, @Nonnull Node node) throws InterruptedException {
+    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final Node node) throws InterruptedException {
         boolean auth;
         auth = node.isAuthorized(request.getSessionIdentifier(), request.getActions());
-        List<AuthorizationRequest> and = request.getAnd();
-        for (AuthorizationRequest andRequest : and) {
+        final List<AuthorizationRequest> and = request.getAnd();
+        for (final AuthorizationRequest andRequest : and) {
             if (isAuthorized(andRequest, node)) {
                 auth = false;
             }
         }
         if (!auth) {
             final List<AuthorizationRequest> alternates = request.getOr();
-            for (AuthorizationRequest orRequest : alternates) {
+            for (final AuthorizationRequest orRequest : alternates) {
                 if (isAuthorized(orRequest, node)) {
                     auth = true;
                     break;

@@ -31,12 +31,13 @@ public class AliasReferenceView extends PoolObjectView {
 
     private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
-    public void setAliasURI(@Nonnull LiquidURI aliasURI) {
+    public void setAliasURI(@Nonnull final LiquidURI aliasURI) {
         aliasDetailPanel.setAliasURI(aliasURI);
     }
 
-    public AliasReferenceView(FormatUtil features) {
-        HTMLPanel widget = ourUiBinder.createAndBindUi(this);
+    public AliasReferenceView(final FormatUtil features) {
+        super();
+        final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
         aliasDetailPanel.setFeatures(features);
     }

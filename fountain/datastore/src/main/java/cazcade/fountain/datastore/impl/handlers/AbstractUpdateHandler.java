@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class AbstractUpdateHandler<T extends AbstractUpdateRequest> extends AbstractDataStoreHandler<T> {
-    public T handle(@Nonnull T request) throws Exception {
+    public T handle(@Nonnull final T request) throws Exception {
         final LiquidURI uri = request.getUri();
         final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
         final LSDEntity requestEntity = request.getRequestEntity();

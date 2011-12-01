@@ -30,7 +30,7 @@ public class SleepCommand extends AbstractShortLivedCommand {
     }
 
     @Nonnull
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    public String run(final String[] args, final ShellSession shellSession) throws Exception {
         Thread.sleep(Integer.valueOf(args[0]));
         return "";
     }

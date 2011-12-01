@@ -26,7 +26,7 @@
 
 
 <%
-    LSDAttribute[] keys = LSDAttribute.values();
+    final LSDAttribute[] keys = LSDAttribute.values();
     Arrays.sort(keys);
     request.setAttribute("keys", keys);
     request.setAttribute("types", LSDDictionaryTypes.values());

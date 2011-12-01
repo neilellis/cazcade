@@ -36,19 +36,19 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
         return fountainNeo;
     }
 
-    public void setFountainNeo(FountainNeo fountainNeo) {
+    public void setFountainNeo(final FountainNeo fountainNeo) {
         this.fountainNeo = fountainNeo;
     }
 
     @Nullable
-    protected LiquidURI defaultAndCheckOwner(@Nonnull LiquidRequest request, @Nullable LiquidURI owner) throws InterruptedException {
+    protected LiquidURI defaultAndCheckOwner(@Nonnull final LiquidRequest request, @Nullable LiquidURI owner) throws InterruptedException {
         if (request.getSessionIdentifier() == null) {
             throw new IllegalArgumentException("Could not check ownership as request has no identity associated with it.");
         }
         if (owner == null) {
             owner = request.getSessionIdentifier().getAlias();
         } else {
-            Node ownerAlias = fountainNeo.findByURI(owner);
+            final Node ownerAlias = fountainNeo.findByURI(owner);
             if (ownerAlias == null) {
                 throw new AuthorizationException("Could not locate owner %s", owner);
             }

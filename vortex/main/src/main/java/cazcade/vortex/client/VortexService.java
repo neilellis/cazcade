@@ -17,7 +17,7 @@ public interface VortexService extends RemoteService {
      * Utility/Convenience class.
      * Use VortexService.App.getInstance () to access static instance of VortexServiceAsync
      */
-    public static class App {
+    class App {
         private static final VortexServiceAsync ourInstance = GWT.create(VortexService.class);
 
         public static synchronized VortexServiceAsync getInstance() {

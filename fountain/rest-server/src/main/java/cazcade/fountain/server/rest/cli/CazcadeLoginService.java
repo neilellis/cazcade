@@ -17,7 +17,7 @@ import java.security.Principal;
  */
 class CazcadeLoginService implements LoginService {
     @Nonnull
-    private final static Logger log = Logger.getLogger(CazcadeLoginService.class);
+    private static final Logger log = Logger.getLogger(CazcadeLoginService.class);
 
 
     @Nonnull
@@ -35,11 +35,11 @@ class CazcadeLoginService implements LoginService {
     }
 
     @Nullable
-    public UserIdentity login(@Nonnull String user, @Nonnull Object password) {
+    public UserIdentity login(@Nonnull final String user, @Nonnull final Object password) {
 
         try {
             log.debug("user: " + user);
-            Principal principal = securityProvider.doAuthentication(user, password.toString());
+            final Principal principal = securityProvider.doAuthentication(user, password.toString());
             if (principal != null) {
                 return new DefaultUserIdentity(new Subject(), principal, new String[]{"restapi"});
             } else {
@@ -51,7 +51,7 @@ class CazcadeLoginService implements LoginService {
         }
     }
 
-    public boolean validate(UserIdentity userIdentity) {
+    public boolean validate(final UserIdentity userIdentity) {
         return true;
     }
 
@@ -59,7 +59,7 @@ class CazcadeLoginService implements LoginService {
         return identityService;
     }
 
-    public void setIdentityService(IdentityService identityService) {
+    public void setIdentityService(final IdentityService identityService) {
         this.identityService = identityService;
     }
 }

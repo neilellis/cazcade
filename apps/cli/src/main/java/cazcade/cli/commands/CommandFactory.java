@@ -17,22 +17,22 @@ import java.util.Map;
 
 public class CommandFactory implements ApplicationLifecycleListener {
     @Nonnull
-    private final static Logger log = Logger.getLogger(CommandFactory.class);
+    private static final Logger log = Logger.getLogger(CommandFactory.class);
 
     private Map<String, Command> jobMap = new HashMap<String, Command>();
 
-    public CommandFactory(@Nonnull ApplicationLifecycle applicationLifecycle, Map<String, Command> jobMap) {
+    public CommandFactory(@Nonnull final ApplicationLifecycle applicationLifecycle, final Map<String, Command> jobMap) {
         applicationLifecycle.register(this);
         this.jobMap = jobMap;
 
     }
 
-    public Command getCommandByName(String key) {
+    public Command getCommandByName(final String key) {
         return jobMap.get(key);
 
     }
 
-    public void add(@Nonnull Command command) {
+    public void add(@Nonnull final Command command) {
         if (jobMap.containsKey(command.getName())) {
             throw new Error("Cannot have two commands with the same name " + command.getName());
         }
@@ -50,7 +50,7 @@ public class CommandFactory implements ApplicationLifecycleListener {
     }
 
     public void shutdown() throws Exception {
-        for (Command command : jobMap.values()) {
+        for (final Command command : jobMap.values()) {
             try {
                 command.stopIfNotStopped();
             } catch (Exception e) {

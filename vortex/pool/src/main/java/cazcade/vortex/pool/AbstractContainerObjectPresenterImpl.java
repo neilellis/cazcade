@@ -31,16 +31,16 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
     @Nonnull
     private final HashMap<LiquidURI, PoolObjectPresenter> objectPresenters = new HashMap<LiquidURI, PoolObjectPresenter>();
 
-    public AbstractContainerObjectPresenterImpl(PoolPresenter pool, @Nonnull LSDEntity entity, T widget, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
+    public AbstractContainerObjectPresenterImpl(final PoolPresenter pool, @Nonnull final LSDEntity entity, final T widget, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
         super(pool, entity, widget, threadSafeExecutor);
         BusFactory.getInstance().listenForURIAndRequestType(entity.getURI(), LiquidRequestType.CREATE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                     try {
                         final LSDEntity requestEntity = message.getResponse();
                         ClientLog.log("Adding " + requestEntity.getTypeDef().asString());
-                        PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(AbstractContainerObjectPresenterImpl.this, requestEntity, features, threadSafeExecutor);
+                        final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(AbstractContainerObjectPresenterImpl.this, requestEntity, features, threadSafeExecutor);
                         if (poolObjectPresenter != null) {
                             add(poolObjectPresenter);
                         }
@@ -54,7 +54,7 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
         });
         BusFactory.getInstance().listenForURIAndRequestType(entity.getURI(), LiquidRequestType.DELETE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                     try {
                         final LSDEntity response = message.getResponse();
@@ -73,7 +73,7 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
     }
 
     @Override
-    public void remove(@Nonnull PoolObjectPresenter presenter) {
+    public void remove(@Nonnull final PoolObjectPresenter presenter) {
         final LiquidURI uri = presenter.getEntity().getURI();
         objectPresenters.remove(uri);
         poolObjectWidgetsByURI.remove(uri);
@@ -82,17 +82,17 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
 
 
     @Override
-    public boolean willAccept(LSDTypeDef type) {
+    public boolean willAccept(final LSDTypeDef type) {
         return true;
     }
 
     @Override
-    public void accept(PoolObjectPresenter source) {
+    public void accept(final PoolObjectPresenter source) {
         getPool().transfer(source, this);
     }
 
     @Override
-    public void add(@Nonnull PoolObjectPresenter presenter) {
+    public void add(@Nonnull final PoolObjectPresenter presenter) {
         final LiquidURI uri = presenter.getEntity().getURI();
         objectPresenters.put(uri, presenter);
         poolObjectWidgetsByURI.put(uri, presenter.getPoolObjectView());

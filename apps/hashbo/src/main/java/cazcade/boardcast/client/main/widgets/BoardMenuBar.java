@@ -54,11 +54,11 @@ public class BoardMenuBar extends MenuBar {
 
 
     public void init(@Nonnull final LSDEntity board, final boolean modifierOptions, @Nullable final ChangeBackgroundDialog backgroundDialog) {
-        this.poolURI = board.getURI();
+        poolURI = board.getURI();
         clearItems();
         GWT.runAsync(new RunAsyncCallback() {
             @Override
-            public void onFailure(Throwable reason) {
+            public void onFailure(final Throwable reason) {
                 ClientLog.log(reason);
             }
 
@@ -95,7 +95,7 @@ public class BoardMenuBar extends MenuBar {
         });
     }
 
-    private void createAccessMenu(@Nonnull LSDEntity board) {
+    private void createAccessMenu(@Nonnull final LSDEntity board) {
         if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
             if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                 accessMenuBar.addItem("Make Readonly", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
@@ -112,7 +112,7 @@ public class BoardMenuBar extends MenuBar {
 
     }
 
-    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull LSDEntity board) {
+    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull final LSDEntity board) {
 
         if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
             addMenubar.addItem("Background", new Command() {
@@ -135,7 +135,7 @@ public class BoardMenuBar extends MenuBar {
         addMenubar.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Nonnull
             @Override
-            public CreateItemCommand create(CreateItemCommand.Size size) {
+            public CreateItemCommand create(final CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "default");
             }
         }, false));
@@ -143,7 +143,7 @@ public class BoardMenuBar extends MenuBar {
         addMenubar.addItem("Black on White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Nonnull
             @Override
-            public CreateItemCommand create(CreateItemCommand.Size size) {
+            public CreateItemCommand create(final CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
             }
         }, false));
@@ -152,7 +152,7 @@ public class BoardMenuBar extends MenuBar {
         addMenubar.addItem("White on Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Nonnull
             @Override
-            public CreateItemCommand create(CreateItemCommand.Size size) {
+            public CreateItemCommand create(final CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
             }
         }, false));
@@ -162,7 +162,7 @@ public class BoardMenuBar extends MenuBar {
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Nonnull
                     @Override
-                    public CreateItemCommand create(CreateItemCommand.Size size) {
+                    public CreateItemCommand create(final CreateItemCommand.Size size) {
                         return new CreatePhotoCommand(poolURI, LSDDictionaryTypes.PHOTO2D, size, "default");
                     }
                 }, true));
@@ -171,7 +171,7 @@ public class BoardMenuBar extends MenuBar {
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Nonnull
                     @Override
-                    public CreateItemCommand create(CreateItemCommand.Size size) {
+                    public CreateItemCommand create(final CreateItemCommand.Size size) {
                         return new CreateWebsiteCommand(poolURI, LSDDictionaryTypes.WEBPAGE, size, "default");
                     }
                 }, true));
@@ -180,7 +180,7 @@ public class BoardMenuBar extends MenuBar {
                 createMenuBarForSizeVariants(new SizeVariantBuilder() {
                     @Nonnull
                     @Override
-                    public CreateItemCommand create(CreateItemCommand.Size size) {
+                    public CreateItemCommand create(final CreateItemCommand.Size size) {
                         return new CreateYouTubeCommand(poolURI, LSDDictionaryTypes.YOUTUBE_MOVIE, size, "default");
                     }
                 }, false));
@@ -195,7 +195,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
     @Nonnull
-    private MenuBar createMenuBarForSizeVariants(@Nonnull SizeVariantBuilder builder, boolean includeVerySmall) {
+    private MenuBar createMenuBarForSizeVariants(@Nonnull final SizeVariantBuilder builder, final boolean includeVerySmall) {
         final MenuBar menuBar = new MenuBar(true);
         if (includeVerySmall) {
             menuBar.addItem("Very Small", builder.create(AbstractCreateCommand.Size.THUMBNAIL));
@@ -210,8 +210,8 @@ public class BoardMenuBar extends MenuBar {
     @Nonnull
     private MenuBar createShapeMenuBar() {
         final MenuBar menuBar = new MenuBar(false);
-        String[] names = new String[]{"arrow-down-1.png", "arrow-down-2.png", "arrow-left-1.png", "arrow-left-2.png", "arrow-right-1.png", "arrow-right-2.png", "arrow-up-1.png", "arrow-up-2.png", "circle_1.png", "circle_2.png", "circle_3.png", "star-1.png", "star-2.png", "star-3.png", "tick-1.png", "x-1.png"};
-        for (String name : names) {
+        final String[] names = new String[]{"arrow-down-1.png", "arrow-down-2.png", "arrow-left-1.png", "arrow-left-2.png", "arrow-right-1.png", "arrow-right-2.png", "arrow-up-1.png", "arrow-up-2.png", "circle_1.png", "circle_2.png", "circle_3.png", "star-1.png", "star-2.png", "star-3.png", "tick-1.png", "x-1.png"};
+        for (final String name : names) {
             final MenuBar shapeVariants = createMenuBarForShapeVariants(name);
             menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, "black") + "' width='24' height='24'/>").toSafeHtml(), shapeVariants);
         }
@@ -219,7 +219,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
     @Nonnull
-    private MenuBar createMenuBarForShapeVariants(String name) {
+    private MenuBar createMenuBarForShapeVariants(final String name) {
         final MenuBar menuBar = new MenuBar(true);
         createMenuItemForDecoration(name, menuBar, "black");
         createMenuItemForDecoration(name, menuBar, "red");
@@ -228,11 +228,11 @@ public class BoardMenuBar extends MenuBar {
         return menuBar;
     }
 
-    private void createMenuItemForDecoration(String name, @Nonnull MenuBar menuBar, String variant) {
+    private void createMenuItemForDecoration(final String name, @Nonnull final MenuBar menuBar, final String variant) {
         menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, variant) + "' width='24' height='24'/>").toSafeHtml(), new CreateDecorationCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D, createUrlForDecoration(name, variant), AbstractCreateCommand.Size.DEFAULT, "default"));
     }
 
-    private String createUrlForDecoration(String name, String theme) {
+    private String createUrlForDecoration(final String name, final String theme) {
         return BrowserUtil.convertRelativeUrlToAbsolute("./_decorations/" + theme + "/" + name);
     }
 

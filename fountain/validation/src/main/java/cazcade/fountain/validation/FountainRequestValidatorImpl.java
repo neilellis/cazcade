@@ -20,15 +20,15 @@ public class FountainRequestValidatorImpl<T extends LiquidRequest> implements Fo
     @Nonnull
     private final Logger log = Logger.getLogger(FountainRequestValidatorImpl.class);
 
-    public void validate(@Nonnull T request, ValidationLevel level) {
-        LiquidRequestType requestType = request.getRequestType();
+    public void validate(@Nonnull final T request, final ValidationLevel level) {
+        final LiquidRequestType requestType = request.getRequestType();
 
         if (requestType == null) {
             throw new ValidationException("No type specified for the request.");
         }
 
         log.debug("Looking for validator for : " + requestType.name());
-        FountainRequestValidator validator = requestTypeValidatorMap.get(requestType.name());
+        final FountainRequestValidator validator = requestTypeValidatorMap.get(requestType.name());
 
         if (validator != null) {
             validator.validate(request, level);
@@ -38,11 +38,11 @@ public class FountainRequestValidatorImpl<T extends LiquidRequest> implements Fo
 
     }
 
-    public void setRequestValidatorMap(Map<String, FountainRequestValidator> typeValidatorMap) {
-        this.requestTypeValidatorMap = typeValidatorMap;
+    public void setRequestValidatorMap(final Map<String, FountainRequestValidator> typeValidatorMap) {
+        requestTypeValidatorMap = typeValidatorMap;
     }
 
-    public void setDefaultValidator(FountainRequestValidator defaultValidator) {
+    public void setDefaultValidator(final FountainRequestValidator defaultValidator) {
         this.defaultValidator = defaultValidator;
     }
 }

@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class FountainDataStoreRPCServer {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainDataStoreRPCServer.class);
+    private static final Logger log = Logger.getLogger(FountainDataStoreRPCServer.class);
     private RabbitTemplate template;
     private DataStoreServerMessageHandler handler;
     @Nullable
@@ -33,12 +33,12 @@ public class FountainDataStoreRPCServer {
         rpcServer = new RpcServer(template.getConnectionFactory().createConnection().createChannel(false), queue) {
 
             @Override
-            public byte[] handleCall(byte[] requestBody, AMQP.BasicProperties replyProperties) {
+            public byte[] handleCall(final byte[] requestBody, final AMQP.BasicProperties replyProperties) {
                 try {
                     log.debug("Handling RabbitMQ RPC call");
                     final LiquidMessage message = (LiquidMessage) template.getMessageConverter().fromMessage(new Message(requestBody, null));
                     final LiquidRequest response = (LiquidRequest) handler.handle(message);
-                    LiquidRequest request = (LiquidRequest) message;
+                    final LiquidRequest request = (LiquidRequest) message;
                     if (response.shouldNotify()) {
                         //Notify if async
                         //i.e. for pool visits.
@@ -69,15 +69,15 @@ public class FountainDataStoreRPCServer {
         rpcServer.close();
     }
 
-    public void setTemplate(RabbitTemplate template) {
+    public void setTemplate(final RabbitTemplate template) {
         this.template = template;
     }
 
-    public void setHandler(DataStoreServerMessageHandler handler) {
+    public void setHandler(final DataStoreServerMessageHandler handler) {
         this.handler = handler;
     }
 
-    public void setQueue(String queue) {
+    public void setQueue(final String queue) {
         this.queue = queue;
     }
 
@@ -86,7 +86,7 @@ public class FountainDataStoreRPCServer {
     }
 
 
-    public void setMessageSender(LiquidMessageSender messageSender) {
+    public void setMessageSender(final LiquidMessageSender messageSender) {
         this.messageSender = messageSender;
     }
 }

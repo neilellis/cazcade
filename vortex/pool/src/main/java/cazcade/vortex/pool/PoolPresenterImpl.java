@@ -43,12 +43,12 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     @Nonnull
     private final PoolObjectContainerManager poolObjectContainerManager;
 
-    public PoolPresenterImpl(@Nonnull VortexScrollPanel scrollPanel, @Nonnull AbsolutePanel panel, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
 
         this(scrollPanel, panel, entity, false, features, threadSafeExecutor);
     }
 
-    public PoolPresenterImpl(@Nonnull VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDEntity entity, boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDEntity entity, final boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
         this.panel = panel;
         this.entity = entity;
@@ -101,11 +101,11 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         DOM.releaseCapture(panel.getElement());
     }
 
-    public boolean isWithinXBounds(int x) {
+    public boolean isWithinXBounds(final int x) {
         return false; //TODO
     }
 
-    public boolean isWithinYBounds(int i) {
+    public boolean isWithinYBounds(final int i) {
         return false; //TODO
     }
 
@@ -120,11 +120,12 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Override
-    public void move(@Nonnull PoolObjectPresenter presenter, final double x, final double y, boolean onServer) {
+    public void move(@Nonnull final PoolObjectPresenter presenter, final double x, final double y, final boolean onServer) {
         if (onServer) {
             BusFactory.getInstance().dispatch(new MovePoolObjectRequest(presenter.getEntity().getURI(), x, y, 0.0));
         } else {
             final Widget widget = presenter.getPoolObjectView();
+            //noinspection ObjectEquality
             if (widget.getParent() != panel) {
                 ClientLog.log("Widget parent was " + widget.getParent() + " not " + panel);
                 ClientLog.log("Offending widget was " + widget);
@@ -170,7 +171,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Override
-    public void moveToVisibleCentre(@Nonnull PoolObjectPresenter poolObjectPresenter) {
+    public void moveToVisibleCentre(@Nonnull final PoolObjectPresenter poolObjectPresenter) {
         move(poolObjectPresenter, scrollPanel.getOffsetX() + scrollPanel.getOffsetWidth() / 2, scrollPanel.getOffsetY() + scrollPanel.getOffsetHeight() / 2, true);
     }
 
@@ -191,7 +192,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         poolObjectContainerManager.add(poolObjectPresenter, false);
     }
 
-    public void remove(@Nonnull PoolObjectPresenter poolObjectPresenter) {
+    public void remove(@Nonnull final PoolObjectPresenter poolObjectPresenter) {
         poolObjectContainerManager.remove(poolObjectPresenter);
     }
 
@@ -204,7 +205,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Override
-    public void transfer(@Nonnull PoolObjectPresenter source, @Nonnull PoolObjectPresenterContainer destination) {
+    public void transfer(@Nonnull final PoolObjectPresenter source, @Nonnull final PoolObjectPresenterContainer destination) {
 
         poolObjectContainerManager.transfer(source, destination);
     }
@@ -251,11 +252,11 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         return threadSafeExecutor;
     }
 
-    public void addView(@Nonnull Widget view) {
+    public void addView(@Nonnull final Widget view) {
         WidgetUtil.addGracefully(panel, view);
     }
 
-    public void removeView(@Nonnull Widget widget) {
+    public void removeView(@Nonnull final Widget widget) {
         WidgetUtil.removeFromParentGracefully(widget);
     }
 }

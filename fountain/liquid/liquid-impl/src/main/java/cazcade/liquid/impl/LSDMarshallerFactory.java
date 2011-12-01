@@ -11,7 +11,7 @@ public class LSDMarshallerFactory {
 
     private Map<String, LSDMarshaler> marshallers;
 
-    public void setMarshalers(Map<String, LSDMarshaler> marshallers) {
+    public void setMarshalers(final Map<String, LSDMarshaler> marshallers) {
         this.marshallers = marshallers;
     }
 

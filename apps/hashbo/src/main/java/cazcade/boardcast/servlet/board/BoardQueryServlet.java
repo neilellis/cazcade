@@ -28,10 +28,10 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
     @Nonnull
     private final Map<String, String> titleLookup = new HashMap<String, String>();
     @Nonnull
-    private final static Logger log = Logger.getLogger(BoardQueryServlet.class);
+    private static final Logger log = Logger.getLogger(BoardQueryServlet.class);
 
     @Override
-    public void init(@Nonnull ServletConfig config) throws ServletException {
+    public void init(@Nonnull final ServletConfig config) throws ServletException {
         super.init(config);
         queryLookup.put("history", BoardQueryRequest.QueryType.HISTORY);
         titleLookup.put("history", "Recently Visited");
@@ -46,7 +46,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         try {
             super.service(req, resp);
         } catch (EOFException e) {
@@ -55,25 +55,25 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
     }
 
     @Override
-    protected void doPost(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username = req.getParameter("user");
+            final String username = req.getParameter("user");
 //            final String queryName = req.getServletPath().substring(1, req.getServletPath().indexOf('.'));
-            String queryName = req.getParameter("query");
+            final String queryName = req.getParameter("query");
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
             LiquidSessionIdentifier liquidSessionId = getLiquidSessionId(req.getSession(true));
             if (liquidSessionId == null) {
                 liquidSessionId = LiquidSessionIdentifier.ANON;
             }
-            BoardQueryRequest response = dataStore.process(new BoardQueryRequest(liquidSessionId, type, alias));
+            final BoardQueryRequest response = dataStore.process(new BoardQueryRequest(liquidSessionId, type, alias));
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
-            List<LSDEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+            final List<LSDEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             req.setAttribute("boards", makeJSPFriendly(boards));
             req.setAttribute("title", titleLookup.get(queryName));
             req.getRequestDispatcher("_pages/boards.jsp").forward(req, resp);

@@ -55,27 +55,27 @@ public class FountainUserUpdateService {
         //yeah yeah I know - not accurate - will do for now.
         final long lastHour = System.currentTimeMillis() - HOUR_IN_MILLIS;
         final long yesterday = System.currentTimeMillis() - DAY_IN_MILLIS;
-        final long lastWeek = System.currentTimeMillis() - (7L * DAY_IN_MILLIS);
-        final long lastMonth = System.currentTimeMillis() - (28L * DAY_IN_MILLIS);
+        final long lastWeek = System.currentTimeMillis() - 7L * DAY_IN_MILLIS;
+        final long lastMonth = System.currentTimeMillis() - 28L * DAY_IN_MILLIS;
 
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
-            public void process(@Nonnull LSDEntity userEntity, @Nonnull LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
+            public void process(@Nonnull final LSDEntity userEntity, @Nonnull final LSDEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
                 log.info("Sending update to " + aliasEntity.getURI());
                 final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.getURI().asString());
                 long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null ? alias.getLastEmailUpdateDate().getTime() : yesterday;
                 boolean send = yesterday >= lastEmailUpdateDate;
                 if (userEntity.hasAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY)) {
                     final String frequency = userEntity.getAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY);
-                    if (frequency.equals("H")) {
-                        send = lastHour > lastEmailUpdateDate - (HOUR_IN_MILLIS / 4);
-                    } else if (frequency.equals("D")) {
-                        send = yesterday > lastEmailUpdateDate - (DAY_IN_MILLIS / 4);
-                    } else if (frequency.equals("W")) {
-                        send = lastWeek > lastEmailUpdateDate - (DAY_IN_MILLIS / 2);
-                    } else if (frequency.equals("M")) {
-                        send = lastMonth > lastEmailUpdateDate - (DAY_IN_MILLIS / 2);
-                    } else if (frequency.equals("U")) {
+                    if ("H".equals(frequency)) {
+                        send = lastHour > lastEmailUpdateDate - HOUR_IN_MILLIS / 4;
+                    } else if ("D".equals(frequency)) {
+                        send = yesterday > lastEmailUpdateDate - DAY_IN_MILLIS / 4;
+                    } else if ("W".equals(frequency)) {
+                        send = lastWeek > lastEmailUpdateDate - DAY_IN_MILLIS / 2;
+                    } else if ("M".equals(frequency)) {
+                        send = lastMonth > lastEmailUpdateDate - DAY_IN_MILLIS / 2;
+                    } else if ("U".equals(frequency)) {
                         send = false;
                     } else {
                         throw new IllegalArgumentException("Unrecognized period " + frequency);
@@ -101,7 +101,7 @@ public class FountainUserUpdateService {
     }
 
 
-    public void setTest(boolean test) {
+    public void setTest(final boolean test) {
         this.test = test;
     }
 }

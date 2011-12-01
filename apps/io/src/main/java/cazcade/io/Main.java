@@ -14,21 +14,21 @@ import java.io.IOException;
  * @author neilellis@cazcade.com
  */
 public class Main {
-    public static void main(String[] args) throws ParseException, IOException, XMLStreamException {
-        CommandLineParser parser = new PosixParser();
-        Options options = new Options();
+    public static void main(final String[] args) throws ParseException, IOException, XMLStreamException {
+        final CommandLineParser parser = new PosixParser();
+        final Options options = new Options();
         options.addOption("n", "neo", true, "The neo4j directory to use.");
         options.addOption("j", "json", true, "The json file to use.");
 
         final CommandLine line = parser.parse(options, args);
 
-        String neo;
+        final String neo;
         if (line.hasOption("neo")) {
             neo = line.getOptionValue("neo");
         } else {
             neo = Constants.FOUNTAIN_NEO_STORE_DIR;
         }
-        String json;
+        final String json;
         if (line.hasOption("json")) {
             json = line.getOptionValue("json");
         } else {
@@ -36,9 +36,9 @@ public class Main {
         }
         new File(json).mkdirs();
 
-        if (line.getArgs().length > 0 && line.getArgs()[0].equals("export")) {
-            EmbeddedGraphDatabase graphDatabase = new EmbeddedGraphDatabase(neo);
-            FountainNeoExporter fountainNeoExporter = new FountainNeoExporter(graphDatabase);
+        if (line.getArgs().length > 0 && "export".equals(line.getArgs()[0])) {
+            final EmbeddedGraphDatabase graphDatabase = new EmbeddedGraphDatabase(neo);
+            final FountainNeoExporter fountainNeoExporter = new FountainNeoExporter(graphDatabase);
             fountainNeoExporter.export(json);
             System.out.println("Exported to " + json);
             graphDatabase.shutdown();
@@ -55,7 +55,7 @@ public class Main {
 //            GraphMLReader reader = new GraphMLReader(graph);
 //            reader.inputGraph(in);
             new File(neo + ".imported").mkdirs();
-            FountainNeoImporter importer = new FountainNeoImporter(neo + ".imported");
+            final FountainNeoImporter importer = new FountainNeoImporter(neo + ".imported");
             importer.importJson(json);
             System.out.println("Imported to " + neo + ".imported");
         }

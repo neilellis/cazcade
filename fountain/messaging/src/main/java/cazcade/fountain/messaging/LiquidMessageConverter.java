@@ -16,21 +16,21 @@ import javax.annotation.Nonnull;
 public class LiquidMessageConverter implements MessageConverter {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(LiquidMessageConverter.class);
+    private static final Logger log = Logger.getLogger(LiquidMessageConverter.class);
 
     @Nonnull
     @Override
-    public Message toMessage(Object object, MessageProperties messageProperties) throws MessageConversionException {
+    public Message toMessage(final Object object, final MessageProperties messageProperties) throws MessageConversionException {
         final String xml = LiquidXStreamFactory.getXstream().toXML(object);
         log.debug(">>>>> Converted to {0}", xml);
         return new Message(xml.getBytes(), new MessageProperties());
     }
 
     @Override
-    public Object fromMessage(@Nonnull Message message) throws MessageConversionException {
+    public Object fromMessage(@Nonnull final Message message) throws MessageConversionException {
         final String xml = new String(message.getBody());
         log.debug("<<<<< Converting from {0}", xml);
-        Object object = LiquidXStreamFactory.getXstream().fromXML(xml);
+        final Object object = LiquidXStreamFactory.getXstream().fromXML(xml);
         if (object instanceof LiquidMessage) {
             return object;
         } else if (object instanceof RuntimeException) {

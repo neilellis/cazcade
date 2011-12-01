@@ -14,10 +14,10 @@ import javax.annotation.Nonnull;
  */
 public abstract class AbstractResponseCallback<T extends LiquidMessage> implements ResponseCallback<T> {
 
-    public void onSuccess(T message, T response) {
+    public void onSuccess(final T message, final T response) {
     }
 
-    public void onFailure(T message, @Nonnull T response) {
+    public void onFailure(final T message, @Nonnull final T response) {
         final LSDEntity responseEntity = response.getResponse();
         ClientLog.log(responseEntity.toString());
         if (ClientApplicationConfiguration.isDebug()) {
@@ -30,8 +30,8 @@ public abstract class AbstractResponseCallback<T extends LiquidMessage> implemen
         }
     }
 
-    public void onException(@Nonnull T message, @Nonnull Throwable error) {
-        String msg = "Message " + message.getId() + " of type " + message.getMessageType().name() + " had error " + error.getMessage();
+    public void onException(@Nonnull final T message, @Nonnull final Throwable error) {
+        final String msg = "Message " + message.getId() + " of type " + message.getMessageType().name() + " had error " + error.getMessage();
         ClientLog.log(msg, error);
     }
 }

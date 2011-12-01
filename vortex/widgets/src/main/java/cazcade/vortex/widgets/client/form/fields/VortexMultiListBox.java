@@ -41,7 +41,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         return useVisibleText;
     }
 
-    public void setUseVisibleText(boolean useVisibleText) {
+    public void setUseVisibleText(final boolean useVisibleText) {
         this.useVisibleText = useVisibleText;
     }
 
@@ -56,10 +56,11 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     }
 
     public VortexMultiListBox() {
+        super();
         initWidget(multiListBoxBinder.createAndBindUi(this));
         listBox.addChangeHandler(new ChangeHandler() {
             @Override
-            public void onChange(ChangeEvent event) {
+            public void onChange(final ChangeEvent event) {
                 callOnChangeAction();
             }
         });
@@ -78,17 +79,17 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void setValue(String text) {
+    public void setValue(final String text) {
         throw new UnsupportedOperationException("This widget does not support single value operations");
     }
 
-    public void setVisibleItemCount(int visibleItemCount) {
+    public void setVisibleItemCount(final int visibleItemCount) {
         listBox.setVisibleItemCount(visibleItemCount);
     }
 
     @Nonnull
     public List<String> getStringValues() {
-        List<String> values = new ArrayList<String>();
+        final List<String> values = new ArrayList<String>();
         final int max = listBox.getItemCount();
         for (int i = 0; i < max; i++) {
             if (listBox.isItemSelected(i)) {
@@ -107,7 +108,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         return values;
     }
 
-    public void setValues(@Nonnull List<String> values) {
+    public void setValues(@Nonnull final List<String> values) {
         final int max = listBox.getItemCount();
         for (int i = 0; i < max; i++) {
             if (useVisibleText) {
@@ -116,7 +117,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
                 listBox.setItemSelected(i, values.contains(listBox.getValue(i)));
             }
         }
-        for (String value : values) {
+        for (final String value : values) {
             boolean found = false;
             for (int i = 0; i < max; i++) {
                 if (useVisibleText) {
@@ -137,17 +138,17 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(@Nonnull LSDAttribute attribute, String prefix, @Nonnull final List<String> initialValues) {
+    public void bind(@Nonnull final LSDAttribute attribute, final String prefix, @Nonnull final List<String> initialValues) {
         boundAttribute = attribute;
-        LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
+        final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, true, false);
         retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(RetrievePoolRequest message, @Nonnull RetrievePoolRequest response) {
+            public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
                 final List<LSDEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
                 Collections.reverse(entities);
-                for (LSDEntity entity : entities) {
+                for (final LSDEntity entity : entities) {
                     listBox.addItem(entity.getAttribute(LSDAttribute.TITLE), entity.getAttribute(LSDAttribute.NAME));
                 }
                 setValues(initialValues);
@@ -156,7 +157,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, String initialValue) {
+    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
         throw new UnsupportedOperationException("This widget does not support single value operations");
     }
 
@@ -165,7 +166,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         return true;
     }
 
-    public void setOtherOption(boolean otherOption) {
+    public void setOtherOption(final boolean otherOption) {
         this.otherOption = otherOption;
         if (!otherOption) {
             otherBox.removeFromParent();

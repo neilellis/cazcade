@@ -20,7 +20,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
     protected void init() {
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(@Nonnull KeyPressEvent event) {
+            public void onKeyPress(@Nonnull final KeyPressEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
 //
                     final int keyCode = event.getUnicodeCharCode();
@@ -30,7 +30,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
                         Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                             @Override
                             public void execute() {
-                                String text = cleanUpText(textBox.getText());
+                                final String text = cleanUpText(textBox.getText());
                                 textBox.setText(text);
                                 onChangeAction.run();
                             }
@@ -43,7 +43,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
         textBox.addBlurHandler(new BlurHandler() {
             @Override
-            public void onBlur(BlurEvent event) {
+            public void onBlur(final BlurEvent event) {
                 errorMessage.setText("");
             }
         });
@@ -51,7 +51,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
         textBox.addKeyUpHandler(new CleanUpKeyUpHandler() {
             @Override
-            public void onKeyUp(@Nonnull KeyUpEvent event) {
+            public void onKeyUp(@Nonnull final KeyUpEvent event) {
                 super.onKeyUp(event);
                 if (!isValidName()) {
                     showInvalidName();
@@ -82,7 +82,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
         return showAvailability;
     }
 
-    public void setShowAvailability(boolean showAvailability) {
+    public void setShowAvailability(final boolean showAvailability) {
         if (!showAvailability) {
             acceptable = true;
         }

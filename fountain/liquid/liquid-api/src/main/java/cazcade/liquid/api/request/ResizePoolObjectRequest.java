@@ -10,35 +10,37 @@ import java.util.List;
 public class ResizePoolObjectRequest extends AbstractRequest {
 
     public ResizePoolObjectRequest() {
+        super();
     }
 
-    public ResizePoolObjectRequest(LiquidUUID pool, LiquidUUID object, Integer width, Integer height, LiquidURI objectURI) {
+    public ResizePoolObjectRequest(final LiquidUUID pool, final LiquidUUID object, final Integer width, final Integer height, final LiquidURI objectURI) {
         this(null, null, objectURI, pool, object, width, height);
     }
 
-    public ResizePoolObjectRequest(LiquidURI objectURI, Integer width, Integer height) {
+    public ResizePoolObjectRequest(final LiquidURI objectURI, final Integer width, final Integer height) {
         this(null, null, objectURI, null, null, width, height);
     }
 
-    public ResizePoolObjectRequest(LiquidSessionIdentifier identity, LiquidUUID pool, LiquidUUID object, Integer width, Integer height, LiquidURI objectURI) {
+    public ResizePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID object, final Integer width, final Integer height, final LiquidURI objectURI) {
         this(null, identity, objectURI, pool, object, width, height);
     }
 
-    public ResizePoolObjectRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI objectURI, @Nullable LiquidUUID pool, @Nullable LiquidUUID object, Integer width, Integer height) {
-        this.setWidth(width);
-        this.setHeight(height);
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setObjectUUID(object);
-        this.setPoolUUID(pool);
-        this.setUri(objectURI);
+    public ResizePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Integer width, final Integer height) {
+        super();
+        setWidth(width);
+        setHeight(height);
+        setId(id);
+        setSessionId(identity);
+        setObjectUUID(object);
+        setPoolUUID(pool);
+        setUri(objectURI);
     }
 
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new ResizePoolObjectRequest(getId(), getSessionIdentifier(), getUri(), getPoolUUID(), super.getObjectUUID(), super.getWidth(), super.getHeight());
+        return new ResizePoolObjectRequest(getId(), getSessionIdentifier(), getUri(), getPoolUUID(), getObjectUUID(), getWidth(), getHeight());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -52,7 +54,7 @@ public class ResizePoolObjectRequest extends AbstractRequest {
 
     public List<String> getNotificationLocations() {
         if (getUri() == null) {
-            return Arrays.asList(getPoolUUID().toString(), super.getObjectUUID().toString());
+            return Arrays.asList(getPoolUUID().toString(), getObjectUUID().toString());
         } else {
             return Arrays.asList(getUri().getParentURI().asReverseDNSString(), getUri().asReverseDNSString());
         }

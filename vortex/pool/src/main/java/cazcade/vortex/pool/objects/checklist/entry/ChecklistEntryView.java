@@ -45,14 +45,15 @@ public class ChecklistEntryView extends Composite {
     @UiField
     Label author;
 
-    public ChecklistEntryView(@Nonnull LSDEntity newEntity) {
-        this.entity = newEntity;
+    public ChecklistEntryView(@Nonnull final LSDEntity newEntity) {
+        super();
+        entity = newEntity;
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setShowBrief(true);
         update(newEntity);
         BusFactory.getInstance().listenForResponsesForURIAndType(newEntity.getURI(), LiquidRequestType.UPDATE_POOL_OBJECT, new BusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (message.getState() != LiquidMessageState.PROVISIONAL) {
                     update(message.getResponse().copy());
                 }
@@ -61,7 +62,7 @@ public class ChecklistEntryView extends Composite {
 
         checkbox.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 checked = !checked;
                 updateCheckStatus();
                 final LSDEntity updateEntity = entity.asUpdateEntity();
@@ -90,9 +91,9 @@ public class ChecklistEntryView extends Composite {
         }
     }
 
-    private void update(@Nonnull LSDEntity entity) {
+    private void update(@Nonnull final LSDEntity entity) {
         if (entity.hasAttribute(LSDAttribute.CHECKED)) {
-            this.checked = entity.getBooleanAttribute(LSDAttribute.CHECKED);
+            checked = entity.getBooleanAttribute(LSDAttribute.CHECKED);
         }
         if (entity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
             label.setText(entity.getAttribute(LSDAttribute.TEXT_EXTENDED));

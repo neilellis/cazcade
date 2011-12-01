@@ -27,13 +27,13 @@ public class AliasDAOImpl implements AliasDAO {
 
     private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+    public void setSessionFactory(final SessionFactory sessionFactory) {
+        hibernateTemplate = new HibernateTemplate(sessionFactory);
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void saveUser(AliasEntity alias) {
+    public void saveUser(final AliasEntity alias) {
         hibernateTemplate.saveOrUpdate(alias);
     }
 
@@ -48,12 +48,12 @@ public class AliasDAOImpl implements AliasDAO {
         return hibernateTemplate.execute(new HibernateCallback<AliasEntity>() {
             @Nonnull
             @Override
-            public AliasEntity doInHibernate(@Nonnull Session session) throws HibernateException, SQLException {
-                String name = null;
-                List users = hibernateTemplate.find("from AliasEntity e where e.uri = ?", uri);
+            public AliasEntity doInHibernate(@Nonnull final Session session) throws HibernateException, SQLException {
+                final String name = null;
+                final List users = hibernateTemplate.find("from AliasEntity e where e.uri = ?", uri);
                 if (users.size() == 1) {
                     return (AliasEntity) users.get(0);
-                } else if (users.size() == 0) {
+                } else if (users.isEmpty()) {
                     final AliasEntity aliasEntity = new AliasEntity();
                     aliasEntity.setUri(uri);
                     session.persist(aliasEntity);
@@ -66,9 +66,9 @@ public class AliasDAOImpl implements AliasDAO {
     }
 
     @Override
-    public void forEachUser(@Nonnull UserDAOCallback userDAOCallback) {
+    public void forEachUser(@Nonnull final UserDAOCallback userDAOCallback) {
         final List<AliasEntity> aliases = sessionFactory.getCurrentSession().createCriteria(AliasEntity.class).list();
-        for (AliasEntity alias : aliases) {
+        for (final AliasEntity alias : aliases) {
             try {
                 //move this into an executor
                 userDAOCallback.process(alias);

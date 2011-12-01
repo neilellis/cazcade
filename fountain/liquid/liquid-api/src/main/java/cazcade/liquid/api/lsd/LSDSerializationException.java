@@ -9,15 +9,15 @@ import javax.annotation.Nonnull;
  */
 public class LSDSerializationException extends CazcadeException {
 
-    public LSDSerializationException(Throwable throwable) {
+    public LSDSerializationException(final Throwable throwable) {
         super(throwable);
     }
 
-    public LSDSerializationException(@Nonnull String message, Object... params) {
+    public LSDSerializationException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public LSDSerializationException(Throwable cause, @Nonnull String message, Object... params) {
+    public LSDSerializationException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
 }

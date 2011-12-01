@@ -7,7 +7,7 @@ public class ClientSession {
     private final String sessionId;
     private final String testUsername;
 
-    public ClientSession(HttpClient client, String sessionId, String testUsername) {
+    public ClientSession(final HttpClient client, final String sessionId, final String testUsername) {
         this.client = client;
         this.sessionId = sessionId;
         this.testUsername = testUsername;

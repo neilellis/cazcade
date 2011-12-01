@@ -22,7 +22,7 @@ import java.security.cert.X509Certificate;
  */
 public class FountainRealm extends SecurityProvider implements Realm {
     @Nonnull
-    private final static Logger log = Logger.getLogger(FountainRealm.class);
+    private static final Logger log = Logger.getLogger(FountainRealm.class);
 
     @Nonnull
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
@@ -37,7 +37,7 @@ public class FountainRealm extends SecurityProvider implements Realm {
         return container;
     }
 
-    public void setContainer(Container container) {
+    public void setContainer(final Container container) {
         this.container = container;
     }
 
@@ -46,12 +46,12 @@ public class FountainRealm extends SecurityProvider implements Realm {
         return "Fountain Data Store Security Realm";
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+    public void addPropertyChangeListener(final PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.addPropertyChangeListener(propertyChangeListener);
     }
 
     @Nullable
-    public Principal authenticate(@Nonnull String username, String password) {
+    public Principal authenticate(@Nonnull final String username, final String password) {
         try {
             return doAuthentication(username, password);
         } catch (Exception e) {
@@ -61,17 +61,17 @@ public class FountainRealm extends SecurityProvider implements Realm {
     }
 
     @Nonnull
-    public Principal authenticate(String s, byte[] bytes) {
+    public Principal authenticate(final String s, final byte[] bytes) {
         throw new UnsupportedOperationException();
     }
 
     @Nonnull
-    public Principal authenticate(String s, String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
+    public Principal authenticate(final String s, final String s1, final String s2, final String s3, final String s4, final String s5, final String s6, final String s7) {
         throw new UnsupportedOperationException();
     }
 
     @Nonnull
-    public Principal authenticate(X509Certificate[] x509Certificates) {
+    public Principal authenticate(final X509Certificate[] x509Certificates) {
         throw new UnsupportedOperationException();
     }
 
@@ -79,36 +79,36 @@ public class FountainRealm extends SecurityProvider implements Realm {
     }
 
     @Nonnull
-    public SecurityConstraint[] findSecurityConstraints(Request request, Context context) {
+    public SecurityConstraint[] findSecurityConstraints(final Request request, final Context context) {
         return new SecurityConstraint[0];
     }
 
-    public boolean hasResourcePermission(@Nonnull Request request, Response response, SecurityConstraint[] securityConstraints, Context context) throws IOException {
+    public boolean hasResourcePermission(@Nonnull final Request request, final Response response, final SecurityConstraint[] securityConstraints, final Context context) throws IOException {
         if (request.getPathInfo() == null) {
             return false;
         }
         log.debug("hasResourcePermission() - request.getPathInfo() " + request.getPathInfo());
-        if (request.getPrincipal().getName() == null || request.getPrincipal().getName().equals("anon")) {
-            return ((request.getPathInfo().matches("/user/create[\\.a-z]*") && request.getMethod().equals("GET")) || (request.getPathInfo().matches("/user[\\.a-z]*") && request.getMethod().equals("POST")));
+        if (request.getPrincipal().getName() == null || "anon".equals(request.getPrincipal().getName())) {
+            return request.getPathInfo().matches("/user/create[\\.a-z]*") && "GET".equals(request.getMethod()) || request.getPathInfo().matches("/user[\\.a-z]*") && "POST".equals(request.getMethod());
         } else {
             return true;
         }
     }
 
-    public boolean hasRole(@Nonnull Principal principal, @Nonnull String role) {
+    public boolean hasRole(@Nonnull final Principal principal, @Nonnull final String role) {
         log.debug("hasRole(" + role + ")");
-        if (principal.getName().equals("anon")) {
-            return role.equals("anon");
+        if ("anon".equals(principal.getName())) {
+            return "anon".equals(role);
         }
         return true;
     }
 
-    public boolean hasUserDataPermission(Request request, Response response, SecurityConstraint[] securityConstraints) throws IOException {
+    public boolean hasUserDataPermission(final Request request, final Response response, final SecurityConstraint[] securityConstraints) throws IOException {
         return true;
     }
 
 
-    public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+    public void removePropertyChangeListener(final PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.removePropertyChangeListener(propertyChangeListener);
     }
 }

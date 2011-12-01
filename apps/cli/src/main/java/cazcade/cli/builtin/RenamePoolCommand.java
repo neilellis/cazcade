@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 
 public class RenamePoolCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(RenamePoolCommand.class);
+    private static final Logger log = Logger.getLogger(RenamePoolCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -37,10 +37,10 @@ public class RenamePoolCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
 
 
-        String from;
+        final String from;
         final String to;
         if (args.length < 2) {
             System.err.println("rename <from> <to>");
@@ -49,12 +49,12 @@ public class RenamePoolCommand extends AbstractShortLivedCommand {
             from = args[0];
             to = args[1];
         }
-        LiquidURI poolURI;
+        final LiquidURI poolURI;
         poolURI = CommandSupport.resolvePoolOrObject(shellSession, from);
         return CommandSupport.alterPool(shellSession, poolURI, new CommandSupport.AlterEntityCallback() {
             @Nonnull
             @Override
-            public LSDEntity alter(@Nonnull LSDEntity entity) {
+            public LSDEntity alter(@Nonnull final LSDEntity entity) {
                 entity.setAttribute(LSDAttribute.NAME, to);
                 return entity;
 

@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 
 public class DescCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(DescCommand.class);
+    private static final Logger log = Logger.getLogger(DescCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -36,22 +36,22 @@ public class DescCommand extends AbstractShortLivedCommand {
         return "desc";
     }
 
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
 
 
-        String object;
+        final String object;
         if (args.length > 0) {
             object = args[0];
         } else {
             object = "";
         }
-        LiquidURI poolURI;
+        final LiquidURI poolURI;
         if (object.isEmpty()) {
             poolURI = shellSession.getCurrentPool().getURI();
         } else {
             poolURI = CommandSupport.resolvePoolOrObject(shellSession, object);
         }
-        LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolObjectRequest(shellSession.getIdentity(), poolURI, true));
+        final LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolObjectRequest(shellSession.getIdentity(), poolURI, true));
         System.err.println(poolURI);
         final LSDEntity entity = response.getResponse();
         System.out.println(entity);

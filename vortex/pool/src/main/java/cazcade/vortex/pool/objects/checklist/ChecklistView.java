@@ -19,7 +19,7 @@ public class ChecklistView extends PoolObjectView {
     private Runnable onChangeAction;
 
 
-    public void setOnChangeAction(Runnable onChangeAction) {
+    public void setOnChangeAction(final Runnable onChangeAction) {
         this.onChangeAction = onChangeAction;
     }
 
@@ -33,18 +33,20 @@ public class ChecklistView extends PoolObjectView {
 
 
     public ChecklistView() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }
 
-    public ChecklistView(FormatUtil features) {
+    public ChecklistView(final FormatUtil features) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }
 
 
     @Override
-    public void onBrowserEvent(Event event) {
+    public void onBrowserEvent(final Event event) {
         if (isEditing()) {
             ClientLog.log("Browser event while edit mode on.");
 //            label.onBrowserEvent(event);
@@ -54,13 +56,13 @@ public class ChecklistView extends PoolObjectView {
     }
 
     @Override
-    public void addView(Widget widget) {
+    public void addView(final Widget widget) {
         listPanel.add(widget);
     }
 
 
     @Override
-    public void removeView(Widget widget) {
+    public void removeView(final Widget widget) {
         listPanel.remove(widget);
     }
 }

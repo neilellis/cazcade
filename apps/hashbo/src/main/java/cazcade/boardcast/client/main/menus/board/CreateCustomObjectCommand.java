@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public class CreateCustomObjectCommand extends CreateItemCommand {
 
 
-    public CreateCustomObjectCommand(LiquidURI pool, LSDDictionaryTypes type) {
+    public CreateCustomObjectCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
 

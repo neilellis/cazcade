@@ -164,11 +164,11 @@ public enum LSDDictionaryTypes implements LSDType {
         return value.isSystemType();
     }
 
-    public boolean isA(LSDDictionaryTypes dictionaryType) {
+    public boolean isA(final LSDDictionaryTypes dictionaryType) {
         return value.isA(dictionaryType);
     }
 
-    public boolean canBe(LSDDictionaryTypes type) {
+    public boolean canBe(final LSDDictionaryTypes type) {
         return value.canBe(type);
     }
 
@@ -182,7 +182,7 @@ public enum LSDDictionaryTypes implements LSDType {
         return description;
     }
 
-    public boolean equals(LSDType lsdType) {
+    public boolean equals(final LSDType lsdType) {
         return value.equals(lsdType);
     }
 
@@ -192,12 +192,12 @@ public enum LSDDictionaryTypes implements LSDType {
         private static final Map<String, String> map = new HashMap<String, String>();
     }
 
-    private LSDDictionaryTypes(@Nonnull String value) {
+    LSDDictionaryTypes(@Nonnull final String value) {
         this.value = new LSDTypeImpl(value, false);
         ReverseLookup.map.put(value, name());
     }
 
-    private LSDDictionaryTypes(@Nonnull String value, String description) {
+    LSDDictionaryTypes(@Nonnull final String value, final String description) {
         this.value = new LSDTypeImpl(value, false);
         this.description = description;
         ReverseLookup.map.put(value, name());
@@ -214,7 +214,7 @@ public enum LSDDictionaryTypes implements LSDType {
     }
 
 
-    public static String getNameForValue(String value) {
+    public static String getNameForValue(final String value) {
         return ReverseLookup.map.get(value);
     }
 }

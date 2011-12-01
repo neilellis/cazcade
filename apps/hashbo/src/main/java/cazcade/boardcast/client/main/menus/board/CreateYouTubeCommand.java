@@ -9,7 +9,7 @@ import cazcade.vortex.pool.objects.youtube.YouTubeEditorPanel;
  * @author neilellis@cazcade.com
  */
 public class CreateYouTubeCommand extends CreateItemCommand {
-    public CreateYouTubeCommand(LiquidURI pool, LSDDictionaryTypes type, Size size, String theme) {
+    public CreateYouTubeCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 

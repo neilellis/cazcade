@@ -18,11 +18,11 @@ import java.security.Principal;
  */
 public class LoginServlet extends AbstractHashboServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(LoginServlet.class);
+    private static final Logger log = Logger.getLogger(LoginServlet.class);
 
 
     @Override
-    protected void doGet(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         if (loggedIn(req.getSession(true))) {
             forwardAfterLogin(req, resp);
         } else {
@@ -31,7 +31,7 @@ public class LoginServlet extends AbstractHashboServlet {
     }
 
     @Override
-    protected void doPost(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         final String username = req.getParameter("username");
         final String password = req.getParameter("password");
         try {

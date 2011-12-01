@@ -19,11 +19,11 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
 
 
     @Nonnull
-    public CreatePoolObjectRequest handle(@Nonnull CreatePoolObjectRequest request) throws Exception {
+    public CreatePoolObjectRequest handle(@Nonnull final CreatePoolObjectRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            Node poolNode;
+            final Node poolNode;
             if (request.getPoolURI() != null) {
                 poolNode = fountainNeo.findByURI(request.getPoolURI());
                 if (poolNode == null) {
@@ -35,9 +35,9 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
                     throw new DataStoreException("No such parent pool " + request.getPool());
                 }
             }
-            LiquidURI owner = request.getAlias();
+            final LiquidURI owner = request.getAlias();
 //            owner = defaultAndCheckOwner(request, owner);
-            LiquidURI result;
+            final LiquidURI result;
             if (request.getAuthor() == null) {
                 result = request.getAlias();
             } else {

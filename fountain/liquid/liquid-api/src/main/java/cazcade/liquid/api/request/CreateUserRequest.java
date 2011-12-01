@@ -14,27 +14,29 @@ import java.util.List;
 public class CreateUserRequest extends AbstractCreationRequest {
 
     public CreateUserRequest() {
+        super();
     }
 
-    public CreateUserRequest(LSDEntity entity) {
+    public CreateUserRequest(final LSDEntity entity) {
         this(null, null, entity);
     }
 
-    public CreateUserRequest(LiquidSessionIdentifier identity, LSDEntity entity) {
+    public CreateUserRequest(final LiquidSessionIdentifier identity, final LSDEntity entity) {
         this(null, identity, entity);
     }
 
-    public CreateUserRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LSDEntity entity) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setRequestEntity(entity);
+    public CreateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LSDEntity entity) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setRequestEntity(entity);
     }
 
 
     @Nullable
     @Override
     public LiquidMessage copy() {
-        return new CreateUserRequest(getId(), getSessionIdentifier(), super.getRequestEntity());
+        return new CreateUserRequest(getId(), getSessionIdentifier(), getRequestEntity());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {

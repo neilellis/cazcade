@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 
 public class WhoamiCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(WhoamiCommand.class);
+    private static final Logger log = Logger.getLogger(WhoamiCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -34,14 +34,14 @@ public class WhoamiCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(final String[] args, @Nonnull ShellSession shellSession) throws Exception {
-        LiquidSessionIdentifier identity = shellSession.getIdentity();
+    public String run(final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
+        final LiquidSessionIdentifier identity = shellSession.getIdentity();
         if (identity == null) {
             System.err.println("Not logged in.");
             return null;
         } else {
             System.out.println(identity);
-            if (identity.getName().equals("admin") || identity.getName().equals("neo")) {
+            if ("admin".equals(identity.getName()) || "neo".equals(identity.getName())) {
                 System.err.println("Currently your username is hardwired to have super-user privileges, tread carefully young Skywalker.");
             }
             return identity.toString();

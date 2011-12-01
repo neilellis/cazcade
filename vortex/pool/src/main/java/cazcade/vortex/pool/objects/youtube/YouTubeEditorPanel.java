@@ -24,13 +24,13 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     Button done;
 
     @UiHandler("done")
-    public void doneClicked(ClickEvent e) {
+    public void doneClicked(final ClickEvent e) {
         onFinishAction.run();
     }
 
 
     @Override
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
         //no attribute required for binding YouTube videos
         addBinding(urlTextBox, null);
@@ -58,7 +58,8 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     CachedImage image;
 
 
-    public YouTubeEditorPanel(@Nonnull LSDEntity entity) {
+    public YouTubeEditorPanel(@Nonnull final LSDEntity entity) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         setEntity(entity);
         if (entity.hasAttribute(LSDAttribute.EURI)) {
@@ -68,7 +69,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     }
 
     @Override
-    protected void onChange(LSDEntity entity) {
+    protected void onChange(final LSDEntity entity) {
         super.onChange(entity);
         if (urlTextBox.isValid()) {
             showPreview();

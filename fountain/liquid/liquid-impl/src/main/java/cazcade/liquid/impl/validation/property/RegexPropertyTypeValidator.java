@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class RegexPropertyTypeValidator implements LSDPropertyTypeValidator {
-    public boolean validate(LSDPropertyFormatValidator propertyFormatValidator, String nextValidationString, @Nonnull String value) {
+    public boolean validate(final LSDPropertyFormatValidator propertyFormatValidator, final String nextValidationString, @Nonnull final String value) {
         return value.matches(nextValidationString);
     }
 }

@@ -35,13 +35,13 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
     private boolean sizeDirty;
 
     @Override
-    public void show(@Nonnull LSDEntity object) {
+    public void show(@Nonnull final LSDEntity object) {
         updateEntity = object.asUpdateEntity();
         imageUploader.setImageURL(object.getAttribute(LSDAttribute.IMAGE_URL));
-        LSDEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
+        final LSDEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
         widthField.setValue(view.getAttribute(LSDAttribute.VIEW_WIDTH));
         heightField.setValue(view.getAttribute(LSDAttribute.VIEW_HEIGHT));
-        Runnable sizeDirtyAction = new Runnable() {
+        final Runnable sizeDirtyAction = new Runnable() {
             @Override
             public void run() {
                 sizeDirty = true;
@@ -53,14 +53,14 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
 
         popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             @Override
-            public void setPosition(int offsetWidth, int offsetHeight) {
+            public void setPosition(final int offsetWidth, final int offsetHeight) {
                 popup.setPopupPosition(Window.getClientWidth() / 2 - offsetWidth / 2, Window.getClientHeight() / 2 - offsetHeight / 2);
             }
         });
     }
 
     @Override
-    public void setOnChangeAction(ChangeAction onChangeAction) {
+    public void setOnChangeAction(final ChangeAction onChangeAction) {
         this.onChangeAction = onChangeAction;
     }
 
@@ -91,11 +91,12 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
     VortexTextArea scriptField;
 
     public HashboCustomObjectEditor() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(@Nonnull IUploader uploader) {
-                if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
+            public void onFinish(@Nonnull final IUploader uploader) {
+                if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
                     final String url = uploader.getServerInfo().message;
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
                     updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
@@ -111,17 +112,17 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
 
         changeButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 if (sizeDirty) {
                     BusFactory.getInstance().send(new ResizePoolObjectRequest(updateEntity.getURI(), Integer.parseInt(widthField.getValue()) * 40, Integer.parseInt(heightField.getValue()) * 40), new AbstractResponseCallback<ResizePoolObjectRequest>() {
                         @Override
-                        public void onSuccess(ResizePoolObjectRequest message, ResizePoolObjectRequest response) {
+                        public void onSuccess(final ResizePoolObjectRequest message, final ResizePoolObjectRequest response) {
                         }
                     });
                 }
                 BusFactory.getInstance().send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                     @Override
-                    public void onSuccess(UpdatePoolObjectRequest message, UpdatePoolObjectRequest response) {
+                    public void onSuccess(final UpdatePoolObjectRequest message, final UpdatePoolObjectRequest response) {
                         sizeDirty = false;
                         try {
                             popup.hide();
@@ -136,7 +137,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
 
         cancelButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 try {
                     popup.hide();
                 } catch (Exception e) {
@@ -147,7 +148,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
 
         addDomHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         }, ClickEvent.getType());

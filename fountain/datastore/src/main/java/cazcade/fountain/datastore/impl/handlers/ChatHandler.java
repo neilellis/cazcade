@@ -18,7 +18,7 @@ import java.util.UUID;
 public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements ChatRequestHandler {
     @Nonnull
     @Override
-    public ChatRequest handle(@Nonnull ChatRequest request) throws InterruptedException {
+    public ChatRequest handle(@Nonnull final ChatRequest request) throws InterruptedException {
         socialDAO.recordChat(request.getSessionIdentifier(), request.getUri(), request.getRequestEntity());
         final LSDEntity response = request.getRequestEntity().copy();
         //fill in the author details for the recipient

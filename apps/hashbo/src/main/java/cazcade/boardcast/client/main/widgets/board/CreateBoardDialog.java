@@ -35,7 +35,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     private boolean unlistedToken;
 
 
-    public void setOnComplete(Runnable onComplete) {
+    public void setOnComplete(final Runnable onComplete) {
         this.onComplete = onComplete;
     }
 
@@ -48,9 +48,9 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     }
 
     @Override
-    public void onLocalHistoryTokenChanged(@Nonnull String token) {
+    public void onLocalHistoryTokenChanged(@Nonnull final String token) {
         //unlisted boards don't actually need the dialog, we just create them
-        if (token.equals("unlisted")) {
+        if ("unlisted".equals(token)) {
             unlistedToken = true;
             onComplete.run();
         } else {
@@ -61,7 +61,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     }
 
     @Override
-    public void setHistoryManager(HistoryManager historyManager) {
+    public void setHistoryManager(final HistoryManager historyManager) {
 
         this.historyManager = historyManager;
     }
@@ -72,7 +72,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     }
 
     @Override
-    public void setHistoryToken(String historyToken) {
+    public void setHistoryToken(final String historyToken) {
         this.historyToken = historyToken;
     }
 
@@ -104,17 +104,18 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     Button createButton;
 
     @UiHandler("createButton")
-    public void createClick(ClickEvent e) {
+    public void createClick(final ClickEvent e) {
         onComplete.run();
     }
 
     @UiHandler("cancelButton")
-    public void cancelClick(ClickEvent e) {
+    public void cancelClick(final ClickEvent e) {
         hide();
         History.back();
     }
 
     public CreateBoardDialog() {
+        super();
         setWidget(ourUiBinder.createAndBindUi(this));
         tagBox.sinkEvents(Event.KEYEVENTS);
         tagBox.setOnChangeAction(new Runnable() {
@@ -140,7 +141,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         setText("Create New Board");
         listedCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
-            public void onValueChange(@Nonnull ValueChangeEvent<Boolean> booleanValueChangeEvent) {
+            public void onValueChange(@Nonnull final ValueChangeEvent<Boolean> booleanValueChangeEvent) {
                 final Boolean listed = booleanValueChangeEvent.getValue();
                 showListed(listed);
             }
@@ -150,7 +151,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
 
     }
 
-    private void showListed(boolean listed) {
+    private void showListed(final boolean listed) {
         shortnameArea.getStyle().setDisplay(listed ? Style.Display.BLOCK : Style.Display.NONE);
         setHeight(listed ? "220px" : "200px");
         setWidth(listed ? "600px" : "600px");

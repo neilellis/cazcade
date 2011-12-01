@@ -2,6 +2,7 @@ package cazcade.fountain.datastore.impl.email;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDEntity;
+import org.jasypt.digest.StandardStringDigester;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,21 +13,21 @@ import javax.annotation.Nullable;
 public class EmailUtil {
 
     @Nonnull
-    private static final org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
+    private static final StandardStringDigester digester = new StandardStringDigester();
     @Nonnull
     public static final String SALT = "MindPrecedesEverythingMindMattersMost";
 
 
-    public static String getEmailHash(@Nonnull LSDEntity entity) {
+    public static String getEmailHash(@Nonnull final LSDEntity entity) {
         return digester.digest(encodeEmail(entity.getAttribute(LSDAttribute.EMAIL_ADDRESS)));
     }
 
     @Nonnull
-    private static String encodeEmail(String email) {
+    private static String encodeEmail(final String email) {
         return email + SALT;
     }
 
-    public static boolean confirmEmailHash(@Nullable String emailAddress, @Nullable String hash) {
+    public static boolean confirmEmailHash(@Nullable final String emailAddress, @Nullable final String hash) {
         if (emailAddress == null || hash == null) {
             return false;
         }

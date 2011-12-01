@@ -22,12 +22,14 @@ public abstract class GestureEvent<H extends EventHandler> extends GwtEvent<H> {
     private final int offsetX;
     private final int offsetY;
 
-    protected GestureEvent(int offsetX, int offsetY) {
+    protected GestureEvent(final int offsetX, final int offsetY) {
+        super();
         this.offsetX = offsetX;
         this.offsetY = offsetY;
     }
 
-    protected GestureEvent(int deltaX, int deltaY, long duration, long endTime, DomEvent mostRecentDOMEvent, long startTime, int startX, int startY, int x, int y, int offsetX, int offsetY) {
+    protected GestureEvent(final int deltaX, final int deltaY, final long duration, final long endTime, final DomEvent mostRecentDOMEvent, final long startTime, final int startX, final int startY, final int x, final int y, final int offsetX, final int offsetY) {
+        super();
         this.deltaX = deltaX;
         this.deltaY = deltaY;
         this.duration = duration;

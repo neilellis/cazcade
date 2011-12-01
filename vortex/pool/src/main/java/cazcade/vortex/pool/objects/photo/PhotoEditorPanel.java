@@ -21,7 +21,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
 
 
     @Override
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
         addBinding(changeImagePanel, LSDAttribute.IMAGE_URL);
         addBinding(description, LSDAttribute.DESCRIPTION);
@@ -51,7 +51,8 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
     RegexTextBox title;
 
 
-    public PhotoEditorPanel(LSDEntity entity) {
+    public PhotoEditorPanel(final LSDEntity entity) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         bind(entity);
 
@@ -62,7 +63,8 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
         super.onLoad();
     }
 
-    protected boolean autoCloseField(Bindable field) {
+    @SuppressWarnings({"ObjectEquality"})
+    protected boolean autoCloseField(final Bindable field) {
         return field == changeImagePanel;
     }
 

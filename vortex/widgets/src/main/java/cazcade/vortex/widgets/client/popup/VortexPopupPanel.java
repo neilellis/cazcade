@@ -35,28 +35,29 @@ public class VortexPopupPanel extends PopupPanel {
     HTMLPanel mainArea;
 
     public VortexPopupPanel() {
+        super();
         super.setWidget(ourUiBinder.createAndBindUi(this));
     }
 
     private Runnable onFinishAction;
 
     @UiHandler("done")
-    public void doneClicked(ClickEvent e) {
+    public void doneClicked(final ClickEvent e) {
         onFinishAction.run();
     }
 
     @UiHandler("cancel")
-    public void cancelClicked(ClickEvent e) {
+    public void cancelClicked(final ClickEvent e) {
         onFinishAction.run();
     }
 
     @Override
-    public void hide(boolean autoClosed) {
+    public void hide(final boolean autoClosed) {
         super.hide(autoClosed);
         timer.cancel();
     }
 
-    public void setOnFinishAction(Runnable onFinishAction) {
+    public void setOnFinishAction(final Runnable onFinishAction) {
         this.onFinishAction = onFinishAction;
     }
 

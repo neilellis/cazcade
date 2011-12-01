@@ -10,11 +10,11 @@ import cazcade.vortex.gwt.util.client.analytics.Track;
 public class CreateImageCommand extends CreateItemCommand {
 
     @Override
-    protected void buildEntity(BuildCallback onBuilt) {
+    protected void buildEntity(final BuildCallback onBuilt) {
         //TODO
     }
 
-    public CreateImageCommand(LiquidURI pool, LSDDictionaryTypes type) {
+    public CreateImageCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
 

@@ -19,18 +19,18 @@ import javax.annotation.Nonnull;
 public class BoardQueryHandler extends AbstractDataStoreHandler<BoardQueryRequest> implements BoardQueryRequestHandler {
 
     @Nonnull
-    private final static Logger log = Logger.getLogger(BoardQueryHandler.class);
+    private static final Logger log = Logger.getLogger(BoardQueryHandler.class);
 
     @Autowired
     FountainBoardQueryDAO queryDAO;
 
     @Nonnull
-    public BoardQueryRequest handle(@Nonnull BoardQueryRequest request) throws InterruptedException {
-        Transaction transaction = fountainNeo.beginTx();
+    public BoardQueryRequest handle(@Nonnull final BoardQueryRequest request) throws InterruptedException {
+        final Transaction transaction = fountainNeo.beginTx();
         try {
             log.debug("Processing Pool Query of type {0}", request.getQueryType());
 
-            LSDEntity searchResultEntity;
+            final LSDEntity searchResultEntity;
             if (request.getQueryType() == BoardQueryRequest.QueryType.POPULAR) {
                 searchResultEntity = queryDAO.getPopularBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
             } else if (request.getQueryType() == BoardQueryRequest.QueryType.HISTORY) {

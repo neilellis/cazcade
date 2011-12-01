@@ -14,11 +14,12 @@ import javax.annotation.Nonnull;
 
 public class WhenCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(WhenCommand.class);
+    private static final Logger log = Logger.getLogger(WhenCommand.class);
 
     private final ExecutableCommand command;
 
-    public WhenCommand(ExecutableCommand command) {
+    public WhenCommand(final ExecutableCommand command) {
+        super();
         this.command = command;
     }
 
@@ -43,7 +44,7 @@ public class WhenCommand extends AbstractShortLivedCommand {
     }
 
     @Nonnull
-    public String run(final String[] args, ShellSession shellSession) throws Exception {
+    public String run(final String[] args, final ShellSession shellSession) throws Exception {
         return "";
     }
 

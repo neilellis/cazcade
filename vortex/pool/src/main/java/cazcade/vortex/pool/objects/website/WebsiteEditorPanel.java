@@ -23,13 +23,13 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
     Button done;
 
     @UiHandler("done")
-    public void doneClicked(ClickEvent e) {
+    public void doneClicked(final ClickEvent e) {
         onFinishAction.run();
     }
 
 
     @Override
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
         addBinding(urlField, LSDAttribute.SOURCE);
         addBinding(description, LSDAttribute.DESCRIPTION);
@@ -59,7 +59,8 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
     UrlField urlField;
 
 
-    public WebsiteEditorPanel(LSDEntity entity) {
+    public WebsiteEditorPanel(final LSDEntity entity) {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         bind(entity);
     }

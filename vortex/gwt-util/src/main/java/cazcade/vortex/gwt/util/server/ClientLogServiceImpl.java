@@ -11,10 +11,10 @@ import javax.annotation.Nonnull;
  */
 public class ClientLogServiceImpl extends RemoteServiceServlet implements ClientLogService {
     @Nonnull
-    private final static Logger log = Logger.getLogger(ClientLogServiceImpl.class);
+    private static final Logger log = Logger.getLogger(ClientLogServiceImpl.class);
 
     @Override
-    public void log(@Nonnull Throwable t, String logStr) {
+    public void log(@Nonnull final Throwable t, final String logStr) {
         log.clearContext();
         log.addContext(logStr);
         log.error(t);

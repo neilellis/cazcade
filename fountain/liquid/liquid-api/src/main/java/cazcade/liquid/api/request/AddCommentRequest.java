@@ -15,42 +15,45 @@ import java.util.List;
 public class AddCommentRequest extends AbstractUpdateRequest {
 
     public AddCommentRequest() {
+        super();
     }
 
-    public AddCommentRequest(LiquidUUID target, LSDEntity entity) {
+    public AddCommentRequest(final LiquidUUID target, final LSDEntity entity) {
         this(null, null, target, null, entity);
     }
 
-    public AddCommentRequest(LiquidSessionIdentifier identity, LiquidUUID target, LSDEntity entity) {
+    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDEntity entity) {
         this(null, identity, target, null, entity);
     }
 
-    public AddCommentRequest(LiquidSessionIdentifier identity, LiquidURI uri, LSDEntity entity) {
+    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
-    public AddCommentRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, @Nullable LiquidUUID target, @Nullable LiquidURI uri, LSDEntity entity) {
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setTarget(target);
-        this.setRequestEntity(entity);
-        this.setUri(uri);
+    public AddCommentRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDEntity entity) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
+        setUri(uri);
     }
 
-    public AddCommentRequest(LiquidURI uri, String text) {
+    public AddCommentRequest(final LiquidURI uri, final String text) {
+        super();
         final LSDSimpleEntity requestEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT);
         requestEntity.remove(LSDAttribute.PUBLISHED);
         requestEntity.setAttribute(LSDAttribute.TEXT_BRIEF, text);
-        this.setRequestEntity(requestEntity);
+        setRequestEntity(requestEntity);
         //Time clocks vary so we don't want this set.
-        this.setUri(uri);
+        setUri(uri);
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri().getScheme().equals(LiquidURIScheme.alias)) {
+        if (getUri().getScheme() == LiquidURIScheme.alias) {
             return Collections.EMPTY_LIST;
         } else {
-            return super.getTarget() != null ? Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
+            return getTarget() != null ? Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW)) : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
         }
     }
 
@@ -58,7 +61,7 @@ public class AddCommentRequest extends AbstractUpdateRequest {
     @Nullable
     @Override
     public LiquidMessage copy() {
-        return new AddCommentRequest(getId(), getSessionIdentifier(), super.getTarget(), getUri(), super.getRequestEntity());
+        return new AddCommentRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());
     }
 
     @Nonnull

@@ -19,8 +19,8 @@ public abstract class AbstractUpdateRequest extends AbstractRequest {
             return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.EDIT));
         }
 
-        if (super.getTarget() != null) {
-            return Arrays.asList(new AuthorizationRequest(super.getTarget(), LiquidPermission.EDIT));
+        if (getTarget() != null) {
+            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.EDIT));
         }
 
         return new ArrayList<AuthorizationRequest>();
@@ -32,8 +32,8 @@ public abstract class AbstractUpdateRequest extends AbstractRequest {
             return Arrays.asList(getUri().asReverseDNSString());
         }
 
-        if (super.getTarget() != null) {
-            return Arrays.asList(super.getTarget().toString());
+        if (getTarget() != null) {
+            return Arrays.asList(getTarget().toString());
         }
 
         return new ArrayList<String>();

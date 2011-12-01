@@ -72,7 +72,7 @@ public class PermissionTest {
                 user.setAttribute(LSDAttribute.NAME, username);
                 user.setAttribute(LSDAttribute.FULL_NAME, "Anonymous");
 
-                Node userNode = userDAO.createUser(user, false);
+                final Node userNode = userDAO.createUser(user, false);
                 poolDAO.createPoolsForUserNoTx(username);
                 poolDAO.createPoolsForCazcadeAliasNoTx(username, user.getAttribute(LSDAttribute.FULL_NAME), false);
 
@@ -88,8 +88,8 @@ public class PermissionTest {
                 stickyURI = new LiquidURI(userPublicPoolName + "/sub#" + stickyName);
                 sticky2URI = new LiquidURI(userPublicPoolName + "/sub#" + sticky2Name);
                 sticky3URI = new LiquidURI(userProfilePoolName + "#" + sticky3Name);
-                Node publicPoolNode = fountainNeo.findByURI(publicPoolURI, true);
-                Node profilePoolNode = fountainNeo.findByURI(profilePoolURI, true);
+                final Node publicPoolNode = fountainNeo.findByURI(publicPoolURI, true);
+                final Node profilePoolNode = fountainNeo.findByURI(profilePoolURI, true);
                 assertNotNull(publicPoolNode);
                 assertNotNull(session);
                 subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolNode, "sub", (double) 0, (double) 0, "sub", false);
@@ -100,7 +100,7 @@ public class PermissionTest {
         });
     }
 
-    private void createSticky(@Nonnull Node subPool, String stickyName) throws InterruptedException {
+    private void createSticky(@Nonnull final Node subPool, final String stickyName) throws InterruptedException {
         final LSDSimpleEntity sticky = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.STICKY);
         sticky.setAttribute(LSDAttribute.TEXT_EXTENDED, "TEST");
         sticky.setAttribute(LSDAttribute.NAME, stickyName);
@@ -109,7 +109,7 @@ public class PermissionTest {
 
     @Test
     public void testPublicPoolStickyInitialPermissions() throws InterruptedException {
-        LSDEntity entity = poolDAO.getPoolObjectTx(session, stickyURI, false, false, LiquidRequestDetailLevel.NORMAL);
+        final LSDEntity entity = poolDAO.getPoolObjectTx(session, stickyURI, false, false, LiquidRequestDetailLevel.NORMAL);
         assertTrue(entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW));
         assertTrue(entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
         assertFalse(entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
@@ -117,7 +117,7 @@ public class PermissionTest {
 
     @Test
     public void testProfilePoolStickyInitialPermissions() throws InterruptedException {
-        LSDEntity entity = poolDAO.getPoolObjectTx(session, sticky3URI, false, false, LiquidRequestDetailLevel.NORMAL);
+        final LSDEntity entity = poolDAO.getPoolObjectTx(session, sticky3URI, false, false, LiquidRequestDetailLevel.NORMAL);
         assertTrue(entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW));
         assertFalse(entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
         assertFalse(entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
@@ -130,12 +130,12 @@ public class PermissionTest {
             @Override
             public Object call() throws Exception {
                 fountainNeo.changePermissionNoTx(session, publicPoolURI, LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, LiquidRequestDetailLevel.NORMAL, false);
-                LSDEntity publicPoolEntity = poolDAO.getPoolObjectTx(session, publicPoolURI, false, false, LiquidRequestDetailLevel.NORMAL);
+                final LSDEntity publicPoolEntity = poolDAO.getPoolObjectTx(session, publicPoolURI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(publicPoolEntity.canBe(LSDDictionaryTypes.POOL2D));
                 assertFalse(publicPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(publicPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
 
-                LSDEntity subPoolEntity = poolDAO.getPoolObjectTx(session, subPoolURI, false, false, LiquidRequestDetailLevel.NORMAL);
+                final LSDEntity subPoolEntity = poolDAO.getPoolObjectTx(session, subPoolURI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(subPoolEntity.canBe(LSDDictionaryTypes.POOL2D));
                 assertFalse(subPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(subPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
@@ -149,11 +149,11 @@ public class PermissionTest {
                 assertFalse(stickyEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(stickyEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
 
-                Node newSubPool = fountainNeo.findByURI(subPoolURI);
+                final Node newSubPool = fountainNeo.findByURI(subPoolURI);
                 assertEquals("o=vmeds,f=v,m=vm,v=v,w=v,u=v,a=vmeds,t=vmeds,c=,e=", newSubPool.getProperty(LSDAttribute.PERMISSIONS));
                 createSticky(newSubPool, sticky2Name);
 
-                LSDEntity sticky2Entity = poolDAO.getPoolObjectTx(session, sticky2URI, false, false, LiquidRequestDetailLevel.NORMAL);
+                final LSDEntity sticky2Entity = poolDAO.getPoolObjectTx(session, sticky2URI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(sticky2Entity.canBe(LSDDictionaryTypes.STICKY));
                 assertTrue(sticky2Entity.hasPermission(LiquidPermissionScope.OWNER, LiquidPermission.MODIFY));
                 assertTrue(sticky2Entity.hasPermission(LiquidPermissionScope.OWNER, LiquidPermission.EDIT));

@@ -11,24 +11,26 @@ public class ChangePermissionRequest extends AbstractRequest {
 
 
     public ChangePermissionRequest() {
+        super();
     }
 
-    public ChangePermissionRequest(LiquidURI objectURI, LiquidPermissionChangeType change) {
+    public ChangePermissionRequest(final LiquidURI objectURI, final LiquidPermissionChangeType change) {
         this(null, null, objectURI, change);
     }
 
-    public ChangePermissionRequest(@Nullable LiquidUUID id, @Nullable LiquidSessionIdentifier identity, LiquidURI objectURI, LiquidPermissionChangeType change) {
-        this.setPermission(change);
-        this.setId(id);
-        this.setSessionId(identity);
-        this.setUri(objectURI);
+    public ChangePermissionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LiquidPermissionChangeType change) {
+        super();
+        setPermission(change);
+        setId(id);
+        setSessionId(identity);
+        setUri(objectURI);
     }
 
 
     @Nullable
     @Override
     public LiquidMessage copy() {
-        return new ChangePermissionRequest(getId(), getSessionIdentifier(), getUri(), this.getPermission());
+        return new ChangePermissionRequest(getId(), getSessionIdentifier(), getUri(), getPermission());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {

@@ -55,10 +55,11 @@ public class HashboRegisterPanel extends Composite {
     RegexTextBox email;
 
     public HashboRegisterPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         registerButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 submit();
             }
         });
@@ -88,7 +89,7 @@ public class HashboRegisterPanel extends Composite {
 
         login.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 onSwitchToLoginAction.run();
             }
         });
@@ -115,14 +116,14 @@ public class HashboRegisterPanel extends Composite {
 
         DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDEntity>() {
             @Override
-            public void onFailure(Throwable caught) {
+            public void onFailure(final Throwable caught) {
                 ClientLog.log(caught);
                 Track.getInstance().trackEvent("Register", "Error");
 
             }
 
             @Override
-            public void onSuccess(@Nullable LSDEntity result) {
+            public void onSuccess(@Nullable final LSDEntity result) {
                 if (result == null) {
                     registerErrorMessage.setText("Could not register you.");
                     Track.getInstance().trackEvent("Register", "Fail");
@@ -136,11 +137,11 @@ public class HashboRegisterPanel extends Composite {
         });
     }
 
-    public void setOnSwitchToLoginAction(Runnable onSwitchToLoginAction) {
+    public void setOnSwitchToLoginAction(final Runnable onSwitchToLoginAction) {
         this.onSwitchToLoginAction = onSwitchToLoginAction;
     }
 
-    public void setOnSuccessAction(Runnable onSuccessAction) {
+    public void setOnSuccessAction(final Runnable onSuccessAction) {
         this.onSuccessAction = onSuccessAction;
     }
 

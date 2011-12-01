@@ -1,4 +1,5 @@
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.Enumeration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <%
     response.setStatus(500);
@@ -8,9 +9,9 @@
 <%@ page isErrorPage="true" %>
 <%@ page language="java" %>
 <%
-    Object statusCode = request.getAttribute("javax.servlet.error.status_code");
-    Object exceptionType = request.getAttribute("javax.servlet.error.exception_type");
-    Object message = request.getAttribute("javax.servlet.error.message");
+    final Object statusCode = request.getAttribute("javax.servlet.error.status_code");
+    final Object exceptionType = request.getAttribute("javax.servlet.error.exception_type");
+    final Object message = request.getAttribute("javax.servlet.error.message");
 %>
 
 <html>
@@ -55,8 +56,8 @@
         <TD WIDTH="20%"><B>Root Cause</B></TD>
         <TD>
             <%
-                if ((exception != null) && (exception instanceof ServletException)) {
-                    Throwable cause = ((ServletException) exception).getRootCause();
+                if (exception != null && exception instanceof ServletException) {
+                    final Throwable cause = ((ServletException) exception).getRootCause();
                     if (cause != null) {
                         out.print("<PRE>");
                         cause.printStackTrace(new PrintWriter(out));
@@ -79,7 +80,7 @@ Header List
         String name = "";
         String value = "";
 
-        java.util.Enumeration headers = request.getHeaderNames();
+        final Enumeration headers = request.getHeaderNames();
         while (headers.hasMoreElements()) {
             name = (String) headers.nextElement();
             value = request.getHeader(name);
@@ -99,7 +100,7 @@ Attribute List
 <!-- "javax.servlet.jsp.jspException" for getting an Exception -->
 <table border=3>
     <%
-        java.util.Enumeration attributes = request.getAttributeNames();
+        final Enumeration attributes = request.getAttributeNames();
         while (attributes.hasMoreElements()) {
             name = (String) attributes.nextElement();
 

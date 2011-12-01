@@ -13,13 +13,13 @@ public class CommandGroup implements ExecutableCommand {
     @Nonnull
     private final List<ExecutableCommand> commands = new ArrayList<ExecutableCommand>();
 
-    public void add(ExecutableCommand command) {
+    public void add(final ExecutableCommand command) {
         commands.add(command);
     }
 
     @Nonnull
     public String execute() throws Exception {
-        for (ExecutableCommand command : commands) {
+        for (final ExecutableCommand command : commands) {
             command.execute();
         }
         return "";

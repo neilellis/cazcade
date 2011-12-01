@@ -33,7 +33,8 @@ public class ImageEditor extends Composite implements PopupEditPanel {
     ChangeImageUrlPanel changeImagePanel;
 
     public ImageEditor(@Nonnull final CachedImage displayImage) {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
         changeImagePanel.setValue(displayImage.getUnCachedUrl());
         changeImagePanel.setOnChangeAction(new Runnable() {

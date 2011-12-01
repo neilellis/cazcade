@@ -13,8 +13,8 @@ import javax.annotation.Nonnull;
 public class RetrievePoolObjectHandler extends AbstractRetrievalHandler<RetrievePoolObjectRequest> implements RetrievePoolObjectRequestHandler {
 
     @Nonnull
-    public RetrievePoolObjectRequest handle(@Nonnull RetrievePoolObjectRequest request) throws InterruptedException {
-        LSDEntity entity;
+    public RetrievePoolObjectRequest handle(@Nonnull final RetrievePoolObjectRequest request) throws InterruptedException {
+        final LSDEntity entity;
         if (request.getTarget() == null) {
             entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.isHistorical(), request.getDetail());
             if (entity == null) {

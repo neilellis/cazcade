@@ -11,7 +11,7 @@ public enum LiquidMessageType {
     private final Class<? extends LiquidMessage> requestClass;
 
 
-    LiquidMessageType(Class<? extends LiquidMessage> requestClass) {
+    LiquidMessageType(final Class<? extends LiquidMessage> requestClass) {
         this.requestClass = requestClass;
     }
 

@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class AliasReferencePresenter extends AbstractPoolObjectPresenter<AliasReferenceView> {
-    public AliasReferencePresenter(PoolPresenter pool, LSDEntity entity, final AliasReferenceView widget, VortexThreadSafeExecutor threadSafeExecutor) {
+    public AliasReferencePresenter(final PoolPresenter pool, final LSDEntity entity, final AliasReferenceView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
     }
 

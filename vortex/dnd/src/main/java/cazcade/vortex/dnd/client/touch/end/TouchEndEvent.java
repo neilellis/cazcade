@@ -23,7 +23,7 @@ public class TouchEndEvent extends TouchEvent<TouchEndHandler> {
         return TYPE;
     }
 
-    protected void dispatch(@Nonnull TouchEndHandler handler) {
+    protected void dispatch(@Nonnull final TouchEndHandler handler) {
         handler.onTouchEnd(this);
     }
 }

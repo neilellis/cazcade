@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 public class UnsetCommand extends AbstractShortLivedCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(UnsetCommand.class);
+    private static final Logger log = Logger.getLogger(UnsetCommand.class);
 
     @Nonnull
     public Options getOptions() {
@@ -35,7 +35,7 @@ public class UnsetCommand extends AbstractShortLivedCommand {
     }
 
     @Nullable
-    public String run(@Nonnull final String[] args, @Nonnull ShellSession shellSession) throws Exception {
+    public String run(@Nonnull final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
         if (!CommandSupport.checkEntityOnStack(shellSession)) {
             return null;
         }

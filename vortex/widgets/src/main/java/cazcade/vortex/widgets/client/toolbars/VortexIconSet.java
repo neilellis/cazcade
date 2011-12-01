@@ -15,6 +15,7 @@ public class VortexIconSet extends Composite {
     private static final VortexIconToolbarUiBinder ourUiBinder = GWT.create(VortexIconToolbarUiBinder.class);
 
     public VortexIconSet() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }

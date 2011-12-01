@@ -17,8 +17,8 @@ public class FountainRequestCompensatorImpl implements FountainRequestCompensato
     private FountainRequestMap requestMap;
 
     @Nullable
-    public LiquidRequest compensate(@Nonnull LiquidRequest request) {
-        FountainRequestCompensator compensator = requestMap.getConfiguration(request.getClass()).getCompensator();
+    public LiquidRequest compensate(@Nonnull final LiquidRequest request) {
+        final FountainRequestCompensator compensator = requestMap.getConfiguration(request.getClass()).getCompensator();
         if (compensator == null) {
             return null;
         } else {
@@ -26,7 +26,7 @@ public class FountainRequestCompensatorImpl implements FountainRequestCompensato
         }
     }
 
-    public void setRequestMap(FountainRequestMap requestMap) {
+    public void setRequestMap(final FountainRequestMap requestMap) {
         this.requestMap = requestMap;
     }
 

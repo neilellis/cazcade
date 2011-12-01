@@ -8,9 +8,9 @@ import junit.framework.TestCase;
 public class LoggerTest extends TestCase {
 
     public void test() {
-        RuntimeException e = new RuntimeException("Boo!");
+        final RuntimeException e = new RuntimeException("Boo!");
         e.printStackTrace();
-        Logger logger = Logger.getLogger("test");
+        final Logger logger = Logger.getLogger("test");
         logger.addContext(this);
         logger.notifyOfError(e, "Testing Jira");
     }

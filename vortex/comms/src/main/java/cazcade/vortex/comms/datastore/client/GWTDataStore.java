@@ -47,9 +47,9 @@ public class GWTDataStore {
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
-    public GWTDataStore(@Nonnull final LiquidSessionIdentifier newIdentity, @Nonnull final Runnable onStartup, Runnable onLoggedOutAction) {
+    public GWTDataStore(@Nonnull final LiquidSessionIdentifier newIdentity, @Nonnull final Runnable onStartup, final Runnable onLoggedOutAction) {
         this.onLoggedOutAction = onLoggedOutAction;
-        this.identity = newIdentity;
+        identity = newIdentity;
         bus = BusFactory.getInstance();
 
         new Timer() {
@@ -65,7 +65,7 @@ public class GWTDataStore {
 
         GWT.runAsync(new RunAsyncCallback() {
             @Override
-            public void onFailure(Throwable reason) {
+            public void onFailure(final Throwable reason) {
                 ClientLog.log(reason);
             }
 
@@ -83,9 +83,9 @@ public class GWTDataStore {
     private void setupListeners(@Nonnull final LiquidSessionIdentifier newIdentity) {
         bus.listen(new AbstractBusListener() {
             @Override
-            public void handle(@Nonnull LiquidMessage message) {
+            public void handle(@Nonnull final LiquidMessage message) {
                 if (((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
-                    VisitPoolRequest request = (VisitPoolRequest) message;
+                    final VisitPoolRequest request = (VisitPoolRequest) message;
                     if (request.getSessionIdentifier() == null || request.getSessionIdentifier().getAlias().equals(identity.getAlias())) {
                         if (request.getState() == LiquidMessageState.SUCCESS) {
                             locations.clear();
@@ -130,7 +130,7 @@ public class GWTDataStore {
                     DataStoreService.App.getInstance().process(message.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
                         public int count;
 
-                        public void onFailure(Throwable caught) {
+                        public void onFailure(final Throwable caught) {
                             ClientLog.log(caught);
                             if (caught instanceof StatusCodeException && count++ < MAX_RETRY) {
                                 final AsyncCallback<SerializedRequest> callback = this;
@@ -143,7 +143,7 @@ public class GWTDataStore {
                             }
                         }
 
-                        public void onSuccess(@Nullable SerializedRequest result) {
+                        public void onSuccess(@Nullable final SerializedRequest result) {
 //                                    result.setId(id);
                             if (result != null) {
                                 final AbstractRequest response = deserializeRequest(result);
@@ -157,7 +157,7 @@ public class GWTDataStore {
     }
 
     @Nullable
-    private AbstractRequest deserializeRequest(@Nonnull SerializedRequest result) {
+    private AbstractRequest deserializeRequest(@Nonnull final SerializedRequest result) {
         final AbstractRequest response = result.getType().createInGWT();
         response.setEntity(result.getEntity());
         return response;
@@ -189,16 +189,16 @@ public class GWTDataStore {
 //        }
 //    }
 
-    public void process(@Nonnull LiquidRequest request, @Nonnull final AsyncCallback<LiquidMessage> callback) {
+    public void process(@Nonnull final LiquidRequest request, @Nonnull final AsyncCallback<LiquidMessage> callback) {
         request.setSessionId(identity);
         DataStoreService.App.getInstance().process(request.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
             @Override
-            public void onFailure(Throwable caught) {
+            public void onFailure(final Throwable caught) {
                 callback.onFailure(caught);
             }
 
             @Override
-            public void onSuccess(@Nonnull SerializedRequest result) {
+            public void onSuccess(@Nonnull final SerializedRequest result) {
                 final AbstractRequest response = deserializeRequest(result);
                 callback.onSuccess(response);
             }
@@ -212,7 +212,7 @@ public class GWTDataStore {
 
         }
 
-        public void onFailure(Throwable throwable) {
+        public void onFailure(final Throwable throwable) {
             if (throwable instanceof SerializationException) {
                 //force refresh of the app.
                 new Timer() {
@@ -252,7 +252,7 @@ public class GWTDataStore {
 
         }
 
-        public void onSuccess(@Nullable ArrayList<SerializedRequest> requests) {
+        public void onSuccess(@Nullable final ArrayList<SerializedRequest> requests) {
             new Timer() {
                 @Override
                 public void run() {
@@ -262,10 +262,10 @@ public class GWTDataStore {
             }.schedule(100);
             if (requests != null) {
                 ClientLog.log("Result from collect was " + requests.size());
-                for (SerializedRequest serializedRequest : requests) {
-                    AbstractRequest request = deserializeRequest(serializedRequest);
+                for (final SerializedRequest serializedRequest : requests) {
+                    final AbstractRequest request = deserializeRequest(serializedRequest);
                     ClientLog.log("Dispatching request " + request.getId());
-                    String uniqueId = request.getDeduplicationIdentifier();
+                    final String uniqueId = request.getDeduplicationIdentifier();
                     if (unique(uniqueId)) {
                         bus.dispatch(request);
                     }
@@ -276,7 +276,7 @@ public class GWTDataStore {
         }
     }
 
-    private boolean unique(String uniqueId) {
+    private boolean unique(final String uniqueId) {
         if (ids.contains(uniqueId)) {
             return false;
         } else {

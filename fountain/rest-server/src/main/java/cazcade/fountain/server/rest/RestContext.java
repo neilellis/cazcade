@@ -33,7 +33,7 @@ public class RestContext {
         return username;
     }
 
-    public void setCredentials(LiquidSessionIdentifier username) {
+    public void setCredentials(final LiquidSessionIdentifier username) {
         this.username = username;
     }
 

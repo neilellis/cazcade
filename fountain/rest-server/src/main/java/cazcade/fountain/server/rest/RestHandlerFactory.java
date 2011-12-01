@@ -9,7 +9,7 @@ import java.util.Map;
 public class RestHandlerFactory {
     private Map<String, RestHandler> handlers;
 
-    public void setHandlers(Map handlers) {
+    public void setHandlers(final Map handlers) {
         this.handlers = handlers;
     }
 

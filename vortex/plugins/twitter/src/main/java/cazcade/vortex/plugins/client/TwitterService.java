@@ -15,7 +15,7 @@ public interface TwitterService extends RemoteService {
      * Utility/Convenience class.
      * Use TwitterService.App.getInstance() to access static instance of TwitterServiceAsync
      */
-    public static class App {
+    class App {
         @Nonnull
         private static final TwitterServiceAsync ourInstance = (TwitterServiceAsync) GWT.create(TwitterService.class);
 

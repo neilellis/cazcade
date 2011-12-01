@@ -15,7 +15,8 @@ public class ActivityPanel extends Composite {
     private static final InboxPanelUiBinder ourUiBinder = GWT.create(InboxPanelUiBinder.class);
 
     public ActivityPanel() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
 
     }

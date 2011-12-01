@@ -26,7 +26,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
     private final ResultWidgetStrategy resultWidgetStrategy;
 
     @Override
-    public void onLocalHistoryTokenChanged(String token) {
+    public void onLocalHistoryTokenChanged(final String token) {
         search(token);
     }
 
@@ -34,7 +34,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
     }
 
 
-    public static interface ResultWidgetStrategy {
+    public interface ResultWidgetStrategy {
         @Nonnull
         Widget getResultWidgetForEntity(LSDEntity subEntity);
     }
@@ -49,6 +49,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
     public VortexSearchResultList searchResults;
 
     public VortexSearchPanel(final ResultWidgetStrategy resultWidgetStrategy) {
+        super();
         this.resultWidgetStrategy = resultWidgetStrategy;
         init();
         searchBox.setOnSearchAction(new VortexSearchBox.OnSearchAction() {
@@ -68,10 +69,10 @@ public class VortexSearchPanel extends HistoryAwareComposite {
         searchResults.clear();
         bus.send(new SearchRequest(search), new AbstractResponseCallback<SearchRequest>() {
             @Override
-            public void onSuccess(SearchRequest message, @Nonnull SearchRequest response) {
+            public void onSuccess(final SearchRequest message, @Nonnull final SearchRequest response) {
                 final List<LSDEntity> subEntities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (LSDEntity subEntity : subEntities) {
-                    final Widget widgetForEntity = VortexSearchPanel.this.resultWidgetStrategy.getResultWidgetForEntity(subEntity);
+                for (final LSDEntity subEntity : subEntities) {
+                    final Widget widgetForEntity = resultWidgetStrategy.getResultWidgetForEntity(subEntity);
                     if (widgetForEntity != null) {
                         searchResults.addResult(widgetForEntity);
                     }
@@ -79,7 +80,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
             }
 
             @Override
-            public void onFailure(SearchRequest message, @Nonnull SearchRequest response) {
+            public void onFailure(final SearchRequest message, @Nonnull final SearchRequest response) {
             }
         });
     }

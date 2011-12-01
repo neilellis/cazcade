@@ -40,15 +40,16 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     RegexTextBox urlField;
 
     public ChangeImageUrlPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
         imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
             @Override
-            public void onFinish(@Nonnull IUploader uploader) {
-                if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
+            public void onFinish(@Nonnull final IUploader uploader) {
+                if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
                     setValue(uploader.getServerInfo().message);
                     callOnChangeAction();
-                    IUploader.UploadedInfo info = uploader.getServerInfo();
+                    final IUploader.UploadedInfo info = uploader.getServerInfo();
                 } else {
                     Window.alert("Failed to upload image.");
                 }
@@ -59,13 +60,13 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
 
         imageUploader.addOnStartUploadHandler(new IUploader.OnStartUploaderHandler() {
             @Override
-            public void onStart(IUploader uploader) {
+            public void onStart(final IUploader uploader) {
                 urlField.setValue("");
             }
         });
         urlField.addHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(KeyUpEvent event) {
+            public void onKeyUp(final KeyUpEvent event) {
                 imageUploader.setImageURL(urlField.getValue());
             }
         }, KeyUpEvent.getType());
@@ -102,22 +103,22 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     }
 
     @Override
-    public void setValidityImage(Image validityImage) {
+    public void setValidityImage(final Image validityImage) {
         urlField.setValidityImage(validityImage);
     }
 
     @Override
-    public void setShowValidity(boolean showValidity) {
+    public void setShowValidity(final boolean showValidity) {
         urlField.setShowValidity(showValidity);
     }
 
     @Override
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(final String errorMessage) {
         urlField.setErrorMessage(errorMessage);
     }
 
     @Override
-    public void bind(@Nonnull LSDEntity entity, LSDAttribute attribute, String prefix) {
+    public void bind(@Nonnull final LSDEntity entity, final LSDAttribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);
         imageUploader.setImageURL(urlField.getValue());
     }

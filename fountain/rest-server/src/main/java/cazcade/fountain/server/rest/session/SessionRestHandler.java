@@ -30,12 +30,12 @@ public class SessionRestHandler extends AbstractRestHandler {
 
 
     @Nonnull
-    public LiquidMessage get(LiquidUUID userId) throws URISyntaxException {
+    public LiquidMessage get(final LiquidUUID userId) throws URISyntaxException {
         return dataStoreFacade.process(new RetrieveSessionRequest(RestContext.getContext().getCredentials(), userId));
     }
 
     @Nonnull
-    public LiquidMessage create(@Nonnull Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage create(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "client", "key", "hostinfo");
         final String name = parameters.get("client")[0];
         final String key = parameters.get("key")[0];
@@ -44,17 +44,17 @@ public class SessionRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage update(LiquidUUID sessionId, LSDEntity lsdEntity) throws URISyntaxException {
-        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+    public LiquidMessage update(final LiquidUUID sessionId, final LSDEntity lsdEntity) throws URISyntaxException {
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new UpdateSessionRequest(username, sessionId, lsdEntity, false));
     }
 
     @Nonnull
-    public LiquidMessage delete(LiquidUUID sessionId) throws URISyntaxException {
+    public LiquidMessage delete(final LiquidUUID sessionId) throws URISyntaxException {
         return dataStoreFacade.process(new DeleteSessionRequest(RestContext.getContext().getCredentials(), sessionId));
     }
 
-    public void setLsdFactory(LSDEntityFactory lsdEntityFactory) {
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
         this.lsdEntityFactory = lsdEntityFactory;
     }
 
@@ -62,7 +62,7 @@ public class SessionRestHandler extends AbstractRestHandler {
         return lsdEntityFactory;
     }
 
-    public void setDataStore(FountainDataStoreFacade dataStoreFacade) {
+    public void setDataStore(final FountainDataStoreFacade dataStoreFacade) {
         this.dataStoreFacade = dataStoreFacade;
     }
 

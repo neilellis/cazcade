@@ -13,7 +13,7 @@ public class LiquidURI implements Serializable {
     @Nonnull
     public static final String POOL_SCHEME_PREFIX = "pool://";
 
-    public LiquidURI(@Nullable String uri) {
+    public LiquidURI(@Nullable final String uri) {
         if (uri == null) {
             throw new NullPointerException("Attempted to create a LiquidURI with a null uri string parameter");
         }
@@ -31,11 +31,11 @@ public class LiquidURI implements Serializable {
     public LiquidURI() {
     }
 
-    public LiquidURI(@Nonnull LiquidURIScheme scheme, @Nonnull String path) {
-        this((scheme.name() + ":" + lowerCaseIfRequired(scheme, path)));
+    public LiquidURI(@Nonnull final LiquidURIScheme scheme, @Nonnull final String path) {
+        this(scheme.name() + ":" + lowerCaseIfRequired(scheme, path));
     }
 
-    private static String lowerCaseIfRequired(LiquidURIScheme scheme, @Nonnull String path) {
+    private static String lowerCaseIfRequired(final LiquidURIScheme scheme, @Nonnull final String path) {
         if (scheme == LiquidURIScheme.alias || scheme == LiquidURIScheme.user || scheme == LiquidURIScheme.session) {
             return path.toLowerCase();
         } else {
@@ -43,17 +43,17 @@ public class LiquidURI implements Serializable {
         }
     }
 
-    public LiquidURI(@Nonnull LiquidURIScheme scheme, @Nonnull LiquidURI url) {
-        this((scheme.name() + ":" + url.asString()));
+    public LiquidURI(@Nonnull final LiquidURIScheme scheme, @Nonnull final LiquidURI url) {
+        this(scheme.name() + ":" + url.asString());
     }
 
-    public LiquidURI(@Nonnull LiquidURI url, @Nonnull String subPath) {
-        this(url.getPath().endsWith("/") ? (url + lowerCaseIfRequired(url.getScheme(), subPath)) : lowerCaseIfRequired(url.getScheme(), subPath) + "/" + subPath);
+    public LiquidURI(@Nonnull final LiquidURI url, @Nonnull final String subPath) {
+        this(url.getPath().endsWith("/") ? url + lowerCaseIfRequired(url.getScheme(), subPath) : lowerCaseIfRequired(url.getScheme(), subPath) + "/" + subPath);
     }
 
     @Nullable
     public String getSchemeAsString() {
-        int index = uri.indexOf(":");
+        final int index = uri.indexOf(':');
         if (index <= 0) {
             return null;
         }
@@ -61,7 +61,7 @@ public class LiquidURI implements Serializable {
     }
 
     public LiquidURIScheme getScheme() {
-        String schemeStr = getSchemeAsString();
+        final String schemeStr = getSchemeAsString();
         if (schemeStr == null) {
             throw new InvalidURLException("No scheme.");
         }
@@ -69,7 +69,7 @@ public class LiquidURI implements Serializable {
     }
 
     public String getFragment() {
-        int index = uri.indexOf('#');
+        final int index = uri.indexOf('#');
         if (index < 0) {
             return "";
         } else {
@@ -79,12 +79,12 @@ public class LiquidURI implements Serializable {
 
     @Nonnull
     public String getPath() {
-        String withoutFragment;
-        int i = uri.indexOf(":");
+        final String withoutFragment;
+        final int i = uri.indexOf(':');
         withoutFragment = getWithoutFragment().asString();
         if (withoutFragment.startsWith(LiquidURI.POOL_SCHEME_PREFIX)) {
-            String schemeless = withoutFragment.substring(LiquidURI.POOL_SCHEME_PREFIX.length());
-            int firstSlash = schemeless.indexOf('/');
+            final String schemeless = withoutFragment.substring(LiquidURI.POOL_SCHEME_PREFIX.length());
+            final int firstSlash = schemeless.indexOf('/');
             if (firstSlash < 0) {
                 throw new InvalidURLException("Invalid url %s", uri);
             }
@@ -114,12 +114,12 @@ public class LiquidURI implements Serializable {
 
     @Nonnull
     public LiquidURI getSubURI() {
-        int i = getColonPos();
+        final int i = getColonPos();
         return new LiquidURI(uri.substring(i + 1));
     }
 
     private int getColonPos() {
-        int i = uri.indexOf(":");
+        final int i = uri.indexOf(':');
         if (i < 0) {
             throw new InvalidURLException("No scheme.");
         }
@@ -133,14 +133,14 @@ public class LiquidURI implements Serializable {
      */
     @Nonnull
     public LiquidURI getParentURI() {
-        String scheme;
+        final String scheme;
         if (uri.startsWith(POOL_SCHEME_PREFIX)) {
             scheme = POOL_SCHEME_PREFIX;
         } else {
             scheme = getSchemeAsString() + ":";
         }
-        String path = getPath();
-        final int i = path.lastIndexOf("/");
+        final String path = getPath();
+        final int i = path.lastIndexOf('/');
         if (i <= 0) {
             return new LiquidURI(uri);
         }
@@ -178,18 +178,18 @@ public class LiquidURI implements Serializable {
 
     @Nonnull
     public String asReverseDNSString() {
-        String scheme = getSchemeAsString();
+        final String scheme = getSchemeAsString();
         String reverseDNS = "";
         if (scheme == null) {
             int count = 0;
-            for (String element : getPathElements()) {
+            for (final String element : getPathElements()) {
                 if (element.length() > 0) {
-                    reverseDNS = (count == 0 ? "" : (reverseDNS + ".")) + element;
+                    reverseDNS = (count == 0 ? "" : reverseDNS + ".") + element;
                     count++;
                 }
             }
             if (getFragment() != null && getFragment().length() > 0) {
-                reverseDNS = (count == 0 ? "" : (reverseDNS + ".")) + getFragment().substring(1);
+                reverseDNS = (count == 0 ? "" : reverseDNS + ".") + getFragment().substring(1);
             }
         } else {
             reverseDNS = scheme + "." + getSubURI().asReverseDNSString();
@@ -203,13 +203,19 @@ public class LiquidURI implements Serializable {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(@Nullable final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        LiquidURI liquidURI = (LiquidURI) o;
+        final LiquidURI liquidURI = (LiquidURI) o;
 
-        if (uri != null ? !uri.equals(liquidURI.uri) : liquidURI.uri != null) return false;
+        if (uri != null ? !uri.equals(liquidURI.uri) : liquidURI.uri != null) {
+            return false;
+        }
 
         return true;
     }

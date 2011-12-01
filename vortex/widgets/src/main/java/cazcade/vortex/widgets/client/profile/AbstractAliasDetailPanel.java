@@ -72,7 +72,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     private static final boolean DM_SUPPORTED = false;
 
 
-    public void bind(LSDEntity entity) {
+    public void bind(final LSDEntity entity) {
         super.bind(entity);
         addBinding(userShortName, LSDAttribute.NAME);
         addBinding(userFullName, LSDAttribute.FULL_NAME);
@@ -94,14 +94,14 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
 
                 getBus().send(new UpdateAliasRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdateAliasRequest>() {
                     @Override
-                    public void onSuccess(UpdateAliasRequest message, @Nonnull UpdateAliasRequest response) {
+                    public void onSuccess(final UpdateAliasRequest message, @Nonnull final UpdateAliasRequest response) {
                         setEntity(response.getResponse().copy());
                         getWidget().getElement().getStyle().setOpacity(1.0);
 
                     }
 
                     @Override
-                    public void onFailure(UpdateAliasRequest message, @Nonnull UpdateAliasRequest response) {
+                    public void onFailure(final UpdateAliasRequest message, @Nonnull final UpdateAliasRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
 
@@ -138,7 +138,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         }
         followListenId = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(aliasURI, LiquidRequestType.FOLLOW, new AbstractBusListener<FollowRequest>() {
             @Override
-            public void handle(@Nonnull FollowRequest response) {
+            public void handle(@Nonnull final FollowRequest response) {
                 if (response.getUri().equals(aliasURI)) {
                     bind(response.getResponse().copy());
                 }
@@ -149,7 +149,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         }
         updateAliasListenId = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(aliasURI, LiquidRequestType.UPDATE_ALIAS, new AbstractBusListener<UpdateAliasRequest>() {
             @Override
-            public void handle(@Nonnull UpdateAliasRequest response) {
+            public void handle(@Nonnull final UpdateAliasRequest response) {
                 if (response.getUri().equals(aliasURI)) {
                     bind(response.getResponse().copy());
                 }
@@ -158,7 +158,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
 
         BusFactory.getInstance().send(new RetrieveAliasRequest(aliasURI), new AbstractResponseCallback<RetrieveAliasRequest>() {
             @Override
-            public void onSuccess(RetrieveAliasRequest message, @Nonnull RetrieveAliasRequest response) {
+            public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
                 bind(response.getResponse().copy());
 
             }
@@ -173,7 +173,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         }
         followHandler = followButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
                 BusFactory.getInstance().dispatch(new FollowRequest(aliasURI, !following));
             }
         });
@@ -188,7 +188,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         });
         dmHandler = dmButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
+            public void onClick(final ClickEvent event) {
 
                 if (ClientApplicationConfiguration.isAlphaFeatures()) {
                     directMessagePanel.setRecipient(aliasURI.getSubURI().getSubURI().asString());
@@ -208,7 +208,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             return;
         }
         getWidget().setVisible(true);
-        String username = entity.getAttribute(LSDAttribute.NAME);
+        final String username = entity.getAttribute(LSDAttribute.NAME);
         if (entity.hasAttribute(LSDAttribute.ROLE_TITLE)) {
             roleFullName.setText(entity.getAttribute(LSDAttribute.ROLE_TITLE));
         } else {
@@ -224,13 +224,13 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
 
     }
 
-    public void setFeatures(FormatUtil features) {
+    public void setFeatures(final FormatUtil features) {
         this.features = features;
     }
 
     private class UsernameClickHandler implements ClickHandler {
         @Override
-        public void onClick(ClickEvent event) {
+        public void onClick(final ClickEvent event) {
             History.newItem("#@" + userShortName.getValue());
         }
     }

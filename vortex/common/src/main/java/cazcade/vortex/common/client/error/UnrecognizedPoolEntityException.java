@@ -9,15 +9,15 @@ public class UnrecognizedPoolEntityException extends RuntimeException {
         super();
     }
 
-    public UnrecognizedPoolEntityException(String s) {
+    public UnrecognizedPoolEntityException(final String s) {
         super(s);
     }
 
-    public UnrecognizedPoolEntityException(String s, Throwable throwable) {
+    public UnrecognizedPoolEntityException(final String s, final Throwable throwable) {
         super(s, throwable);
     }
 
-    public UnrecognizedPoolEntityException(Throwable throwable) {
+    public UnrecognizedPoolEntityException(final Throwable throwable) {
         super(throwable);
     }
 }

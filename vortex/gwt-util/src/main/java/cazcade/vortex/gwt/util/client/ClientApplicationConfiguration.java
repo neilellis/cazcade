@@ -20,7 +20,7 @@ public class ClientApplicationConfiguration {
         return debug;
     }
 
-    public static void setDebug(boolean debug) {
+    public static void setDebug(final boolean debug) {
         ClientApplicationConfiguration.debug = debug;
     }
 
@@ -28,7 +28,7 @@ public class ClientApplicationConfiguration {
         return preflight;
     }
 
-    public static void setPreflight(boolean preflight) {
+    public static void setPreflight(final boolean preflight) {
         ClientApplicationConfiguration.preflight = preflight;
     }
 
@@ -40,7 +40,7 @@ public class ClientApplicationConfiguration {
         }
     }
 
-    public static void setAlphaFeatures(boolean alphaFeatures) {
+    public static void setAlphaFeatures(final boolean alphaFeatures) {
         ClientApplicationConfiguration.alphaFeatures = alphaFeatures;
     }
 
@@ -48,7 +48,7 @@ public class ClientApplicationConfiguration {
         return loginRequired;
     }
 
-    public static void setLoginRequired(boolean loginRequired) {
+    public static void setLoginRequired(final boolean loginRequired) {
         ClientApplicationConfiguration.loginRequired = loginRequired;
     }
 
@@ -65,11 +65,11 @@ public class ClientApplicationConfiguration {
         return retrieveUpdates;
     }
 
-    public static void setRetrieveUpdates(boolean retrieveUpdates) {
+    public static void setRetrieveUpdates(final boolean retrieveUpdates) {
         ClientApplicationConfiguration.retrieveUpdates = retrieveUpdates;
     }
 
-    public static void setRegister(boolean register) {
+    public static void setRegister(final boolean register) {
         ClientApplicationConfiguration.register = register;
     }
 

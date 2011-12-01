@@ -27,7 +27,7 @@ import java.util.List;
 public class InboxPanel extends Composite {
     private FormatUtil features;
 
-    public void setFeatures(FormatUtil features) {
+    public void setFeatures(final FormatUtil features) {
         if (this.features == null) {
             init();
         }
@@ -43,23 +43,24 @@ public class InboxPanel extends Composite {
     ScrollableList list;
 
     public InboxPanel() {
-        HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
     }
 
     public void init() {
         BusFactory.getInstance().send(new RetrievePoolRequest(UserUtil.getInboxURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(RetrievePoolRequest request, @Nonnull RetrievePoolRequest response) {
-                List<LSDEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (LSDEntity message : messages) {
+            public void onSuccess(final RetrievePoolRequest request, @Nonnull final RetrievePoolRequest response) {
+                final List<LSDEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                for (final LSDEntity message : messages) {
                     list.addEntry(new DirectMessageListEntryPanel(message, features));
                 }
             }
         });
         BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
             @Override
-            public void handle(@Nonnull SendRequest request) {
+            public void handle(@Nonnull final SendRequest request) {
                 list.addEntry(new DirectMessageListEntryPanel(request.getResponse(), features));
             }
         });

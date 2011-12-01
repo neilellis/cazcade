@@ -11,21 +11,21 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class AppSignalHandler implements SignalHandler {
-    private int shutdownCount = 0;
+    private int shutdownCount;
     private boolean running = true;
     @Nonnull
-    private final static Logger log = Logger.getLogger(AppSignalHandler.class);
+    private static final Logger log = Logger.getLogger(AppSignalHandler.class);
     private final Runnable onFirst;
     private final Runnable onSecond;
     private final Runnable onThird;
 
-    public AppSignalHandler(Runnable onFirst, Runnable onSecond, Runnable onThird) {
+    public AppSignalHandler(final Runnable onFirst, final Runnable onSecond, final Runnable onThird) {
         this.onFirst = onFirst;
         this.onSecond = onSecond;
         this.onThird = onThird;
     }
 
-    public void handle(Signal sig) {
+    public void handle(final Signal sig) {
         shutdownCount++;
         if (running) {
             running = false;

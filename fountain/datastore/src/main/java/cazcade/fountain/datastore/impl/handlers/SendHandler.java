@@ -20,18 +20,18 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
 
 
     @Nonnull
-    public SendRequest handle(@Nonnull SendRequest request) throws Exception {
+    public SendRequest handle(@Nonnull final SendRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-            Node poolNode = fountainNeo.findByURI(request.getInboxURI());
+            final Node poolNode = fountainNeo.findByURI(request.getInboxURI());
             if (poolNode == null) {
                 throw new EntityNotFoundException("No such inbox pool " + request.getInboxURI());
             }
-            LiquidURI owner = request.getRecipientAlias();
+            final LiquidURI owner = request.getRecipientAlias();
             //Note we run this as the recipient -- just like in email, the receiver owns the message.
             final LSDEntity entity;
-            LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
+            final LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
             if (request.getRequestEntity() != null) {
                 entity = poolDAO.createPoolObjectTx(poolNode, recipientSessionId, owner, request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(), request.getDetail(), request.isInternal(), false);
             } else {

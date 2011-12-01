@@ -35,9 +35,10 @@ public class YouTubeTextBox extends VortexTextBox {
     private static final RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
 
     public YouTubeTextBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
         textBox.addKeyPressHandler(new KeyPressHandler() {
-            public void onKeyPress(@Nonnull KeyPressEvent event) {
+            public void onKeyPress(@Nonnull final KeyPressEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
                     final int keyCode = event.getUnicodeCharCode();
 
@@ -51,7 +52,7 @@ public class YouTubeTextBox extends VortexTextBox {
 
         textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
-            public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+            public void onValueChange(final ValueChangeEvent<String> stringValueChangeEvent) {
                 update(true);
             }
         });
@@ -59,9 +60,9 @@ public class YouTubeTextBox extends VortexTextBox {
 
         textBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
-            public void onKeyUp(@Nonnull KeyUpEvent event) {
+            public void onKeyUp(@Nonnull final KeyUpEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
-                    String text = textBox.getText();
+                    final String text = textBox.getText();
                     if (!oldText.equals(text)) {
                         oldText = text;
                         update(false);
@@ -76,7 +77,7 @@ public class YouTubeTextBox extends VortexTextBox {
     }
 
 
-    public void update(boolean andCallOnChange) {
+    public void update(final boolean andCallOnChange) {
         String text = textBox.getText();
         if (text.startsWith("http")) {
             if (text.matches(YOU_TUBE_URL_REGEX)) {
@@ -110,7 +111,7 @@ public class YouTubeTextBox extends VortexTextBox {
     @Nonnull
     @Override
     public LSDEntity getEntityDiff() {
-        LSDEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());
+        final LSDEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());
         newEntity.setAttribute(LSDAttribute.URI, getEntity().getURI().toString());
 
         newEntity.setAttribute(LSDAttribute.EURI, "youtube:" + getValue());

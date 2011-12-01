@@ -14,17 +14,17 @@ public class LSDPropertyFormatValidatorImpl implements LSDPropertyFormatValidato
 
     private Map<String, LSDPropertyTypeValidator> validators;
 
-    public boolean isValidFormat(@Nonnull String validationString, String value) {
+    public boolean isValidFormat(@Nonnull final String validationString, final String value) {
         if (validationString.isEmpty()) {
             return true;
         }
-        int colonIndex = validationString.indexOf(":");
+        final int colonIndex = validationString.indexOf(':');
         if (colonIndex < 0) {
             throw new LSDPropertyFormatValidationException("Invalid format " + validationString);
         } else {
-            String schema = validationString.substring(0, colonIndex);
-            String nextValidationString = validationString.substring(colonIndex + 1);
-            LSDPropertyTypeValidator validator = validators.get(schema);
+            final String schema = validationString.substring(0, colonIndex);
+            final String nextValidationString = validationString.substring(colonIndex + 1);
+            final LSDPropertyTypeValidator validator = validators.get(schema);
             if (validator == null) {
                 throw new LSDPropertyFormatValidationException("Unrecognized property format schema " + schema);
             }
@@ -32,7 +32,7 @@ public class LSDPropertyFormatValidatorImpl implements LSDPropertyFormatValidato
         }
     }
 
-    public void setValidators(Map<String, LSDPropertyTypeValidator> validators) {
+    public void setValidators(final Map<String, LSDPropertyTypeValidator> validators) {
         this.validators = validators;
     }
 }

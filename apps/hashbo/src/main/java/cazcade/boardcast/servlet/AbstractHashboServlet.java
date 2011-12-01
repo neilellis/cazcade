@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public class AbstractHashboServlet extends HttpServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractHashboServlet.class);
+    private static final Logger log = Logger.getLogger(AbstractHashboServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
 
@@ -46,7 +46,7 @@ public class AbstractHashboServlet extends HttpServlet {
     protected static final String USERNAME_KEY = "username";
 
     @Override
-    public void init(@Nonnull ServletConfig config) throws ServletException {
+    public void init(@Nonnull final ServletConfig config) throws ServletException {
         super.init(config);
         //we use the same context as the main communications servlet
         applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
@@ -63,15 +63,15 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected LiquidSessionIdentifier getLiquidSessionId(@Nonnull HttpSession session) {
+    protected LiquidSessionIdentifier getLiquidSessionId(@Nonnull final HttpSession session) {
         return (LiquidSessionIdentifier) session.getAttribute(SESSION_KEY);
     }
 
     @Nonnull
-    protected List<Map<String, String>> makeJSPFriendly(@Nonnull List<LSDEntity> entities) throws UnsupportedEncodingException {
-        List<Map<String, String>> result = new ArrayList<Map<String, String>>();
-        for (LSDEntity entity : entities) {
-            Map<String, String> map = entity.getCamelCaseMap();
+    protected List<Map<String, String>> makeJSPFriendly(@Nonnull final List<LSDEntity> entities) throws UnsupportedEncodingException {
+        final List<Map<String, String>> result = new ArrayList<Map<String, String>>();
+        for (final LSDEntity entity : entities) {
+            final Map<String, String> map = entity.getCamelCaseMap();
             result.add(map);
             if (entity.getURI().toString().startsWith("pool")) {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
@@ -85,20 +85,20 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
 
-    protected boolean loggedIn(@Nonnull HttpSession session) {
+    protected boolean loggedIn(@Nonnull final HttpSession session) {
         return session.getAttribute(USERNAME_KEY) != null;
     }
 
 
-    protected void logOut(@Nonnull HttpSession session) {
+    protected void logOut(@Nonnull final HttpSession session) {
         session.removeAttribute(USERNAME_KEY);
     }
 
     @Nonnull
-    protected LiquidSessionIdentifier createClientSession(@Nonnull HttpSession session, @Nonnull LiquidMessage createSessionResponse) {
+    protected LiquidSessionIdentifier createClientSession(@Nonnull final HttpSession session, @Nonnull final LiquidMessage createSessionResponse) {
 
         final String username = createSessionResponse.getResponse().getAttribute(LSDAttribute.NAME);
-        LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username, createSessionResponse.getResponse().getUUID());
+        final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username, createSessionResponse.getResponse().getUUID());
         session.setAttribute(SESSION_KEY, serverSession);
         session.setAttribute(USERNAME_KEY, username);
         LoginUtil.createClientSession(clientSessionManager, serverSession, true);
@@ -106,11 +106,11 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected LiquidMessage createSession(LiquidURI uri) throws Exception {
+    protected LiquidMessage createSession(final LiquidURI uri) throws Exception {
         return dataStore.process(new CreateSessionRequest(uri, new ClientApplicationIdentifier("GWT Client", LoginUtil.APP_KEY, "UNKNOWN")));
     }
 
-    protected void forwardAfterLogin(@Nonnull HttpServletRequest req, @Nonnull HttpServletResponse resp) throws ServletException, IOException {
+    protected void forwardAfterLogin(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         final String next = req.getParameter("next");
         if (next != null) {
             resp.sendRedirect(next);
@@ -120,7 +120,7 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
 
-    protected boolean loggedInAs(String username, @Nonnull HttpSession session) {
+    protected boolean loggedInAs(final String username, @Nonnull final HttpSession session) {
         return session.getAttribute(USERNAME_KEY).equals(username);
     }
 

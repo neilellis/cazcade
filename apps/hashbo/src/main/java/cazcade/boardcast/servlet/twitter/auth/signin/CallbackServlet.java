@@ -55,30 +55,30 @@ import java.net.URLEncoder;
 
 public class CallbackServlet extends AbstractTwitterServlet {
     @Nonnull
-    private final static Logger log = Logger.getLogger(CallbackServlet.class);
+    private static final Logger log = Logger.getLogger(CallbackServlet.class);
     private static final long serialVersionUID = 1657390011452788111L;
 
-    protected void doGet(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession();
-            Twitter twitter = (Twitter) session.getAttribute("twitter");
-            RequestToken requestToken = (RequestToken) session.getAttribute("requestToken");
-            String verifier = request.getParameter("oauth_verifier");
+            final HttpSession session = request.getSession();
+            final Twitter twitter = (Twitter) session.getAttribute("twitter");
+            final RequestToken requestToken = (RequestToken) session.getAttribute("requestToken");
+            final String verifier = request.getParameter("oauth_verifier");
 
-            AccessToken authAccessToken = twitter.getOAuthAccessToken(requestToken, verifier);
+            final AccessToken authAccessToken = twitter.getOAuthAccessToken(requestToken, verifier);
 //            LiquidSessionIdentifier identity = (LiquidSessionIdentifier) request.getSession().getAttribute(CommonConstants.IDENTITY_ATTRIBUTE);
-            User user = twitter.verifyCredentials();
+            final User user = twitter.verifyCredentials();
             session.setAttribute(USER_KEY, user);
 
-            LSDSimpleEntity twitterAlias = buildAlias(authAccessToken, user, true);
+            final LSDSimpleEntity twitterAlias = buildAlias(authAccessToken, user, true);
 
-            RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new LiquidSessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
+            final RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new LiquidSessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
 
             if (RequestUtil.positiveResponse(retrieveAliasRequest)) {
                 final LSDEntity responseEntity = retrieveAliasRequest.getResponse();
-                LiquidMessage createSessionRequest = createSession(responseEntity.getURI());
+                final LiquidMessage createSessionRequest = createSession(responseEntity.getURI());
                 if (createSessionRequest.getResponse().isA(LSDDictionaryTypes.SESSION)) {
-                    LiquidSessionIdentifier serverSession = createClientSession(session, createSessionRequest);
+                    final LiquidSessionIdentifier serverSession = createClientSession(session, createSessionRequest);
                     dataStore.process(new UpdateAliasRequest(serverSession, twitterAlias));
                     response.sendRedirect(request.getContextPath() + "/_twitter/login.jsp");
                     session.removeAttribute("requestToken");
@@ -92,9 +92,9 @@ public class CallbackServlet extends AbstractTwitterServlet {
                 }
             }
             session.setAttribute(TWITTER_ALIAS_KEY, twitterAlias);
-            LSDSimpleEntity cazcadeAlias = buildAlias(authAccessToken, user, false);
+            final LSDSimpleEntity cazcadeAlias = buildAlias(authAccessToken, user, false);
             session.setAttribute(CAZCADE_ALIAS_KEY, cazcadeAlias);
-            RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, user.getScreenName()), true));
+            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, user.getScreenName()), true));
             if (RequestUtil.positiveResponse(retrieveUserRequest)) {
                 response.sendRedirect(request.getContextPath() + "/_twitter/register.jsp?username=" + URLEncoder.encode(user.getScreenName(), "utf8"));
             } else {
@@ -107,8 +107,8 @@ public class CallbackServlet extends AbstractTwitterServlet {
     }
 
     @Nonnull
-    private LSDSimpleEntity buildAlias(@Nonnull AccessToken authAccessToken, @Nonnull User user, boolean twitter) {
-        LSDSimpleEntity alias = LSDSimpleEntity.createEmpty();
+    private LSDSimpleEntity buildAlias(@Nonnull final AccessToken authAccessToken, @Nonnull final User user, final boolean twitter) {
+        final LSDSimpleEntity alias = LSDSimpleEntity.createEmpty();
         alias.setType(LSDDictionaryTypes.ALIAS);
         alias.timestamp();
         if (twitter) {
@@ -125,9 +125,9 @@ public class CallbackServlet extends AbstractTwitterServlet {
         alias.setAttributeConditonally(LSDAttribute.DESCRIPTION, user.getDescription());
         alias.setAttributeConditonally(LSDAttribute.TEXT, user.getDescription());
         alias.setAttributeConditonally(LSDAttribute.LOCALE_LANGUAGE, user.getLang());
-        String location = user.getLocation();
+        final String location = user.getLocation();
         if (location != null) {
-            String[] strings = location.split(",");
+            final String[] strings = location.split(",");
 
             if (strings.length == 2 && StringUtils.isNumeric(strings[0].trim()) && StringUtils.isNumeric(strings[1].trim())) {
                 alias.setAttribute(LSDAttribute.LOCATION_LAT, strings[0].trim());

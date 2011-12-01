@@ -18,17 +18,17 @@ public class ChatParser {
 
     public static final List<String> DM_ALIASES = Arrays.asList("d", "direct", "dm", "privmsg", "w", "whisper", "t", "tell");
 
-    public boolean parse(@Nonnull String text) {
+    public boolean parse(@Nonnull final String text) {
         final String[] args = text.substring(1).split(" ");
         if (DM_ALIASES.contains(args[0])) {
             if (args.length < 2) {
                 return false;
             }
-            LSDSimpleEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
+            final LSDSimpleEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
             messageEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, remainder(text, 2));
             BusFactory.getInstance().send(new SendRequest(messageEntity, args[1]), new AbstractResponseCallback<SendRequest>() {
                 @Override
-                public void onSuccess(SendRequest message, SendRequest response) {
+                public void onSuccess(final SendRequest message, final SendRequest response) {
                 }
             });
             return true;
@@ -36,7 +36,7 @@ public class ChatParser {
         return false;
     }
 
-    private String remainder(@Nonnull String text, int args) {
+    private String remainder(@Nonnull final String text, final int args) {
         int pos = -1;
         for (int i = 0; i < args; i++) {
             pos = text.indexOf(' ', pos + 1);

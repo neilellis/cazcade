@@ -17,7 +17,7 @@ public interface BuildVersionService extends RemoteService {
      * Utility/Convenience class.
      * Use BuildVersionService.App.getInstance() to access static instance of BuildVersionServiceAsync
      */
-    public static class App {
+    class App {
         @Nonnull
         private static final BuildVersionServiceAsync ourInstance = (BuildVersionServiceAsync) GWT.create(BuildVersionService.class);
 

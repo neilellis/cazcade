@@ -14,9 +14,9 @@ import java.io.IOException;
  * @author Neil Ellis
  */
 
-public abstract class AbstractShortLivedCommand extends AbstractCommand implements Command {
+public abstract class AbstractShortLivedCommand extends AbstractCommand {
     @Nonnull
-    private final static Logger log = Logger.getLogger(AbstractShortLivedCommand.class);
+    private static final Logger log = Logger.getLogger(AbstractShortLivedCommand.class);
 
     public boolean isShortLived() {
         return true;
@@ -27,11 +27,11 @@ public abstract class AbstractShortLivedCommand extends AbstractCommand implemen
     }
 
 
-    protected Process execShellCommand(String command) throws IOException {
+    protected Process execShellCommand(final String command) throws IOException {
 
         final Process process = Runtime.getRuntime().exec(command);
 
-        Thread stdOutRouter = new Thread() {
+        final Thread stdOutRouter = new Thread() {
 
             public void run() {
                 try {
@@ -42,7 +42,7 @@ public abstract class AbstractShortLivedCommand extends AbstractCommand implemen
             }
         };
 
-        Thread stdErrRouter = new Thread() {
+        final Thread stdErrRouter = new Thread() {
 
             public void run() {
                 try {

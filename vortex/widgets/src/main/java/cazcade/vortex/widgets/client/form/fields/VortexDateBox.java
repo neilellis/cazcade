@@ -25,14 +25,14 @@ public class VortexDateBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void setValue(String text) {
+    public void setValue(final String text) {
         dateBox.setValue(new Date(Long.parseLong(text)));
     }
 
     @Override
-    public void bind(LSDAttribute attribute, String prefix, String initialValue) {
-        this.boundAttribute = attribute;
-        DateTimeFormat dateFormat = DateTimeFormat.getLongDateFormat();
+    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+        boundAttribute = attribute;
+        final DateTimeFormat dateFormat = DateTimeFormat.getLongDateFormat();
         dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
 
     }
@@ -45,6 +45,7 @@ public class VortexDateBox extends AbstractVortexFormField {
     DateBox dateBox;
 
     public VortexDateBox() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }

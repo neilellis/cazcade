@@ -15,6 +15,7 @@ public class DockPanel extends Composite {
     private static final DockPanelUiBinder ourUiBinder = GWT.create(DockPanelUiBinder.class);
 
     public DockPanel() {
+        super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
     }

@@ -13,5 +13,5 @@ public interface MessageHandler {
      * @param requestBytes the message to be processed.
      */
     @Nonnull
-    public byte[] handleMessage(byte[] requestBytes);
+    byte[] handleMessage(byte[] requestBytes);
 }

@@ -17,18 +17,18 @@ public class XMLUnmarshaler implements LSDUnmarshaler {
     private LSDSimpleEntityFactory lsdFactory;
 
 
-    public void unmarshal(LSDEntity lsdEntity, InputStream input) {
+    public void unmarshal(final LSDEntity lsdEntity, final InputStream input) {
         xmlInputFactory = XMLInputFactory.newInstance();
         LiquidXStreamFactory.getXstream().fromXML(input, lsdEntity);
     }
 
     @Nonnull
-    public LSDEntity unmarshal(InputStream input) {
+    public LSDEntity unmarshal(final InputStream input) {
         xmlInputFactory = XMLInputFactory.newInstance();
         return (LSDEntity) LiquidXStreamFactory.getXstream().fromXML(input);
     }
 
-    public void setLsdFactory(LSDSimpleEntityFactory lsdFactory) {
+    public void setLsdFactory(final LSDSimpleEntityFactory lsdFactory) {
         this.lsdFactory = lsdFactory;
     }
 
