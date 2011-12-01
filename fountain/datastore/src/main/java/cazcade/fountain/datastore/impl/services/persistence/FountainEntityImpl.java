@@ -120,18 +120,21 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     }
 
 
+    @Nonnull
     @Override
     public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final FountainRelationships relationshipType, final Direction direction) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, relationshipType, direction);
     }
 
 
+    @Nonnull
     @Override
     public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final RelationshipType firstRelationshipType, final Direction firstDirection, final RelationshipType secondRelationshipType, final Direction secondDirection) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, firstRelationshipType, firstDirection, secondRelationshipType, secondDirection);
     }
 
 
+    @Nonnull
     @Override
     public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final Object... relationshipTypesAndDirections) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, relationshipTypesAndDirections);
@@ -158,13 +161,13 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     @SuppressWarnings({"ReturnOfThis"})
     @Override
     @Nonnull
-    public LSDPersistedEntity mergeProperties(@Nonnull final LSDTransferEntity entity, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
-        if (hasAttribute(TYPE) && entity.hasAttribute(TYPE) && !ignoreType) {
-            if (!isA(entity.getTypeDef())) {
-                throw new CannotChangeTypeException("The entity type used to be %s the request was to change it to %s", getTypeDef(), entity.getTypeDef());
+    public LSDPersistedEntity mergeProperties(@Nonnull final LSDTransferEntity source, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
+        if (hasAttribute(TYPE) && source.hasAttribute(TYPE) && !ignoreType) {
+            if (!isA(source.getTypeDef())) {
+                throw new CannotChangeTypeException("The entity type used to be %s the request was to change it to %s", getTypeDef(), source.getTypeDef());
             }
         }
-        final Map<String, String> map = entity.asMapForPersistence(ignoreType, update);
+        final Map<String, String> map = source.asMapForPersistence(ignoreType, update);
         for (final Map.Entry<String, String> entry : map.entrySet()) {
             if (entry.getKey().equals(ID.getKeyName())) {
                 if (update) {
@@ -264,7 +267,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
 
     @Override
     @Nullable
-    public LSDTransferEntity convertNodeToLSD(final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
+    public LSDTransferEntity convertNodeToLSD(@Nonnull final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
 
         final LSDTransferEntity entity = createEmpty();
         if (hasAttribute(TYPE)) {
@@ -313,7 +316,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     }
 
     @Override
-    public boolean isOwner(final LSDPersistedEntity ownerPersistedEntity) throws InterruptedException {
+    public boolean isOwner(@Nonnull final LSDPersistedEntity ownerPersistedEntity) throws InterruptedException {
         final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.OWNER, Direction.OUTGOING);
         for (final FountainRelationship relationship : relationships) {
             if (relationship.getOtherNode(this).equals(ownerPersistedEntity)) {
@@ -324,7 +327,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     }
 
     @Override
-    public boolean isAuthor(final LSDPersistedEntity ownerPersistedEntity) throws InterruptedException {
+    public boolean isAuthor(@Nonnull final LSDPersistedEntity ownerPersistedEntity) throws InterruptedException {
         final Iterable<FountainRelationship> relationships = getRelationships(FountainRelationships.AUTHOR, Direction.OUTGOING);
         for (final FountainRelationship relationship : relationships) {
             if (relationship.getOtherNode(this).equals(ownerPersistedEntity)) {

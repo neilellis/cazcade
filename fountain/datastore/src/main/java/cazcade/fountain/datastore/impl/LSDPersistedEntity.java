@@ -58,10 +58,13 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
     @Nonnull
     FountainRelationship createRelationshipTo(@Nonnull LSDPersistedEntity otherEntity, FountainRelationships type);
 
+    @Nonnull
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, FountainRelationships relationshipType, Direction direction);
 
+    @Nonnull
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, RelationshipType firstRelationshipType, Direction firstDirection, RelationshipType secondRelationshipType, Direction secondDirection);
 
+    @Nonnull
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, Object... relationshipTypesAndDirections);
 
     Iterable<String> getPropertyKeys();
@@ -71,7 +74,7 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
     org.neo4j.graphdb.Node getNeoNode();
 
     @Nonnull
-    LSDPersistedEntity mergeProperties(@Nonnull LSDTransferEntity entity, boolean update, boolean ignoreType, @Nullable Runnable onRenameAction) throws InterruptedException;
+    LSDPersistedEntity mergeProperties(@Nonnull LSDTransferEntity source, boolean update, boolean ignoreType, @Nullable Runnable onRenameAction) throws InterruptedException;
 
     @Nonnull
     LSDPersistedEntity getLatestVersionFromFork();
@@ -91,11 +94,11 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
     void copyValuesToEntity(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute... attributes);
 
     @Nullable
-    LSDTransferEntity convertNodeToLSD(LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
+    LSDTransferEntity convertNodeToLSD(@Nonnull LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
 
-    boolean isOwner(LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
+    boolean isOwner(@Nonnull LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
 
-    boolean isAuthor(LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
+    boolean isAuthor(@Nonnull LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
 
     boolean isOwner(@Nonnull LiquidSessionIdentifier identity) throws InterruptedException;
 
