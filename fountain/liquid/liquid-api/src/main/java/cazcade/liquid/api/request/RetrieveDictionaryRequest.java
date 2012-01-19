@@ -9,14 +9,13 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
-
-    public RetrieveDictionaryRequest() {
-        super();
-    }
-
     public RetrieveDictionaryRequest(@Nonnull final Category category) {
         super();
         setCategory(category);
+    }
+
+    public RetrieveDictionaryRequest() {
+        super();
     }
 
     @Nonnull
@@ -29,6 +28,4 @@ public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_DICTIONARY;
     }
-
-
 }

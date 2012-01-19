@@ -18,18 +18,20 @@ import java.util.Date;
  * @author neilelliz@cazcade.com
  */
 public class ObjectiveCDictionaryServlet extends HttpServlet {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(ObjectiveCDictionaryServlet.class);
 
-    public void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             response.setContentType("text/plain");
             final LSDAttribute[] keys = LSDAttribute.values();
             Arrays.sort(keys);
             final LSDDictionaryTypes[] types = LSDDictionaryTypes.values();
             final PrintWriter out = response.getWriter();
-            out.printf("//Begin server generated section  (This was generated from %s on %s)%n", request.getRequestURL().toString(), new Date());
+            out.printf("//Begin server generated section  (This was generated from %s on %s)%n", request.getRequestURL().toString(),
+                       new Date()
+                      );
             out.println();
             out.println();
             out.printf("//Server recognized entity types %n");
@@ -80,11 +82,9 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
                 }
             }
             out.println("//End server generated section");
-
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-
     }
 
     private void writeOutAttribute(@Nonnull final PrintWriter out, @Nonnull final LSDAttribute key, final StringBuffer newName) {
@@ -99,9 +99,11 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
         for (int i = 0; i < name.length(); i++) {
             if (i == 0) {
                 newName.append(Character.toUpperCase(name.charAt(i)));
-            } else if (name.charAt(i) == '_') {
+            }
+            else if (name.charAt(i) == '_') {
                 newName.append(Character.toUpperCase(name.charAt(++i)));
-            } else {
+            }
+            else {
                 newName.append(Character.toLowerCase(name.charAt(i)));
             }
         }

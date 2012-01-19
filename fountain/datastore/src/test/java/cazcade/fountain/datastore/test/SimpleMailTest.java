@@ -20,7 +20,6 @@ import java.util.HashMap;
 // in the root of the classpath
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
 public class SimpleMailTest {
-
     @Autowired
     private MailService mailService;
 
@@ -29,11 +28,10 @@ public class SimpleMailTest {
 
     }
 
-
     @Test
     public void test() throws InterruptedException {
-        mailService.sendMailFromTemplate("welcome.html", "test", new String[]{"neilellis@cazcade.com"}, new String[0], new String[0], new HashMap<String, Object>(), false);
+        mailService.sendMailFromTemplate("welcome.html", "test", new String[]{"neilellis@cazcade.com"}, new String[0],
+                                         new String[0], new HashMap<String, Object>(), false
+                                        );
     }
-
-
 }

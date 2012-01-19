@@ -9,13 +9,37 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
-
-    public RetrievePoolObjectRequest() {
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier authenticatedUser,
+                                     final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
         super();
+        setSessionId(authenticatedUser);
+        setPoolUUID(pool);
+        setTarget(target);
+        setHistorical(historical);
     }
 
-    public RetrievePoolObjectRequest(final LiquidURI uri, final boolean historical) {
-        this(null, null, uri, historical);
+    private RetrievePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool,
+                                      final LiquidUUID target, final LiquidURI uri) {
+        super();
+        setId(id);
+        setSessionId(authenticatedUser);
+        setPoolUUID(pool);
+        setTarget(target);
+        setUri(uri);
+    }
+
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                     final LiquidURI uri, final boolean historical) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
+        setHistorical(historical);
+    }
+
+    public RetrievePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target,
+                                     final boolean historical) {
+        this(null, identity, pool, target, historical);
     }
 
     public RetrievePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean historical) {
@@ -26,35 +50,13 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         this(null, null, pool, target, historical);
     }
 
-    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean historical) {
+    public RetrievePoolObjectRequest(final LiquidURI uri, final boolean historical) {
+        this(null, null, uri, historical);
+    }
+
+    public RetrievePoolObjectRequest() {
         super();
-        setId(id);
-        setSessionId(identity);
-        setUri(uri);
-        setHistorical(historical);
     }
-
-    public RetrievePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
-        this(null, identity, pool, target, historical);
-    }
-
-    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
-        super();
-        setSessionId(authenticatedUser);
-        setPoolUUID(pool);
-        setTarget(target);
-        setHistorical(historical);
-    }
-
-    private RetrievePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri) {
-        super();
-        setId(id);
-        setSessionId(authenticatedUser);
-        setPoolUUID(pool);
-        setTarget(target);
-        setUri(uri);
-    }
-
 
     @Nonnull
     @Override
@@ -64,8 +66,12 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getPoolUUID() != null) {
-            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(getPoolUUID(), LiquidPermission.VIEW));
-        } else {
+            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(
+                    getPoolUUID(), LiquidPermission.VIEW
+            )
+                                );
+        }
+        else {
             return Collections.EMPTY_LIST;
         }
     }
@@ -74,5 +80,4 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_POOL_OBJECT;
     }
-
 }

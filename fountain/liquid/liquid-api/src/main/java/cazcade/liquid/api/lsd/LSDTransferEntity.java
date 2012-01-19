@@ -11,14 +11,28 @@ import java.util.Map;
  */
 
 public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
+    @Nonnull
+    LSDNode asFormatIndependentTree();
+
+
+    @Nonnull
+    Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
+
+
+    @Nonnull
+    LSDTransferEntity asUpdateEntity();
+
+
+    @Nonnull
+    LSDTransferEntity copy();
+
+    //    boolean isValidOrEmptyValue(LSDDictionary key);
 
 
     /**
-     * The canonical format.
-     *
-     * @return a map of name/value pairs.
+     * @deprecated use toString() instead.
      */
-    Map<String, String> getMap();
+    String dump();
 
     /**
      * Use this for JSPs i.e. JSTL EL
@@ -29,29 +43,12 @@ public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
     Map<String, String> getCamelCaseMap();
 
 
-    @Nonnull
-    Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
-
-    @Nonnull
-    LSDNode asFormatIndependentTree();
-
-    //    boolean isValidOrEmptyValue(LSDDictionary key);
-
-
     /**
-     * @deprecated use toString() instead.
+     * The canonical format.
+     *
+     * @return a map of name/value pairs.
      */
-    String dump();
-
-
-    @Nonnull
-    LSDTransferEntity copy();
-
-
-    @Nonnull
-    LSDTransferEntity asUpdateEntity();
+    Map<String, String> getMap();
 
     //For templating  they take camel case values like entity.set("imageUrl") ... useful for templates etc.
-
-
 }

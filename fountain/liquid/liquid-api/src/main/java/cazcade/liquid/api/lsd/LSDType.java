@@ -8,12 +8,12 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public interface LSDType extends Serializable {
-
-    /**
-     * The coarsest grouping i.e. Genus.Family.TypeClass
-     */
     @Nullable
-    String getGenus();
+    String asString();
+
+    boolean canBe(LSDDictionaryTypes type);
+
+    LSDType getClassOnlyType();
 
     /**
      * The next coarsest grouping after Genus i.e. Genus.Family.TypeClass
@@ -21,27 +21,26 @@ public interface LSDType extends Serializable {
     @Nullable
     String getFamily();
 
+    List<String> getFlavors();
+
+    /**
+     * The coarsest grouping i.e. Genus.Family.TypeClass
+     */
+    @Nullable
+    String getGenus();
+
+    LSDType getParentType();
+
     /**
      * The next coarsest grouping after Family i.e. Genus.Family.TypeClass
      */
     @Nullable
     String getTypeClass();
 
-    List<String> getFlavors();
-
-    @Nullable
-    String asString();
-
-    LSDType getClassOnlyType();
-
-    LSDType getParentType();
-
-    @Nullable
-    String toString();
+    boolean isA(LSDDictionaryTypes dictionaryType);
 
     boolean isSystemType();
 
-    boolean isA(LSDDictionaryTypes dictionaryType);
-
-    boolean canBe(LSDDictionaryTypes type);
+    @Nullable
+    String toString();
 }

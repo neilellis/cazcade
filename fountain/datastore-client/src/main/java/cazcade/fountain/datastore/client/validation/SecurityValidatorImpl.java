@@ -10,7 +10,6 @@ import javax.annotation.Nullable;
  * @author neilelliz@cazcade.com
  */
 public class SecurityValidatorImpl implements SecurityValidator {
-
     private AuthorizationService authorizationService;
 
     @Nullable
@@ -22,7 +21,6 @@ public class SecurityValidatorImpl implements SecurityValidator {
         } catch (Exception e) {
             throw new AuthorizationException(e);
         }
-
     }
 
     public void setAuthorizationService(final AuthorizationService authorizationService) {

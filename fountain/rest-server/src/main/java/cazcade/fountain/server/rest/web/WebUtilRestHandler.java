@@ -35,29 +35,22 @@ import java.util.concurrent.*;
  */
 
 public class WebUtilRestHandler extends AbstractRestHandler {
-
-    @Nonnull
-    private final ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10000), new ThreadPoolExecutor.CallerRunsPolicy());
-
-    @Nonnull
-    private static final Logger log = Logger.getLogger(WebUtilRestHandler.class);
-    private DefaultImageService imageService;
-    private Shortener shortener;
     public static final long MINIMUM_IMAGE_SIZE_IN_BYTES = 10000L;
     public static final int MAX_SNAPSHOT_RETRIES = 3;
 
-    public WebUtilRestHandler() {
-        super();
-    }
+    @Nonnull
+    private static final Logger log = Logger.getLogger(WebUtilRestHandler.class);
 
     @Nonnull
-    public LSDBaseEntity shorten(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
-        checkForSingleValueParams(parameters, "url");
-        final String url = parameters.get("url")[0];
-        final URI uri = shortener.getShortenedURI(url);
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.WEBPAGE, UUIDFactory.randomUUID());
-        entity.setAttribute(LSDAttribute.SOURCE, uri.toString());
-        return entity;
+    private final ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS,
+                                                                            new ArrayBlockingQueue<Runnable>(10000),
+                                                                            new ThreadPoolExecutor.CallerRunsPolicy()
+    );
+    private DefaultImageService imageService;
+    private Shortener shortener;
+
+    public WebUtilRestHandler() {
+        super();
     }
 
 //    public LSDTransferEntity expand(Map<String, String[]> parameters) throws URISyntaxException {
@@ -70,7 +63,8 @@ public class WebUtilRestHandler extends AbstractRestHandler {
 //    }
 
     @Nonnull
-    public LSDBaseEntity get(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException, ExecutionException, InterruptedException {
+    public LSDBaseEntity get(@Nonnull final Map<String, String[]> parameters)
+            throws URISyntaxException, ExecutionException, InterruptedException {
         checkForSingleValueParams(parameters, "url", "size");
         final String url = parameters.get("url")[0];
         final String size = parameters.get("size")[0];
@@ -79,13 +73,38 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    private LSDTransferEntity createWebsiteEntity(final String url, final ImageSize size, final boolean generate) throws URISyntaxException, ExecutionException, InterruptedException {
+    private LSDTransferEntity createWebsiteEntity(final String url, final ImageSize size, final boolean generate)
+            throws URISyntaxException, ExecutionException, InterruptedException {
         final Future<CacheResponse> futureResponse = getWebsiteSnapshot(url, size, generate);
         return convertSnapshotToEntity(url, futureResponse);
     }
 
+    private Future<CacheResponse> getWebsiteSnapshot(final String url, final ImageSize size, final boolean generate) {
+        return snapshotExecutor.submit(new Callable<CacheResponse>() {
+            @Nullable
+            public CacheResponse call() throws Exception {
+                CacheResponse response = null;
+                //temporary, need to get the client to do the polling!
+                int count = 0;
+                while (response == null || response.getRefreshIndicator() > 0 && count++ < MAX_SNAPSHOT_RETRIES) {
+                    response = imageService.getCacheURI(new URI(url), size, generate);
+                    try {
+                        if (response.getRefreshIndicator() > 0) {
+                            Thread.sleep(response.getRefreshIndicator());
+                        }
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
+                return response;
+            }
+        }
+                                      );
+    }
+
     @Nonnull
-    private LSDTransferEntity convertSnapshotToEntity(final String url, @Nonnull final Future<CacheResponse> futureResponse) throws InterruptedException, ExecutionException {
+    private LSDTransferEntity convertSnapshotToEntity(final String url, @Nonnull final Future<CacheResponse> futureResponse)
+            throws InterruptedException, ExecutionException {
         final LSDTransferEntity responseEntity = LSDSimpleEntity.createEmpty();
         responseEntity.setID(UUIDFactory.randomUUID());
         responseEntity.setType(LSDDictionaryTypes.WEBPAGE);
@@ -108,31 +127,9 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         return responseEntity;
     }
 
-    private Future<CacheResponse> getWebsiteSnapshot(final String url, final ImageSize size, final boolean generate) {
-        return snapshotExecutor.submit(new Callable<CacheResponse>() {
-            @Nullable
-            public CacheResponse call() throws Exception {
-                CacheResponse response = null;
-                //temporary, need to get the client to do the polling!
-                int count = 0;
-                while (response == null || response.getRefreshIndicator() > 0 && count++ < MAX_SNAPSHOT_RETRIES) {
-                    response = imageService.getCacheURI(new URI(url), size, generate);
-                    try {
-                        if (response.getRefreshIndicator() > 0) {
-                            Thread.sleep(response.getRefreshIndicator());
-                        }
-                    } catch (InterruptedException e) {
-                        break;
-                    }
-
-                }
-                return response;
-            }
-        });
-    }
-
     @Nonnull
-    public LSDBaseEntity scrape(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException, ExecutionException, InterruptedException {
+    public LSDBaseEntity scrape(@Nonnull final Map<String, String[]> parameters)
+            throws URISyntaxException, ExecutionException, InterruptedException {
         final ArrayList<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>();
         final HttpClient client = new HttpClient();
         checkForSingleValueParams(parameters, "url");
@@ -192,13 +189,18 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                 final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
                 if (feed.startsWith("atom")) {
                     entity.setType(LSDDictionaryTypes.ATOM_FEED);
-                } else if (feed.startsWith("rss")) {
+                }
+                else if (feed.startsWith("rss")) {
                     entity.setType(LSDDictionaryTypes.RSS_FEED);
-                } else {
+                }
+                else {
                     entity.setType(LSDDictionaryTypes.RSS_OR_ATOM_FEED);
                 }
                 final String feedUrl = feed.substring(feed.indexOf(':') + 1);
-                entity.setAttribute(LSDAttribute.NAME, "feed_" + System.currentTimeMillis() + "_" + count++ + "_" + getNameFromURL(feedUrl));
+                entity.setAttribute(LSDAttribute.NAME, "feed_" + System.currentTimeMillis() + "_" + count++ + "_" + getNameFromURL(
+                        feedUrl
+                                                                                                                                  )
+                                   );
                 entity.setAttribute(LSDAttribute.SOURCE, feedUrl);
                 final SyndFeedInput input = new SyndFeedInput();
                 final SyndFeed syndFeed = input.build(new XmlReader(new URL(feedUrl)));
@@ -231,17 +233,29 @@ public class WebUtilRestHandler extends AbstractRestHandler {
             } catch (Exception e) {
                 log.warn(e.getMessage(), e);
             }
-
         }
     }
 
+    private String getNameFromURL(final String url) {
+        try {
+            final String path = new URL(url).getPath();
+            return path.substring(path.lastIndexOf('/') + 1).replaceAll("[^a-zA-Z0-9_]+", "_").toLowerCase();
+        } catch (MalformedURLException e) {
+            log.warn(e.getMessage(), e);
+            return "object";
+        }
+    }
 
     private void addYouTubeVideos(@Nonnull final ArrayList<LSDBaseEntity> entities, @Nonnull final List<String> videos) {
         int count = 1;
         for (final String video : videos) {
             try {
                 final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-                entity.setAttribute(LSDAttribute.NAME, "youtube_" + System.currentTimeMillis() + "_" + count++ + "_" + video.replaceAll("[^a-zA-Z0-9]", "").toLowerCase());
+                entity.setAttribute(LSDAttribute.NAME,
+                                    "youtube_" + System.currentTimeMillis() + "_" + count++ + "_" + video.replaceAll("[^a-zA-Z0-9]",
+                                                                                                                     ""
+                                                                                                                    ).toLowerCase()
+                                   );
                 entity.setType(LSDDictionaryTypes.YOUTUBE_MOVIE);
                 entity.setAttribute(LSDAttribute.SOURCE, "http://www.youtube.com/v/" + video);
                 final YouTubeService service = new YouTubeService("Cazcade", CommonConstants.YOUTUBE_DEVELOPER_KEY);
@@ -264,8 +278,14 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                     entity.addSubEntities(LSDAttribute.AUTHOR, authorEntities);
                 }
                 if (videoEntry.getGeoCoordinates() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.LOCATION_LAT, String.valueOf(videoEntry.getGeoCoordinates().getLatitude()));
-                    entity.setAttributeConditonally(LSDAttribute.LOCATION_LONG, String.valueOf(videoEntry.getGeoCoordinates().getLongitude()));
+                    entity.setAttributeConditonally(LSDAttribute.LOCATION_LAT, String.valueOf(
+                            videoEntry.getGeoCoordinates().getLatitude()
+                                                                                             )
+                                                   );
+                    entity.setAttributeConditonally(LSDAttribute.LOCATION_LONG, String.valueOf(
+                            videoEntry.getGeoCoordinates().getLongitude()
+                                                                                              )
+                                                   );
                 }
 //                entity.setValues(LSDDictionary.CATEGORY_TERM, syndFeed.getCategories());
                 if (videoEntry.getRights() != null) {
@@ -304,10 +324,8 @@ public class WebUtilRestHandler extends AbstractRestHandler {
             } catch (Exception e) {
                 log.warn(e.getMessage(), e);
             }
-
         }
     }
-
 
     private void addImages(@Nonnull final ArrayList<LSDBaseEntity> entitiesToAddTo, @Nonnull final List<String> images) {
         final ArrayList<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>();
@@ -324,14 +342,19 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                 }
                 final int status = client.executeMethod(headMethod);
                 if (status < 400) {
-
-                    final String sizeStr = headMethod.getResponseHeader("Content-Length") == null ? "0" : headMethod.getResponseHeader("Content-Length").getValue();
-                    final String mimeType = headMethod.getResponseHeader("Content-Type") == null ? "application/octet-stream" : headMethod.getResponseHeader("Content-Type").getValue();
+                    final String sizeStr = headMethod.getResponseHeader("Content-Length") == null
+                                           ? "0"
+                                           : headMethod.getResponseHeader("Content-Length").getValue();
+                    final String mimeType = headMethod.getResponseHeader("Content-Type") == null
+                                            ? "application/octet-stream"
+                                            : headMethod.getResponseHeader("Content-Type").getValue();
                     final long size = Long.parseLong(sizeStr);
                     if (size >= MINIMUM_IMAGE_SIZE_IN_BYTES) {
                         final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
                         final String photoName = getNameFromURL(image);
-                        entity.setAttribute(LSDAttribute.NAME, "image_" + System.currentTimeMillis() + "_" + count++ + "_" + photoName);
+                        entity.setAttribute(LSDAttribute.NAME,
+                                            "image_" + System.currentTimeMillis() + "_" + count++ + "_" + photoName
+                                           );
                         entity.setType(LSDDictionaryTypes.BITMAP_IMAGE_2D);
                         entity.setAttribute(LSDAttribute.SOURCE, image);
                         entity.setAttribute(LSDAttribute.IMAGE_URL, image);
@@ -346,7 +369,6 @@ public class WebUtilRestHandler extends AbstractRestHandler {
             } catch (Exception e) {
                 log.error(e);
             }
-
         }
         Collections.sort(entities, new Comparator<LSDBaseEntity>() {
             public int compare(@Nonnull final LSDBaseEntity o1, @Nonnull final LSDBaseEntity o2) {
@@ -356,24 +378,29 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                 final long size2 = Long.parseLong(sizeStr2);
                 if (size2 > size1) {
                     return 1;
-                } else if (size2 < size1) {
+                }
+                else if (size2 < size1) {
                     return -1;
-                } else {
+                }
+                else {
                     return 0;
                 }
             }
-        });
+        }
+                        );
         entitiesToAddTo.addAll(entities);
     }
 
-    private String getNameFromURL(final String url) {
-        try {
-            final String path = new URL(url).getPath();
-            return path.substring(path.lastIndexOf('/') + 1).replaceAll("[^a-zA-Z0-9_]+", "_").toLowerCase();
-        } catch (MalformedURLException e) {
-            log.warn(e.getMessage(), e);
-            return "object";
-        }
+    @Nonnull
+    public LSDBaseEntity shorten(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+        checkForSingleValueParams(parameters, "url");
+        final String url = parameters.get("url")[0];
+        final URI uri = shortener.getShortenedURI(url);
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.WEBPAGE,
+                                                                                 UUIDFactory.randomUUID()
+                                                                                );
+        entity.setAttribute(LSDAttribute.SOURCE, uri.toString());
+        return entity;
     }
 
     public void setImageService(final DefaultImageService imageService) {

@@ -8,31 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BoardQueryRequest extends AbstractRequest {
-
-
-    public BoardQueryRequest() {
-        super();
-    }
-
-
-    public BoardQueryRequest(final LiquidSessionIdentifier liquidSessionId, @Nonnull final QueryType type) {
-        this(null, liquidSessionId, type, null);
-    }
-
-    public BoardQueryRequest(@Nonnull final QueryType type) {
-        this(null, null, type, null);
-    }
-
-    public BoardQueryRequest(@Nonnull final QueryType type, final LiquidURI alias) {
-        this(null, null, type, alias);
-    }
-
-    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type, final LiquidURI alias) {
-        this(null, sessionIdentifier, type, alias);
-    }
-
-
-    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                             @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
         super();
         setId(id);
         setQueryType(type);
@@ -40,6 +17,26 @@ public class BoardQueryRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
+    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type,
+                             final LiquidURI alias) {
+        this(null, sessionIdentifier, type, alias);
+    }
+
+    public BoardQueryRequest(final LiquidSessionIdentifier liquidSessionId, @Nonnull final QueryType type) {
+        this(null, liquidSessionId, type, null);
+    }
+
+    public BoardQueryRequest(@Nonnull final QueryType type, final LiquidURI alias) {
+        this(null, null, type, alias);
+    }
+
+    public BoardQueryRequest(@Nonnull final QueryType type) {
+        this(null, null, type, null);
+    }
+
+    public BoardQueryRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -51,20 +48,16 @@ public class BoardQueryRequest extends AbstractRequest {
         return Arrays.asList();
     }
 
-
-    public boolean isMutationRequest() {
-        return false;
-    }
-
     public List<String> getNotificationLocations() {
         return Arrays.asList();
     }
-
 
     @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.BOARD_QUERY;
     }
 
-
+    public boolean isMutationRequest() {
+        return false;
+    }
 }

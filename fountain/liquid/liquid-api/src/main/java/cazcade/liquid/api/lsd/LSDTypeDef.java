@@ -9,13 +9,12 @@ import java.util.List;
  */
 
 public interface LSDTypeDef extends Serializable {
+    String asString();
+
+    boolean canBe(LSDDictionaryTypes type);
 
     LSDType getPrimaryType();
 
     @Nonnull
     List<LSDType> getSecondaryTypes();
-
-    String asString();
-
-    boolean canBe(LSDDictionaryTypes type);
 }

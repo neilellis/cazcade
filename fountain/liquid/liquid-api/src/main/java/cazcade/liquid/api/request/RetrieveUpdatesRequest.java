@@ -11,28 +11,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
-
-    public RetrieveUpdatesRequest() {
-        super();
-    }
-
-
-    public RetrieveUpdatesRequest(final LiquidSessionIdentifier identity, final long since) {
-        this(null, identity, since);
-    }
-
-
-    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final long since) {
+    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                  final long since) {
         super();
         setSince(since);
         setId(id);
         setSessionId(identity);
     }
 
+    public RetrieveUpdatesRequest(final LiquidSessionIdentifier identity, final long since) {
+        this(null, identity, since);
+    }
+
     public RetrieveUpdatesRequest(final long since) {
         this(null, null, since);
     }
 
+    public RetrieveUpdatesRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -44,11 +41,8 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
         return Collections.EMPTY_LIST;
     }
 
-
     @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_UPDATES;
     }
-
-
 }

@@ -7,17 +7,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface AliasDAO {
-
     @Transactional
-    void saveUser(AliasEntity alias);
-
-    List<AliasEntity> listUsers();
+    void forEachUser(UserDAOCallback userDAOCallback);
 
     @Transactional
     AliasEntity getOrCreateAlias(String uri);
 
+    List<AliasEntity> listUsers();
+
     @Transactional
-    void forEachUser(UserDAOCallback userDAOCallback);
+    void saveUser(AliasEntity alias);
 
 
     interface UserDAOCallback {

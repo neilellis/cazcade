@@ -8,5 +8,5 @@
     <inherits name="cazcade.liquid.LiquidAPI"/>
 
     <source path="api"/>
-    
+
 </module>

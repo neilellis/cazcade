@@ -34,7 +34,8 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
     @Nonnull
     private final AtomicLong count = new AtomicLong();
 
-    public FountainExecutorServiceImpl(final int maxRetry, final int threadPoolSize, final int queueSize, final int requeueDelay, final int threadsPerBucket) {
+    public FountainExecutorServiceImpl(final int maxRetry, final int threadPoolSize, final int queueSize, final int requeueDelay,
+                                       final int threadsPerBucket) {
         super();
         this.maxRetry = maxRetry;
         this.threadPoolSize = threadPoolSize;
@@ -43,34 +44,8 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
         this.threadsPerBucket = threadsPerBucket;
     }
 
-    @Override
-    public void start() throws Exception {
-        super.start();
-        executors = new ArrayList<ThreadPoolExecutor>(threadPoolSize);
-        for (int i = 0; i < threadPoolSize; i++) {
-            executors.add(new ThreadPoolExecutor(threadsPerBucket, threadsPerBucket, 3600, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(queueSize)));
-        }
-        unlock();
-    }
-
-
-    @Override
-    public void stop() {
-        log.info("Stopping Fountain Executor.");
-        super.stop();
-        try {
-            for (int i = 0; i < threadPoolSize; i++) {
-                executors.get(i).shutdownNow();
-            }
-            executors.clear();
-            log.info("Fountain Executor STOPPED");
-        } catch (Exception e) {
-            ErrorHandler.handle(e);
-        }
-    }
-
-
-    public void execute(final boolean retry, @Nonnull final Object key, @Nonnull final FountainExecutable executable) throws InterruptedException {
+    public void execute(final boolean retry, @Nonnull final Object key, @Nonnull final FountainExecutable executable)
+            throws InterruptedException {
         begin();
         try {
             final int executorId = Math.abs(key.hashCode() % threadPoolSize);
@@ -81,30 +56,8 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
         }
     }
 
-    public void execute(@Nonnull final FountainExecutable executable) throws InterruptedException {
-        final ThreadPoolExecutor threadPoolExecutor = executors.get((int) (threadPoolSize * Math.random()));
-        executeInternal(false, executable, threadPoolExecutor);
-    }
-
-    public void execute(final boolean retry, @Nonnull final FountainExecutable executable) throws InterruptedException {
-        begin();
-        try {
-            final int minimum = Integer.MAX_VALUE;
-            ThreadPoolExecutor executor = null;
-            for (final ThreadPoolExecutor threadPoolExecutor : executors) {
-                final int i = threadPoolExecutor.getQueue().size();
-                if (i < minimum) {
-                    executor = threadPoolExecutor;
-                }
-            }
-            executeInternal(retry, executable, executor);
-        } finally {
-            end();
-
-        }
-    }
-
-    private void executeInternal(final boolean retry, @Nonnull final FountainExecutable executable, @Nonnull final ThreadPoolExecutor threadPoolExecutor) throws InterruptedException {
+    private void executeInternal(final boolean retry, @Nonnull final FountainExecutable executable,
+                                 @Nonnull final ThreadPoolExecutor threadPoolExecutor) throws InterruptedException {
         boolean cont = true;
         while (cont) {
             try {
@@ -148,28 +101,74 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
                             count.decrementAndGet();
                         }
                     }
-                });
+                }
+                                          );
                 cont = false;
                 count.incrementAndGet();
             } catch (RejectedExecutionException e) {
                 Thread.sleep(requeueDelay);
             }
-
         }
     }
 
+    public void execute(final boolean retry, @Nonnull final FountainExecutable executable) throws InterruptedException {
+        begin();
+        try {
+            final int minimum = Integer.MAX_VALUE;
+            ThreadPoolExecutor executor = null;
+            for (final ThreadPoolExecutor threadPoolExecutor : executors) {
+                final int i = threadPoolExecutor.getQueue().size();
+                if (i < minimum) {
+                    executor = threadPoolExecutor;
+                }
+            }
+            executeInternal(retry, executable, executor);
+        } finally {
+            end();
+        }
+    }
+
+    public void execute(@Nonnull final FountainExecutable executable) throws InterruptedException {
+        final ThreadPoolExecutor threadPoolExecutor = executors.get((int) (threadPoolSize * Math.random()));
+        executeInternal(false, executable, threadPoolExecutor);
+    }
+
+    @Override
+    public void start() throws Exception {
+        super.start();
+        executors = new ArrayList<ThreadPoolExecutor>(threadPoolSize);
+        for (int i = 0; i < threadPoolSize; i++) {
+            executors.add(new ThreadPoolExecutor(threadsPerBucket, threadsPerBucket, 3600, TimeUnit.SECONDS,
+                                                 new LinkedBlockingQueue<Runnable>(queueSize)
+            )
+                         );
+        }
+        unlock();
+    }
+
+    @Override
+    public void stop() {
+        log.info("Stopping Fountain Executor.");
+        super.stop();
+        try {
+            for (int i = 0; i < threadPoolSize; i++) {
+                executors.get(i).shutdownNow();
+            }
+            executors.clear();
+            log.info("Fountain Executor STOPPED");
+        } catch (Exception e) {
+            ErrorHandler.handle(e);
+        }
+    }
 
     public void waitForExecutionsToFinish() throws InterruptedException {
         log.info("Waiting for executions to finish.");
         do {
-
             Thread.sleep(100);
             log.debug("Waiting for executions to finish.");
         } while (!isStopped() && count.get() > 0);
         if (count.get() > 0 && isStopped()) {
             log.info("Given up on waiting for executions to finish service is stopped.");
-
         }
     }
-
 }

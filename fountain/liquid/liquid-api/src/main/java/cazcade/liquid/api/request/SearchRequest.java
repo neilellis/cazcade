@@ -11,15 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchRequest extends AbstractRequest {
-
-    public SearchRequest() {
-        super();
-    }
-
-    public SearchRequest(final String searchText) {
-        this(null, null, searchText);
-    }
-
     public SearchRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final String searchText) {
         super();
         setId(id);
@@ -27,6 +18,13 @@ public class SearchRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
+    public SearchRequest(final String searchText) {
+        this(null, null, searchText);
+    }
+
+    public SearchRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -39,20 +37,16 @@ public class SearchRequest extends AbstractRequest {
         return null;
     }
 
-
-    public boolean isMutationRequest() {
-        return false;
-    }
-
     public List<String> getNotificationLocations() {
         return Arrays.asList();
     }
-
 
     @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.SEARCH;
     }
 
-
+    public boolean isMutationRequest() {
+        return false;
+    }
 }

@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  * @author neilellis@cazcade.com
  */
 public class ClientSessionManager {
-
     public static final long SESSION_TIMEOUT = 1200 * 1000;
 //    public static final long SESSION_TIMEOUT = 400;
 
@@ -31,14 +30,6 @@ public class ClientSessionManager {
         sessionMap.put(sessionId, session);
     }
 
-    public boolean hasSession(final String sessionId) {
-        final boolean result = sessionMap.containsKey(sessionId);
-        if (!result) {
-            log.debug("Session not found for {0}", sessionId);
-        }
-        return result;
-    }
-
     public ClientSession getSession(final String sessionId) {
         log.debug("Retrieving session for {0}", sessionId);
         final ClientSession clientSession = sessionMap.get(sessionId);
@@ -46,6 +37,14 @@ public class ClientSessionManager {
             clientSession.markUsed();
         }
         return clientSession;
+    }
+
+    public boolean hasSession(final String sessionId) {
+        final boolean result = sessionMap.containsKey(sessionId);
+        if (!result) {
+            log.debug("Session not found for {0}", sessionId);
+        }
+        return result;
     }
 
     public void start() {
@@ -60,13 +59,8 @@ public class ClientSessionManager {
                 }
                 closeSesions(expiredSessions);
             }
-        }, SESSION_TIMEOUT, SESSION_TIMEOUT / 4, TimeUnit.MILLISECONDS);
-    }
-
-    public void stop() {
-        log.warn("Shutting down Client Session Manager");
-        reaper.shutdownNow();
-        closeSesions(sessionMap.keySet());
+        }, SESSION_TIMEOUT, SESSION_TIMEOUT / 4, TimeUnit.MILLISECONDS
+                                     );
     }
 
     private void closeSesions(@Nonnull final Set<String> sessions) {
@@ -82,5 +76,9 @@ public class ClientSessionManager {
         sessionMap.remove(sessionIdentifier);
     }
 
-
+    public void stop() {
+        log.warn("Shutting down Client Session Manager");
+        reaper.shutdownNow();
+        closeSesions(sessionMap.keySet());
+    }
 }

@@ -12,24 +12,22 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public abstract class CreateContainerCommand extends AbstractCreateCommand {
-
     public CreateContainerCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
 
-
     @Override
     public void execute() {
-
-        BusFactory.getInstance().send(new CreatePoolRequest(getType(), pool, getInitialName(), getInitialName(), getInitialName(), 200.0, 200.0), new AbstractResponseCallback<CreatePoolRequest>() {
+        BusFactory.getInstance().send(new CreatePoolRequest(getType(), pool, getInitialName(), getInitialName(), getInitialName(),
+                                                            200.0, 200.0
+        ), new AbstractResponseCallback<CreatePoolRequest>() {
             @Override
             public void onSuccess(final CreatePoolRequest message, final CreatePoolRequest response) {
             }
-        });
+        }
+                                     );
     }
 
     @Nonnull
     protected abstract String getInitialName();
-
-
 }

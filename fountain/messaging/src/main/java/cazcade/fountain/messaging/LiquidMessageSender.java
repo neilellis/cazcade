@@ -11,17 +11,15 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class LiquidMessageSender {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(LiquidMessageSender.class);
 
     private RabbitTemplate template;
 
 
-    public void setTemplate(final RabbitTemplate template) {
-        this.template = template;
+    public void dispatch(final String key, final LiquidRequest request) {
+        template.convertAndSend(key, request);
     }
-
 
     public void sendNotifications(@Nonnull final LiquidRequest request) {
         notifySession(request);
@@ -52,9 +50,8 @@ public class LiquidMessageSender {
         log.debug("Notification(s) sent.");
     }
 
-
-    public void dispatch(final String key, final LiquidRequest request) {
-        template.convertAndSend(key, request);
+    public void setTemplate(final RabbitTemplate template) {
+        this.template = template;
     }
 
 //    public LiquidRequest sendRPC(LiquidRequest request) {

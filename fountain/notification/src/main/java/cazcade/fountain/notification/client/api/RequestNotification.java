@@ -7,7 +7,6 @@ import cazcade.liquid.api.LiquidRequest;
  * @author neilelliz@cazcade.com
  */
 public class RequestNotification {
-
     private RequestState state;
     private final LiquidRequest request;
     private LiquidMessage response;
@@ -22,19 +21,19 @@ public class RequestNotification {
         this.request = request;
     }
 
-    public void setState(final RequestState state) {
-        this.state = state;
-    }
-
-    public RequestState getState() {
-        return state;
-    }
-
     public LiquidRequest getRequest() {
         return request;
     }
 
     public LiquidMessage getResponse() {
         return response;
+    }
+
+    public RequestState getState() {
+        return state;
+    }
+
+    public void setState(final RequestState state) {
+        this.state = state;
     }
 }

@@ -20,6 +20,32 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public interface LSDPersistedEntity extends LSDBaseEntity {
+    void assertLatestVersion();
+
+    /**
+     * Okay so this should really go somewhere else., in fact I'm not sure if it's even relevant anymore.
+     *
+     * @return the radius.
+     */
+    double calculateRadius();
+
+    @Nullable
+    LSDTransferEntity convertNodeToLSD(@Nonnull LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
+
+    void copyValuesToEntity(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute... attributes);
+
+    @SuppressWarnings({"TypeMayBeWeakened"})
+    @Nonnull
+    FountainRelationship createRelationshipTo(@Nonnull LSDPersistedEntity otherEntity, FountainRelationships type);
+
+    void forEachChild(@Nonnull NodeCallback callback) throws Exception;
+
+    @Nonnull
+    LSDPersistedEntity getLatestVersionFromFork();
+
+    @Nonnull
+    @Deprecated
+    org.neo4j.graphdb.Node getNeoNode();
 
 
     /**
@@ -31,96 +57,30 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
      */
     long getPersistenceId();
 
+    Iterable<String> getPropertyKeys();
+
+    @SuppressWarnings({"TypeMayBeWeakened"})
+    @Nonnull
+    Iterable<FountainRelationship> getRelationships(FountainRelationships type, Direction dir);
+
+    @Nonnull
+    Iterable<FountainRelationship> getRelationships(FountainRelationships... types);
+
+    @Nonnull
+    Iterable<FountainRelationship> getRelationships();
+
+    @SuppressWarnings({"TypeMayBeWeakened"})
+    @Nullable
+    FountainRelationship getSingleRelationship(FountainRelationships type, Direction dir);
+
     /**
      * Use with great caution, deletes the underlying persistent store value, should only
      * be used on extremely transient data like sessions.
      */
     void hardDelete();
 
-    @Nonnull
-    Iterable<FountainRelationship> getRelationships();
-
-    @Nonnull
-    Iterable<FountainRelationship> getRelationships(FountainRelationships... types);
-
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nonnull
-    Iterable<FountainRelationship> getRelationships(FountainRelationships type, Direction dir);
-
     @SuppressWarnings({"TypeMayBeWeakened"})
     boolean hasRelationship(FountainRelationships type, Direction dir);
-
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nullable
-    FountainRelationship getSingleRelationship(FountainRelationships type, Direction dir);
-
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nonnull
-    FountainRelationship createRelationshipTo(@Nonnull LSDPersistedEntity otherEntity, FountainRelationships type);
-
-    @Nonnull
-    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, FountainRelationships relationshipType, Direction direction);
-
-    @Nonnull
-    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, RelationshipType firstRelationshipType, Direction firstDirection, RelationshipType secondRelationshipType, Direction secondDirection);
-
-    @Nonnull
-    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, Object... relationshipTypesAndDirections);
-
-    Iterable<String> getPropertyKeys();
-
-    @Nonnull
-    @Deprecated
-    org.neo4j.graphdb.Node getNeoNode();
-
-    @Nonnull
-    LSDPersistedEntity mergeProperties(@Nonnull LSDTransferEntity source, boolean update, boolean ignoreType, @Nullable Runnable onRenameAction) throws InterruptedException;
-
-    @Nonnull
-    LSDPersistedEntity getLatestVersionFromFork();
-
-    int popularity();
-
-    @Nonnull
-    LSDPersistedEntity parentNode();
-
-    void setIDIfNotSetOnNode();
-
-    @Override
-    void timestamp();
-
-    boolean isDeleted() throws InterruptedException;
-
-    void copyValuesToEntity(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute... attributes);
-
-    @Nullable
-    LSDTransferEntity convertNodeToLSD(@Nonnull LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
-
-    boolean isOwner(@Nonnull LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
-
-    boolean isAuthor(@Nonnull LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
-
-    boolean isOwner(@Nonnull LiquidSessionIdentifier identity) throws InterruptedException;
-
-    boolean isLatestVersion();
-
-    void assertLatestVersion();
-
-    void forEachChild(@Nonnull NodeCallback callback) throws Exception;
-
-    /**
-     * Okay so this should really go somewhere else., in fact I'm not sure if it's even relevant anymore.
-     *
-     * @return the radius.
-     */
-    double calculateRadius();
-
-    /**
-     * Does this entity belong to a containing entity that is listed somewhere.
-     *
-     * @return true if it is.
-     */
-    boolean isListed();
 
     /**
      * Inherit permissions from a parent entity.
@@ -129,7 +89,55 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
      */
     void inheritPermissions(@Nonnull LSDBaseEntity parent);
 
-    boolean isAuthorized(@Nonnull LiquidSessionIdentifier identity, @Nonnull LiquidPermission... permissions) throws InterruptedException;
+    boolean isAuthor(@Nonnull LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
 
-    void setPermissionFlagsOnEntity(@Nonnull LiquidSessionIdentifier session, @Nullable LSDPersistedEntity parent, @Nonnull LSDBaseEntity entity) throws InterruptedException;
+    boolean isAuthorized(@Nonnull LiquidSessionIdentifier identity, @Nonnull LiquidPermission... permissions)
+            throws InterruptedException;
+
+    boolean isDeleted() throws InterruptedException;
+
+    boolean isLatestVersion();
+
+    /**
+     * Does this entity belong to a containing entity that is listed somewhere.
+     *
+     * @return true if it is.
+     */
+    boolean isListed();
+
+    boolean isOwner(@Nonnull LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
+
+    boolean isOwner(@Nonnull LiquidSessionIdentifier identity) throws InterruptedException;
+
+    @Nonnull
+    LSDPersistedEntity mergeProperties(@Nonnull LSDTransferEntity source, boolean update, boolean ignoreType,
+                                       @Nullable Runnable onRenameAction)
+            throws InterruptedException;
+
+    @Nonnull
+    LSDPersistedEntity parentNode();
+
+    int popularity();
+
+    void setIDIfNotSetOnNode();
+
+    void setPermissionFlagsOnEntity(@Nonnull LiquidSessionIdentifier session, @Nullable LSDPersistedEntity parent,
+                                    @Nonnull LSDBaseEntity entity)
+            throws InterruptedException;
+
+    @Override
+    void timestamp();
+
+    @Nonnull
+    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
+                       RelationshipType firstRelationshipType, Direction firstDirection, RelationshipType secondRelationshipType,
+                       Direction secondDirection);
+
+    @Nonnull
+    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
+                       FountainRelationships relationshipType, Direction direction);
+
+    @Nonnull
+    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
+                       Object... relationshipTypesAndDirections);
 }

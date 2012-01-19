@@ -1,17 +1,9 @@
 package cazcade.fountain.server.rest.servlet;
 
-import cazcade.common.CommonConstants;
-import org.apache.log4j.Logger;
-import org.eclipse.jetty.continuation.Continuation;
-
-import java.io.IOException;
-import java.util.List;
-
 /**
  * A RabbitMQ consumer that passes all deliveries to a Jetty continuation.
  */
 public class ContinuationConsumer /*extends DefaultConsumer*/ {
-
 //    private final Continuation continuation;
 //
 //    private static final Logger LOG = Logger.getLogger(ContinuationConsumer.class);

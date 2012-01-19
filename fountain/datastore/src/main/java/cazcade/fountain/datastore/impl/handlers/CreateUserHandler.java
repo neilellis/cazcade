@@ -16,11 +16,8 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserRequest> implements CreateUserRequestHandler {
-
-
     public CreateUserHandler() {
         super();
-
     }
 
     @Nonnull
@@ -29,7 +26,6 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
         final Transaction transaction = neo.beginTx();
         final LSDPersistedEntity userPersistedEntity;
         try {
-
             userPersistedEntity = userDAO.createUser(request.getRequestEntity(), false);
 
             final LSDTransferEntity entity = userPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
@@ -47,8 +43,5 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
         } finally {
             transaction.finish();
         }
-
     }
-
-
 }

@@ -10,17 +10,20 @@ import javax.annotation.Nonnull;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RetrievePoolObjectHandler extends AbstractRetrievalHandler<RetrievePoolObjectRequest> implements RetrievePoolObjectRequestHandler {
-
+public class RetrievePoolObjectHandler extends AbstractRetrievalHandler<RetrievePoolObjectRequest>
+        implements RetrievePoolObjectRequestHandler {
     @Nonnull
     public RetrievePoolObjectRequest handle(@Nonnull final RetrievePoolObjectRequest request) throws InterruptedException {
         final LSDTransferEntity entity;
         if (request.getTarget() == null) {
-            entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.isHistorical(), request.getDetail());
+            entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(),
+                                             request.isHistorical(), request.getDetail()
+                                            );
             if (entity == null) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
             }
-        } else {
+        }
+        else {
             throw new UnsupportedOperationException("Only URI retrieval supported now.");
 //            entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getTarget(), request.isInternal(), request.isHistorical(), request.getDetail());
         }

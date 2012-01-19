@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class DefaultRequestValidator extends AbstractRequestValidator<LiquidRequest> {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(DefaultRequestValidator.class);
 
@@ -19,6 +18,5 @@ public class DefaultRequestValidator extends AbstractRequestValidator<LiquidRequ
         if (request.getRequestEntity() != null) {
             entityValidator.validate(request.getRequestEntity(), level);
         }
-
     }
 }

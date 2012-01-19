@@ -14,8 +14,8 @@ import java.util.Collection;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<RetrievePoolRosterRequest> implements RetrievePoolRosterRequestHandler {
-
+public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<RetrievePoolRosterRequest>
+        implements RetrievePoolRosterRequestHandler {
     @Nonnull
     public RetrievePoolRosterRequest handle(@Nonnull final RetrievePoolRosterRequest request) throws InterruptedException {
         LSDPersistedEntity persistedEntity;
@@ -28,15 +28,20 @@ public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<Retrieve
             entity.setType(LSDDictionaryTypes.ALIAS_LIST);
 
             if (request.getUri() != null) {
-                entities = socialDAO.getRosterNoTX(request.getUri(), request.isInternal(), request.getSessionIdentifier(), request.getDetail());
-            } else {
-                entities = socialDAO.getRosterNoTX(request.getTarget(), request.isInternal(), request.getSessionIdentifier(), request.getDetail());
+                entities = socialDAO.getRosterNoTX(request.getUri(), request.isInternal(), request.getSessionIdentifier(),
+                                                   request.getDetail()
+                                                  );
+            }
+            else {
+                entities = socialDAO.getRosterNoTX(request.getTarget(), request.isInternal(), request.getSessionIdentifier(),
+                                                   request.getDetail()
+                                                  );
             }
             transaction.success();
             if (entities == null || entities.isEmpty()) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
-
-            } else {
+            }
+            else {
                 entity.addSubEntities(LSDAttribute.CHILD, entities);
                 return LiquidResponseHelper.forServerSuccess(request, entity);
             }
@@ -46,6 +51,5 @@ public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<Retrieve
         } finally {
             transaction.finish();
         }
-
     }
 }

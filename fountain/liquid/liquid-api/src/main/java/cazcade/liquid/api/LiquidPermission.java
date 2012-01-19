@@ -6,15 +6,10 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public enum LiquidPermission {
-
     VIEW('v'), MODIFY('m'), EDIT('e'), SYSTEM('s'), DELETE('d'), /*EXECUTE('x')*/;
 
 
     private final char shortForm;
-
-    LiquidPermission(final char c) {
-        shortForm = c;
-    }
 
     @Nonnull
     public static LiquidPermission fromChar(final char c) {
@@ -34,7 +29,10 @@ public enum LiquidPermission {
             default:
                 throw new IllegalArgumentException("Unrecognized liquid action " + c);
         }
+    }
 
+    LiquidPermission(final char c) {
+        shortForm = c;
     }
 
     public char asShortForm() {

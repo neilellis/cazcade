@@ -14,17 +14,8 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class LiquidMessageConverter implements MessageConverter {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(LiquidMessageConverter.class);
-
-    @Nonnull
-    @Override
-    public Message toMessage(final Object object, final MessageProperties messageProperties) throws MessageConversionException {
-        final String xml = LiquidXStreamFactory.getXstream().toXML(object);
-        log.debug(">>>>> Converted to {0}", xml);
-        return new Message(xml.getBytes(), new MessageProperties());
-    }
 
     @Override
     public Object fromMessage(@Nonnull final Message message) throws MessageConversionException {
@@ -33,12 +24,23 @@ public class LiquidMessageConverter implements MessageConverter {
         final Object object = LiquidXStreamFactory.getXstream().fromXML(xml);
         if (object instanceof LiquidMessage) {
             return object;
-        } else if (object instanceof RuntimeException) {
+        }
+        else if (object instanceof RuntimeException) {
             throw (RuntimeException) object;
-        } else if (object instanceof Exception) {
+        }
+        else if (object instanceof Exception) {
             throw new MessageConversionException("Exception sent as object.", (Throwable) object);
-        } else {
+        }
+        else {
             return object;
         }
+    }
+
+    @Nonnull
+    @Override
+    public Message toMessage(final Object object, final MessageProperties messageProperties) throws MessageConversionException {
+        final String xml = LiquidXStreamFactory.getXstream().toXML(object);
+        log.debug(">>>>> Converted to {0}", xml);
+        return new Message(xml.getBytes(), new MessageProperties());
     }
 }

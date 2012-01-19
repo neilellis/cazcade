@@ -19,14 +19,6 @@ public class LSDNodeTest extends TestCase {
     private LSDMarshallerFactory marshallerFactory;
     private LSDUnmarshallerFactory unmarshallerFactory;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
-        marshallerFactory = (LSDMarshallerFactory) applicationContext.getBean("marshalerFactory");
-        unmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory");
-    }
-
     public void test() throws IOException {
         final Properties props = new Properties();
         props.load(getClass().getResourceAsStream("test.properties"));
@@ -36,7 +28,10 @@ public class LSDNodeTest extends TestCase {
 
         final LSDSimpleEntity convertedEntity = LSDSimpleEntity.createFromNode(lsdNode);
         marshallerFactory.getMarshalers().get("plist").marshal(entity, System.out);
-        marshallerFactory.getMarshalers().get("plist").marshal(entity, new FileOutputStream(System.getProperty("java.io.tmpdir") + "/liquid_test.plist"));
+        marshallerFactory.getMarshalers().get("plist").marshal(entity, new FileOutputStream(System.getProperty("java.io.tmpdir") +
+                                                                                            "/liquid_test.plist"
+        )
+                                                              );
         final Map<String, String> convertedMap = convertedEntity.getMap();
         for (final Map.Entry<String, String> entry : convertedMap.entrySet()) {
             System.out.println(entry.getKey() + '=' + entry.getValue());
@@ -44,12 +39,8 @@ public class LSDNodeTest extends TestCase {
         for (final Map.Entry<String, String> entry : propMap.entrySet()) {
             System.out.println(entry.getKey());
             assertEquals(entry.getValue(), convertedMap.get(entry.getKey()));
-
         }
-
-
     }
-
 
     public void testArrayMarshalling() throws IOException {
         final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
@@ -70,13 +61,21 @@ public class LSDNodeTest extends TestCase {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         marshallerFactory.getMarshalers().get("xml").marshal(entity, byteArrayOutputStream);
         System.err.println(new String(byteArrayOutputStream.toByteArray(), "utf8"));
-        final LSDBaseEntity unmarshalledEntity = unmarshallerFactory.getUnmarshalers().get("xml").unmarshal(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+        final LSDBaseEntity unmarshalledEntity = unmarshallerFactory.getUnmarshalers().get("xml").unmarshal(
+                new ByteArrayInputStream(byteArrayOutputStream.toByteArray())
+                                                                                                           );
         final List<String> values = unmarshalledEntity.getAttributeAsList(LSDAttribute.valueOf("x.test_with_underscore"));
         assertEquals("1", values.get(0));
         assertEquals("2", values.get(1));
         assertEquals("3", values.get(2));
         assertEquals(3, values.size());
-
     }
 
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
+        marshallerFactory = (LSDMarshallerFactory) applicationContext.getBean("marshalerFactory");
+        unmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory");
+    }
 }

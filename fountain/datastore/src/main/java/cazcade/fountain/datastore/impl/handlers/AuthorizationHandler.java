@@ -41,7 +41,8 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
             final LSDPersistedEntity persistedEntity;
             if (request.getTarget() != null) {
                 persistedEntity = fountainNeo.findByUUID(request.getTarget());
-            } else {
+            }
+            else {
                 persistedEntity = fountainNeo.findByURI(request.getUri());
                 if (persistedEntity == null) {
                     log.warn("Client asked for authorization on  " + request.getUri() + " which could not be found.");
@@ -53,10 +54,12 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
                 final boolean auth = isAuthorized(request, persistedEntity);
                 if (auth) {
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.getValue());
-                } else {
+                }
+                else {
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_DENIAL.getValue());
                 }
-            } else {
+            }
+            else {
                 entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_NOT_REQUIRED.getValue());
             }
             transaction.success();
@@ -78,7 +81,8 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
     }
 
-    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final LSDPersistedEntity persistedEntity) throws InterruptedException {
+    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final LSDPersistedEntity persistedEntity)
+            throws InterruptedException {
         boolean auth;
         auth = persistedEntity.isAuthorized(request.getSessionIdentifier(), request.getActions());
         final List<AuthorizationRequest> and = request.getAnd();
@@ -98,6 +102,4 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
         return auth;
     }
-
-
 }

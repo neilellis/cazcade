@@ -18,16 +18,15 @@ import java.security.Principal;
 class CazcadeLoginService implements LoginService {
     @Nonnull
     private static final Logger log = Logger.getLogger(CazcadeLoginService.class);
+    public IdentityService identityService;
 
 
     @Nonnull
     private final SecurityProvider securityProvider;
-    public IdentityService identityService;
 
     CazcadeLoginService() throws Exception {
         securityProvider = new SecurityProvider();
     }
-
 
     @Nonnull
     public String getName() {
@@ -36,13 +35,13 @@ class CazcadeLoginService implements LoginService {
 
     @Nullable
     public UserIdentity login(@Nonnull final String user, @Nonnull final Object password) {
-
         try {
             log.debug("user: " + user);
             final Principal principal = securityProvider.doAuthentication(user, password.toString());
             if (principal != null) {
                 return new DefaultUserIdentity(new Subject(), principal, new String[]{"restapi"});
-            } else {
+            }
+            else {
                 return null;
             }
         } catch (Exception e) {

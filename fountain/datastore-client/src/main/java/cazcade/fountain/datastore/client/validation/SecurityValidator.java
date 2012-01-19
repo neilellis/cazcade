@@ -10,5 +10,4 @@ import javax.annotation.Nullable;
 public interface SecurityValidator {
     @Nullable
     LiquidRequest validate(LiquidRequest request);
-
 }

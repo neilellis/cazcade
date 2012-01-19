@@ -8,12 +8,6 @@ import cazcade.vortex.gwt.util.client.analytics.Track;
  * @author neilellis@cazcade.com
  */
 public class CreateImageCommand extends CreateItemCommand {
-
-    @Override
-    protected void buildEntity(final BuildCallback onBuilt) {
-        //TODO
-    }
-
     public CreateImageCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
@@ -22,6 +16,10 @@ public class CreateImageCommand extends CreateItemCommand {
     public void execute() {
         super.execute();
         Track.getInstance().trackEvent("Add", "Add Image");
+    }
 
+    @Override
+    protected void buildEntity(final BuildCallback onBuilt) {
+        //TODO
     }
 }

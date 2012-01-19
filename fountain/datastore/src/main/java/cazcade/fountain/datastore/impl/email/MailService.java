@@ -6,7 +6,6 @@ import java.util.Map;
  * Mail service for constructing and sending e-mails.
  */
 public interface MailService {
-
     /**
      * Simple method for sending a mail based on a template.
      *
@@ -21,5 +20,4 @@ public interface MailService {
     void sendMailFromTemplate(String templateIdentifier, String subject, String[] to,
                               String[] cc, String[] bcc,
                               Map<String, Object> templateParameters, boolean test);
-
 }

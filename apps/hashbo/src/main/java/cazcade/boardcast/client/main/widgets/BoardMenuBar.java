@@ -29,20 +29,11 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class BoardMenuBar extends MenuBar {
-
     @Nullable
     private LiquidURI poolURI;
     private MenuBar addMenubar;
     private MenuBar accessMenuBar;
     private MenuBar collaborateMenuBar;
-
-
-    public interface SizeVariantBuilder<T extends CreateItemCommand> {
-
-        @Nonnull
-        T create(CreateItemCommand.Size size);
-
-    }
 
     public BoardMenuBar() {
         super(false);
@@ -52,8 +43,8 @@ public class BoardMenuBar extends MenuBar {
         setFocusOnHoverEnabled(true);
     }
 
-
-    public void init(@Nonnull final LSDBaseEntity board, final boolean modifierOptions, @Nullable final ChangeBackgroundDialog backgroundDialog) {
+    public void init(@Nonnull final LSDBaseEntity board, final boolean modifierOptions,
+                     @Nullable final ChangeBackgroundDialog backgroundDialog) {
         poolURI = board.getURI();
         clearItems();
         GWT.runAsync(new RunAsyncCallback() {
@@ -79,57 +70,34 @@ public class BoardMenuBar extends MenuBar {
                     createCollaborateMenu(board);
                 }
             }
-        });
-
-    }
-
-    private void createCollaborateMenu(@Nonnull final LSDBaseEntity board) {
-        collaborateMenuBar = new MenuBar(true);
-        addItem("Collaborate", collaborateMenuBar);
-        collaborateMenuBar.addItem("Chat (Alpha)", new Command() {
-            @Override
-            public void execute() {
-                HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
-                Track.getInstance().trackEvent("Chat", "Switched to Chat");
-            }
-        });
-    }
-
-    private void createAccessMenu(@Nonnull final LSDBaseEntity board) {
-        if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
-            if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
-                accessMenuBar.addItem("Make Readonly", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
-            } else {
-                accessMenuBar.addItem("Make Writeable", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI));
-
-            }
-            accessMenuBar.addItem("Make Private", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PRIVATE, poolURI));
-        } else {
-            accessMenuBar.addItem("Make Public (Readonly)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
-            accessMenuBar.addItem("Make Public (Writeable)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI));
         }
-
-
+                    );
     }
 
-    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull final LSDBaseEntity board) {
-
+    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog,
+                               @Nonnull final LSDBaseEntity board) {
         if (board.getBooleanAttribute(LSDAttribute.EDITABLE) && backgroundDialog != null) {
             addMenubar.addItem("Background", new Command() {
                 @Override
                 public void execute() {
                     backgroundDialog.show();
                     Track.getInstance().trackEvent("Background", "Dialog shown");
-
                 }
-            });
+            }
+                              );
         }
 
 //        addItem(new SafeHtmlBuilder().appendHtmlConstant("<img alt=\"add\" src=\"_images/add.png\"/>").toSafeHtml(), addMenu);
 
-        addMenubar.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
+        addMenubar.addItem("Sticky", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY,
+                                                               AbstractCreateCommand.Size.DEFAULT, "default"
+        )
+                          );
 
-        addMenubar.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
+        addMenubar.addItem("Caption", new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION,
+                                                                AbstractCreateCommand.Size.DEFAULT, "default"
+        )
+                          );
 
 
         addMenubar.addItem("Plain Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
@@ -138,7 +106,9 @@ public class BoardMenuBar extends MenuBar {
             public CreateItemCommand create(final CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "default");
             }
-        }, false));
+        }, false
+                                                                     )
+                          );
 
         addMenubar.addItem("Black on White Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Nonnull
@@ -146,7 +116,9 @@ public class BoardMenuBar extends MenuBar {
             public CreateItemCommand create(final CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
             }
-        }, false));
+        }, false
+                                                                              )
+                          );
 
 
         addMenubar.addItem("White on Black Text", createMenuBarForSizeVariants(new SizeVariantBuilder() {
@@ -155,40 +127,51 @@ public class BoardMenuBar extends MenuBar {
             public CreateItemCommand create(final CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
             }
-        }, false));
+        }, false
+                                                                              )
+                          );
 
 
         addMenubar.addItem("Photograph",
-                createMenuBarForSizeVariants(new SizeVariantBuilder() {
-                    @Nonnull
-                    @Override
-                    public CreateItemCommand create(final CreateItemCommand.Size size) {
-                        return new CreatePhotoCommand(poolURI, LSDDictionaryTypes.PHOTO2D, size, "default");
-                    }
-                }, true));
+                           createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                               @Nonnull
+                               @Override
+                               public CreateItemCommand create(final CreateItemCommand.Size size) {
+                                   return new CreatePhotoCommand(poolURI, LSDDictionaryTypes.PHOTO2D, size, "default");
+                               }
+                           }, true
+                                                       )
+                          );
 
         addMenubar.addItem("Webpage Link",
-                createMenuBarForSizeVariants(new SizeVariantBuilder() {
-                    @Nonnull
-                    @Override
-                    public CreateItemCommand create(final CreateItemCommand.Size size) {
-                        return new CreateWebsiteCommand(poolURI, LSDDictionaryTypes.WEBPAGE, size, "default");
-                    }
-                }, true));
+                           createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                               @Nonnull
+                               @Override
+                               public CreateItemCommand create(final CreateItemCommand.Size size) {
+                                   return new CreateWebsiteCommand(poolURI, LSDDictionaryTypes.WEBPAGE, size, "default");
+                               }
+                           }, true
+                                                       )
+                          );
 
         addMenubar.addItem("YouTube Video",
-                createMenuBarForSizeVariants(new SizeVariantBuilder() {
-                    @Nonnull
-                    @Override
-                    public CreateItemCommand create(final CreateItemCommand.Size size) {
-                        return new CreateYouTubeCommand(poolURI, LSDDictionaryTypes.YOUTUBE_MOVIE, size, "default");
-                    }
-                }, false));
+                           createMenuBarForSizeVariants(new SizeVariantBuilder() {
+                               @Nonnull
+                               @Override
+                               public CreateItemCommand create(final CreateItemCommand.Size size) {
+                                   return new CreateYouTubeCommand(poolURI, LSDDictionaryTypes.YOUTUBE_MOVIE, size, "default");
+                               }
+                           }, false
+                                                       )
+                          );
 
         addMenubar.addItem("Decorations", createShapeMenuBar());
 
         if (ClientApplicationConfiguration.isAlphaFeatures()) {
-            addMenubar.addItem("Your Card", new CreateAliasRefCommand(poolURI, LSDDictionaryTypes.ALIAS_REF, UserUtil.getCurrentAlias().getURI()));
+            addMenubar.addItem("Your Card", new CreateAliasRefCommand(poolURI, LSDDictionaryTypes.ALIAS_REF,
+                                                                      UserUtil.getCurrentAlias().getURI()
+            )
+                              );
 //                                subMenu.addItem("Custom Object (ALPHA)", new CreateCustomObjectCommand(poolURI, LSDDictionaryTypes.CUSTOM_OBJECT));
             addMenubar.addItem("Checklist (ALPHA)", new CreateChecklistCommand(poolURI, LSDDictionaryTypes.CHECKLIST_POOL));
         }
@@ -206,14 +189,19 @@ public class BoardMenuBar extends MenuBar {
         return menuBar;
     }
 
-
     @Nonnull
     private MenuBar createShapeMenuBar() {
         final MenuBar menuBar = new MenuBar(false);
-        final String[] names = new String[]{"arrow-down-1.png", "arrow-down-2.png", "arrow-left-1.png", "arrow-left-2.png", "arrow-right-1.png", "arrow-right-2.png", "arrow-up-1.png", "arrow-up-2.png", "circle_1.png", "circle_2.png", "circle_3.png", "star-1.png", "star-2.png", "star-3.png", "tick-1.png", "x-1.png"};
+        final String[] names = new String[]{"arrow-down-1.png", "arrow-down-2.png", "arrow-left-1.png", "arrow-left-2.png",
+                "arrow-right-1.png", "arrow-right-2.png", "arrow-up-1.png", "arrow-up-2.png", "circle_1.png", "circle_2.png",
+                "circle_3.png", "star-1.png", "star-2.png", "star-3.png", "tick-1.png", "x-1.png"};
         for (final String name : names) {
             final MenuBar shapeVariants = createMenuBarForShapeVariants(name);
-            menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, "black") + "' width='24' height='24'/>").toSafeHtml(), shapeVariants);
+            menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" +
+                                                                     createUrlForDecoration(name, "black") +
+                                                                     "' width='24' height='24'/>"
+                                                                    ).toSafeHtml(), shapeVariants
+                           );
         }
         return menuBar;
     }
@@ -229,12 +217,66 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private void createMenuItemForDecoration(final String name, @Nonnull final MenuBar menuBar, final String variant) {
-        menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" + createUrlForDecoration(name, variant) + "' width='24' height='24'/>").toSafeHtml(), new CreateDecorationCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D, createUrlForDecoration(name, variant), AbstractCreateCommand.Size.DEFAULT, "default"));
+        menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" +
+                                                                 createUrlForDecoration(name, variant) +
+                                                                 "' width='24' height='24'/>"
+                                                                ).toSafeHtml(), new CreateDecorationCommand(poolURI,
+                                                                                                            LSDDictionaryTypes.BITMAP_IMAGE_2D,
+                                                                                                            createUrlForDecoration(
+                                                                                                                    name, variant
+                                                                                                                                  ),
+                                                                                                            AbstractCreateCommand.Size.DEFAULT,
+                                                                                                            "default"
+        )
+                       );
     }
 
     private String createUrlForDecoration(final String name, final String theme) {
         return BrowserUtil.convertRelativeUrlToAbsolute("./_decorations/" + theme + "/" + name);
     }
 
+    private void createAccessMenu(@Nonnull final LSDBaseEntity board) {
+        if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+            if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+                accessMenuBar.addItem("Make Readonly", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY,
+                                                                                   poolURI
+                )
+                                     );
+            }
+            else {
+                accessMenuBar.addItem("Make Writeable", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI
+                )
+                                     );
+            }
+            accessMenuBar.addItem("Make Private", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PRIVATE, poolURI));
+        }
+        else {
+            accessMenuBar.addItem("Make Public (Readonly)", new ChangePermissionCommand(
+                    LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI
+            )
+                                 );
+            accessMenuBar.addItem("Make Public (Writeable)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC,
+                                                                                         poolURI
+            )
+                                 );
+        }
+    }
 
+    private void createCollaborateMenu(@Nonnull final LSDBaseEntity board) {
+        collaborateMenuBar = new MenuBar(true);
+        addItem("Collaborate", collaborateMenuBar);
+        collaborateMenuBar.addItem("Chat (Alpha)", new Command() {
+            @Override
+            public void execute() {
+                HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
+                Track.getInstance().trackEvent("Chat", "Switched to Chat");
+            }
+        }
+                                  );
+    }
+
+    public interface SizeVariantBuilder<T extends CreateItemCommand> {
+        @Nonnull
+        T create(CreateItemCommand.Size size);
+    }
 }

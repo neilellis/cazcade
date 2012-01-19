@@ -48,169 +48,8 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class BoardcastChatView extends EntityBackedFormPanel {
-
     @Nonnull
     public static final String RHS_MINIMIZED = "rhs-minimized";
-    @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private LiquidURI poolURI;
-    private LiquidBoardURL boardURL;
-    @Nonnull
-    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-    private LiquidURI previousPoolURI;
-    private LSDTransferEntity poolEntity;
-    private long changePermissionListener;
-
-
-    @Override
-    public void onLocalHistoryTokenChanged(@Nonnull final String token) {
-        boardURL = new LiquidBoardURL(token);
-        previousPoolURI = poolURI;
-        poolURI = boardURL.asURI();
-        refresh();
-    }
-
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-        stream.sinkEvents(Event.MOUSEEVENTS);
-//        stream.addHandler(new RHSMouseOverHandler(), MouseOverEvent.getType());
-        rhs.sinkEvents(Event.MOUSEEVENTS);
-        rhs.addHandler(new RHSMouseOutHandler(), MouseOutEvent.getType());
-        addChatBox.sinkEvents(Event.MOUSEEVENTS);
-        addChatBox.addHandler(new RHSMouseOverHandler(), MouseOverEvent.getType());
-
-
-        hideReveal.sinkEvents(Event.MOUSEEVENTS);
-
-        hideReveal.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-            @Override
-            public void onValueChange(@Nonnull final ValueChangeEvent<Boolean> booleanValueChangeEvent) {
-                ClientPreferences.setBooleanPreference(ClientPreferences.Preference.RHS_HIDE, booleanValueChangeEvent.getValue());
-                if (!booleanValueChangeEvent.getValue()) {
-                    showRhs();
-                } else {
-                    hideRhs();
-                }
-            }
-        });
-        hideReveal.setValue(ClientPreferences.booleanPreference(ClientPreferences.Preference.RHS_HIDE), true);
-
-        returnFromChatButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(final ClickEvent event) {
-                HistoryManager.navigate(boardURL.toString());
-            }
-        });
-    }
-
-    private void refresh() {
-//        inbox.setFeatures(FormatUtil.getInstance());
-        if (changePermissionListener != 0) {
-            BusFactory.getInstance().removeListener(changePermissionListener);
-        }
-
-        changePermissionListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.CHANGE_PERMISSION, new BusListener() {
-            @Override
-            public void handle(final LiquidMessage message) {
-                refresh();
-            }
-        });
-
-
-        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI.asShortUrl().isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
-
-            @Override
-            public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
-                if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
-                    if (UserUtil.isAnonymousOrLoggedOut()) {
-                        Window.alert("Please login first.");
-                    } else {
-                        Window.alert("You don't have permission");
-                    }
-                } else {
-                    super.onFailure(message, response);
-                }
-            }
-
-            @Override
-            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
-
-                StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
-
-                ClientLog.log("Got response.");
-                poolEntity = response.getResponse().copy();
-                GWT.runAsync(new RunAsyncCallback() {
-                    @Override
-                    public void onFailure(final Throwable reason) {
-                        ClientLog.log(reason);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        ClientLog.log(poolEntity.dump());
-                        contentArea.clear();
-                        contentArea.init(poolEntity, FormatUtil.getInstance(), threadSafeExecutor);
-                    }
-                });
-                GWT.runAsync(new RunAsyncCallback() {
-                    @Override
-                    public void onFailure(final Throwable reason) {
-                        ClientLog.log(reason);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        if (poolEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
-                            contentArea.setBackgroundImage(poolEntity.getAttribute(LSDAttribute.IMAGE_URL));
-                        }
-                        if (poolEntity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-//                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
-                            boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
-                            menuBar.init(poolEntity, true, null);
-                        } else {
-                            menuBar.init(poolEntity, false, null);
-                            boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
-
-                        }
-                    }
-                });
-                GWT.runAsync(new RunAsyncCallback() {
-                    @Override
-                    public void onFailure(final Throwable reason) {
-                        ClientLog.log(reason);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        stream.init(poolURI, FormatUtil.getInstance());
-                        addChatBox.init(poolURI);
-                    }
-                });
-
-            }
-        });
-    }
-
-    @Nonnull
-    @Override
-    protected String getReferenceDataPrefix() {
-        return "board";
-    }
-
-    @Nonnull
-    @Override
-    protected Runnable getUpdateEntityAction(final Bindable field) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                throw new UnsupportedOperationException("Don't support updates to board from Chat View");
-            }
-        };
-    }
-
-    interface BoardUiBinder extends UiBinder<HTMLPanel, BoardcastChatView> {
-    }
 
 
     private static final BoardUiBinder ourUiBinder = GWT.create(BoardUiBinder.class);
@@ -234,6 +73,15 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     DivElement boardLockedIcon;
     @UiField
     Label returnFromChatButton;
+    @Nonnull
+    private final Bus bus = BusFactory.getInstance();
+    private LiquidURI poolURI;
+    private LiquidBoardURL boardURL;
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    private LiquidURI previousPoolURI;
+    private LSDTransferEntity poolEntity;
+    private long changePermissionListener;
 //    @UiField
 //    TabLayoutPanel communicationTabPanel;
 //    @UiField
@@ -245,7 +93,171 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     public BoardcastChatView() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
+    }
 
+    @Override
+    public void onLocalHistoryTokenChanged(@Nonnull final String token) {
+        boardURL = new LiquidBoardURL(token);
+        previousPoolURI = poolURI;
+        poolURI = boardURL.asURI();
+        refresh();
+    }
+
+    private void refresh() {
+//        inbox.setFeatures(FormatUtil.getInstance());
+        if (changePermissionListener != 0) {
+            BusFactory.getInstance().removeListener(changePermissionListener);
+        }
+
+        changePermissionListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI,
+                                                                                                 LiquidRequestType.CHANGE_PERMISSION,
+                                                                                                 new BusListener() {
+                                                                                                     @Override
+                                                                                                     public void handle(
+                                                                                                             final LiquidMessage message) {
+                                                                                                         refresh();
+                                                                                                     }
+                                                                                                 }
+                                                                                                );
+
+
+        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(),
+                                      poolURI.asShortUrl().isListedByConvention()
+        ), new AbstractResponseCallback<VisitPoolRequest>() {
+            @Override
+            public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
+                if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
+                    if (UserUtil.isAnonymousOrLoggedOut()) {
+                        Window.alert("Please login first.");
+                    }
+                    else {
+                        Window.alert("You don't have permission");
+                    }
+                }
+                else {
+                    super.onFailure(message, response);
+                }
+            }
+
+            @Override
+            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
+                StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
+
+                ClientLog.log("Got response.");
+                poolEntity = response.getResponse().copy();
+                GWT.runAsync(new RunAsyncCallback() {
+                    @Override
+                    public void onFailure(final Throwable reason) {
+                        ClientLog.log(reason);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        ClientLog.log(poolEntity.dump());
+                        contentArea.clear();
+                        contentArea.init(poolEntity, FormatUtil.getInstance(), threadSafeExecutor);
+                    }
+                }
+                            );
+                GWT.runAsync(new RunAsyncCallback() {
+                    @Override
+                    public void onFailure(final Throwable reason) {
+                        ClientLog.log(reason);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        if (poolEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
+                            contentArea.setBackgroundImage(poolEntity.getAttribute(LSDAttribute.IMAGE_URL));
+                        }
+                        if (poolEntity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
+//                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
+                            boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
+                            menuBar.init(poolEntity, true, null);
+                        }
+                        else {
+                            menuBar.init(poolEntity, false, null);
+                            boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
+                        }
+                    }
+                }
+                            );
+                GWT.runAsync(new RunAsyncCallback() {
+                    @Override
+                    public void onFailure(final Throwable reason) {
+                        ClientLog.log(reason);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        stream.init(poolURI, FormatUtil.getInstance());
+                        addChatBox.init(poolURI);
+                    }
+                }
+                            );
+            }
+        }
+                );
+    }
+
+    @Nonnull
+    @Override
+    protected String getReferenceDataPrefix() {
+        return "board";
+    }
+
+    @Nonnull
+    @Override
+    protected Runnable getUpdateEntityAction(final Bindable field) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                throw new UnsupportedOperationException("Don't support updates to board from Chat View");
+            }
+        };
+    }
+
+    @Override
+    protected void onChange(final LSDBaseEntity entity) {
+        super.onChange(entity);
+        refresh();
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        stream.sinkEvents(Event.MOUSEEVENTS);
+//        stream.addHandler(new RHSMouseOverHandler(), MouseOverEvent.getType());
+        rhs.sinkEvents(Event.MOUSEEVENTS);
+        rhs.addHandler(new RHSMouseOutHandler(), MouseOutEvent.getType());
+        addChatBox.sinkEvents(Event.MOUSEEVENTS);
+        addChatBox.addHandler(new RHSMouseOverHandler(), MouseOverEvent.getType());
+
+
+        hideReveal.sinkEvents(Event.MOUSEEVENTS);
+
+        hideReveal.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(@Nonnull final ValueChangeEvent<Boolean> booleanValueChangeEvent) {
+                ClientPreferences.setBooleanPreference(ClientPreferences.Preference.RHS_HIDE, booleanValueChangeEvent.getValue());
+                if (!booleanValueChangeEvent.getValue()) {
+                    showRhs();
+                }
+                else {
+                    hideRhs();
+                }
+            }
+        }
+                                        );
+        hideReveal.setValue(ClientPreferences.booleanPreference(ClientPreferences.Preference.RHS_HIDE), true);
+
+        returnFromChatButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                HistoryManager.navigate(boardURL.toString());
+            }
+        }
+                                            );
     }
 
     private void showRhs() {
@@ -256,6 +268,8 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         rhs.getElement().getStyle().setRight(Window.getClientWidth() - (PoolContentArea.DEFAULT_WIDTH + 500), Style.Unit.PX);
     }
 
+    interface BoardUiBinder extends UiBinder<HTMLPanel, BoardcastChatView> {
+    }
 
     private class RHSMouseOutHandler implements MouseOutHandler {
         @Override
@@ -265,7 +279,6 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 hideRhs();
             }
         }
-
     }
 
     private class RHSMouseOverHandler implements MouseOverHandler {
@@ -274,13 +287,5 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 //            board.removeStyleName(RHS_MINIMIZED);
             showRhs();
         }
-
-    }
-
-
-    @Override
-    protected void onChange(final LSDBaseEntity entity) {
-        super.onChange(entity);
-        refresh();
     }
 }

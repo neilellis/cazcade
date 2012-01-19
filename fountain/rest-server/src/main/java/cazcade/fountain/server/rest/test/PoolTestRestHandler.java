@@ -19,17 +19,10 @@ import java.util.Properties;
  */
 
 public class PoolTestRestHandler implements RestHandler {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(PoolTestRestHandler.class);
 
     private LSDEntityFactory lsdEntityFactory;
-
-    @Nonnull
-    public LSDBaseEntity update(final LiquidUUID poolId, final LSDBaseEntity lsdEntity, final Map<String, String[]> parameters) {
-        log.debug("Update method called.");
-        return lsdEntityFactory.createFromServletProperties(parameters);
-    }
 
     @Nonnull
     public LSDBaseEntity create(final LSDBaseEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) {
@@ -53,11 +46,17 @@ public class PoolTestRestHandler implements RestHandler {
         return LSDSimpleEntity.createFromProperties(propMap);
     }
 
+    public LSDEntityFactory getLsdFactory() {
+        return lsdEntityFactory;
+    }
+
     public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
         this.lsdEntityFactory = lsdEntityFactory;
     }
 
-    public LSDEntityFactory getLsdFactory() {
-        return lsdEntityFactory;
+    @Nonnull
+    public LSDBaseEntity update(final LiquidUUID poolId, final LSDBaseEntity lsdEntity, final Map<String, String[]> parameters) {
+        log.debug("Update method called.");
+        return lsdEntityFactory.createFromServletProperties(parameters);
     }
 }

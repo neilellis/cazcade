@@ -13,32 +13,12 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
     @Nonnull
     private final TreeMap<String, String> map = new TreeMap<String, String>();
 
-    @SuppressWarnings({"UnusedDeclaration"})
-    public LSDMapPropertyStore() {
-    }
-
     public LSDMapPropertyStore(final Map<String, String> lsdProperties) {
         map.putAll(lsdProperties);
     }
 
-    @Override
-    public void put(final String property, final String value) {
-        map.put(property, value);
-    }
-
-    @Override
-    public String get(final String property) {
-        return map.get(property);
-    }
-
-    @Override
-    public Iterable<? extends String> getProperties() {
-        return map.keySet();
-    }
-
-    @Override
-    public void remove(final String property) {
-        map.remove(property);
+    @SuppressWarnings({"UnusedDeclaration"})
+    public LSDMapPropertyStore() {
     }
 
     @Nonnull
@@ -52,11 +32,6 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
         return map.containsKey(property);
     }
 
-    @Override
-    public Iterable<? extends String> valueIterator() {
-        return map.values();
-    }
-
     @Nonnull
     @Override
     public LSDPropertyStore copy() {
@@ -64,8 +39,28 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
     }
 
     @Override
+    public String get(final String property) {
+        return map.get(property);
+    }
+
+    @Override
+    public Iterable<? extends String> getProperties() {
+        return map.keySet();
+    }
+
+    @Override
     public boolean isSerializable() {
         return true;
+    }
+
+    @Override
+    public void put(final String property, final String value) {
+        map.put(property, value);
+    }
+
+    @Override
+    public void remove(final String property) {
+        map.remove(property);
     }
 
     @Override
@@ -75,5 +70,10 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
         sb.append("{map=").append(map);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public Iterable<? extends String> valueIterator() {
+        return map.values();
     }
 }

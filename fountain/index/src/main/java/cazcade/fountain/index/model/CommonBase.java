@@ -16,5 +16,4 @@ public class CommonBase extends BaseBase {
     protected Date created;
     protected Date deleted;
     protected Double rating;
-
 }

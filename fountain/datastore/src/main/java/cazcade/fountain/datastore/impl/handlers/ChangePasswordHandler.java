@@ -30,20 +30,29 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
             }
             if (request.getChangePasswordSecurityHash() != null) {
                 if (!userDAO.confirmHash(userURL, request.getChangePasswordSecurityHash())) {
-                    throw new AuthorizationException("Could not authorize changing of password for %s - hash didn't match.", userURL);
+                    throw new AuthorizationException("Could not authorize changing of password for %s - hash didn't match.",
+                                                     userURL
+                    );
                 }
             }
             if (request.getPassword() == null) {
                 userDAO.sendPasswordChangeRequest(userURL);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(LiquidRequestDetailLevel.MINIMAL, request.isInternal()));
-            } else {
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(
+                        LiquidRequestDetailLevel.MINIMAL, request.isInternal()
+                                                                                                      )
+                                                            );
+            }
+            else {
                 final String plainPassword = request.getPassword();
                 final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
                 final String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
                 persistedEntity.setAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(request.getDetail(),
+                                                                                                       request.isInternal()
+                                                                                                      )
+                                                            );
             }
         } catch (RuntimeException e) {
             transaction.failure();
@@ -52,5 +61,4 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
             transaction.finish();
         }
     }
-
 }

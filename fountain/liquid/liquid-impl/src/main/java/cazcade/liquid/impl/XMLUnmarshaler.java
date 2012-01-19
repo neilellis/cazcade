@@ -29,11 +29,11 @@ public class XMLUnmarshaler implements LSDUnmarshaler {
         return (LSDTransferEntity) LiquidXStreamFactory.getXstream().fromXML(input);
     }
 
-    public void setLsdFactory(final LSDSimpleEntityFactory lsdFactory) {
-        this.lsdFactory = lsdFactory;
-    }
-
     public LSDSimpleEntityFactory getLsdFactory() {
         return lsdFactory;
+    }
+
+    public void setLsdFactory(final LSDSimpleEntityFactory lsdFactory) {
+        this.lsdFactory = lsdFactory;
     }
 }

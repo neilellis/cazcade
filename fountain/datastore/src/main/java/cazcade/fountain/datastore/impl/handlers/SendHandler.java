@@ -17,8 +17,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class SendHandler extends AbstractDataStoreHandler<SendRequest> implements SendRequestHandler {
-
-
     @Nonnull
     public SendRequest handle(@Nonnull final SendRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
@@ -33,9 +31,15 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
             final LSDTransferEntity entity;
             final LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
             if (request.getRequestEntity() != null) {
-                entity = poolDAO.createPoolObjectTx(poolPersistedEntity, recipientSessionId, owner, request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(), request.getDetail(), request.isInternal(), false);
-            } else {
-                entity = poolDAO.linkPoolObjectTx(recipientSessionId, request.getRecipientAlias(), request.getUri(), request.getInboxURI(), request.getDetail(), request.isInternal());
+                entity = poolDAO.createPoolObjectTx(poolPersistedEntity, recipientSessionId, owner,
+                                                    request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(),
+                                                    request.getDetail(), request.isInternal(), false
+                                                   );
+            }
+            else {
+                entity = poolDAO.linkPoolObjectTx(recipientSessionId, request.getRecipientAlias(), request.getUri(),
+                                                  request.getInboxURI(), request.getDetail(), request.isInternal()
+                                                 );
             }
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
@@ -46,5 +50,4 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
             transaction.finish();
         }
     }
-
 }

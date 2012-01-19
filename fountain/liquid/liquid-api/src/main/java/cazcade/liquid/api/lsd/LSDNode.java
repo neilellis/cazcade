@@ -9,10 +9,6 @@ import java.util.List;
  */
 
 public interface LSDNode {
-    boolean isLeaf();
-
-    boolean isArray();
-
     @Nonnull
     List<LSDNode> getChildren();
 
@@ -20,4 +16,8 @@ public interface LSDNode {
     String getLeafValue();
 
     String getName();
+
+    boolean isArray();
+
+    boolean isLeaf();
 }

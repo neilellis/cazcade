@@ -9,24 +9,18 @@ import java.io.Serializable;
  * @author neilellis@cazcade.com
  */
 public class LiquidUUID implements Serializable {
-
     private String s;
-
-    public LiquidUUID() {
-    }
-
-    public LiquidUUID(final String s) {
-        this.s = s;
-    }
 
     @Nonnull
     public static LiquidUUID fromString(final String s) {
         return new LiquidUUID(s);
     }
 
-    @Override
-    public String toString() {
-        return s;
+    public LiquidUUID(final String s) {
+        this.s = s;
+    }
+
+    public LiquidUUID() {
     }
 
     @Override
@@ -50,5 +44,10 @@ public class LiquidUUID implements Serializable {
     @Override
     public int hashCode() {
         return s != null ? s.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return s;
     }
 }

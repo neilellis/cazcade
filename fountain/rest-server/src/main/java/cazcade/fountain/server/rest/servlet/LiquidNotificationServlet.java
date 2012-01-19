@@ -32,7 +32,6 @@ import static cazcade.common.CommonConstants.QUEUE_ATTRIBUTE;
  * @author Neil Ellis
  */
 public class LiquidNotificationServlet extends AbstractRestServlet {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(LiquidNotificationServlet.class);
 
@@ -41,15 +40,10 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
     private RabbitTemplate rabbitTemplate;
 
     @Override
-    public void init(final ServletConfig config) throws ServletException {
-        super.init(config);
-        rabbitAdmin = (RabbitAdmin) applicationContext.getBean("rabbitAdmin");
-        rabbitTemplate = (RabbitTemplate) applicationContext.getBean("rabbitTemplate");
-        exchange = (TopicExchange) applicationContext.getBean("mainExchange");
-    }
-
-    @Override
-    public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final String pathWithQuery, final String serviceName, final String methodName, @Nonnull final List<LiquidUUID> uuids, final String sessionId, final String format) throws RuntimeException, ServletException, IOException {
+    public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp,
+                           final String pathWithQuery, final String serviceName, final String methodName,
+                           @Nonnull final List<LiquidUUID> uuids, final String sessionId, final String format)
+            throws RuntimeException, ServletException, IOException {
         final LSDTransferEntity sessionStateEntity = LSDSimpleEntity.createEmpty();
         sessionStateEntity.setType(LSDDictionaryTypes.SESSION);
         final LiquidUUID sessionUUID = LiquidUUID.fromString(sessionId);
@@ -62,64 +56,6 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         }
         collect(queue, resp);
     }
-
-
-    @Nonnull
-    public ArrayList<LiquidMessage> collect(final Queue queue, @Nonnull final HttpServletResponse response) {
-        try {
-            final ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>();
-            LiquidMessage message;
-            int count = 0;
-
-            while (count == 0) {
-
-                message = (LiquidMessage) rabbitTemplate.receiveAndConvert();
-
-                if (message instanceof VisitPoolRequest && ((VisitPoolRequest) message).getSessionIdentifier().getSession().toString().equals(RestContext.getContext().getCredentials().getSession().toString())) {
-                    log.debug("**** Pool visit, so now switching pools. ****");
-                    handlePoolVisit(message, queue);
-
-                }
-                response.getWriter().write(LiquidXStreamFactory.getXstream().toXML(message));
-
-                if (message != null) {
-                    result.add(message);
-                    count++;
-                    if (count == 0) {
-                        Thread.sleep(1000);
-                    }
-                }
-
-            }
-            return result;
-        } catch (Exception e) {
-            log.error(e);
-            return new ArrayList<LiquidMessage>();
-
-        }
-
-    }
-
-
-    private boolean authorize(@Nonnull final HttpServletResponse resp, final LiquidUUID uuid) {
-        try {
-            final AuthorizationService authorizationService = (AuthorizationService) applicationContext.getBean("authorizationService");
-            final AuthorizationStatus authorizationStatus = authorizationService.authorize(RestContext.getContext().getCredentials(), uuid, LiquidPermission.EDIT);
-            if (!(authorizationStatus == AuthorizationStatus.ACCEPTED)) {
-                doAuthorizationError(resp);
-                return false;
-            }
-        } catch (Exception e) {
-            log.error(e);
-            return false;
-        }
-        return true;
-    }
-
-    private void doAuthorizationError(@Nonnull final HttpServletResponse resp) throws IOException {
-        resp.sendError(401, "You are not authorized to listen to notifications from this resource.");
-    }
-
 
     private Queue getQueue(@Nonnull final HttpServletRequest request) {
         final HttpSession session = request.getSession(true);
@@ -135,6 +71,67 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         rabbitAdmin.declareBinding(new Binding(queue, exchange, "session." + identity.getSession()));
         rabbitAdmin.declareBinding(new Binding(queue, exchange, "user." + identity.getUserURL()));
         rabbitAdmin.declareBinding(new Binding(queue, exchange, "alias." + identity.getAliasURL()));
+    }
+
+    private boolean authorize(@Nonnull final HttpServletResponse resp, final LiquidUUID uuid) {
+        try {
+            final AuthorizationService authorizationService = (AuthorizationService) applicationContext.getBean(
+                    "authorizationService"
+                                                                                                               );
+            final AuthorizationStatus authorizationStatus = authorizationService.authorize(
+                    RestContext.getContext().getCredentials(), uuid, LiquidPermission.EDIT
+                                                                                          );
+            if (!(authorizationStatus == AuthorizationStatus.ACCEPTED)) {
+                doAuthorizationError(resp);
+                return false;
+            }
+        } catch (Exception e) {
+            log.error(e);
+            return false;
+        }
+        return true;
+    }
+
+    private void doAuthorizationError(@Nonnull final HttpServletResponse resp) throws IOException {
+        resp.sendError(401, "You are not authorized to listen to notifications from this resource.");
+    }
+
+    private void addLocation(final Queue queue, final LiquidUUID uuid) {
+        rabbitAdmin.declareBinding(new Binding(queue, exchange, "location." + uuid));
+    }
+
+    @Nonnull
+    public ArrayList<LiquidMessage> collect(final Queue queue, @Nonnull final HttpServletResponse response) {
+        try {
+            final ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>();
+            LiquidMessage message;
+            int count = 0;
+
+            while (count == 0) {
+                message = (LiquidMessage) rabbitTemplate.receiveAndConvert();
+
+                if (message instanceof VisitPoolRequest &&
+                    ((VisitPoolRequest) message).getSessionIdentifier().getSession().toString().equals(
+                            RestContext.getContext().getCredentials().getSession().toString()
+                                                                                                      )) {
+                    log.debug("**** Pool visit, so now switching pools. ****");
+                    handlePoolVisit(message, queue);
+                }
+                response.getWriter().write(LiquidXStreamFactory.getXstream().toXML(message));
+
+                if (message != null) {
+                    result.add(message);
+                    count++;
+                    if (count == 0) {
+                        Thread.sleep(1000);
+                    }
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            log.error(e);
+            return new ArrayList<LiquidMessage>();
+        }
     }
 
     private void handlePoolVisit(final Object messageObject, final Queue queue) throws IOException {
@@ -153,8 +150,11 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         rabbitAdmin.declareBinding(new Binding(queue, exchange, "location." + uri));
     }
 
-    private void addLocation(final Queue queue, final LiquidUUID uuid) {
-        rabbitAdmin.declareBinding(new Binding(queue, exchange, "location." + uuid));
+    @Override
+    public void init(final ServletConfig config) throws ServletException {
+        super.init(config);
+        rabbitAdmin = (RabbitAdmin) applicationContext.getBean("rabbitAdmin");
+        rabbitTemplate = (RabbitTemplate) applicationContext.getBean("rabbitTemplate");
+        exchange = (TopicExchange) applicationContext.getBean("mainExchange");
     }
-
 }

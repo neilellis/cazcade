@@ -18,21 +18,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 // in the root of the classpath
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
 public class FountainUserUpdateServiceTest {
-
     @Autowired
     private FountainUserUpdateService userUpdateService;
 
     @Before
     public void setUp() throws Exception {
         userUpdateService.setTest(true);
-
     }
-
 
     @Test
     public void testUserUpdateService() throws InterruptedException {
         userUpdateService.trivialUpdateLoop();
     }
-
-
 }

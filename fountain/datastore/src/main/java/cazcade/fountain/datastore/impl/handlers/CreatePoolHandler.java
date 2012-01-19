@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolRequest> implements CreatePoolRequestHandler {
-
     @Nonnull
     public CreatePoolRequest handle(@Nonnull final CreatePoolRequest request) throws InterruptedException {
         if (!request.getName().matches("[a-z0-9A-Z._-]+")) {
@@ -26,7 +25,6 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
         final FountainNeo neo = fountainNeo;
         final Transaction transaction = neo.beginTx();
         try {
-
             String parentString = request.getParent().toString();
             if (!parentString.endsWith("/")) {
                 parentString += "/";
@@ -44,9 +42,15 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
             LiquidURI owner = request.getAlias();
             owner = defaultAndCheckOwner(request, owner);
 
-            final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity, request.getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
+            final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity,
+                                                                   request.getType(), request.getName(), request.getX(),
+                                                                   request.getY(), request.getTitle(), request.isListed()
+                                                                  );
             pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription());
-            final LSDTransferEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request.getDetail(), request.isInternal(), false);
+            final LSDTransferEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(),
+                                                                                                pool, null, request.getDetail(),
+                                                                                                request.isInternal(), false
+                                                                                               );
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {
@@ -55,6 +59,5 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
         } finally {
             transaction.finish();
         }
-
     }
 }

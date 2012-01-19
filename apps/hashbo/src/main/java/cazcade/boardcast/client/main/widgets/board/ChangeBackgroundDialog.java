@@ -22,23 +22,31 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class ChangeBackgroundDialog extends Composite implements Bindable, PopupEditPanel {
+    private static final ChangeBackgroundDialogUiBinder ourUiBinder = GWT.create(ChangeBackgroundDialogUiBinder.class);
+    @UiField
+    ChangeImageUrlPanel changeBackgroundPanel;
+    @UiField
+    ImageSelection imageSelector;
     private LSDBaseEntity oldEntity;
 
+
+    public ChangeBackgroundDialog() {
+        super();
+        initWidget(ourUiBinder.createAndBindUi(this));
+        imageSelector.setSelectionAction(new ImageSelection.SelectionAction() {
+            @Override
+            public void onSelect(@Nonnull final ImageOption imageOption) {
+                changeBackgroundPanel.setValue(imageOption.getUrl());
+                changeBackgroundPanel.callOnChangeAction();
+            }
+        }
+                                        );
+    }
 
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         oldEntity = entity.copy();
         changeBackgroundPanel.bind(entity, attribute, referenceDataPrefix);
-    }
-
-    @Override
-    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
-        changeBackgroundPanel.setOnChangeAction(onChangeAction);
-    }
-
-    @Override
-    public void setErrorMessage(final String message) {
-        Window.alert(message);
     }
 
     @Override
@@ -56,15 +64,15 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
         return changeBackgroundPanel.isValid();
     }
 
-    interface ChangeBackgroundDialogUiBinder extends UiBinder<HTMLPanel, ChangeBackgroundDialog> {
+    @Override
+    public void setErrorMessage(final String message) {
+        Window.alert(message);
     }
 
-    private static final ChangeBackgroundDialogUiBinder ourUiBinder = GWT.create(ChangeBackgroundDialogUiBinder.class);
-    @UiField
-    ChangeImageUrlPanel changeBackgroundPanel;
-    @UiField
-    ImageSelection imageSelector;
-
+    @Override
+    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
+        changeBackgroundPanel.setOnChangeAction(onChangeAction);
+    }
 
     public void show() {
         final VortexPopupPanel vortexPopupPanel = new VortexPopupPanel();
@@ -81,20 +89,10 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
             public void run() {
                 vortexPopupPanel.hide();
             }
-        });
+        }
+                                          );
     }
 
-
-    public ChangeBackgroundDialog() {
-        super();
-        initWidget(ourUiBinder.createAndBindUi(this));
-        imageSelector.setSelectionAction(new ImageSelection.SelectionAction() {
-            @Override
-            public void onSelect(@Nonnull final ImageOption imageOption) {
-                changeBackgroundPanel.setValue(imageOption.getUrl());
-                changeBackgroundPanel.callOnChangeAction();
-            }
-        });
-
+    interface ChangeBackgroundDialogUiBinder extends UiBinder<HTMLPanel, ChangeBackgroundDialog> {
     }
 }

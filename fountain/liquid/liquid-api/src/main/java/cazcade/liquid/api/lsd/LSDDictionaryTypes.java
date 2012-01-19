@@ -103,8 +103,12 @@ public enum LSDDictionaryTypes implements LSDType {
     DATA_STORE_REFERENCE_RESULT("System.Server.Result.Reference"),
     DATA_STORE_DEFERRED_RESULT("System.Server.Result.Deferred"),
 
-    AUTHORIZATION_NOT_REQUIRED("System.AuthorizationResponse.NotRequired", "An attempt to authorize an item with no permissions defined was made, this entity includes the details."),
-    AUTHORIZATION_INVALID("System.AuthorizationResponse.Invalid", "An invalid authorization request was made, this entity contains the details."),
+    AUTHORIZATION_NOT_REQUIRED("System.AuthorizationResponse.NotRequired",
+                               "An attempt to authorize an item with no permissions defined was made, this entity includes the details."
+    ),
+    AUTHORIZATION_INVALID("System.AuthorizationResponse.Invalid",
+                          "An invalid authorization request was made, this entity contains the details."
+    ),
     AUTHORIZATION_ACCEPTANCE("System.AuthorizationResponse.Acceptance", "The details of an accepted authorization request."),
     AUTHORIZATION_DENIAL("System.AuthorizationResponse.Denial", "The details of a denied authorization request."),
 
@@ -127,74 +131,15 @@ public enum LSDDictionaryTypes implements LSDType {
     FEED_LIST("Collection.List.Feed"),
     COMMENT_LIST("Collection.List.Comment");
 
-    public String getGenus() {
-        return value.getGenus();
-    }
-
-    public String getFamily() {
-        return value.getFamily();
-    }
-
-    public String getTypeClass() {
-        return value.getTypeClass();
-    }
-
-    public List<String> getFlavors() {
-        return value.getFlavors();
-    }
-
-    public String asString() {
-        return value.asString();
-    }
-
-    public LSDType getClassOnlyType() {
-        return value.getClassOnlyType();
-    }
-
-    public LSDType getParentType() {
-        return value.getParentType();
-    }
-
-    @Override
-    public String toString() {
-        return value.toString();
-    }
-
-    public boolean isSystemType() {
-        return value.isSystemType();
-    }
-
-    public boolean isA(final LSDDictionaryTypes dictionaryType) {
-        return value.isA(dictionaryType);
-    }
-
-    public boolean canBe(final LSDDictionaryTypes type) {
-        return value.canBe(type);
-    }
-
     @Nonnull
     private final LSDType value;
     @Nullable
     private final LiquidUUID id = null;
     private String description = "";
 
-    public String getDescription() {
-        return description;
-    }
 
-    public boolean equals(final LSDType lsdType) {
-        return value.equals(lsdType);
-    }
-
-
-    private static class ReverseLookup {
-        @Nonnull
-        private static final Map<String, String> map = new HashMap<String, String>();
-    }
-
-    LSDDictionaryTypes(@Nonnull final String value) {
-        this.value = new LSDTypeImpl(value, false);
-        ReverseLookup.map.put(value, name());
+    public static String getNameForValue(final String value) {
+        return ReverseLookup.map.get(value);
     }
 
     LSDDictionaryTypes(@Nonnull final String value, final String description) {
@@ -203,9 +148,67 @@ public enum LSDDictionaryTypes implements LSDType {
         ReverseLookup.map.put(value, name());
     }
 
+    LSDDictionaryTypes(@Nonnull final String value) {
+        this.value = new LSDTypeImpl(value, false);
+        ReverseLookup.map.put(value, name());
+    }
+
+    public String asString() {
+        return value.asString();
+    }
+
+    public boolean canBe(final LSDDictionaryTypes type) {
+        return value.canBe(type);
+    }
+
+    public boolean equals(final LSDType lsdType) {
+        return value.equals(lsdType);
+    }
+
+    public LSDType getClassOnlyType() {
+        return value.getClassOnlyType();
+    }
+
+    public String getFamily() {
+        return value.getFamily();
+    }
+
+    public List<String> getFlavors() {
+        return value.getFlavors();
+    }
+
+    public String getGenus() {
+        return value.getGenus();
+    }
+
+    public LSDType getParentType() {
+        return value.getParentType();
+    }
+
+    public String getTypeClass() {
+        return value.getTypeClass();
+    }
+
     @Nullable
     public String getValue() {
         return value.asString();
+    }
+
+    public boolean isA(final LSDDictionaryTypes dictionaryType) {
+        return value.isA(dictionaryType);
+    }
+
+    public boolean isSystemType() {
+        return value.isSystemType();
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Nullable
@@ -213,8 +216,8 @@ public enum LSDDictionaryTypes implements LSDType {
         return id;
     }
 
-
-    public static String getNameForValue(final String value) {
-        return ReverseLookup.map.get(value);
+    private static class ReverseLookup {
+        @Nonnull
+        private static final Map<String, String> map = new HashMap<String, String>();
     }
 }

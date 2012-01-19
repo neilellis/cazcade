@@ -24,7 +24,6 @@ import java.io.InputStream;
  * @author neilelliz@cazcade.com
  */
 public class PListRountripTestClient {
-
     public static void main(final String[] args) throws IOException {
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("client-spring-config.xml");
         final HttpClient client = new HttpClient();
@@ -37,7 +36,9 @@ public class PListRountripTestClient {
         LSDTransferEntity poolEntity;
         try {
             final InputStream bodyAsStream = getMethod.getResponseBodyAsStream();
-            final LSDUnmarshallerFactory lsdUnmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory");
+            final LSDUnmarshallerFactory lsdUnmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean(
+                    "unmarshalerFactory"
+                                                                                                                     );
             final LSDUnmarshaler unmarshaler = lsdUnmarshallerFactory.getUnmarshalers().get("xml");
             poolEntity = unmarshaler.unmarshal(bodyAsStream);
             IOUtils.closeQuietly(bodyAsStream);
@@ -67,6 +68,5 @@ public class PListRountripTestClient {
         } finally {
             getMethod.releaseConnection();
         }
-
     }
 }

@@ -27,7 +27,6 @@ public class FountainRestServer extends AbstractServiceStateMachine {
 
     @Override
     public void start() throws Exception {
-
         super.start();
         server = new Server(8088);
         final ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SECURITY);
@@ -52,11 +51,6 @@ public class FountainRestServer extends AbstractServiceStateMachine {
         log.info("*************************************************************");
         log.info("");
         server.join();
-
-    }
-
-    public void waitForInitialisation() throws InterruptedException {
-        initialisationLatch.await();
     }
 
     @Override
@@ -67,5 +61,9 @@ public class FountainRestServer extends AbstractServiceStateMachine {
             throw new RuntimeException(e);
         }
         super.stop();
+    }
+
+    public void waitForInitialisation() throws InterruptedException {
+        initialisationLatch.await();
     }
 }

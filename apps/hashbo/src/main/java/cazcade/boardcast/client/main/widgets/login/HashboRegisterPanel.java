@@ -22,21 +22,6 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class HashboRegisterPanel extends Composite {
-
-    private Runnable onSwitchToLoginAction;
-    private Runnable onSuccessAction;
-    @Nullable
-    private LSDBaseEntity newUser;
-
-    @Nullable
-    public LSDBaseEntity getNewUser() {
-        return newUser;
-    }
-
-
-    interface RegisterPanelUiBinder extends UiBinder<HTMLPanel, HashboRegisterPanel> {
-    }
-
     private static final RegisterPanelUiBinder ourUiBinder = GWT.create(RegisterPanelUiBinder.class);
     @UiField
     UsernameTextBox username;
@@ -55,6 +40,11 @@ public class HashboRegisterPanel extends Composite {
     @UiField
     RegexTextBox email;
 
+    private Runnable onSwitchToLoginAction;
+    private Runnable onSuccessAction;
+    @Nullable
+    private LSDBaseEntity newUser;
+
     public HashboRegisterPanel() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -63,41 +53,41 @@ public class HashboRegisterPanel extends Composite {
             public void onClick(final ClickEvent event) {
                 submit();
             }
-        });
+        }
+                                      );
         username.setOnChangeAction(new Runnable() {
-
             @Override
             public void run() {
                 submit();
             }
-        });
+        }
+                                  );
 
         password.setOnChangeAction(new Runnable() {
-
             @Override
             public void run() {
                 submit();
             }
-        });
+        }
+                                  );
 
         passwordConfirm.setOnChangeAction(new Runnable() {
-
             @Override
             public void run() {
                 submit();
             }
-        });
+        }
+                                         );
 
         login.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
                 onSwitchToLoginAction.run();
             }
-        });
+        }
+                             );
 
         passwordConfirm.setPairedBox(password);
-
-
     }
 
     private void submit() {
@@ -115,12 +105,12 @@ public class HashboRegisterPanel extends Composite {
         }
         Track.getInstance().trackEvent("Register", "Submit");
 
-        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
+        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(),
+                                                    email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
             @Override
             public void onFailure(final Throwable caught) {
                 ClientLog.log(caught);
                 Track.getInstance().trackEvent("Register", "Error");
-
             }
 
             @Override
@@ -128,23 +118,31 @@ public class HashboRegisterPanel extends Composite {
                 if (result == null) {
                     registerErrorMessage.setText("Could not register you.");
                     Track.getInstance().trackEvent("Register", "Fail");
-                } else {
+                }
+                else {
                     newUser = result;
                     Track.getInstance().userRegistered(username.getStringValue(), fullname.getStringValue(), result.getMap());
                     Track.getInstance().trackEvent("Register", "Success");
                     onSuccessAction.run();
                 }
             }
-        });
+        }
+                                                   );
     }
 
-    public void setOnSwitchToLoginAction(final Runnable onSwitchToLoginAction) {
-        this.onSwitchToLoginAction = onSwitchToLoginAction;
+    @Nullable
+    public LSDBaseEntity getNewUser() {
+        return newUser;
     }
 
     public void setOnSuccessAction(final Runnable onSuccessAction) {
         this.onSuccessAction = onSuccessAction;
     }
 
+    public void setOnSwitchToLoginAction(final Runnable onSwitchToLoginAction) {
+        this.onSwitchToLoginAction = onSwitchToLoginAction;
+    }
 
+    interface RegisterPanelUiBinder extends UiBinder<HTMLPanel, HashboRegisterPanel> {
+    }
 }

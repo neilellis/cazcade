@@ -11,12 +11,7 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public abstract class AbstractRequestValidator<T extends LiquidRequest> implements FountainRequestValidator<T> {
-
     protected FountainEntityValidator entityValidator;
-
-    public void setEntityValidator(final FountainEntityValidator entityValidator) {
-        this.entityValidator = entityValidator;
-    }
 
     protected void validPoolObject(@Nonnull final T request) {
         final boolean validType = true;
@@ -30,5 +25,9 @@ public abstract class AbstractRequestValidator<T extends LiquidRequest> implemen
         if (!validType) {
             throw new ValidationException("Unsupported type " + request.getRequestEntity().getTypeDef().asString() + " for pools.");
         }
+    }
+
+    public void setEntityValidator(final FountainEntityValidator entityValidator) {
+        this.entityValidator = entityValidator;
     }
 }

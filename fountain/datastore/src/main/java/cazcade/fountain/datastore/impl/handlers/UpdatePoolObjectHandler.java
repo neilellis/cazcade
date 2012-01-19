@@ -12,7 +12,8 @@ import javax.annotation.Nonnull;
 /**
  * @author neilelliz@cazcade.com
  */
-public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObjectRequest> implements UpdatePoolObjectRequestHandler {
+public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObjectRequest>
+        implements UpdatePoolObjectRequestHandler {
     @Nonnull
     @Override
     public UpdatePoolObjectRequest handle(@Nonnull final UpdatePoolObjectRequest request) throws InterruptedException {
@@ -24,11 +25,15 @@ public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObj
             if (request.getUri() != null) {
                 persistedEntityImpl = fountainNeo.findByURI(request.getUri());
                 pool = fountainNeo.findByURI(request.getUri().getWithoutFragment());
-            } else {
+            }
+            else {
                 persistedEntityImpl = fountainNeo.findByUUID(request.getTarget());
             }
 
-            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(), request.getRequestEntity(), pool, persistedEntityImpl, request.isInternal(), request.getDetail());
+            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(),
+                                                  request.getRequestEntity(), pool, persistedEntityImpl, request.isInternal(),
+                                                  request.getDetail()
+                                                 );
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {
@@ -37,8 +42,5 @@ public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObj
         } finally {
             transaction.finish();
         }
-
-
     }
-
 }

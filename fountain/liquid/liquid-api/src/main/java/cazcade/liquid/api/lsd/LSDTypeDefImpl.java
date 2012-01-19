@@ -10,14 +10,13 @@ import java.util.List;
  */
 
 public class LSDTypeDefImpl implements LSDTypeDef {
-
     private LSDType primaryType;
     @Nonnull
     private final List<LSDType> secondaryTypes = new ArrayList<LSDType>();
     private String typeString;
 
-
-    public LSDTypeDefImpl() {
+    public LSDTypeDefImpl(@Nonnull final LSDDictionaryTypes parentType, @Nullable final String subType) {
+        this(subType == null ? parentType.asString() : parentType + "." + subType);
     }
 
     public LSDTypeDefImpl(@Nullable final String typeStringParam) {
@@ -28,24 +27,21 @@ public class LSDTypeDefImpl implements LSDTypeDef {
         final int firstParen = typeString.indexOf('(');
         if (firstParen < 0) {
             primaryType = convertToType(typeString);
-        } else {
+        }
+        else {
             primaryType = convertToType(typeString.substring(0, firstParen));
             final int secondParen = typeString.indexOf(')');
             if (secondParen < firstParen) {
-                throw new LSDTypeDefException("There should be one open parenthesis matched by one closed parenthesis in a type definition");
+                throw new LSDTypeDefException(
+                        "There should be one open parenthesis matched by one closed parenthesis in a type definition"
+                );
             }
             final String typeList = typeString.substring(firstParen, secondParen);
             final String[] typeStrings = typeList.split(",");
             for (final String secondaryTypeString : typeStrings) {
                 secondaryTypes.add(convertToType(secondaryTypeString));
-
             }
         }
-
-    }
-
-    public LSDTypeDefImpl(@Nonnull final LSDDictionaryTypes parentType, @Nullable final String subType) {
-        this(subType == null ? parentType.asString() : parentType + "." + subType);
     }
 
     @Nonnull
@@ -53,21 +49,7 @@ public class LSDTypeDefImpl implements LSDTypeDef {
         return new LSDTypeImpl(typeString);
     }
 
-    public LSDType getPrimaryType() {
-        return primaryType;
-    }
-
-    @Nonnull
-    public List<LSDType> getSecondaryTypes() {
-        return secondaryTypes;
-    }
-
-    public String asString() {
-        return typeString;
-    }
-
-    public boolean isA(final LSDDictionaryTypes type) {
-        return primaryType.isA(type);
+    public LSDTypeDefImpl() {
     }
 
     public boolean canBe(final LSDDictionaryTypes type) {
@@ -80,11 +62,6 @@ public class LSDTypeDefImpl implements LSDTypeDef {
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return asString();
     }
 
     @Override
@@ -108,5 +85,27 @@ public class LSDTypeDefImpl implements LSDTypeDef {
     @Override
     public int hashCode() {
         return typeString.hashCode();
+    }
+
+    public boolean isA(final LSDDictionaryTypes type) {
+        return primaryType.isA(type);
+    }
+
+    @Override
+    public String toString() {
+        return asString();
+    }
+
+    public String asString() {
+        return typeString;
+    }
+
+    public LSDType getPrimaryType() {
+        return primaryType;
+    }
+
+    @Nonnull
+    public List<LSDType> getSecondaryTypes() {
+        return secondaryTypes;
     }
 }

@@ -23,7 +23,8 @@ public class LiquidResponseHelper {
     public static <T extends LiquidRequest> T forException(@Nonnull final Exception e, @Nonnull final T request) {
         if (e instanceof EntityNotFoundException) {
             return forResourceNotFound(e.getMessage(), request);
-        } else {
+        }
+        else {
             log.warn(e, "{0}", e.getMessage());
             final T message = (T) request.copy();
             message.setState(LiquidMessageState.FAIL);
@@ -32,8 +33,12 @@ public class LiquidResponseHelper {
             final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
             entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.EXCEPTION.getValue() + "." + e.getClass().getSimpleName());
             entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-            entity.setAttributeConditonally(LSDAttribute.TITLE, e.getMessage() != null ? e.getMessage() : e.getClass().getCanonicalName());
-            entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, e.getMessage() != null ? e.getMessage() : e.getClass().getCanonicalName());
+            entity.setAttributeConditonally(LSDAttribute.TITLE,
+                                            e.getMessage() != null ? e.getMessage() : e.getClass().getCanonicalName()
+                                           );
+            entity.setAttributeConditonally(LSDAttribute.DESCRIPTION,
+                                            e.getMessage() != null ? e.getMessage() : e.getClass().getCanonicalName()
+                                           );
             entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
 
             if (!CommonConstants.IS_PRODUCTION) {
@@ -44,41 +49,6 @@ public class LiquidResponseHelper {
             message.setResponse(entity);
             return message;
         }
-    }
-
-    @Nonnull
-    public static <T extends LiquidRequest> T forFailure(@Nonnull final T request, @Nonnull final LiquidRequest failure) {
-
-        final T message = (T) request.copy();
-        message.setState(LiquidMessageState.FAIL);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setAttribute(LSDAttribute.TYPE, failure.getResponse().getTypeDef().asString());
-        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.setAttributeConditonally(LSDAttribute.TITLE, failure.getResponse().getAttribute(LSDAttribute.TITLE));
-        entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, failure.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
-        message.setResponse(entity);
-        return message;
-
-    }
-
-    @Nonnull
-    public static <T extends LiquidRequest> T forEmptyResultResponse(@Nonnull final T request) {
-        final T message = (T) request.copy();
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.EMPTY_RESULT.getValue());
-        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.setAttribute(LSDAttribute.TITLE, "Empty");
-        entity.setAttribute(LSDAttribute.DESCRIPTION, "Empty result, query returned no result.");
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        message.setResponse(entity);
-        message.setState(LiquidMessageState.SUCCESS);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
-        return message;
     }
 
     @Nonnull
@@ -94,6 +64,39 @@ public class LiquidResponseHelper {
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         message.setResponse(entity);
         message.setState(LiquidMessageState.FAIL);
+        message.setOrigin(LiquidMessageOrigin.SERVER);
+        return message;
+    }
+
+    @Nonnull
+    public static <T extends LiquidRequest> T forFailure(@Nonnull final T request, @Nonnull final LiquidRequest failure) {
+        final T message = (T) request.copy();
+        message.setState(LiquidMessageState.FAIL);
+        message.setOrigin(LiquidMessageOrigin.SERVER);
+        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
+        entity.setAttribute(LSDAttribute.TYPE, failure.getResponse().getTypeDef().asString());
+        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
+        entity.setAttributeConditonally(LSDAttribute.TITLE, failure.getResponse().getAttribute(LSDAttribute.TITLE));
+        entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, failure.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
+        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
+        message.setResponse(entity);
+        return message;
+    }
+
+    @Nonnull
+    public static <T extends LiquidRequest> T forEmptyResultResponse(@Nonnull final T request) {
+        final T message = (T) request.copy();
+        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
+        entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.EMPTY_RESULT.getValue());
+        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
+        entity.setAttribute(LSDAttribute.TITLE, "Empty");
+        entity.setAttribute(LSDAttribute.DESCRIPTION, "Empty result, query returned no result.");
+        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
+        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        message.setResponse(entity);
+        message.setState(LiquidMessageState.SUCCESS);
         message.setOrigin(LiquidMessageOrigin.SERVER);
         return message;
     }
@@ -132,14 +135,14 @@ public class LiquidResponseHelper {
         return message;
     }
 
-
     @Nonnull
-    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, @Nonnull final LSDBaseEntity entity) {
+    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, final String id,
+                                                                                final String timestamp) {
         final T message = (T) request.copy();
         final LSDTransferEntity response = LSDSimpleEntity.createEmpty();
         response.setType(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
-        response.setID(entity.getUUID());
-        response.setAttribute(LSDAttribute.UPDATED, entity.getAttribute(LSDAttribute.UPDATED));
+        response.setAttribute(LSDAttribute.ID, id);
+        response.setAttribute(LSDAttribute.UPDATED, timestamp);
         message.setResponse(response);
         message.setState(LiquidMessageState.SUCCESS);
         message.setOrigin(LiquidMessageOrigin.SERVER);
@@ -147,12 +150,13 @@ public class LiquidResponseHelper {
     }
 
     @Nonnull
-    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, final String id, final String timestamp) {
+    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request,
+                                                                                @Nonnull final LSDBaseEntity entity) {
         final T message = (T) request.copy();
         final LSDTransferEntity response = LSDSimpleEntity.createEmpty();
         response.setType(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
-        response.setAttribute(LSDAttribute.ID, id);
-        response.setAttribute(LSDAttribute.UPDATED, timestamp);
+        response.setID(entity.getUUID());
+        response.setAttribute(LSDAttribute.UPDATED, entity.getAttribute(LSDAttribute.UPDATED));
         message.setResponse(response);
         message.setState(LiquidMessageState.SUCCESS);
         message.setOrigin(LiquidMessageOrigin.SERVER);
@@ -172,6 +176,4 @@ public class LiquidResponseHelper {
         message.setOrigin(LiquidMessageOrigin.SERVER);
         return message;
     }
-
-
 }

@@ -16,26 +16,6 @@ public class NeoPropertyStore implements LSDPropertyStore {
         this.neoNode = neoNode;
     }
 
-    @Override
-    public void put(final String property, final String value) {
-        neoNode.setProperty(property, value);
-    }
-
-    @Override
-    public String get(final String property) {
-        return String.valueOf(neoNode.getProperty(property));
-    }
-
-    @Override
-    public Iterable<? extends String> getProperties() {
-        return neoNode.getPropertyKeys();
-    }
-
-    @Override
-    public void remove(final String property) {
-        neoNode.removeProperty(property);
-    }
-
     @Nonnull
     @Override
     public Map<String, String> asMap() {
@@ -49,18 +29,38 @@ public class NeoPropertyStore implements LSDPropertyStore {
 
     @Nonnull
     @Override
-    public Iterable<? extends String> valueIterator() {
-        throw new UnsupportedOperationException("Cannot iterate values.");
-    }
-
-    @Nonnull
-    @Override
     public LSDPropertyStore copy() {
         return new NeoPropertyStore(neoNode);
     }
 
     @Override
+    public String get(final String property) {
+        return String.valueOf(neoNode.getProperty(property));
+    }
+
+    @Override
+    public Iterable<? extends String> getProperties() {
+        return neoNode.getPropertyKeys();
+    }
+
+    @Override
     public boolean isSerializable() {
         return false;
+    }
+
+    @Override
+    public void put(final String property, final String value) {
+        neoNode.setProperty(property, value);
+    }
+
+    @Override
+    public void remove(final String property) {
+        neoNode.removeProperty(property);
+    }
+
+    @Nonnull
+    @Override
+    public Iterable<? extends String> valueIterator() {
+        throw new UnsupportedOperationException("Cannot iterate values.");
     }
 }

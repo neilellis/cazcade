@@ -10,29 +10,7 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public interface LiquidRequest extends LiquidMessage {
-
-
-    boolean isMutationRequest();
-
-    @Nullable
-    List<String> getNotificationLocations();
-
-    @Nullable
-    LiquidSessionIdentifier getSessionIdentifier();
-
-    /**
-     * This can only be called if no identity has yet been set. *
-     */
-    void setSessionId(LiquidSessionIdentifier identity);
-
-
-    @Nullable
-    String getNotificationSession();
-
-    boolean isAsyncRequest();
-
-    @Nonnull
-    LiquidRequestType getRequestType();
+    void adjustTimeStampForServerTime();
 
 
     /**
@@ -44,11 +22,25 @@ public interface LiquidRequest extends LiquidMessage {
     @Nullable
     List<AuthorizationRequest> getAuthorizationRequests();
 
-    void setId(LiquidUUID uuid);
-
-    boolean shouldNotify();
-
     long getCacheExpiry();
+
+    @Nullable
+    List<String> getNotificationLocations();
+
+
+    @Nullable
+    String getNotificationSession();
+
+    @Nonnull
+    LiquidRequestType getRequestType();
+
+    @Nullable
+    LiquidSessionIdentifier getSessionIdentifier();
+
+    boolean isAsyncRequest();
+
+
+    boolean isMutationRequest();
 
     /**
      * Returns true if the request should be treated as secure - i.e. we should increase the level of client security around the operation.
@@ -58,13 +50,19 @@ public interface LiquidRequest extends LiquidMessage {
      */
     boolean isSecureOperation();
 
+    void setId(LiquidUUID uuid);
+
     /**
      * If true forces synchronous communication.
      */
     void setRpc(Boolean b);
 
+    /**
+     * This can only be called if no identity has yet been set. *
+     */
+    void setSessionId(LiquidSessionIdentifier identity);
 
-    void adjustTimeStampForServerTime();
+    boolean shouldNotify();
 
     boolean shouldSendProvisional();
 }

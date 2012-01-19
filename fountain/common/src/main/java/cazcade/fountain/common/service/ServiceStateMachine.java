@@ -7,20 +7,38 @@ package cazcade.fountain.common.service;
  */
 
 public interface ServiceStateMachine {
-
     /**
-     * This method should trigger allocation of resources, background threads etc. and then call unlock();
+     * This marks that a method on the service has been called. It should block if lock() has been called.
      *
-     * @throws Exception if the implementing method throws an exception.
+     * @throws InterruptedException if the thread is interrupted while attempting to get a lock.
      */
-    void start() throws Exception;
+    void begin() throws InterruptedException;
 
     /**
-     * This method should call lock() then trigger deallocation of resources and terminate background threads.
-     * <p/>
-     * This method should never throw exceptions.
+     * This method is called at the end of a service method and should be in a try/finally after the begin() method. It
+     * is used to keep track of the number of active method calls.
      */
-    void stop();
+    void end();
+
+    void hardstop();
+
+    boolean isPaused();
+
+    boolean isStarted();
+
+    boolean isStopped();
+
+    /**
+     * Called by begin() to obtain a lock.
+     * <p/>
+     * As a rule this method should not be called and is really for internal use.
+     * <p/>
+     * This method will check to see how many active method calls exist and wait for all of them to finish before
+     * returning.
+     *
+     * @throws InterruptedException if the thread is interrupted while attempting to get a lock.
+     */
+    void lock() throws InterruptedException;
 
     /**
      * Pauses the service, i.e. it waits for all methods to finish and stops new ones from being called. However no
@@ -37,49 +55,27 @@ public interface ServiceStateMachine {
      */
     void resume() throws Exception;
 
-
     /**
-     * This marks that a method on the service has been called. It should block if lock() has been called.
+     * This method should trigger allocation of resources, background threads etc. and then call unlock();
      *
-     * @throws InterruptedException if the thread is interrupted while attempting to get a lock.
+     * @throws Exception if the implementing method throws an exception.
      */
-    void begin() throws InterruptedException;
+    void start() throws Exception;
+
+    void startIfNotStarted() throws Exception;
 
     /**
-     * This method is called at the end of a service method and should be in a try/finally after the begin() method. It
-     * is used to keep track of the number of active method calls.
+     * This method should call lock() then trigger deallocation of resources and terminate background threads.
+     * <p/>
+     * This method should never throw exceptions.
      */
-    void end();
+    void stop();
 
-    /**
-     * Called by begin() to obtain a lock.
-     * <p/>
-     * As a rule this method should not be called and is really for internal use.
-     * <p/>
-     * This method will check to see how many active method calls exist and wait for all of them to finish before
-     * returning.
-     *
-     * @throws InterruptedException if the thread is interrupted while attempting to get a lock.
-     */
-    void lock() throws InterruptedException;
+    void stopIfNotStopped();
 
 
     /**
      * This method should be called during start() it releases begin() method calls.
      */
     void unlock();
-
-    boolean isStopped();
-
-    boolean isStarted();
-
-    boolean isPaused();
-
-    void stopIfNotStopped();
-
-    void startIfNotStarted() throws Exception;
-
-    void hardstop();
-
-
 }

@@ -26,7 +26,12 @@ public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements C
         final String id = UUID.randomUUID().toString();
         response.setId(id);
         response.setURI(new LiquidURI(LiquidURIScheme.chat, id));
-        response.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(fountainNeo.findByURI(request.getSessionIdentifier().getAliasURL(), true), request.getInternal(), LiquidRequestDetailLevel.PERSON_MINIMAL), true);
+        response.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(fountainNeo.findByURI(
+                request.getSessionIdentifier().getAliasURL(), true
+                                                                                                 ), request.getInternal(),
+                                                                            LiquidRequestDetailLevel.PERSON_MINIMAL
+                                                                           ), true
+                             );
         return LiquidResponseHelper.forServerSuccess(request, response);
 
 //        final Transaction transaction = fountainNeo.beginTx();

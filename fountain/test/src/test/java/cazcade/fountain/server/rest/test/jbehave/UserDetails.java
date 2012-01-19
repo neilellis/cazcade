@@ -29,24 +29,8 @@ public class UserDetails {
         this.publicPoolId = publicPoolId;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public LiquidUUID getUserId() {
-        return userId;
-    }
-
     public Credentials getCredentials() {
         return credentials;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public ClientSession getUserSession() {
-        return userSession;
     }
 
     public String getHomePool() {
@@ -59,5 +43,21 @@ public class UserDetails {
 
     public String getPublicPoolId() {
         return publicPoolId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public LiquidUUID getUserId() {
+        return userId;
+    }
+
+    public ClientSession getUserSession() {
+        return userSession;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

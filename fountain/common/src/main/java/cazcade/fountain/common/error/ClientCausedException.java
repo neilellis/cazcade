@@ -9,20 +9,19 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class ClientCausedException extends CazcadeException {
-    public ClientCausedException(final Throwable throwable) {
-        super(throwable);
+    public ClientCausedException(final Throwable cause, @Nonnull final String message, final Object... params) {
+        super(cause, message, params);
     }
 
     public ClientCausedException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public ClientCausedException(final Throwable cause, @Nonnull final String message, final Object... params) {
-        super(cause, message, params);
+    public ClientCausedException(final Throwable throwable) {
+        super(throwable);
     }
 
     public boolean isClientException() {
         return true;
     }
-
 }

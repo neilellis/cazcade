@@ -15,11 +15,15 @@ public class FollowHandler extends AbstractDataStoreHandler<FollowRequest> imple
     public FollowRequest handle(@Nonnull final FollowRequest request) throws Exception {
         final LSDTransferEntity result;
         if (request.isFollow()) {
-            result = socialDAO.followResourceTX(request.getSessionIdentifier(), request.getUri(), request.getDetail(), request.isInternal());
-        } else {
-            result = socialDAO.unfollowResourceTX(request.getSessionIdentifier(), request.getUri(), request.getDetail(), request.isInternal());
+            result = socialDAO.followResourceTX(request.getSessionIdentifier(), request.getUri(), request.getDetail(),
+                                                request.isInternal()
+                                               );
+        }
+        else {
+            result = socialDAO.unfollowResourceTX(request.getSessionIdentifier(), request.getUri(), request.getDetail(),
+                                                  request.isInternal()
+                                                 );
         }
         return LiquidResponseHelper.forServerSuccess(request, result);
     }
-
 }

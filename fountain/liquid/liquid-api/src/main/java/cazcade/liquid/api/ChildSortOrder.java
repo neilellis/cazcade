@@ -5,5 +5,4 @@ package cazcade.liquid.api;
  */
 public enum ChildSortOrder {
     POPULARITY, AGE, PROXIMITY, NONE
-
 }

@@ -27,27 +27,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class ProfileEditor extends Composite {
-
-    public void show() {
-        popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
-            @Override
-            public void setPosition(final int offsetWidth, final int offsetHeight) {
-                popup.setPopupPosition(Window.getClientWidth() / 2 - offsetWidth / 2, Window.getClientHeight() / 2 - offsetHeight / 2);
-            }
-        });
-    }
-
-    public void setOnChangeAction(final ChangeAction onChangeAction) {
-        this.onChangeAction = onChangeAction;
-    }
-
-
-    interface ProfileImageUiBinder extends UiBinder<HTMLPanel, ProfileEditor> {
-    }
-
     private static final ProfileImageUiBinder ourUiBinder = GWT.create(ProfileImageUiBinder.class);
-
-    private ChangeAction onChangeAction;
 
     @UiField
     PopupPanel popup;
@@ -58,6 +38,8 @@ public class ProfileEditor extends Composite {
     Label changeButton;
     @UiField
     Label cancelButton;
+
+    private ChangeAction onChangeAction;
 
     public ProfileEditor(@Nonnull final LSDTransferEntity alias) {
         super();
@@ -80,31 +62,35 @@ public class ProfileEditor extends Composite {
 //
 //                    // You can send any customized message and parse it
 //                    System.out.println("Server message " + info.message);
-                } else {
+                }
+                else {
                     Window.alert("Failed to upload image.");
                 }
             }
-
-
-        });
+        }
+                                        );
 
 
         changeButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                BusFactory.getInstance().send(new UpdateAliasRequest(updateEntity), new AbstractResponseCallback<UpdateAliasRequest>() {
-                    @Override
-                    public void onSuccess(final UpdateAliasRequest message, final UpdateAliasRequest response) {
-                        try {
-                            popup.hide();
-                        } catch (Exception e) {
-                            ClientLog.log(e);
-                        }
-                        onChangeAction.run(updateEntity);
-                    }
-                });
+                BusFactory.getInstance().send(new UpdateAliasRequest(updateEntity),
+                                              new AbstractResponseCallback<UpdateAliasRequest>() {
+                                                  @Override
+                                                  public void onSuccess(final UpdateAliasRequest message,
+                                                                        final UpdateAliasRequest response) {
+                                                      try {
+                                                          popup.hide();
+                                                      } catch (Exception e) {
+                                                          ClientLog.log(e);
+                                                      }
+                                                      onChangeAction.run(updateEntity);
+                                                  }
+                                              }
+                                             );
             }
-        });
+        }
+                                    );
 
         cancelButton.addClickHandler(new ClickHandler() {
             @Override
@@ -115,9 +101,27 @@ public class ProfileEditor extends Composite {
                     ClientLog.log(e);
                 }
             }
-        });
+        }
+                                    );
+    }
 
+    public void show() {
+        popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
+            @Override
+            public void setPosition(final int offsetWidth, final int offsetHeight) {
+                popup.setPopupPosition(Window.getClientWidth() / 2 - offsetWidth / 2,
+                                       Window.getClientHeight() / 2 - offsetHeight / 2
+                                      );
+            }
+        }
+                                     );
+    }
 
+    public void setOnChangeAction(final ChangeAction onChangeAction) {
+        this.onChangeAction = onChangeAction;
+    }
+
+    interface ProfileImageUiBinder extends UiBinder<HTMLPanel, ProfileEditor> {
     }
 
     public interface ChangeAction {

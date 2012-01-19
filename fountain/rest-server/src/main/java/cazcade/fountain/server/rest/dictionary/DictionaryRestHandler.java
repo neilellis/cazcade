@@ -37,9 +37,11 @@ public class DictionaryRestHandler extends AbstractRestHandler {
         dictionary.addSubEntities(LSDAttribute.CHILD, entries);
         request.setResponse(dictionary);
         return request;
-
     }
 
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
+        this.lsdEntityFactory = lsdEntityFactory;
+    }
 
     @Nonnull
     public RetrieveDictionaryRequest types() {
@@ -60,9 +62,4 @@ public class DictionaryRestHandler extends AbstractRestHandler {
         request.setResponse(dictionary);
         return request;
     }
-
-    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
-        this.lsdEntityFactory = lsdEntityFactory;
-    }
-
 }

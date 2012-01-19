@@ -11,8 +11,6 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractUpdateRequest extends AbstractRequest {
-
-
     @Nullable
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getUri() != null) {
@@ -42,6 +40,4 @@ public abstract class AbstractUpdateRequest extends AbstractRequest {
     public boolean isMutationRequest() {
         return true;
     }
-
-
 }

@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
 
 
 public class IllegalResourceAccessException extends DataStoreException {
-    public IllegalResourceAccessException(final Throwable throwable) {
-        super(throwable);
+    public IllegalResourceAccessException(final Throwable cause, @Nonnull final String message, final Object... params) {
+        super(cause, message, params);
     }
 
     public IllegalResourceAccessException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public IllegalResourceAccessException(final Throwable cause, @Nonnull final String message, final Object... params) {
-        super(cause, message, params);
+    public IllegalResourceAccessException(final Throwable throwable) {
+        super(throwable);
     }
 }

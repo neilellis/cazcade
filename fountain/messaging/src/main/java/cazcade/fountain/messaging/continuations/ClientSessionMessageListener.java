@@ -32,11 +32,11 @@ public class ClientSessionMessageListener implements LiquidMessageHandler {
         return null;
     }
 
-    public void setSessionManager(final ClientSessionManager sessionManager) {
-        this.sessionManager = sessionManager;
-    }
-
     public void setSessionId(final String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public void setSessionManager(final ClientSessionManager sessionManager) {
+        this.sessionManager = sessionManager;
     }
 }

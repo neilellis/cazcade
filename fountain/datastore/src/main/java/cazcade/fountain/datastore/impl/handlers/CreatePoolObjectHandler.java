@@ -15,9 +15,8 @@ import javax.annotation.Nonnull;
 /**
  * @author neilelliz@cazcade.com
  */
-public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePoolObjectRequest> implements CreatePoolObjectRequestHandler {
-
-
+public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePoolObjectRequest>
+        implements CreatePoolObjectRequestHandler {
     @Nonnull
     public CreatePoolObjectRequest handle(@Nonnull final CreatePoolObjectRequest request) throws Exception {
         final FountainNeo neo = fountainNeo;
@@ -29,7 +28,8 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
                 if (poolPersistedEntity == null) {
                     throw new DataStoreException("No such parent pool " + request.getPoolURI());
                 }
-            } else {
+            }
+            else {
                 poolPersistedEntity = fountainNeo.findByUUID(request.getPool());
                 if (poolPersistedEntity == null) {
                     throw new DataStoreException("No such parent pool " + request.getPool());
@@ -40,10 +40,14 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
             final LiquidURI result;
             if (request.getAuthor() == null) {
                 result = request.getAlias();
-            } else {
+            }
+            else {
                 result = request.getAuthor();
             }
-            final LSDTransferEntity entity = poolDAO.createPoolObjectTx(poolPersistedEntity, request.getSessionIdentifier(), owner, result, request.getRequestEntity(), request.getDetail(), request.isInternal(), true);
+            final LSDTransferEntity entity = poolDAO.createPoolObjectTx(poolPersistedEntity, request.getSessionIdentifier(), owner,
+                                                                        result, request.getRequestEntity(), request.getDetail(),
+                                                                        request.isInternal(), true
+                                                                       );
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {
@@ -53,5 +57,4 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
             transaction.finish();
         }
     }
-
 }

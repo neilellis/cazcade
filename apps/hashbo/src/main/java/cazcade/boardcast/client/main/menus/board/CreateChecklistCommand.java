@@ -10,12 +10,6 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateChecklistCommand extends CreateContainerCommand {
-    @Nonnull
-    @Override
-    protected String getInitialName() {
-        return "checklist" + System.currentTimeMillis();
-    }
-
     public CreateChecklistCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }
@@ -24,6 +18,11 @@ public class CreateChecklistCommand extends CreateContainerCommand {
     public void execute() {
         super.execute();
         Track.getInstance().trackEvent("Add", "Add Checklist");
+    }
 
+    @Nonnull
+    @Override
+    protected String getInitialName() {
+        return "checklist" + System.currentTimeMillis();
     }
 }

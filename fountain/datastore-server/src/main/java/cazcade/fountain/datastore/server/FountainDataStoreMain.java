@@ -30,7 +30,6 @@ public class FountainDataStoreMain {
     private static final ApplicationLifecycleManager lifecycleManager = new ApplicationLifecycleManager();
 
     public static void main(final String[] args) throws Exception {
-
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 log.info("Fountain Data Store shutdown hook called.");
@@ -38,7 +37,8 @@ public class FountainDataStoreMain {
                     lifecycleManager.shutdown();
                 }
             }
-        });
+        }
+                                            );
 
         final SignalHandler handler = new AppSignalHandler(new Runnable() {
             public void run() {
@@ -52,12 +52,10 @@ public class FountainDataStoreMain {
                     dataStore.hardstop();
                     System.exit(-2);
                 }
-
             }
         }, new Runnable() {
             public void run() {
                 log.info("Forcing shutdown of Fountain DataStore...");
-
             }
         }
         );
@@ -86,12 +84,9 @@ public class FountainDataStoreMain {
                 dataStore.stopIfNotStopped();
                 log.info("Lifecycle Manager stopped Data Store Server.");
             }
-        });
+        }
+                                 );
 
         dataStore.start();
-
-
     }
-
-
 }

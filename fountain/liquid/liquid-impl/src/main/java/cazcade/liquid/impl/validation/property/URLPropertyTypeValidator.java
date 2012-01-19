@@ -9,7 +9,10 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class URLPropertyTypeValidator implements LSDPropertyTypeValidator {
-    public boolean validate(@Nonnull final LSDPropertyFormatValidator propertyFormatValidator, final String nextValidationString, @Nonnull final String value) {
-        return value.toLowerCase().matches("^((http[s]?|ftp|mailto):)(.*)$") && propertyFormatValidator.isValidFormat(nextValidationString, value);
+    public boolean validate(@Nonnull final LSDPropertyFormatValidator propertyFormatValidator, final String nextValidationString,
+                            @Nonnull final String value) {
+        return value.toLowerCase().matches("^((http[s]?|ftp|mailto):)(.*)$") && propertyFormatValidator.isValidFormat(
+                nextValidationString, value
+                                                                                                                     );
     }
 }

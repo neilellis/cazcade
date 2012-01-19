@@ -12,12 +12,12 @@ public final class SerializedRequest implements Serializable {
     private LiquidRequestType type;
     private LSDTransferEntity entity;
 
-    public SerializedRequest() {
-    }
-
     public SerializedRequest(final LiquidRequestType type, final LSDTransferEntity entity) {
         this.type = type;
         this.entity = entity;
+    }
+
+    public SerializedRequest() {
     }
 
     public LSDTransferEntity getEntity() {

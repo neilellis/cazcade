@@ -7,11 +7,11 @@
         <!--<format>dir</format>-->
     </formats>
     <!--<dependencySets>-->
-        <!--<dependencySet>-->
-            <!--<unpack>false</unpack>-->
-            <!--<scope>runtime</scope>-->
-            <!--<outputDirectory>lib</outputDirectory>-->
-        <!--</dependencySet>-->
+    <!--<dependencySet>-->
+    <!--<unpack>false</unpack>-->
+    <!--<scope>runtime</scope>-->
+    <!--<outputDirectory>lib</outputDirectory>-->
+    <!--</dependencySet>-->
     <!--</dependencySets>-->
     <!--<includeBaseDirectory>false</includeBaseDirectory>-->
     <fileSets>

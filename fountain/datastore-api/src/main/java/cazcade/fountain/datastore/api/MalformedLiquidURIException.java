@@ -8,16 +8,16 @@ import javax.annotation.Nonnull;
 
 
 public class MalformedLiquidURIException extends DataStoreException {
-    public MalformedLiquidURIException(final Throwable throwable) {
-        super(throwable);
+    public MalformedLiquidURIException(final Throwable cause, @Nonnull final String message, final Object... params) {
+        super(cause, message, params);
     }
 
     public MalformedLiquidURIException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public MalformedLiquidURIException(final Throwable cause, @Nonnull final String message, final Object... params) {
-        super(cause, message, params);
+    public MalformedLiquidURIException(final Throwable throwable) {
+        super(throwable);
     }
 }
 

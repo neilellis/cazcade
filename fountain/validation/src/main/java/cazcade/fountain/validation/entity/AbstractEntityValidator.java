@@ -11,11 +11,9 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public abstract class AbstractEntityValidator implements TypeValidator {
-
     void assertHasKey(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDAttribute key) {
         if (!entity.hasAttribute(key)) {
             throw new ValidationException("Entity of type " + entity.getTypeDef() + " did not posses key " + key.getKeyName());
         }
-
     }
 }

@@ -16,10 +16,8 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> implements UpdatePoolRequestHandler {
-
     @Nonnull
     public UpdatePoolRequest handle(@Nonnull final UpdatePoolRequest request) throws Exception {
-
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDTransferEntity entity;
@@ -27,7 +25,8 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
 
             if (request.getUri() == null) {
                 throw new UnsupportedOperationException("Only URI based updates of pools supported");
-            } else {
+            }
+            else {
             }
 
             final LiquidRequestDetailLevel detail = request.getDetail();
@@ -54,7 +53,9 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
                 }
             };
 
-            entity = poolDAO.updatePool(sessionIdentifier, persistedEntityImpl, detail, internal, historical, end, start, order, contents, requestEntity, onRenameAction);
+            entity = poolDAO.updatePool(sessionIdentifier, persistedEntityImpl, detail, internal, historical, end, start, order,
+                                        contents, requestEntity, onRenameAction
+                                       );
 
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
@@ -64,7 +65,5 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
         } finally {
             transaction.finish();
         }
-
     }
-
 }

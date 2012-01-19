@@ -21,7 +21,6 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasRequest> implements ClaimAliasRequestHandler {
-
     @Nonnull
     public ClaimAliasRequest handle(@Nonnull final ClaimAliasRequest request) throws Exception {
         final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
@@ -32,13 +31,16 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
 
         final Transaction transaction = fountainNeo.beginTx();
         try {
-
             final LSDPersistedEntity userPersistedEntityImpl = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
             if (userPersistedEntityImpl.hasRelationship(FountainRelationships.CLAIMED, Direction.OUTGOING)) {
-                final Iterable<FountainRelationship> claims = userPersistedEntityImpl.getRelationships(FountainRelationships.CLAIMED, Direction.OUTGOING);
+                final Iterable<FountainRelationship> claims = userPersistedEntityImpl.getRelationships(
+                        FountainRelationships.CLAIMED, Direction.OUTGOING
+                                                                                                      );
                 for (final FountainRelationship claim : claims) {
                     final LSDPersistedEntity claimedPersistedEntity = claim.getOtherNode(userPersistedEntityImpl);
-                    final Iterable<FountainRelationship> aliases = userPersistedEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    final Iterable<FountainRelationship> aliases = userPersistedEntityImpl.getRelationships(
+                            FountainRelationships.ALIAS, Direction.INCOMING
+                                                                                                           );
                     //clean up any multiple alias mess!
                     for (final FountainRelationship alias : aliases) {
                         if (alias.getOtherNode(userPersistedEntityImpl).equals(claimedPersistedEntity)) {
@@ -54,7 +56,8 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
                     }
                     claim.delete();
                 }
-            } else {
+            }
+            else {
                 transaction.success();
                 return LiquidResponseHelper.forEmptyResultResponse(request);
             }
@@ -70,14 +73,26 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
         }
     }
 
-    private void addTwitterFeed(final LiquidSessionIdentifier identity, @Nonnull final ClaimAliasRequest request, @Nonnull final LSDBaseEntity child) throws Exception {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.TWITTER_FEED, UUIDFactory.randomUUID());
+    private void addTwitterFeed(final LiquidSessionIdentifier identity, @Nonnull final ClaimAliasRequest request,
+                                @Nonnull final LSDBaseEntity child) throws Exception {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.TWITTER_FEED,
+                                                                                 UUIDFactory.randomUUID()
+                                                                                );
         final String name = child.getAttribute(LSDAttribute.NAME);
         entity.setAttribute(LSDAttribute.EURI, String.format("timeline://%s@twitter/", name));
         entity.setAttribute(LSDAttribute.SOURCE, String.format("http://twitter.com/%s", name));
-        entity.setAttribute(LSDAttribute.DESCRIPTION, String.format("%s's Twitter Feed", child.getAttribute(LSDAttribute.FULL_NAME)));
+        entity.setAttribute(LSDAttribute.DESCRIPTION, String.format("%s's Twitter Feed", child.getAttribute(LSDAttribute.FULL_NAME
+                                                                                                           )
+                                                                   )
+                           );
         entity.setAttribute(LSDAttribute.NAME, String.format("twitter_%s_%d", name, System.currentTimeMillis()));
-        final LSDPersistedEntity pool = fountainNeo.findByURI(new LiquidURI("pool:///people/" + request.getSessionIdentifier().getName() + "/stream"));
-        final LSDBaseEntity feed = poolDAO.createPoolObjectTx(pool, identity, request.getSessionIdentifier().getAlias(), child.getURI(), entity, request.getDetail(), request.isInternal(), false);
+        final LSDPersistedEntity pool = fountainNeo.findByURI(new LiquidURI(
+                "pool:///people/" + request.getSessionIdentifier().getName() + "/stream"
+        )
+                                                             );
+        final LSDBaseEntity feed = poolDAO.createPoolObjectTx(pool, identity, request.getSessionIdentifier().getAlias(),
+                                                              child.getURI(), entity, request.getDetail(), request.isInternal(),
+                                                              false
+                                                             );
     }
 }

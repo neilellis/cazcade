@@ -23,16 +23,9 @@ import java.util.Map;
  */
 
 public class SessionRestHandler extends AbstractRestHandler {
-
     private LSDEntityFactory lsdEntityFactory;
 
     private FountainDataStoreFacade dataStoreFacade;
-
-
-    @Nonnull
-    public LiquidMessage get(final LiquidUUID userId) throws URISyntaxException {
-        return dataStoreFacade.process(new RetrieveSessionRequest(RestContext.getContext().getCredentials(), userId));
-    }
 
     @Nonnull
     public LiquidMessage create(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
@@ -40,13 +33,10 @@ public class SessionRestHandler extends AbstractRestHandler {
         final String name = parameters.get("client")[0];
         final String key = parameters.get("key")[0];
         final String hostinfo = parameters.get("hostinfo")[0];
-        return dataStoreFacade.process(new CreateSessionRequest(RestContext.getContext().getCredentials().getAlias(), new ClientApplicationIdentifier(name, key, hostinfo)));
-    }
-
-    @Nonnull
-    public LiquidMessage update(final LiquidUUID sessionId, final LSDTransferEntity lsdEntity) throws URISyntaxException {
-        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
-        return dataStoreFacade.process(new UpdateSessionRequest(username, sessionId, lsdEntity, false));
+        return dataStoreFacade.process(new CreateSessionRequest(RestContext.getContext().getCredentials().getAlias(),
+                                                                new ClientApplicationIdentifier(name, key, hostinfo)
+        )
+                                      );
     }
 
     @Nonnull
@@ -54,8 +44,13 @@ public class SessionRestHandler extends AbstractRestHandler {
         return dataStoreFacade.process(new DeleteSessionRequest(RestContext.getContext().getCredentials(), sessionId));
     }
 
-    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
-        this.lsdEntityFactory = lsdEntityFactory;
+    @Nonnull
+    public LiquidMessage get(final LiquidUUID userId) throws URISyntaxException {
+        return dataStoreFacade.process(new RetrieveSessionRequest(RestContext.getContext().getCredentials(), userId));
+    }
+
+    public FountainDataStoreFacade getDataStore() {
+        return dataStoreFacade;
     }
 
     public LSDEntityFactory getLsdFactory() {
@@ -66,9 +61,13 @@ public class SessionRestHandler extends AbstractRestHandler {
         this.dataStoreFacade = dataStoreFacade;
     }
 
-    public FountainDataStoreFacade getDataStore() {
-        return dataStoreFacade;
+    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
+        this.lsdEntityFactory = lsdEntityFactory;
     }
 
-
+    @Nonnull
+    public LiquidMessage update(final LiquidUUID sessionId, final LSDTransferEntity lsdEntity) throws URISyntaxException {
+        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+        return dataStoreFacade.process(new UpdateSessionRequest(username, sessionId, lsdEntity, false));
+    }
 }

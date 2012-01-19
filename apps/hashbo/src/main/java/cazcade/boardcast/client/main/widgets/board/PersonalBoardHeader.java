@@ -18,6 +18,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class PersonalBoardHeader extends EntityBackedFormPanel {
+    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
     @UiField
     VortexEditableLabel title;
@@ -25,6 +26,19 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
     VortexEditableLabel description;
     @UiField
     VortexEditableLabel text;
+
+    public PersonalBoardHeader() {
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        initWidget(rootElement);
+    }
+
+    public void bind(final LSDTransferEntity entity) {
+        super.bind(entity);
+        addBinding(title, LSDAttribute.TITLE);
+        addBinding(description, LSDAttribute.DESCRIPTION);
+        addBinding(text, LSDAttribute.TEXT_EXTENDED);
+    }
 
     @Nonnull
     @Override
@@ -38,7 +52,6 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
         return new Runnable() {
             @Override
             public void run() {
-
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
@@ -49,29 +62,12 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
                     public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
-
-
-                });
+                }
+                             );
             }
         };
     }
 
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
-        addBinding(title, LSDAttribute.TITLE);
-        addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(text, LSDAttribute.TEXT_EXTENDED);
-    }
-
     interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PersonalBoardHeader> {
-    }
-
-    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
-
-    public PersonalBoardHeader() {
-        super();
-        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
-        initWidget(rootElement);
-
     }
 }

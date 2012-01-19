@@ -32,7 +32,7 @@
             <tr>
                 <td><a href="http://boardcast.it/$change.sourceShortUrl">$!change.title</a></td>
             ##            <td>( $!change.type )</td>
-                    </tr>
+            </tr>
             <tr>
                 #if($change.textExtended)
                     <td>$!change.textExtended</td>

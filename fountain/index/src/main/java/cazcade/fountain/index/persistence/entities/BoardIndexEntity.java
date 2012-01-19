@@ -16,6 +16,11 @@ import java.util.Set;
 @Entity
 @Table(name = "board")
 public class BoardIndexEntity extends CommonBase {
+    protected BoardType type;
+    protected AliasEntity creator;
+    protected AliasEntity owner;
+    protected AliasEntity author;
+    protected String text;
 
     private long commentCount;
     private long visitCount;
@@ -29,114 +34,25 @@ public class BoardIndexEntity extends CommonBase {
     private Set<VisitEntity> visits = new HashSet<VisitEntity>();
     private Set<MessageEntity> comments = new HashSet<MessageEntity>();
     private Set<MessageEntity> chats = new HashSet<MessageEntity>();
-    protected BoardType type;
-    protected AliasEntity creator;
-    protected AliasEntity owner;
-    protected AliasEntity author;
-    protected String text;
     private boolean listed;
 
 
-    @Id
-    @Column(name = "uri", nullable = false)
-    public String getUri() {
-        return uri;
+    public void incrementActivity() {
+        activityCount++;
     }
 
-    public void setUri(final String uri) {
-        this.uri = uri;
+    public void incrementVisits() {
+        visitCount++;
     }
 
-    /**
-     * The Short Name of the pool not the name attribute
-     *
-     * @return
-     */
-    @Column(name = "short_url", nullable = true)
-    public String getShortUrl() {
-        return shortUrl;
+    @Column(name = "activity_count", nullable = false)
+    public long getActivityCount() {
+        return activityCount;
     }
 
-    public void setShortUrl(final String boardName) {
-        shortUrl = boardName;
+    public void setActivityCount(final long activityCount) {
+        this.activityCount = activityCount;
     }
-
-    @Column(name = "title", nullable = true)
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    @Column(name = "description", nullable = true)
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-
-    @OneToMany(mappedBy = "board")
-    public Set<MessageEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(final Set<MessageEntity> comments) {
-        this.comments = comments;
-    }
-
-    @OneToMany(mappedBy = "board")
-    public Set<VisitEntity> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(final Set<VisitEntity> visits) {
-        this.visits = visits;
-    }
-
-
-    @Column(name = "type", nullable = true)
-    public BoardType getType() {
-        return type;
-    }
-
-    public void setType(final BoardType model) {
-        type = model;
-    }
-
-    @Column(name = "text", nullable = true)
-    public String getText() {
-        return text;
-    }
-
-    public void setText(final String text) {
-        this.text = text;
-    }
-
-
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "creator", nullable = true)
-    public AliasEntity getCreator() {
-        return creator;
-    }
-
-    public void setCreator(final AliasEntity creator) {
-        this.creator = creator;
-    }
-
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "owner", nullable = true)
-    public AliasEntity getOwner() {
-        return owner;
-    }
-
-    public void setOwner(final AliasEntity owner) {
-        this.owner = owner;
-    }
-
 
     @ManyToOne(targetEntity = AliasEntity.class)
     @JoinColumn(name = "author", nullable = true)
@@ -148,15 +64,13 @@ public class BoardIndexEntity extends CommonBase {
         this.author = author;
     }
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "members", joinColumns = {@JoinColumn(name = "resource_uri")}, inverseJoinColumns = {@JoinColumn(name = "member_uri")})
-    public Set<AliasEntity> getMembers() {
-        return members;
+    @OneToMany(mappedBy = "board")
+    public Set<MessageEntity> getChats() {
+        return chats;
     }
 
-    public void setMembers(final Set<AliasEntity> members) {
-        this.members = members;
+    public void setChats(final Set<MessageEntity> chats) {
+        this.chats = chats;
     }
 
 //    @Column(name = "BOARD_RATING", nullable = true)
@@ -177,22 +91,41 @@ public class BoardIndexEntity extends CommonBase {
         this.commentCount = commentCount;
     }
 
-    @Column(name = "visit_count", nullable = false)
-    public long getVisitCount() {
-        return visitCount;
+    @OneToMany(mappedBy = "board")
+    public Set<MessageEntity> getComments() {
+        return comments;
     }
 
-    public void setVisitCount(final long visitCount) {
-        this.visitCount = visitCount;
+    public void setComments(final Set<MessageEntity> comments) {
+        this.comments = comments;
     }
 
-    @Column(name = "like_count", nullable = false)
-    public long getLikeCount() {
-        return likeCount;
+    @Column(name = "created", nullable = false)
+    public Date getCreated() {
+        return created;
     }
 
-    public void setLikeCount(final long likeCount) {
-        this.likeCount = likeCount;
+    public void setCreated(final Date created) {
+        this.created = created;
+    }
+
+    @ManyToOne(targetEntity = AliasEntity.class)
+    @JoinColumn(name = "creator", nullable = true)
+    public AliasEntity getCreator() {
+        return creator;
+    }
+
+    public void setCreator(final AliasEntity creator) {
+        this.creator = creator;
+    }
+
+    @Column(name = "description", nullable = true)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     @Column(name = "follower_count", nullable = false)
@@ -205,7 +138,8 @@ public class BoardIndexEntity extends CommonBase {
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "follow", joinColumns = {@JoinColumn(name = "followed_uri")}, inverseJoinColumns = {@JoinColumn(name = "follower_uri")})
+    @JoinTable(name = "follow", joinColumns = {@JoinColumn(name = "followed_uri")},
+               inverseJoinColumns = {@JoinColumn(name = "follower_uri")})
     public Set<AliasEntity> getFollowers() {
         return followers;
     }
@@ -214,29 +148,35 @@ public class BoardIndexEntity extends CommonBase {
         this.followers = followers;
     }
 
-    @OneToMany(mappedBy = "board")
-    public Set<MessageEntity> getChats() {
-        return chats;
+    @Column(name = "like_count", nullable = false)
+    public long getLikeCount() {
+        return likeCount;
     }
 
-    public void setChats(final Set<MessageEntity> chats) {
-        this.chats = chats;
+    public void setLikeCount(final long likeCount) {
+        this.likeCount = likeCount;
     }
 
-
-    public void incrementActivity() {
-        activityCount++;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "members", joinColumns = {@JoinColumn(name = "resource_uri")},
+               inverseJoinColumns = {@JoinColumn(name = "member_uri")})
+    public Set<AliasEntity> getMembers() {
+        return members;
     }
 
-    @Column(name = "activity_count", nullable = false)
-    public long getActivityCount() {
-        return activityCount;
+    public void setMembers(final Set<AliasEntity> members) {
+        this.members = members;
     }
 
-    public void setActivityCount(final long activityCount) {
-        this.activityCount = activityCount;
+    @ManyToOne(targetEntity = AliasEntity.class)
+    @JoinColumn(name = "owner", nullable = true)
+    public AliasEntity getOwner() {
+        return owner;
     }
 
+    public void setOwner(final AliasEntity owner) {
+        this.owner = owner;
+    }
 
     @Column(name = "popularity", nullable = false)
     public long getPopularity() {
@@ -247,13 +187,45 @@ public class BoardIndexEntity extends CommonBase {
         this.popularity = popularity;
     }
 
-    public void setListed(final boolean listed) {
-        this.listed = listed;
+    /**
+     * The Short Name of the pool not the name attribute
+     *
+     * @return
+     */
+    @Column(name = "short_url", nullable = true)
+    public String getShortUrl() {
+        return shortUrl;
     }
 
-    @Column(name = "listed", nullable = false)
-    public boolean isListed() {
-        return listed;
+    public void setShortUrl(final String boardName) {
+        shortUrl = boardName;
+    }
+
+    @Column(name = "text", nullable = true)
+    public String getText() {
+        return text;
+    }
+
+    public void setText(final String text) {
+        this.text = text;
+    }
+
+    @Column(name = "title", nullable = true)
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    @Column(name = "type", nullable = true)
+    public BoardType getType() {
+        return type;
+    }
+
+    public void setType(final BoardType model) {
+        type = model;
     }
 
     @Column(name = "updated", nullable = false)
@@ -265,19 +237,41 @@ public class BoardIndexEntity extends CommonBase {
         this.updated = updated;
     }
 
-
-    public void incrementVisits() {
-        visitCount++;
+    @Id
+    @Column(name = "uri", nullable = false)
+    public String getUri() {
+        return uri;
     }
 
-    @Column(name = "created", nullable = false)
-    public Date getCreated() {
-        return created;
+    public void setUri(final String uri) {
+        this.uri = uri;
     }
 
+    @Column(name = "visit_count", nullable = false)
+    public long getVisitCount() {
+        return visitCount;
+    }
 
-    public void setCreated(final Date created) {
-        this.created = created;
+    public void setVisitCount(final long visitCount) {
+        this.visitCount = visitCount;
+    }
+
+    @OneToMany(mappedBy = "board")
+    public Set<VisitEntity> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(final Set<VisitEntity> visits) {
+        this.visits = visits;
+    }
+
+    @Column(name = "listed", nullable = false)
+    public boolean isListed() {
+        return listed;
+    }
+
+    public void setListed(final boolean listed) {
+        this.listed = listed;
     }
 }
 

@@ -39,18 +39,24 @@ public class LinkPoolObjectHandler extends AbstractDataStoreHandler<LinkPoolObje
 //                    System.exit(-1);
 //                }
                 poolDAO.unlinkPoolObject(targetPersistedEntityImpl);
-
             }
 
             if (from == null) {
-                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetPersistedEntityImpl, fountainNeo.findByUUID(to));
-            } else {
-                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetPersistedEntityImpl, fountainNeo.findByUUID(from), fountainNeo.findByUUID(to));
+                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetPersistedEntityImpl,
+                                                fountainNeo.findByUUID(to)
+                                               );
+            }
+            else {
+                result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetPersistedEntityImpl,
+                                                fountainNeo.findByUUID(from), fountainNeo.findByUUID(to)
+                                               );
             }
 
 
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, result.convertNodeToLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, result.convertNodeToLSD(request.getDetail(), request.isInternal()
+                                                                                         )
+                                                        );
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

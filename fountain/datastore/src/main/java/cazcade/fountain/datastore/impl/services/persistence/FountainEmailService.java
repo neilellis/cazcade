@@ -20,13 +20,12 @@ import java.util.Map;
  * @author neilellis@cazcade.com
  */
 public class FountainEmailService {
-
     @Autowired
     MailService mailService;
 
 
-    public void send(@Nonnull final LSDTransferEntity user, @Nonnull final LSDTransferEntity alias, final String templateName, final String subject, final Object data, final boolean test) throws UnsupportedEncodingException {
-
+    public void send(@Nonnull final LSDTransferEntity user, @Nonnull final LSDTransferEntity alias, final String templateName,
+                     final String subject, final Object data, final boolean test) throws UnsupportedEncodingException {
         final Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
         templateData.put("alias", alias.getCamelCaseMap());
@@ -35,37 +34,41 @@ public class FountainEmailService {
         //We use the hash when confirming user actions
         templateData.put("hash", URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8"));
         mailService.sendMailFromTemplate(templateName, subject, new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)},
-                new String[0], new String[0], templateData, test);
+                                         new String[0], new String[0], templateData, test
+                                        );
     }
 
+    public void sendChangePasswordRequest(@Nonnull final LSDTransferEntity user, final String hash)
+            throws UnsupportedEncodingException {
+        final String link = "http://boardcast.it/_password-change?username=" +
+                            URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                            "&hash=" + URLEncoder.encode(hash, "utf8");
+        final Map<String, Object> templateData = new HashMap<String, Object>();
+        templateData.put("user", user.getCamelCaseMap());
+        templateData.put("link", link);
+        mailService.sendMailFromTemplate("password.vm", "Password change request", new String[]{user.getAttribute(
+                LSDAttribute.EMAIL_ADDRESS
+                                                                                                                 )}, new String[0],
+                                         new String[0], templateData, false
+                                        );
+    }
 
     public void sendRegistrationEmail(@Nonnull final LSDTransferEntity user) throws UnsupportedEncodingException {
         //Please click on this link to complete your registration
         final String link = "http://boardcast.it/_login-confirm-reg?user=" +
-                URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
-                "&hash=" + URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8");
+                            URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                            "&hash=" + URLEncoder.encode(EmailUtil.getEmailHash(user), "utf8");
         final Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
         templateData.put("link", link);
-        mailService.sendMailFromTemplate("welcome.html", "Welcome to Boardcast", new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)}, new String[0],
-                new String[0], templateData, false);
-
-
+        mailService.sendMailFromTemplate("welcome.html", "Welcome to Boardcast", new String[]{user.getAttribute(
+                LSDAttribute.EMAIL_ADDRESS
+                                                                                                               )}, new String[0],
+                                         new String[0], templateData, false
+                                        );
     }
 
     public void sendWelcomeEmail(final LSDBaseEntity user) {
 
-    }
-
-
-    public void sendChangePasswordRequest(@Nonnull final LSDTransferEntity user, final String hash) throws UnsupportedEncodingException {
-        final String link = "http://boardcast.it/_password-change?username=" +
-                URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
-                "&hash=" + URLEncoder.encode(hash, "utf8");
-        final Map<String, Object> templateData = new HashMap<String, Object>();
-        templateData.put("user", user.getCamelCaseMap());
-        templateData.put("link", link);
-        mailService.sendMailFromTemplate("password.vm", "Password change request", new String[]{user.getAttribute(LSDAttribute.EMAIL_ADDRESS)}, new String[0],
-                new String[0], templateData, false);
     }
 }

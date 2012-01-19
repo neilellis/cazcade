@@ -17,21 +17,6 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class HashboLoginOrRegisterPanel extends DialogBox {
-    private boolean registerPanelShowing;
-
-    @Nullable
-    public LiquidSessionIdentifier getIdentity() {
-        if (registerPanelShowing) {
-            return null;
-        } else {
-            return loginPanel.getIdentity();
-        }
-    }
-
-
-    interface LoginOrRegisterPanelUiBinder extends UiBinder<HTMLPanel, HashboLoginOrRegisterPanel> {
-    }
-
     private static final LoginOrRegisterPanelUiBinder ourUiBinder = GWT.create(LoginOrRegisterPanelUiBinder.class);
 
     @UiField
@@ -39,6 +24,7 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
 
     @Nonnull
     final HashboRegisterPanel registerPanel;
+    private boolean registerPanelShowing;
 
     public HashboLoginOrRegisterPanel(final boolean register, final Runnable loginAction, final Runnable registerAction) {
         super();
@@ -64,14 +50,15 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
                     }
                 }.schedule(2000);
             }
-        });
+        }
+                                     );
         loginPanel.setOnSwitchToRegisterAction(new Runnable() {
             @Override
             public void run() {
-
                 switchToRegister();
             }
-        });
+        }
+                                              );
 
         registerPanel.setOnSwitchToLoginAction(new Runnable() {
             @Override
@@ -85,7 +72,8 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
                 getWidget().addStyleName("login-panel");
                 Track.getInstance().trackEvent("Login", "Switched to login panel.");
             }
-        });
+        }
+                                              );
         if (register) {
             switchToRegister();
         }
@@ -100,6 +88,18 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
         setWidth("650px");
         setHeight("400px");
         Track.getInstance().trackEvent("Register", "Switched to register panel.");
+    }
 
+    @Nullable
+    public LiquidSessionIdentifier getIdentity() {
+        if (registerPanelShowing) {
+            return null;
+        }
+        else {
+            return loginPanel.getIdentity();
+        }
+    }
+
+    interface LoginOrRegisterPanelUiBinder extends UiBinder<HTMLPanel, HashboLoginOrRegisterPanel> {
     }
 }

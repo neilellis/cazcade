@@ -7,12 +7,14 @@ import java.io.Serializable;
  * @author neilelliz@cazcade.com
  */
 public class ClientApplicationIdentifier implements Serializable {
-
     private String name;
     private String key;
     private String hostinfo;
 
-    public ClientApplicationIdentifier() {
+    @Nonnull
+    public static ClientApplicationIdentifier valueOf(@Nonnull final String s) {
+        final String[] strings = s.split(":");
+        return new ClientApplicationIdentifier(strings[0], strings[1], strings[2]);
     }
 
     public ClientApplicationIdentifier(final String name, final String key, final String hostinfo) {
@@ -21,16 +23,7 @@ public class ClientApplicationIdentifier implements Serializable {
         this.hostinfo = hostinfo;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getHostinfo() {
-        return hostinfo;
+    public ClientApplicationIdentifier() {
     }
 
     @Nonnull
@@ -39,9 +32,15 @@ public class ClientApplicationIdentifier implements Serializable {
         return name + ":" + hostinfo + ":" + key;
     }
 
-    @Nonnull
-    public static ClientApplicationIdentifier valueOf(@Nonnull final String s) {
-        final String[] strings = s.split(":");
-        return new ClientApplicationIdentifier(strings[0], strings[1], strings[2]);
+    public String getHostinfo() {
+        return hostinfo;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getName() {
+        return name;
     }
 }

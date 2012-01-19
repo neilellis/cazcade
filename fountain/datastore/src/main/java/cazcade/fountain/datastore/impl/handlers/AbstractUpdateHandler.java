@@ -24,13 +24,24 @@ public class AbstractUpdateHandler<T extends AbstractUpdateRequest> extends Abst
             throw new NullPointerException("Attempted to pass a null request entity to an update handler.");
         }
         if (uri != null) {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByURITx(sessionIdentifier, uri, requestEntity, request.isInternal(), request.getDetail(), null));
-        } else {
+            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByURITx(sessionIdentifier, uri,
+                                                                                                  requestEntity,
+                                                                                                  request.isInternal(),
+                                                                                                  request.getDetail(), null
+                                                                                                 )
+                                                        );
+        }
+        else {
             final LiquidUUID target = request.getTarget();
             if (target == null) {
                 throw new NullPointerException("Attempted to pass a null target to an update handler.");
             }
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(sessionIdentifier, target, requestEntity, request.isInternal(), request.getDetail(), null));
+            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(sessionIdentifier, target,
+                                                                                                   requestEntity,
+                                                                                                   request.isInternal(),
+                                                                                                   request.getDetail(), null
+                                                                                                  )
+                                                        );
         }
     }
 }

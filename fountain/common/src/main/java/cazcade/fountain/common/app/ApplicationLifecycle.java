@@ -5,6 +5,5 @@ package cazcade.fountain.common.app;
  */
 
 public interface ApplicationLifecycle {
-
     void register(ApplicationLifecycleListener listener);
 }

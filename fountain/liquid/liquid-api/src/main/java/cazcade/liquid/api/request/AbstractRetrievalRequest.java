@@ -12,26 +12,33 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractRetrievalRequest extends AbstractRequest {
-
-
     @Nullable
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getTarget() != null) {
             return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
-        } else {
+        }
+        else {
             if (getUri() != null) {
                 return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
-            } else {
+            }
+            else {
                 return Collections.emptyList();
             }
         }
     }
 
-
     @Nonnull
     @Override
     public String getCacheIdentifier() {
-        return getRequestType().name() + ":" + getState().name() + ":" + getDetail() + ":" + (getUri() != null ? getUri() : getTarget()) + ":" + (isHistorical() ? "historical" : "latest");
+        return getRequestType().name() +
+               ":" +
+               getState().name() +
+               ":" +
+               getDetail() +
+               ":" +
+               (getUri() != null ? getUri() : getTarget()) +
+               ":" +
+               (isHistorical() ? "historical" : "latest");
     }
 
     @Nullable
@@ -39,15 +46,12 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
         return null;
     }
 
-    public boolean isMutationRequest() {
-        return false;
-    }
-
-
     @Override
     public boolean isCacheable() {
         return true;
     }
 
-
+    public boolean isMutationRequest() {
+        return false;
+    }
 }

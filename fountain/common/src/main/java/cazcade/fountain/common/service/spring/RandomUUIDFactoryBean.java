@@ -9,7 +9,6 @@ import java.util.UUID;
  * Factory bean that supports the generation of random UUIDs.
  */
 public class RandomUUIDFactoryBean implements FactoryBean {
-
     public Object getObject() throws Exception {
         return UUID.randomUUID();
     }

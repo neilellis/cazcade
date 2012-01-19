@@ -26,7 +26,6 @@ import java.io.UnsupportedEncodingException;
 // in the root of the classpath
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
 public class FountainEmailTest {
-
     @Autowired
     private FountainEmailService mailService;
 
@@ -41,14 +40,17 @@ public class FountainEmailTest {
 
     }
 
-
     @Test
     @Transactional
     public void test() throws InterruptedException, UnsupportedEncodingException {
-        final LSDTransferEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"), true), true, LiquidRequestDetailLevel.COMPLETE);
-        final LSDTransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).convertNodeToLSD(LiquidRequestDetailLevel.COMPLETE, true);
+        final LSDTransferEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"),
+                                                                                               true
+                                                                                              ), true,
+                                                                         LiquidRequestDetailLevel.COMPLETE
+                                                                        );
+        final LSDTransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).convertNodeToLSD(
+                LiquidRequestDetailLevel.COMPLETE, true
+                                                                                                                        );
         mailService.send(userFromNode, aliasFromNode, "test-email.html", "Welcome", "", false);
     }
-
-
 }

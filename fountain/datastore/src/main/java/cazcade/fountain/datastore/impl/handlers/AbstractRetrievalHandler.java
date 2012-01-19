@@ -17,7 +17,8 @@ public class AbstractRetrievalHandler<T extends AbstractRetrievalRequest> extend
         LSDTransferEntity entity;
         if (request.getTarget() != null) {
             entity = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
-        } else {
+        }
+        else {
             final FountainNeo neo = fountainNeo;
             final Transaction transaction = neo.beginTx();
             try {

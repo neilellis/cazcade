@@ -9,8 +9,6 @@ import cazcade.vortex.pool.objects.photo.PhotoEditorPanel;
  * @author neilellis@cazcade.com
  */
 public class CreatePhotoCommand extends CreateItemCommand {
-
-
     public CreatePhotoCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
@@ -19,9 +17,7 @@ public class CreatePhotoCommand extends CreateItemCommand {
     public void execute() {
         showEditorPanel(new PhotoEditorPanel(createEntityWithDefaultView()));
         Track.getInstance().trackEvent("Add", "Add Decoration");
-
     }
-
 
     @Override
     protected void buildEntity(final BuildCallback onBuilt) {

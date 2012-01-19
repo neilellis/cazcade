@@ -8,26 +8,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrieveSessionRequest extends AbstractRetrievalRequest {
-
-    public RetrieveSessionRequest() {
-        super();
-    }
-
-    public RetrieveSessionRequest(final LiquidUUID target) {
-        this(null, null, target);
-    }
-
-    public RetrieveSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
-        this(null, identity, target);
-    }
-
-    public RetrieveSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public RetrieveSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                  final LiquidUUID target) {
         super();
         setId(id);
         setSessionId(identity);
         setTarget(target);
     }
 
+    public RetrieveSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
+        this(null, identity, target);
+    }
+
+    public RetrieveSessionRequest(final LiquidUUID target) {
+        this(null, null, target);
+    }
+
+    public RetrieveSessionRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -39,10 +38,8 @@ public class RetrieveSessionRequest extends AbstractRetrievalRequest {
         return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
     }
 
-
     @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_SESSION;
     }
-
 }

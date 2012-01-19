@@ -14,21 +14,25 @@ import javax.annotation.Nonnull;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXYPoolObjectRequest> implements RotateXYPoolObjectRequestHandler {
-
+public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXYPoolObjectRequest>
+        implements RotateXYPoolObjectRequestHandler {
     @Nonnull
     public RotateXYPoolObjectRequest handle(@Nonnull final RotateXYPoolObjectRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(request.getObjectUUID());
-            final LSDPersistedEntity viewPersistedEntity = persistedEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING).getOtherNode(persistedEntity);
+            final LSDPersistedEntity viewPersistedEntity = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
+                                                                                                 Direction.OUTGOING
+                                                                                                ).getOtherNode(persistedEntity);
 
             if (request.getAngle() != null) {
-
                 persistedEntity.setAttribute(LSDAttribute.VIEW_ROTATE_XY, request.getAngle());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(),
+                                                                                                       request.isInternal()
+                                                                                                      )
+                                                        );
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

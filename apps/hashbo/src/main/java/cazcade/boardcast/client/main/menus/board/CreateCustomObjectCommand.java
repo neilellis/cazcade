@@ -11,8 +11,6 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateCustomObjectCommand extends CreateItemCommand {
-
-
     public CreateCustomObjectCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
         super(pool, type);
     }

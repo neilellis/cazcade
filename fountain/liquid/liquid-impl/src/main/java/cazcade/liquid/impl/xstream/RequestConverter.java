@@ -24,9 +24,22 @@ public class RequestConverter implements Converter {
     private static final Logger log = Logger.getLogger(RequestConverter.class);
 
     @Nonnull
-    private static final ReflectionConverter CONVERTER = new ReflectionConverter(LiquidXStreamFactory.getXstream().getMapper(), LiquidXStreamFactory.getXstream().getReflectionProvider());
+    private static final ReflectionConverter CONVERTER = new ReflectionConverter(LiquidXStreamFactory.getXstream().getMapper(),
+                                                                                 LiquidXStreamFactory.getXstream()
+                                                                                                     .getReflectionProvider()
+    );
 
-    public void marshal(@Nonnull final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
+    public boolean canConvert(final Class aClass) {
+        return LiquidRequest.class.isAssignableFrom(aClass);
+    }
+
+    @Nullable
+    public Object fromString(final String s) {
+        return null;
+    }
+
+    public void marshal(@Nonnull final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter,
+                        final MarshallingContext marshallingContext) {
         final LiquidRequest request = (LiquidRequest) o;
         hierarchicalStreamWriter.startNode("type");
         hierarchicalStreamWriter.setValue(request.getRequestType().name().toLowerCase());
@@ -56,7 +69,13 @@ public class RequestConverter implements Converter {
 //        }
     }
 
-    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader, @Nonnull final UnmarshallingContext unmarshallingContext) {
+    @Nullable
+    public String toString(final Object o) {
+        return null;
+    }
+
+    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader,
+                            @Nonnull final UnmarshallingContext unmarshallingContext) {
         hierarchicalStreamReader.moveDown();
         if (!"type".equals(hierarchicalStreamReader.getNodeName())) {
             throw new IllegalStateException("Expected to find 'type' node here.");
@@ -89,20 +108,5 @@ public class RequestConverter implements Converter {
         hierarchicalStreamReader.moveUp();
 //        System.out.println(liquidRequest.getId().toString());
         return result;
-    }
-
-
-    @Nullable
-    public String toString(final Object o) {
-        return null;
-    }
-
-    @Nullable
-    public Object fromString(final String s) {
-        return null;
-    }
-
-    public boolean canConvert(final Class aClass) {
-        return LiquidRequest.class.isAssignableFrom(aClass);
     }
 }

@@ -12,12 +12,12 @@ public class LiquidPrincipal implements Principal, Serializable {
     private String name;
     private LSDBaseEntity aliasEntity;
 
-    public LiquidPrincipal(final String name) {
-        this.name = name;
-    }
-
     public LiquidPrincipal(final String name, final LSDBaseEntity aliasEntity) {
         this.aliasEntity = aliasEntity;
+    }
+
+    public LiquidPrincipal(final String name) {
+        this.name = name;
     }
 
     public boolean equals(final Object o) {
@@ -37,13 +37,12 @@ public class LiquidPrincipal implements Principal, Serializable {
         return true;
     }
 
-    public String toString() {
-        return name;
-    }
-
-
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public String toString() {
+        return name;
     }
 
     public String getName() {

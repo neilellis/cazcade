@@ -7,12 +7,10 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public interface LSDTypeGroups {
-
     List<LSDDictionaryTypes> CORE_POOL_OBJECT_TYPES = Arrays.asList(LSDDictionaryTypes.VIDEO,
-            LSDDictionaryTypes.FEED,
-            LSDDictionaryTypes.TEXT,
-            LSDDictionaryTypes.IMAGE,
-            LSDDictionaryTypes.PERSON);
-
-
+                                                                    LSDDictionaryTypes.FEED,
+                                                                    LSDDictionaryTypes.TEXT,
+                                                                    LSDDictionaryTypes.IMAGE,
+                                                                    LSDDictionaryTypes.PERSON
+                                                                   );
 }

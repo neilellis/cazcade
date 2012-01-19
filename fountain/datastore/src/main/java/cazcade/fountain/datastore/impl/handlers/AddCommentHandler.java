@@ -18,8 +18,19 @@ public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> 
     public AddCommentRequest handle(@Nonnull final AddCommentRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final LSDPersistedEntity commentTargetPersistedEntity = request.getTarget() != null ? fountainNeo.findByUUID(request.getTarget()) : fountainNeo.findByURI(request.getUri());
-            final LSDTransferEntity response = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), poolDAO.addCommentNoTX(commentTargetPersistedEntity, request.getRequestEntity(), request.getAlias()), null, request.getDetail(), request.isInternal(), false);
+            final LSDPersistedEntity commentTargetPersistedEntity = request.getTarget() != null
+                                                                    ? fountainNeo.findByUUID(request.getTarget()
+                                                                                            )
+                                                                    : fountainNeo.findByURI(request.getUri());
+            final LSDTransferEntity response = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(),
+                                                                                                  poolDAO.addCommentNoTX(
+                                                                                                          commentTargetPersistedEntity,
+                                                                                                          request.getRequestEntity(),
+                                                                                                          request.getAlias()
+                                                                                                                        ), null,
+                                                                                                  request.getDetail(),
+                                                                                                  request.isInternal(), false
+                                                                                                 );
 
             //This is an iPad app hack//
             // removed by Neil, we'll need to go back and fix a lot in the iPad application

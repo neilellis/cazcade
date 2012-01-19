@@ -19,7 +19,6 @@ import java.util.List;
  */
 
 public class FountainLocalDataStore extends AbstractServiceStateMachine implements FountainDataStore {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainLocalDataStore.class);
 
@@ -56,33 +55,31 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
             log.error(de);
             if (de.isClientException()) {
                 return LiquidResponseHelper.forException(de, request);
-            } else {
+            }
+            else {
                 throw de;
             }
         }
-
-    }
-
-
-    public void setFountainNeo(final FountainNeo fountainNeo) {
-        this.fountainNeo = fountainNeo;
     }
 
     public void start() throws Exception {
         super.start();
         requestMap.injectNeo(fountainNeo);
-
-    }
-
-    public void setRequestMap(final FountainRequestMap requestMap) {
-        this.requestMap = requestMap;
     }
 
     public FountainRequestMap getRequestMap() {
         return requestMap;
     }
 
+    public void setRequestMap(final FountainRequestMap requestMap) {
+        this.requestMap = requestMap;
+    }
+
     public void setAuthHandler(final AuthorizationRequestHandler authHandler) {
         this.authHandler = authHandler;
+    }
+
+    public void setFountainNeo(final FountainNeo fountainNeo) {
+        this.fountainNeo = fountainNeo;
     }
 }

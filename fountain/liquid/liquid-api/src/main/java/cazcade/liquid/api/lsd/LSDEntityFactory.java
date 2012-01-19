@@ -10,10 +10,6 @@ import java.util.Map;
  */
 
 public interface LSDEntityFactory {
-
-    @Nonnull
-    LSDBaseEntity create(LiquidUUID uuid);
-
     /**
      * @param properties
      * @param dotPrefixed true if it should only be built from properties starting with "."
@@ -23,7 +19,8 @@ public interface LSDEntityFactory {
     LSDBaseEntity create(Map<String, String> properties, boolean dotPrefixed);
 
     @Nonnull
+    LSDBaseEntity create(LiquidUUID uuid);
+
+    @Nonnull
     LSDTransferEntity createFromServletProperties(Map<String, String[]> properties);
-
-
 }

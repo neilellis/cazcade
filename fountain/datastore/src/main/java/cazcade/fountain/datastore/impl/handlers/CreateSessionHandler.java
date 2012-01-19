@@ -14,8 +14,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class CreateSessionHandler extends AbstractDataStoreHandler<CreateSessionRequest> implements CreateSessionRequestHandler {
-
-
     @Nonnull
     public CreateSessionRequest handle(@Nonnull final CreateSessionRequest request) throws InterruptedException {
         final FountainNeo neo = fountainNeo;

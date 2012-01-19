@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 public class FountainDataStoreContextListener implements ServletContextListener,
-        HttpSessionListener, HttpSessionAttributeListener {
+                                                         HttpSessionListener, HttpSessionAttributeListener {
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainDataStoreContextListener.class);
 
@@ -22,40 +22,13 @@ public class FountainDataStoreContextListener implements ServletContextListener,
 
     // Public constructor is required by servlet spec
     public FountainDataStoreContextListener() {
-
         dataStore = new FountainDataStoreServer();
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 dataStore.stopIfNotStopped();
             }
-        });
-    }
-
-    // -------------------------------------------------------
-    // ServletContextListener implementation
-    // -------------------------------------------------------
-    public void contextInitialized(final ServletContextEvent sce) {
-        try {
-            dataStore.start();
-        } catch (Exception e) {
-            log.error(e);
         }
-
-    }
-
-    public void contextDestroyed(final ServletContextEvent sce) {
-        dataStore.stopIfNotStopped();
-    }
-
-    // -------------------------------------------------------
-    // HttpSessionListener implementation
-    // -------------------------------------------------------
-    public void sessionCreated(final HttpSessionEvent se) {
-        /* Session is created. */
-    }
-
-    public void sessionDestroyed(final HttpSessionEvent se) {
-        /* Session is destroyed. */
+                                            );
     }
 
     // -------------------------------------------------------
@@ -78,5 +51,31 @@ public class FountainDataStoreContextListener implements ServletContextListener,
         /* This method is invoked when an attibute
            is replaced in a session.
         */
+    }
+
+    public void contextDestroyed(final ServletContextEvent sce) {
+        dataStore.stopIfNotStopped();
+    }
+
+    // -------------------------------------------------------
+    // ServletContextListener implementation
+    // -------------------------------------------------------
+    public void contextInitialized(final ServletContextEvent sce) {
+        try {
+            dataStore.start();
+        } catch (Exception e) {
+            log.error(e);
+        }
+    }
+
+    // -------------------------------------------------------
+    // HttpSessionListener implementation
+    // -------------------------------------------------------
+    public void sessionCreated(final HttpSessionEvent se) {
+        /* Session is created. */
+    }
+
+    public void sessionDestroyed(final HttpSessionEvent se) {
+        /* Session is destroyed. */
     }
 }

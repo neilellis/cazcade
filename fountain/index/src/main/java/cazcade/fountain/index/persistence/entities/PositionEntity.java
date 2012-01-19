@@ -13,7 +13,6 @@ import java.util.Date;
 @Entity
 @Table(name = "position")
 public class PositionEntity extends PositionBase {
-
     private AliasEntity alias;
 
     @Id
@@ -28,6 +27,15 @@ public class PositionEntity extends PositionBase {
         positionId = boardPositionId;
     }
 
+    @OneToOne(targetEntity = AliasEntity.class)
+    @JoinColumn(name = "alias", nullable = false)
+    public AliasEntity getAlias() {
+        return alias;
+    }
+
+    public void setAlias(final AliasEntity alias) {
+        this.alias = alias;
+    }
 
     @Column(name = "last_read", nullable = true)
     public Date getLastRead() {
@@ -47,16 +55,6 @@ public class PositionEntity extends PositionBase {
         this.lastWrote = lastWrote;
     }
 
-    @OneToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "alias", nullable = false)
-    public AliasEntity getAlias() {
-        return alias;
-    }
-
-    public void setAlias(final AliasEntity alias) {
-        this.alias = alias;
-    }
-
     @Column(name = "resource_uri", nullable = true)
     public String getResourceUri() {
         return resourceUri;
@@ -65,6 +63,4 @@ public class PositionEntity extends PositionBase {
     public void setResourceUri(final String uri) {
         resourceUri = uri;
     }
-
-
 }

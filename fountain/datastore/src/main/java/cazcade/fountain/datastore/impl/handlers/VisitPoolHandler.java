@@ -16,7 +16,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest> implements VisitPoolRequestHandler {
-
     @Nonnull
     public VisitPoolRequest handle(@Nonnull final VisitPoolRequest request) throws Exception {
         LSDPersistedEntity persistedEntity;
@@ -26,7 +25,8 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
 
             if (request.getUri() != null) {
                 persistedEntity = fountainNeo.findByURI(request.getUri());
-            } else {
+            }
+            else {
                 persistedEntity = fountainNeo.findByUUID(request.getTarget());
             }
 
@@ -35,7 +35,8 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 final LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
                 final String name = request.getUri().getLastPathElement();
-                final String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-") || name.startsWith("-")) ? "Untitled" : name;
+                final String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-") ||
+                                                                 name.startsWith("-")) ? "Untitled" : name;
                 final StringBuilder newTitle = new StringBuilder();
                 boolean previousCharWhitespace = true;
                 for (int i = 0; i < boardTitle.length(); i++) {
@@ -45,47 +46,62 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                             newTitle.append(" ");
                         }
                         previousCharWhitespace = true;
-                    } else if (Character.isWhitespace(c)) {
+                    }
+                    else if (Character.isWhitespace(c)) {
                         if (!previousCharWhitespace) {
                             newTitle.append(' ');
                         }
                         previousCharWhitespace = true;
-                    } else if (Character.isUpperCase(c)) {
+                    }
+                    else if (Character.isUpperCase(c)) {
                         if (!previousCharWhitespace) {
                             newTitle.append(' ');
                         }
                         newTitle.append(c);
                         previousCharWhitespace = false;
-                    } else {
+                    }
+                    else {
                         if (previousCharWhitespace) {
                             newTitle.append(Character.toUpperCase(c));
-                        } else {
+                        }
+                        else {
                             newTitle.append(c);
                         }
                         previousCharWhitespace = false;
                     }
                 }
-                persistedEntity = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity, request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed());
+                persistedEntity = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity,
+                                                         request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed()
+                                                        );
                 if (request.getPermission() != null) {
-                    persistedEntity = fountainNeo.changeNodePermissionNoTx(persistedEntity, request.getSessionIdentifier(), request.getPermission());
+                    persistedEntity = fountainNeo.changeNodePermissionNoTx(persistedEntity, request.getSessionIdentifier(),
+                                                                           request.getPermission()
+                                                                          );
                     persistedEntity.assertLatestVersion();
                 }
             }
 
             if (persistedEntity == null) {
                 return LiquidResponseHelper.forResourceNotFound("Could not find pool " + request.getUri(), request);
-            } else {
+            }
+            else {
                 persistedEntity.assertLatestVersion();
                 poolDAO.visitNodeNoTx(persistedEntity, request.getSessionIdentifier());
                 persistedEntity.assertLatestVersion();
-                entity = poolDAO.getPoolAndContentsNoTx(persistedEntity, request.getDetail(), true, ChildSortOrder.AGE, request.isInternal(), request.getSessionIdentifier(), null, null, request.isHistorical());
-                final LSDTransferEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURI(request.getAlias()), request.isInternal(), request.getDetail());
+                entity = poolDAO.getPoolAndContentsNoTx(persistedEntity, request.getDetail(), true, ChildSortOrder.AGE,
+                                                        request.isInternal(), request.getSessionIdentifier(), null, null,
+                                                        request.isHistorical()
+                                                       );
+                final LSDTransferEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURI(request.getAlias()),
+                                                                           request.isInternal(), request.getDetail()
+                                                                          );
                 entity.addSubEntity(LSDAttribute.VISITOR, visitor, true);
                 transaction.success();
             }
             if (entity != null) {
                 return LiquidResponseHelper.forServerSuccess(request, entity);
-            } else {
+            }
+            else {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
             }
         } catch (RuntimeException e) {
@@ -94,6 +110,5 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
         } finally {
             transaction.finish();
         }
-
     }
 }

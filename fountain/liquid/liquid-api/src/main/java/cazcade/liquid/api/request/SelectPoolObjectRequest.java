@@ -8,17 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SelectPoolObjectRequest extends AbstractUpdateRequest {
-
-    public SelectPoolObjectRequest() {
-        super();
-    }
-
-
-    public SelectPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
-        this(null, identity, target, selected);
-    }
-
-    public SelectPoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
+    public SelectPoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
+                                   final boolean selected) {
         super();
         setId(id);
         setSessionId(identity);
@@ -26,6 +17,13 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
         setSelected(selected);
     }
 
+    public SelectPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
+        this(null, identity, target, selected);
+    }
+
+    public SelectPoolObjectRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -46,6 +44,4 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.SELECT_POOL_OBJECT;
     }
-
-
 }

@@ -9,16 +9,11 @@ import javax.annotation.Nonnull;
 
 
 public class CazcadeException extends RuntimeException {
-
-    public CazcadeException(final Throwable throwable) {
-        super(throwable);
-    }
-
-    public CazcadeException(@Nonnull final String message, final Object... params) {
+    public CazcadeException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(format(message, params));
     }
 
-    public CazcadeException(final Throwable cause, @Nonnull final String message, final Object... params) {
+    public CazcadeException(@Nonnull final String message, final Object... params) {
         super(format(message, params));
     }
 
@@ -33,6 +28,10 @@ public class CazcadeException extends RuntimeException {
         }
         buffer.append(message.substring(oldI));
         return buffer.toString();
+    }
+
+    public CazcadeException(final Throwable throwable) {
+        super(throwable);
     }
 
     public boolean isClientException() {

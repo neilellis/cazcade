@@ -8,17 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChangePermissionRequest extends AbstractRequest {
-
-
-    public ChangePermissionRequest() {
-        super();
-    }
-
-    public ChangePermissionRequest(final LiquidURI objectURI, final LiquidPermissionChangeType change) {
-        this(null, null, objectURI, change);
-    }
-
-    public ChangePermissionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LiquidPermissionChangeType change) {
+    public ChangePermissionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                   final LiquidURI objectURI, final LiquidPermissionChangeType change) {
         super();
         setPermission(change);
         setId(id);
@@ -26,6 +17,13 @@ public class ChangePermissionRequest extends AbstractRequest {
         setUri(objectURI);
     }
 
+    public ChangePermissionRequest(final LiquidURI objectURI, final LiquidPermissionChangeType change) {
+        this(null, null, objectURI, change);
+    }
+
+    public ChangePermissionRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -49,5 +47,4 @@ public class ChangePermissionRequest extends AbstractRequest {
     public boolean isMutationRequest() {
         return true;
     }
-
 }

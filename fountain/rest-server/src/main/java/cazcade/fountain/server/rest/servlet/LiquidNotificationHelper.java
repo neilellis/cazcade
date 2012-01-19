@@ -1,7 +1,5 @@
 package cazcade.fountain.server.rest.servlet;
 
-import static cazcade.common.CommonConstants.STRING_ENCODING;
-
 /**
  * @author neilellis@cazcade.com
  */
@@ -147,5 +145,4 @@ public class LiquidNotificationHelper {
 //            log.warn("{0}", e.getMessage());
 //        }
 //    }
-
 }

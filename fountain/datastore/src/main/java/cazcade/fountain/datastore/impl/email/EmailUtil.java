@@ -11,11 +11,11 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class EmailUtil {
+    @Nonnull
+    public static final String SALT = "MindPrecedesEverythingMindMattersMost";
 
     @Nonnull
     private static final StandardStringDigester digester = new StandardStringDigester();
-    @Nonnull
-    public static final String SALT = "MindPrecedesEverythingMindMattersMost";
 
 
     public static String getEmailHash(@Nonnull final LSDBaseEntity entity) {

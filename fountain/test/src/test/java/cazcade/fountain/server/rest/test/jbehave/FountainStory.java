@@ -14,20 +14,20 @@ import java.util.List;
  * Top level class used to provide configuration for all the fountain stories.
  */
 public abstract class FountainStory extends JUnitStory {
-
-
-    @Override
-    public Configuration configuration() {
-
-        //Simple default configuration for now.
-        return new MostUsefulConfiguration().useStoryLoader(new LoadFromClasspath(getClass().getClassLoader()))
-                .useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats().withFormats(StoryReporterBuilder.Format.CONSOLE,
-                        StoryReporterBuilder.Format.TXT));
-    }
-
     @Override
     public List<CandidateSteps> candidateSteps() {
         //For now only work with the FountainSteps class...
         return new InstanceStepsFactory(configuration(), new FountainSteps()).createCandidateSteps();
+    }
+
+    @Override
+    public Configuration configuration() {
+        //Simple default configuration for now.
+        return new MostUsefulConfiguration().useStoryLoader(new LoadFromClasspath(getClass().getClassLoader()))
+                                            .useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats().withFormats(
+                                                    StoryReporterBuilder.Format.CONSOLE,
+                                                    StoryReporterBuilder.Format.TXT
+                                                                                                                                )
+                                                                    );
     }
 }

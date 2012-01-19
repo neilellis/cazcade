@@ -8,23 +8,23 @@ import java.util.Map;
  * @author neilellis@cazcade.com
  */
 public interface LSDPropertyStore extends Serializable {
-    void put(String property, String value);
-
-    String get(String property);
-
-    Iterable<? extends String> getProperties();
-
-    void remove(String property);
-
     @Nonnull
     Map<String, String> asMap();
 
     boolean containsProperty(String property);
 
-    Iterable<? extends String> valueIterator();
-
     @Nonnull
     LSDPropertyStore copy();
 
+    String get(String property);
+
+    Iterable<? extends String> getProperties();
+
     boolean isSerializable();
+
+    void put(String property, String value);
+
+    void remove(String property);
+
+    Iterable<? extends String> valueIterator();
 }

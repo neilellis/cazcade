@@ -31,12 +31,14 @@ public class FountainDataStoreRPCServer {
         log.info("Starting RabbitMQ RPC Server");
 
         rpcServer = new RpcServer(template.getConnectionFactory().createConnection().createChannel(false), queue) {
-
             @Override
             public byte[] handleCall(final byte[] requestBody, final AMQP.BasicProperties replyProperties) {
                 try {
                     log.debug("Handling RabbitMQ RPC call");
-                    final LiquidMessage message = (LiquidMessage) template.getMessageConverter().fromMessage(new Message(requestBody, null));
+                    final LiquidMessage message = (LiquidMessage) template.getMessageConverter().fromMessage(new Message(
+                            requestBody, null
+                    )
+                                                                                                            );
                     final LiquidRequest response = (LiquidRequest) handler.handle(message);
                     final LiquidRequest request = (LiquidRequest) message;
                     if (response.shouldNotify()) {
@@ -50,7 +52,6 @@ public class FountainDataStoreRPCServer {
                     return new byte[0];
                 }
             }
-
         };
         new Thread(new Runnable() {
             @Override
@@ -61,7 +62,8 @@ public class FountainDataStoreRPCServer {
                     log.error(e.getMessage(), e);
                 }
             }
-        }).start();
+        }
+        ).start();
         log.info("Started RabbitMQ RPC Server");
     }
 
@@ -69,24 +71,23 @@ public class FountainDataStoreRPCServer {
         rpcServer.close();
     }
 
-    public void setTemplate(final RabbitTemplate template) {
-        this.template = template;
-    }
-
-    public void setHandler(final DataStoreServerMessageHandler handler) {
-        this.handler = handler;
+    public String getQueue() {
+        return queue;
     }
 
     public void setQueue(final String queue) {
         this.queue = queue;
     }
 
-    public String getQueue() {
-        return queue;
+    public void setHandler(final DataStoreServerMessageHandler handler) {
+        this.handler = handler;
     }
-
 
     public void setMessageSender(final LiquidMessageSender messageSender) {
         this.messageSender = messageSender;
+    }
+
+    public void setTemplate(final RabbitTemplate template) {
+        this.template = template;
     }
 }

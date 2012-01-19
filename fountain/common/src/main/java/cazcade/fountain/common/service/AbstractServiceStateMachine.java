@@ -13,14 +13,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 public abstract class AbstractServiceStateMachine implements ServiceStateMachine {
-
-    @Nonnull
-    private static final Logger log = Logger.getLogger(AbstractServiceStateMachine.class);
-    public static final int LOCK_TRY_TIMEOUT_IN_SECS = 20;
-
     private enum State {
         STOPPED, INITIALISATION, STARTED, PAUSED
     }
+
+    public static final int LOCK_TRY_TIMEOUT_IN_SECS = 20;
+
+    @Nonnull
+    private static final Logger log = Logger.getLogger(AbstractServiceStateMachine.class);
 
     @Nonnull
     private volatile State state = State.STOPPED;
@@ -45,7 +45,6 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
             waitUntilUnlocked();
         }
         activeCount.incrementAndGet();
-
     }
 
     private void waitUntilUnlocked() throws InterruptedException {
@@ -62,14 +61,54 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
         if (locked.get()) {
             throw new StateMachineFailure("Failed waiting for unlock with %s attempts.", count);
         }
-
     }
 
     public void end() {
         activeCount.decrementAndGet();
-
     }
 
+    public synchronized void hardstop() {
+        state = State.STOPPED;
+        locked.set(false);
+    }
+
+    public boolean isPaused() {
+        return state == State.PAUSED;
+    }
+
+    public void pause() throws Exception {
+        if (state == State.STOPPED) {
+            throw new IllegalStateException("Tried to pause a stopped service.");
+        }
+        if (state == State.PAUSED) {
+            throw new IllegalStateException("Tried to pause a paused service.");
+        }
+        state = State.PAUSED;
+        lock();
+    }
+
+    public void resume() throws Exception {
+        if (state == State.STOPPED) {
+            throw new IllegalStateException("Tried to resume a stopped service.");
+        }
+        if (state == State.STARTED) {
+            throw new IllegalStateException("Tried to resume a started service.");
+        }
+        state = State.STARTED;
+        unlock();
+    }
+
+    public final void startIfNotStarted() throws Exception {
+        synchronized (locked) {
+            if (!isStarted()) {
+                start();
+            }
+        }
+    }
+
+    public boolean isStarted() {
+        return state == State.STARTED;
+    }
 
     public void start() throws Exception {
         if (state == State.STARTED) {
@@ -79,8 +118,19 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
             throw new IllegalStateException("Tried to start a paused service.");
         }
         state = State.STARTED;
+    }
 
+    public final void stopIfNotStopped() {
+        synchronized (locked) {
+            if (!isStopped()) {
+                stop();
+                unlock();
+            }
+        }
+    }
 
+    public boolean isStopped() {
+        return state == State.STOPPED;
     }
 
     public void stop() {
@@ -105,22 +155,12 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
         state = State.STOPPED;
     }
 
-    public void pause() throws Exception {
-        if (state == State.STOPPED) {
-            throw new IllegalStateException("Tried to pause a stopped service.");
-        }
-        if (state == State.PAUSED) {
-            throw new IllegalStateException("Tried to pause a paused service.");
-        }
-        state = State.PAUSED;
-        lock();
-    }
-
     public void lock() throws InterruptedException {
         synchronized (locked) {
             if (locked.get()) {
                 log.error("Already locked.");
-            } else {
+            }
+            else {
                 locked.set(true);
             }
             int count = 0;
@@ -136,54 +176,9 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
         }
     }
 
-    public void resume() throws Exception {
-        if (state == State.STOPPED) {
-            throw new IllegalStateException("Tried to resume a stopped service.");
-        }
-        if (state == State.STARTED) {
-            throw new IllegalStateException("Tried to resume a started service.");
-        }
-        state = State.STARTED;
-        unlock();
-    }
-
     public void unlock() {
         synchronized (locked) {
             locked.set(false);
         }
-    }
-
-    public boolean isStopped() {
-        return state == State.STOPPED;
-    }
-
-    public boolean isPaused() {
-        return state == State.PAUSED;
-    }
-
-    public boolean isStarted() {
-        return state == State.STARTED;
-    }
-
-    public final void stopIfNotStopped() {
-        synchronized (locked) {
-            if (!isStopped()) {
-                stop();
-                unlock();
-            }
-        }
-    }
-
-    public final void startIfNotStarted() throws Exception {
-        synchronized (locked) {
-            if (!isStarted()) {
-                start();
-            }
-        }
-    }
-
-    public synchronized void hardstop() {
-        state = State.STOPPED;
-        locked.set(false);
     }
 }

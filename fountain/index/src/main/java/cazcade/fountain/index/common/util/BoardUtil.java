@@ -18,5 +18,4 @@ public class BoardUtil {
     public static boolean isQueryBoardName(@Nonnull final String boardName) {
         return boardName.startsWith("!");
     }
-
 }

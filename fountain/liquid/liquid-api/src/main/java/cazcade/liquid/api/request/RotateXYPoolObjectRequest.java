@@ -8,20 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RotateXYPoolObjectRequest extends AbstractRequest {
-
-    public RotateXYPoolObjectRequest() {
-        super();
-    }
-
-    public RotateXYPoolObjectRequest(final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
-        this(null, null, objectURI, poolId, object, angle);
-    }
-
-    public RotateXYPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
-        this(null, identity, objectURI, poolId, object, angle);
-    }
-
-    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object, final Double angle) {
+    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                     final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object,
+                                     final Double angle) {
         super();
         setId(id);
         setSessionId(identity);
@@ -31,6 +20,19 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
         setUri(objectURI);
     }
 
+    public RotateXYPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object,
+                                     final Double angle, final LiquidURI objectURI) {
+        this(null, identity, objectURI, poolId, object, angle);
+    }
+
+    public RotateXYPoolObjectRequest(final LiquidUUID poolId, final LiquidUUID object, final Double angle,
+                                     final LiquidURI objectURI) {
+        this(null, null, objectURI, poolId, object, angle);
+    }
+
+    public RotateXYPoolObjectRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -41,7 +43,6 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Arrays.asList(new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY));
     }
-
 
     public List<String> getNotificationLocations() {
         return Arrays.asList(getPoolUUID().toString());
@@ -55,6 +56,4 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
     public boolean isMutationRequest() {
         return true;
     }
-
-
 }

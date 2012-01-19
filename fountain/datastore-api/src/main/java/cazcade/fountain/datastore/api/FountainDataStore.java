@@ -9,8 +9,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public interface FountainDataStore extends ServiceStateMachine {
-
     @Nonnull
     <T extends LiquidRequest> T process(T request) throws Exception;
-
 }

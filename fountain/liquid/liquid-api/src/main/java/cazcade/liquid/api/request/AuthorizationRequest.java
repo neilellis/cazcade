@@ -15,28 +15,17 @@ public class AuthorizationRequest extends AbstractRequest {
     private final List<AuthorizationRequest> and = new ArrayList<AuthorizationRequest>();
     private LiquidPermission[] permission;
 
-    public AuthorizationRequest() {
-        super();
+    public AuthorizationRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID resource,
+                                final LiquidURI uri, final LiquidPermission[] permission, final List<AuthorizationRequest> or,
+                                final List<AuthorizationRequest> and) {
+        this(id, identity, resource, uri, permission);
+        this.or.addAll(or);
+        this.and.addAll(and);
     }
 
-    public AuthorizationRequest(final LiquidUUID resource, final LiquidPermission... permission) {
-        this(null, null, resource, null, permission);
-    }
-
-    public AuthorizationRequest(final LiquidURI uri, final LiquidPermission... permission) {
-        this(null, null, null, uri, permission);
-    }
-
-
-    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidPermission... permission) {
-        this(null, identity, resource, null, permission);
-    }
-
-    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LiquidPermission... permission) {
-        this(null, identity, null, uri, permission);
-    }
-
-    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri, final LiquidPermission... permission) {
+    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri,
+                                final LiquidPermission... permission) {
         super();
         if (resource == null && uri == null) {
             throw new NullPointerException("Cannot create an authorization request with a null resource id and uri.");
@@ -48,34 +37,31 @@ public class AuthorizationRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
-    public AuthorizationRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidURI uri, final LiquidPermission[] permission, final List<AuthorizationRequest> or, final List<AuthorizationRequest> and) {
-        this(id, identity, resource, uri, permission);
-        this.or.addAll(or);
-        this.and.addAll(and);
+    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidUUID resource,
+                                final LiquidPermission... permission) {
+        this(null, identity, resource, null, permission);
     }
 
+    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LiquidPermission... permission) {
+        this(null, identity, null, uri, permission);
+    }
 
-    @Nonnull
-    public AuthorizationRequest or(final AuthorizationRequest... authorizationRequests) {
-        Collections.addAll(or, authorizationRequests);
-        return this;
+    public AuthorizationRequest(final LiquidUUID resource, final LiquidPermission... permission) {
+        this(null, null, resource, null, permission);
+    }
+
+    public AuthorizationRequest(final LiquidURI uri, final LiquidPermission... permission) {
+        this(null, null, null, uri, permission);
+    }
+
+    public AuthorizationRequest() {
+        super();
     }
 
     @Nonnull
     public AuthorizationRequest and(final AuthorizationRequest... authorizationRequests) {
         Collections.addAll(and, authorizationRequests);
         return this;
-    }
-
-
-    @Nonnull
-    public List<AuthorizationRequest> getOr() {
-        return or;
-    }
-
-    @Nonnull
-    public List<AuthorizationRequest> getAnd() {
-        return and;
     }
 
     @Nonnull
@@ -87,7 +73,6 @@ public class AuthorizationRequest extends AbstractRequest {
     public LiquidPermission[] getActions() {
         return permission;
     }
-
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
@@ -107,5 +92,19 @@ public class AuthorizationRequest extends AbstractRequest {
         return false;
     }
 
+    @Nonnull
+    public AuthorizationRequest or(final AuthorizationRequest... authorizationRequests) {
+        Collections.addAll(or, authorizationRequests);
+        return this;
+    }
 
+    @Nonnull
+    public List<AuthorizationRequest> getAnd() {
+        return and;
+    }
+
+    @Nonnull
+    public List<AuthorizationRequest> getOr() {
+        return or;
+    }
 }

@@ -23,7 +23,8 @@ public class FixAllAliases implements AdminCommand {
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
         final LSDPersistedEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
-        final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
+        final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING
+                                                                                   );
         for (final FountainRelationship child : children) {
             final LSDPersistedEntity personPool = child.getOtherNode(peoplePool);
             log.info("Repairing " + personPool.getAttribute(LSDAttribute.URI));
@@ -36,8 +37,12 @@ public class FixAllAliases implements AdminCommand {
     }
 
     @Nullable
-    private FountainRelationship fixRelationship(@Nonnull final FountainNeo fountainNeo, @Nonnull final LSDPersistedEntity startPersistedEntity, final FountainRelationships relationshipType) throws InterruptedException {
-        final Iterable<FountainRelationship> currentRels = startPersistedEntity.getRelationships(relationshipType, Direction.OUTGOING);
+    private FountainRelationship fixRelationship(@Nonnull final FountainNeo fountainNeo,
+                                                 @Nonnull final LSDPersistedEntity startPersistedEntity,
+                                                 final FountainRelationships relationshipType) throws InterruptedException {
+        final Iterable<FountainRelationship> currentRels = startPersistedEntity.getRelationships(relationshipType,
+                                                                                                 Direction.OUTGOING
+                                                                                                );
 
         String otherNodeURI = null;
 
@@ -48,10 +53,23 @@ public class FixAllAliases implements AdminCommand {
         }
         FountainRelationship rel = startPersistedEntity.getSingleRelationship(relationshipType, Direction.OUTGOING);
         if (rel == null && otherNodeURI != null) {
-            rel = startPersistedEntity.createRelationshipTo(fountainNeo.findByURI(new LiquidURI(otherNodeURI), true), relationshipType);
-            log.info("Created new relationship " + startPersistedEntity.getAttribute(LSDAttribute.URI) + " -> " + relationshipType + " -> " + otherNodeURI);
-        } else if (rel == null) {
-            throw new RuntimeException("Could not fix " + startPersistedEntity.getAttribute(LSDAttribute.URI) + " no alias found for" + relationshipType);
+            rel = startPersistedEntity.createRelationshipTo(fountainNeo.findByURI(new LiquidURI(otherNodeURI), true),
+                                                            relationshipType
+                                                           );
+            log.info("Created new relationship " +
+                     startPersistedEntity.getAttribute(LSDAttribute.URI) +
+                     " -> " +
+                     relationshipType +
+                     " -> " +
+                     otherNodeURI
+                    );
+        }
+        else if (rel == null) {
+            throw new RuntimeException("Could not fix " +
+                                       startPersistedEntity.getAttribute(LSDAttribute.URI) +
+                                       " no alias found for" +
+                                       relationshipType
+            );
         }
         return rel;
     }
@@ -62,9 +80,9 @@ public class FixAllAliases implements AdminCommand {
             rel.delete();
             log.info("Removed stale relationship to " + otherPersistedEntity.getAttribute(LSDAttribute.URI));
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
-
 }

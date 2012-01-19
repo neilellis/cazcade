@@ -8,21 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeletePoolObjectRequest extends AbstractDeletionRequest {
-
-    public DeletePoolObjectRequest() {
-        super();
-    }
-
-
-    public DeletePoolObjectRequest(final LiquidURI uri) {
-        this(null, null, null, null, uri);
-    }
-
-    public DeletePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target) {
-        this(null, identity, pool, target, null);
-    }
-
-    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri) {
+    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                   @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target,
+                                   @Nullable final LiquidURI uri) {
         super();
         setId(id);
         setSessionId(identity);
@@ -31,6 +19,17 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
         setUri(uri);
     }
 
+    public DeletePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target) {
+        this(null, identity, pool, target, null);
+    }
+
+    public DeletePoolObjectRequest(final LiquidURI uri) {
+        this(null, null, null, null, uri);
+    }
+
+    public DeletePoolObjectRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -40,17 +39,30 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getUri() != null) {
-            return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.DELETE).or(new AuthorizationRequest(getUri().getWithoutFragment(), LiquidPermission.EDIT)), new AuthorizationRequest(getUri().getWithoutFragment(), LiquidPermission.MODIFY));
-        } else {
-            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.DELETE).or(new AuthorizationRequest(getPoolUUID(), LiquidPermission.EDIT)), new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY));
+            return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.DELETE).or(new AuthorizationRequest(
+                    getUri().getWithoutFragment(), LiquidPermission.EDIT
+            )
+                                                                                               ), new AuthorizationRequest(
+                    getUri().getWithoutFragment(), LiquidPermission.MODIFY
+            )
+                                );
+        }
+        else {
+            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.DELETE).or(new AuthorizationRequest(
+                    getPoolUUID(), LiquidPermission.EDIT
+            )
+                                                                                                  ), new AuthorizationRequest(
+                    getPoolUUID(), LiquidPermission.MODIFY
+            )
+                                );
         }
     }
-
 
     public List<String> getNotificationLocations() {
         if (getUri() != null) {
             return Arrays.asList(getUri().asReverseDNSString(), getUri().getWithoutFragment().asReverseDNSString());
-        } else {
+        }
+        else {
             return Arrays.asList(getPoolUUID().toString(), getTarget().toString());
         }
     }
@@ -59,6 +71,4 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.DELETE_POOL_OBJECT;
     }
-
-
 }

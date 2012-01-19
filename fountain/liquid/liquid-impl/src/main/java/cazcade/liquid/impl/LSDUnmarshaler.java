@@ -11,10 +11,8 @@ import java.io.InputStream;
  */
 
 public interface LSDUnmarshaler {
-
     void unmarshal(LSDBaseEntity lsdEntity, InputStream input);
 
     @Nonnull
     LSDTransferEntity unmarshal(InputStream input);
-
 }

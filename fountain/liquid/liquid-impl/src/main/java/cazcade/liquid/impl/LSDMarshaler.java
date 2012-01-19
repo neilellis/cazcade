@@ -10,9 +10,8 @@ import java.io.OutputStream;
  */
 
 public interface LSDMarshaler {
-
-    void marshal(LSDTransferEntity lsdEntity, OutputStream output);
-
     @Nonnull
     String getMimeType();
+
+    void marshal(LSDTransferEntity lsdEntity, OutputStream output);
 }

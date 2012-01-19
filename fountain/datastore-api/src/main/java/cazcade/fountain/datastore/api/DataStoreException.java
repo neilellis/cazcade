@@ -10,15 +10,15 @@ import javax.annotation.Nonnull;
 
 
 public class DataStoreException extends CazcadeException {
-    public DataStoreException(final Throwable throwable) {
-        super(throwable);
+    public DataStoreException(final Throwable cause, @Nonnull final String message, final Object... params) {
+        super(cause, message, params);
     }
 
     public DataStoreException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public DataStoreException(final Throwable cause, @Nonnull final String message, final Object... params) {
-        super(cause, message, params);
+    public DataStoreException(final Throwable throwable) {
+        super(throwable);
     }
 }

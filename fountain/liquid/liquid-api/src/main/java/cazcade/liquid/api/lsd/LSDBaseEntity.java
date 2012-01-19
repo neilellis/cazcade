@@ -16,86 +16,15 @@ import java.util.*;
  */
 public interface LSDBaseEntity {
     /**
-     * All LSD Objects have an id attribute which confirms to Java's {@link java.util.UUID} format, but for
-     * GWT related reasons we use instead {@link cazcade.liquid.api.LiquidUUID} class.
+     * Anonymous sub entities have no ID or TYPE, they are just a collection of attributes really.
      *
-     * @return a universally unique identifier for this object
+     * @param stem   the stem property to which the sub entities properties
+     *               are appended to.
+     * @param entity the collection of attributes to add.
      */
-    LiquidUUID getUUID();
+    void addAnonymousSubEntity(LSDAttribute stem, LSDBaseEntity entity);
 
-    /**
-     * Returns a un-aliased sub object from all properties with the common parent path.
-     *
-     * @param path     all properties that start with this will be used.
-     * @param readonly the newly created sub entity should be readonly.
-     * @return a new object from the sub properties.
-     */
-    @Nonnull
-    <T extends LSDBaseEntity> T getSubEntity(LSDAttribute path, boolean readonly);
-
-    @Nonnull
-    <T extends LSDBaseEntity> T removeSubEntity(LSDAttribute path);
-
-    @Nullable
-    LiquidURI getURI();
-
-    /**
-     * LSD Types are describe how an object can be represented and interacted with by clients.
-     *
-     * @return
-     */
-    LSDTypeDef getTypeDef();
-
-    /**
-     * Extracts a list of objects
-     *
-     * @param key
-     * @return
-     */
-    @Nonnull
-    <T extends LSDBaseEntity> List<T> getSubEntities(LSDAttribute key);
-
-    String getAttribute(LSDAttribute attribute);
-
-    @Nullable
-    LiquidURI getAttributeAsURI(LSDAttribute attribute);
-
-    /**
-     * This returns a value without any validation.
-     *
-     * @param key
-     * @return
-     */
-    String getRawValue(LSDAttribute key);
-
-    boolean isError();
-
-    boolean isEmptyValue(LSDAttribute key);
-
-    /**
-     * <b>Avoid using this method, it is primarily for internal use.</b>
-     * It set's an attribute value, the empty string "" will remove the property.
-     * null is invalid, for potentially null values
-     * use {@link #setAttributeConditonally(LSDAttribute, String)} instead.
-     *
-     * @param key   the attribute key.
-     * @param value the value.
-     */
-    void setValue(String key, String value);
-
-    String getValue(String key);
-
-    /**
-     * Set's an attribute value, the empty string "" will remove the property.
-     * null is invalid, for potentially null values use
-     * {@link #setAttributeConditonally(LSDAttribute, String)} instead.
-     *
-     * @param key   the attribute key.
-     * @param value the value.
-     */
-    void setAttribute(LSDAttribute key, String value);
-
-    boolean hasAttribute(LSDAttribute key);
+    <T extends LSDBaseEntity> void addSubEntities(LSDAttribute stem, Collection<T> entity);
 
     /**
      * You can only add one object at a given root. If you
@@ -109,42 +38,6 @@ public interface LSDBaseEntity {
      */
     void addSubEntity(LSDAttribute stem, LSDBaseEntity entity, boolean requiresId);
 
-    <T extends LSDBaseEntity> void addSubEntities(LSDAttribute stem, Collection<T> entity);
-
-    /**
-     * Anonymous sub entities have no ID or TYPE, they are just a collection of attributes really.
-     *
-     * @param stem   the stem property to which the sub entities properties
-     *               are appended to.
-     * @param entity the collection of attributes to add.
-     */
-    void addAnonymousSubEntity(LSDAttribute stem, LSDBaseEntity entity);
-
-    boolean canBe(LSDDictionaryTypes type);
-
-    boolean isA(LSDDictionaryTypes type);
-
-    boolean isA(LSDTypeDef typeDef);
-
-    void setValues(LSDAttribute key, List values);
-
-    void setAttributeConditonally(LSDAttribute key, String value);
-
-    boolean attributeIs(LSDAttribute attribute, String comparison);
-
-    @Nonnull
-    List<String> getAttributeAsList(LSDAttribute attribute);
-
-    @Nullable
-    Date getUpdated();
-
-    @Nullable
-    Date getPublished();
-
-    void timestamp();
-
-    void setTypeDef(LSDTypeDef typeDef);
-
     /**
      * Used for free text searching.
      *
@@ -152,81 +45,188 @@ public interface LSDBaseEntity {
      */
     String asFreeText();
 
-    boolean isNewerThan(LSDBaseEntity entity);
+    boolean attributeIs(LSDAttribute attribute, String comparison);
 
-    boolean wasPublishedAfter(LSDBaseEntity entity);
+    boolean canBe(LSDDictionaryTypes type);
 
-    void remove(LSDAttribute id);
-
-    void removeValue(LSDAttribute id);
-
-    boolean getBooleanAttribute(LSDAttribute editable);
-
-    void setAttribute(LSDAttribute checked, boolean bool);
-
-    boolean hasPermission(LiquidPermissionScope permissionScope, LiquidPermission permission);
+    void copyAttribute(LSDBaseEntity entity, LSDAttribute attribute);
 
     Object get(String key);
 
-    void set(String key, String value);
-
     String getAttribute(LSDAttribute attribute, String defaultValue);
 
-    void setId(String id);
+    String getAttribute(LSDAttribute attribute);
 
-    void setURI(LiquidURI uri);
+    @Nonnull
+    List<String> getAttributeAsList(LSDAttribute attribute);
 
-    Long getLongAttribute(LSDAttribute attribute);
+    @Nullable
+    LiquidURI getAttributeAsURI(LSDAttribute attribute);
 
-    void setAttribute(LSDAttribute attribute, long value);
+    boolean getBooleanAttribute(LSDAttribute attribute, boolean defaultValue);
+
+    boolean getBooleanAttribute(LSDAttribute editable);
+
+    Double getDoubleAttribute(LSDAttribute attribute);
+
+    int getIntegerAttribute(LSDAttribute attribute, int defaultValue);
 
     Integer getIntegerAttribute(LSDAttribute attribute);
 
-    @Nullable
-    LiquidUUID getUUIDAttribute(LSDAttribute attribute);
+    Long getLongAttribute(LSDAttribute attribute);
 
-    void setAttribute(LSDAttribute attribute, LiquidUUID uuid);
+    Map<String, String> getMap();
+
+    @Nullable
+    Date getPublished();
+
+    /**
+     * This returns a value without any validation.
+     *
+     * @param key
+     * @return
+     */
+    String getRawValue(LSDAttribute key);
+
+    String getSubAttribute(LSDAttribute attribute, LSDAttribute subAttribute, String defaultValue);
+
+    /**
+     * Extracts a list of objects
+     *
+     * @param key
+     * @return
+     */
+    @Nonnull
+    <T extends LSDBaseEntity> List<T> getSubEntities(LSDAttribute key);
+
+    /**
+     * Returns a un-aliased sub object from all properties with the common parent path.
+     *
+     * @param path     all properties that start with this will be used.
+     * @param readonly the newly created sub entity should be readonly.
+     * @return a new object from the sub properties.
+     */
+    @Nonnull
+    <T extends LSDBaseEntity> T getSubEntity(LSDAttribute path, boolean readonly);
+
+    /**
+     * LSD Types are describe how an object can be represented and interacted with by clients.
+     *
+     * @return
+     */
+    LSDTypeDef getTypeDef();
+
+    @Nullable
+    LiquidURI getURI();
 
     @Nullable
     LiquidURI getURIAttribute(LSDAttribute attribute);
 
-    void setAttribute(LSDAttribute attribute, LiquidURI uri);
+    /**
+     * All LSD Objects have an id attribute which confirms to Java's {@link java.util.UUID} format, but for
+     * GWT related reasons we use instead {@link cazcade.liquid.api.LiquidUUID} class.
+     *
+     * @return a universally unique identifier for this object
+     */
+    LiquidUUID getUUID();
 
-    Double getDoubleAttribute(LSDAttribute attribute);
+    @Nullable
+    LiquidUUID getUUIDAttribute(LSDAttribute attribute);
 
-    void setAttribute(LSDAttribute attribute, double value);
+    @Nullable
+    Date getUpdated();
 
-    int getIntegerAttribute(LSDAttribute attribute, int defaultValue);
+    String getValue(String key);
+
+    boolean hasAttribute(LSDAttribute key);
+
+    boolean hasPermission(LiquidPermissionScope permissionScope, LiquidPermission permission);
 
     boolean hasSubEntity(LSDAttribute attribute);
 
-    boolean getBooleanAttribute(LSDAttribute attribute, boolean defaultValue);
+    boolean isA(LSDDictionaryTypes type);
 
-    void removeCompletely(LSDAttribute attribute);
+    boolean isA(LSDTypeDef typeDef);
 
-    void setReadonly(boolean readonly);
+    boolean isEmptyValue(LSDAttribute key);
 
-    void setAttribute(LSDAttribute parent, LSDAttribute child, String value);
+    boolean isError();
+
+    boolean isNewerThan(LSDBaseEntity entity);
 
     boolean isReadonly();
 
-    String getSubAttribute(LSDAttribute attribute, LSDAttribute subAttribute, String defaultValue);
+    boolean isSerializable();
 
-    void setUpdated(Date updated);
+    void remove(LSDAttribute id);
+
+    void removeCompletely(LSDAttribute attribute);
+
+    @Nonnull
+    <T extends LSDBaseEntity> T removeSubEntity(LSDAttribute path);
+
+    void removeValue(LSDAttribute id);
+
+    void set(String key, String value);
+
+    void setAttribute(LSDAttribute parent, LSDAttribute child, String value);
+
+    /**
+     * Set's an attribute value, the empty string "" will remove the property.
+     * null is invalid, for potentially null values use
+     * {@link #setAttributeConditonally(LSDAttribute, String)} instead.
+     *
+     * @param key   the attribute key.
+     * @param value the value.
+     */
+    void setAttribute(LSDAttribute key, String value);
+
+    void setAttribute(LSDAttribute checked, boolean bool);
+
+    void setAttribute(LSDAttribute attribute, long value);
+
+    void setAttribute(LSDAttribute attribute, LiquidUUID uuid);
+
+    void setAttribute(LSDAttribute attribute, LiquidURI uri);
+
+    void setAttribute(LSDAttribute attribute, double value);
 
     void setAttribute(LSDAttribute attribute, Date value);
 
-    void setPublished(Date published);
-
-    void copyAttribute(LSDBaseEntity entity, LSDAttribute attribute);
-
-    void setType(@Nonnull LSDDictionaryTypes type);
+    void setAttributeConditonally(LSDAttribute key, String value);
 
     void setID(@Nonnull LiquidUUID id);
 
-    boolean isSerializable();
+    void setId(String id);
 
-    Map<String, String> getMap();
+    void setPublished(Date published);
+
+    void setReadonly(boolean readonly);
+
+    void setType(@Nonnull LSDDictionaryTypes type);
+
+    void setTypeDef(LSDTypeDef typeDef);
+
+    void setURI(LiquidURI uri);
+
+    void setUpdated(Date updated);
+
+    /**
+     * <b>Avoid using this method, it is primarily for internal use.</b>
+     * It set's an attribute value, the empty string "" will remove the property.
+     * null is invalid, for potentially null values
+     * use {@link #setAttributeConditonally(LSDAttribute, String)} instead.
+     *
+     * @param key   the attribute key.
+     * @param value the value.
+     */
+    void setValue(String key, String value);
+
+    void setValues(LSDAttribute key, List values);
+
+    void timestamp();
+
+    boolean wasPublishedAfter(LSDBaseEntity entity);
 
     class EntityUpdatedComparator implements Comparator<LSDBaseEntity> {
         @Override

@@ -7,15 +7,13 @@ import java.util.Map;
  */
 
 public class LSDMarshallerFactory {
-
-
     private Map<String, LSDMarshaler> marshallers;
-
-    public void setMarshalers(final Map<String, LSDMarshaler> marshallers) {
-        this.marshallers = marshallers;
-    }
 
     public Map<String, LSDMarshaler> getMarshalers() {
         return marshallers;
+    }
+
+    public void setMarshalers(final Map<String, LSDMarshaler> marshallers) {
+        this.marshallers = marshallers;
     }
 }

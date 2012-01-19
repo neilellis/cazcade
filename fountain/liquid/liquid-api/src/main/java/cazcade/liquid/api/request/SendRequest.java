@@ -11,17 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SendRequest extends AbstractRequest {
-
-
-    public SendRequest() {
-        super();
-    }
-
-    public SendRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
-        this(null, identity, entity, recipient);
-    }
-
-    public SendRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
+    public SendRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                       final LSDTransferEntity entity, final String recipient) {
         super();
         setId(id);
         setSessionId(identity);
@@ -29,19 +20,31 @@ public class SendRequest extends AbstractRequest {
         setRequestEntity(entity);
     }
 
+    public SendRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
+        this(null, identity, entity, recipient);
+    }
+
     public SendRequest(final LSDTransferEntity entity, final String recipient) {
         this(null, null, entity, recipient);
     }
 
-
-    public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(getRecipientAlias());
+    public SendRequest() {
+        super();
     }
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
         return new SendRequest(getId(), getSessionIdentifier(), getRequestEntity(), getRecipient());
+    }
+
+    public Collection<LiquidURI> getAffectedEntities() {
+        return Arrays.asList(getRecipientAlias());
+    }
+
+    @Nonnull
+    public LiquidURI getRecipientAlias() {
+        return new LiquidURI("alias:cazcade:" + getRecipient());
     }
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -53,27 +56,17 @@ public class SendRequest extends AbstractRequest {
         return new LiquidURI("pool:///people/" + getRecipient() + "/.inbox");
     }
 
-
-    public boolean isMutationRequest() {
-        return true;
-    }
-
     @Override
     public List<String> getNotificationLocations() {
         return Arrays.asList(new LiquidURI("alias:cazcade:" + getRecipient()).asReverseDNSString());
     }
-
 
     @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.SEND;
     }
 
-
-    @Nonnull
-    public LiquidURI getRecipientAlias() {
-        return new LiquidURI("alias:cazcade:" + getRecipient());
+    public boolean isMutationRequest() {
+        return true;
     }
-
-
 }

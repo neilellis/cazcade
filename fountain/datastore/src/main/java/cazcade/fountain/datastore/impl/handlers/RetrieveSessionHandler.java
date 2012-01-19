@@ -10,15 +10,15 @@ import javax.annotation.Nonnull;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RetrieveSessionHandler extends AbstractDataStoreHandler<RetrieveSessionRequest> implements RetrieveSessionRequestHandler {
+public class RetrieveSessionHandler extends AbstractDataStoreHandler<RetrieveSessionRequest>
+        implements RetrieveSessionRequestHandler {
     @Nonnull
     public RetrieveSessionRequest handle(@Nonnull final RetrieveSessionRequest request) throws InterruptedException {
-        final LSDTransferEntity entity = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
+        final LSDTransferEntity entity = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail()
+                                                                    );
         if (entity == null) {
             return LiquidResponseHelper.forEmptyResultResponse(request);
-
         }
         return LiquidResponseHelper.forServerSuccess(request, entity);
     }
-
 }

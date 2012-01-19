@@ -12,6 +12,9 @@ import javax.annotation.Nonnull;
 public class RequestUtil {
     public static boolean positiveResponse(@Nonnull final LiquidRequest response) {
         final LSDBaseEntity responseEntity = response.getResponse();
-        return !(responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
+        return !(responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL
+                                                                                          ) || responseEntity.isA(
+                LSDDictionaryTypes.RESOURCE_NOT_FOUND
+                                                                                                                 ));
     }
 }

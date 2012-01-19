@@ -15,10 +15,34 @@ import java.util.*;
  * @author neilelliz@cazcade.com
  */
 public class LSDEntityConverter implements Converter {
-    public void marshal(final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
+    public boolean canConvert(@Nonnull final Class aClass) {
+        return aClass.equals(LSDSimpleEntity.class);
+    }
+
+    @Nullable
+    public Object fromString(final String s) {
+        return null;
+    }
+
+    public void marshal(final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter,
+                        final MarshallingContext marshallingContext) {
         final LSDTransferEntity entity = (LSDTransferEntity) o;
         final LSDNode lsdNode = entity.asFormatIndependentTree();
         marshal(hierarchicalStreamWriter, lsdNode);
+    }
+
+    @Nullable
+    public String toString(final Object o) {
+        return null;
+    }
+
+    @Nonnull
+    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader,
+                            final UnmarshallingContext unmarshallingContext) {
+        final Map<String, List> map = unmarshal(hierarchicalStreamReader);
+        final LSDSimpleNode lsdNode = new LSDSimpleNode("root", Arrays.asList(map));
+        final LSDSimpleEntity entity = LSDSimpleEntity.createFromNode(lsdNode);
+        return entity;
     }
 
     private void marshal(@Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, @Nonnull final LSDNode lsdNode) {
@@ -26,10 +50,10 @@ public class LSDEntityConverter implements Converter {
 //            hierarchicalStreamWriter.startNode(lsdNode.getName());
             hierarchicalStreamWriter.setValue(lsdNode.getLeafValue());
 //            hierarchicalStreamWriter.endNode();
-        } else {
+        }
+        else {
             final List<LSDNode> lsdNodeList = lsdNode.getChildren();
             for (final LSDNode node : lsdNodeList) {
-
                 if (node.isArray()) {
                     final List<LSDNode> children = node.getChildren();
                     for (final LSDNode child : children) {
@@ -37,22 +61,14 @@ public class LSDEntityConverter implements Converter {
                         marshal(hierarchicalStreamWriter, child);
                         hierarchicalStreamWriter.endNode();
                     }
-                } else {
+                }
+                else {
                     hierarchicalStreamWriter.startNode(node.getName());
                     marshal(hierarchicalStreamWriter, node);
                     hierarchicalStreamWriter.endNode();
                 }
             }
         }
-    }
-
-
-    @Nonnull
-    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader, final UnmarshallingContext unmarshallingContext) {
-        final Map<String, List> map = unmarshal(hierarchicalStreamReader);
-        final LSDSimpleNode lsdNode = new LSDSimpleNode("root", Arrays.asList(map));
-        final LSDSimpleEntity entity = LSDSimpleEntity.createFromNode(lsdNode);
-        return entity;
     }
 
     @Nonnull
@@ -72,26 +88,12 @@ public class LSDEntityConverter implements Converter {
 
             if (hierarchicalStreamReader.hasMoreChildren()) {
                 list.add(unmarshal(hierarchicalStreamReader));
-            } else {
+            }
+            else {
                 list.add(hierarchicalStreamReader.getValue());
             }
             hierarchicalStreamReader.moveUp();
         }
         return map;
-    }
-
-
-    @Nullable
-    public String toString(final Object o) {
-        return null;
-    }
-
-    @Nullable
-    public Object fromString(final String s) {
-        return null;
-    }
-
-    public boolean canConvert(@Nonnull final Class aClass) {
-        return aClass.equals(LSDSimpleEntity.class);
     }
 }

@@ -16,25 +16,13 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public abstract class CreateItemCommand extends AbstractCreateCommand {
-
-    public CreateItemCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
-        super(pool, type);
-    }
-
     public CreateItemCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 
-
-    protected abstract void buildEntity(BuildCallback onBuilt);
-
-    @Nonnull
-    LSDTransferEntity createEntityWithDefaultView() {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
-        addDefaultView(entity);
-        return entity;
+    public CreateItemCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
+        super(pool, type);
     }
-
 
     @Override
     public void execute() {
@@ -46,23 +34,38 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
                     public void onCreate(final CreatePoolObjectRequest response) {
 
                     }
-                });
+                }
+                      );
             }
-        });
+        }
+                   );
     }
 
-    protected void create(final LSDTransferEntity entity, @Nonnull final CreateCallback callback) {
-        BusFactory.getInstance().send(new CreatePoolObjectRequest(pool, entity), new AbstractResponseCallback<CreatePoolObjectRequest>() {
-            @Override
-            public void onSuccess(final CreatePoolObjectRequest message, final CreatePoolObjectRequest response) {
-                callback.onCreate(response);
-            }
+    protected abstract void buildEntity(BuildCallback onBuilt);
 
-            @Override
-            public void onFailure(final CreatePoolObjectRequest message, @Nonnull final CreatePoolObjectRequest response) {
-                Window.alert("Failed to create object, permissions issue?");
-            }
-        });
+    protected void create(final LSDTransferEntity entity, @Nonnull final CreateCallback callback) {
+        BusFactory.getInstance().send(new CreatePoolObjectRequest(pool, entity),
+                                      new AbstractResponseCallback<CreatePoolObjectRequest>() {
+                                          @Override
+                                          public void onSuccess(final CreatePoolObjectRequest message,
+                                                                final CreatePoolObjectRequest response) {
+                                              callback.onCreate(response);
+                                          }
+
+                                          @Override
+                                          public void onFailure(final CreatePoolObjectRequest message,
+                                                                @Nonnull final CreatePoolObjectRequest response) {
+                                              Window.alert("Failed to create object, permissions issue?");
+                                          }
+                                      }
+                                     );
+    }
+
+    @Nonnull
+    LSDTransferEntity createEntityWithDefaultView() {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
+        addDefaultView(entity);
+        return entity;
     }
 
     protected void addDefaultView(@Nonnull final LSDBaseEntity entity) {
@@ -79,11 +82,6 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
         entity.addAnonymousSubEntity(LSDAttribute.VIEW, view);
     }
 
-    public interface CreateCallback {
-
-        void onCreate(CreatePoolObjectRequest response);
-    }
-
     protected void showEditorPanel(@Nonnull final AbstractPoolObjectEditorPanel editorPanel) {
         create(editorPanel.getEntity(), new CreateCallback() {
             @Override
@@ -91,7 +89,11 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
                 editorPanel.setEntity(response.getResponse().copy());
                 PoolObjectEditor.showForCreate(editorPanel, null);
             }
-        });
+        }
+              );
     }
 
+    public interface CreateCallback {
+        void onCreate(CreatePoolObjectRequest response);
+    }
 }

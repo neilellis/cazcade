@@ -11,16 +11,24 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChangePasswordRequest extends AbstractRequest {
-
-    public ChangePasswordRequest() {
-        super();
-    }
-
     public ChangePasswordRequest(final LiquidSessionIdentifier identity, final String password, final String hash) {
         super();
         setSessionId(identity);
         setPassword(password);
         setChangePasswordSecurityHash(hash);
+    }
+
+    public ChangePasswordRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final String password) {
+        super();
+        setPassword(password);
+        setId(id);
+        setSessionId(identity);
+    }
+
+    public ChangePasswordRequest(final LiquidSessionIdentifier identity, final String password) {
+        super();
+        setSessionId(identity);
+        setPassword(password);
     }
 
     public ChangePasswordRequest(final LiquidSessionIdentifier liquidSessionIdentifier) {
@@ -33,32 +41,13 @@ public class ChangePasswordRequest extends AbstractRequest {
         setEntity(entity);
     }
 
-    @Override
-    public boolean isSecureOperation() {
-        return true;
-    }
-
     public ChangePasswordRequest(final String password) {
         super();
         setPassword(password);
     }
 
-    public ChangePasswordRequest(final LiquidSessionIdentifier identity, final String password) {
+    public ChangePasswordRequest() {
         super();
-        setSessionId(identity);
-        setPassword(password);
-    }
-
-    public ChangePasswordRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final String password) {
-        super();
-        setPassword(password);
-        setId(id);
-        setSessionId(identity);
-    }
-
-
-    public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
     @Nonnull
@@ -67,17 +56,12 @@ public class ChangePasswordRequest extends AbstractRequest {
         return new ChangePasswordRequest(getEntity().copy());
     }
 
+    public Collection<LiquidURI> getAffectedEntities() {
+        return Arrays.asList(getSessionIdentifier().getAliasURL());
+    }
+
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
-    }
-
-    public boolean isMutationRequest() {
-        return true;
-    }
-
-    @Override
-    public boolean isAsyncRequest() {
-        return false;
     }
 
     @Nullable
@@ -90,4 +74,17 @@ public class ChangePasswordRequest extends AbstractRequest {
         return LiquidRequestType.CHANGE_PASSWORD;
     }
 
+    @Override
+    public boolean isAsyncRequest() {
+        return false;
+    }
+
+    public boolean isMutationRequest() {
+        return true;
+    }
+
+    @Override
+    public boolean isSecureOperation() {
+        return true;
+    }
 }

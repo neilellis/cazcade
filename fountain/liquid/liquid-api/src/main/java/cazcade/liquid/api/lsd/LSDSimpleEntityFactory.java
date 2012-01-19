@@ -11,15 +11,6 @@ import java.util.Map;
  */
 
 public class LSDSimpleEntityFactory implements LSDEntityFactory {
-
-    @Nonnull
-    public LSDBaseEntity create(@Nonnull final LiquidUUID uuid) {
-        final LSDBaseEntity structuredPropertyLSDEntity = LSDSimpleEntity.createEmpty();
-        structuredPropertyLSDEntity.setAttribute(LSDAttribute.ID, uuid.toString());
-        structuredPropertyLSDEntity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        return structuredPropertyLSDEntity;
-    }
-
     @Nonnull
     public LSDBaseEntity create(@Nonnull final Map<String, String> properties, final boolean dotPrefixed) {
         final Map<String, String> lsdProperties = new HashMap<String, String>();
@@ -30,11 +21,19 @@ public class LSDSimpleEntityFactory implements LSDEntityFactory {
                     lsdProperties.put(key.substring(1), entry.getValue());
                 }
             }
-        } else {
+        }
+        else {
             lsdProperties.putAll(properties);
         }
         return LSDSimpleEntity.createFromProperties(lsdProperties);
+    }
 
+    @Nonnull
+    public LSDBaseEntity create(@Nonnull final LiquidUUID uuid) {
+        final LSDBaseEntity structuredPropertyLSDEntity = LSDSimpleEntity.createEmpty();
+        structuredPropertyLSDEntity.setAttribute(LSDAttribute.ID, uuid.toString());
+        structuredPropertyLSDEntity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        return structuredPropertyLSDEntity;
     }
 
     @Nonnull
@@ -48,6 +47,4 @@ public class LSDSimpleEntityFactory implements LSDEntityFactory {
         }
         return LSDSimpleEntity.createFromProperties(lsdProperties);
     }
-
-
 }

@@ -11,21 +11,20 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractDeletionRequest extends AbstractRequest {
-
-
     @Nullable
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getTarget() != null) {
             return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.DELETE));
-        } else {
+        }
+        else {
             if (getUri() != null) {
                 return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.DELETE));
-            } else {
+            }
+            else {
                 return Collections.emptyList();
             }
         }
     }
-
 
     @Nullable
     public List<String> getNotificationLocations() {

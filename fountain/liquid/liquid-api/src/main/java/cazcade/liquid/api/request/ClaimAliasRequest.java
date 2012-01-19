@@ -10,30 +10,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class ClaimAliasRequest extends AbstractRequest {
-
-    public ClaimAliasRequest() {
-        super();
-    }
-
-    @Override
-    public boolean isSecureOperation() {
-        return true;
-    }
-
-
-    public ClaimAliasRequest(final LiquidSessionIdentifier identity) {
-        this(null, identity);
-    }
-
     public ClaimAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity) {
         super();
         setId(id);
         setSessionId(identity);
     }
 
+    public ClaimAliasRequest(final LiquidSessionIdentifier identity) {
+        this(null, identity);
+    }
 
-    public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(getSessionIdentifier().getAliasURL());
+    public ClaimAliasRequest() {
+        super();
     }
 
     @Nonnull
@@ -42,14 +30,12 @@ public class ClaimAliasRequest extends AbstractRequest {
         return new ClaimAliasRequest(getId(), getSessionIdentifier());
     }
 
-    public boolean isMutationRequest() {
-        return true;
+    public Collection<LiquidURI> getAffectedEntities() {
+        return Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
-
-    @Override
-    public boolean isAsyncRequest() {
-        return false;
+    public List<AuthorizationRequest> getAuthorizationRequests() {
+        return Collections.EMPTY_LIST;
     }
 
     @Nullable
@@ -62,8 +48,17 @@ public class ClaimAliasRequest extends AbstractRequest {
         return LiquidRequestType.CLAIM_ALIAS;
     }
 
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Collections.EMPTY_LIST;
+    @Override
+    public boolean isAsyncRequest() {
+        return false;
     }
 
+    public boolean isMutationRequest() {
+        return true;
+    }
+
+    @Override
+    public boolean isSecureOperation() {
+        return true;
+    }
 }

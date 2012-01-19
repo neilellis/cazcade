@@ -15,17 +15,30 @@ public class LinkPoolObjectRequest extends AbstractRequest {
     //todo: support URIS *then* remove this
     public static final boolean SUPPORTS_URI = false;
 
-
-    public LinkPoolObjectRequest() {
+    public LinkPoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                 final LiquidUUID target, @Nullable final LiquidUUID from, @Nullable final LiquidUUID to,
+                                 final boolean unlink) {
         super();
+        setFrom(from);
+        setTo(to);
+        setTarget(target);
+        setUnlink(unlink);
+        setId(id);
+        setSessionId(identity);
     }
 
+    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
+                                 final LiquidUUID to, final boolean unlink) {
+        this(null, identity, target, from, to, unlink);
+    }
 
-    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final boolean unlink) {
+    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
+                                 final boolean unlink) {
         this(null, identity, target, from, null, unlink);
     }
 
-    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final LiquidUUID to) {
+    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
+                                 final LiquidUUID to) {
         this(null, identity, target, from, to, false);
     }
 
@@ -37,18 +50,14 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         this(null, null, target, null, to, unlink);
     }
 
-    public LinkPoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, @Nullable final LiquidUUID from, @Nullable final LiquidUUID to, final boolean unlink) {
+    public LinkPoolObjectRequest() {
         super();
-        setFrom(from);
-        setTo(to);
-        setTarget(target);
-        setUnlink(unlink);
-        setId(id);
-        setSessionId(identity);
     }
 
-    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final LiquidUUID to, final boolean unlink) {
-        this(null, identity, target, from, to, unlink);
+    @Nonnull
+    @Override
+    public LiquidMessage copy() {
+        return new LinkPoolObjectRequest(getId(), getSessionIdentifier(), getTarget(), getFrom(), getTo(), isUnlink());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
@@ -66,13 +75,33 @@ public class LinkPoolObjectRequest extends AbstractRequest {
     }
 
     @Nonnull
-    @Override
-    public LiquidMessage copy() {
-        return new LinkPoolObjectRequest(getId(), getSessionIdentifier(), getTarget(), getFrom(), getTo(), isUnlink());
-    }
-
-    public boolean isMutationRequest() {
-        return true;
+    public List<AuthorizationRequest> getAuthorizationRequests() {
+        if (isUnlink()) {
+            final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
+            if (getFrom() != null && getTo() != null) {
+                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
+                requests.add(new AuthorizationRequest(getFrom(), LiquidPermission.MODIFY));
+                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
+            }
+            else if (getTo() != null) {
+                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
+                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
+            }
+            return requests;
+        }
+        else {
+            final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
+            if (getFrom() != null && getTo() != null) {
+                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
+                requests.add(new AuthorizationRequest(getFrom(), LiquidPermission.VIEW));
+                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
+            }
+            else if (getTo() != null) {
+                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
+                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
+            }
+            return requests;
+        }
     }
 
     @Nonnull
@@ -92,33 +121,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         return LiquidRequestType.LINK_POOL_OBJECT;
     }
 
-    @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (isUnlink()) {
-            final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
-            if (getFrom() != null && getTo() != null) {
-                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(getFrom(), LiquidPermission.MODIFY));
-                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
-            } else if (getTo() != null) {
-                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
-            }
-            return requests;
-        } else {
-            final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
-            if (getFrom() != null && getTo() != null) {
-                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(getFrom(), LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
-            } else if (getTo() != null) {
-                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
-            }
-            return requests;
-
-        }
+    public boolean isMutationRequest() {
+        return true;
     }
-
-
 }

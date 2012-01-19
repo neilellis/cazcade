@@ -15,19 +15,39 @@ import java.util.Collection;
  * @author neilellis@cazcade.com
  */
 public interface FountainPoolDAO {
+    //Comments
+
+    @Nonnull
+    LSDPersistedEntity addCommentNoTX(LSDPersistedEntity commentEntity, LSDTransferEntity commentTransferEntity, LiquidURI alias)
+            throws InterruptedException;
+
+
+    //Pool and object Retrieval
+
+    //todo: this should be a utility method not public API
+    @Nullable
+    LSDTransferEntity convertNodeToEntityWithRelatedEntitiesNoTX(LiquidSessionIdentifier sessionIdentifier, LSDPersistedEntity pool,
+                                                                 @Nullable LSDPersistedEntity parentPersistedEntity,
+                                                                 LiquidRequestDetailLevel detail, boolean internal, boolean b)
+            throws InterruptedException;
+
+    @Nonnull
+    LSDPersistedEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, LSDPersistedEntity parent, LSDType type,
+                                      String poolName, double x, double y, String title, boolean listed)
+            throws InterruptedException;
 
     //todo: remove all LSDPersistedEntity based API calls, replace with URI and LSDTransferEntity parameters and return types
 
 
     //Pool & object Creation
     @Nonnull
-    LSDPersistedEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, LSDPersistedEntity parent, String poolName, double x, double y, @Nullable String title, boolean listed) throws InterruptedException;
-
-    @Nonnull
-    LSDPersistedEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, LSDPersistedEntity parent, LSDType type, String poolName, double x, double y, String title, boolean listed) throws InterruptedException;
+    LSDPersistedEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, LSDPersistedEntity parent, String poolName,
+                                      double x, double y, @Nullable String title, boolean listed) throws InterruptedException;
 
     @Nullable
-    LSDTransferEntity createPoolObjectTx(LSDPersistedEntity pool, LiquidSessionIdentifier identity, LiquidURI owner, LiquidURI author, LSDTransferEntity entity, LiquidRequestDetailLevel detail, boolean internal, boolean createAuthor) throws Exception;
+    LSDTransferEntity createPoolObjectTx(LSDPersistedEntity pool, LiquidSessionIdentifier identity, LiquidURI owner,
+                                         LiquidURI author, LSDTransferEntity entity, LiquidRequestDetailLevel detail,
+                                         boolean internal, boolean createAuthor) throws Exception;
 
 
     //User pool Creation
@@ -37,74 +57,54 @@ public interface FountainPoolDAO {
 
     void createPoolsForUserNoTx(String username) throws InterruptedException;
 
-
-    //Pool and object Retrieval
-
-    //todo: this should be a utility method not public API
-    @Nullable
-    LSDTransferEntity convertNodeToEntityWithRelatedEntitiesNoTX(LiquidSessionIdentifier sessionIdentifier, LSDPersistedEntity pool, @Nullable LSDPersistedEntity parentPersistedEntity, LiquidRequestDetailLevel detail, boolean internal, boolean b) throws InterruptedException;
-
-    @Nullable
-    LSDTransferEntity getPoolObjectTx(LiquidSessionIdentifier identity, LiquidURI uri, boolean internal, boolean historical, LiquidRequestDetailLevel detail) throws InterruptedException;
-
-    @Nullable
-    LSDTransferEntity getPoolAndContentsNoTx(LSDPersistedEntity targetPersistedEntity, LiquidRequestDetailLevel detail, boolean contents, ChildSortOrder order, boolean internal, LiquidSessionIdentifier identity, @Nullable Integer start, @Nullable Integer end, boolean historical) throws Exception;
-
-
-    //Pool and object Update
-    @Nullable
-    LSDTransferEntity updatePoolObjectNoTx(LiquidSessionIdentifier identity, LiquidSessionIdentifier editor, LSDTransferEntity entity, LSDPersistedEntity pool, LSDPersistedEntity origPersistedEntity, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
-
-
-    LSDTransferEntity linkPoolObjectTx(LiquidSessionIdentifier editor, LiquidURI newOwner, LiquidURI target, LiquidURI to, LiquidRequestDetailLevel detail, boolean internal) throws Exception;
-
-    @Nullable
-    LSDTransferEntity getPoolAndContentsNoTx(LiquidURI uri, LiquidRequestDetailLevel detail, ChildSortOrder order, boolean contents, boolean internal, LiquidSessionIdentifier identity, Integer start, Integer end, boolean historical) throws Exception;
-
     @Nullable
     LSDTransferEntity deletePoolObjectTx(LiquidURI uri, boolean internal, LiquidRequestDetailLevel detail) throws Exception;
 
-
-    //Misc pool and object actions
+    @Nullable
+    Collection<LSDTransferEntity> getCommentsTx(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, int max, boolean internal,
+                                                LiquidRequestDetailLevel detail) throws InterruptedException;
 
     @Nullable
-    LSDTransferEntity selectPoolObjectTx(LiquidSessionIdentifier identity, boolean selected, LiquidURI target, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    LSDTransferEntity getPoolAndContentsNoTx(LSDPersistedEntity targetPersistedEntity, LiquidRequestDetailLevel detail,
+                                             boolean contents, ChildSortOrder order, boolean internal,
+                                             LiquidSessionIdentifier identity, @Nullable Integer start, @Nullable Integer end,
+                                             boolean historical) throws Exception;
 
+    @Nullable
+    LSDTransferEntity getPoolAndContentsNoTx(LiquidURI uri, LiquidRequestDetailLevel detail, ChildSortOrder order, boolean contents,
+                                             boolean internal, LiquidSessionIdentifier identity, Integer start, Integer end,
+                                             boolean historical) throws Exception;
+
+    @Nullable
+    LSDTransferEntity getPoolObjectTx(LiquidSessionIdentifier identity, LiquidURI uri, boolean internal, boolean historical,
+                                      LiquidRequestDetailLevel detail) throws InterruptedException;
 
     @Nonnull
-    LSDPersistedEntity movePoolObjectNoTx(LiquidURI object, Double x, Double y, Double z) throws Exception;
+    LSDPersistedEntity linkPool(LSDPersistedEntity newOwner, LSDPersistedEntity target, LSDPersistedEntity from,
+                                LSDPersistedEntity to) throws InterruptedException;
 
-    void visitNodeNoTx(LSDPersistedEntity entity, LiquidSessionIdentifier identity) throws InterruptedException;
+    @Nonnull
+    LSDPersistedEntity linkPool(LSDPersistedEntity newOwner, LSDPersistedEntity target, LSDPersistedEntity to)
+            throws InterruptedException;
+
+    @Nonnull
+    LSDPersistedEntity linkPoolObject(LiquidSessionIdentifier editor, LSDPersistedEntity newOwner, LSDPersistedEntity target,
+                                      LSDPersistedEntity from, LSDPersistedEntity to) throws InterruptedException;
 
 
     //Link and unlink  (unlink is like delete)
 
     @Nonnull
-    LSDPersistedEntity linkPoolObject(LiquidSessionIdentifier editor, LSDPersistedEntity newOwner, LSDPersistedEntity target, LSDPersistedEntity to) throws InterruptedException;
+    LSDPersistedEntity linkPoolObject(LiquidSessionIdentifier editor, LSDPersistedEntity newOwner, LSDPersistedEntity target,
+                                      LSDPersistedEntity to) throws InterruptedException;
+
+
+    LSDTransferEntity linkPoolObjectTx(LiquidSessionIdentifier editor, LiquidURI newOwner, LiquidURI target, LiquidURI to,
+                                       LiquidRequestDetailLevel detail, boolean internal) throws Exception;
+
 
     @Nonnull
-    LSDPersistedEntity linkPoolObject(LiquidSessionIdentifier editor, LSDPersistedEntity newOwner, LSDPersistedEntity target, LSDPersistedEntity from, LSDPersistedEntity to) throws InterruptedException;
-
-    @Nonnull
-    LSDPersistedEntity unlinkPoolObject(LSDPersistedEntity target) throws InterruptedException;
-
-    @Nonnull
-    LSDPersistedEntity linkPool(LSDPersistedEntity newOwner, LSDPersistedEntity target, LSDPersistedEntity to) throws InterruptedException;
-
-    @Nonnull
-    LSDPersistedEntity linkPool(LSDPersistedEntity newOwner, LSDPersistedEntity target, LSDPersistedEntity from, LSDPersistedEntity to) throws InterruptedException;
-
-    @Nonnull
-    LSDPersistedEntity unlinkPool(LSDPersistedEntity target) throws InterruptedException;
-
-
-    //Comments
-
-    @Nonnull
-    LSDPersistedEntity addCommentNoTX(LSDPersistedEntity commentEntity, LSDTransferEntity commentTransferEntity, LiquidURI alias) throws InterruptedException;
-
-    @Nullable
-    Collection<LSDTransferEntity> getCommentsTx(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, int max, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    LSDPersistedEntity movePoolObjectNoTx(LiquidURI object, Double x, Double y, Double z) throws Exception;
 
 
     //Utility methods
@@ -112,6 +112,32 @@ public interface FountainPoolDAO {
     void recalculatePoolURIs(LSDPersistedEntity persistedEntity) throws InterruptedException;
 
 
+    //Misc pool and object actions
+
     @Nullable
-    LSDTransferEntity updatePool(LiquidSessionIdentifier sessionIdentifier, LSDPersistedEntity persistedEntityImpl, LiquidRequestDetailLevel detail, boolean internal, boolean historical, Integer end, int start, ChildSortOrder order, boolean contents, LSDTransferEntity requestEntity, Runnable onRenameAction) throws Exception;
+    LSDTransferEntity selectPoolObjectTx(LiquidSessionIdentifier identity, boolean selected, LiquidURI target, boolean internal,
+                                         LiquidRequestDetailLevel detail) throws InterruptedException;
+
+    @Nonnull
+    LSDPersistedEntity unlinkPool(LSDPersistedEntity target) throws InterruptedException;
+
+    @Nonnull
+    LSDPersistedEntity unlinkPoolObject(LSDPersistedEntity target) throws InterruptedException;
+
+
+    @Nullable
+    LSDTransferEntity updatePool(LiquidSessionIdentifier sessionIdentifier, LSDPersistedEntity persistedEntityImpl,
+                                 LiquidRequestDetailLevel detail, boolean internal, boolean historical, Integer end, int start,
+                                 ChildSortOrder order, boolean contents, LSDTransferEntity requestEntity, Runnable onRenameAction)
+            throws Exception;
+
+
+    //Pool and object Update
+    @Nullable
+    LSDTransferEntity updatePoolObjectNoTx(LiquidSessionIdentifier identity, LiquidSessionIdentifier editor,
+                                           LSDTransferEntity entity, LSDPersistedEntity pool,
+                                           LSDPersistedEntity origPersistedEntity, boolean internal,
+                                           LiquidRequestDetailLevel detail) throws InterruptedException;
+
+    void visitNodeNoTx(LSDPersistedEntity entity, LiquidSessionIdentifier identity) throws InterruptedException;
 }

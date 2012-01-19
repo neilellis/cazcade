@@ -24,7 +24,6 @@ public class FountainNeoExporter {
         this.graphDatabase = graphDatabase;
     }
 
-
     public void export(final String dir) throws IOException {
         final JsonFactory f = new JsonFactory();
         final JsonGenerator g = f.createJsonGenerator(new File(dir, "nodes.json"), JsonEncoding.UTF8);
@@ -57,7 +56,6 @@ public class FountainNeoExporter {
             }
         }
         relGen.close();
-
     }
 
     private void writeProperties(@Nonnull final JsonGenerator g, @Nonnull final Node node) throws IOException {
@@ -73,6 +71,4 @@ public class FountainNeoExporter {
             g.writeStringField(propertyKey, rel.getProperty(propertyKey).toString());
         }
     }
-
-
 }

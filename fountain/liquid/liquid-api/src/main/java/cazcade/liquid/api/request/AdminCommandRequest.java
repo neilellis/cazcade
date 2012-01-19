@@ -8,33 +8,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AdminCommandRequest extends AbstractRequest {
-
     private String[] args;
 
-    public final String[] getArgs() {
-        return args;
-    }
-
-    public final void setArgs(final String[] args) {
-        this.args = args;
-    }
-
-
-    public AdminCommandRequest() {
-        super();
-    }
-
-    public AdminCommandRequest(final String... args) {
-        this(null, null, args);
-    }
-
-    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final String... args) {
+    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                               final String... args) {
         super();
         setArgs(args);
         setId(id);
         setSessionId(identity);
     }
 
+    public AdminCommandRequest(final String... args) {
+        this(null, null, args);
+    }
+
+    public AdminCommandRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -44,11 +34,6 @@ public class AdminCommandRequest extends AbstractRequest {
 
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Arrays.asList(new AuthorizationRequest(new LiquidURI("pool:///"), LiquidPermission.SYSTEM));
-    }
-
-    @Override
-    public boolean isMutationRequest() {
-        return true;
     }
 
     public List<String> getNotificationLocations() {
@@ -65,4 +50,16 @@ public class AdminCommandRequest extends AbstractRequest {
         return false;
     }
 
+    @Override
+    public boolean isMutationRequest() {
+        return true;
+    }
+
+    public final String[] getArgs() {
+        return args;
+    }
+
+    public final void setArgs(final String[] args) {
+        this.args = args;
+    }
 }

@@ -12,7 +12,6 @@ import java.util.Map;
  */
 
 public class ErrorRestHandler extends AbstractRestHandler {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(ErrorRestHandler.class);
 
@@ -23,6 +22,4 @@ public class ErrorRestHandler extends AbstractRestHandler {
         final String hash = log.hash(detail.replaceAll("0x[0-9a-z]+", ""));
         log.sendToJira(error, hash, error, detail, "maelstrom");
     }
-
-
 }

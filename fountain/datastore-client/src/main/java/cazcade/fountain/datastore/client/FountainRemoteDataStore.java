@@ -80,14 +80,17 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
 
             if (request.isAsyncRequest() && !alwaysSynchronous) {
                 return (LiquidRequest) processAsync(request);
-            } else {
+            }
+            else {
                 final Object result;
                 result = processSync(request);
                 if (result instanceof LiquidRequest) {
                     return (LiquidRequest) result;
-                } else if (result instanceof Exception) {
+                }
+                else if (result instanceof Exception) {
                     throw (Exception) result;
-                } else {
+                }
+                else {
                     throw new Error("Unexpected return type from synchronous call to data store: " + result.getClass());
                 }
             }
@@ -99,17 +102,10 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         }
     }
 
-    private Object processSync(final LiquidRequest request) {
-        return template.execute(new ChannelCallback<Object>() {
-            @Override
-            public Object doInRabbit(final Channel channel) throws Exception {
-                final RpcClient rpcClient = new RpcClient(channel, RABBITMQ_RPC_EXCHANGE_NAME, "");
-                return template.getMessageConverter().fromMessage(new Message(rpcClient.primitiveCall(template.getMessageConverter().toMessage(request, null).getBody()), null));
-            }
-        });
-
+    private void notifyOfRequest(@Nonnull final LiquidRequest request) {
+        log.debug("Sending notifications");
+        messageSender.sendNotifications(request);
     }
-
 
     @Nonnull
     private LiquidMessage processAsync(@Nonnull final LiquidRequest request) throws IOException {
@@ -118,20 +114,41 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         return LiquidResponseHelper.forDeferral(request);
     }
 
-    private void notifyOfRequest(@Nonnull final LiquidRequest request) {
-        log.debug("Sending notifications");
-        messageSender.sendNotifications(request);
+    private Object processSync(final LiquidRequest request) {
+        return template.execute(new ChannelCallback<Object>() {
+            @Override
+            public Object doInRabbit(final Channel channel) throws Exception {
+                final RpcClient rpcClient = new RpcClient(channel, RABBITMQ_RPC_EXCHANGE_NAME, "");
+                return template.getMessageConverter().fromMessage(new Message(rpcClient.primitiveCall(
+                        template.getMessageConverter().toMessage(request, null).getBody()
+                                                                                                     ), null
+                )
+                                                                 );
+            }
+        }
+                               );
     }
 
     @Override
     public void start() throws Exception {
         super.start();
-
     }
 
     @Override
     public void stop() {
         super.stop();
+    }
+
+    public void setAlwaysSynchronous(final boolean alwaysSynchronous) {
+        this.alwaysSynchronous = alwaysSynchronous;
+    }
+
+    public void setMessageSender(final LiquidMessageSender messageSender) {
+        this.messageSender = messageSender;
+    }
+
+    public void setRabbitAdmin(final RabbitAdmin rabbitAdmin) {
+        this.rabbitAdmin = rabbitAdmin;
     }
 
     public void setRequestValidator(final FountainRequestValidator requestValidator) {
@@ -142,23 +159,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         this.securityValidator = securityValidator;
     }
 
-
-    public void setAlwaysSynchronous(final boolean alwaysSynchronous) {
-        this.alwaysSynchronous = alwaysSynchronous;
-    }
-
-    public void setMessageSender(final LiquidMessageSender messageSender) {
-        this.messageSender = messageSender;
-    }
-
-
     public void setTemplate(final RabbitTemplate template) {
         this.template = template;
     }
-
-
-    public void setRabbitAdmin(final RabbitAdmin rabbitAdmin) {
-        this.rabbitAdmin = rabbitAdmin;
-    }
-
 }

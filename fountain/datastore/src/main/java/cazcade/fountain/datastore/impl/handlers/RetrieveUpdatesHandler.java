@@ -19,8 +19,8 @@ import java.util.List;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpdatesRequest> implements RetrieveUpdatesRequestHandler {
-
+public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpdatesRequest>
+        implements RetrieveUpdatesRequestHandler {
     @Nonnull
     public RetrieveUpdatesRequest handle(@Nonnull final RetrieveUpdatesRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
@@ -35,13 +35,17 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
                 throw new EntityNotFoundException("Could not find start point at " + initialURI);
             }
             //todo:tune parameters and make them part of the request too...
-            final List<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>(new LatestContentFinder(request.getSessionIdentifier(), fountainNeo, startPersistedEntity, request.getSince(), 20, 50000, request.getDetail(), 100, userDAO).getNodes());
+            final List<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>(new LatestContentFinder(
+                    request.getSessionIdentifier(), fountainNeo, startPersistedEntity, request.getSince(), 20, 50000,
+                    request.getDetail(), 100, userDAO
+            ).getNodes()
+            );
             Collections.sort(entities, new LSDBaseEntity.EntityPublishedComparator());
             transaction.success();
             if (entities == null || entities.isEmpty()) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
-
-            } else {
+            }
+            else {
                 entity.addSubEntities(LSDAttribute.CHILD, entities);
                 return LiquidResponseHelper.forServerSuccess(request, entity);
             }
@@ -51,7 +55,5 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
         } finally {
             transaction.finish();
         }
-
     }
-
 }

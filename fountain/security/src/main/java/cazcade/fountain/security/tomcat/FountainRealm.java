@@ -27,27 +27,20 @@ public class FountainRealm extends SecurityProvider implements Realm {
     @Nonnull
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+    private Container container;
+
     public FountainRealm() throws Exception {
         super();
     }
 
-    private Container container;
-
-    public Container getContainer() {
-        return container;
-    }
-
-    public void setContainer(final Container container) {
-        this.container = container;
+    public void addPropertyChangeListener(final PropertyChangeListener propertyChangeListener) {
+        propertyChangeSupport.addPropertyChangeListener(propertyChangeListener);
     }
 
     @Nonnull
-    public String getInfo() {
-        return "Fountain Data Store Security Realm";
-    }
-
-    public void addPropertyChangeListener(final PropertyChangeListener propertyChangeListener) {
-        propertyChangeSupport.addPropertyChangeListener(propertyChangeListener);
+    public Principal authenticate(final String s, final String s1, final String s2, final String s3, final String s4,
+                                  final String s5, final String s6, final String s7) {
+        throw new UnsupportedOperationException();
     }
 
     @Nullable
@@ -66,11 +59,6 @@ public class FountainRealm extends SecurityProvider implements Realm {
     }
 
     @Nonnull
-    public Principal authenticate(final String s, final String s1, final String s2, final String s3, final String s4, final String s5, final String s6, final String s7) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Nonnull
     public Principal authenticate(final X509Certificate[] x509Certificates) {
         throw new UnsupportedOperationException();
     }
@@ -83,14 +71,22 @@ public class FountainRealm extends SecurityProvider implements Realm {
         return new SecurityConstraint[0];
     }
 
-    public boolean hasResourcePermission(@Nonnull final Request request, final Response response, final SecurityConstraint[] securityConstraints, final Context context) throws IOException {
+    @Nonnull
+    public String getInfo() {
+        return "Fountain Data Store Security Realm";
+    }
+
+    public boolean hasResourcePermission(@Nonnull final Request request, final Response response,
+                                         final SecurityConstraint[] securityConstraints, final Context context) throws IOException {
         if (request.getPathInfo() == null) {
             return false;
         }
         log.debug("hasResourcePermission() - request.getPathInfo() " + request.getPathInfo());
         if (request.getPrincipal().getName() == null || "anon".equals(request.getPrincipal().getName())) {
-            return request.getPathInfo().matches("/user/create[\\.a-z]*") && "GET".equals(request.getMethod()) || request.getPathInfo().matches("/user[\\.a-z]*") && "POST".equals(request.getMethod());
-        } else {
+            return request.getPathInfo().matches("/user/create[\\.a-z]*") && "GET".equals(request.getMethod()) ||
+                   request.getPathInfo().matches("/user[\\.a-z]*") && "POST".equals(request.getMethod());
+        }
+        else {
             return true;
         }
     }
@@ -103,12 +99,20 @@ public class FountainRealm extends SecurityProvider implements Realm {
         return true;
     }
 
-    public boolean hasUserDataPermission(final Request request, final Response response, final SecurityConstraint[] securityConstraints) throws IOException {
+    public boolean hasUserDataPermission(final Request request, final Response response,
+                                         final SecurityConstraint[] securityConstraints) throws IOException {
         return true;
     }
 
-
     public void removePropertyChangeListener(final PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.removePropertyChangeListener(propertyChangeListener);
+    }
+
+    public Container getContainer() {
+        return container;
+    }
+
+    public void setContainer(final Container container) {
+        this.container = container;
     }
 }

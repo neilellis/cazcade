@@ -21,7 +21,6 @@ import java.util.Properties;
  * Default implementation of mail service.
  */
 public class DefaultMailService implements MailService {
-
     /**
      * System property to set to override default template directory of &quot;./mail-templates&quot;.
      */
@@ -38,21 +37,33 @@ public class DefaultMailService implements MailService {
     private String sender;
     private String senderFullname;
 
-    public void setSmtpHost(final String smtpHost) {
-        this.smtpHost = smtpHost;
-    }
-
-    public void setSmtpAuthenticator(final SMTPAuthenticator smtpAuthenticator) {
-        this.smtpAuthenticator = smtpAuthenticator;
-    }
-
     public void init() throws IOException, NoSuchProviderException {
         initialiseVelocity();
         initialiseMailSession(smtpHost, smtpAuthenticator);
     }
 
+    private void initialiseVelocity() throws IOException {
+        final ExtendedProperties extendedProperties = new ExtendedProperties();
+        extendedProperties.load(DefaultMailService.class.getResourceAsStream("/email-velocity.properties"));
+        velocity = new VelocityEngine();
+        velocity.setExtendedProperties(extendedProperties);
+        velocity.init();
+    }
+
+    private void initialiseMailSession(final String smtpHost, @Nullable final SMTPAuthenticator smtpAuthenticator)
+            throws NoSuchProviderException {
+        final Properties mailProperties = new Properties();
+        mailProperties.setProperty("mail.transport.protocol", "smtp");
+        mailProperties.setProperty("mail.smtp.host", smtpHost);
+        //noinspection VariableNotUsedInsideIf
+        mailProperties.setProperty("mail.smtp.auth", smtpAuthenticator == null ? "false" : "true");
+        mailSession = Session.getInstance(mailProperties, smtpAuthenticator);
+        mailTransport = mailSession.getTransport();
+    }
+
     @Override
-    public void sendMailFromTemplate(final String templateIdentifier, final String subject, String[] to, @Nonnull final String[] cc, @Nonnull final String[] bcc,
+    public void sendMailFromTemplate(final String templateIdentifier, final String subject, String[] to, @Nonnull final String[] cc,
+                                     @Nonnull final String[] bcc,
                                      final Map<String, Object> templateParameters, final boolean test) {
         try {
             final Template template = velocity.getTemplate(templateIdentifier, "UTF-8");
@@ -90,30 +101,12 @@ public class DefaultMailService implements MailService {
         }
     }
 
-    private void addRecipients(@Nonnull final MimeMessage message, @Nonnull final String[] recipients, final Message.RecipientType recipientType) throws MessagingException {
+    private void addRecipients(@Nonnull final MimeMessage message, @Nonnull final String[] recipients,
+                               final Message.RecipientType recipientType) throws MessagingException {
         for (final String recipient : recipients) {
             message.addRecipient(recipientType, new InternetAddress(recipient));
         }
     }
-
-    private void initialiseVelocity() throws IOException {
-        final ExtendedProperties extendedProperties = new ExtendedProperties();
-        extendedProperties.load(DefaultMailService.class.getResourceAsStream("/email-velocity.properties"));
-        velocity = new VelocityEngine();
-        velocity.setExtendedProperties(extendedProperties);
-        velocity.init();
-    }
-
-    private void initialiseMailSession(final String smtpHost, @Nullable final SMTPAuthenticator smtpAuthenticator) throws NoSuchProviderException {
-        final Properties mailProperties = new Properties();
-        mailProperties.setProperty("mail.transport.protocol", "smtp");
-        mailProperties.setProperty("mail.smtp.host", smtpHost);
-        //noinspection VariableNotUsedInsideIf
-        mailProperties.setProperty("mail.smtp.auth", smtpAuthenticator == null ? "false" : "true");
-        mailSession = Session.getInstance(mailProperties, smtpAuthenticator);
-        mailTransport = mailSession.getTransport();
-    }
-
 
     public void setSender(final String sender) {
         this.sender = sender;
@@ -121,5 +114,13 @@ public class DefaultMailService implements MailService {
 
     public void setSenderFullname(final String senderFullname) {
         this.senderFullname = senderFullname;
+    }
+
+    public void setSmtpAuthenticator(final SMTPAuthenticator smtpAuthenticator) {
+        this.smtpAuthenticator = smtpAuthenticator;
+    }
+
+    public void setSmtpHost(final String smtpHost) {
+        this.smtpHost = smtpHost;
     }
 }

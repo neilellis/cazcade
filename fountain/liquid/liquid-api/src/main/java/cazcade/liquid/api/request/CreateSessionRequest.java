@@ -9,31 +9,25 @@ import java.util.Collection;
 
 
 public class CreateSessionRequest extends AbstractCreationRequest {
-
-    public CreateSessionRequest() {
-        super();
-    }
-
-    public CreateSessionRequest(@Nonnull final ClientApplicationIdentifier client) {
-        this(null, null, client);
-    }
-
-    public CreateSessionRequest(final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
-        this(null, alias, client);
-    }
-
-    public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
+    public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidURI alias,
+                                @Nonnull final ClientApplicationIdentifier client) {
         super();
         setId(id);
         setUri(alias);
         setClient(client);
     }
 
-
-    public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(getUri());
+    public CreateSessionRequest(final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
+        this(null, alias, client);
     }
 
+    public CreateSessionRequest(@Nonnull final ClientApplicationIdentifier client) {
+        this(null, null, client);
+    }
+
+    public CreateSessionRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -41,6 +35,9 @@ public class CreateSessionRequest extends AbstractCreationRequest {
         return new CreateSessionRequest(getId(), getUri(), getClient());
     }
 
+    public Collection<LiquidURI> getAffectedEntities() {
+        return Arrays.asList(getUri());
+    }
 
     @Nonnull
     public LiquidRequestType getRequestType() {
@@ -51,5 +48,4 @@ public class CreateSessionRequest extends AbstractCreationRequest {
     public boolean isAsyncRequest() {
         return false;
     }
-
 }

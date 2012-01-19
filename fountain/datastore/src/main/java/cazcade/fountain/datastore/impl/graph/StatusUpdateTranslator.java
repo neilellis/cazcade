@@ -10,8 +10,6 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class StatusUpdateTranslator {
-
-
     @Nullable
     public static LSDSimpleEntity translate(final LSDSimpleEntity from) {
 //        if(from.canBe(LSDTypes.ALIAS)) {

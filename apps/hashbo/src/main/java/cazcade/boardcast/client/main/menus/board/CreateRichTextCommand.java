@@ -12,15 +12,6 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateRichTextCommand extends CreateItemCommand {
-
-    @Override
-    protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
-//        entity.setAttribute(LSDAttribute.TEXT_EXTENDED, "Double click to edit");
-        addDefaultView(entity);
-        onBuilt.onBuilt(entity);
-    }
-
     public CreateRichTextCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
@@ -29,6 +20,13 @@ public class CreateRichTextCommand extends CreateItemCommand {
     public void execute() {
         super.execute();
         Track.getInstance().trackEvent("Add", "Add Text");
+    }
 
+    @Override
+    protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
+//        entity.setAttribute(LSDAttribute.TEXT_EXTENDED, "Double click to edit");
+        addDefaultView(entity);
+        onBuilt.onBuilt(entity);
     }
 }

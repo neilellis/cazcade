@@ -18,22 +18,6 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class AddCommentBox extends Composite {
-
-    public void init(@Nonnull final LiquidURI poolURI) {
-        addCommentBox.init(poolURI);
-        loginLink.setHref("/" + new LiquidBoardURL(poolURI).asUrlSafe() + "?forceLogin=true");
-        if (UserUtil.isAnonymousOrLoggedOut()) {
-            loginPanel.setVisible(true);
-            addCommentBox.setVisible(false);
-        } else {
-            loginPanel.setVisible(false);
-            addCommentBox.setVisible(true);
-        }
-    }
-
-    interface AddCommentBoxUiBinder extends UiBinder<HTMLPanel, AddCommentBox> {
-    }
-
     private static final AddCommentBoxUiBinder ourUiBinder = GWT.create(AddCommentBoxUiBinder.class);
     @UiField
     CommentBox addCommentBox;
@@ -47,6 +31,21 @@ public class AddCommentBox extends Composite {
     public AddCommentBox() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
+    }
 
+    public void init(@Nonnull final LiquidURI poolURI) {
+        addCommentBox.init(poolURI);
+        loginLink.setHref("/" + new LiquidBoardURL(poolURI).asUrlSafe() + "?forceLogin=true");
+        if (UserUtil.isAnonymousOrLoggedOut()) {
+            loginPanel.setVisible(true);
+            addCommentBox.setVisible(false);
+        }
+        else {
+            loginPanel.setVisible(false);
+            addCommentBox.setVisible(true);
+        }
+    }
+
+    interface AddCommentBoxUiBinder extends UiBinder<HTMLPanel, AddCommentBox> {
     }
 }

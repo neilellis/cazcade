@@ -14,30 +14,9 @@ import java.util.Date;
 @Entity
 @Table(name = "message")
 public class MessageEntity extends MessageBase {
-
     private AliasEntity author;
     private BoardIndexEntity board;
     private MessageType type;
-
-    @Id
-    @Column(name = "uri")
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(final String uri) {
-        this.uri = uri;
-    }
-
-
-    @Column(name = "text", nullable = false)
-    public String getMessageText() {
-        return messageText;
-    }
-
-    public void setMessageText(final String entryText) {
-        messageText = entryText;
-    }
 
     @ManyToOne(targetEntity = AliasEntity.class)
     @JoinColumn(name = "author", nullable = false)
@@ -47,6 +26,16 @@ public class MessageEntity extends MessageBase {
 
     public void setAuthor(final AliasEntity author) {
         this.author = author;
+    }
+
+    @ManyToOne(targetEntity = BoardIndexEntity.class)
+    @JoinColumn(name = "board", nullable = true)
+    public BoardIndexEntity getBoard() {
+        return board;
+    }
+
+    public void setBoard(final BoardIndexEntity board) {
+        this.board = board;
     }
 
     @Column(name = "created", nullable = false)
@@ -67,7 +56,6 @@ public class MessageEntity extends MessageBase {
         this.deleted = deleted;
     }
 
-
     @Column(name = "external_url", nullable = true)
     public String getExternalEntryURL() {
         return externalEntryURL;
@@ -75,6 +63,15 @@ public class MessageEntity extends MessageBase {
 
     public void setExternalEntryURL(final String externalEntryId) {
         externalEntryURL = externalEntryId;
+    }
+
+    @Column(name = "text", nullable = false)
+    public String getMessageText() {
+        return messageText;
+    }
+
+    public void setMessageText(final String entryText) {
+        messageText = entryText;
     }
 
     @Column(name = "source", nullable = true, columnDefinition = "int(1) default 0")
@@ -86,16 +83,6 @@ public class MessageEntity extends MessageBase {
         this.source = source;
     }
 
-    @ManyToOne(targetEntity = BoardIndexEntity.class)
-    @JoinColumn(name = "board", nullable = true)
-    public BoardIndexEntity getBoard() {
-        return board;
-    }
-
-    public void setBoard(final BoardIndexEntity board) {
-        this.board = board;
-    }
-
     @Column(name = "type", nullable = false)
     public MessageType getType() {
         return type;
@@ -103,6 +90,16 @@ public class MessageEntity extends MessageBase {
 
     public void setType(final MessageType type) {
         this.type = type;
+    }
+
+    @Id
+    @Column(name = "uri")
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(final String uri) {
+        this.uri = uri;
     }
 }
 

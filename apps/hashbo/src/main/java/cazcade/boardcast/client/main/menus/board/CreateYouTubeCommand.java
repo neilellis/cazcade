@@ -13,14 +13,11 @@ public class CreateYouTubeCommand extends CreateItemCommand {
         super(pool, type, size, theme);
     }
 
-
     @Override
     public void execute() {
         showEditorPanel(new YouTubeEditorPanel(createEntityWithDefaultView()));
         Track.getInstance().trackEvent("Add", "Add YouTube");
-
     }
-
 
     @Override
     protected void buildEntity(final BuildCallback onBuilt) {

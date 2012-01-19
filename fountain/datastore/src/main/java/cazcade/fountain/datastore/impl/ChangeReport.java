@@ -12,7 +12,6 @@ import java.util.Map;
  * @author neilellis@cazcade.com
  */
 public class ChangeReport {
-
     @Nonnull
     private final List<Map> changedFollowedBoards = new ArrayList<Map>();
     @Nonnull
@@ -28,12 +27,12 @@ public class ChangeReport {
         changedOwnedBoards.add(boardEntity.getCamelCaseMap());
     }
 
-
     @Nonnull
     public List<Map> getChangedFollowedBoards() {
         if (changedFollowedBoards.size() > 5) {
             return changedFollowedBoards.subList(0, 5);
-        } else {
+        }
+        else {
             return changedFollowedBoards;
         }
     }
@@ -42,7 +41,8 @@ public class ChangeReport {
     public List<Map> getChangedOwnedBoards() {
         if (changedOwnedBoards.size() > 5) {
             return changedOwnedBoards.subList(0, 5);
-        } else {
+        }
+        else {
             return changedOwnedBoards;
         }
     }
@@ -55,6 +55,10 @@ public class ChangeReport {
         return !changedOwnedBoards.isEmpty();
     }
 
+    public boolean hasLatestChanges() {
+        return !latestChanges.isEmpty();
+    }
+
     public void setLatestChanges(@Nonnull final Collection<LSDTransferEntity> changes) {
         for (final LSDTransferEntity change : changes) {
             latestChanges.add(change.getCamelCaseMap());
@@ -64,9 +68,5 @@ public class ChangeReport {
     @Nonnull
     public List<Map> getLatestChanges() {
         return latestChanges;
-    }
-
-    public boolean hasLatestChanges() {
-        return !latestChanges.isEmpty();
     }
 }

@@ -13,8 +13,6 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateAliasRefCommand extends CreateItemCommand {
-
-
     private final LiquidURI uri;
 
     public CreateAliasRefCommand(final LiquidURI pool, final LSDDictionaryTypes type, final LiquidURI uri) {

@@ -19,17 +19,6 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class HashboLoginPanel extends Composite {
-    private Runnable onSuccessAction;
-    private Runnable onFailureAction;
-    private Runnable onSwitchToRegisterAction;
-    @Nullable
-    private LiquidSessionIdentifier identity;
-
-
-    interface LoginPanelUiBinder extends UiBinder<HTMLPanel, HashboLoginPanel> {
-    }
-
-
     private static final LoginPanelUiBinder ourUiBinder = GWT.create(LoginPanelUiBinder.class);
 
     @UiField
@@ -46,6 +35,11 @@ public class HashboLoginPanel extends Composite {
 
     @UiField
     Hyperlink register;
+    private Runnable onSuccessAction;
+    private Runnable onFailureAction;
+    private Runnable onSwitchToRegisterAction;
+    @Nullable
+    private LiquidSessionIdentifier identity;
 
     public HashboLoginPanel() {
         super();
@@ -55,51 +49,54 @@ public class HashboLoginPanel extends Composite {
             public void onClick(final ClickEvent event) {
                 submit();
             }
-        });
+        }
+                                   );
         username.setOnChangeAction(new Runnable() {
-
             @Override
             public void run() {
                 submit();
             }
-        });
+        }
+                                  );
 
         password.setOnChangeAction(new Runnable() {
-
             @Override
             public void run() {
                 submit();
             }
-        });
+        }
+                                  );
 
         register.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
                 onSwitchToRegisterAction.run();
             }
-        });
-
-
+        }
+                                );
     }
 
     private void submit() {
         if (password.isValid() && username.isValid()) {
-            DataStoreService.App.getInstance().login(username.getStringValue(), password.getStringValue(), new AsyncCallback<LiquidSessionIdentifier>() {
-                @Override
-                public void onFailure(final Throwable caught) {
-                    ClientLog.log(caught);
-                }
+            DataStoreService.App.getInstance().login(username.getStringValue(), password.getStringValue(),
+                                                     new AsyncCallback<LiquidSessionIdentifier>() {
+                                                         @Override
+                                                         public void onFailure(final Throwable caught) {
+                                                             ClientLog.log(caught);
+                                                         }
 
-                @Override
-                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
-                    if (result == null) {
-                        doFailure();
-                    } else {
-                        identity = result;
-                        onSuccessAction.run();
-                    }
-                }
-            });
+                                                         @Override
+                                                         public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
+                                                             if (result == null) {
+                                                                 doFailure();
+                                                             }
+                                                             else {
+                                                                 identity = result;
+                                                                 onSuccessAction.run();
+                                                             }
+                                                         }
+                                                     }
+                                                    );
         }
     }
 
@@ -108,6 +105,14 @@ public class HashboLoginPanel extends Composite {
         loginErrorMessage.setText("Login failed");
     }
 
+    @Nullable
+    public LiquidSessionIdentifier getIdentity() {
+        return identity;
+    }
+
+    public void setOnFailureAction(final Runnable onFailureAction) {
+        this.onFailureAction = onFailureAction;
+    }
 
     public void setOnSuccessAction(final Runnable onSuccessAction) {
         this.onSuccessAction = onSuccessAction;
@@ -117,14 +122,6 @@ public class HashboLoginPanel extends Composite {
         this.onSwitchToRegisterAction = onSwitchToRegisterAction;
     }
 
-    public void setOnFailureAction(final Runnable onFailureAction) {
-        this.onFailureAction = onFailureAction;
+    interface LoginPanelUiBinder extends UiBinder<HTMLPanel, HashboLoginPanel> {
     }
-
-    @Nullable
-    public LiquidSessionIdentifier getIdentity() {
-        return identity;
-    }
-
-
 }

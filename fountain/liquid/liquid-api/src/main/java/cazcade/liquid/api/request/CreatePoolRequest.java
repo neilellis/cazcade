@@ -10,26 +10,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class CreatePoolRequest extends AbstractCreationRequest {
-
-
-    public CreatePoolRequest() {
-        super();
-    }
-
-    public CreatePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
-        this(LSDDictionaryTypes.POOL2D, null, identity, parent, name, title, description, x, y);
-    }
-
-
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
-        this(type, null, null, parent, name, title, description, x, y);
-    }
-
-    public CreatePoolRequest(final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
-        this(LSDDictionaryTypes.POOL2D, null, null, parent, name, title, description, x, y);
-    }
-
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, @Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, @Nullable final LiquidUUID id,
+                             @Nullable final LiquidSessionIdentifier identity, final LiquidURI parent, final String name,
+                             final String title, final String description, final double x, final double y) {
         super();
         setTitle(title);
         setDescription(description);
@@ -42,28 +25,44 @@ public class CreatePoolRequest extends AbstractCreationRequest {
         setType(type);
     }
 
+    public CreatePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title,
+                             final String description, final double x, final double y) {
+        this(LSDDictionaryTypes.POOL2D, null, identity, parent, name, title, description, x, y);
+    }
+
+    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, final LiquidURI parent, final String name, final String title,
+                             final String description, final double x, final double y) {
+        this(type, null, null, parent, name, title, description, x, y);
+    }
+
+    public CreatePoolRequest(final LiquidURI parent, final String name, final String title, final String description,
+                             final double x, final double y) {
+        this(LSDDictionaryTypes.POOL2D, null, null, parent, name, title, description, x, y);
+    }
+
+    public CreatePoolRequest() {
+        super();
+    }
+
+    @Nonnull
+    @Override
+    public LiquidMessage copy() {
+        return new CreatePoolRequest(getType(), getId(), getSessionIdentifier(), getParent(), getName(), getTitle(),
+                                     getDescription(), getX(), getY()
+        );
+    }
 
     @Nonnull
     public Collection<LiquidURI> getAffectedEntities() {
         return getStandardAffectedEntitiesInternalPlus(getParent());
     }
 
-
-    @Nonnull
-    @Override
-    public LiquidMessage copy() {
-        return new CreatePoolRequest(getType(), getId(), getSessionIdentifier(), getParent(), getName(), getTitle(), getDescription(), getX(), getY());
-    }
-
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Arrays.asList(new AuthorizationRequest(getParent(), LiquidPermission.MODIFY));
     }
-
 
     @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.CREATE_POOL;
     }
-
-
 }

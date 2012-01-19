@@ -26,22 +26,23 @@ public class LinkPoolHandler extends AbstractDataStoreHandler<LinkPoolObjectRequ
             final LSDPersistedEntity targetPool = fountainNeo.findByUUID(target);
 
             if (request.isUnlink()) {
-
                 result = poolDAO.unlinkPool(targetPool);
-
-            } else {
-
+            }
+            else {
                 final LiquidURI alias = request.getAlias();
                 final LSDPersistedEntity newOwner = fountainNeo.findByURI(alias);
                 if (from == null) {
                     result = poolDAO.linkPool(newOwner, targetPool, fountainNeo.findByUUID(to));
-                } else {
+                }
+                else {
                     result = poolDAO.linkPool(newOwner, targetPool, fountainNeo.findByUUID(from), fountainNeo.findByUUID(to));
                 }
             }
 
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, result.convertNodeToLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, result.convertNodeToLSD(request.getDetail(), request.isInternal()
+                                                                                         )
+                                                        );
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

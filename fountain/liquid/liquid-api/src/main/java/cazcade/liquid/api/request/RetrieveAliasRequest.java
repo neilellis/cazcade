@@ -8,9 +8,37 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveAliasRequest extends AbstractRetrievalRequest {
-
-    public RetrieveAliasRequest() {
+    private RetrieveAliasRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
+                                 final LiquidURI uri) {
         super();
+        setTarget(target);
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
+    }
+
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                final LiquidUUID target) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+    }
+
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                final LiquidURI uri) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
+    }
+
+    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
+        this(null, identity, target);
+    }
+
+    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
+        this(null, identity, uri);
     }
 
     public RetrieveAliasRequest(final LiquidUUID target) {
@@ -26,36 +54,9 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         setSessionId(identity);
     }
 
-    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
-        this(null, identity, target);
-    }
-
-    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
-        this(null, identity, uri);
-    }
-
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public RetrieveAliasRequest() {
         super();
-        setId(id);
-        setSessionId(identity);
-        setTarget(target);
     }
-
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri) {
-        super();
-        setId(id);
-        setSessionId(identity);
-        setUri(uri);
-    }
-
-    private RetrieveAliasRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
-        super();
-        setTarget(target);
-        setId(id);
-        setSessionId(identity);
-        setUri(uri);
-    }
-
 
     @Nonnull
     @Override
@@ -63,14 +64,13 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         return new RetrieveAliasRequest(getId(), getSessionIdentifier(), getTarget(), getUri());
     }
 
-    @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.RETRIEVE_ALIAS;
-    }
-
-
     @Override
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.emptyList();
+    }
+
+    @Nonnull
+    public LiquidRequestType getRequestType() {
+        return LiquidRequestType.RETRIEVE_ALIAS;
     }
 }

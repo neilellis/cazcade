@@ -12,6 +12,11 @@ import javax.annotation.Nonnull;
 public class UpdateSessionHandler extends AbstractUpdateHandler<UpdateSessionRequest> implements UpdateSessionRequestHandler {
     @Nonnull
     public UpdateSessionRequest handle(@Nonnull final UpdateSessionRequest request) throws InterruptedException {
-        return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateUnversionedEntityByUUIDTx(request.getTarget(), request.getRequestEntity(), request.isInternal(), request.getDetail(), null));
+        return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateUnversionedEntityByUUIDTx(request.getTarget(),
+                                                                                                          request.getRequestEntity(),
+                                                                                                          request.isInternal(),
+                                                                                                          request.getDetail(), null
+                                                                                                         )
+                                                    );
     }
 }

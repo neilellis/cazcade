@@ -12,12 +12,8 @@ import java.util.Map;
 public class FountainRequestMap {
     private Map<String, FountainRequestConfiguration> map;
 
-    public void setMap(final Map map) {
-        this.map = map;
-    }
-
-    public Map getMap() {
-        return map;
+    public FountainRequestConfiguration getConfiguration(@Nonnull final Class clazz) {
+        return map.get(clazz.getName());
     }
 
     public void injectNeo(final FountainNeo fountainNeo) {
@@ -30,7 +26,11 @@ public class FountainRequestMap {
         }
     }
 
-    public FountainRequestConfiguration getConfiguration(@Nonnull final Class clazz) {
-        return map.get(clazz.getName());
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(final Map map) {
+        this.map = map;
     }
 }

@@ -15,14 +15,18 @@ import java.util.Collection;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RetrieveCommentsHandler extends AbstractRetrievalHandler<RetrieveCommentsRequest> implements RetrieveCommentsRequestHandler {
-
+public class RetrieveCommentsHandler extends AbstractRetrievalHandler<RetrieveCommentsRequest>
+        implements RetrieveCommentsRequestHandler {
     @Nonnull
     public RetrieveCommentsRequest handle(@Nonnull final RetrieveCommentsRequest request) throws InterruptedException {
         final Collection<LSDTransferEntity> entities;
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT_LIST, UUIDFactory.randomUUID());
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT_LIST,
+                                                                                 UUIDFactory.randomUUID()
+                                                                                );
 
-        entities = poolDAO.getCommentsTx(request.getSessionIdentifier(), request.getUri(), request.getMax(), request.isInternal(), request.getDetail());
+        entities = poolDAO.getCommentsTx(request.getSessionIdentifier(), request.getUri(), request.getMax(), request.isInternal(),
+                                         request.getDetail()
+                                        );
         if (entities == null) {
             return LiquidResponseHelper.forEmptyResultResponse(request);
         }

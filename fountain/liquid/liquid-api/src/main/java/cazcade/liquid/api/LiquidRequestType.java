@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
  * @author neilelliz@cazcade.com
  */
 public enum LiquidRequestType {
-
     CREATE_POOL(CreatePoolRequest.class),
     CREATE_POOL_OBJECT(CreatePoolObjectRequest.class),
     CREATE_USER(CreateUserRequest.class),
@@ -64,10 +63,6 @@ public enum LiquidRequestType {
 
     LiquidRequestType(final Class<? extends LiquidMessage> requestClass) {
         this.requestClass = requestClass;
-    }
-
-    public Class<? extends LiquidMessage> getRequestClass() {
-        return requestClass;
     }
 
     @Nullable
@@ -196,5 +191,9 @@ public enum LiquidRequestType {
             return GWT.create(BoardQueryRequest.class);
         }
         return null;
+    }
+
+    public Class<? extends LiquidMessage> getRequestClass() {
+        return requestClass;
     }
 }

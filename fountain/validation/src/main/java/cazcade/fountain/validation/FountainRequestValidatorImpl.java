@@ -14,11 +14,14 @@ import java.util.Map;
  * @author neilelliz@cazcade.com
  */
 public class FountainRequestValidatorImpl<T extends LiquidRequest> implements FountainRequestValidator<T> {
-
     private Map<String, FountainRequestValidator> requestTypeValidatorMap;
     private FountainRequestValidator defaultValidator;
     @Nonnull
     private final Logger log = Logger.getLogger(FountainRequestValidatorImpl.class);
+
+    public void setRequestValidatorMap(final Map<String, FountainRequestValidator> typeValidatorMap) {
+        requestTypeValidatorMap = typeValidatorMap;
+    }
 
     public void validate(@Nonnull final T request, final ValidationLevel level) {
         final LiquidRequestType requestType = request.getRequestType();
@@ -32,14 +35,10 @@ public class FountainRequestValidatorImpl<T extends LiquidRequest> implements Fo
 
         if (validator != null) {
             validator.validate(request, level);
-        } else {
+        }
+        else {
             defaultValidator.validate(request, level);
         }
-
-    }
-
-    public void setRequestValidatorMap(final Map<String, FountainRequestValidator> typeValidatorMap) {
-        requestTypeValidatorMap = typeValidatorMap;
     }
 
     public void setDefaultValidator(final FountainRequestValidator defaultValidator) {

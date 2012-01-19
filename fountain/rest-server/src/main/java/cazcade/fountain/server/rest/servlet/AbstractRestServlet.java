@@ -38,18 +38,24 @@ public abstract class AbstractRestServlet extends HttpServlet {
     }
 
     @Override
-    public void init(final ServletConfig config) throws ServletException {
-
-    }
-
-    @Override
     public void destroy() {
         applicationContext.destroy();
         super.destroy();
     }
 
+    public void doError(final HttpServletRequest req, final HttpServletResponse resp, final String message)
+            throws ServletException {
+        throw new ServletException(message);
+    }
+
     @Override
-    public void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    public void init(final ServletConfig config) throws ServletException {
+
+    }
+
+    @Override
+    public void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
         log.session(req.getPathInfo());
         final String sessionId = req.getParameter("_session");
         log.addContext(req.getPathInfo());
@@ -60,7 +66,8 @@ public abstract class AbstractRestServlet extends HttpServlet {
             RestContext.clearContext();
             if (req.getUserPrincipal() != null) {
                 RestContext.getContext().setCredentials(new LiquidSessionIdentifier(req.getUserPrincipal().getName()));
-            } else {
+            }
+            else {
                 RestContext.getContext().setCredentials(new LiquidSessionIdentifier(null, null));
             }
             if (sessionId != null) {
@@ -90,16 +97,17 @@ public abstract class AbstractRestServlet extends HttpServlet {
                 if (pathElements[i].contains("-")) {
                     //No method name can contain a '-' symbol, so we take this to be a UUID
                     uuids.add(LiquidUUID.fromString(pathElements[i].toLowerCase()));
-                } else if (methodName == null) {
+                }
+                else if (methodName == null) {
                     //We have no method name so we use this as a method name.
                     methodName = pathElements[i];
-                } else {
+                }
+                else {
                     //Okay so we already have a method name so this is an error.
                     log.warn("Failed to parse rest path, unrecognized element {0}", pathElements[i]);
                     resp.sendError(400, "Failed to parse rest path, unrecognized element " + pathElements[i]);
                     return;
                 }
-
             }
 
             //If no method was supplied we can use the default for the HTTP METHOD type.
@@ -116,15 +124,14 @@ public abstract class AbstractRestServlet extends HttpServlet {
                 if ("PUT".equals(req.getMethod())) {
                     methodName = "create";
                 }
-
-
             }
             doRestCall(req, resp, pathWithQuery, serviceName, methodName, uuids, sessionId, format);
             log.debug("SUCCESS: Handled request for URL {0}?{1}", new Object[]{req.getPathInfo(), req.getQueryString()});
         } catch (CazcadeException e) {
             if (e.isClientException()) {
                 log.warn(e, "{0}?{1} caused {2}", req.getRequestURL(), req.getQueryString(), e.getMessage());
-            } else {
+            }
+            else {
                 log.error(e, "{0}?{1} caused {2}", req.getRequestURL(), req.getQueryString(), e.getMessage());
             }
             resp.sendError(500, "Server Error: " + e.getMessage() + ":" + ExceptionUtils.getFullStackTrace(e));
@@ -138,9 +145,6 @@ public abstract class AbstractRestServlet extends HttpServlet {
         }
     }
 
-    public abstract void doRestCall(HttpServletRequest req, HttpServletResponse resp, String pathWithQuery, String serviceName, String methodName, List<LiquidUUID> uuids, String sessionId, String format) throws Exception;
-
-    public void doError(final HttpServletRequest req, final HttpServletResponse resp, final String message) throws ServletException {
-        throw new ServletException(message);
-    }
+    public abstract void doRestCall(HttpServletRequest req, HttpServletResponse resp, String pathWithQuery, String serviceName,
+                                    String methodName, List<LiquidUUID> uuids, String sessionId, String format) throws Exception;
 }

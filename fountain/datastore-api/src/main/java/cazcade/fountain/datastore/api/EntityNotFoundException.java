@@ -8,15 +8,15 @@ import javax.annotation.Nonnull;
 
 
 public class EntityNotFoundException extends DataStoreException {
-    public EntityNotFoundException(final Throwable throwable) {
-        super(throwable);
+    public EntityNotFoundException(final Throwable cause, @Nonnull final String message, final Object... params) {
+        super(cause, message, params);
     }
 
     public EntityNotFoundException(@Nonnull final String message, final Object... params) {
         super(message, params);
     }
 
-    public EntityNotFoundException(final Throwable cause, @Nonnull final String message, final Object... params) {
-        super(cause, message, params);
+    public EntityNotFoundException(final Throwable throwable) {
+        super(throwable);
     }
 }

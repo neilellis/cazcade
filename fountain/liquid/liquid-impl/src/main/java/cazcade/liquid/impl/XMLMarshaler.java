@@ -12,15 +12,13 @@ import java.io.OutputStream;
  */
 
 public class XMLMarshaler implements LSDMarshaler {
-
-    public void marshal(final LSDTransferEntity lsdEntity, final OutputStream output) {
-        final XStream xstream = LiquidXStreamFactory.getXstream();
-        xstream.toXML(lsdEntity, output);
-    }
-
     @Nonnull
     public String getMimeType() {
         return "text/xml";
     }
 
+    public void marshal(final LSDTransferEntity lsdEntity, final OutputStream output) {
+        final XStream xstream = LiquidXStreamFactory.getXstream();
+        xstream.toXML(lsdEntity, output);
+    }
 }

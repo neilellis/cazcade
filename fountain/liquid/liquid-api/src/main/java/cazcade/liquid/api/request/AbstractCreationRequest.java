@@ -10,7 +10,15 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractCreationRequest extends AbstractRequest {
-
+    @Override
+    public void adjustTimeStampForServerTime() {
+        super.adjustTimeStampForServerTime();
+        if (getRequestEntity() != null) {
+            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()
+                                                                                                        )
+                                    );
+        }
+    }
 
     @Nullable
     public List<AuthorizationRequest> getAuthorizationRequests() {
@@ -22,20 +30,12 @@ public abstract class AbstractCreationRequest extends AbstractRequest {
         return null;
     }
 
-    public boolean isMutationRequest() {
-        return true;
-    }
-
     @Override
     public boolean isAsyncRequest() {
         return true;
     }
 
-    @Override
-    public void adjustTimeStampForServerTime() {
-        super.adjustTimeStampForServerTime();
-        if (getRequestEntity() != null) {
-            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
-        }
+    public boolean isMutationRequest() {
+        return true;
     }
 }

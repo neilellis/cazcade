@@ -19,7 +19,6 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class ClientSession {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(ClientSession.class);
 
@@ -36,24 +35,6 @@ public class ClientSession {
         lastUsed = lastUsedDate;
     }
 
-    public ClassPathXmlApplicationContext getSpringContext() {
-        return springContext;
-    }
-
-    public Date getLastUsed() {
-        return lastUsed;
-    }
-
-    public void markUsed() {
-        log.debug("Marking session used.");
-        lastUsed = new Date();
-    }
-
-    public void close() {
-        log.debug("Closing session.");
-        springContext.stop();
-    }
-
     public void addMessage(final LiquidMessage message) {
         log.debug("Adding message to session.");
         synchronized (messages) {
@@ -66,6 +47,21 @@ public class ClientSession {
         }
     }
 
+    @Deprecated
+    public void addPreviousLocations(final ArrayList<String> locations) {
+        previousLocations.addAll(locations);
+    }
+
+    public void close() {
+        log.debug("Closing session.");
+        springContext.stop();
+    }
+
+    public void markUsed() {
+        log.debug("Marking session used.");
+        lastUsed = new Date();
+    }
+
     @Nonnull
     public synchronized ArrayList<LiquidMessage> removeMessages() {
 //        log.debug("Removing messages from session.");
@@ -76,29 +72,31 @@ public class ClientSession {
         return result;
     }
 
-
-    public void setContinuation(final Continuation continuation) {
-        this.continuation = continuation;
-    }
-
-    public void setPreviousLocations(final ArrayList<String> location) {
-        previousLocations = location;
+    public Date getLastUsed() {
+        return lastUsed;
     }
 
     public ArrayList<String> getPreviousLocations() {
         return previousLocations;
     }
 
-    @Deprecated
-    public void addPreviousLocations(final ArrayList<String> locations) {
-        previousLocations.addAll(locations);
+    public void setPreviousLocations(final ArrayList<String> location) {
+        previousLocations = location;
+    }
+
+    public Queue getSessionQueue() {
+        return sessionQueue;
     }
 
     public void setSessionQueue(final Queue sessionQueue) {
         this.sessionQueue = sessionQueue;
     }
 
-    public Queue getSessionQueue() {
-        return sessionQueue;
+    public ClassPathXmlApplicationContext getSpringContext() {
+        return springContext;
+    }
+
+    public void setContinuation(final Continuation continuation) {
+        this.continuation = continuation;
     }
 }

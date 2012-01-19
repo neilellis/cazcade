@@ -34,28 +34,38 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class SnapshotBoard extends EntityBackedFormPanel {
+    private static final NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
+
+
+    @UiField
+    PoolContentArea contentArea;
 
     private long updatePoolListener;
     private boolean inited;
 
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
-    }
 
     @Nonnull
-    @Override
-    protected String getReferenceDataPrefix() {
-        return "board";
+    private final Bus bus = BusFactory.getInstance();
+    private LiquidURI poolURI;
+    @Nonnull
+    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    private Element sharethisElement;
+
+    public SnapshotBoard(final boolean embedded) {
+        super();
+        initWidget(ourUiBinder.createAndBindUi(this));
+        WidgetUtil.hide(getWidget(), false);
+        if (embedded) {
+            addStyleName("embedded-board");
+        }
     }
 
-    @Nonnull
     @Override
-    protected Runnable getUpdateEntityAction(final Bindable field) {
-        throw new UnsupportedOperationException("Readonly snapshot board.");
+    public void onLocalHistoryTokenChanged(final String token) {
+        navigate(token);
     }
 
     public void navigate(@Nullable final String value) {
-
         if (value == null || value.startsWith(".") || value.startsWith("_") || value.isEmpty()) {
             Window.alert("Invalid board name " + value);
             return;
@@ -75,77 +85,42 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                 public void onSuccess() {
                     refresh();
                 }
-            });
+            }
+                        );
         }
     }
-
-    @Override
-    public void onLocalHistoryTokenChanged(final String token) {
-        navigate(token);
-    }
-
-
-    interface NewBoardUiBinder extends UiBinder<HTMLPanel, SnapshotBoard> {
-    }
-
-    private static final NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
-
-
-    @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private LiquidURI poolURI;
-    @Nonnull
-    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-    private Element sharethisElement;
-
-
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-        if (!inited) {
-            init();
-            inited = true;
-        }
-
-
-    }
-
-    private void init() {
-        if (poolURI != null) {
-            refresh();
-        }
-    }
-
 
     private void refresh() {
-
         if (updatePoolListener != 0) {
             BusFactory.getInstance().removeListener(updatePoolListener);
         }
 
-        updatePoolListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL, new BusListener() {
-            @Override
-            public void handle(final LiquidMessage response) {
-                update((LiquidRequest) response);
-
-            }
-        });
+        updatePoolListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL,
+                                                                                           new BusListener() {
+                                                                                               @Override
+                                                                                               public void handle(
+                                                                                                       final LiquidMessage response) {
+                                                                                                   update((LiquidRequest) response);
+                                                                                               }
+                                                                                           }
+                                                                                          );
 
 
         final boolean listed = poolURI.asShortUrl().isListedByConvention();
         //start listed boards as public readonly, default is public writeable
         contentArea.clear();
         bus.send(new RetrievePoolRequest(poolURI, true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
-
             @Override
             public void onFailure(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
-                    } else {
+                    }
+                    else {
                         Window.alert("You don't have permission");
                     }
-                } else {
+                }
+                else {
                     super.onFailure(message, response);
                 }
             }
@@ -155,18 +130,41 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                 final LSDTransferEntity responseEntity = response.getResponse();
                 if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
-                } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
+                }
+                else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
                     bind(responseEntity.copy());
-                } else {
+                }
+                else {
                     Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
-
             }
-        });
+        }
+                );
     }
 
     private void update(@Nonnull final LiquidRequest response) {
         bind(response.getResponse().copy());
+    }
+
+    public void bind(final LSDTransferEntity entity) {
+        super.bind(entity);
+    }
+
+    @Nonnull
+    @Override
+    protected String getReferenceDataPrefix() {
+        return "board";
+    }
+
+    @Nonnull
+    @Override
+    protected Runnable getUpdateEntityAction(final Bindable field) {
+        throw new UnsupportedOperationException("Readonly snapshot board.");
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
     }
 
     @Override
@@ -179,30 +177,23 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
         WidgetUtil.showGracefully(getWidget(), false);
         removeStyleName("loading");
-
-
     }
-
-
-    @UiField
-    PoolContentArea contentArea;
-
 
     @Override
-    protected void onAttach() {
-        super.onAttach();
-
-    }
-
-    public SnapshotBoard(final boolean embedded) {
-        super();
-        initWidget(ourUiBinder.createAndBindUi(this));
-        WidgetUtil.hide(getWidget(), false);
-        if (embedded) {
-            addStyleName("embedded-board");
+    protected void onLoad() {
+        super.onLoad();
+        if (!inited) {
+            init();
+            inited = true;
         }
-
     }
 
+    private void init() {
+        if (poolURI != null) {
+            refresh();
+        }
+    }
 
+    interface NewBoardUiBinder extends UiBinder<HTMLPanel, SnapshotBoard> {
+    }
 }

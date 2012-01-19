@@ -14,7 +14,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class LiquidXStreamFactory {
-
     @Nonnull
     private static final XStream xstream = new XStream(new XppDriver(new XmlFriendlyReplacer("__dollar__", "_")));
 
@@ -56,7 +55,6 @@ public class LiquidXStreamFactory {
         xstream.registerConverter(new LiquidURIConverter());
         xstream.registerConverter(new LiquidUUIDConverter());
         xstream.setMode(XStream.NO_REFERENCES);
-
     }
 
     @Nonnull

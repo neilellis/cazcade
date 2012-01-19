@@ -12,26 +12,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class CreateUserRequest extends AbstractCreationRequest {
-
-    public CreateUserRequest() {
-        super();
-    }
-
-    public CreateUserRequest(final LSDTransferEntity entity) {
-        this(null, null, entity);
-    }
-
-    public CreateUserRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity entity) {
-        this(null, identity, entity);
-    }
-
-    public CreateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LSDTransferEntity entity) {
+    public CreateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                             final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
         setRequestEntity(entity);
     }
 
+    public CreateUserRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity entity) {
+        this(null, identity, entity);
+    }
+
+    public CreateUserRequest(final LSDTransferEntity entity) {
+        this(null, null, entity);
+    }
+
+    public CreateUserRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -42,7 +41,6 @@ public class CreateUserRequest extends AbstractCreationRequest {
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
     }
-
 
     @Nullable
     @Override
@@ -60,5 +58,4 @@ public class CreateUserRequest extends AbstractCreationRequest {
     public boolean isAsyncRequest() {
         return false;
     }
-
 }

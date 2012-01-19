@@ -31,10 +31,14 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
             throw new UnsupportedOperationException("Retrieval by alias UUID not supported anymore.");
 //            log.warn("Retrieving alias using UUID - this behaviour is deprecated, use URIs.");
 //            result = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
-        } else if (request.getUri() != null) {
+        }
+        else if (request.getUri() != null) {
             log.debug("Retrieving alias using URI {0}", request.getUri());
-            result = socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.getDetail());
-        } else {
+            result = socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(),
+                                                   request.getDetail()
+                                                  );
+        }
+        else {
             log.debug("Retrieving aliases for current user {0}", request.getSessionIdentifier().getUserURL());
             //todo: make this part of FountainNeo
             final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
@@ -44,19 +48,24 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
             final List<LSDBaseEntity> children = new ArrayList<LSDBaseEntity>();
             final Transaction transaction = fountainNeo.beginTx();
             try {
-
                 final LSDPersistedEntity userPersistedEntity = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
                 if (userPersistedEntity == null) {
-                    throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.", request.getSessionIdentifier().getName());
+                    throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.",
+                                                      request.getSessionIdentifier().getName()
+                    );
                 }
 
                 if (userPersistedEntity.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
                     boolean found = false;
-                    final Iterable<FountainRelationship> relationships = userPersistedEntity.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    final Iterable<FountainRelationship> relationships = userPersistedEntity.getRelationships(
+                            FountainRelationships.ALIAS, Direction.INCOMING
+                                                                                                             );
                     for (final FountainRelationship relationship : relationships) {
                         final LSDPersistedEntity aliasPersistedEntity = relationship.getOtherNode(userPersistedEntity);
                         if (!aliasPersistedEntity.isDeleted()) {
-                            final LSDBaseEntity child = aliasPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
+                            final LSDBaseEntity child = aliasPersistedEntity.convertNodeToLSD(request.getDetail(),
+                                                                                              request.isInternal()
+                                                                                             );
                             children.add(child);
                             found = true;
                         }
@@ -65,7 +74,8 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
                         transaction.success();
                         return LiquidResponseHelper.forEmptyResultResponse(request);
                     }
-                } else {
+                }
+                else {
                     transaction.success();
                     return LiquidResponseHelper.forEmptyResultResponse(request);
                 }
@@ -73,14 +83,12 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
                 entity.addSubEntities(LSDAttribute.CHILD, children);
                 result = entity;
                 return LiquidResponseHelper.forServerSuccess(request, result);
-
             } catch (RuntimeException e) {
                 transaction.failure();
                 throw e;
             } finally {
                 transaction.finish();
             }
-
         }
         return LiquidResponseHelper.forServerSuccess(request, result);
     }

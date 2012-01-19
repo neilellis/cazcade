@@ -19,7 +19,6 @@ public interface FountainExecutorService extends ServiceStateMachine {
      * @param retry      should execution be re-attempted on failure.
      * @param hashObject an object which determines through it's hashcode which thread this should be executed on.
      * @param executable some executable code.
-     *
      * @throws InterruptedException if the submission thread (this thread) is interrupted while attempting to queue.
      */
     void execute(boolean retry, Object hashObject, FountainExecutable executable) throws InterruptedException;
@@ -37,5 +36,4 @@ public interface FountainExecutorService extends ServiceStateMachine {
      * @throws InterruptedException if the thread is interrupted.
      */
     void waitForExecutionsToFinish() throws InterruptedException;
-
 }

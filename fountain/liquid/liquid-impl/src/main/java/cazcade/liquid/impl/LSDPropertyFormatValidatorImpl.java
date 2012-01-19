@@ -11,7 +11,6 @@ import java.util.Map;
  * @author neilelliz@cazcade.com
  */
 public class LSDPropertyFormatValidatorImpl implements LSDPropertyFormatValidator {
-
     private Map<String, LSDPropertyTypeValidator> validators;
 
     public boolean isValidFormat(@Nonnull final String validationString, final String value) {
@@ -21,7 +20,8 @@ public class LSDPropertyFormatValidatorImpl implements LSDPropertyFormatValidato
         final int colonIndex = validationString.indexOf(':');
         if (colonIndex < 0) {
             throw new LSDPropertyFormatValidationException("Invalid format " + validationString);
-        } else {
+        }
+        else {
             final String schema = validationString.substring(0, colonIndex);
             final String nextValidationString = validationString.substring(colonIndex + 1);
             final LSDPropertyTypeValidator validator = validators.get(schema);

@@ -5,6 +5,5 @@ package cazcade.fountain.common.exec;
  */
 
 public interface FountainExecutable {
-
     void run() throws Exception;
 }

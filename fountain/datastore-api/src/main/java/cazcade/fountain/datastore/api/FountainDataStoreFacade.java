@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
  */
 
 public interface FountainDataStoreFacade {
-
     // Create Operations (C of CRUD)
 
     @Nonnull

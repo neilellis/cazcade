@@ -11,20 +11,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class UpdateSessionRequest extends AbstractUpdateRequest {
-
-    public UpdateSessionRequest() {
-        super();
-    }
-
-    public UpdateSessionRequest(final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
-        this(null, null, target, entity, internal);
-    }
-
-    public UpdateSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
-        this(null, identity, target, entity, internal);
-    }
-
-    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
+    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
         super();
         setId(id);
         setSessionId(identity);
@@ -33,17 +21,23 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
         setInternal(internal);
     }
 
+    public UpdateSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity,
+                                final boolean internal) {
+        this(null, identity, target, entity, internal);
+    }
+
+    public UpdateSessionRequest(final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
+        this(null, null, target, entity, internal);
+    }
+
+    public UpdateSessionRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
         return new UpdateSessionRequest(getId(), getSessionIdentifier(), getTarget(), getRequestEntity(), isInternal());
-    }
-
-
-    @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.UPDATE_SESSION;
     }
 
     @Nullable
@@ -57,5 +51,10 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
     public String getNotificationSession() {
         //Don't notify anyone of a session update.
         return null;
+    }
+
+    @Nonnull
+    public LiquidRequestType getRequestType() {
+        return LiquidRequestType.UPDATE_SESSION;
     }
 }

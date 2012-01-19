@@ -8,17 +8,29 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
-
-    public RetrievePoolRosterRequest() {
+    private RetrievePoolRosterRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
+                                      final LiquidURI uri) {
         super();
+        setTarget(target);
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
     }
 
-    public RetrievePoolRosterRequest(final LiquidUUID target) {
-        this(null, null, target);
+    public RetrievePoolRosterRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                     final LiquidUUID target) {
+        super();
+        setTarget(target);
+        setId(id);
+        setSessionId(identity);
     }
 
-    public RetrievePoolRosterRequest(final LiquidURI uri) {
-        this(null, null, uri);
+    public RetrievePoolRosterRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                                     final LiquidURI uri) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setUri(uri);
     }
 
     public RetrievePoolRosterRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
@@ -29,28 +41,17 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
         this(null, identity, uri);
     }
 
-    public RetrievePoolRosterRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target) {
-        super();
-        setTarget(target);
-        setId(id);
-        setSessionId(identity);
+    public RetrievePoolRosterRequest(final LiquidUUID target) {
+        this(null, null, target);
     }
 
-    public RetrievePoolRosterRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri) {
-        super();
-        setId(id);
-        setSessionId(identity);
-        setUri(uri);
+    public RetrievePoolRosterRequest(final LiquidURI uri) {
+        this(null, null, uri);
     }
 
-    private RetrievePoolRosterRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+    public RetrievePoolRosterRequest() {
         super();
-        setTarget(target);
-        setId(id);
-        setSessionId(identity);
-        setUri(uri);
     }
-
 
     @Nonnull
     @Override
@@ -61,16 +62,14 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getTarget() != null) {
             return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
-        } else {
+        }
+        else {
             return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
         }
     }
-
 
     @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_POOL_ROSTER;
     }
-
-
 }

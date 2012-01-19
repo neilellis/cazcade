@@ -18,7 +18,6 @@ class NeoBackupJob implements Runnable {
     }
 
     public void run() {
-
         try {
             fountainNeo.pause();
         } catch (Exception e) {
@@ -35,8 +34,6 @@ class NeoBackupJob implements Runnable {
             } catch (Exception e) {
                 log.error(e);
             }
-
         }
-
     }
 }

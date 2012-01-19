@@ -15,7 +15,6 @@ import java.util.Properties;
  */
 
 public class LSDXMLTest extends TestCase {
-
     public void test() throws IOException {
         final Properties props = new Properties();
         props.load(getClass().getResourceAsStream("test.properties"));
@@ -37,10 +36,6 @@ public class LSDXMLTest extends TestCase {
         for (final Map.Entry<String, String> entry : propMap.entrySet()) {
             System.out.println(entry.getKey());
             assertEquals(entry.getValue(), convertedMap.get(entry.getKey()));
-
         }
-
-
     }
-
 }

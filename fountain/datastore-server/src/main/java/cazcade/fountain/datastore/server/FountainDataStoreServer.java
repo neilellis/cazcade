@@ -14,7 +14,6 @@ import java.util.concurrent.CountDownLatch;
  * @author neilelliz@cazcade.com
  */
 public class FountainDataStoreServer extends AbstractServiceStateMachine {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainDataStoreServer.class);
 
@@ -37,19 +36,12 @@ public class FountainDataStoreServer extends AbstractServiceStateMachine {
         log.info("");
     }
 
-    public void waitForInitialisation() throws InterruptedException {
-        log.debug("Process waiting on latch...");
-        initialisationLatch.await();
-        log.debug("Process finished waiting on latch.");
-    }
-
     private void initialiseSpringContext() {
         log.info("Loading Spring Context.");
         applicationContext = new ClassPathXmlApplicationContext("classpath:datastore-server-spring-config.xml");
         applicationContext.start();
         log.info("Spring Context loaded.");
     }
-
 
     @Override
     public void stop() {
@@ -67,5 +59,9 @@ public class FountainDataStoreServer extends AbstractServiceStateMachine {
         log.info("Stopped DataStore server.");
     }
 
-
+    public void waitForInitialisation() throws InterruptedException {
+        log.debug("Process waiting on latch...");
+        initialisationLatch.await();
+        log.debug("Process finished waiting on latch.");
+    }
 }

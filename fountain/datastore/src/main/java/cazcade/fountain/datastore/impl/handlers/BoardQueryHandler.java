@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class BoardQueryHandler extends AbstractDataStoreHandler<BoardQueryRequest> implements BoardQueryRequestHandler {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(BoardQueryHandler.class);
 
@@ -32,16 +31,28 @@ public class BoardQueryHandler extends AbstractDataStoreHandler<BoardQueryReques
 
             final LSDTransferEntity searchResultEntity;
             if (request.getQueryType() == BoardQueryRequest.QueryType.POPULAR) {
-                searchResultEntity = queryDAO.getPopularBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            } else if (request.getQueryType() == BoardQueryRequest.QueryType.HISTORY) {
-                searchResultEntity = queryDAO.getMyVisitedBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            } else if (request.getQueryType() == BoardQueryRequest.QueryType.MY) {
+                searchResultEntity = queryDAO.getPopularBoards(request.getStart(), request.getMax(), request.getSessionIdentifier()
+                                                              );
+            }
+            else if (request.getQueryType() == BoardQueryRequest.QueryType.HISTORY) {
+                searchResultEntity = queryDAO.getMyVisitedBoards(request.getStart(), request.getMax(),
+                                                                 request.getSessionIdentifier()
+                                                                );
+            }
+            else if (request.getQueryType() == BoardQueryRequest.QueryType.MY) {
                 searchResultEntity = queryDAO.getMyBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            } else if (request.getQueryType() == BoardQueryRequest.QueryType.RECENT) {
-                searchResultEntity = queryDAO.getRecentPublicBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            } else if (request.getQueryType() == BoardQueryRequest.QueryType.USERS_BOARDS) {
-                searchResultEntity = queryDAO.getUserPublicBoards(request.getStart(), request.getMax(), request.getSessionIdentifier(), request.getAlias());
-            } else {
+            }
+            else if (request.getQueryType() == BoardQueryRequest.QueryType.RECENT) {
+                searchResultEntity = queryDAO.getRecentPublicBoards(request.getStart(), request.getMax(),
+                                                                    request.getSessionIdentifier()
+                                                                   );
+            }
+            else if (request.getQueryType() == BoardQueryRequest.QueryType.USERS_BOARDS) {
+                searchResultEntity = queryDAO.getUserPublicBoards(request.getStart(), request.getMax(),
+                                                                  request.getSessionIdentifier(), request.getAlias()
+                                                                 );
+            }
+            else {
                 throw new DataStoreException("Unsupported query type " + request.getType());
             }
             return LiquidResponseHelper.forServerSuccess(request, searchResultEntity);

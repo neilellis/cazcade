@@ -13,15 +13,19 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateDecorationCommand extends CreateItemCommand {
-
-
     private final String urlForDecoration;
 
-    public CreateDecorationCommand(final LiquidURI pool, final LSDDictionaryTypes type, final String urlForDecoration, final Size size, final String theme) {
+    public CreateDecorationCommand(final LiquidURI pool, final LSDDictionaryTypes type, final String urlForDecoration,
+                                   final Size size, final String theme) {
         super(pool, type, size, theme);
         this.urlForDecoration = urlForDecoration;
     }
 
+    @Override
+    public void execute() {
+        super.execute();
+        Track.getInstance().trackEvent("Add", "Add Decoration");
+    }
 
     @Override
     protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
@@ -29,12 +33,5 @@ public class CreateDecorationCommand extends CreateItemCommand {
         entity.setAttribute(LSDAttribute.IMAGE_URL, urlForDecoration);
         addDefaultView(entity);
         onBuilt.onBuilt(entity);
-    }
-
-    @Override
-    public void execute() {
-        super.execute();
-        Track.getInstance().trackEvent("Add", "Add Decoration");
-
     }
 }

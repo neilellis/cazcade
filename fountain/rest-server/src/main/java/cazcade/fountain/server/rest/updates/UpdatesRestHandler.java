@@ -18,8 +18,6 @@ import java.util.Map;
  */
 
 public class UpdatesRestHandler extends AbstractRestHandler {
-
-
     @Nonnull
     private static final Logger log = Logger.getLogger(UpdatesRestHandler.class);
 

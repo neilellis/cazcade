@@ -17,7 +17,6 @@ import javax.annotation.Nullable;
  * A handler that implements runnable allowing for asynchronous handling of data store requests on another thread.
  */
 public class DataStoreServerMessageHandler {
-
     @Nonnull
     private static final Logger log = Logger.getLogger(DataStoreServerMessageHandler.class);
     private FountainRequestCompensator<LiquidRequest> compensator;
@@ -40,14 +39,21 @@ public class DataStoreServerMessageHandler {
             log.addContext(request);
             if (request.getSessionIdentifier() != null) {
                 final LiquidUUID session = request.getSessionIdentifier().getSession();
-                log.setSession(session == null ? null : session.toString(), request.getSessionIdentifier() == null ? null : request.getSessionIdentifier().getName());
+                log.setSession(session == null ? null : session.toString(),
+                               request.getSessionIdentifier() == null ? null : request.getSessionIdentifier().getName()
+                              );
             }
             if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
-                log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(), ((AuthorizationRequest) request).getTarget(), ((AuthorizationRequest) request).getUri());
-            } else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
-                log.debug("Retrieve user request for {0}/{1}", ((RetrieveUserRequest) request).getTarget(), ((RetrieveUserRequest) request).getUri());
-
-            } else {
+                log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(),
+                          ((AuthorizationRequest) request).getTarget(), ((AuthorizationRequest) request).getUri()
+                         );
+            }
+            else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
+                log.debug("Retrieve user request for {0}/{1}", ((RetrieveUserRequest) request).getTarget(),
+                          ((RetrieveUserRequest) request).getUri()
+                         );
+            }
+            else {
                 log.debug("Received request {0}", request);
             }
 
@@ -68,9 +74,11 @@ public class DataStoreServerMessageHandler {
 
             if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
                 log.debug("Authorization request {0}", request.getState());
-            } else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
+            }
+            else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
                 log.debug("Retrieve user request {0}", request.getState());
-            } else {
+            }
+            else {
                 log.debug("Async response: {0} ", response);
             }
             if (request.shouldNotify()) {
@@ -89,10 +97,8 @@ public class DataStoreServerMessageHandler {
         } finally {
             log.clearContext();
             log.clearSession();
-
         }
     }
-
 
     @Nonnull
     private LiquidRequest handleError(@Nonnull final LiquidRequest request, @Nonnull final Exception e) {
@@ -106,16 +112,15 @@ public class DataStoreServerMessageHandler {
         return response;
     }
 
-
     public void setCompensator(final FountainRequestCompensator<LiquidRequest> compensator) {
         this.compensator = compensator;
     }
 
-    public void setStore(final FountainDataStore store) {
-        this.store = store;
-    }
-
     public void setMessageSender(final LiquidMessageSender messageSender) {
         this.messageSender = messageSender;
+    }
+
+    public void setStore(final FountainDataStore store) {
+        this.store = store;
     }
 }

@@ -11,7 +11,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author neilellis@cazcade.com
  */
 public class LogoutCommand implements Command {
-
     @Override
     public void execute() {
         DataStoreService.App.getInstance().logout(UserUtil.getIdentity(), new AsyncCallback<Void>() {
@@ -24,7 +23,8 @@ public class LogoutCommand implements Command {
             public void onSuccess(final Void result) {
                 Window.Location.reload();
             }
-        });
+        }
+                                                 );
     }
 }
 

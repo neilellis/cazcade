@@ -9,15 +9,14 @@ import com.google.gwt.user.client.Command;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractCreateCommand implements Command {
+    public enum Size {
+        THUMBNAIL, SMALL, MEDIUM, LARGE, DEFAULT
+    }
+
     protected LSDDictionaryTypes type;
     protected final LiquidURI pool;
     protected AbstractCreateCommand.Size size;
     protected String theme;
-
-    public AbstractCreateCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
-        this.pool = pool;
-        this.type = type;
-    }
 
 
     protected AbstractCreateCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
@@ -25,6 +24,11 @@ public abstract class AbstractCreateCommand implements Command {
         this.pool = pool;
         this.size = size;
         this.theme = theme;
+    }
+
+    public AbstractCreateCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
+        this.pool = pool;
+        this.type = type;
     }
 
     public LSDDictionaryTypes getType() {
@@ -35,13 +39,7 @@ public abstract class AbstractCreateCommand implements Command {
         this.type = type;
     }
 
-
     protected interface BuildCallback {
         void onBuilt(LSDTransferEntity entity);
-
-    }
-
-    public enum Size {
-        THUMBNAIL, SMALL, MEDIUM, LARGE, DEFAULT
     }
 }

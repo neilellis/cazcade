@@ -11,10 +11,10 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class AppSignalHandler implements SignalHandler {
-    private int shutdownCount;
-    private boolean running = true;
     @Nonnull
     private static final Logger log = Logger.getLogger(AppSignalHandler.class);
+    private int shutdownCount;
+    private boolean running = true;
     private final Runnable onFirst;
     private final Runnable onSecond;
     private final Runnable onThird;
@@ -36,7 +36,8 @@ public class AppSignalHandler implements SignalHandler {
             } catch (Exception e) {
                 ErrorHandler.handle(e);
             }
-        } else {
+        }
+        else {
             if (shutdownCount == 2) {
                 onSecond.run();
                 return;

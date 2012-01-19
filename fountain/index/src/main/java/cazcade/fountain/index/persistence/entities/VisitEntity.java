@@ -14,32 +14,19 @@ import java.util.Date;
 @Entity
 @Table(name = "visit")
 public class VisitEntity extends MessageBase {
-
     private AliasEntity visitor;
     private BoardIndexEntity board;
     private MessageType type;
 
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(name = "id")
-    public String getId() {
-        return id;
+
+    @ManyToOne(targetEntity = BoardIndexEntity.class)
+    @JoinColumn(name = "board", nullable = false)
+    public BoardIndexEntity getBoard() {
+        return board;
     }
 
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "visitor", nullable = false)
-    public AliasEntity getVisitor() {
-        return visitor;
-    }
-
-    public void setVisitor(final AliasEntity visitor) {
-        this.visitor = visitor;
+    public void setBoard(final BoardIndexEntity board) {
+        this.board = board;
     }
 
     @Column(name = "created", nullable = false)
@@ -60,18 +47,27 @@ public class VisitEntity extends MessageBase {
         this.deleted = deleted;
     }
 
-
-    @ManyToOne(targetEntity = BoardIndexEntity.class)
-    @JoinColumn(name = "board", nullable = false)
-    public BoardIndexEntity getBoard() {
-        return board;
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(name = "id")
+    public String getId() {
+        return id;
     }
 
-    public void setBoard(final BoardIndexEntity board) {
-        this.board = board;
+    public void setId(final String id) {
+        this.id = id;
     }
 
+    @ManyToOne(targetEntity = AliasEntity.class)
+    @JoinColumn(name = "visitor", nullable = false)
+    public AliasEntity getVisitor() {
+        return visitor;
+    }
 
+    public void setVisitor(final AliasEntity visitor) {
+        this.visitor = visitor;
+    }
 }
 
 

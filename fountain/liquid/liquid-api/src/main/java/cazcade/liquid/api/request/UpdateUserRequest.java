@@ -9,25 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UpdateUserRequest extends AbstractUpdateRequest {
-
-    public UpdateUserRequest() {
-        super();
-    }
-
-    @Override
-    public boolean isSecureOperation() {
-        return true;
-    }
-
-    public UpdateUserRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, null, target, entity);
-    }
-
-    public UpdateUserRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, identity, target, entity);
-    }
-
-    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                             final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -35,6 +18,17 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
         setRequestEntity(entity);
     }
 
+    public UpdateUserRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+        this(null, identity, target, entity);
+    }
+
+    public UpdateUserRequest(final LiquidUUID target, final LSDTransferEntity entity) {
+        this(null, null, target, entity);
+    }
+
+    public UpdateUserRequest() {
+        super();
+    }
 
     @Nonnull
     @Override
@@ -52,6 +46,11 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
     }
 
     public boolean isMutationRequest() {
+        return true;
+    }
+
+    @Override
+    public boolean isSecureOperation() {
         return true;
     }
 }

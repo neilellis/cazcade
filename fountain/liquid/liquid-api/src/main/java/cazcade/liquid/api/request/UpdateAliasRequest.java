@@ -7,13 +7,41 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UpdateAliasRequest extends AbstractUpdateRequest {
-
-    public UpdateAliasRequest() {
+    public UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity,
+                              @Nullable final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
         super();
+        setUri(uri);
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
     }
 
-    public UpdateAliasRequest(@Nonnull final LSDTransferEntity entity) {
-        this(null, entity.getURI(), entity);
+    /**
+     * @deprecated use URIs where possible.
+     */
+    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+                              final LiquidUUID target, final LSDTransferEntity entity) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+        setRequestEntity(entity);
+    }
+
+    /**
+     * @deprecated use URIs where possible.
+     */
+    public UpdateAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+        this(null, identity, target, entity);
+    }
+
+    public UpdateAliasRequest(@Nullable final LiquidSessionIdentifier identity, final LiquidURI uri,
+                              final LSDTransferEntity newEntity) {
+        super();
+        setUri(uri);
+        setSessionId(identity);
+        setRequestEntity(newEntity);
     }
 
     /**
@@ -24,50 +52,23 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, null, target, entity);
     }
 
-    /**
-     * @deprecated use URIs where possible.
-     */
-    public UpdateAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, identity, target, entity);
-    }
-
-    /**
-     * @deprecated use URIs where possible.
-     */
-    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
-        super();
-        setId(id);
-        setSessionId(identity);
-        setTarget(target);
-        setRequestEntity(entity);
-    }
-
-    public UpdateAliasRequest(@Nullable final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDTransferEntity newEntity) {
-        super();
-        setUri(uri);
-        setSessionId(identity);
-        setRequestEntity(newEntity);
-    }
-
     public UpdateAliasRequest(final LiquidURI uri, final LSDTransferEntity newEntity) {
         super();
         setUri(uri);
         setRequestEntity(newEntity);
     }
 
-    public UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
-        super();
-        setUri(uri);
-        setId(id);
-        setSessionId(identity);
-        setTarget(target);
-        setRequestEntity(entity);
-    }
-
     public UpdateAliasRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LSDTransferEntity alias) {
         this(null, sessionIdentifier, null, alias.getURI(), alias);
     }
 
+    public UpdateAliasRequest(@Nonnull final LSDTransferEntity entity) {
+        this(null, entity.getURI(), entity);
+    }
+
+    public UpdateAliasRequest() {
+        super();
+    }
 
     @Nonnull
     @Override

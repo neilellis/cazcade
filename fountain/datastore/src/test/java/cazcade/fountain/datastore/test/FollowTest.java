@@ -37,7 +37,6 @@ import static org.junit.Assert.assertTrue;
 // in the root of the classpath
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
 public class FollowTest {
-
     @Autowired
     private FountainNeo fountainNeo;
     private String stickyName;
@@ -71,7 +70,6 @@ public class FollowTest {
     @Before
     public void setUp() throws Exception {
         fountainNeo.doInTransaction(new Callable() {
-
             @Nullable
             @Override
             public Object call() throws InterruptedException, UnsupportedEncodingException {
@@ -99,12 +97,15 @@ public class FollowTest {
                 final LSDPersistedEntity publicPoolPersistedEntity = fountainNeo.findByURI(publicPoolURI);
                 final LSDPersistedEntity profilePoolPersistedEntity = fountainNeo.findByURI(profilePoolURI);
 
-                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolPersistedEntity, "sub", (double) 0, (double) 0, "sub", false);
+                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolPersistedEntity, "sub", (double) 0,
+                                                 (double) 0, "sub", false
+                                                );
                 createSticky(subPool, stickyName);
                 createSticky(profilePoolPersistedEntity, sticky3Name);
                 return null;
             }
-        });
+        }
+                                   );
     }
 
     @Nonnull
@@ -129,13 +130,13 @@ public class FollowTest {
         poolDAO.createPoolObjectNoTx(session, subPool, sticky, session.getAliasURL(), session.getAliasURL(), false);
     }
 
-
     @Test
     public void testFollow() throws Exception {
-        assertFalse("Already following", socialDAO.isFollowing(fountainNeo.findByURI(userURI), fountainNeo.findByURI(otherUserURI)));
+        assertFalse("Already following", socialDAO.isFollowing(fountainNeo.findByURI(userURI), fountainNeo.findByURI(otherUserURI
+                                                                                                                    )
+                                                              )
+                   );
         socialDAO.followResourceTX(session, otherUserURI, LiquidRequestDetailLevel.NORMAL, false);
         assertTrue("Not following", socialDAO.isFollowing(fountainNeo.findByURI(userURI), fountainNeo.findByURI(otherUserURI)));
     }
-
-
 }

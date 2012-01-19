@@ -6,7 +6,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public enum LiquidPermissionScope {
-
     /**
      * The owner of the resource. *
      */
@@ -53,10 +52,6 @@ public enum LiquidPermissionScope {
 
     private final char shortForm;
 
-    LiquidPermissionScope(final char shortForm) {
-        this.shortForm = shortForm;
-    }
-
     @Nonnull
     public static LiquidPermissionScope fromChar(final char c) {
         switch (Character.toLowerCase(c)) {
@@ -84,7 +79,10 @@ public enum LiquidPermissionScope {
                 //todo: log this usage.
                 return WORLD;
         }
+    }
 
+    LiquidPermissionScope(final char shortForm) {
+        this.shortForm = shortForm;
     }
 
     public char asShortForm() {

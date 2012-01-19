@@ -17,37 +17,37 @@
     <rabbit:queue id="sessionQueue" auto-delete="false" durable="false" exclusive="false" name="${session.id}">
         <rabbit:queue-arguments>
             <!--30 minutes before queue expiry-->
-            <entry key="x-expires"><value type="java.lang.Long">1800000</value></entry>
+            <entry key="x-expires">
+                <value type="java.lang.Long">1800000</value>
+            </entry>
         </rabbit:queue-arguments>
     </rabbit:queue>
 
 
-
     <rabbit:topic-exchange name="mainExchange" durable="true">
-       <rabbit:bindings>
-           <rabbit:binding queue="sessionQueue" pattern="session.${session.id}"/>
-           <rabbit:binding queue="sessionQueue" pattern="device.${client.device}"/>
-           <rabbit:binding queue="sessionQueue" pattern="user.${username}"/>
-           <rabbit:binding queue="sessionQueue" pattern="alias.${alias.url}"/>
-           <rabbit:binding queue="sessionQueue" pattern="${username}@${client.device}"/>
-           <rabbit:binding queue="sessionQueue" pattern="${username}@${client.device}/${session.id}"/>
-       </rabbit:bindings>
-   </rabbit:topic-exchange>
+        <rabbit:bindings>
+            <rabbit:binding queue="sessionQueue" pattern="session.${session.id}"/>
+            <rabbit:binding queue="sessionQueue" pattern="device.${client.device}"/>
+            <rabbit:binding queue="sessionQueue" pattern="user.${username}"/>
+            <rabbit:binding queue="sessionQueue" pattern="alias.${alias.url}"/>
+            <rabbit:binding queue="sessionQueue" pattern="${username}@${client.device}"/>
+            <rabbit:binding queue="sessionQueue" pattern="${username}@${client.device}/${session.id}"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
 
 
     <bean id="listenerErrorHandler" class="cazcade.fountain.messaging.ListenerErrorHandler"/>
 
     <bean id="messageConverter" class="cazcade.fountain.messaging.LiquidMessageConverter"/>
 
-    <rabbit:listener-container id="listenerContainer" error-handler="listenerErrorHandler" message-converter="messageConverter" connection-factory="sessionRabbitFactory">
+    <rabbit:listener-container id="listenerContainer" error-handler="listenerErrorHandler" message-converter="messageConverter"
+                               connection-factory="sessionRabbitFactory">
         <rabbit:listener queues="sessionQueue" ref="clientSessionMessageListener" method="handle"/>
     </rabbit:listener-container>
 
-    <bean id="clientSessionMessageListener"  class="cazcade.fountain.messaging.continuations.ClientSessionMessageListener"
+    <bean id="clientSessionMessageListener" class="cazcade.fountain.messaging.continuations.ClientSessionMessageListener"
           p:sessionId="${session.id}">
     </bean>
-
-
 
 
 </beans>

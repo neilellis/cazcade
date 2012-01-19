@@ -31,38 +31,36 @@ public class FountainDataStoreFacadeProxyFactory {
     private AuthorizationService authorizationService;
     private FountainEntityValidator entityValidator;
 
-
-    public void init() throws Exception {
-        dataStore.startIfNotStarted();
-    }
-
-    public void destroy() {
-        dataStore.stopIfNotStopped();
-    }
-
-    public void setAuthorizationService(final AuthorizationService authorizationService) {
-        this.authorizationService = authorizationService;
-    }
-
     @Nonnull
     public FountainDataStoreFacade create() {
         final InvocationHandler handler = new MyInvocationHandler();
         final FountainDataStoreFacade proxy = (FountainDataStoreFacade) Proxy.newProxyInstance(
                 FountainDataStoreFacade.class.getClassLoader(),
                 new Class[]{FountainDataStoreFacade.class},
-                handler);
+                handler
+                                                                                              );
         return proxy;
+    }
+
+    public void destroy() {
+        dataStore.stopIfNotStopped();
+    }
+
+    public void init() throws Exception {
+        dataStore.startIfNotStarted();
+    }
+
+    public void setAuthorizationService(final AuthorizationService authorizationService) {
+        this.authorizationService = authorizationService;
     }
 
     public void setDataStore(final FountainDataStore dataStore) {
         this.dataStore = dataStore;
     }
 
-
     public void setEntityValidator(final FountainEntityValidator entityValidator) {
         this.entityValidator = entityValidator;
     }
-
 
     private class MyInvocationHandler implements InvocationHandler {
         @Nullable
@@ -89,7 +87,8 @@ public class FountainDataStoreFacadeProxyFactory {
                     entityValidator.validate(responseEntity, ValidationLevel.MODERATE);
                     log.debug("SUCCESS Post validation okay returning response.");
                     return response;
-                } else {
+                }
+                else {
                     log.debug("FAIL Authorization failed.");
                     return response;
                 }

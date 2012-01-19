@@ -17,39 +17,16 @@ import java.util.Set;
 @Entity
 @Table(name = "alias")
 public class AliasEntity extends CommonBase {
-
-
     protected Boolean registered;
     protected String fullName;
     private Set<VisitEntity> visits;
     private Date lastEmailUpdateDate;
 
-    @Id
-    @Column(name = "uri", nullable = false)
-    public String getUri() {
-        return uri;
-    }
 
-    public void setUri(final String uri) {
-        this.uri = uri;
-    }
-
-    @Column(name = "name", nullable = true)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String userName) {
-        name = userName;
-    }
-
-    @Column(name = "fullname", nullable = true)
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(final String fullName) {
-        this.fullName = fullName;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).
+                                                toString();
     }
 
     @Column(name = "description", nullable = true)
@@ -61,16 +38,14 @@ public class AliasEntity extends CommonBase {
         this.description = description;
     }
 
-
-    @Column(name = "registered", nullable = true)
-    public Boolean getRegistered() {
-        return registered;
+    @Column(name = "fullname", nullable = true)
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setRegistered(final Boolean registered) {
-        this.registered = registered;
+    public void setFullName(final String fullName) {
+        this.fullName = fullName;
     }
-
 
     @Column(name = "image_url", nullable = true)
     public String getImageUrl() {
@@ -79,6 +54,33 @@ public class AliasEntity extends CommonBase {
 
     public void setImageUrl(final String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Column(name = "last_email_update", nullable = true)
+    public Date getLastEmailUpdateDate() {
+        return lastEmailUpdateDate;
+    }
+
+    public void setLastEmailUpdateDate(final Date lastEmailUpdateDate) {
+        this.lastEmailUpdateDate = lastEmailUpdateDate;
+    }
+
+    @Column(name = "name", nullable = true)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String userName) {
+        name = userName;
+    }
+
+    @Column(name = "registered", nullable = true)
+    public Boolean getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(final Boolean registered) {
+        this.registered = registered;
     }
 
     @Column(name = "icon_url", nullable = true)
@@ -90,25 +92,18 @@ public class AliasEntity extends CommonBase {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    @Id
+    @Column(name = "uri", nullable = false)
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(final String uri) {
+        this.uri = uri;
+    }
 
     public void setVisits(final Set<VisitEntity> visits) {
         this.visits = visits;
-    }
-
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).
-                toString();
-    }
-
-    public void setLastEmailUpdateDate(final Date lastEmailUpdateDate) {
-        this.lastEmailUpdateDate = lastEmailUpdateDate;
-    }
-
-    @Column(name = "last_email_update", nullable = true)
-    public Date getLastEmailUpdateDate() {
-        return lastEmailUpdateDate;
     }
 }
 

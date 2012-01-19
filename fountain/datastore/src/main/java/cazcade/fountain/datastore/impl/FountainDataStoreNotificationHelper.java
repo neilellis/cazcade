@@ -10,5 +10,4 @@ import javax.annotation.Nonnull;
 public class FountainDataStoreNotificationHelper {
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainDataStoreNotificationHelper.class);
-
 }

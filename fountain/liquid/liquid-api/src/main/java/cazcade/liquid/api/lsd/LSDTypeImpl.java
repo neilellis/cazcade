@@ -21,11 +21,14 @@ public class LSDTypeImpl implements LSDType {
     @Nullable
     private String typeString;
 
-    public LSDTypeImpl() {
-    }
-
-    public LSDTypeImpl(@Nonnull final String typeString) {
-        this(typeString, true);
+    public LSDTypeImpl(@Nullable final String genus, @Nullable final String family, @Nullable final String typeClass) {
+        if (genus == null || family == null || typeClass == null) {
+            throw new LSDTypeException("Types must be at least Genus.Family.Class");
+        }
+        this.genus = genus;
+        this.family = family;
+        this.typeClass = typeClass;
+        typeString = genus + "." + family + "." + typeClass;
     }
 
     protected LSDTypeImpl(@Nonnull final String typeString, final boolean fullType) {
@@ -46,72 +49,19 @@ public class LSDTypeImpl implements LSDType {
         }
     }
 
-    public LSDTypeImpl(@Nullable final String genus, @Nullable final String family, @Nullable final String typeClass) {
-
-        if (genus == null || family == null || typeClass == null) {
-            throw new LSDTypeException("Types must be at least Genus.Family.Class");
-        }
-        this.genus = genus;
-        this.family = family;
-        this.typeClass = typeClass;
-        typeString = genus + "." + family + "." + typeClass;
+    public LSDTypeImpl(@Nonnull final String typeString) {
+        this(typeString, true);
     }
 
-    @Nullable
-    public String getGenus() {
-        return genus;
-    }
-
-    @Nullable
-    public String getFamily() {
-        return family;
-    }
-
-    @Nullable
-    public String getTypeClass() {
-        return typeClass;
-    }
-
-    @Nonnull
-    public List<String> getFlavors() {
-        return flavors;
-    }
-
-    @Nullable
-    public String asString() {
-        return typeString;
-    }
-
-    @Nullable
-    @Override
-    public String toString() {
-        return asString();
-    }
-
-    public boolean isSystemType() {
-        return typeString.startsWith("System");
-    }
-
-    public boolean isA(@Nonnull final LSDDictionaryTypes dictionaryType) {
-        return typeString.equals(dictionaryType.getValue());
+    public LSDTypeImpl() {
     }
 
     public boolean canBe(@Nonnull final LSDDictionaryTypes type) {
         return isA(type) || typeString.startsWith(type.getValue() + ".");
     }
 
-    @Nonnull
-    public LSDType getClassOnlyType() {
-        return new LSDTypeImpl(genus, family, typeClass);
-    }
-
-    @Nonnull
-    public LSDType getParentType() {
-        final int index = typeString.lastIndexOf('.');
-        if (index < 0) {
-            throw new LSDTypeException("Cannot get the parent of a Genus only.");
-        }
-        return new LSDTypeImpl(typeString.substring(0, index));
+    public boolean isA(@Nonnull final LSDDictionaryTypes dictionaryType) {
+        return typeString.equals(dictionaryType.getValue());
     }
 
     @Override
@@ -132,8 +82,57 @@ public class LSDTypeImpl implements LSDType {
         return true;
     }
 
+    @Nonnull
+    public LSDType getClassOnlyType() {
+        return new LSDTypeImpl(genus, family, typeClass);
+    }
+
+    @Nonnull
+    public LSDType getParentType() {
+        final int index = typeString.lastIndexOf('.');
+        if (index < 0) {
+            throw new LSDTypeException("Cannot get the parent of a Genus only.");
+        }
+        return new LSDTypeImpl(typeString.substring(0, index));
+    }
+
     @Override
     public int hashCode() {
         return typeString.hashCode();
+    }
+
+    public boolean isSystemType() {
+        return typeString.startsWith("System");
+    }
+
+    @Nullable
+    @Override
+    public String toString() {
+        return asString();
+    }
+
+    @Nullable
+    public String asString() {
+        return typeString;
+    }
+
+    @Nullable
+    public String getFamily() {
+        return family;
+    }
+
+    @Nonnull
+    public List<String> getFlavors() {
+        return flavors;
+    }
+
+    @Nullable
+    public String getGenus() {
+        return genus;
+    }
+
+    @Nullable
+    public String getTypeClass() {
+        return typeClass;
     }
 }

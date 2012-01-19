@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class PublicBoardHeader extends EntityBackedFormPanel {
+    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
     @UiField
     VortexEditableLabel title;
@@ -41,12 +42,41 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     @UiField
     EditableImage boardIcon;
 
+    public PublicBoardHeader() {
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        initWidget(rootElement);
+        WidgetUtil.hide(contentArea, false);
+
+        tag.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                Window.alert("What did you expect to happen when you clicked this? Please let us know (info@hashbo.com)");
+            }
+        }
+                           );
+        url.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                Window.Location.replace(url.getValue());
+            }
+        }
+                           );
+        boardIcon.sinkEvents(Event.MOUSEEVENTS);
+    }
+
+    public void bind(final LSDTransferEntity entity) {
+        super.bind(entity);
+        addBinding(title, LSDAttribute.TITLE);
+        addBinding(description, LSDAttribute.DESCRIPTION);
+        addBinding(boardIcon, LSDAttribute.ICON_URL);
+    }
+
     @Nonnull
     @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
-
 
     @Nonnull
     @Override
@@ -67,45 +97,10 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
 //                        Window.alert("Failed.");
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
-
-
-                });
+                }
+                             );
             }
         };
-    }
-
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
-        addBinding(title, LSDAttribute.TITLE);
-        addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(boardIcon, LSDAttribute.ICON_URL);
-
-    }
-
-    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {
-    }
-
-    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
-
-    public PublicBoardHeader() {
-        super();
-        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
-        initWidget(rootElement);
-        WidgetUtil.hide(contentArea, false);
-
-        tag.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(final ClickEvent event) {
-                Window.alert("What did you expect to happen when you clicked this? Please let us know (info@hashbo.com)");
-            }
-        });
-        url.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(final ClickEvent event) {
-                Window.Location.replace(url.getValue());
-            }
-        });
-        boardIcon.sinkEvents(Event.MOUSEEVENTS);
     }
 
     @Override
@@ -117,7 +112,8 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
             //unlisted board, probably has a nasty name so let's not show it here.
             WidgetUtil.hideGracefully(tag, false);
             WidgetUtil.hideGracefully(url, false);
-        } else {
+        }
+        else {
             WidgetUtil.showGracefully(tag, false);
             WidgetUtil.showGracefully(url, false);
         }
@@ -128,4 +124,6 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         WidgetUtil.showGracefully(contentArea, false);
     }
 
+    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {
+    }
 }

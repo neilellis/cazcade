@@ -28,68 +28,6 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateBoardDialog extends DialogBox implements HistoryAware {
-
-    private Runnable onComplete;
-    private HistoryManager historyManager;
-    private String historyToken;
-    private boolean unlistedToken;
-
-
-    public void setOnComplete(final Runnable onComplete) {
-        this.onComplete = onComplete;
-    }
-
-    public boolean isListed() {
-        if (unlistedToken) {
-            return false;
-        } else {
-            return listedCheckBox.getValue();
-        }
-    }
-
-    @Override
-    public void onLocalHistoryTokenChanged(@Nonnull final String token) {
-        //unlisted boards don't actually need the dialog, we just create them
-        if ("unlisted".equals(token)) {
-            unlistedToken = true;
-            onComplete.run();
-        } else {
-            unlistedToken = false;
-            center();
-            show();
-        }
-    }
-
-    @Override
-    public void setHistoryManager(final HistoryManager historyManager) {
-
-        this.historyManager = historyManager;
-    }
-
-    @Override
-    public HistoryManager getHistoryManager() {
-        return historyManager;
-    }
-
-    @Override
-    public void setHistoryToken(final String historyToken) {
-        this.historyToken = historyToken;
-    }
-
-    @Override
-    public String getHistoryToken() {
-        return historyToken;
-    }
-
-    @Override
-    public boolean addToRootPanel() {
-        return false;
-    }
-
-
-    interface NewBoardDialogUiBinder extends UiBinder<HTMLPanel, CreateBoardDialog> {
-    }
-
     private static final NewBoardDialogUiBinder ourUiBinder = GWT.create(NewBoardDialogUiBinder.class);
 
     @UiField
@@ -103,16 +41,10 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     @UiField
     Button createButton;
 
-    @UiHandler("createButton")
-    public void createClick(final ClickEvent e) {
-        onComplete.run();
-    }
-
-    @UiHandler("cancelButton")
-    public void cancelClick(final ClickEvent e) {
-        hide();
-        History.back();
-    }
+    private Runnable onComplete;
+    private HistoryManager historyManager;
+    private String historyToken;
+    private boolean unlistedToken;
 
     public CreateBoardDialog() {
         super();
@@ -124,13 +56,13 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                     @Override
                     public void execute() {
-
                         onComplete.run();
                     }
-                });
-
+                }
+                                                );
             }
-        });
+        }
+                                );
         setGlassEnabled(true);
 //        setAutoHideEnabled(true);
         setAutoHideOnHistoryEventsEnabled(true);
@@ -145,10 +77,13 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
                 final Boolean listed = booleanValueChangeEvent.getValue();
                 showListed(listed);
             }
-        });
+        }
+                                            );
 
-        tagBox.setValue(UserUtil.getCurrentAliasName() + "-" + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36));
-
+        tagBox.setValue(UserUtil.getCurrentAliasName() + "-" + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(),
+                                                                                36
+                                                                               )
+                       );
     }
 
     private void showListed(final boolean listed) {
@@ -158,10 +93,74 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         center();
     }
 
+    @Override
+    public boolean addToRootPanel() {
+        return false;
+    }
+
+    @UiHandler("cancelButton")
+    public void cancelClick(final ClickEvent e) {
+        hide();
+        History.back();
+    }
+
+    @UiHandler("createButton")
+    public void createClick(final ClickEvent e) {
+        onComplete.run();
+    }
 
     public String getBoard() {
 //        return "xyz";
         return tagBox.getValue();
     }
 
+    public boolean isListed() {
+        if (unlistedToken) {
+            return false;
+        }
+        else {
+            return listedCheckBox.getValue();
+        }
+    }
+
+    @Override
+    public void onLocalHistoryTokenChanged(@Nonnull final String token) {
+        //unlisted boards don't actually need the dialog, we just create them
+        if ("unlisted".equals(token)) {
+            unlistedToken = true;
+            onComplete.run();
+        }
+        else {
+            unlistedToken = false;
+            center();
+            show();
+        }
+    }
+
+    @Override
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
+
+    @Override
+    public void setHistoryManager(final HistoryManager historyManager) {
+        this.historyManager = historyManager;
+    }
+
+    @Override
+    public String getHistoryToken() {
+        return historyToken;
+    }
+
+    @Override
+    public void setHistoryToken(final String historyToken) {
+        this.historyToken = historyToken;
+    }
+
+    public void setOnComplete(final Runnable onComplete) {
+        this.onComplete = onComplete;
+    }
+
+    interface NewBoardDialogUiBinder extends UiBinder<HTMLPanel, CreateBoardDialog> {
+    }
 }

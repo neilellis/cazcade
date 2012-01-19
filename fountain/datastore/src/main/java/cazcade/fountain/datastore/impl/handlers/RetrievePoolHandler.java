@@ -13,7 +13,6 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRequest> implements RetrievePoolRequestHandler {
-
     @Nonnull
     public RetrievePoolRequest handle(@Nonnull final RetrievePoolRequest request) throws Exception {
         LSDPersistedEntity persistedEntity;
@@ -21,8 +20,12 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
         try {
             final LSDTransferEntity entity;
             if (request.getUri() != null) {
-                entity = poolDAO.getPoolAndContentsNoTx(request.getUri(), request.getDetail(), request.getOrder(), request.isContents(), request.isInternal(), request.getSessionIdentifier(), 0, request.getMax(), request.isHistorical());
-            } else {
+                entity = poolDAO.getPoolAndContentsNoTx(request.getUri(), request.getDetail(), request.getOrder(),
+                                                        request.isContents(), request.isInternal(), request.getSessionIdentifier(),
+                                                        0, request.getMax(), request.isHistorical()
+                                                       );
+            }
+            else {
                 throw new UnsupportedOperationException("Only URI retrieval supported now.");
 //                entity = poolDAO.getPoolAndContentsNoTx(request.getTarget(), request.getDetail(), request.getOrder(), request.isContents(), request.isInternal(), request.getSessionIdentifier(), 0, request.getMax(), request.isHistorical());
             }
@@ -31,16 +34,23 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
                 if (request.isOrCreate()) {
                     final LSDPersistedEntity parentPersistedEntity = fountainNeo.findByURI(request.getUri().getParentURI());
 
-                    final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), parentPersistedEntity, request.getUri().getLastPathElement(), 0.0, 0.0, request.getUri().getLastPathElement(), request.isListed());
-                    final LSDTransferEntity newPoolEntity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, parentPersistedEntity, request.getDetail(), request.isInternal(), false);
+                    final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(),
+                                                                           parentPersistedEntity,
+                                                                           request.getUri().getLastPathElement(), 0.0, 0.0,
+                                                                           request.getUri().getLastPathElement(), request.isListed()
+                                                                          );
+                    final LSDTransferEntity newPoolEntity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(
+                            request.getSessionIdentifier(), pool, parentPersistedEntity, request.getDetail(), request.isInternal(),
+                            false
+                                                                                                              );
                     transaction.success();
                     return LiquidResponseHelper.forServerSuccess(request, newPoolEntity);
-
-                } else {
+                }
+                else {
                     return LiquidResponseHelper.forEmptyResultResponse(request);
                 }
-
-            } else {
+            }
+            else {
                 return LiquidResponseHelper.forServerSuccess(request, entity);
             }
         } catch (RuntimeException e) {
@@ -49,6 +59,5 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
         } finally {
             transaction.finish();
         }
-
     }
 }

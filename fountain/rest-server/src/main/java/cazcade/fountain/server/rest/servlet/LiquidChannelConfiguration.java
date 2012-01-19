@@ -1,16 +1,9 @@
 package cazcade.fountain.server.rest.servlet;
 
-import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.LiquidUUID;
-
-
-import java.io.IOException;
-
 /**
  * HAChannelConfiguration instance that handles the channel configuration including binding involved in pool movement.
  */
-public class LiquidChannelConfiguration /* implements HAChannelConfiguration */{
+public class LiquidChannelConfiguration /* implements HAChannelConfiguration */ {
 //    private final String sessionExchange;
 //    private String aliasExchange;
 //    private final Consumer consumer;
@@ -98,5 +91,4 @@ public class LiquidChannelConfiguration /* implements HAChannelConfiguration */{
 //        }
 //
 //    }
-
 }

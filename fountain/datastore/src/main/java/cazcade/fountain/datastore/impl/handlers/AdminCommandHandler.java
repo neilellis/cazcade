@@ -24,7 +24,8 @@ public class AdminCommandHandler extends AbstractDataStoreHandler<AdminCommandRe
             final AdminCommand adminCommand = adminCommands.get(command);
             if (adminCommand == null) {
                 return LiquidResponseHelper.forResourceNotFound("No such command " + command, request);
-            } else {
+            }
+            else {
                 adminCommand.execute(request.getArgs(), fountainNeo);
             }
             transaction.success();
@@ -37,11 +38,11 @@ public class AdminCommandHandler extends AbstractDataStoreHandler<AdminCommandRe
         }
     }
 
-    public void setAdminCommands(final Map adminCommands) {
-        this.adminCommands = adminCommands;
-    }
-
     public Map getAdminCommands() {
         return adminCommands;
+    }
+
+    public void setAdminCommands(final Map adminCommands) {
+        this.adminCommands = adminCommands;
     }
 }

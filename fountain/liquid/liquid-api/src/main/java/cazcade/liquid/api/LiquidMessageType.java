@@ -4,7 +4,6 @@ package cazcade.liquid.api;
  * @author neilelliz@cazcade.com
  */
 public enum LiquidMessageType {
-
     RESPONSE(LiquidMessage.class),
     REQUEST(LiquidRequest.class);
 

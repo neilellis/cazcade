@@ -16,54 +16,14 @@ import java.util.List;
 
 @Transactional
 public class AliasDAOImpl implements AliasDAO {
+    @Nonnull
+    public static final String SYSTEM_USER = "hashbo";
 
     @Nonnull
     private final Logger log = Logger.getLogger(AliasDAOImpl.class);
-
-
-    @Nonnull
-    public static final String SYSTEM_USER = "hashbo";
     private HibernateTemplate hibernateTemplate;
 
     private SessionFactory sessionFactory;
-
-    public void setSessionFactory(final SessionFactory sessionFactory) {
-        hibernateTemplate = new HibernateTemplate(sessionFactory);
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Override
-    public void saveUser(final AliasEntity alias) {
-        hibernateTemplate.saveOrUpdate(alias);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<AliasEntity> listUsers() {
-        return hibernateTemplate.find("from AliasEntity");
-    }
-
-    @Override
-    public AliasEntity getOrCreateAlias(final String uri) {
-        return hibernateTemplate.execute(new HibernateCallback<AliasEntity>() {
-            @Nonnull
-            @Override
-            public AliasEntity doInHibernate(@Nonnull final Session session) throws HibernateException, SQLException {
-                final String name = null;
-                final List users = hibernateTemplate.find("from AliasEntity e where e.uri = ?", uri);
-                if (users.size() == 1) {
-                    return (AliasEntity) users.get(0);
-                } else if (users.isEmpty()) {
-                    final AliasEntity aliasEntity = new AliasEntity();
-                    aliasEntity.setUri(uri);
-                    session.persist(aliasEntity);
-                    return aliasEntity;
-                } else {
-                    throw new RuntimeException("Too many matching user names.");
-                }
-            }
-        });
-    }
 
     @Override
     public void forEachUser(@Nonnull final UserDAOCallback userDAOCallback) {
@@ -81,5 +41,44 @@ public class AliasDAOImpl implements AliasDAO {
         }
     }
 
+    @Override
+    public AliasEntity getOrCreateAlias(final String uri) {
+        return hibernateTemplate.execute(new HibernateCallback<AliasEntity>() {
+            @Nonnull
+            @Override
+            public AliasEntity doInHibernate(@Nonnull final Session session) throws HibernateException, SQLException {
+                final String name = null;
+                final List users = hibernateTemplate.find("from AliasEntity e where e.uri = ?", uri);
+                if (users.size() == 1) {
+                    return (AliasEntity) users.get(0);
+                }
+                else if (users.isEmpty()) {
+                    final AliasEntity aliasEntity = new AliasEntity();
+                    aliasEntity.setUri(uri);
+                    session.persist(aliasEntity);
+                    return aliasEntity;
+                }
+                else {
+                    throw new RuntimeException("Too many matching user names.");
+                }
+            }
+        }
+                                        );
+    }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<AliasEntity> listUsers() {
+        return hibernateTemplate.find("from AliasEntity");
+    }
+
+    @Override
+    public void saveUser(final AliasEntity alias) {
+        hibernateTemplate.saveOrUpdate(alias);
+    }
+
+    public void setSessionFactory(final SessionFactory sessionFactory) {
+        hibernateTemplate = new HibernateTemplate(sessionFactory);
+        this.sessionFactory = sessionFactory;
+    }
 }

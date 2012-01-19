@@ -17,22 +17,6 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  * @author neilellis@cazcade.com
  */
 public class AddChatBox extends Composite {
-
-    public void init(final LiquidURI poolURI) {
-        addChatBox.init(poolURI);
-        loginLink.setHref("login?loginNextUrl=" + URL.encode(Window.Location.getHref()));
-        if (UserUtil.isAnonymousOrLoggedOut()) {
-            loginPanel.setVisible(true);
-            addChatBox.setVisible(false);
-        } else {
-            loginPanel.setVisible(false);
-            addChatBox.setVisible(true);
-        }
-    }
-
-    interface LoginOrCommentBoxUiBinder extends UiBinder<HTMLPanel, AddChatBox> {
-    }
-
     private static final LoginOrCommentBoxUiBinder ourUiBinder = GWT.create(LoginOrCommentBoxUiBinder.class);
     @UiField
     ChatBox addChatBox;
@@ -46,6 +30,21 @@ public class AddChatBox extends Composite {
     public AddChatBox() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
+    }
 
+    public void init(final LiquidURI poolURI) {
+        addChatBox.init(poolURI);
+        loginLink.setHref("login?loginNextUrl=" + URL.encode(Window.Location.getHref()));
+        if (UserUtil.isAnonymousOrLoggedOut()) {
+            loginPanel.setVisible(true);
+            addChatBox.setVisible(false);
+        }
+        else {
+            loginPanel.setVisible(false);
+            addChatBox.setVisible(true);
+        }
+    }
+
+    interface LoginOrCommentBoxUiBinder extends UiBinder<HTMLPanel, AddChatBox> {
     }
 }

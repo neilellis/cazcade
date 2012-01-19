@@ -10,14 +10,11 @@ import static cazcade.liquid.api.LiquidPermission.*;
  * @author neilelliz@cazcade.com
  */
 public class LiquidPermissionSet {
-
-    private long permissions;
     private static final long BITS_PER_SCOPE = 6;
     @Nonnull
     private static final LiquidPermissionSet defaultPermissionSet;
     @Nonnull
     private static final LiquidPermissionSet minimalPermissionSet;
-    private transient boolean readonly;
     @Nonnull
     private static final LiquidPermissionSet publicPermissions;
     @Nonnull
@@ -32,6 +29,9 @@ public class LiquidPermissionSet {
 
     @Nonnull
     private static final LiquidPermissionSet privateSharedPermissions;
+
+    private long permissions;
+    private transient boolean readonly;
 
     static {
         defaultPermissionSet = new LiquidPermissionSet();
@@ -63,10 +63,10 @@ public class LiquidPermissionSet {
         privateSharedPermissions = LiquidPermissionSet.getMinimalPermissionSet();
         childSafePermissions = LiquidPermissionSet.getDefaultPermissions();
         LiquidPermissionSet.addReadPermissions(LiquidPermissionScope.CHILD, childSafePermissions);
-
     }
 
-    public static void removeAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
+    public static void removeAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
+                                            @Nonnull final LiquidPermissionSet set) {
         set.removePermission(liquidPermissionScope, VIEW);
 //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.removePermission(liquidPermissionScope, MODIFY);
@@ -75,7 +75,14 @@ public class LiquidPermissionSet {
         set.removePermission(liquidPermissionScope, SYSTEM);
     }
 
-    public static void addAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
+    public void removePermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
+        checkNotReadOnly();
+
+        permissions &= ~toPermissionBit(scope, permission);
+    }
+
+    public static void addAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
+                                         @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
 //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.addPermission(liquidPermissionScope, MODIFY);
@@ -84,60 +91,9 @@ public class LiquidPermissionSet {
         set.addPermission(liquidPermissionScope, SYSTEM);
     }
 
-    public static void addEditPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
-        set.addPermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
-        set.addPermission(liquidPermissionScope, MODIFY);
-        set.addPermission(liquidPermissionScope, EDIT);
-        set.addPermission(liquidPermissionScope, DELETE);
-    }
-
-    public static void addModifyPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
-        set.addPermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
-        set.addPermission(liquidPermissionScope, MODIFY);
-    }
-
-    public static void addReadPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
-        set.addPermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
-    }
-
-
-    private LiquidPermissionSet() {
-    }
-
-    private LiquidPermissionSet(@Nonnull final String permissions) {
-        parse(permissions);
-    }
-
-    private LiquidPermissionSet(final long permissions, final boolean readonly) {
-        this.permissions = permissions;
-        this.readonly = readonly;
-    }
-
-
-    private void parse(@Nonnull final String permissions) {
-        final String[] permissionGroups = permissions.split(",");
-        for (final String permissionGroup : permissionGroups) {
-            final LiquidPermissionScope permissionScope = LiquidPermissionScope.fromChar(permissionGroup.charAt(0));
-            for (int i = 2; i < permissionGroup.length(); i++) {
-                addPermission(permissionScope, fromChar(permissionGroup.charAt(i)));
-            }
-
-        }
-    }
-
-    private LiquidPermissionSet(@Nonnull final String permissions, final boolean readonly) {
-        parse(permissions);
-        this.readonly = readonly;
-    }
-
-
     public void addPermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
         checkNotReadOnly();
         permissions |= toPermissionBit(scope, permission);
-
     }
 
     private void checkNotReadOnly() {
@@ -150,70 +106,26 @@ public class LiquidPermissionSet {
         return 1L << permission.ordinal() << BITS_PER_SCOPE * scope.ordinal();
     }
 
-    public void removePermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
-        checkNotReadOnly();
-
-        permissions &= ~toPermissionBit(scope, permission);
-
+    public static void addEditPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
+                                          @Nonnull final LiquidPermissionSet set) {
+        set.addPermission(liquidPermissionScope, VIEW);
+//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
+        set.addPermission(liquidPermissionScope, MODIFY);
+        set.addPermission(liquidPermissionScope, EDIT);
+        set.addPermission(liquidPermissionScope, DELETE);
     }
 
-    public boolean hasPermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
-
-        return (permissions & toPermissionBit(scope, permission)) != 0;
-
+    public static void addModifyPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
+                                            @Nonnull final LiquidPermissionSet set) {
+        set.addPermission(liquidPermissionScope, VIEW);
+//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
+        set.addPermission(liquidPermissionScope, MODIFY);
     }
 
-    public void addPermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final List<LiquidPermission> permissions) {
-        checkNotReadOnly();
-        for (final LiquidPermission permission : permissions) {
-            addPermission(scope, permission);
-        }
-    }
-
-
-    public void addPermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission... permissions) {
-        checkNotReadOnly();
-        for (final LiquidPermission permission : permissions) {
-            addPermission(scope, permission);
-        }
-    }
-
-
-    public void removePermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final List<LiquidPermission> permissions) {
-        checkNotReadOnly();
-        for (final LiquidPermission permission : permissions) {
-            removePermission(scope, permission);
-        }
-    }
-
-    public void removePermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission... permissions) {
-        checkNotReadOnly();
-        for (final LiquidPermission permission : permissions) {
-            removePermission(scope, permission);
-        }
-    }
-
-    public String toString() {
-        return asFriendlyString();
-    }
-
-    @Nonnull
-    public LiquidPermissionSet removeDeletePermission() {
-        removePermission(LiquidPermissionScope.OWNER, DELETE);
-        removePermission(LiquidPermissionScope.EDITOR, DELETE);
-        removePermission(LiquidPermissionScope.UNKNOWN, DELETE);
-        removePermission(LiquidPermissionScope.ADULT, DELETE);
-        removePermission(LiquidPermissionScope.TEEN, DELETE);
-        removePermission(LiquidPermissionScope.MEMBER, DELETE);
-        removePermission(LiquidPermissionScope.FRIEND, DELETE);
-        removePermission(LiquidPermissionScope.WORLD, DELETE);
-        removePermission(LiquidPermissionScope.VERIFIED, DELETE);
-        return this;
-    }
-
-    @Nonnull
-    public static LiquidPermissionSet getDefaultPermissions() {
-        return defaultPermissionSet.copy();
+    public static void addReadPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
+                                          @Nonnull final LiquidPermissionSet set) {
+        set.addPermission(liquidPermissionScope, VIEW);
+//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
     }
 
     @Nonnull
@@ -225,65 +137,15 @@ public class LiquidPermissionSet {
     public static LiquidPermissionSet createPermissionSet(@Nullable final String permissions) {
         if (permissions == null) {
             return defaultPermissionSet.copy();
-        } else {
+        }
+        else {
             return new LiquidPermissionSet(permissions);
         }
-    }
-
-
-    @Nonnull
-    public LiquidPermissionSet readOnlyCopy() {
-        return new LiquidPermissionSet(permissions, true);
-    }
-
-    @Nonnull
-    public LiquidPermissionSet copy() {
-        return new LiquidPermissionSet(permissions, readonly);
-    }
-
-    public String asFriendlyString() {
-        final StringBuilder sb = new StringBuilder();
-        for (final LiquidPermissionScope liquidPermissionScope : LiquidPermissionScope.values()) {
-            sb.append(Character.toLowerCase(liquidPermissionScope.asShortForm()));
-            sb.append('=');
-            if (hasPermission(liquidPermissionScope, VIEW)) {
-                sb.append(VIEW.asShortForm());
-            }
-            if (hasPermission(liquidPermissionScope, MODIFY)) {
-                sb.append(MODIFY.asShortForm());
-            }
-            if (hasPermission(liquidPermissionScope, EDIT)) {
-                sb.append(EDIT.asShortForm());
-            }
-//            if (hasPermission(liquidPermissionScope, LiquidPermission.EXECUTE)) {
-//                sb.append(LiquidPermission.EXECUTE.asShortForm());
-//            }
-            if (hasPermission(liquidPermissionScope, DELETE)) {
-                sb.append(DELETE.asShortForm());
-            }
-            if (hasPermission(liquidPermissionScope, SYSTEM)) {
-                sb.append(SYSTEM.asShortForm());
-            }
-            sb.append(',');
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
-
     }
 
     @Nonnull
     public static LiquidPermissionSet getMinimalPermissionSet() {
         return minimalPermissionSet.copy();
-    }
-
-    @Nonnull
-    public static LiquidPermissionSet getPublicPermissionSet() {
-        return publicPermissions.copy();
-    }
-
-    @Nonnull
-    public static LiquidPermissionSet getPrivatePermissionSet() {
-        return privatePermissions.copy();
     }
 
     @Nonnull
@@ -309,6 +171,20 @@ public class LiquidPermissionSet {
     @Nonnull
     public static LiquidPermissionSet getMinimalNoDeletePermissionSet() {
         return getMinimalPermissionSet().removeDeletePermission();
+    }
+
+    @Nonnull
+    public LiquidPermissionSet removeDeletePermission() {
+        removePermission(LiquidPermissionScope.OWNER, DELETE);
+        removePermission(LiquidPermissionScope.EDITOR, DELETE);
+        removePermission(LiquidPermissionScope.UNKNOWN, DELETE);
+        removePermission(LiquidPermissionScope.ADULT, DELETE);
+        removePermission(LiquidPermissionScope.TEEN, DELETE);
+        removePermission(LiquidPermissionScope.MEMBER, DELETE);
+        removePermission(LiquidPermissionScope.FRIEND, DELETE);
+        removePermission(LiquidPermissionScope.WORLD, DELETE);
+        removePermission(LiquidPermissionScope.VERIFIED, DELETE);
+        return this;
     }
 
     @Nonnull
@@ -341,10 +217,105 @@ public class LiquidPermissionSet {
         return getPublicPermissionSet().removeDeletePermission();
     }
 
-
     @Nonnull
     public static LiquidPermissionSet getDefaultPermissionsNoDelete() {
         return defaultPermissionSet.copy().removeDeletePermission();
+    }
+
+    private LiquidPermissionSet(final long permissions, final boolean readonly) {
+        this.permissions = permissions;
+        this.readonly = readonly;
+    }
+
+    private LiquidPermissionSet(@Nonnull final String permissions, final boolean readonly) {
+        parse(permissions);
+        this.readonly = readonly;
+    }
+
+    private LiquidPermissionSet(@Nonnull final String permissions) {
+        parse(permissions);
+    }
+
+    private void parse(@Nonnull final String permissions) {
+        final String[] permissionGroups = permissions.split(",");
+        for (final String permissionGroup : permissionGroups) {
+            final LiquidPermissionScope permissionScope = LiquidPermissionScope.fromChar(permissionGroup.charAt(0));
+            for (int i = 2; i < permissionGroup.length(); i++) {
+                addPermission(permissionScope, fromChar(permissionGroup.charAt(i)));
+            }
+        }
+    }
+
+    private LiquidPermissionSet() {
+    }
+
+    public void addPermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final List<LiquidPermission> permissions) {
+        checkNotReadOnly();
+        for (final LiquidPermission permission : permissions) {
+            addPermission(scope, permission);
+        }
+    }
+
+    public void addPermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission... permissions) {
+        checkNotReadOnly();
+        for (final LiquidPermission permission : permissions) {
+            addPermission(scope, permission);
+        }
+    }
+
+    @Nonnull
+    public LiquidPermissionSet convertChangeRequestIntoPermissionSet(final LiquidPermissionChangeType change) {
+        if (change == LiquidPermissionChangeType.MAKE_PRIVATE) {
+            return getPrivatePermissionSet();
+        }
+        else if (change == LiquidPermissionChangeType.MAKE_PUBLIC) {
+            return getPublicPermissionSet();
+        }
+        else if (change == LiquidPermissionChangeType.MAKE_PUBLIC_READONLY) {
+            return getDefaultPermissions();
+        }
+        else {
+            return this;
+        }
+    }
+
+    @Nonnull
+    public static LiquidPermissionSet getPrivatePermissionSet() {
+        return privatePermissions.copy();
+    }
+
+    @Nonnull
+    public static LiquidPermissionSet getPublicPermissionSet() {
+        return publicPermissions.copy();
+    }
+
+    @Nonnull
+    public static LiquidPermissionSet getDefaultPermissions() {
+        return defaultPermissionSet.copy();
+    }
+
+    @Nonnull
+    public LiquidPermissionSet copy() {
+        return new LiquidPermissionSet(permissions, readonly);
+    }
+
+    @Nonnull
+    public LiquidPermissionSet readOnlyCopy() {
+        return new LiquidPermissionSet(permissions, true);
+    }
+
+    public void removePermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final List<LiquidPermission> permissions) {
+        checkNotReadOnly();
+        for (final LiquidPermission permission : permissions) {
+            removePermission(scope, permission);
+        }
+    }
+
+    public void removePermissions(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission... permissions) {
+        checkNotReadOnly();
+        for (final LiquidPermission permission : permissions) {
+            removePermission(scope, permission);
+        }
     }
 
     @Nonnull
@@ -379,16 +350,40 @@ public class LiquidPermissionSet {
         return this;
     }
 
-    @Nonnull
-    public LiquidPermissionSet convertChangeRequestIntoPermissionSet(final LiquidPermissionChangeType change) {
-        if (change == LiquidPermissionChangeType.MAKE_PRIVATE) {
-            return getPrivatePermissionSet();
-        } else if (change == LiquidPermissionChangeType.MAKE_PUBLIC) {
-            return getPublicPermissionSet();
-        } else if (change == LiquidPermissionChangeType.MAKE_PUBLIC_READONLY) {
-            return getDefaultPermissions();
-        } else {
-            return this;
+    public String toString() {
+        return asFriendlyString();
+    }
+
+    public String asFriendlyString() {
+        final StringBuilder sb = new StringBuilder();
+        for (final LiquidPermissionScope liquidPermissionScope : LiquidPermissionScope.values()) {
+            sb.append(Character.toLowerCase(liquidPermissionScope.asShortForm()));
+            sb.append('=');
+            if (hasPermission(liquidPermissionScope, VIEW)) {
+                sb.append(VIEW.asShortForm());
+            }
+            if (hasPermission(liquidPermissionScope, MODIFY)) {
+                sb.append(MODIFY.asShortForm());
+            }
+            if (hasPermission(liquidPermissionScope, EDIT)) {
+                sb.append(EDIT.asShortForm());
+            }
+//            if (hasPermission(liquidPermissionScope, LiquidPermission.EXECUTE)) {
+//                sb.append(LiquidPermission.EXECUTE.asShortForm());
+//            }
+            if (hasPermission(liquidPermissionScope, DELETE)) {
+                sb.append(DELETE.asShortForm());
+            }
+            if (hasPermission(liquidPermissionScope, SYSTEM)) {
+                sb.append(SYSTEM.asShortForm());
+            }
+            sb.append(',');
         }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+
+    public boolean hasPermission(@Nonnull final LiquidPermissionScope scope, @Nonnull final LiquidPermission permission) {
+        return (permissions & toPermissionBit(scope, permission)) != 0;
     }
 }

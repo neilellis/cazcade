@@ -18,5 +18,4 @@ public class UpdatePoolObjectRequestValidator extends AbstractRequestValidator<U
         validPoolObject(request);
         entityValidator.validate(request.getRequestEntity(), level);
     }
-
 }

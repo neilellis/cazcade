@@ -16,9 +16,14 @@ public class MovePoolObjectHandler extends AbstractDataStoreHandler<MovePoolObje
     public MovePoolObjectRequest handle(@Nonnull final MovePoolObjectRequest request) throws Exception {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final LSDPersistedEntity viewPersistedEntity = poolDAO.movePoolObjectNoTx(request.getUri(), request.getX(), request.getY(), request.getZ());
+            final LSDPersistedEntity viewPersistedEntity = poolDAO.movePoolObjectNoTx(request.getUri(), request.getX(),
+                                                                                      request.getY(), request.getZ()
+                                                                                     );
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(),
+                                                                                                       request.isInternal()
+                                                                                                      )
+                                                        );
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;
