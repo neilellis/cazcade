@@ -67,10 +67,18 @@
             <div class="container">
                 <div class="content">
 
-                    <g:DockLayoutPanel height="240px" unit="PX">
+                    <g:DockLayoutPanel height="300px" unit="PX">
 
                         <g:west size="400">
                             <g:HTMLPanel styleName="footer-lhs">
+                                <div class="board-author-info-box">
+                                    <h3>About the author</h3>
+                                    <profile:AliasDetailFlowPanel ui:field="ownerDetailPanel"/>
+                                </div>
+                            </g:HTMLPanel>
+                        </g:west>
+                        <g:center>
+                            <g:HTMLPanel styleName="footer-middle">
                                 <h3>Board Information</h3>
                                 This board was created at
                                 <span ui:field="publishDate"/>
@@ -78,21 +86,29 @@
                                 <span ui:field="authorFullname"/>.
                                 <span ui:field="visibilityDescription"/>
                             </g:HTMLPanel>
-                        </g:west>
-                        <g:center>
-                            <g:HTMLPanel styleName="footer-middle">
-                                <div class="board-author-info-box">
-                                    <h3>About the author</h3>
-                                    <profile:AliasDetailFlowPanel ui:field="ownerDetailPanel"/>
-                                </div>
-                            </g:HTMLPanel>
                         </g:center>
-                        <!--<g:east size="240">-->
-                        <!--<g:HTMLPanel styleName="footer-rhs">-->
-                        <!--<h3>Followers</h3>-->
-                        <!--<em>This feature is coming very soon.</em>-->
-                        <!--</g:HTMLPanel>-->
-                        <!--</g:east>-->
+                        <g:east size="320">
+                            <g:HTMLPanel styleName="footer-rhs">
+                                <h3>About Boardcast</h3>
+                                <!--<p>Boardcast is brought to you by Cazcade Ltd. We're a small UK based company looking to add-->
+                                <!--exciting new interactive applications to the internet.</p>-->
+                                <p>Boardcast is still in the Alpha stage of development which is a technical way of saying
+                                    there are still a few bugs kicking around and we're still trying to make things look nice.
+                                    We'd love you to have a play, look around and tell us how we can make your life easier!
+                                </p>
+                                <p>We have a<a href="http://boardcast.posterous.com">blog</a>, and a
+                                    <a
+                                            href="http://twitter.com/boardcast_it">Twitter account
+                                    </a>
+                                    where you can keep up
+                                    to date with the latest improvements.
+                                </p>
+                                <p>If you have any suggestions for us or find something that doesn't work,
+                                    please drop by our<a href="http://boardcast.zendesk.com">support website</a>.
+                                </p>
+
+                            </g:HTMLPanel>
+                        </g:east>
                     </g:DockLayoutPanel>
 
                 </div>

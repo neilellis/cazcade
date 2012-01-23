@@ -12,13 +12,13 @@
                                     height="150px"/>
             <fields:VortexEditableLabel wordwrap="true" ui:field="description"
                                         styleName="view-user-details-description"/>
-            <div class="follow-followers-counts">
+            <div class="follow-followers-counts invisible">
                 <g:Label ui:field="followersLabel" styleName="view-user-details-followers-label">X Followers
                 </g:Label>
                 <g:Label ui:field="followingLabel" styleName="view-user-details-following-label">Following Y
                 </g:Label>
             </div>
-            <div class="view-user-flow-panel-buttons">
+            <div class="view-user-flow-panel-buttons invisible">
                 <g:Label ui:field="followButton" styleName="btn primary view-user-button">Follow</g:Label>
                 <g:Label ui:field="dmButton" styleName="btn view-user-button">DM</g:Label>
             </div>

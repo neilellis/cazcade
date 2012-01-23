@@ -20,7 +20,7 @@
 
 <div style="opacity: 0" id="top-bar-wrapper">
     <div class="right rib-holder">
-        <div class="orange rib"><a href="http://boardcast.it">Alpha</a></div>
+        <div class="orange rib"><a href="http://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha">Alpha</a></div>
     </div>
     <%@ include file="topbar.jspf" %>
 </div>
