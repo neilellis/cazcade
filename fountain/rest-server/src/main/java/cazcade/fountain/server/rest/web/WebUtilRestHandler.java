@@ -87,7 +87,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                 //temporary, need to get the client to do the polling!
                 int count = 0;
                 while (response == null || response.getRefreshIndicator() > 0 && count++ < MAX_SNAPSHOT_RETRIES) {
-                    response = imageService.getCacheURI(new URI(url), size, generate);
+                    response = imageService.getCacheURI(new URI(url), size, 0, generate);
                     try {
                         if (response.getRefreshIndicator() > 0) {
                             Thread.sleep(response.getRefreshIndicator());
