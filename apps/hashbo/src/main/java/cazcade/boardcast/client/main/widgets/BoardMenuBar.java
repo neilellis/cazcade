@@ -244,19 +244,19 @@ public class BoardMenuBar extends MenuBar {
                                      );
             }
             else {
-                accessMenuBar.addItem("Make Writeable", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI
+                accessMenuBar.addItem("Make Editable", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI
                 )
                                      );
             }
-            accessMenuBar.addItem("Make Private", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PRIVATE, poolURI));
+            accessMenuBar.addItem("Hide", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PRIVATE, poolURI));
         }
         else {
-            accessMenuBar.addItem("Make Public (Readonly)", new ChangePermissionCommand(
+            accessMenuBar.addItem("Publish (Readonly)", new ChangePermissionCommand(
                     LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI
             )
                                  );
-            accessMenuBar.addItem("Make Public (Writeable)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC,
-                                                                                         poolURI
+            accessMenuBar.addItem("Publish (Editable)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC,
+                                                                                    poolURI
             )
                                  );
         }

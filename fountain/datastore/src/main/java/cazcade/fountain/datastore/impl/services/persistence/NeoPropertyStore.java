@@ -35,7 +35,7 @@ public class NeoPropertyStore implements LSDPropertyStore {
 
     @Override
     public String get(final String property) {
-        return String.valueOf(neoNode.getProperty(property));
+        return String.valueOf(neoNode.getProperty(property, null));
     }
 
     @Override
