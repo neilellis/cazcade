@@ -24,7 +24,10 @@ import java.util.concurrent.*;
 public class SnapshotServlet extends HttpServlet {
 
     @Nonnull
-    private final ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10000), new ThreadPoolExecutor.CallerRunsPolicy());
+    private final ExecutorService snapshotExecutor = new ThreadPoolExecutor(3, 20, MAX_SNAPSHOT_RETRIES, TimeUnit.SECONDS,
+                                                                            new ArrayBlockingQueue<Runnable>(10000),
+                                                                            new ThreadPoolExecutor.CallerRunsPolicy()
+    );
 
     public static final int MAX_SNAPSHOT_RETRIES = 3;
 
@@ -48,12 +51,14 @@ public class SnapshotServlet extends HttpServlet {
     }
 
     @Override
-    protected void doHead(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doHead(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
         doGet(req, resp);
     }
 
     @Override
-    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
 //        super.doGet(req, resp);
 
         final String url = req.getParameter("url");
@@ -74,7 +79,8 @@ public class SnapshotServlet extends HttpServlet {
             if (response.getRefreshIndicator() > 0) {
                 log.warn("Failed to snapshot {0}.", url);
                 resp.setStatus(408);
-            } else {
+            }
+            else {
                 log.debug("Snapshot for {0} is {1}.", url, response.getURI().toString());
                 resp.setStatus(301);
                 resp.setHeader("Location", response.getURI().toString());
@@ -93,7 +99,7 @@ public class SnapshotServlet extends HttpServlet {
                 //temporary, need to get the client to do the polling!
                 int count = 0;
                 while (response == null || response.getRefreshIndicator() > 0 && count++ < MAX_SNAPSHOT_RETRIES) {
-                    response = imageService.getCacheURI(new URI(url), size, generate);
+                    response = imageService.getCacheURI(new URI(url), size, 0, generate);
                     try {
                         if (response.getRefreshIndicator() > 0) {
                             Thread.sleep(response.getRefreshIndicator());
@@ -105,7 +111,8 @@ public class SnapshotServlet extends HttpServlet {
                 }
                 return response;
             }
-        });
+        }
+                                      );
     }
 
 }
