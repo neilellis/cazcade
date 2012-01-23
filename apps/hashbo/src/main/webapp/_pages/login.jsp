@@ -13,6 +13,7 @@
 
 </head>
 <body>
+<%@ include file="chrome_frame.jspf" %>
 <div class="container" style="width:650px;padding-top:20px  ">
     <section id="forms">
         <div class="row"></div>

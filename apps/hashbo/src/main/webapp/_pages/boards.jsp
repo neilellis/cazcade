@@ -15,11 +15,11 @@
             document.getElementById('boards-list').style.width = (Math.floor(document.body.offsetWidth / 400) * 400) + "px";
         }
 
-        window.onresize = function(event) {
+        window.onresize = function (event) {
             resizeCenter();
         };
 
-        waitForStylesheetLoad(function() {
+        waitForStylesheetLoad(function () {
             resizeCenter();
         });
 
@@ -28,7 +28,7 @@
 </head>
 
 <body class="boards-body">
-
+<%@ include file="chrome_frame.jspf" %>
 
 <%@ include file="topbar.jspf" %>
 <div class="inner-body">

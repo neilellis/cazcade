@@ -10,6 +10,17 @@
         <div class="container">
 
             <div class="content">
+                <div class="board-share-surround">
+
+                    <div class="board-share">
+                        <iframe allowtransparency="true" frameborder="0" scrolling="no" class="tweet-button"
+                                ui:field="tweetButton"
+
+                                style="width:100px; height:20px;"></iframe>
+                        <g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>
+
+                    </div>
+                </div>
                 <stream:NotificationPanel ui:field="notificationPanel"/>
                 <board:PublicBoardHeader ui:field="publicBoardHeader" visible="false"/>
                 <profile:ProfileBoardHeader ui:field="profileBoardHeader" visible="false"/>
@@ -29,14 +40,6 @@
 
                     <!--<div class="board-locked" ui:field="boardLockedIcon"-->
                     <!--title="You don't have permission to edit this board."/>-->
-                </div>
-                <div class="row board-top-menu-row">
-                    <iframe allowtransparency="true" frameborder="0" scrolling="no" class="tweet-button"
-                            ui:field="tweetButton"
-
-                            style="width:100px; height:20px;"></iframe>
-                    <g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>
-
                 </div>
 
                 <div class="row profile-board-header-bottom">
@@ -66,7 +69,7 @@
 
                     <g:DockLayoutPanel height="240px" unit="PX">
 
-                        <g:west size="240">
+                        <g:west size="400">
                             <g:HTMLPanel styleName="footer-lhs">
                                 <h3>Board Information</h3>
                                 This board was created at
@@ -84,12 +87,12 @@
                                 </div>
                             </g:HTMLPanel>
                         </g:center>
-                        <g:east size="240">
-                            <g:HTMLPanel styleName="footer-rhs">
-                                <h3>Followers</h3>
-                                <em>This feature is coming very soon.</em>
-                            </g:HTMLPanel>
-                        </g:east>
+                        <!--<g:east size="240">-->
+                        <!--<g:HTMLPanel styleName="footer-rhs">-->
+                        <!--<h3>Followers</h3>-->
+                        <!--<em>This feature is coming very soon.</em>-->
+                        <!--</g:HTMLPanel>-->
+                        <!--</g:east>-->
                     </g:DockLayoutPanel>
 
                 </div>

@@ -34,7 +34,7 @@
 </head>
 
 <body>
-
+<%@ include file="chrome_frame.jspf" %>
 <tags:hashbo-less/>
 
 
