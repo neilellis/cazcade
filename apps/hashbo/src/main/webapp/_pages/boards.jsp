@@ -54,6 +54,7 @@
                                             <c:param name="size" value="CLIPPED_MEDIUM"/>
                                             <c:param name="width" value="300"/>
                                             <c:param name="height" value="200"/>
+                                            <c:param name="delay" value="60"/>
                                         </c:url>'
                                      width="300"
                                      height="200"

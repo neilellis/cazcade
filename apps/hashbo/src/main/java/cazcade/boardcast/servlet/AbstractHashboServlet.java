@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +67,8 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected List<Map<String, String>> makeJSPFriendly(@Nonnull final List<LSDTransferEntity> entities) throws UnsupportedEncodingException {
+    protected List<Map<String, String>> makeJSPFriendly(@Nonnull final List<LSDTransferEntity> entities)
+            throws UnsupportedEncodingException {
         final List<Map<String, String>> result = new ArrayList<Map<String, String>>();
         for (final LSDTransferEntity entity : entities) {
             final Map<String, String> map = entity.getCamelCaseMap();
@@ -77,7 +77,9 @@ public class AbstractHashboServlet extends HttpServlet {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
                 if (!entity.hasAttribute(LSDAttribute.ICON_URL)) {
-                    map.put("iconUrl", "http://boardcast.it/_board-icon?ModPagespeed=off&board=" + URLEncoder.encode(shortUrl, "utf-8") + "&bid=" + entity.getAttribute(LSDAttribute.ID));
+                    map.put("iconUrl", "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=off&bid=" + entity
+                            .getAttribute(LSDAttribute.ID)
+                           );
                 }
             }
         }
@@ -95,10 +97,13 @@ public class AbstractHashboServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected LiquidSessionIdentifier createClientSession(@Nonnull final HttpSession session, @Nonnull final LiquidMessage createSessionResponse) {
+    protected LiquidSessionIdentifier createClientSession(@Nonnull final HttpSession session,
+                                                          @Nonnull final LiquidMessage createSessionResponse) {
 
         final String username = createSessionResponse.getResponse().getAttribute(LSDAttribute.NAME);
-        final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username, createSessionResponse.getResponse().getUUID());
+        final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username,
+                                                                                  createSessionResponse.getResponse().getUUID()
+        );
         session.setAttribute(SESSION_KEY, serverSession);
         session.setAttribute(USERNAME_KEY, username);
         LoginUtil.createClientSession(clientSessionManager, serverSession, true);
@@ -107,14 +112,20 @@ public class AbstractHashboServlet extends HttpServlet {
 
     @Nonnull
     protected LiquidMessage createSession(final LiquidURI uri) throws Exception {
-        return dataStore.process(new CreateSessionRequest(uri, new ClientApplicationIdentifier("GWT Client", LoginUtil.APP_KEY, "UNKNOWN")));
+        return dataStore.process(new CreateSessionRequest(uri, new ClientApplicationIdentifier("GWT Client", LoginUtil.APP_KEY,
+                                                                                               "UNKNOWN"
+        )
+        )
+                                );
     }
 
-    protected void forwardAfterLogin(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    protected void forwardAfterLogin(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
         final String next = req.getParameter("next");
         if (next != null) {
             resp.sendRedirect(next);
-        } else {
+        }
+        else {
             resp.sendRedirect("/_query-popular");
         }
     }

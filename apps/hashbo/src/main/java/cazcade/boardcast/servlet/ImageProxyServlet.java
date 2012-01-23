@@ -72,19 +72,23 @@ public class ImageProxyServlet extends HttpServlet {
                 return true;
             }
             return false;
-        } else {
+        }
+        else {
             return true;
         }
     }
 
     @Override
-    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
 //        super.doGet(req, resp);
         final int width = req.getParameter("width") != null ? Integer.parseInt(req.getParameter("width")) : 1024;
         final int height = req.getParameter("height") != null ? Integer.parseInt(req.getParameter("height")) : -1;
 
         final String url = req.getParameter("url");
         final String size = req.getParameter("size");
+        final String delayStr = req.getParameter("size");
+        final int delay = delayStr == null ? 0 : Integer.parseInt(delayStr);
         final String text = req.getParameter("text");
 
         if (url == null || url.isEmpty()) {
@@ -95,16 +99,17 @@ public class ImageProxyServlet extends HttpServlet {
         final String urlCompareStr = url.toLowerCase();
         //todo: bit of a hack
         final boolean isImage = req.getParameter("isImage") != null ||
-                urlCompareStr.contains("cloudfiles.rackspacecloud.com") ||
-                urlCompareStr.endsWith(".jpeg") ||
-                urlCompareStr.endsWith(".gif") ||
-                urlCompareStr.endsWith(".jpg") ||
-                urlCompareStr.endsWith(".png") ||
-                urlCompareStr.endsWith(".tiff");
+                                urlCompareStr.contains("cloudfiles.rackspacecloud.com") ||
+                                urlCompareStr.endsWith(".jpeg") ||
+                                urlCompareStr.endsWith(".gif") ||
+                                urlCompareStr.endsWith(".jpg") ||
+                                urlCompareStr.endsWith(".png") ||
+                                urlCompareStr.endsWith(".tiff");
 
         if (imageService == null) {
             log.warn("Sending alternate image as image service not ready yet.");
             sendAlternate(resp, width, height, url, isImage, 60 * 1000);
+            return;
         }
         try {
             CacheResponse response;
@@ -112,7 +117,8 @@ public class ImageProxyServlet extends HttpServlet {
             final ImageSize imageSize;
             if (size != null) {
                 imageSize = ImageSize.valueOf(size);
-            } else {
+            }
+            else {
                 imageSize = ImageSize.LARGE;
             }
             final URI imageUrl;
@@ -123,17 +129,18 @@ public class ImageProxyServlet extends HttpServlet {
                 resp.sendError(500, e.getMessage());
                 return;
             }
-            response = getCachedImage(imageSize, imageUrl, isImage);
+            response = getCachedImage(imageSize, imageUrl, delay, isImage);
             int count = 0;
             while (response.getRefreshIndicator() > 0 && count++ < 100) {
                 Thread.sleep(250);
 //                Thread.sleep(response.getRefreshIndicator());
-                response = getCachedImage(imageSize, imageUrl, isImage);
+                response = getCachedImage(imageSize, imageUrl, delay, isImage);
             }
 
             if (response.getRefreshIndicator() > 0) {
                 sendAlternate(resp, width, height, url, isImage, response.getRefreshIndicator());
-            } else {
+            }
+            else {
                 req.setAttribute("url", response.getURI().toString());
                 req.getRequestDispatcher("_image-scale").forward(req, resp);
 //                log.debug("Scaled {0} to {1}.", url, response.getURI().toString());
@@ -153,7 +160,8 @@ public class ImageProxyServlet extends HttpServlet {
         return "/_image-scale?url=" + URLEncoder.encode(url, "utf8") + "&width=" + width + "&height=" + height;
     }
 
-    private void sendAlternate(@Nonnull final HttpServletResponse resp, final int width, final int height, final String url, final boolean image, final long refreshIndicator) throws UnsupportedEncodingException {
+    private void sendAlternate(@Nonnull final HttpServletResponse resp, final int width, final int height, final String url,
+                               final boolean image, final long refreshIndicator) throws UnsupportedEncodingException {
         final String refreshInSecs = String.valueOf(refreshIndicator / 1000);
         if (image) {
             log.warn("Failed to scale {0}.", url);
@@ -162,35 +170,53 @@ public class ImageProxyServlet extends HttpServlet {
             resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
             resp.setHeader("Location", scaledImageLocation(url, width, height));
             resp.setHeader("Connection", "close");
-        } else {
+        }
+        else {
             log.warn("Failed to snapshot {0}.", url);
             sendUrl2PngAlternate(resp, width, height, url, refreshInSecs);
 
         }
     }
 
-    private void sendNotReady(@Nonnull final HttpServletResponse resp, @Nonnull final CacheResponse response, final int width, final int height) throws UnsupportedEncodingException {
+    private void sendNotReady(@Nonnull final HttpServletResponse resp, @Nonnull final CacheResponse response, final int width,
+                              final int height) throws UnsupportedEncodingException {
         final String refreshInSecs = String.valueOf(response.getRefreshIndicator() / 1000);
         resp.setStatus(307);
         resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=Image+Not+Ready");
         resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
+        //noinspection VariableNotUsedInsideIf
         if (response == null) {
             resp.setHeader("Refresh", refreshInSecs);
         }
         resp.setHeader("Connection", "close");
     }
 
-    private void sendMissing(@Nonnull final HttpServletResponse resp, final int width, final int height, @Nullable final String text) throws UnsupportedEncodingException {
+    private void sendMissing(@Nonnull final HttpServletResponse resp, final int width, final int height,
+                             @Nullable final String text) throws UnsupportedEncodingException {
         resp.setStatus(307);
-        resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=" + (text != null && !text.isEmpty() ? URLEncoder.encode(text, "utf-8") : "Image+Missing"));
+        resp.setHeader("Location", "http://placehold.it/" +
+                                   width +
+                                   "x" +
+                                   height +
+                                   "&text=" +
+                                   (text != null && !text.isEmpty() ? URLEncoder.encode(text, "utf-8") : "Image+Missing")
+                      );
         resp.setHeader("Connection", "close");
     }
 
 
-    private void sendUrl2PngAlternate(@Nonnull final HttpServletResponse resp, final int width, final int height, String url, final String refreshInSecs) throws UnsupportedEncodingException {
+    private void sendUrl2PngAlternate(@Nonnull final HttpServletResponse resp, final int width, final int height, String url,
+                                      final String refreshInSecs) throws UnsupportedEncodingException {
         resp.setStatus(307);
         url = URLEncoder.encode(url, "utf-8");
-        final String url2pngUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" + DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) + "/" + width + "x" + height + "/" + url;
+        final String url2pngUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" +
+                                  DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) +
+                                  "/" +
+                                  width +
+                                  "x" +
+                                  height +
+                                  "/" +
+                                  url;
         resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
         resp.setHeader("Location", url2pngUrl);
 //        if (response == null) {
@@ -208,12 +234,13 @@ public class ImageProxyServlet extends HttpServlet {
         return url;
     }
 
-    private CacheResponse getCachedImage(final ImageSize imageSize, final URI imageUrl, final boolean isImage) {
+    private CacheResponse getCachedImage(final ImageSize imageSize, final URI imageUrl, int delay, final boolean isImage) {
         final CacheResponse response;
         if (isImage) {
             response = imageService.getCacheURIForImage(imageUrl, imageSize, true);
-        } else {
-            response = imageService.getCacheURI(imageUrl, imageSize, true);
+        }
+        else {
+            response = imageService.getCacheURI(imageUrl, imageSize, delay, true);
         }
         return response;
     }
