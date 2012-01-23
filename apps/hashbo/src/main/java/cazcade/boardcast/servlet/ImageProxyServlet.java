@@ -87,7 +87,7 @@ public class ImageProxyServlet extends HttpServlet {
 
         final String url = req.getParameter("url");
         final String size = req.getParameter("size");
-        final String delayStr = req.getParameter("size");
+        final String delayStr = req.getParameter("delay");
         final int delay = delayStr == null ? 0 : Integer.parseInt(delayStr);
         final String text = req.getParameter("text");
 
