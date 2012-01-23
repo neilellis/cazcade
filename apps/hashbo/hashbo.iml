@@ -5,7 +5,7 @@
       <configuration>
         <setting name="compilerMaxHeapSize" value="256" />
         <setting name="gwtScriptOutputStyle" value="DETAILED" />
-        <setting name="gwtSdkUrl" value="file://$MAVEN_REPOSITORY$/com/google/gwt/gwt-dev/2.3.0/" />
+        <setting name="gwtSdkUrl" value="file://$MAVEN_REPOSITORY$/com/google/gwt/gwt-dev/2.4.0/" />
         <setting name="gwtSdkType" value="maven" />
         <setting name="webFacet" value="Web" />
       </configuration>
@@ -148,8 +148,10 @@
     <orderEntry type="library" name="Maven: cazcade.billabong:snapshot:1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: cazcade.billabong:processing:1.1-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="pool" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.gwt:gwt-user:2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.gwt:gwt-servlet:2.3.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.gwt:gwt-user:2.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.validation:validation-api:1.0.0.GA" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.validation:validation-api:sources:1.0.0.GA" level="project" />
+    <orderEntry type="library" name="Maven: com.google.gwt:gwt-servlet:2.4.0" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: taglibs:standard:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-continuation:7.2.2.v20101205" level="project" />
