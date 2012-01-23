@@ -12,6 +12,7 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,7 @@ public class AbstractHashboServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(AbstractHashboServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
+    public static final String VERSION = "1";
 
     private WebApplicationContext applicationContext;
     protected FountainDataStore dataStore;
@@ -77,9 +80,19 @@ public class AbstractHashboServlet extends HttpServlet {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
                 if (!entity.hasAttribute(LSDAttribute.ICON_URL)) {
-                    map.put("iconUrl", "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=off&bid=" + entity
-                            .getAttribute(LSDAttribute.ID)
-                           );
+                    final String url = URLEncoder.encode(
+                            "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=off&bid=" + entity
+                                    .getAttribute(LSDAttribute.ID) + VERSION, "utf-8"
+                                                        );
+                    final String iconUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" +
+                                           DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) +
+                                           '/' +
+                                           1024 +
+                                           'x' +
+                                           2048 +
+                                           '/' +
+                                           url;
+                    map.put("iconUrl", iconUrl);
                 }
             }
         }

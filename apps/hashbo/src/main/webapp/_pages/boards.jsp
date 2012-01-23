@@ -48,17 +48,22 @@
                            title="${board.description}">
                             <div class="board-image-wrapper">
                                 <img class="thumbnail"
-                                     src='<c:url value="_image-service">
-                                            <c:param name="url" value="${board.iconUrl}"/>
-                                            <c:param name="text" value="${board.title}"/>
-                                            <c:param name="size" value="LARGE"/>
-                                            <c:param name="width" value="300"/>
-                                            <c:param name="height" value="400"/>
-                                            <c:param name="delay" value="120"/>
-                                        </c:url>'
                                      width="300"
-                                     height="600"
-                                     alt="${board.description}"/>
+                                     height="400"
+                                     src='${board.iconUrl}' title='${board.title}'/>
+
+                                    <%--<img class="thumbnail"--%>
+                                    <%--src='<c:url value="_image-service">--%>
+                                    <%--<c:param name="url" value="${board.iconUrl}"/>--%>
+                                    <%--<c:param name="text" value="${board.title}"/>--%>
+                                    <%--<c:param name="size" value="LARGE"/>--%>
+                                    <%--<c:param name="width" value="300"/>--%>
+                                    <%--<c:param name="height" value="400"/>--%>
+                                    <%--<c:param name="delay" value="120"/>--%>
+                                    <%--</c:url>'--%>
+                                    <%--alt="${board.description}"/>--%>
+
+
                             </div>
                         </a>
 
