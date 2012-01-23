@@ -116,8 +116,11 @@ public interface LSDBaseEntity {
      */
     LSDTypeDef getTypeDef();
 
-    @Nullable
+    @Nonnull
     LiquidURI getURI();
+
+    boolean hasURI();
+
 
     @Nullable
     LiquidURI getURIAttribute(LSDAttribute attribute);

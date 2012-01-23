@@ -3,8 +3,6 @@
              xmlns:stream="urn:import:cazcade.vortex.widgets.client.stream"
              xmlns:pool="urn:import:cazcade.vortex.pool.widgets"
              xmlns:widgets="urn:import:cazcade.boardcast.client.main.widgets"
-             xmlns:toolbar="urn:import:cazcade.boardcast.client.main.widgets.toolbar"
-             xmlns:misc="urn:import:cazcade.vortex.widgets.client.misc"
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
              xmlns:profile="urn:import:cazcade.vortex.widgets.client.profile"
              xmlns:board="urn:import:cazcade.boardcast.client.main.widgets.board">
@@ -15,18 +13,12 @@
                 <stream:NotificationPanel ui:field="notificationPanel"/>
                 <board:PublicBoardHeader ui:field="publicBoardHeader" visible="false"/>
                 <profile:ProfileBoardHeader ui:field="profileBoardHeader" visible="false"/>
+
                 <div class="row board-top-menu-row">
                     <widgets:BoardMenuBar styleName="hashbo-board-menu" autoOpen="true" ui:field="menuBar"
                                           focusOnHoverEnabled="true"/>
 
-                    <iframe allowtransparency="true" frameborder="0" scrolling="no" class="tweet-button"
-                            ui:field="tweetButton"
-
-                            style="width:100px; height:20px;"></iframe>
-                    <g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>
-
                 </div>
-
                 <div class="board-content"
                      style="">
                     <!--<div class="board-content-top-divider"/>-->
@@ -38,6 +30,15 @@
                     <!--<div class="board-locked" ui:field="boardLockedIcon"-->
                     <!--title="You don't have permission to edit this board."/>-->
                 </div>
+                <div class="row board-top-menu-row">
+                    <iframe allowtransparency="true" frameborder="0" scrolling="no" class="tweet-button"
+                            ui:field="tweetButton"
+
+                            style="width:100px; height:20px;"></iframe>
+                    <g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>
+
+                </div>
+
                 <div class="row profile-board-header-bottom">
                     <fields:VortexEditableLabel wordwrap="true" styleName="board-text"
                                                 placeholder="Click to edit."

@@ -1,30 +1,38 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 
+import javax.annotation.Nonnull;
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * @author neilellis@cazcade.com
  */
 public final class SerializedRequest implements Serializable {
-    private LiquidRequestType type;
-    private LSDTransferEntity entity;
 
-    public SerializedRequest(final LiquidRequestType type, final LSDTransferEntity entity) {
-        this.type = type;
-        this.entity = entity;
+    private static final long serialVersionUID = 8663364255167259991L;
+
+    private String type;
+    private HashMap<String, String> entity;
+
+    public SerializedRequest(@Nonnull final LiquidRequestType type, @Nonnull final LSDTransferEntity entity) {
+        this.type = type.name();
+        this.entity = new HashMap<String, String>(entity.getMap());
     }
 
     public SerializedRequest() {
     }
 
+    @Nonnull
     public LSDTransferEntity getEntity() {
-        return entity;
+        return LSDSimpleEntity.createFromProperties(entity);
     }
 
+    @Nonnull
     public LiquidRequestType getType() {
-        return type;
+        return LiquidRequestType.valueOf(type);
     }
 }

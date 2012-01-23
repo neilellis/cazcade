@@ -46,20 +46,18 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.UUID;
 
 //todo: backport the notification parts to the notification servlet.
 
-public class DataStoreServiceImpl extends RemoteServiceServlet implements DataStoreService {
+public final class DataStoreServiceImpl extends RemoteServiceServlet implements DataStoreService {
     @Nonnull
     private static final Logger log = Logger.getLogger(DataStoreServiceImpl.class);
 
-    //TODO: make this retrieved from the web.xml so that client applications can change the web.xml at build time.
-    public static final String APPLICATION_VERSION = UUID.randomUUID().toString();
     public static final boolean USE_CONTINUATIONS = false;
     @Nonnull
     public static final String DEDUPCACHE = "dedupcache";
     public static final boolean ALLOW_DUPLICATES = true;
+    private static final long serialVersionUID = 860416951877283521L;
 
     private WebApplicationContext applicationContext;
     private FountainDataStore dataStore;
@@ -71,8 +69,6 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     private static final String JETTY_RETRY_REQUEST_EXCEPTION = "org.mortbay.jetty.RetryRequest";
     @Nonnull
     public static final String NOTIFICATION_SESSION_ATTRIBUTE = "notificationSession";
-    @Nonnull
-    public static final ArrayList<LiquidMessage> EMPTY_MESSAGE_LIST = new ArrayList<LiquidMessage>();
     private boolean supportsContinuations;
     private RabbitTemplate rabbitTemplate;
     private RabbitAdmin rabbitAdmin;
@@ -86,6 +82,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
      *
      * @param e the exception
      */
+    @Override
     protected void doUnexpectedFailure(@Nonnull final Throwable e) {
         throwIfRetryRequest(e);
         e.printStackTrace(System.err);
@@ -98,7 +95,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
      *
      * @param caught the exception
      */
-    protected void throwIfRetryRequest(Throwable caught) {
+    static void throwIfRetryRequest(Throwable caught) {
         if (caught instanceof UnexpectedException) {
             caught = caught.getCause();
         }
@@ -119,7 +116,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                 request.setAttribute(PAYLOAD, payload);
             }
             return payload;
-        } else {
+        }
+        else {
             return super.readContent(request);
         }
 
@@ -158,7 +156,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     }
 
     @Override
-    protected void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
         if (req.getHeader(X_VORTEX_SINCE) != null && "-1".equals(req.getHeader(X_VORTEX_SINCE))) {
             try {
                 resp.sendError(304);
@@ -179,11 +178,6 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         clientSessionManager.expireSession(identity.getSession().toString());
     }
 
-    @Override
-    public String getApplicationIdentifier() {
-        return APPLICATION_VERSION;
-    }
-
     @Nullable
     public LiquidSessionIdentifier login(@Nonnull final String username, final String password) {
         try {
@@ -191,7 +185,9 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             if (principal == null) {
                 return null;
             }
-            return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username), getThreadLocalRequest().getSession(true));
+            return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username),
+                                   getThreadLocalRequest().getSession(true)
+                                  );
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
@@ -204,7 +200,10 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         final String sessionUsername = (String) getThreadLocalRequest().getSession(true).getAttribute("username");
         if (sessionUsername != null) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + sessionUsername), getThreadLocalRequest().getSession(true));
+                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias,
+                                                                                      "cazcade:" + sessionUsername
+                ), getThreadLocalRequest().getSession(true)
+                                      );
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 return null;
@@ -212,12 +211,15 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         }
         if (anon) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:anon"), getThreadLocalRequest().getSession(true));
+                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:anon"),
+                                       getThreadLocalRequest().getSession(true)
+                                      );
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 return null;
             }
-        } else {
+        }
+        else {
             return null;
         }
 
@@ -226,16 +228,16 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
     @Nullable
     @Override
-    public LSDTransferEntity register(final String fullname, @Nonnull final String username, final String password, final String emailAddress) {
+    public LSDTransferEntity register(final String fullname, @Nonnull final String username, final String password,
+                                      final String emailAddress) {
         final HttpSession session = getThreadLocalRequest().getSession(true);
         final LSDTransferEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
             if (entity.isA(LSDDictionaryTypes.USER)) {
                 LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session);
             }
-//            sendEmail(entity);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return null;
         }
         return entity;
@@ -246,20 +248,29 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
     public boolean checkUsernameAvailability(@Nonnull final String username) {
         try {
             final LiquidMessage message;
-            message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin"), new LiquidURI(LiquidURIScheme.user, username), true));
+            message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin"), new LiquidURI(
+                    LiquidURIScheme.user, username
+            ), true
+            )
+                                       );
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
             final LSDBaseEntity responseEntity = message.getResponse();
-            return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
+            return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(
+                    LSDDictionaryTypes.AUTHORIZATION_DENIAL
+                                                                                            ) || responseEntity.isA(
+                    LSDDictionaryTypes.RESOURCE_NOT_FOUND
+                                                                                                                   );
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return false;
         }
 
     }
 
+    @Override
     @Nullable
-    public SerializedRequest process(@Nonnull final SerializedRequest ser) {
-        log.debug("{0}", LiquidXStreamFactory.getXstream().toXML(ser));
+    public SerializedRequest process(@Nonnull final SerializedRequest ser) throws Exception {
+        log.info("REQUEST IN XML FORMAT {0}", LiquidXStreamFactory.getXstream().toXML(ser));
         final AbstractRequest request;
         try {
             request = (AbstractRequest) ser.getType().getRequestClass().getConstructor().newInstance();
@@ -276,6 +287,9 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         } catch (InvocationTargetException e) {
             log.error(e.getMessage(), e);
             return null;
+        } catch (Exception e) {
+            log.error(e);
+            throw new Exception(e.getMessage());
         }
         final LiquidSessionIdentifier serverSession = request.getSessionIdentifier();
         if (serverSession == null) {
@@ -285,7 +299,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         if (clientSession == null) {
             if (request.isSecureOperation()) {
                 throw new LoggedOutException();
-            } else {
+            }
+            else {
                 clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true);
                 //This basically synchronizes our two ways of being logged in, logged in on the client and logged
                 //in here on the web server.
@@ -304,7 +319,7 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             getThreadLocalResponse().addHeader(X_VORTEX_CACHE_EXPIRY, String.valueOf(request.getCacheExpiry()));
             return response.asSerializedRequest();
         } catch (Exception e) {
-            e.printStackTrace(System.err);
+            log.error(e);
             return null;
         }
     }
@@ -316,23 +331,22 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
             message = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("admin"), board, false, false));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
             final LSDBaseEntity responseEntity = message.getResponse();
-            return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
+            return responseEntity != null && (responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA
+                    (LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return false;
         }
     }
 
 
+    @Override
     @Nullable
-    public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier serverSession, @Nonnull final ArrayList<String> locations) throws Exception {
+    public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier serverSession,
+                                                @Nonnull final ArrayList<String> locations) throws Exception {
         getThreadLocalRequest().setAttribute("com.newrelic.agent.IGNORE", true);
         NewRelic.ignoreTransaction();
-
-
-//        checkLoggedIn(identity);
         log.debug("Collecting " + locations);
-//        final LiquidSessionIdentifier identity = currentUser();
         final Continuation continuation = ContinuationSupport.getContinuation(getThreadLocalRequest());
         if (serverSession == null) {
             throw new LoggedOutException();
@@ -351,7 +365,9 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                             try {
                                 rabbitAdmin.removeBinding(new Binding(sessionQueue, exchange, "location." + previousLocation));
                             } catch (AmqpIOException amqpIOException) {
-                                log.warn("Exception while removing binding of queue->exchange {0}->{1}", sessionQueue.getName(), exchange.getName());
+                                log.warn("Exception while removing binding of queue->exchange {0}->{1}", sessionQueue.getName(),
+                                         exchange.getName()
+                                        );
                             }
                         }
                     }
@@ -373,7 +389,8 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                     if (ALLOW_DUPLICATES || dedupCache.get(cacheKey) == null) {
                         resultMessages.add(resultMessage.asSerializedRequest());
                         dedupCache.putQuiet(new Element(cacheKey, ""));
-                    } else {
+                    }
+                    else {
                         log.debug("Deduplicated {0}", cacheKey);
                     }
                 }
@@ -381,10 +398,12 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
                     if (USE_CONTINUATIONS) {
                         continuation.suspend();
                         return null;
-                    } else {
+                    }
+                    else {
                         Thread.sleep(500);
                     }
-                } else {
+                }
+                else {
                     log.debug("Returning {0} messages.", resultMessages.size());
                     return resultMessages;
                 }
@@ -399,45 +418,6 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
 
     }
 
-    //todo: hacked into here temp.
-    /*   private void sendEmail(LSDTransferEntity user) throws UnsupportedEncodingException, MessagingException {
-     if (user == null) {
-         throw new RuntimeException("No user to end email to.");
-     }
-     String host = "smtp.postmarkapp.com";
-     String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-     String from = "support@boardcast.it";
-
-     String name = user.getAttribute(LSDAttribute.FULL_NAME);
-     String subject = "Welcome!";
-
-     org.jasypt.digest.StandardStringDigester digester = new org.jasypt.digest.StandardStringDigester();
-     String messageText = "Please click on this link to complete your registration http://boardcast.it/_login-confirm-reg?user=" +
-             java.net.URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
-             "&hash=" + java.net.URLEncoder.encode(digester.digest(to), "utf8");
-
-     boolean sessionDebug = false;
-     Properties props = System.getProperties();
-     props.put("mail.host", host);
-     props.put("mail.transport.protocol", "smtp");
-     props.put("mail.smtp.auth", "true");
-     Session mailSession = Session.getDefaultInstance(props, null);
-     mailSession.setDebug(sessionDebug);
-     Message msg = new MimeMessage(mailSession);
-     msg.setFrom(new InternetAddress(from, "Boardcast"));
-     InternetAddress[] address = {new InternetAddress(to)};
-     msg.setRecipients(Message.RecipientType.TO, address);
-     msg.setSubject(subject);
-     msg.setSentDate(new Date());
-     msg.setText(messageText);
-
-     msg.saveChanges();
-     Transport transport = mailSession.getTransport("smtp");
-     transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
-     transport.sendMessage(msg, msg.getAllRecipients());
-     transport.close();
- }   */
-
 
     @Override
     public void destroy() {
@@ -445,7 +425,4 @@ public class DataStoreServiceImpl extends RemoteServiceServlet implements DataSt
         dataStore.stopIfNotStopped();
     }
 
-    public void setRabbitAdmin(final RabbitAdmin rabbitAdmin) {
-        this.rabbitAdmin = rabbitAdmin;
-    }
 }

@@ -12,16 +12,17 @@
                                                 placeholder="Click to edit the short description of the board"
                                                 ui:field="description"/>
                     <div class="board-page-header-rhs">
+                        <!--todo: remove-->
                         <image:EditableImage ui:field="boardIcon" styleName="board-icon" width="90px"
                                              size="CLIPPED_SMALL"
-                                             height="60px"/>
+                                             height="60px" visible="false"/>
                         <div class="board-link-row">
-
+                            <!--todo: remove-->
                             <div class="board-url">
-                                <fields:VortexEditableLabel readonly="true" ui:field="url"/>
+                                <fields:VortexEditableLabel readonly="true" ui:field="url" visible="false"/>
                             </div>
                             <div class="board-tag">
-                                <fields:VortexEditableLabel readonly="true" ui:field="tag"/>
+                                <fields:VortexEditableLabel readonly="true" ui:field="tag" visible="false"/>
                             </div>
 
                         </div>

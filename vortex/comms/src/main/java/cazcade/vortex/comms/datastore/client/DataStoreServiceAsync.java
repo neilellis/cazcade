@@ -19,14 +19,6 @@ public interface DataStoreServiceAsync {
     void register(String fullname, String username, String password, String emailAddress, AsyncCallback<LSDTransferEntity> async);
 
 
-    /**
-     * The application identifier should return the same value for the same release of the application.
-     *
-     * @return a string identifying the release of the application.
-     */
-    void getApplicationIdentifier(AsyncCallback<String> async);
-
-
     void collect(LiquidSessionIdentifier identity, ArrayList<String> location, AsyncCallback<ArrayList<SerializedRequest>> async);
 
     void logout(LiquidSessionIdentifier identity, AsyncCallback<Void> async);

@@ -25,13 +25,6 @@ public interface DataStoreService extends RemoteService {
 
     void logout(LiquidSessionIdentifier identity);
 
-    /**
-     * The application identifier should return the same value for the same release of the application.
-     *
-     * @return a string identifying the release of the application.
-     */
-    String getApplicationIdentifier();
-
     @Nullable
     LiquidSessionIdentifier login(String username, String password);
 
@@ -47,7 +40,7 @@ public interface DataStoreService extends RemoteService {
     ArrayList<SerializedRequest> collect(LiquidSessionIdentifier identity, ArrayList<String> location) throws Exception;
 
     @Nullable
-    SerializedRequest process(SerializedRequest request);
+    SerializedRequest process(SerializedRequest request) throws Exception;
 
     boolean checkBoardAvailability(LiquidURI board);
 

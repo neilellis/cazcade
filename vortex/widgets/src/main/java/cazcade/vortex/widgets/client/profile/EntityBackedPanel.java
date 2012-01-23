@@ -18,17 +18,19 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite {
     @Nullable
     protected LSDTransferEntity entity;
 
-    public void setEntity(@Nullable final LSDTransferEntity entity) {
+    public void setEntity(@Nonnull final LSDTransferEntity entity) {
         this.entity = entity;
         bind(entity);
 
     }
 
-    public void setEntityInternal(@Nullable final LSDTransferEntity entity) {
-        this.entity = entity;
-        if (entity == null) {
+    public void setEntityInternal(@Nonnull final LSDTransferEntity entity) {
+        if (this.entity == null) {
+            this.entity = entity;
             onInitial(entity);
-        } else {
+        }
+        else {
+            this.entity = entity;
             onUpdate(entity);
         }
         onChange(entity);
@@ -47,8 +49,11 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite {
 
     }
 
-    @Nullable
+    @Nonnull
     public LSDTransferEntity getEntity() {
+        if (entity == null) {
+            throw new NullPointerException("Panel has not been initialized yet so the backing entity is null.");
+        }
         return entity;
     }
 

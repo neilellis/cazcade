@@ -11,6 +11,8 @@ import java.util.*;
  * @author neilelliz@cazcade.com
  */
 public abstract class AbstractRequest implements LiquidRequest {
+
+
     public enum QueryType {
         MY, USERS_BOARDS, RECENT, HISTORY, POPULAR
     }
@@ -58,11 +60,13 @@ public abstract class AbstractRequest implements LiquidRequest {
     @Nonnull
     protected final Set<LiquidURI> getStandardAffectedEntitiesInternalPlus(final LiquidURI... uris) {
         final Set<LiquidURI> result = new HashSet<LiquidURI>();
-        if (getRequestEntity() != null) {
-            result.addAll(getAffectedEntitiesInternal(getRequestEntity().getURI()));
+        final LSDTransferEntity requestEntity = getRequestEntity();
+        if (requestEntity != null && requestEntity.hasURI()) {
+            result.addAll(getAffectedEntitiesInternal(requestEntity.getURI()));
         }
-        if (getResponse() != null) {
-            result.addAll(getAffectedEntitiesInternal(getResponse().getURI()));
+        final LSDTransferEntity response = getResponse();
+        if (response != null && response.hasURI()) {
+            result.addAll(getAffectedEntitiesInternal(response.getURI()));
         }
         if (getUri() != null) {
             result.addAll(getAffectedEntitiesInternal(getUri()));
@@ -679,7 +683,9 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     public void setEntity(@Nonnull final LSDTransferEntity entity) {
         if (!entity.hasAttribute(LSDAttribute.TYPE)) {
-            throw new IllegalArgumentException("Entities must always have a type.");
+            throw new IllegalArgumentException("Entities must always have a type. Attempted to set an entity on a request of type" +
+                                               " " + getClass().getName() + ", the entity was: " + entity.asFreeText()
+            );
         }
         this.entity = entity;
     }

@@ -51,4 +51,5 @@ public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
     Map<String, String> getMap();
 
     //For templating  they take camel case values like entity.set("imageUrl") ... useful for templates etc.
+
 }

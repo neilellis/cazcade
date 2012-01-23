@@ -43,6 +43,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Date;
 
 import static com.google.gwt.http.client.URL.encode;
 
@@ -354,7 +355,18 @@ public class PublicBoard extends EntityBackedFormPanel {
                               );
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
-        publishDate.setInnerText(getEntity().getPublished().toString());
+        final Date published = entity.getPublished();
+        if (published != null) {
+            publishDate.setInnerText(published.toString());
+        }
+        final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
+        String tagText = "";
+        if (!shortUrl.startsWith("-")) {
+            tagText = " The hashtag for this board is #" +
+                      shortUrl +
+                      ", the tag can be placed in comments and text and will link " +
+                      "back to this board.";
+        }
         visibilityDescription.setInnerText(buildVisibilityDescription() + " There have been " + entity.getAttribute(
                 LSDAttribute.VISITS_METRIC
                                                                                                                    )
@@ -363,14 +375,14 @@ public class PublicBoard extends EntityBackedFormPanel {
                                            entity.getAttribute(LSDAttribute.REGISTERED_VISITORS_METRIC) +
                                            " registered users and " +
                                            entity.getAttribute(LSDAttribute.COMMENT_COUNT, "no") +
-                                           " comments left."
+                                           " comments left." + tagText
                                           );
 //        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
 //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
 //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
 
-        final boolean adminPermission = getEntity().getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
-        final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
+        final boolean adminPermission = entity.getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
+        final String boardTitle = entity.getAttribute(LSDAttribute.TITLE);
         Window.setTitle("Boardcast : " + boardTitle);
 
 
