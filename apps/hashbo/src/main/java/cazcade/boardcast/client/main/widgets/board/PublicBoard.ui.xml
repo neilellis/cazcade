@@ -69,7 +69,7 @@
 
                     <g:DockLayoutPanel height="300px" unit="PX">
 
-                        <g:west size="400">
+                        <g:west size="380">
                             <g:HTMLPanel styleName="footer-lhs">
                                 <div class="board-author-info-box">
                                     <h3>About the author</h3>
@@ -80,14 +80,16 @@
                         <g:center>
                             <g:HTMLPanel styleName="footer-middle">
                                 <h3>Board Information</h3>
-                                This board was created at
-                                <span ui:field="publishDate"/>
-                                by
-                                <span ui:field="authorFullname"/>.
-                                <span ui:field="visibilityDescription"/>
+                                <p>
+                                    This board was created at
+                                    <span ui:field="publishDate"/>
+                                    by
+                                    <span ui:field="authorFullname"/>.
+                                    <span ui:field="visibilityDescription"/>
+                                </p>
                             </g:HTMLPanel>
                         </g:center>
-                        <g:east size="320">
+                        <g:east size="380">
                             <g:HTMLPanel styleName="footer-rhs">
                                 <h3>About Boardcast</h3>
                                 <!--<p>Boardcast is brought to you by Cazcade Ltd. We're a small UK based company looking to add-->
