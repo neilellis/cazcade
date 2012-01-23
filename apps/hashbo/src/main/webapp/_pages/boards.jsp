@@ -53,7 +53,7 @@
                                             <c:param name="text" value="${board.title}"/>
                                             <c:param name="size" value="LARGE"/>
                                             <c:param name="width" value="300"/>
-                                            <c:param name="height" value="600"/>
+                                            <c:param name="height" value="400"/>
                                             <c:param name="delay" value="60"/>
                                         </c:url>'
                                      width="300"
