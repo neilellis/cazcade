@@ -54,7 +54,7 @@
                                             <c:param name="size" value="LARGE"/>
                                             <c:param name="width" value="300"/>
                                             <c:param name="height" value="400"/>
-                                            <c:param name="delay" value="60"/>
+                                            <c:param name="delay" value="120"/>
                                         </c:url>'
                                      width="300"
                                      height="600"
