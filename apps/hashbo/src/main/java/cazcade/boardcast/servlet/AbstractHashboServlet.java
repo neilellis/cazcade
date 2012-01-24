@@ -80,7 +80,7 @@ public class AbstractHashboServlet extends HttpServlet {
                 map.put("shortUrl", shortUrl);
                 if (!entity.hasAttribute(LSDAttribute.ICON_URL) || FORCE_NEW_ICONS_FOR_BOARDS) {
                     final String url =
-                            "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=on&snapshot&bid=" + entity
+                            "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=on&bid=" + entity
                                     .getAttribute(LSDAttribute.ID) +
                             "-v" +
                             VERSION +
