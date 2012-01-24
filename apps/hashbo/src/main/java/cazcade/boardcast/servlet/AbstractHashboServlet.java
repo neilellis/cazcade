@@ -38,7 +38,8 @@ public class AbstractHashboServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(AbstractHashboServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
-    public static final String VERSION = "1";
+    public static final String VERSION = "2";
+    public static final boolean FORCE_NEW_ICONS_FOR_BOARDS = true;
 
     private WebApplicationContext applicationContext;
     protected FountainDataStore dataStore;
@@ -79,7 +80,7 @@ public class AbstractHashboServlet extends HttpServlet {
             if (entity.getURI().toString().startsWith("pool")) {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
-                if (!entity.hasAttribute(LSDAttribute.ICON_URL)) {
+                if (!entity.hasAttribute(LSDAttribute.ICON_URL) || FORCE_NEW_ICONS_FOR_BOARDS) {
                     final String url = URLEncoder.encode(
                             "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=off&bid=" + entity
                                     .getAttribute(LSDAttribute.ID) + VERSION, "utf-8"
