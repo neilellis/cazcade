@@ -173,21 +173,18 @@ public class ImageProxyServlet extends HttpServlet {
         }
         else {
             log.warn("Failed to snapshot {0}.", url);
-            sendUrl2PngAlternate(resp, width, height, url, refreshInSecs);
+            sendNotReady(resp, width, height, refreshInSecs);
 
         }
     }
 
-    private void sendNotReady(@Nonnull final HttpServletResponse resp, @Nonnull final CacheResponse response, final int width,
-                              final int height) throws UnsupportedEncodingException {
-        final String refreshInSecs = String.valueOf(response.getRefreshIndicator() / 1000);
+    private void sendNotReady(@Nonnull final HttpServletResponse resp, final int width,
+                              final int height, final String refreshInSecs) throws UnsupportedEncodingException {
         resp.setStatus(307);
         resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=Image+Not+Ready");
         resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
         //noinspection VariableNotUsedInsideIf
-        if (response == null) {
-            resp.setHeader("Refresh", refreshInSecs);
-        }
+        resp.setHeader("Refresh", refreshInSecs);
         resp.setHeader("Connection", "close");
     }
 
