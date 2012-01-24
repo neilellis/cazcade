@@ -28,7 +28,7 @@ import java.util.Date;
 /**
  * @author neilellis@cazcade.com
  */
-public class FountainIndexServiceImpl {
+public final class FountainIndexServiceImpl {
     private final Logger log = LoggerFactory.getLogger(FountainIndexServiceImpl.class);
 
 
@@ -112,7 +112,8 @@ public class FountainIndexServiceImpl {
         return type.toString().startsWith(LSDDictionaryTypes.BOARD.getValue());
     }
 
-    private void addCoreMetadataToBoard(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final BoardIndexEntity board) {
+    private static void addCoreMetadataToBoard(@Nonnull final LSDPersistedEntity persistedEntity,
+                                               @Nonnull final BoardIndexEntity board) {
         board.setDescription(persistedEntity.getAttribute(LSDAttribute.DESCRIPTION, null));
         board.setText(persistedEntity.getAttribute(LSDAttribute.TEXT_EXTENDED, null));
         board.setTitle(persistedEntity.getAttribute(LSDAttribute.TITLE, null));
@@ -144,19 +145,24 @@ public class FountainIndexServiceImpl {
         }
     }
 
-    private void syncCommentCountInternal(@Nonnull final LSDPersistedEntity persistedEntity,
+    private void syncCommentCountInternal(@Nonnull final LSDBaseEntity persistedEntity,
                                           @Nonnull final BoardIndexEntity board) {
-        final long commentCount = persistedEntity.getIntegerAttribute(LSDAttribute.COMMENT_COUNT, 0);
+        long commentCount = 0;
+        try {
+            commentCount = persistedEntity.getIntegerAttribute(LSDAttribute.COMMENT_COUNT, 0);
+        } catch (NumberFormatException e) {
+            log.error(e.getMessage(), e);
+        }
         board.setCommentCount(commentCount);
     }
 
-    private void syncFollowerCountInternal(@Nonnull final LSDPersistedEntity persistedEntity,
-                                           @Nonnull final BoardIndexEntity board) {
+    private static void syncFollowerCountInternal(@Nonnull final LSDBaseEntity persistedEntity,
+                                                  @Nonnull final BoardIndexEntity board) {
         final long aliasFollowsCount = persistedEntity.getIntegerAttribute(LSDAttribute.FOLLOWERS_COUNT, 0);
         board.setFollowerCount(aliasFollowsCount);
     }
 
-    private void updateBoardPopularity(@Nonnull final BoardIndexEntity board) {
+    private static void updateBoardPopularity(@Nonnull final BoardIndexEntity board) {
         board.setPopularity((long) (10000 * (Math.log10(board.getCommentCount() + 1) +
                                              Math.log10(board.getActivityCount() + 1) +
                                              Math.log10(board.getFollowerCount() + 1) +

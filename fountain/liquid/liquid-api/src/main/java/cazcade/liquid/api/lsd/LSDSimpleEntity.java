@@ -51,7 +51,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public void setAttribute(@Nullable final LSDAttribute key, @Nullable final String value) {
+    public void setAttribute(@Nonnull final LSDAttribute key, @Nullable final String value) {
         assertNotReadonly();
         if (key == null) {
             throw new IllegalArgumentException("Cannot set a value for a null key.");
@@ -224,7 +224,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final void addSubEntity(@Nonnull final LSDAttribute stem, @Nullable final LSDBaseEntity entity,
+    public final void addSubEntity(@Nonnull final LSDAttribute stem, @Nonnull final LSDBaseEntity entity,
                                    final boolean requiresId) {
         assertNotReadonly();
         if (entity == null) {
@@ -342,6 +342,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return result;
     }
 
+    @Nonnull
     @Override
     public final String asFreeText() {
         final StringBuilder s = new StringBuilder();
@@ -457,7 +458,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final boolean attributeIs(@Nonnull final LSDAttribute attribute, final String comparison) {
+    public final boolean attributeIs(@Nonnull final LSDAttribute attribute, @Nonnull final String comparison) {
         return hasAttribute(attribute) && getAttribute(attribute).equals(comparison);
     }
 
@@ -467,7 +468,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final boolean canBe(final LSDDictionaryTypes type) {
+    public final boolean canBe(@Nonnull final LSDDictionaryTypes type) {
         return getTypeDef().canBe(type);
     }
 
@@ -483,7 +484,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final void copyAttribute(@Nonnull final LSDBaseEntity entity, final LSDAttribute attribute) {
+    public final void copyAttribute(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDAttribute attribute) {
         setAttribute(attribute, entity.getAttribute(attribute));
     }
 
@@ -659,12 +660,13 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final Double getDoubleAttribute(@Nonnull final LSDAttribute attribute) {
+    public final Double getDoubleAttribute(@Nonnull final LSDAttribute attribute) throws NumberFormatException {
         return Double.valueOf(getAttribute(attribute));
     }
 
     @Override
-    public final int getIntegerAttribute(@Nonnull final LSDAttribute attribute, final int defaultValue) {
+    public final int getIntegerAttribute(@Nonnull final LSDAttribute attribute, final int defaultValue)
+            throws NumberFormatException {
         return Integer.parseInt(getAttribute(attribute, String.valueOf(defaultValue)));
     }
 
@@ -678,12 +680,12 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final Integer getIntegerAttribute(@Nonnull final LSDAttribute attribute) {
+    public final Integer getIntegerAttribute(@Nonnull final LSDAttribute attribute) throws NumberFormatException {
         return Integer.valueOf(getAttribute(attribute));
     }
 
     @Override
-    public final Long getLongAttribute(@Nonnull final LSDAttribute attribute) {
+    public final Long getLongAttribute(@Nonnull final LSDAttribute attribute) throws NumberFormatException {
         return Long.valueOf(getAttribute(attribute));
     }
 
@@ -790,7 +792,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final String getValue(final String key) {
+    public final String getValue(@Nonnull final String key) {
         return lsdProperties.get(key);
     }
 
@@ -802,12 +804,12 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final boolean isA(final LSDDictionaryTypes type) {
+    public final boolean isA(@Nonnull final LSDDictionaryTypes type) {
         return getTypeDef() != null && getTypeDef().getPrimaryType().isA(type);
     }
 
     @Override
-    public boolean isA(final LSDTypeDef typeDef) {
+    public boolean isA(@Nonnull final LSDTypeDef typeDef) {
         return getTypeDef().equals(typeDef);
     }
 
@@ -888,31 +890,31 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public void setAttribute(final LSDAttribute attribute, final long value) {
+    public void setAttribute(@Nonnull final LSDAttribute attribute, final long value) {
         assertNotReadonly();
         setAttribute(attribute, String.valueOf(value));
     }
 
     @Override
-    public void setAttribute(final LSDAttribute attribute, @Nonnull final LiquidUUID uuid) {
+    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final LiquidUUID uuid) {
         assertNotReadonly();
         setAttribute(attribute, uuid.toString());
     }
 
     @Override
-    public void setAttribute(final LSDAttribute attribute, @Nonnull final LiquidURI uri) {
+    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final LiquidURI uri) {
         assertNotReadonly();
         setAttribute(attribute, uri.asString());
     }
 
     @Override
-    public void setAttribute(final LSDAttribute attribute, final double value) {
+    public void setAttribute(@Nonnull final LSDAttribute attribute, final double value) {
         assertNotReadonly();
         setAttribute(attribute, String.valueOf(value));
     }
 
     @Override
-    public void setAttribute(final LSDAttribute checked, final boolean bool) {
+    public void setAttribute(@Nonnull final LSDAttribute checked, final boolean bool) {
         assertNotReadonly();
         setAttribute(checked, bool ? "true" : "false");
     }
@@ -952,7 +954,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public void setAttribute(final LSDAttribute attribute, @Nonnull final Date value) {
+    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final Date value) {
         setAttribute(attribute, value.getTime());
     }
 
