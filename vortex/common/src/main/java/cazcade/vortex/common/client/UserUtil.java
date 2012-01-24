@@ -4,6 +4,7 @@ import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.storage.client.Storage;
 
 import javax.annotation.Nonnull;
@@ -49,7 +50,7 @@ public class UserUtil {
 
     @SuppressWarnings({"MethodParameterOfConcreteClass"})
     public static void storeIdentity(@Nullable final LiquidSessionIdentifier storeIdentity) {
-        if (storeIdentity != null && storeIdentity.getSession() != null) {
+        if (storeIdentity != null && storeIdentity.getSession() != null && Storage.isSupported()) {
             Storage.getSessionStorageIfSupported().setItem(VORTEX_IDENTITY, storeIdentity.toString());
         }
     }
@@ -58,13 +59,17 @@ public class UserUtil {
     public static LiquidSessionIdentifier retrieveUser() {
         final Storage storage = Storage.getSessionStorageIfSupported();
         if (storage == null) {
-            throw new RuntimeException("No session storage available.");
+            //fallback to anonymous usage
+            ClientLog.log("Returning anonymous identifier as session storage not available.");
+            return new LiquidSessionIdentifier(new LiquidURI(ANON_ALIAS));
         }
         return LiquidSessionIdentifier.fromString(storage.getItem(VORTEX_IDENTITY));
     }
 
     public static void removeIdentity() {
-        Storage.getSessionStorageIfSupported().removeItem(VORTEX_IDENTITY);
+        if (Storage.isSessionStorageSupported()) {
+            Storage.getSessionStorageIfSupported().removeItem(VORTEX_IDENTITY);
+        }
         identity = null;
         currentAlias = null;
 
@@ -97,7 +102,8 @@ public class UserUtil {
     public static String getCurrentAliasName() {
         if (currentAlias != null) {
             return currentAlias.getAttribute(LSDAttribute.NAME);
-        } else {
+        }
+        else {
             return "";
         }
 

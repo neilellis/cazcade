@@ -64,9 +64,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/pom.xml" afterPath="$PROJECT_DIR$/apps/hashbo/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/PersistentUUIDService.java" afterPath="$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/PersistentUUIDService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/UserUtil.java" afterPath="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/UserUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientPreferences.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientPreferences.java" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -284,24 +285,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AbstractHashboServlet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="75" selection-start="3677" selection-end="3677" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FountainIndexServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainIndexServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="22" selection-start="1287" selection-end="1287" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SnapshotBoard.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -311,68 +294,76 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Window.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/com/google/gwt/user/client/Window.java">
+      <file leaf-file-name="Boardcast.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="827" column="28" selection-start="23502" selection-end="23502" vertical-scroll-proportion="0.0">
+            <state line="291" column="23" selection-start="11762" selection-end="11762" vertical-scroll-proportion="-7.6538463">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GWTDataStore.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/GWTDataStore.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="213" column="10" selection-start="11300" selection-end="11300" vertical-scroll-proportion="-18.038462">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientPreferences.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientPreferences.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="33" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Storage.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/com/google/gwt/storage/client/Storage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="184" column="45" selection-start="5718" selection-end="5718" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="e#0#26070#0" expanded="true" />
-                <marker date="1314617760000" expanded="true" signature="4161:4204" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="5605:5645" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="5786:5830" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="5956:5996" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="7029:7073" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="7206:7246" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="7392:7436" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="7756:7793" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="8070:8114" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="10189:10237" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="10396:10440" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="10608:10655" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="10817:10862" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="11027:11073" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="11501:11551" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="16791:16817" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="17150:17185" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="18566:18594" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="19126:19156" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="19476:19504" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="19958:19999" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="20146:20169" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="20621:20669" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="22172:22211" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="22572:22611" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="22826:22861" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="23277:23317" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="23530:23561" placeholder="{...}" />
-                <marker date="1314617760000" expanded="true" signature="23717:23746" placeholder="{...}" />
+                <marker date="1314617738000" expanded="true" signature="2794:2855" placeholder="{...}" />
+                <marker date="1314617738000" expanded="true" signature="2921:2984" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Window.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/com/google/gwt/user/client/Window.class">
+      <file leaf-file-name="PersistentUUIDService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/PersistentUUIDService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="30" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.0">
+            <state line="20" column="18" selection-start="503" selection-end="503" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Boardcast.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java">
+      <file leaf-file-name="UserUtil.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/UserUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="18" selection-start="3528" selection-end="3528" vertical-scroll-proportion="0.0">
+            <state line="59" column="32" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.33333334">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="VersionNumberChecker.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/version/VersionNumberChecker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="23" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="42" selection-start="4226" selection-end="4226" vertical-scroll-proportion="0.6933962">
+            <state line="133" column="20" selection-start="4427" selection-end="4427" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -382,24 +373,6 @@
         <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="26" column="26" selection-start="700" selection-end="700" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FountainPoolDAOImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="49" selection-start="624" selection-end="624" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LSDBaseEntity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="33" selection-start="1863" selection-end="1863" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -419,9 +392,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/snapshot.jsp" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.ui.xml" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/delay.jsp" />
         <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/PoolPresenterImpl.java" />
         <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
@@ -435,6 +405,9 @@
         <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainIndexServiceImpl.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/pom.xml" />
+        <option value="$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/PersistentUUIDService.java" />
+        <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientPreferences.java" />
+        <option value="$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/UserUtil.java" />
       </list>
     </option>
   </component>
@@ -483,8 +456,8 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="y" value="72" />
+    <option name="x" value="12" />
+    <option name="y" value="22" />
     <option name="width" value="1920" />
     <option name="height" value="1129" />
   </component>
@@ -4217,7 +4190,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="72" width="1920" height="1129" extended-state="0" />
+    <frame x="12" y="22" width="1920" height="1129" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1388889" sideWeight="0.66032064" order="3" side_tool="false" content_ui="tabs" />
@@ -4371,57 +4344,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageProxyServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="197" column="55" selection-start="8102" selection-end="8102" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="43" selection-start="4870" selection-end="4870" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDMapPropertyStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="18" selection-start="1007" selection-end="1007" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDPropertyStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="687" column="0" selection-start="25713" selection-end="25713" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#10010#10024#0" expanded="true" />
-            <element signature="e#10303#10335#0" expanded="true" />
-            <element signature="e#12460#12474#0" expanded="true" />
-            <element signature="e#13881#13897#0" expanded="true" />
-            <element signature="e#21399#21407#0" expanded="true" />
-            <element signature="e#23267#23283#0" expanded="true" />
-            <element signature="e#26958#26984#0" expanded="true" />
-            <element signature="e#32043#32051#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/index/src/main/java/cazcade/fountain/index/persistence/entities/BoardIndexEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="16" selection-start="2309" selection-end="2309" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="57" column="33" selection-start="1863" selection-end="1863" vertical-scroll-proportion="0.0">
@@ -4462,35 +4384,35 @@
         <state line="827" column="28" selection-start="23502" selection-end="23502" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#0#26070#0" expanded="true" />
-            <marker date="1314617760000" expanded="true" signature="4161:4204" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="5605:5645" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="5786:5830" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="5956:5996" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="7029:7073" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="7206:7246" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="7392:7436" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="7756:7793" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="8070:8114" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="10189:10237" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="10396:10440" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="10608:10655" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="10817:10862" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="11027:11073" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="11501:11551" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="16791:16817" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="17150:17185" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="18566:18594" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="19126:19156" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="19476:19504" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="19958:19999" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="20146:20169" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="20621:20669" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="22172:22211" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="22572:22611" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="22826:22861" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="23277:23317" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="23530:23561" placeholder="{...}" />
-            <marker date="1314617760000" expanded="true" signature="23717:23746" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1314617760000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -4498,6 +4420,20 @@
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="164" column="71" selection-start="6512" selection-end="6512" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="133" column="20" selection-start="4427" selection-end="4427" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/version/VersionNumberChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="23" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -4511,14 +4447,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="18" selection-start="3528" selection-end="3528" vertical-scroll-proportion="0.0">
+        <state line="291" column="23" selection-start="11762" selection-end="11762" vertical-scroll-proportion="-7.6538463">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
+    <entry file="file://$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/client/GWTDataStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="42" selection-start="4226" selection-end="4226" vertical-scroll-proportion="0.6933962">
+        <state line="213" column="10" selection-start="11300" selection-end="11300" vertical-scroll-proportion="-18.038462">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/com/google/gwt/storage/client/Storage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="184" column="45" selection-start="5718" selection-end="5718" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1314617738000" expanded="true" signature="2794:2855" placeholder="{...}" />
+            <marker date="1314617738000" expanded="true" signature="2921:2984" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientPreferences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="33" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/bus/src/main/java/cazcade/vortex/bus/client/PersistentUUIDService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="18" selection-start="503" selection-end="503" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/common/src/main/java/cazcade/vortex/common/client/UserUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="32" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>

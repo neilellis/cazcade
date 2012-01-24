@@ -4,13 +4,7 @@ import com.google.gwt.storage.client.Storage;
 
 import javax.annotation.Nonnull;
 
-/**
- * Created by IntelliJ IDEA.
- * User: neilellis
- * Date: 22/08/2011
- * Time: 19:07
- * To change this template use File | Settings | File Templates.
- */
+
 public class ClientPreferences {
 
     public enum Preference {
@@ -18,6 +12,9 @@ public class ClientPreferences {
     }
 
     public static boolean booleanPreference(@Nonnull final Preference pref) {
+        if (!Storage.isSupported()) {
+            return false;
+        }
         final String value = Storage.getLocalStorageIfSupported().getItem(prefToKey(pref));
         return "true".equals(value);
     }
@@ -28,7 +25,9 @@ public class ClientPreferences {
     }
 
     public static void setBooleanPreference(@Nonnull final Preference pref, final boolean value) {
-        Storage.getLocalStorageIfSupported().setItem(prefToKey(pref), value ? "true" : "false");
+        if (Storage.isLocalStorageSupported()) {
+            Storage.getLocalStorageIfSupported().setItem(prefToKey(pref), value ? "true" : "false");
+        }
     }
 
 }

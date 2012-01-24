@@ -17,11 +17,14 @@ public class PersistentUUIDService {
     public static final String LOCAL_STORAGE_KEY = "cazcade.vortex.uuids";
 
     public PersistentUUIDService() {
-        final Storage storage = Storage.getLocalStorageIfSupported();
-        uuids = storage.getItem(LOCAL_STORAGE_KEY);
-        if (uuids == null) {
+        if (Storage.isLocalStorageSupported()) {
+            final Storage storage = Storage.getLocalStorageIfSupported();
+            uuids = storage.getItem(LOCAL_STORAGE_KEY);
+            if (uuids == null) {
+                uuids = "";
+                size = 0;
+            }
             uuids = "";
-            size = 0;
         }
         recount();
     }
@@ -44,8 +47,9 @@ public class PersistentUUIDService {
     }
 
     private void persistUUIDs() {
-
-        Storage.getLocalStorageIfSupported().setItem(LOCAL_STORAGE_KEY, uuids);
+        if (Storage.isLocalStorageSupported()) {
+            Storage.getLocalStorageIfSupported().setItem(LOCAL_STORAGE_KEY, uuids);
+        }
 
     }
 
