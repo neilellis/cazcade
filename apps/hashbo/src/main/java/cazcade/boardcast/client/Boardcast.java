@@ -91,14 +91,15 @@ public class Boardcast implements EntryPoint {
         }
                                        );
 
-
-        VersionNumberChecker.start();
+        if (!ClientApplicationConfiguration.isSnapshotMode()) {
+            VersionNumberChecker.start();
+        }
         if (ClientApplicationConfiguration.isDebug()) {
 //            Window.alert("Debugging build " + VersionNumberChecker.getBuildNumber());
         }
 
 
-        if (ClientApplicationConfiguration.isPreflight()) {
+        if (ClientApplicationConfiguration.isPreflight() && !ClientApplicationConfiguration.isSnapshotMode()) {
             PreflightCheck.check();
         }
 
@@ -127,7 +128,7 @@ public class Boardcast implements EntryPoint {
     }
 
     private void injectChildren() {
-        if (!ClientApplicationConfiguration.isDebug()) {
+        if (!ClientApplicationConfiguration.isDebug() && !ClientApplicationConfiguration.isSnapshotMode()) {
             Track.setGoogleId("UA-27340178-1");
             tracker = Track.getInstance();
             History.addValueChangeHandler(tracker);
