@@ -12,7 +12,7 @@ public class ClientPreferences {
     }
 
     public static boolean booleanPreference(@Nonnull final Preference pref) {
-        if (!Storage.isSupported()) {
+        if (!Storage.isLocalStorageSupported()) {
             return false;
         }
         final String value = Storage.getLocalStorageIfSupported().getItem(prefToKey(pref));

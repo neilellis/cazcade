@@ -50,20 +50,23 @@ public class UserUtil {
 
     @SuppressWarnings({"MethodParameterOfConcreteClass"})
     public static void storeIdentity(@Nullable final LiquidSessionIdentifier storeIdentity) {
-        if (storeIdentity != null && storeIdentity.getSession() != null && Storage.isSupported()) {
+        if (storeIdentity != null && storeIdentity.getSession() != null && Storage.isSessionStorageSupported()) {
             Storage.getSessionStorageIfSupported().setItem(VORTEX_IDENTITY, storeIdentity.toString());
         }
     }
 
     @Nullable
     public static LiquidSessionIdentifier retrieveUser() {
-        final Storage storage = Storage.getSessionStorageIfSupported();
-        if (storage == null) {
+        if (Storage.isSessionStorageSupported()) {
+            final Storage storage = Storage.getSessionStorageIfSupported();
+            return LiquidSessionIdentifier.fromString(storage.getItem(VORTEX_IDENTITY));
+        }
+        else {
             //fallback to anonymous usage
             ClientLog.log("Returning anonymous identifier as session storage not available.");
             return new LiquidSessionIdentifier(new LiquidURI(ANON_ALIAS));
+
         }
-        return LiquidSessionIdentifier.fromString(storage.getItem(VORTEX_IDENTITY));
     }
 
     public static void removeIdentity() {
