@@ -40,6 +40,6 @@
 
 
 //This may look insane but it's for a reason! It's to delay the taking of a snapshot until all GWT has finished.
-<img width="0" height="0" border="0" src="delay.jsp"/>
+<img width="0" height="0" border="0" src="/_pages/delay.jsp"/>
 </body>
 </html>
