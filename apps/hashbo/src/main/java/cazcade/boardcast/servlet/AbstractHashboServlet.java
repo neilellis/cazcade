@@ -38,7 +38,7 @@ public class AbstractHashboServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(AbstractHashboServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
-    public static final String VERSION = "2";
+    public static final String VERSION = "3";
     public static final boolean FORCE_NEW_ICONS_FOR_BOARDS = true;
 
     private WebApplicationContext applicationContext;
