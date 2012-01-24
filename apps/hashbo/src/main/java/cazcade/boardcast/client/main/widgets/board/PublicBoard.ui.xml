@@ -98,15 +98,14 @@
                                     there are still a few bugs kicking around and we're still trying to make things look nice.
                                     We'd love you to have a play, look around and tell us how we can make your life easier!
                                 </p>
-                                <p>We have a<a href="http://boardcast.posterous.com">blog</a>, and a
-                                    <a
-                                            href="http://twitter.com/boardcast_it">Twitter account
-                                    </a>
-                                    where you can keep up
-                                    to date with the latest improvements.
+                                <p>We have a
+                                    <a href="http://boardcast.posterous.com">blog</a>, and a
+                                    <a href="http://twitter.com/boardcast_it">Twitter account</a>
+                                    where you can keep up to date with the latest improvements.
                                 </p>
                                 <p>If you have any suggestions for us or find something that doesn't work,
-                                    please drop by our<a href="http://boardcast.zendesk.com">support website</a>.
+                                    please drop by our
+                                    <a href="http://boardcast.zendesk.com">support website</a>.
                                 </p>
 
                             </g:HTMLPanel>
