@@ -39,9 +39,7 @@
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 
 
-<%
-    //This may look insane but it's for a reason! It's to delay the taking of a snapshot until all GWT has finished.
-    Thread.sleep(10 * 1000);
-%>
+//This may look insane but it's for a reason! It's to delay the taking of a snapshot until all GWT has finished.
+<img width="0" height="0" border="0" src="delay.jsp"/>
 </body>
 </html>
