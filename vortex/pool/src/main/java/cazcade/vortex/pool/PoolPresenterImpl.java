@@ -43,12 +43,16 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     @Nonnull
     private final PoolObjectContainerManager poolObjectContainerManager;
 
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel,
+                             @Nonnull final LSDTransferEntity entity, final FormatUtil features,
+                             final VortexThreadSafeExecutor threadSafeExecutor) {
 
         this(scrollPanel, panel, entity, false, features, threadSafeExecutor);
     }
 
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel,
+                             @Nonnull final LSDTransferEntity entity, final boolean pageFlow, final FormatUtil features,
+                             final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
         this.panel = panel;
         this.entity = entity;
@@ -56,6 +60,10 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         if (pageFlow) {
             panel.setHeight(height + "px");
             scrollPanel.setHeight(height + "px");
+        }
+        else {
+            panel.setHeight("100%");
+            scrollPanel.setHeight("100%");
         }
         this.threadSafeExecutor = threadSafeExecutor;
         poolObjectContainerManager = new PoolObjectContainerManager(this, threadSafeExecutor, entity.getURI(), features);
@@ -123,14 +131,18 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     public void move(@Nonnull final PoolObjectPresenter presenter, final double x, final double y, final boolean onServer) {
         if (onServer) {
             BusFactory.getInstance().dispatch(new MovePoolObjectRequest(presenter.getEntity().getURI(), x, y, 0.0));
-        } else {
+        }
+        else {
             final Widget widget = presenter.getPoolObjectView();
             //noinspection ObjectEquality
             if (widget.getParent() != panel) {
                 ClientLog.log("Widget parent was " + widget.getParent() + " not " + panel);
                 ClientLog.log("Offending widget was " + widget);
-                throw new IllegalArgumentException("Pool widget does not have this as a parent, check the log for more information.");
-            } else {
+                throw new IllegalArgumentException(
+                        "Pool widget does not have this as a parent, check the log for more information."
+                );
+            }
+            else {
                 double newX = x;
                 double newY = y;
                 if (newX > width - widget.getOffsetWidth()) {
@@ -172,7 +184,9 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     @Override
     public void moveToVisibleCentre(@Nonnull final PoolObjectPresenter poolObjectPresenter) {
-        move(poolObjectPresenter, scrollPanel.getOffsetX() + scrollPanel.getOffsetWidth() / 2, scrollPanel.getOffsetY() + scrollPanel.getOffsetHeight() / 2, true);
+        move(poolObjectPresenter, scrollPanel.getOffsetX() + scrollPanel.getOffsetWidth() / 2,
+             scrollPanel.getOffsetY() + scrollPanel.getOffsetHeight() / 2, true
+            );
     }
 
     public int getAbsoluteLeft() {

@@ -75,10 +75,13 @@ public class PoolContentArea extends Composite {
     public PoolContentArea(final boolean scrollX, final boolean scrollY, final boolean pageFlow) {
         super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
+        this.pageFlow = pageFlow;
         scrollPanel = new VortexScrollPanel(widget, scrollX, scrollY, true, pageFlow, null);
         initWidget(scrollPanel);
+        if (!pageFlow) {
+            setHeight("100%");
+        }
         bus = BusFactory.getInstance();
-        this.pageFlow = true;
     }
 
 
