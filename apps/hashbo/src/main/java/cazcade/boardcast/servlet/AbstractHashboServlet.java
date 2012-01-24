@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,10 +79,9 @@ public class AbstractHashboServlet extends HttpServlet {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
                 if (!entity.hasAttribute(LSDAttribute.ICON_URL) || FORCE_NEW_ICONS_FOR_BOARDS) {
-                    final String url = URLEncoder.encode(
-                            "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=off&bid=" + entity
-                                    .getAttribute(LSDAttribute.ID) + VERSION, "utf-8"
-                                                        );
+                    final String url =
+                            "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=on&bid=" + entity
+                                    .getAttribute(LSDAttribute.ID) + VERSION;
 //                    final String iconUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" +
 //                                           DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) +
 //                                           '/' +
