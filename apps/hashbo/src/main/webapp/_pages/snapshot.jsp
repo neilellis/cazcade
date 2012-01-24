@@ -39,7 +39,7 @@
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 
 
-<%--//This may look insane but it's for a reason! It's to delay the taking of a snapshot until all GWT has finished.--%>
-<img width="0" height="0" border="0" src="/_pages/delay.jsp"/>
+<%--&lt;%&ndash;//This may look insane but it's for a reason! It's to delay the taking of a snapshot until all GWT has finished.&ndash;%&gt;--%>
+<%--<img width="0" height="0" border="0" src="/_pages/delay.jsp"/>--%>
 </body>
 </html>
