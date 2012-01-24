@@ -28,7 +28,7 @@ import java.util.Date;
 /**
  * @author neilellis@cazcade.com
  */
-public final class FountainIndexServiceImpl {
+public class FountainIndexServiceImpl {
     private final Logger log = LoggerFactory.getLogger(FountainIndexServiceImpl.class);
 
 
