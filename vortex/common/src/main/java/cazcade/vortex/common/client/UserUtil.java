@@ -4,6 +4,7 @@ import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.storage.client.Storage;
 
@@ -50,27 +51,29 @@ public class UserUtil {
 
     @SuppressWarnings({"MethodParameterOfConcreteClass"})
     public static void storeIdentity(@Nullable final LiquidSessionIdentifier storeIdentity) {
-        if (storeIdentity != null && storeIdentity.getSession() != null && Storage.isSessionStorageSupported()) {
+        if (storeIdentity != null && storeIdentity.getSession() != null
+            && ClientApplicationConfiguration
+                .isSessionStorageSupported()) {
             Storage.getSessionStorageIfSupported().setItem(VORTEX_IDENTITY, storeIdentity.toString());
         }
     }
 
     @Nullable
     public static LiquidSessionIdentifier retrieveUser() {
-        if (Storage.isSessionStorageSupported()) {
+        if (ClientApplicationConfiguration.isSessionStorageSupported()) {
             final Storage storage = Storage.getSessionStorageIfSupported();
             return LiquidSessionIdentifier.fromString(storage.getItem(VORTEX_IDENTITY));
         }
         else {
             //fallback to anonymous usage
-            ClientLog.log("Returning anonymous identifier as session storage not available.");
+            ClientLog.log("Returning anonymous identifier as session storage not available or in snapshot mode.");
             return new LiquidSessionIdentifier(new LiquidURI(ANON_ALIAS));
 
         }
     }
 
     public static void removeIdentity() {
-        if (Storage.isSessionStorageSupported()) {
+        if (ClientApplicationConfiguration.isSessionStorageSupported()) {
             Storage.getSessionStorageIfSupported().removeItem(VORTEX_IDENTITY);
         }
         identity = null;

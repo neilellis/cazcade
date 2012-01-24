@@ -1,5 +1,6 @@
 package cazcade.boardcast.client.preflight;
 
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 
@@ -12,6 +13,10 @@ public class PreflightCheck {
 
 
     public static void check() {
+        if (ClientApplicationConfiguration.isSnapshotMode()) {
+            //snapshot mode is under our control so no preflight check.
+            return;
+        }
         check(borderRadius(), "Border Radius");
         check(boxShadow(), "Box Shadow");
         check(cssAnimations(), "CSS Animations");
@@ -24,7 +29,10 @@ public class PreflightCheck {
             Window.Location.assign("../unsupported_browser.html?message=IE+Not+Supported+Yet");
         }
         if (Window.Navigator.getUserAgent().contains("iPhone") || Window.Navigator.getUserAgent().contains("iPod")) {
-            Window.Location.assign("../unsupported_browser.html?message=Mobile+devices+not+supported+yet+" + URL.encode(Window.Navigator.getUserAgent()));
+            Window.Location.assign("../unsupported_browser.html?message=Mobile+devices+not+supported+yet+" + URL.encode(
+                    Window.Navigator.getUserAgent()
+                                                                                                                       )
+                                  );
         }
     }
 

@@ -1,5 +1,6 @@
 package cazcade.vortex.gwt.util.client;
 
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
 
 
@@ -15,6 +16,7 @@ public class ClientApplicationConfiguration {
     private static boolean loginRequired;
     private static boolean retrieveUpdates = true;
     private static boolean register;
+    private static boolean snapshotMode = false;
 
     public static boolean isDebug() {
         return debug;
@@ -35,7 +37,8 @@ public class ClientApplicationConfiguration {
     public static boolean isAlphaFeatures() {
         if (ALPHA_FEATURES_AVAILABLE) {
             return alphaFeatures;
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -53,6 +56,7 @@ public class ClientApplicationConfiguration {
     }
 
     public static void init() {
+        setSnapshotMode(Window.Location.getParameter("snapshot") == null);
         setPreflight(Window.Location.getParameter("skippreflight") == null);
         setLoginRequired(Window.Location.getParameter("forceLogin") != null);
         setDebug(Window.Location.getParameter("debug") != null);
@@ -75,5 +79,21 @@ public class ClientApplicationConfiguration {
 
     public static boolean xxxisRegister() {
         return register;
+    }
+
+    public static void setSnapshotMode(boolean snapshotMode) {
+        ClientApplicationConfiguration.snapshotMode = snapshotMode;
+    }
+
+    public static boolean isSnapshotMode() {
+        return snapshotMode;
+    }
+
+    public static boolean isSessionStorageSupported() {
+        return !isSnapshotMode() && Storage.isSessionStorageSupported();
+    }
+
+    public static boolean isLocalStorageSupported() {
+        return !isSnapshotMode() && Storage.isLocalStorageSupported();
     }
 }

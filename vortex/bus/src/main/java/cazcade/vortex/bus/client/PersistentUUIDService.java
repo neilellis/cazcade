@@ -1,6 +1,7 @@
 package cazcade.vortex.bus.client;
 
 import cazcade.liquid.api.LiquidUUID;
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import com.google.gwt.storage.client.Storage;
 
 import javax.annotation.Nonnull;
@@ -17,14 +18,17 @@ public class PersistentUUIDService {
     public static final String LOCAL_STORAGE_KEY = "cazcade.vortex.uuids";
 
     public PersistentUUIDService() {
-        if (Storage.isLocalStorageSupported()) {
+        if (ClientApplicationConfiguration.isLocalStorageSupported()) {
             final Storage storage = Storage.getLocalStorageIfSupported();
             uuids = storage.getItem(LOCAL_STORAGE_KEY);
             if (uuids == null) {
                 uuids = "";
                 size = 0;
             }
+        }
+        else {
             uuids = "";
+            size = 0;
         }
         recount();
     }
@@ -47,7 +51,7 @@ public class PersistentUUIDService {
     }
 
     private void persistUUIDs() {
-        if (Storage.isLocalStorageSupported()) {
+        if (ClientApplicationConfiguration.isLocalStorageSupported()) {
             Storage.getLocalStorageIfSupported().setItem(LOCAL_STORAGE_KEY, uuids);
         }
 
