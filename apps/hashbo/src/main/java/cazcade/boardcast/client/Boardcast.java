@@ -130,9 +130,9 @@ public class Boardcast implements EntryPoint {
     private void injectChildren() {
         if (!ClientApplicationConfiguration.isDebug() && !ClientApplicationConfiguration.isSnapshotMode()) {
             Track.setGoogleId("UA-27340178-1");
-            tracker = Track.getInstance();
-            History.addValueChangeHandler(tracker);
         }
+        tracker = Track.getInstance();
+        History.addValueChangeHandler(tracker);
 
 //        addLogPanel();
 

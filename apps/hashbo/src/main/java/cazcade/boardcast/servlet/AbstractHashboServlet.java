@@ -38,6 +38,7 @@ public class AbstractHashboServlet extends HttpServlet {
     public static final String SESSION_KEY = "sessionId";
     public static final String VERSION = "8";
     public static final boolean FORCE_NEW_ICONS_FOR_BOARDS = true;
+    public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
 
     private WebApplicationContext applicationContext;
     protected FountainDataStore dataStore;
@@ -78,23 +79,11 @@ public class AbstractHashboServlet extends HttpServlet {
             if (entity.getURI().toString().startsWith("pool")) {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
-                if (!entity.hasAttribute(LSDAttribute.ICON_URL) || FORCE_NEW_ICONS_FOR_BOARDS) {
-                    final String url =
-                            "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=on&bid=" + entity
-                                    .getAttribute(LSDAttribute.ID) +
-                            "-v" +
-                            VERSION +
-                            System.currentTimeMillis() / (1000 * 36000 * 24);
-//                    final String iconUrl = "http://api.url2png.com/v3/P4EAE9DEAC5242/" +
-//                                           DigestUtils.md5Hex("SA5EC9AA3853DA+" + url) +
-//                                           '/' +
-//                                           1024 +
-//                                           'x' +
-//                                           2048 +
-//                                           '/' +
-//                                           url;
-                    map.put("iconUrl", url);
-                }
+                final String url = "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=on&bid=" + entity
+                        .getAttribute(LSDAttribute.ID) + entity.getAttribute(LSDAttribute.UPDATED, "") +
+                                   "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
+                map.put("snapshotUrl", url);
+
             }
         }
         return result;

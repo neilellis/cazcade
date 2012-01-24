@@ -54,11 +54,11 @@
 
                                 <img class="thumbnail"
                                      src='<c:url value="_image-service">
-                                    <c:param name="url" value="${board.iconUrl}"/>
+                                    <c:param name="url" value="${board.snapshotUrl}"/>
                                     <c:param name="text" value="${board.title}"/>
                                     <c:param name="size" value="LARGE"/>
                                     <c:param name="width" value="300"/>
-                                    <c:param name="height" value="400"/>
+                                    <c:param name="height" value="402"/>
                                     <c:param name="delay" value="60"/>
                                     </c:url>'
                                      alt="${board.description}"/>
