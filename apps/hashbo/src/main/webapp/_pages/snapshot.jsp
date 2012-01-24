@@ -11,7 +11,7 @@
     <%@ include file="navfunc.jspf" %>
     <%@ include file="header.jspf" %>
 </head>
-<body style="padding-top:0px;max-width:1024px;max-height:2048px;overflow:hidden;">
+<body style="padding-top:0px;max-width:1024px;max-height:2048px;height:2048px;background-color:white;overflow:hidden;">
 <tags:log-panel/>
 
 <script>

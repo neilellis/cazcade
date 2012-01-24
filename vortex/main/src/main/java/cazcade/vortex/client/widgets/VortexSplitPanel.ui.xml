@@ -9,7 +9,7 @@
     </ui:style>
     <g:DockLayoutPanel visible="true" styleName="vtx-main-panel">
         <g:west size="300">
-                <panel:VortexLHSPanel/>
+            <panel:VortexLHSPanel/>
         </g:west>
         <g:center>
             <g:DockLayoutPanel styleName="vtx-rhs">
@@ -18,7 +18,7 @@
                 </g:north>
                 <g:center>
 
-                    <pool:PoolContentArea ui:field="contentArea"/>
+                    <pool:PoolContentArea ui:field="contentArea" scrollX="true" scrollY="true" pageFlow="true"/>
 
                 </g:center>
                 <g:south size="54">

@@ -2,11 +2,7 @@
              xmlns:pool='urn:import:cazcade.vortex.pool.widgets'
              xmlns:stream='urn:import:cazcade.vortex.widgets.client.stream'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:toolbar="urn:import:cazcade.boardcast.client.main.widgets.toolbar"
              xmlns:widgets="urn:import:cazcade.boardcast.client.main.widgets"
-             xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
-             xmlns:inbox="urn:import:cazcade.vortex.widgets.client.inbox"
-             xmlns:activity="urn:import:cazcade.vortex.widgets.client.activity"
         >
 
     <g:HTMLPanel styleName="hashbo-app " ui:field="board">
@@ -16,7 +12,7 @@
         <g:HTMLPanel styleName="hashbo-main">
 
             <g:HTMLPanel styleName="board-current-work-area">
-                <pool:PoolContentArea ui:field="contentArea" scrollX="true" scrollY="false"/>
+                <pool:PoolContentArea ui:field="contentArea" scrollX="true" scrollY="false" pageFlow="true"/>
             </g:HTMLPanel>
 
         </g:HTMLPanel>

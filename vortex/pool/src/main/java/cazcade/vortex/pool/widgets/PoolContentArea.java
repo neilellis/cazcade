@@ -63,7 +63,7 @@ public class PoolContentArea extends Composite {
     private final boolean pageFlow;
 
     public PoolContentArea() {
-        this(false, false);
+        this(false, false, true);
     }
 
     @Override
@@ -72,17 +72,18 @@ public class PoolContentArea extends Composite {
     }
 
     @UiConstructor
-    public PoolContentArea(final boolean scrollX, final boolean scrollY) {
+    public PoolContentArea(final boolean scrollX, final boolean scrollY, final boolean pageFlow) {
         super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
-        scrollPanel = new VortexScrollPanel(widget, scrollX, scrollY, true, null);
+        scrollPanel = new VortexScrollPanel(widget, scrollX, scrollY, true, pageFlow, null);
         initWidget(scrollPanel);
         bus = BusFactory.getInstance();
-        pageFlow = true;
+        this.pageFlow = true;
     }
 
 
-    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final LSDType type, final boolean listed) {
+    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor,
+                     @Nonnull final LSDType type, final boolean listed) {
         this.threadSafeExecutor = threadSafeExecutor;
         bus.send(new VisitPoolRequest(type, uri, uri, true, listed), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
@@ -93,10 +94,12 @@ public class PoolContentArea extends Composite {
 
                 init(poolEntity, features, threadSafeExecutor);
             }
-        });
+        }
+                );
     }
 
-    public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features,
+                     final VortexThreadSafeExecutor threadSafeExecutor) {
         final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
         setBackgroundImage(imageUrl);
 //        backgroundImage.setWidth("100%");
@@ -113,32 +116,40 @@ public class PoolContentArea extends Composite {
                 if (listed) {
                     visibilityRibbon.setText("All can edit");
                     visibilityRibbon.addStyleName("danger");
-                } else {
+                }
+                else {
                     visibilityRibbon.setText("Invitees can edit");
                 }
-            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+            }
+            else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                 if (listed) {
                     visibilityRibbon.setText("Everyone can modify");
                     visibilityRibbon.addStyleName("warning");
-                } else {
+                }
+                else {
                     visibilityRibbon.setText("Invitees can modify");
                 }
-            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+            }
+            else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
                 if (listed) {
                     visibilityRibbon.setText("Everyone can view");
-                } else {
+                }
+                else {
                     visibilityRibbon.setText("Invitees can view");
                 }
-            } else {
+            }
+            else {
                 if (listed) {
                     visibilityRibbon.setText("Listed but not visible");
                     visibilityRibbon.addStyleName("warning");
-                } else {
+                }
+                else {
                     visibilityRibbon.setText("Only you can view");
                 }
             }
             WidgetUtil.show(visibilityRibbon);
-        } else {
+        }
+        else {
             WidgetUtil.hideGracefully(visibilityRibbon, false);
         }
         clear();
@@ -148,7 +159,11 @@ public class PoolContentArea extends Composite {
         for (final LSDBaseEntity entity : entities) {
             try {
                 ClientLog.log(entity.getTypeDef().asString());
-                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, (LSDTransferEntity) entity, features, threadSafeExecutor);
+                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter,
+                                                                                                                 (LSDTransferEntity) entity,
+                                                                                                                 features,
+                                                                                                                 threadSafeExecutor
+                                                                                                                );
                 if (poolObjectPresenter != null) {
                     ClientLog.assertTrue(poolObjectPresenter != null, "Pool Object Presenter was null");
                     poolObjectPresenter.setX(scrollPanel.getOffsetX() + 200);
@@ -174,8 +189,12 @@ public class PoolContentArea extends Composite {
 //            Window.alert("setting background "+imageUrl);
             if (BrowserUtil.isInternalImage(imageUrl)) {
                 container.getElement().getStyle().setProperty("backgroundImage", "url('" + imageUrl + "')");
-            } else {
-                container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" + encode(imageUrl) + "&size=LARGE&width=1024&height=2048')");
+            }
+            else {
+                container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" +
+                                                                                 encode(imageUrl) +
+                                                                                 "&size=LARGE&width=1024&height=2048')"
+                                                             );
             }
             container.getElement().getStyle().setWidth(1024, Style.Unit.PX);
         }

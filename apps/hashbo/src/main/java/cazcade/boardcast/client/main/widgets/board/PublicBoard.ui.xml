@@ -36,7 +36,7 @@
                     <!--<div class="board-content-bottom-divider"/>-->
                     <!--<div style="position:absolute;z-index:40000;top:-6px;left:0;right:0;background-image: url('_images/shadow-bottom-to-top-narrow.png');height:6px;"/>-->
                     <!--<div style="position:absolute;z-index:40000;bottom:-6px;left:0;right:0;background-image: url('_images/shadow-top-to-bottom-narrow.png');height:6px;"/>-->
-                    <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="contentArea"/>
+                    <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="contentArea" pageFlow="true"/>
 
                     <!--<div class="board-locked" ui:field="boardLockedIcon"-->
                     <!--title="You don't have permission to edit this board."/>-->
