@@ -80,7 +80,7 @@ public class AbstractHashboServlet extends HttpServlet {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
                 final String url = "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=on&bid=" + entity
-                        .getAttribute(LSDAttribute.ID) + entity.getAttribute(LSDAttribute.UPDATED, "") +
+                        .getAttribute(LSDAttribute.ID) + entity.getAttribute(LSDAttribute.VERSION, "") +
                                    "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
                 map.put("snapshotUrl", url);
 
