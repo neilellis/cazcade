@@ -52,20 +52,20 @@
     <%@ include file="footer.jspf" %>
 
 
-    <!-- /container -->
-    <span id="sharethisbutton" style="visibility: hidden">
-        <%--<span class='st_twitter'></span>--%>
-        <span class='st_sharethis_hcount'></span>
-        <%--<span class='st_facebook_large'></span>--%>
-        <%--<span class='st_reddit_large'></span>--%>
-        <%--<span class='st_plusone'></span>--%>
-    </span>
+    <%--<!-- /container -->--%>
+    <%--<span id="sharethisbutton" style="visibility: hidden">--%>
+    <%--&lt;%&ndash;<span class='st_twitter'></span>&ndash;%&gt;--%>
+    <%--<span class='st_sharethis_hcount'></span>--%>
+    <%--&lt;%&ndash;<span class='st_facebook_large'></span>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;<span class='st_reddit_large'></span>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;<span class='st_plusone'></span>&ndash;%&gt;--%>
+    <%--</span>--%>
 
 
 </div>
 
 
-    <span id="sharethisbar" style="visibility: hidden">
+    <span id="sharethis" style="visibility: hidden">
     <script type="text/javascript" language="javascript"
             src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 </span>
