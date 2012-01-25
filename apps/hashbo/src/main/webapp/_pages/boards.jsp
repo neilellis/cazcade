@@ -96,5 +96,7 @@
     <!-- /container -->
 </div>
 
+<%@ include file="bottom-toolbar.jspf" %>
+
 </body>
 </html>
