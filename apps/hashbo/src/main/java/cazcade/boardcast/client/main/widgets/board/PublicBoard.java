@@ -398,11 +398,19 @@ public class PublicBoard extends EntityBackedFormPanel {
                     contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
                     final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
                     //bottom toolbar
-                    setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
-                                        "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                        imageUrl == null ? "" : imageUrl, RootPanel.get("sharethisbar").getElement()
-                                       );
+                    final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName(
+                            "span"
+                                                                                                                   );
+                    final int max = spans.getLength();
+                    for (int i = 0; i < max; i++) {
+                        if (spans.getItem(i).hasAttribute("st_processed")) {
+                            setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
+                                                "Take a look at the Boardcast board '" + boardTitle + "' ", "",
+                                                imageUrl == null ? "" : imageUrl, spans.getItem(i)
+                                               );
+                        }
 
+                    }
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.init(getEntity(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
