@@ -29,7 +29,7 @@ import java.util.Date;
  * @author neilellis@cazcade.com
  */
 public class FountainIndexServiceImpl {
-    private final Logger log = LoggerFactory.getLogger(FountainIndexServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(FountainIndexServiceImpl.class);
 
 
     @Autowired
@@ -158,7 +158,13 @@ public class FountainIndexServiceImpl {
 
     private static void syncFollowerCountInternal(@Nonnull final LSDBaseEntity persistedEntity,
                                                   @Nonnull final BoardIndexEntity board) {
-        final long aliasFollowsCount = persistedEntity.getIntegerAttribute(LSDAttribute.FOLLOWERS_COUNT, 0);
+        long aliasFollowsCount = 0;
+        try {
+            aliasFollowsCount = persistedEntity.getIntegerAttribute(LSDAttribute.FOLLOWERS_COUNT, 0);
+        } catch (NumberFormatException e) {
+            log.error(e.getMessage(), e);
+            aliasFollowsCount = 0;
+        }
         board.setFollowerCount(aliasFollowsCount);
     }
 
