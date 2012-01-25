@@ -29,9 +29,7 @@
 <script type="text/javascript">var switchTo5x = true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript" src="http://s.sharethis.com/loader.js"></script>
-<script type="text/javascript">stLight.options({publisher:'c2dcef1f-34f2-4795-b2c4-d55b9ff9528d',
-    url:"http://sharethis.com", publisherGA:"UA-25104667-1",
-    onhover:true});</script>
+<script type="text/javascript">stLight.options({publisher:'c2dcef1f-34f2-4795-b2c4-d55b9ff9528d', publisherGA:"UA-25104667-1", onhover:true});</script>
 
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
