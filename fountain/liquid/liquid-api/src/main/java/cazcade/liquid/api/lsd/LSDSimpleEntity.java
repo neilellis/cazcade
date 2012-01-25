@@ -620,9 +620,11 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         for (final String key : lsdProperties.getProperties()) {
             result.put(convertToCamel(key), lsdProperties.get(key));
         }
-        final LiquidURI uri = getURI();
-        if (uri != null && LiquidBoardURL.isConvertable(uri)) {
-            result.put("shortUrl", uri.asShortUrl().asUrlSafe());
+        if (hasURI()) {
+            final LiquidURI uri = getURI();
+            if (LiquidBoardURL.isConvertable(uri)) {
+                result.put("shortUrl", uri.asShortUrl().asUrlSafe());
+            }
         }
         if (hasAttribute(LSDAttribute.SOURCE) && LiquidBoardURL.isConvertable(getURIAttribute(LSDAttribute.SOURCE))) {
             //noinspection ConstantConditions
@@ -952,6 +954,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public void setPublished(@Nonnull final Date published) {
         setAttribute(LSDAttribute.PUBLISHED, published);
     }
+
 
     @Override
     public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final Date value) {

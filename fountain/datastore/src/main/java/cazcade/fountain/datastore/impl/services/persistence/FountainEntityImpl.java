@@ -581,6 +581,11 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     @Override
     public void timestamp() {
         super.timestamp();
+
+    }
+
+    @Override
+    public void publishTimestamp() {
         if (!hasAttribute(LSDAttribute.PUBLISHED)) {
             setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }

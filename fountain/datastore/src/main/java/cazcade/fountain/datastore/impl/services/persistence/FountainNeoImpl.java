@@ -213,6 +213,8 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     public FountainEntityImpl createNode() {
         final FountainEntityImpl fountainEntityImpl = new FountainEntityImpl(neo.createNode());
         fountainEntityImpl.setAttribute(VERSION, "1");
+        fountainEntityImpl.publishTimestamp();
+        fountainEntityImpl.timestamp();
         return fountainEntityImpl;
     }
 
@@ -801,6 +803,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
                                                                                         );
             if (parentRel != null) {
                 final LSDPersistedEntity parentPersistedEntity = parentRel.getOtherNode(persistedEntity);
+                parentPersistedEntity.timestamp();
                 parentPersistedEntity.createRelationshipTo(clone, FountainRelationships.CHILD);
                 parentRel.delete();
             }

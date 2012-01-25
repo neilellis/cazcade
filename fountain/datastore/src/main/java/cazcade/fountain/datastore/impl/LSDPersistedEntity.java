@@ -128,6 +128,8 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
     @Override
     void timestamp();
 
+    void publishTimestamp();
+
     @Nonnull
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
                        RelationshipType firstRelationshipType, Direction firstDirection, RelationshipType secondRelationshipType,
