@@ -53,7 +53,7 @@
 
 
     <!-- /container -->
-    <span id="sharethis" style="visibility: hidden">
+    <span id="sharethisbutton" style="visibility: hidden">
         <%--<span class='st_twitter'></span>--%>
         <span class='st_sharethis_hcount'></span>
         <%--<span class='st_facebook_large'></span>--%>

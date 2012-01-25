@@ -511,7 +511,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private void init() {
         //sharethis button
-        final RootPanel sharethis = RootPanel.get("sharethis");
+        final RootPanel sharethis = RootPanel.get("sharethisbutton");
         sharethisElement = sharethis.getElement();
         sharethisElement.removeFromParent();
         sharethisElement.getStyle().setVisibility(Style.Visibility.VISIBLE);
@@ -525,13 +525,9 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     public ChangeBackgroundDialog getChangeBackgroundDialog() {
         if (changeBackgroundDialog == null) {
-            setChangeBackgroundDialog(new ChangeBackgroundDialog());
+            changeBackgroundDialog = new ChangeBackgroundDialog();
         }
         return changeBackgroundDialog;
-    }
-
-    public void setChangeBackgroundDialog(final ChangeBackgroundDialog changeBackgroundDialog) {
-        this.changeBackgroundDialog = changeBackgroundDialog;
     }
 
     interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {
