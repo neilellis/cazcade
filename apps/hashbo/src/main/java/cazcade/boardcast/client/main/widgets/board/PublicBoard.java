@@ -397,6 +397,11 @@ public class PublicBoard extends EntityBackedFormPanel {
                 public void onSuccess() {
                     contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
                     final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
+                    //bottom toolbar
+                    setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
+                                        "Take a look at the Boardcast board '" + boardTitle + "' ", "",
+                                        imageUrl == null ? "" : imageUrl, RootPanel.get("stwrapper").getElement()
+                                       );
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
                                         "Take a look at the Boardcast board '" + boardTitle + "' ", "",
                                         imageUrl == null ? "" : imageUrl, sharethisElement
