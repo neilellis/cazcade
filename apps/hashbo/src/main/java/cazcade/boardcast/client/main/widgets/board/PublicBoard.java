@@ -414,7 +414,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 //                    alt="${board.description}"/>
 
                     //bottom toolbar
-                    configureShareThis(imageUrl, boardTitle);
+                    configureShareThis(imageUrl, boardTitle, shortUrl);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.init(getEntity(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
@@ -451,16 +451,16 @@ public class PublicBoard extends EntityBackedFormPanel {
                     );
     }
 
-    private void configureShareThis(String imageUrl, String boardTitle) {
+    private void configureShareThis(String imageUrl, String boardTitle, String board) {
         final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName(
                 "span"
                                                                                                        );
         final int max = spans.getLength();
         for (int i = 0; i < max; i++) {
-            if (spans.getItem(i).hasAttribute("st_processed")) {
-                setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
-                                    "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                    imageUrl == null ? "" : imageUrl, spans.getItem(i)
+            final Element span = spans.getItem(i);
+            if (span.hasAttribute("class") && "stButton".equalsIgnoreCase(span.getAttribute("class"))) {
+                setShareThisDetails(board, "Take a look at the Boardcast board '" + boardTitle + "' ", "",
+                                    imageUrl == null ? "" : imageUrl, span
                                    );
             }
 
