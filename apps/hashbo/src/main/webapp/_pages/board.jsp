@@ -55,18 +55,26 @@
     <!-- /container -->
     <span id="sharethis" style="visibility: hidden">
         <%--<span class='st_twitter'></span>--%>
-        <span class='st_email'></span>
-        <span class='st_facebook'></span>
-        <span class='st_linkedin'></span>
-        <span class='st_reddit'></span>
+        <span class='st_sharethis_hcount'></span>
+        <%--<span class='st_facebook_large'></span>--%>
+        <%--<span class='st_reddit_large'></span>--%>
         <%--<span class='st_plusone'></span>--%>
     </span>
 
 
 </div>
 
+
 <script type="text/javascript" language="javascript"
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 
+<script>
+    var options = { "publisher":"c2dcef1f-34f2-4795-b2c4-d55b9ff9528d", "logo":{ "visible":false, "url":"", "img":"http://sd.sharethis.com/disc/images/demo_logo.png", "height":45}, "ad":{ "visible":false, "openDelay":"10", "closeDelay":"0"}, "livestream":{ "domain":"boardcast.it", "type":"sharethis", "src":""}, "ticker":{ "visible":false, "domain":"", "title":"Most Shared", "type":"sharethis", "src":""}, "facebook":{ "visible":true, "profile":"boardcast"}, "fblike":{ "visible":true, "url":""}, "twitter":{ "visible":true, "user":"boardcast_it"}, "twfollow":{ "visible":true, "url":"http://twitter.com/boardcast_it"}, "custom":[
+        { "visible":false, "title":"Popular", "url":"http://boardcast.it/_query-popular", "img":"", "popup":false, "popupCustom":{ "width":300, "height":250}},
+        { "visible":false, "title":"Custom 2", "url":"", "img":"", "popup":false, "popupCustom":{ "width":300, "height":250}},
+        { "visible":false, "title":"Custom 3", "url":"", "img":"", "popup":false, "popupCustom":{ "width":300, "height":250}}
+    ]};
+    var st_bar_widget = new sharethis.widgets.sharebar(options);
+</script>
 </body>
 </html>
