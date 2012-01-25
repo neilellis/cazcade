@@ -17,7 +17,7 @@
                                 ui:field="tweetButton"
 
                                 style="width:100px; height:20px;"></iframe>
-                        <g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>
+                        <!--<g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>-->
 
                     </div>
                 </div>

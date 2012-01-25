@@ -65,8 +65,8 @@ public class PublicBoard extends EntityBackedFormPanel {
     BoardMenuBar menuBar;
     //    @UiField
 //    DivElement boardLockedIcon;
-    @UiField
-    HTMLPanel shareThisHolder;
+//    @UiField
+//    HTMLPanel shareThisHolder;
     @UiField
     AliasDetailFlowPanel ownerDetailPanel;
     @UiField
@@ -100,7 +100,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
     private long changePermissionListener;
-    private Element sharethisElement;
+//    private Element sharethisElement;
 
 
     private static native void replaceState(String title, String state) /*-{
@@ -402,10 +402,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                                         "Take a look at the Boardcast board '" + boardTitle + "' ", "",
                                         imageUrl == null ? "" : imageUrl, RootPanel.get("sharethisbar").getElement()
                                        );
-                    setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
-                                        "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                        imageUrl == null ? "" : imageUrl, sharethisElement
-                                       );
+
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.init(getEntity(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
@@ -516,11 +513,11 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private void init() {
         //sharethis button
-        final RootPanel sharethis = RootPanel.get("sharethisbutton");
-        sharethisElement = sharethis.getElement();
-        sharethisElement.removeFromParent();
-        sharethisElement.getStyle().setVisibility(Style.Visibility.VISIBLE);
-        shareThisHolder.getElement().appendChild(sharethis.getElement());
+//        final RootPanel sharethis = RootPanel.get("sharethisbutton");
+//        sharethisElement = sharethis.getElement();
+//        sharethisElement.removeFromParent();
+//        sharethisElement.getStyle().setVisibility(Style.Visibility.VISIBLE);
+//        shareThisHolder.getElement().appendChild(sharethis.getElement());
 
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
         if (poolURI != null) {
