@@ -67,6 +67,8 @@
 <script type="text/javascript" language="javascript"
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
 
-
+<span id="sharethisbar" class="st_sharethis">
+    <%@ include file="bottom-toolbar.jspf" %>
+</span>
 </body>
 </html>
