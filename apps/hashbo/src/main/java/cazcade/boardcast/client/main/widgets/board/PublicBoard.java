@@ -34,6 +34,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
@@ -396,21 +397,24 @@ public class PublicBoard extends EntityBackedFormPanel {
                 @Override
                 public void onSuccess() {
                     contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
-                    final String imageUrl = getEntity().getAttribute(LSDAttribute.IMAGE_URL);
-                    //bottom toolbar
-                    final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName(
-                            "span"
-                                                                                                                   );
-                    final int max = spans.getLength();
-                    for (int i = 0; i < max; i++) {
-                        if (spans.getItem(i).hasAttribute("st_processed")) {
-                            setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
-                                                "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                                imageUrl == null ? "" : imageUrl, spans.getItem(i)
-                                               );
-                        }
+                    final String snapshotUrl = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + System.currentTimeMillis();
+                    final String imageUrl = "/_image-service?url=" + URL.encode(snapshotUrl)
+                                            + "&size=LARGE&width=150&height=200&delay=60";
 
-                    }
+
+//                    <img class="thumbnail"
+//                    src='<c:url value="_image-service">
+//                        <c:param name="url" value="${board.snapshotUrl}"/>
+//                    <c:param name="text" value="${board.title}"/>
+//                    <c:param name="size" value="LARGE"/>
+//                    <c:param name="width" value="300"/>
+//                    <c:param name="height" value="400"/>
+//                    <c:param name="delay" value="60"/>
+//                    </c:url>'
+//                    alt="${board.description}"/>
+
+                    //bottom toolbar
+                    configureShareThis(imageUrl, boardTitle);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.init(getEntity(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
@@ -445,6 +449,22 @@ public class PublicBoard extends EntityBackedFormPanel {
             }
         }
                     );
+    }
+
+    private void configureShareThis(String imageUrl, String boardTitle) {
+        final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName(
+                "span"
+                                                                                                       );
+        final int max = spans.getLength();
+        for (int i = 0; i < max; i++) {
+            if (spans.getItem(i).hasAttribute("st_processed")) {
+                setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
+                                    "Take a look at the Boardcast board '" + boardTitle + "' ", "",
+                                    imageUrl == null ? "" : imageUrl, spans.getItem(i)
+                                   );
+            }
+
+        }
     }
 
     @Nonnull
