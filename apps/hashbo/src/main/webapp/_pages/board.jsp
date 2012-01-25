@@ -65,10 +65,10 @@
 </div>
 
 
-    <span id="sharethis" style="visibility: hidden">
-    <script type="text/javascript" language="javascript"
-            src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
-</span>
+<script type="text/javascript" language="javascript"
+        src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
+    <span id="sharethis">
 <%@ include file="bottom-toolbar.jspf" %>
+</span>
 </body>
 </html>
