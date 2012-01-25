@@ -65,9 +65,10 @@
 </div>
 
 
-<script type="text/javascript" language="javascript"
-        src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
-
+    <span id="sharethisbar" style="visibility: hidden">
+    <script type="text/javascript" language="javascript"
+            src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
+</span>
 <%@ include file="bottom-toolbar.jspf" %>
 </body>
 </html>

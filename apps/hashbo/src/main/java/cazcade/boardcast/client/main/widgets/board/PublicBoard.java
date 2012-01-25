@@ -400,7 +400,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     //bottom toolbar
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
                                         "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                        imageUrl == null ? "" : imageUrl, RootPanel.get("stwrapper").getElement()
+                                        imageUrl == null ? "" : imageUrl, RootPanel.get("sharethisbar").getElement()
                                        );
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
                                         "Take a look at the Boardcast board '" + boardTitle + "' ", "",
