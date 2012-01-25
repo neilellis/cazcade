@@ -29,7 +29,10 @@ import cazcade.vortex.widgets.client.stream.CommentPanel;
 import cazcade.vortex.widgets.client.stream.NotificationPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
-import com.google.gwt.dom.client.*;
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.IFrameElement;
+import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -39,7 +42,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -400,7 +402,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     //bottom toolbar
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
                                         "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                        imageUrl == null ? "" : imageUrl, RootPanel.get("sharethis").getElement()
+                                        imageUrl == null ? "" : imageUrl
                                        );
 
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
@@ -488,16 +490,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         return description;
     }
 
-    private static native void setShareThisDetails(String board, String title, String summary, String image, Element element) /*-{
-        $wnd.stWidget.addEntry({
-            "service":"sharethis",
-            "element":element,
-            "url":"http://boardca.st/" + board,
-            "title":title,
-            "image":image,
-            "summary":summary,
-            "text":"Share"
-        });
+    private static native void setShareThisDetails(String board, String title, String summary, String image) /*-{
 
 
         var options = { "publisher":"c2dcef1f-34f2-4795-b2c4-d55b9ff9528d", "logo":{ "visible":false, "url":"", "img":"http://sd.sharethis.com/disc/images/demo_logo.png", "height":45},
@@ -513,6 +506,15 @@ public class PublicBoard extends EntityBackedFormPanel {
             ]};
         $wnd.st_bar_widget = new sharethis.widgets.sharebar(options);
 
+        $wnd.stWidget.addEntry({
+            "service":"sharethis",
+            "element":$wnd.st_bar_widget,
+            "url":"http://boardca.st/" + board,
+            "title":title,
+            "image":image,
+            "summary":summary,
+            "text":"Share"
+        });
 
     }-*/;
 
