@@ -53,7 +53,7 @@
 
 
     <%--<!-- /container -->--%>
-    <%--<span id="sharethisbutton" style="visibility: hidden">--%>
+    <%--<span id="sharethis" style="visibility: hidden">--%>
     <%--&lt;%&ndash;<span class='st_twitter'></span>&ndash;%&gt;--%>
     <%--<span class='st_sharethis_hcount'></span>--%>
     <%--&lt;%&ndash;<span class='st_facebook_large'></span>&ndash;%&gt;--%>
@@ -64,11 +64,9 @@
 
 </div>
 
-
 <script type="text/javascript" language="javascript"
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
-    <span id="sharethis">
-<%@ include file="bottom-toolbar.jspf" %>
-</span>
+
+
 </body>
 </html>
