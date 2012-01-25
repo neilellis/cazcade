@@ -400,7 +400,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     //bottom toolbar
                     setShareThisDetails(poolURI.asShortUrl().asUrlSafe(),
                                         "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                        imageUrl == null ? "" : imageUrl, RootPanel.get("sharethisbar").getElement()
+                                        imageUrl == null ? "" : imageUrl, RootPanel.get("st_twitter_stbar").getElement()
                                        );
 
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
