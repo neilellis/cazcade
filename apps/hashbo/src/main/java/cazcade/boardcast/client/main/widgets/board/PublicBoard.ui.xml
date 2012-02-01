@@ -3,7 +3,6 @@
              xmlns:stream="urn:import:cazcade.vortex.widgets.client.stream"
              xmlns:pool="urn:import:cazcade.vortex.pool.widgets"
              xmlns:widgets="urn:import:cazcade.boardcast.client.main.widgets"
-             xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
              xmlns:profile="urn:import:cazcade.vortex.widgets.client.profile"
              xmlns:board="urn:import:cazcade.boardcast.client.main.widgets.board">
     <g:HTMLPanel>
@@ -43,9 +42,9 @@
                 </div>
 
                 <div class="row profile-board-header-bottom">
-                    <fields:VortexEditableLabel wordwrap="true" styleName="board-text"
-                                                placeholder="Click to edit."
-                                                ui:field="text" format="true"/>
+                    <!--<fields:VortexEditableLabel wordwrap="true" styleName="board-text"-->
+                    <!--placeholder="Click to edit."-->
+                    <!--ui:field="text" format="true"/>-->
 
                 </div>
 

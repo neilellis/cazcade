@@ -20,7 +20,6 @@ import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
-import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
 import cazcade.vortex.widgets.client.profile.AliasDetailFlowPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
@@ -78,8 +77,6 @@ public class PublicBoard extends EntityBackedFormPanel {
     PublicBoardHeader publicBoardHeader;
     @UiField
     ProfileBoardHeader profileBoardHeader;
-    @UiField
-    VortexEditableLabel text;
     @UiField
     NotificationPanel notificationPanel;
     @UiField
@@ -266,7 +263,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(getChangeBackgroundDialog(), LSDAttribute.IMAGE_URL);
-        addBinding(text, LSDAttribute.TEXT_EXTENDED);
+//        addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
     @Nonnull
