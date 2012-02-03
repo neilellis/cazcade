@@ -29,6 +29,8 @@
                                           focusOnHoverEnabled="true"/>
 
                 </div>
+                <hr/>
+
                 <div class="board-content"
                      style="">
                     <!--<div class="board-content-top-divider"/>-->

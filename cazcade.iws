@@ -64,13 +64,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" afterPath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/menubar.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/menubar.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.ui.xml" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.ui.xml" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -288,96 +285,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="board.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="59" selection-start="1116" selection-end="1116" vertical-scroll-proportion="-17.541666">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bottom-toolbar.jspf" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/bottom-toolbar.jspf">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="16" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.jspf" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="1223" selection-end="1455" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MenuBar.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/com/google/gwt/user/client/ui/MenuBar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardMenuBar.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="36" selection-start="2109" selection-end="2109" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menubar.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/menubar.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="14" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pool-objects.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="27" selection-start="1949" selection-end="1949" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PublicBoard.ui.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="65" selection-start="1140" selection-end="1140" vertical-scroll-proportion="0.0">
+            <state line="39" column="36" selection-start="2217" selection-end="2217" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PublicBoard.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java">
+      <file leaf-file-name="PoolContentArea.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="452" column="54" selection-start="20692" selection-end="20692" vertical-scroll-proportion="-2.702869">
-              <folding>
-                <marker date="1328064217000" expanded="true" signature="3733:3870" placeholder="{...}" />
-                <marker date="1328064217000" expanded="true" signature="3791:3864" placeholder="{...}" />
-                <marker date="1328064217000" expanded="true" signature="23440:23719" placeholder="{...}" />
-                <marker date="1328064217000" expanded="true" signature="23473:23710" placeholder="{&quot;service&quot;: &quot;sharethis&quot;...}" />
-              </folding>
+            <state line="49" column="0" selection-start="1955" selection-end="1955" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractHashboServlet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java">
+      <file leaf-file-name="PoolContentArea.ui.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="16" selection-start="3461" selection-end="3782" vertical-scroll-proportion="0.0">
+            <state line="6" column="81" selection-start="496" selection-end="496" vertical-scroll-proportion="0.09155646">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="board.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="318" column="14" selection-start="5729" selection-end="5729" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -397,11 +335,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java" />
         <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/boards.jsp" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/hashbo.less" />
         <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainIndexServiceImpl.java" />
@@ -411,8 +347,10 @@
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/BoardMenuBar.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/menubar.less" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.ui.xml" />
       </list>
     </option>
   </component>
@@ -585,6 +523,16 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3139,33 +3087,23 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="246" />
-    <property name="project.structure.last.edited" value="Facets" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="237" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="55" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="249" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="249" />
     <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="209" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
@@ -3190,15 +3128,15 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
-    <property name="project.structure.side.proportion" value="0.13184772" />
     <property name="DefaultHtmlFileTemplate" value="Html" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
+    <property name="project.structure.side.proportion" value="0.13184772" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig" serverName="dev.cazcade.com" serverId="45d3bb15-3f17-4319-9cab-4e637f428236" overwriteAll="false">
     <servers>
@@ -3726,27 +3664,6 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="JettyConfiguration" factoryName="Local">
       <deployment />
       <server-settings>
@@ -3771,6 +3688,27 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
       <JSRemoteDebuggerConfigurationSettings>
         <option name="engineId" value="embedded" />
@@ -3783,14 +3721,20 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JettyConfiguration" factoryName="Remote">
-      <option name="LOCAL" value="false" />
-      <deployment />
-      <server-settings>
-        <data />
-      </server-settings>
-      <predefined_log_file id="Jetty" enabled="true" />
-      <extension name="coverage" />
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GWT.ConfigurationType" factoryName="GWT Configuration">
+      <module name="" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -3826,33 +3770,14 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="GWT.ConfigurationType" factoryName="GWT Configuration">
-      <module name="" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
+    <configuration default="true" type="JettyConfiguration" factoryName="Remote">
+      <option name="LOCAL" value="false" />
       <deployment />
-      <server-settings />
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <server-settings>
+        <data />
+      </server-settings>
+      <predefined_log_file id="Jetty" enabled="true" />
+      <extension name="coverage" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -3865,6 +3790,19 @@
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
       <option name="CONTEXT_PROVIDER" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
+      <deployment />
+      <server-settings />
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -4409,6 +4347,7 @@
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32827324" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32443127" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32178217" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08502674" sideWeight="0.6442886" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43336624" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
@@ -4421,19 +4360,18 @@
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13354701" sideWeight="0.5445545" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994652" sideWeight="0.0" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905984" sideWeight="0.5445545" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.45544556" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.5445545" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45544556" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959914" sideWeight="0.5765054" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296593" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32178217" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279678" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -4475,7 +4413,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sharing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor updates." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -4488,7 +4426,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Chat + turned on alpha features" />
     <MESSAGE value="Ordering" />
     <MESSAGE value="Board snapshots." />
     <MESSAGE value="Changed GWT output to pretty while bugfixing." />
@@ -4513,6 +4450,7 @@
     <MESSAGE value="Fixes" />
     <MESSAGE value="Previews" />
     <MESSAGE value="Sharing" />
+    <MESSAGE value="Minor updates." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -4556,21 +4494,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="662" column="54" selection-start="24817" selection-end="24817" vertical-scroll-proportion="-3.6153846" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="4" selection-start="984" selection-end="1074" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainIndexServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="19" selection-start="1284" selection-end="1284" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/analytics/Track.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="22" selection-start="642" selection-end="642" vertical-scroll-proportion="0.0" />
@@ -4586,18 +4509,19 @@
         <state line="64" column="68" selection-start="2029" selection-end="2695" vertical-scroll-proportion="-11.875" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="59" selection-start="1116" selection-end="1116" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/bottom-toolbar.jspf">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="16" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="10" column="16" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="1223" selection-end="1455" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="32" column="0" selection-start="1223" selection-end="1455" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/com/google/gwt/user/client/ui/MenuBar.java">
@@ -4617,9 +4541,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/pool-objects.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="27" selection-start="1949" selection-end="1949" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="120" column="27" selection-start="1949" selection-end="1949" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="451" column="54" selection-start="20622" selection-end="20622" vertical-scroll-proportion="0.016198704" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractHashboServlet.java">
@@ -4627,29 +4554,31 @@
         <state line="81" column="16" selection-start="3461" selection-end="3782" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/board.jsp">
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="59" selection-start="1116" selection-end="1116" vertical-scroll-proportion="-17.541666">
+        <state line="49" column="0" selection-start="1955" selection-end="1955" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.ui.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="65" selection-start="1140" selection-end="1140" vertical-scroll-proportion="0.0">
+        <state line="39" column="36" selection-start="2217" selection-end="2217" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="452" column="54" selection-start="20692" selection-end="20692" vertical-scroll-proportion="-2.702869">
-          <folding>
-            <marker date="1328064217000" expanded="true" signature="3733:3870" placeholder="{...}" />
-            <marker date="1328064217000" expanded="true" signature="3791:3864" placeholder="{...}" />
-            <marker date="1328064217000" expanded="true" signature="23440:23719" placeholder="{...}" />
-            <marker date="1328064217000" expanded="true" signature="23473:23710" placeholder="{&quot;service&quot;: &quot;sharethis&quot;...}" />
-          </folding>
+        <state line="318" column="14" selection-start="5729" selection-end="5729" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="81" selection-start="496" selection-end="496" vertical-scroll-proportion="0.09155646">
+          <folding />
         </state>
       </provider>
     </entry>
