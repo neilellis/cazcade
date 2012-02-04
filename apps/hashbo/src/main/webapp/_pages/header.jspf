@@ -23,8 +23,6 @@
 
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-<%@ include file="analytics.jspf" %>
-
 
 <script type="text/javascript">var switchTo5x = true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>

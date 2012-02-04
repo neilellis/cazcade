@@ -9,6 +9,8 @@
     <meta charset="utf-8">
     <title>Boardcast</title>
     <%@ include file="header.jspf" %>
+    <%@ include file="analytics.jspf" %>
+
     <style type="text/css">
         p {
             font-size: 20px;

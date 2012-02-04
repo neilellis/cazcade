@@ -8,9 +8,11 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Boardcast: Create and Publish Instantly</title>
+    <title>Boardcast: The Internet's Whiteboard</title>
     <%@ include file="navfunc.jspf" %>
     <%@ include file="header.jspf" %>
+    <%@ include file="analytics.jspf" %>
+
 </head>
 
 <body>

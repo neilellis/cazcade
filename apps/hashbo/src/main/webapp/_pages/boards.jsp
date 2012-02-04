@@ -8,6 +8,8 @@
 <head>
     <title>Boardcast: Create and Publish Instantly</title>
     <%@ include file="header.jspf" %>
+    <%@ include file="analytics.jspf" %>
+
     <link rel="stylesheet" href="./_css/boardcast-v1.less">
     <link rel="stylesheet" href="./_css/hackabout.css">
     <script type="text/javascript">
