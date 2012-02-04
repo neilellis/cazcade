@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl;
 
+import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
@@ -12,6 +13,9 @@ import java.util.Map;
  * @author neilellis@cazcade.com
  */
 public class ChangeReport {
+
+    public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
+
     @Nonnull
     private final List<Map> changedFollowedBoards = new ArrayList<Map>();
     @Nonnull
@@ -20,11 +24,22 @@ public class ChangeReport {
     private final List<Map> latestChanges = new ArrayList<Map>();
 
     public void addChangedFollowedBoard(@Nonnull final LSDTransferEntity boardEntity) {
-        changedFollowedBoards.add(boardEntity.getCamelCaseMap());
+        final Map<String, String> map = boardEntity.getCamelCaseMap();
+        map.put("snapshotUrl", addBoardSnaphotImageUrl(boardEntity));
+        changedFollowedBoards.add(map);
+    }
+
+    private static String addBoardSnaphotImageUrl(LSDTransferEntity boardEntity) {
+        return "http://boardcast.it/_snapshot-" + boardEntity.getURI().asShortUrl().asUrlSafe() +
+               "?id=" + boardEntity.getUUID().toString()
+               + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
+               System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
     }
 
     public void addChangedOwnedBoard(@Nonnull final LSDTransferEntity boardEntity) {
-        changedOwnedBoards.add(boardEntity.getCamelCaseMap());
+        final Map<String, String> map = boardEntity.getCamelCaseMap();
+        map.put("snapshotUrl", addBoardSnaphotImageUrl(boardEntity));
+        changedOwnedBoards.add(map);
     }
 
     @Nonnull
@@ -61,7 +76,9 @@ public class ChangeReport {
 
     public void setLatestChanges(@Nonnull final Collection<LSDTransferEntity> changes) {
         for (final LSDTransferEntity change : changes) {
-            latestChanges.add(change.getCamelCaseMap());
+            final Map<String, String> map = change.getCamelCaseMap();
+//            map.put("snapshotUrl", addBoardSnaphotImageUrl(change));
+            latestChanges.add(map);
         }
     }
 

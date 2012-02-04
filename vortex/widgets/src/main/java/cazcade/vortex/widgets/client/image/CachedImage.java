@@ -38,17 +38,11 @@ public class CachedImage extends Image {
     private int requestedWidth;
     private int requestedHeight;
 
+
     public CachedImage(final String url, final String size) {
-        super();
-        setVisible(false);
+        this();
         setSize(size);
         setUrl(url);
-        addLoadHandler(new LoadHandler() {
-            @Override
-            public void onLoad(final LoadEvent event) {
-                setVisible(true);
-            }
-        });
     }
 
     public CachedImage(@Nonnull final Image image, final String size) {
@@ -80,6 +74,15 @@ public class CachedImage extends Image {
 
     public CachedImage() {
         super();
+        setVisible(false);
+        addLoadHandler(new LoadHandler() {
+            @Override
+            public void onLoad(final LoadEvent event) {
+                setVisible(true);
+            }
+        }
+                      );
+
     }
 
     public CachedImage(@Nonnull final Image image) {
@@ -107,20 +110,40 @@ public class CachedImage extends Image {
 
 
     private void updateImageUrl() {
-        getElement().getStyle().setBackgroundImage(placeholderImage());
+//        getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
             if (CACHING && cached && !BrowserUtil.isInternalImage(url)) {
                 if (url.startsWith("http")) {
-                    super.setUrl("./_image-service?url=" + URL.encode(url) + "&size=" + size + "&width=" + getWidthWithDefault() + "&height=" + getHeightWithDefault());
-                } else {
-                    super.setUrl("./_image-service?url=" + BrowserUtil.convertRelativeUrlToAbsolute(url) + "&size=" + size + "&width=" + getWidthWithDefault() + "&height=" + getHeightWithDefault());
+                    super.setUrl("./_image-service?url=" +
+                                 URL.encode(url) +
+                                 "&size=" +
+                                 size +
+                                 "&width=" +
+                                 getWidthWithDefault() +
+                                 "&height=" +
+                                 getHeightWithDefault()
+                                );
                 }
-            } else {
+                else {
+                    super.setUrl("./_image-service?url=" +
+                                 BrowserUtil.convertRelativeUrlToAbsolute(url) +
+                                 "&size=" +
+                                 size +
+                                 "&width=" +
+                                 getWidthWithDefault() +
+                                 "&height=" +
+                                 getHeightWithDefault()
+                                );
+                }
+            }
+            else {
                 super.setUrl(url);
             }
-        } else if (defaultUrl != null) {
+        }
+        else if (defaultUrl != null) {
             super.setUrl(defaultUrl);
-        } else {
+        }
+        else {
             super.setUrl(defaultDefaultMessage("No Image"));
         }
 
@@ -129,7 +152,8 @@ public class CachedImage extends Image {
     private int getWidthWithDefault() {
         if (getOffsetWidth() > 0) {
             return getOffsetWidth();
-        } else {
+        }
+        else {
             return requestedWidth;
         }
     }
@@ -140,9 +164,11 @@ public class CachedImage extends Image {
         }
         if (getOffsetHeight() > 0) {
             return getOffsetHeight();
-        } else if (requestedHeight > 0) {
+        }
+        else if (requestedHeight > 0) {
             return requestedHeight;
-        } else {
+        }
+        else {
             return 2048;
         }
     }

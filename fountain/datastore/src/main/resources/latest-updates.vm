@@ -1,7 +1,7 @@
 #macro (boardsummary $board)
 <tr>
     <td><a href="http://boardcast.it/$board.shortUrl"><img border="0" width="80" height="60"
-                                                           src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_MEDIUM&url=$!board.iconUrl"/></a>
+                                                           src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_SMALL&delay=120&url=$!board.snapshotUrl"/></a>
     </td>
     <td>
         <table>
@@ -19,13 +19,8 @@
 
 #macro (changesummary $change)
 <tr>
-    #if($change.iconUrl)
-        #set($imageUrl= $change.iconUrl)
-    #elseif($change.imageUrl)
-        #set($imageUrl= $change.imageUrl)
-    #end
     <td><a href="http://boardcast.it/$change.sourceShortUrl"><img border="0" width="64" height="48"
-                                                                  src="http://boardcast.it/_image-service?width=64&height=48&size=CLIPPED_SMALL&url=$!imageUrl"/></a>
+                                                                  src="http://boardcast.it/_image-service?width=80&height=60&size=CLIPPED_SMALL&delay=120&url=$!change.snapshotUrl"/></a>
     </td>
     <td>
         <table>
@@ -69,8 +64,8 @@
 
         <table>
             #foreach ($board in $data.changedFollowedBoards)
-        #boardsummary($board)
-        #end
+                #boardsummary($board)
+            #end
         </table>
 
     #end
@@ -79,7 +74,7 @@
 
         <table>
             #foreach ($board in $data.changedOwnedBoards)
-             #boardsummary($board)
+                #boardsummary($board)
             #end
         </table>
     #end
