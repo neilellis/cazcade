@@ -52,7 +52,7 @@
             link.title = title;
 
             head.appendChild(link);
-            var handle = window.setInterval(function() {
+            var handle = window.setInterval(function () {
                 if (document.getElementById('stylesheet-loaded') && document.getElementById('stylesheet-loaded').clientWidth == 42) {
                     if (callback) {
                         callback();
@@ -85,10 +85,10 @@
 <script>
     // The conditional ensures that this code will only execute in IE,
     // Therefore we can use the IE-specific attachEvent without worry
-    window.attachEvent("onload", function() {
+    window.attachEvent("onload", function () {
         CFInstall.check({
-            mode: "inline", // the default
-            node: "prompt"
+            mode:"inline", // the default
+            node:"prompt"
         });
     });
 </script>
@@ -97,7 +97,7 @@
 <script>
     //Deferred loading to improve initial load time.
     loadjs("_prettify/prettify.js");
-    loadcss("_css/hashbo.less", "hashbo", function() {
+    loadcss("_css/boardcast-v1.less", "hashbo", function () {
         document.getElementById('loading-panel').style.opacity = 0.0;
         document.getElementById('cache-panel').style.opacity = 1.0;
     });

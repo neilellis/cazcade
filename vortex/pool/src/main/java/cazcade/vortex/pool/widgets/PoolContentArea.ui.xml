@@ -4,7 +4,7 @@
     <g:HTMLPanel styleName="pool-area" width="1024px" height="100%" id="poolContentArea">
         <g:AbsolutePanel styleName="pool-area-content" ui:field="container" width="100%" height="100%">
         </g:AbsolutePanel>
-        <g:Label styleName="pool-visibility-ribbon" ui:field="visibilityRibbon"/>
+        <g:Label styleName="pool-visibility-ribbon" ui:field="visibilityStatus"/>
     </g:HTMLPanel>
 
 </ui:UiBinder>

@@ -62,9 +62,10 @@ div.pool-object {
 
 
 .modifiable-board {
+
     .pool-object {
          &:hover {
-            background-color: rgba(0,100,0,0.4);
+            border: 2px @guidelinesColor solid;
             .border-radius(4px);
          }
      }
@@ -73,7 +74,11 @@ div.pool-object {
 
 .drag-mode {
     .pool-object {
-        border: 2px dotted rgba(90, 200, 250,0.5);
+        border: 2px dotted @guidelinesColor;
+         &:hover {
+            border: 2px @guidelinesColor solid;
+            .border-radius(4px);
+         }
         .transitions-off;
     }
 }
@@ -163,30 +168,32 @@ div.pool-object {
     z-index:7000;
     height: 274px;
 
+    .editableLabel-label {
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        bottom: 10px;
+
+        font-size: @boardTextFontSize;
+        word-wrap: break-word;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .editableLabel-buttonPanel {
+        bottom: 8px;
+    }
+
+    .editableLabel-textArea {
+        width: 100%;
+        height: 205px;
+        font-size: @boardTextFontSize;
+    }
+
+
 }
 
-.pool-object-rich-text .editableLabel-label {
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    top: 10px;
-    bottom: 10px;
-
-    font-size: @boardTextFontSize;
-    word-wrap: break-word;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.pool-object-rich-text .editableLabel-buttonPanel {
-    bottom: 8px;
-}
-
-.pool-object-rich-text .editableLabel-textArea {
-    width: 100%;
-    height: 205px;
-    font-size: @boardTextFontSize;
-}
 
 .pool-object-note {
 

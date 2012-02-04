@@ -4,13 +4,9 @@
 //            .left-right-shadows(6px);
 }
 
-.modifiable-board:hover .hashoao-add-menu {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 1000;
-    cursor: pointer;
-}
+.modifiable-board:hover{
+        border: 1px @guidelinesColor solid;
+ }
 
  .board-locked {
     position: absolute;
@@ -314,6 +310,7 @@ body.boards-body {
     .box-shadow(1px 1px 4px rgba(0,0,0,0.1));
 }
 
+/* TODO: Replace this with opacity: 1.0 when we have re-instated the visibility warning  */
 
 .pool-area:hover div.pool-visibility-ribbon {
     opacity: 0;

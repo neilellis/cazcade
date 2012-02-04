@@ -49,7 +49,7 @@ public class PoolContentArea extends Composite {
     @UiField
     AbsolutePanel container;
     @UiField
-    Label visibilityRibbon;
+    Label visibilityStatus;
 
     @Nonnull
     private final Bus bus;
@@ -112,48 +112,48 @@ public class PoolContentArea extends Composite {
             poolPresenter.destroy();
         }
         final boolean listed = poolEntity.getBooleanAttribute(LSDAttribute.LISTED);
-        visibilityRibbon.removeStyleName("danger");
-        visibilityRibbon.removeStyleName("warning");
+        visibilityStatus.removeStyleName("danger");
+        visibilityStatus.removeStyleName("warning");
         if (poolEntity.getBooleanAttribute(LSDAttribute.EDITABLE)) {
             if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
                 if (listed) {
-                    visibilityRibbon.setText("All can edit");
-                    visibilityRibbon.addStyleName("danger");
+                    visibilityStatus.setText("All can edit");
+                    visibilityStatus.addStyleName("danger");
                 }
                 else {
-                    visibilityRibbon.setText("Invitees can edit");
+                    visibilityStatus.setText("Invitees can edit");
                 }
             }
             else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                 if (listed) {
-                    visibilityRibbon.setText("Everyone can modify");
-                    visibilityRibbon.addStyleName("warning");
+                    visibilityStatus.setText("Everyone can modify");
+                    visibilityStatus.addStyleName("warning");
                 }
                 else {
-                    visibilityRibbon.setText("Invitees can modify");
+                    visibilityStatus.setText("Invitees can modify");
                 }
             }
             else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
                 if (listed) {
-                    visibilityRibbon.setText("Everyone can view");
+                    visibilityStatus.setText("Everyone can view");
                 }
                 else {
-                    visibilityRibbon.setText("Invitees can view");
+                    visibilityStatus.setText("Invitees can view");
                 }
             }
             else {
                 if (listed) {
-                    visibilityRibbon.setText("Listed but not visible");
-                    visibilityRibbon.addStyleName("warning");
+                    visibilityStatus.setText("Listed but not visible");
+                    visibilityStatus.addStyleName("warning");
                 }
                 else {
-                    visibilityRibbon.setText("Only you can view");
+                    visibilityStatus.setText("Only you can view");
                 }
             }
-            WidgetUtil.show(visibilityRibbon);
+            WidgetUtil.show(visibilityStatus);
         }
         else {
-            WidgetUtil.hideGracefully(visibilityRibbon, false);
+            WidgetUtil.hideGracefully(visibilityStatus, false);
         }
         clear();
         poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);

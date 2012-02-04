@@ -3,7 +3,7 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Login Successful</title>
-    <link rel="stylesheet" type="text/less" href="../_css/hashbo.less">
+    <link rel="stylesheet" type="text/less" href="../_css/boardcast-v1.less">
     <script src="../_js/less-dev.js" type="text/javascript"></script>
 
 </head>

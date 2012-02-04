@@ -8,7 +8,7 @@
 <head>
     <title>Boardcast: Create and Publish Instantly</title>
     <%@ include file="header.jspf" %>
-    <link rel="stylesheet" href="./_css/hashbo.less">
+    <link rel="stylesheet" href="./_css/boardcast-v1.less">
     <link rel="stylesheet" href="./_css/hackabout.css">
     <script type="text/javascript">
         function resizeCenter() {
@@ -59,7 +59,7 @@
                                     <c:param name="size" value="LARGE"/>
                                     <c:param name="width" value="300"/>
                                     <c:param name="height" value="400"/>
-                                    <c:param name="delay" value="60"/>
+                                    <c:param name="delay" value="120"/>
                                     </c:url>'
                                      alt="${board.description}"/>
 

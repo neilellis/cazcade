@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/less" href="../_css/bootstrap/bootstrap-full.less">
     <script src="../_js/less-dev.js" type="text/javascript"></script>
 
-    <%--<link rel="stylesheet" href="../_css/hashbo.less">--%>
+    <%--<link rel="stylesheet" href="../_css/boardcast-v1.less">--%>
 </head>
 <body>
 
