@@ -267,15 +267,26 @@ public class BoardMenuBar extends MenuBar {
     private void createCollaborateMenu(@Nonnull final LSDBaseEntity board) {
         collaborateMenuBar = new MenuBar(true);
         addItem("Collaborate", collaborateMenuBar);
-        final MenuItem chatOn = collaborateMenuBar.addItem("Chat", new Command() {
+        final MenuItem chat =
+                new MenuItem("Chat", (Command) null);
+
+        chat.setCommand(new Command() {
             @Override
             public void execute() {
 //                HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
                 boardWidget.toggleChat();
+                if ("Chat".equals(chat.getText())) {
+                    chat.setText("End Chat");
+                }
+                else {
+                    chat.setText("Chat");
+                }
                 Track.getInstance().trackEvent("Chat", "Switched to Chat");
             }
         }
-                                                          );
+                       );
+
+        collaborateMenuBar.addItem(chat);
     }
 
     public interface SizeVariantBuilder<T extends CreateItemCommand> {
