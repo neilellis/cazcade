@@ -47,6 +47,7 @@ import javax.annotation.Nonnull;
 /**
  * @author neilellis@cazcade.com
  */
+@Deprecated
 public class BoardcastChatView extends EntityBackedFormPanel {
     @Nonnull
     public static final String RHS_MINIMIZED = "rhs-minimized";
@@ -173,10 +174,10 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                         if (poolEntity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
 //                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
-                            menuBar.init(poolEntity, true, null);
+//                            menuBar.init(poolEntity, true, null);
                         }
                         else {
-                            menuBar.init(poolEntity, false, null);
+//                            menuBar.init(poolEntity, false, null);
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
                         }
                     }
@@ -190,7 +191,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
                     @Override
                     public void onSuccess() {
-                        stream.init(poolURI, FormatUtil.getInstance());
+                        stream.init(poolURI);
                         addChatBox.init(poolURI);
                     }
                 }

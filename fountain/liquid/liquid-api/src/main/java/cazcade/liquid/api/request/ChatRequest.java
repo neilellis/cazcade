@@ -37,10 +37,11 @@ public class ChatRequest extends AbstractUpdateRequest {
 
     public ChatRequest(final LiquidURI uri, final String value) {
         super();
-        setRequestEntity(LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT));
+        final LSDTransferEntity requestEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT);
         //Time clocks vary so we don't want this set.
-        getRequestEntity().remove(LSDAttribute.PUBLISHED);
-        getRequestEntity().setAttribute(LSDAttribute.TEXT_BRIEF, value);
+        requestEntity.remove(LSDAttribute.PUBLISHED);
+        requestEntity.setAttribute(LSDAttribute.TEXT_BRIEF, value);
+        setRequestEntity(requestEntity);
         setUri(uri);
     }
 

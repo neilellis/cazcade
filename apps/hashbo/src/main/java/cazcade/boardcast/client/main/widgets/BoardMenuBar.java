@@ -2,6 +2,7 @@ package cazcade.boardcast.client.main.widgets;
 
 import cazcade.boardcast.client.main.menus.board.*;
 import cazcade.boardcast.client.main.widgets.board.ChangeBackgroundDialog;
+import cazcade.boardcast.client.main.widgets.board.PublicBoard;
 import cazcade.liquid.api.LiquidPermission;
 import cazcade.liquid.api.LiquidPermissionChangeType;
 import cazcade.liquid.api.LiquidPermissionScope;
@@ -14,7 +15,6 @@ import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.analytics.Track;
-import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -34,6 +34,7 @@ public class BoardMenuBar extends MenuBar {
     private MenuBar addMenubar;
     private MenuBar accessMenuBar;
     private MenuBar collaborateMenuBar;
+    private PublicBoard boardWidget;
 
     public BoardMenuBar() {
         super(false);
@@ -43,8 +44,9 @@ public class BoardMenuBar extends MenuBar {
         setFocusOnHoverEnabled(true);
     }
 
-    public void init(@Nonnull final LSDBaseEntity board, final boolean modifierOptions,
+    public void init(@Nonnull PublicBoard boardWidget, @Nonnull final LSDBaseEntity board, final boolean modifierOptions,
                      @Nullable final ChangeBackgroundDialog backgroundDialog) {
+        this.boardWidget = boardWidget;
         poolURI = board.getURI();
         clearItems();
         GWT.runAsync(new RunAsyncCallback() {
@@ -66,7 +68,7 @@ public class BoardMenuBar extends MenuBar {
                     addItem("Permissions", accessMenuBar);
                     createAccessMenu(board);
                 }
-                if (ClientApplicationConfiguration.isAlphaFeatures()) {
+                if (!UserUtil.isAnonymousOrLoggedOut()) {
                     createCollaborateMenu(board);
                 }
             }
@@ -265,14 +267,15 @@ public class BoardMenuBar extends MenuBar {
     private void createCollaborateMenu(@Nonnull final LSDBaseEntity board) {
         collaborateMenuBar = new MenuBar(true);
         addItem("Collaborate", collaborateMenuBar);
-        collaborateMenuBar.addItem("Chat (Alpha)", new Command() {
+        final MenuItem chatOn = collaborateMenuBar.addItem("Chat", new Command() {
             @Override
             public void execute() {
-                HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
+//                HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
+                boardWidget.toggleChat();
                 Track.getInstance().trackEvent("Chat", "Switched to Chat");
             }
         }
-                                  );
+                                                          );
     }
 
     public interface SizeVariantBuilder<T extends CreateItemCommand> {

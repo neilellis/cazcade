@@ -1,5 +1,6 @@
 package cazcade.boardcast.client.main.widgets.board;
 
+import cazcade.boardcast.client.main.widgets.AddChatBox;
 import cazcade.boardcast.client.main.widgets.AddCommentBox;
 import cazcade.boardcast.client.main.widgets.BoardMenuBar;
 import cazcade.liquid.api.*;
@@ -24,6 +25,7 @@ import cazcade.vortex.widgets.client.profile.AliasDetailFlowPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import cazcade.vortex.widgets.client.profile.ProfileBoardHeader;
+import cazcade.vortex.widgets.client.stream.ChatStreamPanel;
 import cazcade.vortex.widgets.client.stream.CommentPanel;
 import cazcade.vortex.widgets.client.stream.NotificationPanel;
 import com.google.gwt.core.client.GWT;
@@ -85,6 +87,12 @@ public class PublicBoard extends EntityBackedFormPanel {
     IFrameElement tweetButton;
     @UiField
     SpanElement visibilityDescription;
+    @UiField
+    DivElement containerDiv;
+    @UiField
+    AddChatBox addChatBox;
+    @UiField
+    ChatStreamPanel stream;
 
     private long updatePoolListener;
     private ChangeBackgroundDialog changeBackgroundDialog;
@@ -98,6 +106,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
     private long changePermissionListener;
+    private boolean chatMode;
 //    private Element sharethisElement;
 
 
@@ -413,11 +422,11 @@ public class PublicBoard extends EntityBackedFormPanel {
                     //bottom toolbar
                     configureShareThis(imageUrl, boardTitle, shortUrl);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-                        menuBar.init(getEntity(), true, getChangeBackgroundDialog());
+                        menuBar.init(PublicBoard.this, getEntity(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
                     }
                     else {
-                        menuBar.init(getEntity(), false, getChangeBackgroundDialog());
+                        menuBar.init(PublicBoard.this, getEntity(), false, getChangeBackgroundDialog());
                     }
                     StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
                     WidgetUtil.showGracefully(getWidget(), false);
@@ -555,6 +564,19 @@ public class PublicBoard extends EntityBackedFormPanel {
             changeBackgroundDialog = new ChangeBackgroundDialog();
         }
         return changeBackgroundDialog;
+    }
+
+    public void toggleChat() {
+        chatMode = getWidget().getElement().getAttribute("class").contains("chat");
+        if (chatMode) {
+            getWidget().removeStyleName("chat");
+        }
+        else {
+            getWidget().addStyleName("chat");
+            addChatBox.init(poolURI);
+            stream.init(poolURI);
+        }
+        chatMode = !chatMode;
     }
 
     interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {

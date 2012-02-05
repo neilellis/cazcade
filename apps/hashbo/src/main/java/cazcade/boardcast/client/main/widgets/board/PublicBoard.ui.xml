@@ -6,7 +6,7 @@
              xmlns:profile="urn:import:cazcade.vortex.widgets.client.profile"
              xmlns:board="urn:import:cazcade.boardcast.client.main.widgets.board">
     <g:HTMLPanel>
-        <div class="container">
+        <div class="container" ui:field="containerDiv">
 
             <div class="content">
                 <div class="board-share-surround">
@@ -116,7 +116,19 @@
                 </div>
             </div>
         </div>
-
+        <div class="hashbo-chat">
+            <g:DockLayoutPanel height="100%" unit="PX">
+                <g:center>
+                    <stream:ChatStreamPanel ui:field="stream"
+                                            styleName="board-stream-panel"/>
+                </g:center>
+                <g:south size="60">
+                    <g:HTMLPanel styleName="board-status-panel-create-panel">
+                        <widgets:AddChatBox ui:field="addChatBox"/>
+                    </g:HTMLPanel>
+                </g:south>
+            </g:DockLayoutPanel>
+        </div>
 
     </g:HTMLPanel>
 </ui:UiBinder>

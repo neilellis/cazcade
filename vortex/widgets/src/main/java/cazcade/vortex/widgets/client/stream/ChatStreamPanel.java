@@ -43,7 +43,6 @@ public class ChatStreamPanel extends Composite {
 
     @Nonnull
     private final List<LSDBaseEntity> entryEntities = new ArrayList<LSDBaseEntity>();
-    private FormatUtil features;
     @Nonnull
     private final VortexScrollPanel scrollPanel;
     private boolean initialized;
@@ -94,20 +93,24 @@ public class ChatStreamPanel extends Composite {
             public void run() {
                 lastUserAction = System.currentTimeMillis();
             }
-        });
+        }
+        );
         widget.add(scrollPanel);
         soundController = new SoundController();
 
         userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/user_entered.mp3");
+                                                       "_audio/user_entered.mp3"
+                                                      );
         userEnteredSound.setVolume(100);
 
         chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/new_chat_message.mp3");
+                                                       "_audio/new_chat_message.mp3"
+                                                      );
         chatMessageSound.setVolume(20);
 
         statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/status_update.mp3");
+                                                        "_audio/status_update.mp3"
+                                                       );
         statusUpdateSound.setVolume(50);
 
         if (AUTOSCROLL) {
@@ -121,9 +124,8 @@ public class ChatStreamPanel extends Composite {
 
     }
 
-    public void init(final LiquidURI newPool, @Nonnull final FormatUtil features) {
+    public void init(final LiquidURI newPool) {
         pool = newPool;
-        this.features = features;
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -133,7 +135,8 @@ public class ChatStreamPanel extends Composite {
                 parentPanel.add(filler);
                 filler.setHeight(getOffsetHeight() + "px");
             }
-        });
+        }
+                                  );
 
 
         if (!initialized) {
@@ -145,24 +148,40 @@ public class ChatStreamPanel extends Composite {
                         public void handle(@Nonnull final LiquidMessage message) {
                             final LSDBaseEntity response = message.getResponse();
                             if (response != null && response.isA(LSDDictionaryTypes.CHAT)
-                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addStreamEntry(new VortexStreamEntryPanel(response, features));
+                                && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(
+                                    LSDAttribute.TEXT_BRIEF
+                                                                                                                   ).isEmpty()) {
+                                addStreamEntry(new VortexStreamEntryPanel(response, FormatUtil.getInstance()));
                                 chatMessageSound.play();
 
 
                             }
-                            if (response != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
+                            if (response != null &&
+                                message.getState() != LiquidMessageState.PROVISIONAL &&
+                                message.getState() != LiquidMessageState.INITIAL &&
+                                message.getState() != LiquidMessageState.FAIL &&
+                                ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
                                 addStreamEntry(new VortexPresenceNotificationPanel(response, pool, message.getId().toString()));
                                 userEnteredSound.play();
                             }
                         }
-                    });
-                    BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
-                        @Override
-                        public void handle(@Nonnull final SendRequest request) {
-                            addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), features));
-                        }
-                    });
+                    }
+                              );
+                    BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(),
+                                                                                  LiquidRequestType.SEND,
+                                                                                  new BusListener<SendRequest>() {
+                                                                                      @Override
+                                                                                      public void handle(
+                                                                                              @Nonnull final SendRequest request) {
+                                                                                          addStreamEntry(
+                                                                                                  new DirectMessageStreamEntryPanel(
+                                                                                                          request.getResponse(),
+                                                                                                          FormatUtil.getInstance()
+                                                                                                  )
+                                                                                                        );
+                                                                                      }
+                                                                                  }
+                                                                                 );
 
                 }
             }.schedule(1000);
@@ -188,7 +207,8 @@ public class ChatStreamPanel extends Composite {
             public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
                 super.onSuccess(message, response);
             }
-        });
+        }
+                );
     }
 
     private void autoScroll() {
@@ -233,7 +253,8 @@ public class ChatStreamPanel extends Composite {
                 if (!inserted) {
                     if (parentPanel.getWidgetCount() > 1) {
                         parentPanel.insert(vortexStreamContent, 1);
-                    } else {
+                    }
+                    else {
                         parentPanel.add(vortexStreamContent);
                     }
                 }
@@ -243,7 +264,8 @@ public class ChatStreamPanel extends Composite {
                 }
                 autoScroll();
             }
-        });
+        }
+                                  );
 
     }
 
@@ -265,13 +287,17 @@ public class ChatStreamPanel extends Composite {
             final List<LSDBaseEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             for (final LSDBaseEntity entry : entries) {
                 if (entry.isA(LSDDictionaryTypes.COMMENT)
-                        && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                    addStreamEntry(new VortexStreamEntryPanel(entry, features));
-                } else {
+                    && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF)
+                                                                                    .isEmpty()) {
+                    addStreamEntry(new VortexStreamEntryPanel(entry, FormatUtil.getInstance()));
+                }
+                else {
                     if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
                         final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
-                        final boolean isMe = author.getAttribute(LSDAttribute.URI).equals(UserUtil.getIdentity().getAliasURL().asString());
+                        final boolean isMe = author.getAttribute(LSDAttribute.URI).equals(
+                                UserUtil.getIdentity().getAliasURL().asString()
+                                                                                         );
                         final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
                         final boolean isHere = sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());

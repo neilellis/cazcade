@@ -4,6 +4,11 @@
 //            .left-right-shadows(6px);
 }
 
+
+.chat .container{
+  margin-right:500px;
+}
+
 .modifiable-board:hover{
         border: 1px @guidelinesColor solid;
  }
@@ -813,10 +818,15 @@ div.pool-area-content {
 
 }
 
-
 .hashbo-chat {
-    position: absolute;
-    width: 100%;
+    opacity: 0;
+}
+
+.chat .hashbo-chat {
+    opacity: 1;
+    position: fixed;
+    min-width: 500px;
+    right:0px;
     top:0px;
     bottom:0px;
 

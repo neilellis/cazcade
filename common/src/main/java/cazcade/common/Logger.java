@@ -200,8 +200,8 @@ public class Logger {
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
             writeToSessionLog(ExceptionUtils.getFullStackTrace(t), "error", "details");
             if (CommonConstants.IS_PRODUCTION && isReportableError(t)) {
-                NewRelic.noticeError(t);
                 notifyOfError(t, MessageFormat.format(message, params));
+                NewRelic.noticeError(t);
             }
             else {
                 if (t instanceof RuntimeException) {
@@ -218,7 +218,8 @@ public class Logger {
     private boolean isReportableError(Throwable t) {
         final String name = t.getClass().getName();
         return !"org.eclipse.jetty.io.EofException".equals(name) &&
-               !"java.lang.InterruptedException".equals(name);
+               !"java.lang.InterruptedException".equals(name) &&
+               !"org.eclipse.jetty.io.RuntimeIOException".equals(name);
     }
 
 
