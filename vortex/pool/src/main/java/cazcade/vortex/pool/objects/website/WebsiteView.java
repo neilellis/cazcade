@@ -47,7 +47,9 @@ public class WebsiteView extends PoolObjectView {
                     Window.open(url, "website", "");
                 }
             }
-        });
+        }
+                       );
+
     }
 
     @Override
