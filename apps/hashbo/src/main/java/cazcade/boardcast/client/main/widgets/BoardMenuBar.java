@@ -68,7 +68,7 @@ public class BoardMenuBar extends MenuBar {
                     addItem("Permissions", accessMenuBar);
                     createAccessMenu(board);
                 }
-                if (!UserUtil.isAnonymousOrLoggedOut()) {
+                if (!UserUtil.isAnonymousOrLoggedOut() && ClientApplicationConfiguration.isAlphaFeatures()) {
                     createCollaborateMenu(board);
                 }
             }
