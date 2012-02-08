@@ -62,6 +62,7 @@
                                     <c:param name="width" value="300"/>
                                     <c:param name="height" value="400"/>
                                     <c:param name="delay" value="120"/>
+                                    <c:param name="windowStatus" value="snapshot-loaded"/>
                                     </c:url>'
                                      alt="${board.description}"/>
 

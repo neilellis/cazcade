@@ -88,6 +88,7 @@ public class ImageProxyServlet extends HttpServlet {
         final String url = req.getParameter("url");
         final String size = req.getParameter("size");
         final String delayStr = req.getParameter("delay");
+        final String waitForWindowStatus = req.getParameter("windowStatus");
         final int delay = delayStr == null ? 10 : Integer.parseInt(delayStr);
         final String text = req.getParameter("text");
 
@@ -129,12 +130,12 @@ public class ImageProxyServlet extends HttpServlet {
                 resp.sendError(500, e.getMessage());
                 return;
             }
-            response = getCachedImage(imageSize, imageUrl, delay, isImage);
+            response = getCachedImage(imageSize, imageUrl, delay, isImage, waitForWindowStatus);
             int count = 0;
             while (response.getRefreshIndicator() > 0 && count++ < 100) {
                 Thread.sleep(250);
 //                Thread.sleep(response.getRefreshIndicator());
-                response = getCachedImage(imageSize, imageUrl, delay, isImage);
+                response = getCachedImage(imageSize, imageUrl, delay, isImage, waitForWindowStatus);
             }
 
             if (response.getRefreshIndicator() > 0) {
@@ -231,13 +232,14 @@ public class ImageProxyServlet extends HttpServlet {
         return url;
     }
 
-    private CacheResponse getCachedImage(final ImageSize imageSize, final URI imageUrl, int delay, final boolean isImage) {
+    private CacheResponse getCachedImage(final ImageSize imageSize, final URI imageUrl, int delay, final boolean isImage,
+                                         String waitForWindowStatus) {
         final CacheResponse response;
         if (isImage) {
             response = imageService.getCacheURIForImage(imageUrl, imageSize, true);
         }
         else {
-            response = imageService.getCacheURI(imageUrl, imageSize, delay, true);
+            response = imageService.getCacheURI(imageUrl, imageSize, delay, waitForWindowStatus, true);
         }
         return response;
     }
