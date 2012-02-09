@@ -19,8 +19,6 @@
     loadjs("./_prettify/prettify.js");
 </script>
 
-<%--TODO Remove this now--%>
-<div id="top-bar-wrapper">/</div>
 
 <tags:hashbo-less/>
 
