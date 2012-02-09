@@ -99,7 +99,7 @@ public class SnapshotServlet extends HttpServlet {
                 //temporary, need to get the client to do the polling!
                 int count = 0;
                 while (response == null || response.getRefreshIndicator() > 0 && count++ < MAX_SNAPSHOT_RETRIES) {
-                    response = imageService.getCacheURI(new URI(url), size, 0, generate);
+                    response = imageService.getCacheURI(new URI(url), size, 0, null, generate);
                     try {
                         if (response.getRefreshIndicator() > 0) {
                             Thread.sleep(response.getRefreshIndicator());
