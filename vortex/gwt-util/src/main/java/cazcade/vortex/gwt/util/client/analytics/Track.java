@@ -52,31 +52,31 @@ public class Track implements ValueChangeHandler<String> {
 
 
     public static native void registerUserMixpanel(Map<String, String> map) /*-{
-        if ($wnd.mpq != 'undefined') {
+        if ($wnd.mpq) {
             $wnd.mpq.register(map, "all", "False", 31);
         }
     }-*/;
 
     public static native void identifyUserMixpanel(String name) /*-{
-        if ($wnd.mpq != 'undefined') {
+        if ($wnd.mpq) {
             $wnd.mpq.identify(name);
         }
     }-*/;
 
     public static native void identifyUserNameMixpanel(String name) /*-{
-        if ($wnd.mpq != 'undefined') {
+        if ($wnd.mpq) {
             $wnd.mpq.name_tag(name);
         }
     }-*/;
 
     public static native void trackMixpanel(String event) /*-{
-        if ($wnd.mpq != 'undefined') {
+        if ($wnd.mpq) {
             $wnd.mpq.track(event);
         }
     }-*/;
 
     public static native void trackMixpanelEvent(String event, String details) /*-{
-        if ($wnd.mpq != 'undefined') {
+        if ($wnd.mpq) {
             $wnd.mpq.track(event, {'mp_note':details});
         }
     }-*/;
