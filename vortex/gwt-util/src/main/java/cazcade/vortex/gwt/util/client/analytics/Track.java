@@ -52,23 +52,33 @@ public class Track implements ValueChangeHandler<String> {
 
 
     public static native void registerUserMixpanel(Map<String, String> map) /*-{
-        $wnd.mpq.register(map, "all", "False", 31);
+        if ($wnd.mpq != 'undefined') {
+            $wnd.mpq.register(map, "all", "False", 31);
+        }
     }-*/;
 
     public static native void identifyUserMixpanel(String name) /*-{
-        $wnd.mpq.identify(name);
+        if ($wnd.mpq != 'undefined') {
+            $wnd.mpq.identify(name);
+        }
     }-*/;
 
     public static native void identifyUserNameMixpanel(String name) /*-{
-        $wnd.mpq.name_tag(name);
+        if ($wnd.mpq != 'undefined') {
+            $wnd.mpq.name_tag(name);
+        }
     }-*/;
 
     public static native void trackMixpanel(String event) /*-{
-        $wnd.mpq.track(event);
+        if ($wnd.mpq != 'undefined') {
+            $wnd.mpq.track(event);
+        }
     }-*/;
 
     public static native void trackMixpanelEvent(String event, String details) /*-{
-        $wnd.mpq.track(event, {'mp_note': details});
+        if ($wnd.mpq != 'undefined') {
+            $wnd.mpq.track(event, {'mp_note':details});
+        }
     }-*/;
 
     /**
@@ -94,7 +104,7 @@ public class Track implements ValueChangeHandler<String> {
             // send event to google server
             pageTracker._trackPageview(token);
 
-        } catch(err) {
+        } catch (err) {
 
             // debug
             alert('FAILURE: to send in event to google analytics: ' + err);
