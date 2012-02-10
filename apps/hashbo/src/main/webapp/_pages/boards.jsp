@@ -10,7 +10,7 @@
     <%@ include file="header.jspf" %>
     <%@ include file="analytics.jspf" %>
 
-    <link rel="stylesheet" href="./_css/boardcast-v2.less?v1">
+    <link rel="stylesheet" href="./_css/boardcast-v2.less?v2">
     <link rel="stylesheet" href="./_css/hackabout.css">
     <script type="text/javascript">
         function resizeCenter() {
@@ -59,8 +59,8 @@
                                     <c:param name="url" value="${board.snapshotUrl}"/>
                                     <c:param name="text" value="${board.title}"/>
                                     <c:param name="size" value="LARGE"/>
-                                    <c:param name="width" value="600"/>
-                                    <c:param name="height" value="800"/>
+                                    <c:param name="width" value="450"/>
+                                    <c:param name="height" value="600"/>
                                     <c:param name="delay" value="60"/>
                                     <c:param name="windowStatus" value="snapshot-loaded"/>
                                     </c:url>'

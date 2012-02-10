@@ -541,35 +541,46 @@ div.pool-area-content {
         /*width:600px;*/
         /*max-height:945px;*/
         .board-image-wrapper {
-             margin-left: -150px;
-             width:600px;
-             max-height:800px;
+             margin-left: -75px;
+             margin-top: -20%;
+             width:450px;
+             max-height:600px;
+             min-height:300px;
+
              img {
-                 width:600px;
-                 max-height:800px;
+                 width:450px;
+                 max-height:600px;
              }
 //             .box-shadow(none);
         }
         z-index:9999;
         /*display: block;*/
         position:relative;
+        .boards-list-item-inner {
+            .boards-list-caption-area{
+                opacity: 0;
+             }
+        }
     }
 
     .board-image-wrapper {
            background-color: #222;
             img {
-                .transition2(width ease-in-out 300ms, height ease-in-out 300ms) ;
+                .transition2(width ease-in-out 300ms, max-height ease-in-out 300ms) ;
                 width:300px;
                 max-height:400px;
                 margin: 0;
                 padding: 0;
             }
-                .transition3(margin-left ease-in-out 300ms, width ease-in-out 300ms, height ease-in-out 300ms) ;
+                .transition4(margin-top ease-in-out 300ms, margin-left ease-in-out 300ms, width ease-in-out 300ms,
+                max-height ease-in-out 300ms) ;
                 width:300px;
                 max-height:398px;
+                min-height:200px;
+                height:auto;
 
             overflow: none;
-        .box-shadow(4px 4px 18px 2px rgba(0,0,0,0.5));
+            .box-shadow(4px 4px 18px 2px rgba(0,0,0,0.5));
 //        .image-mask(url('../_images/photo-masks/gloss-preview-size.png'));
     }
 
@@ -578,17 +589,20 @@ div.pool-area-content {
 
     /*#gradient > .vertical(#fcfcfd,#fff );*/
     .boards-list-item-inner {
+        /*background-color:red;*/
         .boards-list-caption-area{
             opacity: 0.8;
             color: white;
-            clear: left;
+            /*clear: left;*/
             padding-top: 8px;
-            width:400px;
+            width:300px;
             height:130px;
             text-align:center;
+            .transition-opacity(80ms);
+
         }
-        position: static;
-        display: block;
+        /*position: static;*/
+        /*display: block;*/
     }
 
 }
