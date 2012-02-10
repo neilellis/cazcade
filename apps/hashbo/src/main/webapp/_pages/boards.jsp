@@ -10,7 +10,7 @@
     <%@ include file="header.jspf" %>
     <%@ include file="analytics.jspf" %>
 
-    <link rel="stylesheet" href="./_css/boardcast-v2.less">
+    <link rel="stylesheet" href="./_css/boardcast-v2.less?v1">
     <link rel="stylesheet" href="./_css/hackabout.css">
     <script type="text/javascript">
         function resizeCenter() {
