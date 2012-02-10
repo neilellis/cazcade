@@ -36,7 +36,7 @@ public class AbstractHashboServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(AbstractHashboServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
-    public static final String VERSION = "11";
+    public static final String VERSION = "12";
     public static final boolean FORCE_NEW_ICONS_FOR_BOARDS = true;
     public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
 

@@ -530,26 +530,47 @@ div.pool-area-content {
 
 
 .boards-list-item {
-        display:table-cell;
+    display:table-cell;
     margin: 0;
     padding: 0;
     text-align: center;
     height: 545px;
     width:400px;
 
+    &:hover {
+        /*width:600px;*/
+        /*max-height:945px;*/
+        .board-image-wrapper {
+             margin-left: -150px;
+             width:600px;
+             max-height:800px;
+             img {
+                 width:600px;
+                 max-height:800px;
+             }
+//             .box-shadow(none);
+        }
+        z-index:9999;
+        /*display: block;*/
+        position:relative;
+    }
+
     .board-image-wrapper {
+           background-color: #222;
             img {
+                .transition2(width ease-in-out 300ms, height ease-in-out 300ms) ;
                 width:300px;
                 max-height:400px;
                 margin: 0;
                 padding: 0;
-                background-color: #222;
             }
-            width:300px;
+                .transition3(margin-left ease-in-out 300ms, width ease-in-out 300ms, height ease-in-out 300ms) ;
+                width:300px;
                 max-height:398px;
+
             overflow: none;
         .box-shadow(4px 4px 18px 2px rgba(0,0,0,0.5));
-        .image-mask(url('../_images/photo-masks/gloss-preview-size.png'));
+//        .image-mask(url('../_images/photo-masks/gloss-preview-size.png'));
     }
 
 

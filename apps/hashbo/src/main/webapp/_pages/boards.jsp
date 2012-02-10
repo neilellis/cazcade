@@ -59,8 +59,8 @@
                                     <c:param name="url" value="${board.snapshotUrl}"/>
                                     <c:param name="text" value="${board.title}"/>
                                     <c:param name="size" value="LARGE"/>
-                                    <c:param name="width" value="300"/>
-                                    <c:param name="height" value="400"/>
+                                    <c:param name="width" value="600"/>
+                                    <c:param name="height" value="800"/>
                                     <c:param name="delay" value="60"/>
                                     <c:param name="windowStatus" value="snapshot-loaded"/>
                                     </c:url>'
