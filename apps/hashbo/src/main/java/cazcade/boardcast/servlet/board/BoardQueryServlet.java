@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public class BoardQueryServlet extends AbstractBoardListServlet {
 
+    public static final int MAX = 24;
     @Nonnull
     private final Map<String, BoardQueryRequest.QueryType> queryLookup = new HashMap<String, BoardQueryRequest.QueryType>();
     @Nonnull
@@ -55,12 +56,14 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
     }
 
     @Override
-    protected void doPost(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException, IOException {
         doGet(req, resp);
     }
 
     @Override
-    protected void doGet(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException, IOException {
         try {
             final String username = req.getParameter("user");
 //            final String queryName = req.getServletPath().substring(1, req.getServletPath().indexOf('.'));
@@ -71,7 +74,9 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             if (liquidSessionId == null) {
                 liquidSessionId = LiquidSessionIdentifier.ANON;
             }
-            final BoardQueryRequest response = dataStore.process(new BoardQueryRequest(liquidSessionId, type, alias));
+            final BoardQueryRequest request = new BoardQueryRequest(liquidSessionId, type, alias);
+            request.setMax(MAX);
+            final BoardQueryRequest response = dataStore.process(request);
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
             final List<LSDTransferEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             req.setAttribute("boards", makeJSPFriendly(boards));
