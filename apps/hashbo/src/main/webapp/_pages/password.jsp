@@ -9,7 +9,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Change Password</title>
     <link rel="stylesheet" type="text/less" href="/_css/bootstrap/bootstrap-full.less">
-    <script src="/_js/less-1.1.3.min.js" type="text/javascript"></script>
+    <script src="/_js/less-1.2.1.min.js" type="text/javascript"></script>
     <%@ include file="analytics.jspf" %>
 
 </head>
