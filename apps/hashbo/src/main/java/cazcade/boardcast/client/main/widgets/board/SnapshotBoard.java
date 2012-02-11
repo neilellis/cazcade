@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
  */
 public class SnapshotBoard extends EntityBackedFormPanel {
     private static final NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
-    public static final int WAIT_UNTIL_READY_FOR_SNAPSHOT = 10 * 1000;
+    public static final int WAIT_UNTIL_READY_FOR_SNAPSHOT = 30 * 1000;
 
 
     @UiField
