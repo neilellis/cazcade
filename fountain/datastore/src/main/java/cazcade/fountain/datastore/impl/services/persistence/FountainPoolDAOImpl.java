@@ -141,6 +141,8 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             }
             persistedEntityImpl.inheritPermissions(parent);
             parent.createRelationshipTo(persistedEntityImpl, FountainRelationships.CHILD);
+            parent.modifiedTimestamp();
+
             final LSDPersistedEntity ownerPersistedEntity = fountainNeo.findByURI(owner);
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.OWNER);
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.CREATOR);
@@ -212,11 +214,40 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             final LSDPersistedEntity poolObject = createPoolObjectNoTx(identity, pool, entity, owner, author, createAuthor);
             assertHasOwner(poolObject);
             final LSDPersistedEntity parent = poolObject.parentNode();
-//            recalculateCentreImage(parent, poolObject);
+            recalculateCentreImage(parent, poolObject);
             return convertNodeToEntityWithRelatedEntitiesNoTX(identity, poolObject, parent, detail, internal, false);
         } finally {
             fountainNeo.end();
         }
+    }
+
+    private LSDPersistedEntity recalculateCentreImage(final LSDPersistedEntity pool, final LSDPersistedEntity object
+                                                      /*Do not delete this parameter */) throws Exception {
+        final double[] distance = {Double.MAX_VALUE};
+        pool.forEachChild(new NodeCallback() {
+            public void call(LSDPersistedEntity child) throws InterruptedException {
+                if (!child.isDeleted() && !child.canBe(LSDDictionaryTypes.POOL) && child
+                        .hasAttribute(LSDAttribute.IMAGE_URL)) {
+                    LSDPersistedEntity viewNode = child.getSingleRelationship(VIEW, Direction.OUTGOING).getOtherNode(child);
+                    double thisdistance = Double.valueOf(viewNode.getAttribute(LSDAttribute.VIEW_RADIUS).toString());
+                    if (thisdistance < distance[0]) {
+                        distance[0] = thisdistance;
+                        if (child.hasAttribute(LSDAttribute.IMAGE_URL)) {
+                            pool.setAttribute(LSDAttribute.IMAGE_URL, child.getAttribute(LSDAttribute.IMAGE_URL));
+                        }
+                        if (child.hasAttribute(LSDAttribute.IMAGE_WIDTH)) {
+                            pool.getAttribute(LSDAttribute.IMAGE_WIDTH, child.getAttribute(LSDAttribute.IMAGE_WIDTH));
+                        }
+                        if (child.hasAttribute(LSDAttribute.IMAGE_HEIGHT)) {
+                            pool.setAttribute(LSDAttribute.IMAGE_HEIGHT, child.getAttribute(LSDAttribute.IMAGE_HEIGHT));
+                        }
+                    }
+                }
+            }
+        }
+                         );
+        pool.setAttribute(LSDAttribute.INTERNAL_MIN_IMAGE_RADIUS, String.valueOf(distance[0]));
+        return pool;
     }
 
     @Nonnull
@@ -447,7 +478,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                                                                                                  : "<unknown-uri>"
             );
         }
-//        recalculateCentreImage(relationship.getOtherNode(persistedEntityImpl), persistedEntityImpl);
+        recalculateCentreImage(relationship.getOtherNode(persistedEntity), persistedEntity);
         transaction.success();
         return persistedEntity.convertNodeToLSD(detail, internal);
     }
@@ -764,6 +795,8 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             final FountainRelationship relationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
                                                                                             Direction.OUTGOING
                                                                                            );
+
+            persistedEntity.parentNode().modifiedTimestamp();
             if (relationship == null) {
                 throw new RelationshipNotFoundException("No view relationship for %s(%s)", persistedEntity.getAttribute(
                         LSDAttribute.URI
@@ -798,7 +831,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                                                   : "<unknown-uri>"
                 );
             }
-//            recalculateCentreImage(parentRel.getOtherNode(persistedEntityImpl), persistedEntityImpl);
+            recalculateCentreImage(parentRel.getOtherNode(persistedEntity), persistedEntity);
             indexDAO.incrementBoardActivity(parentRel.getOtherNode(persistedEntity));
 
             return viewPersistedEntity;
@@ -839,6 +872,8 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
     public LSDPersistedEntity unlinkPoolObject(@Nonnull final LSDPersistedEntity target) throws InterruptedException {
         fountainNeo.begin();
         try {
+            target.parentNode().modifiedTimestamp();
+
             if (target.hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
                 throw new CannotUnlinkEntityException("Cannot unlink a persistedEntityImpl that is not the latest version.");
             }
@@ -865,16 +900,18 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
     @Nullable
     @Override
     public LSDTransferEntity updatePool(@Nonnull final LiquidSessionIdentifier sessionIdentifier,
-                                        @Nonnull final LSDPersistedEntity persistedEntityImpl,
+                                        @Nonnull final LSDPersistedEntity pool,
                                         final LiquidRequestDetailLevel detail, final boolean internal, final boolean historical,
                                         final Integer end, final int start, final ChildSortOrder order, final boolean contents,
                                         @Nonnull final LSDTransferEntity requestEntity, final Runnable onRenameAction)
             throws Exception {
         final LSDPersistedEntity resultPersistedEntity = fountainNeo.updateNodeAndReturnNodeNoTx(sessionIdentifier,
-                                                                                                 persistedEntityImpl, requestEntity,
+                                                                                                 pool, requestEntity,
                                                                                                  onRenameAction
                                                                                                 );
-        indexDAO.syncBoard(persistedEntityImpl);
+        indexDAO.syncBoard(pool);
+        pool.modifiedTimestamp();
+
         return getPoolAndContentsNoTx(resultPersistedEntity, detail, contents, order, internal, sessionIdentifier, start, end,
                                       historical
                                      );
@@ -956,6 +993,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         entityCopy.removeSubEntity(LSDAttribute.OWNER);
         entityCopy.removeValue(LSDAttribute.ID);
         final LSDTransferEntity newObject;
+        origPersistedEntity.parentNode().modifiedTimestamp();
 
         final LSDPersistedEntity persistedEntity = copyPoolObjectForUpdate(editor, origPersistedEntity, false);
         if (!entity.getURI().toString().toLowerCase().equals(origPersistedEntity.getAttribute(LSDAttribute.URI))) {

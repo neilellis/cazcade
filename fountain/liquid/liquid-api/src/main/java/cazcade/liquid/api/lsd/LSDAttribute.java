@@ -666,9 +666,15 @@ public final class LSDAttribute {
                                                                    );
     @Nonnull
     public static final LSDAttribute UPDATED = LSDAttribute.create("updated", "number:int:",
-                                                                   "The date this entity was last modified in milliseconds since 1970. ",
+                                                                   "The date this entity was last edited in milliseconds since " +
+                                                                   "1970",
                                                                    false, false, false, false, false, false, false
                                                                   );
+    public static final LSDAttribute MODIFIED = LSDAttribute.create("modified", "number:int:",
+                                                                    "The date this entity was last modified (i.e. a child was " +
+                                                                    "changed) in milliseconds since 1970. ",
+                                                                    false, false, false, false, false, false, false
+                                                                   );
     @Nonnull
     public static final LSDAttribute PUBLISHED = LSDAttribute.create("published", "number:int:",
                                                                      "The date this entity was first created in milliseconds since 1970. ",

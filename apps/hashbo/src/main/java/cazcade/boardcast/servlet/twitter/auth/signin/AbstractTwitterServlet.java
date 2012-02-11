@@ -1,6 +1,6 @@
 package cazcade.boardcast.servlet.twitter.auth.signin;
 
-import cazcade.boardcast.servlet.AbstractHashboServlet;
+import cazcade.boardcast.servlet.AbstractBoardcastServlet;
 import cazcade.common.Logger;
 
 import javax.annotation.Nonnull;
@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 /**
  * @author neilellis@cazcade.com
  */
-public class AbstractTwitterServlet extends AbstractHashboServlet {
+public class AbstractTwitterServlet extends AbstractBoardcastServlet {
     @Nonnull
     private static final Logger log = Logger.getLogger(AbstractTwitterServlet.class);
     @Nonnull

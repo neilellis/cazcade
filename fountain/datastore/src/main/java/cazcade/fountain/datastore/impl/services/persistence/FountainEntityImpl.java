@@ -615,6 +615,11 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     }
 
     @Override
+    public void modifiedTimestamp() {
+        setAttribute(LSDAttribute.MODIFIED, String.valueOf(System.currentTimeMillis()));
+    }
+
+    @Override
     @Nonnull
     public org.neo4j.graphdb.Node getNeoNode() {
         return neoNode;

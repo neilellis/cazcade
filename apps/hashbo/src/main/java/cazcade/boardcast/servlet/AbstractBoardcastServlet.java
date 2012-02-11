@@ -31,12 +31,12 @@ import java.util.Map;
 /**
  * @author neilellis@cazcade.com
  */
-public class AbstractHashboServlet extends HttpServlet {
+public class AbstractBoardcastServlet extends HttpServlet {
     @Nonnull
-    private static final Logger log = Logger.getLogger(AbstractHashboServlet.class);
+    private static final Logger log = Logger.getLogger(AbstractBoardcastServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
-    public static final String VERSION = "14";
+    public static final String VERSION = "15";
     public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
 
     private WebApplicationContext applicationContext;
@@ -78,8 +78,9 @@ public class AbstractHashboServlet extends HttpServlet {
             if (entity.getURI().toString().startsWith("pool")) {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
-                final String url = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(LSDAttribute.UPDATED,
-                                                                                                               ""
+                final String url = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(
+                        LSDAttribute.MODIFIED,
+                        ""
                                                                                                               ) +
                                    "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
                 map.put("snapshotUrl", url);
