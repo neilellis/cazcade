@@ -33,6 +33,8 @@ public class ImageProxyServlet extends HttpServlet {
 
     public void init(final ServletConfig config) throws ServletException {
         super.init(config);
+        System.setProperty("cloudfiles.apikey", "bee5705ff5df90d7731eabf83b05f7a5");
+        System.setProperty("cloudfiles.username", "cazcade");
         final boolean initialised = initialise();
 //        if (!initialised) {
 //            new Thread(new Runnable() {
@@ -48,6 +50,7 @@ public class ImageProxyServlet extends HttpServlet {
         if (!initialised) {
             throw new ServletException("Could not initialise Image Proxy");
         }
+
 
     }
 
