@@ -36,8 +36,7 @@ public class AbstractHashboServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(AbstractHashboServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
-    public static final String VERSION = "12";
-    public static final boolean FORCE_NEW_ICONS_FOR_BOARDS = true;
+    public static final String VERSION = "14";
     public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
 
     private WebApplicationContext applicationContext;
@@ -79,8 +78,9 @@ public class AbstractHashboServlet extends HttpServlet {
             if (entity.getURI().toString().startsWith("pool")) {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
-                final String url = "http://boardcast.it/_snapshot-" + shortUrl + "?ModPagespeed=on&bid=" + entity
-                        .getAttribute(LSDAttribute.ID) + entity.getAttribute(LSDAttribute.VERSION, "") +
+                final String url = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(LSDAttribute.UPDATED,
+                                                                                                               ""
+                                                                                                              ) +
                                    "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
                 map.put("snapshotUrl", url);
 
