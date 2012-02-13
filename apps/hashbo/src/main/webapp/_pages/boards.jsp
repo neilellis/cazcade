@@ -10,8 +10,8 @@
     <%@ include file="header.jspf" %>
     <%@ include file="analytics.jspf" %>
 
-    <link rel="stylesheet" href="./_css/boardcast-v2.less?v2">
-    <link rel="stylesheet" href="./_css/hackabout.css">
+    <link rel="stylesheet" type="text/css" href="./_css/boardcast-v2.css?v2">
+    <link rel="stylesheet" type="text/css" href="./_css/hackabout.css">
     <script type="text/javascript">
         function resizeCenter() {
             document.getElementById('boards-list').style.width = (Math.floor(document.body.offsetWidth / 400) * 400) + "px";
