@@ -36,8 +36,8 @@ public class AbstractBoardcastServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(AbstractBoardcastServlet.class);
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
-    public static final String VERSION = "17";
-    public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
+    public static final String VERSION = "18";
+    public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24*7);
 
     private WebApplicationContext applicationContext;
     protected FountainDataStore dataStore;
