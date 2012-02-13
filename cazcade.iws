@@ -65,6 +65,7 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/boardcast-v2.css" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/boardcast-v2.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -299,10 +300,7 @@
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/boardcast-v2.css">
           <provider selected="true" editor-type-id="text-editor">
             <state line="3" column="165647" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1329142307000" expanded="true" signature="425431:425439" placeholder="{...}" />
-                <marker date="1329142307000" expanded="true" signature="425490:425508" placeholder="{...}" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -319,7 +317,7 @@
       <file leaf-file-name="login.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/login.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="27" selection-start="216" selection-end="216" vertical-scroll-proportion="-3.125">
+            <state line="5" column="27" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -328,7 +326,7 @@
       <file leaf-file-name="header.jspf" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="18" selection-start="726" selection-end="726" vertical-scroll-proportion="9.416667">
+            <state line="16" column="18" selection-start="726" selection-end="726" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -337,7 +335,7 @@
       <file leaf-file-name="board.less" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="892" column="105" selection-start="17049" selection-end="17049" vertical-scroll-proportion="0.19125128">
+            <state line="892" column="105" selection-start="17049" selection-end="17049" vertical-scroll-proportion="0.19562955">
               <folding />
             </state>
           </provider>
@@ -346,7 +344,7 @@
       <file leaf-file-name="boards.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/boards.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="43" selection-start="611" selection-end="611" vertical-scroll-proportion="-8.125">
+            <state line="13" column="43" selection-start="611" selection-end="611" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -355,7 +353,7 @@
       <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="34" selection-start="216" selection-end="216" vertical-scroll-proportion="-4.375">
+            <state line="7" column="34" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
               <folding>
                 <marker date="1329140142000" expanded="true" signature="1681:1773" placeholder="..." />
                 <marker date="1329140142000" expanded="true" signature="1782:1911" placeholder="..." />
@@ -374,7 +372,7 @@
       <file leaf-file-name="index_preload.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/index_preload.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="25" selection-start="80" selection-end="80" vertical-scroll-proportion="-1.875">
+            <state line="3" column="25" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -383,7 +381,7 @@
       <file leaf-file-name="_index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -392,7 +390,7 @@
       <file leaf-file-name="snapshot.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/snapshot.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="78" selection-start="506" selection-end="506" vertical-scroll-proportion="-8.75">
+            <state line="14" column="78" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -599,6 +597,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3409,24 +3408,23 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="246" />
-    <property name="project.structure.last.edited" value="Facets" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="237" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="55" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="249" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="249" />
     <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="209" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
@@ -3451,15 +3449,15 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
-    <property name="project.structure.side.proportion" value="0.13184772" />
     <property name="DefaultHtmlFileTemplate" value="Html" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
+    <property name="project.structure.side.proportion" value="0.13184772" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig" serverName="dev.cazcade.com" serverId="45d3bb15-3f17-4319-9cab-4e637f428236" overwriteAll="false">
     <servers>
@@ -3808,142 +3806,6 @@
     <option name="referencePos" value="0" />
     <option name="showLabels" value="true" />
   </component>
-  <component name="RestoreUpdateTree">
-    <UpdateInfo date="Moments ago" ActionInfo="_Update">
-      <UpdatedFiles>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated from server" />
-          <option name="myStatusName" value="Changed on server" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CHANGED_ON_SERVER" />
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Updated" />
-            <option name="myStatusName" value="Changed" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="UPDATED" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Created" />
-            <option name="myStatusName" value="Created" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="CREATED" />
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageScaleServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/CallbackServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/LinkServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/RegisterServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/PostServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/AbstractTwitterServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/SigninServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/LogoutServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/SnapshotServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ProfileServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardQueryServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardIconServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/AbstractBoardListServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/board/BoardServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/ChangePasswordServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LoginServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LogoutServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageProxyServlet.java</PATH>
-            <PATH vcs="svn" revision="336">$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractBoardcastServlet.java</PATH>
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Deleted" />
-            <option name="myStatusName" value="Deleted" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="true" />
-            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Restored" />
-            <option name="myStatusName" value="Will be restored" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="RESTORED" />
-          </FILE-GROUP>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Modified" />
-          <option name="myStatusName" value="Modified" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MODIFIED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Skipped" />
-          <option name="myStatusName" value="Skipped" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SKIPPED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with conflicts" />
-          <option name="myStatusName" value="Will be merged with conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_CONFLICTS" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with tree conflicts" />
-          <option name="myStatusName" value="Merged with tree conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged" />
-          <option name="myStatusName" value="Will be merged" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Not in repository" />
-          <option name="myStatusName" value="Not in repository" />
-          <option name="mySupportsDeletion" value="true" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UNKNOWN" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally added" />
-          <option name="myStatusName" value="Locally added" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_ADDED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally removed" />
-          <option name="myStatusName" value="Locally removed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_REMOVED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Switched" />
-          <option name="myStatusName" value="Switched" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SWITCHED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with property conflicts" />
-          <option name="myStatusName" value="Will be merged with property conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-        </FILE-GROUP>
-      </UpdatedFiles>
-    </UpdateInfo>
-  </component>
   <component name="RunManager" selected="GWT Configuration.HashBo">
     <configuration default="false" name="FountainUserUpdateServiceTest" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
@@ -4123,27 +3985,6 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="JettyConfiguration" factoryName="Local">
       <deployment />
       <server-settings>
@@ -4168,6 +4009,27 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
       <JSRemoteDebuggerConfigurationSettings>
         <option name="engineId" value="embedded" />
@@ -4180,14 +4042,20 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JettyConfiguration" factoryName="Remote">
-      <option name="LOCAL" value="false" />
-      <deployment />
-      <server-settings>
-        <data />
-      </server-settings>
-      <predefined_log_file id="Jetty" enabled="true" />
-      <extension name="coverage" />
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GWT.ConfigurationType" factoryName="GWT Configuration">
+      <module name="" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -4223,33 +4091,14 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="GWT.ConfigurationType" factoryName="GWT Configuration">
-      <module name="" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
+    <configuration default="true" type="JettyConfiguration" factoryName="Remote">
+      <option name="LOCAL" value="false" />
       <deployment />
-      <server-settings />
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <server-settings>
+        <data />
+      </server-settings>
+      <predefined_log_file id="Jetty" enabled="true" />
+      <extension name="coverage" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -4262,6 +4111,19 @@
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
       <option name="CONTEXT_PROVIDER" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
+      <deployment />
+      <server-settings />
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -4687,18 +4549,18 @@
       </method>
     </configuration>
     <list size="16">
-      <item index="0" class="java.lang.String" itemvalue="Application.FountainTestDataBuilderClient" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Build Dev" />
-      <item index="2" class="java.lang.String" itemvalue="Application.CLI" />
-      <item index="3" class="java.lang.String" itemvalue="Application.FountainDataStoreMain" />
-      <item index="4" class="java.lang.String" itemvalue="GWT Configuration.Vortex" />
-      <item index="5" class="java.lang.String" itemvalue="GWT Configuration.Cyclone" />
-      <item index="6" class="java.lang.String" itemvalue="GWT Configuration.HashBo" />
-      <item index="7" class="java.lang.String" itemvalue="JUnit.FountainUserUpdateServiceTest" />
-      <item index="8" class="java.lang.String" itemvalue="JUnit.LSDNodeTest" />
-      <item index="9" class="java.lang.String" itemvalue="JUnit.LSDNodeTest.testArrayMarshalling" />
-      <item index="10" class="java.lang.String" itemvalue="JUnit.PermissionTest" />
-      <item index="11" class="java.lang.String" itemvalue="JUnit.FollowTest" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.FountainUserUpdateServiceTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.LSDNodeTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.LSDNodeTest.testArrayMarshalling" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.PermissionTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.FollowTest" />
+      <item index="5" class="java.lang.String" itemvalue="Application.FountainTestDataBuilderClient" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Build Dev" />
+      <item index="7" class="java.lang.String" itemvalue="Application.CLI" />
+      <item index="8" class="java.lang.String" itemvalue="Application.FountainDataStoreMain" />
+      <item index="9" class="java.lang.String" itemvalue="GWT Configuration.Vortex" />
+      <item index="10" class="java.lang.String" itemvalue="GWT Configuration.Cyclone" />
+      <item index="11" class="java.lang.String" itemvalue="GWT Configuration.HashBo" />
       <item index="12" class="java.lang.String" itemvalue="JUnit.FountainIntegrationTest" />
       <item index="13" class="java.lang.String" itemvalue="JUnit.Test Live" />
       <item index="14" class="java.lang.String" itemvalue="JUnit.All" />
@@ -4800,13 +4662,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1129" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1388889" sideWeight="0.66032064" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32827324" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32443127" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32178217" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08502674" sideWeight="0.6442886" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43267328" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
@@ -4815,23 +4676,24 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32574257" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37821782" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19123931" sideWeight="0.5445545" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" sideWeight="0.5445545" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32852563" sideWeight="0.5445545" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45544556" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959914" sideWeight="0.5765054" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296593" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32178217" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279678" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37821782" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4174085" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -4955,90 +4817,63 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/forgot.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="32" selection-start="504" selection-end="504" vertical-scroll-proportion="-6.25">
-          <folding />
-        </state>
+        <state line="10" column="32" selection-start="504" selection-end="504" vertical-scroll-proportion="-6.25" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/login.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="31" selection-start="520" selection-end="520" vertical-scroll-proportion="-6.25">
-          <folding />
-        </state>
+        <state line="10" column="31" selection-start="520" selection-end="520" vertical-scroll-proportion="-6.25" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/password.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="30" selection-start="553" selection-end="553" vertical-scroll-proportion="-6.875">
-          <folding />
-        </state>
+        <state line="11" column="30" selection-start="553" selection-end="553" vertical-scroll-proportion="-6.875" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_js/less-1.2.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="11587" selection-start="44378" selection-end="44378" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1328929040000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
+        <state line="8" column="11587" selection-start="44378" selection-end="44378" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/SnapshotBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="61" selection-start="1678" selection-end="1678" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/index_preload.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="25" selection-start="80" selection-end="80" vertical-scroll-proportion="-1.875">
-          <folding />
-        </state>
+        <state line="38" column="61" selection-start="1678" selection-end="1678" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/boardcast-v2.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="165647" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1329142307000" expanded="true" signature="425431:425439" placeholder="{...}" />
-            <marker date="1329142307000" expanded="true" signature="425490:425508" placeholder="{...}" />
-          </folding>
+        <state line="3" column="165647" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractBoardcastServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="28" selection-start="1539" selection-end="1539" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="27" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="18" selection-start="726" selection-end="726" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/boards.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="43" selection-start="611" selection-end="611" vertical-scroll-proportion="-8.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_twitter/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="27" selection-start="216" selection-end="216" vertical-scroll-proportion="-3.125">
+        <state line="13" column="43" selection-start="611" selection-end="611" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="34" selection-start="216" selection-end="216" vertical-scroll-proportion="-4.375">
+        <state line="7" column="34" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
           <folding>
             <marker date="1329140142000" expanded="true" signature="1681:1773" placeholder="..." />
             <marker date="1329140142000" expanded="true" signature="1782:1911" placeholder="..." />
@@ -5053,30 +4888,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/header.jspf">
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/index_preload.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="18" selection-start="726" selection-end="726" vertical-scroll-proportion="9.416667">
+        <state line="3" column="25" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/snapshot.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="78" selection-start="506" selection-end="506" vertical-scroll-proportion="-8.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractBoardcastServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="28" selection-start="1539" selection-end="1539" vertical-scroll-proportion="0.0">
+        <state line="14" column="78" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/webapp/_css/board.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="892" column="105" selection-start="17049" selection-end="17049" vertical-scroll-proportion="0.19125128">
+        <state line="892" column="105" selection-start="17049" selection-end="17049" vertical-scroll-proportion="0.19562955">
           <folding />
         </state>
       </provider>
