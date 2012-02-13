@@ -37,7 +37,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
     public static final String VERSION = "18";
-    public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24*7);
+    public static final long FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24*7);
 
     private WebApplicationContext applicationContext;
     protected FountainDataStore dataStore;
