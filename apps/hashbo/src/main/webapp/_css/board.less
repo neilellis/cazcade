@@ -534,16 +534,16 @@ div.pool-area-content {
     margin: 0;
     padding: 0;
     text-align: center;
-    height: 545px;
+    height: 450px;
+    max-height: 545px;
     width:400px;
-    position:relative
+
     &:hover {
         /*width:600px;*/
         /*max-height:945px;*/
         .board-image-wrapper {
-             position:absolute;
-             left: -75px;
-             top: -15%;
+             margin-left: -75px;
+             margin-top: -15%;
              width:450px;
              max-height:600px;
              min-height:300px;
@@ -567,14 +567,13 @@ div.pool-area-content {
     .board-image-wrapper {
            background-color: #222;
             img {
-                .transition2(width ease-in-out 300ms, max-height ease-in-out 300ms) ;
+                .transition3(width ease-in-out 300ms,height ease-in-out 300ms, max-height ease-in-out 300ms) ;
                 width:300px;
                 max-height:400px;
                 margin: 0;
                 padding: 0;
             }
-                .transition4(margin-top ease-in-out 300ms, margin-left ease-in-out 300ms, width ease-in-out 300ms,
-                max-height ease-in-out 300ms) ;
+                .transition5(margin-top ease-in-out 300ms, margin-left ease-in-out 300ms, width ease-in-out 300ms, height ease-in-out 300ms, max-height ease-in-out 300ms) ;
                 width:300px;
                 max-height:398px;
                 min-height:200px;
