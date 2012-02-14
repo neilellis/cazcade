@@ -534,15 +534,16 @@ div.pool-area-content {
     margin: 0;
     padding: 0;
     text-align: center;
-    max-height: 545px;
+    height: 545px;
     width:400px;
-
+    position:relative
     &:hover {
         /*width:600px;*/
         /*max-height:945px;*/
         .board-image-wrapper {
-             margin-left: -75px;
-             margin-top: -15%;
+             position:absolute;
+             left: -75px;
+             top: -15%;
              width:450px;
              max-height:600px;
              min-height:300px;
