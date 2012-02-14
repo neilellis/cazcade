@@ -12,7 +12,7 @@
     <%@ include file="header.jspf" %>
 </head>
 <body
-        style="padding-top:0px;max-width:1024px;max-height:1365px;height:auto;min-height:768px;background-color:white;overflow:hidden;">
+        style="padding-top:0px;max-width:1024px;max-height:1365px;height:auto;min-height:636px;background-color:white;overflow:hidden;">
 <tags:log-panel/>
 
 <script>
