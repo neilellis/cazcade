@@ -2,6 +2,6 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:pool="urn:import:cazcade.vortex.pool.widgets">
     <g:HTMLPanel styleName="snapshot-panel">
-        <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="contentArea" pageFlow="false"/>
+        <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="contentArea" pageFlow="true"/>
     </g:HTMLPanel>
 </ui:UiBinder>
