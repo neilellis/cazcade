@@ -233,13 +233,13 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                     if (thisdistance < distance[0]) {
                         distance[0] = thisdistance;
                         if (child.hasAttribute(LSDAttribute.IMAGE_URL)) {
-                            pool.setAttribute(LSDAttribute.IMAGE_URL, child.getAttribute(LSDAttribute.IMAGE_URL));
+                            pool.setAttribute(LSDAttribute.ICON_URL, child.getAttribute(LSDAttribute.IMAGE_URL));
                         }
                         if (child.hasAttribute(LSDAttribute.IMAGE_WIDTH)) {
-                            pool.getAttribute(LSDAttribute.IMAGE_WIDTH, child.getAttribute(LSDAttribute.IMAGE_WIDTH));
+                            pool.setAttribute(LSDAttribute.ICON_WIDTH, child.getAttribute(LSDAttribute.IMAGE_WIDTH));
                         }
                         if (child.hasAttribute(LSDAttribute.IMAGE_HEIGHT)) {
-                            pool.setAttribute(LSDAttribute.IMAGE_HEIGHT, child.getAttribute(LSDAttribute.IMAGE_HEIGHT));
+                            pool.setAttribute(LSDAttribute.ICON_HEIGHT, child.getAttribute(LSDAttribute.IMAGE_HEIGHT));
                         }
                     }
                 }
