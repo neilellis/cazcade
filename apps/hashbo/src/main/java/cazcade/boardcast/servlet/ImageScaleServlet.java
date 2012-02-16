@@ -65,27 +65,40 @@ public class ImageScaleServlet extends HttpServlet {
 
 
     @Override
-    protected void doHead(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doHead(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
         super.doHead(req, resp);
         final String url = req.getAttribute("url") == null ? req.getParameter("url") : (String) req.getAttribute("url");
         final String w = req.getParameter("width");
         final String h = req.getParameter("height");
-        final String key = url + ":" + w + ":" + h;
+        String type = getType(req);
+        final String key = url + ":" + w + ":" + h + ":" + type;
         if (scaleCache.get(key) != null && req.getHeader(IF_MODIFIED_SINCE) != null) {
             final Element element = scaleCache.get(key);
             element.getCreationTime();
             if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime() - 1000) {
                 resp.setStatus(304);
-            } else {
+            }
+            else {
                 resp.setStatus(200);
             }
-        } else {
+        }
+        else {
             resp.setStatus(200);
         }
     }
 
+    private String getType(HttpServletRequest req) {
+        String type = req.getParameter("type");
+        if (type == null) {
+            type = "jpeg";
+        }
+        return type;
+    }
+
     @Override
-    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
+            throws ServletException, IOException {
         final boolean debug = !Logger.isProduction() || req.getParameter("debug") != null;
         final long start = System.currentTimeMillis(); // Just for debugging
 
@@ -94,12 +107,16 @@ public class ImageScaleServlet extends HttpServlet {
         final String w = req.getParameter("width");
         final String h = req.getParameter("height");
         final String key = url + ":" + w + ":" + h;
+        String type = getType(req);
 
         if (scaleCache.get(key) == null) {
 
             final InputStream is = new URL(url).openStream();
             if (is == null) {
-                resp.sendError(HttpServletResponse.SC_NOT_FOUND, String.format("Could not find the requested resource (%s)", req.getRequestURI()));
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, String.format("Could not find the requested resource (%s)",
+                                                                               req.getRequestURI()
+                                                                              )
+                              );
                 return;
             }
 
@@ -109,7 +126,9 @@ public class ImageScaleServlet extends HttpServlet {
             }
 
             // Compute the dimentions of the scaled image:
-            final DimensionConstrain dims = getDimentionConstrainFromRequest(req, originalImage.getWidth(), originalImage.getHeight());
+            final DimensionConstrain dims = getDimentionConstrainFromRequest(req, originalImage.getWidth(),
+                                                                             originalImage.getHeight()
+                                                                            );
 
             // Initialize a resample operation based on the computed dims
             final ResampleOp op = new ResampleOp(dims);
@@ -128,7 +147,12 @@ public class ImageScaleServlet extends HttpServlet {
 
             // Create a scaled image:
             final BufferedImage scaledImage = op.filter(originalImage, null);
-            logger.debug(String.format("Serving image %sx%s scalled to %sx%s with filter '%s' and unshurpenmask '%s' within %smillis", originalImage.getWidth(), originalImage.getHeight(), scaledImage.getWidth(), scaledImage.getHeight(), op.getFilter().getClass(), op.getUnsharpenMask(), System.currentTimeMillis() - start));
+            logger.debug(String.format(
+                    "Serving image %sx%s scalled to %sx%s with filter '%s' and unshurpenmask '%s' within %smillis",
+                    originalImage.getWidth(), originalImage.getHeight(), scaledImage.getWidth(), scaledImage.getHeight(),
+                    op.getFilter().getClass(), op.getUnsharpenMask(), System.currentTimeMillis() - start
+                                      )
+                        );
 
             if (debug) {
                 resp.setHeader("X-InitialDimensions", String.format("%sx%s", originalImage.getWidth(), originalImage.getHeight()));
@@ -138,17 +162,18 @@ public class ImageScaleServlet extends HttpServlet {
                 resp.setHeader("X-ScaledTimeMillis", String.valueOf(System.currentTimeMillis() - start));
             }
 
-            resp.setContentType("image/jpeg");
+            resp.setContentType("image/" + type);
 
             final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(scaledImage, "jpg", byteArrayOutputStream);
+            ImageIO.write(scaledImage, type, byteArrayOutputStream);
             final byte[] bytes = byteArrayOutputStream.toByteArray();
             final Element element = new Element(key, bytes, false, DEFAULT_SCALED_IMAGE_TTL_SECS, DEFAULT_SCALED_IMAGE_TTL_SECS);
             scaleCache.put(element);
             setDateHeaders(resp, element);
             IOUtils.closeQuietly(is);
             IOUtils.write(bytes, resp.getOutputStream());
-        } else {
+        }
+        else {
             if (debug) {
                 resp.setHeader("X-ScaledImageCacheKey", key);
                 resp.setHeader("X-ScaledTimeMillis", String.valueOf(System.currentTimeMillis() - start));
@@ -159,8 +184,9 @@ public class ImageScaleServlet extends HttpServlet {
             setDateHeaders(resp, element);
             if (req.getDateHeader(IF_MODIFIED_SINCE) > element.getCreationTime() - 1000) {
                 resp.setStatus(304);
-            } else {
-                resp.setContentType("image/jpeg");
+            }
+            else {
+                resp.setContentType("image/" + type);
                 IOUtils.write((byte[]) element.getValue(), resp.getOutputStream());
             }
 
@@ -239,7 +265,8 @@ public class ImageScaleServlet extends HttpServlet {
         final int w = image.getWidth();
         final int h = image.getHeight();
         final BufferedImage image2 = new BufferedImage(w, h,
-                BufferedImage.TYPE_INT_RGB);
+                                                       BufferedImage.TYPE_INT_RGB
+        );
         final Graphics2D g = image2.createGraphics();
         g.setColor(fillColor);
         g.fillRect(0, 0, w, h);
