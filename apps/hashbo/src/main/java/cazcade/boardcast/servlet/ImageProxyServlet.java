@@ -91,8 +91,10 @@ public class ImageProxyServlet extends HttpServlet {
         String url = req.getParameter("url");
         final String size = req.getParameter("size");
         final String delayStr = req.getParameter("delay");
+        final String freshnessStr = req.getParameter("freshness");
         final String waitForWindowStatus = req.getParameter("windowStatus");
-        final int delay = delayStr == null ? 10 : Integer.parseInt(delayStr);
+        final int delay = delayStr == null ? 0 : Integer.parseInt(delayStr);
+        final int freshness = freshnessStr == null ? 0 : Integer.parseInt(freshnessStr);
         final String text = req.getParameter("text");
 
         if (url == null || url.isEmpty()) {
@@ -102,7 +104,13 @@ public class ImageProxyServlet extends HttpServlet {
 
         if (!url.startsWith("http://") && !url.startsWith("https://")
                 ) {
-            url= "http://"+url;
+            url = "http://" + url;
+        }
+        if (url.contains("?")) {
+            url = url + "&____v=" + System.currentTimeMillis() / freshness;
+        }
+        else {
+            url = url + "?____v=" + System.currentTimeMillis() / freshness;
         }
         final String urlCompareStr = url.toLowerCase();
         //todo: bit of a hack
