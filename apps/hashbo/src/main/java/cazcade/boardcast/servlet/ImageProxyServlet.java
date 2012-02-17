@@ -106,11 +106,13 @@ public class ImageProxyServlet extends HttpServlet {
                 ) {
             url = "http://" + url;
         }
-        if (url.contains("?")) {
-            url = url + "&____v=" + System.currentTimeMillis() / freshness;
-        }
-        else {
-            url = url + "?____v=" + System.currentTimeMillis() / freshness;
+        if (freshness > 0) {
+            if (url.contains("?")) {
+                url = url + "&____v=" + System.currentTimeMillis() / freshness;
+            }
+            else {
+                url = url + "?____v=" + System.currentTimeMillis() / freshness;
+            }
         }
         final String urlCompareStr = url.toLowerCase();
         //todo: bit of a hack
