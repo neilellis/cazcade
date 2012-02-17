@@ -88,7 +88,7 @@ public class ImageProxyServlet extends HttpServlet {
         final int width = req.getParameter("width") != null ? Integer.parseInt(req.getParameter("width")) : 1024;
         final int height = req.getParameter("height") != null ? Integer.parseInt(req.getParameter("height")) : -1;
 
-        final String url = req.getParameter("url");
+        String url = req.getParameter("url");
         final String size = req.getParameter("size");
         final String delayStr = req.getParameter("delay");
         final String waitForWindowStatus = req.getParameter("windowStatus");
@@ -100,6 +100,9 @@ public class ImageProxyServlet extends HttpServlet {
             return;
         }
 
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url= "http://"+url;
+        }
         final String urlCompareStr = url.toLowerCase();
         //todo: bit of a hack
         final boolean isImage = req.getParameter("isImage") != null ||
