@@ -236,7 +236,8 @@ public class Boardcast implements EntryPoint {
                         createBoardDialog.hide();
                         final String board = createBoardDialog.getBoard();
                         final boolean listed = createBoardDialog.isListed();
-                        if (!listed) {
+                        final String url = Window.Location.getParameter("url");
+                        if (!listed || url !=null) {
                             BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
                                 @Override
                                 public void callback(@Nonnull final LiquidUUID uuid) {

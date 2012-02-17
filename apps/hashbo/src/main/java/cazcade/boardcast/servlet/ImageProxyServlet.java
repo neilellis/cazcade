@@ -189,7 +189,7 @@ public class ImageProxyServlet extends HttpServlet {
     private void sendNotReady(@Nonnull final HttpServletResponse resp, final int width,
                               final int height, final String refreshInSecs) throws UnsupportedEncodingException {
         resp.setStatus(307);
-        resp.setHeader("Location", "http://placehold.it/" + width + "x" + height + "&text=Image+Not+Ready");
+        resp.setHeader("Location", "http://placehold.it/" + width + "x" + (height > 0 ? height : 0) + "&text=Image+Not+Available");
         resp.setHeader("Cache-Control", "max-age=" + refreshInSecs);
         //noinspection VariableNotUsedInsideIf
         resp.setHeader("Refresh", refreshInSecs);
