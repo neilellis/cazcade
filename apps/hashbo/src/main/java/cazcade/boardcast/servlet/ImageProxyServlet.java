@@ -100,7 +100,8 @@ public class ImageProxyServlet extends HttpServlet {
             return;
         }
 
-        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        if (!url.startsWith("http://") && !url.startsWith("https://")
+                ) {
             url= "http://"+url;
         }
         final String urlCompareStr = url.toLowerCase();
@@ -139,7 +140,7 @@ public class ImageProxyServlet extends HttpServlet {
             response = getCachedImage(imageSize, imageUrl, delay, isImage, waitForWindowStatus);
             int count = 0;
             while (response.getRefreshIndicator() > 0 && count++ < 100) {
-                Thread.sleep(250);
+                Thread.sleep(1000);
 //                Thread.sleep(response.getRefreshIndicator());
                 response = getCachedImage(imageSize, imageUrl, delay, isImage, waitForWindowStatus);
             }
