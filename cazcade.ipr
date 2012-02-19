@@ -554,6 +554,12 @@
             <element id="archive" name="datastore-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore" />
             </element>
+            <element id="archive" name="email-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="email" />
+            </element>
+            <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.3.3" />
+            <element id="library" level="project" name="Maven: org.apache.velocity:velocity:1.7" />
+            <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
             <element id="archive" name="index-1.1-SNAPSHOT.jar">
               <element id="module-output" name="index" />
             </element>
@@ -561,7 +567,6 @@
             <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:3.5.6-Final" />
             <element id="library" level="project" name="Maven: antlr:antlr:2.7.6" />
-            <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
             <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
             <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.3.03" />
             <element id="library" level="project" name="Maven: javax.transaction:jta:1.1" />
@@ -592,8 +597,6 @@
             <element id="library" level="project" name="Maven: org.neo4j:neo4j-shell:1.4" />
             <element id="library" level="project" name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.jline:0.9.94_1" />
             <element id="library" level="project" name="Maven: commons-cli:commons-cli:1.2" />
-            <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.3.3" />
-            <element id="library" level="project" name="Maven: org.apache.velocity:velocity:1.7" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.0-SNAPSHOT" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.0-SNAPSHOT" />
             <element id="archive" name="notification-1.1-SNAPSHOT.jar">
@@ -1646,6 +1649,7 @@
       <module fileurl="file://$PROJECT_DIR$/fountain/dist/dist.iml" filepath="$PROJECT_DIR$/fountain/dist/dist.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/dnd/dnd.iml" filepath="$PROJECT_DIR$/vortex/dnd/dnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/download/download.iml" filepath="$PROJECT_DIR$/apps/download/download.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fountain/email/email.iml" filepath="$PROJECT_DIR$/fountain/email/email.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/fountain.iml" filepath="$PROJECT_DIR$/fountain/fountain.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" filepath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/hashbo/hashbo.iml" filepath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
@@ -1863,1697 +1867,1697 @@
   <component name="libraryTable">
     <library name="Maven: antlr:antlr:2.7.6">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.6/antlr-2.7.6.jar!/" />
+        <root url="jar://$M2_REPO$/antlr/antlr/2.7.6/antlr-2.7.6.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.6/antlr-2.7.6-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/antlr/antlr/2.7.6/antlr-2.7.6-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar!/" />
+        <root url="jar://$M2_REPO$/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: aopalliance:aopalliance:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/aopalliance/aopalliance/1.0/aopalliance-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/aopalliance/aopalliance/1.0/aopalliance-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: asm:asm:3.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.1/asm-3.1.jar!/" />
+        <root url="jar://$M2_REPO$/asm/asm/3.1/asm-3.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.1/asm-3.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/asm/asm/3.1/asm-3.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.1/asm-3.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/asm/asm/3.1/asm-3.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: axis:axis-jaxrpc:1.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-jaxrpc/1.3/axis-jaxrpc-1.3.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-jaxrpc/1.3/axis-jaxrpc-1.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-jaxrpc/1.3/axis-jaxrpc-1.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-jaxrpc/1.3/axis-jaxrpc-1.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-jaxrpc/1.3/axis-jaxrpc-1.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-jaxrpc/1.3/axis-jaxrpc-1.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: axis:axis-saaj:1.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-saaj/1.3/axis-saaj-1.3.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-saaj/1.3/axis-saaj-1.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-saaj/1.3/axis-saaj-1.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-saaj/1.3/axis-saaj-1.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-saaj/1.3/axis-saaj-1.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-saaj/1.3/axis-saaj-1.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: axis:axis-wsdl4j:1.5.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: axis:axis:1.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis/1.3/axis-1.3.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis/1.3/axis-1.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis/1.3/axis-1.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis/1.3/axis-1.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/axis/axis/1.3/axis-1.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/axis/axis/1.3/axis-1.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: bsh:bsh:1.3.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/bsh/bsh/1.3.0/bsh-1.3.0.jar!/" />
+        <root url="jar://$M2_REPO$/bsh/bsh/1.3.0/bsh-1.3.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/bsh/bsh/1.3.0/bsh-1.3.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/bsh/bsh/1.3.0/bsh-1.3.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/bsh/bsh/1.3.0/bsh-1.3.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/bsh/bsh/1.3.0/bsh-1.3.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:common:1.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:image:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/image/1.0/image-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.0/image-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/image/1.0/image-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.0/image-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/image/1.0/image-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.0/image-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:image:1.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:processing:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/processing/1.0/processing-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.0/processing-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/processing/1.0/processing-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.0/processing-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/processing/1.0/processing-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.0/processing-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:processing:1.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:snapshot:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/snapshot/1.0/snapshot-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.0/snapshot-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/snapshot/1.0/snapshot-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.0/snapshot-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/snapshot/1.0/snapshot-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.0/snapshot-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:snapshot:1.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:store:1.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade:culvert:1.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cglib:cglib:2.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/cglib/cglib/2.2/cglib-2.2.jar!/" />
+        <root url="jar://$M2_REPO$/cglib/cglib/2.2/cglib-2.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/cglib/cglib/2.2/cglib-2.2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/cglib/cglib/2.2/cglib-2.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/cglib/cglib/2.2/cglib-2.2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/cglib/cglib/2.2/cglib-2.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.allen_sauer.gwt.voices:gwt-voices:2.1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.asual.lesscss:lesscss-engine:1.1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/asual/lesscss/lesscss-engine/1.1.4/lesscss-engine-1.1.4.jar!/" />
+        <root url="jar://$M2_REPO$/com/asual/lesscss/lesscss-engine/1.1.4/lesscss-engine-1.1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/asual/lesscss/lesscss-engine/1.1.4/lesscss-engine-1.1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/asual/lesscss/lesscss-engine/1.1.4/lesscss-engine-1.1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/asual/lesscss/lesscss-engine/1.1.4/lesscss-engine-1.1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/asual/lesscss/lesscss-engine/1.1.4/lesscss-engine-1.1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.asual.lesscss:lesscss-servlet:1.1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/asual/lesscss/lesscss-servlet/1.1.4/lesscss-servlet-1.1.4.jar!/" />
+        <root url="jar://$M2_REPO$/com/asual/lesscss/lesscss-servlet/1.1.4/lesscss-servlet-1.1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/asual/lesscss/lesscss-servlet/1.1.4/lesscss-servlet-1.1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/asual/lesscss/lesscss-servlet/1.1.4/lesscss-servlet-1.1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/asual/lesscss/lesscss-servlet/1.1.4/lesscss-servlet-1.1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/asual/lesscss/lesscss-servlet/1.1.4/lesscss-servlet-1.1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.atlassian.jira.plugins:jira-soapclient:4.1.1-1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/jira/plugins/jira-soapclient/4.1.1-1/jira-soapclient-4.1.1-1.jar!/" />
+        <root url="jar://$M2_REPO$/com/atlassian/jira/plugins/jira-soapclient/4.1.1-1/jira-soapclient-4.1.1-1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/jira/plugins/jira-soapclient/4.1.1-1/jira-soapclient-4.1.1-1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/atlassian/jira/plugins/jira-soapclient/4.1.1-1/jira-soapclient-4.1.1-1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/jira/plugins/jira-soapclient/4.1.1-1/jira-soapclient-4.1.1-1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/atlassian/jira/plugins/jira-soapclient/4.1.1-1/jira-soapclient-4.1.1-1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.collections:google-collections:1.0-rc2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.gdata:gdata-java-client:1.40.0.atlassian-2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.gwt.inject:gin:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/inject/gin/1.0/gin-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/inject/gin/1.0/gin-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/inject/gin/1.0/gin-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/inject/gin/1.0/gin-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/inject/gin/1.0/gin-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/inject/gin/1.0/gin-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.gwt:gwt-servlet:2.4.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.gwt:gwt-user:2.4.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0-sources.jar!/" />
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.inject:guice:2.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/inject/guice/2.0/guice-2.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/inject/guice/2.0/guice-2.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/inject/guice/2.0/guice-2.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/inject/guice/2.0/guice-2.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/google/inject/guice/2.0/guice-2.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/inject/guice/2.0/guice-2.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.googlecode.gwtmodernizr:gwtmodernizr:1.0.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtmodernizr/gwtmodernizr/1.0.1/gwtmodernizr-1.0.1.jar!/" />
+        <root url="jar://$M2_REPO$/com/googlecode/gwtmodernizr/gwtmodernizr/1.0.1/gwtmodernizr-1.0.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtmodernizr/gwtmodernizr/1.0.1/gwtmodernizr-1.0.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/googlecode/gwtmodernizr/gwtmodernizr/1.0.1/gwtmodernizr-1.0.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtmodernizr/gwtmodernizr/1.0.1/gwtmodernizr-1.0.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/googlecode/gwtmodernizr/gwtmodernizr/1.0.1/gwtmodernizr-1.0.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat.jar!/" />
+        <root url="jar://$M2_REPO$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.jhlabs:filters:2.0.235">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/jhlabs/filters/2.0.235/filters-2.0.235.jar!/" />
+        <root url="jar://$M2_REPO$/com/jhlabs/filters/2.0.235/filters-2.0.235.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/jhlabs/filters/2.0.235/filters-2.0.235-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/jhlabs/filters/2.0.235/filters-2.0.235-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/jhlabs/filters/2.0.235/filters-2.0.235-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/jhlabs/filters/2.0.235/filters-2.0.235-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.mortennobel:java-image-scaling:0.8.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5.jar!/" />
+        <root url="jar://$M2_REPO$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.newrelic:newrelic-api:2.0.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3.jar!/" />
+        <root url="jar://$M2_REPO$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.rabbitmq:amqp-client:2.3.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1.jar!/" />
+        <root url="jar://$M2_REPO$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.rosaloves:bitlyj:2.0.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/rosaloves/bitlyj/2.0.0/bitlyj-2.0.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/rosaloves/bitlyj/2.0.0/bitlyj-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/rosaloves/bitlyj/2.0.0/bitlyj-2.0.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/rosaloves/bitlyj/2.0.0/bitlyj-2.0.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/rosaloves/bitlyj/2.0.0/bitlyj-2.0.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/rosaloves/bitlyj/2.0.0/bitlyj-2.0.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.thoughtworks.xstream:xstream:1.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.3/xstream-1.3.jar!/" />
+        <root url="jar://$M2_REPO$/com/thoughtworks/xstream/xstream/1.3/xstream-1.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.3/xstream-1.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/thoughtworks/xstream/xstream/1.3/xstream-1.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.3/xstream-1.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/thoughtworks/xstream/xstream/1.3/xstream-1.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.thoughtworks.xstream:xstream:1.3.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar!/" />
+        <root url="jar://$M2_REPO$/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.yahoo.platform.yui:yuicompressor:2.3.6">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6.jar!/" />
+        <root url="jar://$M2_REPO$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-cli:commons-cli:1.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.2/commons-cli-1.2.jar!/" />
+        <root url="jar://$M2_REPO$/commons-cli/commons-cli/1.2/commons-cli-1.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.2/commons-cli-1.2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-cli/commons-cli/1.2/commons-cli-1.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.2/commons-cli-1.2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-cli/commons-cli/1.2/commons-cli-1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-codec:commons-codec:1.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.3/commons-codec-1.3.jar!/" />
+        <root url="jar://$M2_REPO$/commons-codec/commons-codec/1.3/commons-codec-1.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.3/commons-codec-1.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-codec/commons-codec/1.3/commons-codec-1.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.3/commons-codec-1.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-codec/commons-codec/1.3/commons-codec-1.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-collections:commons-collections:3.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.1/commons-collections-3.1.jar!/" />
+        <root url="jar://$M2_REPO$/commons-collections/commons-collections/3.1/commons-collections-3.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.1/commons-collections-3.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-collections/commons-collections/3.1/commons-collections-3.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.1/commons-collections-3.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-collections/commons-collections/3.1/commons-collections-3.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-collections:commons-collections:3.2.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar!/" />
+        <root url="jar://$M2_REPO$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-digester:commons-digester:1.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-digester/commons-digester/1.2/commons-digester-1.2.jar!/" />
+        <root url="jar://$M2_REPO$/commons-digester/commons-digester/1.2/commons-digester-1.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-digester/commons-digester/1.2/commons-digester-1.2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-digester/commons-digester/1.2/commons-digester-1.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-digester/commons-digester/1.2/commons-digester-1.2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-digester/commons-digester/1.2/commons-digester-1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-discovery:commons-discovery:0.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar!/" />
+        <root url="jar://$M2_REPO$/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-fileupload:commons-fileupload:1.2.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar!/" />
+        <root url="jar://$M2_REPO$/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-httpclient:commons-httpclient:3.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar!/" />
+        <root url="jar://$M2_REPO$/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-io:commons-io:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/commons-io/commons-io/1.4/commons-io-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-io/commons-io/1.4/commons-io-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-io/commons-io/1.4/commons-io-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-io:commons-io:2.0.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar!/" />
+        <root url="jar://$M2_REPO$/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/2.0.1/commons-io-2.0.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-io/commons-io/2.0.1/commons-io-2.0.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/2.0.1/commons-io-2.0.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-io/commons-io/2.0.1/commons-io-2.0.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-lang:commons-lang:2.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.5/commons-lang-2.5.jar!/" />
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.5/commons-lang-2.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.5/commons-lang-2.5-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.5/commons-lang-2.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.5/commons-lang-2.5-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.5/commons-lang-2.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-logging:commons-logging-api:1.0.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-logging:commons-logging:1.0.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-logging:commons-logging:1.1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-modeler:commons-modeler:2.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-modeler/commons-modeler/2.0/commons-modeler-2.0.jar!/" />
+        <root url="jar://$M2_REPO$/commons-modeler/commons-modeler/2.0/commons-modeler-2.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-modeler/commons-modeler/2.0/commons-modeler-2.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/commons-modeler/commons-modeler/2.0/commons-modeler-2.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-modeler/commons-modeler/2.0/commons-modeler-2.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/commons-modeler/commons-modeler/2.0/commons-modeler-2.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: dom4j:dom4j:1.6.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar!/" />
+        <root url="jar://$M2_REPO$/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/dom4j/dom4j/1.6.1/dom4j-1.6.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/dom4j/dom4j/1.6.1/dom4j-1.6.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javassist:javassist:3.12.1.GA">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar!/" />
+        <root url="jar://$M2_REPO$/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.activation:activation:1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar!/" />
+        <root url="jar://$M2_REPO$/javax/activation/activation/1.1/activation-1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/activation/activation/1.1/activation-1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/activation/activation/1.1/activation-1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.mail:mail:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/javax/mail/mail/1.4/mail-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/mail/mail/1.4/mail-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/mail/mail/1.4/mail-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.persistence:persistence-api:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/persistence/persistence-api/1.0/persistence-api-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/persistence/persistence-api/1.0/persistence-api-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/persistence/persistence-api/1.0/persistence-api-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/persistence/persistence-api/1.0/persistence-api-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.servlet:jstl:1.1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.1.1/jstl-1.1.1.jar!/" />
+        <root url="jar://$M2_REPO$/javax/servlet/jstl/1.1.1/jstl-1.1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.1.1/jstl-1.1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/servlet/jstl/1.1.1/jstl-1.1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.1.1/jstl-1.1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/servlet/jstl/1.1.1/jstl-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.servlet:servlet-api:2.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar!/" />
+        <root url="jar://$M2_REPO$/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.4/servlet-api-2.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/servlet/servlet-api/2.4/servlet-api-2.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.transaction:jta:1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/transaction/jta/1.1/jta-1.1.jar!/" />
+        <root url="jar://$M2_REPO$/javax/transaction/jta/1.1/jta-1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/transaction/jta/1.1/jta-1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/transaction/jta/1.1/jta-1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/transaction/jta/1.1/jta-1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/transaction/jta/1.1/jta-1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.transaction:transaction-api:1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/transaction/transaction-api/1.1/transaction-api-1.1.jar!/" />
+        <root url="jar://$M2_REPO$/javax/transaction/transaction-api/1.1/transaction-api-1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/transaction/transaction-api/1.1/transaction-api-1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/transaction/transaction-api/1.1/transaction-api-1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/transaction/transaction-api/1.1/transaction-api-1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/transaction/transaction-api/1.1/transaction-api-1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.validation:validation-api:1.0.0.GA">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar!/" />
+        <root url="jar://$M2_REPO$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.validation:validation-api:sources:1.0.0.GA">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar!/" />
+        <root url="jar://$M2_REPO$/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: jdom:jdom:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/jdom/jdom/1.0/jdom-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/jdom/jdom/1.0/jdom-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/jdom/jdom/1.0/jdom-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/jdom/jdom/1.0/jdom-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/jdom/jdom/1.0/jdom-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/jdom/jdom/1.0/jdom-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: jline:jline:0.9.94">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/jline/jline/0.9.94/jline-0.9.94.jar!/" />
+        <root url="jar://$M2_REPO$/jline/jline/0.9.94/jline-0.9.94.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/jline/jline/0.9.94/jline-0.9.94-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/jline/jline/0.9.94/jline-0.9.94-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/jline/jline/0.9.94/jline-0.9.94-sources.jar!/" />
+        <root url="jar://$M2_REPO$/jline/jline/0.9.94/jline-0.9.94-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit-dep:4.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit-dep/4.5/junit-dep-4.5.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit-dep/4.5/junit-dep-4.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit-dep/4.5/junit-dep-4.5-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit-dep/4.5/junit-dep-4.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit-dep/4.5/junit-dep-4.5-sources.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit-dep/4.5/junit-dep-4.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit:3.8.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/3.8.2/junit-3.8.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/3.8.2/junit-3.8.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit:4.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.4/junit-4.4.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.4/junit-4.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.4/junit-4.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.4/junit-4.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.4/junit-4.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.4/junit-4.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit:4.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.5/junit-4.5.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.5/junit-4.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.5/junit-4.5-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.5/junit-4.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.5/junit-4.5-sources.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.5/junit-4.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit:4.7">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.7/junit-4.7.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.7/junit-4.7.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.7/junit-4.7-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.7/junit-4.7-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.7/junit-4.7-sources.jar!/" />
+        <root url="jar://$M2_REPO$/junit/junit/4.7/junit-4.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: log4j:log4j:1.2.15">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.15/log4j-1.2.15.jar!/" />
+        <root url="jar://$M2_REPO$/log4j/log4j/1.2.15/log4j-1.2.15.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.15/log4j-1.2.15-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/log4j/log4j/1.2.15/log4j-1.2.15-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.15/log4j-1.2.15-sources.jar!/" />
+        <root url="jar://$M2_REPO$/log4j/log4j/1.2.15/log4j-1.2.15-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: mx4j:mx4j-jmx:2.1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1.jar!/" />
+        <root url="jar://$M2_REPO$/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: mysql:mysql-connector-java:5.1.6">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar!/" />
+        <root url="jar://$M2_REPO$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6-sources.jar!/" />
+        <root url="jar://$M2_REPO$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: net.sf.ehcache:ehcache-core:2.3.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/ehcache/ehcache-core/2.3.3/ehcache-core-2.3.3.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/ehcache/ehcache-core/2.3.3/ehcache-core-2.3.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/ehcache/ehcache-core/2.3.3/ehcache-core-2.3.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/ehcache/ehcache-core/2.3.3/ehcache-core-2.3.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/ehcache/ehcache-core/2.3.3/ehcache-core-2.3.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/ehcache/ehcache-core/2.3.3/ehcache-core-2.3.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: net.sf.saxon:saxon-dom:8.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/saxon/saxon-dom/8.0/saxon-dom-8.0.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/saxon/saxon-dom/8.0/saxon-dom-8.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/saxon/saxon-dom/8.0/saxon-dom-8.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/saxon/saxon-dom/8.0/saxon-dom-8.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/saxon/saxon-dom/8.0/saxon-dom-8.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/saxon/saxon-dom/8.0/saxon-dom-8.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: net.sf.saxon:saxon:8.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/saxon/saxon/8.0/saxon-8.0.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/saxon/saxon/8.0/saxon-8.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/saxon/saxon/8.0/saxon-8.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/saxon/saxon/8.0/saxon-8.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sf/saxon/saxon/8.0/saxon-8.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/net/sf/saxon/saxon/8.0/saxon-8.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: net.sourceforge.findbugs:jsr305:1.3.7">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/findbugs/jsr305/1.3.7/jsr305-1.3.7.jar!/" />
+        <root url="jar://$M2_REPO$/net/sourceforge/findbugs/jsr305/1.3.7/jsr305-1.3.7.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/findbugs/jsr305/1.3.7/jsr305-1.3.7-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/net/sourceforge/findbugs/jsr305/1.3.7/jsr305-1.3.7-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/findbugs/jsr305/1.3.7/jsr305-1.3.7-sources.jar!/" />
+        <root url="jar://$M2_REPO$/net/sourceforge/findbugs/jsr305/1.3.7/jsr305-1.3.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: openfire:openfire:3.6.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/openfire/openfire/3.6.4/openfire-3.6.4.jar!/" />
+        <root url="jar://$M2_REPO$/openfire/openfire/3.6.4/openfire-3.6.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/openfire/openfire/3.6.4/openfire-3.6.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/openfire/openfire/3.6.4/openfire-3.6.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/openfire/openfire/3.6.4/openfire-3.6.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/openfire/openfire/3.6.4/openfire-3.6.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.camel:camel-core:2.7.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-core/2.7.3/camel-core-2.7.3.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-core/2.7.3/camel-core-2.7.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-core/2.7.3/camel-core-2.7.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-core/2.7.3/camel-core-2.7.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-core/2.7.3/camel-core-2.7.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-core/2.7.3/camel-core-2.7.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.camel:camel-mina:2.7.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-mina/2.7.3/camel-mina-2.7.3.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-mina/2.7.3/camel-mina-2.7.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-mina/2.7.3/camel-mina-2.7.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-mina/2.7.3/camel-mina-2.7.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-mina/2.7.3/camel-mina-2.7.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-mina/2.7.3/camel-mina-2.7.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.camel:camel-spring:2.7.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-spring/2.7.3/camel-spring-2.7.3.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-spring/2.7.3/camel-spring-2.7.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-spring/2.7.3/camel-spring-2.7.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-spring/2.7.3/camel-spring-2.7.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/camel/camel-spring/2.7.3/camel-spring-2.7.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/camel/camel-spring/2.7.3/camel-spring-2.7.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.httpcomponents:httpclient:4.1-alpha2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.httpcomponents:httpcore:4.1-beta1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.1-beta1/httpcore-4.1-beta1.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpcore/4.1-beta1/httpcore-4.1-beta1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.1-beta1/httpcore-4.1-beta1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpcore/4.1-beta1/httpcore-4.1-beta1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.1-beta1/httpcore-4.1-beta1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpcore/4.1-beta1/httpcore-4.1-beta1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.lucene:lucene-core:3.1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/3.1.0/lucene-core-3.1.0.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/lucene/lucene-core/3.1.0/lucene-core-3.1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/3.1.0/lucene-core-3.1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/lucene/lucene-core/3.1.0/lucene-core-3.1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/3.1.0/lucene-core-3.1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/lucene/lucene-core/3.1.0/lucene-core-3.1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.mina:mina-core:1.1.7">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/mina/mina-core/1.1.7/mina-core-1.1.7.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/mina/mina-core/1.1.7/mina-core-1.1.7.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/mina/mina-core/1.1.7/mina-core-1.1.7-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/mina/mina-core/1.1.7/mina-core-1.1.7-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/mina/mina-core/1.1.7/mina-core-1.1.7-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/mina/mina-core/1.1.7/mina-core-1.1.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.jline:0.9.94_1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/servicemix/bundles/org.apache.servicemix.bundles.jline/0.9.94_1/org.apache.servicemix.bundles.jline-0.9.94_1.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/servicemix/bundles/org.apache.servicemix.bundles.jline/0.9.94_1/org.apache.servicemix.bundles.jline-0.9.94_1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/servicemix/bundles/org.apache.servicemix.bundles.jline/0.9.94_1/org.apache.servicemix.bundles.jline-0.9.94_1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/servicemix/bundles/org.apache.servicemix.bundles.jline/0.9.94_1/org.apache.servicemix.bundles.jline-0.9.94_1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/servicemix/bundles/org.apache.servicemix.bundles.jline/0.9.94_1/org.apache.servicemix.bundles.jline-0.9.94_1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/servicemix/bundles/org.apache.servicemix.bundles.jline/0.9.94_1/org.apache.servicemix.bundles.jline-0.9.94_1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.velocity:velocity:1.7">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/velocity/velocity/1.7/velocity-1.7.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/velocity/velocity/1.7/velocity-1.7.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/velocity/velocity/1.7/velocity-1.7-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/velocity/velocity/1.7/velocity-1.7-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/velocity/velocity/1.7/velocity-1.7-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/apache/velocity/velocity/1.7/velocity-1.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.aspectj:aspectjweaver:1.5.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.0-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-core-asl/1.8.0-SNAPSHOT/jackson-core-asl-1.8.0-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-core-asl/1.8.0-SNAPSHOT/jackson-core-asl-1.8.0-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-core-asl/1.8.0-SNAPSHOT/jackson-core-asl-1.8.0-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-core-asl/1.8.0-SNAPSHOT/jackson-core-asl-1.8.0-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-core-asl/1.8.0-SNAPSHOT/jackson-core-asl-1.8.0-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-core-asl/1.8.0-SNAPSHOT/jackson-core-asl-1.8.0-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.0-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-mapper-asl/1.8.0-SNAPSHOT/jackson-mapper-asl-1.8.0-SNAPSHOT.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-mapper-asl/1.8.0-SNAPSHOT/jackson-mapper-asl-1.8.0-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-mapper-asl/1.8.0-SNAPSHOT/jackson-mapper-asl-1.8.0-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-mapper-asl/1.8.0-SNAPSHOT/jackson-mapper-asl-1.8.0-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-mapper-asl/1.8.0-SNAPSHOT/jackson-mapper-asl-1.8.0-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-mapper-asl/1.8.0-SNAPSHOT/jackson-mapper-asl-1.8.0-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.codehaus.plexus:plexus-utils:2.0.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-continuation:7.2.2.v20101205">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-continuation/7.2.2.v20101205/jetty-continuation-7.2.2.v20101205.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-continuation/7.2.2.v20101205/jetty-continuation-7.2.2.v20101205.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-continuation/7.2.2.v20101205/jetty-continuation-7.2.2.v20101205-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-continuation/7.2.2.v20101205/jetty-continuation-7.2.2.v20101205-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-continuation/7.2.2.v20101205/jetty-continuation-7.2.2.v20101205-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-continuation/7.2.2.v20101205/jetty-continuation-7.2.2.v20101205-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-deploy:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-deploy/7.0.2.v20100331/jetty-deploy-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-deploy/7.0.2.v20100331/jetty-deploy-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-deploy/7.0.2.v20100331/jetty-deploy-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-deploy/7.0.2.v20100331/jetty-deploy-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-deploy/7.0.2.v20100331/jetty-deploy-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-deploy/7.0.2.v20100331/jetty-deploy-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-http:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-http/7.0.2.v20100331/jetty-http-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-http/7.0.2.v20100331/jetty-http-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-http/7.0.2.v20100331/jetty-http-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-http/7.0.2.v20100331/jetty-http-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-http/7.0.2.v20100331/jetty-http-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-http/7.0.2.v20100331/jetty-http-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-io:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/7.0.2.v20100331/jetty-io-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-io/7.0.2.v20100331/jetty-io-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/7.0.2.v20100331/jetty-io-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-io/7.0.2.v20100331/jetty-io-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/7.0.2.v20100331/jetty-io-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-io/7.0.2.v20100331/jetty-io-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-security:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-security/7.0.2.v20100331/jetty-security-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-security/7.0.2.v20100331/jetty-security-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-security/7.0.2.v20100331/jetty-security-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-security/7.0.2.v20100331/jetty-security-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-security/7.0.2.v20100331/jetty-security-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-security/7.0.2.v20100331/jetty-security-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-server:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/7.0.2.v20100331/jetty-server-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-server/7.0.2.v20100331/jetty-server-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/7.0.2.v20100331/jetty-server-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-server/7.0.2.v20100331/jetty-server-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/7.0.2.v20100331/jetty-server-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-server/7.0.2.v20100331/jetty-server-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-servlet:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-servlet/7.0.2.v20100331/jetty-servlet-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-servlet/7.0.2.v20100331/jetty-servlet-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-servlet/7.0.2.v20100331/jetty-servlet-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-servlet/7.0.2.v20100331/jetty-servlet-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-servlet/7.0.2.v20100331/jetty-servlet-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-servlet/7.0.2.v20100331/jetty-servlet-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-util:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/7.0.2.v20100331/jetty-util-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-util/7.0.2.v20100331/jetty-util-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/7.0.2.v20100331/jetty-util-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-util/7.0.2.v20100331/jetty-util-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/7.0.2.v20100331/jetty-util-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-util/7.0.2.v20100331/jetty-util-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-webapp:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-webapp/7.0.2.v20100331/jetty-webapp-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-webapp/7.0.2.v20100331/jetty-webapp-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-webapp/7.0.2.v20100331/jetty-webapp-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-webapp/7.0.2.v20100331/jetty-webapp-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-webapp/7.0.2.v20100331/jetty-webapp-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-webapp/7.0.2.v20100331/jetty-webapp-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.eclipse.jetty:jetty-xml:7.0.2.v20100331">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-xml/7.0.2.v20100331/jetty-xml-7.0.2.v20100331.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-xml/7.0.2.v20100331/jetty-xml-7.0.2.v20100331.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-xml/7.0.2.v20100331/jetty-xml-7.0.2.v20100331-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-xml/7.0.2.v20100331/jetty-xml-7.0.2.v20100331-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-xml/7.0.2.v20100331/jetty-xml-7.0.2.v20100331-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/eclipse/jetty/jetty-xml/7.0.2.v20100331/jetty-xml-7.0.2.v20100331-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.freemarker:freemarker:2.3.16">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/freemarker/freemarker/2.3.16/freemarker-2.3.16.jar!/" />
+        <root url="jar://$M2_REPO$/org/freemarker/freemarker/2.3.16/freemarker-2.3.16.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/freemarker/freemarker/2.3.16/freemarker-2.3.16-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/freemarker/freemarker/2.3.16/freemarker-2.3.16-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/freemarker/freemarker/2.3.16/freemarker-2.3.16-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/freemarker/freemarker/2.3.16/freemarker-2.3.16-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.fusesource.commonman:commons-management:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/fusesource/commonman/commons-management/1.0/commons-management-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/org/fusesource/commonman/commons-management/1.0/commons-management-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/fusesource/commonman/commons-management/1.0/commons-management-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/fusesource/commonman/commons-management/1.0/commons-management-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/fusesource/commonman/commons-management/1.0/commons-management-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/fusesource/commonman/commons-management/1.0/commons-management-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hamcrest:hamcrest-all:1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1.jar!/" />
+        <root url="jar://$M2_REPO$/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/hamcrest/hamcrest-all/1.1/hamcrest-all-1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.0.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hibernate:hibernate-annotations:3.5.6-Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-annotations/3.5.6-Final/hibernate-annotations-3.5.6-Final.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-annotations/3.5.6-Final/hibernate-annotations-3.5.6-Final.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-annotations/3.5.6-Final/hibernate-annotations-3.5.6-Final-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-annotations/3.5.6-Final/hibernate-annotations-3.5.6-Final-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-annotations/3.5.6-Final/hibernate-annotations-3.5.6-Final-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-annotations/3.5.6-Final/hibernate-annotations-3.5.6-Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hibernate:hibernate-commons-annotations:3.2.0.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hibernate:hibernate-core:3.5.6-Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.5.6-Final/hibernate-core-3.5.6-Final.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-core/3.5.6-Final/hibernate-core-3.5.6-Final.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.5.6-Final/hibernate-core-3.5.6-Final-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-core/3.5.6-Final/hibernate-core-3.5.6-Final-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/3.5.6-Final/hibernate-core-3.5.6-Final-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-core/3.5.6-Final/hibernate-core-3.5.6-Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hibernate:hibernate-validator:4.2.0.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.htmlcleaner:htmlcleaner:1.55">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/htmlcleaner/htmlcleaner/1.55/htmlcleaner-1.55.jar!/" />
+        <root url="jar://$M2_REPO$/org/htmlcleaner/htmlcleaner/1.55/htmlcleaner-1.55.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/htmlcleaner/htmlcleaner/1.55/htmlcleaner-1.55-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/htmlcleaner/htmlcleaner/1.55/htmlcleaner-1.55-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/htmlcleaner/htmlcleaner/1.55/htmlcleaner-1.55-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/htmlcleaner/htmlcleaner/1.55/htmlcleaner-1.55-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.jasypt:jasypt:1.6">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jasypt/jasypt/1.6/jasypt-1.6.jar!/" />
+        <root url="jar://$M2_REPO$/org/jasypt/jasypt/1.6/jasypt-1.6.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jasypt/jasypt/1.6/jasypt-1.6-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/jasypt/jasypt/1.6/jasypt-1.6-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jasypt/jasypt/1.6/jasypt-1.6-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/jasypt/jasypt/1.6/jasypt-1.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.jbehave:jbehave-core:3.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jbehave/jbehave-core/3.1/jbehave-core-3.1.jar!/" />
+        <root url="jar://$M2_REPO$/org/jbehave/jbehave-core/3.1/jbehave-core-3.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jbehave/jbehave-core/3.1/jbehave-core-3.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/jbehave/jbehave-core/3.1/jbehave-core-3.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jbehave/jbehave-core/3.1/jbehave-core-3.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/jbehave/jbehave-core/3.1/jbehave-core-3.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-cypher:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-cypher/1.4/neo4j-cypher-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-cypher/1.4/neo4j-cypher-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-cypher/1.4/neo4j-cypher-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-cypher/1.4/neo4j-cypher-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-cypher/1.4/neo4j-cypher-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-cypher/1.4/neo4j-cypher-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-graph-algo:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-graph-algo/1.4/neo4j-graph-algo-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-graph-algo/1.4/neo4j-graph-algo-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-graph-algo/1.4/neo4j-graph-algo-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-graph-algo/1.4/neo4j-graph-algo-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-graph-algo/1.4/neo4j-graph-algo-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-graph-algo/1.4/neo4j-graph-algo-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-graph-matching:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-graph-matching/1.4/neo4j-graph-matching-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-graph-matching/1.4/neo4j-graph-matching-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-graph-matching/1.4/neo4j-graph-matching-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-graph-matching/1.4/neo4j-graph-matching-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-graph-matching/1.4/neo4j-graph-matching-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-graph-matching/1.4/neo4j-graph-matching-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-jmx:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-jmx/1.4/neo4j-jmx-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-jmx/1.4/neo4j-jmx-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-jmx/1.4/neo4j-jmx-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-jmx/1.4/neo4j-jmx-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-jmx/1.4/neo4j-jmx-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-jmx/1.4/neo4j-jmx-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-kernel:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-kernel:test-jar:tests:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-tests.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-tests.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-test-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-test-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-test-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-kernel/1.4/neo4j-kernel-1.4-test-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-lucene-index:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-lucene-index/1.4/neo4j-lucene-index-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-lucene-index/1.4/neo4j-lucene-index-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-lucene-index/1.4/neo4j-lucene-index-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-lucene-index/1.4/neo4j-lucene-index-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-lucene-index/1.4/neo4j-lucene-index-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-lucene-index/1.4/neo4j-lucene-index-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-shell:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-shell/1.4/neo4j-shell-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-shell/1.4/neo4j-shell-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-shell/1.4/neo4j-shell-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-shell/1.4/neo4j-shell-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-shell/1.4/neo4j-shell-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-shell/1.4/neo4j-shell-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-udc:1.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-udc/1.4/neo4j-udc-1.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-udc/1.4/neo4j-udc-1.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-udc/1.4/neo4j-udc-1.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-udc/1.4/neo4j-udc-1.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-udc/1.4/neo4j-udc-1.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/neo4j/neo4j-udc/1.4/neo4j-udc-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.perf4j:perf4j:0.9.13">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/perf4j/perf4j/0.9.13/perf4j-0.9.13.jar!/" />
+        <root url="jar://$M2_REPO$/org/perf4j/perf4j/0.9.13/perf4j-0.9.13.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/perf4j/perf4j/0.9.13/perf4j-0.9.13-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/perf4j/perf4j/0.9.13/perf4j-0.9.13-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/perf4j/perf4j/0.9.13/perf4j-0.9.13-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/perf4j/perf4j/0.9.13/perf4j-0.9.13-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.scala-lang:scala-library:2.9.0-1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.9.0-1/scala-library-2.9.0-1.jar!/" />
+        <root url="jar://$M2_REPO$/org/scala-lang/scala-library/2.9.0-1/scala-library-2.9.0-1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.9.0-1/scala-library-2.9.0-1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/scala-lang/scala-library/2.9.0-1/scala-library-2.9.0-1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.9.0-1/scala-library-2.9.0-1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/scala-lang/scala-library/2.9.0-1/scala-library-2.9.0-1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.slf4j:slf4j-api:1.6.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar!/" />
+        <root url="jar://$M2_REPO$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.slf4j:slf4j-log4j12:1.6.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar!/" />
+        <root url="jar://$M2_REPO$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework.amqp:spring-amqp:1.0.0.RC1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework.amqp:spring-rabbit:1.0.0.RC1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-aop:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-asm:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-beans:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-context:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-core:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-expression:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-jdbc:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-orm:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.0.5.RELEASE/spring-orm-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-orm/3.0.5.RELEASE/spring-orm-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.0.5.RELEASE/spring-orm-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-orm/3.0.5.RELEASE/spring-orm-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.0.5.RELEASE/spring-orm-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-orm/3.0.5.RELEASE/spring-orm-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-test:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-tx:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-web:3.0.5.RELEASE">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring:2.5.6.SEC02">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.tuckey:urlrewritefilter:3.2.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/tuckey/urlrewritefilter/3.2.0/urlrewritefilter-3.2.0.jar!/" />
+        <root url="jar://$M2_REPO$/org/tuckey/urlrewritefilter/3.2.0/urlrewritefilter-3.2.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/tuckey/urlrewritefilter/3.2.0/urlrewritefilter-3.2.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/tuckey/urlrewritefilter/3.2.0/urlrewritefilter-3.2.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/tuckey/urlrewritefilter/3.2.0/urlrewritefilter-3.2.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/tuckey/urlrewritefilter/3.2.0/urlrewritefilter-3.2.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.twitter4j:twitter4j-core:2.1.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/twitter4j/twitter4j-core/2.1.2/twitter4j-core-2.1.2.jar!/" />
+        <root url="jar://$M2_REPO$/org/twitter4j/twitter4j-core/2.1.2/twitter4j-core-2.1.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/twitter4j/twitter4j-core/2.1.2/twitter4j-core-2.1.2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/twitter4j/twitter4j-core/2.1.2/twitter4j-core-2.1.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/twitter4j/twitter4j-core/2.1.2/twitter4j-core-2.1.2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/twitter4j/twitter4j-core/2.1.2/twitter4j-core-2.1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.twitter4j:twitter4j-core:2.2.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/twitter4j/twitter4j-core/2.2.4/twitter4j-core-2.2.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/twitter4j/twitter4j-core/2.2.4/twitter4j-core-2.2.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/twitter4j/twitter4j-core/2.2.4/twitter4j-core-2.2.4-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/twitter4j/twitter4j-core/2.2.4/twitter4j-core-2.2.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/twitter4j/twitter4j-core/2.2.4/twitter4j-core-2.2.4-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/twitter4j/twitter4j-core/2.2.4/twitter4j-core-2.2.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.webharvest:webharvest-core:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/webharvest/webharvest-core/1.0/webharvest-core-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/org/webharvest/webharvest-core/1.0/webharvest-core-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/webharvest/webharvest-core/1.0/webharvest-core-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/org/webharvest/webharvest-core/1.0/webharvest-core-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/webharvest/webharvest-core/1.0/webharvest-core-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/org/webharvest/webharvest-core/1.0/webharvest-core-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: rackspace:cloudfiles:1.5.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/rackspace/cloudfiles/1.5.3/cloudfiles-1.5.3.jar!/" />
+        <root url="jar://$M2_REPO$/rackspace/cloudfiles/1.5.3/cloudfiles-1.5.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/rackspace/cloudfiles/1.5.3/cloudfiles-1.5.3-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/rackspace/cloudfiles/1.5.3/cloudfiles-1.5.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/rackspace/cloudfiles/1.5.3/cloudfiles-1.5.3-sources.jar!/" />
+        <root url="jar://$M2_REPO$/rackspace/cloudfiles/1.5.3/cloudfiles-1.5.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: rome:rome:1.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/rome/rome/1.0/rome-1.0.jar!/" />
+        <root url="jar://$M2_REPO$/rome/rome/1.0/rome-1.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/rome/rome/1.0/rome-1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/rome/rome/1.0/rome-1.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/rome/rome/1.0/rome-1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/rome/rome/1.0/rome-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: taglibs:standard:1.1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/taglibs/standard/1.1.1/standard-1.1.1.jar!/" />
+        <root url="jar://$M2_REPO$/taglibs/standard/1.1.1/standard-1.1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/taglibs/standard/1.1.1/standard-1.1.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/taglibs/standard/1.1.1/standard-1.1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/taglibs/standard/1.1.1/standard-1.1.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/taglibs/standard/1.1.1/standard-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: tomcat:catalina:5.5.23">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/tomcat/catalina/5.5.23/catalina-5.5.23.jar!/" />
+        <root url="jar://$M2_REPO$/tomcat/catalina/5.5.23/catalina-5.5.23.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/tomcat/catalina/5.5.23/catalina-5.5.23-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/tomcat/catalina/5.5.23/catalina-5.5.23-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/tomcat/catalina/5.5.23/catalina-5.5.23-sources.jar!/" />
+        <root url="jar://$M2_REPO$/tomcat/catalina/5.5.23/catalina-5.5.23-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: wsdl4j:wsdl4j:1.5.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/wsdl4j/wsdl4j/1.5.1/wsdl4j-1.5.1.jar!/" />
+        <root url="jar://$M2_REPO$/wsdl4j/wsdl4j/1.5.1/wsdl4j-1.5.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/wsdl4j/wsdl4j/1.5.1/wsdl4j-1.5.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/wsdl4j/wsdl4j/1.5.1/wsdl4j-1.5.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/wsdl4j/wsdl4j/1.5.1/wsdl4j-1.5.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/wsdl4j/wsdl4j/1.5.1/wsdl4j-1.5.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: xerces:xercesImpl:2.8.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1.jar!/" />
+        <root url="jar://$M2_REPO$/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1-sources.jar!/" />
+        <root url="jar://$M2_REPO$/xerces/xercesImpl/2.8.1/xercesImpl-2.8.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: xml-apis:xml-apis:1.0.b2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar!/" />
+        <root url="jar://$M2_REPO$/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2-sources.jar!/" />
+        <root url="jar://$M2_REPO$/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: xml-apis:xml-apis:1.3.03">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03.jar!/" />
+        <root url="jar://$M2_REPO$/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03-sources.jar!/" />
+        <root url="jar://$M2_REPO$/xml-apis/xml-apis/1.3.03/xml-apis-1.3.03-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: xpp3:xpp3_min:1.1.4c">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar!/" />
+        <root url="jar://$M2_REPO$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c-sources.jar!/" />
+        <root url="jar://$M2_REPO$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c-sources.jar!/" />
       </SOURCES>
     </library>
   </component>

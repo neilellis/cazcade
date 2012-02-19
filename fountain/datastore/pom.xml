@@ -28,6 +28,12 @@
 
         <dependency>
             <groupId>fountain</groupId>
+            <artifactId>email</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fountain</groupId>
             <artifactId>index</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
