@@ -47,6 +47,14 @@
         <to type="forward">/_pages/board.jsp?%{query-string}</to>
     </rule>
 
+
+    <rule>
+        <from>^/_image-service$</from>
+        <to type="redirect">http://snapito.com/api/?%{query-string}</to>
+    </rule>
+
+
+
     <!--Create a board-->
     <rule>
         <from>^/_create-listed$</from>
