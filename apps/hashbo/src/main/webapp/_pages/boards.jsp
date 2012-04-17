@@ -58,10 +58,13 @@
                                      src='<c:url value="_image-service">
                                     <c:param name="url" value="${board.snapshotUrl}"/>
                                     <c:param name="text" value="${board.title}"/>
-                                    <c:param name="size" value="LARGE"/>
-                                    <c:param name="width" value="450"/>
-                                    <c:param name="height" value="600"/>
-                                    <c:param name="delay" value="60"/>
+                                    <c:param name="fast" value="yes"/>
+                                    <c:param name="preview" value="yes"/>
+                                    <c:param name="boardcast" value="yes"/>
+                                    <%--<c:param name="size" value="LARGE"/>--%>
+                                    <%--<c:param name="width" value="450"/>--%>
+                                    <%--<c:param name="height" value="600"/>--%>
+                                    <%--<c:param name="delay" value="60"/>--%>
                                     <c:param name="windowStatus" value="snapshot-loaded"/>
                                     </c:url>'
                                      alt="${board.description}"/>
