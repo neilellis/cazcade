@@ -25,6 +25,7 @@ public class CachedImage extends Image {
     public static final boolean CACHING = true;
     private Runnable onChangeAction;
 
+
     private String size = SMALL;
 
     private String defaultUrl;
