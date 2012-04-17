@@ -1444,6 +1444,11 @@
         <option value="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/apps/download/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -1648,7 +1653,6 @@
       <module fileurl="file://$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" filepath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/dist/dist.iml" filepath="$PROJECT_DIR$/fountain/dist/dist.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/dnd/dnd.iml" filepath="$PROJECT_DIR$/vortex/dnd/dnd.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apps/download/download.iml" filepath="$PROJECT_DIR$/apps/download/download.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/email/email.iml" filepath="$PROJECT_DIR$/fountain/email/email.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/fountain.iml" filepath="$PROJECT_DIR$/fountain/fountain.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" filepath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" />
@@ -1964,17 +1968,6 @@
         <root url="jar://$M2_REPO$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: cazcade.billabong:image:1.0">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.0/image-1.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.0/image-1.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.0/image-1.0-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: cazcade.billabong:image:1.1-SNAPSHOT">
       <CLASSES>
         <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT.jar!/" />
@@ -1986,17 +1979,6 @@
         <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: cazcade.billabong:processing:1.0">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.0/processing-1.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.0/processing-1.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.0/processing-1.0-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: cazcade.billabong:processing:1.1-SNAPSHOT">
       <CLASSES>
         <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT.jar!/" />
@@ -2006,17 +1988,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: cazcade.billabong:snapshot:1.0">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.0/snapshot-1.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.0/snapshot-1.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.0/snapshot-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: cazcade.billabong:snapshot:1.1-SNAPSHOT">
@@ -3403,17 +3374,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.springframework:spring:2.5.6.SEC02">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/org/springframework/spring/2.5.6.SEC02/spring-2.5.6.SEC02-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.tuckey:urlrewritefilter:3.2.0">

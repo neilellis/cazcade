@@ -1,40 +1,14 @@
 package cazcade.fountain.server.rest.web;
 
-import cazcade.common.CommonConstants;
-import cazcade.common.Logger;
-import cazcade.fountain.common.error.ClientCausedException;
-import cazcade.fountain.common.error.NormalFlowException;
-import cazcade.fountain.server.rest.AbstractRestHandler;
-import cazcade.liquid.api.lsd.*;
-import cazcade.liquid.impl.UUIDFactory;
-import com.cazcade.billabong.image.CacheResponse;
-import com.cazcade.billabong.image.ImageSize;
-import com.cazcade.billabong.image.impl.DefaultImageService;
-import com.cazcade.culvert.Shortener;
-import com.google.gdata.client.youtube.YouTubeService;
-import com.google.gdata.data.Person;
-import com.google.gdata.data.media.mediarss.MediaThumbnail;
-import com.google.gdata.data.youtube.VideoEntry;
-import com.peepwl.sociagraph.scrape.AssetScraper;
-import com.peepwl.sociagraph.scrape.EntityScrapeResult;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.feed.synd.SyndLink;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.HeadMethod;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.net.*;
-import java.util.*;
-import java.util.concurrent.*;
+import cazcade.fountain.server.rest.AbstractRestHandler;
 
 /**
  * @author Neil Ellis
  */
 
 public class WebUtilRestHandler extends AbstractRestHandler {
+    /*
     public static final long MINIMUM_IMAGE_SIZE_IN_BYTES = 10000L;
     public static final int MAX_SNAPSHOT_RETRIES = 3;
 
@@ -410,4 +384,5 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     public void setShortener(final Shortener shortener) {
         this.shortener = shortener;
     }
+    */
 }

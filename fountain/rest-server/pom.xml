@@ -68,17 +68,6 @@
         </dependency>
 
 
-        <!--Billabong-->
-
-        <dependency>
-            <groupId>cazcade.billabong</groupId>
-            <artifactId>image</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cazcade.billabong</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
 
 
         <!--Culvert-->

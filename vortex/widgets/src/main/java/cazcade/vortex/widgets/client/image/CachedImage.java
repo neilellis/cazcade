@@ -1,7 +1,6 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
-import com.cazcade.billabong.image.ImageSize;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.http.client.URL;
@@ -26,9 +25,7 @@ public class CachedImage extends Image {
     public static final boolean CACHING = true;
     private Runnable onChangeAction;
 
-    /**
-     * @see ImageSize
-     */
+
     private String size = SMALL;
 
     private String defaultUrl;
