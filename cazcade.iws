@@ -64,47 +64,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/download.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/java/cazcade/apps/download/ImageProxyServlet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/java/cazcade/apps/download/SnapshotServlet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/webapp/WEB-INF/web.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/SnapshotServlet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/java/cazcade/apps/download" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/java/cazcade/apps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/java/cazcade" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/webapp/WEB-INF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main/webapp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/main" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/test/java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src/test" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/download/src" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" afterPath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" afterPath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/upload/upload.iml" afterPath="$PROJECT_DIR$/apps/upload/upload.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" afterPath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/io/io.iml" afterPath="$PROJECT_DIR$/apps/io/io.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/pom.xml" afterPath="$PROJECT_DIR$/apps/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" afterPath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" afterPath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" afterPath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" afterPath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/email/email.iml" afterPath="$PROJECT_DIR$/fountain/email/email.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/index.iml" afterPath="$PROJECT_DIR$/fountain/index/index.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/messaging.iml" afterPath="$PROJECT_DIR$/fountain/messaging/messaging.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/notification/notification.iml" afterPath="$PROJECT_DIR$/fountain/notification/notification.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/pom.xml" afterPath="$PROJECT_DIR$/fountain/rest-server/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" afterPath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/security/security.iml" afterPath="$PROJECT_DIR$/fountain/security/security.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/test.iml" afterPath="$PROJECT_DIR$/fountain/test/test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/bus/bus.iml" afterPath="$PROJECT_DIR$/vortex/bus/bus.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/dnd/dnd.iml" afterPath="$PROJECT_DIR$/vortex/dnd/dnd.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/main/main.iml" afterPath="$PROJECT_DIR$/vortex/main/main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/pool.iml" afterPath="$PROJECT_DIR$/vortex/pool/pool.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/widgets.iml" afterPath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -338,7 +301,16 @@
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="574" column="0" selection-start="19103" selection-end="19703" vertical-scroll-proportion="0.0">
+            <state line="24" column="18" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="0" selection-start="612" selection-end="612" vertical-scroll-proportion="0.3975265">
               <folding />
             </state>
           </provider>
@@ -362,10 +334,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vortex/widgets/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="2" selection-start="1569" selection-end="1569" vertical-scroll-proportion="0.13298792">
+            <state line="45" column="9" selection-start="1632" selection-end="1632" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -420,15 +392,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractBoardcastServlet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractBoardcastServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="13" selection-start="1245" selection-end="1245" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -443,7 +406,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/ImageScaleServlet.java" />
         <option value="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientApplicationConfiguration.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/Boardcast.java" />
@@ -459,6 +421,7 @@
         <option value="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/web/WebUtilRestHandler.java" />
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
         <option value="$PROJECT_DIR$/vortex/widgets/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/pom.xml" />
       </list>
     </option>
   </component>
@@ -3451,24 +3414,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="download" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Favorites" />
@@ -5035,11 +4980,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/fountain/email/src/main/java/cazcade/fountain/datastore/impl/email/DefaultMailService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="32" selection-start="1556" selection-end="1556" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/email-config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="21" selection-start="530" selection-end="530" vertical-scroll-proportion="0.0">
@@ -5102,13 +5042,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="574" column="0" selection-start="19103" selection-end="19703" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fountain/rest-server/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="70" column="0" selection-start="2128" selection-end="2128" vertical-scroll-proportion="0.0">
@@ -5150,7 +5083,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vortex/widgets/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="2" selection-start="1569" selection-end="1569" vertical-scroll-proportion="0.13298792">
+        <state line="45" column="9" selection-start="1632" selection-end="1632" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="18" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="612" selection-end="612" vertical-scroll-proportion="0.3975265">
           <folding />
         </state>
       </provider>
