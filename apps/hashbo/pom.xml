@@ -125,6 +125,19 @@
     <build>
         <plugins>
             <plugin>
+            <groupId>com.jelastic</groupId>
+            <artifactId>jelastic-maven-plugin</artifactId>
+            <version>1.6</version>
+            <configuration>
+                <email>${jelastic.username}</email>
+                <password>${jelastic.password}</password>
+                <context>ROOT</context>
+                <environment>pinstamatic-dev</environment>
+                <comment>${buildNumber}</comment>
+                <api_hoster>app.jelastic.dogado.eu</api_hoster>
+            </configuration>
+        </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
                 <executions>
@@ -146,6 +159,8 @@
 
         </plugins>
     </build>
+
+
     <profiles>
         <profile>
             <id>deploy</id>
@@ -255,4 +270,21 @@
             <url>http://gwtmodernizr.googlecode.com/svn/mavenrepo</url>
         </repository>
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>plugins-release</name>
+            <url>http://repo.jelastic.dogado.eu/plugins-release</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots></snapshots>
+            <id>snapshots</id>
+            <name>plugins-snapshot</name>
+            <url>http://repo.jelastic.dogado.eu/plugins-snapshot</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

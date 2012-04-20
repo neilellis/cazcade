@@ -16,10 +16,10 @@
                 <image:ImageOption url="_background/misc/canvas.jpg"
                                    thumbnail="_background/thumb/misc/canvas.jpg"/>
             </image:option>
-            <image:option>
-                <image:ImageOption url="_background/misc/green-board.jpg"
-                                   thumbnail="_background/thumb/misc/green-board.jpg"/>
-            </image:option>
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/misc/green-board.jpg"-->
+                                   <!--thumbnail="_background/thumb/misc/green-board.jpg"/>-->
+            <!--</image:option>-->
             <!--<image:option>-->
             <!--<image:ImageOption url="_background/misc/light-blue-linen.jpg"-->
             <!--thumbnail="_background/thumb/misc/light-blue-linen.jpg"/>-->
@@ -28,10 +28,10 @@
                 <image:ImageOption url="_background/misc/linen-black.jpg"
                                    thumbnail="_background/thumb/misc/linen-black.jpg"/>
             </image:option>
-            <image:option>
-                <image:ImageOption url="_background/misc/linen-blue.jpg"
-                                   thumbnail="_background/thumb/misc/linen-blue.jpg"/>
-            </image:option>
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/misc/linen-blue.jpg"-->
+                                   <!--thumbnail="_background/thumb/misc/linen-blue.jpg"/>-->
+            <!--</image:option>-->
             <image:option>
                 <image:ImageOption url="_background/misc/linen-gray.jpg"
                                    thumbnail="_background/thumb/misc/linen-gray.jpg"/>
@@ -72,36 +72,36 @@
                 <image:ImageOption url="_background/misc/ios-linen-light-tan.png"
                                    thumbnail="_background/thumb/misc/ios-linen-light-tan.png"/>
             </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/01.jpg" thumbnail="_background/thumb/wood/01.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/02.jpg" thumbnail="_background/thumb/wood/02.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/03.jpg" thumbnail="_background/thumb/wood/03.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/04.jpg" thumbnail="_background/thumb/wood/04.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/05.jpg" thumbnail="_background/thumb/wood/05.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/06.jpg" thumbnail="_background/thumb/wood/06.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/07.jpg" thumbnail="_background/thumb/wood/07.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/08.jpg" thumbnail="_background/thumb/wood/08.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/09.jpg" thumbnail="_background/thumb/wood/09.jpg"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/wood/10.jpg" thumbnail="_background/thumb/wood/10.jpg"/>
-            </image:option>
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/01.jpg" thumbnail="_background/thumb/wood/01.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/02.jpg" thumbnail="_background/thumb/wood/02.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/03.jpg" thumbnail="_background/thumb/wood/03.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/04.jpg" thumbnail="_background/thumb/wood/04.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/05.jpg" thumbnail="_background/thumb/wood/05.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/06.jpg" thumbnail="_background/thumb/wood/06.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/07.jpg" thumbnail="_background/thumb/wood/07.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/08.jpg" thumbnail="_background/thumb/wood/08.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/09.jpg" thumbnail="_background/thumb/wood/09.jpg"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/wood/10.jpg" thumbnail="_background/thumb/wood/10.jpg"/>-->
+            <!--</image:option>-->
             <image:option>
                 <image:ImageOption url="_background/metal/metal_1.jpg"
                                    thumbnail="_background/thumb/metal/metal_1.jpg"/>
@@ -144,94 +144,94 @@
             </image:option>
 
 
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/Crosshairs.png"
-                                   thumbnail="_background/thumb/paper/Black/Crosshairs.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/Dotted.png"
-                                   thumbnail="_background/thumb/paper/Black/Dotted.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/Isometric.png"
-                                   thumbnail="_background/thumb/paper/Black/Isometric.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/LargeGrid.png"
-                                   thumbnail="_background/thumb/paper/Black/LargeGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/LargeLinedGrid.png"
-                                   thumbnail="_background/thumb/paper/Black/LargeLinedGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/Lined.png"
-                                   thumbnail="_background/thumb/paper/Black/Lined.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/Notation.png"
-                                   thumbnail="_background/thumb/paper/Black/Notation.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/PlainBlackCrumpled.png"
-                                   thumbnail="_background/thumb/paper/Black/PlainBlackCrumpled.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/SmallGrid.png"
-                                   thumbnail="_background/thumb/paper/Black/SmallGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/SmallLinedGrid.png"
-                                   thumbnail="_background/thumb/paper/Black/SmallLinedGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Black/Squared.png"
-                                   thumbnail="_background/thumb/paper/Black/Squared.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/Crosshairs.png"
-                                   thumbnail="_background/thumb/paper/Blue/Crosshairs.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/Dotted.png"
-                                   thumbnail="_background/thumb/paper/Blue/Dotted.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/Isometric.png"
-                                   thumbnail="_background/thumb/paper/Blue/Isometric.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/LargeGrid.png"
-                                   thumbnail="_background/thumb/paper/Blue/LargeGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/LargeLinedGrid.png"
-                                   thumbnail="_background/thumb/paper/Blue/LargeLinedGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/Lined.png"
-                                   thumbnail="_background/thumb/paper/Blue/Lined.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/Notation.png"
-                                   thumbnail="_background/thumb/paper/Blue/Notation.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/PlainBlue.png"
-                                   thumbnail="_background/thumb/paper/Blue/PlainBlue.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/SmallGrid.png"
-                                   thumbnail="_background/thumb/paper/Blue/SmallGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/SmallLinedGrid.png"
-                                   thumbnail="_background/thumb/paper/Blue/SmallLinedGrid.png"/>
-            </image:option>
-            <image:option>
-                <image:ImageOption url="_background/paper/Blue/Squared.png"
-                                   thumbnail="_background/thumb/paper/Blue/Squared.png"/>
-            </image:option>
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/Crosshairs.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/Crosshairs.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/Dotted.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/Dotted.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/Isometric.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/Isometric.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/LargeGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/LargeGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/LargeLinedGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/LargeLinedGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/Lined.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/Lined.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/Notation.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/Notation.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/PlainBlackCrumpled.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/PlainBlackCrumpled.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/SmallGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/SmallGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/SmallLinedGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/SmallLinedGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Black/Squared.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Black/Squared.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/Crosshairs.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/Crosshairs.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/Dotted.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/Dotted.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/Isometric.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/Isometric.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/LargeGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/LargeGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/LargeLinedGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/LargeLinedGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/Lined.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/Lined.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/Notation.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/Notation.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/PlainBlue.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/PlainBlue.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/SmallGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/SmallGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/SmallLinedGrid.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/SmallLinedGrid.png"/>-->
+            <!--</image:option>-->
+            <!--<image:option>-->
+                <!--<image:ImageOption url="_background/paper/Blue/Squared.png"-->
+                                   <!--thumbnail="_background/thumb/paper/Blue/Squared.png"/>-->
+            <!--</image:option>-->
             <!--<image:option>-->
             <!--<image:ImageOption url="_background/paper/Cardboard/Crosshairs.png"-->
             <!--thumbnail="_background/thumb/paper/Cardboard/Crosshairs.png"/>-->

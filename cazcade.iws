@@ -64,65 +64,256 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/FountainPubSub.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/FountainPubSubException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/InMemoryPubSub.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/LiquidMessageConverter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/continuations/ClientSessionMessageListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/ContinuationConsumer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/messaging/GwtClientMessageListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/NotificationSession.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" afterPath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" afterPath="$PROJECT_DIR$/apps/hashbo/hashbo.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/pom.xml" afterPath="$PROJECT_DIR$/apps/hashbo/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractBoardcastServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/AbstractBoardcastServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LoginServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/login/LoginServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/LinkServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/LinkServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/RegisterServlet.java" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/servlet/twitter/auth/signin/RegisterServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/hashbo-web.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/hashbo-web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/boards.jsp" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages/boards.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" afterPath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/upload/pom.xml" afterPath="$PROJECT_DIR$/apps/upload/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/upload/upload.iml" afterPath="$PROJECT_DIR$/apps/upload/upload.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/cazcade/common/CommonConstants.java" afterPath="$PROJECT_DIR$/common/src/main/java/cazcade/common/CommonConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" afterPath="$PROJECT_DIR$/fountain/datastore-client/datastore-client.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-client/src/main/java/cazcade/fountain/datastore/client/FountainRemoteDataStore.java" afterPath="$PROJECT_DIR$/fountain/datastore-client/src/main/java/cazcade/fountain/datastore/client/FountainRemoteDataStore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-client/src/main/resources/datastore-client-spring-config.xml" afterPath="$PROJECT_DIR$/fountain/datastore-client/src/main/resources/datastore-client-spring-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" afterPath="$PROJECT_DIR$/fountain/datastore-server/datastore-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-server/src/main/java/cazcade/fountain/datastore/server/DataStoreServerMessageHandler.java" afterPath="$PROJECT_DIR$/fountain/datastore-server/src/main/java/cazcade/fountain/datastore/server/DataStoreServerMessageHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-server/src/main/java/cazcade/fountain/datastore/server/FountainDataStoreRPCServer.java" afterPath="$PROJECT_DIR$/fountain/datastore-server/src/main/java/cazcade/fountain/datastore/server/FountainDataStoreRPCServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-server/src/main/resources/datastore-server-spring-config.xml" afterPath="$PROJECT_DIR$/fountain/datastore-server/src/main/resources/datastore-server-spring-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoIntializer.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoIntializer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/messaging.iml" afterPath="$PROJECT_DIR$/fountain/messaging/messaging.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/pom.xml" afterPath="$PROJECT_DIR$/fountain/messaging/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/LiquidMessageSender.java" afterPath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/LiquidMessageSender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/session/ClientSession.java" afterPath="$PROJECT_DIR$/fountain/messaging/src/main/java/cazcade/fountain/messaging/session/ClientSession.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/src/main/resources/messaging-context.xml" afterPath="$PROJECT_DIR$/fountain/messaging/src/main/resources/messaging-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/messaging/src/main/resources/messaging-session-context.xml" afterPath="$PROJECT_DIR$/fountain/messaging/src/main/resources/messaging-session-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/pom.xml" afterPath="$PROJECT_DIR$/fountain/rest-server/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" afterPath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/AbstractRestServlet.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/AbstractRestServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidNotificationServlet.java" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidNotificationServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/rest-server/src/main/resources/rest-server-spring-config.xml" afterPath="$PROJECT_DIR$/fountain/rest-server/src/main/resources/rest-server-spring-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/security/security.iml" afterPath="$PROJECT_DIR$/fountain/security/security.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainIntegrationTest.java" afterPath="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainIntegrationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/test.iml" afterPath="$PROJECT_DIR$/fountain/test/test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scrape/scrape.iml" afterPath="$PROJECT_DIR$/scrape/scrape.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/comms.iml" afterPath="$PROJECT_DIR$/vortex/comms/comms.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/pom.xml" afterPath="$PROJECT_DIR$/vortex/comms/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/LoginUtil.java" afterPath="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/LoginUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/comms/src/main/resources/gwt-datastore-context.xml" afterPath="$PROJECT_DIR$/vortex/comms/src/main/resources/gwt-datastore-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/main/main.iml" afterPath="$PROJECT_DIR$/vortex/main/main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" afterPath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/pool.iml" afterPath="$PROJECT_DIR$/vortex/pool/pool.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/pom.xml" afterPath="$PROJECT_DIR$/vortex/widgets/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/widgets.iml" afterPath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml" afterPath="$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/Thumbnail.workflow/Contents/QuickLook/Preview.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/Thumbnail.workflow/Contents/QuickLook/Preview.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/Thumbnail.workflow/Contents/QuickLook" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/Thumbnail.workflow/Contents/QuickLook" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/Thumbnail.workflow/Contents/document.wflow" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/Thumbnail.workflow/Contents/document.wflow" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/Thumbnail.workflow/Contents" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/Thumbnail.workflow/Contents" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/Thumbnail.workflow" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/Thumbnail.workflow" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_1.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_2.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_2.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_3.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_3.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_4.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_4.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_5.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_5.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_6.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_6.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_7.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_7.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal/metal_8.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal/metal_8.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/metal" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/metal" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/canvas.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/canvas.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/corkboard.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/corkboard.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/green-board.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/green-board.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/ios-linen-light-tan.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/ios-linen-light-tan.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/light-blue-linen.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/light-blue-linen.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/linen-black.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/linen-black.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/linen-blue.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/linen-blue.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/linen-gray.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/linen-gray.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/linen-white-light.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/linen-white-light.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/linen-white.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/linen-white.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/noise-black.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/noise-black.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/noise-grey.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/noise-grey.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/noise-light-grey.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/noise-light-grey.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/noise-vlight-grey.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/noise-vlight-grey.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/noise-white.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/noise-white.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc/retro-sunbeam-1.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc/retro-sunbeam-1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/misc" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/misc" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/PlainBlackCrumpled.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/PlainBlackCrumpled.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Black" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Black" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/PlainBlue.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/PlainBlue.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Blue" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Blue" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/PlainCardboard.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/PlainCardboard.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Cardboard" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Cardboard" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/PlainOldPaper.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/PlainOldPaper.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/OldPaper" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/OldPaper" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/PlainPaper.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/PlainPaper.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper/Paper" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper/Paper" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/paper" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/paper" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-1.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-1.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-10.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-10.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-11.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-11.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-12.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-12.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-13.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-13.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-14.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-14.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-15.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-15.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-16.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-16.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-17.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-17.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-18.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-18.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-19.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-19.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-2.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-2.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-20.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-20.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-3.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-3.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-4.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-4.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-5.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-5.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-6.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-6.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-7.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-7.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-8.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-8.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge/Texture-9.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge/Texture-9.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/subtle-grunge" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/subtle-grunge" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_1.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_2.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_2.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_3.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_3.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_4.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_4.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_5.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_5.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_6.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_6.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_7.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_7.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal/metal_8.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal/metal_8.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/metal" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/metal" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/canvas.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/canvas.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/corkboard.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/corkboard.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/green-board.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/green-board.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/ios-linen-light-tan.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/ios-linen-light-tan.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/light-blue-linen.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/light-blue-linen.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/linen-black.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/linen-black.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/linen-blue.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/linen-blue.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/linen-gray.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/linen-gray.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/linen-white-light.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/linen-white-light.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/linen-white.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/linen-white.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/noise-black.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/noise-black.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/noise-grey.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/noise-grey.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/noise-light-grey.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/noise-light-grey.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/noise-vlight-grey.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/noise-vlight-grey.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/noise-white.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/noise-white.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc/retro-sunbeam-1.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc/retro-sunbeam-1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/misc" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/misc" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/PlainBlackCrumpled.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/PlainBlackCrumpled.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Black" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Black" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/PlainBlue.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/PlainBlue.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Blue" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Blue" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/PlainCardboard.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/PlainCardboard.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Cardboard" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Cardboard" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/PlainOldPaper.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/PlainOldPaper.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/OldPaper" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/OldPaper" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/Crosshairs.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/Crosshairs.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/Dotted.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/Dotted.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/Isometric.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/Isometric.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/LargeGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/LargeGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/LargeLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/LargeLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/Lined.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/Lined.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/Notation.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/Notation.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/PlainPaper.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/PlainPaper.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/SmallGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/SmallGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/SmallLinedGrid.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/SmallLinedGrid.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper/Squared.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper/Squared.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper/Paper" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper/Paper" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/paper" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/paper" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-1.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-1.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-10.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-10.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-11.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-11.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-12.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-12.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-13.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-13.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-14.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-14.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-15.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-15.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-16.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-16.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-17.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-17.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-18.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-18.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-19.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-19.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-2.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-2.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-20.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-20.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-3.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-3.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-4.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-4.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-5.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-5.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-6.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-6.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-7.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-7.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-8.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-8.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge/Texture-9.png" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge/Texture-9.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/subtle-grunge" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/subtle-grunge" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/01.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/01.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/02.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/02.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/03.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/03.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/04.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/04.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/05.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/05.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/06.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/06.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/07.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/07.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/08.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/08.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/09.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/09.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood/10.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood/10.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb/wood" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb/wood" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/thumb" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/thumb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/01.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/01.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/02.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/02.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/03.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/03.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/04.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/04.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/05.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/05.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/06.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/06.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/07.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/07.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/08.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/08.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/09.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/09.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood/10.jpg" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood/10.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_background/wood" afterPath="$PROJECT_DIR$/apps/hashbo/src/main/old_resources/wood" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -353,40 +544,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="datastore-server-spring-config.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore-server/src/main/resources/datastore-server-spring-config.xml">
-          <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="1409" selection-end="1409" vertical-scroll-proportion="-15.681818">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FountainNeoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="533" column="48" selection-start="25341" selection-end="25341" vertical-scroll-proportion="-12.538462">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FountainPoolDAOImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="401" column="16" selection-start="23806" selection-end="23806" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Constants.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="96" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
+            <state line="12" column="96" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -401,10 +562,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainNeoIntializer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FountainNeoIntializer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoIntializer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="168" column="20" selection-start="8600" selection-end="8600" vertical-scroll-proportion="0.23102866">
+            <state line="168" column="20" selection-start="8600" selection-end="8600" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -443,7 +604,37 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="348" column="105" selection-start="20162" selection-end="20162" vertical-scroll-proportion="-18.136364">
+            <state line="348" column="105" selection-start="20162" selection-end="20162" vertical-scroll-proportion="-237.27272">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index-service.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml">
+          <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="64" selection-start="1326" selection-end="1326" vertical-scroll-proportion="-14.318182">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="136" column="50" selection-start="4454" selection-end="4454" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChangeBackgroundDialog.ui.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="76" column="31" selection-start="4087" selection-end="4259" vertical-scroll-proportion="0.6230032">
               <folding />
             </state>
           </provider>
@@ -463,9 +654,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/fountain/datastore-server/src/main/java/cazcade/fountain/datastore/server/FountainDataStoreRPCServer.java" />
-        <option value="$PROJECT_DIR$/vortex/comms/src/main/java/cazcade/vortex/comms/datastore/server/DataStoreServiceImpl.java" />
-        <option value="$PROJECT_DIR$/apps/hashbo/src/main/webapp/WEB-INF/hashbo-web.xml" />
         <option value="$PROJECT_DIR$/fountain/rest-server/pom.xml" />
         <option value="$PROJECT_DIR$/fountain/test/src/test/java/cazcade/fountain/server/rest/test/FountainIntegrationTest.java" />
         <option value="$PROJECT_DIR$/fountain/messaging/src/main/resources/messaging-context.xml" />
@@ -479,6 +667,9 @@
         <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java" />
         <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" />
         <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoIntializer.java" />
+        <option value="$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml" />
+        <option value="$PROJECT_DIR$/apps/hashbo/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml" />
       </list>
     </option>
   </component>
@@ -641,16 +832,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3737,7 +3918,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemId" value="_background" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3767,11 +3948,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_pages" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3801,11 +3978,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_css" />
+              <option name="myItemId" value="old_resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3828,224 +4001,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boardcast" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boardcast" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="servlet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boardcast" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boardcast" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hashbo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boardcast" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -4055,23 +4010,33 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="246" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="237" />
     <property name="project.structure.last.edited" value="Modules" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="237" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="55" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="249" />
-    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="209" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
@@ -4086,8 +4051,8 @@
     <property name="Database.TableEditor.Splitter" value="0.9" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="1042" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -4097,15 +4062,15 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
-    <property name="DefaultHtmlFileTemplate" value="Html" />
-    <property name="project.structure.side.proportion" value="0.13184772" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="project.structure.side.proportion" value="0.13184772" />
+    <property name="DefaultHtmlFileTemplate" value="Html" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PublishConfig" serverName="dev.cazcade.com" serverId="45d3bb15-3f17-4319-9cab-4e637f428236" overwriteAll="false">
     <servers>
@@ -4678,6 +4643,27 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="JettyConfiguration" factoryName="Local">
       <deployment />
       <server-settings>
@@ -4702,27 +4688,6 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
       <JSRemoteDebuggerConfigurationSettings>
         <option name="engineId" value="embedded" />
@@ -4735,20 +4700,14 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GWT.ConfigurationType" factoryName="GWT Configuration">
-      <module name="" />
+    <configuration default="true" type="JettyConfiguration" factoryName="Remote">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data />
+      </server-settings>
+      <predefined_log_file id="Jetty" enabled="true" />
+      <extension name="coverage" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -4784,14 +4743,33 @@
         <option name="PhingTarget" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JettyConfiguration" factoryName="Remote">
-      <option name="LOCAL" value="false" />
+    <configuration default="true" type="GWT.ConfigurationType" factoryName="GWT Configuration">
+      <module name="" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
       <deployment />
-      <server-settings>
-        <data />
-      </server-settings>
-      <predefined_log_file id="Jetty" enabled="true" />
-      <extension name="coverage" />
+      <server-settings />
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -4804,19 +4782,6 @@
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
       <option name="CONTEXT_PROVIDER" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="PhingTarget" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
-      <deployment />
-      <server-settings />
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -5355,13 +5320,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1129" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1388889" sideWeight="0.66032064" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32827324" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32443127" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32178217" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08502674" sideWeight="0.6442886" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43267328" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
@@ -5370,23 +5334,24 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32574257" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18803419" sideWeight="0.670297" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1875" sideWeight="0.670297" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32478634" sideWeight="0.670297" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32970297" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32425213" sideWeight="0.670297" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913843" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959914" sideWeight="0.5765054" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296593" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32178217" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279678" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4174085" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -5508,27 +5473,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/cli/FountainRestServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="40" selection-start="1559" selection-end="1559" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/LiquidRestServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="49" selection-start="1007" selection-end="1007" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/rest-server/src/main/java/cazcade/fountain/server/rest/servlet/AbstractRestServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="58" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fountain/datastore-client/src/main/java/cazcade/fountain/datastore/client/FountainRemoteDataStore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="98" column="32" selection-start="3747" selection-end="3747" vertical-scroll-proportion="0.0">
@@ -5558,17 +5502,28 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="1409" selection-end="1409" vertical-scroll-proportion="-15.681818">
+        <state line="23" column="0" selection-start="1295" selection-end="1295" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/datastore-spring-config.xml">
-      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="348" column="105" selection-start="20162" selection-end="20162" vertical-scroll-proportion="-18.136364">
+        <state line="533" column="48" selection-start="25341" selection-end="25341" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="401" column="16" selection-start="23806" selection-end="23806" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="96" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -5580,27 +5535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="96" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="533" column="48" selection-start="25341" selection-end="25341" vertical-scroll-proportion="-12.538462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="30" selection-start="10736" selection-end="10736" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/FountainUserDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="0" selection-start="1142" selection-end="1142" vertical-scroll-proportion="0.0">
@@ -5608,9 +5542,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainPoolDAOImpl.java">
+    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="401" column="16" selection-start="23806" selection-end="23806" vertical-scroll-proportion="0.0">
+        <state line="192" column="30" selection-start="10736" selection-end="10736" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -5624,7 +5558,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoIntializer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="20" selection-start="8600" selection-end="8600" vertical-scroll-proportion="0.23102866">
+        <state line="168" column="20" selection-start="8600" selection-end="8600" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/datastore-spring-config.xml">
+      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="348" column="105" selection-start="20162" selection-end="20162" vertical-scroll-proportion="-237.27272">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml">
+      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="64" selection-start="1326" selection-end="1326" vertical-scroll-proportion="-14.318182">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="50" selection-start="4454" selection-end="4454" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/widgets/board/ChangeBackgroundDialog.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="31" selection-start="4087" selection-end="4259" vertical-scroll-proportion="0.6230032">
           <folding />
         </state>
       </provider>
