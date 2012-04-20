@@ -547,10 +547,6 @@
             <element id="archive" name="messaging-1.1-SNAPSHOT.jar">
               <element id="module-output" name="messaging" />
             </element>
-            <element id="library" level="project" name="Maven: org.springframework.amqp:spring-amqp:1.0.0.RC1" />
-            <element id="library" level="project" name="Maven: org.springframework.amqp:spring-rabbit:1.0.0.RC1" />
-            <element id="library" level="project" name="Maven: com.rabbitmq:amqp-client:2.3.1" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.0.5.RELEASE" />
             <element id="archive" name="datastore-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore" />
             </element>
@@ -565,6 +561,7 @@
             </element>
             <element id="library" level="project" name="Maven: org.springframework:spring-orm:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.0.5.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:3.5.6-Final" />
             <element id="library" level="project" name="Maven: antlr:antlr:2.7.6" />
             <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
@@ -615,17 +612,33 @@
             <element id="library" level="project" name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat" />
             <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
             <element id="library" level="project" name="Maven: com.allen_sauer.gwt.voices:gwt-voices:2.1.0" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:store:1.1-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:common:1.1-SNAPSHOT" />
+            <element id="archive" name="billabong-store-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="billabong-store" />
+            </element>
+            <element id="archive" name="billabong-common-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="billabong-common" />
+            </element>
             <element id="library" level="project" name="Maven: rackspace:cloudfiles:1.5.3" />
             <element id="library" level="project" name="Maven: commons-httpclient:commons-httpclient:3.1" />
             <element id="library" level="project" name="Maven: xerces:xercesImpl:2.8.1" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:image:1.1-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:snapshot:1.1-SNAPSHOT" />
-            <element id="library" level="project" name="Maven: cazcade.billabong:processing:1.1-SNAPSHOT" />
+            <element id="archive" name="billabong-image-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="billabong-image" />
+            </element>
+            <element id="archive" name="billabong-snapshot-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="billabong-snapshot" />
+            </element>
+            <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.1" />
+            <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.1" />
+            <element id="archive" name="billabong-processing-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="billabong-processing" />
+            </element>
             <element id="archive" name="pool-1.1-SNAPSHOT.jar">
               <element id="module-output" name="pool" />
             </element>
+            <element id="archive" name="datastore-server-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="datastore-server" />
+            </element>
+            <element id="library" level="project" name="Maven: org.perf4j:perf4j:0.9.13" />
             <element id="library" level="project" name="Maven: com.google.gwt:gwt-servlet:2.4.0" />
             <element id="library" level="project" name="Maven: javax.servlet:jstl:1.1.1" />
             <element id="library" level="project" name="Maven: taglibs:standard:1.1.1" />
@@ -1442,10 +1455,12 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/main/pom.xml" />
         <option value="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/pom.xml" />
+        <option value="$PROJECT_DIR$/../billabong/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/../billabong/pom.xml" />
         <option value="$PROJECT_DIR$/apps/download/pom.xml" />
       </set>
     </option>
@@ -1639,6 +1654,11 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../billabong/common/billabong-common.iml" filepath="$PROJECT_DIR$/../billabong/common/billabong-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../billabong/image/billabong-image.iml" filepath="$PROJECT_DIR$/../billabong/image/billabong-image.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../billabong/processing/billabong-processing.iml" filepath="$PROJECT_DIR$/../billabong/processing/billabong-processing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../billabong/snapshot/billabong-snapshot.iml" filepath="$PROJECT_DIR$/../billabong/snapshot/billabong-snapshot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../billabong/store/billabong-store.iml" filepath="$PROJECT_DIR$/../billabong/store/billabong-store.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/bus/bus.iml" filepath="$PROJECT_DIR$/vortex/bus/bus.iml" />
       <module fileurl="file://$PROJECT_DIR$/cazcade.iml" filepath="$PROJECT_DIR$/cazcade.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/cazcade.apps.iml" filepath="$PROJECT_DIR$/apps/cazcade.apps.iml" />
@@ -1957,72 +1977,6 @@
         <root url="jar://$M2_REPO$/bsh/bsh/1.3.0/bsh-1.3.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: cazcade.billabong:common:1.1-SNAPSHOT">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/common/1.1-SNAPSHOT/common-1.1-SNAPSHOT-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: cazcade.billabong:image:1.1-SNAPSHOT">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/image/1.1-SNAPSHOT/image-1.1-SNAPSHOT-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: cazcade.billabong:processing:1.1-SNAPSHOT">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/processing/1.1-SNAPSHOT/processing-1.1-SNAPSHOT-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: cazcade.billabong:snapshot:1.1-SNAPSHOT">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/snapshot/1.1-SNAPSHOT/snapshot-1.1-SNAPSHOT-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: cazcade.billabong:store:1.1-SNAPSHOT">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/billabong/store/1.1-SNAPSHOT/store-1.1-SNAPSHOT-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: cazcade:culvert:1.1-SNAPSHOT">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: cglib:cglib:2.2">
       <CLASSES>
         <root url="jar://$M2_REPO$/cglib/cglib/2.2/cglib-2.2.jar!/" />
@@ -2199,17 +2153,6 @@
         <root url="jar://$M2_REPO$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: com.rabbitmq:amqp-client:2.3.1">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/com/rabbitmq/amqp-client/2.3.1/amqp-client-2.3.1-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: com.rosaloves:bitlyj:2.0.0">
       <CLASSES>
         <root url="jar://$M2_REPO$/com/rosaloves/bitlyj/2.0.0/bitlyj-2.0.0.jar!/" />
@@ -2254,6 +2197,17 @@
         <root url="jar://$M2_REPO$/com/yahoo/platform/yui/yuicompressor/2.3.6/yuicompressor-2.3.6-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: commons-cli:commons-cli:1.1">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/commons-cli/commons-cli/1.1/commons-cli-1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/commons-cli/commons-cli/1.1/commons-cli-1.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/commons-cli/commons-cli/1.1/commons-cli-1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: commons-cli:commons-cli:1.2">
       <CLASSES>
         <root url="jar://$M2_REPO$/commons-cli/commons-cli/1.2/commons-cli-1.2.jar!/" />
@@ -2274,6 +2228,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/commons-codec/commons-codec/1.3/commons-codec-1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: commons-codec:commons-codec:1.4">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/commons-codec/commons-codec/1.4/commons-codec-1.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/commons-codec/commons-codec/1.4/commons-codec-1.4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-collections:commons-collections:3.1">
@@ -2362,6 +2327,28 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/commons-io/commons-io/2.0.1/commons-io-2.0.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: commons-lang:commons-lang:2.1">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.1/commons-lang-2.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.1/commons-lang-2.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.1/commons-lang-2.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: commons-lang:commons-lang:2.4">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.4/commons-lang-2.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.4/commons-lang-2.4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-lang:commons-lang:2.5">
@@ -2496,6 +2483,17 @@
         <root url="jar://$M2_REPO$/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: javax.servlet:servlet-api:2.5">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/javax/servlet/servlet-api/2.5/servlet-api-2.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: javax.transaction:jta:1.1">
       <CLASSES>
         <root url="jar://$M2_REPO$/javax/transaction/jta/1.1/jta-1.1.jar!/" />
@@ -2628,6 +2626,17 @@
         <root url="jar://$M2_REPO$/log4j/log4j/1.2.15/log4j-1.2.15-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: log4j:log4j:1.2.9">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/log4j/log4j/1.2.9/log4j-1.2.9.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/log4j/log4j/1.2.9/log4j-1.2.9-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/log4j/log4j/1.2.9/log4j-1.2.9-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: mx4j:mx4j-jmx:2.1.1">
       <CLASSES>
         <root url="jar://$M2_REPO$/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1.jar!/" />
@@ -2749,6 +2758,17 @@
         <root url="jar://$M2_REPO$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.apache.httpcomponents:httpclient:4.1">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1/httpclient-4.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1/httpclient-4.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1/httpclient-4.1-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.apache.httpcomponents:httpclient:4.1-alpha2">
       <CLASSES>
         <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2.jar!/" />
@@ -2758,6 +2778,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpclient/4.1-alpha2/httpclient-4.1-alpha2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.httpcomponents:httpcore:4.1">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.httpcomponents:httpcore:4.1-beta1">
@@ -2813,17 +2844,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/org/apache/velocity/velocity/1.7/velocity-1.7-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.aspectj:aspectjweaver:1.5.4">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.0-SNAPSHOT">
@@ -3231,28 +3251,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.springframework.amqp:spring-amqp:1.0.0.RC1">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-amqp/1.0.0.RC1/spring-amqp-1.0.0.RC1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.springframework.amqp:spring-rabbit:1.0.0.RC1">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/org/springframework/amqp/spring-rabbit/1.0.0.RC1/spring-rabbit-1.0.0.RC1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-aop:3.0.5.RELEASE">

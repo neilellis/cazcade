@@ -1,7 +1,5 @@
 package cazcade.fountain.datastore.impl;
 
-import cazcade.common.CommonConstants;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -10,5 +8,5 @@ import javax.annotation.Nonnull;
 
 public class Constants {
     @Nonnull
-    public static final String FOUNTAIN_NEO_STORE_DIR = CommonConstants.CAZCADE_HOME + "/fountain/neo";
+    public static final String FOUNTAIN_NEO_STORE_DIR = System.getProperty("user.home") + "/data/fountain/neo";
 }

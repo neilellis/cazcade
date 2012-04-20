@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>cazcade.billabong</groupId>
-            <artifactId>image</artifactId>
+            <artifactId>billabong-image</artifactId>
         </dependency>
     </dependencies>
 

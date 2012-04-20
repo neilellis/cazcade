@@ -81,10 +81,12 @@ public class RegisterServlet extends AbstractTwitterServlet {
 //                } else {
                 final LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new LiquidSessionIdentifier(username), twitterAlias, true, true, true));
                 if (createAliasResponse.getState() == LiquidMessageState.SUCCESS) {
-                    final LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI(), session);
+                    final LiquidSessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse.getResponse().getURI(), session,
+                                                                                      pubSub
+                                                                                     );
                     dataStore.process(new UpdateAliasRequest(sessionIdentifier, sessionIdentifier.getAlias(), cazcadeAlias));
                     session.setAttribute(SESSION_KEY, sessionIdentifier);
-                    LoginUtil.login(clientSessionManager, dataStore, twitterAlias.getURI(), session);
+                    LoginUtil.login(clientSessionManager, dataStore, twitterAlias.getURI(), session, pubSub);
                     response.sendRedirect(request.getContextPath() + "/_twitter/login.jsp");
                 } else {
                     log.error(LiquidXStreamFactory.getXstream().toXML(createAliasResponse));

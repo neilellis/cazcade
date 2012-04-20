@@ -1,17 +1,12 @@
 package cazcade.fountain.datastore.server;
 
 import cazcade.common.Logger;
+import cazcade.fountain.messaging.FountainPubSub;
 import cazcade.fountain.messaging.LiquidMessageSender;
-import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidMessageHandler;
 import cazcade.liquid.api.LiquidRequest;
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.RpcServer;
-import com.rabbitmq.client.ShutdownSignalException;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.IOException;
 
 /**
@@ -20,63 +15,37 @@ import java.io.IOException;
 public class FountainDataStoreRPCServer {
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainDataStoreRPCServer.class);
-    private RabbitTemplate template;
     private DataStoreServerMessageHandler handler;
-    @Nullable
-    private RpcServer rpcServer;
-    private String queue;
+    private String topic;
     private LiquidMessageSender messageSender;
+    private FountainPubSub pubSub;
+    private long listenerId;
 
     public void start() throws IOException {
-        log.info("Starting RabbitMQ RPC Server");
+        listenerId = pubSub.addListener(topic, new LiquidMessageHandler<LiquidRequest>() {
 
-        rpcServer = new RpcServer(template.getConnectionFactory().createConnection().createChannel(false), queue) {
             @Override
-            public byte[] handleCall(final byte[] requestBody, final AMQP.BasicProperties replyProperties) {
-                try {
-                    log.debug("Handling RabbitMQ RPC call");
-                    final LiquidMessage message = (LiquidMessage) template.getMessageConverter().fromMessage(new Message(
-                            requestBody, null
-                    )
-                                                                                                            );
-                    final LiquidRequest response = (LiquidRequest) handler.handle(message);
-                    final LiquidRequest request = (LiquidRequest) message;
-                    if (response.shouldNotify()) {
-                        //Notify if async
-                        //i.e. for pool visits.
-                        messageSender.sendNotifications(response);
-                    }
-                    return template.getMessageConverter().toMessage(response, null).getBody();
-                } catch (Exception e) {
-                    log.error(e);
-                    return new byte[0];
+            public LiquidRequest handle(LiquidRequest message) throws Exception {
+                final LiquidRequest response = (LiquidRequest) handler.handle(message);
+                if (response.shouldNotify()) {
+                    messageSender.sendNotifications(response);
                 }
-            }
-        };
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final ShutdownSignalException exception = rpcServer.mainloop();
-                } catch (IOException e) {
-                    log.error(e.getMessage(), e);
-                }
+                return response;
             }
         }
-        ).start();
-        log.info("Started RabbitMQ RPC Server");
+                                       );
     }
 
     public void stop() throws IOException {
-        rpcServer.close();
+        pubSub.removeListener(listenerId);
     }
 
-    public String getQueue() {
-        return queue;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setQueue(final String queue) {
-        this.queue = queue;
+    public void setTopic(final String topic) {
+        this.topic = topic;
     }
 
     public void setHandler(final DataStoreServerMessageHandler handler) {
@@ -87,7 +56,8 @@ public class FountainDataStoreRPCServer {
         this.messageSender = messageSender;
     }
 
-    public void setTemplate(final RabbitTemplate template) {
-        this.template = template;
-    }
+
+    public void setPubSub(FountainPubSub pubSub) {this.pubSub = pubSub;}
+
+    public FountainPubSub getPubSub() { return pubSub; }
 }

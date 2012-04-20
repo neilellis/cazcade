@@ -1,9 +1,11 @@
 package cazcade.fountain.datastore.server;
 
+import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.fountain.datastore.api.FountainRequestCompensator;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.messaging.InMemoryPubSub;
 import cazcade.fountain.messaging.LiquidMessageSender;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.request.AuthorizationRequest;
@@ -16,22 +18,28 @@ import javax.annotation.Nullable;
 /**
  * A handler that implements runnable allowing for asynchronous handling of data store requests on another thread.
  */
-public class DataStoreServerMessageHandler {
+public class DataStoreServerMessageHandler implements LiquidMessageHandler<LiquidRequest> {
     @Nonnull
     private static final Logger log = Logger.getLogger(DataStoreServerMessageHandler.class);
     private FountainRequestCompensator<LiquidRequest> compensator;
     private FountainDataStore store;
     private LiquidMessageSender messageSender;
+    private InMemoryPubSub pubSub;
+    private long listenerId;
 
-    public DataStoreServerMessageHandler() {
+    public void start() {
+        listenerId = pubSub.addListener(CommonConstants.SERVICE_STORE, this);
     }
 
-    public void onMessage(final LiquidMessage message) {
-        handle(message);
+    public void stop() {
+        if (listenerId > 0) {
+            pubSub.removeListener(listenerId);
+        }
     }
+
 
     @Nullable
-    public LiquidMessage handle(final LiquidMessage message) {
+    public LiquidRequest handle(final LiquidRequest message) {
         try {
             final LiquidRequest request = (LiquidRequest) message;
             final Log4JStopWatch stopWatch = new Log4JStopWatch("recv.message." + request.getRequestType().name().toLowerCase());
@@ -123,4 +131,9 @@ public class DataStoreServerMessageHandler {
     public void setStore(final FountainDataStore store) {
         this.store = store;
     }
+
+    public void setPubSub(InMemoryPubSub pubSub) {this.pubSub = pubSub;}
+
+    public InMemoryPubSub getPubSub() { return pubSub; }
+
 }

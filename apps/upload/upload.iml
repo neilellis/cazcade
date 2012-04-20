@@ -101,23 +101,22 @@
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="messaging" />
-    <orderEntry type="library" name="Maven: org.springframework.amqp:spring-amqp:1.0.0.RC1" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.amqp:spring-rabbit:1.0.0.RC1" level="project" />
-    <orderEntry type="library" name="Maven: com.rabbitmq:amqp-client:2.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.7.3" level="project" />
     <orderEntry type="library" name="Maven: org.fusesource.commonman:commons-management:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-spring:2.7.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-mina:2.7.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.mina:mina-core:1.1.7" level="project" />
     <orderEntry type="library" name="Maven: org.perf4j:perf4j:0.9.13" level="project" />
-    <orderEntry type="library" name="Maven: cazcade.billabong:image:1.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: cazcade.billabong:store:1.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: cazcade.billabong:common:1.1-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="billabong-image" />
+    <orderEntry type="module" module-name="billabong-store" />
+    <orderEntry type="module" module-name="billabong-common" />
     <orderEntry type="library" name="Maven: rackspace:cloudfiles:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: xerces:xercesImpl:2.8.1" level="project" />
-    <orderEntry type="library" name="Maven: cazcade.billabong:snapshot:1.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: cazcade.billabong:processing:1.1-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="billabong-snapshot" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.1" level="project" />
+    <orderEntry type="module" module-name="billabong-processing" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.gwt:gwt-user:2.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.validation:validation-api:sources:1.0.0.GA" level="project" />
   </component>

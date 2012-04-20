@@ -1,7 +1,6 @@
 package cazcade.fountain.server.rest.test;
 
 import cazcade.common.Logger;
-import cazcade.fountain.datastore.server.FountainDataStoreServer;
 import cazcade.fountain.server.rest.cli.FountainRestServer;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -33,7 +32,7 @@ public class FountainIntegrationTest {
     public static final String TITLE = "My Title";
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainIntegrationTest.class);
-    private static FountainDataStoreServer dataStore;
+//    private static FountainDataStoreServer dataStore;
     private static FountainRestServer restServer;
 
     private String testUsername;
@@ -55,20 +54,20 @@ public class FountainIntegrationTest {
 
     @BeforeClass
     public static void beforeClass() throws InterruptedException {
-        dataStore = new FountainDataStoreServer();
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    dataStore.start();
-                } catch (Exception e) {
-                    log.error(e);
-                }
-            }
-        }.start();
+//        dataStore = new FountainDataStoreServer();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    dataStore.start();
+//                } catch (Exception e) {
+//                    log.error(e);
+//                }
+//            }
+//        }.start();
         restServer = new FountainRestServer();
 
-        dataStore.waitForInitialisation();
+//        dataStore.waitForInitialisation();
         new Thread() {
             @Override
             public void run() {
@@ -87,7 +86,7 @@ public class FountainIntegrationTest {
         Thread.sleep(5000);
         try {
             restServer.stop();
-            dataStore.stop();
+//            dataStore.stop();
         } catch (Exception e) {
             e.printStackTrace();
         }

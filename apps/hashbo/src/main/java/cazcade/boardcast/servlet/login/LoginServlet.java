@@ -48,7 +48,7 @@ public class LoginServlet extends AbstractBoardcastServlet {
                 }
                 final Principal principal = securityProvider.doAuthentication(username, password);
                 if (principal != null) {
-                    LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session);
+                    LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session, pubSub);
                     forwardAfterLogin(req, resp);
                 }
                 else {

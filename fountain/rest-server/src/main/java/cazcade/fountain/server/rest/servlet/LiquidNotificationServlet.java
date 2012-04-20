@@ -3,6 +3,7 @@ package cazcade.fountain.server.rest.servlet;
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.AuthorizationService;
 import cazcade.fountain.datastore.api.AuthorizationStatus;
+import cazcade.fountain.messaging.FountainPubSub;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -10,11 +11,6 @@ import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import javax.annotation.Nonnull;
 import javax.servlet.ServletConfig;
@@ -25,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static cazcade.common.CommonConstants.QUEUE_ATTRIBUTE;
 
@@ -34,10 +31,8 @@ import static cazcade.common.CommonConstants.QUEUE_ATTRIBUTE;
 public class LiquidNotificationServlet extends AbstractRestServlet {
     @Nonnull
     private static final Logger log = Logger.getLogger(LiquidNotificationServlet.class);
+    private FountainPubSub pubSub;
 
-    private RabbitAdmin rabbitAdmin;
-    private TopicExchange exchange;
-    private RabbitTemplate rabbitTemplate;
 
     @Override
     public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp,
@@ -48,30 +43,23 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         sessionStateEntity.setType(LSDDictionaryTypes.SESSION);
         final LiquidUUID sessionUUID = LiquidUUID.fromString(sessionId);
         sessionStateEntity.setID(sessionUUID);
-        final Queue queue = getQueue(req);
-        declareBindings(queue, RestContext.getContext().getCredentials());
+        final String queue = getQueue(req);
         for (final LiquidUUID uuid : uuids) {
             authorize(resp, uuid);
-            addLocation(queue, uuid);
         }
-        collect(queue, resp);
+        collect(queue, uuids, resp, RestContext.getContext().getCredentials());
     }
 
-    private Queue getQueue(@Nonnull final HttpServletRequest request) {
+    private String getQueue(@Nonnull final HttpServletRequest request) {
         final HttpSession session = request.getSession(true);
-        Queue queue = (Queue) session.getAttribute(QUEUE_ATTRIBUTE);
+        String queue = (String) session.getAttribute(QUEUE_ATTRIBUTE);
         if (queue == null) {
-            queue = rabbitAdmin.declareQueue();
+            queue = UUID.randomUUID().toString();
             session.setAttribute(QUEUE_ATTRIBUTE, queue);
         }
         return queue;
     }
 
-    private void declareBindings(final Queue queue, @Nonnull final LiquidSessionIdentifier identity) {
-        rabbitAdmin.declareBinding(new Binding(queue, exchange, "session." + identity.getSession()));
-        rabbitAdmin.declareBinding(new Binding(queue, exchange, "user." + identity.getUserURL()));
-        rabbitAdmin.declareBinding(new Binding(queue, exchange, "alias." + identity.getAliasURL()));
-    }
 
     private boolean authorize(@Nonnull final HttpServletResponse resp, final LiquidUUID uuid) {
         try {
@@ -96,26 +84,39 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         resp.sendError(401, "You are not authorized to listen to notifications from this resource.");
     }
 
-    private void addLocation(final Queue queue, final LiquidUUID uuid) {
-        rabbitAdmin.declareBinding(new Binding(queue, exchange, "location." + uuid));
-    }
 
     @Nonnull
-    public ArrayList<LiquidMessage> collect(final Queue queue, @Nonnull final HttpServletResponse response) {
+    public ArrayList<LiquidMessage> collect(final String queue, List<LiquidUUID> uuids, @Nonnull final HttpServletResponse response,
+                                            LiquidSessionIdentifier identity) {
+        final ArrayList<String> queues = new ArrayList<String>();
+        for (LiquidUUID uuid : uuids) {
+            queues.add("location."+uuid.toString());
+        }
+        queues.add("session." + identity.getSession());
+        queues.add("user." + identity.getUserURL());
+        queues.add("alias." + identity.getAliasURL());
+        FountainPubSub.Collector collector= pubSub.createCollector(queues);
+
         try {
             final ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>();
             LiquidMessage message;
             int count = 0;
 
             while (count == 0) {
-                message = (LiquidMessage) rabbitTemplate.receiveAndConvert();
+                message = (LiquidMessage)collector.readSingle();
 
                 if (message instanceof VisitPoolRequest &&
                     ((VisitPoolRequest) message).getSessionIdentifier().getSession().toString().equals(
                             RestContext.getContext().getCredentials().getSession().toString()
                                                                                                       )) {
                     log.debug("**** Pool visit, so now switching pools. ****");
-                    handlePoolVisit(message, queue);
+                    //We have visited a pool so we now need to listen to events there.
+                    final VisitPoolRequest request = (VisitPoolRequest) message;
+                    if (request.getState() == LiquidMessageState.SUCCESS) {
+                        log.debug("Switching pools....");
+                        queues.add(request.getResponse().getUUID().toString());
+                        queues.add(request.getResponse().getURI().toString());
+                    }
                 }
                 response.getWriter().write(LiquidXStreamFactory.getXstream().toXML(message));
 
@@ -131,30 +132,15 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         } catch (Exception e) {
             log.error(e);
             return new ArrayList<LiquidMessage>();
+        } finally {
+            collector.close();
         }
     }
 
-    private void handlePoolVisit(final Object messageObject, final Queue queue) throws IOException {
-        //We have visited a pool so we now need to listen to events there.
-        final VisitPoolRequest request = (VisitPoolRequest) messageObject;
-        if (request.getState() == LiquidMessageState.SUCCESS) {
-            log.debug("Switching pools....");
-            final LiquidUUID uuid = request.getResponse().getUUID();
-            addLocation(queue, uuid);
-            final LiquidURI uri = request.getResponse().getURI();
-            addLocation(queue, uri);
-        }
-    }
-
-    private void addLocation(final Queue queue, final LiquidURI uri) {
-        rabbitAdmin.declareBinding(new Binding(queue, exchange, "location." + uri));
-    }
 
     @Override
     public void init(final ServletConfig config) throws ServletException {
         super.init(config);
-        rabbitAdmin = (RabbitAdmin) applicationContext.getBean("rabbitAdmin");
-        rabbitTemplate = (RabbitTemplate) applicationContext.getBean("rabbitTemplate");
-        exchange = (TopicExchange) applicationContext.getBean("mainExchange");
+        pubSub = (FountainPubSub) applicationContext.getBean("pubSub");
     }
 }

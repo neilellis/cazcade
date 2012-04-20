@@ -2,6 +2,7 @@ package cazcade.vortex.comms.datastore.server;
 
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.FountainDataStore;
+import cazcade.fountain.messaging.FountainPubSub;
 import cazcade.fountain.messaging.session.ClientSession;
 import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.fountain.security.SecurityProvider;
@@ -25,12 +26,7 @@ import net.sf.ehcache.Element;
 import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jetty.continuation.Continuation;
 import org.eclipse.jetty.continuation.ContinuationSupport;
-import org.springframework.amqp.AmqpIOException;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -70,11 +66,10 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     @Nonnull
     public static final String NOTIFICATION_SESSION_ATTRIBUTE = "notificationSession";
     private boolean supportsContinuations;
-    private RabbitTemplate rabbitTemplate;
-    private RabbitAdmin rabbitAdmin;
-    private TopicExchange exchange;
     private ClientSessionManager clientSessionManager;
     private Cache dedupCache;
+    private FountainPubSub pubSub;
+    private ClassPathXmlApplicationContext serverContext;
 
 
     /**
@@ -139,10 +134,9 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         PropertyConfigurator.configure("WEB-INF/classes/log4j.properties");
         try {
             applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
+
             dataStore = (FountainDataStore) applicationContext.getBean("remoteDataStore");
-            rabbitTemplate = (RabbitTemplate) applicationContext.getBean("rabbitTemplate");
-            rabbitAdmin = (RabbitAdmin) applicationContext.getBean("rabbitAdmin");
-            exchange = (TopicExchange) applicationContext.getBean("mainExchange");
+            pubSub = (FountainPubSub) applicationContext.getBean("pubSub");
             clientSessionManager = (ClientSessionManager) applicationContext.getBean("clientSessionManager");
             securityProvider = new SecurityProvider(dataStore);
             if (!CacheManager.getInstance().cacheExists(DEDUPCACHE)) {
@@ -186,7 +180,8 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
                 return null;
             }
             return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username),
-                                   getThreadLocalRequest().getSession(true)
+                                   getThreadLocalRequest().getSession(true),
+                                   pubSub
                                   );
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -202,7 +197,8 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
             try {
                 return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias,
                                                                                       "cazcade:" + sessionUsername
-                ), getThreadLocalRequest().getSession(true)
+                ), getThreadLocalRequest().getSession(true),
+                                       pubSub
                                       );
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
@@ -212,7 +208,8 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         if (anon) {
             try {
                 return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:anon"),
-                                       getThreadLocalRequest().getSession(true)
+                                       getThreadLocalRequest().getSession(true),
+                                       pubSub
                                       );
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
@@ -234,7 +231,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         final LSDTransferEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
             if (entity.isA(LSDDictionaryTypes.USER)) {
-                LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session);
+                LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session, pubSub);
             }
         } catch (Exception e) {
             log.error(e);
@@ -295,13 +292,14 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         if (serverSession == null) {
             throw new LoggedOutException();
         }
-        ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, false);
+        ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, false,
+                                                                    pubSub);
         if (clientSession == null) {
             if (request.isSecureOperation()) {
                 throw new LoggedOutException();
             }
             else {
-                clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true);
+                clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true, pubSub);
                 //This basically synchronizes our two ways of being logged in, logged in on the client and logged
                 //in here on the web server.
                 if (!serverSession.isAnon()) {
@@ -342,50 +340,41 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
 
     @Override
     @Nullable
-    public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier serverSession,
+    public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier identity,
                                                 @Nonnull final ArrayList<String> locations) throws Exception {
         getThreadLocalRequest().setAttribute("com.newrelic.agent.IGNORE", true);
         NewRelic.ignoreTransaction();
         log.debug("Collecting " + locations);
         final Continuation continuation = ContinuationSupport.getContinuation(getThreadLocalRequest());
-        if (serverSession == null) {
+        if (identity == null) {
             throw new LoggedOutException();
         }
+        final ArrayList<String> queues = new ArrayList<String>();
+        for (final String location : locations) {
+            queues.add("location." + location);
+        }
+        queues.add("session." + identity.getSession());
+        queues.add("user." + identity.getUserURL());
+        queues.add("alias." + identity.getAliasURL());
         try {
-            final ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true);
-            final String sessionId = serverSession.getSession().toString();
-            clientSession.setContinuation(continuation);
-
-            final Queue sessionQueue = (Queue) clientSession.getSpringContext().getBean("sessionQueue");
+            final ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, identity, true, pubSub);
+            final String sessionId = identity.getSession().toString();
+            final FountainPubSub.Collector collector = clientSession.getCollector();
+            collector.bind(queues);
 
             if (continuation.isInitial()) {
-                if (clientSession.getPreviousLocations() != null) {
-                    for (final String previousLocation : clientSession.getPreviousLocations()) {
-                        if (!locations.contains(previousLocation)) {
-                            try {
-                                rabbitAdmin.removeBinding(new Binding(sessionQueue, exchange, "location." + previousLocation));
-                            } catch (AmqpIOException amqpIOException) {
-                                log.warn("Exception while removing binding of queue->exchange {0}->{1}", sessionQueue.getName(),
-                                         exchange.getName()
-                                        );
-                            }
-                        }
+                for (final String key : collector.getKeys()) {
+                    if (key.startsWith("location.") && !queues.contains(key)) {
+                        collector.unbind(key);
                     }
                 }
-                for (final String newLocation : locations) {
-                    if (!clientSession.getPreviousLocations().contains(newLocation)) {
-                        rabbitAdmin.declareBinding(new Binding(sessionQueue, exchange, "location." + newLocation));
-                    }
-                }
-
-                clientSession.setPreviousLocations(locations);
             }
 
             int count = 0;
             while (count++ < 100) {
                 final ArrayList<SerializedRequest> resultMessages = new ArrayList<SerializedRequest>();
-                for (final LiquidMessage resultMessage : clientSession.removeMessages()) {
-                    final String cacheKey = sessionId + ":" + resultMessage.getDeduplicationIdentifier();
+                for (final LiquidMessage resultMessage : collector.readMany()) {
+                    final String cacheKey = sessionId + ':' + resultMessage.getDeduplicationIdentifier();
                     if (ALLOW_DUPLICATES || dedupCache.get(cacheKey) == null) {
                         resultMessages.add(resultMessage.asSerializedRequest());
                         dedupCache.putQuiet(new Element(cacheKey, ""));
@@ -423,6 +412,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     public void destroy() {
         super.destroy();
         dataStore.stopIfNotStopped();
+        serverContext.stop();
     }
 
 }

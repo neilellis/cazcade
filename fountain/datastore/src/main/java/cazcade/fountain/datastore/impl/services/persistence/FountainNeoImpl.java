@@ -86,7 +86,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainNeoImpl.class);
     @Nonnull
-    private static final String ROOT_POOL_PROPERTY = "_root_pool";
+    private static final String ROOT_POOL_PROPERTY = "root_pool________";
     @Nonnull
     private static final String FALSE = "false";
 
@@ -101,6 +101,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 
     private final ScheduledExecutorService backupScheduler =
             Executors.newScheduledThreadPool(1);
+    private boolean started;
 
 
     static {
@@ -543,6 +544,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 
                 setPeoplePool(findByURI(new LiquidURI("pool:///people")));
                 transaction.success();
+                this.started= true;
             } catch (RuntimeException e) {
                 e.printStackTrace();
                 transaction.failure();
@@ -570,6 +572,11 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 //        wrappingNeoServerBootstrapper.stop();
         log.info("Shutdown Neo.");
         log.info("Shutdown Fountain Neo service.");
+        this.started= false;
+    }
+
+    public boolean isStarted() {
+        return started;
     }
 
     @Override

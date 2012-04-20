@@ -6,6 +6,8 @@ import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.fountain.datastore.client.validation.SecurityValidator;
 import cazcade.fountain.datastore.client.validation.SecurityValidatorImpl;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.messaging.FountainPubSub;
+import cazcade.fountain.messaging.InMemoryPubSub;
 import cazcade.fountain.messaging.LiquidMessageSender;
 import cazcade.fountain.validation.api.FountainRequestValidator;
 import cazcade.fountain.validation.api.ValidationLevel;
@@ -13,18 +15,12 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.impl.UUIDFactory;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.RpcClient;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.core.ChannelCallback;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
 
-import static cazcade.common.CommonConstants.RABBITMQ_FOUNTAIN_STORE_REQUEST_KEY;
-import static cazcade.common.CommonConstants.RABBITMQ_RPC_EXCHANGE_NAME;
+import static cazcade.common.CommonConstants.RPC_EXCHANGE;
+import static cazcade.common.CommonConstants.SERVICE_STORE;
 
 /**
  * @author neilelliz@cazcade.com
@@ -34,7 +30,6 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainRemoteDataStore.class);
     @Nonnull
-    private static final ThreadLocal<RpcClient> rpcClientThreadLocal = new ThreadLocal<RpcClient>();
 
     private FountainRequestValidator requestValidator;
     private SecurityValidator securityValidator;
@@ -42,9 +37,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
 
     private boolean alwaysSynchronous;
     private LiquidMessageSender messageSender;
-    private RabbitTemplate template;
-    private RabbitAdmin rabbitAdmin;
-//    private FountainDataStore syncDataStore;
+    private FountainPubSub pubSub;
 
 
     public FountainRemoteDataStore() {
@@ -110,23 +103,12 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
     @Nonnull
     private LiquidMessage processAsync(@Nonnull final LiquidRequest request) throws IOException {
         log.debug("Sending Asynchronous Request");
-        messageSender.dispatch(RABBITMQ_FOUNTAIN_STORE_REQUEST_KEY, request);
+        messageSender.dispatch(SERVICE_STORE, request);
         return LiquidResponseHelper.forDeferral(request);
     }
 
-    private Object processSync(final LiquidRequest request) {
-        return template.execute(new ChannelCallback<Object>() {
-            @Override
-            public Object doInRabbit(final Channel channel) throws Exception {
-                final RpcClient rpcClient = new RpcClient(channel, RABBITMQ_RPC_EXCHANGE_NAME, "");
-                return template.getMessageConverter().fromMessage(new Message(rpcClient.primitiveCall(
-                        template.getMessageConverter().toMessage(request, null).getBody()
-                                                                                                     ), null
-                )
-                                                                 );
-            }
-        }
-                               );
+    private LiquidRequest processSync(final LiquidRequest request) throws Exception {
+        return pubSub.sendSync(RPC_EXCHANGE, request);
     }
 
     @Override
@@ -147,11 +129,8 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         this.messageSender = messageSender;
     }
 
-    public void setRabbitAdmin(final RabbitAdmin rabbitAdmin) {
-        this.rabbitAdmin = rabbitAdmin;
-    }
-
-    public void setRequestValidator(final FountainRequestValidator requestValidator) {
+   
+    public void setRequestValidator(@Nonnull final FountainRequestValidator requestValidator) {
         this.requestValidator = requestValidator;
     }
 
@@ -159,7 +138,8 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         this.securityValidator = securityValidator;
     }
 
-    public void setTemplate(final RabbitTemplate template) {
-        this.template = template;
-    }
+   
+
+    public void setPubSub(InMemoryPubSub pubSub) {this.pubSub = pubSub;}
+
 }

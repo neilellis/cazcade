@@ -2,6 +2,7 @@ package cazcade.boardcast.servlet;
 
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.FountainDataStore;
+import cazcade.fountain.messaging.FountainPubSub;
 import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.fountain.security.SecurityProvider;
 import cazcade.liquid.api.ClientApplicationIdentifier;
@@ -45,6 +46,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
     protected SecurityProvider securityProvider;
     @Nonnull
     protected static final String USERNAME_KEY = "username";
+    protected FountainPubSub pubSub;
 
     @Override
     public void init(@Nonnull final ServletConfig config) throws ServletException {
@@ -53,6 +55,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
         applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
         dataStore = (FountainDataStore) applicationContext.getBean("syncRemoteDataStore");
         clientSessionManager = (ClientSessionManager) applicationContext.getBean("clientSessionManager");
+        pubSub = (FountainPubSub) applicationContext.getBean("pubSub");
         securityProvider = new SecurityProvider(dataStore);
 
         try {
@@ -110,7 +113,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
         );
         session.setAttribute(SESSION_KEY, serverSession);
         session.setAttribute(USERNAME_KEY, username);
-        LoginUtil.createClientSession(clientSessionManager, serverSession, true);
+        LoginUtil.createClientSession(clientSessionManager, serverSession, true, pubSub);
         return serverSession;
     }
 

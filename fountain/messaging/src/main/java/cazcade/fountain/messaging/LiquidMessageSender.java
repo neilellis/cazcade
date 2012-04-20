@@ -2,7 +2,6 @@ package cazcade.fountain.messaging;
 
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidRequest;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -13,12 +12,11 @@ import java.util.List;
 public class LiquidMessageSender {
     @Nonnull
     private static final Logger log = Logger.getLogger(LiquidMessageSender.class);
-
-    private RabbitTemplate template;
+    private FountainPubSub pubSub;
 
 
     public void dispatch(final String key, final LiquidRequest request) {
-        template.convertAndSend(key, request);
+        pubSub.dispatch(key, request);
     }
 
     public void sendNotifications(@Nonnull final LiquidRequest request) {
@@ -29,7 +27,7 @@ public class LiquidMessageSender {
     public void notifySession(@Nonnull final LiquidRequest request) {
         log.debug("Ready to send notification to session(s).");
         final String session = request.getNotificationSession();
-        template.convertAndSend("session." + session, request);
+        pubSub.dispatch("session." + session, request);
         log.debug("Notification(s) sent.");
     }
 
@@ -42,7 +40,7 @@ public class LiquidMessageSender {
         if (locations != null) {
             for (final String location : locations) {
                 log.debug("Notifying location {0}.", location);
-                template.convertAndSend("location." + location, request);
+                pubSub.dispatch("location." + location, request);
                 log.debug("Notification(s) sent.");
             }
         }
@@ -50,12 +48,13 @@ public class LiquidMessageSender {
         log.debug("Notification(s) sent.");
     }
 
-    public void setTemplate(final RabbitTemplate template) {
-        this.template = template;
-    }
 
 //    public LiquidRequest sendRPC(LiquidRequest request) {
 //        template.convertAndSend("server.rpc", "server.rpc", request);
 //        template.receiveAndConvert("rpc")
 //    }
+
+    public void setPubSub(FountainPubSub pubSub) {this.pubSub = pubSub;}
+
+    public FountainPubSub getPubSub() { return pubSub; }
 }

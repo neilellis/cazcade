@@ -5,8 +5,8 @@
 
     <import resource="classpath:liquid-spring-config.xml"/>
     <import resource="classpath:datastore-client-spring-config.xml"/>
+    <import resource="classpath:datastore-server-spring-config.xml"/>
     <import resource="classpath:spring/image-service.xml"/>
-    <import resource="classpath:spring/culvert-service.xml"/>
 
 
     <bean class="cazcade.fountain.server.rest.RestHandlerFactory" id="restHandlerFactory">
@@ -80,8 +80,8 @@
     </bean>
 
     <bean id="webRequestHandler" class="cazcade.fountain.server.rest.web.WebUtilRestHandler">
-        <property name="imageService" ref="imageService"/>
-        <property name="shortener" ref="shortener"/>
+        <!--<property name="imageService" ref="imageService"/>-->
+        <!--<property name="shortener" ref="shortener"/>-->
     </bean>
 
     <bean id="errorRequestHandler" class="cazcade.fountain.server.rest.error.ErrorRestHandler"/>

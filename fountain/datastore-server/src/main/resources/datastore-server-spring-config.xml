@@ -1,76 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="classpath:datastore-spring-config.xml"/>
     <import resource="classpath:messaging-context.xml"/>
 
-    <bean id="serverUUID" class="cazcade.fountain.common.service.spring.RandomUUIDFactoryBean"/>
-
-    <bean id="serverUUIDString" class="cazcade.fountain.common.service.spring.ObjectToStringFactoryBean">
-        <constructor-arg ref="serverUUID"/>
-    </bean>
-
-
-    <rabbit:topic-exchange id="mainExchange" name="mainExchange" durable="true">
-        <rabbit:bindings>
-            <rabbit:binding queue="permQueue" pattern="service.store"/>
-        </rabbit:bindings>
-    </rabbit:topic-exchange>
-
-    <rabbit:queue id="rpcQueue" name="rpc-queue" auto-delete="false" durable="false" exclusive="false"/>
-
-    <rabbit:fanout-exchange id="rpcExchange" name="rpc-exchange" durable="false">
-        <rabbit:bindings>
-            <rabbit:binding queue="rpcQueue"/>
-        </rabbit:bindings>
-    </rabbit:fanout-exchange>
-    <!--Used for direct RPC requests, will be replaced by locally cached instances of Neo4J in time.-->
-
-    <!--<bean class="org.springframework.remoting.rmi.RmiServiceExporter">-->
-    <!--<property name="serviceName" value="DataStore"/>-->
-    <!--<property name="service" ref="localDataStore"/>-->
-    <!--<property name="serviceInterface" value="cazcade.fountain.datastore.api.FountainDataStore"/>-->
-    <!--&lt;!&ndash;&lt;!&ndash; defaults to 1099 &ndash;&gt;&ndash;&gt;-->
-    <!--<property name="registryPort" value="1199"/>-->
-    <!--</bean>-->
-
-
-    <rabbit:queue id="permQueue" name="server-queue" auto-delete="false" durable="true" exclusive="false"/>
-
-    <rabbit:listener-container connection-factory="rabbitConnectionFactory" error-handler="listenerErrorHandler"
-                               message-converter="messageConverter">
-        <rabbit:listener queues="permQueue" ref="dataStoreRemoteRequestHandler" method="onMessage"/>
-    </rabbit:listener-container>
-
-
-    <bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate"
-          p:exchange="mainExchange"
-          p:messageConverter-ref="messageConverter"
-          p:connectionFactory-ref="rabbitConnectionFactory"/>
-
     <bean id="messageSender" class="cazcade.fountain.messaging.LiquidMessageSender"
-          p:template-ref="rabbitTemplate"/>
+          p:pubSub-ref="pubSub"/>
 
-    <bean id="dataStoreRemoteRequestHandler" class="cazcade.fountain.datastore.server.DataStoreServerMessageHandler">
+    <bean id="dataStoreRemoteRequestHandler" init-method="start" destroy-method="stop"
+          class="cazcade.fountain.datastore.server.DataStoreServerMessageHandler">
         <property name="compensator" ref="compensator"/>
         <property name="messageSender" ref="messageSender"/>
         <property name="store" ref="localDataStore"/>
+        <property name="pubSub" ref="pubSub"/>
     </bean>
 
     <bean id="fountainDataStoreRPCServer" class="cazcade.fountain.datastore.server.FountainDataStoreRPCServer"
           init-method="start" destroy-method="stop"
-          p:queue="rpc-queue" p:template-ref="rabbitTemplate" p:handler-ref="dataStoreRemoteRequestHandler"
+          p:topic="rpc-topic" p:pubSub-ref="pubSub" p:handler-ref="dataStoreRemoteRequestHandler"
           p:messageSender-ref="messageSender"/>
-
-    <!--<camel:camelContext id="remoteDataStoreCamelContext">-->
-    <!--<camel:route>-->
-    <!--<camel:from uri="mina:tcp://localhost:6200?sync=true"/>-->
-    <!--<camel:to uri="bean:dataStoreRemoteRequestHandler?method=handle"/>-->
-    <!--</camel:route>-->
-    <!--</camel:camelContext>-->
-
-
 </beans>

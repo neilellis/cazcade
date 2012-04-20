@@ -26,20 +26,28 @@ public abstract class AbstractRestServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(AbstractRestServlet.class);
 
 
-    protected ClassPathXmlApplicationContext applicationContext;
-
-    public AbstractRestServlet() {
-        super();
+    protected static ClassPathXmlApplicationContext applicationContext;
+    static {
         try {
             applicationContext = new ClassPathXmlApplicationContext("classpath:rest-server-spring-config.xml");
         } catch (Exception e) {
             log.error(e);
         }
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                applicationContext.destroy();
+            }
+        });
+    }
+    
+    public AbstractRestServlet() {
+        super();
     }
 
     @Override
     public void destroy() {
-        applicationContext.destroy();
         super.destroy();
     }
 

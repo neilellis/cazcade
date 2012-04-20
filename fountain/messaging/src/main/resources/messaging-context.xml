@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="propertyPlaceholderConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:rabbit.properties"/>
-        <property name="systemPropertiesModeName">
-            <value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value>
-        </property>
-    </bean>
-
-    <bean id="rabbitConnectionFactory" class="org.springframework.amqp.rabbit.connection.SingleConnectionFactory"
-          p:username="${fountain.rabbitmq.username}" p:password="${fountain.rabbitmq.password}"
-          p:virtualHost="${fountain.rabbitmq.vhost}" p:port="5672">
-        <constructor-arg value="${fountain.rabbitmq.host}"/>
-    </bean>
-
-    <rabbit:admin id="rabbitAdmin" connection-factory="rabbitConnectionFactory"/>
-
-    <rabbit:queue id="tempQueue" auto-delete="true" durable="false" exclusive="true"/>
-
-    <bean id="listenerErrorHandler" class="cazcade.fountain.messaging.ListenerErrorHandler"/>
-
-    <bean id="messageConverter" class="cazcade.fountain.messaging.LiquidMessageConverter"/>
-
-    <rabbit:topic-exchange name="mainExchange" durable="true">
-    </rabbit:topic-exchange>
+    <bean id="pubSub" class="cazcade.fountain.messaging.InMemoryPubSub" />
 
 
 </beans>

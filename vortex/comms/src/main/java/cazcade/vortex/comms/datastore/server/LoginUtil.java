@@ -3,7 +3,7 @@ package cazcade.vortex.comms.datastore.server;
 import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.FountainDataStore;
-import cazcade.fountain.messaging.continuations.ClientSessionMessageListener;
+import cazcade.fountain.messaging.FountainPubSub;
 import cazcade.fountain.messaging.session.ClientSession;
 import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.liquid.api.*;
@@ -13,15 +13,11 @@ import cazcade.liquid.api.request.CreateUserRequest;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.impl.UUIDFactory;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.Properties;
 
 /**
  * @author neilellis@cazcade.com
@@ -43,14 +39,16 @@ public class LoginUtil {
     public static final String APP_KEY = "123";
 
     @Nonnull
-    public static LiquidSessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias, @Nonnull final HttpSession session) throws Exception {
+    public static LiquidSessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager,
+                                                @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias,
+                                                @Nonnull final HttpSession session, FountainPubSub pubSub) throws Exception {
         final LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
         final LSDBaseEntity responseEntity = response.getResponse();
         if (responseEntity.isA(LSDDictionaryTypes.SESSION)) {
             final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getUUID());
-            createClientSession(clientSessionManager, serverSession, true);
+            createClientSession(clientSessionManager, serverSession, true, pubSub);
             if (!serverSession.isAnon()) {
                 placeServerSessionInHttpSession(dataStore, session, serverSession);
             }
@@ -76,28 +74,14 @@ public class LoginUtil {
     }
 
 
-    public static ClientSession createClientSession(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final LiquidSessionIdentifier identity, final boolean create) {
+    public static ClientSession createClientSession(@Nonnull final ClientSessionManager clientSessionManager,
+                                                    @Nonnull final LiquidSessionIdentifier identity, final boolean create,
+                                                    FountainPubSub pubSub) {
         final ClientSession clientSession;
         if (!clientSessionManager.hasSession(identity.getSession().toString()) && create) {
-            final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
-            final PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
-            final Properties properties = new Properties();
-            properties.setProperty("username", identity.getName());
-            properties.setProperty("client.device", "web");
-            properties.setProperty("client.type", "web");
-            properties.setProperty("session.id", identity.getSession().toString());
-            properties.setProperty("alias.url", identity.getAlias().toString());
-            properties.setProperty("user.url", identity.getUserURL().toString());
-            configurer.setProperties(properties);
-            configurer.setLocation(new ClassPathResource("rabbit.properties"));
-            context.addBeanFactoryPostProcessor(configurer);
-            context.setConfigLocation("classpath:messaging-session-context.xml");
-            context.refresh();
-
-            //The session manager looks after spring contexts and expires them.
-            clientSession = new ClientSession(context, new Date());
-            final ClientSessionMessageListener listener = (ClientSessionMessageListener) context.getBean("clientSessionMessageListener");
-            listener.setSessionManager(clientSessionManager);
+//
+            //The session manager looks after long lived sessions and expires them.
+            clientSession = new ClientSession(new Date(), pubSub.createCollector());
             clientSessionManager.addSession(identity.getSession().toString(), clientSession);
         } else {
             clientSession = clientSessionManager.getSession(identity.getSession().toString());

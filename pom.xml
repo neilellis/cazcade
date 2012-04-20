@@ -386,30 +386,6 @@
 
 
             <dependency>
-                <groupId>org.springframework.amqp</groupId>
-                <artifactId>spring-amqp</artifactId>
-                <version>1.0.0.RC1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.amqp</groupId>
-                <artifactId>spring-rabbit</artifactId>
-                <version>1.0.0.RC1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
                 <groupId>org.neo4j</groupId>
                 <artifactId>neo4j</artifactId>
                 <version>${neo4j.version}</version>
@@ -557,19 +533,19 @@
 
             <dependency>
                 <groupId>cazcade.billabong</groupId>
-                <artifactId>image</artifactId>
+                <artifactId>billabong-image</artifactId>
                 <version>1.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>cazcade.billabong</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>billabong-common</artifactId>
                 <version>1.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>cazcade.billabong</groupId>
-                <artifactId>store</artifactId>
+                <artifactId>billabong-store</artifactId>
                 <version>1.1-SNAPSHOT</version>
             </dependency>
 

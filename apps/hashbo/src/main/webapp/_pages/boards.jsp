@@ -10,8 +10,13 @@
     <%@ include file="header.jspf" %>
     <%@ include file="analytics.jspf" %>
 
-    <link rel="stylesheet" type="text/css" href="./_css/boardcast-v2.css?v2">
-    <link rel="stylesheet" type="text/css" href="./_css/hackabout.css">
+    <c:if test="${not empty param.dev}">
+        <link rel="stylesheet/less"  href="/_css/boardcast-v2.less">
+        <script src="/_js/less-dev.js" type="text/javascript"></script>
+    </c:if>
+    <c:if test="${empty param.dev}">
+        <link rel="stylesheet" href="/_css/boardcast-v2.css">
+    </c:if>
     <script type="text/javascript">
         function resizeCenter() {
             document.getElementById('boards-list').style.width = (Math.floor(document.body.offsetWidth / 400) * 400) + "px";
@@ -58,11 +63,11 @@
                                      src='<c:url value="_image-service">
                                     <c:param name="url" value="${board.snapshotUrl}"/>
                                     <c:param name="text" value="${board.title}"/>
-                                    <c:param name="fast" value="yes"/>
-                                    <c:param name="preview" value="yes"/>
-                                    <c:param name="boardcast" value="yes"/>
+                                    <%--<c:param name="fast" value="yes"/>--%>
+                                    <%--<c:param name="preview" value="yes"/>--%>
+                                    <%--<c:param name="boardcast" value="yes"/>--%>
                                     <%--<c:param name="size" value="LARGE"/>--%>
-                                    <%--<c:param name="width" value="450"/>--%>
+                                    <c:param name="width" value="300"/>
                                     <%--<c:param name="height" value="600"/>--%>
                                     <%--<c:param name="delay" value="60"/>--%>
                                     <c:param name="windowStatus" value="snapshot-loaded"/>
