@@ -12,8 +12,8 @@ public interface CommonConstants {
     String ADMIN_SECRET = "puq5cedah8sTaw6EjAteVuhaxA5achubaDuDrUS4c4adE9tUqEwrEs5p9UBre8re";
     @Nonnull
     String YOUTUBE_DEVELOPER_KEY = "AI39si6nEOatwuN8NwnwLjm7eqblmrA4zT4rxG04DTZ0X5tfw7Nyie5YFGThlM8naM1cBwAa_bwPODUM-OHJ_lfINABw8XP32A";
-    String CAZCADE_HOME = System.getProperty("cazcade.home", "/Library/Cazcade");
-    String DATASTORE_SESSION_LOGS = System.getProperty("session.logs", "/var/log/cazcade/sessions");
+    String CAZCADE_HOME = System.getProperty("cazcade.home", System.getProperty("user.home"));
+    String DATASTORE_SESSION_LOGS = System.getProperty("session.logs", System.getProperty("user.home")+"/data/log/sessions");
 
     @Nonnull
     String IDENTITY_ATTRIBUTE = "identity";
@@ -29,7 +29,7 @@ public interface CommonConstants {
     String SERVICE_STORE = "service.store";
     @Nonnull
     String STRING_ENCODING = "utf-8";
-    boolean IS_PRODUCTION = System.getProperty("production") != null && !"false".equals(System.getProperty("production"));
+    boolean IS_PRODUCTION = System.getProperty("dev") == null;
     @Nonnull
     String QUEUE_ATTRIBUTE = "queue";
     @Nonnull

@@ -121,7 +121,7 @@
     <!--Straight to brochure site-->
     <rule>
         <from>^/$</from>
-        <to type="redirect">/site/</to>
+        <to type="redirect">/_create-unlisted?%{query-string}</to>
     </rule>
 
 

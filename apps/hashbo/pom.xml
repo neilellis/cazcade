@@ -123,7 +123,40 @@
     </dependencies>
 
     <build>
+
         <plugins>
+            <!--<plugin>-->
+                <!--<groupId>com.pyx4me</groupId>-->
+                <!--<artifactId>proguard-maven-plugin</artifactId>-->
+                <!--<version>2.0.4</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>prepare-package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>proguard</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<obfuscate>false</obfuscate>-->
+                    <!--<includeDependency>false</includeDependency>-->
+                    <!--<injar>${project.build.finalName}.war</injar>-->
+                    <!--&lt;!&ndash;<injar>${project.artifactId}-${project.version}.war</injar>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<outjar>${project.artifactId}-${project.version}-obf.war</outjar>&ndash;&gt;-->
+                    <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
+                    <!--<maxMemory>256m</maxMemory>-->
+                    <!--<libs>-->
+                        <!--&lt;!&ndash;  Java Runtime &ndash;&gt;-->
+                        <!--<lib>${java.home}/../Classes/classes.jar</lib>-->
+                        <!--<lib>${java.home}/../Classes/jce.jar</lib>-->
+                    <!--</libs>-->
+                    <!--<options>-->
+                        <!--<option>-allowaccessmodification</option>-->
+                        <!--<option>-dontskipnonpubliclibraryclasses</option>-->
+                        <!--<option>-dontskipnonpubliclibraryclassmembers</option>-->
+                    <!--</options>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
             <groupId>com.jelastic</groupId>
             <artifactId>jelastic-maven-plugin</artifactId>
@@ -132,7 +165,7 @@
                 <email>${jelastic.username}</email>
                 <password>${jelastic.password}</password>
                 <context>ROOT</context>
-                <environment>pinstamatic-dev</environment>
+                <environment>boardcast</environment>
                 <comment>${buildNumber}</comment>
                 <api_hoster>app.jelastic.dogado.eu</api_hoster>
             </configuration>

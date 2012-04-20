@@ -371,6 +371,7 @@ public class Logger {
                             "/" +
                             (username.get() == null ? "" : username.get()), session.get()
             );
+
         }
     }
 

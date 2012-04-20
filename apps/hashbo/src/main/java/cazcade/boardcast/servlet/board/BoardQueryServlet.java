@@ -79,7 +79,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             final BoardQueryRequest response = dataStore.process(request);
 //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
             final List<LSDTransferEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-            req.setAttribute("boards", makeJSPFriendly(boards));
+            req.setAttribute("boards", makeJSPFriendly(req, boards));
             req.setAttribute("title", titleLookup.get(queryName));
             req.getRequestDispatcher("_pages/boards.jsp").forward(req, resp);
         } catch (Exception e) {

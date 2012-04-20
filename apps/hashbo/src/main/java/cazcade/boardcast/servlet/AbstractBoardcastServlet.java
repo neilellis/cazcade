@@ -38,7 +38,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
     @Nonnull
     public static final String SESSION_KEY = "sessionId";
     public static final String VERSION = "25";
-    public static final long FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24*7);
+    public static final long FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24 * 7);
 
     private WebApplicationContext applicationContext;
     protected FountainDataStore dataStore;
@@ -72,7 +72,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected List<Map<String, String>> makeJSPFriendly(@Nonnull final List<LSDTransferEntity> entities)
+    protected List<Map<String, String>> makeJSPFriendly(HttpServletRequest req, @Nonnull final List<LSDTransferEntity> entities)
             throws UnsupportedEncodingException {
         final List<Map<String, String>> result = new ArrayList<Map<String, String>>();
         for (final LSDTransferEntity entity : entities) {
@@ -81,11 +81,9 @@ public class AbstractBoardcastServlet extends HttpServlet {
             if (entity.getURI().toString().startsWith("pool")) {
                 final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
-                final String url = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(
-                        LSDAttribute.MODIFIED,
-                        ""
-                                                                                                              ) +
-                                   "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
+
+                final String url = "http://" + req.getServerName() + "/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(
+                        LSDAttribute.ID, "" ) + "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
                 map.put("snapshotUrl", url);
 
             }
