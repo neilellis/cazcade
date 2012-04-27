@@ -83,7 +83,10 @@ public class AbstractBoardcastServlet extends HttpServlet {
                 map.put("shortUrl", shortUrl);
 
                 final String url = "http://" + req.getServerName() + "/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(
-                        LSDAttribute.ID, "" ) + "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
+                        LSDAttribute.MODIFIED,
+                        ""
+                                                                                                                             ) +
+                                   "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
                 map.put("snapshotUrl", url);
 
             }

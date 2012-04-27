@@ -112,7 +112,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         else if (detail == LiquidRequestDetailLevel.BOARD_LIST) {
             copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.TITLE, LSDAttribute.DESCRIPTION, LSDAttribute.COMMENT_COUNT,
                                LSDAttribute.FOLLOWERS_COUNT, LSDAttribute.IMAGE_URL, LSDAttribute.ICON_URL, LSDAttribute.ID,
-                               LSDAttribute.URI
+                               LSDAttribute.URI,  LSDAttribute.MODIFIED
                               );
         }
         else if (detail == LiquidRequestDetailLevel.PERMISSION_DELTA) {

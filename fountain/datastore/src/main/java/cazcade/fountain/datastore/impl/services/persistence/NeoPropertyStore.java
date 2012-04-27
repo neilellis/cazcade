@@ -4,6 +4,7 @@ import cazcade.liquid.api.lsd.LSDPropertyStore;
 import org.neo4j.graphdb.Node;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
@@ -34,8 +35,10 @@ public class NeoPropertyStore implements LSDPropertyStore {
     }
 
     @Override
+    @Nullable
     public String get(final String property) {
-        return String.valueOf(neoNode.getProperty(property, null));
+        final Object neoNodeProperty = neoNode.getProperty(property, null);
+        return neoNodeProperty != null ? neoNodeProperty.toString() : null;
     }
 
     @Override

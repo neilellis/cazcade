@@ -675,7 +675,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public final String getAttribute(@Nonnull final LSDAttribute attribute, final String defaultValue) {
         final String result = getAttribute(attribute);
-        if (result == null) {
+        if (result == null || "null".equals(result)) {
             return defaultValue;
         }
         return result;
