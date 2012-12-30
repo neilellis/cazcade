@@ -5,7 +5,6 @@ import com.atlassian.jira.rpc.soap.client.RemoteComment;
 import com.atlassian.jira.rpc.soap.client.RemoteFieldValue;
 import com.atlassian.jira.rpc.soap.client.RemoteIssue;
 import com.atlassian.jira_soapclient.SOAPSession;
-import com.newrelic.api.agent.NewRelic;
 import com.thoughtworks.xstream.XStream;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
@@ -30,6 +29,8 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.zip.ZipOutputStream;
+
+//import com.newrelic.api.agent.NewRelic;
 
 /**
  * @author Neil Ellis
@@ -201,7 +202,7 @@ public class Logger {
             writeToSessionLog(ExceptionUtils.getFullStackTrace(t), "error", "details");
             if (CommonConstants.IS_PRODUCTION && isReportableError(t)) {
                 notifyOfError(t, MessageFormat.format(message, params));
-                NewRelic.noticeError(t);
+//                NewRelic.noticeError(t);
             }
             else {
                 if (t instanceof RuntimeException) {

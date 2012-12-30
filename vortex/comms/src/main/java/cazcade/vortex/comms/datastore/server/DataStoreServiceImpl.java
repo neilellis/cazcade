@@ -19,7 +19,6 @@ import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.LoggedOutException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.gwt.user.server.rpc.UnexpectedException;
-import com.newrelic.api.agent.NewRelic;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -42,6 +41,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.ArrayList;
+
+//import com.newrelic.api.agent.NewRelic;
 
 //todo: backport the notification parts to the notification servlet.
 
@@ -343,7 +344,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier identity,
                                                 @Nonnull final ArrayList<String> locations) throws Exception {
         getThreadLocalRequest().setAttribute("com.newrelic.agent.IGNORE", true);
-        NewRelic.ignoreTransaction();
+//        NewRelic.ignoreTransaction();
         log.debug("Collecting " + locations);
         final Continuation continuation = ContinuationSupport.getContinuation(getThreadLocalRequest());
         if (identity == null) {

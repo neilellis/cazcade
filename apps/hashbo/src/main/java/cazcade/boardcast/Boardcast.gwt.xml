@@ -16,10 +16,16 @@
     <inherits name="cazcade.vortex.Pool"/>
     <inherits name="com.google.gwt.modernizr.Gwtmodernizr"/>
     <inherits name="com.google.gwt.resources.Resources"/>
-    <script src="scrollsupport.js"/>
+
     <servlet path="/ScriptService" class="cazcade.boardcast.server.ScriptServiceImpl"/>
     <servlet path="/BuildVersionService" class="cazcade.boardcast.server.BuildVersionServiceImpl"/>
     <set-configuration-property name="CssResource.mergeEnabled" value="false"/>
+
     <entry-point class='cazcade.boardcast.client.Boardcast'/>
+    <add-linker name="xsiframe"/>
+    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
+
+    <!--  enable source maps -->
+    <set-property name="compiler.useSourceMaps" value="true" />
 
 </module>

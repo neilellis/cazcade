@@ -481,16 +481,30 @@
             <element id="module-output" name="hashbo" />
           </element>
           <element id="directory" name="lib">
-            <element id="archive" name="widgets-1.1-SNAPSHOT.jar">
+            <element id="archive" name="vortex-1.1-SNAPSHOT.jar">
               <element id="module-output" name="widgets" />
+              <element id="module-output" name="gwt-util" />
+              <element id="module-output" name="dnd" />
+              <element id="module-output" name="comms" />
+              <element id="module-output" name="pool" />
             </element>
             <element id="archive" name="common-1.1-SNAPSHOT.jar">
               <element id="module-output" name="common (3) (cazcade.vortex)" />
-              <element id="module-output" name="common (2) (fountain)" />
               <element id="module-output" name="common (1) (cazcade)" />
             </element>
             <element id="archive" name="liquid-api-1.1-SNAPSHOT.jar">
               <element id="module-output" name="liquid-api" />
+            </element>
+            <element id="archive" name="fountain-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="common (2) (fountain)" />
+              <element id="module-output" name="datastore-api" />
+              <element id="module-output" name="datastore-client" />
+              <element id="module-output" name="email" />
+              <element id="module-output" name="index" />
+              <element id="module-output" name="validation" />
+              <element id="module-output" name="notification" />
+              <element id="module-output" name="security" />
+              <element id="module-output" name="datastore-server" />
             </element>
             <element id="library" level="project" name="Maven: org.springframework:spring-core:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-asm:3.0.5.RELEASE" />
@@ -508,7 +522,6 @@
             <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.5" />
             <element id="library" level="project" name="Maven: com.thoughtworks.xstream:xstream:1.3.1" />
             <element id="library" level="project" name="Maven: xpp3:xpp3_min:1.1.4c" />
-            <element id="library" level="project" name="Maven: com.newrelic:newrelic-api:2.0.3" />
             <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.3" />
             <element id="library" level="project" name="Maven: log4j:log4j:1.2.15" />
             <element id="library" level="project" name="Maven: javax.mail:mail:1.4" />
@@ -517,12 +530,6 @@
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:4.2.0.Final" />
             <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
             <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.1" />
-            <element id="archive" name="gwt-util-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="gwt-util" />
-            </element>
-            <element id="archive" name="dnd-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="dnd" />
-            </element>
             <element id="archive" name="bus-1.1-SNAPSHOT.jar">
               <element id="module-output" name="bus" />
             </element>
@@ -535,30 +542,15 @@
             <element id="library" level="project" name="Maven: org.springframework:spring-context:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.0.5.RELEASE" />
-            <element id="archive" name="comms-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="comms" />
-            </element>
-            <element id="archive" name="datastore-api-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="datastore-api" />
-            </element>
-            <element id="archive" name="datastore-client-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="datastore-client" />
-            </element>
             <element id="archive" name="messaging-1.1-SNAPSHOT.jar">
               <element id="module-output" name="messaging" />
             </element>
             <element id="archive" name="datastore-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore" />
             </element>
-            <element id="archive" name="email-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="email" />
-            </element>
             <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.3.3" />
             <element id="library" level="project" name="Maven: org.apache.velocity:velocity:1.7" />
             <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
-            <element id="archive" name="index-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="index" />
-            </element>
             <element id="library" level="project" name="Maven: org.springframework:spring-orm:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.0.5.RELEASE" />
@@ -577,9 +569,6 @@
             <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
             <element id="library" level="project" name="Maven: javax.persistence:persistence-api:1.0" />
             <element id="library" level="project" name="Maven: javassist:javassist:3.12.1.GA" />
-            <element id="archive" name="validation-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="validation" />
-            </element>
             <element id="library" level="project" name="Maven: org.neo4j:neo4j-kernel:1.4" />
             <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
             <element id="library" level="project" name="Maven: org.neo4j:neo4j-lucene-index:1.4" />
@@ -596,17 +585,11 @@
             <element id="library" level="project" name="Maven: commons-cli:commons-cli:1.2" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.0-SNAPSHOT" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.0-SNAPSHOT" />
-            <element id="archive" name="notification-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="notification" />
-            </element>
             <element id="library" level="project" name="Maven: org.apache.camel:camel-core:2.7.3" />
             <element id="library" level="project" name="Maven: org.fusesource.commonman:commons-management:1.0" />
             <element id="library" level="project" name="Maven: org.apache.camel:camel-mina:2.7.3" />
             <element id="library" level="project" name="Maven: org.apache.mina:mina-core:1.1.7" />
             <element id="library" level="project" name="Maven: org.apache.camel:camel-spring:2.7.3" />
-            <element id="archive" name="security-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="security" />
-            </element>
             <element id="library" level="project" name="Maven: org.springframework:spring-web:3.0.5.RELEASE" />
             <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.1" />
             <element id="library" level="project" name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat" />
@@ -632,14 +615,8 @@
             <element id="archive" name="billabong-processing-1.1-SNAPSHOT.jar">
               <element id="module-output" name="billabong-processing" />
             </element>
-            <element id="archive" name="pool-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="pool" />
-            </element>
-            <element id="archive" name="datastore-server-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="datastore-server" />
-            </element>
             <element id="library" level="project" name="Maven: org.perf4j:perf4j:0.9.13" />
-            <element id="library" level="project" name="Maven: com.google.gwt:gwt-servlet:2.4.0" />
+            <element id="library" level="project" name="Maven: com.google.gwt:gwt-servlet:2.5.0" />
             <element id="library" level="project" name="Maven: javax.servlet:jstl:1.1.1" />
             <element id="library" level="project" name="Maven: taglibs:standard:1.1.1" />
             <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-continuation:7.2.2.v20101205" />
@@ -831,6 +808,84 @@
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/apps/hashbo/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/hashbo/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/snapshot/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/snapshot/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/social/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/social/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/dnd/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/dnd/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/pool/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/pool/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/common/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/common/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/common/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/common/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/plugins/twitter/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/plugins/twitter/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/main/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/main/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/widgets/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/widgets/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/gwt-util/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/gwt-util/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/security/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/security/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/common/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/common/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/io/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/io/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/image/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/image/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/rest-server/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/rest-server/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/twitter-auth/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/twitter-auth/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/processing/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/processing/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/store/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../billabong/store/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/upload/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/upload/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/comms/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/comms/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/messaging/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/messaging/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/liquid/liquid-impl/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/liquid/liquid-impl/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore-client/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore-client/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/notification/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/notification/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/cli/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/apps/cli/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/liquid/liquid-api/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/liquid/liquid-api/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/test/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/test/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/index/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/index/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/common/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/common/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore-server/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore-server/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/validation/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/validation/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/dist/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/dist/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/scrape/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/scrape/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore-api/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/datastore-api/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/email/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/fountain/email/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/bus/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/vortex/bus/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+    </excludeFromCompile>
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -847,7 +902,101 @@
       <entry name="?*.tld" />
       <entry name="?*.ftl" />
     </wildcardResourcePatterns>
-    <annotationProcessing enabled="false" useClasspath="true" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="billabong-common" />
+        <module name="billabong-image" />
+        <module name="billabong-processing" />
+        <module name="billabong-snapshot" />
+        <module name="billabong-store" />
+        <module name="bus" />
+        <module name="cli (Cazcade)" />
+        <module name="common (1) (cazcade)" />
+        <module name="common (2) (fountain)" />
+        <module name="common (3) (cazcade.vortex)" />
+        <module name="comms" />
+        <module name="datastore" />
+        <module name="datastore-api" />
+        <module name="datastore-client" />
+        <module name="datastore-server" />
+        <module name="dist" />
+        <module name="dnd" />
+        <module name="email" />
+        <module name="gwt-util" />
+        <module name="hashbo" />
+        <module name="index" />
+        <module name="io" />
+        <module name="liquid-api" />
+        <module name="liquid-impl" />
+        <module name="main" />
+        <module name="messaging" />
+        <module name="notification" />
+        <module name="pool" />
+        <module name="rest-server" />
+        <module name="scrape" />
+        <module name="security" />
+        <module name="social" />
+        <module name="test" />
+        <module name="twitter-auth" />
+        <module name="twitter-plugin" />
+        <module name="upload" />
+        <module name="validation" />
+        <module name="widgets" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="billabong-common" target="1.6" />
+      <module name="billabong-image" target="1.6" />
+      <module name="billabong-processing" target="1.6" />
+      <module name="billabong-snapshot" target="1.6" />
+      <module name="billabong-store" target="1.6" />
+      <module name="bus" target="1.6" />
+      <module name="cazcade" target="1.6" />
+      <module name="cazcade.apps" target="1.6" />
+      <module name="cli (Cazcade)" target="1.6" />
+      <module name="common (1) (cazcade)" target="1.6" />
+      <module name="common (2) (fountain)" target="1.6" />
+      <module name="common (3) (cazcade.vortex)" target="1.6" />
+      <module name="comms" target="1.6" />
+      <module name="datastore" target="1.6" />
+      <module name="datastore-api" target="1.6" />
+      <module name="datastore-client" target="1.6" />
+      <module name="datastore-server" target="1.6" />
+      <module name="dist" target="1.6" />
+      <module name="dnd" target="1.6" />
+      <module name="email" target="1.6" />
+      <module name="fountain" target="1.6" />
+      <module name="gwt-util" target="1.6" />
+      <module name="hashbo" target="1.6" />
+      <module name="index" target="1.6" />
+      <module name="io" target="1.6" />
+      <module name="liquid" target="1.6" />
+      <module name="liquid-api" target="1.6" />
+      <module name="liquid-impl" target="1.6" />
+      <module name="main" target="1.6" />
+      <module name="messaging" target="1.6" />
+      <module name="notification" target="1.6" />
+      <module name="plugins" target="1.6" />
+      <module name="pool" target="1.6" />
+      <module name="rest-server" target="1.6" />
+      <module name="scrape" target="1.6" />
+      <module name="security" target="1.6" />
+      <module name="social" target="1.6" />
+      <module name="test" target="1.6" />
+      <module name="twitter-auth" target="1.6" />
+      <module name="twitter-plugin" target="1.6" />
+      <module name="upload" target="1.6" />
+      <module name="validation" target="1.6" />
+      <module name="vortex" target="1.6" />
+      <module name="widgets" target="1.6" />
+    </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="">
     <module2copyright />
@@ -1072,6 +1221,7 @@
             <value />
           </option>
           <option name="ignoreClassWithParameterization" value="false" />
+          <option name="ignoreThrowables" value="true" />
         </inspection_tool>
         <inspection_tool class="EmptySynchronizedStatement" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="EqualsAndHashcode" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1179,9 +1329,7 @@
           <option name="m_ignoreInvisibleFields" value="true" />
           <option name="m_ignoreStaticMethods" value="true" />
         </inspection_tool>
-        <inspection_tool class="MagicNumber" enabled="true" level="WARNING" enabled_by_default="true">
-          <option name="m_ignoreInHashCode" value="true" />
-        </inspection_tool>
+        <inspection_tool class="MagicNumber" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MapReplaceableByEnumMap" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="MarkerInterface" enabled="true" level="INFO" enabled_by_default="true" />
         <inspection_tool class="MethodCount" enabled="true" level="WARNING" enabled_by_default="true">
@@ -1333,10 +1481,6 @@
         <inspection_tool class="SocketResource" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="insideTryAllowed" value="false" />
         </inspection_tool>
-        <inspection_tool class="SqlAmbiguousColumnInspection" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="SqlIdentifierInspection" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="SqlInsertValuesInspection" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="SqlResolveInspection" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="SqlTypeInspection" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StaticCallOnSubclass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StaticCollection" enabled="true" level="WARNING" enabled_by_default="true">
@@ -1345,7 +1489,6 @@
         <inspection_tool class="StaticFieldReferenceOnSubclass" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StaticNonFinalField" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StringBufferField" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="StringBufferReplaceableByString" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StringBufferToStringInConcatenation" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StringConcatenationInFormatCall" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="StringConcatenationInLoops" enabled="true" level="WARNING" enabled_by_default="true">
@@ -1364,6 +1507,7 @@
         <inspection_tool class="SynchronizeOnThis" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="SynchronizedMethod" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_includeNativeMethods" value="true" />
+          <option name="ignoreSynchronizedSuperMethods" value="true" />
         </inspection_tool>
         <inspection_tool class="SynchronizedOnLiteralObject" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="SystemGC" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1405,6 +1549,7 @@
         <inspection_tool class="UnnecessaryParentheses" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="ignoreClarifyingParentheses" value="false" />
           <option name="ignoreParenthesesOnConditionals" value="false" />
+          <option name="ignoreParenthesesOnLambdaParameter" value="false" />
         </inspection_tool>
         <inspection_tool class="UnnecessarySuperQualifier" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="UnnecessaryThis" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1428,9 +1573,6 @@
     <option name="PROJECT_PROFILE" value="Project Default" />
     <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-target 1.6" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -1655,8 +1797,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../billabong/common/billabong-common.iml" filepath="$PROJECT_DIR$/../billabong/common/billabong-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../billabong/common/billabong-common.iml" filepath="$PROJECT_DIR$/../billabong/common/billabong-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/../billabong/image/billabong-image.iml" filepath="$PROJECT_DIR$/../billabong/image/billabong-image.iml" />
       <module fileurl="file://$PROJECT_DIR$/../billabong/processing/billabong-processing.iml" filepath="$PROJECT_DIR$/../billabong/processing/billabong-processing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../billabong/snapshot/billabong-snapshot.iml" filepath="$PROJECT_DIR$/../billabong/snapshot/billabong-snapshot.iml" />
       <module fileurl="file://$PROJECT_DIR$/../billabong/snapshot/billabong-snapshot.iml" filepath="$PROJECT_DIR$/../billabong/snapshot/billabong-snapshot.iml" />
       <module fileurl="file://$PROJECT_DIR$/../billabong/store/billabong-store.iml" filepath="$PROJECT_DIR$/../billabong/store/billabong-store.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/bus/bus.iml" filepath="$PROJECT_DIR$/vortex/bus/bus.iml" />
@@ -1708,6 +1852,51 @@
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+  <component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="HashBo" type="GWT.ConfigurationType" factoryName="GWT Configuration">
+      <module name="hashbo" />
+      <option name="VM_PARAMETERS" value=" -XX:+UseCompressedOops -Xmx512m -Ddev=true -Dfountain.rabbitmq.host=localhost -Dcazcade.home=$USER_HOME$" />
+      <option name="RUN_PAGE" value="http://localhost:8888/welcome" />
+      <option name="GWT_MODULE" value="cazcade.boardcast.Boardcast" />
+      <option name="BROWSER" value="Safari" />
+      <option name="UPDATE_RESOURCES_ON_FRAME_DEACTIVATION" value="true" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="52724" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JProfiler">
+        <option name="WINDOW" value="false" />
+        <option name="JVMPI" value="false" />
+        <option name="INTERPRETED" value="false" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JavaRebel">
+        <option name="bootstrapPath" />
+        <option name="jrebelArgs" value="" />
+        <option name="loggingEnabled" value="false" />
+        <option name="useBootstrapDefaults" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JavaRebel Debug">
+        <option name="bootstrapPath" />
+        <option name="debugPort" value="64152" />
+        <option name="jrebelArgs" value="" />
+        <option name="loggingEnabled" value="false" />
+        <option name="transport" value="0" />
+        <option name="useBootstrapDefaults" value="true" />
+        <option name="DEBUG_PORT" value="64152" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Profile ">
+        <option name="myExternalizedOptions" value="&#10;additional-options2=onexit\=snapshot&#10;" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="JavaRebel" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
   </component>
   <component name="Regex">
     <option name="pos1" value="218" />
@@ -1884,8 +2073,10 @@
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/../Cyclone" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../billabong" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../billabong/common" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/../billabong/snapshot" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="libraryTable">
@@ -2065,26 +2256,26 @@
         <root url="jar://$M2_REPO$/com/google/gwt/inject/gin/1.0/gin-1.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: com.google.gwt:gwt-servlet:2.4.0">
+    <library name="Maven: com.google.gwt:gwt-servlet:2.5.0">
       <CLASSES>
-        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.5.0/gwt-servlet-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.5.0/gwt-servlet-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.4.0/gwt-servlet-2.4.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-servlet/2.5.0/gwt-servlet-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: com.google.gwt:gwt-user:2.4.0">
+    <library name="Maven: com.google.gwt:gwt-user:2.5.0">
       <CLASSES>
-        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.5.0/gwt-user-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.5.0/gwt-user-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.4.0/gwt-user-2.4.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/google/gwt/gwt-user/2.5.0/gwt-user-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.inject:guice:2.0">
@@ -2140,17 +2331,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/com/mortennobel/java-image-scaling/0.8.5/java-image-scaling-0.8.5-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: com.newrelic:newrelic-api:2.0.3">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/com/newrelic/newrelic-api/2.0.3/newrelic-api-2.0.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.rosaloves:bitlyj:2.0.0">
@@ -2703,17 +2883,6 @@
         <root url="jar://$M2_REPO$/net/sourceforge/findbugs/jsr305/1.3.7/jsr305-1.3.7-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: openfire:openfire:3.6.4">
-      <CLASSES>
-        <root url="jar://$M2_REPO$/openfire/openfire/3.6.4/openfire-3.6.4.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$M2_REPO$/openfire/openfire/3.6.4/openfire-3.6.4-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$M2_REPO$/openfire/openfire/3.6.4/openfire-3.6.4-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: org.apache.camel:camel-core:2.7.3">
       <CLASSES>
         <root url="jar://$M2_REPO$/org/apache/camel/camel-core/2.7.3/camel-core-2.7.3.jar!/" />
@@ -3108,6 +3277,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$M2_REPO$/org/jbehave/jbehave-core/3.1/jbehave-core-3.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.json:json:20090211">
+      <CLASSES>
+        <root url="jar://$M2_REPO$/org/json/json/20090211/json-20090211.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$M2_REPO$/org/json/json/20090211/json-20090211-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$M2_REPO$/org/json/json/20090211/json-20090211-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-cypher:1.4">

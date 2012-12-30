@@ -8,8 +8,8 @@
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
     <properties>
-        <gwt.version>2.4.0</gwt.version>
-        <gwtVersion>2.4.0</gwtVersion>
+        <gwt.version>2.5.0</gwt.version>
+        <gwtVersion>2.5.0</gwtVersion>
         <!-- This is for some dependent projects-->
         <gwt.maven.plugin.version>2.3.0</gwt.maven.plugin.version>
         <spring.version>3.0.5.RELEASE</spring.version>
@@ -711,6 +711,19 @@
                     <goals>deploy -P no-tests</goals>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.jelastic</groupId>
+                <artifactId>jelastic-maven-plugin</artifactId>
+                <version>1.7-SNAPSHOT</version>
+                <configuration>
+                    <email>${jelastic.username}</email>
+                    <password>${jelastic.password}</password>
+                    <!--<context></context>-->
+                    <!--<environment></environment>-->
+                    <comment>${buildNumber}</comment>
+                    <api_hoster>app.j.layershift.co.uk</api_hoster>
+                </configuration>
+            </plugin>
             <!--<plugin>-->
                 <!--<groupId>org.zeroturnaround</groupId>-->
                 <!--<artifactId>jrebel-maven-plugin</artifactId>-->
@@ -728,7 +741,7 @@
 
     </build>
 
-    <distributionManagement>
+    <!--distributionManagement>
         <repository>
             <id>cazcade.releases</id>
             <name>Cazcade Releases</name>
@@ -741,7 +754,7 @@
             <url>dav:http://dev.cazcade.com:8881/nexus/content/repositories/snapshots/
             </url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement-->
 
 
     <repositories>
@@ -767,11 +780,18 @@
             <url>http://snapshots.repository.codehaus.org</url>
         </repository>
 
+
         <repository>
-            <id>com.asual.maven.public</id>
-            <name>Asual Public Repository</name>
-            <url>http://www.asual.com/maven/content/groups/public</url>
+            <id>atlassian</id>
+            <url>http://repository.atlassian.com/maven2</url>
         </repository>
+
+        <repository>
+            <id>wso2</id>
+            <url>http://dist.wso2.org/maven2/</url>
+        </repository>
+
+
 
         <repository>
             <id>twitter4j.org</id>
@@ -785,13 +805,31 @@
             </snapshots>
         </repository>
 
-        <repository>
+        <!--repository>
             <id>cazcade-public-external-ip</id>
             <url>http://dev.cazcade.com:8881/nexus/content/groups/public/</url>
+        </repository-->
+
+        <repository>
+            <id>com.asual.maven.public</id>
+            <name>Asual Public Repository</name>
+            <url>http://www.asual.com/maven/content/groups/public</url>
         </repository>
 
-
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-oss-public</id>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <scm>
         <connection>scm:svn:https://boardcast.svn.beanstalkapp.com/cazcade/trunk</connection>
