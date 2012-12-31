@@ -137,7 +137,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.2.1" level="project" />
-    <orderEntry type="library" name="Maven: com.allen_sauer.gwt.voices:gwt-voices:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.allen-sauer.gwt.voices:gwt-voices:3.2.0" level="project" />
     <orderEntry type="module" module-name="pool" />
     <orderEntry type="module" module-name="datastore-server" scope="RUNTIME" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.perf4j:perf4j:0.9.13" level="project" />

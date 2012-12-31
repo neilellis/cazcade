@@ -610,7 +610,7 @@
             <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.1" />
             <element id="library" level="project" name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat" />
             <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
-            <element id="library" level="project" name="Maven: com.allen_sauer.gwt.voices:gwt-voices:2.1.0" />
+            <element id="library" level="project" name="Maven: com.allen-sauer.gwt.voices:gwt-voices:3.2.0" />
             <element id="archive" name="pool-1.1-SNAPSHOT.jar">
               <element id="module-output" name="pool" />
             </element>
@@ -2177,15 +2177,15 @@
         <root url="jar://$M2_REPO$/cglib/cglib/2.2/cglib-2.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: com.allen_sauer.gwt.voices:gwt-voices:2.1.0">
+    <library name="Maven: com.allen-sauer.gwt.voices:gwt-voices:3.2.0">
       <CLASSES>
-        <root url="jar://$M2_REPO$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0.jar!/" />
+        <root url="jar://$M2_REPO$/com/allen-sauer/gwt/voices/gwt-voices/3.2.0/gwt-voices-3.2.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$M2_REPO$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0-javadoc.jar!/" />
+        <root url="jar://$M2_REPO$/com/allen-sauer/gwt/voices/gwt-voices/3.2.0/gwt-voices-3.2.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$M2_REPO$/com/allen_sauer/gwt/voices/gwt-voices/2.1.0/gwt-voices-2.1.0-sources.jar!/" />
+        <root url="jar://$M2_REPO$/com/allen-sauer/gwt/voices/gwt-voices/3.2.0/gwt-voices-3.2.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.asual.lesscss:lesscss-engine:1.1.4">

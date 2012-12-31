@@ -46,7 +46,7 @@
             <artifactId>gwtupload</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.allen_sauer.gwt.voices</groupId>
+            <groupId>com.allen-sauer.gwt.voices</groupId>
             <artifactId>gwt-voices</artifactId>
         </dependency>
     </dependencies>
