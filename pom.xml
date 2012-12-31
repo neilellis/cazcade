@@ -12,7 +12,7 @@
         <gwtVersion>2.5.0</gwtVersion>
         <!-- This is for some dependent projects-->
         <gwt.maven.plugin.version>2.3.0</gwt.maven.plugin.version>
-        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.version>3.1.2.RELEASE</spring.version>
         <spring.security.version>3.0.7.RELEASE</spring.security.version>
         <ehcache.version>2.3.3</ehcache.version>
         <neo4j.version>1.4</neo4j.version>

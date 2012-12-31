@@ -248,10 +248,6 @@
         <servlet-class>cazcade.boardcast.server.BuildVersionServiceImpl</servlet-class>
     </servlet>
 
-    <servlet-mapping>
-        <servlet-name>uploadServlet</servlet-name>
-        <url-pattern>/_image-upload</url-pattern>
-    </servlet-mapping>
 
 
     <servlet-mapping>
