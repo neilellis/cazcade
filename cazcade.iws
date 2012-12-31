@@ -65,15 +65,15 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml" afterPath="$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="cazcade.iws" />
     <ignored path="$USER_HOME$/.griffon/" />
-    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356990375440" ignored="false" />
-    <file path="/a.dummy" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356990190282" ignored="false" />
+    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356995185621" ignored="false" />
+    <file path="/a.dummy" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356995687346" ignored="false" />
     <file path="/index-service.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356899093556" ignored="false" />
     <file path="/header.jspf" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356902147749" ignored="false" />
     <file path="/pom.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356988182721" ignored="false" />
@@ -244,15 +244,6 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../billabong/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="34" selection-start="5250" selection-end="5250" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../billabong/store/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state line="52" column="32" selection-start="1943" selection-end="1943" vertical-scroll-proportion="0.0">
@@ -315,10 +306,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="706" column="38" selection-start="24085" selection-end="24085" vertical-scroll-proportion="0.2913386">
+            <state line="706" column="38" selection-start="24085" selection-end="24085" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index-service.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="461" selection-end="900" vertical-scroll-proportion="0.26141733">
               <folding />
             </state>
           </provider>
@@ -373,7 +373,6 @@
       <list>
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/menus/account/ProfileEditor.java" />
         <option value="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/client/main/custom/HashboCustomObjectEditor.java" />
-        <option value="$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml" />
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java" />
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml" />
         <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml" />
@@ -387,6 +386,7 @@
         <option value="$PROJECT_DIR$/apps/upload/pom.xml" />
         <option value="$PROJECT_DIR$/vortex/widgets/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml" />
       </list>
     </option>
   </component>
@@ -1620,7 +1620,11 @@
       <created>1356990380889</created>
       <updated>1356990380890</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="changed jelastic to 1.6">
+      <created>1356995195885</created>
+      <updated>1356995195885</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1727,7 +1731,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated voices." />
+    <option name="LAST_COMMIT_MESSAGE" value="changed jelastic to 1.6" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1740,7 +1744,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Changed max boards returned from queries to 24." />
     <MESSAGE value="Added zoom on hover to boards." />
     <MESSAGE value="Changed default height of boards to 768px" />
     <MESSAGE value="Minor changes to snapshot caching." />
@@ -1765,6 +1768,7 @@
     <MESSAGE value="New image support for FilePicker.io" />
     <MESSAGE value="Removed billabong dependencies" />
     <MESSAGE value="Updated voices." />
+    <MESSAGE value="changed jelastic to 1.6" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1808,21 +1812,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="32" selection-start="3781" selection-end="3781" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4705#4861#0" expanded="false" />
-            <element signature="e#4850#4851#0" expanded="false" />
-            <element signature="e#4915#5168#0" expanded="false" />
-            <element signature="e#5157#5158#0" expanded="false" />
-            <element signature="e#5198#5387#0" expanded="false" />
-            <element signature="e#5376#5377#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/image/ImagePresenter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="13" selection-start="392" selection-end="392" vertical-scroll-proportion="0.0">
@@ -1947,7 +1936,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="706" column="38" selection-start="24085" selection-end="24085" vertical-scroll-proportion="0.2913386">
+        <state line="706" column="38" selection-start="24085" selection-end="24085" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="461" selection-end="900" vertical-scroll-proportion="0.26141733">
           <folding />
         </state>
       </provider>
