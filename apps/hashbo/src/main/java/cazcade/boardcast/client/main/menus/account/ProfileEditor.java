@@ -8,6 +8,7 @@ import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.widgets.client.image.ImageUploader;
+import cazcade.vortex.widgets.client.image.OnFinishUploadHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -18,8 +19,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
-import gwtupload.client.IUploadStatus;
-import gwtupload.client.IUploader;
 
 import javax.annotation.Nonnull;
 
@@ -45,30 +44,22 @@ public class ProfileEditor extends Composite {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         final LSDTransferEntity updateEntity = alias.asUpdateEntity();
-        imageUploader.setImageURL(alias.getAttribute(LSDAttribute.IMAGE_URL));
-        imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
+        imageUploader.setImageUrl(alias.getAttribute(LSDAttribute.IMAGE_URL));
+        imageUploader.setOnFinishHandler(new OnFinishUploadHandler() {
             @Override
-            public void onFinish(@Nonnull final IUploader uploader) {
-                if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
-                    final String url = uploader.getServerInfo().message;
+            public void onFinish(@Nonnull final ImageUploader uploader) {
+                if (uploader.getStatus() == ImageUploader.Status.SUCCESS) {
+                    final String url = uploader.getImageUrl();
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
                     updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
-                    imageUploader.setImageURL(url);
+                    imageUploader.setImageUrl(url);
                     // The server sends useful information to the client by default
-                    final IUploader.UploadedInfo info = uploader.getServerInfo();
-//                    System.out.println("File name " + info.name);
-//                    System.out.println("File content-type " + info.ctype);
-//                    System.out.println("File size " + info.size);
-//
-//                    // You can send any customized message and parse it
-//                    System.out.println("Server message " + info.message);
-                }
-                else {
+                } else {
                     Window.alert("Failed to upload image.");
                 }
             }
         }
-                                        );
+        );
 
 
         changeButton.addClickHandler(new ClickHandler() {

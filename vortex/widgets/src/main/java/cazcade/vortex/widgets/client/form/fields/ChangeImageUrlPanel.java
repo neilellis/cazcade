@@ -3,6 +3,8 @@ package cazcade.vortex.widgets.client.form.fields;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.widgets.client.image.ImageUploader;
+import cazcade.vortex.widgets.client.image.OnFinishUploadHandler;
+import cazcade.vortex.widgets.client.image.OnStartUploadHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -12,8 +14,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
-import gwtupload.client.IUploadStatus;
-import gwtupload.client.IUploader;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -43,13 +43,12 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
-        imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
+        imageUploader.setOnFinishHandler(new OnFinishUploadHandler() {
             @Override
-            public void onFinish(@Nonnull final IUploader uploader) {
-                if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
-                    setValue(uploader.getServerInfo().message);
+            public void onFinish(@Nonnull ImageUploader uploader) {
+                if (uploader.getStatus() == ImageUploader.Status.SUCCESS) {
+                    setValue(uploader.getImageUrl());
                     callOnChangeAction();
-                    final IUploader.UploadedInfo info = uploader.getServerInfo();
                 } else {
                     Window.alert("Failed to upload image.");
                 }
@@ -58,16 +57,16 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
 
         });
 
-        imageUploader.addOnStartUploadHandler(new IUploader.OnStartUploaderHandler() {
+        imageUploader.setOnStartUploadHandler(new OnStartUploadHandler() {
             @Override
-            public void onStart(final IUploader uploader) {
+            public void onStart(@Nonnull ImageUploader uploader) {
                 urlField.setValue("");
             }
         });
         urlField.addHandler(new KeyUpHandler() {
             @Override
             public void onKeyUp(final KeyUpEvent event) {
-                imageUploader.setImageURL(urlField.getValue());
+                imageUploader.setImageUrl(urlField.getValue());
             }
         }, KeyUpEvent.getType());
 
@@ -76,7 +75,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
 
     @Override
     public void setValue(final String imageUrl) {
-        imageUploader.setImageURL(imageUrl);
+        imageUploader.setImageUrl(imageUrl);
         urlField.setValue(imageUrl);
     }
 
@@ -91,7 +90,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
             @Override
             public void run() {
                 onChangeAction.run();
-                imageUploader.setImageURL(urlField.getValue());
+                imageUploader.setImageUrl(urlField.getValue());
             }
         });
     }
@@ -120,7 +119,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);
-        imageUploader.setImageURL(urlField.getValue());
+        imageUploader.setImageUrl(urlField.getValue());
     }
 //
 //    public void setEditable(boolean editable) {

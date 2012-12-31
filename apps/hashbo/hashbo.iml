@@ -167,6 +167,7 @@
     <orderEntry type="library" name="Maven: org.tuckey:urlrewritefilter:3.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.mortennobel:java-image-scaling:0.8.5" level="project" />
     <orderEntry type="library" name="Maven: com.jhlabs:filters:2.0.235" level="project" />
+    <orderEntry type="library" name="filepicker" level="application" />
   </component>
 </module>
 

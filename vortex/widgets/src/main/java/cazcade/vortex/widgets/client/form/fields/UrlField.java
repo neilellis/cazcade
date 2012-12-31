@@ -38,7 +38,7 @@ public class UrlField extends Composite implements VortexFormField {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
 //
-//        imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
+//        imageUploader.setOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
 //            @Override
 //            public void onFinish(IUploader uploader) {
 //                if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {

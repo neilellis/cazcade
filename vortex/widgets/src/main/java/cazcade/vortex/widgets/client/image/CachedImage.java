@@ -111,7 +111,7 @@ public class CachedImage extends Image {
         if (url != null && !url.isEmpty()) {
             if (CACHING && cached && !BrowserUtil.isInternalImage(url)) {
                 if (url.startsWith("http")) {
-                    super.setUrl("./_image-service?url=" +
+                    super.setUrl("./_image-service?fast&url=" +
                                  URL.encode(url) +
                                  "&size=" +
                                  size +
@@ -122,7 +122,7 @@ public class CachedImage extends Image {
                                 );
                 }
                 else {
-                    super.setUrl("./_image-service?url=" +
+                    super.setUrl("./_image-service?fast&url=" +
                                  BrowserUtil.convertRelativeUrlToAbsolute(url) +
                                  "&size=" +
                                  size +

@@ -12,6 +12,7 @@ import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
 import cazcade.vortex.widgets.client.form.fields.VortexTextArea;
 import cazcade.vortex.widgets.client.image.ImageUploader;
+import cazcade.vortex.widgets.client.image.OnFinishUploadHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -22,8 +23,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
-import gwtupload.client.IUploadStatus;
-import gwtupload.client.IUploader;
 
 import javax.annotation.Nonnull;
 
@@ -59,21 +58,20 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
     public HashboCustomObjectEditor() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        imageUploader.addOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
+        imageUploader.setOnFinishHandler(new OnFinishUploadHandler() {
             @Override
-            public void onFinish(@Nonnull final IUploader uploader) {
-                if (uploader.getStatus() == IUploadStatus.Status.SUCCESS) {
-                    final String url = uploader.getServerInfo().message;
+            public void onFinish(@Nonnull final ImageUploader uploader) {
+                if (uploader.getStatus() == ImageUploader.Status.SUCCESS) {
+                    final String url = uploader.getImageUrl();
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
                     updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
-                    imageUploader.setImageURL(url);
-                }
-                else {
+                    imageUploader.setImageUrl(url);
+                } else {
                     Window.alert("Failed to upload image.");
                 }
             }
         }
-                                        );
+        );
 
 
         changeButton.addClickHandler(new ClickHandler() {
@@ -134,7 +132,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
     @Override
     public void show(@Nonnull final LSDTransferEntity object) {
         updateEntity = object.asUpdateEntity();
-        imageUploader.setImageURL(object.getAttribute(LSDAttribute.IMAGE_URL));
+        imageUploader.setImageUrl(object.getAttribute(LSDAttribute.IMAGE_URL));
         final LSDBaseEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
         widthField.setValue(view.getAttribute(LSDAttribute.VIEW_WIDTH));
         heightField.setValue(view.getAttribute(LSDAttribute.VIEW_HEIGHT));

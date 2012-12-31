@@ -3,16 +3,13 @@
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
     <g:HTMLPanel styleName="change-image-panel">
-        <image:ImageUploader ui:field="imageUploader" width="300px" height="230px"/>
+        <image:ImageUploader ui:field="imageUploader"/>
         <div class="change-image-url-area">
             <p>
-                Click 'Choose File' to use an image from your computer, alternatively please supply the URL of a web
-                page or of an image.
+                Click 'Choose Image' to use an image from your computer or the web, alternatively please supply the URL of a web page or of an image.
             </p>
             <br/>
             <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box" regex="https?://.*"/>
         </div>
-        <!--<g:Image ui:field="validityImage" styleName="invisible form-field-validity-icon"/>-->
-        <!--<g:Label ui:field="errorMessage" styleName="invisible form-field-error-message"/>-->
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -70,7 +70,7 @@ public class PhotoView extends PoolObjectView {
 //                image.setHeight(LARGE_HEIGHT + "px");
             }
         }
-        image.setDefaultMessage("Double click");
+        image.setDefaultMessage("No Image");
         effect.setWidth(image.getOffsetWidth() + "px");
         effect.setHeight(image.getOffsetHeight() + "px");
     }
