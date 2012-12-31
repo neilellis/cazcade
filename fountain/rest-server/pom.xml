@@ -64,10 +64,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>cazcade.billabong</groupId>
-            <artifactId>billabong-image</artifactId>
-        </dependency>
 
 
         <!--Culvert-->

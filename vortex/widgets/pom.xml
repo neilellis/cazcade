@@ -49,16 +49,6 @@
             <groupId>com.allen_sauer.gwt.voices</groupId>
             <artifactId>gwt-voices</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>cazcade.billabong</groupId>
-            <artifactId>billabong-store</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cazcade.billabong</groupId>
-            <artifactId>billabong-image</artifactId>
-        </dependency>
-
     </dependencies>
 
 

@@ -235,11 +235,7 @@
     </servlet-mapping>
 
 
-    <servlet>
-        <servlet-name>uploadServlet</servlet-name>
-        <!-- This is the default servlet, it puts files in session -->
-        <servlet-class>cazcade.vortex.widgets.server.VortexImageUploadServlet</servlet-class>
-    </servlet>
+
 
     <servlet>
         <servlet-name>cazcade.boardcast.Boardcast ScriptService</servlet-name>

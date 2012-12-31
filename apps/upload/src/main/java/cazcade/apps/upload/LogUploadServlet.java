@@ -3,7 +3,6 @@ package cazcade.apps.upload;
 import cazcade.common.Logger;
 import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
-import com.cazcade.billabong.store.impl.UserContentStore;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -30,7 +29,6 @@ public class LogUploadServlet extends HttpServlet {
     private static final String TMP_DIR_PATH = "/tmp";
     private File tmpDir;
     private ClassPathXmlApplicationContext applicationContext;
-    private UserContentStore contentStore;
     private final Executor storeExecutor = Executors.newCachedThreadPool();
 
     public void init(final ServletConfig config) throws ServletException {
@@ -38,7 +36,6 @@ public class LogUploadServlet extends HttpServlet {
         applicationContext = new ClassPathXmlApplicationContext(
                 "liquid-spring-config.xml",
                 "spring/image-service.xml");
-        contentStore = (UserContentStore) applicationContext.getBean("userContentStore");
 
         tmpDir = new File(TMP_DIR_PATH);
 

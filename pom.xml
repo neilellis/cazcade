@@ -529,25 +529,7 @@
                 <version>0.8.5</version>
             </dependency>
 
-            <!--Billabong-->
 
-            <dependency>
-                <groupId>cazcade.billabong</groupId>
-                <artifactId>billabong-image</artifactId>
-                <version>1.1-SNAPSHOT</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cazcade.billabong</groupId>
-                <artifactId>billabong-common</artifactId>
-                <version>1.1-SNAPSHOT</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cazcade.billabong</groupId>
-                <artifactId>billabong-store</artifactId>
-                <version>1.1-SNAPSHOT</version>
-            </dependency>
 
 
             <!--Culvert-->
