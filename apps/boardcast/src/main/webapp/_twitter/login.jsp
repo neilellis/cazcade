@@ -3,8 +3,8 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Login Successful</title>
-    <link rel="stylesheet"  href="../_css/boardcast-v2.css">
-    <%--<script src="../_js/less-dev.js" type="text/javascript"></script>--%>
+    <link rel="stylesheet"  href="../_less/boardcast-v2.css">
+    <script src="../_js/less-dev.js" type="text/javascript"></script>
 
 </head>
 <body bgcolor="#EFF0F3">

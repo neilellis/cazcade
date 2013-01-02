@@ -11,7 +11,7 @@
     <%@ include file="analytics.jspf" %>
 
     <c:if test="${not empty param.dev}">
-        <link rel="stylesheet/less"  href="/_css/boardcast-v2.less">
+        <link rel="stylesheet/less"  href="/_less/boardcast-v2.less">
         <script src="/_js/less-dev.js" type="text/javascript"></script>
     </c:if>
     <c:if test="${empty param.dev}">

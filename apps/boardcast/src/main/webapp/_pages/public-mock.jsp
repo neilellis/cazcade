@@ -20,7 +20,7 @@
 <script>
     //Deferred loading to improve initial load time.
     loadjs("../_prettify/prettify.js");
-    loadcss("../_css/hashbo.less", "hashbo", function() {
+    loadcss("../_less/hashbo.less", "hashbo", function() {
         document.getElementById('loading-panel').style.opacity = 0.0;
         document.getElementById('cache-panel').style.opacity = 1.0;
         document.getElementById('top-bar-wrapper').style.opacity = 1.0;

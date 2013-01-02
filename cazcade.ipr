@@ -1788,6 +1788,46 @@
     <option name="LOCALE" />
     <option name="OPEN_IN_BROWSER" value="true" />
   </component>
+  <component name="LessManager">
+    <option name="lessProfiles">
+      <map>
+        <entry key="LESS Profile 1">
+          <value>
+            <LessProfile>
+              <option name="compressOutput" value="true" />
+              <option name="cssDirectories">
+                <list>
+                  <CssDirectory>
+                    <option name="path" value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css" />
+                  </CssDirectory>
+                </list>
+              </option>
+              <option name="includePattern" value="boardcast*.less" />
+              <option name="lessDirPath" value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less" />
+              <option name="name" value="LESS Profile 1" />
+            </LessProfile>
+          </value>
+        </entry>
+        <entry key="Less Profile 1">
+          <value>
+            <LessProfile>
+              <option name="compressOutput" value="true" />
+              <option name="cssDirectories">
+                <list>
+                  <CssDirectory>
+                    <option name="path" value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css" />
+                  </CssDirectory>
+                </list>
+              </option>
+              <option name="includePattern" value="**/boardcast*.less" />
+              <option name="lessDirPath" value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less" />
+              <option name="name" value="LESS Profile 1" />
+            </LessProfile>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -2221,6 +2261,9 @@
       </map>
     </option>
     <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+  <component name="UnicodeBrowser">
+    <option name="fontName" value="Menlo" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />

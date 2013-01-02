@@ -5,8 +5,8 @@
 
     <group name="core">
         <css>/_css/*.css</css>
-        <css>/_css/bootstrap/*.less</css>
-        <css>/_css/*.less</css>
+        <css>/_less/bootstrap/*.less</css>
+        <css>/_less/*.less</css>
     </group>
 
 </groups>

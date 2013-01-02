@@ -249,7 +249,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 final LSDTransferEntity responseEntity = response.getResponse();
                 if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
-                    Window.alert("Why not sign up to create new boards?");
+                    Window.alert("Could not find the board.");
                     if (previousPoolURI != null) {
                         HistoryManager.navigate(previousPoolURI.asShortUrl().toString());
                     }

@@ -9,7 +9,7 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/common/src/main/java/cazcade/common/Logger.java" line="358" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/common/src/main/java/cazcade/common/Logger.java" line="351" mnemonic="9" />
   </component>
   <component name="BuildServerSettings">
     <option name="HISTORY" value="" />
@@ -64,17 +64,74 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/superdevmode.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/boardcast/target/hashbo-1.1-SNAPSHOT/_css/board.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/apps/boardcast/target/hashbo-1.1-SNAPSHOT/scratch.html" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/activity.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/activity.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/boardcast-v2.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/bootstrap-full.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/bootstrap-full.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/bootstrap-modified.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/bootstrap-modified.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/forms.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/forms.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/mixins.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/mixins.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/patterns.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/patterns.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/reset.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/reset.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/scaffolding.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/scaffolding.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/tables.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/tables.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/type.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/type.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/bootstrap/variables.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/variables.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/comment.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/comment.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/common.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/common.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/dialogs.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/dialogs.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/gradients.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/gradients.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/inbox.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/inbox.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/keyframes.css" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/keyframes.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/lists.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/lists.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/loading.css" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/loading.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/login.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/login.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/menubar.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/menubar.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/pool-objects.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/pool-objects.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/scroll.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/scroll.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/search.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/search.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/shadows.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/shadows.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/stream.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/stream.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/tabs.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/tabs.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/upload.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/upload.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/variables.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/variables.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/viewuser.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/viewuser.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/widgets.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/widgets.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/cazcade/common/Logger.java" afterPath="$PROJECT_DIR$/common/src/main/java/cazcade/common/Logger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoardHeader.ui.xml" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/java/cazcade/boardcast/client/main/widgets/board/PublicBoardHeader.ui.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/boardcast.iml" afterPath="$PROJECT_DIR$/apps/boardcast/boardcast.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/boards.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/boards.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/fail.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/fail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/forgot.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/forgot.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/header.jspf" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/header.jspf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/index.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/resources/latest-updates.vm" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/latest-updates.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/link.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/link.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/login.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/login.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/login.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/login.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/password.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/password.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/public-mock.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/public-mock.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/register.jsp" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/register.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/urlrewrite.xml" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/urlrewrite.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.vm" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/wro.xml" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/wro.xml" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="cazcade.iws" />
     <ignored path="$USER_HOME$/.griffon/" />
-    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357150162570" ignored="false" />
-    <file path="/a.dummy" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357148942308" ignored="false" />
+    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357165782125" ignored="false" />
+    <file path="/a.dummy" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357166078061" ignored="false" />
     <file path="/index-service.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357090125509" ignored="false" />
-    <file path="/header.jspf" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356902147749" ignored="false" />
+    <file path="/header.jspf" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357159853059" ignored="false" />
     <file path="/pom.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357148450680" ignored="false" />
     <file path="$USER_HOME$/.m2/settings.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356907802426" ignored="false" />
     <file path="/fragment.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356961557505" ignored="false" />
@@ -91,7 +148,7 @@
     <file path="/data-source.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357090111744" ignored="false" />
     <file path="/bottom-toolbar.jspf" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357136293261" ignored="false" />
     <file path="/PublicBoard.ui.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357136309367" ignored="false" />
-    <file path="/Logger.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357139668672" ignored="false" />
+    <file path="/Logger.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357152777028" ignored="false" />
     <file path="/welcome.vm" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357150044927" ignored="false" />
     <file path="/password.vm" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357140316045" ignored="false" />
     <file path="/FountainUserUpdateService.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357140539294" ignored="false" />
@@ -101,6 +158,24 @@
     <file path="/FountainEmailTest.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357148694740" ignored="false" />
     <file path="/PermissionTest.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357148723427" ignored="false" />
     <file path="$M2_REPO$/fountain/liquid-api/1.1-SNAPSHOT/liquid-api-1.1-SNAPSHOT.jar!/cazcade/liquid/LiquidAPI.gwt.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357150080482" ignored="false" />
+    <file path="$PROJECT_DIR$/apps/io/target/dependency-reduced-pom.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357150237542" ignored="false" />
+    <file path="/urlrewrite.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357151667624" ignored="false" />
+    <file path="/login.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160854550" ignored="false" />
+    <file path="/PublicBoardHeader.ui.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357153813307" ignored="false" />
+    <file path="/board.less" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357166118825" ignored="false" />
+    <file path="$PROJECT_DIR$/../snapito/snapito-api/src/main/java/com/cazcade/snapito/ImageProxyServlet.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357158297583" ignored="false" />
+    <file path="/latest-updates.vm" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357158815326" ignored="false" />
+    <file path="/boards.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357159910429" ignored="false" />
+    <file path="/forgot.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160733843" ignored="false" />
+    <file path="/index.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160749169" ignored="false" />
+    <file path="/password.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160775603" ignored="false" />
+    <file path="/fail.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160833492" ignored="false" />
+    <file path="/link.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160842714" ignored="false" />
+    <file path="/register.jsp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160874971" ignored="false" />
+    <file path="/wro.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357160901987" ignored="false" />
+    <file path="/variables.less" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357165553453" ignored="false" />
+    <file path="/common.less" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357165661050" ignored="false" />
+    <file path="/gradients.less" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357166099518" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,6 +202,41 @@
     <groupTables value="false" />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint url="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/misc/toolbar/RichTextToolbar.java" line="269" class="cazcade.vortex.widgets.client.misc.toolbar.RichTextToolbar.EventListener" package="cazcade.vortex.widgets.client.misc.toolbar">
         <option name="ENABLED" value="true" />
@@ -213,41 +323,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
-    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint>
-        <option name="NOTIFY_CAUGHT" value="true" />
-        <option name="NOTIFY_UNCAUGHT" value="true" />
-        <option name="ENABLED" value="false" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint>
-        <option name="NOTIFY_CAUGHT" value="true" />
-        <option name="NOTIFY_UNCAUGHT" value="true" />
-        <option name="ENABLED" value="false" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -257,91 +332,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/boardcast/pom.xml">
+      <file leaf-file-name="shadows.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/shadows.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="301" column="33" selection-start="12169" selection-end="12169" vertical-scroll-proportion="0.0">
+            <state line="170" column="14" selection-start="4029" selection-end="4039" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="bootstrap-full.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/bootstrap-full.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="662" column="0" selection-start="22246" selection-end="22246" vertical-scroll-proportion="-12.961538">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="welcome.vm" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.vm">
+      <file leaf-file-name="widgets.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/widgets.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="21" selection-start="913" selection-end="913" vertical-scroll-proportion="0.5">
+            <state line="307" column="4" selection-start="5299" selection-end="5299" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainUserUpdateServiceIntegrationTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceIntegrationTest.java">
+      <file leaf-file-name="patterns.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/patterns.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="55" selection-start="818" selection-end="818" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FollowIntegrationTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowIntegrationTest.java">
+      <file leaf-file-name="boardcast-v2.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="19" selection-start="1594" selection-end="1594" vertical-scroll-proportion="0.0">
+            <state line="9" column="10719" selection-start="0" selection-end="239823" vertical-scroll-proportion="0.29654035">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainEmailIntegrationTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailIntegrationTest.java">
+      <file leaf-file-name="board.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="37" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
+            <state line="197" column="81" selection-start="3346" selection-end="3346" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PermissionIntegrationTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionIntegrationTest.java">
+      <file leaf-file-name="gradients.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/gradients.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="23" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0">
+            <state line="2" column="0" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FountainNeoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java">
+      <file leaf-file-name="mixins.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/mixins.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="527" column="66" selection-start="25177" selection-end="25177" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NeoBackupJob.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/NeoBackupJob.java">
+      <file leaf-file-name="common.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/common.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="11" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0">
+            <state line="7" column="31" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java">
+      <file leaf-file-name="variables.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/variables.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="31" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0">
+            <state line="0" column="35" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -365,22 +440,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/apps/boardcast/src/main/java/cazcade/boardcast/Boardcast.gwt.xml" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEmailService.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/resources/password.vm" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserUpdateService.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowIntegrationTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailIntegrationTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionIntegrationTest.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceIntegrationnTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceIntegrationTest.java" />
-        <option value="$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.vm" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/boards.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/forgot.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/index.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/password.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/public-mock.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/fail.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/link.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/login.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/register.jsp" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/wro.xml" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/pool-objects.less" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/variables.less" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/common.less" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/gradients.less" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less" />
       </list>
     </option>
   </component>
@@ -419,7 +494,6 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="17" />
     <option name="y" value="24" />
     <option name="width" value="1920" />
     <option name="height" value="1105" />
@@ -468,16 +542,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1053,6 +1117,112 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="_less" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apps" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boardcast" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="_less" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bootstrap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apps" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boardcast" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="_css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apps" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boardcast" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1094,6 +1264,16 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -1124,12 +1304,12 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="com.jelastic.plugin.idea.settings.JelasticSettings" />
+    <property name="options.lastSelected" value="lessc" />
     <property name="project.structure.side.proportion" value="0.26923078" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="246" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="237" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="55" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="249" />
@@ -1141,7 +1321,7 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder4" value="4" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/hashbo/src/main/webapp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
@@ -1176,16 +1356,16 @@
       <recent name="cazcade.boardcast.servlet.board" />
       <recent name="cazcade.boardcast.client.main.widgets.board" />
     </key>
-    <key name="GwtCreateUiBinderDialog.RecentRootElementType">
-      <recent name="com.google.gwt.user.client.ui.HTMLPanel" />
-      <recent name="com.google.gwt.dom.client.DivElement" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps/hashbo/src/main/java/cazcade/boardcast/public" />
       <recent name="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image" />
       <recent name="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_images" />
       <recent name="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_pages" />
       <recent name="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/stream" />
+    </key>
+    <key name="GwtCreateUiBinderDialog.RecentRootElementType">
+      <recent name="com.google.gwt.user.client.ui.HTMLPanel" />
+      <recent name="com.google.gwt.dom.client.DivElement" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="cazcade.fountain.messaging" />
@@ -1194,19 +1374,19 @@
       <recent name="cazcade.fountain.datastore" />
       <recent name="cazcade.vortex.gwt.util.client.history" />
     </key>
-    <key name="IntroduceConstantDialog.RECENTS_KEY">
-      <recent name="cazcade.cyclone.client.CycloneLogin" />
-      <recent name="cazcade.fountain.datastore.impl.FountainNeo" />
-      <recent name="cazcade.vortex.comms.datastore.server.DataStoreServiceImpl" />
-      <recent name="cazcade.common.CommonConstants" />
-      <recent name="cazcade.vortex.bus.client.BusImpl" />
-    </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="cazcade.hashbo.client.main.menus.add.AbstractCreateCommand" />
       <recent name="cazcade.hashbo.client.main.menus.add.CreateItemCommand" />
       <recent name="cazcade.vortex.gwt.util.client.WidgetUtil" />
       <recent name="cazcade.vortex.gwt.util.client.history.HistoryManager" />
       <recent name="cazcade.vortex.dnd.client.browser.BrowserUtil" />
+    </key>
+    <key name="IntroduceConstantDialog.RECENTS_KEY">
+      <recent name="cazcade.cyclone.client.CycloneLogin" />
+      <recent name="cazcade.fountain.datastore.impl.FountainNeo" />
+      <recent name="cazcade.vortex.comms.datastore.server.DataStoreServiceImpl" />
+      <recent name="cazcade.common.CommonConstants" />
+      <recent name="cazcade.vortex.bus.client.BusImpl" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="cazcade.fountain.messaging" />
@@ -1215,19 +1395,19 @@
       <recent name="cazcade.fountain.datastore.impl" />
       <recent name="cazcade.vortex.bus.client" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_js" />
-      <recent name="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields" />
-      <recent name="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form" />
-      <recent name="$PROJECT_DIR$/../vortex/main/src/main/java/cazcade/vortex/client/widgets" />
-      <recent name="$PROJECT_DIR$/../vortex/pool/src/main/java/cazcade/vortex/pool/widgets/objects/image" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="cazcade.fountain.datastore.impl.email" />
       <recent name="cazcade.fountain.datastore.impl.services.persistence" />
       <recent name="cazcade.fountain.datastore.impl" />
       <recent name="cazcade.liquid.impl" />
       <recent name="cazcade.fountain.server.rest" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css" />
+      <recent name="$PROJECT_DIR$/apps/hashbo/src/main/webapp/_js" />
+      <recent name="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields" />
+      <recent name="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form" />
+      <recent name="$PROJECT_DIR$/../vortex/main/src/main/java/cazcade/vortex/client/widgets" />
     </key>
   </component>
   <component name="Regex">
@@ -1682,8 +1862,8 @@
     </configuration>
     <configuration default="false" name="Boardcast" type="GWT.ConfigurationType" factoryName="GWT Configuration">
       <module name="boardcast" />
-      <option name="VM_PARAMETERS" value=" -XX:+UseCompressedOops -Xmx512m -Ddev=true  -Dcazcade.home=$USER_HOME$ -Dspring.profiles.active=&quot;dev&quot;" />
-      <option name="RUN_PAGE" value="login.html" />
+      <option name="VM_PARAMETERS" value=" -XX:+UseCompressedOops -Xmx2g -Ddev=true  -Dcazcade.home=$USER_HOME$ -Dspring.profiles.active=&quot;dev&quot;" />
+      <option name="RUN_PAGE" value="welcome" />
       <option name="BROWSER" value="Safari" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="52724" />
@@ -2027,7 +2207,11 @@
       <created>1357150169868</created>
       <updated>1357150169868</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Minor updates and integration tests separated from plain tests.">
+      <created>1357150195070</created>
+      <updated>1357150195070</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2051,36 +2235,45 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="17" y="24" width="1920" height="1105" extended-state="0" />
+    <frame x="0" y="24" width="1920" height="1105" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32443127" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.328934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32385787" sideWeight="0.49573106" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08502674" sideWeight="0.6442886" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43267328" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31878173" sideWeight="0.6707577" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32574257" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32791877" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Jelastic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19210246" sideWeight="0.671066" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33564568" sideWeight="0.671066" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31878173" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Minimized stickies" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33564568" sideWeight="0.68121827" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31878173" sideWeight="0.32550693" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="iSnippet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TunnelliJ" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328934" sideWeight="0.48078975" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43267328" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Kotlin" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Notes" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32791877" sideWeight="0.0" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19210246" sideWeight="0.68121827" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Colour Chooser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.67614216" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861477" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3310208" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Unicode Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36819637" sideWeight="0.67614216" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959914" sideWeight="0.5765054" order="2" side_tool="false" content_ui="combo" />
       <window_info id="IntellijBashOrg" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2093,7 +2286,6 @@
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4174085" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861477" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -2215,114 +2407,108 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/datastore-spring-config.xml">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/register.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="42" selection-start="795" selection-end="795" vertical-scroll-proportion="-4.8">
+        <state line="8" column="58" selection-start="401" selection-end="401" vertical-scroll-proportion="-5.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/wro.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="19" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/tags/hashbo-less.tag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="19" selection-start="383" selection-end="383" vertical-scroll-proportion="-5.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_pages/boards.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="43" selection-start="574" selection-end="574" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/index/src/main/resources/index-service.xml">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/boardcast-v2.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="30" selection-start="489" selection-end="489" vertical-scroll-proportion="-4.2">
+        <state line="26" column="105" selection-start="705" selection-end="705" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/index/src/main/resources/data-source.xml">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/pool-objects.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="73" selection-start="180" selection-end="180" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/shadows.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="170" column="14" selection-start="4029" selection-end="4039" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/variables.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="35" selection-start="35" selection-end="35" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/common.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="31" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/mixins.less">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/hashbo/target/hashbo-1.1-SNAPSHOT/WEB-INF/classes/cazcade/boardcast/servlet/twitter/auth/signin/SigninServlet.java">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/patterns.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="35" selection-start="3220" selection-end="3220" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/cazcade/common/Logger.java">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/bootstrap-full.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="32" selection-start="2603" selection-end="2603" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainUserUpdateService.java">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/widgets.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="54" selection-start="1752" selection-end="1752" vertical-scroll-proportion="0.0">
+        <state line="307" column="4" selection-start="5299" selection-end="5299" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/pom.xml">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/gradients.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="301" column="33" selection-start="12169" selection-end="12169" vertical-scroll-proportion="0.0">
+        <state line="2" column="0" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/Constants.java">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="31" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0">
+        <state line="197" column="81" selection-start="3346" selection-end="3346" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/NeoBackupJob.java">
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="11" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="527" column="66" selection-start="25177" selection-end="25177" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowIntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="19" selection-start="1594" selection-end="1594" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionIntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="23" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="662" column="0" selection-start="22246" selection-end="22246" vertical-scroll-proportion="-12.961538">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailIntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="37" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceIntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="55" selection-start="818" selection-end="818" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="21" selection-start="913" selection-end="913" vertical-scroll-proportion="0.5">
+        <state line="9" column="10719" selection-start="0" selection-end="239823" vertical-scroll-proportion="0.29654035">
           <folding />
         </state>
       </provider>

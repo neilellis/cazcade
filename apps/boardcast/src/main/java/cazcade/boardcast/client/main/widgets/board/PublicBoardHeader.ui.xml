@@ -8,6 +8,7 @@
 
                 <div ui:field="contentArea" class="board-page-header-content">
                     <fields:VortexEditableLabel styleName="board-title" placeholder="Click to name" ui:field="title"/>
+
                     <fields:VortexEditableLabel styleName="board-description"
                                                 placeholder="Click to edit the short description of the board"
                                                 ui:field="description"/>

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title>Link Twitter to Boardcast Account</title>
+    <title>Login</title>
     <link rel="stylesheet" type="text/less" href="_css/bootstrap/bootstrap-full.less">
     <script src="_js/less-1.2.1.min.js" type="text/javascript"></script>
     <%@ include file="analytics.jspf" %>
