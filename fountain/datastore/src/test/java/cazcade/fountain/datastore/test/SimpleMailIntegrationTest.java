@@ -19,7 +19,7 @@ import java.util.HashMap;
 // ApplicationContext will be loaded from "/applicationContext.xml" and "/applicationContext-test.xml"
 // in the root of the classpath
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
-public class SimpleMailTest {
+public class SimpleMailIntegrationTest {
     @Autowired
     private MailService mailService;
 
