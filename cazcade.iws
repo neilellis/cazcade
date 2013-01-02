@@ -64,31 +64,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FollowIntegrationTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainEmailIntegrationTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/FountainUserUpdateServiceIntegrationTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionTest.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/PermissionIntegrationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainNeoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common (1) (cazcade).iml" afterPath="$PROJECT_DIR$/common/common (1) (cazcade).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" afterPath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" afterPath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/datastore.iml" afterPath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/email/email.iml" afterPath="$PROJECT_DIR$/fountain/email/email.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" afterPath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/index.iml" afterPath="$PROJECT_DIR$/fountain/index/index.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.vm" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/resources/welcome.vm" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="cazcade.iws" />
     <ignored path="$USER_HOME$/.griffon/" />
-    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357141039897" ignored="false" />
+    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357150162570" ignored="false" />
     <file path="/a.dummy" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357148942308" ignored="false" />
     <file path="/index-service.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357090125509" ignored="false" />
     <file path="/header.jspf" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356902147749" ignored="false" />
@@ -2040,7 +2023,11 @@
       <created>1357141043018</created>
       <updated>1357141043018</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Minor updates and integration tests separated from plain tests.">
+      <created>1357150169868</created>
+      <updated>1357150169868</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2147,7 +2134,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jelastic fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor updates and integration tests separated from plain tests." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2160,7 +2147,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="LESS 1.2.1 - reminified it." />
     <MESSAGE value="Changed snapshot delay." />
     <MESSAGE value="Moved from uncompiled LESS to compiled LESS." />
     <MESSAGE value="Overflow error" />
@@ -2185,6 +2171,7 @@
     <MESSAGE value="refactor and bug report email address change" />
     <MESSAGE value="Minor fixes and cleanup." />
     <MESSAGE value="Jelastic fixes" />
+    <MESSAGE value="Minor updates and integration tests separated from plain tests." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
