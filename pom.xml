@@ -697,13 +697,13 @@
             <plugin>
                 <groupId>com.jelastic</groupId>
                 <artifactId>jelastic-maven-plugin</artifactId>
-                <version>1.6</version>
+                <version>1.7-SNAPSHOT</version>
                 <configuration>
                     <email>${jelastic.username}</email>
                     <password>${jelastic.password}</password>
-                    <!--<context></context>-->
-                    <!--<environment></environment>-->
-                    <!--<comment>${buildNumber}</comment>-->
+                    <context>ROOT</context>
+                    <environment>boardcast</environment>
+                    <comment>${buildNumber}</comment>
                     <api_hoster>app.j.layershift.co.uk</api_hoster>
                 </configuration>
             </plugin>
