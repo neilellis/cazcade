@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * The first in hopefully many unit tests agains the fountain server.
+ * The first in hopefully many unit tests against the fountain server.
  *
  * @author neilellis@cazcade.com
  */
@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 // ApplicationContext will be loaded from "/applicationContext.xml" and "/applicationContext-test.xml"
 // in the root of the classpath
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
-public class FountainUserUpdateServiceTest {
+public class FountainUserUpdateServiceIntegrationTest {
     @Autowired
     private FountainUserUpdateService userUpdateService;
 

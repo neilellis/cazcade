@@ -540,8 +540,6 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             final Transaction transaction = neo.beginTx();
             try {
                 setRootPool(findByURI(new LiquidURI("pool:///")));
-
-
                 setPeoplePool(findByURI(new LiquidURI("pool:///people")));
                 transaction.success();
                 this.started= true;
@@ -554,7 +552,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             }
         } catch (Exception e) {
             log.error(e);
-            throw new Error("Catastrophic failure, could not start FountainNeo", e);
+            throw new Error("Catastrophic failure, could not start FountainNeo in directory "+cazcade.fountain.datastore.impl.Constants.FOUNTAIN_NEO_STORE_DIR +" make sure no other instance is using this directory and that permissions are correct.", e);
         }
     }
 

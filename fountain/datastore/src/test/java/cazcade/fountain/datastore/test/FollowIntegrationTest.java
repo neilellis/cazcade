@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
 // ApplicationContext will be loaded from "/applicationContext.xml" and "/applicationContext-test.xml"
 // in the root of the classpath
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
-public class FollowTest {
+public class FollowIntegrationTest {
     @Autowired
     private FountainNeo fountainNeo;
     private String stickyName;

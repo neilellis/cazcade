@@ -15,6 +15,7 @@
         <spring.version>3.1.2.RELEASE</spring.version>
         <spring.security.version>3.0.7.RELEASE</spring.security.version>
         <ehcache.version>2.3.3</ehcache.version>
+
         <neo4j.version>1.4</neo4j.version>
 
     </properties>
@@ -531,8 +532,6 @@
             </dependency>
 
 
-
-
             <!--Culvert-->
 
             <dependency>
@@ -658,8 +657,20 @@
                 <version>2.5</version>
                 <configuration>
                     <useFile>false</useFile>
+                    <excludes>
+                        <exclude>**/*IntegrationTest.java</exclude>
+                    </excludes>
+                    <systemProperties>
+                        <property>
+                            <name>dev</name>
+                            <value>true</value>
+                        </property>
+                        <property>
+                            <name>spring.profiles.active</name>
+                            <value>dev</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
-
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -708,17 +719,17 @@
                 </configuration>
             </plugin>
             <!--<plugin>-->
-                <!--<groupId>org.zeroturnaround</groupId>-->
-                <!--<artifactId>jrebel-maven-plugin</artifactId>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>generate-rebel-xml</id>-->
-                        <!--<phase>process-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>generate</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>org.zeroturnaround</groupId>-->
+            <!--<artifactId>jrebel-maven-plugin</artifactId>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>generate-rebel-xml</id>-->
+            <!--<phase>process-resources</phase>-->
+            <!--<goals>-->
+            <!--<goal>generate</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
         </plugins>
 
@@ -775,7 +786,6 @@
         </repository>
 
 
-
         <repository>
             <id>twitter4j.org</id>
             <name>twitter4j.org Repository</name>
@@ -826,6 +836,39 @@
             <properties>
                 <maven.test.skip>true</maven.test.skip>
             </properties>
+        </profile>
+        <profile>
+            <id>all-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.5</version>
+                        <!--
+                                By default, the Surefire Plugin will automatically include all test classes with the following wildcard patterns:
+                                "**/Test*.java" - includes all of its subdirectory and all java filenames that start with "Test". "**/*Test.java" -
+                                includes all of its subdirectory and all java filenames that end with "Test". "**/*TestCase.java" - includes all of
+                                its subdirectory and all java filenames that end with "TestCase".
+                            -->
+                        <configuration>
+                            <includes>
+                                <include>**/*Test*.java</include>
+                            </includes>
+                            <systemProperties>
+                                <property>
+                                    <name>dev</name>
+                                    <value>true</value>
+                                </property>
+                                <property>
+                                    <name>spring.profiles.active</name>
+                                    <value>dev</value>
+                                </property>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
