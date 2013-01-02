@@ -5,7 +5,7 @@
       <configuration>
         <setting name="compilerMaxHeapSize" value="128" />
         <setting name="gwtScriptOutputStyle" value="DETAILED" />
-        <setting name="gwtSdkUrl" value="file://$M2_REPO$/com/google/gwt/gwt-dev/2.5.0/" />
+        <setting name="gwtSdkUrl" value="file://$MODULE_DIR$/../../../../thirdparty/gwt-2.5.0" />
         <setting name="gwtSdkType" value="maven" />
       </configuration>
     </facet>
@@ -28,6 +28,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
+      <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

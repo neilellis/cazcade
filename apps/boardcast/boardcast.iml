@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="gwt" name="GWT">
-      <configuration>
-        <setting name="compilerMaxHeapSize" value="256" />
-        <setting name="gwtScriptOutputStyle" value="DETAILED" />
-        <setting name="gwtSdkUrl" value="file://$M2_REPO$/com/google/gwt/gwt-dev/2.5.0/" />
-        <setting name="gwtSdkType" value="maven" />
-        <setting name="webFacet" value="Web" />
-      </configuration>
-    </facet>
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
@@ -23,12 +14,21 @@
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
+    <facet type="gwt" name="GWT">
+      <configuration>
+        <setting name="compilerMaxHeapSize" value="256" />
+        <setting name="gwtScriptOutputStyle" value="DETAILED" />
+        <setting name="gwtSdkUrl" value="file://$M2_REPO$/com/google/gwt/gwt-dev/2.5.0/" />
+        <setting name="gwtSdkType" value="maven" />
+        <setting name="webFacet" value="Web" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/test-annotations" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hashbo/target/generated-sources/test-annotations" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/annotations" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
@@ -38,10 +38,12 @@
       <excludeFolder url="file://$MODULE_DIR$/target/gwt-unitCache" />
       <excludeFolder url="file://$MODULE_DIR$/target/hashbo-1.1-SNAPSHOT" />
       <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
+      <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="filepicker" level="application" />
+    <orderEntry type="library" name="gwt-user" level="project" />
     <orderEntry type="module" module-name="widgets" />
     <orderEntry type="module" module-name="common (3) (cazcade.vortex)" />
     <orderEntry type="module" module-name="liquid-api" />

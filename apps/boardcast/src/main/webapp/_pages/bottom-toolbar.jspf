@@ -6,9 +6,9 @@
         "facebook":{ "visible":true, "profile":"boardcast"}, "fblike":{ "visible":true, "url":""},
         "twitter":{ "visible":true, "user":"boardcast_it"}, "twfollow":{ "visible":true, "url":"http://twitter.com/boardcast_it"},
         "custom":[
-            { "visible":true, "title":"Support", "url":"http://boardcast.zendesk.com", "img":"", "popup":false, "popupCustom":{
+            { "visible":true, "title":"Support", "url":"http://cazcade.zendesk.com", "img":"", "popup":false, "popupCustom":{
                 "width":300, "height":250}},
-            { "visible":true, "title":"Blog", "url":"http://boardcast.posterous.com", "img":"", "popup":false,
+            { "visible":false, "title":"Blog", "url":"http://cazcade.tumblr.com", "img":"", "popup":false,
                 "popupCustom":{ "width":300, "height":250}},
             { "visible":false, "title":"Chat", "url":"javascript:alert('Coming soon.')", "img":"", "popup":true, "popupCustom":{
                 "width":500,

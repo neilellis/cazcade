@@ -14,7 +14,7 @@
         <module>twitter-auth</module>
         <module>upload</module>
         <module>cli</module>
-        <module>hashbo</module>
+        <module>boardcast</module>
 
     </modules>
 

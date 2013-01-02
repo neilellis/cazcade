@@ -581,8 +581,8 @@ public class Logger {
 
 
             final String host = "localhost";
-            final String to = "support@boardcast.zendesk.com";
-            final String from = "neil@boardcast.it";
+            final String to = "support@cazcade.zendesk.com";
+            final String from = "neil@cazcade.com";
 
             final boolean sessionDebug = false;
             final Properties props = System.getProperties();
@@ -592,7 +592,7 @@ public class Logger {
             final Session mailSession = Session.getDefaultInstance(props, null);
             mailSession.setDebug(sessionDebug);
             final Message msg = new MimeMessage(mailSession);
-            msg.setFrom(new InternetAddress(from, "Bug Reporter"));
+            msg.setFrom(new InternetAddress(from, "Cazcade Bug Reporter"));
             final InternetAddress[] address = {new InternetAddress(to)};
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);
