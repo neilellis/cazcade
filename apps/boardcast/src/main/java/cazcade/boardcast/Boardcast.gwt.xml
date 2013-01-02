@@ -28,7 +28,7 @@
     <!--<add-linker name="xsiframe"/>-->
     <!--<set-configuration-property name="devModeRedirectEnabled" value="true"/>-->
 
-    <collapse-all-properties/>
+    <!--<collapse-all-properties/>-->
 
     <servlet path="/ScriptService" class="cazcade.boardcast.server.ScriptServiceImpl"/>
     <servlet path="/BuildVersionService" class="cazcade.boardcast.server.BuildVersionServiceImpl"/>

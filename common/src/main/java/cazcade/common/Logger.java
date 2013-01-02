@@ -480,7 +480,7 @@ public class Logger {
             final SOAPSession soapSession;
             final JiraSoapService jira;
             soapSession = new SOAPSession(new URL("http://jira.cazcade.com/rpc/soap/jirasoapservice-v2"));
-            soapSession.connect("neilellis", "vipassana");
+            soapSession.connect("neilellis", "password");
             jira = soapSession.getJiraSoapService();
             final RemoteIssue[] issues = jira.getIssuesFromJqlSearch(soapSession.getAuthenticationToken(),
                                                                      "project = CAZCADE AND description ~ '" + hash + "'", 10

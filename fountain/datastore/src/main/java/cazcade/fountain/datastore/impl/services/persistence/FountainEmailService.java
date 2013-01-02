@@ -61,7 +61,7 @@ public class FountainEmailService {
         final Map<String, Object> templateData = new HashMap<String, Object>();
         templateData.put("user", user.getCamelCaseMap());
         templateData.put("link", link);
-        mailService.sendMailFromTemplate("welcome.html", "Welcome to Boardcast", new String[]{user.getAttribute(
+        mailService.sendMailFromTemplate("welcome.vm", "Welcome to Boardcast", new String[]{user.getAttribute(
                 LSDAttribute.EMAIL_ADDRESS
                                                                                                                )}, new String[0],
                                          new String[0], templateData, false

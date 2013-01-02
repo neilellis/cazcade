@@ -30,7 +30,7 @@ public class SimpleMailTest {
 
     @Test
     public void test() throws InterruptedException {
-        mailService.sendMailFromTemplate("welcome.html", "test", new String[]{"neilellis@cazcade.com"}, new String[0],
+        mailService.sendMailFromTemplate("welcome.vm", "test", new String[]{"neilellis@cazcade.com"}, new String[0],
                                          new String[0], new HashMap<String, Object>(), false
                                         );
     }

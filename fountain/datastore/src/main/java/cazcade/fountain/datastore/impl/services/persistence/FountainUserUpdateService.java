@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.services.persistence;
 
+import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.impl.ChangeReport;
 import cazcade.fountain.datastore.impl.FountainSocialDAO;
@@ -49,7 +50,7 @@ public class FountainUserUpdateService {
     @Scheduled(cron = "0 0 0/1 1/1 * ?")
 //    @Scheduled(cron = "0 0/5 * 1/1 * ?")
     public void trivialUpdateLoop() {
-        if (!Logger.isProduction() && !test) {
+        if (!CommonConstants.IS_PRODUCTION && !test) {
             return;
         }
         final long nowMillis = System.currentTimeMillis();
