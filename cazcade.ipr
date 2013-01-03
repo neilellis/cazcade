@@ -868,8 +868,9 @@
             <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.1.2.RELEASE" />
-            <element id="archive" name="comms-1.1-SNAPSHOT.jar">
+            <element id="archive" name="vortex-1.1-SNAPSHOT.jar">
               <element id="module-output" name="comms" />
+              <element id="module-output" name="pool" />
             </element>
             <element id="archive" name="datastore-api-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore-api" />
@@ -880,7 +881,7 @@
             <element id="archive" name="messaging-1.1-SNAPSHOT.jar">
               <element id="module-output" name="messaging" />
             </element>
-            <element id="archive" name="datastore-1.1-SNAPSHOT.jar">
+            <element id="archive" name="fountain-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore" />
             </element>
             <element id="archive" name="email-1.1-SNAPSHOT.jar">
@@ -945,9 +946,6 @@
             <element id="library" level="project" name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat" />
             <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
             <element id="library" level="project" name="Maven: com.allen-sauer.gwt.voices:gwt-voices:3.2.0" />
-            <element id="archive" name="pool-1.1-SNAPSHOT.jar">
-              <element id="module-output" name="pool" />
-            </element>
             <element id="archive" name="datastore-server-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore-server" />
             </element>
