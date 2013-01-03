@@ -64,24 +64,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/boardcast.iml" afterPath="$PROJECT_DIR$/apps/boardcast/boardcast.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.ipr" afterPath="$PROJECT_DIR$/cazcade.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cazcade.iws" afterPath="$PROJECT_DIR$/cazcade.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" afterPath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" afterPath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" afterPath="$PROJECT_DIR$/fountain/datastore-api/datastore-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/datastore.iml" afterPath="$PROJECT_DIR$/fountain/datastore/datastore.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/email/email.iml" afterPath="$PROJECT_DIR$/fountain/email/email.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" afterPath="$PROJECT_DIR$/vortex/gwt-util/gwt-util.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/index/index.iml" afterPath="$PROJECT_DIR$/fountain/index/index.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/io/io.iml" afterPath="$PROJECT_DIR$/apps/io/io.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/main/main.iml" afterPath="$PROJECT_DIR$/vortex/main/main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/pom.xml" afterPath="$PROJECT_DIR$/fountain/test/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/test/test.iml" afterPath="$PROJECT_DIR$/fountain/test/test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" afterPath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" afterPath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/upload/upload.iml" afterPath="$PROJECT_DIR$/apps/upload/upload.iml" />
     </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -302,19 +287,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="widgets.less" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="widgets.less" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/widgets.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="307" column="4" selection-start="5299" selection-end="5299" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="boardcast-v2.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="11797" selection-start="12079" selection-end="12079" vertical-scroll-proportion="0.0">
+            <state line="307" column="4" selection-start="5299" selection-end="5299" vertical-scroll-proportion="0.5786885">
               <folding />
             </state>
           </provider>
@@ -356,10 +332,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="895" column="29" selection-start="31421" selection-end="31421" vertical-scroll-proportion="1.4147542">
+            <state line="895" column="29" selection-start="31421" selection-end="31421" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -368,7 +344,7 @@
       <file leaf-file-name="board.less" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="197" column="0" selection-start="3346" selection-end="3346" vertical-scroll-proportion="0.0">
+            <state line="191" column="19" selection-start="3266" selection-end="3266" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -408,15 +384,15 @@
         <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_twitter/register.jsp" />
         <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/WEB-INF/wro.xml" />
         <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/pool-objects.less" />
-        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" />
         <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/variables.less" />
         <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/common.less" />
         <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/gradients.less" />
-        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less" />
         <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/SimpleMailTest.java" />
         <option value="$PROJECT_DIR$/fountain/datastore/src/test/java/cazcade/fountain/datastore/test/SimpleMailIntegrationTest.java" />
         <option value="$PROJECT_DIR$/fountain/test/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" />
       </list>
     </option>
   </component>
@@ -2382,7 +2358,11 @@
       <created>1357169114486</created>
       <updated>1357169114486</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary=" Removing Jbehave from normal tests">
+      <created>1357171596342</created>
+      <updated>1357171596342</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2407,7 +2387,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1105" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32385787" sideWeight="0.49573106" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2421,7 +2401,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Minimized stickies" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33564568" sideWeight="0.671066" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33564568" sideWeight="0.671066" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31878173" sideWeight="0.32550693" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.49786553" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="iSnippet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2627,30 +2607,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/widgets.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="307" column="4" selection-start="5299" selection-end="5299" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/gradients.less">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="197" column="0" selection-start="3346" selection-end="3346" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="11797" selection-start="12079" selection-end="12079" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -2685,7 +2644,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="895" column="29" selection-start="31421" selection-end="31421" vertical-scroll-proportion="1.4147542">
+        <state line="895" column="29" selection-start="31421" selection-end="31421" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/board.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="191" column="19" selection-start="3266" selection-end="3266" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="8263" selection-start="8545" selection-end="8545" vertical-scroll-proportion="0.041876048">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/widgets.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="307" column="4" selection-start="5299" selection-end="5299" vertical-scroll-proportion="0.5786885">
           <folding />
         </state>
       </provider>
