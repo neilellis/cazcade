@@ -23,10 +23,9 @@ import java.util.List;
 public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasRequest> implements ClaimAliasRequestHandler {
     @Nonnull
     public ClaimAliasRequest handle(@Nonnull final ClaimAliasRequest request) throws Exception {
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
+        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS_LIST);
         entity.timestamp();
         entity.setID(UUIDFactory.randomUUID());
-        entity.setType(LSDDictionaryTypes.ALIAS_LIST);
         final List<LSDBaseEntity> children = new ArrayList<LSDBaseEntity>();
 
         final Transaction transaction = fountainNeo.beginTx();

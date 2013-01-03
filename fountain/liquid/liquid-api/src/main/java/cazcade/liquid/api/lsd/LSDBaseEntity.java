@@ -10,7 +10,9 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 /**
- * The interface which all entities must extend.
+ * The interface which all entities must extend. LSD entities are key/value stores with a
+ * hierarchical key format using . notation. They can be represented easily in XML and JSON formats
+ * as hierarchical data structures or as flat key/value maps.
  *
  * @author neilellis@cazcade.com
  */
@@ -55,8 +57,10 @@ public interface LSDBaseEntity {
     @Nullable
     Object get(@Nonnull String key);
 
+    @Nullable
     String getAttribute(@Nonnull LSDAttribute attribute, @Nullable String defaultValue);
 
+    @Nullable
     String getAttribute(@Nonnull LSDAttribute attribute);
 
     @Nonnull
@@ -69,14 +73,18 @@ public interface LSDBaseEntity {
 
     boolean getBooleanAttribute(@Nonnull LSDAttribute editable);
 
+    @Nullable
     Double getDoubleAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
     int getIntegerAttribute(@Nonnull LSDAttribute attribute, int defaultValue) throws NumberFormatException;
 
+    @Nullable
     Integer getIntegerAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
+    @Nullable
     Long getLongAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
+    @Nonnull
     Map<String, String> getMap();
 
     @Nullable
@@ -117,6 +125,7 @@ public interface LSDBaseEntity {
      *
      * @return
      */
+    @Nonnull
     LSDTypeDef getTypeDef();
 
     @Nonnull
@@ -134,6 +143,7 @@ public interface LSDBaseEntity {
      *
      * @return a universally unique identifier for this object
      */
+    @Nullable
     LiquidUUID getUUID();
 
     @Nullable
@@ -142,6 +152,7 @@ public interface LSDBaseEntity {
     @Nullable
     Date getUpdated();
 
+    @Nullable
     String getValue(@Nonnull String key);
 
     boolean hasAttribute(@Nonnull LSDAttribute key);
@@ -208,10 +219,6 @@ public interface LSDBaseEntity {
     void setPublished(Date published);
 
     void setReadonly(boolean readonly);
-
-    void setType(@Nonnull LSDDictionaryTypes type);
-
-    void setTypeDef(LSDTypeDef typeDef);
 
     void setURI(LiquidURI uri);
 

@@ -17,9 +17,16 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     private static final long serialVersionUID = 1697435148665350511L;
 
     @Nonnull
-    private LSDPropertyStore lsdProperties;
-    private LSDTypeDef lsdTypeDef;
-    private LiquidUUID uuid;
+    private final LSDPropertyStore lsdProperties;
+
+    @Nullable
+    // This is just a cache of the type stored as a string in the properties
+    private transient LSDTypeDef lsdTypeDef;
+
+    @Nullable
+    // This is just a cache of the id stored as a string in the properties
+    private transient LiquidUUID uuid;
+
     private boolean readonly;
 
 
@@ -34,7 +41,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return entity;
     }
 
-    @Override
     public final void setType(@Nonnull final LSDDictionaryTypes type) {
         assertNotReadonly();
         if (type.getValue() == null) {
@@ -103,7 +109,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return entity;
     }
 
-    @Override
     public void setTypeDef(@Nonnull final LSDTypeDef type) {
         lsdTypeDef = type;
         if (type.asString() == null) {
@@ -160,30 +165,24 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         final String newPath;
         if (array) {
             newPath = path;
-        }
-        else {
+        } else {
             newPath = path.isEmpty() ? node.getName() : path + '.' + node.getName();
         }
         if (node.isLeaf()) {
-            if (node.getLeafValue() != null) {
-                lsdProperties.put(newPath, node.getLeafValue());
-            }
-        }
-        else {
+            lsdProperties.put(newPath, node.getLeafValue());
+        } else {
             if (node.isArray()) {
                 final List<LSDNode> children = node.getChildren();
                 int count = 0;
                 for (final LSDNode child : children) {
                     if (count == 0 && child.isLeaf()) {
                         parse(newPath, child, true);
-                    }
-                    else {
+                    } else {
                         parse(newPath + '.' + (child.isLeaf() ? count : count + 1), child, true);
                     }
                     count++;
                 }
-            }
-            else {
+            } else {
                 final List<LSDNode> lsdNodeList = node.getChildren();
                 for (final LSDNode child : lsdNodeList) {
                     parse(newPath, child, false);
@@ -194,6 +193,20 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 
     public LSDSimpleEntity() {
         lsdProperties = new LSDMapPropertyStore(new HashMap<String, String>());
+    }
+
+    @SuppressWarnings("DesignForExtension")
+    @Override
+    public boolean equals(@Nullable final Object o) {
+        final LiquidURI uri = getURI();
+        return this == o || !(o == null || getClass() != o.getClass()) && uri != null && uri.equals(((LSDBaseEntity) o).getURI());
+    }
+
+    @SuppressWarnings("DesignForExtension")
+    @Override
+    public int hashCode() {
+        final LiquidURI uri = getURI();
+        return uri != null ? uri.hashCode() : 0;
     }
 
     @Override
@@ -282,14 +295,12 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 //                    currentList = arrayList;
                     addToArray(Integer.parseInt(prop), currentList, props[i - 1], value);
                     return;
-                }
-                else {
+                } else {
                     //noinspection AssignmentToForLoopParameter
                     ++i;
                     currentList = addToArray(Integer.parseInt(prop) - 1, currentList, props[i], null);
                 }
-            }
-            else {
+            } else {
                 currentList = addToArray(0, currentList, prop, null);
             }
         }
@@ -323,20 +334,17 @@ public class LSDSimpleEntity implements LSDTransferEntity {
             final Map map = (Map) result.get(arrayPos);
             if (map.containsKey(prop)) {
                 if (map.get(prop) instanceof List) {
-                }
-                else {
+                } else {
                     throw new IllegalArgumentException(
                             "Can't mix content and nodes, did you set an x.y='a' value then x.y.z='b'? The property was " + prop
                     );
                 }
                 result = (List) map.get(prop);
-            }
-            else {
+            } else {
                 result = new ArrayList();
                 map.put(prop, result);
             }
-        }
-        else {
+        } else {
             result.set(arrayPos, value);
         }
         return result;
@@ -364,11 +372,10 @@ public class LSDSimpleEntity implements LSDTransferEntity {
                 //todo: this should check for all sub-entity prefixes and not assume they are a single word long.
                 if (prefixAttribute == null || !prefixAttribute.isSubEntity() || prefixAttribute.includeAttributeInPersistence(
                         ignoreType, update
-                                                                                                                              )) {
+                )) {
                     if (prefixAttribute != null && prefixAttribute.isSubEntity()) {
                         typedMap.put(key, lsdProperties.get(key));
-                    }
-                    else {
+                    } else {
                         final LSDAttribute dictionaryKeyName = LSDAttribute.valueOf(key);
                         if (dictionaryKeyName == null) {
                             throw new LSDUnknownAttributeException("Unknown attribute %s", key);
@@ -378,8 +385,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
                             typedMap.put(key, lsdProperties.get(key));
                         }
                     }
-                }
-                else {
+                } else {
                     //skip
 //                    System.err.println("Skipped persisting " + entry.getKey());
                 }
@@ -410,10 +416,16 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return entity;
     }
 
+    @Nonnull
     @Override
     public final LSDTypeDef getTypeDef() {
         initTypeDef();
-        return lsdTypeDef;
+        synchronized (lsdProperties) {
+            if(lsdTypeDef == null) {
+                throw new IllegalStateException("lsdTypeDef was null");
+            }
+            return lsdTypeDef;
+        }
     }
 
     @Override
@@ -438,14 +450,14 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         final StringBuilder buffer = new StringBuilder("{\n");
         for (final String property : lsdProperties.getProperties()) {
             buffer.append('{')
-                  .append(property)
-                  .append('=')
-                  .append('\'')
-                  .append(lsdProperties.get(property))
-                  .append('\'')
-                  .append('}'
-                         )
-                  .append('\n');
+                    .append(property)
+                    .append('=')
+                    .append('\'')
+                    .append(lsdProperties.get(property))
+                    .append('\'')
+                    .append('}'
+                    )
+                    .append('\n');
         }
         buffer.append("}\n");
         return buffer.toString();
@@ -497,20 +509,12 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return buffer.toString();
     }
 
-    @SuppressWarnings("DesignForExtension")
-    @Override
-    public boolean equals(@Nullable final Object o) {
-        final LiquidURI uri = getURI();
-        return this == o || !(o == null || getClass() != o.getClass()) && uri != null && uri.equals(((LSDBaseEntity) o).getURI());
-    }
-
     @Override
     public final Object get(@Nonnull final String key) {
         final String dotStyleKey = convertFromCamel(key);
         if (hasSubEntity(dotStyleKey)) {
             return getSubEntity(dotStyleKey, true);
-        }
-        else {
+        } else {
             return lsdProperties.get(dotStyleKey);
         }
     }
@@ -521,8 +525,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
             final char c = key.charAt(i);
             if (Character.isLowerCase(c)) {
                 builder.append(c);
-            }
-            else {
+            } else {
                 builder.append('.').append(Character.toLowerCase(c));
             }
         }
@@ -587,8 +590,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public final LiquidURI getAttributeAsURI(@Nonnull final LSDAttribute attribute) {
         if (hasAttribute(attribute)) {
             return new LiquidURI(getAttribute(attribute));
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -601,8 +603,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         final String value = getAttribute(attribute);
         if (value != null && !value.isEmpty()) {
             return "true".equals(value);
-        }
-        else {
+        } else {
             return defaultValue;
         }
     }
@@ -639,8 +640,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
             final char c = key.charAt(i);
             if (c != '.') {
                 builder.append(c);
-            }
-            else {
+            } else {
                 //noinspection AssignmentToForLoopParameter
                 ++i;
                 builder.append(Character.toUpperCase(key.charAt(i)));
@@ -649,14 +649,23 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return builder.toString();
     }
 
+    @Override
+    public final boolean hasURI() {
+        return getValue(LSDAttribute.URI.getKeyName()) != null;
+    }
+
+    @Override
+    public final String getValue(@Nonnull final String key) {
+        return lsdProperties.get(key);
+    }
+
     @Nullable
     @Override
     public final LiquidURI getURIAttribute(@Nonnull final LSDAttribute attribute) {
         final String value = getAttribute(attribute);
         if (value != null && !value.isEmpty()) {
             return new LiquidURI(value);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -712,8 +721,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         final String value = lsdProperties.get(key);
         if (value == null) {
             return defaultValue;
-        }
-        else {
+        } else {
             return value;
         }
     }
@@ -732,14 +740,12 @@ public class LSDSimpleEntity implements LSDTransferEntity {
                 if (firstDot < 0) {
                     subEntityNumber = 0;
                     subEntityKey = subEntityKeyFull;
-                }
-                else {
+                } else {
                     final String subEntityString = subEntityKeyFull.substring(0, firstDot);
                     if (subEntityString.matches("[0-9]+")) {
                         subEntityNumber = Integer.valueOf(subEntityString);
                         subEntityKey = subEntityKeyFull.substring(firstDot + 1);
-                    }
-                    else {
+                    } else {
                         subEntityNumber = 0;
                         subEntityKey = subEntityKeyFull;
                     }
@@ -768,8 +774,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         final String result = getAttribute(attribute);
         if (result != null && !result.isEmpty()) {
             return LiquidUUID.fromString(result);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -778,31 +783,14 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public final boolean hasPermission(@Nonnull final LiquidPermissionScope permissionScope,
                                        @Nonnull final LiquidPermission permission) {
         return LiquidPermissionSet.createPermissionSet(getAttribute(LSDAttribute.PERMISSIONS)).hasPermission(permissionScope,
-                                                                                                             permission
-                                                                                                            );
+                permission
+        );
     }
 
     @Override
     public final boolean hasSubEntity(@Nonnull final LSDAttribute attribute) {
         final String keyString = attribute.getKeyName();
         return hasSubEntity(keyString);
-    }
-
-    @Override
-    public final boolean hasURI() {
-        return getValue(LSDAttribute.URI.getKeyName()) != null;
-    }
-
-    @Override
-    public final String getValue(@Nonnull final String key) {
-        return lsdProperties.get(key);
-    }
-
-    @SuppressWarnings("DesignForExtension")
-    @Override
-    public int hashCode() {
-        final LiquidURI uri = getURI();
-        return uri != null ? uri.hashCode() : 0;
     }
 
     @Override
@@ -837,8 +825,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public Date getUpdated() {
         if (hasAttribute(LSDAttribute.UPDATED)) {
             return new Date(Long.parseLong(lsdProperties.get(LSDAttribute.UPDATED.getKeyName())));
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -955,7 +942,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         setAttribute(LSDAttribute.PUBLISHED, published);
     }
 
-
     @Override
     public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final Date value) {
         setAttribute(attribute, value.getTime());
@@ -988,8 +974,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 //            }
             if (count > 0) {
                 setValue(key.getKeyName() + '.' + count, value.toString());
-            }
-            else {
+            } else {
                 setAttribute(key, value.toString());
             }
             count++;
@@ -1012,8 +997,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public Date getPublished() {
         if (hasAttribute(LSDAttribute.PUBLISHED)) {
             return new Date(Long.parseLong(lsdProperties.get(LSDAttribute.PUBLISHED.getKeyName())));
-        }
-        else {
+        } else {
             return null;
         }
     }

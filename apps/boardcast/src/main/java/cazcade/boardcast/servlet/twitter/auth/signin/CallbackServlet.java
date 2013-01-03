@@ -105,8 +105,7 @@ public class CallbackServlet extends AbstractTwitterServlet {
 
     @Nonnull
     private LSDTransferEntity buildAlias(@Nonnull final AccessToken authAccessToken, @Nonnull final User user, final boolean twitter) {
-        final LSDTransferEntity alias = LSDSimpleEntity.createEmpty();
-        alias.setType(LSDDictionaryTypes.ALIAS);
+        final LSDTransferEntity alias = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS);
         alias.timestamp();
         if (twitter) {
             alias.setAttribute(LSDAttribute.NAME, user.getScreenName());

@@ -333,8 +333,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 streamPool.setAttribute(LSDAttribute.PERMISSIONS, FountainNeoImpl.privatePermissionNoDeleteValue);
                 streamPool.setAttribute(LSDAttribute.PINNED, "true");
 
-                final LSDTransferEntity streamFeedExplanation = LSDSimpleEntity.createEmpty();
-                streamFeedExplanation.setType(LSDDictionaryTypes.HTML_FRAGMENT);
+                final LSDTransferEntity streamFeedExplanation = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.HTML_FRAGMENT);
                 streamFeedExplanation.setAttribute(LSDAttribute.NAME, "stream_feed_explanation");
                 streamFeedExplanation.setAttribute(LSDAttribute.TEXT_EXTENDED,
                                                    "This is where your web feeds are kept. These feeds create your stream. You can manage them in the same way as anywhere else."
@@ -342,8 +341,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 streamFeedExplanation.setAttribute(LSDAttribute.DESCRIPTION, "Cazcade's company blog.");
                 createPoolObjectNoTx(sessionIdentifier, streamPool, streamFeedExplanation, aliasURI, aliasURI, false);
 
-                final LSDTransferEntity defaultFeedEntity = LSDSimpleEntity.createEmpty();
-                defaultFeedEntity.setType(LSDDictionaryTypes.RSS_FEED);
+                final LSDTransferEntity defaultFeedEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.RSS_FEED);
                 defaultFeedEntity.setAttribute(LSDAttribute.NAME, "default_cazcade_feed");
                 defaultFeedEntity.setAttribute(LSDAttribute.SOURCE, "http://blog.cazcade.com/feed/");
                 defaultFeedEntity.setAttribute(LSDAttribute.TITLE, "Cazcade Blog");

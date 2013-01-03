@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public interface LSDPersistedEntity extends LSDBaseEntity {
+
     void assertLatestVersion();
 
     /**
@@ -114,10 +115,14 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
                                        @Nullable Runnable onRenameAction)
             throws InterruptedException;
 
+    void modifiedTimestamp();
+
     @Nonnull
     LSDPersistedEntity parentNode();
 
     int popularity();
+
+    void publishTimestamp();
 
     void setIDIfNotSetOnNode();
 
@@ -127,8 +132,6 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
 
     @Override
     void timestamp();
-
-    void publishTimestamp();
 
     @Nonnull
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
@@ -142,6 +145,4 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
     @Nonnull
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
                        Object... relationshipTypesAndDirections);
-
-    void modifiedTimestamp();
 }

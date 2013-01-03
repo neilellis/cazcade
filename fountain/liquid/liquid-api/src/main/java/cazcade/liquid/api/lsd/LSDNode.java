@@ -1,7 +1,6 @@
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ public interface LSDNode {
     @Nonnull
     List<LSDNode> getChildren();
 
-    @Nullable
+    @Nonnull
     String getLeafValue();
 
     String getName();

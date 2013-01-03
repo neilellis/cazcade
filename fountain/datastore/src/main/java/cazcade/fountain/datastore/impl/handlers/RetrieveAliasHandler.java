@@ -41,10 +41,9 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
         else {
             log.debug("Retrieving aliases for current user {0}", request.getSessionIdentifier().getUserURL());
             //todo: make this part of FountainNeo
-            final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
+            final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS_LIST);
             entity.timestamp();
             entity.setID(UUIDFactory.randomUUID());
-            entity.setType(LSDDictionaryTypes.ALIAS_LIST);
             final List<LSDBaseEntity> children = new ArrayList<LSDBaseEntity>();
             final Transaction transaction = fountainNeo.beginTx();
             try {

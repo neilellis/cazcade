@@ -139,8 +139,7 @@ public class LiquidResponseHelper {
     public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, final String id,
                                                                                 final String timestamp) {
         final T message = (T) request.copy();
-        final LSDTransferEntity response = LSDSimpleEntity.createEmpty();
-        response.setType(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
+        final LSDTransferEntity response = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
         response.setAttribute(LSDAttribute.ID, id);
         response.setAttribute(LSDAttribute.UPDATED, timestamp);
         message.setResponse(response);
@@ -153,8 +152,7 @@ public class LiquidResponseHelper {
     public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request,
                                                                                 @Nonnull final LSDBaseEntity entity) {
         final T message = (T) request.copy();
-        final LSDTransferEntity response = LSDSimpleEntity.createEmpty();
-        response.setType(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
+        final LSDTransferEntity response = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
         response.setID(entity.getUUID());
         response.setAttribute(LSDAttribute.UPDATED, entity.getAttribute(LSDAttribute.UPDATED));
         message.setResponse(response);

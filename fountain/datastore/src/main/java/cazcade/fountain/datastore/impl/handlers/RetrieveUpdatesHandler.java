@@ -25,10 +25,9 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
     public RetrieveUpdatesRequest handle(@Nonnull final RetrieveUpdatesRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
+            final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ENTITY_LIST);
             entity.timestamp();
             entity.setID(UUIDFactory.randomUUID());
-            entity.setType(LSDDictionaryTypes.ENTITY_LIST);
             final LiquidURI initialURI = request.getSessionIdentifier().getAlias();
             final LSDPersistedEntity startPersistedEntity = fountainNeo.findByURI(initialURI);
             if (startPersistedEntity == null) {

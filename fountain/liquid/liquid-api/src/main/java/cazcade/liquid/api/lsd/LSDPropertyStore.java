@@ -22,7 +22,7 @@ public interface LSDPropertyStore extends Serializable {
 
     boolean isSerializable();
 
-    void put(String property, String value);
+    void put(@Nonnull String property, @Nonnull String value);
 
     void remove(String property);
 

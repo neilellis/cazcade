@@ -62,8 +62,7 @@ public class CallbackServlet extends AbstractTwitterServlet {
 
             final AccessToken authAccessToken = twitter.getOAuthAccessToken(requestToken, verifier);
             final LiquidSessionIdentifier identity = (LiquidSessionIdentifier) request.getSession().getAttribute(CommonConstants.IDENTITY_ATTRIBUTE);
-            final LSDTransferEntity alias = LSDSimpleEntity.createEmpty();
-            alias.setType(LSDDictionaryTypes.ALIAS);
+            final LSDTransferEntity alias = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS);
             alias.timestamp();
             final User user = twitter.verifyCredentials();
             alias.setAttribute(LSDAttribute.NAME, user.getScreenName());

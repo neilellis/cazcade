@@ -242,9 +242,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 throw new DuplicateEntityException("Attempted to create an alias for a user, but that alias already exists .");
             }
 
-            final LSDTransferEntity alias = LSDSimpleEntity.createEmpty();
+            final LSDTransferEntity alias = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS);
             alias.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
-            alias.setType(LSDDictionaryTypes.ALIAS);
             alias.setAttribute(LSDAttribute.FULL_NAME, entity.getAttribute(LSDAttribute.FULL_NAME));
             if (entity.hasAttribute(LSDAttribute.IMAGE_URL)) {
                 alias.setAttribute(LSDAttribute.IMAGE_URL, entity.getAttribute(LSDAttribute.IMAGE_URL));

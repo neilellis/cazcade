@@ -52,7 +52,7 @@ public class NeoPropertyStore implements LSDPropertyStore {
     }
 
     @Override
-    public void put(final String property, final String value) {
+    public void put(@Nonnull final String property, @Nonnull final String value) {
         neoNode.setProperty(property, value);
     }
 

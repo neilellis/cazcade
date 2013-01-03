@@ -11,8 +11,6 @@ import java.util.*;
  * @author neilelliz@cazcade.com
  */
 public abstract class AbstractRequest implements LiquidRequest {
-
-
     public enum QueryType {
         MY, USERS_BOARDS, RECENT, HISTORY, POPULAR
     }
@@ -22,16 +20,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    private LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(new LSDTypeDefImpl(LSDDictionaryTypes.REQUEST,
-                                                                                          getClass().getName().substring(
-                                                                                                  getClass().getName().lastIndexOf(
-                                                                                                          '.'
-                                                                                                                                  ) +
-                                                                                                  1
-                                                                                                                        )
-    )
-                                                                      );
-
+    private LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(new LSDTypeDefImpl(LSDDictionaryTypes.REQUEST, getClass().getName().substring(getClass().getName().lastIndexOf('.') + 1))); 
 
     protected AbstractRequest() {
     }
@@ -40,6 +29,16 @@ public abstract class AbstractRequest implements LiquidRequest {
     public void adjustTimeStampForServerTime() {
         if (getRequestEntity() != null) {
             entity.setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        }
+    }
+
+    @Nullable
+    public final LSDTransferEntity getRequestEntity() {
+        if (entity.hasSubEntity(LSDAttribute.REQUEST_ENTITY)) {
+            return entity.getSubEntity(LSDAttribute.REQUEST_ENTITY, true);
+        }
+        else {
+            return null;
         }
     }
 
@@ -73,6 +72,21 @@ public abstract class AbstractRequest implements LiquidRequest {
         }
         result.addAll(getAffectedEntitiesInternal(uris));
         return result;
+    }
+
+    @Nullable
+    public final LSDTransferEntity getResponse() {
+        if (entity.hasSubEntity(LSDAttribute.REQUEST_RESULT)) {
+            return entity.getSubEntity(LSDAttribute.REQUEST_RESULT, true);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @Nullable
+    public final LiquidURI getUri() {
+        return entity.getURIAttribute(LSDAttribute.REQUEST_URI);
     }
 
     @Nonnull
@@ -208,6 +222,11 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nullable
+    public final LiquidSessionIdentifier getSessionIdentifier() {
+        return LiquidSessionIdentifier.fromString(entity.getAttribute(LSDAttribute.REQUEST_SESSION_ID));
+    }
+
+    @Nullable
     public final LiquidUUID getObjectUUID() {
         return entity.getUUIDAttribute(LSDAttribute.REQUEST_OBJECT_UUID);
     }
@@ -246,11 +265,6 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nullable
-    public final LiquidURI getUri() {
-        return entity.getURIAttribute(LSDAttribute.REQUEST_URI);
-    }
-
-    @Nullable
     public final LiquidUUID getPoolUUID() {
         return entity.getUUIDAttribute(LSDAttribute.REQUEST_POOL_UUID);
     }
@@ -276,26 +290,6 @@ public abstract class AbstractRequest implements LiquidRequest {
         }
         else {
             return getRequestEntity();
-        }
-    }
-
-    @Nullable
-    public final LSDTransferEntity getResponse() {
-        if (entity.hasSubEntity(LSDAttribute.REQUEST_RESULT)) {
-            return entity.getSubEntity(LSDAttribute.REQUEST_RESULT, true);
-        }
-        else {
-            return null;
-        }
-    }
-
-    @Nullable
-    public final LSDTransferEntity getRequestEntity() {
-        if (entity.hasSubEntity(LSDAttribute.REQUEST_ENTITY)) {
-            return entity.getSubEntity(LSDAttribute.REQUEST_ENTITY, true);
-        }
-        else {
-            return null;
         }
     }
 
@@ -583,11 +577,6 @@ public abstract class AbstractRequest implements LiquidRequest {
             );
         }
         entity.setAttribute(LSDAttribute.REQUEST_SESSION_ID, sessionId == null ? "" : sessionId.toString());
-    }
-
-    @Nullable
-    public final LiquidSessionIdentifier getSessionIdentifier() {
-        return LiquidSessionIdentifier.fromString(entity.getAttribute(LSDAttribute.REQUEST_SESSION_ID));
     }
 
     public final void setSince(final long since) {

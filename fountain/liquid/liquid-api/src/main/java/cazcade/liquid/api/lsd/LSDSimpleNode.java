@@ -47,10 +47,13 @@ public class LSDSimpleNode implements LSDNode {
         }
     }
 
-    @Nullable
+    @Nonnull
     public String getLeafValue() {
         if (!isLeaf()) {
             throw new UnsupportedOperationException("Cannot get a value from a non leaf node.");
+        }
+        if(value == null) {
+            throw new NullPointerException("Value of leaf was null");
         }
         return value;
     }

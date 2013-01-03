@@ -39,8 +39,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
                            final String pathWithQuery, final String serviceName, final String methodName,
                            @Nonnull final List<LiquidUUID> uuids, final String sessionId, final String format)
             throws RuntimeException, ServletException, IOException {
-        final LSDTransferEntity sessionStateEntity = LSDSimpleEntity.createEmpty();
-        sessionStateEntity.setType(LSDDictionaryTypes.SESSION);
+        final LSDTransferEntity sessionStateEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.SESSION);
         final LiquidUUID sessionUUID = LiquidUUID.fromString(sessionId);
         sessionStateEntity.setID(sessionUUID);
         final String queue = getQueue(req);
