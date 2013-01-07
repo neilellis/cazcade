@@ -52,7 +52,7 @@ public class LiquidBoardURL {
             final String str = longURL.substring(USER_STEM.length() + 1);
             final String[] strings = str.split("/");
             if (strings.length > 1) {
-                if (strings.length == 1 || !"public".equals(strings[1]) && !"profile".equals(strings[1])) {
+                if (!"public".equals(strings[1]) && !"profile".equals(strings[1])) {
                     throw new IllegalArgumentException(
                             "Format not valid for conversion to short url, needs to be in the boards pool to be a short url, '" +
                             longURL +

@@ -121,7 +121,7 @@ public class Logger {
 
 
     public void debug(final String message, @Nonnull final Object... params) {
-        if (logger != null && logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.debug(message, (Throwable) params[0]);
                 writeToSessionLog(getPrefix() + message, "details");
@@ -136,7 +136,7 @@ public class Logger {
 
     @SuppressWarnings({"ThrowableInstanceNeverThrown"})
     private String getPrefix() {
-        if (logger != null && logger.isDebugEnabled() && !production) {
+        if (logger.isDebugEnabled() && !production) {
             final StackTraceElement[] stackTraceElements = new Throwable().getStackTrace();
             for (final StackTraceElement stackTraceElement : stackTraceElements) {
                 final String className = stackTraceElement.getClassName();
@@ -157,7 +157,8 @@ public class Logger {
 
 
     public void debug(final Throwable t, final String message, final Object... params) {
-        if (logger != null && logger.isDebugEnabled()) {
+        if (
+                logger.isDebugEnabled()) {
             logger.debug(message, t);
             logger.debug(getPrefix() + MessageFormat.format(message, params));
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "details");
@@ -166,7 +167,7 @@ public class Logger {
     }
 
     public void debug(final Throwable t, final String message) {
-        if (logger != null && logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             logger.debug(message, t);
             logger.debug(getPrefix() + message);
             writeToSessionLog(getPrefix() + message, "details");
@@ -180,7 +181,7 @@ public class Logger {
 
 
     public void error(final String message, @Nonnull final Object... params) {
-        if (logger != null && logger.isEnabledFor(Level.ERROR)) {
+        if (logger.isEnabledFor(Level.ERROR)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 error((Throwable) params[0], message);
             } else {
@@ -192,7 +193,7 @@ public class Logger {
 
 
     public void error(@Nonnull final Throwable t, final String message, final Object... params) {
-        if (logger != null && logger.isEnabledFor(Level.ERROR)) {
+        if (logger.isEnabledFor(Level.ERROR)) {
             logger.error(getPrefix() + MessageFormat.format(message, params), t);
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
             writeToSessionLog(ExceptionUtils.getFullStackTrace(t), "error", "details");
@@ -250,7 +251,7 @@ public class Logger {
 
 
     public void info(final String message, @Nonnull final Object... params) {
-        if (logger != null && logger.isEnabledFor(Priority.INFO)) {
+        if (logger.isEnabledFor(Priority.INFO)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.info(message, (Throwable) params[0]);
                 writeToSessionLog(getPrefix() + message, "details");
@@ -264,7 +265,7 @@ public class Logger {
 
 
     public void info(final Throwable t, final String message, final Object... params) {
-        if (logger != null && logger.isEnabledFor(Priority.INFO)) {
+        if (logger.isEnabledFor(Priority.INFO)) {
             logger.info(message, t);
             logger.info(getPrefix() + MessageFormat.format(message, params));
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "details");
@@ -275,7 +276,7 @@ public class Logger {
 
 
     public void warn(final String message, @Nonnull final Object... params) {
-        if (logger != null && logger.isEnabledFor(Priority.WARN)) {
+        if (logger.isEnabledFor(Priority.WARN)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.warn(message, (Throwable) params[0]);
                 writeToSessionLog(getPrefix() + message, "error", "details");
@@ -289,7 +290,7 @@ public class Logger {
 
 
     public void warn(final Throwable t, final String message, final Object... params) {
-        if (logger != null && logger.isEnabledFor(Priority.WARN)) {
+        if (logger.isEnabledFor(Priority.WARN)) {
             logger.warn(message, t);
             logger.warn(getPrefix() + MessageFormat.format(message, params));
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
@@ -333,6 +334,7 @@ public class Logger {
         if (session.get() != null) {
             try {
                 final File parent = getSessionLogDirectory();
+                assert parent != null;
                 parent.mkdirs();
                 for (final String logType : logTypes) {
                     final File file = new File(parent, logType + ".txt");
@@ -421,9 +423,9 @@ public class Logger {
                 250
         );
         String contextStr = "\n(No context available)\n";
-        if (context != null) {
-            contextStr = "\nContext:\n" + XSTREAM.toXML(context.get()) + "\n";
-        }
+//        if (context != null) {
+//            contextStr = "\nContext:\n" + XSTREAM.toXML(context.get()) + "\n";
+//        }
         final String description = "Automatically logged exception for " +
                 username.get() +
                 " (session='" +

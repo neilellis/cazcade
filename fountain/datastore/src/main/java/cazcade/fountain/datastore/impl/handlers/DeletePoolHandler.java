@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public class DeletePoolHandler extends AbstractDataStoreHandler<DeletePoolRequest> implements DeletePoolRequestHandler {
     @Nonnull
     public DeletePoolRequest handle(@Nonnull final DeletePoolRequest request) throws InterruptedException {
-        if (request.getUri() != null) {
+        if (request.hasUri()) {
             return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getUri(), true,
                                                                                              request.isInternal(),
                                                                                              request.getDetail()

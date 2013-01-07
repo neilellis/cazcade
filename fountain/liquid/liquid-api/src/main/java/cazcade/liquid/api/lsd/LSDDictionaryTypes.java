@@ -153,6 +153,7 @@ public enum LSDDictionaryTypes implements LSDType {
         ReverseLookup.map.put(value, name());
     }
 
+    @Nonnull
     public String asString() {
         return value.asString();
     }
@@ -177,6 +178,7 @@ public enum LSDDictionaryTypes implements LSDType {
         return value.getFlavors();
     }
 
+    @Nonnull
     public String getGenus() {
         return value.getGenus();
     }
@@ -189,7 +191,7 @@ public enum LSDDictionaryTypes implements LSDType {
         return value.getTypeClass();
     }
 
-    @Nullable
+    @Nonnull
     public String getValue() {
         return value.asString();
     }

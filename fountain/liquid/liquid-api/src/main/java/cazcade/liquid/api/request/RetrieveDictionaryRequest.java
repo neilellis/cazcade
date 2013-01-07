@@ -2,6 +2,7 @@ package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 
@@ -18,10 +19,14 @@ public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
         super();
     }
 
+    public RetrieveDictionaryRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrieveDictionaryRequest(getCategory());
+        return new RetrieveDictionaryRequest(getEntity());
     }
 
     @Nonnull

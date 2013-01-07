@@ -19,7 +19,6 @@ public class LinkPoolObjectHandler extends AbstractDataStoreHandler<LinkPoolObje
     public LinkPoolObjectRequest handle(@Nonnull final LinkPoolObjectRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final LiquidUUID from = request.getFrom();
             final LiquidUUID to = request.getTo();
             final LiquidUUID target = request.getTarget();
             final LSDPersistedEntity result;
@@ -33,20 +32,22 @@ public class LinkPoolObjectHandler extends AbstractDataStoreHandler<LinkPoolObje
             if (request.isUnlink()) {
 //                if(targetPersistedEntityImpl.) {
 //                    System.err.println("Exists.");
-//                    System.err.println(fountainNeo.convertNodeToLSD(fountainNeo.findByURI(new LiquidURI(uri)), true).toString());
+//                    System.err.println(fountainNeo.toLSD(fountainNeo.findByURI(new LiquidURI(uri)), true).toString());
 //                    System.err.println("Target.");
-//                    System.err.println(fountainNeo.convertNodeToLSD(targetPersistedEntityImpl, true).toString());
+//                    System.err.println(fountainNeo.toLSD(targetPersistedEntityImpl, true).toString());
 //                    System.exit(-1);
 //                }
                 poolDAO.unlinkPoolObject(targetPersistedEntityImpl);
             }
 
-            if (from == null) {
+            if (!request.hasFrom()) {
                 result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetPersistedEntityImpl,
                                                 fountainNeo.findByUUID(to)
                                                );
             }
             else {
+                final LiquidUUID from = request.getFrom();
+
                 result = poolDAO.linkPoolObject(request.getSessionIdentifier(), newOwner, targetPersistedEntityImpl,
                                                 fountainNeo.findByUUID(from), fountainNeo.findByUUID(to)
                                                );
@@ -54,8 +55,7 @@ public class LinkPoolObjectHandler extends AbstractDataStoreHandler<LinkPoolObje
 
 
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, result.convertNodeToLSD(request.getDetail(), request.isInternal()
-                                                                                         )
+            return LiquidResponseHelper.forServerSuccess(request, result.toLSD(request.getDetail(), request.isInternal())
                                                         );
         } catch (RuntimeException e) {
             transaction.failure();

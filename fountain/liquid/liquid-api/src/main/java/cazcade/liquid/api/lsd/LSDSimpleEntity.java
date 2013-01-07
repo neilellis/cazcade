@@ -43,6 +43,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 
     public final void setType(@Nonnull final LSDDictionaryTypes type) {
         assertNotReadonly();
+        //noinspection ConstantConditions
         if (type.getValue() == null) {
             throw new NullPointerException("Cannot set type to a null value.");
         }
@@ -57,11 +58,13 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public void setAttribute(@Nonnull final LSDAttribute key, @Nullable final String value) {
+    public void setAttribute(@Nonnull final LSDAttribute key, @Nonnull final String value) {
         assertNotReadonly();
+        //noinspection ConstantConditions
         if (key == null) {
             throw new IllegalArgumentException("Cannot set a value for a null key.");
         }
+        //noinspection ConstantConditions
         if (value == null) {
             throw new NullPointerException("Cannot set an attribute to a null value, only an empty string.");
         }
@@ -199,14 +202,13 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public boolean equals(@Nullable final Object o) {
         final LiquidURI uri = getURI();
-        return this == o || !(o == null || getClass() != o.getClass()) && uri != null && uri.equals(((LSDBaseEntity) o).getURI());
+        return this == o || !(o == null || getClass() != o.getClass()) && uri.equals(((LSDBaseEntity) o).getURI());
     }
 
     @SuppressWarnings("DesignForExtension")
     @Override
     public int hashCode() {
-        final LiquidURI uri = getURI();
-        return uri != null ? uri.hashCode() : 0;
+        return getURI().hashCode();
     }
 
     @Override
@@ -218,9 +220,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         }
         int count = 1;
         for (final LSDBaseEntity entity : entities) {
-            if (entity.getUUID() == null) {
-                throw new IllegalArgumentException("Attempted to add a sub entity which had no id.");
-            }
             final String stemKey = stem.getKeyName();
             final String existingId = lsdProperties.get(stemKey + '.' + count + ".id");
             if (existingId != null && !existingId.equals(entity.getUUID().toString())) {
@@ -240,12 +239,14 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public final void addSubEntity(@Nonnull final LSDAttribute stem, @Nonnull final LSDBaseEntity entity,
                                    final boolean requiresId) {
         assertNotReadonly();
+        //noinspection ConstantConditions
         if (entity == null) {
             throw new NullPointerException("Attempted to add a null sub entity using stem " + stem);
         }
         if (!stem.isSubEntity()) {
             throw new IllegalArgumentException("Cannot add a sub entity to a non sub entity property '" + stem.getKeyName() + "'.");
         }
+        //noinspection ConstantConditions
         if (requiresId && entity.getUUID() == null) {
             throw new IllegalArgumentException("Attempted to add a sub entity which had no id.");
         }
@@ -398,11 +399,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public final LSDTransferEntity asUpdateEntity() {
         final LSDSimpleEntity newEntity = (LSDSimpleEntity) createNewEntity(getTypeDef(), getUUID());
-        final LiquidURI uri = getURI();
-        if (uri == null) {
-            throw new NullPointerException("Attempted to user a null uri in 'asUpdateEntity' in LSDSimpleEntity.");
-        }
-        newEntity.setURI(uri);
+        newEntity.setURI(getURI());
         return newEntity;
     }
 
@@ -428,9 +425,13 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         }
     }
 
+    @Nonnull
     @Override
     public final LiquidUUID getUUID() {
         initUUID();
+        if(uuid == null) {
+            throw new IllegalStateException("Attempted to access the UUID of an entity before it has been set.");
+        }
         return uuid;
     }
 
@@ -576,22 +577,27 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return values;
     }
 
+    @Nonnull
     @Override
     public final String getAttribute(@Nonnull final LSDAttribute attribute) {
         final String value = lsdProperties.get(attribute.getKeyName());
 //        if (value != null && !key.isValidFormat(FORMAT_VALIDATOR, (value))) {
 //            throw new IllegalArgumentException("The value in this LSDTransferEntity for " + key.name() + " was " + value + " which is invalid according to the dictionary.");
+        //noinspection VariableNotUsedInsideIf
+        if(value == null) {
+            throw new IllegalArgumentException("There is no value for key "+attribute+" use hasAttribute('"+attribute+"') prior to getAttributeXXX('"+attribute+"') to avoid this problem");
+        }
 //        }
         return value;
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public final LiquidURI getAttributeAsURI(@Nonnull final LSDAttribute attribute) {
         if (hasAttribute(attribute)) {
             return new LiquidURI(getAttribute(attribute));
         } else {
-            return null;
+            throw new IllegalArgumentException("There is no value for key "+attribute+" use hasAttribute prior to getAttributeXXX() to avoid this problem");
         }
     }
 
@@ -601,7 +607,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
             return defaultValue;
         }
         final String value = getAttribute(attribute);
-        if (value != null && !value.isEmpty()) {
+        if (!value.isEmpty()) {
             return "true".equals(value);
         } else {
             return defaultValue;
@@ -659,17 +665,18 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return lsdProperties.get(key);
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public final LiquidURI getURIAttribute(@Nonnull final LSDAttribute attribute) {
         final String value = getAttribute(attribute);
-        if (value != null && !value.isEmpty()) {
+        if (!value.isEmpty()) {
             return new LiquidURI(value);
         } else {
-            return null;
+            throw new IllegalArgumentException("There is no value for key "+attribute+" use hasAttribute prior to getAttributeXXX() to avoid this problem");
         }
     }
 
+    @Nonnull
     @Override
     public final Double getDoubleAttribute(@Nonnull final LSDAttribute attribute) throws NumberFormatException {
         return Double.valueOf(getAttribute(attribute));
@@ -681,20 +688,23 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return Integer.parseInt(getAttribute(attribute, String.valueOf(defaultValue)));
     }
 
+    @Nonnull
     @Override
-    public final String getAttribute(@Nonnull final LSDAttribute attribute, final String defaultValue) {
-        final String result = getAttribute(attribute);
+    public final String getAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final String defaultValue) {
+        final String result = lsdProperties.get(attribute.getKeyName());
         if (result == null || "null".equals(result)) {
             return defaultValue;
         }
         return result;
     }
 
+    @Nonnull
     @Override
     public final Integer getIntegerAttribute(@Nonnull final LSDAttribute attribute) throws NumberFormatException {
         return Integer.valueOf(getAttribute(attribute));
     }
 
+    @Nonnull
     @Override
     public final Long getLongAttribute(@Nonnull final LSDAttribute attribute) throws NumberFormatException {
         return Long.valueOf(getAttribute(attribute));
@@ -768,15 +778,16 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return getSubEntity(keyString, readonlyEntity);
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public final LiquidUUID getUUIDAttribute(@Nonnull final LSDAttribute attribute) {
         final String result = getAttribute(attribute);
-        if (result != null && !result.isEmpty()) {
+        if (!result.isEmpty()) {
             return LiquidUUID.fromString(result);
         } else {
-            return null;
-        }
+                throw new IllegalArgumentException("There was an emptyy string for key "+attribute+" use hasAttribute prior to getAttributeXXX() to avoid this problem");
+            }
+//        }        }
     }
 
     @Override
@@ -795,7 +806,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 
     @Override
     public final boolean isA(@Nonnull final LSDDictionaryTypes type) {
-        return getTypeDef() != null && getTypeDef().getPrimaryType().isA(type);
+        return getTypeDef().getPrimaryType().isA(type);
     }
 
     @Override
@@ -817,16 +828,16 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public boolean isNewerThan(@Nonnull final LSDBaseEntity entity) {
         final Date updated = getUpdated();
-        return updated != null && updated.after(entity.getUpdated());
+        return updated.after(entity.getUpdated());
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public Date getUpdated() {
         if (hasAttribute(LSDAttribute.UPDATED)) {
             return new Date(Long.parseLong(lsdProperties.get(LSDAttribute.UPDATED.getKeyName())));
         } else {
-            return null;
+            throw new IllegalStateException("Attempted to get the updated property of an entity before it had been set.");
         }
     }
 
@@ -989,17 +1000,25 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public boolean wasPublishedAfter(@Nonnull final LSDBaseEntity entity) {
         final Date published = getPublished();
-        return published != null && published.after(entity.getPublished());
+        return published.after(entity.getPublished());
     }
 
-    @Nullable
+    @Override
+    public boolean hasUpdated() {
+        return hasAttribute(LSDAttribute.UPDATED);
+    }
+
+    @Override public boolean hasId() {
+        return hasAttribute(LSDAttribute.ID);
+    }
+
+    @Nonnull
     @Override
     public Date getPublished() {
         if (hasAttribute(LSDAttribute.PUBLISHED)) {
             return new Date(Long.parseLong(lsdProperties.get(LSDAttribute.PUBLISHED.getKeyName())));
         } else {
-            return null;
-        }
+            throw new IllegalStateException("Attempted to get the published property of an entity before it had been set.");        }
     }
 
     @Override

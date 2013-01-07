@@ -274,14 +274,18 @@ public interface LSDEntity extends Serializable {
     class EntityUpdatedComparator implements Comparator<LSDEntity> {
         @Override
         public int compare(@Nonnull final LSDEntity entity, @Nonnull final LSDEntity entity1) {
-            return entity.getUpdated().compareTo(entity1.getUpdated());
+            final Date updated = entity.getUpdated();
+            assert updated != null;
+            return updated.compareTo(entity1.getUpdated());
         }
     }
 
     class EntityPublishedComparator implements Comparator<LSDEntity> {
         @Override
         public int compare(@Nonnull final LSDEntity entity, @Nonnull final LSDEntity entity1) {
-            return entity.getPublished().compareTo(entity1.getPublished());
+            final Date published = entity.getPublished();
+            assert published != null;
+            return published.compareTo(entity1.getPublished());
         }
     }
 

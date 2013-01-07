@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,16 +25,21 @@ public class ClaimAliasRequest extends AbstractRequest {
         super();
     }
 
+    public ClaimAliasRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new ClaimAliasRequest(getId(), getSessionIdentifier());
+        return new ClaimAliasRequest(getEntity());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
         return Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
     }

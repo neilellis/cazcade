@@ -31,6 +31,7 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDPersistedEntity userPersistedEntityImpl = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
+            assert userPersistedEntityImpl != null;
             if (userPersistedEntityImpl.hasRelationship(FountainRelationships.CLAIMED, Direction.OUTGOING)) {
                 final Iterable<FountainRelationship> claims = userPersistedEntityImpl.getRelationships(
                         FountainRelationships.CLAIMED, Direction.OUTGOING
@@ -47,7 +48,7 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
                         }
                     }
                     claimedPersistedEntity.createRelationshipTo(userPersistedEntityImpl, FountainRelationships.ALIAS);
-                    final LSDBaseEntity child = claimedPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
+                    final LSDBaseEntity child = claimedPersistedEntity.toLSD(request.getDetail(), request.isInternal());
                     children.add(child);
                     //todo: auto add feeds
                     if (child.attributeIs(LSDAttribute.NETWORK, "twitter")) {

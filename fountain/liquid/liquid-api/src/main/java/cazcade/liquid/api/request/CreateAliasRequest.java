@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class CreateAliasRequest extends AbstractCreationRequest {
-    public CreateAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public CreateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                               final LSDTransferEntity entity, final boolean me, final boolean orupdate, final boolean claim) {
         super();
         setClaim(claim);
@@ -27,17 +27,21 @@ public class CreateAliasRequest extends AbstractCreationRequest {
     }
 
     public CreateAliasRequest(final LSDTransferEntity alias, final boolean me, final boolean orupdate, final boolean claim) {
-        this(null, null, alias, me, orupdate, claim);
+        this(null, LiquidSessionIdentifier.ANON, alias, me, orupdate, claim);
     }
 
     public CreateAliasRequest() {
         super();
     }
 
+    public CreateAliasRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new CreateAliasRequest(getId(), getSessionIdentifier(), getRequestEntity(), isMe(), isOrCreate(), isClaim());
+        return new CreateAliasRequest(getEntity());
     }
 
     @Nonnull

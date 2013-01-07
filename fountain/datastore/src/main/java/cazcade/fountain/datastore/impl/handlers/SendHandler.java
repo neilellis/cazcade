@@ -30,7 +30,7 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
             //Note we run this as the recipient -- just like in email, the receiver owns the message.
             final LSDTransferEntity entity;
             final LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
-            if (request.getRequestEntity() != null) {
+            if (request.hasRequestEntity()) {
                 entity = poolDAO.createPoolObjectTx(poolPersistedEntity, recipientSessionId, owner,
                                                     request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(),
                                                     request.getDetail(), request.isInternal(), false

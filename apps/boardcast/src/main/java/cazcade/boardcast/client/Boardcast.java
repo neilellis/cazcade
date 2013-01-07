@@ -64,7 +64,7 @@ public class Boardcast implements EntryPoint {
     private Track tracker;
 
     public void onModuleLoad() {
-//        Window.alert(History.getToken());
+        //        Window.alert(History.getToken());
         HashboClientBundle.INSTANCE.css().ensureInjected();
         ClientApplicationConfiguration.init();
         ClientLog.setDebugMode(ClientApplicationConfiguration.isDebug());
@@ -88,14 +88,13 @@ public class Boardcast implements EntryPoint {
             public void onUncaughtException(final Throwable e) {
                 ClientLog.log(e);
             }
-        }
-                                       );
+        });
 
         if (!ClientApplicationConfiguration.isSnapshotMode()) {
             VersionNumberChecker.start();
         }
         if (ClientApplicationConfiguration.isDebug()) {
-//            Window.alert("Debugging build " + VersionNumberChecker.getBuildNumber());
+            //            Window.alert("Debugging build " + VersionNumberChecker.getBuildNumber());
         }
 
 
@@ -119,11 +118,27 @@ public class Boardcast implements EntryPoint {
             public void onSuccess() {
                 injectChildren();
             }
-        }
-                    );
+        });
 
         if (Window.Location.getParameter("justRegistered") != null) {
             RootPanel.get("page-title").getElement().setInnerText("Registered successfully");
+        }
+    }
+
+    private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
+        private final boolean embedded;
+
+        public SnapshotBoardFactory(final boolean embedded) {
+            super();
+
+            this.embedded = embedded;
+        }
+
+        @Nonnull @Override
+        protected HistoryAware getInstanceInternal() {
+            final SnapshotBoard board = new SnapshotBoard(embedded);
+            RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
+            return board;
         }
     }
 
@@ -134,7 +149,7 @@ public class Boardcast implements EntryPoint {
         tracker = Track.getInstance();
         History.addValueChangeHandler(tracker);
 
-//        addLogPanel();
+        //        addLogPanel();
 
         if (RootPanel.get(PUBLIC_BOARD_PANEL_ID) != null) {
             final Runnable loginAction = new Runnable() {
@@ -197,37 +212,30 @@ public class Boardcast implements EntryPoint {
     private void addPublicBoard() {
         historyManager = new HistoryManager(PUBLIC_BOARD_PANEL_ID);
         historyManager.registerTopLevelComposite("default", new AbstractLazyHistoryAwareFactory() {
-            @Nonnull
-            @Override
+            @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
                 final PublicBoard board = new PublicBoard();
                 RootPanel.get(PUBLIC_BOARD_PANEL_ID).add(board);
                 return board;
             }
-        }
-                                                );
+        });
         historyManager.registerTopLevelComposite("chat", new AbstractLazyHistoryAwareFactory() {
-            @Nonnull
-            @Override
+            @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
                 return new BoardcastChatView();
             }
-        }
-                                                );
+        });
         historyManager.registerTopLevelComposite("activity", new AbstractLazyHistoryAwareFactory() {
-            @Nonnull
-            @Override
+            @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
                 return new ActivityStreamPanel();
             }
-        }
-                                                );
+        });
     }
 
     private void addCreateDialog() {
         historyManager.registerTopLevelComposite("create", new AbstractLazyHistoryAwareFactory() {
-            @Nonnull
-            @Override
+            @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
                 final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
                 createBoardDialog.setOnComplete(new Runnable() {
@@ -237,7 +245,7 @@ public class Boardcast implements EntryPoint {
                         final String board = createBoardDialog.getBoard();
                         final boolean listed = createBoardDialog.isListed();
                         final String url = Window.Location.getParameter("url");
-                        if (!listed || url !=null) {
+                        if (!listed || url != null) {
                             BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
                                 @Override
                                 public void callback(@Nonnull final LiquidUUID uuid) {
@@ -247,19 +255,16 @@ public class Boardcast implements EntryPoint {
                                                                     UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
                                     HistoryManager.navigate(unlistedShortUrl);
                                 }
-                            }
-                                                                 );
+                            });
                         }
                         else {
                             HistoryManager.navigate(board);
                         }
                     }
-                }
-                                               );
+                });
                 return createBoardDialog;
             }
-        }
-                                                );
+        });
     }
 
     private void addSnapshotBoard() {
@@ -272,7 +277,9 @@ public class Boardcast implements EntryPoint {
         loginOrRegisterPanel = new HashboLoginOrRegisterPanel(registerRequest, new Runnable() {
             @Override
             public void run() {
-                loginUser(loginOrRegisterPanel.getIdentity(), loginAction);
+                final LiquidSessionIdentifier identity = loginOrRegisterPanel.getIdentity();
+                assert identity != null;
+                loginUser(identity, loginAction);
             }
         }, new Runnable() {
             @Override
@@ -295,53 +302,50 @@ public class Boardcast implements EntryPoint {
             @Override
             public void run() {
                 BusFactory.getInstance().start();
-                BusFactory.getInstance().send(new RetrieveAliasRequest(identity.getAliasURL()),
-                                              new AbstractResponseCallback<RetrieveAliasRequest>() {
-                                                  @Override
-                                                  public void onSuccess(final RetrieveAliasRequest message,
-                                                                        @Nonnull final RetrieveAliasRequest response) {
-                                                      final LSDTransferEntity alias = response.getResponse();
-                                                      UserUtil.setCurrentAlias(alias);
-                                                      final Map<String, String> propertyMap = new HashMap<String, String>();
-                                                      propertyMap.putAll(alias.getMap());
-                                                      propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
-                                                      propertyMap.put("alpha.mode", ClientApplicationConfiguration.isAlphaFeatures()
-                                                                                    ? "true"
-                                                                                    : "false"
-                                                                     );
-                                                      tracker.registerUser(alias.getAttribute(LSDAttribute.NAME),
-                                                                           alias.getAttribute(LSDAttribute.FULL_NAME), propertyMap
-                                                                          );
+                BusFactory.getInstance()
+                          .send(new RetrieveAliasRequest(identity.getAliasURL()), new AbstractResponseCallback<RetrieveAliasRequest>() {
+                              @Override
+                              public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
+                                  final LSDTransferEntity alias = response.getResponse();
+                                  UserUtil.setCurrentAlias(alias);
+                                  final Map<String, String> propertyMap = new HashMap<String, String>();
+                                  propertyMap.putAll(alias.getMap());
+                                  propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
+                                  propertyMap.put("alpha.mode", ClientApplicationConfiguration.isAlphaFeatures()
+                                                                ? "true"
+                                                                : "false");
+                                  final String name = alias.getAttribute(LSDAttribute.NAME);
+                                  final String fn = alias.getAttribute(LSDAttribute.FULL_NAME);
+                                  tracker.registerUser(name, fn, propertyMap);
 
-                                                      RootPanel.get().addStyleName("app-mode");
-                                                      loginOrRegisterPanel.hide();
-                                                      new Timer() {
-                                                          @Override
-                                                          public void run() {
-                                                              GWT.runAsync(new RunAsyncCallback() {
-                                                                  @Override
-                                                                  public void onFailure(final Throwable reason) {
-                                                                      ClientLog.log(reason);
-                                                                  }
-
-                                                                  @Override
-                                                                  public void onSuccess() {
-                                                                      onLogin.run();
-
-                                                                  }
-                                                              }
-                                                                          );
-                                                          }
-                                                      }.schedule(200);
-                                                  }
-
-                                                  @Override
-                                                  public void onFailure(final RetrieveAliasRequest message,
-                                                                        @Nonnull final RetrieveAliasRequest response) {
-                                                      ClientLog.log(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
-                                                  }
+                                  RootPanel.get().addStyleName("app-mode");
+                                  loginOrRegisterPanel.hide();
+                                  new Timer() {
+                                      @Override
+                                      public void run() {
+                                          GWT.runAsync(new RunAsyncCallback() {
+                                              @Override
+                                              public void onFailure(final Throwable reason) {
+                                                  ClientLog.log(reason);
                                               }
-                                             );
+
+                                              @Override
+                                              public void onSuccess() {
+                                                  onLogin.run();
+
+                                              }
+                                          });
+                                      }
+                                  }.schedule(200);
+                              }
+
+                              @Override
+                              public void onFailure(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
+                                  final LSDTransferEntity result = response.getResponse();
+                                  final String description = result.getAttribute(LSDAttribute.DESCRIPTION);
+                                  ClientLog.log(description);
+                              }
+                          });
             }
         }, new Runnable() {
             @Override
@@ -359,64 +363,49 @@ public class Boardcast implements EntryPoint {
             identity.getSession() == null ||
             registerRequest ||
             createRequest && UserUtil.isAnonymousOrLoggedOut()) {
-            DataStoreService.App.getInstance().loginQuick(
-                    !ClientApplicationConfiguration.isLoginRequired() && !createRequest && !registerRequest,
-                    new AsyncCallback<LiquidSessionIdentifier>() {
-                        @Override
-                        public void onFailure(final Throwable caught) {
-                            ClientLog.log(caught);
-                        }
+            DataStoreService.App
+                            .getInstance()
+                            .loginQuick(!ClientApplicationConfiguration.isLoginRequired()
+                                        && !createRequest
+                                        && !registerRequest, new AsyncCallback<LiquidSessionIdentifier>() {
+                                @Override
+                                public void onFailure(final Throwable caught) {
+                                    ClientLog.log(caught);
+                                }
 
-                        @Override
-                        public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
-                            if (result == null) {
-//                        Window.alert("Login required.");
-                                loginOrRegisterPanel.center();
-                                loginOrRegisterPanel.show();
-//                            Window.Location.assign("./" + (Window.Location.getQueryString().length() > 1 ? ("?" + Window.Location.getQueryString().substring(1)) : ""));
-                            }
-                            else {
-                                loginUser(result, loginAction);
-                            }
-                        }
-                    }
-                                                         );
+                                @Override
+                                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
+                                    if (result == null) {
+                                        //                        Window.alert("Login required.");
+                                        loginOrRegisterPanel.center();
+                                        loginOrRegisterPanel.show();
+                                        //                            Window.Location.assign("./" + (Window.Location.getQueryString().length() > 1 ? ("?" + Window.Location.getQueryString().substring(1)) : ""));
+                                    }
+                                    else {
+                                        loginUser(result, loginAction);
+                                    }
+                                }
+                            });
         }
         else {
             loginUser(identity, loginAction);
         }
     }
 
-//    protected void addLogPanel() {
-//        if (RootPanel.get("log-panel") != null) {
-//            if (Window.Location.getParameterMap().containsKey("debug") && Window.Location.getParameter("debug").equals("true")) {
-//                HTMLPanel logPanel = new HTMLPanel("log");
-//                ScrollPanel scrollPanel = new ScrollPanel(logPanel);
-//                RootPanel.get("log-panel").add(scrollPanel);
-//                RootPanel.get("log-panel").setWidth("100%");
-//                RootPanel.get("log-panel").setHeight("200");
-//                ClientLog.logWidget = logPanel.getElement();
-//            } else {
-//                RootPanel.get("log-panel").addStyleName("invisible");
-//            }
-//        }
-//    }
+    //    protected void addLogPanel() {
+    //        if (RootPanel.get("log-panel") != null) {
+    //            if (Window.Location.getParameterMap().containsKey("debug") && Window.Location.getParameter("debug").equals("true")) {
+    //                HTMLPanel logPanel = new HTMLPanel("log");
+    //                ScrollPanel scrollPanel = new ScrollPanel(logPanel);
+    //                RootPanel.get("log-panel").add(scrollPanel);
+    //                RootPanel.get("log-panel").setWidth("100%");
+    //                RootPanel.get("log-panel").setHeight("200");
+    //                ClientLog.logWidget = logPanel.getElement();
+    //            } else {
+    //                RootPanel.get("log-panel").addStyleName("invisible");
+    //            }
+    //        }
+    //    }
 
-    private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
-        private final boolean embedded;
 
-        public SnapshotBoardFactory(final boolean embedded) {
-            super();
-
-            this.embedded = embedded;
-        }
-
-        @Nonnull
-        @Override
-        protected HistoryAware getInstanceInternal() {
-            final SnapshotBoard board = new SnapshotBoard(embedded);
-            RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
-            return board;
-        }
-    }
 }

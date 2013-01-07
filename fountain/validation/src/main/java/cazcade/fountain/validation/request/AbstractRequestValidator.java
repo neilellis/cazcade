@@ -2,7 +2,6 @@ package cazcade.fountain.validation.request;
 
 import cazcade.fountain.validation.FountainEntityValidator;
 import cazcade.fountain.validation.api.FountainRequestValidator;
-import cazcade.fountain.validation.api.ValidationException;
 import cazcade.liquid.api.LiquidRequest;
 
 import javax.annotation.Nonnull;
@@ -22,9 +21,9 @@ public abstract class AbstractRequestValidator<T extends LiquidRequest> implemen
 //                break;
 //            }
 //        }
-        if (!validType) {
-            throw new ValidationException("Unsupported type " + request.getRequestEntity().getTypeDef().asString() + " for pools.");
-        }
+//        if (!validType) {
+//            throw new ValidationException("Unsupported type " + request.getRequestEntity().getTypeDef().asString() + " for pools.");
+//        }
     }
 
     public void setEntityValidator(final FountainEntityValidator entityValidator) {

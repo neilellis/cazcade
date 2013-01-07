@@ -27,12 +27,12 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
     @Nonnull
     public RetrieveAliasRequest handle(@Nonnull final RetrieveAliasRequest request) throws Exception {
         LSDTransferEntity result;
-        if (request.getTarget() != null) {
+        if (request.hasTarget()) {
             throw new UnsupportedOperationException("Retrieval by alias UUID not supported anymore.");
 //            log.warn("Retrieving alias using UUID - this behaviour is deprecated, use URIs.");
 //            result = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
         }
-        else if (request.getUri() != null) {
+        else if (request.hasUri()) {
             log.debug("Retrieving alias using URI {0}", request.getUri());
             result = socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(),
                                                    request.getDetail()
@@ -62,9 +62,7 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
                     for (final FountainRelationship relationship : relationships) {
                         final LSDPersistedEntity aliasPersistedEntity = relationship.getOtherNode(userPersistedEntity);
                         if (!aliasPersistedEntity.isDeleted()) {
-                            final LSDBaseEntity child = aliasPersistedEntity.convertNodeToLSD(request.getDetail(),
-                                                                                              request.isInternal()
-                                                                                             );
+                            final LSDBaseEntity child = aliasPersistedEntity.toLSD(request.getDetail(), request.isInternal());
                             children.add(child);
                             found = true;
                         }

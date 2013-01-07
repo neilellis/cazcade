@@ -20,7 +20,7 @@ public class CreateSessionHandler extends AbstractDataStoreHandler<CreateSession
         final Transaction transaction = neo.beginTx();
         try {
             final LSDPersistedEntity sessionPersistedEntity = userDAO.createSession(request.getUri(), request.getClient());
-            final LSDTransferEntity entity = sessionPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
+            final LSDTransferEntity entity = sessionPersistedEntity.toLSD(request.getDetail(), request.isInternal());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

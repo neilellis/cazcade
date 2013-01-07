@@ -492,7 +492,7 @@ public class FountainIntegrationTest {
 
         LSDBaseEntity updatedEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
         Assert.assertEquals(CAZCADE_COPYRIGHT_STATEMENT, updatedEntity.getAttribute(LSDAttribute.RIGHTS));
-        Assert.assertNotSame("999", updatedEntity.getAttribute(LSDAttribute.VIEW_X));
+        Assert.assertNotSame("999", updatedEntity.getSubEntity(LSDAttribute.VIEW, false).getAttribute(LSDAttribute.VIEW_X));
 
         testEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "pool.xml?url=" + objectURL);
         testEntity.setAttribute(LSDAttribute.RIGHTS, YOU_HAVE_NO_RIGHTS);

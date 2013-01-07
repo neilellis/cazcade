@@ -19,7 +19,7 @@ public interface LiquidRequest extends LiquidMessage {
      *
      * @return
      */
-    @Nullable
+    @Nonnull
     List<AuthorizationRequest> getAuthorizationRequests();
 
     long getCacheExpiry();
@@ -34,7 +34,7 @@ public interface LiquidRequest extends LiquidMessage {
     @Nonnull
     LiquidRequestType getRequestType();
 
-    @Nullable
+    @Nonnull
     LiquidSessionIdentifier getSessionIdentifier();
 
     boolean isAsyncRequest();
@@ -65,4 +65,8 @@ public interface LiquidRequest extends LiquidMessage {
     boolean shouldNotify();
 
     boolean shouldSendProvisional();
+
+    boolean hasRequestEntity();
+
+    boolean hasId();
 }

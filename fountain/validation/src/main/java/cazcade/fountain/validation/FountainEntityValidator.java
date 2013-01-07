@@ -23,6 +23,7 @@ public class FountainEntityValidator {
     public void validate(@Nonnull final LSDTransferEntity entity, final ValidationLevel level) {
         validateFormat(entity);
         final LSDTypeDef lsdTypeDef = entity.getTypeDef();
+        //noinspection ConstantConditions
         if (lsdTypeDef == null) {
             throw new LSDValidationException("All entities must have a type, entity %s had no type.", entity.getAttribute(
                     LSDAttribute.NAME
@@ -30,6 +31,7 @@ public class FountainEntityValidator {
             );
         }
         final String value = entity.getAttribute(LSDAttribute.UPDATED);
+        //noinspection ConstantConditions
         if (value == null) {
             throw new LSDValidationException(
                     "All entities must be timestamped (i.e. they must have a key: " + LSDAttribute.UPDATED.getKeyName() + ")."

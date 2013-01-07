@@ -18,7 +18,7 @@ public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> 
     public AddCommentRequest handle(@Nonnull final AddCommentRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            final LSDPersistedEntity commentTargetPersistedEntity = request.getTarget() != null
+            final LSDPersistedEntity commentTargetPersistedEntity = request.hasTarget()
                                                                     ? fountainNeo.findByUUID(request.getTarget()
                                                                                             )
                                                                     : fountainNeo.findByURI(request.getUri());
@@ -34,7 +34,7 @@ public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> 
 
             //This is an iPad app hack//
             // removed by Neil, we'll need to go back and fix a lot in the iPad application
-            //request.getEntity().addSubEntity(LSDAttribute.AUTHOR, fountainNeo.convertNodeToLSD(fountainNeo.findByURI(request.getAlias()), request.getDetail(), request.isInternal()));
+            //request.getEntity().addSubEntity(LSDAttribute.AUTHOR, fountainNeo.toLSD(fountainNeo.findByURI(request.getAlias()), request.getDetail(), request.isInternal()));
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, response);
         } catch (RuntimeException e) {

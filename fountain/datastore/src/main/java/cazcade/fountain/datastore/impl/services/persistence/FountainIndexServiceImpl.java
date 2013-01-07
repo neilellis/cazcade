@@ -106,17 +106,20 @@ public class FountainIndexServiceImpl {
 
     private boolean isBoard(@Nonnull final LSDPersistedEntity persistedEntity) {
         final Object type = persistedEntity.getAttribute(LSDAttribute.TYPE);
-        if (type == null) {
-            throw new NullPointerException("LSDPersistedEntity " + persistedEntity.getAttribute(LSDAttribute.URI) + " has no type");
-        }
         return type.toString().startsWith(LSDDictionaryTypes.BOARD.getValue());
     }
 
     private static void addCoreMetadataToBoard(@Nonnull final LSDPersistedEntity persistedEntity,
                                                @Nonnull final BoardIndexEntity board) {
-        board.setDescription(persistedEntity.getAttribute(LSDAttribute.DESCRIPTION, null));
-        board.setText(persistedEntity.getAttribute(LSDAttribute.TEXT_EXTENDED, null));
-        board.setTitle(persistedEntity.getAttribute(LSDAttribute.TITLE, null));
+        if(persistedEntity.hasAttribute(LSDAttribute.DESCRIPTION)) {
+        board.setDescription(persistedEntity.getAttribute(LSDAttribute.DESCRIPTION));
+        }
+        if(persistedEntity.hasAttribute(LSDAttribute.TEXT_EXTENDED)){
+            board.setText(persistedEntity.getAttribute(LSDAttribute.TEXT_EXTENDED));
+        }
+        if(persistedEntity.hasAttribute(LSDAttribute.TITLE)) {
+        board.setTitle(persistedEntity.getAttribute(LSDAttribute.TITLE));
+        }
     }
 
     private void addOwnershipToBoard(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final BoardIndexEntity board) {

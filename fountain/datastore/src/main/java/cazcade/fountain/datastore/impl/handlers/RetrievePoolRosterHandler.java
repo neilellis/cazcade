@@ -26,7 +26,7 @@ public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<Retrieve
             entity.timestamp();
             entity.setID(UUIDFactory.randomUUID());
 
-            if (request.getUri() != null) {
+            if (request.hasUri()) {
                 entities = socialDAO.getRosterNoTX(request.getUri(), request.isInternal(), request.getSessionIdentifier(),
                                                    request.getDetail()
                                                   );

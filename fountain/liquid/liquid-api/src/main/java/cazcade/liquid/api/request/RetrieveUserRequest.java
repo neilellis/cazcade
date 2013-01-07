@@ -1,22 +1,14 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class RetrieveUserRequest extends AbstractRetrievalRequest {
-    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri,
-                               final boolean internal) {
-        super();
-        setId(id);
-        setSessionId(identity);
-        setUri(uri);
-        setInternal(internal);
-    }
-
-    private RetrieveUserRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
-                                final LiquidURI uri) {
+    private RetrieveUserRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target,
+                                @Nullable final LiquidURI uri) {
         super();
         setTarget(target);
         setId(id);
@@ -28,12 +20,13 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this(null, identity, uri, internal);
     }
 
-    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
-                               final LiquidUUID target) {
+    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri,
+                               final boolean internal) {
         super();
         setId(id);
         setSessionId(identity);
-        setTarget(target);
+        setUri(uri);
+        setInternal(internal);
     }
 
     public RetrieveUserRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
@@ -44,22 +37,34 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this(null, identity, target);
     }
 
+    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
+                               final LiquidUUID target) {
+        super();
+        setId(id);
+        setSessionId(identity);
+        setTarget(target);
+    }
+
     public RetrieveUserRequest(final LiquidUUID target) {
-        this(null, null, target);
+        this(null, LiquidSessionIdentifier.ANON, target);
     }
 
     public RetrieveUserRequest(final LiquidURI uri) {
-        this(null, null, uri, false);
+        this(null, LiquidSessionIdentifier.ANON, uri, false);
     }
 
     public RetrieveUserRequest() {
         super();
     }
 
+    public RetrieveUserRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrieveUserRequest(getId(), getSessionIdentifier(), getTarget(), getUri());
+        return new RetrieveUserRequest(getEntity());
     }
 
     @Nonnull

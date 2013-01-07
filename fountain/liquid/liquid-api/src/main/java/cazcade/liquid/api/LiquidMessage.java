@@ -40,6 +40,7 @@ public interface LiquidMessage extends Serializable {
     @Nonnull
     String getDeduplicationIdentifier();
 
+    @Nonnull
     LiquidUUID getId();
 
     @Nonnull
@@ -47,10 +48,10 @@ public interface LiquidMessage extends Serializable {
 
     LiquidMessageOrigin getOrigin();
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity getRequestEntity();
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity getResponse();
 
     /**
@@ -73,4 +74,8 @@ public interface LiquidMessage extends Serializable {
     void setResponse(LSDTransferEntity entity);
 
     void setState(LiquidMessageState status);
+
+    boolean hasResponse();
+
+    boolean hasId();
 }

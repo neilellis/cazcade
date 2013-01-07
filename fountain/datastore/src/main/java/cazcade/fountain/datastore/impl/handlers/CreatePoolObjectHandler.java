@@ -5,6 +5,7 @@ import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.handler.CreatePoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.CreatePoolObjectRequest;
@@ -23,26 +24,25 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
         final Transaction transaction = neo.beginTx();
         try {
             final LSDPersistedEntity poolPersistedEntity;
-            if (request.getPoolURI() != null) {
-                poolPersistedEntity = fountainNeo.findByURI(request.getPoolURI());
+            if (request.hasUri()) {
+                final LiquidURI poolURI = request.getPoolURI();
+                poolPersistedEntity = fountainNeo.findByURI(poolURI);
                 if (poolPersistedEntity == null) {
-                    throw new DataStoreException("No such parent pool " + request.getPoolURI());
+                    throw new DataStoreException("No such parent pool " + poolURI);
                 }
             }
             else {
-                poolPersistedEntity = fountainNeo.findByUUID(request.getPool());
-                if (poolPersistedEntity == null) {
-                    throw new DataStoreException("No such parent pool " + request.getPool());
-                }
+                final LiquidUUID pool = request.getPool();
+                assert pool != null;
+                poolPersistedEntity = fountainNeo.findByUUID(pool);
             }
             final LiquidURI owner = request.getAlias();
 //            owner = defaultAndCheckOwner(request, owner);
             final LiquidURI result;
-            if (request.getAuthor() == null) {
-                result = request.getAlias();
-            }
-            else {
+            if (request.hasAuthor()) {
                 result = request.getAuthor();
+            } else {
+                result = request.getAlias();
             }
             final LSDTransferEntity entity = poolDAO.createPoolObjectTx(poolPersistedEntity, request.getSessionIdentifier(), owner,
                                                                         result, request.getRequestEntity(), request.getDetail(),

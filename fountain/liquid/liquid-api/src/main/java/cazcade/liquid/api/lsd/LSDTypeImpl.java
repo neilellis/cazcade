@@ -10,7 +10,7 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public class LSDTypeImpl implements LSDType {
-    @Nullable
+    @Nonnull
     private String genus;
     @Nullable
     private String family;
@@ -18,17 +18,18 @@ public class LSDTypeImpl implements LSDType {
     private String typeClass;
     @Nonnull
     private final List<String> flavors = new ArrayList<String>();
-    @Nullable
+    @Nonnull
     private String typeString;
 
-    public LSDTypeImpl(@Nullable final String genus, @Nullable final String family, @Nullable final String typeClass) {
+    public LSDTypeImpl(@Nonnull final String genus, @Nullable final String family, @Nullable final String typeClass) {
+        //noinspection ConstantConditions
         if (genus == null || family == null || typeClass == null) {
             throw new LSDTypeException("Types must be at least Genus.Family.Class");
         }
         this.genus = genus;
         this.family = family;
         this.typeClass = typeClass;
-        typeString = genus + "." + family + "." + typeClass;
+        typeString = genus + '.' + family + '.' + typeClass;
     }
 
     protected LSDTypeImpl(@Nonnull final String typeString, final boolean fullType) {
@@ -56,10 +57,12 @@ public class LSDTypeImpl implements LSDType {
     public LSDTypeImpl() {
     }
 
+    @Override
     public boolean canBe(@Nonnull final LSDDictionaryTypes type) {
-        return isA(type) || typeString.startsWith(type.getValue() + ".");
+        return isA(type) || typeString.startsWith(type.getValue() + '.');
     }
 
+    @Override
     public boolean isA(@Nonnull final LSDDictionaryTypes dictionaryType) {
         return typeString.equals(dictionaryType.getValue());
     }
@@ -82,11 +85,13 @@ public class LSDTypeImpl implements LSDType {
         return true;
     }
 
+    @Override
     @Nonnull
     public LSDType getClassOnlyType() {
         return new LSDTypeImpl(genus, family, typeClass);
     }
 
+    @Override
     @Nonnull
     public LSDType getParentType() {
         final int index = typeString.lastIndexOf('.');
@@ -101,6 +106,7 @@ public class LSDTypeImpl implements LSDType {
         return typeString.hashCode();
     }
 
+    @Override
     public boolean isSystemType() {
         return typeString.startsWith("System");
     }
@@ -111,7 +117,7 @@ public class LSDTypeImpl implements LSDType {
         return asString();
     }
 
-    @Nullable
+    @Nonnull
     public String asString() {
         return typeString;
     }
@@ -126,7 +132,7 @@ public class LSDTypeImpl implements LSDType {
         return flavors;
     }
 
-    @Nullable
+    @Nonnull
     public String getGenus() {
         return genus;
     }

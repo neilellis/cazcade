@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,8 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class FollowRequest extends AbstractRequest {
-    public FollowRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, final LiquidURI uri,
-                         final boolean follow) {
+    public FollowRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean follow) {
         super();
         setId(id);
         setSessionId(identity);
@@ -24,7 +24,7 @@ public class FollowRequest extends AbstractRequest {
     }
 
     public FollowRequest(final LiquidURI uri, final boolean follow) {
-        this(null, null, uri, follow);
+        this(null, LiquidSessionIdentifier.ANON, uri, follow);
     }
 
     /**
@@ -36,14 +36,18 @@ public class FollowRequest extends AbstractRequest {
         super();
     }
 
+    public FollowRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new FollowRequest(getId(), getSessionIdentifier(), getUri(), isFollow());
+        return new FollowRequest(getEntity());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
-        if (getSessionIdentifier() != null) {
+        if (!getSessionIdentifier().isAnon()) {
             return Arrays.asList(getUri(), getSessionIdentifier().getAliasURL());
         }
         else {

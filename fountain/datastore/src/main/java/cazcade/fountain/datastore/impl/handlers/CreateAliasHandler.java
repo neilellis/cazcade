@@ -26,29 +26,23 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
         try {
             final LiquidSessionIdentifier session = request.getSessionIdentifier();
             final LSDPersistedEntity userPersistedEntityImpl = fountainNeo.findByURI(session.getUserURL());
+            assert userPersistedEntityImpl != null;
             final LSDPersistedEntity aliasPersistedEntity = userDAO.createAlias(userPersistedEntityImpl, request.getRequestEntity(),
                                                                                 request.isMe(), request.isOrCreate(),
                                                                                 request.isClaim(), false
                                                                                );
-            final LSDTransferEntity entity = aliasPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
-            poolDAO.createPoolsForAliasNoTx(entity.getURI(), entity.getAttribute(LSDAttribute.NAME), entity.getAttribute(
-                    LSDAttribute.FULL_NAME
-                                                                                                                        ), false
-                                           );
+            final LSDTransferEntity entity = aliasPersistedEntity.toLSD(request.getDetail(), request.isInternal());
+            final String fullName = entity.hasAttribute(LSDAttribute.FULL_NAME)
+                                    ? entity.getAttribute(LSDAttribute.FULL_NAME)
+                                    : null;
+            final String name = entity.getAttribute(LSDAttribute.NAME);
+            poolDAO.createPoolsForAliasNoTx(entity.getURI(), name, fullName, false);
             //we reserve boards with user's name to avoid confusion with their profile boards.
-            final LSDPersistedEntity reservedPool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(),
-                                                                           fountainNeo.findByURI(new LiquidURI(
-                                                                                   FountainNeoImpl.BOARDS_URI
-                                                                           )
-                                                                                                ), entity.getAttribute(
-                    LSDAttribute.NAME
-                                                                                                                      ), 0, 0,
-                                                                           entity.getAttribute(LSDAttribute.FULL_NAME), true
-                                                                          );
+            final LSDPersistedEntity boardsPoolEntity = fountainNeo.findByURI(new LiquidURI(FountainNeoImpl.BOARDS_URI));
+            assert boardsPoolEntity != null;
+            final LSDPersistedEntity reservedPool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), boardsPoolEntity, name, 0, 0, fullName, true);
 //            fountainNeo.removeAllPermissions(reservedPool);
-            fountainNeo.changeNodePermissionNoTx(reservedPool, request.getSessionIdentifier(),
-                                                 LiquidPermissionChangeType.MAKE_PUBLIC_READONLY
-                                                );
+            fountainNeo.changeNodePermissionNoTx(reservedPool, request.getSessionIdentifier(), LiquidPermissionChangeType.MAKE_PUBLIC_READONLY);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (Exception e) {

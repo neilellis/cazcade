@@ -868,9 +868,8 @@
             <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.1.2.RELEASE" />
-            <element id="archive" name="vortex-1.1-SNAPSHOT.jar">
+            <element id="archive" name="comms-1.1-SNAPSHOT.jar">
               <element id="module-output" name="comms" />
-              <element id="module-output" name="pool" />
             </element>
             <element id="archive" name="datastore-api-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore-api" />
@@ -881,7 +880,7 @@
             <element id="archive" name="messaging-1.1-SNAPSHOT.jar">
               <element id="module-output" name="messaging" />
             </element>
-            <element id="archive" name="fountain-1.1-SNAPSHOT.jar">
+            <element id="archive" name="datastore-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore" />
             </element>
             <element id="archive" name="email-1.1-SNAPSHOT.jar">
@@ -946,6 +945,9 @@
             <element id="library" level="project" name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat" />
             <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
             <element id="library" level="project" name="Maven: com.allen-sauer.gwt.voices:gwt-voices:3.2.0" />
+            <element id="archive" name="pool-1.1-SNAPSHOT.jar">
+              <element id="module-output" name="pool" />
+            </element>
             <element id="archive" name="datastore-server-1.1-SNAPSHOT.jar">
               <element id="module-output" name="datastore-server" />
             </element>
@@ -1145,12 +1147,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="billabong" target="1.6" />
-      <module name="billabong-common" target="1.6" />
-      <module name="billabong-image" target="1.6" />
-      <module name="billabong-processing" target="1.6" />
-      <module name="billabong-snapshot" target="1.6" />
-      <module name="billabong-store" target="1.6" />
       <module name="boardcast" target="1.6" />
       <module name="bus" target="1.6" />
       <module name="cazcade" target="1.6" />
@@ -1169,7 +1165,6 @@
       <module name="email" target="1.6" />
       <module name="fountain" target="1.6" />
       <module name="gwt-util" target="1.6" />
-      <module name="hashbo" target="1.6" />
       <module name="index" target="1.6" />
       <module name="io" target="1.6" />
       <module name="liquid" target="1.6" />
@@ -1388,7 +1383,7 @@
         <inspection_tool class="ComparatorNotSerializable" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="CompareToUsesNonFinalVariable" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="ConditionSignal" enabled="true" level="WARNING" enabled_by_default="true" />
-        <inspection_tool class="ConstantConditions" enabled="true" level="WARNING" enabled_by_default="true">
+        <inspection_tool class="ConstantConditions" enabled="true" level="ERROR" enabled_by_default="true">
           <option name="SUGGEST_NULLABLE_ANNOTATIONS" value="true" />
           <option name="DONT_REPORT_TRUE_ASSERT_STATEMENTS" value="false" />
         </inspection_tool>
@@ -2063,6 +2058,8 @@
       <module fileurl="file://$PROJECT_DIR$/fountain/messaging/messaging.iml" filepath="$PROJECT_DIR$/fountain/messaging/messaging.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/notification/notification.iml" filepath="$PROJECT_DIR$/fountain/notification/notification.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/rest-server/rest-server.iml" filepath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrape/scrape.iml" filepath="$PROJECT_DIR$/scrape/scrape.iml" />
@@ -2071,9 +2068,12 @@
       <module fileurl="file://$PROJECT_DIR$/fountain/test/test.iml" filepath="$PROJECT_DIR$/fountain/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" filepath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" filepath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" filepath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/upload/upload.iml" filepath="$PROJECT_DIR$/apps/upload/upload.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/validation/validation.iml" filepath="$PROJECT_DIR$/fountain/validation/validation.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
     </modules>
   </component>
@@ -2265,6 +2265,10 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vortex" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/vortex/plugins" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/vortex/pool" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/vortex/widgets" vcs="svn" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="libraryTable">

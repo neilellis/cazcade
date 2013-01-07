@@ -24,9 +24,10 @@ public class FountainDataStoreRPCServer {
     public void start() throws IOException {
         listenerId = pubSub.addListener(topic, new LiquidMessageHandler<LiquidRequest>() {
 
+            @Nonnull
             @Override
             public LiquidRequest handle(LiquidRequest message) throws Exception {
-                final LiquidRequest response = (LiquidRequest) handler.handle(message);
+                final LiquidRequest response = handler.handle(message);
                 if (response.shouldNotify()) {
                     messageSender.sendNotifications(response);
                 }

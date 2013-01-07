@@ -41,7 +41,7 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
             );
             Collections.sort(entities, new LSDBaseEntity.EntityPublishedComparator());
             transaction.success();
-            if (entities == null || entities.isEmpty()) {
+            if (entities.isEmpty()) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
             }
             else {

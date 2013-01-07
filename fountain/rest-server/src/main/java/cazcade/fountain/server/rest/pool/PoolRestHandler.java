@@ -75,7 +75,7 @@ public class PoolRestHandler extends AbstractRestHandler {
                                 @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "author");
         final String author = parameters.get("author")[0];
-        if (entity.getUUID() != null && entity.getUUID().equals(poolId)) {
+        if (entity.hasId() && entity.getUUID().equals(poolId)) {
             return update(poolId, entity);
         }
         else {

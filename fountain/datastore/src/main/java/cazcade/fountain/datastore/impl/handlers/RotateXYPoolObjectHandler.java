@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -21,17 +22,17 @@ public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXY
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(request.getObjectUUID());
-            final LSDPersistedEntity viewPersistedEntity = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
-                                                                                                 Direction.OUTGOING
-                                                                                                ).getOtherNode(persistedEntity);
+            final FountainRelationship relationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
+                    Direction.OUTGOING
+            );
+            assert relationship != null;
+            final LSDPersistedEntity viewPersistedEntity = relationship.getOtherNode(persistedEntity);
 
-            if (request.getAngle() != null) {
+            if (request.hasAngle()) {
                 persistedEntity.setAttribute(LSDAttribute.VIEW_ROTATE_XY, request.getAngle());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(),
-                                                                                                       request.isInternal()
-                                                                                                      )
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toLSD(request.getDetail(), request.isInternal())
                                                         );
         } catch (RuntimeException e) {
             transaction.failure();

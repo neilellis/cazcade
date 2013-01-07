@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,7 +11,7 @@ import java.util.List;
 public class AdminCommandRequest extends AbstractRequest {
     private String[] args;
 
-    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                                final String... args) {
         super();
         setArgs(args);
@@ -18,22 +19,24 @@ public class AdminCommandRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
-    public AdminCommandRequest(final String... args) {
-        this(null, null, args);
-    }
 
     public AdminCommandRequest() {
         super();
     }
 
+    public AdminCommandRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new AdminCommandRequest(getId(), getSessionIdentifier(), getArgs());
+        return new AdminCommandRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(new LiquidURI("pool:///"), LiquidPermission.SYSTEM));
+        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), new LiquidURI("pool:///"), LiquidPermission.SYSTEM));
     }
 
     public List<String> getNotificationLocations() {

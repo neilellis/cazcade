@@ -60,15 +60,17 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     public LiquidRequest authorize(@Nonnull final LiquidRequest liquidRequest) throws Exception {
         final List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
         for (final AuthorizationRequest authRequest : authRequests) {
-            log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.getTarget());
+            log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.hasTarget() ? authRequest.getTarget() : "<no target>");
             authRequest.setSessionId(liquidRequest.getSessionIdentifier());
             final LiquidMessage message = dataStore.process(authRequest);
-            if (message == null) {
-                throw new NullPointerException("Received a null message back from the data store during authorization.");
-            }
-            if (message.getResponse() == null) {
-                throw new NullPointerException("Received a null response back from the data store during authorization.");
-            }
+//            //noinspection ConstantConditions
+//            if (message == null) {
+//                throw new NullPointerException("Received a null message back from the data store during authorization.");
+//            }
+//            //noinspection ConstantConditions
+//            if (message.getResponse() == null) {
+//                throw new NullPointerException("Received a null response back from the data store during authorization.");
+//            }
             final LSDType lsdType = message.getResponse().getTypeDef().getPrimaryType();
             if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
                 log.debug("SUCCESS for authorization.");

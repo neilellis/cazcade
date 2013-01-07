@@ -89,7 +89,7 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
                     }
                                                  );
                 }
-                BusFactory.getInstance().send(new UpdatePoolObjectRequest(updateEntity),
+                BusFactory.getInstance().send(new UpdatePoolObjectRequest( updateEntity),
                                               new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                                                   @Override
                                                   public void onSuccess(final UpdatePoolObjectRequest message,

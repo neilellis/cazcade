@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,10 +30,14 @@ public class CreateSessionRequest extends AbstractCreationRequest {
         super();
     }
 
+    public CreateSessionRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new CreateSessionRequest(getId(), getUri(), getClient());
+        return new CreateSessionRequest(getEntity());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {

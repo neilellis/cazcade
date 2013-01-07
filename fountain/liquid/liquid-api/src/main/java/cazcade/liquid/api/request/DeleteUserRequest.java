@@ -4,12 +4,13 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DeleteUserRequest extends AbstractDeletionRequest {
-    public DeleteUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public DeleteUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                              final LiquidUUID target) {
         super();
         setId(id);
@@ -21,18 +22,18 @@ public class DeleteUserRequest extends AbstractDeletionRequest {
         this(null, identity, target);
     }
 
-    public DeleteUserRequest(final LiquidUUID target) {
-        this(null, null, target);
-    }
-
     public DeleteUserRequest() {
         super();
+    }
+
+    public DeleteUserRequest(final LSDTransferEntity entity) {
+        super(entity);
     }
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new DeleteUserRequest(getId(), getSessionIdentifier(), getTarget());
+        return new DeleteUserRequest(getEntity());
     }
 
     @Nonnull

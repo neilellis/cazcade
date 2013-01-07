@@ -46,13 +46,13 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
 
     @Nonnull
     public LiquidRequest process(@Nonnull final LiquidRequest request) throws InterruptedException {
-        log.debug("Processing request " + request.getId());
         begin();
         try {
-            if (request.getId() == null) {
+            if (!request.hasId()) {
                 request.setId(UUIDFactory.randomUUID());
             }
-            if (request.getRequestEntity() != null && request.getRequestEntity().getUpdated() == null) {
+            log.debug("Processing request " + request.getId());
+            if (!request.hasRequestEntity() && !request.getRequestEntity().hasUpdated()) {
                 request.getRequestEntity().timestamp();
             }
             requestValidator.validate(request, ValidationLevel.MODERATE);

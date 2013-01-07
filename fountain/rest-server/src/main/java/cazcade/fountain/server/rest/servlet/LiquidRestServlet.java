@@ -188,11 +188,6 @@ public class LiquidRestServlet extends AbstractRestServlet {
                 throw new NullPointerException("FAIL The method " + method.getName() + " returned a null message.");
             }
             final LSDTransferEntity responseEntity = message.getResponse();
-            if (responseEntity == null) {
-                throw new NullPointerException(
-                        "FAIL The method " + method.getName() + " returned a message with a null response entity."
-                );
-            }
             doLSDResponse(responseEntity, format, resp);
         }
         else if (method.getReturnType().equals(LSDTransferEntity.class)) {

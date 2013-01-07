@@ -60,9 +60,8 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             fountainNeo.freeTextIndexNoTx(commentPersistedEntity);
 
             commentPersistedEntity.setIDIfNotSetOnNode();
-            String name = entityCopy.getAttribute(LSDAttribute.NAME);
-            if (name == null) {
-                name = entityCopy.getTypeDef().getPrimaryType().getGenus().toLowerCase() + System.currentTimeMillis();
+            if (!entityCopy.hasAttribute(LSDAttribute.NAME)) {
+                final String name = entityCopy.getTypeDef().getPrimaryType().getGenus().toLowerCase() + System.currentTimeMillis();
                 entityCopy.setAttribute(LSDAttribute.NAME, name);
             }
             final String uri = commentEntity.getAttribute(LSDAttribute.URI) +
@@ -82,6 +81,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             }
             commentEntity.createRelationshipTo(commentPersistedEntity, COMMENT);
             final LSDPersistedEntity ownerPersistedEntity = fountainNeo.findByURI(author);
+            assert ownerPersistedEntity != null;
             commentPersistedEntity.createRelationshipTo(ownerPersistedEntity, OWNER);
             commentPersistedEntity.createRelationshipTo(ownerPersistedEntity, CREATOR);
             commentPersistedEntity.createRelationshipTo(ownerPersistedEntity, EDITOR);
@@ -143,7 +143,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             parent.createRelationshipTo(persistedEntityImpl, FountainRelationships.CHILD);
             parent.modifiedTimestamp();
 
-            final LSDPersistedEntity ownerPersistedEntity = fountainNeo.findByURI(owner);
+            final LSDPersistedEntity ownerPersistedEntity = fountainNeo.findByURIOrFail(owner);
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.OWNER);
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.CREATOR);
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.EDITOR);
@@ -199,7 +199,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         }
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LSDTransferEntity createPoolObjectTx(@Nonnull final LSDPersistedEntity pool,
                                                 @Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidURI owner,
@@ -228,7 +228,9 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             public void call(LSDPersistedEntity child) throws InterruptedException {
                 if (!child.isDeleted() && !child.canBe(LSDDictionaryTypes.POOL) && child
                         .hasAttribute(LSDAttribute.IMAGE_URL)) {
-                    LSDPersistedEntity viewNode = child.getSingleRelationship(VIEW, Direction.OUTGOING).getOtherNode(child);
+                    final FountainRelationship singleRelationship = child.getSingleRelationship(VIEW, Direction.OUTGOING);
+                    assert singleRelationship != null;
+                    LSDPersistedEntity viewNode = singleRelationship.getOtherNode(child);
                     double thisdistance = Double.valueOf(viewNode.getAttribute(LSDAttribute.VIEW_RADIUS).toString());
                     if (thisdistance < distance[0]) {
                         distance[0] = thisdistance;
@@ -261,11 +263,15 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             final LSDTransferEntity entityCopy = entity.copy();
             //We shouldn't be using the ID supplied to us.
             entityCopy.removeCompletely(LSDAttribute.ID);
-            String name = entityCopy.getAttribute(LSDAttribute.NAME);
-            if (name == null) {
+            final String name;
+            if (!entityCopy.hasAttribute(LSDAttribute.NAME)) {
                 name = entityCopy.getTypeDef().getPrimaryType().getGenus().toLowerCase() + System.currentTimeMillis();
                 entityCopy.setAttribute(LSDAttribute.NAME, name);
+            } else {
+                name = entityCopy.getAttribute(LSDAttribute.NAME);
+
             }
+
             final LSDTransferEntity viewEntity = entityCopy.removeSubEntity(LSDAttribute.VIEW);
             viewEntity.setAttribute(LSDAttribute.ID, "");
             if (author == null) {
@@ -281,6 +287,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             persistedEntityImpl.setAttribute(LSDAttribute.URI, uri);
             pool.createRelationshipTo(persistedEntityImpl, FountainRelationships.CHILD);
             final LSDPersistedEntity ownerPersistedEntity = fountainNeo.findByURI(owner, true);
+            assert ownerPersistedEntity != null;
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.OWNER);
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.CREATOR);
             persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.EDITOR);
@@ -450,7 +457,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         }
     }
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity deletePoolObjectNoTx(final boolean internal, final LiquidRequestDetailLevel detail,
                                            @Nonnull final Transaction transaction,
                                            @Nonnull final LSDPersistedEntity persistedEntity) throws Exception {
@@ -478,10 +485,10 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         }
         recalculateCentreImage(relationship.getOtherNode(persistedEntity), persistedEntity);
         transaction.success();
-        return persistedEntity.convertNodeToLSD(detail, internal);
+        return persistedEntity.toLSD(detail, internal);
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LSDTransferEntity deletePoolObjectTx(@Nonnull final LiquidURI uri, final boolean internal,
                                                 final LiquidRequestDetailLevel detail) throws Exception {
@@ -490,6 +497,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             final Transaction transaction = fountainNeo.beginTx();
             try {
                 final LSDPersistedEntity persistedEntity = fountainNeo.findByURI(uri);
+                assert persistedEntity != null;
                 return deletePoolObjectNoTx(internal, detail, transaction, persistedEntity);
             } catch (RuntimeException e) {
                 transaction.failure();
@@ -562,9 +570,6 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         fountainNeo.begin();
         try {
             final LSDPersistedEntity persistedEntityImpl = fountainNeo.findByUUID(target);
-            if (persistedEntityImpl == null) {
-                return null;
-            }
             return getPoolAndContentsNoTx(persistedEntityImpl, detail, contents, order, internal, identity, start, end, historical);
         } finally {
             fountainNeo.end();
@@ -605,6 +610,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                     return null;
                 }
                 assertHasOwner(persistedEntity);
+                assert parent != null;
                 assertHasOwner(parent);
                 return convertNodeToEntityWithRelatedEntitiesNoTX(identity, persistedEntity.getLatestVersionFromFork(), parent,
                                                                   detail, internal, historical
@@ -630,9 +636,6 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             final Transaction transaction = fountainNeo.beginTx();
             try {
                 final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(uuid);
-                if (persistedEntity == null) {
-                    return null;
-                }
                 return convertNodeToEntityWithRelatedEntitiesNoTX(identity, persistedEntity.getLatestVersionFromFork(), null,
                                                                   detail, internal, historical
                                                                  );
@@ -740,9 +743,9 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             @Nullable
             @Override
             public LSDTransferEntity call() throws Exception {
-                return convertNodeToEntityWithRelatedEntitiesNoTX(editor, linkPoolObject(editor, fountainNeo.findByURI(newOwner),
-                                                                                         fountainNeo.findByURI(target),
-                                                                                         fountainNeo.findByURI(to)
+                return convertNodeToEntityWithRelatedEntitiesNoTX(editor, linkPoolObject(editor, fountainNeo.findByURIOrFail(newOwner),
+                                                                                         fountainNeo.findByURIOrFail(target),
+                                                                                         fountainNeo.findByURIOrFail(to)
                                                                                         ),
                                                                   null, detail, internal, false
                                                                  );
@@ -772,6 +775,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             fountainNeo.reindex(clone, LSDAttribute.URI, LSDAttribute.URI);
             to.createRelationshipTo(clone, FountainRelationships.CHILD);
             final FountainRelationship ownerRel = clone.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
+            assert ownerRel != null;
             ownerRel.delete();
             clone.createRelationshipTo(newOwner, FountainRelationships.OWNER);
             recalculatePoolURIs(clone);
@@ -789,7 +793,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                                                  @Nullable final Double y, @Nullable final Double z) throws Exception {
         fountainNeo.begin();
         try {
-            final LSDPersistedEntity persistedEntity = fountainNeo.findByURI(object);
+            final LSDPersistedEntity persistedEntity = fountainNeo.findByURIOrFail(object);
             final FountainRelationship relationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
                                                                                             Direction.OUTGOING
                                                                                            );
@@ -802,11 +806,11 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 );
             }
             final LSDPersistedEntity viewPersistedEntity = relationship.getOtherNode(persistedEntity);
-            if (viewPersistedEntity == null) {
-                throw new EntityNotFoundException("No view relationship for %s(%s)", persistedEntity.getAttribute(LSDAttribute.URI),
-                                                  object
-                );
-            }
+//            if (viewPersistedEntity == null) {
+//                throw new EntityNotFoundException("No view relationship for %s(%s)", persistedEntity.getAttribute(LSDAttribute.URI),
+//                                                  object
+//                );
+//            }
             if (x != null) {
                 viewPersistedEntity.setAttribute(LSDAttribute.VIEW_X, x.toString());
             }
@@ -848,7 +852,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             LSDTransferEntity newObject;
             final Transaction transaction = fountainNeo.beginTx();
             try {
-                final LSDPersistedEntity persistedEntity = fountainNeo.findByURI(target, true);
+                final LSDPersistedEntity persistedEntity = fountainNeo.findByURIOrFail(target);
                 persistedEntity.setAttribute(LSDAttribute.SELECTED, selected);
                 newObject = convertNodeToEntityWithRelatedEntitiesNoTX(identity, persistedEntity, null, detail, internal, false);
                 indexDAO.incrementBoardActivity(persistedEntity);
@@ -895,7 +899,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         }
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LSDTransferEntity updatePool(@Nonnull final LiquidSessionIdentifier sessionIdentifier,
                                         @Nonnull final LSDPersistedEntity pool,
@@ -915,27 +919,29 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                                      );
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LSDTransferEntity getPoolAndContentsNoTx(@Nonnull final LSDPersistedEntity targetPersistedEntity,
                                                     final LiquidRequestDetailLevel detail, final boolean contents,
                                                     final ChildSortOrder order, final boolean internal,
                                                     @Nonnull final LiquidSessionIdentifier identity, @Nullable Integer start,
                                                     @Nullable Integer end, final boolean historical) throws Exception {
+        Integer endActual = end;
+        Integer startActual = start;
         fountainNeo.begin();
         try {
             final LSDPersistedEntity pool = convertToPoolFromPoolOrObject(targetPersistedEntity);
             final LSDTransferEntity entity = convertNodeToEntityWithRelatedEntitiesNoTX(identity, pool, null, detail, internal,
-                                                                                        historical
-                                                                                       );
+                    historical
+            );
             if (contents) {
                 final List<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>();
                 final int count = 0;
                 pool.forEachChild(new NodeCallback() {
                     public void call(@Nonnull final LSDPersistedEntity child) throws Exception {
                         final LSDBaseEntity poolObjectEntity = convertNodeToEntityWithRelatedEntitiesNoTX(identity, child, pool,
-                                                                                                          detail, internal, false
-                                                                                                         );
+                                detail, internal, false
+                        );
                         if (targetPersistedEntity.equals(child)) {
                             poolObjectEntity.setAttribute(LSDAttribute.HAS_FOCUS, "true");
                         }
@@ -945,18 +951,18 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                         poolObjectEntity.setAttribute(LSDAttribute.POPULARITY_METRIC, String.valueOf(child.popularity()));
                     }
                 }
-                                 );
+                );
                 //Put the result into descending time order.
                 SortUtil.sort(entities, order);
-                if (end == null) {
-                    end = entities.size() - 1;
+                if (endActual == null) {
+                    endActual = entities.size() - 1;
                 }
-                if (start == null) {
-                    start = 0;
+                if (startActual == null) {
+                    startActual = 0;
                 }
-                entity.addSubEntities(LSDAttribute.CHILD, entities.subList(start, end >= entities.size() ? entities.size() : end + 1
-                                                                          )
-                                     );
+                entity.addSubEntities(LSDAttribute.CHILD, entities.subList(startActual, endActual >= entities.size() ? entities.size() : endActual + 1
+                )
+                );
                 entity.setAttribute(LSDAttribute.POPULARITY_METRIC, String.valueOf(targetPersistedEntity.popularity()));
                 indexDAO.addMetrics(pool, entity);
             }
@@ -978,7 +984,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         return pool;
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LSDTransferEntity updatePoolObjectNoTx(@Nonnull final LiquidSessionIdentifier identity,
                                                   @Nonnull final LiquidSessionIdentifier editor,
@@ -1033,19 +1039,12 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         return fountainNeo.cloneNodeForNewVersion(editor, persistedEntityImpl, fork);
     }
 
-    @Nullable
-    public LSDTransferEntity convertNodeToEntityWithRelatedEntitiesNoTX(@Nonnull final LiquidSessionIdentifier identity,
-                                                                        @Nullable final LSDPersistedEntity persistedEntity,
-                                                                        @Nullable final LSDPersistedEntity parent,
-                                                                        final LiquidRequestDetailLevel detail,
-                                                                        final boolean internal, final boolean historical)
-            throws InterruptedException {
+    @Nonnull
+    public LSDTransferEntity convertNodeToEntityWithRelatedEntitiesNoTX(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDPersistedEntity persistedEntity, @Nullable final LSDPersistedEntity parent, final LiquidRequestDetailLevel detail, final boolean internal, final boolean historical) throws InterruptedException {
         fountainNeo.begin();
         try {
-            if (persistedEntity == null) {
-                return null;
-            }
-            final LSDTransferEntity entity = persistedEntity.convertNodeToLSD(detail, internal);
+
+            final LSDTransferEntity entity = persistedEntity.toLSD(detail, internal);
             boolean done = false;
             final LiquidRequestDetailLevel aliasDetailLevel = detail == LiquidRequestDetailLevel.COMPLETE
                                                               ? LiquidRequestDetailLevel.COMPLETE
@@ -1056,8 +1055,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 if (done) {
                     throw new DuplicateEntityException("Found a second view for a single object.");
                 }
-                entity.addSubEntity(LSDAttribute.VIEW, relationship.getOtherNode(persistedEntity).convertNodeToLSD(detail, internal
-                                                                                                                  ), true
+                entity.addSubEntity(LSDAttribute.VIEW, relationship.getOtherNode(persistedEntity).toLSD(detail, internal), true
                                    );
                 done = true;
             }
@@ -1099,8 +1097,10 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 final List<LSDBaseEntity> history = new ArrayList<LSDBaseEntity>();
                 LSDPersistedEntity version = persistedEntity;
                 while (version.hasRelationship(VERSION_PARENT, Direction.OUTGOING)) {
-                    version = version.getSingleRelationship(VERSION_PARENT, Direction.OUTGOING).getOtherNode(version);
-                    history.add(version.convertNodeToLSD(detail, false));
+                    final FountainRelationship relationship = version.getSingleRelationship(VERSION_PARENT, Direction.OUTGOING);
+                    assert relationship != null;
+                    version = relationship.getOtherNode(version);
+                    history.add(version.toLSD(detail, false));
                 }
                 entity.addSubEntities(LSDAttribute.HISTORY, history);
             }

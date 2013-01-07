@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public class UpdateAliasHandler extends AbstractUpdateHandler<UpdateAliasRequest> implements UpdateAliasRequestHandler {
     @Nonnull
     public UpdateAliasRequest handle(@Nonnull final UpdateAliasRequest request) throws Exception {
-        if (request.getUri() != null) {
+        if (request.hasUri()) {
             fountainNeo.updateEntityByURITx(request.getSessionIdentifier(), request.getUri(), request.getRequestEntity(),
                                             request.isInternal(), request.getDetail(), null
                                            );

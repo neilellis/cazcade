@@ -1,5 +1,6 @@
 package cazcade.boardcast.client.main.menus.account;
 
+import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
@@ -65,7 +66,7 @@ public class ProfileEditor extends Composite {
         changeButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                BusFactory.getInstance().send(new UpdateAliasRequest(updateEntity),
+                BusFactory.getInstance().send(new UpdateAliasRequest(LiquidSessionIdentifier.ANON, updateEntity),
                                               new AbstractResponseCallback<UpdateAliasRequest>() {
                                                   @Override
                                                   public void onSuccess(final UpdateAliasRequest message,

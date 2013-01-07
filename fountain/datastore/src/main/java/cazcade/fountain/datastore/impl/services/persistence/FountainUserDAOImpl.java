@@ -74,7 +74,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         return fountainNeo.doInTransactionAndBeginBlock(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                final LSDPersistedEntity userPersistedEntity = fountainNeo.findByURI(user);
+                final LSDPersistedEntity userPersistedEntity = fountainNeo.findByURIOrFail(user);
                 final String hashString = createUserHashableString(userPersistedEntity);
                 return FountainUserDAOImpl.digester.matches(hashString, changePasswordSecurityHash);
             }
@@ -128,6 +128,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 final FountainRelationship userRelationship = otherNetworkAlias.getSingleRelationship(FountainRelationships.ALIAS,
                                                                                                       Direction.OUTGOING
                                                                                                      );
+                assert userRelationship != null;
                 userPersistedEntity = userRelationship.getEndNode();
                 ownerPersistedEntityImpl = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.alias,
                                                                                "cazcade:" + userPersistedEntity.getAttribute(
@@ -141,7 +142,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             }
 
 
-            //noinspection PointlessBooleanExpression
+            //noinspection PointlessBooleanExpression,ConstantConditions
             if (userPersistedEntity.hasAttribute(LSDAttribute.SECURITY_RESTRICTED) && USER_MUST_CONFIRM_EMAIL) {
                 final String restricted = userPersistedEntity.getAttribute(LSDAttribute.SECURITY_RESTRICTED);
                 if ("true".equals(restricted)) {
@@ -257,7 +258,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         }
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LSDPersistedEntity createAlias(@Nonnull final LSDPersistedEntity userPersistedEntityImpl,
                                           @Nonnull final LSDTransferEntity entity, final boolean me, final boolean orupdate,
@@ -365,9 +366,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                         log.warn("No owner for alias " + uri);
                     }
                     else {
-                        final LSDTransferEntity userEntity = ownerRel.getEndNode().convertNodeToLSD(
-                                LiquidRequestDetailLevel.COMPLETE, true
-                                                                                                   );
+                        final LSDTransferEntity userEntity = ownerRel.getEndNode().toLSD(LiquidRequestDetailLevel.COMPLETE, true);
                         callback.process(userEntity, aliasEntity);
                     }
                 }
@@ -376,13 +375,13 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                             );
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public LSDTransferEntity getAliasFromNode(@Nonnull final LSDPersistedEntity persistedEntity, final boolean internal,
                                               final LiquidRequestDetailLevel detail) throws InterruptedException {
         fountainNeo.begin();
         try {
-            return persistedEntity.convertNodeToLSD(detail, internal);
+            return persistedEntity.toLSD(detail, internal);
         } finally {
             fountainNeo.end();
         }
@@ -395,7 +394,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             @Override
             public Object call() throws Exception {
                 final LSDPersistedEntity userPersistedEntity = fountainNeo.findByURI(userURI);
-                final LSDTransferEntity userEntity = userPersistedEntity.convertNodeToLSD(LiquidRequestDetailLevel.COMPLETE, true);
+                assert userPersistedEntity != null;
+                final LSDTransferEntity userEntity = userPersistedEntity.toLSD(LiquidRequestDetailLevel.COMPLETE, true);
 
                 emailService.sendChangePasswordRequest(userEntity, FountainUserDAOImpl.digester.digest(createUserHashableString(
                         userPersistedEntity
@@ -435,7 +435,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                     );
                 }
                 transaction.success();
-                return persistedEntity.convertNodeToLSD(detail, internal);
+                return persistedEntity.toLSD(detail, internal);
             } catch (RuntimeException e) {
                 transaction.failure();
                 throw e;

@@ -18,14 +18,14 @@ public interface FountainPoolDAO {
     //Comments
 
     @Nonnull
-    LSDPersistedEntity addCommentNoTX(LSDPersistedEntity commentEntity, LSDTransferEntity commentTransferEntity, LiquidURI alias)
+    LSDPersistedEntity addCommentNoTX(@Nullable LSDPersistedEntity commentEntity, @Nullable LSDTransferEntity commentTransferEntity, LiquidURI alias)
             throws InterruptedException;
 
 
     //Pool and object Retrieval
 
     //todo: this should be a utility method not public API
-    @Nullable
+    @Nonnull
     LSDTransferEntity convertNodeToEntityWithRelatedEntitiesNoTX(LiquidSessionIdentifier sessionIdentifier, LSDPersistedEntity pool,
                                                                  @Nullable LSDPersistedEntity parentPersistedEntity,
                                                                  LiquidRequestDetailLevel detail, boolean internal, boolean b)
@@ -44,27 +44,27 @@ public interface FountainPoolDAO {
     LSDPersistedEntity createPoolNoTx(LiquidSessionIdentifier identity, LiquidURI owner, LSDPersistedEntity parent, String poolName,
                                       double x, double y, @Nullable String title, boolean listed) throws InterruptedException;
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity createPoolObjectTx(LSDPersistedEntity pool, LiquidSessionIdentifier identity, LiquidURI owner,
                                          LiquidURI author, LSDTransferEntity entity, LiquidRequestDetailLevel detail,
                                          boolean internal, boolean createAuthor) throws Exception;
 
 
     //User pool Creation
-    void createPoolsForAliasNoTx(LiquidURI aliasURI, String name, String fullName, boolean systemUser) throws InterruptedException;
+    void createPoolsForAliasNoTx(LiquidURI aliasURI, String name, @Nullable String fullName, boolean systemUser) throws InterruptedException;
 
     void createPoolsForCazcadeAliasNoTx(String name, String fullName, boolean systemUser) throws InterruptedException;
 
     void createPoolsForUserNoTx(String username) throws InterruptedException;
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity deletePoolObjectTx(LiquidURI uri, boolean internal, LiquidRequestDetailLevel detail) throws Exception;
 
     @Nullable
     Collection<LSDTransferEntity> getCommentsTx(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, int max, boolean internal,
                                                 LiquidRequestDetailLevel detail) throws InterruptedException;
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity getPoolAndContentsNoTx(LSDPersistedEntity targetPersistedEntity, LiquidRequestDetailLevel detail,
                                              boolean contents, ChildSortOrder order, boolean internal,
                                              LiquidSessionIdentifier identity, @Nullable Integer start, @Nullable Integer end,
@@ -125,7 +125,7 @@ public interface FountainPoolDAO {
     LSDPersistedEntity unlinkPoolObject(LSDPersistedEntity target) throws InterruptedException;
 
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity updatePool(LiquidSessionIdentifier sessionIdentifier, LSDPersistedEntity persistedEntityImpl,
                                  LiquidRequestDetailLevel detail, boolean internal, boolean historical, Integer end, int start,
                                  ChildSortOrder order, boolean contents, LSDTransferEntity requestEntity, Runnable onRenameAction)
@@ -133,9 +133,9 @@ public interface FountainPoolDAO {
 
 
     //Pool and object Update
-    @Nullable
+    @Nonnull
     LSDTransferEntity updatePoolObjectNoTx(LiquidSessionIdentifier identity, LiquidSessionIdentifier editor,
-                                           LSDTransferEntity entity, LSDPersistedEntity pool,
+                                           LSDTransferEntity entity, @Nullable LSDPersistedEntity pool,
                                            LSDPersistedEntity origPersistedEntity, boolean internal,
                                            LiquidRequestDetailLevel detail) throws InterruptedException;
 

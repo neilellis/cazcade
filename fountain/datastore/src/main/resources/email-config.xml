@@ -7,6 +7,7 @@
 
     <context:annotation-config/>
 
+    <beans profile="default">
     <bean id="mailService" class="cazcade.fountain.datastore.impl.email.DefaultMailService" init-method="init">
         <property name="smtpAuthenticator" ref="smtpAuthenticator"/>
         <property name="smtpHost" value="smtp.postmarkapp.com"/>
@@ -18,6 +19,14 @@
         <property name="password" value="20d930a8-c079-43f6-9022-880156538a40"/>
         <property name="username" value="20d930a8-c079-43f6-9022-880156538a40"/>
     </bean>
+    </beans>
+    <beans profile="dev">
+        <bean id="mailService" class="cazcade.fountain.datastore.impl.email.DefaultMailService" init-method="init">
+            <property name="smtpHost" value="localhost"/>
+            <property name="sender" value="support@boardcast.it"/>
+            <property name="senderFullname" value="Boardcast"/>
+        </bean>
+    </beans>
 
 
 </beans>
