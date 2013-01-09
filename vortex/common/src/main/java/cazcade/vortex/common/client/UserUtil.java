@@ -23,7 +23,7 @@ public class UserUtil {
     @Nonnull
     public static final String ANON = "anon";
     @Nonnull
-    public static final String ANON_ALIAS = "alias:cazcade:anon";
+    public static final String ANON_ALIAS = CommonConstants.ANONYMOUS_ALIAS;
     @Nonnull
     public static final String VORTEX_IDENTITY = "boardcast.identity";
 

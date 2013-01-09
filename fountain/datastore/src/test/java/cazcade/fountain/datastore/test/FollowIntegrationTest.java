@@ -112,7 +112,7 @@ public class FollowIntegrationTest {
     private LSDPersistedEntity createUser() throws InterruptedException, UnsupportedEncodingException {
         final LSDTransferEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
         user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
-        user.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@cazcade.com");
+        user.setAttribute(LSDAttribute.EMAIL_ADDRESS, cazcade.common.CommonConstants.INFO_CAZCADE_COM);
         final String username = "test" + System.currentTimeMillis();
         user.setAttribute(LSDAttribute.NAME, username);
         user.setAttribute(LSDAttribute.FULL_NAME, "Anonymous");

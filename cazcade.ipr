@@ -2066,8 +2066,6 @@
       <module fileurl="file://$PROJECT_DIR$/fountain/notification/notification.iml" filepath="$PROJECT_DIR$/fountain/notification/notification.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/rest-server/rest-server.iml" filepath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
@@ -2078,13 +2076,10 @@
       <module fileurl="file://$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" filepath="$PROJECT_DIR$/apps/twitter-auth/twitter-auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" filepath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" filepath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" filepath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/upload/upload.iml" filepath="$PROJECT_DIR$/apps/upload/upload.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/validation/validation.iml" filepath="$PROJECT_DIR$/fountain/validation/validation.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
     </modules>

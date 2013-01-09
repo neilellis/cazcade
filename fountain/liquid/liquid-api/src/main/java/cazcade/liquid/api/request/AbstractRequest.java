@@ -751,14 +751,6 @@ public abstract class AbstractRequest implements LiquidRequest {
         entity.setAttribute(LSDAttribute.REQUEST_RESOURCE_TYPE, poolType.asString());
     }
 
-    @Override @Nonnull
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Request");
-        sb.append("{entity=").append(entity);
-        sb.append('}');
-        return sb.toString();
-    }
 
     @Nonnull
     public LSDTransferEntity getEntity() {
@@ -767,9 +759,13 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     public void setEntity(@Nonnull final LSDTransferEntity entity) {
         if (!entity.hasAttribute(LSDAttribute.TYPE)) {
-            throw new IllegalArgumentException("Entities must always have a type. Attempted to set an entity on a request of type" +
-                                               " " + getClass().getName() + ", the entity was: " + entity.asFreeText());
+            throw new IllegalArgumentException("Entities must always have a type. Attempted to set an entity on a request of type " + getClass().getName() + ", the entity was: " + entity.asFreeText());
         }
         this.entity = entity;
+    }
+
+    @Override @Nonnull
+    public String toString() {
+            return getClass()+" "+entity.toString();
     }
 }

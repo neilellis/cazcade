@@ -185,7 +185,7 @@ public class Boardcast implements EntryPoint {
             }, new Runnable() {
                 @Override
                 public void run() {
-                    Window.Location.assign("/_welcome?justRegistered=true");
+                    Window.Location.assign("/welcome?justRegistered=true");
                 }
             }
             );
@@ -285,7 +285,7 @@ public class Boardcast implements EntryPoint {
             @Override
             public void run() {
                 if (registerRequest || loginRequest) {
-                    Window.Location.assign("/_welcome?justRegistered=true");
+                    Window.Location.assign("/welcome?justRegistered=true");
                 }
                 else {
                     Window.Location.reload();

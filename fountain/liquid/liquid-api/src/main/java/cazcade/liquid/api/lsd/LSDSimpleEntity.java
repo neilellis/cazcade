@@ -274,7 +274,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public final LSDNode asFormatIndependentTree() {
         final List root = new ArrayList();
         final Map<String, List> values = new HashMap<String, List>();
-        for (final String key : lsdProperties.getProperties()) {
+        for (final String key : lsdProperties.getKeys()) {
             addToStructuredMap(root, key, lsdProperties.get(key));
         }
         return new LSDSimpleNode("root", root);
@@ -366,7 +366,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Nonnull
     public final Map<String, String> asMapForPersistence(final boolean ignoreType, final boolean update) {
         final Map<String, String> typedMap = new HashMap<String, String>();
-        for (final String key : lsdProperties.getProperties()) {
+        for (final String key : lsdProperties.getKeys()) {
             final String[] strings = key.split("\\.");
             if (strings.length > 0) {
                 final LSDAttribute prefixAttribute = LSDAttribute.valueOf(strings[0]);
@@ -449,15 +449,13 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public String toString() {
         final StringBuilder buffer = new StringBuilder("{\n");
-        for (final String property : lsdProperties.getProperties()) {
-            buffer.append('{')
-                    .append(property)
+        for (final String property : lsdProperties.getKeys()) {
+            buffer.append(property)
                     .append('=')
                     .append('\'')
                     .append(lsdProperties.get(property))
                     .append('\'')
-                    .append('}'
-                    )
+                    .append(',')
                     .append('\n');
         }
         buffer.append("}\n");
@@ -504,7 +502,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public final String dump() {
         final StringBuilder buffer = new StringBuilder();
-        for (final String property : lsdProperties.getProperties()) {
+        for (final String property : lsdProperties.getKeys()) {
             buffer.append(property).append('=').append(lsdProperties.get(property)).append("\n");
         }
         return buffer.toString();
@@ -534,7 +532,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     private boolean hasSubEntity(final String keyString) {
-        for (final String key : lsdProperties.getProperties()) {
+        for (final String key : lsdProperties.getKeys()) {
             if (key.startsWith(keyString + '.')) {
                 return true;
             }
@@ -545,7 +543,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Nonnull
     private LSDTransferEntity getSubEntity(@Nonnull final String keyString, final boolean readonlyEntity) {
         final LSDTransferEntity subEntity = createEmpty();
-        for (final String key : lsdProperties.getProperties()) {
+        for (final String key : lsdProperties.getKeys()) {
             if (key.startsWith(keyString + '.')) {
                 final String subEntityKey = key.substring(keyString.length() + 1);
                 subEntity.setValue(subEntityKey, lsdProperties.get(key));
@@ -624,7 +622,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public final Map<String, String> getCamelCaseMap() {
         final Map<String, String> result = new HashMap<String, String>();
-        for (final String key : lsdProperties.getProperties()) {
+        for (final String key : lsdProperties.getKeys()) {
             result.put(convertToCamel(key), lsdProperties.get(key));
         }
         if (hasURI()) {
@@ -741,7 +739,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     public final List<? extends LSDBaseEntity> getSubEntities(@Nonnull final LSDAttribute key) {
         final String keyString = key.getKeyName();
         final TreeMap<Integer, LSDSimpleEntity> entities = new TreeMap<Integer, LSDSimpleEntity>();
-        for (final String property : lsdProperties.getProperties()) {
+        for (final String property : lsdProperties.getKeys()) {
             if (property.startsWith(keyString + '.')) {
                 final String subEntityKeyFull = property.substring(keyString.length() + 1);
                 final int firstDot = subEntityKeyFull.indexOf('.');
@@ -864,7 +862,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         final String keyString = path.getKeyName();
         final LSDTransferEntity subEntity = createEmpty();
         final Collection<String> toDelete = new ArrayList<String>();
-        for (final String key : lsdProperties.getProperties()) {
+        for (final String key : lsdProperties.getKeys()) {
             if (key.startsWith(keyString + '.')) {
                 final String subEntityKey = key.substring(keyString.length() + 1);
                 subEntity.setValue(subEntityKey, lsdProperties.get(key));
@@ -966,7 +964,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     @Override
     public void setValues(@Nonnull final LSDAttribute key, @Nonnull final List values) {
         assertNotReadonly();
-        for (final String property : lsdProperties.getProperties()) {
+        for (final String property : lsdProperties.getKeys()) {
             if (property.startsWith(key.getKeyName() + '.')) {
                 lsdProperties.put(property, "");
             }

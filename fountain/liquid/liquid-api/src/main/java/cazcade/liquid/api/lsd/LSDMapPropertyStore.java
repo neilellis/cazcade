@@ -44,7 +44,7 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
     }
 
     @Override
-    public Iterable<? extends String> getProperties() {
+    public Iterable<? extends String> getKeys() {
         return map.keySet();
     }
 

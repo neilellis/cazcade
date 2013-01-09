@@ -48,7 +48,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     @Nonnull
     public static final String BOARDS_URI = "pool:///boards";
     @Nonnull
-    public static final LiquidURI ADMIN_ALIAS_URI = new LiquidURI(LiquidURIScheme.alias, "cazcade:system");
+    public static final LiquidURI SYSTEM_ALIAS_URI = new LiquidURI(LiquidURIScheme.alias, "cazcade:system");
     @Nonnull
     public static final String FREE_TEXT_SEARCH_INDEX_KEY = "ftsindex";
 

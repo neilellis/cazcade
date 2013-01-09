@@ -97,7 +97,7 @@ public class LoginUtil {
         entity.setAttribute(LSDAttribute.PLAIN_PASSWORD, password);
         entity.setAttribute(LSDAttribute.EMAIL_ADDRESS, emailAddress);
         entity.setAttribute(LSDAttribute.SECURITY_RESTRICTED, restricted);
-        entity.setAttribute(LSDAttribute.IMAGE_URL, "http://boardcast.it/_images/user/blank.png");
+        entity.setAttribute(LSDAttribute.IMAGE_URL, CommonConstants.BLANK_PNG_URL);
         try {
             final LiquidMessage response = theDataStore.process(new CreateUserRequest(new LiquidSessionIdentifier(username), entity));
             if (response.getState() == LiquidMessageState.SUCCESS) {

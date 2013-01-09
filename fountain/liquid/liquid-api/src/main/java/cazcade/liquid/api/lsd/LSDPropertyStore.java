@@ -18,7 +18,7 @@ public interface LSDPropertyStore extends Serializable {
 
     String get(String property);
 
-    Iterable<? extends String> getProperties();
+    Iterable<? extends String> getKeys();
 
     boolean isSerializable();
 

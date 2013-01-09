@@ -36,11 +36,17 @@ public interface CommonConstants {
     String NEO_BACKUP_DIR = CAZCADE_HOME + "/backup";
 
     @Nonnull
-    String ANONYMOUS_ALIAS = "alias:cazcade:anon";
+    String ANONYMOUS_ALIAS = CommonConstants.ANONYMOUS_ALIAS;
     @Nonnull
     String CAZCADE_ALIAS_PREFIX = "alias:cazcade:";
 
     int MINUTE = 60000;
     int HOUR = 3600000;
     int SECOND = 1000;
+    String BLANK_PNG_URL = "http://boardcast.it/_images/user/blank.png";
+    String INFO_CAZCADE_COM = "info@cazcade.com";
+    @Nonnull
+    String ADMIN = "admin";
+    @Nonnull
+    String ANON = "anon";
 }

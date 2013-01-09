@@ -383,14 +383,14 @@ public class BusImpl implements Bus {
                     if (responseEntity == null) {
                         ClientLog.log("Callback handling failed and response entity was null. ");
                     } else {
-                        ClientLog.log("Callback handling failed " + responseEntity.asFreeText());
+                        ClientLog.log("Callback handling failed " + responseEntity);
                     }
                     responseCallback.onFailure(message, response);
                 } else {
                     if (responseEntity == null) {
                         ClientLog.log("Callback handling success, but response entity was null. ");
                     } else {
-                        ClientLog.log("Callback handling success " + responseEntity.asFreeText());
+                        ClientLog.log("Callback handling success " + responseEntity);
                     }
                     responseCallback.onSuccess(message, response);
                 }
