@@ -37,8 +37,7 @@ public class ChangePasswordRequest extends AbstractRequest {
     }
 
     public ChangePasswordRequest(@Nonnull final LSDTransferEntity entity) {
-        super();
-        setEntity(entity);
+        super(entity);
     }
 
     public ChangePasswordRequest(final String password) {
@@ -53,13 +52,14 @@ public class ChangePasswordRequest extends AbstractRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new ChangePasswordRequest(getEntity().copy());
+        return new ChangePasswordRequest(getEntity());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
         return Arrays.asList(getSessionIdentifier().getAliasURL());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
     }

@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class UpdateSessionRequest extends AbstractUpdateRequest {
-    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                                 final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
         super();
         setId(id);
@@ -26,18 +26,20 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity, internal);
     }
 
-    public UpdateSessionRequest(final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
-        this(null, null, target, entity, internal);
-    }
+
 
     public UpdateSessionRequest() {
         super();
     }
 
+    public UpdateSessionRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new UpdateSessionRequest(getId(), getSessionIdentifier(), getTarget(), getRequestEntity(), isInternal());
+        return new UpdateSessionRequest(getEntity());
     }
 
     @Nullable

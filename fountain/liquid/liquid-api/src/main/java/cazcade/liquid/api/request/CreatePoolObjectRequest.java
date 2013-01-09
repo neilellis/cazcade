@@ -10,9 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreatePoolObjectRequest extends AbstractCreationRequest {
-    public CreatePoolObjectRequest(@Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool,
-                                   @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final LSDTransferEntity entity,
-                                   @Nullable final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDTransferEntity entity, final LiquidURI authorURI) {
+        this(authenticatedUser, null, uri, null, entity, authorURI);
+    }
+
+    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final LSDTransferEntity entity, @Nullable final LiquidURI authorURI) {
         super();
         setUri(uri);
         setId(id);
@@ -22,55 +24,50 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
         setRequestEntity(entity);
     }
 
-    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri,
-                                   final LSDTransferEntity entity, final LiquidURI authorURI) {
-        this(authenticatedUser, null, uri, null, entity, authorURI);
-    }
-
-    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool,
-                                   final LSDTransferEntity entity, final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LSDTransferEntity entity, final LiquidURI authorURI) {
         this(authenticatedUser, pool, null, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri,
-                                   final LSDTransferEntity entity) {
+    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDTransferEntity entity) {
         this(authenticatedUser, null, uri, null, entity, authenticatedUser.getAlias());
     }
 
     public CreatePoolObjectRequest(final LiquidURI uri, final LSDTransferEntity entity) {
-        this(null, null, uri, null, entity, null);
+        this(LiquidSessionIdentifier.ANON, null, uri, null, entity, null);
     }
 
     public CreatePoolObjectRequest() {
         super();
     }
 
-    @Nonnull
-    @Override
-    public LiquidMessage copy() {
-        return new CreatePoolObjectRequest(getSessionIdentifier(), getPoolUUID(), getUri(), getId(), getRequestEntity(),
-                                           getAuthor()
-        );
+    public CreatePoolObjectRequest(final LSDTransferEntity entity) {
+        super(entity);
     }
 
+    @Nonnull @Override
+    public LiquidMessage copy() {
+        return new CreatePoolObjectRequest(getEntity());
+    }
+
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri() != null) {
-            return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.MODIFY));
+        if (hasUri()) {
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.MODIFY));
         }
         else {
-            return Arrays.asList(new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY));
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.MODIFY));
         }
     }
 
     public List<String> getNotificationLocations() {
-        if (getRequestEntity() != null) {
-            if (getUri() != null) {
-                return Arrays.asList(getUri().asReverseDNSString(),
-                                     getUri().asReverseDNSString() + "." + getRequestEntity().getAttribute(LSDAttribute.NAME)
-                                    );
+        if (hasRequestEntity()) {
+            if (hasUri()) {
+                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString()
+                                                                    + "."
+                                                                    + getRequestEntity().getAttribute(LSDAttribute.NAME));
             }
             else {
-                if (getRequestEntity().getUUID() != null) {
+                if (getRequestEntity().hasId()) {
                     return Arrays.asList(getPoolUUID().toString(), getRequestEntity().getUUID().toString());
                 }
                 else {
@@ -79,10 +76,10 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
             }
         }
         else {
-            if (getUri() != null) {
-                return Arrays.asList(getUri().asReverseDNSString(),
-                                     getUri().asReverseDNSString() + "." + getResponse().getAttribute(LSDAttribute.NAME)
-                                    );
+            if (hasUri()) {
+                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString()
+                                                                    + "."
+                                                                    + getResponse().getAttribute(LSDAttribute.NAME));
             }
             else {
                 return Arrays.asList(getPoolUUID().toString(), getResponse().getUUID().toString());

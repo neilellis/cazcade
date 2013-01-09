@@ -5,6 +5,7 @@ import cazcade.liquid.api.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,26 +16,26 @@ public class AuthorizationRequest extends AbstractRequest {
     private final List<AuthorizationRequest> and = new ArrayList<AuthorizationRequest>();
     private LiquidPermission[] permission;
 
-    public AuthorizationRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID resource,
-                                final LiquidURI uri, final LiquidPermission[] permission, final List<AuthorizationRequest> or,
+    public AuthorizationRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID resource,
+                                @Nullable final LiquidURI uri, final LiquidPermission[] permission, final List<AuthorizationRequest> or,
                                 final List<AuthorizationRequest> and) {
         this(id, identity, resource, uri, permission);
         this.or.addAll(or);
         this.and.addAll(and);
     }
 
-    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier session,
                                 @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri,
                                 final LiquidPermission... permission) {
         super();
         if (resource == null && uri == null) {
-            throw new NullPointerException("Cannot create an authorization request with a null resource id and uri.");
+            throw new IllegalArgumentException("Cannot create an authorization request with a null resource id and uri.");
         }
         setId(id);
         setUri(uri);
         setTarget(resource);
         this.permission = permission;
-        setSessionId(identity);
+        setSessionId(session);
     }
 
     public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidUUID resource,
@@ -46,13 +47,13 @@ public class AuthorizationRequest extends AbstractRequest {
         this(null, identity, null, uri, permission);
     }
 
-    public AuthorizationRequest(final LiquidUUID resource, final LiquidPermission... permission) {
-        this(null, null, resource, null, permission);
-    }
-
-    public AuthorizationRequest(final LiquidURI uri, final LiquidPermission... permission) {
-        this(null, null, null, uri, permission);
-    }
+//    public AuthorizationRequest(final LiquidUUID resource, final LiquidPermission... permission) {
+//        this(null, null, resource, null, permission);
+//    }
+//
+//    public AuthorizationRequest(final LiquidURI uri, final LiquidPermission... permission) {
+//        this(null, null, null, uri, permission);
+//    }
 
     public AuthorizationRequest() {
         super();
@@ -67,13 +68,14 @@ public class AuthorizationRequest extends AbstractRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new AuthorizationRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), permission, or, and);
+        return new AuthorizationRequest(hasId() ? getId() : null, getSessionIdentifier(), hasTarget() ? getTarget() : null, hasUri() ? getUri() : null, permission, or, and);
     }
 
     public LiquidPermission[] getActions() {
         return permission;
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
     }
@@ -106,5 +108,16 @@ public class AuthorizationRequest extends AbstractRequest {
     @Nonnull
     public List<AuthorizationRequest> getOr() {
         return or;
+    }
+
+    @Nonnull @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("AuthorizationRequest");
+        sb.append("{or=").append(or);
+        sb.append(", and=").append(and);
+        sb.append(", permission=").append(permission == null ? "null" : Arrays.asList(permission).toString());
+        sb.append('}');
+        return sb.toString();
     }
 }

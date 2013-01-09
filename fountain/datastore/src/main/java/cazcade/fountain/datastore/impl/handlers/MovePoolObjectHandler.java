@@ -20,9 +20,7 @@ public class MovePoolObjectHandler extends AbstractDataStoreHandler<MovePoolObje
                                                                                       request.getY(), request.getZ()
                                                                                      );
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(),
-                                                                                                       request.isInternal()
-                                                                                                      )
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toLSD(request.getDetail(), request.isInternal())
                                                         );
         } catch (RuntimeException e) {
             transaction.failure();

@@ -15,17 +15,16 @@ public class RetrievePoolObjectHandler extends AbstractRetrievalHandler<Retrieve
     @Nonnull
     public RetrievePoolObjectRequest handle(@Nonnull final RetrievePoolObjectRequest request) throws InterruptedException {
         final LSDTransferEntity entity;
-        if (request.getTarget() == null) {
+        if (request.hasTarget()) {
+            throw new UnsupportedOperationException("Only URI retrieval supported now.");
+//            entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getTarget(), request.isInternal(), request.isHistorical(), request.getDetail());
+        } else {
             entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(),
                                              request.isHistorical(), request.getDetail()
                                             );
             if (entity == null) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
             }
-        }
-        else {
-            throw new UnsupportedOperationException("Only URI retrieval supported now.");
-//            entity = poolDAO.getPoolObjectTx(request.getSessionIdentifier(), request.getTarget(), request.isInternal(), request.isHistorical(), request.getDetail());
         }
         return LiquidResponseHelper.forServerSuccess(request, entity);
     }

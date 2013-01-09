@@ -248,7 +248,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             @Override
             public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 final LSDTransferEntity responseEntity = response.getResponse();
-                if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
+                if (responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Could not find the board.");
                     if (previousPoolURI != null) {
                         HistoryManager.navigate(previousPoolURI.asShortUrl().toString());
@@ -363,9 +363,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         final Date published = entity.getPublished();
-        if (published != null) {
-            publishDate.setInnerText(published.toString());
-        }
+        publishDate.setInnerText(published.toString());
         final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
         String tagText = "";
         if (!shortUrl.startsWith("-")) {

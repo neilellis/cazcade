@@ -20,7 +20,7 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdatePoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public UpdatePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                              final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
@@ -36,7 +36,7 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity);
     }
 
-    public UpdatePoolRequest(@Nullable final LiquidSessionIdentifier identity, final LiquidURI poolURI,
+    public UpdatePoolRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI poolURI,
                              final LSDTransferEntity newEntity) {
         super();
         setSessionId(identity);
@@ -48,21 +48,25 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
     public UpdatePoolRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, null, target, entity);
+        this(null, LiquidSessionIdentifier.ANON, target, entity);
     }
 
     public UpdatePoolRequest(@Nonnull final LSDTransferEntity updateEntity) {
-        this(null, updateEntity.getURI(), updateEntity);
+        this(LiquidSessionIdentifier.ANON, updateEntity.getURI(), updateEntity);
     }
 
     public UpdatePoolRequest() {
         super();
     }
 
+     UpdatePoolRequest(final LSDTransferEntity entity, String marker) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new UpdatePoolRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());
+        return new UpdatePoolRequest(getEntity(), "copy constructor");
     }
 
     @Nonnull

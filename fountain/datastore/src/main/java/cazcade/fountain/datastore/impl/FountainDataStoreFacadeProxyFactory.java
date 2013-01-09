@@ -66,14 +66,17 @@ public class FountainDataStoreFacadeProxyFactory {
         @Nullable
         public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
             log.debug("Facade invoked.");
+            if(args == null || args.length != 1) {
+                return null;
+            }
             final LiquidRequest liquidRequest = (LiquidRequest) args[0];
-            if (liquidRequest.getId() == null) {
+            if (!liquidRequest.hasId()) {
                 liquidRequest.setId(UUIDFactory.randomUUID());
             }
             liquidRequest.setOrigin(LiquidMessageOrigin.CLIENT);
             LiquidMessage response = null;
             try {
-                if (liquidRequest.getRequestEntity() != null) {
+                if (liquidRequest.hasRequestEntity()) {
                     entityValidator.validate(liquidRequest.getRequestEntity(), ValidationLevel.MODERATE);
                 }
                 response = authorizationService.authorize(liquidRequest);
@@ -81,9 +84,6 @@ public class FountainDataStoreFacadeProxyFactory {
                     log.debug("SUCCESS Authorized.");
                     response = dataStore.process(liquidRequest);
                     final LSDTransferEntity responseEntity = response.getResponse();
-                    if (responseEntity == null) {
-                        log.warn("Null response.");
-                    }
                     entityValidator.validate(responseEntity, ValidationLevel.MODERATE);
                     log.debug("SUCCESS Post validation okay returning response.");
                     return response;

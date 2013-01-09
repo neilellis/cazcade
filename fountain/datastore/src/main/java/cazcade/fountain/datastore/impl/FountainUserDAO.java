@@ -18,7 +18,7 @@ public interface FountainUserDAO {
 
     boolean confirmHash(LiquidURI author, String changePasswordSecurityHash) throws Exception;
 
-    @Nullable
+    @Nonnull
     LSDPersistedEntity createAlias(LSDPersistedEntity userPersistedEntity, LSDTransferEntity entity, boolean me, boolean orupdate,
                                    boolean claim, boolean systemUser) throws InterruptedException;
 
@@ -42,7 +42,7 @@ public interface FountainUserDAO {
 
     //Migrate from LSDPersistedEntity based methods, parameters should include URIs and return LSDTransferEntity where appropriate
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity getAliasFromNode(LSDPersistedEntity persistedEntity, boolean internal, LiquidRequestDetailLevel detail)
             throws InterruptedException;
 

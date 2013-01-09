@@ -8,12 +8,11 @@ import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.messaging.InMemoryPubSub;
 import cazcade.fountain.messaging.LiquidMessageSender;
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.AuthorizationRequest;
-import cazcade.liquid.api.request.RetrieveUserRequest;
 import org.perf4j.log4j.Log4JStopWatch;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A handler that implements runnable allowing for asynchronous handling of data store requests on another thread.
@@ -38,27 +37,26 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
     }
 
 
-    @Nullable
+    @Nonnull
     public LiquidRequest handle(final LiquidRequest message) {
         try {
             final LiquidRequest request = (LiquidRequest) message;
             final Log4JStopWatch stopWatch = new Log4JStopWatch("recv.message." + request.getRequestType().name().toLowerCase());
 
             log.addContext(request);
-            if (request.getSessionIdentifier() != null) {
-                final LiquidUUID session = request.getSessionIdentifier().getSession();
-                log.setSession(session == null ? null : session.toString(),
-                               request.getSessionIdentifier() == null ? null : request.getSessionIdentifier().getName()
-                              );
-            }
+            final LiquidUUID session = request.getSessionIdentifier().getSession();
+            log.setSession(session == null ? null : session.toString(),
+                    request.getSessionIdentifier().getName()
+                          );
             if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
                 log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(),
-                          ((AuthorizationRequest) request).getTarget(), ((AuthorizationRequest) request).getUri()
+                        ((AbstractRequest) request).hasTarget() ? ((AbstractRequest) request).getTarget() : "null",
+                        ((AbstractRequest) request).hasUri() ? ((AbstractRequest) request).getUri() : "null"
                          );
             }
             else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
-                log.debug("Retrieve user request for {0}/{1}", ((RetrieveUserRequest) request).getTarget(),
-                          ((RetrieveUserRequest) request).getUri()
+                log.debug("Retrieve user request for {0}/{1}", ((AbstractRequest) request).hasTarget() ? ((AbstractRequest) request).getTarget() : "null",
+                        ((AbstractRequest) request).hasUri() ? ((AbstractRequest) request).getUri() : "null"
                          );
             }
             else {
@@ -72,7 +70,7 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
                 stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".2.postpro");
             } catch (InterruptedException e) {
                 Thread.interrupted();
-                return null;
+                return handleError(request, e);
             } catch (Exception e) {
                 return handleError(request, e);
             }

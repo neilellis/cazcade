@@ -48,9 +48,7 @@ public class FountainEmailIntegrationTest {
                                                                                               ), true,
                                                                          LiquidRequestDetailLevel.COMPLETE
                                                                         );
-        final LSDTransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).convertNodeToLSD(
-                LiquidRequestDetailLevel.COMPLETE, true
-                                                                                                                        );
+        final LSDTransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).toLSD(LiquidRequestDetailLevel.COMPLETE, true);
         mailService.send(userFromNode, aliasFromNode, "test-email.html", "Welcome", "", false);
     }
 }

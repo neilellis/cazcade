@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UpdateUserRequest extends AbstractUpdateRequest {
-    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                              final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
@@ -23,21 +23,26 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
     }
 
     public UpdateUserRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, null, target, entity);
+        this(null, LiquidSessionIdentifier.ANON, target, entity);
     }
 
     public UpdateUserRequest() {
         super();
     }
 
+    public UpdateUserRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new UpdateUserRequest(getId(), getSessionIdentifier(), getTarget(), getRequestEntity());
+        return new UpdateUserRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.EDIT));
+        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.EDIT));
     }
 
     @Nonnull

@@ -55,9 +55,11 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
 
     @Override
     public void put(@Nonnull final String property, @Nonnull final String value) {
+        //noinspection ConstantConditions
         if(property == null) {
             throw new IllegalArgumentException("Key placed into LSDMapPropertyStore was null.");
         }
+        //noinspection ConstantConditions
         if(value == null) {
             throw new IllegalArgumentException("Key placed into LSDMapPropertyStore was null.");
         }

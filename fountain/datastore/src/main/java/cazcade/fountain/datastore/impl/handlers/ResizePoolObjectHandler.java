@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -21,19 +22,19 @@ public class ResizePoolObjectHandler extends AbstractDataStoreHandler<ResizePool
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(request.getObjectUUID());
-            final LSDPersistedEntity viewPersistedEntity = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
-                                                                                                 Direction.OUTGOING
-                                                                                                ).getOtherNode(persistedEntity);
-            if (request.getWidth() != null) {
+            final FountainRelationship relationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
+                    Direction.OUTGOING
+            );
+            assert relationship != null;
+            final LSDPersistedEntity viewPersistedEntity = relationship.getOtherNode(persistedEntity);
+            if (request.hasWidth()) {
                 viewPersistedEntity.setAttribute(LSDAttribute.VIEW_WIDTH, request.getWidth());
             }
-            if (request.getHeight() != null) {
+            if (request.hasHeight()) {
                 viewPersistedEntity.setAttribute(LSDAttribute.VIEW_HEIGHT, request.getHeight());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.convertNodeToLSD(request.getDetail(),
-                                                                                                       request.isInternal()
-                                                                                                      )
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toLSD(request.getDetail(), request.isInternal())
                                                         );
         } catch (RuntimeException e) {
             transaction.failure();

@@ -1,5 +1,6 @@
 package cazcade.fountain.datastore.impl.handlers;
 
+import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
@@ -26,9 +27,11 @@ public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements C
         final String id = UUID.randomUUID().toString();
         response.setId(id);
         response.setURI(new LiquidURI(LiquidURIScheme.chat, id));
-        response.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(fountainNeo.findByURI(
+        final LSDPersistedEntity authorEntity = fountainNeo.findByURI(
                 request.getSessionIdentifier().getAliasURL(), true
-                                                                                                 ), request.getInternal(),
+        );
+        assert authorEntity != null;
+        response.addSubEntity(LSDAttribute.AUTHOR, userDAO.getAliasFromNode(authorEntity, request.getInternal(),
                                                                             LiquidRequestDetailLevel.PERSON_MINIMAL
                                                                            ), true
                              );
@@ -41,7 +44,7 @@ public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements C
 //
 //            //This is an iPad app hack//
 //            // removed by Neil, we'll need to go back and fix a lot in the iPad application
-//            //request.getEntity().addSubEntity(LSDAttribute.AUTHOR, fountainNeo.convertNodeToLSD(fountainNeo.findByURI(request.getAlias()), request.getDetail(), request.isInternal()));
+//            //request.getEntity().addSubEntity(LSDAttribute.AUTHOR, fountainNeo.toLSD(fountainNeo.findByURI(request.getAlias()), request.getDetail(), request.isInternal()));
 //            transaction.success();
 //            return LiquidResponseHelper.forServerSuccess(request, response);
 //        } catch (RuntimeException e) {

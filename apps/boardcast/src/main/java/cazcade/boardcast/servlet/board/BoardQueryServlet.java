@@ -71,9 +71,6 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
             LiquidSessionIdentifier liquidSessionId = getLiquidSessionId(req.getSession(true));
-            if (liquidSessionId == null) {
-                liquidSessionId = LiquidSessionIdentifier.ANON;
-            }
             final BoardQueryRequest request = new BoardQueryRequest(liquidSessionId, type, alias);
             request.setMax(MAX);
             final BoardQueryRequest response = dataStore.process(request);

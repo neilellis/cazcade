@@ -130,7 +130,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
             @Override
             public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
                 final LSDTransferEntity responseEntity = response.getResponse();
-                if (responseEntity == null || responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
+                if (responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                 }
                 else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {

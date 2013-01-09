@@ -26,6 +26,7 @@ public class FixAllPermissions implements AdminCommand {
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
         final LSDPersistedEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
+        assert peoplePool != null;
         final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING
                                                                                    );
         for (final FountainRelationship child : children) {

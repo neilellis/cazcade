@@ -30,8 +30,8 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
      */
     double calculateRadius();
 
-    @Nullable
-    LSDTransferEntity convertNodeToLSD(@Nonnull LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
+    @Nonnull
+    LSDTransferEntity toLSD(@Nonnull LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
 
     void copyValuesToEntity(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute... attributes);
 

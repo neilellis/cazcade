@@ -1,6 +1,8 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.lsd.LSDType;
 
 import javax.annotation.Nonnull;
@@ -10,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VisitPoolRequest extends AbstractRetrievalRequest {
-    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
-                             @Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate,
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
+                             @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate,
                              final int max, final boolean listed, @Nullable final LiquidPermissionChangeType permission) {
         super();
         setOrCreate(orCreate);
@@ -25,7 +27,7 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         setPoolType(type);
     }
 
-    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                              @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous,
                              final boolean orCreate, final boolean listed) {
         this(id, identity, type, uri, previous, orCreate, 60, listed, null);
@@ -33,33 +35,35 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
 
     public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate,
                             final boolean listed, final LiquidPermissionChangeType permission) {
-        this(null, null, type, uri, previous, orCreate, 60, listed, permission);
+        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission);
     }
 
     public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate,
                             final boolean listed) {
-        this(null, null, type, uri, previous, orCreate, listed);
+        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, listed);
     }
 
-    public VisitPoolRequest(final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri,
+    public VisitPoolRequest(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri,
                             final boolean orCreate, final boolean listed) {
         this(null, identity, type, uri, null, orCreate, listed);
     }
 
     public VisitPoolRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
-        this(null, identity, null, uri, null, false, false);
+        this(null, identity, LSDDictionaryTypes.POOL, uri, null, false, false);
     }
 
     public VisitPoolRequest() {
         super();
     }
 
+    public VisitPoolRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new VisitPoolRequest(getId(), getSessionIdentifier(), getType(), getUri(), getPreviousPool(), isOrCreate(),
-                                    isListed()
-        );
+        return new VisitPoolRequest(getEntity());
     }
 
     @Nonnull
@@ -75,13 +79,14 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
     }
 
     public List<String> getNotificationLocations() {
-        if (getPreviousPool() != null) {
+        if (hasPreviousPool()) {
             return Arrays.asList(getUri().asReverseDNSString(), getPreviousPool().asReverseDNSString());
         }
         else {
             return Arrays.asList(getUri().asReverseDNSString());
         }
     }
+
 
     @Nonnull
     public LiquidRequestType getRequestType() {

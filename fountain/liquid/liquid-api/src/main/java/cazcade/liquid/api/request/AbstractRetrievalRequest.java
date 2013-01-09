@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidPermission;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,14 +13,23 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractRetrievalRequest extends AbstractRequest {
-    @Nullable
+    public AbstractRetrievalRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
+
+    protected AbstractRetrievalRequest() {
+    }
+
+    @Nonnull
+    @Override
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getTarget() != null) {
-            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
+        if (hasTarget()) {
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
         }
         else {
-            if (getUri() != null) {
-                return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
+            if (hasUri()) {
+                return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.VIEW));
             }
             else {
                 return Collections.emptyList();
@@ -36,7 +46,7 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
                ":" +
                getDetail() +
                ":" +
-               (getUri() != null ? getUri() : getTarget()) +
+               (hasUri() ? getUri() : getTarget()) +
                ":" +
                (isHistorical() ? "historical" : "latest");
     }

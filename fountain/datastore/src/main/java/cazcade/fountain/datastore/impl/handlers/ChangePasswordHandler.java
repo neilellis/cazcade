@@ -28,19 +28,18 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
             if (persistedEntity == null) {
                 throw new AuthorizationException("No such user " + userURL);
             }
-            if (request.getChangePasswordSecurityHash() != null) {
+            if (request.hasChangePasswordSecurityHash()) {
                 if (!userDAO.confirmHash(userURL, request.getChangePasswordSecurityHash())) {
                     throw new AuthorizationException("Could not authorize changing of password for %s - hash didn't match.",
                                                      userURL
                     );
                 }
             }
-            if (request.getPassword() == null) {
+            if (!request.hasPassword()) {
                 userDAO.sendPasswordChangeRequest(userURL);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(
-                        LiquidRequestDetailLevel.MINIMAL, request.isInternal()
-                                                                                                      )
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.toLSD(LiquidRequestDetailLevel.MINIMAL, request
+                        .isInternal())
                                                             );
             }
             else {
@@ -49,9 +48,7 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
                 final String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
                 persistedEntity.setAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.convertNodeToLSD(request.getDetail(),
-                                                                                                       request.isInternal()
-                                                                                                      )
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.toLSD(request.getDetail(), request.isInternal())
                                                             );
             }
         } catch (RuntimeException e) {

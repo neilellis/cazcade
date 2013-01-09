@@ -4,6 +4,7 @@ package cazcade.fountain.index.persistence.entities;
 import cazcade.fountain.index.model.BoardType;
 import cazcade.fountain.index.model.CommonBase;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -233,7 +234,7 @@ public class BoardIndexEntity extends CommonBase {
         return updated;
     }
 
-    public void setUpdated(final Date updated) {
+    public void setUpdated(@Nullable final Date updated) {
         this.updated = updated;
     }
 

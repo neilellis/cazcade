@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChatRequest extends AbstractUpdateRequest {
-    public ChatRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public ChatRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                        @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setId(id);
@@ -31,9 +31,6 @@ public class ChatRequest extends AbstractUpdateRequest {
         this(null, identity, null, uri, entity);
     }
 
-    public ChatRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, null, target, null, entity);
-    }
 
     public ChatRequest(final LiquidURI uri, final String value) {
         super();
@@ -49,10 +46,14 @@ public class ChatRequest extends AbstractUpdateRequest {
         super();
     }
 
+    public ChatRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Override
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
-        if (getRequestEntity() != null) {
+        if (hasRequestEntity()) {
             getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()
                                                                                                         )
                                     );
@@ -62,17 +63,18 @@ public class ChatRequest extends AbstractUpdateRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new ChatRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());
+        return new ChatRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getUri().getScheme() == LiquidURIScheme.alias) {
             return Collections.EMPTY_LIST;
         }
         else {
-            return getTarget() != null
-                   ? Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW))
-                   : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
+            return hasTarget()
+                   ? Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW))
+                   : Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.VIEW));
         }
     }
 

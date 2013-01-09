@@ -45,13 +45,14 @@ public class LoginServlet extends AbstractBoardcastServlet {
             else {
                 if (username == null) {
                     req.getRequestDispatcher("/_pages/login.jsp").forward(req, resp);
+                    return;
                 }
                 final Principal principal = securityProvider.doAuthentication(username, password);
+                //noinspection VariableNotUsedInsideIf
                 if (principal != null) {
                     LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session, pubSub);
                     forwardAfterLogin(req, resp);
-                }
-                else {
+                } else {
                     req.setAttribute("message", "Could not log you in.");
                     req.getRequestDispatcher("/_pages/login.jsp").forward(req, resp);
                 }

@@ -78,8 +78,10 @@ public class AbstractBoardcastServlet extends HttpServlet {
         for (final LSDTransferEntity entity : entities) {
             final Map<String, String> map = entity.getCamelCaseMap();
             result.add(map);
-            if (entity.getURI().toString().startsWith("pool")) {
-                final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
+            final LiquidURI uri = entity.getURI();
+            final String uriString = uri.toString();
+            if (uriString.startsWith("pool")) {
+                final String shortUrl = uri.asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
 
                 final String url = "http://" + req.getServerName() + "/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(
@@ -108,9 +110,10 @@ public class AbstractBoardcastServlet extends HttpServlet {
     protected LiquidSessionIdentifier createClientSession(@Nonnull final HttpSession session,
                                                           @Nonnull final LiquidMessage createSessionResponse) {
 
-        final String username = createSessionResponse.getResponse().getAttribute(LSDAttribute.NAME);
+        final LSDTransferEntity createSessionResponseResponse = createSessionResponse.getResponse();
+        final String username = createSessionResponseResponse.getAttribute(LSDAttribute.NAME);
         final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username,
-                                                                                  createSessionResponse.getResponse().getUUID()
+                                                                                  createSessionResponseResponse.getUUID()
         );
         session.setAttribute(SESSION_KEY, serverSession);
         session.setAttribute(USERNAME_KEY, username);

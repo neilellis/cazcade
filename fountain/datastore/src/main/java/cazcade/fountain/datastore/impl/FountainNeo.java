@@ -49,11 +49,11 @@ public interface FountainNeo extends ServiceStateMachine {
 
     void delete(@Nonnull LSDPersistedEntity entity);
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity deleteEntityTx(@Nonnull LiquidURI uri, boolean children, boolean internal, LiquidRequestDetailLevel detail)
             throws InterruptedException;
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity deleteEntityTx(@Nonnull LiquidUUID objectId, boolean children, boolean internal,
                                      LiquidRequestDetailLevel detail) throws InterruptedException;
 
@@ -86,8 +86,15 @@ public interface FountainNeo extends ServiceStateMachine {
      *
      * @see FountainNeo#findByURI(LiquidURI, boolean)
      */
-    @Nullable
+        @Nullable
     LSDPersistedEntity findByURI(@Nonnull LiquidURI uri) throws InterruptedException;
+    /**
+     * Equivalent of findByURI(uri, false)
+     *
+     * @see FountainNeo#findByURI(LiquidURI, boolean)
+     */
+    @Nonnull
+    LSDPersistedEntity findByURIOrFail(@Nonnull LiquidURI uri) throws InterruptedException;
 
     @Nonnull
     LSDPersistedEntity findByUUID(@Nonnull LiquidUUID id) throws InterruptedException;
@@ -130,12 +137,12 @@ public interface FountainNeo extends ServiceStateMachine {
 
     void unindex(@Nonnull LSDPersistedEntity entity, @Nonnull LSDAttribute key, String luceneIndex);
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity updateEntityByURITx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LiquidURI uri,
                                           @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail,
                                           @Nullable Runnable onRenameAction) throws Exception;
 
-    @Nullable
+    @Nonnull
     LSDTransferEntity updateEntityByUUIDTx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LiquidUUID id,
                                            @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail,
                                            @Nullable Runnable onRenameAction) throws Exception;

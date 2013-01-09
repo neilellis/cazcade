@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MovePoolObjectRequest extends AbstractRequest {
-    public MovePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public MovePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                                  final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object,
                                  final Double x, final Double y, final Double z) {
         super();
@@ -31,36 +32,44 @@ public class MovePoolObjectRequest extends AbstractRequest {
     }
 
     public MovePoolObjectRequest(final LiquidURI objectURI, final Double x, final Double y, final Double z) {
-        this(null, null, objectURI, null, null, x, y, z);
+        this(null, LiquidSessionIdentifier.ANON, objectURI, null, null, x, y, z);
     }
 
     public MovePoolObjectRequest() {
         super();
     }
 
+    public MovePoolObjectRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new MovePoolObjectRequest(getId(), getSessionIdentifier(), getUri(), getPoolUUID(), getObjectUUID(), getX(), getY(),
-                                         getZ()
-        );
+        final LiquidURI uri = getUri();
+        return new MovePoolObjectRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri() == null) {
-            return Arrays.asList(new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY));
-        }
-        else {
-            return Arrays.asList(new AuthorizationRequest(getUri().getParentURI(), LiquidPermission.MODIFY));
+        if (hasUri()) {
+            final LiquidURI uri = getUri();
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), uri.getParentURI(), LiquidPermission.MODIFY));
+        } else {
+            final LiquidUUID poolUUID = getPoolUUID();
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), poolUUID, LiquidPermission.MODIFY));
         }
     }
 
+    @Override
     public List<String> getNotificationLocations() {
-        if (getUri() == null) {
-            return Arrays.asList(getPoolUUID().toString(), getObjectUUID().toString());
-        }
-        else {
-            return Arrays.asList(getUri().getWithoutFragment().asReverseDNSString(), getUri().asReverseDNSString());
+        if (hasUri()) {
+            final LiquidURI uri = getUri();
+            return Arrays.asList(uri.getWithoutFragment().asReverseDNSString(), uri.asReverseDNSString());
+        } else {
+            final LiquidUUID poolUUID = getPoolUUID();
+            final LiquidUUID objectUUID = getObjectUUID();
+            return Arrays.asList(poolUUID.toString(), objectUUID.toString());
         }
     }
 

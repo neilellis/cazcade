@@ -1,7 +1,9 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidPermission;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,14 +13,21 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractUpdateRequest extends AbstractRequest {
-    @Nullable
+    public AbstractUpdateRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
+    public AbstractUpdateRequest() {
+    }
+
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri() != null) {
-            return Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.EDIT));
+        if (hasUri()) {
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.EDIT));
         }
 
-        if (getTarget() != null) {
-            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.EDIT));
+        if (hasTarget()) {
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.EDIT));
         }
 
         return new ArrayList<AuthorizationRequest>();
@@ -26,11 +35,11 @@ public abstract class AbstractUpdateRequest extends AbstractRequest {
 
     @Nullable
     public List<String> getNotificationLocations() {
-        if (getUri() != null) {
+        if (hasUri()) {
             return Arrays.asList(getUri().asReverseDNSString());
         }
 
-        if (getTarget() != null) {
+        if (hasTarget()) {
             return Arrays.asList(getTarget().toString());
         }
 

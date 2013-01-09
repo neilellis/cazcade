@@ -26,13 +26,14 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
         final Transaction transaction = neo.beginTx();
         final LSDPersistedEntity userPersistedEntity;
         try {
-            userPersistedEntity = userDAO.createUser(request.getRequestEntity(), false);
+            final LSDTransferEntity requestEntity = request.getRequestEntity();
+            userPersistedEntity = userDAO.createUser(requestEntity, false);
 
-            final LSDTransferEntity entity = userPersistedEntity.convertNodeToLSD(request.getDetail(), request.isInternal());
-            final String username = request.getRequestEntity().getAttribute(LSDAttribute.NAME);
-            if (username == null) {
+            final LSDTransferEntity entity = userPersistedEntity.toLSD(request.getDetail(), request.isInternal());
+            if (!requestEntity.hasAttribute(LSDAttribute.NAME)) {
                 throw new DataStoreException("The name attribute was null on the entity passed in to create user.");
             }
+            final String username = requestEntity.getAttribute(LSDAttribute.NAME);
             poolDAO.createPoolsForUserNoTx(username);
             poolDAO.createPoolsForCazcadeAliasNoTx(username, entity.getAttribute(LSDAttribute.FULL_NAME), false);
             transaction.success();

@@ -6,7 +6,6 @@
     <import resource="classpath:liquid-spring-config.xml"/>
     <import resource="classpath:datastore-client-spring-config.xml"/>
     <import resource="classpath:datastore-server-spring-config.xml"/>
-    <import resource="classpath:spring/image-service.xml"/>
 
 
     <bean class="cazcade.fountain.server.rest.RestHandlerFactory" id="restHandlerFactory">

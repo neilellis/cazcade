@@ -6,6 +6,9 @@ import cazcade.fountain.datastore.api.DeletedEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -30,22 +33,26 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
      * @param request
      * @return
      */
+    @Override
     @Nonnull
     public AuthorizationRequest handle(@Nonnull final AuthorizationRequest request) throws InterruptedException {
         final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
         final Transaction transaction = fountainNeo.beginTx();
         try {
-            if (request.getSessionIdentifier() == null) {
-                throw new AuthorizationException("No identity supplied.");
-            }
             final LSDPersistedEntity persistedEntity;
-            if (request.getTarget() != null) {
-                persistedEntity = fountainNeo.findByUUID(request.getTarget());
+            if (request.hasTarget()) {
+                final LiquidUUID requestTarget = request.getTarget();
+
+                persistedEntity = fountainNeo.findByUUID(requestTarget);
             }
             else {
-                persistedEntity = fountainNeo.findByURI(request.getUri());
+                final LiquidURI uri = request.getUri();
+                if(!request.hasUri()) {
+                    throw new AuthorizationException("Both target and URI were null");
+                }
+                persistedEntity = fountainNeo.findByURI(uri);
                 if (persistedEntity == null) {
-                    log.warn("Client asked for authorization on  " + request.getUri() + " which could not be found.");
+                    log.warn("Client asked for authorization on  " + uri + " which could not be found.");
                     entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_DENIAL.getValue());
                     return LiquidResponseHelper.forServerSuccess(request, entity);
                 }
@@ -81,10 +88,11 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
     }
 
-    private boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final LSDPersistedEntity persistedEntity)
+    private static boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final LSDPersistedEntity persistedEntity)
             throws InterruptedException {
         boolean auth;
-        auth = persistedEntity.isAuthorized(request.getSessionIdentifier(), request.getActions());
+        final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
+        auth = persistedEntity.isAuthorized(sessionIdentifier, request.getActions());
         final List<AuthorizationRequest> and = request.getAnd();
         for (final AuthorizationRequest andRequest : and) {
             if (isAuthorized(andRequest, persistedEntity)) {

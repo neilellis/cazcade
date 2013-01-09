@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,7 +18,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         setUri(uri);
     }
 
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                                 final LiquidUUID target) {
         super();
         setId(id);
@@ -25,7 +26,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         setTarget(target);
     }
 
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                                 final LiquidURI uri) {
         super();
         setId(id);
@@ -42,11 +43,11 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveAliasRequest(final LiquidUUID target) {
-        this(null, null, target);
+        this(null, LiquidSessionIdentifier.ANON, target);
     }
 
     public RetrieveAliasRequest(final LiquidURI uri) {
-        this(null, null, uri);
+        this(null, LiquidSessionIdentifier.ANON, uri);
     }
 
     public RetrieveAliasRequest(final LiquidSessionIdentifier identity) {
@@ -58,12 +59,17 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         super();
     }
 
+    public RetrieveAliasRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrieveAliasRequest(getId(), getSessionIdentifier(), getTarget(), getUri());
+        return new RetrieveAliasRequest(getEntity());
     }
 
+    @Nonnull
     @Override
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.emptyList();

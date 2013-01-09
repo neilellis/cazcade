@@ -122,6 +122,7 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
                     executor = threadPoolExecutor;
                 }
             }
+            assert executor != null;
             executeInternal(retry, executable, executor);
         } finally {
             end();

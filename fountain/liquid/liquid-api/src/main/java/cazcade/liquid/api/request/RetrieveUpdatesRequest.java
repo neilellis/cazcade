@@ -4,6 +4,7 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -11,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
-    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                                   final long since) {
         super();
         setSince(since);
@@ -24,19 +25,24 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
     }
 
     public RetrieveUpdatesRequest(final long since) {
-        this(null, null, since);
+        this(null, LiquidSessionIdentifier.ANON, since);
     }
 
     public RetrieveUpdatesRequest() {
         super();
     }
 
+    public RetrieveUpdatesRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrieveUpdatesRequest(getId(), getSessionIdentifier(), getSince());
+        return new RetrieveUpdatesRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
     }

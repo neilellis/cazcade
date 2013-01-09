@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddCommentRequest extends AbstractUpdateRequest {
-    public AddCommentRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
-                             @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDTransferEntity entity) {
+    public AddCommentRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
+                             @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, @Nonnull final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -31,9 +31,6 @@ public class AddCommentRequest extends AbstractUpdateRequest {
         this(null, identity, null, uri, entity);
     }
 
-    public AddCommentRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, null, target, null, entity);
-    }
 
     public AddCommentRequest(final LiquidURI uri, final String text) {
         super();
@@ -49,30 +46,31 @@ public class AddCommentRequest extends AbstractUpdateRequest {
         super();
     }
 
+    public AddCommentRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Override
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
-        if (getRequestEntity() != null) {
-            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()
-                                                                                                        )
-                                    );
-        }
+        getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
     }
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new AddCommentRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());
+        return new AddCommentRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (getUri().getScheme() == LiquidURIScheme.alias) {
             return Collections.EMPTY_LIST;
         }
         else {
-            return getTarget() != null
-                   ? Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW))
-                   : Arrays.asList(new AuthorizationRequest(getUri(), LiquidPermission.VIEW));
+            return hasTarget()
+                   ? Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW))
+                   : Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.VIEW));
         }
     }
 

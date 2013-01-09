@@ -1,5 +1,6 @@
 package cazcade.liquid.api.lsd;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public interface LSDType extends Serializable {
-    @Nullable
+    @Nonnull
     String asString();
 
     boolean canBe(LSDDictionaryTypes type);
@@ -26,7 +27,7 @@ public interface LSDType extends Serializable {
     /**
      * The coarsest grouping i.e. Genus.Family.TypeClass
      */
-    @Nullable
+    @Nonnull
     String getGenus();
 
     LSDType getParentType();

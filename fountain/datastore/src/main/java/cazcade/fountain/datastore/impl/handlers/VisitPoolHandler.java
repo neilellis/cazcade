@@ -3,6 +3,7 @@ package cazcade.fountain.datastore.impl.handlers;
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.ChildSortOrder;
+import cazcade.liquid.api.LiquidPermissionChangeType;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.handler.VisitPoolRequestHandler;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -23,7 +24,7 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
         try {
             LSDTransferEntity entity = null;
 
-            if (request.getUri() != null) {
+            if (request.hasUri()) {
                 persistedEntity = fountainNeo.findByURI(request.getUri());
             }
             else {
@@ -31,10 +32,11 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
             }
 
             if (persistedEntity == null && request.isOrCreate() && !request.getSessionIdentifier().isAnon()) {
-                final LSDPersistedEntity parentPersistedEntity = fountainNeo.findByURI(request.getUri().getParentURI());
+                final LSDPersistedEntity parentPersistedEntity = fountainNeo.findByURIOrFail(request.getUri().getParentURI());
                 final LiquidURI owner = defaultAndCheckOwner(request, request.getAlias());
 
                 final String name = request.getUri().getLastPathElement();
+                assert name != null;
                 final String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-") ||
                                                                  name.startsWith("-")) ? "Untitled" : name;
                 final StringBuilder newTitle = new StringBuilder();
@@ -73,10 +75,9 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 persistedEntity = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity,
                                                          request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed()
                                                         );
-                if (request.getPermission() != null) {
-                    persistedEntity = fountainNeo.changeNodePermissionNoTx(persistedEntity, request.getSessionIdentifier(),
-                                                                           request.getPermission()
-                                                                          );
+                final LiquidPermissionChangeType requestPermission = request.getPermission();
+                if (requestPermission != null) {
+                    persistedEntity = fountainNeo.changeNodePermissionNoTx(persistedEntity, request.getSessionIdentifier(), requestPermission);
                     persistedEntity.assertLatestVersion();
                 }
             }
@@ -92,18 +93,13 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                                                         request.isInternal(), request.getSessionIdentifier(), null, null,
                                                         request.isHistorical()
                                                        );
-                final LSDTransferEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURI(request.getAlias()),
+                final LSDTransferEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURIOrFail(request.getAlias()),
                                                                            request.isInternal(), request.getDetail()
                                                                           );
                 entity.addSubEntity(LSDAttribute.VISITOR, visitor, true);
                 transaction.success();
             }
-            if (entity != null) {
-                return LiquidResponseHelper.forServerSuccess(request, entity);
-            }
-            else {
-                return LiquidResponseHelper.forEmptyResultResponse(request);
-            }
+            return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

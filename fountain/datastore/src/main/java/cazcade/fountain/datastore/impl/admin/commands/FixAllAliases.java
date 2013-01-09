@@ -11,7 +11,6 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import org.neo4j.graphdb.Direction;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * @author neilellis@cazcade.com
@@ -23,6 +22,7 @@ public class FixAllAliases implements AdminCommand {
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
         final LSDPersistedEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
+        assert peoplePool != null;
         final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING
                                                                                    );
         for (final FountainRelationship child : children) {
@@ -36,7 +36,7 @@ public class FixAllAliases implements AdminCommand {
         }
     }
 
-    @Nullable
+    @Nonnull
     private FountainRelationship fixRelationship(@Nonnull final FountainNeo fountainNeo,
                                                  @Nonnull final LSDPersistedEntity startPersistedEntity,
                                                  final FountainRelationships relationshipType) throws InterruptedException {
@@ -53,9 +53,9 @@ public class FixAllAliases implements AdminCommand {
         }
         FountainRelationship rel = startPersistedEntity.getSingleRelationship(relationshipType, Direction.OUTGOING);
         if (rel == null && otherNodeURI != null) {
-            rel = startPersistedEntity.createRelationshipTo(fountainNeo.findByURI(new LiquidURI(otherNodeURI), true),
-                                                            relationshipType
-                                                           );
+            final LSDPersistedEntity otherNodeEntity = fountainNeo.findByURI(new LiquidURI(otherNodeURI), true);
+            assert otherNodeEntity != null;
+            rel = startPersistedEntity.createRelationshipTo(otherNodeEntity, relationshipType);
             log.info("Created new relationship " +
                      startPersistedEntity.getAttribute(LSDAttribute.URI) +
                      " -> " +

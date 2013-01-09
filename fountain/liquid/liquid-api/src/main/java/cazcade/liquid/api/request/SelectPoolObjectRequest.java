@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,14 +26,19 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
         super();
     }
 
+    public SelectPoolObjectRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new SelectPoolObjectRequest(getId(), getSessionIdentifier(), getTarget(), isSelected());
+        return new SelectPoolObjectRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.MODIFY));
+        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.MODIFY));
     }
 
     @Nullable

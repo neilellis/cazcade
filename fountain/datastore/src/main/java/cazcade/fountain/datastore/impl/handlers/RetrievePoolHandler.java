@@ -19,7 +19,7 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDTransferEntity entity;
-            if (request.getUri() != null) {
+            if (request.hasUri()) {
                 entity = poolDAO.getPoolAndContentsNoTx(request.getUri(), request.getDetail(), request.getOrder(),
                                                         request.isContents(), request.isInternal(), request.getSessionIdentifier(),
                                                         0, request.getMax(), request.isHistorical()

@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -9,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
-    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier authenticatedUser,
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier authenticatedUser,
                                      final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
         super();
         setSessionId(authenticatedUser);
@@ -28,7 +29,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         setUri(uri);
     }
 
-    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                                      final LiquidURI uri, final boolean historical) {
         super();
         setId(id);
@@ -46,27 +47,25 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         this(null, identity, uri, historical);
     }
 
-    public RetrievePoolObjectRequest(final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
-        this(null, null, pool, target, historical);
-    }
-
-    public RetrievePoolObjectRequest(final LiquidURI uri, final boolean historical) {
-        this(null, null, uri, historical);
-    }
 
     public RetrievePoolObjectRequest() {
         super();
     }
 
+    public RetrievePoolObjectRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new RetrievePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), getTarget(), getUri());
+        return new RetrievePoolObjectRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getPoolUUID() != null) {
-            return Arrays.asList(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(
+        if (hasPoolUUID()) {
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(getSessionIdentifier(),
                     getPoolUUID(), LiquidPermission.VIEW
             )
                                 );

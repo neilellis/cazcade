@@ -26,6 +26,7 @@ public class FountainRequestValidatorImpl<T extends LiquidRequest> implements Fo
     public void validate(@Nonnull final T request, final ValidationLevel level) {
         final LiquidRequestType requestType = request.getRequestType();
 
+        //noinspection ConstantConditions
         if (requestType == null) {
             throw new ValidationException("No type specified for the request.");
         }

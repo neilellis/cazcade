@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CreateUserRequest extends AbstractCreationRequest {
-    public CreateUserRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public CreateUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                              final LSDTransferEntity entity) {
         super();
         setId(id);
@@ -24,20 +24,21 @@ public class CreateUserRequest extends AbstractCreationRequest {
         this(null, identity, entity);
     }
 
-    public CreateUserRequest(final LSDTransferEntity entity) {
-        this(null, null, entity);
-    }
-
     public CreateUserRequest() {
         super();
+    }
+
+    public CreateUserRequest(final LSDTransferEntity entity) {
+        super(entity);
     }
 
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new CreateUserRequest(getId(), getSessionIdentifier(), getRequestEntity());
+        return new CreateUserRequest(getEntity());
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.EMPTY_LIST;
     }

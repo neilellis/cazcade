@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,10 +42,14 @@ public class LinkPoolRequest extends AbstractRequest {
         super();
     }
 
+    public LinkPoolRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new LinkPoolRequest(getId(), getSessionIdentifier(), getTarget(), getFrom(), getTo(), isUnlink());
+        return new LinkPoolRequest(getEntity());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
@@ -65,22 +70,22 @@ public class LinkPoolRequest extends AbstractRequest {
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (isUnlink()) {
             final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
-            if (getFrom() != null) {
-                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.EDIT));
-                requests.add(new AuthorizationRequest(getFrom(), LiquidPermission.MODIFY));
+            if (hasFrom()) {
+                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.EDIT));
+                requests.add(new AuthorizationRequest(getSessionIdentifier(), getFrom(), LiquidPermission.MODIFY));
             }
             return requests;
         }
         else {
             final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
-            if (getFrom() != null && getTo() != null) {
-                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.EDIT));
-                requests.add(new AuthorizationRequest(getFrom(), LiquidPermission.MODIFY));
-                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
+            if (hasFrom() && hasTo()) {
+                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.EDIT));
+                requests.add(new AuthorizationRequest(getSessionIdentifier(), getFrom(), LiquidPermission.MODIFY));
+                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTo(), LiquidPermission.MODIFY));
             }
-            else if (getTo() != null) {
-                requests.add(new AuthorizationRequest(getTarget(), LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(getTo(), LiquidPermission.MODIFY));
+            else if (hasTo()) {
+                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
+                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTo(), LiquidPermission.MODIFY));
             }
             return requests;
         }
@@ -89,10 +94,10 @@ public class LinkPoolRequest extends AbstractRequest {
     @Nonnull
     public List<String> getNotificationLocations() {
         final List<String> locations = new ArrayList<String>();
-        if (getFrom() != null) {
+        if (hasFrom()) {
             locations.add(getFrom().toString());
         }
-        if (getTo() != null) {
+        if (hasTo()) {
             locations.add(getTo().toString());
         }
         return locations;

@@ -129,7 +129,7 @@ public class LiquidURI implements Serializable {
 
         final LiquidURI liquidURI = (LiquidURI) o;
 
-        if (uri != null ? !uri.equals(liquidURI.uri) : liquidURI.uri != null) {
+        if (!uri.equals(liquidURI.uri)) {
             return false;
         }
 
@@ -139,18 +139,15 @@ public class LiquidURI implements Serializable {
     @Nullable
     public String getLastPathElement() {
         final String[] pathElements = getPathElements();
-        if (pathElements == null || pathElements.length == 0) {
+        if (pathElements.length == 0) {
             return null;
         }
         return pathElements[pathElements.length - 1];
     }
 
-    @Nullable
+    @Nonnull
     private String[] getPathElements() {
         final String path = getPath();
-        if (path == null) {
-            return null;
-        }
         return path.split("/");
     }
 
@@ -242,10 +239,10 @@ public class LiquidURI implements Serializable {
 
     @Override
     public int hashCode() {
-        return uri != null ? uri.hashCode() : 0;
+        return uri.hashCode();
     }
 
-    @Nullable
+    @Nonnull
     public String toString() {
         return uri;
     }

@@ -64,8 +64,8 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     }
 
     @Override
-    @Nullable
-    public LSDTransferEntity convertNodeToLSD(@Nonnull final LiquidRequestDetailLevel detail, final boolean internal)
+    @Nonnull
+    public LSDTransferEntity toLSD(@Nonnull final LiquidRequestDetailLevel detail, final boolean internal)
             throws InterruptedException {
         final LSDTransferEntity entity = createEmpty();
         if (hasAttribute(TYPE)) {
@@ -81,15 +81,17 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             for (final String key : iterable) {
                 if (!key.startsWith("_")) {
                     final LSDAttribute attributeItem = LSDAttribute.valueOf(key);
+                    final String value = getValue(key);
+                    assert value != null;
                     if (attributeItem == null) {
                         //so we don't recognize, it well fine! it got there somehow so we'll give it to you ;-)
                         //also child entities will not be understood as attributes.
-                        entity.setValue(key, getValue(key));
+                        entity.setValue(key, value);
                     }
                     else if (!attributeItem.isHidden() || internal) {
                         //We don't return non-indexable attributes for a search index level of detail
                         if (detail != LiquidRequestDetailLevel.FREE_TEXT_SEARCH_INDEX || attributeItem.isFreeTexSearchable()) {
-                            entity.setAttribute(attributeItem, getValue(key));
+                            entity.setAttribute(attributeItem, value);
                         }
                     }
                 }

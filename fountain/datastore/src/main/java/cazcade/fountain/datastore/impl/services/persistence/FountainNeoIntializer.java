@@ -82,6 +82,7 @@ public class FountainNeoIntializer {
                     @Override
                     public Object call() throws Exception {
                         final LSDPersistedEntity boardsPersistedEntity = fountainNeo.findByURI(boardsUri, false);
+                        assert boardsPersistedEntity != null;
                         if (!LiquidPermissionSet.createPermissionSet(boardsPersistedEntity.getAttribute(LSDAttribute.PERMISSIONS))
                                                 .hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                             fountainNeo.changePermissionNoTx(ADMIN_SESSION, boardsUri, LiquidPermissionChangeType.MAKE_PUBLIC,

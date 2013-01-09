@@ -53,58 +53,62 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     }
 
     @Deprecated
-    public UpdatePoolObjectRequest(final LiquidURI poolURI, @Nonnull final LSDTransferEntity newEntity) {
+    public UpdatePoolObjectRequest(final LiquidURI poolURI, @Nonnull final LSDTransferEntity request) {
         super();
-        setUri(newEntity.getURI());
-        setRequestEntity(newEntity);
+        setUri(request.getURI());
+        setRequestEntity(request);
     }
 
-    public UpdatePoolObjectRequest(@Nonnull final LSDTransferEntity newEntity) {
+    public UpdatePoolObjectRequest(@Nonnull final LSDTransferEntity request) {
         super();
-        if (newEntity.getURI() == null) {
+        if (!request.hasURI()) {
             throw new IllegalArgumentException("To update a pool object the entity should have a URI");
         }
-        setUri(newEntity.getURI());
+        setUri(request.getURI());
         if (getUri().equals(getPoolURI())) {
             throw new IllegalArgumentException(
                     "To update a pool object the entity supplied should be a pool object and have a pool object URI ending in #<object-name> the URI supplied was " +
                     getUri()
             );
         }
-        setRequestEntity(newEntity);
+        setRequestEntity(request);
     }
 
     public UpdatePoolObjectRequest() {
         super();
     }
 
+     UpdatePoolObjectRequest(final LSDTransferEntity entity, String marker) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new UpdatePoolObjectRequest(getId(), getSessionIdentifier(), getPoolUUID(), getTarget(), getUri(),
-                                           getRequestEntity()
-        );
+        return new UpdatePoolObjectRequest(getEntity(), "copy constructor");
     }
 
+    @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri() != null) {
-            return Arrays.asList(new AuthorizationRequest(getPoolURI(), LiquidPermission.EDIT).or(new AuthorizationRequest(getUri(),
+        final LiquidSessionIdentifier sessionIdentifier = getSessionIdentifier();
+        if (hasUri()) {
+            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolURI(), LiquidPermission.EDIT).or(new AuthorizationRequest(sessionIdentifier, getUri(),
                                                                                                                            LiquidPermission.EDIT
-            ).and(new AuthorizationRequest(getPoolURI(), LiquidPermission.MODIFY))
+            ).and(new AuthorizationRequest(sessionIdentifier, getPoolURI(), LiquidPermission.MODIFY))
                                                                                                  )
                                 );
         }
         else {
-            return Arrays.asList(new AuthorizationRequest(getPoolUUID(), LiquidPermission.EDIT).or(new AuthorizationRequest(
-                    getTarget(), LiquidPermission.EDIT
-            ).and(new AuthorizationRequest(getPoolUUID(), LiquidPermission.MODIFY))
+            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), LiquidPermission.EDIT).or(new AuthorizationRequest(
+                    sessionIdentifier, getTarget(), LiquidPermission.EDIT
+            ).and(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), LiquidPermission.MODIFY))
                                                                                                   )
                                 );
         }
     }
 
     public List<String> getNotificationLocations() {
-        if (getPoolURI() != null) {
+        if (hasUri()) {
             return Arrays.asList(getPoolURI().asReverseDNSString(), getUri().asReverseDNSString());
         }
         else {

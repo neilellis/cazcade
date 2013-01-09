@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class CommandSupport {
-    @Nullable
+    @Nonnull
     public static LiquidURI resolvePoolOrObject(@Nonnull final ShellSession shellSession, @Nonnull final String pool) {
         final LiquidURI poolURI;
 

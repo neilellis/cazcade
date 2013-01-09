@@ -5,6 +5,7 @@ import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageHandler;
 import cazcade.liquid.api.LiquidRequest;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -154,10 +155,11 @@ public class InMemoryPubSub implements FountainPubSub {
             }
         }
 
+        @Nonnull
         @Override
         public LiquidRequest handle(LiquidRequest message) throws Exception {
             messages.add(message);
-            return null;
+            return message;
         }
     }
 }

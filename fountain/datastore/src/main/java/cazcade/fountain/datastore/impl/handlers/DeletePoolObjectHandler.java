@@ -13,7 +13,7 @@ public class DeletePoolObjectHandler extends AbstractDeletionHandler<DeletePoolO
         implements DeletePoolObjectRequestHandler {
     @Nonnull
     public DeletePoolObjectRequest handle(@Nonnull final DeletePoolObjectRequest request) throws Exception {
-        if (request.getUri() != null) {
+        if (request.hasUri()) {
             return LiquidResponseHelper.forServerSuccess(request, poolDAO.deletePoolObjectTx(request.getUri(), request.isInternal(),
                                                                                              request.getDetail()
                                                                                             )

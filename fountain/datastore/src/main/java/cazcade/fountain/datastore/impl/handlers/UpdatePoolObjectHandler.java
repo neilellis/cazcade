@@ -22,9 +22,9 @@ public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObj
         try {
             final LSDTransferEntity entity;
             LSDPersistedEntity pool = null;
-            if (request.getUri() != null) {
-                persistedEntityImpl = fountainNeo.findByURI(request.getUri());
-                pool = fountainNeo.findByURI(request.getUri().getWithoutFragment());
+            if (request.hasUri()) {
+                persistedEntityImpl = fountainNeo.findByURIOrFail(request.getUri());
+                pool = fountainNeo.findByURIOrFail(request.getUri().getWithoutFragment());
             }
             else {
                 persistedEntityImpl = fountainNeo.findByUUID(request.getTarget());

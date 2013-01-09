@@ -23,7 +23,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
             final LSDTransferEntity entity;
             final LSDPersistedEntity persistedEntityImpl;
 
-            if (request.getUri() == null) {
+            if (!request.hasUri()) {
                 throw new UnsupportedOperationException("Only URI based updates of pools supported");
             }
             else {

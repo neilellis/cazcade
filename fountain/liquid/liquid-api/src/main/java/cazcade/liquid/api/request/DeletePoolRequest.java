@@ -1,6 +1,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,7 +16,7 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
         setUri(uri);
     }
 
-    public DeletePoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public DeletePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                              final LiquidUUID target) {
         super();
         setId(id);
@@ -33,18 +34,20 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
         setUri(poolURI);
     }
 
-    public DeletePoolRequest(final LiquidUUID target) {
-        this(null, null, target);
-    }
+
 
     public DeletePoolRequest() {
         super();
     }
 
+    public DeletePoolRequest(final LSDTransferEntity entity) {
+        super(entity);
+    }
+
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new DeletePoolRequest(getId(), getSessionIdentifier(), getTarget(), getUri());
+        return new DeletePoolRequest(getEntity());
     }
 
     @Nonnull

@@ -44,7 +44,7 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
             if (config == null) {
                 throw new Error("No configuration for " + request.getClass());
             }
-            if (request.getSessionIdentifier() != null && request.getSessionIdentifier().getSession() != null) {
+            if (request.getSessionIdentifier().getSession() != null) {
                 fountainNeo.updateSessionTx(request.getSessionIdentifier().getSession());
             }
             return (T) config.getHandler().handle(request);

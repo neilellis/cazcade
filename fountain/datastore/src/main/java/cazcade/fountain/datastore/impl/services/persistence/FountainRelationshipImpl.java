@@ -17,6 +17,7 @@ public class FountainRelationshipImpl implements FountainRelationship {
     private final org.neo4j.graphdb.Relationship relationship;
 
     public FountainRelationshipImpl(@Nonnull final org.neo4j.graphdb.Relationship relationship) {
+        //noinspection ConstantConditions
         if (relationship == null) {
             throw new NullPointerException("Tried to create a FountainRelationship from a null neo relationship.");
         }

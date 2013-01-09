@@ -57,37 +57,37 @@ public interface LSDBaseEntity {
     @Nullable
     Object get(@Nonnull String key);
 
-    @Nullable
-    String getAttribute(@Nonnull LSDAttribute attribute, @Nullable String defaultValue);
+    @Nonnull
+    String getAttribute(@Nonnull LSDAttribute attribute, @Nonnull String defaultValue);
 
-    @Nullable
+    @Nonnull
     String getAttribute(@Nonnull LSDAttribute attribute);
 
     @Nonnull
     List<String> getAttributeAsList(@Nonnull LSDAttribute attribute);
 
-    @Nullable
+    @Nonnull
     LiquidURI getAttributeAsURI(@Nonnull LSDAttribute attribute);
 
     boolean getBooleanAttribute(@Nonnull LSDAttribute attribute, boolean defaultValue);
 
     boolean getBooleanAttribute(@Nonnull LSDAttribute editable);
 
-    @Nullable
+    @Nonnull
     Double getDoubleAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
     int getIntegerAttribute(@Nonnull LSDAttribute attribute, int defaultValue) throws NumberFormatException;
 
-    @Nullable
+    @Nonnull
     Integer getIntegerAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
-    @Nullable
+    @Nonnull
     Long getLongAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
     @Nonnull
     Map<String, String> getMap();
 
-    @Nullable
+    @Nonnull
     Date getPublished();
 
     /**
@@ -134,7 +134,7 @@ public interface LSDBaseEntity {
     boolean hasURI();
 
 
-    @Nullable
+    @Nonnull
     LiquidURI getURIAttribute(@Nonnull LSDAttribute attribute);
 
     /**
@@ -143,13 +143,13 @@ public interface LSDBaseEntity {
      *
      * @return a universally unique identifier for this object
      */
-    @Nullable
+    @Nonnull
     LiquidUUID getUUID();
 
-    @Nullable
+    @Nonnull
     LiquidUUID getUUIDAttribute(@Nonnull LSDAttribute attribute);
 
-    @Nullable
+    @Nonnull
     Date getUpdated();
 
     @Nullable
@@ -241,17 +241,23 @@ public interface LSDBaseEntity {
 
     boolean wasPublishedAfter(@Nonnull LSDBaseEntity entity);
 
+    boolean hasUpdated();
+
+    boolean hasId();
+
     class EntityUpdatedComparator implements Comparator<LSDBaseEntity> {
         @Override
         public int compare(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDBaseEntity entity1) {
-            return entity.getUpdated().compareTo(entity1.getUpdated());
+            final Date updated = entity.getUpdated();
+            return updated.compareTo(entity1.getUpdated());
         }
     }
 
     class EntityPublishedComparator implements Comparator<LSDBaseEntity> {
         @Override
         public int compare(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDBaseEntity entity1) {
-            return entity.getPublished().compareTo(entity1.getPublished());
+            final Date published = entity.getPublished();
+            return published.compareTo(entity1.getPublished());
         }
     }
 }

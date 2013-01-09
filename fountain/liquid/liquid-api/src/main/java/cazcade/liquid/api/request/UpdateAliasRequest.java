@@ -20,7 +20,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity,
+    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
                               final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
@@ -36,7 +36,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity);
     }
 
-    public UpdateAliasRequest(@Nullable final LiquidSessionIdentifier identity, final LiquidURI uri,
+    public UpdateAliasRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri,
                               final LSDTransferEntity newEntity) {
         super();
         setUri(uri);
@@ -49,7 +49,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
      */
 
     public UpdateAliasRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, null, target, entity);
+        this(null, LiquidSessionIdentifier.ANON, target, entity);
     }
 
     public UpdateAliasRequest(final LiquidURI uri, final LSDTransferEntity newEntity) {
@@ -62,8 +62,8 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, sessionIdentifier, null, alias.getURI(), alias);
     }
 
-    public UpdateAliasRequest(@Nonnull final LSDTransferEntity entity) {
-        this(null, entity.getURI(), entity);
+     UpdateAliasRequest(@Nonnull final LSDTransferEntity entity) {
+        super(entity);
     }
 
     public UpdateAliasRequest() {
@@ -73,7 +73,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     @Nonnull
     @Override
     public LiquidMessage copy() {
-        return new UpdateAliasRequest(getId(), getSessionIdentifier(), getTarget(), getUri(), getRequestEntity());
+        return new UpdateAliasRequest(getEntity());
     }
 
     @Nonnull

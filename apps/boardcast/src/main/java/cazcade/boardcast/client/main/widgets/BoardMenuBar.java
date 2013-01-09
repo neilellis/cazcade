@@ -219,6 +219,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private void createMenuItemForDecoration(final String name, @Nonnull final MenuBar menuBar, final String variant) {
+        assert poolURI != null;
         menuBar.addItem(new SafeHtmlBuilder().appendHtmlConstant("<img src='" +
                                                                  createUrlForDecoration(name, variant) +
                                                                  "' width='24' height='24'/>"
