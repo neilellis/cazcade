@@ -147,4 +147,12 @@ public class LiquidSessionIdentifier implements Serializable {
     public LiquidUUID getSession() {
         return session;
     }
+
+    public void setSession(LiquidUUID session) {
+        this.session = session;
+    }
+
+    public void setAlias(@Nonnull LiquidURI alias) {
+        this.alias = alias;
+    }
 }
