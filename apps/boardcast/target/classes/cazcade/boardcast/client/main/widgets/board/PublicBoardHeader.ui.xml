@@ -1,0 +1,43 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
+    <g:HTMLPanel>
+        <div class="page-header">
+            <div class="page-header-inner">
+
+                <div ui:field="contentArea" class="board-page-header-content">
+                    <fields:VortexEditableLabel styleName="board-title" placeholder="Click to name" ui:field="title"/>
+
+                    <fields:VortexEditableLabel styleName="board-description"
+                                                placeholder="Click to edit the short description of the board"
+                                                ui:field="description"/>
+                    <div class="board-page-header-rhs">
+                        <!--todo: remove-->
+                        <image:EditableImage ui:field="boardIcon" styleName="board-icon" width="90px"
+                                             size="CLIPPED_SMALL"
+                                             height="60px" visible="false"/>
+                        <div class="board-link-row">
+                            <!--todo: remove-->
+                            <div class="board-url">
+                                <fields:VortexEditableLabel readonly="true" ui:field="url" visible="false"/>
+                            </div>
+                            <div class="board-tag">
+                                <fields:VortexEditableLabel readonly="true" ui:field="tag" visible="false"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--<div class="board-buttons">-->
+            <!--<g:Button styleName="primary btn" text="Follow"/>-->
+            <!--<g:Button styleName="btn" text="Chat"/>-->
+            <!--</div>-->
+
+        </div>
+        <!--<div class="board-top-bar">-->
+        <!--</div>-->
+    </g:HTMLPanel>
+</ui:UiBinder>

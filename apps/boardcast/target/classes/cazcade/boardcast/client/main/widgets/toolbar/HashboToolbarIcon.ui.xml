@@ -1,0 +1,7 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="toolbar-icon">
+        <g:Image ui:field="image" styleName="toolbar-icon-image"/>
+        <g:Label ui:field="label" styleName="toolbar-icon-label"/>
+    </g:HTMLPanel>
+</ui:UiBinder>
