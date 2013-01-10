@@ -4,8 +4,6 @@
 
 package cazcade.liquid.api;
 
-import cazcade.common.CommonConstants;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.Serializable;
@@ -97,7 +95,7 @@ public class LiquidSessionIdentifier implements Serializable {
 
 
     public boolean isAnon() {
-        return CommonConstants.ANONYMOUS_ALIAS.equals(alias.asString());
+        return "alias:cazcade:anon".equals(alias.asString());
     }
 
     public void setSession(final String session) {
@@ -107,7 +105,7 @@ public class LiquidSessionIdentifier implements Serializable {
     @Nonnull @Override
     public String toString() {
         if (session != null) {
-            return getName() + "," + session.toString();
+            return getName() + ',' + session.toString();
         }
         else {
             return getName();
