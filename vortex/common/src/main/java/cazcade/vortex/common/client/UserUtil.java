@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.common.client;
 
+import cazcade.common.CommonConstants;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -19,11 +24,11 @@ public class UserUtil {
     @Nullable
     private static LiquidSessionIdentifier identity;
     @Nullable
-    private static LSDBaseEntity currentAlias;
+    private static LSDBaseEntity           currentAlias;
     @Nonnull
-    public static final String ANON = "anon";
+    public static final String ANON            = "anon";
     @Nonnull
-    public static final String ANON_ALIAS = CommonConstants.ANONYMOUS_ALIAS;
+    public static final String ANON_ALIAS      = CommonConstants.ANONYMOUS_ALIAS;
     @Nonnull
     public static final String VORTEX_IDENTITY = "boardcast.identity";
 
@@ -40,8 +45,11 @@ public class UserUtil {
         return identity == null || "anon".equals(identity.getName());
     }
 
-    @Nullable
+    @Nonnull
     public static LSDBaseEntity getCurrentAlias() {
+        if (currentAlias == null) {
+            throw new IllegalStateException("Attempted to get the current alias when it has not been set, check if logged in first.");
+        }
         return currentAlias;
     }
 
@@ -51,9 +59,9 @@ public class UserUtil {
 
     @SuppressWarnings({"MethodParameterOfConcreteClass"})
     public static void storeIdentity(@Nullable final LiquidSessionIdentifier storeIdentity) {
-        if (storeIdentity != null && storeIdentity.getSession() != null
-            && ClientApplicationConfiguration
-                .isSessionStorageSupported()) {
+        if (storeIdentity != null
+            && storeIdentity.getSession() != null
+            && ClientApplicationConfiguration.isSessionStorageSupported()) {
             Storage.getSessionStorageIfSupported().setItem(VORTEX_IDENTITY, storeIdentity.toString());
         }
     }

@@ -63,7 +63,12 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, sessionIdentifier, null, alias.getURI(), alias);
     }
 
-    UpdateAliasRequest(@Nonnull final LSDTransferEntity entity) {
+    public UpdateAliasRequest(@Nonnull final LSDTransferEntity alias) {
+        super();
+        setRequestEntity(alias);
+    }
+
+    UpdateAliasRequest(@Nonnull final LSDTransferEntity entity, String marker) {
         super(entity);
     }
 
@@ -73,7 +78,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
 
     @Nonnull @Override
     public LiquidMessage copy() {
-        return new UpdateAliasRequest(getEntity());
+        return new UpdateAliasRequest(getEntity(), "copy constructor");
     }
 
     @Nonnull

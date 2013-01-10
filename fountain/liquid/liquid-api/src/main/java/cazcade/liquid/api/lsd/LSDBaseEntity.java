@@ -51,6 +51,9 @@ public interface LSDBaseEntity {
      */
     @Nonnull String asFreeText();
 
+    @Nonnull String asDebugText();
+
+
     boolean attributeIs(@Nonnull LSDAttribute attribute, @Nonnull String comparison);
 
     boolean canBe(@Nonnull LSDDictionaryTypes type);

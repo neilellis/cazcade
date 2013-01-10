@@ -362,6 +362,15 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         return s.toString();
     }
 
+    @Nonnull @Override public String asDebugText() {
+        final StringBuilder buffer = new StringBuilder("{");
+        for (final String property : lsdProperties.getKeys()) {
+            buffer.append(property).append('=').append('\'').append(lsdProperties.get(property)).append('\'').append(',');
+        }
+        buffer.append("}");
+        return buffer.toString();
+    }
+
     @Override @Nonnull
     public final Map<String, String> asMapForPersistence(final boolean ignoreType, final boolean update) {
         final Map<String, String> typedMap = new HashMap<String, String>();

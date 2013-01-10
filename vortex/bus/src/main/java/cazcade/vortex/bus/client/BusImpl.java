@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.bus.client;
 
 import cazcade.liquid.api.*;
@@ -18,18 +22,18 @@ import java.util.*;
 @Singleton
 public class BusImpl implements Bus {
     public static final int UUID_BATCH_SIZE = 200;
-    public static final int UUID_THRESHOLD = 50;
+    public static final int UUID_THRESHOLD  = 50;
 
     @Nonnull
-    private final HashMap<LiquidUUID, CallbackProcessor> responseCallbacks = new HashMap<LiquidUUID, CallbackProcessor>();
+    private final       HashMap<LiquidUUID, CallbackProcessor> responseCallbacks   = new HashMap<LiquidUUID, CallbackProcessor>();
     @Nonnull
-    private final HashMap<String, ListenerCollection> listenerCollections = new HashMap<String, ListenerCollection>();
+    private final       HashMap<String, ListenerCollection>    listenerCollections = new HashMap<String, ListenerCollection>();
     @Nonnull
-    private final PersistentUUIDService uuids = new PersistentUUIDService();
+    private final       PersistentUUIDService                  uuids               = new PersistentUUIDService();
     @Nonnull
-    private final HashMap<Long, BusListener> listenerLookup = new HashMap<Long, BusListener>();
+    private final       HashMap<Long, BusListener>             listenerLookup      = new HashMap<Long, BusListener>();
     @Nonnull
-    public static final Runnable DO_NOTHING = new Runnable() {
+    public static final Runnable                               DO_NOTHING          = new Runnable() {
         public void run() {
         }
     };
@@ -54,7 +58,8 @@ public class BusImpl implements Bus {
                     then.run();
                 }
             });
-        } else {
+        }
+        else {
             //Keep all this  out of the event loops.
             Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
@@ -108,7 +113,8 @@ public class BusImpl implements Bus {
                     then.run();
                 }
             });
-        } else {
+        }
+        else {
             //Let's keep all this out of any event loops.
             Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
@@ -124,7 +130,10 @@ public class BusImpl implements Bus {
         ClientLog.log(responseCallbacks.containsKey(id) ? "Callback found" : "No callback found for " + id);
         ClientLog.log("Message state is " + message.getState());
         ClientLog.log(responseCallbacks.toString());
-        if (message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.DEFERRED && message.getState() != LiquidMessageState.INITIAL && responseCallbacks.containsKey(id)) {
+        if (message.getState() != LiquidMessageState.PROVISIONAL
+            && message.getState() != LiquidMessageState.DEFERRED
+            && message.getState() != LiquidMessageState.INITIAL
+            && responseCallbacks.containsKey(id)) {
             final CallbackProcessor responseCallbackProcessor = responseCallbacks.get(id);
             try {
                 responseCallbackProcessor.handleResponse(message);
@@ -143,7 +152,7 @@ public class BusImpl implements Bus {
         if (!started) {
             throw new RuntimeException("Bus has not been started yet.");
         }
-//        ClientLog.log("" + listenerCollections.size());
+        //        ClientLog.log("" + listenerCollections.size());
         final List<String> keys = new ArrayList<String>();
         final Collection<LiquidURI> affectedEntities = message.getAffectedEntities();
         if (affectedEntities != null) {
@@ -161,7 +170,7 @@ public class BusImpl implements Bus {
         keys.add("*:" + responseEntityId);
         keys.add("*:*");
         for (final String key : keys) {
-//            ClientLog.log("Looking for match for '" + key + "'");
+            //            ClientLog.log("Looking for match for '" + key + "'");
             final ListenerCollection listenerCollection = listenerCollections.get(key);
             if (listenerCollection != null) {
                 ClientLog.log("Matched " + key);
@@ -221,12 +230,26 @@ public class BusImpl implements Bus {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
                 if (message instanceof LiquidRequest && message.getOrigin() == LiquidMessageOrigin.SERVER) {
-                    ClientLog.log("Not calling " + listener.getClass().getName() + " for " + uri + " as the origin should be " + message.getOrigin() + " when it needs to be SERVER");
+                    ClientLog.log("Not calling "
+                                  + listener.getClass().getName()
+                                  + " for "
+                                  + uri
+                                  + " as the origin should be "
+                                  + message.getOrigin()
+                                  + " when it needs to be SERVER");
                     if (((LiquidRequest) message).getRequestType() == type) {
                         ClientLog.log("Calling " + listener.getClass().getName() + " for " + uri);
                         listener.handle(message);
-                    } else {
-                        ClientLog.log("Not calling " + listener.getClass().getName() + " for " + uri + " as the type was " + ((LiquidRequest) message).getRequestType() + " and listener wants " + type);
+                    }
+                    else {
+                        ClientLog.log("Not calling "
+                                      + listener.getClass().getName()
+                                      + " for "
+                                      + uri
+                                      + " as the type was "
+                                      + ((LiquidRequest) message).getRequestType()
+                                      + " and listener wants "
+                                      + type);
                     }
                 }
             }
@@ -242,8 +265,16 @@ public class BusImpl implements Bus {
                     if (((LiquidRequest) message).getRequestType() == type) {
                         ClientLog.log("Calling " + listener.getClass().getName() + " for " + uri);
                         listener.handle(message);
-                    } else {
-                        ClientLog.log("Not calling " + listener.getClass().getName() + " for " + uri + " as the type was " + ((LiquidRequest) message).getRequestType() + " and listener wants " + type);
+                    }
+                    else {
+                        ClientLog.log("Not calling "
+                                      + listener.getClass().getName()
+                                      + " for "
+                                      + uri
+                                      + " as the type was "
+                                      + ((LiquidRequest) message).getRequestType()
+                                      + " and listener wants "
+                                      + type);
                     }
                 }
             }
@@ -346,7 +377,8 @@ public class BusImpl implements Bus {
                 if (listener == null) {
                     ClientLog.log("Removing stale listener " + listenerId);
                     deleteThese.add(listenerId);
-                } else {
+                }
+                else {
                     try {
                         listener.handle(message);
                     } catch (Exception e) {
@@ -376,21 +408,25 @@ public class BusImpl implements Bus {
         }
 
         public void handleResponse(@Nonnull final LiquidMessage response) {
-//            ClientLog.log("Callback processor processing " + response.getId());
+            //            ClientLog.log("Callback processor processing " + response.getId());
             for (final ResponseCallback responseCallback : callbacks) {
                 final LSDBaseEntity responseEntity = response.getResponse();
-                if (message.getState() == LiquidMessageState.FAIL || message.getResponse() != null && message.getResponse().isError()) {
+                if (message.getState() == LiquidMessageState.FAIL || message.getResponse() != null && message.getResponse()
+                                                                                                             .isError()) {
                     if (responseEntity == null) {
                         ClientLog.log("Callback handling failed and response entity was null. ");
-                    } else {
-                        ClientLog.log("Callback handling failed " + responseEntity);
+                    }
+                    else {
+                        ClientLog.log("Callback handling failed " + responseEntity.asDebugText());
                     }
                     responseCallback.onFailure(message, response);
-                } else {
+                }
+                else {
                     if (responseEntity == null) {
                         ClientLog.log("Callback handling success, but response entity was null. ");
-                    } else {
-                        ClientLog.log("Callback handling success " + responseEntity);
+                    }
+                    else {
+                        ClientLog.log("Callback handling success " + responseEntity.asDebugText());
                     }
                     responseCallback.onSuccess(message, response);
                 }
