@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -32,14 +36,12 @@ public class SearchRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new SearchRequest(getEntity());
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.emptyList();
     }
@@ -49,8 +51,7 @@ public class SearchRequest extends AbstractRequest {
         return Arrays.asList();
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.SEARCH;
     }

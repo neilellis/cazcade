@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl;
 
 import javax.annotation.Nonnull;
@@ -10,16 +14,13 @@ import javax.annotation.Nonnull;
 public interface FountainRelationship {
     void delete();
 
-    @Nonnull
-    LSDPersistedEntity getEndNode();
+    @Nonnull LSDPersistedEntity getEndNode();
 
-    @Nonnull
-    LSDPersistedEntity getOtherNode(@Nonnull LSDPersistedEntity persistedEntity);
+    @Nonnull LSDPersistedEntity getOtherNode(@Nonnull LSDPersistedEntity persistedEntity);
 
     Object getProperty(String key);
 
-    @Nonnull
-    LSDPersistedEntity getStartNode();
+    @Nonnull LSDPersistedEntity getStartNode();
 
     FountainRelationships getType();
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import cazcade.liquid.api.lsd.LSDBaseEntity;
@@ -13,8 +17,7 @@ import java.util.Collection;
  * @author neilellis@cazcade.com
  */
 public interface LiquidMessage extends Serializable {
-    @Nonnull
-    SerializedRequest asSerializedRequest();
+    @Nonnull SerializedRequest asSerializedRequest();
 
 
     /**
@@ -22,8 +25,7 @@ public interface LiquidMessage extends Serializable {
      *
      * @return a copy of this message.
      */
-    @Nonnull
-    LiquidMessage copy();
+    @Nonnull LiquidMessage copy();
 
     /**
      * TODO: Deprecate this, it's used by the GWT Bus only.
@@ -32,33 +34,26 @@ public interface LiquidMessage extends Serializable {
      */
     Collection<LiquidURI> getAffectedEntities();
 
-    @Nonnull
-    String getCacheIdentifier();
+    @Nonnull String getCacheIdentifier();
 
     LiquidCachingScope getCachingScope();
 
-    @Nonnull
-    String getDeduplicationIdentifier();
+    @Nonnull String getDeduplicationIdentifier();
 
-    @Nonnull
-    LiquidUUID getId();
+    @Nonnull LiquidUUID getId();
 
-    @Nonnull
-    LiquidMessageType getMessageType();
+    @Nonnull LiquidMessageType getMessageType();
 
     LiquidMessageOrigin getOrigin();
 
-    @Nonnull
-    LSDTransferEntity getRequestEntity();
+    @Nonnull LSDTransferEntity getRequestEntity();
 
-    @Nonnull
-    LSDTransferEntity getResponse();
+    @Nonnull LSDTransferEntity getResponse();
 
     /**
      * If there is a response entity returns that otherwise returns the original entity from the request.
      */
-    @Nullable
-    LSDBaseEntity getResponseOrRequestEntity();
+    @Nullable LSDBaseEntity getResponseOrRequestEntity();
 
     LiquidMessageState getState();
 

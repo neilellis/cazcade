@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.entities;
 
 
@@ -14,13 +18,12 @@ import java.util.Set;
 /**
  * @author neilellis@cazcade.com
  */
-@Entity
-@Table(name = "alias")
+@Entity @Table(name = "alias")
 public class AliasEntity extends CommonBase {
-    protected Boolean registered;
-    protected String fullName;
-    private Set<VisitEntity> visits;
-    private Date lastEmailUpdateDate;
+    protected Boolean          registered;
+    protected String           fullName;
+    private   Set<VisitEntity> visits;
+    private   Date             lastEmailUpdateDate;
 
 
     @Override
@@ -92,8 +95,7 @@ public class AliasEntity extends CommonBase {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    @Id
-    @Column(name = "uri", nullable = false)
+    @Id @Column(name = "uri", nullable = false)
     public String getUri() {
         return uri;
     }

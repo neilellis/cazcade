@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.graph;
 
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
@@ -12,8 +16,8 @@ import javax.annotation.Nullable;
 public class StatusUpdateTranslator {
     @Nullable
     public static LSDSimpleEntity translate(final LSDSimpleEntity from) {
-//        if(from.canBe(LSDTypes.ALIAS)) {
-//        final LSDSimpleEntity lsdSimpleEntity = LSDSimpleEntity.createNewEntity(LSDTypes.)
+        //        if(from.canBe(LSDTypes.ALIAS)) {
+        //        final LSDSimpleEntity lsdSimpleEntity = LSDSimpleEntity.createNewEntity(LSDTypes.)
         return null;
     }
 }

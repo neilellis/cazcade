@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl;
 
 import cazcade.fountain.datastore.api.FountainRequestCompensator;
@@ -8,7 +12,7 @@ import cazcade.liquid.api.LiquidRequest;
  * @author neilellis@cazcade.com
  */
 public class FountainRequestConfiguration<T extends LiquidRequest> {
-    private LiquidMessageHandler<T> handler;
+    private LiquidMessageHandler<T>       handler;
     private FountainRequestCompensator<T> compensator;
 
     public FountainRequestCompensator<T> getCompensator() {

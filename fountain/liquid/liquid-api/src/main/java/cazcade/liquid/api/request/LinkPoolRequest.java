@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -13,8 +17,7 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class LinkPoolRequest extends AbstractRequest {
-    public LinkPoolRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
-                           @Nullable final LiquidUUID from, @Nullable final LiquidUUID to, final boolean unlink) {
+    public LinkPoolRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, @Nullable final LiquidUUID from, @Nullable final LiquidUUID to, final boolean unlink) {
         super();
         setFrom(from);
         setTo(to);
@@ -24,13 +27,11 @@ public class LinkPoolRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
-    public LinkPoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
-                           final boolean unlink) {
+    public LinkPoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final boolean unlink) {
         this(null, identity, target, from, null, unlink);
     }
 
-    public LinkPoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
-                           final LiquidUUID to) {
+    public LinkPoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final LiquidUUID to) {
         this(null, identity, target, from, to, false);
     }
 
@@ -46,22 +47,21 @@ public class LinkPoolRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new LinkPoolRequest(getEntity());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
-//        ArrayList<LiquidUUID> ids = new ArrayList<LiquidUUID>();
-//        if (from != null) {
-//            ids.add(from);
-//        }
-//        if (to != null) {
-//            ids.add(to);
-//        }
-//        ids.add(target);
-//        return ids;
+        //        ArrayList<LiquidUUID> ids = new ArrayList<LiquidUUID>();
+        //        if (from != null) {
+        //            ids.add(from);
+        //        }
+        //        if (to != null) {
+        //            ids.add(to);
+        //        }
+        //        ids.add(target);
+        //        return ids;
         //todo: support uris
         return super.getAffectedEntities();
     }

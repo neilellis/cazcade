@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.security;
 
 import cazcade.common.Logger;
@@ -19,7 +23,7 @@ import java.security.Principal;
  */
 public class SecurityProvider {
     @Nonnull
-    private static final Logger log = Logger.getLogger(SecurityProvider.class);
+    private static final Logger                  log           = Logger.getLogger(SecurityProvider.class);
     @Nonnull
     private static final LiquidSessionIdentifier ANON_IDENTITY = new LiquidSessionIdentifier("anon");
     private final FountainDataStore dataStore;
@@ -44,7 +48,8 @@ public class SecurityProvider {
             final LSDBaseEntity lsdEntity = loadUserInternal(username);
             if (lsdEntity.hasAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD)) {
                 final String hashedPassword = lsdEntity.getAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD);
-                if ((!lsdEntity.hasAttribute(LSDAttribute.SECURITY_BLOCKED) || !lsdEntity.getBooleanAttribute(LSDAttribute.SECURITY_BLOCKED))
+                if ((!lsdEntity.hasAttribute(LSDAttribute.SECURITY_BLOCKED)
+                     || !lsdEntity.getBooleanAttribute(LSDAttribute.SECURITY_BLOCKED))
                     && passwordEncryptor.checkPassword(password, hashedPassword)) {
                     return new LiquidPrincipal(new LiquidSessionIdentifier(username).getName());
                 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -10,8 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DeleteUserRequest extends AbstractDeletionRequest {
-    public DeleteUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                             final LiquidUUID target) {
+    public DeleteUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
         super();
         setId(id);
         setSessionId(identity);
@@ -30,8 +33,7 @@ public class DeleteUserRequest extends AbstractDeletionRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new DeleteUserRequest(getEntity());
     }

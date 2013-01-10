@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
@@ -29,14 +33,12 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
         LSDTransferEntity result;
         if (request.hasTarget()) {
             throw new UnsupportedOperationException("Retrieval by alias UUID not supported anymore.");
-//            log.warn("Retrieving alias using UUID - this behaviour is deprecated, use URIs.");
-//            result = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
+            //            log.warn("Retrieving alias using UUID - this behaviour is deprecated, use URIs.");
+            //            result = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
         }
         else if (request.hasUri()) {
             log.debug("Retrieving alias using URI {0}", request.getUri());
-            result = socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(),
-                                                   request.getDetail()
-                                                  );
+            result = socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.getDetail());
         }
         else {
             log.debug("Retrieving aliases for current user {0}", request.getSessionIdentifier().getUserURL());
@@ -49,16 +51,13 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
             try {
                 final LSDPersistedEntity userPersistedEntity = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
                 if (userPersistedEntity == null) {
-                    throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.",
-                                                      request.getSessionIdentifier().getName()
-                    );
+                    throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.", request.getSessionIdentifier()
+                                                                                                                       .getName());
                 }
 
                 if (userPersistedEntity.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
                     boolean found = false;
-                    final Iterable<FountainRelationship> relationships = userPersistedEntity.getRelationships(
-                            FountainRelationships.ALIAS, Direction.INCOMING
-                                                                                                             );
+                    final Iterable<FountainRelationship> relationships = userPersistedEntity.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
                     for (final FountainRelationship relationship : relationships) {
                         final LSDPersistedEntity aliasPersistedEntity = relationship.getOtherNode(userPersistedEntity);
                         if (!aliasPersistedEntity.isDeleted()) {

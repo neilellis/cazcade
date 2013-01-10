@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.message;
 
 import cazcade.fountain.datastore.api.FountainDataStoreFacade;
@@ -31,9 +35,7 @@ public class CommentRestHandler extends AbstractRestHandler {
         final String text = parameters.get("text")[0];
         final String image = parameters.get("image")[0];
         final String uri = parameters.get("uri")[0];
-        final LSDTransferEntity message = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT,
-                                                                                  UUIDFactory.randomUUID()
-                                                                                 );
+        final LSDTransferEntity message = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT, UUIDFactory.randomUUID());
         message.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
         message.setAttribute(LSDAttribute.IMAGE_URL, image);
         message.setAttribute(LSDAttribute.ICON_URL, image);

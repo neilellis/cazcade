@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 
@@ -103,12 +107,8 @@ public enum LSDDictionaryTypes implements LSDType {
     DATA_STORE_REFERENCE_RESULT("System.Server.Result.Reference"),
     DATA_STORE_DEFERRED_RESULT("System.Server.Result.Deferred"),
 
-    AUTHORIZATION_NOT_REQUIRED("System.AuthorizationResponse.NotRequired",
-                               "An attempt to authorize an item with no permissions defined was made, this entity includes the details."
-    ),
-    AUTHORIZATION_INVALID("System.AuthorizationResponse.Invalid",
-                          "An invalid authorization request was made, this entity contains the details."
-    ),
+    AUTHORIZATION_NOT_REQUIRED("System.AuthorizationResponse.NotRequired", "An attempt to authorize an item with no permissions defined was made, this entity includes the details."),
+    AUTHORIZATION_INVALID("System.AuthorizationResponse.Invalid", "An invalid authorization request was made, this entity contains the details."),
     AUTHORIZATION_ACCEPTANCE("System.AuthorizationResponse.Acceptance", "The details of an accepted authorization request."),
     AUTHORIZATION_DENIAL("System.AuthorizationResponse.Denial", "The details of a denied authorization request."),
 
@@ -134,8 +134,8 @@ public enum LSDDictionaryTypes implements LSDType {
     @Nonnull
     private final LSDType value;
     @Nullable
-    private final LiquidUUID id = null;
-    private String description = "";
+    private final LiquidUUID id          = null;
+    private       String     description = "";
 
 
     public static String getNameForValue(final String value) {

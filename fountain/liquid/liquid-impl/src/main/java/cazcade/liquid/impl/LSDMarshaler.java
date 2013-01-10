@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDTransferEntity;
@@ -10,8 +14,7 @@ import java.io.OutputStream;
  */
 
 public interface LSDMarshaler {
-    @Nonnull
-    String getMimeType();
+    @Nonnull String getMimeType();
 
     void marshal(LSDTransferEntity lsdEntity, OutputStream output);
 }

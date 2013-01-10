@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -29,8 +33,7 @@ public class ClaimAliasRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new ClaimAliasRequest(getEntity());
     }

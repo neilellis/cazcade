@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl;
 
 import cazcade.common.Logger;
@@ -22,12 +26,11 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainLocalDataStore.class);
 
-    private FountainNeo fountainNeo;
-    private FountainRequestMap requestMap;
+    private FountainNeo                 fountainNeo;
+    private FountainRequestMap          requestMap;
     private AuthorizationRequestHandler authHandler;
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public <T extends LiquidRequest> T process(@Nonnull final T request) throws Exception {
         try {
             final List<AuthorizationRequest> authorizationRequests = request.getAuthorizationRequests();

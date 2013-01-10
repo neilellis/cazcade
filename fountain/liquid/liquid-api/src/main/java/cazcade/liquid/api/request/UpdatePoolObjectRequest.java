@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,8 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
-    protected UpdatePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool,
-                                      final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
+    protected UpdatePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -24,8 +27,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
 
-    public UpdatePoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool,
-                                   final LiquidUUID target, final LSDTransferEntity entity) {
+    public UpdatePoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -38,14 +40,12 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
 
-    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target,
-                                   final LSDTransferEntity entity) {
+    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, identity, pool, target, entity);
     }
 
     @Deprecated
-    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI objectURI,
-                                   final LSDTransferEntity newEntity) {
+    public UpdatePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LSDTransferEntity newEntity) {
         super();
         setSessionId(identity);
         setUri(objectURI);
@@ -67,9 +67,8 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
         setUri(request.getURI());
         if (getUri().equals(getPoolURI())) {
             throw new IllegalArgumentException(
-                    "To update a pool object the entity supplied should be a pool object and have a pool object URI ending in #<object-name> the URI supplied was " +
-                    getUri()
-            );
+                    "To update a pool object the entity supplied should be a pool object and have a pool object URI ending in #<object-name> the URI supplied was "
+                    + getUri());
         }
         setRequestEntity(request);
     }
@@ -78,12 +77,11 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
         super();
     }
 
-     UpdatePoolObjectRequest(final LSDTransferEntity entity, String marker) {
+    UpdatePoolObjectRequest(final LSDTransferEntity entity, String marker) {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new UpdatePoolObjectRequest(getEntity(), "copy constructor");
     }
@@ -92,18 +90,12 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     public List<AuthorizationRequest> getAuthorizationRequests() {
         final LiquidSessionIdentifier sessionIdentifier = getSessionIdentifier();
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolURI(), LiquidPermission.EDIT).or(new AuthorizationRequest(sessionIdentifier, getUri(),
-                                                                                                                           LiquidPermission.EDIT
-            ).and(new AuthorizationRequest(sessionIdentifier, getPoolURI(), LiquidPermission.MODIFY))
-                                                                                                 )
-                                );
+            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolURI(), LiquidPermission.EDIT).or(new AuthorizationRequest(sessionIdentifier, getUri(), LiquidPermission.EDIT)
+                    .and(new AuthorizationRequest(sessionIdentifier, getPoolURI(), LiquidPermission.MODIFY))));
         }
         else {
-            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), LiquidPermission.EDIT).or(new AuthorizationRequest(
-                    sessionIdentifier, getTarget(), LiquidPermission.EDIT
-            ).and(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), LiquidPermission.MODIFY))
-                                                                                                  )
-                                );
+            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), LiquidPermission.EDIT).or(new AuthorizationRequest(sessionIdentifier, getTarget(), LiquidPermission.EDIT)
+                    .and(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), LiquidPermission.MODIFY))));
         }
     }
 

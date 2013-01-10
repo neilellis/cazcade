@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.client.validation;
 
 import cazcade.common.Logger;
@@ -26,8 +30,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private FountainDataStore dataStore;
 
     @Nonnull
-    public AuthorizationStatus authorize(final LiquidSessionIdentifier identity, final LiquidUUID resource,
-                                         final LiquidPermission permission) throws Exception {
+    public AuthorizationStatus authorize(final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidPermission permission) throws Exception {
         final LiquidMessage message = dataStore.process(new AuthorizationRequest(identity, resource, permission));
         final LSDBaseEntity response = message.getResponse();
         final LSDType lsdType = response.getTypeDef().getPrimaryType();
@@ -60,17 +63,19 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     public LiquidRequest authorize(@Nonnull final LiquidRequest liquidRequest) throws Exception {
         final List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
         for (final AuthorizationRequest authRequest : authRequests) {
-            log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.hasTarget() ? authRequest.getTarget() : "<no target>");
+            log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.hasTarget()
+                                                                                                      ? authRequest.getTarget()
+                                                                                                      : "<no target>");
             authRequest.setSessionId(liquidRequest.getSessionIdentifier());
             final LiquidMessage message = dataStore.process(authRequest);
-//            //noinspection ConstantConditions
-//            if (message == null) {
-//                throw new NullPointerException("Received a null message back from the data store during authorization.");
-//            }
-//            //noinspection ConstantConditions
-//            if (message.getResponse() == null) {
-//                throw new NullPointerException("Received a null response back from the data store during authorization.");
-//            }
+            //            //noinspection ConstantConditions
+            //            if (message == null) {
+            //                throw new NullPointerException("Received a null message back from the data store during authorization.");
+            //            }
+            //            //noinspection ConstantConditions
+            //            if (message.getResponse() == null) {
+            //                throw new NullPointerException("Received a null response back from the data store during authorization.");
+            //            }
             final LSDType lsdType = message.getResponse().getTypeDef().getPrimaryType();
             if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
                 log.debug("SUCCESS for authorization.");
@@ -85,8 +90,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Nonnull
-    public LiquidMessage postAuthorize(final LiquidSessionIdentifier identity, @Nonnull final AbstractRetrievalRequest message,
-                                       final LiquidPermission permission) throws Exception {
+    public LiquidMessage postAuthorize(final LiquidSessionIdentifier identity, @Nonnull final AbstractRetrievalRequest message, final LiquidPermission permission) throws Exception {
         log.debug("Post authorizing: {0}", message.getClass().getSimpleName());
         final LSDBaseEntity response = message.getResponse();
         if (response.getTypeDef().getPrimaryType().isSystemType()) {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import cazcade.liquid.api.LiquidUUID;
@@ -15,12 +19,9 @@ public interface LSDEntityFactory {
      * @param dotPrefixed true if it should only be built from properties starting with "."
      * @return
      */
-    @Nonnull
-    LSDBaseEntity create(Map<String, String> properties, boolean dotPrefixed);
+    @Nonnull LSDBaseEntity create(Map<String, String> properties, boolean dotPrefixed);
 
-    @Nonnull
-    LSDBaseEntity create(LiquidUUID uuid);
+    @Nonnull LSDBaseEntity create(LiquidUUID uuid);
 
-    @Nonnull
-    LSDTransferEntity createFromServletProperties(Map<String, String[]> properties);
+    @Nonnull LSDTransferEntity createFromServletProperties(Map<String, String[]> properties);
 }

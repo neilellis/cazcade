@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -10,8 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class CreateAliasRequest extends AbstractCreationRequest {
-    public CreateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                              final LSDTransferEntity entity, final boolean me, final boolean orupdate, final boolean claim) {
+    public CreateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final boolean me, final boolean orupdate, final boolean claim) {
         super();
         setClaim(claim);
         setId(id);
@@ -21,8 +24,7 @@ public class CreateAliasRequest extends AbstractCreationRequest {
         setSessionId(identity);
     }
 
-    public CreateAliasRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity alias, final boolean me,
-                              final boolean orupdate, final boolean claim) {
+    public CreateAliasRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity alias, final boolean me, final boolean orupdate, final boolean claim) {
         this(null, identity, alias, me, orupdate, claim);
     }
 
@@ -38,8 +40,7 @@ public class CreateAliasRequest extends AbstractCreationRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new CreateAliasRequest(getEntity());
     }

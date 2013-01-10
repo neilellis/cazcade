@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import cazcade.liquid.api.request.AuthorizationRequest;
@@ -19,23 +23,18 @@ public interface LiquidRequest extends LiquidMessage {
      *
      * @return
      */
-    @Nonnull
-    List<AuthorizationRequest> getAuthorizationRequests();
+    @Nonnull List<AuthorizationRequest> getAuthorizationRequests();
 
     long getCacheExpiry();
 
-    @Nullable
-    List<String> getNotificationLocations();
+    @Nullable List<String> getNotificationLocations();
 
 
-    @Nullable
-    String getNotificationSession();
+    @Nullable String getNotificationSession();
 
-    @Nonnull
-    LiquidRequestType getRequestType();
+    @Nonnull LiquidRequestType getRequestType();
 
-    @Nonnull
-    LiquidSessionIdentifier getSessionIdentifier();
+    @Nonnull LiquidSessionIdentifier getSessionIdentifier();
 
     boolean isAsyncRequest();
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -12,8 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
-    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                  final long since) {
+    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final long since) {
         super();
         setSince(since);
         setId(id);
@@ -36,8 +39,7 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new RetrieveUpdatesRequest(getEntity());
     }

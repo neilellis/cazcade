@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -21,11 +25,11 @@ public class LSDEntityTest extends TestCase {
         final Properties props = new Properties();
         props.load(getClass().getResourceAsStream("test.properties"));
         final HashMap<String, String> propMap = new HashMap(props);
-//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
+        //        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
         final LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
-//        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
-//        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
-//        LSDNode lsdNode = entity.asFormatIndependentTree();
+        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
+        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
+        //        LSDNode lsdNode = entity.asFormatIndependentTree();
         System.out.println(entity.dump());
         final List<LSDTransferEntity> lsdEntities = (List<LSDTransferEntity>) entity.getSubEntities(LSDAttribute.CHILD);
         for (final LSDTransferEntity lsdEntity : lsdEntities) {

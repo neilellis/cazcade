@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -23,8 +27,7 @@ public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new RetrieveDictionaryRequest(getEntity());
     }

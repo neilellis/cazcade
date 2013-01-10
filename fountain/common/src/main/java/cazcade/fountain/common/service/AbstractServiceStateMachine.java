@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.common.service;
 
 import cazcade.common.Logger;
@@ -29,7 +33,7 @@ public abstract class AbstractServiceStateMachine implements ServiceStateMachine
     @Nonnull
     private final AtomicInteger activeCount = new AtomicInteger(0);
     @Nonnull
-    private final AtomicBoolean locked = new AtomicBoolean(false);
+    private final AtomicBoolean locked      = new AtomicBoolean(false);
 
     protected AbstractServiceStateMachine() {
     }

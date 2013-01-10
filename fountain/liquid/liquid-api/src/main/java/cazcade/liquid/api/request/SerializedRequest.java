@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidRequestType;
@@ -15,7 +19,7 @@ public final class SerializedRequest implements Serializable {
 
     private static final long serialVersionUID = 8663364255167259991L;
 
-    private String type;
+    private String                  type;
     private HashMap<String, String> entity;
 
     public SerializedRequest(@Nonnull final LiquidRequestType type, @Nonnull final LSDTransferEntity entity) {
@@ -34,5 +38,13 @@ public final class SerializedRequest implements Serializable {
     @Nonnull
     public LiquidRequestType getType() {
         return LiquidRequestType.valueOf(type);
+    }
+
+    @Override
+    public String toString() {
+        return "SerializedRequest{" +
+               "type='" + type + '\'' +
+               ", entity=" + entity +
+               '}';
     }
 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.dictionary;
 
 import cazcade.fountain.server.rest.AbstractRestHandler;
@@ -27,7 +31,7 @@ public class DictionaryRestHandler extends AbstractRestHandler {
         final List<LSDBaseEntity> entries = new ArrayList<LSDBaseEntity>();
         for (final LSDAttribute value : values) {
             final LSDBaseEntity dictionaryEntry = LSDSimpleEntity.createEmpty();
-//            dictionaryEntry.setAttribute(LSDAttribute.ID, value.getId().toString());
+            //            dictionaryEntry.setAttribute(LSDAttribute.ID, value.getId().toString());
             dictionaryEntry.setAttribute(LSDAttribute.NAME, value.getKeyName());
             dictionaryEntry.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.LIQUID_KEY_DICTIONARY_ENTRY.getValue());
             dictionaryEntry.setAttribute(LSDAttribute.DESCRIPTION, value.getDescription());

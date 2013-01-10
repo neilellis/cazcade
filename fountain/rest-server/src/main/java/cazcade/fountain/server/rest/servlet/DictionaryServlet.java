@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.servlet;
 
 import cazcade.common.Logger;
@@ -20,8 +24,7 @@ public class DictionaryServlet extends HttpServlet {
     @Nonnull
     private static final Logger log = Logger.getLogger(DictionaryServlet.class);
 
-    public void doGet(final HttpServletRequest request, @Nonnull final HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doGet(final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
             final LSDAttribute[] keys = LSDAttribute.values();
             Arrays.sort(keys);
@@ -43,9 +46,7 @@ public class DictionaryServlet extends HttpServlet {
                 if (!key.isUpdateable()) {
                     out.print("<i>");
                 }
-                out.printf("<tr><td>%s</td><td>%s</td><td>%s</td></tr>%n", key.getKeyName(), key.getFormatValidationString(),
-                           key.getDescription()
-                          );
+                out.printf("<tr><td>%s</td><td>%s</td><td>%s</td></tr>%n", key.getKeyName(), key.getFormatValidationString(), key.getDescription());
                 if (!key.isUpdateable()) {
                     out.print("</i>");
                 }

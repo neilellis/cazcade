@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -15,8 +19,7 @@ import java.util.Map;
 public class AdminCommandHandler extends AbstractDataStoreHandler<AdminCommandRequest> implements AdminCommandRequestHandler {
     private Map<String, AdminCommand> adminCommands;
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public AdminCommandRequest handle(@Nonnull final AdminCommandRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {

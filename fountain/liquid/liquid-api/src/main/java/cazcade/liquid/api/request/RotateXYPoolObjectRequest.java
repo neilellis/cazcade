@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,9 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RotateXYPoolObjectRequest extends AbstractRequest {
-    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                     final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object,
-                                     final Double angle) {
+    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object, final Double angle) {
         super();
         setId(id);
         setSessionId(identity);
@@ -21,8 +23,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
         setUri(objectURI);
     }
 
-    public RotateXYPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object,
-                                     final Double angle, final LiquidURI objectURI) {
+    public RotateXYPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
         this(null, identity, objectURI, poolId, object, angle);
     }
 
@@ -35,8 +36,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new RotateXYPoolObjectRequest(getEntity());
     }

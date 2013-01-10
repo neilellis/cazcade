@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDBaseEntity;
@@ -13,6 +17,5 @@ import java.io.InputStream;
 public interface LSDUnmarshaler {
     void unmarshal(LSDBaseEntity lsdEntity, InputStream input);
 
-    @Nonnull
-    LSDTransferEntity unmarshal(InputStream input);
+    @Nonnull LSDTransferEntity unmarshal(InputStream input);
 }

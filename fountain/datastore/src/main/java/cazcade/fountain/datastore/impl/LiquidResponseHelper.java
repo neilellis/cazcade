@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl;
 
 import cazcade.common.CommonConstants;
@@ -33,12 +37,12 @@ public class LiquidResponseHelper {
             final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
             entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.EXCEPTION.getValue() + "." + e.getClass().getSimpleName());
             entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-            entity.setAttributeConditonally(LSDAttribute.TITLE,
-                                            e.getMessage() != null ? e.getMessage() : e.getClass().getCanonicalName()
-                                           );
-            entity.setAttributeConditonally(LSDAttribute.DESCRIPTION,
-                                            e.getMessage() != null ? e.getMessage() : e.getClass().getCanonicalName()
-                                           );
+            entity.setAttributeConditonally(LSDAttribute.TITLE, e.getMessage() != null
+                                                                ? e.getMessage()
+                                                                : e.getClass().getCanonicalName());
+            entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, e.getMessage() != null
+                                                                      ? e.getMessage()
+                                                                      : e.getClass().getCanonicalName());
             entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
 
             if (!CommonConstants.IS_PRODUCTION) {
@@ -136,8 +140,7 @@ public class LiquidResponseHelper {
     }
 
     @Nonnull
-    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, final String id,
-                                                                                final String timestamp) {
+    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, final String id, final String timestamp) {
         final T message = (T) request.copy();
         final LSDTransferEntity response = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
         response.setAttribute(LSDAttribute.ID, id);
@@ -149,8 +152,7 @@ public class LiquidResponseHelper {
     }
 
     @Nonnull
-    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request,
-                                                                                @Nonnull final LSDBaseEntity entity) {
+    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, @Nonnull final LSDBaseEntity entity) {
         final T message = (T) request.copy();
         final LSDTransferEntity response = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
         response.setID(entity.getUUID());

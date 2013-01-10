@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
@@ -12,10 +16,8 @@ import javax.annotation.Nonnull;
 /**
  * @author neilelliz@cazcade.com
  */
-public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObjectRequest>
-        implements UpdatePoolObjectRequestHandler {
-    @Nonnull
-    @Override
+public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObjectRequest> implements UpdatePoolObjectRequestHandler {
+    @Nonnull @Override
     public UpdatePoolObjectRequest handle(@Nonnull final UpdatePoolObjectRequest request) throws InterruptedException {
         final LSDPersistedEntity persistedEntityImpl;
         final Transaction transaction = fountainNeo.beginTx();
@@ -30,10 +32,8 @@ public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObj
                 persistedEntityImpl = fountainNeo.findByUUID(request.getTarget());
             }
 
-            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(),
-                                                  request.getRequestEntity(), pool, persistedEntityImpl, request.isInternal(),
-                                                  request.getDetail()
-                                                 );
+            entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(), request.getRequestEntity(), pool, persistedEntityImpl, request
+                    .isInternal(), request.getDetail());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

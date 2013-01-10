@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
@@ -28,13 +32,13 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainSocialDAOImpl.class);
     @Autowired
-    private FountainNeo fountainNeo;
+    private FountainNeo              fountainNeo;
     @Autowired
-    private FountainPoolDAO poolDAO;
+    private FountainPoolDAO          poolDAO;
     @Autowired
-    private FountainUserDAO userDAO;
+    private FountainUserDAO          userDAO;
     @Autowired
-    private BoardDAO boardDao;
+    private BoardDAO                 boardDao;
     @Autowired
     private FountainIndexServiceImpl indexDAO;
 
@@ -93,7 +97,8 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         }
     }
 
-    @Nonnull Collection<LSDBaseEntity> getRosterNoTX(@Nonnull final LSDPersistedEntity poolPersistedEntity, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel detail) {
+    @Nonnull
+    Collection<LSDBaseEntity> getRosterNoTX(@Nonnull final LSDPersistedEntity poolPersistedEntity, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel detail) {
         final ArrayList<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>();
         final Iterable<FountainRelationship> visitingSessions = poolPersistedEntity.getRelationships(VISITING, Direction.INCOMING);
         for (final FountainRelationship visitingSession : visitingSessions) {
@@ -106,8 +111,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
                         sessionPersistedEntity.setAttribute(ACTIVE, false);
                     }
                 }
-                if (sessionPersistedEntity.hasAttribute(ACTIVE)
-                    && sessionPersistedEntity.getBooleanAttribute(ACTIVE)) {
+                if (sessionPersistedEntity.hasAttribute(ACTIVE) && sessionPersistedEntity.getBooleanAttribute(ACTIVE)) {
                     final FountainRelationship relationship = sessionPersistedEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
                     final LSDPersistedEntity aliasPersistedEntity = relationship.getOtherNode(sessionPersistedEntity);
                     //If the alias has no profile image, take it from the profile pool!
@@ -140,10 +144,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         final Traverser traverse = aliasPersistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.DEPTH_ONE, new ReturnableEvaluator() {
             @Override
             public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
-                return currentPos.currentNode()
-                                 .getProperty(TYPE.getKeyName())
-                                 .toString()
-                                 .startsWith(BOARD.asString());
+                return currentPos.currentNode().getProperty(TYPE.getKeyName()).toString().startsWith(BOARD.asString());
             }
         }, FOLLOW_CONTENT, Direction.INCOMING);
         for (final org.neo4j.graphdb.Node node : traverse) {
@@ -226,7 +227,8 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         deltaCount(FOLLOWS_RESOURCES_COUNT, persistedEntity, delta);
     }
 
-    @Nullable LSDTransferEntity getAliasAsProfile(@Nonnull final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
+    @Nullable
+    LSDTransferEntity getAliasAsProfile(@Nonnull final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
         final LSDPersistedEntity currentAlias = fountainNeo.findByURIOrFail(sessionIdentifier.getAlias());
         final LSDPersistedEntity persistedEntity = fountainNeo.findByURIOrFail(uri);
         final LSDTransferEntity result = persistedEntity.toLSD(detail, internal);

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -11,8 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class SendRequest extends AbstractRequest {
-    public SendRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                       final LSDTransferEntity entity, final String recipient) {
+    public SendRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
         super();
         setId(id);
         setSessionId(identity);
@@ -36,8 +39,7 @@ public class SendRequest extends AbstractRequest {
         getEntity();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new SendRequest(getEntity());
     }

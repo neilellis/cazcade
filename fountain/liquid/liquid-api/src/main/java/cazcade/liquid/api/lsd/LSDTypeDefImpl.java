@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -32,9 +36,7 @@ public class LSDTypeDefImpl implements LSDTypeDef {
             primaryType = convertToType(typeString.substring(0, firstParen));
             final int secondParen = typeString.indexOf(')');
             if (secondParen < firstParen) {
-                throw new LSDTypeDefException(
-                        "There should be one open parenthesis matched by one closed parenthesis in a type definition"
-                );
+                throw new LSDTypeDefException("There should be one open parenthesis matched by one closed parenthesis in a type definition");
             }
             final String typeList = typeString.substring(firstParen, secondParen);
             final String[] typeStrings = typeList.split(",");

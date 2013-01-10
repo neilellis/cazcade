@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.email;
 
 import org.apache.commons.collections.ExtendedProperties;
@@ -29,13 +33,13 @@ public class DefaultMailService implements MailService {
 
     private static final Logger LOG = Logger.getLogger(DefaultMailService.class);
 
-    private VelocityEngine velocity;
-    private Session mailSession;
-    private Transport mailTransport;
-    private String smtpHost;
+    private VelocityEngine    velocity;
+    private Session           mailSession;
+    private Transport         mailTransport;
+    private String            smtpHost;
     private SMTPAuthenticator smtpAuthenticator;
-    private String sender;
-    private String senderFullname;
+    private String            sender;
+    private String            senderFullname;
 
     public void init() throws IOException, NoSuchProviderException {
         initialiseVelocity();
@@ -50,8 +54,7 @@ public class DefaultMailService implements MailService {
         velocity.init();
     }
 
-    private void initialiseMailSession(final String smtpHost, @Nullable final SMTPAuthenticator smtpAuthenticator)
-            throws NoSuchProviderException {
+    private void initialiseMailSession(final String smtpHost, @Nullable final SMTPAuthenticator smtpAuthenticator) throws NoSuchProviderException {
         final Properties mailProperties = new Properties();
         mailProperties.setProperty("mail.transport.protocol", "smtp");
         mailProperties.setProperty("mail.smtp.host", smtpHost);
@@ -62,9 +65,7 @@ public class DefaultMailService implements MailService {
     }
 
     @Override
-    public void sendMailFromTemplate(final String templateIdentifier, final String subject, String[] to, @Nonnull final String[] cc,
-                                     @Nonnull final String[] bcc,
-                                     final Map<String, Object> templateParameters, final boolean test) {
+    public void sendMailFromTemplate(final String templateIdentifier, final String subject, String[] to, @Nonnull final String[] cc, @Nonnull final String[] bcc, final Map<String, Object> templateParameters, final boolean test) {
         try {
             final Template template = velocity.getTemplate(templateIdentifier, "UTF-8");
             final StringWriter output = new StringWriter();
@@ -101,8 +102,7 @@ public class DefaultMailService implements MailService {
         }
     }
 
-    private void addRecipients(@Nonnull final MimeMessage message, @Nonnull final String[] recipients,
-                               final Message.RecipientType recipientType) throws MessagingException {
+    private void addRecipients(@Nonnull final MimeMessage message, @Nonnull final String[] recipients, final Message.RecipientType recipientType) throws MessagingException {
         for (final String recipient : recipients) {
             message.addRecipient(recipientType, new InternetAddress(recipient));
         }

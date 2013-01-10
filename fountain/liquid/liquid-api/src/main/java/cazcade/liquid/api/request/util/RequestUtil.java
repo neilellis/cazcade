@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request.util;
 
 import cazcade.liquid.api.LiquidRequest;
@@ -12,9 +16,8 @@ import javax.annotation.Nonnull;
 public class RequestUtil {
     public static boolean positiveResponse(@Nonnull final LiquidRequest response) {
         final LSDBaseEntity responseEntity = response.getResponse();
-        return !(responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL
-                                                                                          ) || responseEntity.isA(
-                LSDDictionaryTypes.RESOURCE_NOT_FOUND
-                                                                                                                 ));
+        return !(responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT)
+                 || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL)
+                 || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
     }
 }

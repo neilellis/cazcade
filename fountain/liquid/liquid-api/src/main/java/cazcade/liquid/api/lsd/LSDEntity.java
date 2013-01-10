@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import cazcade.liquid.api.LiquidPermission;
@@ -31,16 +35,13 @@ public interface LSDEntity extends Serializable {
      * @param readonly the newly created sub entity should be readonly.
      * @return a new object from the sub properties.
      */
-    @Nonnull
-    LSDEntity getSubEntity(LSDAttribute path, boolean readonly);
+    @Nonnull LSDEntity getSubEntity(LSDAttribute path, boolean readonly);
 
 
-    @Nonnull
-    LSDEntity removeSubEntity(LSDAttribute path);
+    @Nonnull LSDEntity removeSubEntity(LSDAttribute path);
 
 
-    @Nullable
-    LiquidURI getURI();
+    @Nullable LiquidURI getURI();
 
     /**
      * LSD Types are describe how an object can be represented and interacted with by clients.
@@ -56,8 +57,7 @@ public interface LSDEntity extends Serializable {
      * @param key
      * @return
      */
-    @Nonnull
-    List<LSDEntity> getSubEntities(LSDAttribute key);
+    @Nonnull List<LSDEntity> getSubEntities(LSDAttribute key);
 
     /**
      * The canonical format.
@@ -71,20 +71,16 @@ public interface LSDEntity extends Serializable {
      *
      * @return
      */
-    @Nonnull
-    Map<String, String> getCamelCaseMap();
+    @Nonnull Map<String, String> getCamelCaseMap();
 
 
-    @Nonnull
-    Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
+    @Nonnull Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
 
-    @Nonnull
-    LSDNode asFormatIndependentTree();
+    @Nonnull LSDNode asFormatIndependentTree();
 
     String getAttribute(LSDAttribute attribute);
 
-    @Nullable
-    LiquidURI getAttributeAsURI(LSDAttribute attribute);
+    @Nullable LiquidURI getAttributeAsURI(LSDAttribute attribute);
 
     /**
      * This returns a value without any validation.
@@ -98,7 +94,7 @@ public interface LSDEntity extends Serializable {
 
     boolean isEmptyValue(LSDAttribute key);
 
-//    boolean isValidOrEmptyValue(LSDDictionary key);
+    //    boolean isValidOrEmptyValue(LSDDictionary key);
 
     /**
      * <b>Avoid using this method, it is primarily for internal use.</b>
@@ -161,8 +157,7 @@ public interface LSDEntity extends Serializable {
     boolean isA(LSDTypeDef typeDef);
 
 
-    @Nonnull
-    LSDEntity copy();
+    @Nonnull LSDEntity copy();
 
     void setValues(LSDAttribute key, List values);
 
@@ -170,14 +165,11 @@ public interface LSDEntity extends Serializable {
 
     boolean attributeIs(LSDAttribute attribute, String comparison);
 
-    @Nonnull
-    List<String> getAttributeAsList(LSDAttribute attribute);
+    @Nonnull List<String> getAttributeAsList(LSDAttribute attribute);
 
-    @Nullable
-    Date getUpdated();
+    @Nullable Date getUpdated();
 
-    @Nullable
-    Date getPublished();
+    @Nullable Date getPublished();
 
 
     void timestamp();
@@ -195,8 +187,7 @@ public interface LSDEntity extends Serializable {
 
     boolean wasPublishedAfter(LSDEntity entity);
 
-    @Nonnull
-    LSDEntity asUpdateEntity();
+    @Nonnull LSDEntity asUpdateEntity();
 
     String getEURI();
 
@@ -228,13 +219,11 @@ public interface LSDEntity extends Serializable {
 
     Integer getIntegerAttribute(LSDAttribute attribute);
 
-    @Nullable
-    LiquidUUID getUUIDAttribute(LSDAttribute attribute);
+    @Nullable LiquidUUID getUUIDAttribute(LSDAttribute attribute);
 
     void setAttribute(LSDAttribute attribute, LiquidUUID uuid);
 
-    @Nullable
-    LiquidURI getURIAttribute(LSDAttribute attribute);
+    @Nullable LiquidURI getURIAttribute(LSDAttribute attribute);
 
     void setAttribute(LSDAttribute attribute, LiquidURI uri);
 

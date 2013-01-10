@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -10,8 +14,7 @@ import java.util.Collection;
 
 
 public class CreateSessionRequest extends AbstractCreationRequest {
-    public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidURI alias,
-                                @Nonnull final ClientApplicationIdentifier client) {
+    public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
         super();
         setId(id);
         setUri(alias);
@@ -34,8 +37,7 @@ public class CreateSessionRequest extends AbstractCreationRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new CreateSessionRequest(getEntity());
     }

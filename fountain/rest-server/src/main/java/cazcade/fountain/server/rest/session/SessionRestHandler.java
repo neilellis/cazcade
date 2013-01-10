@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.session;
 
 import cazcade.fountain.datastore.api.FountainDataStoreFacade;
@@ -33,10 +37,9 @@ public class SessionRestHandler extends AbstractRestHandler {
         final String name = parameters.get("client")[0];
         final String key = parameters.get("key")[0];
         final String hostinfo = parameters.get("hostinfo")[0];
-        return dataStoreFacade.process(new CreateSessionRequest(RestContext.getContext().getCredentials().getAlias(),
-                                                                new ClientApplicationIdentifier(name, key, hostinfo)
-        )
-                                      );
+        return dataStoreFacade.process(new CreateSessionRequest(RestContext.getContext()
+                                                                           .getCredentials()
+                                                                           .getAlias(), new ClientApplicationIdentifier(name, key, hostinfo)));
     }
 
     @Nonnull

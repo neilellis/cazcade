@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.entities;
 
 
@@ -11,15 +15,13 @@ import java.util.Date;
 /**
  * @author neilellis@cazcade.com
  */
-@Entity
-@Table(name = "message")
+@Entity @Table(name = "message")
 public class MessageEntity extends MessageBase {
-    private AliasEntity author;
+    private AliasEntity      author;
     private BoardIndexEntity board;
-    private MessageType type;
+    private MessageType      type;
 
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "author", nullable = false)
+    @ManyToOne(targetEntity = AliasEntity.class) @JoinColumn(name = "author", nullable = false)
     public AliasEntity getAuthor() {
         return author;
     }
@@ -28,8 +30,7 @@ public class MessageEntity extends MessageBase {
         this.author = author;
     }
 
-    @ManyToOne(targetEntity = BoardIndexEntity.class)
-    @JoinColumn(name = "board", nullable = true)
+    @ManyToOne(targetEntity = BoardIndexEntity.class) @JoinColumn(name = "board", nullable = true)
     public BoardIndexEntity getBoard() {
         return board;
     }
@@ -92,8 +93,7 @@ public class MessageEntity extends MessageBase {
         this.type = type;
     }
 
-    @Id
-    @Column(name = "uri")
+    @Id @Column(name = "uri")
     public String getUri() {
         return uri;
     }

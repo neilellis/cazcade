@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.fountain.datastore.api.DuplicateEntityException;
@@ -46,8 +50,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     @Autowired
     private FountainEmailService emailService;
 
-    public void addAuthorToNodeNoTX(@Nonnull final LiquidURI author, final boolean createAuthor,
-                                    @Nonnull final LSDPersistedEntity persistedEntity) throws InterruptedException {
+    public void addAuthorToNodeNoTX(@Nonnull final LiquidURI author, final boolean createAuthor, @Nonnull final LSDPersistedEntity persistedEntity) throws InterruptedException {
         final LSDPersistedEntity authorPersistedEntityImpl = fountainNeo.findByURI(author);
         if (authorPersistedEntityImpl == null) {
             if (createAuthor) {
@@ -78,8 +81,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 final String hashString = createUserHashableString(userPersistedEntity);
                 return FountainUserDAOImpl.digester.matches(hashString, changePasswordSecurityHash);
             }
-        }
-                                                       );
+        });
     }
 
     @Nonnull
@@ -89,11 +91,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         return id + ":" + password + ":" + FountainUserDAOImpl.USER_HASH_SALT;
     }
 
-    @Nonnull
-    @Override
-    public LSDPersistedEntity createSession(@Nonnull final LiquidURI aliasUri,
-                                            @Nonnull final ClientApplicationIdentifier clientApplicationIdentifier)
-            throws InterruptedException {
+    @Nonnull @Override
+    public LSDPersistedEntity createSession(@Nonnull final LiquidURI aliasUri, @Nonnull final ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException {
         fountainNeo.begin();
         try {
             final LSDPersistedEntity persistedEntity = fountainNeo.createNode();
@@ -125,17 +124,11 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 if (otherNetworkAlias == null) {
                     throw new EntityNotFoundException("Could not find alias for %s", aliasUri);
                 }
-                final FountainRelationship userRelationship = otherNetworkAlias.getSingleRelationship(FountainRelationships.ALIAS,
-                                                                                                      Direction.OUTGOING
-                                                                                                     );
+                final FountainRelationship userRelationship = otherNetworkAlias.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
                 assert userRelationship != null;
                 userPersistedEntity = userRelationship.getEndNode();
-                ownerPersistedEntityImpl = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.alias,
-                                                                               "cazcade:" + userPersistedEntity.getAttribute(
-                                                                                       LSDAttribute.NAME
-                                                                                                                            )
-                )
-                                                                );
+                ownerPersistedEntityImpl = fountainNeo.findByURI(new LiquidURI(LiquidURIScheme.alias, "cazcade:"
+                                                                                                      + userPersistedEntity.getAttribute(LSDAttribute.NAME)));
                 if (ownerPersistedEntityImpl == null) {
                     throw new EntityNotFoundException("Could not owner for alias %s", aliasUri);
                 }
@@ -151,12 +144,9 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             }
 
             //Remove stale sessions
-            final Iterable<FountainRelationship> existingSessionRelationships = ownerPersistedEntityImpl.getRelationships(
-                    FountainRelationships.HAS_SESSION, Direction.OUTGOING
-                                                                                                                         );
+            final Iterable<FountainRelationship> existingSessionRelationships = ownerPersistedEntityImpl.getRelationships(FountainRelationships.HAS_SESSION, Direction.OUTGOING);
             for (final FountainRelationship existingSessionRelationship : existingSessionRelationships) {
-                final LSDPersistedEntity sessionPersistedEntity = existingSessionRelationship.getOtherNode(ownerPersistedEntityImpl
-                                                                                                          );
+                final LSDPersistedEntity sessionPersistedEntity = existingSessionRelationship.getOtherNode(ownerPersistedEntityImpl);
                 final long updated = sessionPersistedEntity.getUpdated().getTime();
                 final boolean active = sessionPersistedEntity.getBooleanAttribute(LSDAttribute.ACTIVE);
                 if (updated < System.currentTimeMillis() - FountainNeoImpl.SESSION_EXPIRES_MILLI) {
@@ -175,11 +165,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             persistedEntity.setAttribute(LSDAttribute.NAME, userPersistedEntity.getAttribute(LSDAttribute.NAME));
             persistedEntity.createRelationshipTo(ownerPersistedEntityImpl, FountainRelationships.OWNER);
             ownerPersistedEntityImpl.createRelationshipTo(persistedEntity, FountainRelationships.HAS_SESSION);
-            persistedEntity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.session, persistedEntity.getAttribute(
-                    LSDAttribute.ID
-                                                                                                                              )
-            ).toString()
-                                        );
+            persistedEntity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.session, persistedEntity.getAttribute(LSDAttribute.ID))
+                    .toString());
             fountainNeo.indexBy(persistedEntity, LSDAttribute.ID, LSDAttribute.ID, true);
             fountainNeo.indexBy(persistedEntity, LSDAttribute.URI, LSDAttribute.URI, true);
             persistedEntity.timestamp();
@@ -189,10 +176,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         }
     }
 
-    @Nonnull
-    @Override
-    public LSDPersistedEntity createUser(@Nonnull final LSDTransferEntity entity, final boolean systemUser)
-            throws InterruptedException, UnsupportedEncodingException {
+    @Nonnull @Override
+    public LSDPersistedEntity createUser(@Nonnull final LSDTransferEntity entity, final boolean systemUser) throws InterruptedException, UnsupportedEncodingException {
         fountainNeo.begin();
         try {
             final LSDPersistedEntity userPersistedEntity;
@@ -218,13 +203,12 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     }
 
     @Nonnull
-    private LSDPersistedEntity createUserInternal(@Nonnull final LSDTransferEntity entity, final boolean systemUser)
-            throws InterruptedException {
+    private LSDPersistedEntity createUserInternal(@Nonnull final LSDTransferEntity entity, final boolean systemUser) throws InterruptedException {
         fountainNeo.begin();
         try {
             final LSDPersistedEntity userPersistedEntityImpl = fountainNeo.createNode();
-            userPersistedEntityImpl.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString()
-                                                );
+            userPersistedEntityImpl.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet()
+                                                                                              .toString());
             userPersistedEntityImpl.timestamp();
             final String username = entity.getAttribute(LSDAttribute.NAME).toLowerCase();
             userPersistedEntityImpl.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.user, username).asString());
@@ -258,11 +242,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         }
     }
 
-    @Nonnull
-    @Override
-    public LSDPersistedEntity createAlias(@Nonnull final LSDPersistedEntity userPersistedEntityImpl,
-                                          @Nonnull final LSDTransferEntity entity, final boolean me, final boolean orupdate,
-                                          final boolean claim, final boolean systemUser) throws InterruptedException {
+    @Nonnull @Override
+    public LSDPersistedEntity createAlias(@Nonnull final LSDPersistedEntity userPersistedEntityImpl, @Nonnull final LSDTransferEntity entity, final boolean me, final boolean orupdate, final boolean claim, final boolean systemUser) throws InterruptedException {
         fountainNeo.begin();
         try {
             final LiquidURI aliasURI;
@@ -277,9 +258,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             aliasURI = new LiquidURI(LiquidURIScheme.alias, network + ':' + name);
             final LSDPersistedEntity existingPersistedEntityImpl = fountainNeo.findByURI(aliasURI);
             if (existingPersistedEntityImpl != null && !orupdate) {
-                throw new DuplicateEntityException(
-                        "Attempted to create an alias that exists already without first setting the 'orupdate' flag to 'true'."
-                );
+                throw new DuplicateEntityException("Attempted to create an alias that exists already without first setting the 'orupdate' flag to 'true'.");
             }
             final LSDPersistedEntity persistedEntityImpl;
             final String uriString = aliasURI.asString();
@@ -293,8 +272,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 persistedEntityImpl.mergeProperties(entity, false, false, null);
                 fountainNeo.freeTextIndexNoTx(persistedEntityImpl);
 
-                persistedEntityImpl.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString()
-                                                );
+                persistedEntityImpl.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet()
+                                                                                              .toString());
                 persistedEntityImpl.setIDIfNotSetOnNode();
                 persistedEntityImpl.setAttribute(LSDAttribute.URI, uriString);
                 final LiquidURI networkURI = new LiquidURI(LiquidURIScheme.network, network);
@@ -311,9 +290,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 persistedEntityImpl.mergeProperties(entity, true, false, null);
                 fountainNeo.freeTextIndexNoTx(persistedEntityImpl);
                 if (me) {
-                    for (final FountainRelationship relationship : persistedEntityImpl.getRelationships(FountainRelationships.ALIAS,
-                                                                                                        Direction.OUTGOING
-                                                                                                       )) {
+                    for (final FountainRelationship relationship : persistedEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING)) {
                         //todo: throw an exception instead!
                         relationship.delete();
                     }
@@ -330,8 +307,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         }
     }
 
-    @Nonnull
-    LSDPersistedEntity createSocialNetwork(@Nonnull final LiquidURI uri) throws InterruptedException {
+    @Nonnull LSDPersistedEntity createSocialNetwork(@Nonnull final LiquidURI uri) throws InterruptedException {
         final LSDPersistedEntity entity = fountainNeo.createNode();
         entity.setAttribute(LSDAttribute.PERMISSIONS, LiquidPermissionSet.getMinimalPermissionSet().toString());
         entity.setIDIfNotSetOnNode();
@@ -356,12 +332,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                         log.warn("Skipping " + uri + " as alias node not found.");
                         return;
                     }
-                    final LSDTransferEntity aliasEntity = getAliasFromNode(aliasPersistedEntity, true,
-                                                                           LiquidRequestDetailLevel.COMPLETE
-                                                                          );
-                    final FountainRelationship ownerRel = aliasPersistedEntity.getSingleRelationship(FountainRelationships.ALIAS,
-                                                                                                     Direction.OUTGOING
-                                                                                                    );
+                    final LSDTransferEntity aliasEntity = getAliasFromNode(aliasPersistedEntity, true, LiquidRequestDetailLevel.COMPLETE);
+                    final FountainRelationship ownerRel = aliasPersistedEntity.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
                     if (ownerRel == null) {
                         log.warn("No owner for alias " + uri);
                     }
@@ -371,14 +343,11 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                     }
                 }
             }
-        }
-                            );
+        });
     }
 
-    @Nonnull
-    @Override
-    public LSDTransferEntity getAliasFromNode(@Nonnull final LSDPersistedEntity persistedEntity, final boolean internal,
-                                              final LiquidRequestDetailLevel detail) throws InterruptedException {
+    @Nonnull @Override
+    public LSDTransferEntity getAliasFromNode(@Nonnull final LSDPersistedEntity persistedEntity, final boolean internal, final LiquidRequestDetailLevel detail) throws InterruptedException {
         fountainNeo.begin();
         try {
             return persistedEntity.toLSD(detail, internal);
@@ -390,38 +359,28 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     @Override
     public void sendPasswordChangeRequest(@Nonnull final LiquidURI userURI) throws Exception {
         fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
-            @Nullable
-            @Override
+            @Nullable @Override
             public Object call() throws Exception {
                 final LSDPersistedEntity userPersistedEntity = fountainNeo.findByURI(userURI);
                 assert userPersistedEntity != null;
                 final LSDTransferEntity userEntity = userPersistedEntity.toLSD(LiquidRequestDetailLevel.COMPLETE, true);
 
-                emailService.sendChangePasswordRequest(userEntity, FountainUserDAOImpl.digester.digest(createUserHashableString(
-                        userPersistedEntity
-                                                                                                                               )
-                                                                                                      )
-                                                      );
+                emailService.sendChangePasswordRequest(userEntity, FountainUserDAOImpl.digester
+                                                                                      .digest(createUserHashableString(userPersistedEntity)));
                 return null;
             }
-        }
-                                                );
+        });
     }
 
-    @Nullable
-    @Override
-    public LSDTransferEntity unlinkAliasTX(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LiquidUUID target,
-                                           final boolean internal, final LiquidRequestDetailLevel detail)
-            throws InterruptedException {
+    @Nullable @Override
+    public LSDTransferEntity unlinkAliasTX(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LiquidUUID target, final boolean internal, final LiquidRequestDetailLevel detail) throws InterruptedException {
         fountainNeo.begin();
         try {
             final Transaction transaction = fountainNeo.beginTx();
             try {
                 final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(target);
                 final LSDPersistedEntity ownerPersistedEntity = fountainNeo.findByURI(identity.getUserURL());
-                final Iterable<FountainRelationship> relationships = persistedEntity.getRelationships(FountainRelationships.ALIAS,
-                                                                                                      Direction.OUTGOING
-                                                                                                     );
+                final Iterable<FountainRelationship> relationships = persistedEntity.getRelationships(FountainRelationships.ALIAS, Direction.OUTGOING);
                 boolean deleted = false;
                 for (final FountainRelationship relationship : relationships) {
                     if (relationship.getOtherNode(persistedEntity).equals(ownerPersistedEntity)) {
@@ -430,9 +389,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                     }
                 }
                 if (!deleted) {
-                    throw new RelationshipNotFoundException("{0} does not have alias {1}", identity.getName(),
-                                                            persistedEntity.getAttribute(LSDAttribute.URI)
-                    );
+                    throw new RelationshipNotFoundException("{0} does not have alias {1}", identity.getName(), persistedEntity.getAttribute(LSDAttribute.URI));
                 }
                 transaction.success();
                 return persistedEntity.toLSD(detail, internal);

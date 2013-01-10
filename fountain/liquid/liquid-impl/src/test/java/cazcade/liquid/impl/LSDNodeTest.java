@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.*;
@@ -16,7 +20,7 @@ import java.util.*;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "IOResourceOpenedButNotSafelyClosed"})
 public class LSDNodeTest extends TestCase {
-    private LSDMarshallerFactory marshallerFactory;
+    private LSDMarshallerFactory   marshallerFactory;
     private LSDUnmarshallerFactory unmarshallerFactory;
 
     public void test() throws IOException {
@@ -28,10 +32,9 @@ public class LSDNodeTest extends TestCase {
 
         final LSDSimpleEntity convertedEntity = LSDSimpleEntity.createFromNode(lsdNode);
         marshallerFactory.getMarshalers().get("plist").marshal(entity, System.out);
-        marshallerFactory.getMarshalers().get("plist").marshal(entity, new FileOutputStream(System.getProperty("java.io.tmpdir") +
-                                                                                            "/liquid_test.plist"
-        )
-                                                              );
+        marshallerFactory.getMarshalers()
+                         .get("plist")
+                         .marshal(entity, new FileOutputStream(System.getProperty("java.io.tmpdir") + "/liquid_test.plist"));
         final Map<String, String> convertedMap = convertedEntity.getMap();
         for (final Map.Entry<String, String> entry : convertedMap.entrySet()) {
             System.out.println(entry.getKey() + '=' + entry.getValue());
@@ -61,9 +64,9 @@ public class LSDNodeTest extends TestCase {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         marshallerFactory.getMarshalers().get("xml").marshal(entity, byteArrayOutputStream);
         System.err.println(new String(byteArrayOutputStream.toByteArray(), "utf8"));
-        final LSDBaseEntity unmarshalledEntity = unmarshallerFactory.getUnmarshalers().get("xml").unmarshal(
-                new ByteArrayInputStream(byteArrayOutputStream.toByteArray())
-                                                                                                           );
+        final LSDBaseEntity unmarshalledEntity = unmarshallerFactory.getUnmarshalers()
+                                                                    .get("xml")
+                                                                    .unmarshal(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
         final List<String> values = unmarshalledEntity.getAttributeAsList(LSDAttribute.valueOf("x.test_with_underscore"));
         assertEquals("1", values.get(0));
         assertEquals("2", values.get(1));

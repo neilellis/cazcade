@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.email;
 
 import java.util.Map;
@@ -17,7 +21,5 @@ public interface MailService {
      * @param templateParameters Any parameters to be passed into the template.
      * @param test
      */
-    void sendMailFromTemplate(String templateIdentifier, String subject, String[] to,
-                              String[] cc, String[] bcc,
-                              Map<String, Object> templateParameters, boolean test);
+    void sendMailFromTemplate(String templateIdentifier, String subject, String[] to, String[] cc, String[] bcc, Map<String, Object> templateParameters, boolean test);
 }

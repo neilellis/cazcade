@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import cazcade.liquid.api.LiquidPermission;
@@ -45,8 +49,7 @@ public interface LSDBaseEntity {
      *
      * @return the entity as a single piece of text.
      */
-    @Nonnull
-    String asFreeText();
+    @Nonnull String asFreeText();
 
     boolean attributeIs(@Nonnull LSDAttribute attribute, @Nonnull String comparison);
 
@@ -54,41 +57,31 @@ public interface LSDBaseEntity {
 
     void copyAttribute(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute attribute);
 
-    @Nullable
-    Object get(@Nonnull String key);
+    @Nullable Object get(@Nonnull String key);
 
-    @Nonnull
-    String getAttribute(@Nonnull LSDAttribute attribute, @Nonnull String defaultValue);
+    @Nonnull String getAttribute(@Nonnull LSDAttribute attribute, @Nonnull String defaultValue);
 
-    @Nonnull
-    String getAttribute(@Nonnull LSDAttribute attribute);
+    @Nonnull String getAttribute(@Nonnull LSDAttribute attribute);
 
-    @Nonnull
-    List<String> getAttributeAsList(@Nonnull LSDAttribute attribute);
+    @Nonnull List<String> getAttributeAsList(@Nonnull LSDAttribute attribute);
 
-    @Nonnull
-    LiquidURI getAttributeAsURI(@Nonnull LSDAttribute attribute);
+    @Nonnull LiquidURI getAttributeAsURI(@Nonnull LSDAttribute attribute);
 
     boolean getBooleanAttribute(@Nonnull LSDAttribute attribute, boolean defaultValue);
 
     boolean getBooleanAttribute(@Nonnull LSDAttribute editable);
 
-    @Nonnull
-    Double getDoubleAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
+    @Nonnull Double getDoubleAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
     int getIntegerAttribute(@Nonnull LSDAttribute attribute, int defaultValue) throws NumberFormatException;
 
-    @Nonnull
-    Integer getIntegerAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
+    @Nonnull Integer getIntegerAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
-    @Nonnull
-    Long getLongAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
+    @Nonnull Long getLongAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 
-    @Nonnull
-    Map<String, String> getMap();
+    @Nonnull Map<String, String> getMap();
 
-    @Nonnull
-    Date getPublished();
+    @Nonnull Date getPublished();
 
     /**
      * This returns a value without any validation.
@@ -98,8 +91,7 @@ public interface LSDBaseEntity {
      */
     String getRawValue(@Nonnull LSDAttribute key);
 
-    @Nullable
-    String getSubAttribute(@Nonnull LSDAttribute attribute, @Nonnull LSDAttribute subAttribute, String defaultValue);
+    @Nullable String getSubAttribute(@Nonnull LSDAttribute attribute, @Nonnull LSDAttribute subAttribute, String defaultValue);
 
     /**
      * Extracts a list of objects
@@ -107,8 +99,7 @@ public interface LSDBaseEntity {
      * @param key
      * @return
      */
-    @Nonnull
-    <T extends LSDBaseEntity> List<T> getSubEntities(@Nonnull LSDAttribute key);
+    @Nonnull <T extends LSDBaseEntity> List<T> getSubEntities(@Nonnull LSDAttribute key);
 
     /**
      * Returns a un-aliased sub object from all properties with the common parent path.
@@ -117,25 +108,21 @@ public interface LSDBaseEntity {
      * @param readonly the newly created sub entity should be readonly.
      * @return a new object from the sub properties.
      */
-    @Nonnull
-    <T extends LSDBaseEntity> T getSubEntity(@Nonnull LSDAttribute path, boolean readonly);
+    @Nonnull <T extends LSDBaseEntity> T getSubEntity(@Nonnull LSDAttribute path, boolean readonly);
 
     /**
      * LSD Types are describe how an object can be represented and interacted with by clients.
      *
      * @return
      */
-    @Nonnull
-    LSDTypeDef getTypeDef();
+    @Nonnull LSDTypeDef getTypeDef();
 
-    @Nonnull
-    LiquidURI getURI();
+    @Nonnull LiquidURI getURI();
 
     boolean hasURI();
 
 
-    @Nonnull
-    LiquidURI getURIAttribute(@Nonnull LSDAttribute attribute);
+    @Nonnull LiquidURI getURIAttribute(@Nonnull LSDAttribute attribute);
 
     /**
      * All LSD Objects have an id attribute which confirms to Java's {@link java.util.UUID} format, but for
@@ -143,17 +130,13 @@ public interface LSDBaseEntity {
      *
      * @return a universally unique identifier for this object
      */
-    @Nonnull
-    LiquidUUID getUUID();
+    @Nonnull LiquidUUID getUUID();
 
-    @Nonnull
-    LiquidUUID getUUIDAttribute(@Nonnull LSDAttribute attribute);
+    @Nonnull LiquidUUID getUUIDAttribute(@Nonnull LSDAttribute attribute);
 
-    @Nonnull
-    Date getUpdated();
+    @Nonnull Date getUpdated();
 
-    @Nullable
-    String getValue(@Nonnull String key);
+    @Nullable String getValue(@Nonnull String key);
 
     boolean hasAttribute(@Nonnull LSDAttribute key);
 
@@ -179,8 +162,7 @@ public interface LSDBaseEntity {
 
     void removeCompletely(@Nonnull LSDAttribute attribute);
 
-    @Nonnull
-    <T extends LSDBaseEntity> T removeSubEntity(@Nonnull LSDAttribute path);
+    @Nonnull <T extends LSDBaseEntity> T removeSubEntity(@Nonnull LSDAttribute path);
 
     void removeValue(@Nonnull LSDAttribute id);
 

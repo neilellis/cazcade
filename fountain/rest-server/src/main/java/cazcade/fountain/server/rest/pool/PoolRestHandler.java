@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.pool;
 
 import cazcade.fountain.datastore.api.AuthorizationService;
@@ -27,7 +31,7 @@ public class PoolRestHandler extends AbstractRestHandler {
     private LSDEntityFactory lsdEntityFactory;
 
     private FountainDataStoreFacade dataStoreFacade;
-    private AuthorizationService authorizationService;
+    private AuthorizationService    authorizationService;
 
     /**
      * Deprecated, see {@link CommentRestHandler}
@@ -38,8 +42,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         checkForSingleValueParams(parameters, "text", "image");
         final String text = parameters.get("text")[0];
         final String image = parameters.get("image")[0];
-        final LSDTransferEntity message = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.CHAT, UUIDFactory.randomUUID()
-                                                                                 );
+        final LSDTransferEntity message = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.CHAT, UUIDFactory.randomUUID());
         message.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
         message.setAttribute(LSDAttribute.IMAGE_URL, image);
         message.setAttribute(LSDAttribute.ICON_URL, image);
@@ -56,8 +59,7 @@ public class PoolRestHandler extends AbstractRestHandler {
      * @throws URISyntaxException //todo: support URIS
      */
     @Nonnull
-    public LiquidMessage copy(final LiquidUUID pool, final LiquidUUID object, @Nonnull final Map<String, String[]> parameters)
-            throws URISyntaxException {
+    public LiquidMessage copy(final LiquidUUID pool, final LiquidUUID object, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "to");
         if (parameters.containsKey("from")) {
             final LiquidUUID from = LiquidUUID.fromString(parameters.get("from")[0]);
@@ -71,18 +73,15 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage create(final LiquidUUID poolId, @Nonnull final LSDTransferEntity entity,
-                                @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+    public LiquidMessage create(final LiquidUUID poolId, @Nonnull final LSDTransferEntity entity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "author");
         final String author = parameters.get("author")[0];
         if (entity.hasId() && entity.getUUID().equals(poolId)) {
             return update(poolId, entity);
         }
         else {
-            return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext().getCredentials(), poolId, entity,
-                                                                       new LiquidURI(author)
-            )
-                                          );
+            return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext()
+                                                                                  .getCredentials(), poolId, entity, new LiquidURI(author)));
         }
     }
 
@@ -92,17 +91,14 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage create(final LiquidUUID poolId, final LiquidUUID objectId, final LSDTransferEntity entity)
-            throws URISyntaxException {
+    public LiquidMessage create(final LiquidUUID poolId, final LiquidUUID objectId, final LSDTransferEntity entity) throws URISyntaxException {
         return update(poolId, objectId, entity);
     }
 
     @Nonnull
     public LiquidMessage update(final LiquidUUID poolId, final LiquidUUID objectId, final LSDTransferEntity lsdEntity) {
-        return dataStoreFacade.process(new UpdatePoolObjectRequest(RestContext.getContext().getCredentials(), poolId, objectId,
-                                                                   lsdEntity
-        )
-                                      );
+        return dataStoreFacade.process(new UpdatePoolObjectRequest(RestContext.getContext()
+                                                                              .getCredentials(), poolId, objectId, lsdEntity));
     }
 
     @Nonnull
@@ -119,14 +115,11 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage createPUT(final LSDTransferEntity entity, @Nonnull final Map<String, String[]> parameters)
-            throws URISyntaxException {
+    public LiquidMessage createPUT(final LSDTransferEntity entity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "uri");
         final String uri = parameters.get("uri")[0];
-        return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext().getCredentials(), new LiquidURI(uri),
-                                                                   entity
-        )
-                                      );
+        return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext()
+                                                                              .getCredentials(), new LiquidURI(uri), entity));
     }
 
     @Nonnull
@@ -148,13 +141,10 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage get(final LiquidUUID pool, final LiquidUUID object, @Nonnull final Map<String, String[]> parameters)
-            throws URISyntaxException {
+    public LiquidMessage get(final LiquidUUID pool, final LiquidUUID object, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         final boolean history = parameters.get("history") != null;
-        return dataStoreFacade.process(new RetrievePoolObjectRequest(RestContext.getContext().getCredentials(), pool, object,
-                                                                     history
-        )
-                                      );
+        return dataStoreFacade.process(new RetrievePoolObjectRequest(RestContext.getContext()
+                                                                                .getCredentials(), pool, object, history));
     }
 
     @Nonnull
@@ -186,9 +176,7 @@ public class PoolRestHandler extends AbstractRestHandler {
             return message;
         }
         else {
-            message = dataStoreFacade.process(new RetrievePoolRequest(username, liquidURI, parameters.containsKey("contents"), false
-            )
-                                             );
+            message = dataStoreFacade.process(new RetrievePoolRequest(username, liquidURI, parameters.containsKey("contents"), false));
             return message;
         }
     }
@@ -213,13 +201,11 @@ public class PoolRestHandler extends AbstractRestHandler {
      * @deprecated relocate or copy
      */
     @Nonnull
-    public LiquidMessage link(final LiquidUUID parent, final LiquidUUID poolObject, @Nonnull final Map<String, String[]> parameters)
-            throws URISyntaxException {
+    public LiquidMessage link(final LiquidUUID parent, final LiquidUUID poolObject, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "to");
         final LiquidUUID to = LiquidUUID.fromString(parameters.get("to")[0]);
-        return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext().getCredentials(), poolObject, parent, to
-        )
-                                      );
+        return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext()
+                                                                            .getCredentials(), poolObject, parent, to));
     }
 
     @Nonnull
@@ -228,10 +214,9 @@ public class PoolRestHandler extends AbstractRestHandler {
         final String x = parameters.get("x")[0];
         final String y = parameters.get("y")[0];
         final String z = parameters.get("z")[0];
-        return dataStoreFacade.process(new MovePoolObjectRequest(RestContext.getContext().getCredentials(), null, poolId, objectId,
-                                                                 Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z)
-        )
-                                      );
+        return dataStoreFacade.process(new MovePoolObjectRequest(RestContext.getContext()
+                                                                            .getCredentials(), null, poolId, objectId, Double.parseDouble(x), Double
+                .parseDouble(y), Double.parseDouble(z)));
     }
 
     /**
@@ -259,23 +244,18 @@ public class PoolRestHandler extends AbstractRestHandler {
      * @throws URISyntaxException
      */
     @Nonnull
-    public LiquidMessage relocate(final LiquidUUID pool, final LiquidUUID object, @Nonnull final Map<String, String[]> parameters)
-            throws URISyntaxException {
+    public LiquidMessage relocate(final LiquidUUID pool, final LiquidUUID object, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "to");
         if (parameters.containsKey("from")) {
             final LiquidUUID from = LiquidUUID.fromString(parameters.get("from")[0]);
             final LiquidUUID to = LiquidUUID.fromString(parameters.get("to")[0]);
-            return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext().getCredentials(), object, from, to,
-                                                                     true
-            )
-                                          );
+            return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext()
+                                                                                .getCredentials(), object, from, to, true));
         }
         else {
             final LiquidUUID to = LiquidUUID.fromString(parameters.get("to")[0]);
-            return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext().getCredentials(), object, pool, to,
-                                                                     true
-            )
-                                          );
+            return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext()
+                                                                                .getCredentials(), object, pool, to, true));
         }
     }
 
@@ -294,16 +274,14 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage resize(final LiquidUUID poolId, final LiquidUUID objectId,
-                                @Nonnull final Map<String, String[]> parameters) {
+    public LiquidMessage resize(final LiquidUUID poolId, final LiquidUUID objectId, @Nonnull final Map<String, String[]> parameters) {
         checkForSingleValueParams(parameters, "width", "height");
         final String width = parameters.get("width")[0];
         final String height = parameters.get("height")[0];
-        return dataStoreFacade.process(new ResizePoolObjectRequest(RestContext.getContext().getCredentials(), poolId, objectId,
-                                                                   Integer.parseInt(width), Integer.parseInt(height), null
-                                                                   /*todo: use URIs*/
-        )
-                                      );
+        return dataStoreFacade.process(new ResizePoolObjectRequest(RestContext.getContext()
+                                                                              .getCredentials(), poolId, objectId, Integer.parseInt(width), Integer
+                .parseInt(height), null
+                                                                   /*todo: use URIs*/));
     }
 
     @Nonnull
@@ -313,14 +291,11 @@ public class PoolRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage rotateXY(final LiquidUUID poolId, final LiquidUUID objectId,
-                                  @Nonnull final Map<String, String[]> parameters) {
+    public LiquidMessage rotateXY(final LiquidUUID poolId, final LiquidUUID objectId, @Nonnull final Map<String, String[]> parameters) {
         checkForSingleValueParams(parameters, "angle");
         final String angle = parameters.get("angle")[0];
-        return dataStoreFacade.process(new RotateXYPoolObjectRequest(RestContext.getContext().getCredentials(), poolId, objectId,
-                                                                     Double.parseDouble(angle), null /*todo: use URIs*/
-        )
-                                      );
+        return dataStoreFacade.process(new RotateXYPoolObjectRequest(RestContext.getContext()
+                                                                                .getCredentials(), poolId, objectId, Double.parseDouble(angle), null /*todo: use URIs*/));
     }
 
     @Nonnull
@@ -348,9 +323,8 @@ public class PoolRestHandler extends AbstractRestHandler {
      */
     @Nonnull
     public LiquidMessage unlink(final LiquidUUID parent, final LiquidUUID poolObject) throws URISyntaxException {
-        return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext().getCredentials(), poolObject, parent, true
-        )
-                                      );
+        return dataStoreFacade.process(new LinkPoolObjectRequest(RestContext.getContext()
+                                                                            .getCredentials(), poolObject, parent, true));
     }
 
     @Nonnull
@@ -372,8 +346,8 @@ public class PoolRestHandler extends AbstractRestHandler {
     @Nonnull
     public LiquidMessage visit(final LiquidUUID pool, final Map<String, String[]> parameters) throws URISyntaxException {
         throw new UnsupportedOperationException("Please use a URI not a UUID to visit a pool.");
-//        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
-//        return dataStoreFacade.process(new VisitPoolRequest(username, pool, false));
+        //        LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+        //        return dataStoreFacade.process(new VisitPoolRequest(username, pool, false));
     }
 
     @Nonnull

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -15,6 +19,5 @@ public interface LSDTypeDef extends Serializable {
 
     LSDType getPrimaryType();
 
-    @Nonnull
-    List<LSDType> getSecondaryTypes();
+    @Nonnull List<LSDType> getSecondaryTypes();
 }

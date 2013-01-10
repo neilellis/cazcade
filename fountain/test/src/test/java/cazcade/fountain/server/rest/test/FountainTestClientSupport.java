@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.test;
 
 import cazcade.common.Logger;
@@ -33,14 +37,14 @@ import java.util.Properties;
  */
 public class FountainTestClientSupport {
     @Nonnull
-    public static final AuthScope AUTH_SCOPE;
-    static final LSDUnmarshaler unmarshaler;
-    static final LSDMarshaler marshaler;
-    static final String host;
+    public static final AuthScope      AUTH_SCOPE;
+    static final        LSDUnmarshaler unmarshaler;
+    static final        LSDMarshaler   marshaler;
+    static final        String         host;
     @Nonnull
-    static final String rootUrl;
-    static final String rootPath;
-    static final int port;
+    static final        String         rootUrl;
+    static final        String         rootPath;
+    static final        int            port;
 
     static {
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("client-spring-config.xml");

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -12,11 +16,7 @@ import javax.annotation.Nonnull;
 public class UpdateSessionHandler extends AbstractUpdateHandler<UpdateSessionRequest> implements UpdateSessionRequestHandler {
     @Nonnull
     public UpdateSessionRequest handle(@Nonnull final UpdateSessionRequest request) throws InterruptedException {
-        return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateUnversionedEntityByUUIDTx(request.getTarget(),
-                                                                                                          request.getRequestEntity(),
-                                                                                                          request.isInternal(),
-                                                                                                          request.getDetail(), null
-                                                                                                         )
-                                                    );
+        return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateUnversionedEntityByUUIDTx(request.getTarget(), request
+                .getRequestEntity(), request.isInternal(), request.getDetail(), null));
     }
 }

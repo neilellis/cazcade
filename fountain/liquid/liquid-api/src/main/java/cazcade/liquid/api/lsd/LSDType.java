@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -9,8 +13,7 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public interface LSDType extends Serializable {
-    @Nonnull
-    String asString();
+    @Nonnull String asString();
 
     boolean canBe(LSDDictionaryTypes type);
 
@@ -19,29 +22,25 @@ public interface LSDType extends Serializable {
     /**
      * The next coarsest grouping after Genus i.e. Genus.Family.TypeClass
      */
-    @Nullable
-    String getFamily();
+    @Nullable String getFamily();
 
     List<String> getFlavors();
 
     /**
      * The coarsest grouping i.e. Genus.Family.TypeClass
      */
-    @Nonnull
-    String getGenus();
+    @Nonnull String getGenus();
 
     LSDType getParentType();
 
     /**
      * The next coarsest grouping after Family i.e. Genus.Family.TypeClass
      */
-    @Nullable
-    String getTypeClass();
+    @Nullable String getTypeClass();
 
     boolean isA(LSDDictionaryTypes dictionaryType);
 
     boolean isSystemType();
 
-    @Nullable
-    String toString();
+    @Nullable String toString();
 }

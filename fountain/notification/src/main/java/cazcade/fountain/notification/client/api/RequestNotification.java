@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.notification.client.api;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -7,9 +11,9 @@ import cazcade.liquid.api.LiquidRequest;
  * @author neilelliz@cazcade.com
  */
 public class RequestNotification {
-    private RequestState state;
+    private       RequestState  state;
     private final LiquidRequest request;
-    private LiquidMessage response;
+    private       LiquidMessage response;
 
     public RequestNotification(final RequestState state, final LiquidRequest request, final LiquidMessage response) {
         this.state = state;

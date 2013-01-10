@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.test;
 
 import cazcade.fountain.datastore.impl.email.MailService;
@@ -30,8 +34,7 @@ public class SimpleMailIntegrationTest {
 
     @Test
     public void test() throws InterruptedException {
-        mailService.sendMailFromTemplate("welcome.vm", "test", new String[]{"neilellis@cazcade.com"}, new String[0],
-                                         new String[0], new HashMap<String, Object>(), false
-                                        );
+        mailService.sendMailFromTemplate("welcome.vm", "test", new String[]{
+                "neilellis@cazcade.com"}, new String[0], new String[0], new HashMap<String, Object>(), false);
     }
 }

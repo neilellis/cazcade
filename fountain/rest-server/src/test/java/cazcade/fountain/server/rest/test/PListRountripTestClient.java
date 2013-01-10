@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.test;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -36,9 +40,7 @@ public class PListRountripTestClient {
         LSDTransferEntity poolEntity;
         try {
             final InputStream bodyAsStream = getMethod.getResponseBodyAsStream();
-            final LSDUnmarshallerFactory lsdUnmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean(
-                    "unmarshalerFactory"
-                                                                                                                     );
+            final LSDUnmarshallerFactory lsdUnmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory");
             final LSDUnmarshaler unmarshaler = lsdUnmarshallerFactory.getUnmarshalers().get("xml");
             poolEntity = unmarshaler.unmarshal(bodyAsStream);
             IOUtils.closeQuietly(bodyAsStream);

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -16,9 +20,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
     //todo: support URIS *then* remove this
     public static final boolean SUPPORTS_URI = false;
 
-    public LinkPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                 final LiquidUUID target, @Nullable final LiquidUUID from, @Nullable final LiquidUUID to,
-                                 final boolean unlink) {
+    public LinkPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, @Nullable final LiquidUUID from, @Nullable final LiquidUUID to, final boolean unlink) {
         super();
         setFrom(from);
         setTo(to);
@@ -28,18 +30,15 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
-    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
-                                 final LiquidUUID to, final boolean unlink) {
+    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final LiquidUUID to, final boolean unlink) {
         this(null, identity, target, from, to, unlink);
     }
 
-    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
-                                 final boolean unlink) {
+    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final boolean unlink) {
         this(null, identity, target, from, null, unlink);
     }
 
-    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from,
-                                 final LiquidUUID to) {
+    public LinkPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final LiquidUUID to) {
         this(null, identity, target, from, to, false);
     }
 
@@ -59,23 +58,22 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new LinkPoolObjectRequest(getEntity());
     }
 
     public Collection<LiquidURI> getAffectedEntities() {
         //todo: support URIS
-//        ArrayList<LiquidUUID> ids = new ArrayList<LiquidUUID>();
-//        if (from != null) {
-//            ids.add(from);
-//        }
-//        if (to != null) {
-//            ids.add(to);
-//        }
-//        ids.add(target);
-//        return ids;
+        //        ArrayList<LiquidUUID> ids = new ArrayList<LiquidUUID>();
+        //        if (from != null) {
+        //            ids.add(from);
+        //        }
+        //        if (to != null) {
+        //            ids.add(to);
+        //        }
+        //        ids.add(target);
+        //        return ids;
         return super.getAffectedEntities();
     }
 
@@ -83,7 +81,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (isUnlink()) {
             final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
-            if (hasFrom()&& hasTo()) {
+            if (hasFrom() && hasTo()) {
                 requests.add(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
                 requests.add(new AuthorizationRequest(getSessionIdentifier(), getFrom(), LiquidPermission.MODIFY));
                 requests.add(new AuthorizationRequest(getSessionIdentifier(), getTo(), LiquidPermission.MODIFY));

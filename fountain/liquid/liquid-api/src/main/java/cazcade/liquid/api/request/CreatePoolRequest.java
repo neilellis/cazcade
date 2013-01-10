@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -11,9 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class CreatePoolRequest extends AbstractCreationRequest {
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, @Nullable final LiquidUUID id,
-                             @Nonnull final LiquidSessionIdentifier identity, final LiquidURI parent, final String name,
-                             final String title, final String description, final double x, final double y) {
+    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, @Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
         super();
         setTitle(title);
         setDescription(description);
@@ -26,13 +28,11 @@ public class CreatePoolRequest extends AbstractCreationRequest {
         setType(type);
     }
 
-    public CreatePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title,
-                             final String description, final double x, final double y) {
+    public CreatePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
         this(LSDDictionaryTypes.POOL2D, null, identity, parent, name, title, description, x, y);
     }
 
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, final LiquidURI parent, final String name, final String title,
-                             final String description, final double x, final double y) {
+    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
         this(type, null, LiquidSessionIdentifier.ANON, parent, name, title, description, x, y);
     }
 
@@ -45,8 +45,7 @@ public class CreatePoolRequest extends AbstractCreationRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new CreatePoolRequest(getEntity());
     }

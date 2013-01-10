@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
@@ -21,9 +25,9 @@ public class LSDXMLTest extends TestCase {
         final HashMap<String, String> propMap = new HashMap(props);
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
         final LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
-//        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
-//        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
-//        LSDNode lsdNode = entity.asFormatIndependentTree();
+        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
+        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
+        //        LSDNode lsdNode = entity.asFormatIndependentTree();
         final String xmlEntity = LiquidXStreamFactory.getXstream().toXML(entity);
 
 

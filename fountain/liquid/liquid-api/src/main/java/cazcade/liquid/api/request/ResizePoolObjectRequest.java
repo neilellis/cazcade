@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,9 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ResizePoolObjectRequest extends AbstractRequest {
-    public ResizePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                   final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object,
-                                   final Integer width, final Integer height) {
+    public ResizePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Integer width, final Integer height) {
         super();
         setWidth(width);
         setHeight(height);
@@ -22,11 +24,9 @@ public class ResizePoolObjectRequest extends AbstractRequest {
         setUri(objectURI);
     }
 
-    public ResizePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID object,
-                                   final Integer width, final Integer height, final LiquidURI objectURI) {
+    public ResizePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID object, final Integer width, final Integer height, final LiquidURI objectURI) {
         this(null, identity, objectURI, pool, object, width, height);
     }
-
 
 
     public ResizePoolObjectRequest(final LiquidURI objectURI, final Integer width, final Integer height) {
@@ -41,8 +41,7 @@ public class ResizePoolObjectRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new ResizePoolObjectRequest(getEntity());
     }

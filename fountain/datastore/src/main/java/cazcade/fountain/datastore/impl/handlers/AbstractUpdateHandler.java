@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -19,13 +23,10 @@ public class AbstractUpdateHandler<T extends AbstractUpdateRequest> extends Abst
         final LSDTransferEntity requestEntity = request.getRequestEntity();
         if (!request.hasRequestEntity()) {
             throw new NullPointerException("Attempted to pass a null request entity to an update handler.");
-        } else {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByURITx(sessionIdentifier, uri,
-                    requestEntity,
-                    request.isInternal(),
-                    request.getDetail(), null
-            )
-            );
+        }
+        else {
+            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByURITx(sessionIdentifier, uri, requestEntity, request
+                    .isInternal(), request.getDetail(), null));
         }
     }
 }

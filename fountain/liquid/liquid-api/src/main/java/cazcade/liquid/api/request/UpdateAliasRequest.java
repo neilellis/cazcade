@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -7,8 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UpdateAliasRequest extends AbstractUpdateRequest {
-    public UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity,
-                              @Nullable final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
+    public UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setUri(uri);
         setId(id);
@@ -20,8 +23,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                              final LiquidUUID target, final LSDTransferEntity entity) {
+    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -36,8 +38,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity);
     }
 
-    public UpdateAliasRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri,
-                              final LSDTransferEntity newEntity) {
+    public UpdateAliasRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDTransferEntity newEntity) {
         super();
         setUri(uri);
         setSessionId(identity);
@@ -62,7 +63,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, sessionIdentifier, null, alias.getURI(), alias);
     }
 
-     UpdateAliasRequest(@Nonnull final LSDTransferEntity entity) {
+    UpdateAliasRequest(@Nonnull final LSDTransferEntity entity) {
         super(entity);
     }
 
@@ -70,8 +71,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         super();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new UpdateAliasRequest(getEntity());
     }

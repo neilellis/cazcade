@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,8 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrieveSessionRequest extends AbstractRetrievalRequest {
-    public RetrieveSessionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                  final LiquidUUID target) {
+    public RetrieveSessionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
         super();
         setId(id);
         setSessionId(identity);
@@ -30,8 +33,7 @@ public class RetrieveSessionRequest extends AbstractRetrievalRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new RetrieveSessionRequest(getEntity());
     }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -12,8 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CreateUserRequest extends AbstractCreationRequest {
-    public CreateUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                             final LSDTransferEntity entity) {
+    public CreateUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -32,8 +35,7 @@ public class CreateUserRequest extends AbstractCreationRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new CreateUserRequest(getEntity());
     }
@@ -43,8 +45,7 @@ public class CreateUserRequest extends AbstractCreationRequest {
         return Collections.EMPTY_LIST;
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public String getNotificationSession() {
         //Don't notify anyone of a user creation request.
         return null;

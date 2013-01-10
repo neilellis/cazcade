@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.test.jbehave;
 
 import cazcade.fountain.server.rest.test.ClientSession;
@@ -8,17 +12,16 @@ import org.apache.commons.httpclient.Credentials;
  * Representation of user details as defined in the tests...
  */
 public class UserDetails {
-    private final String username;
-    private final LiquidUUID userId;
-    private final Credentials credentials;
-    private final String sessionId;
+    private final String        username;
+    private final LiquidUUID    userId;
+    private final Credentials   credentials;
+    private final String        sessionId;
     private final ClientSession userSession;
-    private final String homePool;
-    private final String homePoolId;
-    private final String publicPoolId;
+    private final String        homePool;
+    private final String        homePoolId;
+    private final String        publicPoolId;
 
-    public UserDetails(final String username, final LiquidUUID userId, final Credentials credentials, final String sessionId,
-                       final ClientSession userSession, final String homePool, final String homePoolId, final String publicPoolId) {
+    public UserDetails(final String username, final LiquidUUID userId, final Credentials credentials, final String sessionId, final ClientSession userSession, final String homePool, final String homePoolId, final String publicPoolId) {
         this.username = username;
         this.userId = userId;
         this.credentials = credentials;

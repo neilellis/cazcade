@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.entities;
 
 
@@ -10,15 +14,11 @@ import java.util.Date;
 /**
  * @author neilellis@cazcade.com
  */
-@Entity
-@Table(name = "position")
+@Entity @Table(name = "position")
 public class PositionEntity extends PositionBase {
     private AliasEntity alias;
 
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(name = "id")
+    @Id @GeneratedValue(generator = "system-uuid") @GenericGenerator(name = "system-uuid", strategy = "uuid") @Column(name = "id")
     public String getBoardPositionId() {
         return positionId;
     }
@@ -27,8 +27,7 @@ public class PositionEntity extends PositionBase {
         positionId = boardPositionId;
     }
 
-    @OneToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "alias", nullable = false)
+    @OneToOne(targetEntity = AliasEntity.class) @JoinColumn(name = "alias", nullable = false)
     public AliasEntity getAlias() {
         return alias;
     }

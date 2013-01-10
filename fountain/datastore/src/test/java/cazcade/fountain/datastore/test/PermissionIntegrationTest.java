@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.test;
 
 import cazcade.fountain.datastore.impl.FountainNeo;
@@ -31,33 +35,32 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
 public class PermissionIntegrationTest {
     @Autowired
-    private FountainNeo fountainNeo;
-    private String stickyName;
-    private String username;
-    private String userPublicPoolName;
+    private FountainNeo             fountainNeo;
+    private String                  stickyName;
+    private String                  username;
+    private String                  userPublicPoolName;
     @Nullable
     private LiquidSessionIdentifier session;
-    private LiquidURI stickyURI;
-    private LiquidURI publicPoolURI;
-    private LiquidURI subPoolURI;
-    private String sticky2Name;
-    private LiquidURI sticky2URI;
-    private LSDPersistedEntity subPool;
-    private String userProfilePoolName;
-    private LiquidURI sticky3URI;
-    private String sticky3Name;
-    private LiquidURI profilePoolURI;
+    private LiquidURI               stickyURI;
+    private LiquidURI               publicPoolURI;
+    private LiquidURI               subPoolURI;
+    private String                  sticky2Name;
+    private LiquidURI               sticky2URI;
+    private LSDPersistedEntity      subPool;
+    private String                  userProfilePoolName;
+    private LiquidURI               sticky3URI;
+    private String                  sticky3Name;
+    private LiquidURI               profilePoolURI;
     @Autowired
 
-    private FountainPoolDAOImpl poolDAO;
+    private FountainPoolDAOImpl     poolDAO;
     @Autowired
-    private FountainUserDAOImpl userDAO;
+    private FountainUserDAOImpl     userDAO;
 
     @Before
     public void setUp() throws Exception {
         fountainNeo.doInTransaction(new Callable() {
-            @Nullable
-            @Override
+            @Nullable @Override
             public Object call() throws InterruptedException, UnsupportedEncodingException {
                 final LSDTransferEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
                 user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
@@ -86,15 +89,12 @@ public class PermissionIntegrationTest {
                 final LSDPersistedEntity profilePoolPersistedEntity = fountainNeo.findByURI(profilePoolURI, true);
                 assertNotNull(publicPoolPersistedEntity);
                 assertNotNull(session);
-                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolPersistedEntity, "sub", (double) 0,
-                                                 (double) 0, "sub", false
-                                                );
+                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolPersistedEntity, "sub", (double) 0, (double) 0, "sub", false);
                 createSticky(subPool, stickyName);
                 createSticky(profilePoolPersistedEntity, sticky3Name);
                 return null;
             }
-        }
-                                   );
+        });
     }
 
     private void createSticky(@Nonnull final LSDPersistedEntity subPool, final String stickyName) throws InterruptedException {
@@ -107,29 +107,20 @@ public class PermissionIntegrationTest {
     @Test
     public void testPermissionsAfterChange() throws Exception {
         fountainNeo.doInTransaction(new Callable<Object>() {
-            @Nullable
-            @Override
+            @Nullable @Override
             public Object call() throws Exception {
-                fountainNeo.changePermissionNoTx(session, publicPoolURI, LiquidPermissionChangeType.MAKE_PUBLIC_READONLY,
-                                                 LiquidRequestDetailLevel.NORMAL, false
-                                                );
-                final LSDBaseEntity publicPoolEntity = poolDAO.getPoolObjectTx(session, publicPoolURI, false, false,
-                                                                               LiquidRequestDetailLevel.NORMAL
-                                                                              );
+                fountainNeo.changePermissionNoTx(session, publicPoolURI, LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, LiquidRequestDetailLevel.NORMAL, false);
+                final LSDBaseEntity publicPoolEntity = poolDAO.getPoolObjectTx(session, publicPoolURI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(publicPoolEntity.canBe(LSDDictionaryTypes.POOL2D));
                 assertFalse(publicPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(publicPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
 
-                final LSDBaseEntity subPoolEntity = poolDAO.getPoolObjectTx(session, subPoolURI, false, false,
-                                                                            LiquidRequestDetailLevel.NORMAL
-                                                                           );
+                final LSDBaseEntity subPoolEntity = poolDAO.getPoolObjectTx(session, subPoolURI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(subPoolEntity.canBe(LSDDictionaryTypes.POOL2D));
                 assertFalse(subPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(subPoolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
 
-                LSDBaseEntity stickyEntity = poolDAO.getPoolObjectTx(session, stickyURI, false, false,
-                                                                     LiquidRequestDetailLevel.NORMAL
-                                                                    );
+                LSDBaseEntity stickyEntity = poolDAO.getPoolObjectTx(session, stickyURI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(stickyEntity.canBe(LSDDictionaryTypes.STICKY));
                 assertTrue(stickyEntity.hasPermission(LiquidPermissionScope.OWNER, LiquidPermission.MODIFY));
                 assertTrue(stickyEntity.hasPermission(LiquidPermissionScope.OWNER, LiquidPermission.EDIT));
@@ -139,14 +130,10 @@ public class PermissionIntegrationTest {
                 assertFalse(stickyEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
 
                 final LSDPersistedEntity newSubPool = fountainNeo.findByURI(subPoolURI);
-                assertEquals("o=vmeds,f=v,m=vm,v=v,w=v,u=v,a=vmeds,t=vmeds,c=,e=", newSubPool.getAttribute(LSDAttribute.PERMISSIONS
-                                                                                                          )
-                            );
+                assertEquals("o=vmeds,f=v,m=vm,v=v,w=v,u=v,a=vmeds,t=vmeds,c=,e=", newSubPool.getAttribute(LSDAttribute.PERMISSIONS));
                 createSticky(newSubPool, sticky2Name);
 
-                final LSDBaseEntity sticky2Entity = poolDAO.getPoolObjectTx(session, sticky2URI, false, false,
-                                                                            LiquidRequestDetailLevel.NORMAL
-                                                                           );
+                final LSDBaseEntity sticky2Entity = poolDAO.getPoolObjectTx(session, sticky2URI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(sticky2Entity.canBe(LSDDictionaryTypes.STICKY));
                 assertTrue(sticky2Entity.hasPermission(LiquidPermissionScope.OWNER, LiquidPermission.MODIFY));
                 assertTrue(sticky2Entity.hasPermission(LiquidPermissionScope.OWNER, LiquidPermission.EDIT));
@@ -155,16 +142,13 @@ public class PermissionIntegrationTest {
                 assertFalse(sticky2Entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(sticky2Entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
 
-                fountainNeo.changePermissionNoTx(session, publicPoolURI, LiquidPermissionChangeType.MAKE_PUBLIC,
-                                                 LiquidRequestDetailLevel.NORMAL, false
-                                                );
+                fountainNeo.changePermissionNoTx(session, publicPoolURI, LiquidPermissionChangeType.MAKE_PUBLIC, LiquidRequestDetailLevel.NORMAL, false);
                 stickyEntity = poolDAO.getPoolObjectTx(session, stickyURI, false, false, LiquidRequestDetailLevel.NORMAL);
                 assertTrue(stickyEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY));
                 assertFalse(stickyEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT));
                 return null;
             }
-        }
-                                   );
+        });
     }
 
     @Test

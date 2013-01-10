@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -11,14 +15,13 @@ import javax.annotation.Nonnull;
 public class RestContext {
     @Nonnull
     private static final ThreadLocal<RestContext> context = new ThreadLocal<RestContext>() {
-        @Nonnull
-        @Override
+        @Nonnull @Override
         protected RestContext initialValue() {
             return new RestContext();
         }
     };
     private LiquidSessionIdentifier username;
-    private String sessionId;
+    private String                  sessionId;
 
     @Nonnull
     public static RestContext getContext() {

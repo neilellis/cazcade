@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.cli;
 
 import cazcade.common.Logger;
@@ -22,7 +26,7 @@ public class FountainRestServerMain {
     private static final Logger log = Logger.getLogger(FountainRestServerMain.class);
 
     //private static final String CONTEXT_FILE = "applicationContext.xml";
-//    private static final String SVN_ID = "SVN Identification : $Id$";
+    //    private static final String SVN_ID = "SVN Identification : $Id$";
     private static FountainRestServer restServer;
 
 
@@ -37,8 +41,7 @@ public class FountainRestServerMain {
                     lifecycleManager.shutdown();
                 }
             }
-        }
-                                            );
+        });
 
         final SignalHandler handler = new AppSignalHandler(new Runnable() {
             public void run() {
@@ -84,8 +87,7 @@ public class FountainRestServerMain {
                 restServer.stopIfNotStopped();
                 log.info("Lifecycle Manager stopped REST Server.");
             }
-        }
-                                 );
+        });
 
         restServer.start();
     }

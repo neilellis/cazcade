@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -9,9 +13,9 @@ import java.util.TreeMap;
  * @author neilellis@cazcade.com
  */
 public class LSDMapPropertyStore implements LSDPropertyStore {
-    private static final long serialVersionUID = 478281508458564018L;
+    private static final long                    serialVersionUID = 478281508458564018L;
     @Nonnull
-    private final TreeMap<String, String> map = new TreeMap<String, String>();
+    private final        TreeMap<String, String> map              = new TreeMap<String, String>();
 
     public LSDMapPropertyStore(final Map<String, String> lsdProperties) {
         map.putAll(lsdProperties);
@@ -21,8 +25,7 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
     public LSDMapPropertyStore() {
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public Map<String, String> asMap() {
         return new HashMap<String, String>(map);
     }
@@ -32,8 +35,7 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
         return map.containsKey(property);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDPropertyStore copy() {
         return new LSDMapPropertyStore(map);
     }
@@ -56,11 +58,11 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
     @Override
     public void put(@Nonnull final String property, @Nonnull final String value) {
         //noinspection ConstantConditions
-        if(property == null) {
+        if (property == null) {
             throw new IllegalArgumentException("Key placed into LSDMapPropertyStore was null.");
         }
         //noinspection ConstantConditions
-        if(value == null) {
+        if (value == null) {
             throw new IllegalArgumentException("Key placed into LSDMapPropertyStore was null.");
         }
         map.put(property, value);

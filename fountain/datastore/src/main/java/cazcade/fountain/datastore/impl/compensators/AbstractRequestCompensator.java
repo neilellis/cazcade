@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.compensators;
 
 import cazcade.fountain.datastore.api.FountainRequestCompensator;

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,8 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BoardQueryRequest extends AbstractRequest {
-    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                             @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
         super();
         setId(id);
         setQueryType(type);
@@ -18,8 +21,7 @@ public class BoardQueryRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
-    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type,
-                             @Nullable final LiquidURI alias) {
+    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
         this(null, sessionIdentifier, type, alias);
     }
 
@@ -36,8 +38,7 @@ public class BoardQueryRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new BoardQueryRequest(getEntity());
     }

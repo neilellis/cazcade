@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.common.Logger;
@@ -37,9 +41,7 @@ public class PListUnmarshaler implements LSDUnmarshaler {
 
     public void unmarshal(@Nullable final LSDBaseEntity lsdEntity, final InputStream input) {
         if (lsdEntity == null) {
-            throw new NullPointerException(
-                    "A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null"
-            );
+            throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
         System.out.println("Unmarshalling.");
         DocumentBuilder docBuilder = null;
@@ -65,15 +67,13 @@ public class PListUnmarshaler implements LSDUnmarshaler {
         }
     }
 
-    private void walk(@Nonnull final LSDBaseEntity entity, @Nonnull final String prefix, String lastKey,
-                      @Nonnull final Element rootElement) {
+    private void walk(@Nonnull final LSDBaseEntity entity, @Nonnull final String prefix, String lastKey, @Nonnull final Element rootElement) {
         final NodeList childNodes = rootElement.getChildNodes();
 
         for (int i = 0; i < childNodes.getLength(); i++) {
             final Node node = childNodes.item(i);
-            assertThat(node.getNodeType() == Document.ELEMENT_NODE,
-                       "Elements should only contain XML elements as children in a plist."
-                      );
+            assertThat(node.getNodeType()
+                       == Document.ELEMENT_NODE, "Elements should only contain XML elements as children in a plist.");
             final String nodeName = node.getNodeName();
             if ("dict".equals(nodeName)) {
                 walk(entity, prefix.isEmpty() ? lastKey : prefix + "." + lastKey, lastKey, (Element) node);
@@ -89,9 +89,9 @@ public class PListUnmarshaler implements LSDUnmarshaler {
                 for (int j = 0; j < grandChildNodes.getLength(); j++) {
                     final Node grandChildNode = grandChildNodes.item(i);
                     assertThat(node.getNodeType() == Document.ELEMENT_NODE, "Arrays should only contain XML elements in a plist.");
-                    walk(entity, prefix.isEmpty() ? lastKey + "." + j : prefix + "." + lastKey + j, lastKey,
-                         (Element) grandChildNode
-                        );
+                    walk(entity, prefix.isEmpty()
+                                 ? lastKey + "." + j
+                                 : prefix + "." + lastKey + j, lastKey, (Element) grandChildNode);
                 }
             }
             else {

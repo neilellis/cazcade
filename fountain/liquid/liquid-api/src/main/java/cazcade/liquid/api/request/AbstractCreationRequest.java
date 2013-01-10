@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -24,9 +28,7 @@ public abstract class AbstractCreationRequest extends AbstractRequest {
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
         if (hasRequestEntity()) {
-            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()
-                                                                                                        )
-                                    );
+            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
     }
 

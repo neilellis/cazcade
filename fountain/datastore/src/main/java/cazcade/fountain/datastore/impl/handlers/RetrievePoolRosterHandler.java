@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
@@ -14,8 +18,7 @@ import java.util.Collection;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<RetrievePoolRosterRequest>
-        implements RetrievePoolRosterRequestHandler {
+public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<RetrievePoolRosterRequest> implements RetrievePoolRosterRequestHandler {
     @Nonnull
     public RetrievePoolRosterRequest handle(@Nonnull final RetrievePoolRosterRequest request) throws InterruptedException {
         LSDPersistedEntity persistedEntity;
@@ -27,14 +30,11 @@ public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<Retrieve
             entity.setID(UUIDFactory.randomUUID());
 
             if (request.hasUri()) {
-                entities = socialDAO.getRosterNoTX(request.getUri(), request.isInternal(), request.getSessionIdentifier(),
-                                                   request.getDetail()
-                                                  );
+                entities = socialDAO.getRosterNoTX(request.getUri(), request.isInternal(), request.getSessionIdentifier(), request.getDetail());
             }
             else {
-                entities = socialDAO.getRosterNoTX(request.getTarget(), request.isInternal(), request.getSessionIdentifier(),
-                                                   request.getDetail()
-                                                  );
+                entities = socialDAO.getRosterNoTX(request.getTarget(), request.isInternal(), request.getSessionIdentifier(), request
+                        .getDetail());
             }
             transaction.success();
             if (entities == null || entities.isEmpty()) {

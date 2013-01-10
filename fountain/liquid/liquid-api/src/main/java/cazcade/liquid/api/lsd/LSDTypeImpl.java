@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -85,14 +89,12 @@ public class LSDTypeImpl implements LSDType {
         return true;
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LSDType getClassOnlyType() {
         return new LSDTypeImpl(genus, family, typeClass);
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LSDType getParentType() {
         final int index = typeString.lastIndexOf('.');
         if (index < 0) {
@@ -111,8 +113,7 @@ public class LSDTypeImpl implements LSDType {
         return typeString.startsWith("System");
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public String toString() {
         return asString();
     }

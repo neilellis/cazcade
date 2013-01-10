@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.servlet;
 
 import cazcade.common.Logger;
@@ -21,17 +25,15 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
     @Nonnull
     private static final Logger log = Logger.getLogger(ObjectiveCDictionaryServlet.class);
 
-    public void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("text/plain");
             final LSDAttribute[] keys = LSDAttribute.values();
             Arrays.sort(keys);
             final LSDDictionaryTypes[] types = LSDDictionaryTypes.values();
             final PrintWriter out = response.getWriter();
-            out.printf("//Begin server generated section  (This was generated from %s on %s)%n", request.getRequestURL().toString(),
-                       new Date()
-                      );
+            out.printf("//Begin server generated section  (This was generated from %s on %s)%n", request.getRequestURL()
+                                                                                                        .toString(), new Date());
             out.println();
             out.println();
             out.printf("//Server recognized entity types %n");

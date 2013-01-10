@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
@@ -37,8 +41,8 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
 
                 final String name = request.getUri().getLastPathElement();
                 assert name != null;
-                final String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-") ||
-                                                                 name.startsWith("-")) ? "Untitled" : name;
+                final String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-")
+                                                                 || name.startsWith("-")) ? "Untitled" : name;
                 final StringBuilder newTitle = new StringBuilder();
                 boolean previousCharWhitespace = true;
                 for (int i = 0; i < boardTitle.length(); i++) {
@@ -72,9 +76,8 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                         previousCharWhitespace = false;
                     }
                 }
-                persistedEntity = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity,
-                                                         request.getType(), name, 0.0, 0.0, newTitle.toString(), request.isListed()
-                                                        );
+                persistedEntity = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity, request.getType(), name, 0.0, 0.0, newTitle
+                        .toString(), request.isListed());
                 final LiquidPermissionChangeType requestPermission = request.getPermission();
                 if (requestPermission != null) {
                     persistedEntity = fountainNeo.changeNodePermissionNoTx(persistedEntity, request.getSessionIdentifier(), requestPermission);
@@ -89,13 +92,10 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 persistedEntity.assertLatestVersion();
                 poolDAO.visitNodeNoTx(persistedEntity, request.getSessionIdentifier());
                 persistedEntity.assertLatestVersion();
-                entity = poolDAO.getPoolAndContentsNoTx(persistedEntity, request.getDetail(), true, ChildSortOrder.AGE,
-                                                        request.isInternal(), request.getSessionIdentifier(), null, null,
-                                                        request.isHistorical()
-                                                       );
-                final LSDTransferEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURIOrFail(request.getAlias()),
-                                                                           request.isInternal(), request.getDetail()
-                                                                          );
+                entity = poolDAO.getPoolAndContentsNoTx(persistedEntity, request.getDetail(), true, ChildSortOrder.AGE, request.isInternal(), request
+                        .getSessionIdentifier(), null, null, request.isHistorical());
+                final LSDTransferEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURIOrFail(request.getAlias()), request.isInternal(), request
+                        .getDetail());
                 entity.addSubEntity(LSDAttribute.VISITOR, visitor, true);
                 transaction.success();
             }

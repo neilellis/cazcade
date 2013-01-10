@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.fountain.datastore.impl.FountainNeo;
@@ -35,7 +39,7 @@ public class FountainIndexServiceImpl {
     @Autowired
     private FountainNeo fountainNeo;
     @Autowired
-    private BoardDAO boardDAO;
+    private BoardDAO    boardDAO;
 
     @Autowired
     private AliasDAO aliasDAO;
@@ -109,38 +113,32 @@ public class FountainIndexServiceImpl {
         return type.toString().startsWith(LSDDictionaryTypes.BOARD.getValue());
     }
 
-    private static void addCoreMetadataToBoard(@Nonnull final LSDPersistedEntity persistedEntity,
-                                               @Nonnull final BoardIndexEntity board) {
-        if(persistedEntity.hasAttribute(LSDAttribute.DESCRIPTION)) {
-        board.setDescription(persistedEntity.getAttribute(LSDAttribute.DESCRIPTION));
+    private static void addCoreMetadataToBoard(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final BoardIndexEntity board) {
+        if (persistedEntity.hasAttribute(LSDAttribute.DESCRIPTION)) {
+            board.setDescription(persistedEntity.getAttribute(LSDAttribute.DESCRIPTION));
         }
-        if(persistedEntity.hasAttribute(LSDAttribute.TEXT_EXTENDED)){
+        if (persistedEntity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
             board.setText(persistedEntity.getAttribute(LSDAttribute.TEXT_EXTENDED));
         }
-        if(persistedEntity.hasAttribute(LSDAttribute.TITLE)) {
-        board.setTitle(persistedEntity.getAttribute(LSDAttribute.TITLE));
+        if (persistedEntity.hasAttribute(LSDAttribute.TITLE)) {
+            board.setTitle(persistedEntity.getAttribute(LSDAttribute.TITLE));
         }
     }
 
     private void addOwnershipToBoard(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final BoardIndexEntity board) {
-        final FountainRelationship ownerRel = persistedEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING
-                                                                                   );
+        final FountainRelationship ownerRel = persistedEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
         if (ownerRel != null) {
             final String owner = ownerRel.getOtherNode(persistedEntity).getAttribute(LSDAttribute.URI, "unknown");
             log.debug("Setting owner as {0} on {1}", owner, board.getUri());
             board.setOwner(aliasDAO.getOrCreateAlias(owner));
         }
-        final FountainRelationship authorRel = persistedEntity.getSingleRelationship(FountainRelationships.AUTHOR,
-                                                                                     Direction.OUTGOING
-                                                                                    );
+        final FountainRelationship authorRel = persistedEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
         if (authorRel != null) {
             final String author = authorRel.getOtherNode(persistedEntity).getAttribute(LSDAttribute.URI, "unknown");
             log.debug("Setting author as {0} on {1}", author, board.getUri());
             board.setAuthor(aliasDAO.getOrCreateAlias(author));
         }
-        final FountainRelationship creatorRel = persistedEntity.getSingleRelationship(FountainRelationships.CREATOR,
-                                                                                      Direction.OUTGOING
-                                                                                     );
+        final FountainRelationship creatorRel = persistedEntity.getSingleRelationship(FountainRelationships.CREATOR, Direction.OUTGOING);
         if (creatorRel != null) {
             final String creator = creatorRel.getOtherNode(persistedEntity).getAttribute(LSDAttribute.URI, "unknown");
             log.debug("Setting creator as {0} on {1}", creator, board.getUri());
@@ -148,8 +146,7 @@ public class FountainIndexServiceImpl {
         }
     }
 
-    private void syncCommentCountInternal(@Nonnull final LSDBaseEntity persistedEntity,
-                                          @Nonnull final BoardIndexEntity board) {
+    private void syncCommentCountInternal(@Nonnull final LSDBaseEntity persistedEntity, @Nonnull final BoardIndexEntity board) {
         long commentCount = 0;
         try {
             commentCount = persistedEntity.getIntegerAttribute(LSDAttribute.COMMENT_COUNT, 0);
@@ -159,8 +156,7 @@ public class FountainIndexServiceImpl {
         board.setCommentCount(commentCount);
     }
 
-    private static void syncFollowerCountInternal(@Nonnull final LSDBaseEntity persistedEntity,
-                                                  @Nonnull final BoardIndexEntity board) {
+    private static void syncFollowerCountInternal(@Nonnull final LSDBaseEntity persistedEntity, @Nonnull final BoardIndexEntity board) {
         long aliasFollowsCount = 0;
         try {
             aliasFollowsCount = persistedEntity.getIntegerAttribute(LSDAttribute.FOLLOWERS_COUNT, 0);
@@ -175,8 +171,7 @@ public class FountainIndexServiceImpl {
         board.setPopularity((long) (10000 * (Math.log10(board.getCommentCount() + 1) +
                                              Math.log10(board.getActivityCount() + 1) +
                                              Math.log10(board.getFollowerCount() + 1) +
-                                             Math.log10(board.getLikeCount() + 1)))
-                           );
+                                             Math.log10(board.getLikeCount() + 1))));
     }
 
     @Transactional

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.messaging.session;
 
 import cazcade.common.Logger;
@@ -16,12 +20,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class ClientSessionManager {
     public static final long SESSION_TIMEOUT = 1200 * 1000;
-//    public static final long SESSION_TIMEOUT = 400;
+    //    public static final long SESSION_TIMEOUT = 400;
 
     @Nonnull
     private static final Logger log = Logger.getLogger(ClientSessionManager.class);
 
-    private final ScheduledExecutorService reaper = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService                 reaper     = Executors.newSingleThreadScheduledExecutor();
     @Nonnull
     private final ConcurrentHashMap<String, ClientSession> sessionMap = new ConcurrentHashMap<String, ClientSession>();
 
@@ -59,8 +63,7 @@ public class ClientSessionManager {
                 }
                 closeSesions(expiredSessions);
             }
-        }, SESSION_TIMEOUT, SESSION_TIMEOUT / 4, TimeUnit.MILLISECONDS
-                                     );
+        }, SESSION_TIMEOUT, SESSION_TIMEOUT / 4, TimeUnit.MILLISECONDS);
     }
 
     private void closeSesions(@Nonnull final Set<String> sessions) {

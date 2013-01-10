@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -8,11 +12,9 @@ import java.util.List;
  */
 
 public interface LSDNode {
-    @Nonnull
-    List<LSDNode> getChildren();
+    @Nonnull List<LSDNode> getChildren();
 
-    @Nonnull
-    String getLeafValue();
+    @Nonnull String getLeafValue();
 
     String getName();
 

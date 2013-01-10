@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.model;
 
 import java.util.Date;
@@ -12,8 +16,8 @@ public class CommonBase extends BaseBase {
     protected String thumbnailUrl;
     protected String description;
     protected String title;
-    protected Date updated;
-    protected Date created;
-    protected Date deleted;
+    protected Date   updated;
+    protected Date   created;
+    protected Date   deleted;
     protected Double rating;
 }

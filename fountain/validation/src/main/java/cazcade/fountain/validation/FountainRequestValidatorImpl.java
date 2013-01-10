@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.validation;
 
 import cazcade.common.Logger;
@@ -15,7 +19,7 @@ import java.util.Map;
  */
 public class FountainRequestValidatorImpl<T extends LiquidRequest> implements FountainRequestValidator<T> {
     private Map<String, FountainRequestValidator> requestTypeValidatorMap;
-    private FountainRequestValidator defaultValidator;
+    private FountainRequestValidator              defaultValidator;
     @Nonnull
     private final Logger log = Logger.getLogger(FountainRequestValidatorImpl.class);
 

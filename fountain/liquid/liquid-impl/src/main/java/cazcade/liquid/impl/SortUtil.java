@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.ChildSortOrder;
@@ -41,16 +45,14 @@ public class SortUtil {
                     return 0;
                 }
             }
-        }
-                        );
+        });
     }
 
     public static void popularitySortEntities(final List<LSDBaseEntity> entities) {
         Collections.sort(entities, new Comparator<LSDBaseEntity>() {
             public int compare(@Nonnull final LSDBaseEntity lsdEntity, @Nonnull final LSDBaseEntity lsdEntity1) {
-                if (lsdEntity.hasAttribute(LSDAttribute.POPULARITY_METRIC) && lsdEntity1.hasAttribute(
-                        LSDAttribute.POPULARITY_METRIC
-                                                                                                     )) {
+                if (lsdEntity.hasAttribute(LSDAttribute.POPULARITY_METRIC)
+                    && lsdEntity1.hasAttribute(LSDAttribute.POPULARITY_METRIC)) {
                     final Long popularity = Long.valueOf(lsdEntity.getAttribute(LSDAttribute.POPULARITY_METRIC));
                     final Long popularity1 = Long.valueOf(lsdEntity1.getAttribute(LSDAttribute.POPULARITY_METRIC));
                     return -popularity.compareTo(popularity1);
@@ -59,7 +61,6 @@ public class SortUtil {
                     return 0;
                 }
             }
-        }
-                        );
+        });
     }
 }

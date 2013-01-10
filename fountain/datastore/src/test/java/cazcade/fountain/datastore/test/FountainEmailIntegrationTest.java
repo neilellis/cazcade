@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.test;
 
 import cazcade.fountain.datastore.impl.FountainNeo;
@@ -40,15 +44,11 @@ public class FountainEmailIntegrationTest {
 
     }
 
-    @Test
-    @Transactional
+    @Test @Transactional
     public void test() throws InterruptedException, UnsupportedEncodingException {
-        final LSDTransferEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"),
-                                                                                               true
-                                                                                              ), true,
-                                                                         LiquidRequestDetailLevel.COMPLETE
-                                                                        );
-        final LSDTransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true).toLSD(LiquidRequestDetailLevel.COMPLETE, true);
+        final LSDTransferEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"), true), true, LiquidRequestDetailLevel.COMPLETE);
+        final LSDTransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true)
+                                                          .toLSD(LiquidRequestDetailLevel.COMPLETE, true);
         mailService.send(userFromNode, aliasFromNode, "test-email.html", "Welcome", "", false);
     }
 }

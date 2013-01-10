@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.email;
 
 import javax.annotation.Nonnull;
@@ -11,8 +15,7 @@ public class SMTPAuthenticator extends Authenticator {
     private String username;
     private String password;
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected PasswordAuthentication getPasswordAuthentication() {
         return new PasswordAuthentication(username, password);
     }

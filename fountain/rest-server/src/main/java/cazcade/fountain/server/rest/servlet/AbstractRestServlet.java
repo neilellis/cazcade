@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.servlet;
 
 import cazcade.common.Logger;
@@ -27,6 +31,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
 
 
     protected static ClassPathXmlApplicationContext applicationContext;
+
     static {
         try {
             applicationContext = new ClassPathXmlApplicationContext("classpath:rest-server-spring-config.xml");
@@ -41,7 +46,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
             }
         });
     }
-    
+
     public AbstractRestServlet() {
         super();
     }
@@ -51,8 +56,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
         super.destroy();
     }
 
-    public void doError(final HttpServletRequest req, final HttpServletResponse resp, final String message)
-            throws ServletException {
+    public void doError(final HttpServletRequest req, final HttpServletResponse resp, final String message) throws ServletException {
         throw new ServletException(message);
     }
 
@@ -62,8 +66,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
     }
 
     @Override
-    public void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
-            throws ServletException, IOException {
+    public void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         log.session(req.getPathInfo());
         final String sessionId = req.getParameter("_session");
         log.addContext(req.getPathInfo());
@@ -146,13 +149,12 @@ public abstract class AbstractRestServlet extends HttpServlet {
         } catch (Exception e) {
             log.error(e, "{0}?{1} caused {2}", req.getRequestURL(), req.getQueryString(), e.getMessage());
             resp.sendError(500, "Server Error: " + e.getMessage() + ":" + ExceptionUtils.getFullStackTrace(e));
-//            LiquidResponseHelper.fromException(e, null);
+            //            LiquidResponseHelper.fromException(e, null);
         } finally {
             log.clearSession();
             log.clearContext();
         }
     }
 
-    public abstract void doRestCall(HttpServletRequest req, HttpServletResponse resp, String pathWithQuery, String serviceName,
-                                    String methodName, List<LiquidUUID> uuids, String sessionId, String format) throws Exception;
+    public abstract void doRestCall(HttpServletRequest req, HttpServletResponse resp, String pathWithQuery, String serviceName, String methodName, List<LiquidUUID> uuids, String sessionId, String format) throws Exception;
 }

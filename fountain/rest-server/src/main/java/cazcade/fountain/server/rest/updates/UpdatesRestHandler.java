@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.updates;
 
 import cazcade.common.Logger;
@@ -22,7 +26,7 @@ public class UpdatesRestHandler extends AbstractRestHandler {
     private static final Logger log = Logger.getLogger(UpdatesRestHandler.class);
 
     private FountainDataStoreFacade dataStoreFacade;
-    private AuthorizationService authorizationService;
+    private AuthorizationService    authorizationService;
 
     public UpdatesRestHandler() {
         super();

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import javax.annotation.Nonnull;
@@ -26,8 +30,7 @@ public class ClientApplicationIdentifier implements Serializable {
     public ClientApplicationIdentifier() {
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String toString() {
         return name + ":" + hostinfo + ":" + key;
     }

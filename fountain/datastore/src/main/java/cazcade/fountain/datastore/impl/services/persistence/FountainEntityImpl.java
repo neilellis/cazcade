@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
@@ -35,8 +39,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
 
     private static final Cache nodeAuthCache;
 
-    @SuppressWarnings({"TransientFieldNotInitialized"})
-    @Nonnull
+    @SuppressWarnings({"TransientFieldNotInitialized"}) @Nonnull
     private final transient org.neo4j.graphdb.Node neoNode;
 
     static {
@@ -63,10 +66,8 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
     }
 
-    @Override
-    @Nonnull
-    public LSDTransferEntity toLSD(@Nonnull final LiquidRequestDetailLevel detail, final boolean internal)
-            throws InterruptedException {
+    @Override @Nonnull
+    public LSDTransferEntity toLSD(@Nonnull final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
         final LSDTransferEntity entity = createEmpty();
         if (hasAttribute(TYPE)) {
             entity.setAttribute(LSDAttribute.TYPE, getAttribute(TYPE));
@@ -107,20 +108,13 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             entity.copyAttribute(this, LSDAttribute.ID);
         }
         else if (detail == LiquidRequestDetailLevel.PERSON_MINIMAL) {
-            copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.FULL_NAME, LSDAttribute.IMAGE_URL, LSDAttribute.ID,
-                               LSDAttribute.URI
-                              );
+            copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.FULL_NAME, LSDAttribute.IMAGE_URL, LSDAttribute.ID, LSDAttribute.URI);
         }
         else if (detail == LiquidRequestDetailLevel.BOARD_LIST) {
-            copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.TITLE, LSDAttribute.DESCRIPTION, LSDAttribute.COMMENT_COUNT,
-                               LSDAttribute.FOLLOWERS_COUNT, LSDAttribute.IMAGE_URL, LSDAttribute.ICON_URL, LSDAttribute.ID,
-                               LSDAttribute.URI,  LSDAttribute.MODIFIED
-                              );
+            copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.TITLE, LSDAttribute.DESCRIPTION, LSDAttribute.COMMENT_COUNT, LSDAttribute.FOLLOWERS_COUNT, LSDAttribute.IMAGE_URL, LSDAttribute.ICON_URL, LSDAttribute.ID, LSDAttribute.URI, LSDAttribute.MODIFIED);
         }
         else if (detail == LiquidRequestDetailLevel.PERMISSION_DELTA) {
-            copyValuesToEntity(entity, LSDAttribute.URI, LSDAttribute.ID, LSDAttribute.MODIFIABLE, LSDAttribute.EDITABLE,
-                               LSDAttribute.VIEWABLE
-                              );
+            copyValuesToEntity(entity, LSDAttribute.URI, LSDAttribute.ID, LSDAttribute.MODIFIABLE, LSDAttribute.EDITABLE, LSDAttribute.VIEWABLE);
         }
         else if (detail == LiquidRequestDetailLevel.MINIMAL) {
             copyValuesToEntity(entity, LSDAttribute.URI, LSDAttribute.ID);
@@ -131,9 +125,9 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         return entity;
     }
 
-//    public void removeProperty(@Nonnull final LSDAttribute key) {
-//        remove(key);
-//    }
+    //    public void removeProperty(@Nonnull final LSDAttribute key) {
+    //        remove(key);
+    //    }
 
 
     @Override
@@ -150,11 +144,8 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
     }
 
-    @Override
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nonnull
-    public FountainRelationship createRelationshipTo(@Nonnull final LSDPersistedEntity otherPersistedEntityImpl,
-                                                     final FountainRelationships type) {
+    @Override @SuppressWarnings({"TypeMayBeWeakened"}) @Nonnull
+    public FountainRelationship createRelationshipTo(@Nonnull final LSDPersistedEntity otherPersistedEntityImpl, final FountainRelationships type) {
         return new FountainRelationshipImpl(neoNode.createRelationshipTo(otherPersistedEntityImpl.getNeoNode(), type));
     }
 
@@ -173,9 +164,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             }
         }
 
-        final Iterable<FountainRelationship> linkedRelationships = getRelationships(FountainRelationships.LINKED_CHILD,
-                                                                                    Direction.OUTGOING
-                                                                                   );
+        final Iterable<FountainRelationship> linkedRelationships = getRelationships(FountainRelationships.LINKED_CHILD, Direction.OUTGOING);
         for (final FountainRelationship relationship : linkedRelationships) {
             final LSDPersistedEntity poolObjectPersistedEntity = relationship.getOtherNode(this);
             if (!poolObjectPersistedEntity.isDeleted()) {
@@ -184,16 +173,12 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
     }
 
-    @Override
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nonnull
+    @Override @SuppressWarnings({"TypeMayBeWeakened"}) @Nonnull
     public Iterable<FountainRelationship> getRelationships(final FountainRelationships type, final Direction dir) {
         return new RelationshipIterable(neoNode.getRelationships(type, dir));
     }
 
-    @SuppressWarnings({"ReturnOfThis"})
-    @Override
-    @Nonnull
+    @SuppressWarnings({"ReturnOfThis"}) @Override @Nonnull
     public LSDPersistedEntity getLatestVersionFromFork() {
         log.debug("Getting latest version for {0}.", getAttribute(ID));
         if (hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {
@@ -210,15 +195,12 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
     }
 
-    @Override
-    @SuppressWarnings({"TypeMayBeWeakened"})
+    @Override @SuppressWarnings({"TypeMayBeWeakened"})
     public boolean hasRelationship(final FountainRelationships type, final Direction dir) {
         return neoNode.hasRelationship(type, dir);
     }
 
-    @Override
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nullable
+    @Override @SuppressWarnings({"TypeMayBeWeakened"}) @Nullable
     public FountainRelationship getSingleRelationship(final FountainRelationships type, final Direction dir) {
         final org.neo4j.graphdb.Relationship relationship = neoNode.getSingleRelationship(type, dir);
         if (relationship == null) {
@@ -232,14 +214,12 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         return neoNode.getId();
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public Iterable<FountainRelationship> getRelationships(final FountainRelationships... types) {
         return new RelationshipIterable(neoNode.getRelationships(types));
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public Iterable<FountainRelationship> getRelationships() {
         final Iterable<org.neo4j.graphdb.Relationship> relationships = neoNode.getRelationships();
         return new RelationshipIterable(relationships);
@@ -265,9 +245,8 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         //        log.debug("Inheriting permission " + liquidPermissionSet);
         setAttribute(PERMISSIONS, LiquidPermissionSet.createPermissionSet(parent.getAttribute(PERMISSIONS))
                                                      .restoreDeletePermission()
-                                                     .toString()
-                    );
-//        log.debug("Child now has " + getAttribute(PERMISSIONS));
+                                                     .toString());
+        //        log.debug("Child now has " + getAttribute(PERMISSIONS));
     }
 
     @Override
@@ -289,18 +268,12 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     @Override
     public boolean isListed() {
         LSDPersistedEntity boardPersistedEntity = null;
-        final Iterator<org.neo4j.graphdb.Node> parentIterator = traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH,
-                                                                         new ReturnableEvaluator() {
-                                                                             @Override
-                                                                             public boolean isReturnableNode(
-                                                                                     @Nonnull final TraversalPosition currentPos) {
-                                                                                 return new FountainEntityImpl(
-                                                                                         currentPos.currentNode()
-                                                                                 ).canBe(LSDDictionaryTypes.BOARD);
-                                                                             }
-                                                                         }, FountainRelationships.CHILD, Direction.INCOMING,
-                                                                         FountainRelationships.COMMENT, Direction.INCOMING
-                                                                        ).iterator();
+        final Iterator<org.neo4j.graphdb.Node> parentIterator = traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
+            @Override
+            public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
+                return new FountainEntityImpl(currentPos.currentNode()).canBe(LSDDictionaryTypes.BOARD);
+            }
+        }, FountainRelationships.CHILD, Direction.INCOMING, FountainRelationships.COMMENT, Direction.INCOMING).iterator();
         if (parentIterator.hasNext()) {
             boardPersistedEntity = new FountainEntityImpl(parentIterator.next());
         }
@@ -318,17 +291,12 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         return false;
     }
 
-    @SuppressWarnings({"ReturnOfThis"})
-    @Override
-    @Nonnull
-    public LSDPersistedEntity mergeProperties(@Nonnull final LSDTransferEntity source, final boolean update,
-                                              final boolean ignoreType, @Nullable final Runnable onRenameAction)
-            throws InterruptedException {
+    @SuppressWarnings({"ReturnOfThis"}) @Override @Nonnull
+    public LSDPersistedEntity mergeProperties(@Nonnull final LSDTransferEntity source, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
         if (hasAttribute(TYPE) && source.hasAttribute(TYPE) && !ignoreType) {
             if (!isA(source.getTypeDef())) {
-                throw new CannotChangeTypeException("The entity type used to be %s the request was to change it to %s",
-                                                    getTypeDef(), source.getTypeDef()
-                );
+                throw new CannotChangeTypeException("The entity type used to be %s the request was to change it to %s", getTypeDef(), source
+                        .getTypeDef());
             }
         }
         final Map<String, String> map = source.asMapForPersistence(ignoreType, update);
@@ -340,9 +308,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                     if (hasAttribute(ID)) {
                         final String currentId = getUUID().toString();
                         if (!currentId.equals(entry.getValue())) {
-                            throw new CannotChangeIdException("You cannot change the id of entity from %s to %s", currentId,
-                                                              entry.getValue()
-                            );
+                            throw new CannotChangeIdException("You cannot change the id of entity from %s to %s", currentId, entry.getValue());
                         }
                     }
                     else {
@@ -367,12 +333,9 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         return this;
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LSDPersistedEntity parentNode() {
-        final org.neo4j.graphdb.Relationship parentRelationship = neoNode.getSingleRelationship(FountainRelationships.CHILD,
-                                                                                                Direction.INCOMING
-                                                                                               );
+        final org.neo4j.graphdb.Relationship parentRelationship = neoNode.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
         if (parentRelationship == null) {
             throw new OrphanedEntityException("The entity with URI %s has no parent.", getAttribute(URI));
         }
@@ -398,47 +361,32 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     }
 
     @Override
-    public void setPermissionFlagsOnEntity(@Nonnull final LiquidSessionIdentifier session,
-                                           @Nullable final LSDPersistedEntity parent, @Nonnull final LSDBaseEntity entity)
-            throws InterruptedException {
+    public void setPermissionFlagsOnEntity(@Nonnull final LiquidSessionIdentifier session, @Nullable final LSDPersistedEntity parent, @Nonnull final LSDBaseEntity entity) throws InterruptedException {
         if (parent == null) {
             entity.setAttribute(LSDAttribute.MODIFIABLE, isAuthorized(session, LiquidPermission.MODIFY));
             entity.setAttribute(LSDAttribute.EDITABLE, isAuthorized(session, LiquidPermission.EDIT));
             entity.setAttribute(LSDAttribute.DELETABLE, isAuthorized(session, LiquidPermission.DELETE));
         }
         else {
-            entity.setAttribute(LSDAttribute.MODIFIABLE, parent.isAuthorized(session, LiquidPermission.EDIT) || parent.isAuthorized(
-                    session, LiquidPermission.MODIFY
-                                                                                                                                   ) &&
-                                                                                                                isAuthorized(
-                                                                                                                        session,
-                                                                                                                        LiquidPermission.MODIFY
-                                                                                                                            )
-                               );
-            entity.setAttribute(LSDAttribute.EDITABLE, parent.isAuthorized(session, LiquidPermission.EDIT) || parent.isAuthorized(
-                    session, LiquidPermission.MODIFY
-                                                                                                                                 ) &&
-                                                                                                              isAuthorized(session,
-                                                                                                                           LiquidPermission.EDIT
-                                                                                                                          )
-                               );
-            entity.setAttribute(LSDAttribute.DELETABLE, parent.isAuthorized(session, LiquidPermission.EDIT) || parent.isAuthorized(
-                    session, LiquidPermission.MODIFY
-                                                                                                                                  ) &&
-                                                                                                               isAuthorized(session,
-                                                                                                                            LiquidPermission.DELETE
-                                                                                                                           )
-                               );
+            entity.setAttribute(LSDAttribute.MODIFIABLE, parent.isAuthorized(session, LiquidPermission.EDIT)
+                                                         || parent.isAuthorized(session, LiquidPermission.MODIFY)
+                                                            && isAuthorized(session, LiquidPermission.MODIFY));
+            entity.setAttribute(LSDAttribute.EDITABLE, parent.isAuthorized(session, LiquidPermission.EDIT)
+                                                       || parent.isAuthorized(session, LiquidPermission.MODIFY)
+                                                          && isAuthorized(session, LiquidPermission.EDIT));
+            entity.setAttribute(LSDAttribute.DELETABLE, parent.isAuthorized(session, LiquidPermission.EDIT)
+                                                        || parent.isAuthorized(session, LiquidPermission.MODIFY)
+                                                           && isAuthorized(session, LiquidPermission.DELETE));
         }
         entity.setAttribute(LSDAttribute.ADMINISTERABLE, isAuthorized(session, LiquidPermission.SYSTEM));
     }
 
     @Override
-    public boolean isAuthorized(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions)
-            throws InterruptedException {
-        final StringBuilder cacheKeyBuilder = new StringBuilder().append(getPersistenceId()).append(':').append(
-                identity.getAliasURL()
-                                                                                                               ).append(':');
+    public boolean isAuthorized(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions) throws InterruptedException {
+        final StringBuilder cacheKeyBuilder = new StringBuilder().append(getPersistenceId())
+                                                                 .append(':')
+                                                                 .append(identity.getAliasURL())
+                                                                 .append(':');
         for (final LiquidPermission permission : permissions) {
             cacheKeyBuilder.append(permission.ordinal()).append(',');
         }
@@ -457,16 +405,15 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
     }
 
-    private boolean isAuthorizedInternal(@Nullable final LiquidSessionIdentifier identity,
-                                         @Nonnull final LiquidPermission... permissions) throws InterruptedException {
+    private boolean isAuthorizedInternal(@Nullable final LiquidSessionIdentifier identity, @Nonnull final LiquidPermission... permissions) throws InterruptedException {
         assertLatestVersion();
         if (identity == null) {
             return false;
         }
-//            if (identity.getName().equals("neo")) {
-//                log.debug("He is the one, so he can do as he wishes.");
-//                return true;
-//            }
+        //            if (identity.getName().equals("neo")) {
+        //                log.debug("He is the one, so he can do as he wishes.");
+        //                return true;
+        //            }
         if ("admin".equals(identity.getName())) {
             log.debug("Admin user privilege used.");
             return true;
@@ -477,9 +424,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
         final String permissionsStr = getAttribute(PERMISSIONS);
         if (log.isDebugEnabled()) {
-            log.debug("Authorizing {0} for permission {1} on object {2}; permission set is {3}.", identity.getName(),
-                      Arrays.toString(permissions), getAttribute(ID), permissionsStr
-                     );
+            log.debug("Authorizing {0} for permission {1} on object {2}; permission set is {3}.", identity.getName(), Arrays.toString(permissions), getAttribute(ID), permissionsStr);
         }
         final LiquidPermissionSet permissionSet = LiquidPermissionSet.createPermissionSet(permissionsStr);
         try {
@@ -526,9 +471,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     @Override
     public void assertLatestVersion() {
         if (!isLatestVersion()) {
-            throw new StaleUpdateException(
-                    "Attempted to reference a stale node %s which has already been updated (i.e. stale version).", getAttribute(URI)
-            );
+            throw new StaleUpdateException("Attempted to reference a stale node %s which has already been updated (i.e. stale version).", getAttribute(URI));
         }
     }
 
@@ -537,47 +480,31 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         return getSingleRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING) == null;
     }
 
-    @Override
-    @SuppressWarnings({"TypeMayBeWeakened"})
+    @Override @SuppressWarnings({"TypeMayBeWeakened"})
     public boolean isOwner(@Nonnull final LiquidSessionIdentifier identity) throws InterruptedException {
         //Here I am traversing from the node supplied to it's owner alias, to the identity node that the alias relates to.
         //It's cleaner using the traverser as there would be loads of conditional logic here as not all aliases have
         //an associated identity etc.
         final Traverser traverser = traverse(Traverser.Order.DEPTH_FIRST, new StopEvaluator() {
-                                                 @Override
-                                                 public boolean isStopNode(@Nonnull final TraversalPosition currentPos) {
-                                                     final LSDPersistedEntity entity = new FountainEntityImpl(
-                                                             currentPos.currentNode()
-                                                     );
-                                                     return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(
-                                                             identity.getUserURL().asString()
-                                                                                                                       );
-                                                 }
-                                             }, new ReturnableEvaluator() {
-                                                 @Override
-                                                 public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
-                                                     final LSDPersistedEntity entity = new FountainEntityImpl(
-                                                             currentPos.currentNode()
-                                                     );
-                                                     return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(
-                                                             identity.getUserURL().asString()
-                                                                                                                       );
-                                                 }
-                                             }, FountainRelationships.OWNER, Direction.OUTGOING, FountainRelationships.ALIAS,
-                                             Direction.OUTGOING
+                    @Override
+                    public boolean isStopNode(@Nonnull final TraversalPosition currentPos) {
+                        final LSDPersistedEntity entity = new FountainEntityImpl(currentPos.currentNode());
+                        return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(identity.getUserURL().asString());
+                    }
+                }, new ReturnableEvaluator() {
+                    @Override
+                    public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
+                        final LSDPersistedEntity entity = new FountainEntityImpl(currentPos.currentNode());
+                        return entity.hasAttribute(URI) && entity.getAttribute(URI).equals(identity.getUserURL().asString());
+                    }
+                }, FountainRelationships.OWNER, Direction.OUTGOING, FountainRelationships.ALIAS, Direction.OUTGOING
                                             );
         return traverser.iterator().hasNext();
     }
 
-    @Nonnull
-    @Override
-    public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator,
-                              final ReturnableEvaluator returnableEvaluator, final RelationshipType firstRelationshipType,
-                              final Direction firstDirection, final RelationshipType secondRelationshipType,
-                              final Direction secondDirection) {
-        return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, firstRelationshipType, firstDirection,
-                                secondRelationshipType, secondDirection
-                               );
+    @Nonnull @Override
+    public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final RelationshipType firstRelationshipType, final Direction firstDirection, final RelationshipType secondRelationshipType, final Direction secondDirection) {
+        return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, firstRelationshipType, firstDirection, secondRelationshipType, secondDirection);
     }
 
     @Override
@@ -593,26 +520,20 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String toString() {
         return "FountainEntityImpl{" +
                "neoNode=" + neoNode +
                '}';
     }
 
-    @Nonnull
-    @Override
-    public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator,
-                              final ReturnableEvaluator returnableEvaluator, final FountainRelationships relationshipType,
-                              final Direction direction) {
+    @Nonnull @Override
+    public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final FountainRelationships relationshipType, final Direction direction) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, relationshipType, direction);
     }
 
-    @Nonnull
-    @Override
-    public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator,
-                              final ReturnableEvaluator returnableEvaluator, final Object... relationshipTypesAndDirections) {
+    @Nonnull @Override
+    public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final Object... relationshipTypesAndDirections) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, relationshipTypesAndDirections);
     }
 
@@ -621,8 +542,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         setAttribute(LSDAttribute.MODIFIED, String.valueOf(System.currentTimeMillis()));
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public org.neo4j.graphdb.Node getNeoNode() {
         return neoNode;
     }
@@ -635,8 +555,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             this.relationships = relationships;
         }
 
-        @Nonnull
-        @Override
+        @Nonnull @Override
         public Iterator<FountainRelationship> iterator() {
             final Iterator<org.neo4j.graphdb.Relationship> iterator = relationships.iterator();
             return new RelationshipIterator(iterator);
@@ -655,8 +574,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                 return iterator.hasNext();
             }
 
-            @Nonnull
-            @Override
+            @Nonnull @Override
             public FountainRelationship next() {
                 return new FountainRelationshipImpl(iterator.next());
             }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest;
 
 import javax.annotation.Nonnull;
@@ -14,9 +18,11 @@ public class AbstractRestHandler implements RestHandler {
                 throw new RestHandlerException("Expected parameter " + expectedKey + " was missing for this call.");
             }
             if (paramArray.length != 1) {
-                throw new RestHandlerException(
-                        "Expected parameter " + expectedKey + " to have a single value, it had " + paramArray.length + "."
-                );
+                throw new RestHandlerException("Expected parameter "
+                                               + expectedKey
+                                               + " to have a single value, it had "
+                                               + paramArray.length
+                                               + ".");
             }
             if (paramArray[0] == null) {
                 throw new RestHandlerException("Parameter " + expectedKey + " must have a value.");

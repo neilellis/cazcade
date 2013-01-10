@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.comms.datastore.server;
 
 import cazcade.common.CommonConstants;
@@ -50,26 +54,26 @@ import java.util.Set;
 //todo: backport the notification parts to the notification servlet.
 
 public final class DataStoreServiceImpl extends RemoteServiceServlet implements DataStoreService {
-    public static final boolean USE_CONTINUATIONS = false;
+    public static final  boolean USE_CONTINUATIONS              = false;
     @Nonnull
-    public static final String DEDUPCACHE = "dedupcache";
-    public static final boolean ALLOW_DUPLICATES = true;
+    public static final  String  DEDUPCACHE                     = "dedupcache";
+    public static final  boolean ALLOW_DUPLICATES               = true;
     @Nonnull
-    public static final String NOTIFICATION_SESSION_ATTRIBUTE = "notificationSession";
+    public static final  String  NOTIFICATION_SESSION_ATTRIBUTE = "notificationSession";
     @Nonnull
-    private static final Logger log = Logger.getLogger(DataStoreServiceImpl.class);
-    private static final long serialVersionUID = 860416951877283521L;
+    private static final Logger  log                            = Logger.getLogger(DataStoreServiceImpl.class);
+    private static final long    serialVersionUID               = 860416951877283521L;
     @Nonnull
-    private static final String PAYLOAD = "com.google.gwt.payload";
+    private static final String  PAYLOAD                        = "com.google.gwt.payload";
     @Nonnull
-    private static final String JETTY_RETRY_REQUEST_EXCEPTION = "org.mortbay.jetty.RetryRequest";
-    private WebApplicationContext applicationContext;
-    private FountainDataStore dataStore;
-    private SecurityProvider securityProvider;
-    private boolean supportsContinuations;
-    private ClientSessionManager clientSessionManager;
-    private Cache dedupCache;
-    private FountainPubSub pubSub;
+    private static final String  JETTY_RETRY_REQUEST_EXCEPTION  = "org.mortbay.jetty.RetryRequest";
+    private WebApplicationContext          applicationContext;
+    private FountainDataStore              dataStore;
+    private SecurityProvider               securityProvider;
+    private boolean                        supportsContinuations;
+    private ClientSessionManager           clientSessionManager;
+    private Cache                          dedupCache;
+    private FountainPubSub                 pubSub;
     private ClassPathXmlApplicationContext serverContext;
 
     /**
@@ -101,8 +105,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     }
 
     @Override
-    protected String readContent(@Nonnull final HttpServletRequest request)
-            throws IOException, ServletException {
+    protected String readContent(@Nonnull final HttpServletRequest request) throws IOException, ServletException {
         if (supportsContinuations) {
             String payload = (String) request.getAttribute(PAYLOAD);
             if (payload == null) {
@@ -110,7 +113,8 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
                 request.setAttribute(PAYLOAD, payload);
             }
             return payload;
-        } else {
+        }
+        else {
             return super.readContent(request);
         }
 
@@ -148,8 +152,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     }
 
     @Override
-    protected void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         if (req.getHeader(X_VORTEX_SINCE) != null && "-1".equals(req.getHeader(X_VORTEX_SINCE))) {
             try {
                 resp.sendError(304);
@@ -177,27 +180,21 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
             if (principal == null) {
                 return null;
             }
-            return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username),
-                    getOrCreateSession(),
-                    pubSub
-            );
+            return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:"
+                                                                                                         + username), getOrCreateSession(), pubSub);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
         }
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public LiquidSessionIdentifier loginQuick(final boolean anon) {
         final String sessionUsername = (String) getOrCreateSession().getAttribute("username");
         if (sessionUsername != null) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias,
-                        "cazcade:" + sessionUsername
-                ), getOrCreateSession(),
-                        pubSub
-                );
+                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:"
+                                                                                                             + sessionUsername), getOrCreateSession(), pubSub);
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 return null;
@@ -205,24 +202,20 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         }
         if (anon) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(CommonConstants.ANONYMOUS_ALIAS),
-                        getOrCreateSession(),
-                        pubSub
-                );
+                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(CommonConstants.ANONYMOUS_ALIAS), getOrCreateSession(), pubSub);
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 return null;
             }
-        } else {
+        }
+        else {
             return null;
         }
 
     }
 
-    @Nullable
-    @Override
-    public LSDTransferEntity register(final String fullname, @Nonnull final String username, final String password,
-                                      final String emailAddress) {
+    @Nullable @Override
+    public LSDTransferEntity register(final String fullname, @Nonnull final String username, final String password, final String emailAddress) {
         final HttpSession session = getOrCreateSession();
         final LSDTransferEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
@@ -241,18 +234,12 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     public boolean checkUsernameAvailability(@Nonnull final String username) {
         try {
             final LiquidMessage message;
-            message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin"), new LiquidURI(
-                    LiquidURIScheme.user, username
-            ), true
-            )
-            );
+            message = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin"), new LiquidURI(LiquidURIScheme.user, username), true));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
             final LSDBaseEntity responseEntity = message.getResponse();
-            return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA(
-                    LSDDictionaryTypes.AUTHORIZATION_DENIAL
-            ) || responseEntity.isA(
-                    LSDDictionaryTypes.RESOURCE_NOT_FOUND
-            );
+            return responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT)
+                   || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL)
+                   || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND);
         } catch (Exception e) {
             log.error(e);
             return false;
@@ -260,10 +247,9 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
 
     }
 
-    @Override
-    @Nullable
+    @Override @Nullable
     public SerializedRequest process(@Nonnull final SerializedRequest ser) throws Exception {
-        log.info("REQUEST IN XML FORMAT {0}", LiquidXStreamFactory.getXstream().toXML(ser));
+        log.info("Processing " + ser);
         final AbstractRequest request;
         try {
             request = (AbstractRequest) ser.getType().getRequestClass().getConstructor().newInstance();
@@ -288,12 +274,12 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         if (serverSession.getSession() == null) {
             throw new LoggedOutException();
         }
-        ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, false,
-                pubSub);
+        ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, false, pubSub);
         if (clientSession == null) {
             if (request.isSecureOperation()) {
                 throw new LoggedOutException();
-            } else {
+            }
+            else {
                 clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true, pubSub);
                 //This basically synchronizes our two ways of being logged in, logged in on the client and logged
                 //in here on the web server.
@@ -304,7 +290,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         }
         try {
             request.adjustTimeStampForServerTime();
-//            request.setIdentity(currentUser());
+            //            request.setIdentity(currentUser());
             request.setOrigin(LiquidMessageOrigin.CLIENT);
             final LiquidMessage response = dataStore.process(request);
             log.debug(LiquidXStreamFactory.getXstream().toXML(response));
@@ -328,20 +314,19 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
             message = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("admin"), board, false, false));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
             final LSDBaseEntity responseEntity = message.getResponse();
-            return (responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT) || responseEntity.isA
-                    (LSDDictionaryTypes.AUTHORIZATION_DENIAL) || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
+            return (responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT)
+                    || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL)
+                    || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
         } catch (Exception e) {
             log.error(e);
             return false;
         }
     }
 
-    @Override
-    @Nullable
-    public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier identity,
-                                                @Nonnull final ArrayList<String> locations) throws Exception {
+    @Override @Nullable
+    public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier identity, @Nonnull final ArrayList<String> locations) throws Exception {
         getThreadLocalRequest().setAttribute("com.newrelic.agent.IGNORE", true);
-//        NewRelic.ignoreTransaction();
+        //        NewRelic.ignoreTransaction();
         log.debug("Collecting " + locations);
         final Continuation continuation = ContinuationSupport.getContinuation(getThreadLocalRequest());
         if (identity == null) {
@@ -378,7 +363,8 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
                     if (ALLOW_DUPLICATES || dedupCache.get(cacheKey) == null) {
                         resultMessages.add(resultMessage.asSerializedRequest());
                         dedupCache.putQuiet(new Element(cacheKey, ""));
-                    } else {
+                    }
+                    else {
                         log.debug("Deduplicated {0}", cacheKey);
                     }
                 }
@@ -386,10 +372,12 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
                     if (USE_CONTINUATIONS) {
                         continuation.suspend();
                         return null;
-                    } else {
+                    }
+                    else {
                         Thread.sleep(500);
                     }
-                } else {
+                }
+                else {
                     log.debug("Returning {0} messages.", resultMessages.size());
                     return resultMessages;
                 }

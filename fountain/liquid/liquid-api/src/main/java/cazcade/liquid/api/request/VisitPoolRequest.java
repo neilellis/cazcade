@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -12,9 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VisitPoolRequest extends AbstractRetrievalRequest {
-    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                             @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate,
-                             final int max, final boolean listed, @Nullable final LiquidPermissionChangeType permission) {
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final int max, final boolean listed, @Nullable final LiquidPermissionChangeType permission) {
         super();
         setOrCreate(orCreate);
         setListed(listed);
@@ -27,24 +29,19 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         setPoolType(type);
     }
 
-    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                             @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous,
-                             final boolean orCreate, final boolean listed) {
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final boolean listed) {
         this(id, identity, type, uri, previous, orCreate, 60, listed, null);
     }
 
-    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate,
-                            final boolean listed, final LiquidPermissionChangeType permission) {
+    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final LiquidPermissionChangeType permission) {
         this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission);
     }
 
-    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate,
-                            final boolean listed) {
+    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed) {
         this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, listed);
     }
 
-    public VisitPoolRequest(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri,
-                            final boolean orCreate, final boolean listed) {
+    public VisitPoolRequest(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, final boolean orCreate, final boolean listed) {
         this(null, identity, type, uri, null, orCreate, listed);
     }
 
@@ -60,8 +57,7 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new VisitPoolRequest(getEntity());
     }
@@ -71,11 +67,11 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         //TODO:
         return new ArrayList<AuthorizationRequest>();
 
-//        if (orCreate) {
-//            return Arrays.asList(new AuthorizationRequest(uri.getParentURI(), LiquidPermission.MODIFY));
-//        } else {
-//            return Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
-//        }
+        //        if (orCreate) {
+        //            return Arrays.asList(new AuthorizationRequest(uri.getParentURI(), LiquidPermission.MODIFY));
+        //        } else {
+        //            return Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
+        //        }
     }
 
     public List<String> getNotificationLocations() {

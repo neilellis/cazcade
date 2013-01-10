@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
@@ -53,9 +57,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
                 }
             };
 
-            entity = poolDAO.updatePool(sessionIdentifier, persistedEntityImpl, detail, internal, historical, end, start, order,
-                                        contents, requestEntity, onRenameAction
-                                       );
+            entity = poolDAO.updatePool(sessionIdentifier, persistedEntityImpl, detail, internal, historical, end, start, order, contents, requestEntity, onRenameAction);
 
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

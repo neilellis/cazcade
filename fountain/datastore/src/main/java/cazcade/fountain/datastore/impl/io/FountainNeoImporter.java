@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.io;
 
 import cazcade.fountain.datastore.impl.FountainRelationships;
@@ -27,7 +31,7 @@ import java.util.HashMap;
  * @author neilellis@cazcade.com
  */
 public class FountainNeoImporter {
-    public static final String ID = LSDAttribute.ID.getKeyName();
+    public static final String ID  = LSDAttribute.ID.getKeyName();
     public static final String URI = LSDAttribute.URI.getKeyName();
 
     @Nonnull
@@ -39,10 +43,7 @@ public class FountainNeoImporter {
 
     public void importJson(final String dir) throws IOException {
         final BatchInserterIndexProvider indexProvider = new LuceneBatchInserterIndexProvider(batchInserter);
-        final BatchInserterIndex uuidIndex = indexProvider.nodeIndex(FountainNeoImpl.NODE_INDEX_NAME, MapUtil.stringMap("type",
-                                                                                                                        "exact"
-                                                                                                                       )
-                                                                    );
+        final BatchInserterIndex uuidIndex = indexProvider.nodeIndex(FountainNeoImpl.NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
         final JsonFactory f = new JsonFactory();
         JsonParser jp = f.createJsonParser(new File(dir, "nodes.json"));
         while (jp.nextToken() != null) {
@@ -112,9 +113,15 @@ public class FountainNeoImporter {
                     properties.put(propertyName, jp.getText());
                 }
                 batchInserter.createRelationship(startNode, endNode, FountainRelationships.valueOf(relType), properties);
-                System.out.println(
-                        "Created relationship from " + startNode + " to " + endNode + " of type " + relType + " with " + properties
-                                  );
+                System.out
+                      .println("Created relationship from "
+                               + startNode
+                               + " to "
+                               + endNode
+                               + " of type "
+                               + relType
+                               + " with "
+                               + properties);
                 jp.nextToken();
             }
             jp.nextToken();
@@ -126,10 +133,8 @@ public class FountainNeoImporter {
         System.out.println("Adding URI index.");
         final EmbeddedGraphDatabase embeddedGraphDatabase = new EmbeddedGraphDatabase(batchInserter.getStore());
         final Transaction transaction = embeddedGraphDatabase.beginTx();
-        final Index<Node> uriIndex = embeddedGraphDatabase.index().forNodes(FountainNeoImpl.NODE_INDEX_NAME, MapUtil.stringMap(
-                "type", "exact"
-                                                                                                                              )
-                                                                           );
+        final Index<Node> uriIndex = embeddedGraphDatabase.index()
+                                                          .forNodes(FountainNeoImpl.NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
         final Iterable<Node> allNodes = embeddedGraphDatabase.getAllNodes();
         for (final Node node : allNodes) {
             if (node.hasProperty(URI) && !node.hasRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING)) {

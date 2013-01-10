@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -19,9 +23,9 @@ public class ChangeReport {
     @Nonnull
     private final List<Map> changedFollowedBoards = new ArrayList<Map>();
     @Nonnull
-    private final List<Map> changedOwnedBoards = new ArrayList<Map>();
+    private final List<Map> changedOwnedBoards    = new ArrayList<Map>();
     @Nonnull
-    private final List<Map> latestChanges = new ArrayList<Map>();
+    private final List<Map> latestChanges         = new ArrayList<Map>();
 
     public void addChangedFollowedBoard(@Nonnull final LSDTransferEntity boardEntity) {
         final Map<String, String> map = boardEntity.getCamelCaseMap();
@@ -31,8 +35,7 @@ public class ChangeReport {
 
     private static String addBoardSnaphotImageUrl(LSDTransferEntity boardEntity) {
         return "http://boardcast.it/_snapshot-" + boardEntity.getURI().asShortUrl().asUrlSafe() +
-               "?id=" + boardEntity.getUUID().toString()
-               + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
+               "?id=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
                System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
     }
 
@@ -77,7 +80,7 @@ public class ChangeReport {
     public void setLatestChanges(@Nonnull final Collection<LSDTransferEntity> changes) {
         for (final LSDTransferEntity change : changes) {
             final Map<String, String> map = change.getCamelCaseMap();
-//            map.put("snapshotUrl", addBoardSnaphotImageUrl(change));
+            //            map.put("snapshotUrl", addBoardSnaphotImageUrl(change));
             latestChanges.add(map);
         }
     }

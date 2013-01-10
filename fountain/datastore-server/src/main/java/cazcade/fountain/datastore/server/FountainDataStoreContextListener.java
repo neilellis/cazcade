@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.server; /**
  * @author neilellis@cazcade.com
  */
@@ -12,8 +16,7 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-public class FountainDataStoreContextListener implements ServletContextListener,
-                                                         HttpSessionListener, HttpSessionAttributeListener {
+public class FountainDataStoreContextListener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainDataStoreContextListener.class);
 
@@ -27,8 +30,7 @@ public class FountainDataStoreContextListener implements ServletContextListener,
             public void run() {
                 dataStore.stopIfNotStopped();
             }
-        }
-                                            );
+        });
     }
 
     // -------------------------------------------------------

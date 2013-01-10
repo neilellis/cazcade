@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.client;
 
 import cazcade.common.Logger;
@@ -32,12 +36,12 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
     @Nonnull
 
     private FountainRequestValidator requestValidator;
-    private SecurityValidator securityValidator;
+    private SecurityValidator        securityValidator;
 
 
-    private boolean alwaysSynchronous;
+    private boolean             alwaysSynchronous;
     private LiquidMessageSender messageSender;
-    private FountainPubSub pubSub;
+    private FountainPubSub      pubSub;
 
 
     public FountainRemoteDataStore() {
@@ -129,7 +133,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         this.messageSender = messageSender;
     }
 
-   
+
     public void setRequestValidator(@Nonnull final FountainRequestValidator requestValidator) {
         this.requestValidator = requestValidator;
     }
@@ -138,7 +142,6 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         this.securityValidator = securityValidator;
     }
 
-   
 
     public void setPubSub(InMemoryPubSub pubSub) {this.pubSub = pubSub;}
 

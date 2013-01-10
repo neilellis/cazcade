@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.dao;
 
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
@@ -7,30 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface BoardDAO {
-    @Transactional
-    void addVisit(VisitEntity visitEntity);
+    @Transactional void addVisit(VisitEntity visitEntity);
 
-    @Transactional
-    List<BoardIndexEntity> getMyBoards(int from, int size, String aliasURI);
+    @Transactional List<BoardIndexEntity> getMyBoards(int from, int size, String aliasURI);
 
-    @Transactional
-    BoardIndexEntity getOrCreateBoard(String uri);
+    @Transactional BoardIndexEntity getOrCreateBoard(String uri);
 
-    @Transactional
-    List<BoardIndexEntity> getPopularBoards(int from, int size);
+    @Transactional List<BoardIndexEntity> getPopularBoards(int from, int size);
 
-    @Transactional
-    List<BoardIndexEntity> getRecentBoards(int from, int size);
+    @Transactional List<BoardIndexEntity> getRecentBoards(int from, int size);
 
-    @Transactional
-    String getUniqueVisitorCount(BoardIndexEntity board);
+    @Transactional String getUniqueVisitorCount(BoardIndexEntity board);
 
-    @Transactional
-    List<BoardIndexEntity> getUserBoards(int from, int size, String aliasURI);
+    @Transactional List<BoardIndexEntity> getUserBoards(int from, int size, String aliasURI);
 
-    @Transactional
-    List<BoardIndexEntity> getVisitedBoards(int from, int size, String aliasURI);
+    @Transactional List<BoardIndexEntity> getVisitedBoards(int from, int size, String aliasURI);
 
-    @Transactional
-    void saveBoard(BoardIndexEntity user);
+    @Transactional void saveBoard(BoardIndexEntity user);
 }

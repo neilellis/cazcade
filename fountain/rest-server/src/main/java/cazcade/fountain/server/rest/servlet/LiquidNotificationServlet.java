@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.servlet;
 
 import cazcade.common.Logger;
@@ -35,10 +39,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
 
 
     @Override
-    public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp,
-                           final String pathWithQuery, final String serviceName, final String methodName,
-                           @Nonnull final List<LiquidUUID> uuids, final String sessionId, final String format)
-            throws RuntimeException, ServletException, IOException {
+    public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final String pathWithQuery, final String serviceName, final String methodName, @Nonnull final List<LiquidUUID> uuids, final String sessionId, final String format) throws RuntimeException, ServletException, IOException {
         final LSDTransferEntity sessionStateEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.SESSION);
         final LiquidUUID sessionUUID = LiquidUUID.fromString(sessionId);
         sessionStateEntity.setID(sessionUUID);
@@ -62,12 +63,9 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
 
     private boolean authorize(@Nonnull final HttpServletResponse resp, final LiquidUUID uuid) {
         try {
-            final AuthorizationService authorizationService = (AuthorizationService) applicationContext.getBean(
-                    "authorizationService"
-                                                                                                               );
-            final AuthorizationStatus authorizationStatus = authorizationService.authorize(
-                    RestContext.getContext().getCredentials(), uuid, LiquidPermission.EDIT
-                                                                                          );
+            final AuthorizationService authorizationService = (AuthorizationService) applicationContext.getBean("authorizationService");
+            final AuthorizationStatus authorizationStatus = authorizationService.authorize(RestContext.getContext()
+                                                                                                      .getCredentials(), uuid, LiquidPermission.EDIT);
             if (!(authorizationStatus == AuthorizationStatus.ACCEPTED)) {
                 doAuthorizationError(resp);
                 return false;
@@ -85,16 +83,15 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
 
 
     @Nonnull
-    public ArrayList<LiquidMessage> collect(final String queue, List<LiquidUUID> uuids, @Nonnull final HttpServletResponse response,
-                                            LiquidSessionIdentifier identity) {
+    public ArrayList<LiquidMessage> collect(final String queue, List<LiquidUUID> uuids, @Nonnull final HttpServletResponse response, LiquidSessionIdentifier identity) {
         final ArrayList<String> queues = new ArrayList<String>();
         for (LiquidUUID uuid : uuids) {
-            queues.add("location."+uuid.toString());
+            queues.add("location." + uuid.toString());
         }
         queues.add("session." + identity.getSession());
         queues.add("user." + identity.getUserURL());
         queues.add("alias." + identity.getAliasURL());
-        FountainPubSub.Collector collector= pubSub.createCollector(queues);
+        FountainPubSub.Collector collector = pubSub.createCollector(queues);
 
         try {
             final ArrayList<LiquidMessage> result = new ArrayList<LiquidMessage>();
@@ -102,12 +99,15 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
             int count = 0;
 
             while (count == 0) {
-                message = (LiquidMessage)collector.readSingle();
+                message = (LiquidMessage) collector.readSingle();
 
-                if (message instanceof VisitPoolRequest &&
-                    ((VisitPoolRequest) message).getSessionIdentifier().getSession().toString().equals(
-                            RestContext.getContext().getCredentials().getSession().toString()
-                                                                                                      )) {
+                if (message instanceof VisitPoolRequest && ((VisitPoolRequest) message).getSessionIdentifier()
+                                                                                       .getSession()
+                                                                                       .toString()
+                                                                                       .equals(RestContext.getContext()
+                                                                                                          .getCredentials()
+                                                                                                          .getSession()
+                                                                                                          .toString())) {
                     log.debug("**** Pool visit, so now switching pools. ****");
                     //We have visited a pool so we now need to listen to events there.
                     final VisitPoolRequest request = (VisitPoolRequest) message;

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl.xstream;
 
 import cazcade.common.Logger;
@@ -24,10 +28,10 @@ public class RequestConverter implements Converter {
     private static final Logger log = Logger.getLogger(RequestConverter.class);
 
     @Nonnull
-    private static final ReflectionConverter CONVERTER = new ReflectionConverter(LiquidXStreamFactory.getXstream().getMapper(),
-                                                                                 LiquidXStreamFactory.getXstream()
-                                                                                                     .getReflectionProvider()
-    );
+    private static final ReflectionConverter CONVERTER = new ReflectionConverter(LiquidXStreamFactory.getXstream()
+                                                                                                     .getMapper(), LiquidXStreamFactory
+            .getXstream()
+            .getReflectionProvider());
 
     public boolean canConvert(final Class aClass) {
         return LiquidRequest.class.isAssignableFrom(aClass);
@@ -38,8 +42,7 @@ public class RequestConverter implements Converter {
         return null;
     }
 
-    public void marshal(@Nonnull final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter,
-                        final MarshallingContext marshallingContext) {
+    public void marshal(@Nonnull final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
         final LiquidRequest request = (LiquidRequest) o;
         hierarchicalStreamWriter.startNode("type");
         hierarchicalStreamWriter.setValue(request.getRequestType().name().toLowerCase());
@@ -52,21 +55,21 @@ public class RequestConverter implements Converter {
             log.error(e);
         }
         hierarchicalStreamWriter.endNode();
-//        Class clazz = o.getClass();
-//        while (clazz.getSuperclass() != Object.class) {
-//            Field[] fields = clazz.getDeclaredFields();
-//            for (Field field : fields) {
-//                try {
-//                    if (!Modifier.isStatic(field.getModifiers())) {
-//                        field.setAccessible(true);
-//                    }
-//                } catch (IllegalAccessException e) {
-//                    log.error(e.getMessage(), e);
-//                }
-//
-//            }
-//            clazz = clazz.getSuperclass();
-//        }
+        //        Class clazz = o.getClass();
+        //        while (clazz.getSuperclass() != Object.class) {
+        //            Field[] fields = clazz.getDeclaredFields();
+        //            for (Field field : fields) {
+        //                try {
+        //                    if (!Modifier.isStatic(field.getModifiers())) {
+        //                        field.setAccessible(true);
+        //                    }
+        //                } catch (IllegalAccessException e) {
+        //                    log.error(e.getMessage(), e);
+        //                }
+        //
+        //            }
+        //            clazz = clazz.getSuperclass();
+        //        }
     }
 
     @Nullable
@@ -74,8 +77,7 @@ public class RequestConverter implements Converter {
         return null;
     }
 
-    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader,
-                            @Nonnull final UnmarshallingContext unmarshallingContext) {
+    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader, @Nonnull final UnmarshallingContext unmarshallingContext) {
         hierarchicalStreamReader.moveDown();
         if (!"type".equals(hierarchicalStreamReader.getNodeName())) {
             throw new IllegalStateException("Expected to find 'type' node here.");
@@ -106,7 +108,7 @@ public class RequestConverter implements Converter {
         }
         final Object result = unmarshallingContext.convertAnother(liquidRequest, requestClass, CONVERTER);
         hierarchicalStreamReader.moveUp();
-//        System.out.println(liquidRequest.getId().toString());
+        //        System.out.println(liquidRequest.getId().toString());
         return result;
     }
 }

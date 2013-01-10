@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.server;
 
 import cazcade.common.Logger;
@@ -16,16 +20,15 @@ public class FountainDataStoreRPCServer {
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainDataStoreRPCServer.class);
     private DataStoreServerMessageHandler handler;
-    private String topic;
-    private LiquidMessageSender messageSender;
-    private FountainPubSub pubSub;
-    private long listenerId;
+    private String                        topic;
+    private LiquidMessageSender           messageSender;
+    private FountainPubSub                pubSub;
+    private long                          listenerId;
 
     public void start() throws IOException {
         listenerId = pubSub.addListener(topic, new LiquidMessageHandler<LiquidRequest>() {
 
-            @Nonnull
-            @Override
+            @Nonnull @Override
             public LiquidRequest handle(LiquidRequest message) throws Exception {
                 final LiquidRequest response = handler.handle(message);
                 if (response.shouldNotify()) {
@@ -33,8 +36,7 @@ public class FountainDataStoreRPCServer {
                 }
                 return response;
             }
-        }
-                                       );
+        });
     }
 
     public void stop() throws IOException {

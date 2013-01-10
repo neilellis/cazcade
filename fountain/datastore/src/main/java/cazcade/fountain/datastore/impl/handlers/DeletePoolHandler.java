@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
@@ -13,18 +17,12 @@ public class DeletePoolHandler extends AbstractDataStoreHandler<DeletePoolReques
     @Nonnull
     public DeletePoolRequest handle(@Nonnull final DeletePoolRequest request) throws InterruptedException {
         if (request.hasUri()) {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getUri(), true,
-                                                                                             request.isInternal(),
-                                                                                             request.getDetail()
-                                                                                            )
-                                                        );
+            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getUri(), true, request.isInternal(), request
+                    .getDetail()));
         }
         else {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getTarget(), true,
-                                                                                             request.isInternal(),
-                                                                                             request.getDetail()
-                                                                                            )
-                                                        );
+            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getTarget(), true, request.isInternal(), request
+                    .getDetail()));
         }
     }
 }

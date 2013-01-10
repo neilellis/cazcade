@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidPermission;
@@ -21,8 +25,7 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
     protected AbstractRetrievalRequest() {
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (hasTarget()) {
             return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
@@ -37,8 +40,7 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
         }
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getCacheIdentifier() {
         return getRequestType().name() +
                ":" +

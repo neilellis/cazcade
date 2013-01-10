@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl.xstream;
 
 import cazcade.liquid.api.lsd.*;
@@ -24,8 +28,7 @@ public class LSDEntityConverter implements Converter {
         return null;
     }
 
-    public void marshal(final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter,
-                        final MarshallingContext marshallingContext) {
+    public void marshal(final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
         final LSDTransferEntity entity = (LSDTransferEntity) o;
         final LSDNode lsdNode = entity.asFormatIndependentTree();
         marshal(hierarchicalStreamWriter, lsdNode);
@@ -37,8 +40,7 @@ public class LSDEntityConverter implements Converter {
     }
 
     @Nonnull
-    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader,
-                            final UnmarshallingContext unmarshallingContext) {
+    public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader, final UnmarshallingContext unmarshallingContext) {
         final Map<String, List> map = unmarshal(hierarchicalStreamReader);
         final LSDSimpleNode lsdNode = new LSDSimpleNode("root", Arrays.asList(map));
         final LSDSimpleEntity entity = LSDSimpleEntity.createFromNode(lsdNode);
@@ -47,9 +49,9 @@ public class LSDEntityConverter implements Converter {
 
     private void marshal(@Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, @Nonnull final LSDNode lsdNode) {
         if (lsdNode.isLeaf()) {
-//            hierarchicalStreamWriter.startNode(lsdNode.getName());
+            //            hierarchicalStreamWriter.startNode(lsdNode.getName());
             hierarchicalStreamWriter.setValue(lsdNode.getLeafValue());
-//            hierarchicalStreamWriter.endNode();
+            //            hierarchicalStreamWriter.endNode();
         }
         else {
             final List<LSDNode> lsdNodeList = lsdNode.getChildren();

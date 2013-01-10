@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl;
 
 import cazcade.common.Logger;
@@ -27,18 +31,15 @@ public class FountainDataStoreFacadeProxyFactory {
     @Nonnull
     private static final Logger log = Logger.getLogger(FountainDataStoreFacadeProxyFactory.class);
 
-    private FountainDataStore dataStore;
-    private AuthorizationService authorizationService;
+    private FountainDataStore       dataStore;
+    private AuthorizationService    authorizationService;
     private FountainEntityValidator entityValidator;
 
     @Nonnull
     public FountainDataStoreFacade create() {
         final InvocationHandler handler = new MyInvocationHandler();
-        final FountainDataStoreFacade proxy = (FountainDataStoreFacade) Proxy.newProxyInstance(
-                FountainDataStoreFacade.class.getClassLoader(),
-                new Class[]{FountainDataStoreFacade.class},
-                handler
-                                                                                              );
+        final FountainDataStoreFacade proxy = (FountainDataStoreFacade) Proxy.newProxyInstance(FountainDataStoreFacade.class.getClassLoader(), new Class[]{
+                FountainDataStoreFacade.class}, handler);
         return proxy;
     }
 
@@ -66,7 +67,7 @@ public class FountainDataStoreFacadeProxyFactory {
         @Nullable
         public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
             log.debug("Facade invoked.");
-            if(args == null || args.length != 1) {
+            if (args == null || args.length != 1) {
                 return null;
             }
             final LiquidRequest liquidRequest = (LiquidRequest) args[0];

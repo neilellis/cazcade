@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,8 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SelectPoolObjectRequest extends AbstractUpdateRequest {
-    public SelectPoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
-                                   final boolean selected) {
+    public SelectPoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
         super();
         setId(id);
         setSessionId(identity);
@@ -30,8 +33,7 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new SelectPoolObjectRequest(getEntity());
     }

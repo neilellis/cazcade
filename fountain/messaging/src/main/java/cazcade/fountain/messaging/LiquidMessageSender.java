@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.messaging;
 
 import cazcade.common.Logger;
@@ -49,10 +53,10 @@ public class LiquidMessageSender {
     }
 
 
-//    public LiquidRequest sendRPC(LiquidRequest request) {
-//        template.convertAndSend("server.rpc", "server.rpc", request);
-//        template.receiveAndConvert("rpc")
-//    }
+    //    public LiquidRequest sendRPC(LiquidRequest request) {
+    //        template.convertAndSend("server.rpc", "server.rpc", request);
+    //        template.receiveAndConvert("rpc")
+    //    }
 
     public void setPubSub(FountainPubSub pubSub) {this.pubSub = pubSub;}
 

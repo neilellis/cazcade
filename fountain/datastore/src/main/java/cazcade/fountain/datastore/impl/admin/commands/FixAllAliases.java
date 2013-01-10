@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.admin.commands;
 
 import cazcade.common.Logger;
@@ -23,8 +27,7 @@ public class FixAllAliases implements AdminCommand {
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
         final LSDPersistedEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
         assert peoplePool != null;
-        final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING
-                                                                                   );
+        final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final FountainRelationship child : children) {
             final LSDPersistedEntity personPool = child.getOtherNode(peoplePool);
             log.info("Repairing " + personPool.getAttribute(LSDAttribute.URI));
@@ -37,12 +40,8 @@ public class FixAllAliases implements AdminCommand {
     }
 
     @Nonnull
-    private FountainRelationship fixRelationship(@Nonnull final FountainNeo fountainNeo,
-                                                 @Nonnull final LSDPersistedEntity startPersistedEntity,
-                                                 final FountainRelationships relationshipType) throws InterruptedException {
-        final Iterable<FountainRelationship> currentRels = startPersistedEntity.getRelationships(relationshipType,
-                                                                                                 Direction.OUTGOING
-                                                                                                );
+    private FountainRelationship fixRelationship(@Nonnull final FountainNeo fountainNeo, @Nonnull final LSDPersistedEntity startPersistedEntity, final FountainRelationships relationshipType) throws InterruptedException {
+        final Iterable<FountainRelationship> currentRels = startPersistedEntity.getRelationships(relationshipType, Direction.OUTGOING);
 
         String otherNodeURI = null;
 
@@ -61,15 +60,13 @@ public class FixAllAliases implements AdminCommand {
                      " -> " +
                      relationshipType +
                      " -> " +
-                     otherNodeURI
-                    );
+                     otherNodeURI);
         }
         else if (rel == null) {
             throw new RuntimeException("Could not fix " +
                                        startPersistedEntity.getAttribute(LSDAttribute.URI) +
                                        " no alias found for" +
-                                       relationshipType
-            );
+                                       relationshipType);
         }
         return rel;
     }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 
@@ -16,11 +20,11 @@ public class LiquidBoardURL {
     @Nonnull
     private static final String PUBLIC_BOARD_USER_STEM = "pool:///boards";
     @Nonnull
-    private static final String USER_STEM = "pool:///people";
+    private static final String USER_STEM              = "pool:///people";
 
     @Nonnull
     private final LiquidURI uri;
-    private String shortURL;
+    private       String    shortURL;
 
     public static boolean isConvertable(@Nullable final LiquidURI uri) {
         return uri != null && isConvertable(uri.asString());
@@ -54,10 +58,11 @@ public class LiquidBoardURL {
             if (strings.length > 1) {
                 if (!"public".equals(strings[1]) && !"profile".equals(strings[1])) {
                     throw new IllegalArgumentException(
-                            "Format not valid for conversion to short url, needs to be in the boards pool to be a short url, '" +
-                            longURL +
-                            "'."
-                    );
+                            "Format not valid for conversion to short url, needs to be in the boards pool to be a short url, '"
+                            +
+                            longURL
+                            +
+                            "'.");
                 }
                 if ("profile".equals(strings[1])) {
                     result = "@" + strings[0];
@@ -69,8 +74,9 @@ public class LiquidBoardURL {
             }
             else {
                 throw new IllegalArgumentException(
-                        "Format not valid for conversion to short url cannot reference top level for user, '" + longURL + "'."
-                );
+                        "Format not valid for conversion to short url cannot reference top level for user, '"
+                        + longURL
+                        + "'.");
             }
         }
         else {
@@ -79,8 +85,7 @@ public class LiquidBoardURL {
                                                " or " +
                                                USER_STEM +
                                                " the supplied URI was " +
-                                               longURL
-            );
+                                               longURL);
         }
         return result;
     }
@@ -95,21 +100,21 @@ public class LiquidBoardURL {
         String str;
         if (shortURL.contains("@")) {
             str = USER_STEM + "/";
-//            if (shortURL.contains("+")) {
-//                final String username = shortURL.substring(1).substring(0, shortURL.indexOf("+") - 1);
-//                final String friends = shortURL.substring(shortURL.indexOf("+") + 1);
-//                str = str + username + "/private/" + BOARD_PREFIX + "group";
-//                int count = 0;
-//                final String[] parts = friends.split("\\+");
-//                Arrays.sort(parts);
-//                for (String part : parts) {
-//                    if (part.startsWith("@")) {
-//                        str = str + "__u__" + part.substring(1);
-//                    } else {
-//                        str = str + "__b__" + part;
-//                    }
-//                }
-//            } else
+            //            if (shortURL.contains("+")) {
+            //                final String username = shortURL.substring(1).substring(0, shortURL.indexOf("+") - 1);
+            //                final String friends = shortURL.substring(shortURL.indexOf("+") + 1);
+            //                str = str + username + "/private/" + BOARD_PREFIX + "group";
+            //                int count = 0;
+            //                final String[] parts = friends.split("\\+");
+            //                Arrays.sort(parts);
+            //                for (String part : parts) {
+            //                    if (part.startsWith("@")) {
+            //                        str = str + "__u__" + part.substring(1);
+            //                    } else {
+            //                        str = str + "__b__" + part;
+            //                    }
+            //                }
+            //            } else
 
 
             if (shortURL.startsWith("@")) {

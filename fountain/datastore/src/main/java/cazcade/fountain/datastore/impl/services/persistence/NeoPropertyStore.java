@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.liquid.api.lsd.LSDPropertyStore;
@@ -17,8 +21,7 @@ public class NeoPropertyStore implements LSDPropertyStore {
         this.neoNode = neoNode;
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public Map<String, String> asMap() {
         throw new UnsupportedOperationException("Cannot convert Neo nodes to maps.");
     }
@@ -28,14 +31,12 @@ public class NeoPropertyStore implements LSDPropertyStore {
         return neoNode.hasProperty(property);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDPropertyStore copy() {
         return new NeoPropertyStore(neoNode);
     }
 
-    @Override
-    @Nullable
+    @Override @Nullable
     public String get(final String property) {
         final Object neoNodeProperty = neoNode.getProperty(property, null);
         return neoNodeProperty != null ? neoNodeProperty.toString() : null;
@@ -61,8 +62,7 @@ public class NeoPropertyStore implements LSDPropertyStore {
         neoNode.removeProperty(property);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public Iterable<? extends String> valueIterator() {
         throw new UnsupportedOperationException("Cannot iterate values.");
     }

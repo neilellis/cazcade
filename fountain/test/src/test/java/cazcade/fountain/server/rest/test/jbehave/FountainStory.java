@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.test.jbehave;
 
 import org.jbehave.core.configuration.Configuration;
@@ -24,10 +28,7 @@ public abstract class FountainStory extends JUnitStory {
     public Configuration configuration() {
         //Simple default configuration for now.
         return new MostUsefulConfiguration().useStoryLoader(new LoadFromClasspath(getClass().getClassLoader()))
-                                            .useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats().withFormats(
-                                                    StoryReporterBuilder.Format.CONSOLE,
-                                                    StoryReporterBuilder.Format.TXT
-                                                                                                                                )
-                                                                    );
+                                            .useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats()
+                                                                                               .withFormats(StoryReporterBuilder.Format.CONSOLE, StoryReporterBuilder.Format.TXT));
     }
 }

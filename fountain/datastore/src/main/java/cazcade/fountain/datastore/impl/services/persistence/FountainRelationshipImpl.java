@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.fountain.datastore.impl.FountainRelationship;
@@ -29,8 +33,7 @@ public class FountainRelationshipImpl implements FountainRelationship {
         relationship.delete();
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LSDPersistedEntity getEndNode() {
         return new FountainEntityImpl(relationship.getEndNode());
     }
@@ -52,8 +55,7 @@ public class FountainRelationshipImpl implements FountainRelationship {
         return fountainPersistedEntities.toArray(new LSDPersistedEntity[fountainPersistedEntities.size()]);
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LSDPersistedEntity getOtherNode(@Nonnull final LSDPersistedEntity persistedEntity) {
         return new FountainEntityImpl(relationship.getOtherNode(persistedEntity.getNeoNode()));
     }
@@ -71,8 +73,7 @@ public class FountainRelationshipImpl implements FountainRelationship {
         return relationship.getPropertyKeys();
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LSDPersistedEntity getStartNode() {
         return new FountainEntityImpl(relationship.getStartNode());
     }

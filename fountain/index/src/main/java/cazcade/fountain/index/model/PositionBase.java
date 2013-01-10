@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.model;
 
 import java.util.Date;
@@ -8,8 +12,8 @@ import java.util.Date;
 public class PositionBase extends BaseBase {
     protected String positionId;
     protected String resourceUri;
-    protected Date lastRead;
-    protected Date lastWrote;
+    protected Date   lastRead;
+    protected Date   lastWrote;
 
 
     public String getUri() {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.server;
 
 import cazcade.common.Logger;
@@ -22,7 +26,7 @@ public class FountainDataStoreMain {
     private static final Logger log = Logger.getLogger(FountainDataStoreMain.class);
 
     //private static final String CONTEXT_FILE = "applicationContext.xml";
-//    private static final String SVN_ID = "SVN Identification : $Id$";
+    //    private static final String SVN_ID = "SVN Identification : $Id$";
     private static FountainDataStoreServer dataStore;
 
 
@@ -37,8 +41,7 @@ public class FountainDataStoreMain {
                     lifecycleManager.shutdown();
                 }
             }
-        }
-                                            );
+        });
 
         final SignalHandler handler = new AppSignalHandler(new Runnable() {
             public void run() {
@@ -84,8 +87,7 @@ public class FountainDataStoreMain {
                 dataStore.stopIfNotStopped();
                 log.info("Lifecycle Manager stopped Data Store Server.");
             }
-        }
-                                 );
+        });
 
         dataStore.start();
     }

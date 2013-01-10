@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,9 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeletePoolObjectRequest extends AbstractDeletionRequest {
-    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                   @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target,
-                                   @Nullable final LiquidURI uri) {
+    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri) {
         super();
         setId(id);
         setSessionId(identity);
@@ -36,8 +38,7 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new DeletePoolObjectRequest(getEntity());
     }
@@ -45,22 +46,11 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
     @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.DELETE).or(new AuthorizationRequest(getSessionIdentifier(),
-                    getUri().getWithoutFragment(), LiquidPermission.EDIT
-            )
-                                                                                               ), new AuthorizationRequest(getSessionIdentifier(),
-                    getUri().getWithoutFragment(), LiquidPermission.MODIFY
-            )
-                                );
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.DELETE).or(new AuthorizationRequest(getSessionIdentifier(), getUri()
+                    .getWithoutFragment(), LiquidPermission.EDIT)), new AuthorizationRequest(getSessionIdentifier(), getUri().getWithoutFragment(), LiquidPermission.MODIFY));
         }
         else {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.DELETE).or(new AuthorizationRequest(getSessionIdentifier(),
-                    getPoolUUID(), LiquidPermission.EDIT
-            )
-                                                                                                  ), new AuthorizationRequest(getSessionIdentifier(),
-                    getPoolUUID(), LiquidPermission.MODIFY
-            )
-                                );
+            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.DELETE).or(new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.EDIT)), new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.MODIFY));
         }
     }
 

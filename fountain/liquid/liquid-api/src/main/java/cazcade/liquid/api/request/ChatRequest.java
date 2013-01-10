@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -13,8 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChatRequest extends AbstractUpdateRequest {
-    public ChatRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                       @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDTransferEntity entity) {
+    public ChatRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -54,14 +57,11 @@ public class ChatRequest extends AbstractUpdateRequest {
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
         if (hasRequestEntity()) {
-            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()
-                                                                                                        )
-                                    );
+            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new ChatRequest(getEntity());
     }

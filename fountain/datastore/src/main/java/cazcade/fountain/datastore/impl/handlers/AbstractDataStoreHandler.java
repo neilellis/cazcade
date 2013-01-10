@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.AuthorizationException;
@@ -30,19 +34,17 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
     protected FountainSocialDAO socialDAO;
 
     @Nonnull
-    protected LiquidURI defaultAndCheckOwner(@Nonnull final LiquidRequest request, @Nullable LiquidURI owner)
-            throws InterruptedException {
+    protected LiquidURI defaultAndCheckOwner(@Nonnull final LiquidRequest request, @Nullable LiquidURI owner) throws InterruptedException {
         LiquidURI owner1 = owner;
         if (owner1 == null) {
             owner1 = request.getSessionIdentifier().getAlias();
-        } else {
+        }
+        else {
             final LSDPersistedEntity ownerAlias = fountainNeo.findByURI(owner1);
             if (ownerAlias == null) {
                 throw new AuthorizationException("Could not locate owner %s", owner1);
             }
-            final FountainRelationship ownerRelationship = ownerAlias.getSingleRelationship(FountainRelationships.ALIAS,
-                    Direction.OUTGOING
-            );
+            final FountainRelationship ownerRelationship = ownerAlias.getSingleRelationship(FountainRelationships.ALIAS, Direction.OUTGOING);
             if (ownerRelationship == null) {
                 throw new AuthorizationException("Could not locate owner relationship for alias %s", owner1);
             }
@@ -52,9 +54,7 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
             }
             final String ownerURL = ownerPersistedEntity.getAttribute(LSDAttribute.URI);
             if (!request.getSessionIdentifier().getUserURL().asString().equals(ownerURL)) {
-                throw new AuthorizationException("Attempted to create a pool object when you are not the owner of the alias %s",
-                        owner1
-                );
+                throw new AuthorizationException("Attempted to create a pool object when you are not the owner of the alias %s", owner1);
             }
         }
         return owner1;

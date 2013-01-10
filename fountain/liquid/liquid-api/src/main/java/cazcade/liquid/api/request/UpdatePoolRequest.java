@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -7,8 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UpdatePoolRequest extends AbstractUpdateRequest {
-    protected UpdatePoolRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
-                                final LiquidURI uri, final LSDTransferEntity entity) {
+    protected UpdatePoolRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -20,8 +23,7 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdatePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                             final LiquidUUID target, final LSDTransferEntity entity) {
+    public UpdatePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -36,8 +38,7 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity);
     }
 
-    public UpdatePoolRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI poolURI,
-                             final LSDTransferEntity newEntity) {
+    public UpdatePoolRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI poolURI, final LSDTransferEntity newEntity) {
         super();
         setSessionId(identity);
         setUri(poolURI);
@@ -59,12 +60,11 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
         super();
     }
 
-     UpdatePoolRequest(final LSDTransferEntity entity, String marker) {
+    UpdatePoolRequest(final LSDTransferEntity entity, String marker) {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new UpdatePoolRequest(getEntity(), "copy constructor");
     }

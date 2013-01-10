@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDType;
@@ -11,9 +15,7 @@ import java.util.List;
  */
 public class LSDTypeDefTest extends TestCase {
     public void test() {
-        final LSDTypeDefImpl typeDef = new LSDTypeDefImpl(
-                "Image.Bitmap.2DBitmap.JPEG(Image.FairyDust.MagicPicture,MovingPicture.Video.2DVideo.HTML5Compatible.H264)"
-        );
+        final LSDTypeDefImpl typeDef = new LSDTypeDefImpl("Image.Bitmap.2DBitmap.JPEG(Image.FairyDust.MagicPicture,MovingPicture.Video.2DVideo.HTML5Compatible.H264)");
         final LSDType primaryType = typeDef.getPrimaryType();
         assertEquals("Image.Bitmap.2DBitmap.JPEG", primaryType.asString());
         assertEquals("Image", primaryType.getGenus());

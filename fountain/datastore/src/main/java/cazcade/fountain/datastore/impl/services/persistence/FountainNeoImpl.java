@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.CommonConstants;
@@ -41,16 +45,17 @@ import static cazcade.liquid.api.lsd.LSDAttribute.*;
 
 public final class FountainNeoImpl extends AbstractServiceStateMachine implements FountainNeo {
     @Nonnull
-    public static final String SYSTEM = "system";
+    public static final String                  SYSTEM                     = "system";
     @Nonnull
-    public static final LiquidSessionIdentifier SYSTEM_FAKE_SESSION = new LiquidSessionIdentifier(SYSTEM, null);
-    public static final String DEFAULT_POOL_PERMISSIONS = String.valueOf(LiquidPermissionSet.getDefaultPermissions().toString());
+    public static final LiquidSessionIdentifier SYSTEM_FAKE_SESSION        = new LiquidSessionIdentifier(SYSTEM, null);
+    public static final String                  DEFAULT_POOL_PERMISSIONS   = String.valueOf(LiquidPermissionSet.getDefaultPermissions()
+                                                                                                               .toString());
     @Nonnull
-    public static final String BOARDS_URI = "pool:///boards";
+    public static final String                  BOARDS_URI                 = "pool:///boards";
     @Nonnull
-    public static final LiquidURI SYSTEM_ALIAS_URI = new LiquidURI(LiquidURIScheme.alias, "cazcade:system");
+    public static final LiquidURI               SYSTEM_ALIAS_URI           = new LiquidURI(LiquidURIScheme.alias, "cazcade:system");
     @Nonnull
-    public static final String FREE_TEXT_SEARCH_INDEX_KEY = "ftsindex";
+    public static final String                  FREE_TEXT_SEARCH_INDEX_KEY = "ftsindex";
 
     public static final String publicPermissionValue;
     public static final String sharedPermissionValue;
@@ -65,11 +70,11 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     public static final String defaultPermissionNoDeleteValue;
     public static final String privateSharedPermissionValue;
     public static final String privateSharedPermissionNoDeleteValue;
-    public static final int MAX_COMMENTS_DEFAULT = 25;
-    public static final int AUTHORIZATION_FOR_WRITE_TIME_TO_LIVE_SECONDS = 60;
-    public static final int AUTHORIZATION_FOR_READ_TIME_TO_LIVE_SECONDS = 2;
+    public static final int    MAX_COMMENTS_DEFAULT                         = 25;
+    public static final int    AUTHORIZATION_FOR_WRITE_TIME_TO_LIVE_SECONDS = 60;
+    public static final int    AUTHORIZATION_FOR_READ_TIME_TO_LIVE_SECONDS  = 2;
     @Nonnull
-    public static final String NODE_INDEX_NAME = "nodes";
+    public static final String NODE_INDEX_NAME                              = "nodes";
 
     /**
      * How old an inactive session can be before scheduled for deletion.
@@ -84,23 +89,22 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 
 
     @Nonnull
-    private static final Logger log = Logger.getLogger(FountainNeoImpl.class);
+    private static final Logger log                = Logger.getLogger(FountainNeoImpl.class);
     @Nonnull
     private static final String ROOT_POOL_PROPERTY = "root_pool________";
     @Nonnull
-    private static final String FALSE = "false";
+    private static final String FALSE              = "false";
 
     //    private final static Logger log = Logger.getLogger(FountainNeo.class);
     private EmbeddedGraphDatabase neo;
-    private Index<Node> indexService;
-    private Index<Node> fulltextIndexService;
+    private Index<Node>           indexService;
+    private Index<Node>           fulltextIndexService;
 
 
     private LSDPersistedEntity rootPool;
     private LSDPersistedEntity peoplePool;
 
-    private final ScheduledExecutorService backupScheduler =
-            Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService backupScheduler = Executors.newScheduledThreadPool(1);
     private boolean started;
 
 
@@ -130,27 +134,21 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override
-    public void assertAuthorized(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LiquidSessionIdentifier identity,
-                                 final LiquidPermission... permissions) throws InterruptedException {
+    public void assertAuthorized(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LiquidSessionIdentifier identity, final LiquidPermission... permissions) throws InterruptedException {
         if (!persistedEntity.isAuthorized(identity, permissions)) {
             throw new AuthorizationException("Session " +
-                    identity.toString() +
-                    " is not authorized to " +
-                    Arrays.toString(permissions
-                    ) +
-                    " the resource " +
-                    (persistedEntity.hasAttribute(URI) ? persistedEntity.getAttribute(URI) : "<unknown>") +
-                    " permissions are " +
-                    persistedEntity.getAttribute(PERMISSIONS)
-            );
+                                             identity.toString() +
+                                             " is not authorized to " +
+                                             Arrays.toString(permissions) +
+                                             " the resource " +
+                                             (persistedEntity.hasAttribute(URI) ? persistedEntity.getAttribute(URI) : "<unknown>") +
+                                             " permissions are " +
+                                             persistedEntity.getAttribute(PERMISSIONS));
         }
     }
 
-    @Override
-    @Nullable
-    public LSDTransferEntity changePermissionNoTx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidURI uri,
-                                                  final LiquidPermissionChangeType change, final LiquidRequestDetailLevel detail,
-                                                  final boolean internal) throws Exception {
+    @Override @Nullable
+    public LSDTransferEntity changePermissionNoTx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidURI uri, final LiquidPermissionChangeType change, final LiquidRequestDetailLevel detail, final boolean internal) throws Exception {
         begin();
         try {
             LSDPersistedEntity startPersistedEntityImpl = findByURI(uri);
@@ -165,26 +163,18 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         }
     }
 
-    @Override
-    @Nonnull
-    public LSDPersistedEntity changeNodePermissionNoTx(@Nonnull final LSDPersistedEntity entity,
-                                                       @Nonnull final LiquidSessionIdentifier editor,
-                                                       final LiquidPermissionChangeType change) throws Exception {
+    @Override @Nonnull
+    public LSDPersistedEntity changeNodePermissionNoTx(@Nonnull final LSDPersistedEntity entity, @Nonnull final LiquidSessionIdentifier editor, final LiquidPermissionChangeType change) throws Exception {
         entity.assertLatestVersion();
         LSDPersistedEntity startPersistedEntityImpl = entity;
-        final Traverser traverser = startPersistedEntityImpl.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.END_OF_GRAPH,
-                ReturnableEvaluator.ALL, FountainRelationships.CHILD,
-                Direction.OUTGOING
-        );
+        final Traverser traverser = startPersistedEntityImpl.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.END_OF_GRAPH, ReturnableEvaluator.ALL, FountainRelationships.CHILD, Direction.OUTGOING);
         final Collection<Node> allNodes = traverser.getAllNodes();
         log.debug("Changing permission on {0} nodes to {1} .", allNodes.size(), change);
         for (final Node origNode : allNodes) {
-            final LSDPersistedEntity clonePersistedEntityImpl = cloneNodeForNewVersion(editor, new FountainEntityImpl(origNode),
-                    false
-            );
+            final LSDPersistedEntity clonePersistedEntityImpl = cloneNodeForNewVersion(editor, new FountainEntityImpl(origNode), false);
             final String permissions = clonePersistedEntityImpl.getAttribute(PERMISSIONS);
             final LiquidPermissionSet newPermissions = LiquidPermissionSet.createPermissionSet(permissions)
-                    .convertChangeRequestIntoPermissionSet(change);
+                                                                          .convertChangeRequestIntoPermissionSet(change);
             clonePersistedEntityImpl.setAttribute(PERMISSIONS, newPermissions.toString());
             //So we have cloned the start persistedEntityImpl and need to use the cloned version to build our result.
             if (origNode.getId() == startPersistedEntityImpl.getPersistenceId()) {
@@ -194,8 +184,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         return startPersistedEntityImpl;
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public LSDPersistedEntity createSystemPool(final String pool) throws InterruptedException {
         final LSDPersistedEntity systemPool = createNode();
         systemPool.setValue(ROOT_POOL_PROPERTY, "true");
@@ -209,8 +198,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         return systemPool;
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public FountainEntityImpl createNode() {
         final FountainEntityImpl fountainEntityImpl = new FountainEntityImpl(neo.createNode());
         fountainEntityImpl.setAttribute(VERSION, "1");
@@ -220,30 +208,27 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override
-    public void indexBy(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDAttribute key,
-                        @Nonnull final LSDAttribute luceneIndex, final boolean unique) throws InterruptedException {
+    public void indexBy(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDAttribute key, @Nonnull final LSDAttribute luceneIndex, final boolean unique) throws InterruptedException {
         final String value = persistedEntity.getAttribute(key).toLowerCase();
-        log.debug(
-                "Indexing persistedEntityImpl " + persistedEntity.getPersistenceId() + " with key " + key + " with value " + value
-        );
+        log.debug("Indexing persistedEntityImpl "
+                  + persistedEntity.getPersistenceId()
+                  + " with key "
+                  + key
+                  + " with value "
+                  + value);
         final IndexHits<Node> hits = indexService.get(luceneIndex.getKeyName(), value);
         if (hits.size() > 0 && unique) {
             for (final Node hit : hits) {
                 if (!new FountainEntityImpl(hit).isDeleted()) {
-                    throw new DuplicateEntityException(
-                            "Attempted to index an entity with the %s of %s, there is already an entity with that %s value.", key,
-                            value, key
-                    );
+                    throw new DuplicateEntityException("Attempted to index an entity with the %s of %s, there is already an entity with that %s value.", key, value, key);
                 }
             }
         }
         indexService.add(persistedEntity.getNeoNode(), luceneIndex.getKeyName(), value);
     }
 
-    @Override
-    @Nonnull
-    public LSDTransferEntity deleteEntityTx(@Nonnull final LiquidURI uri, final boolean children, final boolean internal,
-                                            final LiquidRequestDetailLevel detail) throws InterruptedException {
+    @Override @Nonnull
+    public LSDTransferEntity deleteEntityTx(@Nonnull final LiquidURI uri, final boolean children, final boolean internal, final LiquidRequestDetailLevel detail) throws InterruptedException {
         final LSDPersistedEntity persistedEntity = findByURI(uri);
         if (persistedEntity == null) {
             throw new EntityNotFoundException("Could not find persistedEntityImpl identified by %s.", uri);
@@ -252,41 +237,30 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         return deleteNodeTx(children, internal, persistedEntity, detail);
     }
 
-    @Override
-    @Nullable
+    @Override @Nullable
     public FountainEntityImpl findByURI(@Nonnull final LiquidURI uri) throws InterruptedException {
         return findByURI(uri, false);
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public FountainEntityImpl findByURIOrFail(@Nonnull final LiquidURI uri) throws InterruptedException {
         //noinspection ConstantConditions
         return findByURI(uri, true);
     }
 
-    @Override
-    @Nonnull
-    public LSDTransferEntity deleteNodeTx(final boolean children, final boolean internal,
-                                          @Nonnull final LSDPersistedEntity persistedEntity, final LiquidRequestDetailLevel detail)
-            throws InterruptedException {
+    @Override @Nonnull
+    public LSDTransferEntity deleteNodeTx(final boolean children, final boolean internal, @Nonnull final LSDPersistedEntity persistedEntity, final LiquidRequestDetailLevel detail) throws InterruptedException {
         begin();
         try {
             final Transaction transaction = neo.beginTx();
             try {
                 delete(persistedEntity);
                 if (children) {
-                    final Traverser traverser = persistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH,
-                            new ReturnableEvaluator() {
-                                public boolean isReturnableNode(
-                                        @Nonnull final TraversalPosition currentPos) {
-                                    return new FountainEntityImpl(
-                                            currentPos.currentNode()
-                                    ).hasAttribute(URI);
-                                }
-                            }, FountainRelationships.CHILD, Direction.OUTGOING,
-                            FountainRelationships.VIEW, Direction.OUTGOING
-                    );
+                    final Traverser traverser = persistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
+                        public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
+                            return new FountainEntityImpl(currentPos.currentNode()).hasAttribute(URI);
+                        }
+                    }, FountainRelationships.CHILD, Direction.OUTGOING, FountainRelationships.VIEW, Direction.OUTGOING);
                     for (final Node childNode : traverser) {
                         delete(new FountainEntityImpl(childNode));
                     }
@@ -312,17 +286,14 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         fulltextIndexService.remove(persistedEntity.getNeoNode(), FREE_TEXT_SEARCH_INDEX_KEY);
     }
 
-    @Override
-    @Nonnull
-    public LSDTransferEntity deleteEntityTx(@Nonnull final LiquidUUID objectId, final boolean children, final boolean internal,
-                                            final LiquidRequestDetailLevel detail) throws InterruptedException {
+    @Override @Nonnull
+    public LSDTransferEntity deleteEntityTx(@Nonnull final LiquidUUID objectId, final boolean children, final boolean internal, final LiquidRequestDetailLevel detail) throws InterruptedException {
         final LSDPersistedEntity persistedEntity = findByUUID(objectId);
 
         return deleteNodeTx(children, internal, persistedEntity, detail);
     }
 
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public FountainEntityImpl findByUUID(@Nonnull final LiquidUUID id) throws InterruptedException {
         begin();
         try {
@@ -381,8 +352,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         }
     }
 
-    @Override
-    @Nullable
+    @Override @Nullable
     public FountainEntityImpl findByURI(@Nonnull final LiquidURI uri, final boolean mustMatch) throws InterruptedException {
         begin();
         try {
@@ -400,7 +370,8 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             }
             if (matchingFountainEntityImpl == null && mustMatch) {
                 throw new EntityNotFoundException("Could not locate " + uri);
-            } else {
+            }
+            else {
                 return matchingFountainEntityImpl;
             }
         } finally {
@@ -409,13 +380,11 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override
-    public LSDTransferEntity freeTextSearch(final String searchText, final LiquidRequestDetailLevel detail, final boolean internal)
-            throws InterruptedException {
+    public LSDTransferEntity freeTextSearch(final String searchText, final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
 
         final IndexHits<Node> results = fulltextIndexService.query(FREE_TEXT_SEARCH_INDEX_KEY, searchText);
-        final LSDTransferEntity searchResultEntity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.SEARCH_RESULTS,
-                UUIDFactory.randomUUID()
-        );
+        final LSDTransferEntity searchResultEntity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.SEARCH_RESULTS, UUIDFactory
+                .randomUUID());
         final List<LSDBaseEntity> resultEntities = new ArrayList<LSDBaseEntity>();
         final List<String> dedupUrls = new ArrayList<String>();
         for (final Node r : results) {
@@ -429,10 +398,8 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         return searchResultEntity;
     }
 
-    @Override
-    @Nullable
-    public LSDTransferEntity getEntityByUUID(@Nonnull final LiquidUUID id, final boolean internal,
-                                             final LiquidRequestDetailLevel detail) throws InterruptedException {
+    @Override @Nullable
+    public LSDTransferEntity getEntityByUUID(@Nonnull final LiquidUUID id, final boolean internal, final LiquidRequestDetailLevel detail) throws InterruptedException {
         begin();
         try {
             final Transaction transaction = neo.beginTx();
@@ -477,28 +444,29 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         final LSDPersistedEntity parentPersistedEntity = childPersistedEntity.parentNode();
         if (childPersistedEntity.getAttribute(LSDAttribute.TYPE).startsWith(LSDDictionaryTypes.POOL.toString())) {
             childPersistedEntity.setAttribute(URI, parentPersistedEntity.getAttribute(URI) +
-                    '/' +
-                    childPersistedEntity.getAttribute(NAME)
-            );
-        } else {
+                                                   '/' +
+                                                   childPersistedEntity.getAttribute(NAME));
+        }
+        else {
             if (childPersistedEntity.getAttribute(URI).startsWith("pool://")) {
                 childPersistedEntity.setAttribute(URI, parentPersistedEntity.getAttribute(URI) +
-                        '#' +
-                        childPersistedEntity.getAttribute(NAME)
-                );
+                                                       '#' +
+                                                       childPersistedEntity.getAttribute(NAME));
             }
         }
         reindex(childPersistedEntity, URI, URI);
     }
 
     @Override
-    public void reindex(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDAttribute key,
-                        @Nonnull final LSDAttribute luceneIndex) {
+    public void reindex(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDAttribute key, @Nonnull final LSDAttribute luceneIndex) {
         indexService.remove(persistedEntity.getNeoNode(), luceneIndex.getKeyName());
         final String value = persistedEntity.getAttribute(key).toLowerCase();
-        log.debug(
-                "Indexing persistedEntityImpl " + persistedEntity.getPersistenceId() + " with key " + key + " with value " + value
-        );
+        log.debug("Indexing persistedEntityImpl "
+                  + persistedEntity.getPersistenceId()
+                  + " with key "
+                  + key
+                  + " with value "
+                  + value);
         final IndexHits<Node> hits = indexService.get(luceneIndex.getKeyName(), value);
         for (final Node hit : hits) {
             indexService.remove(hit, luceneIndex.getKeyName(), value);
@@ -513,21 +481,21 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 
 
             final HashMap<String, String> params = new HashMap<String, String>();
-//        params.put("allow_store_upgrade", "true");
+            //        params.put("allow_store_upgrade", "true");
             params.put("enable_remote_shell", "true");
 
             neo = new EmbeddedGraphDatabase(cazcade.fountain.datastore.impl.Constants.FOUNTAIN_NEO_STORE_DIR, params);
-//        wrappingNeoServerBootstrapper = new WrappingNeoServerBootstrapper(neo);
-//        wrappingNeoServerBootstrapper.start();
-//
-//        XaDataSourceManager xaDsMgr = neo.getConfig().getTxModule().getXaDataSourceManager();
-//        XaDataSource dataSource = xaDsMgr.getXaDataSource("nioneodb");
-//        dataSource.keepLogicalLogs(true);
-//        dataSource = xaDsMgr.getXaDataSource("lucene");
-//        dataSource.keepLogicalLogs(true);
-//        dataSource.setAutoRotate(true);
-//        dataSource.setLogicalLogTargetSize(10 * 1024 * 1024); // 10 MB
-//
+            //        wrappingNeoServerBootstrapper = new WrappingNeoServerBootstrapper(neo);
+            //        wrappingNeoServerBootstrapper.start();
+            //
+            //        XaDataSourceManager xaDsMgr = neo.getConfig().getTxModule().getXaDataSourceManager();
+            //        XaDataSource dataSource = xaDsMgr.getXaDataSource("nioneodb");
+            //        dataSource.keepLogicalLogs(true);
+            //        dataSource = xaDsMgr.getXaDataSource("lucene");
+            //        dataSource.keepLogicalLogs(true);
+            //        dataSource.setAutoRotate(true);
+            //        dataSource.setLogicalLogTargetSize(10 * 1024 * 1024); // 10 MB
+            //
             if (CommonConstants.IS_PRODUCTION) {
                 backupScheduler.scheduleWithFixedDelay(new NeoBackupJob(this), 1, 4, TimeUnit.HOURS);
                 backup();
@@ -537,9 +505,8 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             log.info("Neo started.");
             log.info("Lucene for Neo started.");
             indexService = neo.index().forNodes(NODE_INDEX_NAME, MapUtil.stringMap("type", "exact"));
-            fulltextIndexService = neo.index().forNodes(FountainNeoImpl.FREE_TEXT_SEARCH_INDEX_KEY,
-                    MapUtil.stringMap(IndexManager.PROVIDER, "lucene", "type", "fulltext")
-            );
+            fulltextIndexService = neo.index()
+                                      .forNodes(FountainNeoImpl.FREE_TEXT_SEARCH_INDEX_KEY, MapUtil.stringMap(IndexManager.PROVIDER, "lucene", "type", "fulltext"));
 
             final Transaction transaction = neo.beginTx();
             try {
@@ -560,7 +527,9 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             }
         } catch (Exception e) {
             log.error(e);
-            throw new Error("Catastrophic failure, could not start FountainNeo in directory " + cazcade.fountain.datastore.impl.Constants.FOUNTAIN_NEO_STORE_DIR + " make sure no other instance is using this directory and that permissions are correct.", e);
+            throw new Error("Catastrophic failure, could not start FountainNeo in directory "
+                            + cazcade.fountain.datastore.impl.Constants.FOUNTAIN_NEO_STORE_DIR
+                            + " make sure no other instance is using this directory and that permissions are correct.", e);
         }
     }
 
@@ -575,7 +544,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     public void stop() {
         super.stop();
         neo.shutdown();
-//        wrappingNeoServerBootstrapper.stop();
+        //        wrappingNeoServerBootstrapper.stop();
         log.info("Shutdown Neo.");
         log.info("Shutdown Fountain Neo service.");
         this.started = false;
@@ -586,25 +555,19 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override
-    public void unindex(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDAttribute key,
-                        final String luceneIndex) {
+    public void unindex(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDAttribute key, final String luceneIndex) {
         final String value = persistedEntity.getAttribute(key).toLowerCase();
         log.debug("Un-indexing persistedEntityImpl " +
-                persistedEntity.getPersistenceId() +
-                " with key " +
-                key +
-                " with value " +
-                value
-        );
+                  persistedEntity.getPersistenceId() +
+                  " with key " +
+                  key +
+                  " with value " +
+                  value);
         indexService.remove(persistedEntity.getNeoNode(), luceneIndex, value);
     }
 
-    @Override
-    @Nonnull
-    public LSDTransferEntity updateEntityByURITx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidURI uri,
-                                                 @Nonnull final LSDTransferEntity entity, final boolean internal,
-                                                 final LiquidRequestDetailLevel detail, @Nullable final Runnable onRenameAction)
-            throws Exception {
+    @Override @Nonnull
+    public LSDTransferEntity updateEntityByURITx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidURI uri, @Nonnull final LSDTransferEntity entity, final boolean internal, final LiquidRequestDetailLevel detail, @Nullable final Runnable onRenameAction) throws Exception {
         begin();
         try {
             final Transaction transaction = neo.beginTx();
@@ -625,20 +588,15 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         }
     }
 
-    @Override
-    @Nonnull
-    public LSDTransferEntity updateEntityByUUIDTx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidUUID id,
-                                                  @Nonnull final LSDTransferEntity entity, final boolean internal,
-                                                  final LiquidRequestDetailLevel detail, @Nullable final Runnable onRenameAction)
-            throws Exception {
+    @Override @Nonnull
+    public LSDTransferEntity updateEntityByUUIDTx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LiquidUUID id, @Nonnull final LSDTransferEntity entity, final boolean internal, final LiquidRequestDetailLevel detail, @Nullable final Runnable onRenameAction) throws Exception {
         begin();
         try {
             final Transaction transaction = neo.beginTx();
             try {
                 if (!entity.getUUID().equals(id)) {
-                    throw new CannotChangeIdException("Tried to change the id of %s to %s", id.toString(),
-                            entity.getUUID().toString()
-                    );
+                    throw new CannotChangeIdException("Tried to change the id of %s to %s", id.toString(), entity.getUUID()
+                                                                                                                 .toString());
                 }
                 final FountainEntityImpl origFountainEntityImpl = findByUUID(id);
 
@@ -655,45 +613,34 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Nonnull
-    public LSDTransferEntity updateNodeNoTx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LSDTransferEntity entity,
-                                            final boolean internal, final LiquidRequestDetailLevel detail,
-                                            @Nonnull final Transaction transaction,
-                                            @Nonnull final FountainEntityImpl origFountainEntityImpl, @Nullable final Runnable onRenameAction)
-            throws Exception {
-        final LSDPersistedEntity persistedEntity = updateNodeAndReturnNodeNoTx(editor, origFountainEntityImpl, entity,
-                onRenameAction
-        );
+    public LSDTransferEntity updateNodeNoTx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LSDTransferEntity entity, final boolean internal, final LiquidRequestDetailLevel detail, @Nonnull final Transaction transaction, @Nonnull final FountainEntityImpl origFountainEntityImpl, @Nullable final Runnable onRenameAction) throws Exception {
+        final LSDPersistedEntity persistedEntity = updateNodeAndReturnNodeNoTx(editor, origFountainEntityImpl, entity, onRenameAction);
         final LSDTransferEntity newObject = persistedEntity.toLSD(detail, internal);
         transaction.success();
         return newObject;
     }
 
     @Override
-    public LSDPersistedEntity updateNodeAndReturnNodeNoTx(@Nonnull final LiquidSessionIdentifier editor,
-                                                          @Nonnull final LSDPersistedEntity origPersistedEntityImpl,
-                                                          @Nonnull final LSDTransferEntity entity, @Nullable final Runnable onRenameAction)
-            throws Exception {
+    public LSDPersistedEntity updateNodeAndReturnNodeNoTx(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LSDPersistedEntity origPersistedEntityImpl, @Nonnull final LSDTransferEntity entity, @Nullable final Runnable onRenameAction) throws Exception {
         return doInBeginBlock(new Callable<LSDPersistedEntity>() {
-            @Nonnull
-            @Override
+            @Nonnull @Override
             public LSDPersistedEntity call() throws Exception {
                 //Timestampcheck has been removed as we use versioning now.
-//        if (persistedEntityImpl.hasProperty(LSDAttribute.UPDATED.getKeyName())) {
-//            String entityValue = lsdEntity.getAttribute(LSDAttribute.UPDATED);
-//            String nodeValue = (String) persistedEntityImpl.getProperty(LSDAttribute.UPDATED.getKeyName());
-//            long entityMilli = Long.parseLong(entityValue);
-//            long nodeMilli = Long.parseLong(nodeValue);
-//            if (entityMilli < nodeMilli) {
-//                throw new StaleUpdateException("Stale update attempted date on the stored entity is %s the supplied entity was %s (difference in milliseconds was: %s). ", new Date(nodeMilli), new Date(entityMilli), nodeMilli - entityMilli);
-//            }
-//        }
+                //        if (persistedEntityImpl.hasProperty(LSDAttribute.UPDATED.getKeyName())) {
+                //            String entityValue = lsdEntity.getAttribute(LSDAttribute.UPDATED);
+                //            String nodeValue = (String) persistedEntityImpl.getProperty(LSDAttribute.UPDATED.getKeyName());
+                //            long entityMilli = Long.parseLong(entityValue);
+                //            long nodeMilli = Long.parseLong(nodeValue);
+                //            if (entityMilli < nodeMilli) {
+                //                throw new StaleUpdateException("Stale update attempted date on the stored entity is %s the supplied entity was %s (difference in milliseconds was: %s). ", new Date(nodeMilli), new Date(entityMilli), nodeMilli - entityMilli);
+                //            }
+                //        }
                 final LSDPersistedEntity persistedEntity = cloneNodeForNewVersion(editor, origPersistedEntityImpl, false);
                 persistedEntity.mergeProperties(entity, true, false, onRenameAction);
                 freeTextIndexNoTx(persistedEntity);
                 return persistedEntity;
             }
-        }
-        );
+        });
     }
 
     @Override
@@ -708,11 +655,8 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         }
     }
 
-    @Override
-    @Nonnull
-    public LSDPersistedEntity cloneNodeForNewVersion(@Nonnull final LiquidSessionIdentifier editor,
-                                                     @Nonnull final LSDPersistedEntity persistedEntityImpl, final boolean fork)
-            throws InterruptedException {
+    @Override @Nonnull
+    public LSDPersistedEntity cloneNodeForNewVersion(@Nonnull final LiquidSessionIdentifier editor, @Nonnull final LSDPersistedEntity persistedEntityImpl, final boolean fork) throws InterruptedException {
         fulltextIndexService.remove(persistedEntityImpl.getNeoNode(), FREE_TEXT_SEARCH_INDEX_KEY);
         final LSDPersistedEntity clone = createNode();
         final Iterable<String> keys = persistedEntityImpl.getPropertyKeys();
@@ -735,28 +679,28 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             if (lastFork == null) {
                 persistedEntityImpl.setAttribute(LSDAttribute.LAST_FORK_VERSION, (long) 1);
                 lastFork = 1L;
-            } else {
+            }
+            else {
                 persistedEntityImpl.setAttribute(LSDAttribute.LAST_FORK_VERSION, ++lastFork);
             }
             clone.setAttribute(VERSION, versionString + "." + lastFork + ".1");
-        } else {
+        }
+        else {
             reindex(clone, URI, URI);
             if (persistedEntityImpl.hasRelationship(FountainRelationships.FORK_PARENT, Direction.OUTGOING)) {
-                final FountainRelationship relationship = persistedEntityImpl.getSingleRelationship(FountainRelationships.FORK_PARENT,
-                        Direction.OUTGOING
-                );
+                final FountainRelationship relationship = persistedEntityImpl.getSingleRelationship(FountainRelationships.FORK_PARENT, Direction.OUTGOING);
                 assert relationship != null;
-                clone.createRelationshipTo(relationship.getOtherNode(persistedEntityImpl),
-                        FountainRelationships.FORK_PARENT
-                );
-            } else {
+                clone.createRelationshipTo(relationship.getOtherNode(persistedEntityImpl), FountainRelationships.FORK_PARENT);
+            }
+            else {
                 clone.createRelationshipTo(persistedEntityImpl, FountainRelationships.FORK_PARENT);
             }
             final int lastDot = versionString.lastIndexOf('.');
             final String newVersion;
             if (lastDot < 0) {
                 newVersion = String.valueOf(Long.parseLong(versionString) + 1);
-            } else {
+            }
+            else {
                 newVersion = versionString.substring(0, lastDot) + "." + (Long.parseLong(versionString.substring(lastDot + 1)) + 1);
             }
             clone.setAttribute(VERSION, newVersion);
@@ -769,19 +713,17 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             clone.createRelationshipTo(editorFountainEntityImpl, FountainRelationships.EDITOR);
         }
 
-        final Iterable<FountainRelationship> relationships = persistedEntityImpl.getRelationships(
-                FountainRelationships.FOLLOW_CONTENT, FountainRelationships.FOLLOW_ALIAS, FountainRelationships.AUTHOR,
-                FountainRelationships.CREATOR, FountainRelationships.OWNER, FountainRelationships.VIEW, FountainRelationships.ALIAS
-        );
+        final Iterable<FountainRelationship> relationships = persistedEntityImpl.getRelationships(FountainRelationships.FOLLOW_CONTENT, FountainRelationships.FOLLOW_ALIAS, FountainRelationships.AUTHOR, FountainRelationships.CREATOR, FountainRelationships.OWNER, FountainRelationships.VIEW, FountainRelationships.ALIAS);
         for (final FountainRelationship relationship : relationships) {
             if (relationship.getStartNode().equals(persistedEntityImpl)) {
                 clone.createRelationshipTo(relationship.getEndNode(), relationship.getType());
                 if (relationship.getType() == FountainRelationships.AUTHOR ||
-                        relationship.getType() == FountainRelationships.CREATOR ||
-                        relationship.getType() == FountainRelationships.OWNER ||
-                        relationship.getType() == FountainRelationships.VIEW) {
+                    relationship.getType() == FountainRelationships.CREATOR ||
+                    relationship.getType() == FountainRelationships.OWNER ||
+                    relationship.getType() == FountainRelationships.VIEW) {
                     //preserve these relationships
-                } else {
+                }
+                else {
                     relationship.delete();
                 }
             }
@@ -796,21 +738,16 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override
-    public void migrateParentNode(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDPersistedEntity clone,
-                                  final boolean fork) {
+    public void migrateParentNode(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LSDPersistedEntity clone, final boolean fork) {
         persistedEntity.assertLatestVersion();
-        final Iterable<FountainRelationship> relationships = persistedEntity.getRelationships(FountainRelationships.CHILD,
-                Direction.OUTGOING
-        );
+        final Iterable<FountainRelationship> relationships = persistedEntity.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final FountainRelationship relationship : relationships) {
             final LSDPersistedEntity childPersistedEntityImpl = relationship.getOtherNode(persistedEntity);
             clone.createRelationshipTo(childPersistedEntityImpl, FountainRelationships.CHILD);
             relationship.delete();
         }
         if (!fork) {
-            final FountainRelationship parentRel = persistedEntity.getSingleRelationship(FountainRelationships.CHILD,
-                    Direction.INCOMING
-            );
+            final FountainRelationship parentRel = persistedEntity.getSingleRelationship(FountainRelationships.CHILD, Direction.INCOMING);
             if (parentRel != null) {
                 final LSDPersistedEntity parentPersistedEntity = parentRel.getOtherNode(persistedEntity);
                 parentPersistedEntity.timestamp();
@@ -820,31 +757,31 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         }
     }
 
-//    private FountainEntityImpl recalculateCentreImage(final FountainEntityImpl pool, final FountainEntityImpl object /*Do not delete this parameter */) throws Exception {
-//        final double[] distance = {Double.MAX_VALUE};
-//        forEachChild(pool, new NodeCallback() {
-//            public void call(FountainEntityImpl child) throws InterruptedException {
-//                if (!isDeleted(child) && !child.getProperty(TYPE).toString().startsWith("Collection.Pool") && child.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
-//                    FountainEntityImpl viewNode = child.getSingleRelationship(VIEW, Direction.OUTGOING).getOtherNode(child);
-//                    double thisdistance = Double.valueOf(viewNode.getProperty(VIEW_RADIUS).toString());
-//                    if (thisdistance < distance[0]) {
-//                        distance[0] = thisdistance;
-//                        if (child.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
-//                            pool.setProperty(LSDAttribute.IMAGE_URL.getKeyName(), child.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
-//                        }
-//                        if (child.hasProperty(LSDAttribute.IMAGE_WIDTH.getKeyName())) {
-//                            pool.setProperty(LSDAttribute.IMAGE_WIDTH.getKeyName(), child.getProperty(LSDAttribute.IMAGE_WIDTH.getKeyName()));
-//                        }
-//                        if (child.hasProperty(LSDAttribute.IMAGE_HEIGHT.getKeyName())) {
-//                            pool.setProperty(LSDAttribute.IMAGE_HEIGHT.getKeyName(), child.getProperty(LSDAttribute.IMAGE_HEIGHT.getKeyName()));
-//                        }
-//                    }
-//                }
-//            }
-//        }, max);
-//        pool.setProperty(LSDAttribute.INTERNAL_MIN_IMAGE_RADIUS.getKeyName(), String.valueOf(distance[0]));
-//        return pool;
-//    }
+    //    private FountainEntityImpl recalculateCentreImage(final FountainEntityImpl pool, final FountainEntityImpl object /*Do not delete this parameter */) throws Exception {
+    //        final double[] distance = {Double.MAX_VALUE};
+    //        forEachChild(pool, new NodeCallback() {
+    //            public void call(FountainEntityImpl child) throws InterruptedException {
+    //                if (!isDeleted(child) && !child.getProperty(TYPE).toString().startsWith("Collection.Pool") && child.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
+    //                    FountainEntityImpl viewNode = child.getSingleRelationship(VIEW, Direction.OUTGOING).getOtherNode(child);
+    //                    double thisdistance = Double.valueOf(viewNode.getProperty(VIEW_RADIUS).toString());
+    //                    if (thisdistance < distance[0]) {
+    //                        distance[0] = thisdistance;
+    //                        if (child.hasProperty(LSDAttribute.IMAGE_URL.getKeyName())) {
+    //                            pool.setProperty(LSDAttribute.IMAGE_URL.getKeyName(), child.getProperty(LSDAttribute.IMAGE_URL.getKeyName()));
+    //                        }
+    //                        if (child.hasProperty(LSDAttribute.IMAGE_WIDTH.getKeyName())) {
+    //                            pool.setProperty(LSDAttribute.IMAGE_WIDTH.getKeyName(), child.getProperty(LSDAttribute.IMAGE_WIDTH.getKeyName()));
+    //                        }
+    //                        if (child.hasProperty(LSDAttribute.IMAGE_HEIGHT.getKeyName())) {
+    //                            pool.setProperty(LSDAttribute.IMAGE_HEIGHT.getKeyName(), child.getProperty(LSDAttribute.IMAGE_HEIGHT.getKeyName()));
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }, max);
+    //        pool.setProperty(LSDAttribute.INTERNAL_MIN_IMAGE_RADIUS.getKeyName(), String.valueOf(distance[0]));
+    //        return pool;
+    //    }
 
 
     //TODO get comments for historical versions!
@@ -871,33 +808,29 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         }
     }
 
-    @Override
-    @Nullable
-    public LSDTransferEntity updateUnversionedEntityByUUIDTx(@Nonnull final LiquidUUID id, @Nonnull final LSDTransferEntity entity,
-                                                             final boolean internal, final LiquidRequestDetailLevel detail,
-                                                             @Nullable final Runnable onRenameAction) throws InterruptedException {
+    @Override @Nullable
+    public LSDTransferEntity updateUnversionedEntityByUUIDTx(@Nonnull final LiquidUUID id, @Nonnull final LSDTransferEntity entity, final boolean internal, final LiquidRequestDetailLevel detail, @Nullable final Runnable onRenameAction) throws InterruptedException {
         begin();
         try {
             final Transaction transaction = neo.beginTx();
             try {
                 final LSDPersistedEntity persistedEntity = findByUUID(id);
                 //Timestampcheck has been removed as we use versioning now.
-//        if (persistedEntityImpl.hasProperty(LSDAttribute.UPDATED.getKeyName())) {
-//            String entityValue = lsdEntity.getAttribute(LSDAttribute.UPDATED);
-//            String nodeValue = (String) persistedEntityImpl.getProperty(LSDAttribute.UPDATED.getKeyName());
-//            long entityMilli = Long.parseLong(entityValue);
-//            long nodeMilli = Long.parseLong(nodeValue);
-//            if (entityMilli < nodeMilli) {
-//                throw new StaleUpdateException("Stale update attempted date on the stored entity is %s the supplied entity was %s (difference in milliseconds was: %s). ", new Date(nodeMilli), new Date(entityMilli), nodeMilli - entityMilli);
-//            }
-//        }
+                //        if (persistedEntityImpl.hasProperty(LSDAttribute.UPDATED.getKeyName())) {
+                //            String entityValue = lsdEntity.getAttribute(LSDAttribute.UPDATED);
+                //            String nodeValue = (String) persistedEntityImpl.getProperty(LSDAttribute.UPDATED.getKeyName());
+                //            long entityMilli = Long.parseLong(entityValue);
+                //            long nodeMilli = Long.parseLong(nodeValue);
+                //            if (entityMilli < nodeMilli) {
+                //                throw new StaleUpdateException("Stale update attempted date on the stored entity is %s the supplied entity was %s (difference in milliseconds was: %s). ", new Date(nodeMilli), new Date(entityMilli), nodeMilli - entityMilli);
+                //            }
+                //        }
                 if (!entity.getUUID().equals(id)) {
-                    throw new CannotChangeIdException("Tried to change the id of %s to %s", id.toString(),
-                            entity.getUUID().toString()
-                    );
+                    throw new CannotChangeIdException("Tried to change the id of %s to %s", id.toString(), entity.getUUID()
+                                                                                                                 .toString());
                 }
                 final LSDTransferEntity newObject = persistedEntity.mergeProperties(entity, true, false, onRenameAction)
-                        .toLSD(detail, internal);
+                                                                   .toLSD(detail, internal);
                 freeTextIndexNoTx(persistedEntity);
 
                 transaction.success();

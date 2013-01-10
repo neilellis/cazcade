@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,8 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveAliasRequest extends AbstractRetrievalRequest {
-    private RetrieveAliasRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
-                                 final LiquidURI uri) {
+    private RetrieveAliasRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
         super();
         setTarget(target);
         setId(id);
@@ -18,16 +21,14 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         setUri(uri);
     }
 
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                final LiquidUUID target) {
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
         super();
         setId(id);
         setSessionId(identity);
         setTarget(target);
     }
 
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                final LiquidURI uri) {
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri) {
         super();
         setId(id);
         setSessionId(identity);
@@ -63,14 +64,12 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new RetrieveAliasRequest(getEntity());
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public List<AuthorizationRequest> getAuthorizationRequests() {
         return Collections.emptyList();
     }

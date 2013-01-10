@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.CommonConstants;
@@ -21,7 +25,7 @@ import java.util.Date;
  */
 public class FountainUserUpdateService {
     public static final long HOUR_IN_MILLIS = 3600L * 1000L;
-    public static final long DAY_IN_MILLIS = 24L * HOUR_IN_MILLIS;
+    public static final long DAY_IN_MILLIS  = 24L * HOUR_IN_MILLIS;
 
     @Nonnull
     private final Logger log = Logger.getLogger(FountainUserDAOImpl.class);
@@ -46,9 +50,9 @@ public class FountainUserUpdateService {
      */
     //todo: change to a less frequent cron schedule as shown in the commented out annotation
     //just started it as hourly to get things going (makes testing easier).
-//    @Scheduled(cron = "0 0 19 1/1 * ? *")
+    //    @Scheduled(cron = "0 0 19 1/1 * ? *")
     @Scheduled(cron = "0 0 0/1 1/1 * ?")
-//    @Scheduled(cron = "0 0/5 * 1/1 * ?")
+    //    @Scheduled(cron = "0 0/5 * 1/1 * ?")
     public void trivialUpdateLoop() {
         if (!CommonConstants.IS_PRODUCTION && !test) {
             return;
@@ -63,8 +67,7 @@ public class FountainUserUpdateService {
 
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
-            public void process(@Nonnull final LSDTransferEntity userEntity, @Nonnull final LSDTransferEntity aliasEntity)
-                    throws InterruptedException, UnsupportedEncodingException {
+            public void process(@Nonnull final LSDTransferEntity userEntity, @Nonnull final LSDTransferEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
                 log.info("Sending update to " + aliasEntity.getURI());
                 final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.getURI().asString());
                 long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null
@@ -99,18 +102,15 @@ public class FountainUserUpdateService {
                 if (send) {
                     final ChangeReport report = socialDAO.getUpdateSummaryForAlias(aliasEntity.getURI(), lastEmailUpdateDate);
                     if (report.hasChangedFollowedBoards() || report.hasChangedOwnedBoards() || report.hasLatestChanges()) {
-                        emailService.send(userEntity, aliasEntity, "latest-updates.vm", "Latest updates from Boardcast", report,
-                                          test
-                                         );
+                        emailService.send(userEntity, aliasEntity, "latest-updates.vm", "Latest updates from Boardcast", report, test);
                         alias.setLastEmailUpdateDate(now);
-//                    if (!test) {
+                        //                    if (!test) {
                         aliasDAO.saveUser(alias);
-//                    }
+                        //                    }
                     }
                 }
             }
-        }
-                           );
+        });
     }
 
     public void setTest(final boolean test) {

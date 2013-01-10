@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.common.mq;
 
 import javax.annotation.Nonnull;
@@ -11,6 +15,5 @@ public interface MessageHandler {
      *
      * @param requestBytes the message to be processed.
      */
-    @Nonnull
-    byte[] handleMessage(byte[] requestBytes);
+    @Nonnull byte[] handleMessage(byte[] requestBytes);
 }

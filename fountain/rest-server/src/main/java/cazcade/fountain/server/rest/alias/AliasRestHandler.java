@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.alias;
 
 import cazcade.fountain.datastore.api.FountainDataStoreFacade;
@@ -30,8 +34,7 @@ public class AliasRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage create(final LSDTransferEntity lsdEntity, @Nonnull final Map<String, String[]> parameters)
-            throws URISyntaxException {
+    public LiquidMessage create(final LSDTransferEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         final boolean me = parameters.containsKey("me");
         final boolean orupdate = parameters.containsKey("orupdate");
 
@@ -69,8 +72,7 @@ public class AliasRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID aliasId, final LSDTransferEntity lsdEntity, final Map<String, String[]> parameters)
-            throws URISyntaxException {
+    public LiquidMessage update(final LiquidUUID aliasId, final LSDTransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
         final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new UpdateAliasRequest(username, aliasId, lsdEntity));
     }

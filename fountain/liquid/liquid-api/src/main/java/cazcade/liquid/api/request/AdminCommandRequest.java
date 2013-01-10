@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -11,8 +15,7 @@ import java.util.List;
 public class AdminCommandRequest extends AbstractRequest {
     private String[] args;
 
-    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                               final String... args) {
+    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final String... args) {
         super();
         setArgs(args);
         setId(id);
@@ -28,8 +31,7 @@ public class AdminCommandRequest extends AbstractRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new AdminCommandRequest(getEntity());
     }

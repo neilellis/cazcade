@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl;
 
 import cazcade.liquid.api.LiquidPermission;
@@ -30,23 +34,18 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
      */
     double calculateRadius();
 
-    @Nonnull
-    LSDTransferEntity toLSD(@Nonnull LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
+    @Nonnull LSDTransferEntity toLSD(@Nonnull LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
 
     void copyValuesToEntity(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute... attributes);
 
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nonnull
+    @SuppressWarnings({"TypeMayBeWeakened"}) @Nonnull
     FountainRelationship createRelationshipTo(@Nonnull LSDPersistedEntity otherEntity, FountainRelationships type);
 
     void forEachChild(@Nonnull NodeCallback callback) throws Exception;
 
-    @Nonnull
-    LSDPersistedEntity getLatestVersionFromFork();
+    @Nonnull LSDPersistedEntity getLatestVersionFromFork();
 
-    @Nonnull
-    @Deprecated
-    org.neo4j.graphdb.Node getNeoNode();
+    @Nonnull @Deprecated org.neo4j.graphdb.Node getNeoNode();
 
 
     /**
@@ -60,18 +59,14 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
 
     Iterable<String> getPropertyKeys();
 
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nonnull
+    @SuppressWarnings({"TypeMayBeWeakened"}) @Nonnull
     Iterable<FountainRelationship> getRelationships(FountainRelationships type, Direction dir);
 
-    @Nonnull
-    Iterable<FountainRelationship> getRelationships(FountainRelationships... types);
+    @Nonnull Iterable<FountainRelationship> getRelationships(FountainRelationships... types);
 
-    @Nonnull
-    Iterable<FountainRelationship> getRelationships();
+    @Nonnull Iterable<FountainRelationship> getRelationships();
 
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    @Nullable
+    @SuppressWarnings({"TypeMayBeWeakened"}) @Nullable
     FountainRelationship getSingleRelationship(FountainRelationships type, Direction dir);
 
     /**
@@ -80,8 +75,7 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
      */
     void hardDelete();
 
-    @SuppressWarnings({"TypeMayBeWeakened"})
-    boolean hasRelationship(FountainRelationships type, Direction dir);
+    @SuppressWarnings({"TypeMayBeWeakened"}) boolean hasRelationship(FountainRelationships type, Direction dir);
 
     /**
      * Inherit permissions from a parent entity.
@@ -92,8 +86,7 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
 
     boolean isAuthor(@Nonnull LSDPersistedEntity ownerPersistedEntity) throws InterruptedException;
 
-    boolean isAuthorized(@Nonnull LiquidSessionIdentifier identity, @Nonnull LiquidPermission... permissions)
-            throws InterruptedException;
+    boolean isAuthorized(@Nonnull LiquidSessionIdentifier identity, @Nonnull LiquidPermission... permissions) throws InterruptedException;
 
     boolean isDeleted() throws InterruptedException;
 
@@ -111,14 +104,11 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
     boolean isOwner(@Nonnull LiquidSessionIdentifier identity) throws InterruptedException;
 
     @Nonnull
-    LSDPersistedEntity mergeProperties(@Nonnull LSDTransferEntity source, boolean update, boolean ignoreType,
-                                       @Nullable Runnable onRenameAction)
-            throws InterruptedException;
+    LSDPersistedEntity mergeProperties(@Nonnull LSDTransferEntity source, boolean update, boolean ignoreType, @Nullable Runnable onRenameAction) throws InterruptedException;
 
     void modifiedTimestamp();
 
-    @Nonnull
-    LSDPersistedEntity parentNode();
+    @Nonnull LSDPersistedEntity parentNode();
 
     int popularity();
 
@@ -126,23 +116,16 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
 
     void setIDIfNotSetOnNode();
 
-    void setPermissionFlagsOnEntity(@Nonnull LiquidSessionIdentifier session, @Nullable LSDPersistedEntity parent,
-                                    @Nonnull LSDBaseEntity entity)
-            throws InterruptedException;
+    void setPermissionFlagsOnEntity(@Nonnull LiquidSessionIdentifier session, @Nullable LSDPersistedEntity parent, @Nonnull LSDBaseEntity entity) throws InterruptedException;
 
-    @Override
-    void timestamp();
+    @Override void timestamp();
 
     @Nonnull
-    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
-                       RelationshipType firstRelationshipType, Direction firstDirection, RelationshipType secondRelationshipType,
-                       Direction secondDirection);
+    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, RelationshipType firstRelationshipType, Direction firstDirection, RelationshipType secondRelationshipType, Direction secondDirection);
 
     @Nonnull
-    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
-                       FountainRelationships relationshipType, Direction direction);
+    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, FountainRelationships relationshipType, Direction direction);
 
     @Nonnull
-    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator,
-                       Object... relationshipTypesAndDirections);
+    Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, Object... relationshipTypesAndDirections);
 }

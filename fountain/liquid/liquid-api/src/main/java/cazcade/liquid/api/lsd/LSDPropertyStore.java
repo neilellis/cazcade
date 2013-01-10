@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -8,13 +12,11 @@ import java.util.Map;
  * @author neilellis@cazcade.com
  */
 public interface LSDPropertyStore extends Serializable {
-    @Nonnull
-    Map<String, String> asMap();
+    @Nonnull Map<String, String> asMap();
 
     boolean containsProperty(String property);
 
-    @Nonnull
-    LSDPropertyStore copy();
+    @Nonnull LSDPropertyStore copy();
 
     String get(String property);
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.EntityNotFoundException;
@@ -31,15 +35,13 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
             final LSDTransferEntity entity;
             final LiquidSessionIdentifier recipientSessionId = new LiquidSessionIdentifier(request.getRecipient(), null);
             if (request.hasRequestEntity()) {
-                entity = poolDAO.createPoolObjectTx(poolPersistedEntity, recipientSessionId, owner,
-                                                    request.getSessionIdentifier().getAliasURL(), request.getRequestEntity(),
-                                                    request.getDetail(), request.isInternal(), false
-                                                   );
+                entity = poolDAO.createPoolObjectTx(poolPersistedEntity, recipientSessionId, owner, request.getSessionIdentifier()
+                                                                                                           .getAliasURL(), request.getRequestEntity(), request
+                        .getDetail(), request.isInternal(), false);
             }
             else {
-                entity = poolDAO.linkPoolObjectTx(recipientSessionId, request.getRecipientAlias(), request.getUri(),
-                                                  request.getInboxURI(), request.getDetail(), request.isInternal()
-                                                 );
+                entity = poolDAO.linkPoolObjectTx(recipientSessionId, request.getRecipientAlias(), request.getUri(), request.getInboxURI(), request
+                        .getDetail(), request.isInternal());
             }
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

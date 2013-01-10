@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -11,8 +15,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class UpdateSessionRequest extends AbstractUpdateRequest {
-    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                                final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
+    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
         super();
         setId(id);
         setSessionId(identity);
@@ -21,11 +24,9 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
         setInternal(internal);
     }
 
-    public UpdateSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity,
-                                final boolean internal) {
+    public UpdateSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
         this(null, identity, target, entity, internal);
     }
-
 
 
     public UpdateSessionRequest() {
@@ -36,20 +37,17 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new UpdateSessionRequest(getEntity());
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public List<String> getNotificationLocations() {
         return null;
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public String getNotificationSession() {
         //Don't notify anyone of a session update.
         return null;

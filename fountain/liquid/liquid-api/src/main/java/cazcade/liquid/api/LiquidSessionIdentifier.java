@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import cazcade.common.CommonConstants;
@@ -46,7 +50,7 @@ public class LiquidSessionIdentifier implements Serializable {
 
     public LiquidSessionIdentifier(@Nonnull final LiquidURI aliasURI) {
         //noinspection ConstantConditions
-        if(aliasURI == null) {
+        if (aliasURI == null) {
             throw new IllegalArgumentException("Cannot create and LiquidSessionIdentifier with a null LiquidURI");
         }
         alias = aliasURI;
@@ -58,13 +62,13 @@ public class LiquidSessionIdentifier implements Serializable {
 
     @Override
     public boolean equals(@Nullable Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
 
         LiquidSessionIdentifier that = (LiquidSessionIdentifier) o;
 
-        if (!alias.equals(that.alias)) return false;
-        if (session != null ? !session.equals(that.session) : that.session != null) return false;
+        if (!alias.equals(that.alias)) { return false; }
+        if (session != null ? !session.equals(that.session) : that.session != null) { return false; }
 
         return true;
     }
@@ -92,7 +96,6 @@ public class LiquidSessionIdentifier implements Serializable {
     }
 
 
-
     public boolean isAnon() {
         return CommonConstants.ANONYMOUS_ALIAS.equals(alias.asString());
     }
@@ -101,8 +104,7 @@ public class LiquidSessionIdentifier implements Serializable {
         this.session = LiquidUUID.fromString(session);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String toString() {
         if (session != null) {
             return getName() + "," + session.toString();
@@ -110,39 +112,39 @@ public class LiquidSessionIdentifier implements Serializable {
         else {
             return getName();
         }
-//        if (name != null) {
-//            if (alias != null) {
-//                if (session != null) {
-//                    return name + ":" + alias + ":" + session;
-//                } else {
-//                    return name + ":" + alias;
-//
-//                }
-//            } else {
-//                if (session != null) {
-//                    return name + ":" + session;
-//                } else {
-//                    return name;
-//
-//                }
-//            }
-//        } else {
-//           if (alias != null) {
-//                if (session != null) {
-//                    return "<unknown>" + ":" + alias + ":" + session;
-//                } else {
-//                    return "<unknown>"  + ":" + alias;
-//
-//                }
-//            } else {
-//                if (session != null) {
-//                    return "<unknown>"  + ":" + session;
-//                } else {
-//                    return "<unknown>" ;
-//
-//                }
-//            }
-//        }
+        //        if (name != null) {
+        //            if (alias != null) {
+        //                if (session != null) {
+        //                    return name + ":" + alias + ":" + session;
+        //                } else {
+        //                    return name + ":" + alias;
+        //
+        //                }
+        //            } else {
+        //                if (session != null) {
+        //                    return name + ":" + session;
+        //                } else {
+        //                    return name;
+        //
+        //                }
+        //            }
+        //        } else {
+        //           if (alias != null) {
+        //                if (session != null) {
+        //                    return "<unknown>" + ":" + alias + ":" + session;
+        //                } else {
+        //                    return "<unknown>"  + ":" + alias;
+        //
+        //                }
+        //            } else {
+        //                if (session != null) {
+        //                    return "<unknown>"  + ":" + session;
+        //                } else {
+        //                    return "<unknown>" ;
+        //
+        //                }
+        //            }
+        //        }
     }
 
     @Nonnull

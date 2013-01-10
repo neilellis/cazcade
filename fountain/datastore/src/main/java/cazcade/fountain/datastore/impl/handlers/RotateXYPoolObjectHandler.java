@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.FountainRelationship;
@@ -15,16 +19,13 @@ import javax.annotation.Nonnull;
 /**
  * @author neilelliz@cazcade.com
  */
-public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXYPoolObjectRequest>
-        implements RotateXYPoolObjectRequestHandler {
+public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXYPoolObjectRequest> implements RotateXYPoolObjectRequestHandler {
     @Nonnull
     public RotateXYPoolObjectRequest handle(@Nonnull final RotateXYPoolObjectRequest request) throws InterruptedException {
         final Transaction transaction = fountainNeo.beginTx();
         try {
             final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(request.getObjectUUID());
-            final FountainRelationship relationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW,
-                    Direction.OUTGOING
-            );
+            final FountainRelationship relationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
             assert relationship != null;
             final LSDPersistedEntity viewPersistedEntity = relationship.getOtherNode(persistedEntity);
 
@@ -32,8 +33,7 @@ public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXY
                 persistedEntity.setAttribute(LSDAttribute.VIEW_ROTATE_XY, request.getAngle());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toLSD(request.getDetail(), request.isInternal())
-                                                        );
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toLSD(request.getDetail(), request.isInternal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

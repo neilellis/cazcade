@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -11,20 +15,16 @@ import java.util.Map;
  */
 
 public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
-    @Nonnull
-    LSDNode asFormatIndependentTree();
+    @Nonnull LSDNode asFormatIndependentTree();
 
 
-    @Nonnull
-    Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
+    @Nonnull Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
 
 
-    @Nonnull
-    LSDTransferEntity asUpdateEntity();
+    @Nonnull LSDTransferEntity asUpdateEntity();
 
 
-    @Nonnull
-    LSDTransferEntity copy();
+    @Nonnull LSDTransferEntity copy();
 
     //    boolean isValidOrEmptyValue(LSDDictionary key);
 
@@ -39,8 +39,7 @@ public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
      *
      * @return
      */
-    @Nonnull
-    Map<String, String> getCamelCaseMap();
+    @Nonnull Map<String, String> getCamelCaseMap();
 
 
     /**
@@ -48,8 +47,7 @@ public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
      *
      * @return a map of name/value pairs.
      */
-    @Nonnull
-    Map<String, String> getMap();
+    @Nonnull Map<String, String> getMap();
 
     //For templating  they take camel case values like entity.set("imageUrl") ... useful for templates etc.
 

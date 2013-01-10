@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -11,22 +15,18 @@ import java.util.List;
 
 public class AuthorizationRequest extends AbstractRequest {
     @Nonnull
-    private final List<AuthorizationRequest> or = new ArrayList<AuthorizationRequest>();
+    private final List<AuthorizationRequest> or  = new ArrayList<AuthorizationRequest>();
     @Nonnull
     private final List<AuthorizationRequest> and = new ArrayList<AuthorizationRequest>();
     private LiquidPermission[] permission;
 
-    public AuthorizationRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID resource,
-                                @Nullable final LiquidURI uri, final LiquidPermission[] permission, final List<AuthorizationRequest> or,
-                                final List<AuthorizationRequest> and) {
+    public AuthorizationRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri, final LiquidPermission[] permission, final List<AuthorizationRequest> or, final List<AuthorizationRequest> and) {
         this(id, identity, resource, uri, permission);
         this.or.addAll(or);
         this.and.addAll(and);
     }
 
-    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier session,
-                                @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri,
-                                final LiquidPermission... permission) {
+    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier session, @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri, final LiquidPermission... permission) {
         super();
         if (resource == null && uri == null) {
             throw new IllegalArgumentException("Cannot create an authorization request with a null resource id and uri.");
@@ -38,8 +38,7 @@ public class AuthorizationRequest extends AbstractRequest {
         setSessionId(session);
     }
 
-    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidUUID resource,
-                                final LiquidPermission... permission) {
+    public AuthorizationRequest(final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidPermission... permission) {
         this(null, identity, resource, null, permission);
     }
 
@@ -47,13 +46,13 @@ public class AuthorizationRequest extends AbstractRequest {
         this(null, identity, null, uri, permission);
     }
 
-//    public AuthorizationRequest(final LiquidUUID resource, final LiquidPermission... permission) {
-//        this(null, null, resource, null, permission);
-//    }
-//
-//    public AuthorizationRequest(final LiquidURI uri, final LiquidPermission... permission) {
-//        this(null, null, null, uri, permission);
-//    }
+    //    public AuthorizationRequest(final LiquidUUID resource, final LiquidPermission... permission) {
+    //        this(null, null, resource, null, permission);
+    //    }
+    //
+    //    public AuthorizationRequest(final LiquidURI uri, final LiquidPermission... permission) {
+    //        this(null, null, null, uri, permission);
+    //    }
 
     public AuthorizationRequest() {
         super();
@@ -65,10 +64,11 @@ public class AuthorizationRequest extends AbstractRequest {
         return this;
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
-        return new AuthorizationRequest(hasId() ? getId() : null, getSessionIdentifier(), hasTarget() ? getTarget() : null, hasUri() ? getUri() : null, permission, or, and);
+        return new AuthorizationRequest(hasId() ? getId() : null, getSessionIdentifier(), hasTarget() ? getTarget() : null, hasUri()
+                                                                                                                            ? getUri()
+                                                                                                                            : null, permission, or, and);
     }
 
     public LiquidPermission[] getActions() {

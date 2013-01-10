@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -7,8 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class RetrieveUserRequest extends AbstractRetrievalRequest {
-    private RetrieveUserRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target,
-                                @Nullable final LiquidURI uri) {
+    private RetrieveUserRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri) {
         super();
         setTarget(target);
         setId(id);
@@ -20,8 +23,7 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this(null, identity, uri, internal);
     }
 
-    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri,
-                               final boolean internal) {
+    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean internal) {
         super();
         setId(id);
         setSessionId(identity);
@@ -37,8 +39,7 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this(null, identity, target);
     }
 
-    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                               final LiquidUUID target) {
+    public RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
         super();
         setId(id);
         setSessionId(identity);
@@ -61,8 +62,7 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new RetrieveUserRequest(getEntity());
     }

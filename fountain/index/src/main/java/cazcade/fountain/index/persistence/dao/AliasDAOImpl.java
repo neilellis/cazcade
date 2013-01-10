@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.dao;
 
 
@@ -44,8 +48,7 @@ public class AliasDAOImpl implements AliasDAO {
     @Override
     public AliasEntity getOrCreateAlias(final String uri) {
         return hibernateTemplate.execute(new HibernateCallback<AliasEntity>() {
-            @Nonnull
-            @Override
+            @Nonnull @Override
             public AliasEntity doInHibernate(@Nonnull final Session session) throws HibernateException, SQLException {
                 final String name = null;
                 final List users = hibernateTemplate.find("from AliasEntity e where e.uri = ?", uri);
@@ -62,12 +65,10 @@ public class AliasDAOImpl implements AliasDAO {
                     throw new RuntimeException("Too many matching user names.");
                 }
             }
-        }
-                                        );
+        });
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @Override @SuppressWarnings("unchecked")
     public List<AliasEntity> listUsers() {
         return hibernateTemplate.find("from AliasEntity");
     }

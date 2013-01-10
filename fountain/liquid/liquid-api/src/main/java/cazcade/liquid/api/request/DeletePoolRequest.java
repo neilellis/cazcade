@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -7,8 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DeletePoolRequest extends AbstractDeletionRequest {
-    public DeletePoolRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target,
-                             final LiquidURI uri) {
+    public DeletePoolRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
         super();
         setId(id);
         setSessionId(identity);
@@ -16,8 +19,7 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
         setUri(uri);
     }
 
-    public DeletePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity,
-                             final LiquidUUID target) {
+    public DeletePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
         super();
         setId(id);
         setSessionId(identity);
@@ -35,7 +37,6 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
     }
 
 
-
     public DeletePoolRequest() {
         super();
     }
@@ -44,8 +45,7 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
         super(entity);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LiquidMessage copy() {
         return new DeletePoolRequest(getEntity());
     }

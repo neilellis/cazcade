@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.entities;
 
 
@@ -11,16 +15,14 @@ import java.util.Date;
 /**
  * @author neilellis@cazcade.com
  */
-@Entity
-@Table(name = "visit")
+@Entity @Table(name = "visit")
 public class VisitEntity extends MessageBase {
-    private AliasEntity visitor;
+    private AliasEntity      visitor;
     private BoardIndexEntity board;
-    private MessageType type;
+    private MessageType      type;
 
 
-    @ManyToOne(targetEntity = BoardIndexEntity.class)
-    @JoinColumn(name = "board", nullable = false)
+    @ManyToOne(targetEntity = BoardIndexEntity.class) @JoinColumn(name = "board", nullable = false)
     public BoardIndexEntity getBoard() {
         return board;
     }
@@ -47,10 +49,7 @@ public class VisitEntity extends MessageBase {
         this.deleted = deleted;
     }
 
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(name = "id")
+    @Id @GeneratedValue(generator = "system-uuid") @GenericGenerator(name = "system-uuid", strategy = "uuid") @Column(name = "id")
     public String getId() {
         return id;
     }
@@ -59,8 +58,7 @@ public class VisitEntity extends MessageBase {
         this.id = id;
     }
 
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "visitor", nullable = false)
+    @ManyToOne(targetEntity = AliasEntity.class) @JoinColumn(name = "visitor", nullable = false)
     public AliasEntity getVisitor() {
         return visitor;
     }

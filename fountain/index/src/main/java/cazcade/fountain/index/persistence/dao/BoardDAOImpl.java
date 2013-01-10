@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.dao;
 
 
@@ -22,7 +26,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class BoardDAOImpl implements BoardDAO {
-    public static final SimpleExpression LISTED = Restrictions.eq("listed", true);
+    public static final SimpleExpression LISTED       = Restrictions.eq("listed", true);
     public static final SimpleExpression PUBLIC_BOARD = Restrictions.eq("type", BoardType.PUBLIC);
 
     private final Logger log = LoggerFactory.getLogger(BoardDAOImpl.class);
@@ -42,21 +46,17 @@ public class BoardDAOImpl implements BoardDAO {
     @Override
     public List<BoardIndexEntity> getMyBoards(final int from, final int size, final String aliasURI) {
         return sessionFactory.getCurrentSession()
-                             .createQuery(
-                                     "from BoardIndexEntity b where b.owner.uri = :alias  or b.author.uri= :alias or b.creator.uri=:alias order by b.updated desc"
-                                         )
+                             .createQuery("from BoardIndexEntity b where b.owner.uri = :alias  or b.author.uri= :alias or b.creator.uri=:alias order by b.updated desc")
                              .setParameter("alias", aliasURI)
                              .setFirstResult(from)
-                             .setMaxResults(size
-                                           )
+                             .setMaxResults(size)
                              .list();
     }
 
     @Override
     public BoardIndexEntity getOrCreateBoard(final String uri) {
         return hibernateTemplate.execute(new HibernateCallback<BoardIndexEntity>() {
-            @Nonnull
-            @Override
+            @Nonnull @Override
             public BoardIndexEntity doInHibernate(@Nonnull final Session session) throws HibernateException, SQLException {
                 final List boards = hibernateTemplate.find("from BoardIndexEntity where uri=?", uri);
                 if (boards.isEmpty()) {
@@ -72,8 +72,7 @@ public class BoardDAOImpl implements BoardDAO {
                     return board;
                 }
             }
-        }
-                                        );
+        });
     }
 
     //    @Override
@@ -82,8 +81,7 @@ public class BoardDAOImpl implements BoardDAO {
                              .createCriteria(BoardIndexEntity.class)
                              .add(PUBLIC_BOARD)
                              .add(LISTED)
-                             .addOrder(Order.desc("popularity")
-                                      )
+                             .addOrder(Order.desc("popularity"))
                              .setFirstResult(from)
                              .setMaxResults(size)
                              .list();
@@ -169,9 +167,11 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public List<BoardIndexEntity> getRecentBoards(final int from, final int size) {
-        return sessionFactory.getCurrentSession().createCriteria(BoardIndexEntity.class).add(PUBLIC_BOARD).add(LISTED).addOrder(
-                Order.desc("updated")
-                                                                                                                               )
+        return sessionFactory.getCurrentSession()
+                             .createCriteria(BoardIndexEntity.class)
+                             .add(PUBLIC_BOARD)
+                             .add(LISTED)
+                             .addOrder(Order.desc("updated"))
                              .setFirstResult(from)
                              .setMaxResults(size)
                              .list();
@@ -179,33 +179,30 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public String getUniqueVisitorCount(final BoardIndexEntity board) {
-        return sessionFactory.getCurrentSession().createQuery(
-                "select count(distinct ve.visitor) from VisitEntity ve where ve.board= :board"
-                                                             ).setParameter("board", board).uniqueResult().toString();
+        return sessionFactory.getCurrentSession()
+                             .createQuery("select count(distinct ve.visitor) from VisitEntity ve where ve.board= :board")
+                             .setParameter("board", board)
+                             .uniqueResult()
+                             .toString();
     }
 
     @Override
     public List<BoardIndexEntity> getUserBoards(final int from, final int size, final String aliasURI) {
         return sessionFactory.getCurrentSession()
-                             .createQuery(
-                                     "from BoardIndexEntity b where  b.listed=true and (b.owner.uri = :alias  or b.author.uri= :alias or b.creator.uri=:alias) order by b.updated desc"
-                                         )
+                             .createQuery("from BoardIndexEntity b where  b.listed=true and (b.owner.uri = :alias  or b.author.uri= :alias or b.creator.uri=:alias) order by b.updated desc")
                              .setParameter("alias", aliasURI)
                              .setFirstResult(from)
-                             .setMaxResults(size
-                                           )
+                             .setMaxResults(size)
                              .list();
     }
 
     @Override
     public List<BoardIndexEntity> getVisitedBoards(final int from, final int size, final String aliasURI) {
-        return sessionFactory.getCurrentSession().createQuery(
-                "select v.board from VisitEntity v where v.visitor.uri= :visitor group by v.board order by max(v.created) desc"
-                                                             )
+        return sessionFactory.getCurrentSession()
+                             .createQuery("select v.board from VisitEntity v where v.visitor.uri= :visitor group by v.board order by max(v.created) desc")
                              .setParameter("visitor", aliasURI)
                              .setFirstResult(from)
-                             .setMaxResults(size
-                                           )
+                             .setMaxResults(size)
                              .list();
     }
 

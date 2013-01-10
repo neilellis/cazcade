@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.lsd;
 
 import javax.annotation.Nonnull;
@@ -14,7 +18,7 @@ import java.util.Map;
 public class LSDSimpleNode implements LSDNode {
     private final String name;
     @Nullable
-    private String value;
+    private       String value;
     @Nonnull
     private final List<LSDNode> children = new ArrayList<LSDNode>();
     private final boolean isArray;
@@ -52,7 +56,7 @@ public class LSDSimpleNode implements LSDNode {
         if (!isLeaf()) {
             throw new UnsupportedOperationException("Cannot get a value from a non leaf node.");
         }
-        if(value == null) {
+        if (value == null) {
             throw new NullPointerException("Value of leaf was null");
         }
         return value;

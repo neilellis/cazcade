@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.index.persistence.entities;
 
 
@@ -13,15 +17,13 @@ import java.util.Set;
 /**
  * @author neilellis@cazcade.com
  */
-@org.hibernate.annotations.Entity
-@Entity
-@Table(name = "board")
+@org.hibernate.annotations.Entity @Entity @Table(name = "board")
 public class BoardIndexEntity extends CommonBase {
-    protected BoardType type;
+    protected BoardType   type;
     protected AliasEntity creator;
     protected AliasEntity owner;
     protected AliasEntity author;
-    protected String text;
+    protected String      text;
 
     private long commentCount;
     private long visitCount;
@@ -30,11 +32,11 @@ public class BoardIndexEntity extends CommonBase {
     private long activityCount;
     private long popularity;
 
-    private Set<AliasEntity> members = new HashSet<AliasEntity>();
-    private Set<AliasEntity> followers = new HashSet<AliasEntity>();
-    private Set<VisitEntity> visits = new HashSet<VisitEntity>();
-    private Set<MessageEntity> comments = new HashSet<MessageEntity>();
-    private Set<MessageEntity> chats = new HashSet<MessageEntity>();
+    private Set<AliasEntity>   members   = new HashSet<AliasEntity>();
+    private Set<AliasEntity>   followers = new HashSet<AliasEntity>();
+    private Set<VisitEntity>   visits    = new HashSet<VisitEntity>();
+    private Set<MessageEntity> comments  = new HashSet<MessageEntity>();
+    private Set<MessageEntity> chats     = new HashSet<MessageEntity>();
     private boolean listed;
 
 
@@ -55,8 +57,7 @@ public class BoardIndexEntity extends CommonBase {
         this.activityCount = activityCount;
     }
 
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "author", nullable = true)
+    @ManyToOne(targetEntity = AliasEntity.class) @JoinColumn(name = "author", nullable = true)
     public AliasEntity getAuthor() {
         return author;
     }
@@ -74,14 +75,14 @@ public class BoardIndexEntity extends CommonBase {
         this.chats = chats;
     }
 
-//    @Column(name = "BOARD_RATING", nullable = true)
-//    public Double getRating() {
-//        return rating;
-//    }
-//
-//    public void setRating(Double rating) {
-//        this.rating = rating;
-//    }
+    //    @Column(name = "BOARD_RATING", nullable = true)
+    //    public Double getRating() {
+    //        return rating;
+    //    }
+    //
+    //    public void setRating(Double rating) {
+    //        this.rating = rating;
+    //    }
 
     @Column(name = "comment_count", nullable = false)
     public long getCommentCount() {
@@ -110,8 +111,7 @@ public class BoardIndexEntity extends CommonBase {
         this.created = created;
     }
 
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "creator", nullable = true)
+    @ManyToOne(targetEntity = AliasEntity.class) @JoinColumn(name = "creator", nullable = true)
     public AliasEntity getCreator() {
         return creator;
     }
@@ -138,9 +138,8 @@ public class BoardIndexEntity extends CommonBase {
         this.followerCount = followerCount;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "follow", joinColumns = {@JoinColumn(name = "followed_uri")},
-               inverseJoinColumns = {@JoinColumn(name = "follower_uri")})
+    @ManyToMany(cascade = CascadeType.ALL) @JoinTable(name = "follow", joinColumns = {@JoinColumn(name = "followed_uri")},
+            inverseJoinColumns = {@JoinColumn(name = "follower_uri")})
     public Set<AliasEntity> getFollowers() {
         return followers;
     }
@@ -158,9 +157,8 @@ public class BoardIndexEntity extends CommonBase {
         this.likeCount = likeCount;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "members", joinColumns = {@JoinColumn(name = "resource_uri")},
-               inverseJoinColumns = {@JoinColumn(name = "member_uri")})
+    @ManyToMany(cascade = CascadeType.ALL) @JoinTable(name = "members", joinColumns = {@JoinColumn(name = "resource_uri")},
+            inverseJoinColumns = {@JoinColumn(name = "member_uri")})
     public Set<AliasEntity> getMembers() {
         return members;
     }
@@ -169,8 +167,7 @@ public class BoardIndexEntity extends CommonBase {
         this.members = members;
     }
 
-    @ManyToOne(targetEntity = AliasEntity.class)
-    @JoinColumn(name = "owner", nullable = true)
+    @ManyToOne(targetEntity = AliasEntity.class) @JoinColumn(name = "owner", nullable = true)
     public AliasEntity getOwner() {
         return owner;
     }
@@ -238,8 +235,7 @@ public class BoardIndexEntity extends CommonBase {
         this.updated = updated;
     }
 
-    @Id
-    @Column(name = "uri", nullable = false)
+    @Id @Column(name = "uri", nullable = false)
     public String getUri() {
         return uri;
     }

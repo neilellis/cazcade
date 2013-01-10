@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import javax.annotation.Nonnull;
@@ -20,8 +24,8 @@ public enum LiquidPermission {
                 return MODIFY;
             case 'e':
                 return EDIT;
-//            case 'x':
-//                return EXECUTE;
+            //            case 'x':
+            //                return EXECUTE;
             case 'd':
                 return DELETE;
             case 's':

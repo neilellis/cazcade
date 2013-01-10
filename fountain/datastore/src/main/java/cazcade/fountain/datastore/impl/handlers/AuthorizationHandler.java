@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.common.Logger;
@@ -33,8 +37,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
      * @param request
      * @return
      */
-    @Override
-    @Nonnull
+    @Override @Nonnull
     public AuthorizationRequest handle(@Nonnull final AuthorizationRequest request) throws InterruptedException {
         final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
         final Transaction transaction = fountainNeo.beginTx();
@@ -47,7 +50,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
             }
             else {
                 final LiquidURI uri = request.getUri();
-                if(!request.hasUri()) {
+                if (!request.hasUri()) {
                     throw new AuthorizationException("Both target and URI were null");
                 }
                 persistedEntity = fountainNeo.findByURI(uri);
@@ -78,7 +81,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (EntityNotFoundException enfe) {
             log.warn("Client asked for authorization on  " + request.getTarget() + " which could not be found.");
-//            entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_INVALID.getAttribute());
+            //            entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.AUTHORIZATION_INVALID.getAttribute());
             return LiquidResponseHelper.forResourceNotFound(enfe.getMessage(), request);
         } catch (RuntimeException exception) {
             transaction.failure();
@@ -88,8 +91,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
         }
     }
 
-    private static boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final LSDPersistedEntity persistedEntity)
-            throws InterruptedException {
+    private static boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final LSDPersistedEntity persistedEntity) throws InterruptedException {
         boolean auth;
         final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
         auth = persistedEntity.isAuthorized(sessionIdentifier, request.getActions());

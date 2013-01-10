@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.api;
 
 import cazcade.liquid.api.*;
@@ -11,11 +15,9 @@ import javax.annotation.Nullable;
  */
 public interface AuthorizationService {
     @Nonnull
-    AuthorizationStatus authorize(LiquidSessionIdentifier identity, LiquidUUID resource, LiquidPermission permission)
-            throws Exception;
+    AuthorizationStatus authorize(LiquidSessionIdentifier identity, LiquidUUID resource, LiquidPermission permission) throws Exception;
 
-    @Nullable
-    LiquidRequest authorize(LiquidRequest liquidRequest) throws Exception;
+    @Nullable LiquidRequest authorize(LiquidRequest liquidRequest) throws Exception;
 
     /**
      * Used to authorize requests after the fact, using the entity returned. Obviously this should
@@ -34,6 +36,5 @@ public interface AuthorizationService {
      * @return the entity passed in or an authorization failure entity.
      */
     @Nonnull
-    LiquidMessage postAuthorize(LiquidSessionIdentifier identity, AbstractRetrievalRequest request, LiquidPermission permission)
-            throws Exception;
+    LiquidMessage postAuthorize(LiquidSessionIdentifier identity, AbstractRetrievalRequest request, LiquidPermission permission) throws Exception;
 }

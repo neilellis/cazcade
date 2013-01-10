@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.security.tomcat;
 
 import cazcade.common.Logger;
@@ -38,8 +42,7 @@ public class FountainRealm extends SecurityProvider implements Realm {
     }
 
     @Nonnull
-    public Principal authenticate(final String s, final String s1, final String s2, final String s3, final String s4,
-                                  final String s5, final String s6, final String s7) {
+    public Principal authenticate(final String s, final String s1, final String s2, final String s3, final String s4, final String s5, final String s6, final String s7) {
         throw new UnsupportedOperationException();
     }
 
@@ -76,15 +79,14 @@ public class FountainRealm extends SecurityProvider implements Realm {
         return "Fountain Data Store Security Realm";
     }
 
-    public boolean hasResourcePermission(@Nonnull final Request request, final Response response,
-                                         final SecurityConstraint[] securityConstraints, final Context context) throws IOException {
+    public boolean hasResourcePermission(@Nonnull final Request request, final Response response, final SecurityConstraint[] securityConstraints, final Context context) throws IOException {
         if (request.getPathInfo() == null) {
             return false;
         }
         log.debug("hasResourcePermission() - request.getPathInfo() " + request.getPathInfo());
         if (request.getPrincipal().getName() == null || "anon".equals(request.getPrincipal().getName())) {
-            return request.getPathInfo().matches("/user/create[\\.a-z]*") && "GET".equals(request.getMethod()) ||
-                   request.getPathInfo().matches("/user[\\.a-z]*") && "POST".equals(request.getMethod());
+            return request.getPathInfo().matches("/user/create[\\.a-z]*") && "GET".equals(request.getMethod())
+                   || request.getPathInfo().matches("/user[\\.a-z]*") && "POST".equals(request.getMethod());
         }
         else {
             return true;
@@ -99,8 +101,7 @@ public class FountainRealm extends SecurityProvider implements Realm {
         return true;
     }
 
-    public boolean hasUserDataPermission(final Request request, final Response response,
-                                         final SecurityConstraint[] securityConstraints) throws IOException {
+    public boolean hasUserDataPermission(final Request request, final Response response, final SecurityConstraint[] securityConstraints) throws IOException {
         return true;
     }
 

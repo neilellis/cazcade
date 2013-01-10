@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.servlet;
 
 import cazcade.common.Logger;
@@ -36,14 +40,10 @@ public class LiquidRestServlet extends AbstractRestServlet {
     }
 
     @Override
-    public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp,
-                           final String pathWithQuery, @Nonnull final String serviceName, @Nonnull final String methodName,
-                           @Nonnull final List<LiquidUUID> uuids, @Nullable final String sessionId, final String format)
-            throws Exception, InvocationTargetException, IllegalAccessException {
+    public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final String pathWithQuery, @Nonnull final String serviceName, @Nonnull final String methodName, @Nonnull final List<LiquidUUID> uuids, @Nullable final String sessionId, final String format) throws Exception, InvocationTargetException, IllegalAccessException {
         if (sessionId == null) {
             if (("create".equals(methodName) || "get".equals(methodName)) && ("user".equals(serviceName) ||
-                                                                              "alias".equals(serviceName
-                                                                                            ) ||
+                                                                              "alias".equals(serviceName) ||
                                                                               "session".equals(serviceName))) {
                 //then all is well
             }
@@ -103,10 +103,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
     }
 
-    private boolean matchMethod(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp,
-                                final RestHandler restHandler, @Nonnull final List<LiquidUUID> uuids, final String methodName,
-                                @Nonnull final Method method, final String format, final LSDBaseEntity lsdEntity)
-            throws Exception, InvocationTargetException, IllegalAccessException {
+    private boolean matchMethod(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final RestHandler restHandler, @Nonnull final List<LiquidUUID> uuids, final String methodName, @Nonnull final Method method, final String format, final LSDBaseEntity lsdEntity) throws Exception, InvocationTargetException, IllegalAccessException {
         final List<Object> arguments = new ArrayList<Object>();
         if (Modifier.isPublic(method.getModifiers())) {
             if (method.getName().equals(methodName)) {
@@ -159,8 +156,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
         return parameterMap;
     }
 
-    private void invoke(@Nonnull final HttpServletResponse resp, final RestHandler restHandler, @Nonnull final Method method,
-                        final String format, @Nonnull final List<Object> arguments) throws Exception {
+    private void invoke(@Nonnull final HttpServletResponse resp, final RestHandler restHandler, @Nonnull final Method method, final String format, @Nonnull final List<Object> arguments) throws Exception {
         log.debug("Invoking {0}{1}", method.getName(), arguments.toArray());
         Object result = null;
         try {
@@ -199,8 +195,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
     }
 
-    private void doLSDResponse(@Nonnull final LSDTransferEntity responseEntity, final String format,
-                               @Nonnull final HttpServletResponse resp) throws IOException {
+    private void doLSDResponse(@Nonnull final LSDTransferEntity responseEntity, final String format, @Nonnull final HttpServletResponse resp) throws IOException {
         //todo: separate this code out
         if (responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
             resp.sendError(404, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
@@ -215,9 +210,8 @@ public class LiquidRestServlet extends AbstractRestServlet {
             resp.sendError(400, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
         }
 
-        final LSDMarshaler marshaler = ((LSDMarshallerFactory) applicationContext.getBean("marshalerFactory")).getMarshalers().get(
-                format
-                                                                                                                                  );
+        final LSDMarshaler marshaler = ((LSDMarshallerFactory) applicationContext.getBean("marshalerFactory")).getMarshalers()
+                                                                                                              .get(format);
         resp.setContentType(marshaler.getMimeType());
         log.session(responseEntity.dump());
         try {

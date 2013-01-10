@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.server;
 
 import cazcade.common.CommonConstants;
@@ -21,10 +25,10 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
     @Nonnull
     private static final Logger log = Logger.getLogger(DataStoreServerMessageHandler.class);
     private FountainRequestCompensator<LiquidRequest> compensator;
-    private FountainDataStore store;
-    private LiquidMessageSender messageSender;
-    private InMemoryPubSub pubSub;
-    private long listenerId;
+    private FountainDataStore                         store;
+    private LiquidMessageSender                       messageSender;
+    private InMemoryPubSub                            pubSub;
+    private long                                      listenerId;
 
     public void start() {
         listenerId = pubSub.addListener(CommonConstants.SERVICE_STORE, this);
@@ -45,19 +49,23 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
 
             log.addContext(request);
             final LiquidUUID session = request.getSessionIdentifier().getSession();
-            log.setSession(session == null ? null : session.toString(),
-                    request.getSessionIdentifier().getName()
-                          );
+            log.setSession(session == null ? null : session.toString(), request.getSessionIdentifier().getName());
             if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
-                log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(),
-                        ((AbstractRequest) request).hasTarget() ? ((AbstractRequest) request).getTarget() : "null",
-                        ((AbstractRequest) request).hasUri() ? ((AbstractRequest) request).getUri() : "null"
-                         );
+                log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(), ((AbstractRequest) request)
+                                                                                                                             .hasTarget()
+                                                                                                                     ? ((AbstractRequest) request)
+                                                                                                                             .getTarget()
+                                                                                                                     : "null", ((AbstractRequest) request)
+                                                                                                                                       .hasUri()
+                                                                                                                               ? ((AbstractRequest) request)
+                                                                                                                                       .getUri()
+                                                                                                                               : "null");
             }
             else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
-                log.debug("Retrieve user request for {0}/{1}", ((AbstractRequest) request).hasTarget() ? ((AbstractRequest) request).getTarget() : "null",
-                        ((AbstractRequest) request).hasUri() ? ((AbstractRequest) request).getUri() : "null"
-                         );
+                log.debug("Retrieve user request for {0}/{1}", ((AbstractRequest) request).hasTarget() ? ((AbstractRequest) request)
+                        .getTarget() : "null", ((AbstractRequest) request).hasUri()
+                                               ? ((AbstractRequest) request).getUri()
+                                               : "null");
             }
             else {
                 log.debug("Received request {0}", request);

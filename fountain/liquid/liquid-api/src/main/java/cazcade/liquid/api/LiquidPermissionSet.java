@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import javax.annotation.Nonnull;
@@ -30,7 +34,7 @@ public class LiquidPermissionSet {
     @Nonnull
     private static final LiquidPermissionSet privateSharedPermissions;
 
-    private long permissions;
+    private           long    permissions;
     private transient boolean readonly;
 
     static {
@@ -65,10 +69,9 @@ public class LiquidPermissionSet {
         LiquidPermissionSet.addReadPermissions(LiquidPermissionScope.CHILD, childSafePermissions);
     }
 
-    public static void removeAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
-                                            @Nonnull final LiquidPermissionSet set) {
+    public static void removeAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.removePermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
+        //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.removePermission(liquidPermissionScope, MODIFY);
         set.removePermission(liquidPermissionScope, EDIT);
         set.removePermission(liquidPermissionScope, DELETE);
@@ -81,10 +84,9 @@ public class LiquidPermissionSet {
         permissions &= ~toPermissionBit(scope, permission);
     }
 
-    public static void addAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
-                                         @Nonnull final LiquidPermissionSet set) {
+    public static void addAllPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
+        //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.addPermission(liquidPermissionScope, MODIFY);
         set.addPermission(liquidPermissionScope, EDIT);
         set.addPermission(liquidPermissionScope, DELETE);
@@ -106,26 +108,23 @@ public class LiquidPermissionSet {
         return 1L << permission.ordinal() << BITS_PER_SCOPE * scope.ordinal();
     }
 
-    public static void addEditPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
-                                          @Nonnull final LiquidPermissionSet set) {
+    public static void addEditPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
+        //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.addPermission(liquidPermissionScope, MODIFY);
         set.addPermission(liquidPermissionScope, EDIT);
         set.addPermission(liquidPermissionScope, DELETE);
     }
 
-    public static void addModifyPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
-                                            @Nonnull final LiquidPermissionSet set) {
+    public static void addModifyPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
+        //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
         set.addPermission(liquidPermissionScope, MODIFY);
     }
 
-    public static void addReadPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope,
-                                          @Nonnull final LiquidPermissionSet set) {
+    public static void addReadPermissions(@Nonnull final LiquidPermissionScope liquidPermissionScope, @Nonnull final LiquidPermissionSet set) {
         set.addPermission(liquidPermissionScope, VIEW);
-//        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
+        //        set.addPermission(liquidPermissionScope, LiquidPermission.EXECUTE);
     }
 
     @Nonnull
@@ -368,9 +367,9 @@ public class LiquidPermissionSet {
             if (hasPermission(liquidPermissionScope, EDIT)) {
                 sb.append(EDIT.asShortForm());
             }
-//            if (hasPermission(liquidPermissionScope, LiquidPermission.EXECUTE)) {
-//                sb.append(LiquidPermission.EXECUTE.asShortForm());
-//            }
+            //            if (hasPermission(liquidPermissionScope, LiquidPermission.EXECUTE)) {
+            //                sb.append(LiquidPermission.EXECUTE.asShortForm());
+            //            }
             if (hasPermission(liquidPermissionScope, DELETE)) {
                 sb.append(DELETE.asShortForm());
             }

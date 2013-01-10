@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.messaging.session;
 
 /**
@@ -26,22 +30,22 @@ public class ClientSession {
         this.collector = collector;
     }
 
-//    public void addMessage(final LiquidMessage message) {
-//        log.debug("Adding message to session.");
-//        synchronized (messages) {
-//            messages.add(message);
-//        }
-//        if (continuation != null) {
-//            if (continuation.isSuspended()) {
-//                continuation.resume();
-//            }
-//        }
-//    }
+    //    public void addMessage(final LiquidMessage message) {
+    //        log.debug("Adding message to session.");
+    //        synchronized (messages) {
+    //            messages.add(message);
+    //        }
+    //        if (continuation != null) {
+    //            if (continuation.isSuspended()) {
+    //                continuation.resume();
+    //            }
+    //        }
+    //    }
 
-//    @Deprecated
-//    public void addPreviousLocations(final ArrayList<String> locations) {
-//        previousLocations.addAll(locations);
-//    }
+    //    @Deprecated
+    //    public void addPreviousLocations(final ArrayList<String> locations) {
+    //        previousLocations.addAll(locations);
+    //    }
 
     public void close() {
         log.debug("Closing session.");
@@ -57,15 +61,13 @@ public class ClientSession {
         return lastUsed;
     }
 
-//    public ArrayList<String> getPreviousLocations() {
-//        return previousLocations;
-//    }
-//
-//    public void setPreviousLocations(final ArrayList<String> location) {
-//        previousLocations = location;
-//    }
-
-
+    //    public ArrayList<String> getPreviousLocations() {
+    //        return previousLocations;
+    //    }
+    //
+    //    public void setPreviousLocations(final ArrayList<String> location) {
+    //        previousLocations = location;
+    //    }
 
 
     public FountainPubSub.Collector getCollector() {

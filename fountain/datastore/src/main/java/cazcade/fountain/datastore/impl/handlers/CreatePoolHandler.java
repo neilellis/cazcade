@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.DataStoreException;
@@ -42,15 +46,11 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
             LiquidURI owner = request.getAlias();
             owner = defaultAndCheckOwner(request, owner);
 
-            final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity,
-                                                                   request.getType(), request.getName(), request.getX(),
-                                                                   request.getY(), request.getTitle(), request.isListed()
-                                                                  );
+            final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity, request
+                    .getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
             pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription());
-            final LSDTransferEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(),
-                                                                                                pool, null, request.getDetail(),
-                                                                                                request.isInternal(), false
-                                                                                               );
+            final LSDTransferEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request
+                    .getDetail(), request.isInternal(), false);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

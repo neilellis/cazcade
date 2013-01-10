@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.common.exec;
 
 import cazcade.common.Logger;
@@ -25,17 +29,16 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
 
     private final int threadPoolSize;
 
-    private List<ThreadPoolExecutor> executors;
-    private final int queueSize;
-    private final int requeueDelay;
+    private       List<ThreadPoolExecutor> executors;
+    private final int                      queueSize;
+    private final int                      requeueDelay;
 
     private final int threadsPerBucket;
 
     @Nonnull
     private final AtomicLong count = new AtomicLong();
 
-    public FountainExecutorServiceImpl(final int maxRetry, final int threadPoolSize, final int queueSize, final int requeueDelay,
-                                       final int threadsPerBucket) {
+    public FountainExecutorServiceImpl(final int maxRetry, final int threadPoolSize, final int queueSize, final int requeueDelay, final int threadsPerBucket) {
         super();
         this.maxRetry = maxRetry;
         this.threadPoolSize = threadPoolSize;
@@ -44,8 +47,7 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
         this.threadsPerBucket = threadsPerBucket;
     }
 
-    public void execute(final boolean retry, @Nonnull final Object key, @Nonnull final FountainExecutable executable)
-            throws InterruptedException {
+    public void execute(final boolean retry, @Nonnull final Object key, @Nonnull final FountainExecutable executable) throws InterruptedException {
         begin();
         try {
             final int executorId = Math.abs(key.hashCode() % threadPoolSize);
@@ -56,8 +58,7 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
         }
     }
 
-    private void executeInternal(final boolean retry, @Nonnull final FountainExecutable executable,
-                                 @Nonnull final ThreadPoolExecutor threadPoolExecutor) throws InterruptedException {
+    private void executeInternal(final boolean retry, @Nonnull final FountainExecutable executable, @Nonnull final ThreadPoolExecutor threadPoolExecutor) throws InterruptedException {
         boolean cont = true;
         while (cont) {
             try {
@@ -94,15 +95,14 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
                                     ErrorHandler.handle(t);
                                     log.error("Unrecoverable error.", t);
 
-//                                    System.exit(-1);
+                                    //                                    System.exit(-1);
                                 }
                             } while (retry && fail && count++ < maxRetry);
                         } finally {
                             count.decrementAndGet();
                         }
                     }
-                }
-                                          );
+                });
                 cont = false;
                 count.incrementAndGet();
             } catch (RejectedExecutionException e) {
@@ -139,10 +139,7 @@ public class FountainExecutorServiceImpl extends AbstractServiceStateMachine imp
         super.start();
         executors = new ArrayList<ThreadPoolExecutor>(threadPoolSize);
         for (int i = 0; i < threadPoolSize; i++) {
-            executors.add(new ThreadPoolExecutor(threadsPerBucket, threadsPerBucket, 3600, TimeUnit.SECONDS,
-                                                 new LinkedBlockingQueue<Runnable>(queueSize)
-            )
-                         );
+            executors.add(new ThreadPoolExecutor(threadsPerBucket, threadsPerBucket, 3600, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(queueSize)));
         }
         unlock();
     }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.FountainNeo;
@@ -27,10 +31,8 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
             final LiquidSessionIdentifier session = request.getSessionIdentifier();
             final LSDPersistedEntity userPersistedEntityImpl = fountainNeo.findByURI(session.getUserURL());
             assert userPersistedEntityImpl != null;
-            final LSDPersistedEntity aliasPersistedEntity = userDAO.createAlias(userPersistedEntityImpl, request.getRequestEntity(),
-                                                                                request.isMe(), request.isOrCreate(),
-                                                                                request.isClaim(), false
-                                                                               );
+            final LSDPersistedEntity aliasPersistedEntity = userDAO.createAlias(userPersistedEntityImpl, request.getRequestEntity(), request
+                    .isMe(), request.isOrCreate(), request.isClaim(), false);
             final LSDTransferEntity entity = aliasPersistedEntity.toLSD(request.getDetail(), request.isInternal());
             final String fullName = entity.hasAttribute(LSDAttribute.FULL_NAME)
                                     ? entity.getAttribute(LSDAttribute.FULL_NAME)
@@ -41,7 +43,7 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
             final LSDPersistedEntity boardsPoolEntity = fountainNeo.findByURI(new LiquidURI(FountainNeoImpl.BOARDS_URI));
             assert boardsPoolEntity != null;
             final LSDPersistedEntity reservedPool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), boardsPoolEntity, name, 0, 0, fullName, true);
-//            fountainNeo.removeAllPermissions(reservedPool);
+            //            fountainNeo.removeAllPermissions(reservedPool);
             fountainNeo.changeNodePermissionNoTx(reservedPool, request.getSessionIdentifier(), LiquidPermissionChangeType.MAKE_PUBLIC_READONLY);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);

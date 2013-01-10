@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
 import cazcade.liquid.api.lsd.LSDNode;
@@ -28,9 +32,7 @@ public class PListMarshaler implements LSDMarshaler {
 
     public void marshal(@Nullable final LSDTransferEntity lsdEntity, final OutputStream output) {
         if (lsdEntity == null) {
-            throw new NullPointerException(
-                    "A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null"
-            );
+            throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
         final DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = null;

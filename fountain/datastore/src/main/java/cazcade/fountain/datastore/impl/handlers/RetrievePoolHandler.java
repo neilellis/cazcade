@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LSDPersistedEntity;
@@ -20,29 +24,23 @@ public class RetrievePoolHandler extends AbstractDataStoreHandler<RetrievePoolRe
         try {
             final LSDTransferEntity entity;
             if (request.hasUri()) {
-                entity = poolDAO.getPoolAndContentsNoTx(request.getUri(), request.getDetail(), request.getOrder(),
-                                                        request.isContents(), request.isInternal(), request.getSessionIdentifier(),
-                                                        0, request.getMax(), request.isHistorical()
-                                                       );
+                entity = poolDAO.getPoolAndContentsNoTx(request.getUri(), request.getDetail(), request.getOrder(), request.isContents(), request
+                        .isInternal(), request.getSessionIdentifier(), 0, request.getMax(), request.isHistorical());
             }
             else {
                 throw new UnsupportedOperationException("Only URI retrieval supported now.");
-//                entity = poolDAO.getPoolAndContentsNoTx(request.getTarget(), request.getDetail(), request.getOrder(), request.isContents(), request.isInternal(), request.getSessionIdentifier(), 0, request.getMax(), request.isHistorical());
+                //                entity = poolDAO.getPoolAndContentsNoTx(request.getTarget(), request.getDetail(), request.getOrder(), request.isContents(), request.isInternal(), request.getSessionIdentifier(), 0, request.getMax(), request.isHistorical());
             }
             transaction.success();
             if (entity == null) {
                 if (request.isOrCreate()) {
                     final LSDPersistedEntity parentPersistedEntity = fountainNeo.findByURI(request.getUri().getParentURI());
 
-                    final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(),
-                                                                           parentPersistedEntity,
-                                                                           request.getUri().getLastPathElement(), 0.0, 0.0,
-                                                                           request.getUri().getLastPathElement(), request.isListed()
-                                                                          );
-                    final LSDTransferEntity newPoolEntity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(
-                            request.getSessionIdentifier(), pool, parentPersistedEntity, request.getDetail(), request.isInternal(),
-                            false
-                                                                                                              );
+                    final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), request.getAlias(), parentPersistedEntity, request
+                            .getUri()
+                            .getLastPathElement(), 0.0, 0.0, request.getUri().getLastPathElement(), request.isListed());
+                    final LSDTransferEntity newPoolEntity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, parentPersistedEntity, request
+                            .getDetail(), request.isInternal(), false);
                     transaction.success();
                     return LiquidResponseHelper.forServerSuccess(request, newPoolEntity);
                 }

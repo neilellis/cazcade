@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.messaging;
 
 import cazcade.common.Logger;
@@ -17,7 +21,7 @@ public class InMemoryPubSub implements FountainPubSub {
     private static final Logger log = Logger.getLogger(InMemoryPubSub.class);
 
     private static final Map<Long, KeyedListener> listeners = new HashMap<Long, KeyedListener>();
-    private static final AtomicLong counter = new AtomicLong();
+    private static final AtomicLong               counter   = new AtomicLong();
 
     @Override
     public void dispatch(final String key, final LiquidRequest request) {
@@ -39,7 +43,7 @@ public class InMemoryPubSub implements FountainPubSub {
                 return listener.getHandler().handle(request);
             }
         }
-        throw new FountainPubSubException("No listener for synchronous send to "+key);
+        throw new FountainPubSubException("No listener for synchronous send to " + key);
     }
 
     @Override
@@ -52,7 +56,7 @@ public class InMemoryPubSub implements FountainPubSub {
 
     private static class KeyedListener {
 
-        private final String key;
+        private final String                              key;
         private final LiquidMessageHandler<LiquidRequest> handler;
 
         private KeyedListener(final String key, final LiquidMessageHandler<LiquidRequest> handler) {
@@ -70,8 +74,8 @@ public class InMemoryPubSub implements FountainPubSub {
         }
 
         public boolean matches(final String keyToMatch) {
-            return (key.endsWith(".*") || key.endsWith(".#")) && key.substring(0, key.length() - 2).equals(keyToMatch) ||
-                   key.equals(keyToMatch);
+            return (key.endsWith(".*") || key.endsWith(".#")) && key.substring(0, key.length() - 2).equals(keyToMatch)
+                   || key.equals(keyToMatch);
 
         }
     }
@@ -96,8 +100,8 @@ public class InMemoryPubSub implements FountainPubSub {
     }
 
     private static class InMemoryCollector implements Collector, LiquidMessageHandler<LiquidRequest> {
-        private Map<String, Long> listeners = new HashMap<String, Long>();
-        private List<LiquidMessage> messages = new ArrayList<LiquidMessage>();
+        private Map<String, Long>   listeners = new HashMap<String, Long>();
+        private List<LiquidMessage> messages  = new ArrayList<LiquidMessage>();
         private FountainPubSub pubSub;
 
         public InMemoryCollector(FountainPubSub fountainPubSub) {
@@ -155,8 +159,7 @@ public class InMemoryPubSub implements FountainPubSub {
             }
         }
 
-        @Nonnull
-        @Override
+        @Nonnull @Override
         public LiquidRequest handle(LiquidRequest message) throws Exception {
             messages.add(message);
             return message;

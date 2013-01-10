@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -29,7 +33,6 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
         field.setOnChangeAction(onEnterAction);
         bindings.put(attribute, field);
     }
-
 
     @Override
     protected void bind(@Nullable final LSDTransferEntity entity) {

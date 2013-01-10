@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import javax.annotation.Nonnull;
@@ -36,12 +40,11 @@ public class LiquidURI implements Serializable {
     }
 
     public LiquidURI(@Nonnull final LiquidURI url, @Nonnull final String subPath) {
-        this(url.getPath().endsWith("/") ? url + lowerCaseIfRequired(url.getScheme(), subPath) : lowerCaseIfRequired(
-                url.getScheme(), subPath
-                                                                                                                    ) +
-                                                                                                 "/" +
-                                                                                                 subPath
-            );
+        this(url.getPath().endsWith("/")
+             ? url + lowerCaseIfRequired(url.getScheme(), subPath)
+             : lowerCaseIfRequired(url.getScheme(), subPath) +
+               "/" +
+               subPath);
     }
 
     public LiquidURIScheme getScheme() {
@@ -69,8 +72,10 @@ public class LiquidURI implements Serializable {
             throw new IllegalArgumentException("Attempted to create an empty URI.");
         }
         //Various Liquid URIs should be lowercase only
-        if (uri.startsWith(POOL_SCHEME_PREFIX) || uri.startsWith("alias:") || uri.startsWith("user:") || uri.startsWith("session:"
-                                                                                                                       )) {
+        if (uri.startsWith(POOL_SCHEME_PREFIX)
+            || uri.startsWith("alias:")
+            || uri.startsWith("user:")
+            || uri.startsWith("session:")) {
             this.uri = uri.toLowerCase();
         }
         else {
