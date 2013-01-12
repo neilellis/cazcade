@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.apps.twitter.auth.signin;
 
 import cazcade.common.Logger;
@@ -15,8 +19,8 @@ import javax.servlet.http.HttpServlet;
 public class AbstractTwitterServlet extends HttpServlet {
     @Nonnull
     private static final Logger log = Logger.getLogger(AbstractTwitterServlet.class);
-    private ClassPathXmlApplicationContext applicationContext;
-    protected FountainDataStore dataStore;
+    private   ClassPathXmlApplicationContext applicationContext;
+    protected FountainDataStore              dataStore;
 
     @Override
     public void init(final ServletConfig config) throws ServletException {
@@ -26,7 +30,7 @@ public class AbstractTwitterServlet extends HttpServlet {
         try {
             dataStore.startIfNotStarted();
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
 
     }

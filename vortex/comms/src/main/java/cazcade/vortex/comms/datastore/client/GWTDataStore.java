@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.comms.datastore.client;
 
 import cazcade.liquid.api.*;
@@ -28,27 +32,25 @@ import java.util.Arrays;
  */
 public class GWTDataStore {
 
-    public static final int UNIQUE_ID_CACHE_SIZE = 200;
-    public static final int MAX_RETRY = 10;
+    public static final  int     UNIQUE_ID_CACHE_SIZE = 200;
+    public static final  int     MAX_RETRY            = 10;
+    //todo: revisit offline behaviour and caching
+    private static final boolean SUPPORT_OFFLINE      = false;
     @Nonnull
     private final Bus bus;
-    @Nullable
-    private LiquidSessionIdentifier identity;
     //todo locations!
     @Nonnull
     private final ArrayList<String> locations = new ArrayList<String>();
-    private boolean collecting;
-
-    //todo: revisit offline behaviour and caching
-    private static final boolean SUPPORT_OFFLINE = false;
     private final Runnable onLoggedOutAction;
     @Nonnull
-    private final ArrayList<String> ids = new ArrayList<String>();
+    private final ArrayList<String>        ids                = new ArrayList<String>();
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    @Nullable
+    private LiquidSessionIdentifier identity;
+    private boolean                 collecting;
 
-    public GWTDataStore(@Nonnull final LiquidSessionIdentifier newIdentity, @Nonnull final Runnable onStartup,
-                        final Runnable onLoggedOutAction) {
+    public GWTDataStore(@Nonnull final LiquidSessionIdentifier newIdentity, @Nonnull final Runnable onStartup, final Runnable onLoggedOutAction) {
         this.onLoggedOutAction = onLoggedOutAction;
         identity = newIdentity;
         bus = BusFactory.getInstance();
@@ -76,8 +78,7 @@ public class GWTDataStore {
                 onStartup.run();
 
             }
-        }
-                    );
+        });
 
 
     }
@@ -88,9 +89,9 @@ public class GWTDataStore {
             public void handle(@Nonnull final LiquidMessage message) {
                 if (((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
                     final VisitPoolRequest request = (VisitPoolRequest) message;
-                    if (request.getSessionIdentifier() == null || request.getSessionIdentifier().getAlias().equals(
-                            identity.getAlias()
-                                                                                                                  )) {
+                    if (request.getSessionIdentifier().getSession() == null || request.getSessionIdentifier()
+                                                                                      .getAlias()
+                                                                                      .equals(identity.getAlias())) {
                         if (request.getState() == LiquidMessageState.SUCCESS) {
                             locations.clear();
                             locations.add(newIdentity.getAlias().asReverseDNSString());
@@ -98,20 +99,20 @@ public class GWTDataStore {
                             locations.add(responseEntity.getURI().asReverseDNSString() + ".#");
                             locations.add(responseEntity.getUUID().toString());
                         }
-                        else if (request.getState() == LiquidMessageState.PROVISIONAL ||
-                                 request.getState() == LiquidMessageState.INITIAL) {
-                            if (request.getUri() != null) {
+                        else if (request.getState() == LiquidMessageState.PROVISIONAL
+                                 || request.getState() == LiquidMessageState.INITIAL) {
+                            if (request.hasUri()) {
                                 locations.add(request.getUri().asReverseDNSString() + ".#");
                             }
-                            if (request.getTarget() != null) {
+                            if (request.hasTarget()) {
                                 locations.add(request.getTarget().toString());
                             }
                         }
                         else if (request.getState() == LiquidMessageState.FAIL) {
-                            if (request.getUri() != null) {
+                            if (request.hasUri()) {
                                 locations.remove(request.getUri().asReverseDNSString() + ".#");
                             }
-                            if (request.getTarget() != null) {
+                            if (request.hasTarget()) {
                                 locations.remove(request.getTarget().toString());
                             }
 
@@ -120,67 +121,58 @@ public class GWTDataStore {
                     }
                 }
             }
-        }
-                  );
+        });
         bus.listenForAllButTheseTypes(Arrays.asList(LiquidMessageType.RESPONSE), new AbstractBusListener() {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
                 ClientLog.log("Received a potential message to be stored " + message);
-                if (message.getOrigin() == LiquidMessageOrigin.UNASSIGNED &&
-                    message.getMessageType() == LiquidMessageType.REQUEST) {
+                if (message.getOrigin() == LiquidMessageOrigin.UNASSIGNED
+                    && message.getMessageType() == LiquidMessageType.REQUEST) {
                     ClientLog.log("Storing " + message);
                     //remove the id to allow caching.
-//                            final LiquidUUID id = message.getId();
-//                            message.setId(null);
+                    //                            final LiquidUUID id = message.getId();
+                    //                            message.setId(null);
                     //remove the identity
-//                            ((LiquidRequest) message).setIdentity(null);
+                    //                            ((LiquidRequest) message).setIdentity(null);
                     ((LiquidRequest) message).setSessionId(identity);
                     if (message.asSerializedRequest().getEntity().getTypeDef() == null) {
                         throw new RuntimeException("Invalid request from Bus.");
                     }
 
-                    DataStoreService.App.getInstance().process(message.asSerializedRequest(),
-                                                               new AsyncCallback<SerializedRequest>() {
-                                                                   public int count;
+                    DataStoreService.App
+                                    .getInstance()
+                                    .process(message.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
+                                        public int count;
 
-                                                                   public void onFailure(final Throwable caught) {
-                                                                       ClientLog.log(caught);
-                                                                       if (caught instanceof StatusCodeException &&
-                                                                           count++ < MAX_RETRY) {
-                                                                           final AsyncCallback<SerializedRequest> callback = this;
-                                                                           new Timer() {
-                                                                               @Override
-                                                                               public void run() {
-                                                                                   if (message.asSerializedRequest()
-                                                                                              .getEntity()
-                                                                                              .getTypeDef() == null) {
-                                                                                       throw new RuntimeException(
-                                                                                               "Invalid request from Bus."
-                                                                                       );
-                                                                                   }
-                                                                                   DataStoreService.App.getInstance().process(
-                                                                                           message.asSerializedRequest(), callback
-                                                                                                                             );
-                                                                               }
-                                                                           }.schedule(1000 * count);
-                                                                       }
-                                                                   }
+                                        public void onFailure(final Throwable caught) {
+                                            ClientLog.log(caught);
+                                            if (caught instanceof StatusCodeException && count++ < MAX_RETRY) {
+                                                final AsyncCallback<SerializedRequest> callback = this;
+                                                new Timer() {
+                                                    @Override
+                                                    public void run() {
+                                                        if (message.asSerializedRequest().getEntity().getTypeDef() == null) {
+                                                            throw new RuntimeException("Invalid request from Bus.");
+                                                        }
+                                                        DataStoreService.App
+                                                                        .getInstance()
+                                                                        .process(message.asSerializedRequest(), callback);
+                                                    }
+                                                }.schedule(1000 * count);
+                                            }
+                                        }
 
-                                                                   public void onSuccess(@Nullable final SerializedRequest result) {
-//                                    result.setId(id);
-                                                                       if (result != null) {
-                                                                           final AbstractRequest response = deserializeRequest(
-                                                                                   result
-                                                                                                                              );
-                                                                           bus.dispatch(response);
-                                                                       }
-                                                                   }
-                                                               }
-                                                              );
+                                        public void onSuccess(@Nullable final SerializedRequest result) {
+                                            //                                    result.setId(id);
+                                            if (result != null) {
+                                                final AbstractRequest response = deserializeRequest(result);
+                                                bus.dispatch(response);
+                                            }
+                                        }
+                                    });
                 }
             }
-        }
-                                     );
+        });
     }
 
     @Nullable
@@ -191,30 +183,30 @@ public class GWTDataStore {
     }
 
 
-//    private void initCachedDataStore(final String applicationVersion) {
-//        if (SUPPORT_OFFLINE) {
-//            if (Storage.isLocalStorageSupported()) {
-//                //We clear down the storage if the applicationVersion has changed.
-//                final Storage storage = Storage.getLocalStorageIfSupported();
-//                if (storage.getItem(applicationVersion) == null) {
-//                    storage.clear();
-//                    storage.setItem(applicationVersion, "current-version");
-//                }
-//            }
-//            final DataStoreServiceAsync offline = GWT.create(DataStoreService.class);
-//            RpcRequestBuilder builder = new RpcRequestBuilder() {
-//                @Override
-//                protected RequestBuilder doCreate(String serviceEntryPoint) {
-//                    return new OfflineRequestBuilder(identity, RequestBuilder.POST,
-//                            ((ServiceDefTarget) offline).getServiceEntryPoint(), applicationVersion);
-//                }
-//            };
-//            ((ServiceDefTarget) offline).setRpcRequestBuilder(builder);
-//            this.cachedService = offline;
-//        } else {
-//            this.cachedService = DataStoreService.App.getInstance();
-//        }
-//    }
+    //    private void initCachedDataStore(final String applicationVersion) {
+    //        if (SUPPORT_OFFLINE) {
+    //            if (Storage.isLocalStorageSupported()) {
+    //                //We clear down the storage if the applicationVersion has changed.
+    //                final Storage storage = Storage.getLocalStorageIfSupported();
+    //                if (storage.getItem(applicationVersion) == null) {
+    //                    storage.clear();
+    //                    storage.setItem(applicationVersion, "current-version");
+    //                }
+    //            }
+    //            final DataStoreServiceAsync offline = GWT.create(DataStoreService.class);
+    //            RpcRequestBuilder builder = new RpcRequestBuilder() {
+    //                @Override
+    //                protected RequestBuilder doCreate(String serviceEntryPoint) {
+    //                    return new OfflineRequestBuilder(identity, RequestBuilder.POST,
+    //                            ((ServiceDefTarget) offline).getServiceEntryPoint(), applicationVersion);
+    //                }
+    //            };
+    //            ((ServiceDefTarget) offline).setRpcRequestBuilder(builder);
+    //            this.cachedService = offline;
+    //        } else {
+    //            this.cachedService = DataStoreService.App.getInstance();
+    //        }
+    //    }
 
     public void process(@Nonnull final LiquidRequest request, @Nonnull final AsyncCallback<LiquidMessage> callback) {
         request.setSessionId(identity);
@@ -232,10 +224,27 @@ public class GWTDataStore {
                 final AbstractRequest response = deserializeRequest(result);
                 callback.onSuccess(response);
             }
-        }
-                                                  );
+        });
     }
 
+    private boolean unique(final String uniqueId) {
+        if (ids.contains(uniqueId)) {
+            return false;
+        }
+        else {
+            threadSafeExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    if (ids.size() > UNIQUE_ID_CACHE_SIZE) {
+                        ids.remove(0);
+                    }
+                }
+            });
+            ids.add(uniqueId);
+            return true;
+        }
+
+    }
 
     private class CollectCallback implements AsyncCallback<ArrayList<SerializedRequest>> {
 
@@ -262,9 +271,7 @@ public class GWTDataStore {
                         }
                     }
                 }.schedule(10000);
-                Window.alert(
-                        "A new version of the application is now available, this page will reload in 10 seconds, if you have further problems please exit and restart your browser please."
-                            );
+                Window.alert("A new version of the application is now available, this page will reload in 10 seconds, if you have further problems please exit and restart your browser please.");
             }
             else {
 
@@ -311,26 +318,6 @@ public class GWTDataStore {
                 ClientLog.log("Result from collect was null.");
             }
         }
-    }
-
-    private boolean unique(final String uniqueId) {
-        if (ids.contains(uniqueId)) {
-            return false;
-        }
-        else {
-            threadSafeExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    if (ids.size() > UNIQUE_ID_CACHE_SIZE) {
-                        ids.remove(0);
-                    }
-                }
-            }
-                                      );
-            ids.add(uniqueId);
-            return true;
-        }
-
     }
 
 

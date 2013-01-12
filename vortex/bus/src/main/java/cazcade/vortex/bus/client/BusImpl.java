@@ -105,7 +105,7 @@ public class BusImpl implements Bus {
         if (message == null) {
             throw new IllegalArgumentException("Cannot assign a UUID to a null message.");
         }
-        if (message.getId() == null) {
+        if (!message.hasId()) {
             topUpUUIDs(new Runnable() {
                 public void run() {
                     message.setId(uuids.pop());
@@ -162,8 +162,13 @@ public class BusImpl implements Bus {
                 keys.add("*:" + affectedEntity);
             }
         }
-        final LSDBaseEntity response = message.getResponse();
-        final String responseEntityId = response == null ? "" : response.getUUID().toString();
+        final String responseEntityId;
+        if (message.hasResponseEntity()) {
+            responseEntityId = message.getResponse().getUUID().toString();
+        }
+        else {
+            responseEntityId = "";
+        }
 
         keys.add(message.getMessageType().name() + ":" + responseEntityId);
         keys.add(message.getMessageType().name() + ":*");
@@ -410,24 +415,15 @@ public class BusImpl implements Bus {
         public void handleResponse(@Nonnull final LiquidMessage response) {
             //            ClientLog.log("Callback processor processing " + response.getId());
             for (final ResponseCallback responseCallback : callbacks) {
-                final LSDBaseEntity responseEntity = response.getResponse();
-                if (message.getState() == LiquidMessageState.FAIL || message.getResponse() != null && message.getResponse()
-                                                                                                             .isError()) {
-                    if (responseEntity == null) {
-                        ClientLog.log("Callback handling failed and response entity was null. ");
-                    }
-                    else {
-                        ClientLog.log("Callback handling failed " + responseEntity.asDebugText());
-                    }
+                if (message.getState() == LiquidMessageState.FAIL || message.hasResponseEntity() && message.getResponse()
+                                                                                                           .isError()) {
+                    final LSDBaseEntity responseEntity = response.getResponse();
+                    ClientLog.log("Callback handling failed " + responseEntity.asDebugText());
                     responseCallback.onFailure(message, response);
                 }
                 else {
-                    if (responseEntity == null) {
-                        ClientLog.log("Callback handling success, but response entity was null. ");
-                    }
-                    else {
-                        ClientLog.log("Callback handling success " + responseEntity.asDebugText());
-                    }
+                    final LSDBaseEntity responseEntity = response.getResponse();
+                    ClientLog.log("Callback handling success " + responseEntity.asDebugText());
                     responseCallback.onSuccess(message, response);
                 }
             }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.richtext;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -37,7 +41,11 @@ public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView>
             @Override
             public void run() {
                 RichTextPresenter.super.update(newEntity, replaceEntity);
+                if(newEntity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
                 getPoolObjectView().setText(newEntity.getAttribute(LSDAttribute.TEXT_EXTENDED));
+                } else {
+                    getPoolObjectView().setText("");
+                }
             }
         });
     }

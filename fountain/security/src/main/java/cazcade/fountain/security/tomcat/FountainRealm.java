@@ -51,7 +51,7 @@ public class FountainRealm extends SecurityProvider implements Realm {
         try {
             return doAuthentication(username, password);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return null;
         }
     }

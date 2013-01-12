@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.util;
 
 import cazcade.common.Logger;
@@ -22,7 +26,7 @@ public class DataStoreFactory {
         try {
             dataStore.startIfNotStarted();
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
     }
 

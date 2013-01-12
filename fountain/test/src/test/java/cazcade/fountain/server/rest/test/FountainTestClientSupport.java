@@ -247,7 +247,7 @@ public class FountainTestClientSupport {
                         getMethod.releaseConnection();
                     }
                 } catch (IOException e) {
-                    log.error(e.getMessage(), e);
+                    log.error(e);
                 }
             }
         });

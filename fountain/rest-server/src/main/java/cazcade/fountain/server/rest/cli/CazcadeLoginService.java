@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.cli;
 
 import cazcade.common.Logger;
@@ -45,7 +49,7 @@ class CazcadeLoginService implements LoginService {
                 return null;
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return null;
         }
     }

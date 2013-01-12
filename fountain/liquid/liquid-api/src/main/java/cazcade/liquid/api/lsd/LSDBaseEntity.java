@@ -230,6 +230,9 @@ public interface LSDBaseEntity {
 
     boolean hasId();
 
+    String getNameOrId();
+
+
     class EntityUpdatedComparator implements Comparator<LSDBaseEntity> {
         @Override
         public int compare(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDBaseEntity entity1) {

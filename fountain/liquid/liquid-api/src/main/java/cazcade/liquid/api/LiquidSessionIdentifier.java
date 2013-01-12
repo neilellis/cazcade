@@ -15,6 +15,7 @@ public class LiquidSessionIdentifier implements Serializable {
     @Nonnull
     public static final LiquidSessionIdentifier ANON = new LiquidSessionIdentifier("anon", null);
 
+    @Nullable
     private LiquidUUID session;
 
     @Nonnull
@@ -150,7 +151,7 @@ public class LiquidSessionIdentifier implements Serializable {
         return alias;
     }
 
-    public LiquidUUID getSession() {
+    @Nullable public LiquidUUID getSession() {
         return session;
     }
 

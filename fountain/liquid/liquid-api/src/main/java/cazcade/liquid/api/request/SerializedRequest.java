@@ -17,34 +17,33 @@ import java.util.HashMap;
  */
 public final class SerializedRequest implements Serializable {
 
-    private static final long serialVersionUID = 8663364255167259991L;
 
-    private String                  type;
-    private HashMap<String, String> entity;
+    private String                  typeRaw;
+    private HashMap<String, String> entityRaw;
 
     public SerializedRequest(@Nonnull final LiquidRequestType type, @Nonnull final LSDTransferEntity entity) {
-        this.type = type.name();
-        this.entity = new HashMap<String, String>(entity.getMap());
+        typeRaw = type.name();
+        entityRaw = new HashMap<String, String>(entity.getMap());
     }
 
-    public SerializedRequest() {
+    protected SerializedRequest() {
     }
 
     @Nonnull
     public LSDTransferEntity getEntity() {
-        return LSDSimpleEntity.createFromProperties(entity);
+        return LSDSimpleEntity.createFromProperties(entityRaw);
     }
 
     @Nonnull
     public LiquidRequestType getType() {
-        return LiquidRequestType.valueOf(type);
+        return LiquidRequestType.valueOf(typeRaw);
     }
 
     @Override
     public String toString() {
         return "SerializedRequest{" +
-               "type='" + type + '\'' +
-               ", entity=" + entity +
+               "type='" + typeRaw + '\'' +
+               ", entity=" + entityRaw +
                '}';
     }
 }

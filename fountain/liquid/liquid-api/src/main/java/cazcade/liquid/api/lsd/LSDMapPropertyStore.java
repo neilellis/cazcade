@@ -13,9 +13,8 @@ import java.util.TreeMap;
  * @author neilellis@cazcade.com
  */
 public class LSDMapPropertyStore implements LSDPropertyStore {
-    private static final long                    serialVersionUID = 478281508458564018L;
     @Nonnull
-    private final        TreeMap<String, String> map              = new TreeMap<String, String>();
+    private final TreeMap<String, String> map = new TreeMap<String, String>();
 
     public LSDMapPropertyStore(final Map<String, String> lsdProperties) {
         map.putAll(lsdProperties);

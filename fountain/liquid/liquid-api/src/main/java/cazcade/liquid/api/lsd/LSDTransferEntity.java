@@ -26,8 +26,6 @@ public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
 
     @Nonnull LSDTransferEntity copy();
 
-    //    boolean isValidOrEmptyValue(LSDDictionary key);
-
 
     /**
      * @deprecated use toString() instead.
@@ -49,6 +47,5 @@ public interface LSDTransferEntity extends Serializable, LSDBaseEntity {
      */
     @Nonnull Map<String, String> getMap();
 
-    //For templating  they take camel case values like entity.set("imageUrl") ... useful for templates etc.
 
 }

@@ -22,7 +22,8 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
     }
 
 
-    protected AbstractRetrievalRequest() {
+    public AbstractRetrievalRequest() {
+        super();
     }
 
     @Nonnull @Override

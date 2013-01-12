@@ -85,7 +85,7 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
             }
             out.println("//End server generated section");
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
     }
 

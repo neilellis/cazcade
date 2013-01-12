@@ -20,7 +20,7 @@ public class LiquidNotificationHelper {
     //            KEEP_ALIVE_MESSAGE = "<heartbeat>SERVER STATUS HERE</heartbeat>".getBytes(STRING_ENCODING);
     //            BEGIN_STREAM_TAG_MESSAGE = "<notifications xmlns='http://schema.cazcade.com/liquid/1.0'>".getBytes(STRING_ENCODING);
     //        } catch (UnsupportedEncodingException e) {
-    //            log.error(e.getMessage(), e);
+    //            log.error(e);
     //            throw new Error(e);
     //        }
     //

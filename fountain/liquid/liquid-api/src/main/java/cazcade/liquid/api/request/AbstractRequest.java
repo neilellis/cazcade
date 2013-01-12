@@ -78,6 +78,11 @@ public abstract class AbstractRequest implements LiquidRequest {
         }
     }
 
+    @Override
+    public boolean isSecureOperation() {
+        return false;
+    }
+
     @Nullable
     public final Boolean getRpc() {
         if (entity.hasAttribute(LSDAttribute.REQUEST_EXPLICIT_RPC)) {
@@ -100,7 +105,9 @@ public abstract class AbstractRequest implements LiquidRequest {
         if (sessionId.equals(getLiquidSessionIdentifierInternal())) {
             return;
         }
-        if (getLiquidSessionIdentifierInternal() != null && !getSessionIdentifier().getAlias().equals(sessionId.getAlias())) {
+        if (getLiquidSessionIdentifierInternal() != null
+            && !getSessionIdentifier().getAlias().equals(sessionId.getAlias())
+            && !getLiquidSessionIdentifierInternal().isAnon()) {
             throw new IllegalStateException("Cannot change the alias of the session on a request, attempt was from " +
                                             getLiquidSessionIdentifierInternal() +
                                             " to " +
@@ -124,11 +131,6 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     @Override public boolean hasId() {
         return entity.hasAttribute(LSDAttribute.ID);
-    }
-
-    @Override
-    public boolean isSecureOperation() {
-        return false;
     }
 
     @Nullable
@@ -158,11 +160,6 @@ public abstract class AbstractRequest implements LiquidRequest {
         return LiquidCachingScope.valueOf(entity.getAttribute(LSDAttribute.REQUEST_CACHING_SCOPE, LiquidCachingScope.NONE.name()));
     }
 
-    @Override
-    public final void setCachingScope(@Nonnull final LiquidCachingScope cachingScope) {
-        entity.setAttribute(LSDAttribute.REQUEST_CACHING_SCOPE, cachingScope.name());
-    }
-
     @Nonnull @Override
     public String getDeduplicationIdentifier() {
         return getId().toString() + ":" + getState() + ":" + getOrigin();
@@ -171,15 +168,6 @@ public abstract class AbstractRequest implements LiquidRequest {
     @Nonnull
     public final LiquidUUID getId() {
         return entity.getUUID();
-    }
-
-    public final void setId(@Nullable final LiquidUUID id) {
-        if (id != null && id.toString() != null) {
-            entity.setId(id.toString());
-        }
-        else {
-            entity.removeCompletely(LSDAttribute.ID);
-        }
     }
 
     @Nonnull
@@ -192,17 +180,9 @@ public abstract class AbstractRequest implements LiquidRequest {
         return LiquidMessageOrigin.valueOf(entity.getAttribute(LSDAttribute.REQUEST_ORIGIN, LiquidMessageOrigin.UNASSIGNED.name()));
     }
 
-    public final void setOrigin(@Nonnull final LiquidMessageOrigin origin) {
-        entity.setAttribute(LSDAttribute.REQUEST_ORIGIN, origin.name());
-    }
-
     @Nonnull
     public final LSDTransferEntity getRequestEntity() {
         return entity.getSubEntity(LSDAttribute.REQUEST_ENTITY, true);
-    }
-
-    public final void setRequestEntity(final LSDTransferEntity requestEntity) {
-        entity.addSubEntity(LSDAttribute.REQUEST_ENTITY, requestEntity, false);
     }
 
     @Nonnull
@@ -215,16 +195,9 @@ public abstract class AbstractRequest implements LiquidRequest {
         }
     }
 
-    public final void setResponse(final LSDTransferEntity response) {
-        if (!response.isSerializable()) {
-            throw new IllegalArgumentException("Oops, you've tried to pass in a raw persistent entity!");
-        }
-        entity.addSubEntity(LSDAttribute.REQUEST_RESULT, response, false);
-    }
-
     @Nullable @Override
     public final LSDBaseEntity getResponseOrRequestEntity() {
-        if (hasResponse()) {
+        if (hasResponseEntity()) {
             return getResponse();
         }
         else {
@@ -237,17 +210,46 @@ public abstract class AbstractRequest implements LiquidRequest {
         return LiquidMessageState.valueOf(entity.getAttribute(LSDAttribute.REQUEST_STATE, LiquidMessageState.INITIAL.name()));
     }
 
+    @Override
+    public boolean isCacheable() {
+        return false;
+    }
+
     public final void setState(@Nonnull final LiquidMessageState state) {
         entity.setAttribute(LSDAttribute.REQUEST_STATE, state.name());
     }
 
-    public boolean hasResponse() {
+    public boolean hasResponseEntity() {
         return entity.hasSubEntity(LSDAttribute.REQUEST_RESULT);
     }
 
+    public final void setResponse(final LSDTransferEntity response) {
+        if (!response.isSerializable()) {
+            throw new IllegalArgumentException("Oops, you've tried to pass in a raw persistent entity!");
+        }
+        entity.addSubEntity(LSDAttribute.REQUEST_RESULT, response, false);
+    }
+
+    public final void setRequestEntity(final LSDTransferEntity requestEntity) {
+        entity.addSubEntity(LSDAttribute.REQUEST_ENTITY, requestEntity, false);
+    }
+
+    public final void setOrigin(@Nonnull final LiquidMessageOrigin origin) {
+        entity.setAttribute(LSDAttribute.REQUEST_ORIGIN, origin.name());
+    }
+
+    public final void setId(@Nullable final LiquidUUID id) {
+        if (id != null && id.toString() != null) {
+            entity.setId(id.toString());
+        }
+        else {
+            entity.removeCompletely(LSDAttribute.ID);
+        }
+    }
+
     @Override
-    public boolean isCacheable() {
-        return false;
+    public final void setCachingScope(@Nonnull final LiquidCachingScope cachingScope) {
+        entity.setAttribute(LSDAttribute.REQUEST_CACHING_SCOPE, cachingScope.name());
     }
 
     @Nonnull
@@ -257,9 +259,11 @@ public abstract class AbstractRequest implements LiquidRequest {
             final LSDTransferEntity requestEntity = getRequestEntity();
             result.addAll(getAffectedEntitiesInternal(requestEntity.getURI()));
         }
-        final LSDTransferEntity response = getResponse();
-        if (response.hasURI()) {
-            result.addAll(getAffectedEntitiesInternal(response.getURI()));
+        if (hasResponseEntity()) {
+            final LSDTransferEntity response = getResponse();
+            if (response.hasURI()) {
+                result.addAll(getAffectedEntitiesInternal(response.getURI()));
+            }
         }
         if (hasUri()) {
             result.addAll(getAffectedEntitiesInternal(getUri()));
@@ -754,7 +758,6 @@ public abstract class AbstractRequest implements LiquidRequest {
     public final void setPoolType(@Nonnull final LSDType poolType) {
         entity.setAttribute(LSDAttribute.REQUEST_RESOURCE_TYPE, poolType.asString());
     }
-
 
     @Nonnull
     public LSDTransferEntity getEntity() {

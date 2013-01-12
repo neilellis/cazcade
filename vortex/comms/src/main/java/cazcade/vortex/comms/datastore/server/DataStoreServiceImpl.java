@@ -19,7 +19,6 @@ import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
 import cazcade.liquid.api.request.SerializedRequest;
-import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.LoggedOutException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -122,36 +121,6 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     }
 
     @Override
-    public void init(@Nonnull final ServletConfig config) throws ServletException {
-        super.init(config);
-        //noinspection EmptyCatchBlock
-        try {
-            Class.forName("org.eclipse.jetty.continuation.Jetty6Continuation");
-            supportsContinuations = true;
-        } catch (ClassNotFoundException e) {
-
-        }
-
-
-        PropertyConfigurator.configure("WEB-INF/classes/log4j.properties");
-        try {
-            applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
-
-            dataStore = (FountainDataStore) applicationContext.getBean("remoteDataStore");
-            pubSub = (FountainPubSub) applicationContext.getBean("pubSub");
-            clientSessionManager = (ClientSessionManager) applicationContext.getBean("clientSessionManager");
-            securityProvider = new SecurityProvider(dataStore);
-            if (!CacheManager.getInstance().cacheExists(DEDUPCACHE)) {
-                CacheManager.getInstance().addCache(DEDUPCACHE);
-            }
-            dedupCache = CacheManager.getInstance().getCache(DEDUPCACHE);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            throw new ServletException(e);
-        }
-    }
-
-    @Override
     protected void service(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         if (req.getHeader(X_VORTEX_SINCE) != null && "-1".equals(req.getHeader(X_VORTEX_SINCE))) {
             try {
@@ -163,6 +132,9 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         }
         try {
             super.service(req, resp);
+        } catch (RuntimeException re) {
+            log.warn(re, re.getMessage());
+            throw re;
         } catch (EOFException eof) {
             log.debug("EOF");
         }
@@ -183,7 +155,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
             return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:"
                                                                                                          + username), getOrCreateSession(), pubSub);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return null;
         }
     }
@@ -196,7 +168,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
                 return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:"
                                                                                                              + sessionUsername), getOrCreateSession(), pubSub);
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                log.error(e);
                 return null;
             }
         }
@@ -204,7 +176,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
             try {
                 return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(CommonConstants.ANONYMOUS_ALIAS), getOrCreateSession(), pubSub);
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                log.error(e);
                 return null;
             }
         }
@@ -248,86 +220,10 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     }
 
     @Override @Nullable
-    public SerializedRequest process(@Nonnull final SerializedRequest ser) throws Exception {
-        log.info("Processing " + ser);
-        final AbstractRequest request;
-        try {
-            request = (AbstractRequest) ser.getType().getRequestClass().getConstructor().newInstance();
-            request.setEntity(ser.getEntity());
-        } catch (InstantiationException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        } catch (IllegalAccessException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        } catch (NoSuchMethodException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        } catch (InvocationTargetException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        } catch (Exception e) {
-            log.error(e);
-            throw new Exception(e.getMessage());
-        }
-        final LiquidSessionIdentifier serverSession = request.getSessionIdentifier();
-        if (serverSession.getSession() == null) {
-            throw new LoggedOutException();
-        }
-        ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, false, pubSub);
-        if (clientSession == null) {
-            if (request.isSecureOperation()) {
-                throw new LoggedOutException();
-            }
-            else {
-                clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true, pubSub);
-                //This basically synchronizes our two ways of being logged in, logged in on the client and logged
-                //in here on the web server.
-                if (!serverSession.isAnon()) {
-                    LoginUtil.placeServerSessionInHttpSession(dataStore, getOrCreateSession(), serverSession);
-                }
-            }
-        }
-        try {
-            request.adjustTimeStampForServerTime();
-            //            request.setIdentity(currentUser());
-            request.setOrigin(LiquidMessageOrigin.CLIENT);
-            final LiquidMessage response = dataStore.process(request);
-            log.debug(LiquidXStreamFactory.getXstream().toXML(response));
-            getThreadLocalResponse().addHeader(X_VORTEX_CACHE_SCOPE, request.getCachingScope().name());
-            getThreadLocalResponse().addHeader(X_VORTEX_CACHE_EXPIRY, String.valueOf(request.getCacheExpiry()));
-            return response.asSerializedRequest();
-        } catch (Exception e) {
-            log.error(e);
-            return null;
-        }
-    }
-
-    private HttpSession getOrCreateSession() {
-        return getThreadLocalRequest().getSession(true);
-    }
-
-    @Override
-    public boolean checkBoardAvailability(final LiquidURI board) {
-        try {
-            final LiquidMessage message;
-            message = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("admin"), board, false, false));
-            //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
-            final LSDBaseEntity responseEntity = message.getResponse();
-            return (responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT)
-                    || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL)
-                    || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
-        } catch (Exception e) {
-            log.error(e);
-            return false;
-        }
-    }
-
-    @Override @Nullable
     public ArrayList<SerializedRequest> collect(@Nullable final LiquidSessionIdentifier identity, @Nonnull final ArrayList<String> locations) throws Exception {
         getThreadLocalRequest().setAttribute("com.newrelic.agent.IGNORE", true);
         //        NewRelic.ignoreTransaction();
-        log.debug("Collecting " + locations);
+        log.debug("Collecting {0}", locations);
         final Continuation continuation = ContinuationSupport.getContinuation(getThreadLocalRequest());
         if (identity == null) {
             throw new LoggedOutException();
@@ -392,11 +288,122 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
 
     }
 
+    @Override @Nullable
+    public SerializedRequest process(@Nonnull final SerializedRequest ser) throws Exception {
+
+        log.info("Processing {0}", ser);
+        final AbstractRequest request;
+        try {
+            request = (AbstractRequest) ser.getType().getRequestClass().getConstructor().newInstance();
+            request.setEntity(ser.getEntity());
+        } catch (InstantiationException e) {
+            log.error(e);
+            return null;
+        } catch (IllegalAccessException e) {
+            log.error(e);
+            return null;
+        } catch (NoSuchMethodException e) {
+            log.error(e);
+            return null;
+        } catch (InvocationTargetException e) {
+            log.error(e);
+            return null;
+        } catch (Exception e) {
+            log.error(e);
+            return null;
+            //            throw new Exception(e.getMessage());
+        }
+        try {
+
+            final LiquidSessionIdentifier serverSession = request.getSessionIdentifier();
+            if (serverSession.getSession() == null) {
+                throw new LoggedOutException();
+            }
+            ClientSession clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, false, pubSub);
+            if (clientSession == null) {
+                if (request.isSecureOperation()) {
+                    throw new LoggedOutException();
+                }
+                else {
+                    clientSession = LoginUtil.createClientSession(clientSessionManager, serverSession, true, pubSub);
+                    //This basically synchronizes our two ways of being logged in, logged in on the client and logged
+                    //in here on the web server.
+                    if (!serverSession.isAnon()) {
+                        LoginUtil.placeServerSessionInHttpSession(dataStore, getOrCreateSession(), serverSession);
+                    }
+                }
+            }
+
+            request.adjustTimeStampForServerTime();
+            //            request.setIdentity(currentUser());
+            request.setOrigin(LiquidMessageOrigin.CLIENT);
+            final LiquidMessage response = dataStore.process(request);
+            log.debug("{0}", response.toString());
+            getThreadLocalResponse().addHeader(X_VORTEX_CACHE_SCOPE, request.getCachingScope().name());
+            getThreadLocalResponse().addHeader(X_VORTEX_CACHE_EXPIRY, String.valueOf(request.getCacheExpiry()));
+            return response.asSerializedRequest();
+        } catch (LoggedOutException loe) {
+            throw loe;
+        } catch (Exception e) {
+            log.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean checkBoardAvailability(final LiquidURI board) {
+        try {
+            final LiquidMessage message;
+            message = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("admin"), board, false, false));
+            //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
+            final LSDBaseEntity responseEntity = message.getResponse();
+            return (responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT)
+                    || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL)
+                    || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
+        } catch (Exception e) {
+            log.error(e);
+            return false;
+        }
+    }
+
+    private HttpSession getOrCreateSession() {
+        return getThreadLocalRequest().getSession(true);
+    }
+
     @Override
     public void destroy() {
         super.destroy();
         dataStore.stopIfNotStopped();
         serverContext.stop();
+    }
+
+    @Override
+    public void init(@Nonnull final ServletConfig config) throws ServletException {
+        super.init(config);
+        //noinspection EmptyCatchBlock
+        try {
+            Class.forName("org.eclipse.jetty.continuation.Jetty6Continuation");
+            supportsContinuations = true;
+        } catch (ClassNotFoundException e) {
+
+        }
+
+        PropertyConfigurator.configure(getClass().getResource("/log4j.properties"));
+        try {
+            applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
+
+            dataStore = (FountainDataStore) applicationContext.getBean("remoteDataStore");
+            pubSub = (FountainPubSub) applicationContext.getBean("pubSub");
+            clientSessionManager = (ClientSessionManager) applicationContext.getBean("clientSessionManager");
+            securityProvider = new SecurityProvider(dataStore);
+            if (!CacheManager.getInstance().cacheExists(DEDUPCACHE)) {
+                CacheManager.getInstance().addCache(DEDUPCACHE);
+            }
+            dedupCache = CacheManager.getInstance().getCache(DEDUPCACHE);
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServletException(e);
+        }
     }
 
 }

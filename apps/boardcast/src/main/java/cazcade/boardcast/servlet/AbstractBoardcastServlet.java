@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.servlet;
 
 import cazcade.common.Logger;
@@ -34,16 +38,16 @@ import java.util.Map;
  */
 public class AbstractBoardcastServlet extends HttpServlet {
     @Nonnull
-    private static final Logger log = Logger.getLogger(AbstractBoardcastServlet.class);
+    private static final Logger log                                = Logger.getLogger(AbstractBoardcastServlet.class);
     @Nonnull
-    public static final String SESSION_KEY = "sessionId";
-    public static final String VERSION = "25";
-    public static final long FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24 * 7);
+    public static final  String SESSION_KEY                        = "sessionId";
+    public static final  String VERSION                            = "25";
+    public static final  long   FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24 * 7);
 
-    private WebApplicationContext applicationContext;
-    protected FountainDataStore dataStore;
-    protected ClientSessionManager clientSessionManager;
-    protected SecurityProvider securityProvider;
+    private   WebApplicationContext applicationContext;
+    protected FountainDataStore     dataStore;
+    protected ClientSessionManager  clientSessionManager;
+    protected SecurityProvider      securityProvider;
     @Nonnull
     protected static final String USERNAME_KEY = "username";
     protected FountainPubSub pubSub;
@@ -61,19 +65,22 @@ public class AbstractBoardcastServlet extends HttpServlet {
         try {
             dataStore.startIfNotStarted();
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
 
     }
 
     @Nonnull
     protected LiquidSessionIdentifier getLiquidSessionId(@Nonnull final HttpSession session) {
-        return (LiquidSessionIdentifier) session.getAttribute(SESSION_KEY);
+        LiquidSessionIdentifier sessionIdentifier = (LiquidSessionIdentifier) session.getAttribute(SESSION_KEY);
+        if (sessionIdentifier == null) {
+            return LiquidSessionIdentifier.ANON;
+        }
+        return sessionIdentifier;
     }
 
     @Nonnull
-    protected List<Map<String, String>> makeJSPFriendly(HttpServletRequest req, @Nonnull final List<LSDTransferEntity> entities)
-            throws UnsupportedEncodingException {
+    protected List<Map<String, String>> makeJSPFriendly(HttpServletRequest req, @Nonnull final List<LSDTransferEntity> entities) throws UnsupportedEncodingException {
         final List<Map<String, String>> result = new ArrayList<Map<String, String>>();
         for (final LSDTransferEntity entity : entities) {
             final Map<String, String> map = entity.getCamelCaseMap();
@@ -84,11 +91,16 @@ public class AbstractBoardcastServlet extends HttpServlet {
                 final String shortUrl = uri.asShortUrl().asUrlSafe();
                 map.put("shortUrl", shortUrl);
 
-                final String url = "http://" + req.getServerName() + "/_snapshot-" + shortUrl + "?bid=" + entity.getAttribute(
-                        LSDAttribute.MODIFIED,
-                        ""
-                                                                                                                             ) +
-                                   "-v" + VERSION + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
+                final String url = "http://"
+                                   + req.getServerName()
+                                   + "/_snapshot-"
+                                   + shortUrl
+                                   + "?bid="
+                                   + entity.getAttribute(LSDAttribute.MODIFIED, "")
+                                   +
+                                   "-v"
+                                   + VERSION
+                                   + (System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS);
                 map.put("snapshotUrl", url);
 
             }
@@ -107,14 +119,11 @@ public class AbstractBoardcastServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected LiquidSessionIdentifier createClientSession(@Nonnull final HttpSession session,
-                                                          @Nonnull final LiquidMessage createSessionResponse) {
+    protected LiquidSessionIdentifier createClientSession(@Nonnull final HttpSession session, @Nonnull final LiquidMessage createSessionResponse) {
 
         final LSDTransferEntity createSessionResponseResponse = createSessionResponse.getResponse();
         final String username = createSessionResponseResponse.getAttribute(LSDAttribute.NAME);
-        final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username,
-                                                                                  createSessionResponseResponse.getUUID()
-        );
+        final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username, createSessionResponseResponse.getUUID());
         session.setAttribute(SESSION_KEY, serverSession);
         session.setAttribute(USERNAME_KEY, username);
         LoginUtil.createClientSession(clientSessionManager, serverSession, true, pubSub);
@@ -123,15 +132,10 @@ public class AbstractBoardcastServlet extends HttpServlet {
 
     @Nonnull
     protected LiquidMessage createSession(final LiquidURI uri) throws Exception {
-        return dataStore.process(new CreateSessionRequest(uri, new ClientApplicationIdentifier("GWT Client", LoginUtil.APP_KEY,
-                                                                                               "UNKNOWN"
-        )
-        )
-                                );
+        return dataStore.process(new CreateSessionRequest(uri, new ClientApplicationIdentifier("GWT Client", LoginUtil.APP_KEY, "UNKNOWN")));
     }
 
-    protected void forwardAfterLogin(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void forwardAfterLogin(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         final String next = req.getParameter("next");
         if (next != null) {
             resp.sendRedirect(next);

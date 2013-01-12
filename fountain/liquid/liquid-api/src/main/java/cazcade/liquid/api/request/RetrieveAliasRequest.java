@@ -74,7 +74,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         return Collections.emptyList();
     }
 
-    @Nonnull
+    @Override @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_ALIAS;
     }

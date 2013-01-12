@@ -54,7 +54,7 @@ public class DictionaryServlet extends HttpServlet {
             out.println("</table>");
             out.println("</body></html>");
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
     }
 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
@@ -31,8 +35,7 @@ public class WithCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Executes commands within the context of an entity and then persists the changes.";
     }
@@ -48,7 +51,8 @@ public class WithCommand extends AbstractShortLivedCommand {
         if (args.length < 2) {
             System.err.println("with (user|alias|pool) <identifier> { <commands> }");
             return null;
-        } else {
+        }
+        else {
             final CommandSupport.AlterEntityCallback callback = new CommandSupport.AlterEntityCallback() {
                 @Override
                 public LSDTransferEntity alter(final LSDTransferEntity entity) {
@@ -56,7 +60,7 @@ public class WithCommand extends AbstractShortLivedCommand {
                     try {
                         command.execute();
                     } catch (Exception e) {
-                        log.error(e.getMessage(), e);
+                        log.error(e);
                     }
                     return shellSession.popEntity();
 
@@ -64,13 +68,17 @@ public class WithCommand extends AbstractShortLivedCommand {
             };
             if ("user".equals(args[0])) {
                 return CommandSupport.alterUser(shellSession, CommandSupport.resolveUser(shellSession, args[1]), callback);
-            } else if ("alias".equals(args[0])) {
+            }
+            else if ("alias".equals(args[0])) {
                 return CommandSupport.alterAlias(shellSession, CommandSupport.resolveAlias(shellSession, args[1]), callback);
-            } else if ("pool".equals(args[0])) {
+            }
+            else if ("pool".equals(args[0])) {
                 return CommandSupport.alterPool(shellSession, CommandSupport.resolvePoolOrObject(shellSession, args[1]), callback);
-            } else if ("object".equals(args[0])) {
+            }
+            else if ("object".equals(args[0])) {
                 return CommandSupport.alterObject(shellSession, CommandSupport.resolvePoolOrObject(shellSession, args[1]), callback);
-            } else {
+            }
+            else {
                 System.err.println("with (user|alias|pool|object) <identifier> { <commands> }");
                 return null;
             }

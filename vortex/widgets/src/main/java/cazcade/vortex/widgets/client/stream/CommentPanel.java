@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidMessage;
@@ -31,24 +35,45 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CommentPanel extends Composite {
-    public static final int UPDATE_LIEFTIME = 1200 * 1000;
+    interface VortexStreamPanelUiBinder extends UiBinder<VerticalPanel, CommentPanel> {}
+
+    public static final  int                       UPDATE_LIEFTIME = 1200 * 1000;
+    private static final VortexStreamPanelUiBinder ourUiBinder     = GWT.create(VortexStreamPanelUiBinder.class);
+    final VerticalPanel parentPanel;
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private int maxRows = 100;
-    private final long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
-    private boolean showStatusUpdates = true;
+    private final Bus                      bus                = BusFactory.getInstance();
+    private final long                     lastUpdate         = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-
-    private FormatUtil features;
-    private boolean initialized;
-    private LiquidURI pool;
     @Nonnull
     private final SoundController soundController;
-    private final Sound userEnteredSound;
-    private final Sound chatMessageSound;
-    private final Sound statusUpdateSound;
+    private final Sound           userEnteredSound;
+    private final Sound           chatMessageSound;
+    private final Sound           statusUpdateSound;
+    private int     maxRows           = 100;
+    private boolean showStatusUpdates = true;
+    private FormatUtil features;
+    private boolean    initialized;
+    private LiquidURI  pool;
 
+    public CommentPanel() {
+        super();
+        final VerticalPanel widget = ourUiBinder.createAndBindUi(this);
+        initWidget(widget);
+        parentPanel = widget;
+        soundController = new SoundController();
+
+        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/user_entered.mp3");
+        userEnteredSound.setVolume(100);
+
+        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/new_chat_message.mp3");
+        chatMessageSound.setVolume(20);
+
+        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/status_update.mp3");
+        statusUpdateSound.setVolume(50);
+
+
+    }
 
     public void setMaxRows(final int maxRows) {
         this.maxRows = maxRows;
@@ -66,36 +91,6 @@ public class CommentPanel extends Composite {
         WidgetUtil.removeAllChildren(parentPanel);
     }
 
-
-    interface VortexStreamPanelUiBinder extends UiBinder<VerticalPanel, CommentPanel> {
-    }
-
-    private static final VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
-
-    final VerticalPanel parentPanel;
-
-    public CommentPanel() {
-        super();
-        final VerticalPanel widget = ourUiBinder.createAndBindUi(this);
-        initWidget(widget);
-        parentPanel = widget;
-        soundController = new SoundController();
-
-        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/user_entered.mp3");
-        userEnteredSound.setVolume(100);
-
-        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/new_chat_message.mp3");
-        chatMessageSound.setVolume(20);
-
-        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/status_update.mp3");
-        statusUpdateSound.setVolume(50);
-
-
-    }
-
     public void init(final LiquidURI newPool, @Nonnull final FormatUtil features) {
         pool = newPool;
         this.features = features;
@@ -107,47 +102,50 @@ public class CommentPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            final LSDBaseEntity response = message.getResponse();
-                            if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
-                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addStreamEntry(new CommentEntryPanel(response));
-                                chatMessageSound.play();
-
+                            if (message.hasResponseEntity()) {
+                                final LSDBaseEntity response = message.getResponse();
+                                if (response.isA(LSDDictionaryTypes.COMMENT)
+                                    && response.hasAttribute(LSDAttribute.TEXT_BRIEF)
+                                    && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                                    addStreamEntry(new CommentEntryPanel(response));
+                                    chatMessageSound.play();
+                                }
 
                             }
-//                            if (message.getResponse() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
-//                                addStreamEntry(new VortexPresenceNotificationPanel(message.getResponse(), pool, message.getId().toString()));
-//                                userEnteredSound.play();
-//                            }
+                            //                            if (message.getResponse() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
+                            //                                addStreamEntry(new VortexPresenceNotificationPanel(message.getResponse(), pool, message.getId().toString()));
+                            //                                userEnteredSound.play();
+                            //                            }
                         }
                     });
-                    BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
-                        @Override
-                        public void handle(@Nonnull final SendRequest request) {
-                            addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), features));
-                        }
-                    });
+                    BusFactory.getInstance()
+                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
+                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                                  @Override
+                                  public void handle(@Nonnull final SendRequest request) {
+                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), features));
+                                  }
+                              });
 
                 }
             }.schedule(1000);
 
-//            /* Moving this to seperate page ??? */
-//            if (ClientApplicationConfiguration.isRetrieveUpdates()) {
-//                new Timer() {
-//                    @Override
-//                    public void run() {
-//                        //todo: relying on system time is a bad idea
-//                        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(features, maxRows, parentPanel, pool, threadSafeExecutor, false));
-//                        lastUpdate = System.currentTimeMillis();
-//                        this.schedule(10000);
-//                    }
-//                }.schedule(1000);
-//            }
+            //            /* Moving this to seperate page ??? */
+            //            if (ClientApplicationConfiguration.isRetrieveUpdates()) {
+            //                new Timer() {
+            //                    @Override
+            //                    public void run() {
+            //                        //todo: relying on system time is a bad idea
+            //                        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(features, maxRows, parentPanel, pool, threadSafeExecutor, false));
+            //                        lastUpdate = System.currentTimeMillis();
+            //                        this.schedule(10000);
+            //                    }
+            //                }.schedule(1000);
+            //            }
             initialized = true;
         }
         bus.send(new RetrieveCommentsRequest(pool, 50), new RetrieveStreamEntityCallback(features, maxRows, parentPanel, pool, threadSafeExecutor, false));
     }
-
 
     private void addStreamEntry(@Nonnull final StreamEntry vortexStreamContent) {
         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, vortexStreamContent, false, true);

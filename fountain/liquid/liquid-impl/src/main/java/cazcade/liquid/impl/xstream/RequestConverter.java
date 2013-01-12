@@ -64,7 +64,7 @@ public class RequestConverter implements Converter {
         //                        field.setAccessible(true);
         //                    }
         //                } catch (IllegalAccessException e) {
-        //                    log.error(e.getMessage(), e);
+        //                    log.error(e);
         //                }
         //
         //            }
@@ -94,13 +94,13 @@ public class RequestConverter implements Converter {
             c.setAccessible(true);
             liquidRequest = (LiquidRequest) c.newInstance();
         } catch (InstantiationException e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         } catch (IllegalAccessException e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         } catch (NoSuchMethodException e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         } catch (InvocationTargetException e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
         hierarchicalStreamReader.moveDown();
         if (!"body".equals(hierarchicalStreamReader.getNodeName())) {

@@ -164,7 +164,7 @@ public class LatestContentFinder {
                                     log.debug("No  URI key");
                                 }
                             } catch (InterruptedException e) {
-                                log.error(e.getMessage(), e);
+                                log.error(e);
                             }
                             globalSkip.add(currentPersistedEntity.getPersistenceId());
                             return false;

@@ -70,7 +70,7 @@ public interface LiquidMessage extends Serializable {
 
     void setState(LiquidMessageState status);
 
-    boolean hasResponse();
+    boolean hasResponseEntity();
 
     boolean hasId();
 }

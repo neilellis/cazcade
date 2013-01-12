@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.common.app;
 
 
@@ -32,7 +36,7 @@ public class ApplicationLifecycleManager implements ApplicationLifecycle {
             try {
                 listener.shutdown();
             } catch (Exception e) {
-                log.error(e.getMessage(), e);
+                log.error(e);
             }
         }
     }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.servlet.login;
 
 import cazcade.boardcast.servlet.AbstractBoardcastServlet;
@@ -22,8 +26,7 @@ public class LoginServlet extends AbstractBoardcastServlet {
 
 
     @Override
-    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         if (loggedIn(req.getSession(true))) {
             forwardAfterLogin(req, resp);
         }
@@ -33,8 +36,7 @@ public class LoginServlet extends AbstractBoardcastServlet {
     }
 
     @Override
-    protected void doPost(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         final String username = req.getParameter("username");
         final String password = req.getParameter("password");
         try {
@@ -52,13 +54,14 @@ public class LoginServlet extends AbstractBoardcastServlet {
                 if (principal != null) {
                     LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session, pubSub);
                     forwardAfterLogin(req, resp);
-                } else {
+                }
+                else {
                     req.setAttribute("message", "Could not log you in.");
                     req.getRequestDispatcher("/_pages/login.jsp").forward(req, resp);
                 }
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             throw new ServletException(e);
         }
     }

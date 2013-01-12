@@ -30,7 +30,7 @@ public class InMemoryPubSub implements FountainPubSub {
                 try {
                     listener.getHandler().handle(request);
                 } catch (Exception e) {
-                    log.error(e.getMessage(), e);
+                    log.error(e);
                 }
             }
         }

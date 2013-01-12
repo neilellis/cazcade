@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.comms.datastore.server;
 
 import cazcade.common.CommonConstants;
@@ -24,36 +28,37 @@ import java.util.Date;
  */
 public class LoginUtil {
     @Nonnull
-    private static final Logger log = Logger.getLogger(LoginUtil.class);
+    private static final Logger log               = Logger.getLogger(LoginUtil.class);
     @Nonnull
-    public static final String SESSION_KEY = "sessionId";
+    public static final  String SESSION_KEY       = "sessionId";
     @Nonnull
-    public static final String ALIAS_KEY = "alias_entity";
+    public static final  String ALIAS_KEY         = "alias_entity";
     @Nonnull
-    public static final String ALIAS_KEY_FOR_JSP = "alias";
+    public static final  String ALIAS_KEY_FOR_JSP = "alias";
     @Nonnull
-    private static final String USERNAME_KEY = "username";
+    private static final String USERNAME_KEY      = "username";
 
 
     @Nonnull
     public static final String APP_KEY = "123";
 
     @Nonnull
-    public static LiquidSessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager,
-                                                @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias,
-                                                @Nonnull final HttpSession session, FountainPubSub pubSub) throws Exception {
+    public static LiquidSessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias, @Nonnull final HttpSession session, FountainPubSub pubSub) throws Exception {
         final LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
         final LSDBaseEntity responseEntity = response.getResponse();
         if (responseEntity.isA(LSDDictionaryTypes.SESSION)) {
-            final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI().getSubURI().asString(), responseEntity.getUUID());
+            final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI()
+                                                                                           .getSubURI()
+                                                                                           .asString(), responseEntity.getUUID());
             createClientSession(clientSessionManager, serverSession, true, pubSub);
             if (!serverSession.isAnon()) {
                 placeServerSessionInHttpSession(dataStore, session, serverSession);
             }
             return serverSession;
-        } else {
+        }
+        else {
             log.error("{0}", responseEntity.asFreeText());
             throw new RuntimeException("Unexpected result " + responseEntity.getTypeDef());
         }
@@ -64,7 +69,7 @@ public class LoginUtil {
         try {
             aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return;
         }
         session.setAttribute(SESSION_KEY, serverSession);
@@ -74,16 +79,15 @@ public class LoginUtil {
     }
 
 
-    public static ClientSession createClientSession(@Nonnull final ClientSessionManager clientSessionManager,
-                                                    @Nonnull final LiquidSessionIdentifier identity, final boolean create,
-                                                    FountainPubSub pubSub) {
+    public static ClientSession createClientSession(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final LiquidSessionIdentifier identity, final boolean create, FountainPubSub pubSub) {
         final ClientSession clientSession;
         if (!clientSessionManager.hasSession(identity.getSession().toString()) && create) {
-//
+            //
             //The session manager looks after long lived sessions and expires them.
             clientSession = new ClientSession(new Date(), pubSub.createCollector());
             clientSessionManager.addSession(identity.getSession().toString(), clientSession);
-        } else {
+        }
+        else {
             clientSession = clientSessionManager.getSession(identity.getSession().toString());
         }
         return clientSession;
@@ -107,7 +111,7 @@ public class LoginUtil {
             }
             return null;
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             return null;
         }
     }

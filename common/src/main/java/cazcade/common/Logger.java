@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.common;
 
 import com.atlassian.jira.rpc.soap.client.JiraSoapService;
@@ -35,32 +39,30 @@ import java.util.zip.ZipOutputStream;
 /**
  * @author Neil Ellis
  */
-@SuppressWarnings({"UnusedDeclaration"})
+@SuppressWarnings({"UnusedDeclaration", "CallToPrintStackTrace"})
 
 public class Logger {
 
-    public static final boolean USE_JIRA = false;
+    public static final  boolean             USE_JIRA    = false;
     @Nonnull
-    private final org.apache.log4j.Logger logger;
-    private static final Set<String> errorHashes = Collections.synchronizedSet(new HashSet<String>());
-
+    public static final  XStream             XSTREAM     = new XStream();
+    private static final Set<String>         errorHashes = Collections.synchronizedSet(new HashSet<String>());
     @Nonnull
-    private static final ThreadLocal<String> session = new ThreadLocal<String>();
+    private static final ThreadLocal<String> session     = new ThreadLocal<String>();
     @Nonnull
-    private static final ThreadLocal<String> username = new ThreadLocal<String>();
+    private static final ThreadLocal<String> username    = new ThreadLocal<String>();
     @Nonnull
-    private static final ThreadLocal<List> context = new ThreadLocal<List>() {
-        @Nonnull
-        @Override
+    private static final ThreadLocal<List>   context     = new ThreadLocal<List>() {
+        @Nonnull @Override
         protected List initialValue() {
             return new ArrayList();
         }
     };
-
+    private static boolean                 production;
     @Nonnull
-    private final StandardStringDigester digester;
+    private final  org.apache.log4j.Logger logger;
     @Nonnull
-    public static final XStream XSTREAM = new XStream();
+    private final  StandardStringDigester  digester;
 
     private Logger(@Nonnull final org.apache.log4j.Logger logger) {
         this.logger = logger;
@@ -73,12 +75,8 @@ public class Logger {
             public boolean includePlainSaltInEncryptionResults() {
                 return false;
             }
-        }
-        );
+        });
     }
-
-
-    private static boolean production;
 
     public static boolean isProduction() {
         return production;
@@ -87,14 +85,15 @@ public class Logger {
     static {
         try {
             production = System.getProperty("production") != null;
-//        System.setProperty(org.apache.log4j.LogManager.DEFAULT_INIT_OVERRIDE_KEY, "true");
+            //        System.setProperty(org.apache.log4j.LogManager.DEFAULT_INIT_OVERRIDE_KEY, "true");
             final String log4JConfig = System.getProperty("log4j.configuration");
             if (log4JConfig == null) {
                 final URL resource = Logger.class.getResource("/log4j.properties");
                 if (resource != null) {
                     PropertyConfigurator.configure(resource);
                 }
-            } else {
+            }
+            else {
                 PropertyConfigurator.configure(log4JConfig);
             }
         } catch (Throwable t) {
@@ -108,17 +107,51 @@ public class Logger {
         return new Logger(org.apache.log4j.Logger.getLogger(name));
     }
 
-
     @Nonnull
     public static Logger getLogger(final Class clazz) {
         return new Logger(org.apache.log4j.Logger.getLogger(clazz));
     }
 
+    /**
+     * "send" method to send the message.
+     */
+
+    public static void send(final String subject, final String body) {
+        try {
+
+
+            final String host = "localhost";
+            final String to = "support@cazcade.zendesk.com";
+            final String from = "neil@cazcade.com";
+
+            final boolean sessionDebug = false;
+            final Properties props = System.getProperties();
+            props.setProperty("mail.host", host);
+            props.setProperty("mail.transport.protocol", "smtp");
+            //            props.put("mail.smtp.auth", "false");
+            final Session mailSession = Session.getDefaultInstance(props, null);
+            mailSession.setDebug(sessionDebug);
+            final Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(from, "Auto Bug Reporter"));
+            final InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subject);
+            msg.setSentDate(new Date());
+            msg.setText(body);
+            msg.saveChanges();
+            final Transport transport = mailSession.getTransport("smtp");
+            transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public void assertLog(final boolean assertion, final String msg) {
         logger.assertLog(assertion, msg);
     }
-
 
     public void debug(final String message, @Nonnull final Object... params) {
         if (logger.isDebugEnabled()) {
@@ -126,13 +159,13 @@ public class Logger {
                 logger.debug(message, (Throwable) params[0]);
                 writeToSessionLog(getPrefix() + message, "details");
                 writeToSessionLog(ExceptionUtils.getFullStackTrace((Throwable) params[0]), "details");
-            } else {
+            }
+            else {
                 logger.debug(getPrefix() + MessageFormat.format(message, params));
                 writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "details");
             }
         }
     }
-
 
     @SuppressWarnings({"ThrowableInstanceNeverThrown"})
     private String getPrefix() {
@@ -142,23 +175,18 @@ public class Logger {
                 final String className = stackTraceElement.getClassName();
                 if (!className.equals(Logger.class.getCanonicalName())) {
                     final String name = className.substring(className.lastIndexOf('.') + 1);
-                    return MessageFormat.format("{0}:{1}({2}) ",
-                            name,
-                            stackTraceElement.getMethodName(),
-                            stackTraceElement.getLineNumber()
-                    );
+                    return MessageFormat.format("{0}:{1}({2}) ", name, stackTraceElement.getMethodName(), stackTraceElement.getLineNumber());
                 }
             }
             return "NO PREFIX FOUND : ";
-        } else {
+        }
+        else {
             return "";
         }
     }
 
-
     public void debug(final Throwable t, final String message, final Object... params) {
-        if (
-                logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             logger.debug(message, t);
             logger.debug(getPrefix() + MessageFormat.format(message, params));
             writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "details");
@@ -179,76 +207,79 @@ public class Logger {
         error(t, "{0}", t.getMessage());
     }
 
-
     public void error(final String message, @Nonnull final Object... params) {
-        if (logger.isEnabledFor(Level.ERROR)) {
-            if (params.length == 1 && params[0] instanceof Throwable) {
-                error((Throwable) params[0], message);
-            } else {
-                logger.error(getPrefix() + MessageFormat.format(message, params));
-                writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
+        try {
+            if (logger.isEnabledFor(Level.ERROR)) {
+                if (params.length == 1 && params[0] instanceof Throwable) {
+                    error((Throwable) params[0], message);
+                }
+                else {
+                    logger.error(getPrefix() + MessageFormat.format(message, params));
+                    writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-
     public void error(@Nonnull final Throwable t, final String message, final Object... params) {
-        if (logger.isEnabledFor(Level.ERROR)) {
-            logger.error(getPrefix() + MessageFormat.format(message, params), t);
-            writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
-            writeToSessionLog(ExceptionUtils.getFullStackTrace(t), "error", "details");
-            if (CommonConstants.IS_PRODUCTION && isReportableError(t)) {
-                notifyOfError(t, MessageFormat.format(message, params));
-//                NewRelic.noticeError(t);
-            } else {
-                if (t instanceof RuntimeException) {
-                    throw (RuntimeException) t;
-                } else {
-                    throw new RuntimeException(t);
+        try {
+            if (logger.isEnabledFor(Level.ERROR)) {
+                logger.error(getPrefix() + MessageFormat.format(message, params), t);
+                writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
+                writeToSessionLog(ExceptionUtils.getFullStackTrace(t), "error", "details");
+                if (CommonConstants.IS_PRODUCTION && isReportableError(t)) {
+                    notifyOfError(t, MessageFormat.format(message, params));
+                    //                NewRelic.noticeError(t);
                 }
-//                System.exit(-1);
+                else {
+                    if (t instanceof RuntimeException) {
+                        throw (RuntimeException) t;
+                    }
+                    else {
+                        throw new RuntimeException(t);
+                    }
+                    //                System.exit(-1);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            t.printStackTrace();
         }
     }
 
     private boolean isReportableError(Throwable t) {
         final String name = t.getClass().getName();
-        return  ! "org.mortbay.jetty.EofException!".equals(name) &&
-                ! "org.eclipse.jetty.io.EofException".equals(name) &&
-                ! "java.lang.InterruptedException".equals(name) &&
-                ! "org.eclipse.jetty.io.RuntimeIOException".equals(name);
+        return !"org.mortbay.jetty.EofException".equals(name) &&
+               !"org.eclipse.jetty.io.EofException".equals(name) &&
+               !"java.lang.InterruptedException".equals(name) &&
+               !"org.eclipse.jetty.io.RuntimeIOException".equals(name);
     }
-
 
     public void fatal(@Nonnull final Throwable t) {
         error(t);
     }
 
-
     public void fatal(final String message, final Object... params) {
         error(message, params);
     }
-
 
     public void fatal(@Nonnull final Throwable t, final String message, final Object... params) {
         error(t, message, params);
     }
 
-
     public Level getLevel() {
         return logger.getLevel();
     }
-
 
     public String getName() {
         return logger.getName();
     }
 
-
     public Category getParent() {
         return logger.getParent();
     }
-
 
     public void info(final String message, @Nonnull final Object... params) {
         if (logger.isEnabledFor(Priority.INFO)) {
@@ -256,13 +287,13 @@ public class Logger {
                 logger.info(message, (Throwable) params[0]);
                 writeToSessionLog(getPrefix() + message, "details");
                 writeToSessionLog(ExceptionUtils.getFullStackTrace((Throwable) params[0]), "details");
-            } else {
+            }
+            else {
                 writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "details");
                 logger.info(getPrefix() + MessageFormat.format(message, params));
             }
         }
     }
-
 
     public void info(final Throwable t, final String message, final Object... params) {
         if (logger.isEnabledFor(Priority.INFO)) {
@@ -274,20 +305,19 @@ public class Logger {
         }
     }
 
-
     public void warn(final String message, @Nonnull final Object... params) {
         if (logger.isEnabledFor(Priority.WARN)) {
             if (params.length == 1 && params[0] instanceof Throwable) {
                 logger.warn(message, (Throwable) params[0]);
                 writeToSessionLog(getPrefix() + message, "error", "details");
                 writeToSessionLog(ExceptionUtils.getFullStackTrace((Throwable) params[0]), "error", "details");
-            } else {
+            }
+            else {
                 logger.warn(getPrefix() + MessageFormat.format(message, params));
                 writeToSessionLog(getPrefix() + MessageFormat.format(message, params), "error", "details");
             }
         }
     }
-
 
     public void warn(final Throwable t, final String message, final Object... params) {
         if (logger.isEnabledFor(Priority.WARN)) {
@@ -310,7 +340,6 @@ public class Logger {
             throw new Error(e);
         }
     }
-
 
     public void session(final byte[] message) {
         try {
@@ -353,19 +382,18 @@ public class Logger {
     private File getSessionLogDirectory() {
         if (session.get() == null) {
             return null;
-        } else {
+        }
+        else {
             final Calendar today = Calendar.getInstance();
             return new File(CommonConstants.DATASTORE_SESSION_LOGS +
-                    "/" +
-                    today.get(Calendar.DAY_OF_MONTH) +
-                    "." +
-                    (today.get(Calendar.MONTH) +
-                            1) +
-                    "." +
-                    today.get(Calendar.YEAR) +
-                    "/" +
-                    (username.get() == null ? "" : username.get()), session.get()
-            );
+                            "/" +
+                            today.get(Calendar.DAY_OF_MONTH) +
+                            "." +
+                            (today.get(Calendar.MONTH) + 1) +
+                            "." +
+                            today.get(Calendar.YEAR) +
+                            "/" +
+                            (username.get() == null ? "" : username.get()), session.get());
 
         }
     }
@@ -373,12 +401,14 @@ public class Logger {
     public void setSession(@Nullable final String sessionId, @Nullable final String username) {
         if (sessionId == null) {
             session.set(null);
-        } else {
+        }
+        else {
             session.set(sessionId);
         }
         if (username == null) {
             Logger.username.set(null);
-        } else {
+        }
+        else {
             Logger.username.set(username);
         }
     }
@@ -387,7 +417,6 @@ public class Logger {
         session.set(null);
         username.set(null);
     }
-
 
     public String hash(final String message) {
 
@@ -410,32 +439,36 @@ public class Logger {
         for (final StackTraceElement stackTraceElement : stackTraceElements) {
             if (stackTraceElement.getClassName().startsWith("cazcade")) {
                 location = stackTraceElement.getClassName() +
-                        "." +
-                        stackTraceElement.getMethodName() +
-                        "(...) : " +
-                        stackTraceElement.getLineNumber();
+                           "." +
+                           stackTraceElement.getMethodName() +
+                           "(...) : " +
+                           stackTraceElement.getLineNumber();
             }
 
         }
 
-        final String summary = StringUtils.abbreviate(
-                "BUG (SERVER)" + message + "   " + t.getClass().getSimpleName() + ": '" + t.getMessage() + "' at " + location + ")",
-                250
-        );
+        final String summary = StringUtils.abbreviate("BUG (SERVER)"
+                                                      + message
+                                                      + "   "
+                                                      + t.getClass().getSimpleName()
+                                                      + ": '"
+                                                      + t.getMessage()
+                                                      + "' at "
+                                                      + location
+                                                      + ")", 250);
         String contextStr = "\n(No context available)\n";
-//        if (context != null) {
-//            contextStr = "\nContext:\n" + XSTREAM.toXML(context.get()) + "\n";
-//        }
+        //        if (context != null) {
+        //            contextStr = "\nContext:\n" + XSTREAM.toXML(context.get()) + "\n";
+        //        }
         final String description = "Automatically logged exception for " +
-                username.get() +
-                " (session='" +
-                session.get() +
-                "').\n\n" +
-                message +
-                "\n" +
-                ExceptionUtils.getFullStackTrace(t)
-                +
-                contextStr;
+                                   username.get() +
+                                   " (session='" +
+                                   session.get() +
+                                   "').\n\n" +
+                                   message +
+                                   "\n" +
+                                   ExceptionUtils.getFullStackTrace(t) +
+                                   contextStr;
 
         if (errorHashes.contains(hash)) {
             return;
@@ -445,20 +478,19 @@ public class Logger {
 
         if (USE_JIRA) {
             sendToJira(message, hash, summary, description, "vortex");
-        } else {
-            send("FAO: Neil Only - Auto Bug Report - " + hash, description);
+        }
+        else {
+            send("ABR:" + t.getClass().getName() + ":" + t.getMessage(), description);
         }
 
 
     }
 
-    public void sendToJira(final String message, final String hash, final String summary, final String description,
-                           final String component) {
+    public void sendToJira(final String message, final String hash, final String summary, final String description, final String component) {
         sendToJira(message, hash, summary, description, component, null, null);
     }
 
-    public void sendToJira(final String message, final String hash, final String summary, final String description,
-                           final String component, @Nullable final byte[] attachment, @Nullable final String filename) {
+    public void sendToJira(final String message, final String hash, final String summary, final String description, final String component, @Nullable final byte[] attachment, @Nullable final String filename) {
 
 
         //reduce chances of duplicate JIRA spam.
@@ -474,8 +506,9 @@ public class Logger {
             soapSession.connect("neilellis", "password");
             jira = soapSession.getJiraSoapService();
             final RemoteIssue[] issues = jira.getIssuesFromJqlSearch(soapSession.getAuthenticationToken(),
-                    "project = CAZCADE AND description ~ '" + hash + "'", 10
-            );
+                    "project = CAZCADE AND description ~ '"
+                    + hash
+                    + "'", 10);
             if (issues.length == 0) {
                 final RemoteIssue issue = new RemoteIssue();
                 issue.setSummary(summary);
@@ -499,51 +532,45 @@ public class Logger {
                         //close the stream
                         zos.close();
                         logger.debug("Error report size was " + byteArrayOutputStream.toByteArray().length);
-                        jira.addBase64EncodedAttachmentsToIssue(soapSession.getAuthenticationToken(), remoteIssue.getKey(),
-                                new String[]{"session.zip"}, new String[]{new String(
-                                new Base64().encode(byteArrayOutputStream.toByteArray()), CommonConstants.STRING_ENCODING
-                        )}
-                        );
+                        jira.addBase64EncodedAttachmentsToIssue(soapSession.getAuthenticationToken(), remoteIssue.getKey(), new String[]{
+                                "session.zip"}, new String[]{
+                                new String(new Base64().encode(byteArrayOutputStream.toByteArray()), CommonConstants.STRING_ENCODING)});
                         if (attachment != null) {
-                            jira.addBase64EncodedAttachmentsToIssue(soapSession.getAuthenticationToken(), remoteIssue.getKey(),
-                                    new String[]{filename}, new String[]{new String(
-                                    new Base64().encode(attachment), CommonConstants.STRING_ENCODING
-                            )}
-                            );
+                            jira.addBase64EncodedAttachmentsToIssue(soapSession.getAuthenticationToken(), remoteIssue.getKey(), new String[]{
+                                    filename}, new String[]{
+                                    new String(new Base64().encode(attachment), CommonConstants.STRING_ENCODING)});
                         }
                     } catch (Exception e) {
                         logger.error(e, e);
                     }
                 }
-            } else {
+            }
+            else {
                 for (final RemoteIssue issue : issues) {
                     final Calendar yesterday = Calendar.getInstance();
                     yesterday.add(Calendar.DATE, -1);
                     final String comment = "Logged again for " +
-                            username.get() +
-                            " (session='" +
-                            session.get() +
-                            "', message " +
-                            message +
-                            ").\n" +
-                            description +
-                            "\n";
+                                           username.get() +
+                                           " (session='" +
+                                           session.get() +
+                                           "', message " +
+                                           message +
+                                           ").\n" +
+                                           description +
+                                           "\n";
                     //If it's closed - reopen.
                     if ("6".equals(issue.getStatus())) {
-                        jira.progressWorkflowAction(soapSession.getAuthenticationToken(), issue.getKey(), "3",
-                                new RemoteFieldValue[]{new RemoteFieldValue("comment", new String[]{comment})}
-                        );
-                    } else {
+                        jira.progressWorkflowAction(soapSession.getAuthenticationToken(), issue.getKey(), "3", new RemoteFieldValue[]{
+                                new RemoteFieldValue("comment", new String[]{comment})});
+                    }
+                    else {
                         //Has it been updated since yesterday, if not add comment
                         if (issue.getUpdated() == null || issue.getUpdated().before(yesterday)) {
 
                             //If it was resolved yesterday, clearly it isn't resolved now. So reopen.
                             if ("5".equals(issue.getStatus())) {
-                                jira.progressWorkflowAction(soapSession.getAuthenticationToken(), issue.getKey(), "3",
-                                        new RemoteFieldValue[]{new RemoteFieldValue("comment",
-                                                new String[]{comment}
-                                        )}
-                                );
+                                jira.progressWorkflowAction(soapSession.getAuthenticationToken(), issue.getKey(), "3", new RemoteFieldValue[]{
+                                        new RemoteFieldValue("comment", new String[]{comment})});
                             }
                             final RemoteComment remoteComment = new RemoteComment();
                             remoteComment.setBody(comment);
@@ -551,50 +578,12 @@ public class Logger {
                         }
                     }
 
-//                    jira.updateIssue(soapSession.getAuthenticationToken(), issue.getKey(), new RemoteFieldValue[]{new RemoteFieldValue("votes", new String[]{String.valueOf(issue.getVotes() + 1L)})});
+                    //                    jira.updateIssue(soapSession.getAuthenticationToken(), issue.getKey(), new RemoteFieldValue[]{new RemoteFieldValue("votes", new String[]{String.valueOf(issue.getVotes() + 1L)})});
                     logger.info("Updated issue: " + issue.getKey());
                 }
             }
         } catch (Exception e) {
             logger.error(e, e);
-        }
-    }
-
-
-    /**
-     * "send" method to send the message.
-     */
-
-    public static void send(final String subject, final String body) {
-        try {
-
-
-            final String host = "localhost";
-            final String to = "support@cazcade.zendesk.com";
-            final String from = "neil@cazcade.com";
-
-            final boolean sessionDebug = false;
-            final Properties props = System.getProperties();
-            props.setProperty("mail.host", host);
-            props.setProperty("mail.transport.protocol", "smtp");
-//            props.put("mail.smtp.auth", "false");
-            final Session mailSession = Session.getDefaultInstance(props, null);
-            mailSession.setDebug(sessionDebug);
-            final Message msg = new MimeMessage(mailSession);
-            msg.setFrom(new InternetAddress(from, "Cazcade Bug Reporter"));
-            final InternetAddress[] address = {new InternetAddress(to)};
-            msg.setRecipients(Message.RecipientType.TO, address);
-            msg.setSubject(subject);
-            msg.setSentDate(new Date());
-            msg.setText(body);
-            msg.saveChanges();
-            final Transport transport = mailSession.getTransport("smtp");
-            transport.connect(host, "20d930a8-c079-43f6-9022-880156538a40", "20d930a8-c079-43f6-9022-880156538a40");
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 

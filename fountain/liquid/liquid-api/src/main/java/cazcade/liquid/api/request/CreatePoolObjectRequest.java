@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -60,15 +64,16 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
     }
 
     public List<String> getNotificationLocations() {
-        if (hasRequestEntity()) {
-            if (hasUri()) {
+        if (hasRequestEntity() && !hasResponseEntity()) {
+            LSDTransferEntity requestEntity = getRequestEntity();
+            if (requestEntity.hasURI() && requestEntity.hasAttribute(LSDAttribute.NAME) || requestEntity.hasId()) {
                 return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString()
                                                                     + "."
-                                                                    + getRequestEntity().getAttribute(LSDAttribute.NAME));
+                                                                    + requestEntity.getNameOrId());
             }
             else {
-                if (getRequestEntity().hasId()) {
-                    return Arrays.asList(getPoolUUID().toString(), getRequestEntity().getUUID().toString());
+                if (requestEntity.hasId()) {
+                    return Arrays.asList(getPoolUUID().toString(), requestEntity.getUUID().toString());
                 }
                 else {
                     return Arrays.asList(getPoolUUID().toString());
@@ -79,7 +84,7 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
             if (hasUri()) {
                 return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString()
                                                                     + "."
-                                                                    + getResponse().getAttribute(LSDAttribute.NAME));
+                                                                    + getResponse().getNameOrId());
             }
             else {
                 return Arrays.asList(getPoolUUID().toString(), getResponse().getUUID().toString());

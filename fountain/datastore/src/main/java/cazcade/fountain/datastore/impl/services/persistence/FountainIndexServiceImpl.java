@@ -4,6 +4,7 @@
 
 package cazcade.fountain.datastore.impl.services.persistence;
 
+import cazcade.common.Logger;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
@@ -20,8 +21,6 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import org.neo4j.graphdb.Direction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +32,7 @@ import java.util.Date;
  * @author neilellis@cazcade.com
  */
 public class FountainIndexServiceImpl {
-    private static final Logger log = LoggerFactory.getLogger(FountainIndexServiceImpl.class);
+    private static final Logger log = Logger.getLogger(FountainIndexServiceImpl.class);
 
 
     @Autowired
@@ -151,7 +150,7 @@ public class FountainIndexServiceImpl {
         try {
             commentCount = persistedEntity.getIntegerAttribute(LSDAttribute.COMMENT_COUNT, 0);
         } catch (NumberFormatException e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
         board.setCommentCount(commentCount);
     }
@@ -161,7 +160,7 @@ public class FountainIndexServiceImpl {
         try {
             aliasFollowsCount = persistedEntity.getIntegerAttribute(LSDAttribute.FOLLOWERS_COUNT, 0);
         } catch (NumberFormatException e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
             aliasFollowsCount = 0;
         }
         board.setFollowerCount(aliasFollowsCount);
