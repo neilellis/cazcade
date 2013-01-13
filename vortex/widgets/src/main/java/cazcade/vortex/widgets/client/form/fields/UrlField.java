@@ -47,11 +47,17 @@ public class UrlField extends Composite implements VortexFormField {
         //
         //
         //        });
+        urlField.setOnValid(new Runnable() {
+            @Override public void run() {
+                previewImage.setUrl(urlField.getValue());
+            }
+        });
     }
 
     public void callOnChangeAction() {
         urlField.callOnChangeAction();
     }
+
 
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
@@ -137,6 +143,10 @@ public class UrlField extends Composite implements VortexFormField {
     @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         return urlField.getEntityDiff();
+    }
+
+    @Override public void setOnValid(Runnable runnable) {
+        urlField.setOnValid(runnable);
     }
 
 

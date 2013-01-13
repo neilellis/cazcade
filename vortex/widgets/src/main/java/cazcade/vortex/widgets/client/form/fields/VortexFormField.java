@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDTransferEntity;
@@ -13,8 +17,7 @@ import java.util.List;
  */
 public interface VortexFormField extends Bindable {
 
-    @Nullable
-    String getStringValue();
+    @Nullable String getStringValue();
 
 
     boolean isValid();
@@ -33,8 +36,7 @@ public interface VortexFormField extends Bindable {
 
     boolean isCompoundField();
 
-    @Nonnull
-    List<String> getStringValues();
+    @Nonnull List<String> getStringValues();
 
     LSDTransferEntity getEntity();
 
@@ -43,6 +45,7 @@ public interface VortexFormField extends Bindable {
      *
      * @return a lightweight entity.
      */
-    @Nonnull
-    LSDTransferEntity getEntityDiff();
+    @Nonnull LSDTransferEntity getEntityDiff();
+
+    void setOnValid(Runnable runnable);
 }

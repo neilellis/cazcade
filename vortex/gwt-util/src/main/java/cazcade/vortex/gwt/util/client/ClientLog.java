@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client;
 
 import com.google.gwt.core.client.GWT;
@@ -21,10 +25,10 @@ import java.util.Date;
 public class ClientLog {
     private static boolean loginWindowActive;
     @Nonnull
-    private static StringBuffer logBuffer = new StringBuffer();
-    private static final int MAX_BUFFER_LENGTH = 50000;
+    private static       StringBuffer logBuffer         = new StringBuffer();
+    private static final int          MAX_BUFFER_LENGTH = 50000;
     @Nullable
-    public static Element logWidget;
+    public static  Element logWidget;
     private static boolean debugMode;
     @Nonnull
     private static final VortexThreadSafeExecutor executor = new VortexThreadSafeExecutor();
@@ -57,7 +61,8 @@ public class ClientLog {
                     System.out.println("ClientLog: " + message);
                 }
                 GWT.log(message != null ? message : exception.getMessage(), exception);
-            } else if (message != null) {
+            }
+            else if (message != null) {
                 GWT.log(message, null);
             }
         }
@@ -77,7 +82,15 @@ public class ClientLog {
     private static String buildTrace(@Nonnull final Throwable exception, String trace) {
         final StackTraceElement[] stackTrace = exception.getStackTrace();
         for (final StackTraceElement stackTraceElement : stackTrace) {
-            trace = trace + stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() + "(" + stackTraceElement.getFileName() + ":" + stackTraceElement.getLineNumber() + ")\n";
+            trace = trace
+                    + stackTraceElement.getClassName()
+                    + "."
+                    + stackTraceElement.getMethodName()
+                    + "("
+                    + stackTraceElement.getFileName()
+                    + ":"
+                    + stackTraceElement.getLineNumber()
+                    + ")\n";
         }
         return trace;
     }
@@ -103,7 +116,11 @@ public class ClientLog {
                 localBuffer.append("").append(new Date().toString()).append(":").append(message).append("\n");
             }
             if (exception != null) {
-                localBuffer.append("**** ").append(new Date().toString()).append(":").append(exceptionToString(exception)).append(" ****\n");
+                localBuffer.append("**** ")
+                           .append(new Date().toString())
+                           .append(":")
+                           .append(exceptionToString(exception))
+                           .append(" ****\n");
             }
             if (exception != null) {
                 localBuffer.append("******************************\n");
@@ -139,7 +156,13 @@ public class ClientLog {
         String details = throwable.getClass().getName() + ":" + throwable.getMessage();
 
         for (final StackTraceElement stackTraceElement : stackTraceElements) {
-            details += "<p><font color='red'>" + stackTraceElement.getClassName() + ".<b>" + stackTraceElement.getMethodName() + "(" + stackTraceElement.getLineNumber() + ")</b></font><br/></p>";
+            details += "<p><font color='red'>"
+                       + stackTraceElement.getClassName()
+                       + ".<b>"
+                       + stackTraceElement.getMethodName()
+                       + "("
+                       + stackTraceElement.getLineNumber()
+                       + ")</b></font><br/></p>";
         }
         return details;
     }
@@ -151,7 +174,11 @@ public class ClientLog {
     }
 
     public static void warn(@Nonnull final Exception e) {
-        log(e.getMessage());
+        warn(e.getMessage());
         e.printStackTrace(System.err);
+    }
+
+    public static void warn(@Nonnull final String message) {
+        log("WARN: " + message);
     }
 }

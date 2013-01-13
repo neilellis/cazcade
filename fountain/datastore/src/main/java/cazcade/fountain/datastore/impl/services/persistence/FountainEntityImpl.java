@@ -100,12 +100,12 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
         else if (detail == LiquidRequestDetailLevel.TITLE_AND_NAME) {
             if (hasAttribute(TITLE)) {
-                entity.copyAttribute(this, LSDAttribute.TITLE);
+                entity.copyAttribute(LSDAttribute.TITLE, this);
             }
             if (hasAttribute(NAME)) {
-                entity.copyAttribute(this, LSDAttribute.NAME);
+                entity.copyAttribute(LSDAttribute.NAME, this);
             }
-            entity.copyAttribute(this, LSDAttribute.ID);
+            entity.copyAttribute(LSDAttribute.ID, this);
         }
         else if (detail == LiquidRequestDetailLevel.PERSON_MINIMAL) {
             copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.FULL_NAME, LSDAttribute.IMAGE_URL, LSDAttribute.ID, LSDAttribute.URI);
@@ -139,7 +139,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     public void copyValuesToEntity(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDAttribute... attributes) {
         for (final LSDAttribute attribute : attributes) {
             if (hasAttribute(attribute)) {
-                entity.copyAttribute(this, attribute);
+                entity.copyAttribute(attribute, this);
             }
         }
     }

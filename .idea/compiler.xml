@@ -107,6 +107,7 @@
         <processorPath useClasspath="true" />
         <module name="boardcast" />
         <module name="bus" />
+        <module name="cazcade.apps.cli" />
         <module name="cli (Cazcade)" />
         <module name="common (1) (cazcade)" />
         <module name="common (2) (fountain)" />
@@ -152,6 +153,7 @@
       <module name="bus" target="1.6" />
       <module name="cazcade" target="1.6" />
       <module name="cazcade.apps" target="1.6" />
+      <module name="cazcade.apps.cli" target="1.6" />
       <module name="cli (Cazcade)" target="1.6" />
       <module name="common (1) (cazcade)" target="1.6" />
       <module name="common (2) (fountain)" target="1.6" />

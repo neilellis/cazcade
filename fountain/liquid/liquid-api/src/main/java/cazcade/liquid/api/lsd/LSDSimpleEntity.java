@@ -19,7 +19,10 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     private static final String ID_KEY           = LSDAttribute.ID.getKeyName();
     private static final String TYPE_KEY         = LSDAttribute.TYPE.getKeyName();
     private static final long   serialVersionUID = 1697435148665350511L;
-    @Nonnull
+
+
+    @SuppressWarnings("FieldAccessedSynchronizedAndUnsynchronized") @Nonnull
+    //Cannot be final if serialized by GWT
     private           LSDPropertyStore lsdProperties;
     @Nullable
     // This is just a cache of the type stored as a string in the properties
@@ -400,8 +403,10 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
-    public final void copyAttribute(@Nonnull final LSDBaseEntity entity, @Nonnull final LSDAttribute attribute) {
-        setAttribute(attribute, entity.getAttribute(attribute));
+    public final void copyAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final LSDBaseEntity entity) {
+        if (entity.hasAttribute(attribute)) {
+            setAttribute(attribute, entity.getAttribute(attribute));
+        }
     }
 
     @Override

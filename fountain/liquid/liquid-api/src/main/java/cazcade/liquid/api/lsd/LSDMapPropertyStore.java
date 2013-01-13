@@ -13,8 +13,9 @@ import java.util.TreeMap;
  * @author neilellis@cazcade.com
  */
 public class LSDMapPropertyStore implements LSDPropertyStore {
-    @Nonnull
-    private final TreeMap<String, String> map = new TreeMap<String, String>();
+    @SuppressWarnings("FieldMayBeFinal") @Nonnull
+    //Do not make this final (GWT serialization needs this to be non final.
+    private TreeMap<String, String> map = new TreeMap<String, String>();
 
     public LSDMapPropertyStore(final Map<String, String> lsdProperties) {
         map.putAll(lsdProperties);

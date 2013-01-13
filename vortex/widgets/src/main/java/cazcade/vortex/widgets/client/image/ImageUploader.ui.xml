@@ -5,6 +5,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel styleName="vortex-image-uploader vortex-profile-image-uploader">
-        <iframe id="image-uploader-filepicker-frame" width="800" height="468"/>
+        <iframe id="image-uploader-filepicker-frame" width="800" style="border:none;" height="468"/>
     </g:HTMLPanel>
 </ui:UiBinder>

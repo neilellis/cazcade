@@ -32,6 +32,8 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     @UiField  Label             errorMessage;
     @UiField  Image             validityImage;
     private   LSDTransferEntity entity;
+    @Nullable
+    protected Runnable          onValid;
 
     @Nullable @Override
     public String getStringValue() {
@@ -94,6 +96,9 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         if (entity.isReadonly()) {
             throw new IllegalArgumentException("Cannot accept readonly entities.");
         }
+        if (entity.isError()) {
+            throw new IllegalArgumentException("Cannot accept error entities.");
+        }
         this.entity = entity;
     }
 
@@ -113,6 +118,10 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         return newEntity;
     }
 
+    @Override public void setOnValid(@Nullable Runnable runnable) {
+        onValid = runnable;
+    }
+
     @Override public boolean isBound() {
         return boundAttribute != null;
     }
@@ -122,6 +131,10 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     protected void showValidity() {
+        if (isValid() && onValid != null) {
+            onValid.run();
+        }
+
         if (showValidityFlag) {
             if (isValid()) {
                 validityImage.setResource(Resources.INSTANCE.validFormValueImage());

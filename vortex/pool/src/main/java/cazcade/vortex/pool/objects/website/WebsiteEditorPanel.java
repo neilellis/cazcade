@@ -41,6 +41,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         addBinding(title, LSDAttribute.TITLE);
     }
 
+
     @Override
     public int getHeight() {
         return 400;

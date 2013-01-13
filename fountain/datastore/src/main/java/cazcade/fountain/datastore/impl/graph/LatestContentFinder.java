@@ -318,8 +318,8 @@ public class LatestContentFinder {
                 }
             }
             entity.setAttribute(LSDAttribute.SOURCE, poolUri);
-            entity.copyAttribute(aliasPersistedEntity, LSDAttribute.IMAGE_URL);
-            entity.copyAttribute(aliasPersistedEntity, LSDAttribute.ICON_URL);
+            entity.copyAttribute(LSDAttribute.IMAGE_URL, aliasPersistedEntity);
+            entity.copyAttribute(LSDAttribute.ICON_URL, aliasPersistedEntity);
             //The URI keeps it unique in the stream
             entity.setAttribute(LSDAttribute.URI, new LiquidURI(LiquidURIScheme.status, "presence:" + aliasName).asString());
         }
@@ -358,8 +358,8 @@ public class LatestContentFinder {
         }
         if (poolOrObjectPersistedEntity != null) {
             entity.setAttribute(LSDAttribute.SOURCE, poolOrObjectPersistedEntity.getURI());
-            entity.copyAttribute(poolOrObjectPersistedEntity, LSDAttribute.IMAGE_URL);
-            entity.copyAttribute(poolOrObjectPersistedEntity, LSDAttribute.ICON_URL);
+            entity.copyAttribute(LSDAttribute.IMAGE_URL, poolOrObjectPersistedEntity);
+            entity.copyAttribute(LSDAttribute.ICON_URL, poolOrObjectPersistedEntity);
             if (aliasEntity != null && poolOrObjectPersistedEntity.isListed()) {
                 entity.setAttribute(LSDAttribute.TITLE, String.format("@%s commented on '%s'", aliasEntity.getAttribute(LSDAttribute.NAME), poolOrObjectPersistedEntity
                         .getAttribute(LSDAttribute.TITLE, poolOrObjectPersistedEntity.getAttribute(LSDAttribute.NAME, "Unknown"))));
@@ -400,7 +400,7 @@ public class LatestContentFinder {
         entity.setPublished(persistedEntity.getUpdated());
         entity.setAttribute(LSDAttribute.SOURCE, persistedEntity.getURI());
         if (persistedEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
-            entity.copyAttribute(persistedEntity, LSDAttribute.IMAGE_URL);
+            entity.copyAttribute(LSDAttribute.IMAGE_URL, persistedEntity);
         }
         else if (boardPersistedEntity != null && persistedEntity.hasAttribute(LSDAttribute.ICON_URL)) {
             entity.setAttribute(LSDAttribute.IMAGE_URL, boardPersistedEntity.getAttribute(LSDAttribute.IMAGE_URL));

@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
+import cazcade.vortex.gwt.util.client.WidgetUtil;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.http.client.URL;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Image;
 
 import javax.annotation.Nonnull;
@@ -13,16 +19,16 @@ import javax.annotation.Nonnull;
  */
 public class CachedImage extends Image {
     @Nonnull
-    public static final String PROFILE_SMALL = "PROFILE_SMALL";
+    public static final String  PROFILE_SMALL = "PROFILE_SMALL";
     @Nonnull
-    public static final String SMALL = "CLIPPED_SMALL";
+    public static final String  SMALL         = "CLIPPED_SMALL";
     @Nonnull
-    public static final String MEDIUM = "CLIPPED_MEDIUM";
+    public static final String  MEDIUM        = "CLIPPED_MEDIUM";
     @Nonnull
-    public static final String CLIPPED_LARGE = "CLIPPED_LARGE";
+    public static final String  CLIPPED_LARGE = "CLIPPED_LARGE";
     @Nonnull
-    public static final String LARGE = "LARGE";
-    public static final boolean CACHING = true;
+    public static final String  LARGE         = "LARGE";
+    public static final boolean CACHING       = true;
     private Runnable onChangeAction;
 
 
@@ -30,8 +36,8 @@ public class CachedImage extends Image {
 
     private String defaultUrl;
     private String url;
-    private String notReadyText = "Loading";
-    private boolean cached = true;
+    private String  notReadyText = "Loading";
+    private boolean cached       = true;
     private int requestedWidth;
     private int requestedHeight;
 
@@ -71,14 +77,13 @@ public class CachedImage extends Image {
 
     public CachedImage() {
         super();
-        setVisible(false);
+        WidgetUtil.hide(getElement(), false);
         addLoadHandler(new LoadHandler() {
             @Override
             public void onLoad(final LoadEvent event) {
-                setVisible(true);
+                WidgetUtil.showGracefully(getElement(), false);
             }
-        }
-                      );
+        });
 
     }
 
@@ -89,6 +94,12 @@ public class CachedImage extends Image {
 
     @Override
     public void setUrl(final String url) {
+        new Timer() {
+            @Override public void run() {
+                //In case the load handler has not been triggered.
+                WidgetUtil.showGracefully(getElement(), false);
+            }
+        }.schedule(2000);
         final String oldUrl = this.url;
         this.url = url;
         updateImageUrl();
@@ -107,7 +118,7 @@ public class CachedImage extends Image {
 
 
     private void updateImageUrl() {
-//        getElement().getStyle().setBackgroundImage(placeholderImage());
+        //        getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
             if (CACHING && cached && !BrowserUtil.isInternalImage(url)) {
                 if (url.startsWith("http")) {
@@ -118,8 +129,7 @@ public class CachedImage extends Image {
                                  "&width=" +
                                  getWidthWithDefault() +
                                  "&height=" +
-                                 getHeightWithDefault()
-                                );
+                                 getHeightWithDefault());
                 }
                 else {
                     super.setUrl("./_image-service?fast&url=" +
@@ -129,8 +139,7 @@ public class CachedImage extends Image {
                                  "&width=" +
                                  getWidthWithDefault() +
                                  "&height=" +
-                                 getHeightWithDefault()
-                                );
+                                 getHeightWithDefault());
                 }
             }
             else {

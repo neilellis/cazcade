@@ -80,8 +80,8 @@ public class LiquidResponseHelper {
         final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
         entity.setAttribute(LSDAttribute.TYPE, failure.getResponse().getTypeDef().asString());
         entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.setAttributeConditonally(LSDAttribute.TITLE, failure.getResponse().getAttribute(LSDAttribute.TITLE));
-        entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, failure.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
+        entity.copyAttribute(LSDAttribute.TITLE, failure.getResponse());
+        entity.copyAttribute(LSDAttribute.DESCRIPTION, failure.getResponse());
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
         message.setResponse(entity);
@@ -156,7 +156,7 @@ public class LiquidResponseHelper {
         final T message = (T) request.copy();
         final LSDTransferEntity response = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
         response.setID(entity.getUUID());
-        response.setAttribute(LSDAttribute.UPDATED, entity.getAttribute(LSDAttribute.UPDATED));
+        response.copyAttribute(LSDAttribute.UPDATED, entity);
         message.setResponse(response);
         message.setState(LiquidMessageState.SUCCESS);
         message.setOrigin(LiquidMessageOrigin.SERVER);

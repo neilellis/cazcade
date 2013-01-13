@@ -158,6 +158,10 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
         return urlField.getEntityDiff();
     }
 
+    @Override public void setOnValid(Runnable runnable) {
+        urlField.setOnValid(runnable);
+    }
+
     @Override
     public String getStringValue() {
         return urlField.getValue();

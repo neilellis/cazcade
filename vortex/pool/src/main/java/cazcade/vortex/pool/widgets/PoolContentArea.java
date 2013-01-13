@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.widgets;
 
 import cazcade.liquid.api.LiquidPermission;
@@ -46,21 +50,19 @@ public class PoolContentArea extends Composite {
 
     private static final PoolContentAreaUiBinder ourUiBinder = GWT.create(PoolContentAreaUiBinder.class);
 
-    @UiField
-    AbsolutePanel container;
-    @UiField
-    Label visibilityStatus;
+    @UiField AbsolutePanel container;
+    @UiField Label         visibilityStatus;
 
     @Nonnull
     private final Bus bus;
 
     @Nullable
-    private final VortexScrollPanel scrollPanel;
+    private final VortexScrollPanel        scrollPanel;
     @Nullable
-    private VortexThreadSafeExecutor threadSafeExecutor;
+    private       VortexThreadSafeExecutor threadSafeExecutor;
     @Nullable
-    private PoolPresenter poolPresenter;
-    private final boolean pageFlow;
+    private       PoolPresenter            poolPresenter;
+    private final boolean                  pageFlow;
 
     public PoolContentArea() {
         this(false, false, true);
@@ -85,8 +87,7 @@ public class PoolContentArea extends Composite {
     }
 
 
-    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor,
-                     @Nonnull final LSDType type, final boolean listed) {
+    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final LSDType type, final boolean listed) {
         this.threadSafeExecutor = threadSafeExecutor;
         bus.send(new VisitPoolRequest(type, uri, uri, true, listed), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
@@ -97,24 +98,24 @@ public class PoolContentArea extends Composite {
 
                 init(poolEntity, features, threadSafeExecutor);
             }
-        }
-                );
+        });
     }
 
-    public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features,
-                     final VortexThreadSafeExecutor threadSafeExecutor) {
-        final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
-        setBackgroundImage(imageUrl);
-//        backgroundImage.setWidth("100%");
-//        backgroundImage.setHeight("100%");
-//        container.add(backgroundImage);
+    public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+        if (poolEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
+            final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
+            setBackgroundImage(imageUrl);
+        }
+        //        backgroundImage.setWidth("100%");
+        //        backgroundImage.setHeight("100%");
+        //        container.add(backgroundImage);
         if (poolPresenter != null) {
             poolPresenter.destroy();
         }
-        final boolean listed = poolEntity.getBooleanAttribute(LSDAttribute.LISTED);
+        final boolean listed = poolEntity.getBooleanAttribute(LSDAttribute.LISTED, false);
         visibilityStatus.removeStyleName("danger");
         visibilityStatus.removeStyleName("warning");
-        if (poolEntity.getBooleanAttribute(LSDAttribute.EDITABLE)) {
+        if (poolEntity.getBooleanAttribute(LSDAttribute.EDITABLE, false)) {
             if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
                 if (listed) {
                     visibilityStatus.setText("All can edit");
@@ -162,11 +163,7 @@ public class PoolContentArea extends Composite {
         for (final LSDBaseEntity entity : entities) {
             try {
                 ClientLog.log(entity.getTypeDef().asString());
-                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter,
-                                                                                                                 (LSDTransferEntity) entity,
-                                                                                                                 features,
-                                                                                                                 threadSafeExecutor
-                                                                                                                );
+                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, (LSDTransferEntity) entity, features, threadSafeExecutor);
                 if (poolObjectPresenter != null) {
                     ClientLog.assertTrue(poolObjectPresenter != null, "Pool Object Presenter was null");
                     poolObjectPresenter.setX(scrollPanel.getOffsetX() + 200);
@@ -189,15 +186,14 @@ public class PoolContentArea extends Composite {
 
     public void setBackgroundImage(@Nullable final String imageUrl) {
         if (container != null && imageUrl != null) {
-//            Window.alert("setting background "+imageUrl);
+            //            Window.alert("setting background "+imageUrl);
             if (BrowserUtil.isInternalImage(imageUrl)) {
                 container.getElement().getStyle().setProperty("backgroundImage", "url('" + imageUrl + "')");
             }
             else {
                 container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" +
                                                                                  encode(imageUrl) +
-                                                                                 "&size=LARGE&width=1024&height=2048')"
-                                                             );
+                                                                                 "&size=LARGE&width=1024&height=2048')");
             }
             container.getElement().getStyle().setWidth(1024, Style.Unit.PX);
         }
@@ -211,8 +207,7 @@ public class PoolContentArea extends Composite {
     }
 
 
-    interface PoolContentAreaUiBinder extends UiBinder<HTMLPanel, PoolContentArea> {
-    }
+    interface PoolContentAreaUiBinder extends UiBinder<HTMLPanel, PoolContentArea> {}
 
     public void center() {
         scrollPanel.center();

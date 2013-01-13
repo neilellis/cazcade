@@ -50,7 +50,9 @@ public class EditableImage extends Composite implements Bindable {
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         this.entity = entity;
         this.attribute = attribute;
-        image.setUrl(entity.getAttribute(attribute));
+        if (entity.hasAttribute(attribute)) {
+            image.setUrl(entity.getAttribute(attribute));
+        }
     }
 
     @Override

@@ -58,7 +58,7 @@ public interface LSDBaseEntity {
 
     boolean canBe(@Nonnull LSDDictionaryTypes type);
 
-    void copyAttribute(@Nonnull LSDBaseEntity entity, @Nonnull LSDAttribute attribute);
+    void copyAttribute(@Nonnull LSDAttribute attribute, @Nonnull LSDBaseEntity entity);
 
     @Nullable Object get(@Nonnull String key);
 

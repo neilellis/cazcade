@@ -6,6 +6,7 @@ package cazcade.vortex.pool.objects.website;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
@@ -38,6 +39,9 @@ public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
             public void run() {
                 if (newEntity.hasAttribute(LSDAttribute.SOURCE)) {
                     getPoolObjectView().setUrl(newEntity.getAttribute(LSDAttribute.SOURCE));
+                }
+                else {
+                    ClientLog.warn("No source for " + newEntity.getURI());
                 }
                 WebsitePresenter.super.update(newEntity, replaceEntity);
             }

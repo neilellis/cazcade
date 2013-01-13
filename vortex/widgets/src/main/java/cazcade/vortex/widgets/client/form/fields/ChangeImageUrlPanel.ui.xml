@@ -8,7 +8,7 @@
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
     <g:HTMLPanel styleName="change-image-panel">
         <div class="change-image-url-area">
-            <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box" regex="https?://.*"/>
+            <fields:RegexTextBox ui:field="urlField" styleName="change-image-text-box" visible="false" regex="https?://.*"/>
         </div>
         <image:ImageUploader ui:field="imageUploader"/>
     </g:HTMLPanel>

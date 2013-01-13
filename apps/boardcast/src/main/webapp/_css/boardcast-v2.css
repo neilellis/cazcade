@@ -9241,12 +9241,12 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .popup-ready {
-    -webkit-transition: -webkit-transform ease-in-out 2000ms;
-    -moz-transition: -moz-transform ease-in-out 2000ms;
-    -webkit-transition: -webkit-transform ease-in-out 2000ms;
-    -moz-transition: -moz-transform ease-in-out 2000ms;
-    -webkit-transition: -webkit-transform ease-in-out 2000ms;
-    -moz-transition: -moz-transform ease-in-out 2000ms;
+    -webkit-transition: -webkit-transform ease-in-out 1000ms;
+    -moz-transition: -moz-transform ease-in-out 1000ms;
+    -webkit-transition: -webkit-transform ease-in-out 1000ms;
+    -moz-transition: -moz-transform ease-in-out 1000ms;
+    -webkit-transition: -webkit-transform ease-in-out 1000ms;
+    -moz-transition: -moz-transform ease-in-out 1000ms;
     -webkit-transform: translate3d(0, -6px, 0);
     -moz-transform: translate3d(0, -6px, 0);
     -ms-transform: translate3d(0, -6px, 0);

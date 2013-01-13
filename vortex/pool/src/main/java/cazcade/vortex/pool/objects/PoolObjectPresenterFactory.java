@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects;
 
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -37,27 +41,37 @@ public class PoolObjectPresenterFactory {
     public static PoolObjectPresenter getPresenterForEntity(final PoolPresenter poolPresenter, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         if (entity.canBe(LSDDictionaryTypes.PHOTO2D)) {
             return new PhotoPresenter(poolPresenter, entity, new PhotoView(), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.WEBPAGE)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.WEBPAGE)) {
             return new WebsitePresenter(poolPresenter, entity, new WebsiteView(), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.BITMAP_IMAGE_2D)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.BITMAP_IMAGE_2D)) {
             return new ImagePresenter(poolPresenter, entity, new ImageView(), threadSafeExecutor);
-//        } else if (entity.canBe(LSDDictionaryTypes.CUSTOM_OBJECT)) {
-//            return new CustomObjectPresenter(poolPresenter, entity, new CustomObjectView(), features.getCustomObjectEditor(), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.ALIAS_REF)) {
+            //        } else if (entity.canBe(LSDDictionaryTypes.CUSTOM_OBJECT)) {
+            //            return new CustomObjectPresenter(poolPresenter, entity, new CustomObjectView(), features.getCustomObjectEditor(), threadSafeExecutor);
+        }
+        else if (entity.canBe(LSDDictionaryTypes.ALIAS_REF)) {
             return new AliasReferencePresenter(poolPresenter, entity, new AliasReferenceView(features), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.YOUTUBE_MOVIE)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.YOUTUBE_MOVIE)) {
             return new YouTubePresenter(poolPresenter, entity, new YouTubeView(), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.NOTE)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.NOTE)) {
             return new RichTextPresenter(poolPresenter, entity, new NoteView(features), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.STICKY)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.STICKY)) {
             return new RichTextPresenter(poolPresenter, entity, new StickyView(features), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.CAPTION)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.CAPTION)) {
             return new RichTextPresenter(poolPresenter, entity, new CaptionView(features), threadSafeExecutor);
-        } else if (entity.canBe(LSDDictionaryTypes.CHECKLIST_POOL)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.CHECKLIST_POOL)) {
             return new ChecklistPresenter(poolPresenter, entity, new ChecklistView(features), threadSafeExecutor, features);
-        } else if (entity.canBe(LSDDictionaryTypes.MICROBLOG)) {
+        }
+        else if (entity.canBe(LSDDictionaryTypes.MICROBLOG)) {
             return new MicroBlogPresenter(poolPresenter, entity, new MicroBlogView(), threadSafeExecutor);
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -66,7 +80,8 @@ public class PoolObjectPresenterFactory {
     public static PoolObjectPresenter getPresenterForEntity(@Nonnull final PoolObjectPresenterContainer poolObjectPresenterContainer, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         if (poolObjectPresenterContainer.getType().canBe(LSDDictionaryTypes.POOL2D)) {
             return getPresenterForEntity((PoolPresenter) poolObjectPresenterContainer, entity, features, threadSafeExecutor);
-        } else {
+        }
+        else {
             return null;
         }
     }

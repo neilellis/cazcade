@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.photo;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -30,25 +34,21 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
 
     @Override
     public int getHeight() {
-        return 400;
+        return 630;
     }
 
     @Override
     public int getWidth() {
-        return 700;
+        return 840;
     }
 
-    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, PhotoEditorPanel> {
-    }
+    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, PhotoEditorPanel> {}
 
 
     private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
-    @UiField
-    ChangeImageUrlPanel changeImagePanel;
-    @UiField
-    VortexTextArea description;
-    @UiField
-    RegexTextBox title;
+    @UiField ChangeImageUrlPanel changeImagePanel;
+    @UiField VortexTextArea      description;
+    @UiField RegexTextBox        title;
 
 
     public PhotoEditorPanel(final LSDTransferEntity entity) {

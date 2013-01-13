@@ -1,26 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="" />
+    <list default="true" id="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cazcade.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/filepickerio.css" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vortex/plugins/plugins.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vortex/plugins/twitter/twitter-plugin.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vortex/pool/pool.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vortex/vortex.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vortex/widgets/widgets.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractVortexFormField.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractVortexFormField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientLog.java" afterPath="$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/ClientLog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/EditableImage.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/EditableImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/services/persistence/FountainEntityImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDMapPropertyStore.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDMapPropertyStore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" afterPath="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/graph/LatestContentFinder.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/graph/LatestContentFinder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/LiquidResponseHelper.java" afterPath="$PROJECT_DIR$/fountain/datastore/src/main/java/cazcade/fountain/datastore/impl/LiquidResponseHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.ui.xml" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.ui.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/widgets/PoolContentArea.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectPresenterFactory.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectPresenterFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/UserProfileImage.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/UserProfileImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexFormField.java" afterPath="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexFormField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsitePresenter.java" afterPath="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsitePresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/boardcast-v2.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/dialogs.less" afterPath="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/dialogs.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <list id="7d78b38e-02c8-4558-9ad1-3d89159a945d" name="ignore" comment="" />
     <ignored path="$USER_HOME$/.grails/" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="cazcade.iws" />
     <ignored path="$USER_HOME$/.griffon/" />
-    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358095060617" ignored="false" />
-    <file path="/a.dummy" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358044687917" ignored="false" />
+    <file path="/Dummy.txt" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358098629331" ignored="false" />
+    <file path="/a.dummy" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358103622269" ignored="false" />
     <file path="/index-service.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357090125509" ignored="false" />
     <file path="/header.jspf" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357159853059" ignored="false" />
     <file path="/pom.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357148450680" ignored="false" />
     <file path="$USER_HOME$/.m2/settings.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356907802426" ignored="false" />
     <file path="/fragment.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357778506829" ignored="false" />
-    <file path="/ChangeImageUrlPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358026725795" ignored="false" />
+    <file path="/ChangeImageUrlPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358105176666" ignored="false" />
     <file path="/OnStartUploadHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356968467104" ignored="false" />
     <file path="/ImageUploader.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358038684951" ignored="false" />
-    <file path="/ImageUploader.ui.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358033334096" ignored="false" />
+    <file path="/ImageUploader.ui.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358106260951" ignored="false" />
     <file path="/ProfileEditor.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357517240070" ignored="false" />
     <file path="/HashboCustomObjectEditor.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356970414783" ignored="false" />
-    <file path="/ChangeImageUrlPanel.ui.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356973795383" ignored="false" />
+    <file path="/ChangeImageUrlPanel.ui.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358105958149" ignored="false" />
     <file path="/web.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356988574880" ignored="false" />
     <file path="/*.regexp" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1356996075126" ignored="false" />
     <file path="/Boardcast.gwt.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357135152578" ignored="false" />
@@ -56,21 +92,21 @@
     <file path="/common.less" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357165661050" ignored="false" />
     <file path="/gradients.less" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357166099518" ignored="false" />
     <file path="/SimpleMailTest.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357169071015" ignored="false" />
-    <file path="/LSDSimpleEntity.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358031011626" ignored="false" />
+    <file path="/LSDSimpleEntity.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358100348512" ignored="false" />
     <file path="/LSDBaseEntity.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358030255700" ignored="false" />
     <file path="/LSDSimpleNode.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357228728618" ignored="false" />
     <file path="/LSDPropertyStore.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357228789946" ignored="false" />
-    <file path="/LSDMapPropertyStore.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357228970016" ignored="false" />
+    <file path="/LSDMapPropertyStore.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358099612876" ignored="false" />
     <file path="/RetrieveUpdatesHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357230765027" ignored="false" />
     <file path="/FountainPoolDAOImpl.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357493946383" ignored="false" />
     <file path="/ClaimAliasHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357230898341" ignored="false" />
     <file path="/FountainUserDAOImpl.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357487956612" ignored="false" />
-    <file path="/LiquidResponseHelper.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357230986075" ignored="false" />
+    <file path="/LiquidResponseHelper.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358100601300" ignored="false" />
     <file path="/RetrieveAliasHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357489612213" ignored="false" />
     <file path="/RetrievePoolRosterHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357489797328" ignored="false" />
     <file path="/CallbackServlet.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357231173666" ignored="false" />
     <file path="/LiquidNotificationServlet.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357231128654" ignored="false" />
-    <file path="/AbstractVortexFormField.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358030353748" ignored="false" />
+    <file path="/AbstractVortexFormField.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358105313003" ignored="false" />
     <file path="$PROJECT_DIR$/../billabong/snapshot/src/main/java/com/cazcade/billabong/snapshot/impl/CutyCaptCapturer.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357256554921" ignored="false" />
     <file path="$M2_REPO$/cazcade/culvert/1.1-SNAPSHOT/culvert-1.1-SNAPSHOT.jar!/spring/culvert-service.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357259367259" ignored="false" />
     <file path="/FountainEntityImpl.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357347977279" ignored="false" />
@@ -116,7 +152,7 @@
     <file path="/ChatRequest.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357515959967" ignored="false" />
     <file path="/LiquidURI.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357350911002" ignored="false" />
     <file path="/NotificationPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357350823737" ignored="false" />
-    <file path="/PoolContentArea.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357351064370" ignored="false" />
+    <file path="/PoolContentArea.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358101288084" ignored="false" />
     <file path="/AbstractCreationRequest.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357516137680" ignored="false" />
     <file path="/ChatStreamPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357429859861" ignored="false" />
     <file path="/CommentEntryPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357435018932" ignored="false" />
@@ -132,7 +168,7 @@
     <file path="/CreatePoolRequest.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357516230204" ignored="false" />
     <file path="/CreateUserHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357431057235" ignored="false" />
     <file path="/CreateUserRequest.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357516285965" ignored="false" />
-    <file path="/DataStoreServiceImpl.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357912504993" ignored="false" />
+    <file path="/DataStoreServiceImpl.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358099877649" ignored="false" />
     <file path="/DefaultRequestValidator.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357431916590" ignored="false" />
     <file path="/DeletePoolHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357432033975" ignored="false" />
     <file path="/DeletePoolObjectHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357432093409" ignored="false" />
@@ -179,8 +215,8 @@
     <file path="/VortexStreamEntryPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357494405688" ignored="false" />
     <file path="/LatestContentFinder.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357505605286" ignored="false" />
     <file path="/CreatePoolObjectHandler.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357505838473" ignored="false" />
-    <file path="/a.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357777468687" ignored="false" />
-    <file path="/sample.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357776654051" ignored="false" />
+    <file path="/a.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358098537343" ignored="false" />
+    <file path="/sample.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358098539287" ignored="false" />
     <file path="/a.feature" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357506466826" ignored="false" />
     <file path="/GWTDataStore.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357910080264" ignored="false" />
     <file path="/UserUtil.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357779343794" ignored="false" />
@@ -229,19 +265,26 @@
     <file path="$PROJECT_DIR$/apps/hashbo/target/hashbo-1.1-SNAPSHOT/WEB-INF/classes/cazcade/boardcast/servlet/login/LoginServlet.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357873330955" ignored="false" />
     <file path="$PROJECT_DIR$/apps/hashbo/target/hashbo-1.1-SNAPSHOT/WEB-INF/classes/cazcade/boardcast/servlet/AbstractBoardcastServlet.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357873330955" ignored="false" />
     <file path="/RichTextPresenter.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1357909649400" ignored="false" />
-    <file path="/WebsitePresenter.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358028114179" ignored="false" />
+    <file path="/WebsitePresenter.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358101145293" ignored="false" />
     <file path="/VortexPopupPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358044272475" ignored="false" />
     <file path="/AbstractPoolObjectEditorPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358028634938" ignored="false" />
     <file path="/HistoryManager.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358020544002" ignored="false" />
-    <file path="/EditableImage.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358040379279" ignored="false" />
-    <file path="/UrlField.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358026801450" ignored="false" />
+    <file path="/EditableImage.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358099151076" ignored="false" />
+    <file path="/UrlField.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358105163137" ignored="false" />
     <file path="/ChangeBackgroundDialog.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358027468755" ignored="false" />
     <file path="/WebsiteEditorPanel.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358028626586" ignored="false" />
-    <file path="/UserProfileImage.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358030953762" ignored="false" />
+    <file path="/UserProfileImage.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358099267155" ignored="false" />
     <file path="/PhotoPresenter.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358031166293" ignored="false" />
     <file path="/PoolObjectEditor.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358041717099" ignored="false" />
     <file path="/dialogs.less" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358044651085" ignored="false" />
-    <file path="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358095081814" ignored="false" />
+    <file path="/ClientLog.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358101055560" ignored="false" />
+    <file path="/PoolObjectPresenterFactory.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358102096335" ignored="false" />
+    <file path="/AbstractPoolObjectPresenter.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358102306964" ignored="false" />
+    <file path="/WebsiteView.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358102416050" ignored="false" />
+    <file path="/CachedImage.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358103970500" ignored="false" />
+    <file path="/VortexFormField.java" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358105004686" ignored="false" />
+    <file path="/PhotoEditorPanel.ui.xml" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358105876878" ignored="false" />
+    <file path="/filepickerio.css" changelist="9ff543bd-1afa-4ce9-a6c5-75216fd05a40" time="1358107466184" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,6 +302,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -407,7 +451,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -417,80 +460,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VortexPopupPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.java">
+      <file leaf-file-name="ImageEditor.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageEditor.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="79" selection-start="2339" selection-end="2339" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2151#2485#0" expanded="true" />
-                <element signature="e#2474#2475#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractAliasDetailPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="211" column="9" selection-start="8732" selection-end="8732" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#9511#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#3234#4084#0" expanded="true" />
-                <element signature="e#4073#4074#0" expanded="true" />
-                <element signature="e#7009#7225#0" expanded="true" />
-                <element signature="e#7214#7215#0" expanded="true" />
-                <element signature="e#7349#7509#0" expanded="true" />
-                <element signature="e#7498#7499#0" expanded="true" />
-                <element signature="e#7557#8149#0" expanded="true" />
-                <element signature="e#8138#8139#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityBackedPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/EntityBackedPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="0" selection-start="1003" selection-end="1003" vertical-scroll-proportion="0.0">
+            <state line="5" column="28" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LSDSimpleEntity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java">
+      <file leaf-file-name="PhotoEditorPanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="433" column="0" selection-start="17097" selection-end="17097" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#39538#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#5973#5987#0" expanded="true" />
-                <element signature="e#17951#17959#0" expanded="true" />
-                <element signature="e#21435#21461#0" expanded="true" />
-                <element signature="e#30926#30934#0" expanded="true" />
-                <element signature="e#34953#34967#0" expanded="true" />
-                <element signature="e#35348#35364#0" expanded="true" />
-                <element signature="e#37678#37694#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WidgetUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/WidgetUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="23" selection-start="3484" selection-end="3484" vertical-scroll-proportion="0.0">
+            <state line="32" column="17" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dialogs.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/dialogs.less">
+      <file leaf-file-name="PhotoEditorPanel.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="20" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0">
+            <state line="22" column="0" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageEditor.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageEditor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="17" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -499,42 +499,57 @@
       <file leaf-file-name="ChangeImageUrlPanel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="13" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0">
+            <state line="44" column="0" selection-start="1431" selection-end="1431" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageUploader.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ChangeImageUrlPanel.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="22" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageUploader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="25" selection-start="964" selection-end="964" vertical-scroll-proportion="0.2590164">
+            <state line="15" column="13" selection-start="400" selection-end="400" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1358095083000" expanded="true" signature="1908:3314" placeholder="{...}" />
-                <marker date="1358095083000" expanded="true" signature="2145:2273" placeholder="{&quot;container&quot;: 'image-uploader-filepicker-frame'...}" />
-                <marker date="1358095083000" expanded="true" signature="2309:2969" placeholder="{...}" />
-                <marker date="1358095083000" expanded="true" signature="2455:2542" placeholder="{...}" />
-                <marker date="1358095083000" expanded="true" signature="2548:2613" placeholder="{...}" />
-                <marker date="1358095083000" expanded="true" signature="3006:3297" placeholder="{...}" />
+                <marker date="1358097684000" expanded="true" signature="1908:3314" placeholder="{...}" />
+                <marker date="1358097684000" expanded="true" signature="2145:2273" placeholder="{&quot;container&quot;: 'image-uploader-filepicker-frame'...}" />
+                <marker date="1358097684000" expanded="true" signature="2309:2969" placeholder="{...}" />
+                <marker date="1358097684000" expanded="true" signature="2455:2542" placeholder="{...}" />
+                <marker date="1358097684000" expanded="true" signature="2548:2613" placeholder="{...}" />
+                <marker date="1358097684000" expanded="true" signature="3006:3297" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/common.less">
+      <file leaf-file-name="ImageUploader.ui.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="197" column="40" selection-start="6460" selection-end="6460" vertical-scroll-proportion="-15.538462">
+            <state line="7" column="84" selection-start="365" selection-end="365" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mixins.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/mixins.less">
+      <file leaf-file-name="noise-light-white.jpg" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_images/wallpapers/noise-light-white.jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filepickerio.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/filepickerio.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="1" selection-start="2342" selection-end="2342" vertical-scroll-proportion="0.0">
+            <state line="5" column="90" selection-start="171" selection-end="171" vertical-scroll-proportion="0.12254902">
               <folding />
             </state>
           </provider>
@@ -558,22 +573,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/PoolObjectPresenterFactory.java" />
         <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsitePresenter.java" />
-        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDBaseEntity.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractVortexFormField.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/UserProfileImage.java" />
-        <option value="$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java" />
-        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoPresenter.java" />
-        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/widgets.less" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/EditableImage.java" />
-        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/edit/PoolObjectEditor.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.java" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/AbstractPoolObjectPresenter.java" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteView.java" />
         <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/dialogs.less" />
-        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/CachedImage.java" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexFormField.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractVortexFormField.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.ui.xml" />
+        <option value="$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java" />
+        <option value="$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml" />
+        <option value="$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/filepickerio.css" />
       </list>
     </option>
   </component>
@@ -605,10 +620,9 @@
     <option name="jreName" value="#JAVA_INTERNAL" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="11" />
     <option name="y" value="22" />
     <option name="width" value="1920" />
-    <option name="height" value="1105" />
+    <option name="height" value="1107" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -638,26 +652,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -665,10 +659,6 @@
               <option name="myItemId" value="cazcade" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -823,106 +813,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vortex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vortex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vortex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vortex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="popup" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -990,7 +880,63 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
+              <option name="myItemId" value="pool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1014,19 +960,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="form" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fields" />
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1040,95 +974,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
+              <option name="myItemId" value="vortex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid-api" />
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1148,7 +998,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="liquid" />
+              <option name="myItemId" value="vortex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="objects" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1162,15 +1020,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
+              <option name="myItemId" value="vortex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="liquid" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquid-api" />
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1190,29 +1044,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="liquid" />
+              <option name="myItemId" value="vortex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
+              <option name="myItemId" value="objects" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="datastore" />
+              <option name="myItemId" value="website" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1226,77 +1070,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
+              <option name="myItemId" value="vortex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="datastore" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="datastore" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cazcade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1316,11 +1094,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
+              <option name="myItemId" value="vortex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="pool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="objects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="photo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1334,11 +1120,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
+              <option name="myItemId" value="vortex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1358,15 +1144,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fountain" />
+              <option name="myItemId" value="vortex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="pool" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="error" />
+              <option name="myItemId" value="objects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="image" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1484,7 +1274,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="_less" />
+              <option name="myItemId" value="_css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1546,35 +1336,55 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cazcade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="258" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="260" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="256" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="258" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="259" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="257" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="209" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth1" value="207" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth0" value="205" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="267" />
     <property name="GWT.GenerateCompileReport.Module" value="cazcade.boardcast.Boardcast" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1059" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1057" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1052" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1050" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4" value="1003" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="265" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="263" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3" value="205" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="261" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="259" />
     <property name="Database.TableEditor.Splitter" value="0.9" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="project.propCompiler" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="project.structure.side.proportion" value="0.26923078" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
@@ -2325,11 +2135,11 @@
       <item index="10" class="java.lang.String" itemvalue="JUnit.Test Live" />
       <item index="11" class="java.lang.String" itemvalue="JUnit.All" />
       <item index="12" class="java.lang.String" itemvalue="JUnit.FountainIntegrationTest.test" />
-      <item index="13" class="java.lang.String" itemvalue="JUnit.LSDNodeTest" />
-      <item index="14" class="java.lang.String" itemvalue="JUnit.LSDNodeTest.testArrayMarshalling" />
-      <item index="15" class="java.lang.String" itemvalue="JUnit.PermissionIntegrationTest" />
-      <item index="16" class="java.lang.String" itemvalue="JUnit.FollowIntegrationTest" />
-      <item index="17" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 5" />
+      <item index="13" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 5" />
+      <item index="14" class="java.lang.String" itemvalue="JUnit.LSDNodeTest" />
+      <item index="15" class="java.lang.String" itemvalue="JUnit.LSDNodeTest.testArrayMarshalling" />
+      <item index="16" class="java.lang.String" itemvalue="JUnit.PermissionIntegrationTest" />
+      <item index="17" class="java.lang.String" itemvalue="JUnit.FollowIntegrationTest" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -2476,37 +2286,36 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="11" y="22" width="1920" height="1105" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1920" height="1107" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32385787" sideWeight="0.49573106" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08502674" sideWeight="0.6442886" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31878173" sideWeight="0.4316969" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34401262" sideWeight="0.48680738" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3248731" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3242148" sideWeight="0.0" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Jelastic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32772276" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32970297" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Minimized stickies" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33564568" sideWeight="0.671066" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4497462" sideWeight="0.56456774" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33564568" sideWeight="0.67173254" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44883487" sideWeight="0.56456774" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.49359658" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="iSnippet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TunnelliJ" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.328934" sideWeight="0.4466382" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32826748" sideWeight="0.4466382" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4324873" sideWeight="0.32870865" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Kotlin" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Notes" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32791877" sideWeight="0.25987193" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272543" sideWeight="0.25987193" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.3103103" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.19539078" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19210246" sideWeight="0.671066" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19850586" sideWeight="0.67173254" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977018" sideWeight="0.64781743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Colour Chooser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.67614216" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861477" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
@@ -2525,6 +2334,7 @@
       <window_info id="Unicode Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36819637" sideWeight="0.67614216" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4172589" sideWeight="0.45944503" order="6" side_tool="false" content_ui="tabs" />
@@ -2618,161 +2428,123 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.ui.xml">
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexTextBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="8" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0">
+        <state line="16" column="22" selection-start="518" selection-end="518" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/EditableImage.java">
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/website/WebsiteEditorPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="43" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0">
+        <state line="61" column="17" selection-start="1783" selection-end="1783" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/UrlField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="149" column="36" selection-start="4279" selection-end="4279" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#3010#3459#0" expanded="true" />
-            <element signature="e#3211#3425#0" expanded="true" />
-            <element signature="e#3402#3403#0" expanded="true" />
-            <element signature="e#3444#3445#0" expanded="true" />
-            <element signature="e#4411#4549#0" expanded="true" />
-            <element signature="e#4534#4535#0" expanded="true" />
+            <element signature="e#1824#1964#0" expanded="true" />
+            <element signature="e#1953#1954#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/edit/PoolObjectEditor.java">
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexFormField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="59" selection-start="1709" selection-end="1709" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#2353#2562#0" expanded="true" />
-            <element signature="e#2547#2548#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$M2_REPO$/com/google/gwt/gwt-user/2.5.0/gwt-user-2.5.0-sources.jar!/com/google/gwt/user/client/ui/PopupPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="785" column="14" selection-start="24412" selection-end="24412" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1348217548000" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1348217548000" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/shadows.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="48" column="9" selection-start="1022" selection-end="1022" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/boardcast-v2.less">
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/VortexPasswordTextBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="222" column="2" selection-start="4623" selection-end="4623" vertical-scroll-proportion="0.0">
+        <state line="40" column="16" selection-start="1284" selection-end="1284" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/gwt-util/src/main/java/cazcade/vortex/gwt/util/client/WidgetUtil.java">
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/AbstractVortexFormField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="23" selection-start="3484" selection-end="3484" vertical-scroll-proportion="0.0">
+        <state line="133" column="25" selection-start="4033" selection-end="4033" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/EntityBackedPanel.java">
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageEditor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="1003" selection-end="1003" vertical-scroll-proportion="0.0">
+        <state line="34" column="17" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/profile/AbstractAliasDetailPanel.java">
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageEditor.ui.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="9" selection-start="8732" selection-end="8732" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#9511#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3234#4084#0" expanded="true" />
-            <element signature="e#4073#4074#0" expanded="true" />
-            <element signature="e#7009#7225#0" expanded="true" />
-            <element signature="e#7214#7215#0" expanded="true" />
-            <element signature="e#7349#7509#0" expanded="true" />
-            <element signature="e#7498#7499#0" expanded="true" />
-            <element signature="e#7557#8149#0" expanded="true" />
-            <element signature="e#8138#8139#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fountain/liquid/liquid-api/src/main/java/cazcade/liquid/api/lsd/LSDSimpleEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="433" column="0" selection-start="17097" selection-end="17097" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#39538#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#5973#5987#0" expanded="true" />
-            <element signature="e#17951#17959#0" expanded="true" />
-            <element signature="e#21435#21461#0" expanded="true" />
-            <element signature="e#30926#30934#0" expanded="true" />
-            <element signature="e#34953#34967#0" expanded="true" />
-            <element signature="e#35348#35364#0" expanded="true" />
-            <element signature="e#37678#37694#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/popup/VortexPopupPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="79" selection-start="2339" selection-end="2339" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2151#2485#0" expanded="true" />
-            <element signature="e#2474#2475#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/bootstrap/mixins.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="1" selection-start="2342" selection-end="2342" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/common.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="197" column="40" selection-start="6460" selection-end="6460" vertical-scroll-proportion="-15.538462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_less/dialogs.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="20" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0">
+        <state line="5" column="28" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="13" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0">
+        <state line="44" column="0" selection-start="1431" selection-end="1431" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/pool/src/main/java/cazcade/vortex/pool/objects/photo/PhotoEditorPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="17" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/form/fields/ChangeImageUrlPanel.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="22" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="25" selection-start="964" selection-end="964" vertical-scroll-proportion="0.2590164">
+        <state line="15" column="13" selection-start="400" selection-end="400" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1358095083000" expanded="true" signature="1908:3314" placeholder="{...}" />
-            <marker date="1358095083000" expanded="true" signature="2145:2273" placeholder="{&quot;container&quot;: 'image-uploader-filepicker-frame'...}" />
-            <marker date="1358095083000" expanded="true" signature="2309:2969" placeholder="{...}" />
-            <marker date="1358095083000" expanded="true" signature="2455:2542" placeholder="{...}" />
-            <marker date="1358095083000" expanded="true" signature="2548:2613" placeholder="{...}" />
-            <marker date="1358095083000" expanded="true" signature="3006:3297" placeholder="{...}" />
+            <marker date="1358097684000" expanded="true" signature="1908:3314" placeholder="{...}" />
+            <marker date="1358097684000" expanded="true" signature="2145:2273" placeholder="{&quot;container&quot;: 'image-uploader-filepicker-frame'...}" />
+            <marker date="1358097684000" expanded="true" signature="2309:2969" placeholder="{...}" />
+            <marker date="1358097684000" expanded="true" signature="2455:2542" placeholder="{...}" />
+            <marker date="1358097684000" expanded="true" signature="2548:2613" placeholder="{...}" />
+            <marker date="1358097684000" expanded="true" signature="3006:3297" placeholder="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vortex/widgets/src/main/java/cazcade/vortex/widgets/client/image/ImageUploader.ui.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="84" selection-start="365" selection-end="365" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_images/wallpapers/noise-light-white.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/boardcast/src/main/webapp/_css/filepickerio.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="90" selection-start="171" selection-end="171" vertical-scroll-proportion="0.12254902">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2848,7 +2620,18 @@
             <option name="proportions">
               <list>
                 <option value="0.26923078" />
-                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
               </list>
             </option>
           </splitter-proportions>
