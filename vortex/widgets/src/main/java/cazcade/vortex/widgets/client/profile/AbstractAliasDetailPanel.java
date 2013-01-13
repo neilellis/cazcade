@@ -40,13 +40,7 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
-    private FormatUtil          features;
-    private boolean             following;
-    private HandlerRegistration followHandler;
-    private HandlerRegistration dmHandler;
-    private long                followListenId;
-    private long                updateAliasListenId;
-    private LiquidURI           aliasURI;
+    private static final boolean DM_SUPPORTED = false;
     @UiField UserProfileImage    userImage;
     @UiField VortexEditableLabel userShortName;
     @UiField VortexEditableLabel userFullName;
@@ -61,9 +55,13 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     @UiField Label               dmButton;
     @UiField DirectMessagePanel  directMessagePanel;
     @UiField HTMLPanel           detailPanel;
-
-    private static final boolean DM_SUPPORTED = false;
-
+    private  FormatUtil          features;
+    private  boolean             following;
+    private  HandlerRegistration followHandler;
+    private  HandlerRegistration dmHandler;
+    private  long                followListenId;
+    private  long                updateAliasListenId;
+    private  LiquidURI           aliasURI;
 
     public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
@@ -72,7 +70,6 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(userImage, LSDAttribute.IMAGE_URL);
     }
-
 
     @Nonnull
     protected String getReferenceDataPrefix() {
@@ -103,7 +100,6 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             }
         };
     }
-
 
     public void setAliasURI(@Nonnull final LiquidURI aliasURI) {
         this.aliasURI = aliasURI;
@@ -199,20 +195,21 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         });
     }
 
-
     public void onChange(@Nullable final LSDBaseEntity entity) {
         if (entity == null) {
             return;
         }
         getWidget().setVisible(true);
-        final String username = entity.getAttribute(LSDAttribute.NAME);
         if (entity.hasAttribute(LSDAttribute.ROLE_TITLE)) {
             roleFullName.setText(entity.getAttribute(LSDAttribute.ROLE_TITLE));
         }
         else {
             roleFullName.setText("Newcomer");
         }
-        profileLink.setHref("#@" + username);
+        if (entity.hasAttribute(LSDAttribute.NAME)) {
+            final String username = entity.getAttribute(LSDAttribute.NAME);
+            profileLink.setHref("#@" + username);
+        }
         //        publicLink.setHref("#public@" + username);
         followersLabel.setText(entity.getAttribute(LSDAttribute.FOLLOWERS_COUNT, "no") + " followers");
         followingLabel.setText(entity.getAttribute(LSDAttribute.FOLLOWS_ALIAS_COUNT, "no") + " follows");

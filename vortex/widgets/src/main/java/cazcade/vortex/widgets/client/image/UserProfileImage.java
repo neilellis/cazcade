@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.LiquidURI;
@@ -37,7 +41,7 @@ public class UserProfileImage extends EditableImage {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.getURI());
         setUrl(entity.getAttribute(attribute));
-        if (!entity.getBooleanAttribute(LSDAttribute.EDITABLE) || !editable) {
+        if (!entity.getBooleanAttribute(LSDAttribute.EDITABLE, false) || !editable) {
             image.addMouseOverHandler(new MouseOverHandler() {
                 private ViewAliasDetailPanel aliasDetailPanel;
 
@@ -46,14 +50,15 @@ public class UserProfileImage extends EditableImage {
                     if (aliasDetailPanel == null) {
                         aliasDetailPanel = ViewAliasDetailPanel.createViewAliasDetailPanel(getAliasUri(), FormatUtil.getInstance());
                         showPopup(event);
-                    } else {
+                    }
+                    else {
                         showPopup(event);
                     }
                 }
 
                 private void showPopup(final MouseEvent event) {
                     aliasDetailPanel.showRelativeTo(getWidget());
-//                    aliasDetailPanel.show(RootPanel.get(), event.getRelativeX(RootPanel.get().getElement()), event.getRelativeY(RootPanel.get().getElement()));
+                    //                    aliasDetailPanel.show(RootPanel.get(), event.getRelativeX(RootPanel.get().getElement()), event.getRelativeY(RootPanel.get().getElement()));
                 }
             });
         }

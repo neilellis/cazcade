@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -17,4 +21,6 @@ public interface Bindable {
     LSDTransferEntity getEntityDiff();
 
     boolean isValid();
+
+    boolean isBound();
 }

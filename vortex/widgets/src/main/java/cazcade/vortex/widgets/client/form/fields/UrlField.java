@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -19,51 +23,40 @@ import java.util.List;
 public class UrlField extends Composite implements VortexFormField {
 
 
-    interface ChangeImageUrlPanelUiBinder extends UiBinder<HTMLPanel, UrlField> {
-    }
+    interface ChangeImageUrlPanelUiBinder extends UiBinder<HTMLPanel, UrlField> {}
 
     private static final ChangeImageUrlPanelUiBinder ourUiBinder = GWT.create(ChangeImageUrlPanelUiBinder.class);
-
-    @Override
-    public boolean isValid() {
-        return urlField.isValid();
-    }
-
-    @UiField
-    RegexTextBox urlField;
-    @UiField
-    CachedImage previewImage;
+    @UiField RegexTextBox urlField;
+    @UiField CachedImage  previewImage;
 
     public UrlField() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-//
-//        imageUploader.setOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
-//            @Override
-//            public void onFinish(IUploader uploader) {
-//                if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
-//                    setValue(uploader.getServerInfo().message);
-//                    callOnChangeAction();
-//                    IUploader.UploadedInfo info = uploader.getServerInfo();
-//                } else {
-//                    Window.alert("Failed to upload image.");
-//                }
-//            }
-//
-//
-//        });
+        //
+        //        imageUploader.setOnFinishHandler(new IUploader.OnFinishUploaderHandler() {
+        //            @Override
+        //            public void onFinish(IUploader uploader) {
+        //                if (uploader.getStatus().equals(IUploadStatus.Status.SUCCESS)) {
+        //                    setValue(uploader.getServerInfo().message);
+        //                    callOnChangeAction();
+        //                    IUploader.UploadedInfo info = uploader.getServerInfo();
+        //                } else {
+        //                    Window.alert("Failed to upload image.");
+        //                }
+        //            }
+        //
+        //
+        //        });
     }
-
-
-    @Override
-    public void setValue(final String imageUrl) {
-        previewImage.setUrl(imageUrl);
-        urlField.setValue(imageUrl);
-    }
-
 
     public void callOnChangeAction() {
         urlField.callOnChangeAction();
+    }
+
+    @Override
+    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
+        urlField.bind(entity, attribute, prefix);
+        previewImage.setUrl(urlField.getValue());
     }
 
     @Override
@@ -77,6 +70,19 @@ public class UrlField extends Composite implements VortexFormField {
         });
     }
 
+    @Override public boolean isBound() {
+        return urlField.isBound();
+    }
+
+    @Override
+    public String getStringValue() {
+        return urlField.getValue();
+    }
+
+    @Override
+    public boolean isValid() {
+        return urlField.isValid();
+    }
 
     @Override
     public Image getValidityImage() {
@@ -97,16 +103,16 @@ public class UrlField extends Composite implements VortexFormField {
     public void setErrorMessage(final String errorMessage) {
         urlField.setErrorMessage(errorMessage);
     }
+    //
+    //    public void setEditable(boolean editable) {
+    //        urlField.setEditable(editable);
+    //    }
 
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
-        urlField.bind(entity, attribute, prefix);
-        previewImage.setUrl(urlField.getValue());
+    public void setValue(final String imageUrl) {
+        previewImage.setUrl(imageUrl);
+        urlField.setValue(imageUrl);
     }
-//
-//    public void setEditable(boolean editable) {
-//        urlField.setEditable(editable);
-//    }
 
     @Override
     public boolean isMultiValue() {
@@ -118,27 +124,19 @@ public class UrlField extends Composite implements VortexFormField {
         return urlField.isCompoundField();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public List<String> getStringValues() {
         return urlField.getStringValues();
     }
-
 
     @Override
     public LSDTransferEntity getEntity() {
         return urlField.getEntity();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         return urlField.getEntityDiff();
-    }
-
-    @Override
-    public String getStringValue() {
-        return urlField.getValue();
     }
 
 

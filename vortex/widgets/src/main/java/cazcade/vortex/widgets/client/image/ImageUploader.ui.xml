@@ -1,7 +1,10 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel styleName="vortex-image-uploader vortex-profile-image-uploader">
-        <g:Button ui:field="uploadButton" text="Choose Image"/>
-
+        <iframe id="image-uploader-filepicker-frame" width="800" height="468"/>
     </g:HTMLPanel>
 </ui:UiBinder>

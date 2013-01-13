@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.website;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -19,12 +23,13 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  */
 public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
 
-    @UiField
-    Button done;
+    @UiField Button done;
 
     @UiHandler("done")
     public void doneClicked(final ClickEvent e) {
-        onFinishAction.run();
+        if (onFinishAction != null) {
+            onFinishAction.run();
+        }
     }
 
 
@@ -46,17 +51,13 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         return 700;
     }
 
-    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, WebsiteEditorPanel> {
-    }
+    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, WebsiteEditorPanel> {}
 
 
     private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
-    @UiField
-    VortexTextArea description;
-    @UiField
-    RegexTextBox title;
-    @UiField
-    UrlField urlField;
+    @UiField VortexTextArea description;
+    @UiField RegexTextBox   title;
+    @UiField UrlField       urlField;
 
 
     public WebsiteEditorPanel(final LSDTransferEntity entity) {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.photo;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -32,7 +36,9 @@ public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                getPoolObjectView().setUrl(newEntity.getAttribute(LSDAttribute.IMAGE_URL));
+                if (newEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
+                    getPoolObjectView().setUrl(newEntity.getAttribute(LSDAttribute.IMAGE_URL));
+                }
                 PhotoPresenter.super.update(newEntity, replaceEntity);
             }
         });

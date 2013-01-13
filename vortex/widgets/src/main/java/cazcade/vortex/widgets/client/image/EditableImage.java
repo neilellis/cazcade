@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -25,10 +29,22 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class EditableImage extends Composite implements Bindable {
-    private Runnable onChangeAction;
+    interface EditableImageUiBinder extends UiBinder<HTMLPanel, EditableImage> {}
+
+    private static final EditableImageUiBinder ourUiBinder = GWT.create(EditableImageUiBinder.class);
     protected LSDTransferEntity entity;
-    private LSDAttribute attribute;
     protected boolean editable = true;
+    @UiField CachedImage  image;
+    @UiField SpanElement  editText;
+    private  Runnable     onChangeAction;
+    private  LSDAttribute attribute;
+
+    public EditableImage() {
+        super();
+        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+        initWidget(rootElement);
+        image.setOnChangeAction(onChangeAction);
+    }
 
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
@@ -40,7 +56,7 @@ public class EditableImage extends Composite implements Bindable {
     @Override
     public void setOnChangeAction(final Runnable onChangeAction) {
         this.onChangeAction = onChangeAction;
-//        Window.alert("On Change Action is "+onChangeAction);
+        //        Window.alert("On Change Action is "+onChangeAction);
     }
 
     @Override
@@ -48,9 +64,7 @@ public class EditableImage extends Composite implements Bindable {
         Window.alert(message);
     }
 
-
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         final LSDTransferEntity result = entity.asUpdateEntity();
         result.setAttribute(attribute, image.getUnCachedUrl());
@@ -62,20 +76,8 @@ public class EditableImage extends Composite implements Bindable {
         return true;
     }
 
-    interface EditableImageUiBinder extends UiBinder<HTMLPanel, EditableImage> {
-    }
-
-    private static final EditableImageUiBinder ourUiBinder = GWT.create(EditableImageUiBinder.class);
-    @UiField
-    CachedImage image;
-    @UiField
-    SpanElement editText;
-
-    public EditableImage() {
-        super();
-        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
-        initWidget(rootElement);
-        image.setOnChangeAction(onChangeAction);
+    @Override public boolean isBound() {
+        return attribute != null;
     }
 
     @UiHandler("image")
@@ -93,7 +95,8 @@ public class EditableImage extends Composite implements Bindable {
                     });
                 }
             });
-            imageEditorDialogBox.showRelativeTo(image);
+            imageEditorDialogBox.showAsDialog();
+
 
         }
     }
@@ -103,16 +106,15 @@ public class EditableImage extends Composite implements Bindable {
     }
 
     @Override
-    public void setWidth(@Nonnull final String width) {
-        image.setWidth(width);
-        super.setWidth(width);
-    }
-
-
-    @Override
     public void setHeight(@Nonnull final String height) {
         super.setHeight(height);
         image.setHeight(height);
+    }
+
+    @Override
+    public void setWidth(@Nonnull final String width) {
+        image.setWidth(width);
+        super.setWidth(width);
     }
 
     public void setEditable(final boolean editable) {
@@ -120,20 +122,21 @@ public class EditableImage extends Composite implements Bindable {
         editText.getStyle().setVisibility(editable ? Style.Visibility.VISIBLE : Style.Visibility.HIDDEN);
     }
 
-
     private class ImageEditorDialogBox extends VortexPopupPanel {
         private ImageEditorDialogBox() {
             super();
             final ImageEditor editor = new ImageEditor(image);
             setWidget(editor);
-            setWidth("600px");
-            setHeight("380px");
+            setWidth("840px");
+            setHeight("560px");
             setOnFinishAction(new Runnable() {
                 @Override
                 public void run() {
                     hide();
                 }
             });
+
+
         }
 
     }

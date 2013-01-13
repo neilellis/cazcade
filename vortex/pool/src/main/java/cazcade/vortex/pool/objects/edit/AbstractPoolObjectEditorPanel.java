@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.edit;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -7,30 +11,29 @@ import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPanel {
 
-    protected Runnable onFinishAction;
-    private boolean create;
+    @Nullable protected Runnable onFinishAction;
+    private             boolean  create;
 
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected String getReferenceDataPrefix() {
         return "object";
     }
 
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
-                if (field.isValid()) {
+                if (field.isValid() && field.isBound()) {
                     getBus().send(new UpdatePoolObjectRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                         @Override
                         public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
@@ -47,7 +50,8 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                             field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                         }
                     });
-                } else {
+                }
+                else {
 
                 }
             }
@@ -58,7 +62,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
         return false;
     }
 
-    public void setOnFinishAction(final Runnable onFinishAction) {
+    public void setOnFinishAction(@Nullable final Runnable onFinishAction) {
         this.onFinishAction = onFinishAction;
     }
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.website;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -32,7 +36,9 @@ public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                getPoolObjectView().setUrl(newEntity.getAttribute(LSDAttribute.SOURCE));
+                if (newEntity.hasAttribute(LSDAttribute.SOURCE)) {
+                    getPoolObjectView().setUrl(newEntity.getAttribute(LSDAttribute.SOURCE));
+                }
                 WebsitePresenter.super.update(newEntity, replaceEntity);
             }
         });

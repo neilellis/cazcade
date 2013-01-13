@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.edit;
 
 import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
@@ -14,9 +18,9 @@ import javax.annotation.Nullable;
 public class PoolObjectEditor {
 
     private final AbstractPoolObjectEditorPanel editorPanel;
-    private final Runnable onFinishAction;
-    private final int width;
-    private final int height;
+    private final Runnable                      onFinishAction;
+    private final int                           width;
+    private final int                           height;
 
 
     PoolObjectEditor(final AbstractPoolObjectEditorPanel editorPanel, final Runnable onFinishAction, final int width, final int height) {
@@ -35,7 +39,7 @@ public class PoolObjectEditor {
 
     public void create() {
         final PoolObjectEditorPopup popup = new PoolObjectEditorPopup();
-        popup.center();
+        popup.showAsDialog();
     }
 
     public static void showForCreate(@Nonnull final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction) {
@@ -59,7 +63,8 @@ public class PoolObjectEditor {
             addStyleName("pool-object-editor-popup");
             setWidget(editorPanel);
             setGlassEnabled(true);
-            setGlassStyleName("pool-object-editor-popup-glass");
+
+            //            setGlassStyleName("pool-object-editor-popup-glass");
             addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
                 public void onClose(final CloseEvent<PopupPanel> popupPanelCloseEvent) {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -23,10 +27,8 @@ import javax.annotation.Nonnull;
  */
 public class ChangeBackgroundDialog extends Composite implements Bindable, PopupEditPanel {
     private static final ChangeBackgroundDialogUiBinder ourUiBinder = GWT.create(ChangeBackgroundDialogUiBinder.class);
-    @UiField
-    ChangeImageUrlPanel changeBackgroundPanel;
-    @UiField
-    ImageSelection imageSelector;
+    @UiField ChangeImageUrlPanel changeBackgroundPanel;
+    @UiField ImageSelection      imageSelector;
     private LSDBaseEntity oldEntity;
 
 
@@ -39,8 +41,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
                 changeBackgroundPanel.setValue(imageOption.getUrl());
                 changeBackgroundPanel.callOnChangeAction();
             }
-        }
-                                        );
+        });
     }
 
     @Override
@@ -52,16 +53,20 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     @Override
     public LSDTransferEntity getEntityDiff() {
         final LSDTransferEntity updateEntity = changeBackgroundPanel.getEntityDiff();
-//        final String oldIconUrl = oldEntity.getAttribute(LSDAttribute.ICON_URL);
-//        if (oldIconUrl == null || oldIconUrl.equals(oldEntity.getAttribute(LSDAttribute.IMAGE_URL))) {
-//            updateEntity.setAttribute(LSDAttribute.ICON_URL, changeBackgroundPanel.getStringValue());
-//        }
+        //        final String oldIconUrl = oldEntity.getAttribute(LSDAttribute.ICON_URL);
+        //        if (oldIconUrl == null || oldIconUrl.equals(oldEntity.getAttribute(LSDAttribute.IMAGE_URL))) {
+        //            updateEntity.setAttribute(LSDAttribute.ICON_URL, changeBackgroundPanel.getStringValue());
+        //        }
         return updateEntity;
     }
 
     @Override
     public boolean isValid() {
         return changeBackgroundPanel.isValid();
+    }
+
+    @Override public boolean isBound() {
+        return changeBackgroundPanel.isBound();
     }
 
     @Override
@@ -89,10 +94,8 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
             public void run() {
                 vortexPopupPanel.hide();
             }
-        }
-                                          );
+        });
     }
 
-    interface ChangeBackgroundDialogUiBinder extends UiBinder<HTMLPanel, ChangeBackgroundDialog> {
-    }
+    interface ChangeBackgroundDialogUiBinder extends UiBinder<HTMLPanel, ChangeBackgroundDialog> {}
 }

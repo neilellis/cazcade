@@ -437,7 +437,9 @@ public class LSDSimpleEntity implements LSDTransferEntity {
                                                + attribute
                                                + "') prior to getAttributeXXX('"
                                                + attribute
-                                               + "') to avoid this problem");
+                                               + "') or use getAttributeXXX('"
+                                               + attribute
+                                               + "', <default>) to avoid this problem.");
         }
         //        }
         return value;
@@ -520,6 +522,11 @@ public class LSDSimpleEntity implements LSDTransferEntity {
     }
 
     @Override
+    public void setPublished(@Nonnull final Date published) {
+        setAttribute(LSDAttribute.PUBLISHED, published);
+    }
+
+    @Override
     public final String getRawValue(@Nonnull final LSDAttribute key) {
         return lsdProperties.get(key.getKeyName());
     }
@@ -582,14 +589,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         }
     }
 
-    public void setTypeDef(@Nonnull final LSDTypeDef type) {
-        lsdTypeDef = type;
-        if (type.asString() == null) {
-            throw new NullPointerException("Cannot set type def to a null value.");
-        }
-        lsdProperties.put(TYPE_KEY, type.asString());
-    }
-
     @Override @Nonnull
     public final LiquidURI getURI() {
         final String uri = lsdProperties.get(LSDAttribute.URI.getKeyName());
@@ -597,12 +596,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
             throw new LSDValidationException("No URI for this entity: " + toString());
         }
         return new LiquidURI(uri);
-    }
-
-    @Override
-    public final void setURI(@Nonnull final LiquidURI uri) {
-        assertNotReadonly();
-        setAttribute(LSDAttribute.URI, uri.asString());
     }
 
     @Override
@@ -654,190 +647,6 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         else {
             throw new IllegalStateException("Attempted to get the updated property of an entity before it had been set.");
         }
-    }
-
-    @Override
-    public final String getValue(@Nonnull final String key) {
-        return lsdProperties.get(key);
-    }
-
-    @Override
-    public final boolean hasAttribute(@Nonnull final LSDAttribute key) {
-        return lsdProperties.containsProperty(key.getKeyName());
-    }
-
-    @Override
-    public final boolean hasPermission(@Nonnull final LiquidPermissionScope permissionScope, @Nonnull final LiquidPermission permission) {
-        return LiquidPermissionSet.createPermissionSet(getAttribute(LSDAttribute.PERMISSIONS))
-                                  .hasPermission(permissionScope, permission);
-    }
-
-    @Override
-    public final boolean hasSubEntity(@Nonnull final LSDAttribute attribute) {
-        final String keyString = attribute.getKeyName();
-        return hasSubEntity(keyString);
-    }
-
-    @Override
-    public final boolean isA(@Nonnull final LSDDictionaryTypes type) {
-        return getTypeDef().getPrimaryType().isA(type);
-    }
-
-    @Override
-    public boolean isA(@Nonnull final LSDTypeDef typeDef) {
-        return getTypeDef().equals(typeDef);
-    }
-
-    @Override
-    public boolean isEmptyValue(@Nonnull final LSDAttribute key) {
-        final String value = lsdProperties.get(key.getKeyName());
-        return value == null;
-    }
-
-    @Override
-    public boolean isError() {
-        return lsdProperties.get(TYPE_KEY).startsWith("System.Error");
-    }
-
-    @Override
-    public boolean isNewerThan(@Nonnull final LSDBaseEntity entity) {
-        final Date updated = getUpdated();
-        return updated.after(entity.getUpdated());
-    }
-
-    @Override
-    public boolean isReadonly() {
-        return readonly;
-    }
-
-    @Override
-    public boolean isSerializable() {
-        return lsdProperties.isSerializable();
-    }
-
-    @Override
-    public void remove(@Nonnull final LSDAttribute key) {
-        assertNotReadonly();
-        lsdProperties.put(key.getKeyName(), "");
-    }
-
-    @Override
-    public void removeCompletely(@Nonnull final LSDAttribute attribute) {
-        assertNotReadonly();
-        lsdProperties.remove(attribute.getKeyName());
-    }
-
-    @Override @Nonnull
-    public LSDTransferEntity removeSubEntity(@Nonnull final LSDAttribute path) {
-        final String keyString = path.getKeyName();
-        final LSDTransferEntity subEntity = createEmpty();
-        final Collection<String> toDelete = new ArrayList<String>();
-        for (final String key : lsdProperties.getKeys()) {
-            if (key.startsWith(keyString + '.')) {
-                final String subEntityKey = key.substring(keyString.length() + 1);
-                subEntity.setValue(subEntityKey, lsdProperties.get(key));
-                toDelete.add(key);
-            }
-        }
-        for (final String key : toDelete) {
-            lsdProperties.remove(key);
-        }
-        return subEntity;
-    }
-
-    @Override
-    public void removeValue(@Nonnull final LSDAttribute id) {
-        assertNotReadonly();
-        lsdProperties.remove(id.toString());
-    }
-
-    @Override
-    public void set(@Nonnull final String key, @Nullable final String value) {
-        assertNotReadonly();
-        if (value == null) {
-            throw new NullPointerException("Cannot set " + key + " to a null value.");
-        }
-        lsdProperties.put(convertFromCamel(key), value);
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute parent, @Nonnull final LSDAttribute child, final String value) {
-        assertNotReadonly();
-        setValue(parent.getKeyName() + '.' + child.getKeyName(), value);
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute key, @Nonnull final String value) {
-        assertNotReadonly();
-        //noinspection ConstantConditions
-        if (key == null) {
-            throw new IllegalArgumentException("Cannot set a value for a null key.");
-        }
-        //noinspection ConstantConditions
-        if (value == null) {
-            throw new NullPointerException("Cannot set an attribute to a null value, only an empty string.");
-        }
-        setValue(key.getKeyName(), value);
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute checked, final boolean bool) {
-        assertNotReadonly();
-        setAttribute(checked, bool ? "true" : "false");
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute attribute, final long value) {
-        assertNotReadonly();
-        setAttribute(attribute, String.valueOf(value));
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final LiquidUUID uuid) {
-        assertNotReadonly();
-        setAttribute(attribute, uuid.toString());
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final LiquidURI uri) {
-        assertNotReadonly();
-        setAttribute(attribute, uri.asString());
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute attribute, final double value) {
-        assertNotReadonly();
-        setAttribute(attribute, String.valueOf(value));
-    }
-
-    @Override
-    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final Date value) {
-        setAttribute(attribute, value.getTime());
-    }
-
-    @Override
-    public void setAttributeConditonally(@Nonnull final LSDAttribute key, @Nullable final String value) {
-        assertNotReadonly();
-        if (value != null) {
-            setValue(key.getKeyName(), value);
-        }
-    }
-
-    @Override
-    public void setID(@Nonnull final LiquidUUID id) {
-        assertNotReadonly();
-        lsdProperties.put(ID_KEY, id.toString().toLowerCase());
-    }
-
-    @Override
-    public void setId(final String id) {
-        assertNotReadonly();
-        set(ID_KEY, id);
-    }
-
-    @Override
-    public void setReadonly(final boolean readonly) {
-        this.readonly = readonly;
     }
 
     @Override
@@ -920,10 +729,202 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         }
     }
 
+    @Override
+    public final String getValue(@Nonnull final String key) {
+        return lsdProperties.get(key);
+    }
 
     @Override
-    public void setPublished(@Nonnull final Date published) {
-        setAttribute(LSDAttribute.PUBLISHED, published);
+    public final boolean hasAttribute(@Nonnull final LSDAttribute key) {
+        return lsdProperties.containsProperty(key.getKeyName());
+    }
+
+    @Override
+    public final boolean hasPermission(@Nonnull final LiquidPermissionScope permissionScope, @Nonnull final LiquidPermission permission) {
+        return LiquidPermissionSet.createPermissionSet(getAttribute(LSDAttribute.PERMISSIONS))
+                                  .hasPermission(permissionScope, permission);
+    }
+
+    @Override
+    public final boolean hasSubEntity(@Nonnull final LSDAttribute attribute) {
+        final String keyString = attribute.getKeyName();
+        return hasSubEntity(keyString);
+    }
+
+    @Override
+    public final boolean isA(@Nonnull final LSDDictionaryTypes type) {
+        return getTypeDef().getPrimaryType().isA(type);
+    }
+
+    @Override
+    public boolean isA(@Nonnull final LSDTypeDef typeDef) {
+        return getTypeDef().equals(typeDef);
+    }
+
+    @Override
+    public boolean isEmptyValue(@Nonnull final LSDAttribute key) {
+        final String value = lsdProperties.get(key.getKeyName());
+        return value == null;
+    }
+
+    @Override
+    public boolean isError() {
+        return lsdProperties.get(TYPE_KEY).startsWith("System.Error");
+    }
+
+    @Override
+    public boolean isNewerThan(@Nonnull final LSDBaseEntity entity) {
+        final Date updated = getUpdated();
+        return updated.after(entity.getUpdated());
+    }
+
+    @Override
+    public boolean isReadonly() {
+        return readonly;
+    }
+
+    @Override
+    public void setReadonly(final boolean readonly) {
+        this.readonly = readonly;
+    }
+
+    @Override
+    public boolean isSerializable() {
+        return lsdProperties.isSerializable();
+    }
+
+    @Override
+    public void remove(@Nonnull final LSDAttribute key) {
+        assertNotReadonly();
+        lsdProperties.put(key.getKeyName(), "");
+    }
+
+    @Override
+    public void removeCompletely(@Nonnull final LSDAttribute attribute) {
+        assertNotReadonly();
+        lsdProperties.remove(attribute.getKeyName());
+    }
+
+    @Override @Nonnull
+    public LSDTransferEntity removeSubEntity(@Nonnull final LSDAttribute path) {
+        final String keyString = path.getKeyName();
+        final LSDTransferEntity subEntity = createEmpty();
+        final Collection<String> toDelete = new ArrayList<String>();
+        for (final String key : lsdProperties.getKeys()) {
+            if (key.startsWith(keyString + '.')) {
+                final String subEntityKey = key.substring(keyString.length() + 1);
+                subEntity.setValue(subEntityKey, lsdProperties.get(key));
+                toDelete.add(key);
+            }
+        }
+        for (final String key : toDelete) {
+            lsdProperties.remove(key);
+        }
+        return subEntity;
+    }
+
+    @Override
+    public void removeValue(@Nonnull final LSDAttribute id) {
+        assertNotReadonly();
+        lsdProperties.remove(id.toString());
+    }
+
+    @Override
+    public void set(@Nonnull final String key, @Nullable final String value) {
+        assertNotReadonly();
+        if (value == null) {
+            throw new NullPointerException("Cannot set " + key + " to a null value.");
+        }
+        lsdProperties.put(convertFromCamel(key), value);
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute parent, @Nonnull final LSDAttribute child, final String value) {
+        assertNotReadonly();
+        setValue(parent.getKeyName() + '.' + child.getKeyName(), value);
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute key, @Nonnull final String value) {
+        assertNotReadonly();
+        //noinspection ConstantConditions
+        if (key == null) {
+            throw new IllegalArgumentException("Cannot set an attribute to a *null key*.");
+        }
+        //noinspection ConstantConditions
+        if (value == null) {
+            throw new NullPointerException("Cannot set an attribute to a *null value*, only an empty string.");
+        }
+        setValue(key.getKeyName(), value);
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute checked, final boolean bool) {
+        assertNotReadonly();
+        setAttribute(checked, bool ? "true" : "false");
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute attribute, final long value) {
+        assertNotReadonly();
+        setAttribute(attribute, String.valueOf(value));
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final LiquidUUID uuid) {
+        assertNotReadonly();
+        setAttribute(attribute, uuid.toString());
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final LiquidURI uri) {
+        assertNotReadonly();
+        setAttribute(attribute, uri.asString());
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute attribute, final double value) {
+        assertNotReadonly();
+        setAttribute(attribute, String.valueOf(value));
+    }
+
+    @Override
+    public void setAttribute(@Nonnull final LSDAttribute attribute, @Nonnull final Date value) {
+        setAttribute(attribute, value.getTime());
+    }
+
+    @Override
+    public void setAttributeConditonally(@Nonnull final LSDAttribute key, @Nullable final String value) {
+        assertNotReadonly();
+        if (value != null) {
+            setValue(key.getKeyName(), value);
+        }
+    }
+
+    @Override
+    public void setID(@Nonnull final LiquidUUID id) {
+        assertNotReadonly();
+        lsdProperties.put(ID_KEY, id.toString().toLowerCase());
+    }
+
+    @Override
+    public void setId(final String id) {
+        assertNotReadonly();
+        set(ID_KEY, id);
+    }
+
+    @Override
+    public final void setURI(@Nonnull final LiquidURI uri) {
+        assertNotReadonly();
+        setAttribute(LSDAttribute.URI, uri.asString());
+    }
+
+    public void setTypeDef(@Nonnull final LSDTypeDef type) {
+        lsdTypeDef = type;
+        if (type.asString() == null) {
+            throw new NullPointerException("Cannot set type def to a null value.");
+        }
+        lsdProperties.put(TYPE_KEY, type.asString());
     }
 
     @Override @Nonnull

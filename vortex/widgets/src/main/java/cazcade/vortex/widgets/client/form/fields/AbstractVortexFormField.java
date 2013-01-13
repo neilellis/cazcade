@@ -27,10 +27,11 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
     protected Runnable onChangeAction;
     protected boolean showValidityFlag = true;
-    protected LSDAttribute boundAttribute;
-    @UiField Label errorMessage;
-    @UiField Image validityImage;
-    private LSDTransferEntity entity;
+    @Nullable
+    protected LSDAttribute      boundAttribute;
+    @UiField  Label             errorMessage;
+    @UiField  Image             validityImage;
+    private   LSDTransferEntity entity;
 
     @Nullable @Override
     public String getStringValue() {
@@ -104,9 +105,16 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
             newEntity.setValues(boundAttribute, getStringValues());
         }
         else {
-            newEntity.setAttribute(boundAttribute, getStringValue());
+            String stringValue = getStringValue();
+            if (stringValue != null) {
+                newEntity.setAttribute(boundAttribute, stringValue);
+            }
         }
         return newEntity;
+    }
+
+    @Override public boolean isBound() {
+        return boundAttribute != null;
     }
 
     protected boolean isVisibleKeyPress(final int keyCode) {
@@ -132,12 +140,12 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         if (entity.hasAttribute(LSDAttribute.EDITABLE)) {
             setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
         }
-        if (attribute != null && entity.hasAttribute(attribute)) {
+        if (attribute != null) {
             if (isMultiValue()) {
                 bind(attribute, prefix, entity.getAttributeAsList(attribute));
             }
             else {
-                bind(attribute, prefix, entity.getAttribute(attribute));
+                bind(attribute, prefix, entity.hasAttribute(attribute) ? entity.getAttribute(attribute) : "");
             }
         }
     }
