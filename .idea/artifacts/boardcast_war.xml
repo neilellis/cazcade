@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="boardcast:war">
+    <output-path>$PROJECT_DIR$/apps/boardcast/target</output-path>
+    <root id="archive" name="boardcast-1.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="boardcast:war exploded" />
+    </root>
+  </artifact>
+</component>

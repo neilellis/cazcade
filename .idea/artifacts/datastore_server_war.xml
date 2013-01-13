@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="datastore-server:war">
+    <output-path>$PROJECT_DIR$/fountain/datastore-server/target</output-path>
+    <root id="archive" name="datastore-server-1.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="datastore-server:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="email" />
+          <element id="module-output" name="index" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

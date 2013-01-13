@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.googlecode.gwtupload:gwtupload:0.6.3-compat">
+    <CLASSES>
+      <root url="jar://$M2_REPO$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$M2_REPO$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$M2_REPO$/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="gwt" url="file://$PROJECT_DIR$" />
+    <file type="gwt" url="file://$PROJECT_DIR$/apps" />
+    <file type="gwt" url="file://$PROJECT_DIR$/apps/boardcast" />
+    <file type="gwt" url="file://$PROJECT_DIR$/apps/cli" />
+    <file type="gwt" url="file://$PROJECT_DIR$/apps/download" />
+    <file type="gwt" url="file://$PROJECT_DIR$/apps/io" />
+    <file type="gwt" url="file://$PROJECT_DIR$/apps/twitter-auth" />
+    <file type="gwt" url="file://$PROJECT_DIR$/apps/upload" />
+    <file type="gwt" url="file://$PROJECT_DIR$/common" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/common" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore-api" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore-client" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore-server" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/dist" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/index" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/liquid" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/liquid/liquid-api" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/liquid/liquid-impl" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/messaging" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/notification" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/rest-server" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/security" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/social" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/test" />
+    <file type="gwt" url="file://$PROJECT_DIR$/fountain/validation" />
+    <file type="gwt" url="file://$PROJECT_DIR$/scrape" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/bus" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/common" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/comms" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/dnd" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/gwt-util" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/main" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/plugins" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/plugins/twitter" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/pool" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vortex/widgets" />
+    <file type="Spring" url="file://$PROJECT_DIR$/../cyclone/CycloneWebApplication/main/src/main/resources/registration-process-spring-config.xml" />
+    <file type="web" url="file://$PROJECT_DIR$/apps/boardcast" />
+    <file type="web" url="file://$PROJECT_DIR$/fountain/datastore-server" />
+  </component>
+  <component name="IdProvider" IDEtalkID="57F14E2F49A52322AD003B3CE7E3BFB9" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/main/pom.xml" />
+        <option value="$PROJECT_DIR$/../Cyclone/CycloneWebApplication/pom.xml" />
+        <option value="$PROJECT_DIR$/../billabong/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/../billabong/common/pom.xml" />
+        <option value="$PROJECT_DIR$/../billabong/image/pom.xml" />
+        <option value="$PROJECT_DIR$/../billabong/pom.xml" />
+        <option value="$PROJECT_DIR$/../billabong/processing/pom.xml" />
+        <option value="$PROJECT_DIR$/../billabong/snapshot/pom.xml" />
+        <option value="$PROJECT_DIR$/../billabong/store/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/download/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="NullableNotNullManager">
+    <option name="myDefaultNullable" value="javax.annotation.Nullable" />
+    <option name="myDefaultNotNull" value="javax.annotation.Nonnull" />
+    <option name="myNullables">
+      <value>
+        <list size="3">
+          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
+          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
+          <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
+        </list>
+      </value>
+    </option>
+    <option name="myNotNulls">
+      <value>
+        <list size="3">
+          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
+          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
+          <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
+        </list>
+      </value>
+    </option>
+  </component>
+  <component name="ProjectFacetManager">
+    <default-configurations>
+      <entry facet-type="gwt">
+        <default-facet-configuration>
+          <configuration>
+            <setting name="compilerMaxHeapSize" value="256" />
+            <setting name="gwtScriptOutputStyle" value="DETAILED" />
+            <setting name="gwtSdkUrl" value="file://" />
+          </configuration>
+        </default-facet-configuration>
+      </entry>
+    </default-configurations>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 " project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://office.cazcade.internal/svn/cazcade/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://office.cazcade.internal/svn/cazcade/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/apps">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://office.cazcade.internal/svn/cazcade/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://office.cazcade.internal/svn/cazcade/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/apps/twitter-auth">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://office.cazcade.internal/svn/cazcade/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://office.cazcade.internal/svn/cazcade/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/fountain">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://office.cazcade.internal/svn/cazcade/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://office.cazcade.internal/svn/cazcade/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/fountain/rest-server">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://office.cazcade.internal/svn/cazcade/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://office.cazcade.internal/svn/cazcade/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+</project>
+

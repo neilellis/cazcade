@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="main (Cyclone):war">
+    <output-path>$PROJECT_DIR$/../Cyclone/CycloneWebApplication/main/target</output-path>
+    <root id="archive" name="cyclone-main-0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="main (Cyclone):war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="messaging" />
+          <element id="module-output" name="email" />
+          <element id="module-output" name="index" />
+          <element id="module-output" name="common (3) (cazcade.vortex)" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

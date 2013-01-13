@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.google.gdata:gdata-java-client:1.40.0.atlassian-2">
+    <CLASSES>
+      <root url="jar://$M2_REPO$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$M2_REPO$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$M2_REPO$/com/google/gdata/gdata-java-client/1.40.0.atlassian-2/gdata-java-client-1.40.0.atlassian-2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
