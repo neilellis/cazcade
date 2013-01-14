@@ -26,16 +26,16 @@ public class VortexPopupPanel extends DialogBox {
     interface VortexPopupPanelUiBinder extends UiBinder<HTMLPanel, VortexPopupPanel> {}
 
     private static final VortexPopupPanelUiBinder ourUiBinder       = GWT.create(VortexPopupPanelUiBinder.class);
-    public static final  String                   POPUP_READY_STYLE = "popup-ready";
-    @UiField Button    cancel;
-    @UiField Button    done;
-    @UiField HTMLPanel mainArea;
+    private static final String                   POPUP_READY_STYLE = "popup-ready";
+    @UiField public Button    cancel;
+    @UiField public Button    done;
+    @UiField public HTMLPanel mainArea;
     @Nullable
-    private  Timer     timer;
+    private         Timer     timer;
     @Nullable
-    private  Widget    widget;
+    private         Widget    widget;
     @Nullable
-    private  Runnable  onFinishAction;
+    private         Runnable  onFinishAction;
 
     public VortexPopupPanel() {
         super();

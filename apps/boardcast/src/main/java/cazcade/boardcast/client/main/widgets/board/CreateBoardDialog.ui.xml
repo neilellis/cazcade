@@ -6,7 +6,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
     <g:HTMLPanel styleName="dialog-box-contents create-board-dialog-contents" ui:field="mainArea">
-        <g:CheckBox text="Publicly listed" ui:field="listedCheckBox" value="true"/>
+        <g:CheckBox text="Publicly listed" ui:field="listedCheckBox" checked="true"/>
         <p>
             <small>If ticked your board will be listed in Popular, New etc. Un-tick if this board is just for you or
                 your friends.
