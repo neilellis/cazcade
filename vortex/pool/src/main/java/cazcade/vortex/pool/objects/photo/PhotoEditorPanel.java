@@ -42,6 +42,10 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
         return 840;
     }
 
+    @Override public String getCaption() {
+        return "Choose Photo";
+    }
+
     interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, PhotoEditorPanel> {}
 
 

@@ -12,10 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,11 +21,12 @@ import javax.annotation.Nullable;
 /**
  * @author neilellis@cazcade.com
  */
-public class VortexPopupPanel extends PopupPanel {
+public class VortexPopupPanel extends DialogBox {
 
     interface VortexPopupPanelUiBinder extends UiBinder<HTMLPanel, VortexPopupPanel> {}
 
-    private static final VortexPopupPanelUiBinder ourUiBinder = GWT.create(VortexPopupPanelUiBinder.class);
+    private static final VortexPopupPanelUiBinder ourUiBinder       = GWT.create(VortexPopupPanelUiBinder.class);
+    public static final  String                   POPUP_READY_STYLE = "popup-ready";
     @UiField Button    cancel;
     @UiField Button    done;
     @UiField HTMLPanel mainArea;
@@ -76,15 +74,20 @@ public class VortexPopupPanel extends PopupPanel {
         mainArea.add(w);
     }
 
-    public void showAsDialog() {
+    public void showDown() {
         setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             public void setPosition(int offsetWidth, int offsetHeight) {
                 setPopupPosition((Window.getClientWidth() - offsetWidth) / 2, 0);
                 getElement().getStyle().setPosition(Style.Position.FIXED);
-                addStyleName("popup-ready");
+                addStyleName(POPUP_READY_STYLE);
             }
         });
 
+    }
+
+    @Override public void hide() {
+        removeStyleName(POPUP_READY_STYLE);
+        super.hide();
     }
 
     @Override
@@ -104,4 +107,6 @@ public class VortexPopupPanel extends PopupPanel {
     public void setOnFinishAction(@Nullable final Runnable onFinishAction) {
         this.onFinishAction = onFinishAction;
     }
+
+
 }

@@ -52,6 +52,10 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         return 700;
     }
 
+    @Override public String getCaption() {
+        return "Choose website";
+    }
+
     interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, WebsiteEditorPanel> {}
 
 

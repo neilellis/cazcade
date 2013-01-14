@@ -71,6 +71,8 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
 
     public abstract int getWidth();
 
+    public abstract String getCaption();
+
 
     public void setCreate(final boolean create) {
         this.create = create;

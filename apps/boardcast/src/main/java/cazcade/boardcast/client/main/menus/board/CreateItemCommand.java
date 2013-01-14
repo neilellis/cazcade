@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
@@ -34,35 +38,29 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
                     public void onCreate(final CreatePoolObjectRequest response) {
 
                     }
-                }
-                      );
+                });
             }
-        }
-                   );
+        });
     }
 
     protected abstract void buildEntity(BuildCallback onBuilt);
 
     protected void create(final LSDTransferEntity entity, @Nonnull final CreateCallback callback) {
-        BusFactory.getInstance().send(new CreatePoolObjectRequest(pool, entity),
-                                      new AbstractResponseCallback<CreatePoolObjectRequest>() {
-                                          @Override
-                                          public void onSuccess(final CreatePoolObjectRequest message,
-                                                                final CreatePoolObjectRequest response) {
-                                              callback.onCreate(response);
-                                          }
+        BusFactory.getInstance()
+                  .send(new CreatePoolObjectRequest(pool, entity), new AbstractResponseCallback<CreatePoolObjectRequest>() {
+                      @Override
+                      public void onSuccess(final CreatePoolObjectRequest message, final CreatePoolObjectRequest response) {
+                          callback.onCreate(response);
+                      }
 
-                                          @Override
-                                          public void onFailure(final CreatePoolObjectRequest message,
-                                                                @Nonnull final CreatePoolObjectRequest response) {
-                                              Window.alert("Failed to create object, permissions issue?");
-                                          }
-                                      }
-                                     );
+                      @Override
+                      public void onFailure(final CreatePoolObjectRequest message, @Nonnull final CreatePoolObjectRequest response) {
+                          Window.alert("Failed to create object, permissions issue?");
+                      }
+                  });
     }
 
-    @Nonnull
-    LSDTransferEntity createEntityWithDefaultView() {
+    @Nonnull LSDTransferEntity createEntityWithDefaultView() {
         final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
         addDefaultView(entity);
         return entity;
@@ -83,14 +81,17 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
     }
 
     protected void showEditorPanel(@Nonnull final AbstractPoolObjectEditorPanel editorPanel) {
-        create(editorPanel.getEntity(), new CreateCallback() {
-            @Override
-            public void onCreate(@Nonnull final CreatePoolObjectRequest response) {
-                editorPanel.setEntity(response.getResponse().copy());
-                PoolObjectEditor.showForCreate(editorPanel, null);
+
+        PoolObjectEditor.showForCreate(editorPanel, new Runnable() {
+            @Override public void run() {
+                create(editorPanel.getEntity(), new CreateCallback() {
+                    @Override public void onCreate(CreatePoolObjectRequest response) {
+                        //do nothing
+                    }
+                });
             }
-        }
-              );
+        });
+
     }
 
     public interface CreateCallback {

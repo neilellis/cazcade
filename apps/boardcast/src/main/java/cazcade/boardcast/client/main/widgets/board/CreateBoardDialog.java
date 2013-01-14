@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.vortex.common.client.UserUtil;
@@ -5,6 +9,7 @@ import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.form.fields.HashtagTextBox;
+import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.DivElement;
@@ -19,7 +24,6 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 import javax.annotation.Nonnull;
@@ -27,24 +31,19 @@ import javax.annotation.Nonnull;
 /**
  * @author neilellis@cazcade.com
  */
-public class CreateBoardDialog extends DialogBox implements HistoryAware {
+public class CreateBoardDialog extends VortexPopupPanel implements HistoryAware {
     private static final NewBoardDialogUiBinder ourUiBinder = GWT.create(NewBoardDialogUiBinder.class);
 
-    @UiField
-    HashtagTextBox tagBox;
-    @UiField
-    DivElement shortnameArea;
-    @UiField
-    CheckBox listedCheckBox;
-    @UiField
-    Button cancelButton;
-    @UiField
-    Button createButton;
+    @UiField HashtagTextBox tagBox;
+    @UiField DivElement     shortnameArea;
+    @UiField CheckBox       listedCheckBox;
+    @UiField Button         cancelButton;
+    @UiField Button         createButton;
 
-    private Runnable onComplete;
+    private Runnable       onComplete;
     private HistoryManager historyManager;
-    private String historyToken;
-    private boolean unlistedToken;
+    private String         historyToken;
+    private boolean        unlistedToken;
 
     public CreateBoardDialog() {
         super();
@@ -58,18 +57,15 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
                     public void execute() {
                         onComplete.run();
                     }
-                }
-                                                );
+                });
             }
-        }
-                                );
+        });
         setGlassEnabled(true);
-//        setAutoHideEnabled(true);
+        //        setAutoHideEnabled(true);
         setAutoHideOnHistoryEventsEnabled(true);
-        setAnimationEnabled(true);
         setWidth("600px");
         setHeight("220px");
-        setModal(false);
+        //        setModal(false);
         setText("Create New Board");
         listedCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
@@ -77,20 +73,23 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
                 final Boolean listed = booleanValueChangeEvent.getValue();
                 showListed(listed);
             }
-        }
-                                            );
+        });
 
-        tagBox.setValue(UserUtil.getCurrentAliasName() + "-" + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(),
-                                                                                36
-                                                                               )
-                       );
+        tagBox.setValue(UserUtil.getCurrentAliasName()
+                        + "-"
+                        + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36));
+    }
+
+    @Override public void show() {
+        super.show();
+
     }
 
     private void showListed(final boolean listed) {
         shortnameArea.getStyle().setDisplay(listed ? Style.Display.BLOCK : Style.Display.NONE);
         setHeight(listed ? "220px" : "200px");
         setWidth(listed ? "600px" : "600px");
-        center();
+
     }
 
     @Override
@@ -110,7 +109,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
     }
 
     public String getBoard() {
-//        return "xyz";
+        //        return "xyz";
         return tagBox.getValue();
     }
 
@@ -132,8 +131,7 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         }
         else {
             unlistedToken = false;
-            center();
-            show();
+            showDown();
         }
     }
 
@@ -161,6 +159,5 @@ public class CreateBoardDialog extends DialogBox implements HistoryAware {
         this.onComplete = onComplete;
     }
 
-    interface NewBoardDialogUiBinder extends UiBinder<HTMLPanel, CreateBoardDialog> {
-    }
+    interface NewBoardDialogUiBinder extends UiBinder<HTMLPanel, CreateBoardDialog> {}
 }

@@ -29,7 +29,8 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     private static final ChangeBackgroundDialogUiBinder ourUiBinder = GWT.create(ChangeBackgroundDialogUiBinder.class);
     @UiField ChangeImageUrlPanel changeBackgroundPanel;
     @UiField ImageSelection      imageSelector;
-    private LSDBaseEntity oldEntity;
+    private  LSDBaseEntity       oldEntity;
+    private  VortexPopupPanel    vortexPopupPanel;
 
 
     public ChangeBackgroundDialog() {
@@ -42,6 +43,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
                 changeBackgroundPanel.callOnChangeAction();
             }
         });
+        vortexPopupPanel = new VortexPopupPanel();
     }
 
     @Override
@@ -76,19 +78,22 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
 
     @Override
     public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
-        changeBackgroundPanel.setOnChangeAction(onChangeAction);
+        changeBackgroundPanel.setOnChangeAction(new Runnable() {
+            @Override public void run() {
+                vortexPopupPanel.hide();
+                onChangeAction.run();
+            }
+        });
     }
 
     public void show() {
-        final VortexPopupPanel vortexPopupPanel = new VortexPopupPanel();
         vortexPopupPanel.setWidget(this);
         vortexPopupPanel.setAutoHideEnabled(true);
         vortexPopupPanel.setAutoHideOnHistoryEventsEnabled(true);
-        vortexPopupPanel.setGlassEnabled(false);
-        vortexPopupPanel.setWidth("800px");
-        vortexPopupPanel.setHeight("400px");
-        vortexPopupPanel.center();
-        vortexPopupPanel.show();
+        vortexPopupPanel.setWidth("820px");
+        vortexPopupPanel.setHeight("640px");
+        vortexPopupPanel.showDown();
+        vortexPopupPanel.setText("Change Background");
         vortexPopupPanel.setOnFinishAction(new Runnable() {
             @Override
             public void run() {

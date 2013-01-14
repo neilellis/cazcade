@@ -55,7 +55,7 @@ public class LiquidSessionIdentifier implements Serializable {
         alias = aliasURI;
     }
 
-    public LiquidSessionIdentifier() {
+    protected LiquidSessionIdentifier() {
     }
 
 
@@ -155,11 +155,5 @@ public class LiquidSessionIdentifier implements Serializable {
         return session;
     }
 
-    public void setSession(LiquidUUID session) {
-        this.session = session;
-    }
 
-    public void setAlias(@Nonnull LiquidURI alias) {
-        this.alias = alias;
-    }
 }

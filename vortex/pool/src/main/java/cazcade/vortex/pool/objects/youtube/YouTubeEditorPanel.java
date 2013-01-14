@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.youtube;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -21,8 +25,7 @@ import javax.annotation.Nonnull;
  */
 public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
 
-    @UiField
-    Button done;
+    @UiField Button done;
 
     @UiHandler("done")
     public void doneClicked(final ClickEvent e) {
@@ -47,16 +50,17 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
         return 350;
     }
 
-    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, YouTubeEditorPanel> {
+    @Override public String getCaption() {
+        return "Choose Video";
     }
+
+    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, YouTubeEditorPanel> {}
 
 
     private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
 
-    @UiField
-    YouTubeTextBox urlTextBox;
-    @UiField
-    CachedImage image;
+    @UiField YouTubeTextBox urlTextBox;
+    @UiField CachedImage    image;
 
 
     public YouTubeEditorPanel(@Nonnull final LSDTransferEntity entity) {

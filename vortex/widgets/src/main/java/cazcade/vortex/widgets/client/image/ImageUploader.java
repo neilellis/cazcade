@@ -6,7 +6,6 @@ package cazcade.vortex.widgets.client.image;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
@@ -62,7 +61,6 @@ public class ImageUploader extends Composite {
 
     private void finish() {
         onFinishHandler.onFinish(this);
-        Window.alert("Finish!!");
     }
 
     private void error() {

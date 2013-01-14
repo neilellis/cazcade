@@ -97,7 +97,7 @@ public class EditableImage extends Composite implements Bindable {
                     });
                 }
             });
-            imageEditorDialogBox.showAsDialog();
+            imageEditorDialogBox.showDown();
 
 
         }
@@ -131,6 +131,7 @@ public class EditableImage extends Composite implements Bindable {
             setWidget(editor);
             setWidth("840px");
             setHeight("560px");
+            setText("Edit Image");
             setOnFinishAction(new Runnable() {
                 @Override
                 public void run() {

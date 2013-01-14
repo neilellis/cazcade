@@ -33,13 +33,13 @@ public class PoolObjectEditor {
 
     public void edit() {
         final PoolObjectEditorPopup popup = new PoolObjectEditorPopup();
-        popup.center();
+        popup.showDown();
     }
 
 
     public void create() {
         final PoolObjectEditorPopup popup = new PoolObjectEditorPopup();
-        popup.showAsDialog();
+        popup.showDown();
     }
 
     public static void showForCreate(@Nonnull final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction) {
@@ -63,6 +63,7 @@ public class PoolObjectEditor {
             addStyleName("pool-object-editor-popup");
             setWidget(editorPanel);
             setGlassEnabled(true);
+            setText(editorPanel.getCaption());
 
             //            setGlassStyleName("pool-object-editor-popup-glass");
             addCloseHandler(new CloseHandler<PopupPanel>() {
