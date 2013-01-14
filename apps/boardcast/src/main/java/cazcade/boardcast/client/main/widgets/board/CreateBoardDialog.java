@@ -22,7 +22,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
@@ -37,8 +36,6 @@ public class CreateBoardDialog extends VortexPopupPanel implements HistoryAware 
     @UiField HashtagTextBox tagBox;
     @UiField DivElement     shortnameArea;
     @UiField CheckBox       listedCheckBox;
-    @UiField Button         cancelButton;
-    @UiField Button         createButton;
 
     private Runnable       onComplete;
     private HistoryManager historyManager;
@@ -97,13 +94,13 @@ public class CreateBoardDialog extends VortexPopupPanel implements HistoryAware 
         return false;
     }
 
-    @UiHandler("cancelButton")
+    @UiHandler("cancel")
     public void cancelClick(final ClickEvent e) {
         hide();
         History.back();
     }
 
-    @UiHandler("createButton")
+    @UiHandler("done")
     public void createClick(final ClickEvent e) {
         onComplete.run();
     }

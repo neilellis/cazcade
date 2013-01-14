@@ -5,7 +5,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
-    <g:HTMLPanel styleName="dialog-box-contents create-board-dialog-contents">
+    <g:HTMLPanel styleName="dialog-box-contents create-board-dialog-contents" ui:field="mainArea">
         <g:CheckBox text="Publicly listed" ui:field="listedCheckBox" value="true"/>
         <p>
             <small>If ticked your board will be listed in Popular, New etc. Un-tick if this board is just for you or
@@ -19,8 +19,8 @@
 
 
         </div>
-        <g:Button styleName="primary btn large" text="Create" ui:field="createButton"/>
-        <g:Button styleName="btn large" text="Cancel" ui:field="cancelButton"/>
+        <g:Button styleName="primary btn large" text="Create" ui:field="done"/>
+        <g:Button styleName="btn large" text="Cancel" ui:field="cancel"/>
 
     </g:HTMLPanel>
 </ui:UiBinder>
