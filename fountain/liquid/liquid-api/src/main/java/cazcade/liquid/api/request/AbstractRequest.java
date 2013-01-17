@@ -778,4 +778,20 @@ public abstract class AbstractRequest implements LiquidRequest {
     public String toString() {
         return getClass() + " " + entity.toString();
     }
+
+    public String getImageUrl() {
+        return entity.getAttribute(LSDAttribute.IMAGE_URL);
+    }
+
+    public boolean hasImageUrl() {
+        return entity.hasAttribute(LSDAttribute.IMAGE_URL);
+    }
+
+    public void setImageUrl(final String url) {
+        entity.setAttribute(LSDAttribute.IMAGE_URL, url);
+    }
+
+    public boolean hasDescription() {
+        return entity.hasAttribute(LSDAttribute.DESCRIPTION);
+    }
 }

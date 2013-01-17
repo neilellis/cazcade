@@ -128,7 +128,7 @@ public class EditableImage extends Composite implements Bindable {
         private ImageEditorDialogBox() {
             super();
             final ImageEditor editor = new ImageEditor(image);
-            setWidget(editor);
+            setMainPanel(editor);
             setWidth("840px");
             setHeight("560px");
             setText("Edit Image");

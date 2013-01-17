@@ -39,7 +39,7 @@ public class VortexPopupPanel extends DialogBox {
 
     public VortexPopupPanel() {
         super();
-        super.setWidget(ourUiBinder.createAndBindUi(this));
+        setWidget(ourUiBinder.createAndBindUi(this));
         setModal(true);
         setGlassEnabled(true);
         addStyleName("vortex-popup");
@@ -68,8 +68,7 @@ public class VortexPopupPanel extends DialogBox {
         }
     }
 
-    @Override
-    public void setWidget(@Nonnull final Widget w) {
+    public void setMainPanel(@Nonnull final Widget w) {
         widget = w;
         mainArea.add(w);
     }

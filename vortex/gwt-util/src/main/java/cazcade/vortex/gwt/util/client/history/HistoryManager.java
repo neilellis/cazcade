@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client.history;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -38,6 +42,23 @@ public class HistoryManager {
         }
     }
 
+    public static void navigate(final String action, final String local) {
+        navigate("_" + action + "-" + local);
+    }
+
+    public static void navigate(final String url) {
+        if (isPushStateSupported()) {
+            History.newItem(url);
+        }
+        else {
+            Window.Location.assign("/" + url);
+        }
+    }
+
+    private static native boolean isPushStateSupported()/*-{
+        return typeof($wnd.history.pushState) == "function" && !$wnd.testNoPushState;
+    }-*/;
+
     private void handleTokenChange(@Nonnull String newToken) {
         final String tokenFirstPart;
         //grrr Jsession id nonsense
@@ -53,16 +74,19 @@ public class HistoryManager {
             final String[] strings = newToken.split(":");
             tokenFirstPart = strings[0];
             localToken = strings[1];
-        } else if (newToken.startsWith("_")) {
+        }
+        else if (newToken.startsWith("_")) {
             final int dashPosition = newToken.indexOf('-');
             if (dashPosition <= 1) {
                 tokenFirstPart = newToken.substring(1);
                 localToken = "";
-            } else {
+            }
+            else {
                 tokenFirstPart = newToken.substring(1, dashPosition);
                 localToken = newToken.substring(dashPosition + 1);
             }
-        } else {
+        }
+        else {
             tokenFirstPart = "default";
             localToken = newToken;
         }
@@ -70,25 +94,23 @@ public class HistoryManager {
         if (historyAwareFactory == null) {
             throw new IllegalArgumentException("Unrecognized history component " + tokenFirstPart);
         }
-        historyAwareFactory.withInstance(
-                new HistoryAwareFactoryCallback() {
-                    @Override
-                    public void withInstance(@Nullable final HistoryAware composite) {
-                        if (composite != null) {
-                            final Widget currentWidget = RootPanel.get(mainPanelId).iterator().next();
-                            if (currentWidget != null) {
-                                currentWidget.removeFromParent();
-                            }
-                            if (composite.addToRootPanel()) {
-                                composite.asWidget().addStyleName("main-content-panel");
-                                RootPanel.get(mainPanelId).add(composite);
-                            }
-                            composite.onLocalHistoryTokenChanged(localToken);
-
-                        }
+        historyAwareFactory.withInstance(new HistoryAwareFactoryCallback() {
+            @Override
+            public void withInstance(@Nullable final HistoryAware composite) {
+                if (composite != null) {
+                    final Widget currentWidget = RootPanel.get(mainPanelId).iterator().next();
+                    if (currentWidget != null) {
+                        currentWidget.removeFromParent();
                     }
+                    if (composite.addToRootPanel()) {
+                        composite.asWidget().addStyleName("main-content-panel");
+                        RootPanel.get(mainPanelId).add(composite);
+                    }
+                    composite.onLocalHistoryTokenChanged(localToken);
+
                 }
-        );
+            }
+        });
 
     }
 
@@ -98,31 +120,15 @@ public class HistoryManager {
         composite.setHistoryToken(token);
     }
 
-
     public void addHistory(final String historyToken, final String localHistory) {
         navigate(historyToken + ":" + localHistory);
     }
 
-    public static void navigate(final String action, final String local) {
-        navigate("_" + action + "-" + local);
-    }
-
-    public static void navigate(final String url) {
-        if (isPushStateSupported()) {
-            History.newItem(url);
-        } else {
-            Window.Location.assign("/" + url);
-        }
-    }
-
-    private static native boolean isPushStateSupported()/*-{
-        return typeof($wnd.history.pushState) == "function" && !$wnd.testNoPushState;
-    }-*/;
-
     public void fireCurrentHistoryState() {
         if (isPushStateSupported()) {
             History.fireCurrentHistoryState();
-        } else {
+        }
+        else {
             handleTokenChange(Window.Location.getPath().substring(1));
         }
     }

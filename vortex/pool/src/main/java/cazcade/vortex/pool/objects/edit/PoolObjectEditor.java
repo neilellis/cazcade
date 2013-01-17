@@ -61,7 +61,7 @@ public class PoolObjectEditor {
             setHeight(height + "px");
             setWidth(width + "px");
             addStyleName("pool-object-editor-popup");
-            setWidget(editorPanel);
+            setMainPanel(editorPanel);
             setGlassEnabled(true);
             setText(editorPanel.getCaption());
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.boardcast.client.main.widgets.AddChatBox;
@@ -54,49 +58,34 @@ import static com.google.gwt.http.client.URL.encode;
  */
 public class PublicBoard extends EntityBackedFormPanel {
     private static final NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
+    public static final  String           CORKBOARD   = "http://boardcast.it/_background/misc/corkboard.jpg";
 
 
-    @UiField
-    CommentPanel comments;
-    @UiField
-    AddCommentBox addCommentBox;
+    @UiField CommentPanel  comments;
+    @UiField AddCommentBox addCommentBox;
 
-    @UiField
-    PoolContentArea contentArea;
-    @UiField
-    BoardMenuBar menuBar;
+    @UiField PoolContentArea      contentArea;
+    @UiField BoardMenuBar         menuBar;
     //    @UiField
-//    DivElement boardLockedIcon;
-//    @UiField
-//    HTMLPanel shareThisHolder;
-    @UiField
-    AliasDetailFlowPanel ownerDetailPanel;
-    @UiField
-    SpanElement authorFullname;
-    @UiField
-    SpanElement publishDate;
-    @UiField
-    PublicBoardHeader publicBoardHeader;
-    @UiField
-    ProfileBoardHeader profileBoardHeader;
-    @UiField
-    NotificationPanel notificationPanel;
-    @UiField
-    DivElement footer;
-    @UiField
-    IFrameElement tweetButton;
-    @UiField
-    SpanElement visibilityDescription;
-    @UiField
-    DivElement containerDiv;
-    @UiField
-    AddChatBox addChatBox;
-    @UiField
-    ChatStreamPanel stream;
+    //    DivElement boardLockedIcon;
+    //    @UiField
+    //    HTMLPanel shareThisHolder;
+    @UiField AliasDetailFlowPanel ownerDetailPanel;
+    @UiField SpanElement          authorFullname;
+    @UiField SpanElement          publishDate;
+    @UiField PublicBoardHeader    publicBoardHeader;
+    @UiField ProfileBoardHeader   profileBoardHeader;
+    @UiField NotificationPanel    notificationPanel;
+    @UiField DivElement           footer;
+    @UiField IFrameElement        tweetButton;
+    @UiField SpanElement          visibilityDescription;
+    @UiField DivElement           containerDiv;
+    @UiField AddChatBox           addChatBox;
+    @UiField ChatStreamPanel      stream;
 
-    private long updatePoolListener;
+    private long                   updatePoolListener;
     private ChangeBackgroundDialog changeBackgroundDialog;
-    private boolean inited;
+    private boolean                inited;
 
 
     @Nonnull
@@ -105,9 +94,9 @@ public class PublicBoard extends EntityBackedFormPanel {
     private LiquidURI previousPoolURI;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-    private long changePermissionListener;
+    private long    changePermissionListener;
     private boolean chatMode;
-//    private Element sharethisElement;
+    //    private Element sharethisElement;
 
 
     private static native void replaceState(String title, String state) /*-{
@@ -125,8 +114,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             public void onResize(final ResizeEvent event) {
                 sizeNotificationPanel();
             }
-        }
-                               );
+        });
     }
 
     @Override
@@ -156,8 +144,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 public void onSuccess() {
                     refresh();
                 }
-            }
-                        );
+            });
         }
     }
 
@@ -193,33 +180,26 @@ public class PublicBoard extends EntityBackedFormPanel {
             BusFactory.getInstance().removeListener(changePermissionListener);
         }
 
-        changePermissionListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI,
-                                                                                                 LiquidRequestType.CHANGE_PERMISSION,
-                                                                                                 new BusListener() {
-                                                                                                     @Override
-                                                                                                     public void handle(
-                                                                                                             final LiquidMessage message) {
-                                                                                                         Window.alert(
-                                                                                                                 "The access rights have just changed for this board, please refresh the page in your browser."
-                                                                                                                     );
-//                refresh();
-                                                                                                     }
-                                                                                                 }
-                                                                                                );
+        changePermissionListener = BusFactory.getInstance()
+                                             .listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.CHANGE_PERMISSION, new BusListener() {
+                                                 @Override
+                                                 public void handle(final LiquidMessage message) {
+                                                     Window.alert("The access rights have just changed for this board, please refresh the page in your browser.");
+                                                     //                refresh();
+                                                 }
+                                             });
 
         if (updatePoolListener != 0) {
             BusFactory.getInstance().removeListener(updatePoolListener);
         }
 
-        updatePoolListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL,
-                                                                                           new BusListener() {
-                                                                                               @Override
-                                                                                               public void handle(
-                                                                                                       final LiquidMessage response) {
-                                                                                                   update((LiquidRequest) response);
-                                                                                               }
-                                                                                           }
-                                                                                          );
+        updatePoolListener = BusFactory.getInstance()
+                                       .listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL, new BusListener() {
+                                           @Override
+                                           public void handle(final LiquidMessage response) {
+                                               update((LiquidRequest) response);
+                                           }
+                                       });
 
 
         final boolean listed = poolURI.asShortUrl().isListedByConvention();
@@ -227,9 +207,10 @@ public class PublicBoard extends EntityBackedFormPanel {
         if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
             contentArea.clear();
         }
-        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(),
-                                      listed, listed ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY : null
-        ), new AbstractResponseCallback<VisitPoolRequest>() {
+        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), listed,
+                listed
+                ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY
+                : null, CORKBOARD), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
             public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
@@ -261,28 +242,25 @@ public class PublicBoard extends EntityBackedFormPanel {
                     Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
             }
-        }
-                );
+        });
     }
 
     private void update(@Nonnull final LiquidRequest response) {
         bind(response.getResponse().copy());
     }
 
-    public void bind(final LSDTransferEntity entity) {
+    @Override public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(getChangeBackgroundDialog(), LSDAttribute.IMAGE_URL);
-//        addBinding(text, LSDAttribute.TEXT_EXTENDED);
+        //        addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
@@ -297,8 +275,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
-                }
-                             );
+                });
             }
         };
     }
@@ -311,9 +288,10 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private void sizeNotificationPanel() {
         notificationPanel.getElement().getStyle().setLeft(contentArea.getAbsoluteLeft(), Style.Unit.PX);
-        notificationPanel.getElement().getStyle().setRight(
-                Window.getClientWidth() - (contentArea.getAbsoluteLeft() + contentArea.getOffsetWidth()), Style.Unit.PX
-                                                          );
+        notificationPanel.getElement()
+                         .getStyle()
+                         .setRight(Window.getClientWidth() - (contentArea.getAbsoluteLeft()
+                                                              + contentArea.getOffsetWidth()), Style.Unit.PX);
     }
 
     @Override
@@ -336,16 +314,14 @@ public class PublicBoard extends EntityBackedFormPanel {
             footer.getStyle().setVisibility(Style.Visibility.VISIBLE);
             ownerDetailPanel.setAliasURI(owner.getURI());
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
-//            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
-            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode(
-                    "http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()
-                                                                                                    ) +
+            //            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
+            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity
+                    .getURI()
+                    .asShortUrl()
+                    .asUrlSafe()) +
                                "&text=" + encode("Check out " +
                                                  entity.getAttribute(LSDAttribute.TITLE, "this board") +
-                                                 " on Boardcast #bc"
-                                                )
-                               + "&count=horizontal"
-                              );
+                                                 " on Boardcast #bc") + "&count=horizontal");
         }
         else {
             profileBoardHeader.setVisible(true);
@@ -353,13 +329,12 @@ public class PublicBoard extends EntityBackedFormPanel {
             ownerDetailPanel.setVisible(false);
             footer.getStyle().setVisibility(Style.Visibility.HIDDEN);
             profileBoardHeader.setAliasURI(owner.getURI());
-//            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
-            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode(
-                    "http://boardcast.it/" + entity.getURI().asShortUrl().asUrlSafe()
-                                                                                                    ) +
-                               "&text=" + encode("Check out this profile on Boardcast #bc")
-                               + "&count=horizontal"
-                              );
+            //            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
+            tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity
+                    .getURI()
+                    .asShortUrl()
+                    .asUrlSafe()) +
+                               "&text=" + encode("Check out this profile on Boardcast #bc") + "&count=horizontal");
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         final Date published = entity.getPublished();
@@ -372,19 +347,23 @@ public class PublicBoard extends EntityBackedFormPanel {
                       ", the tag can be placed in comments and text and will link " +
                       "back to this board.";
         }
-        visibilityDescription.setInnerText(buildVisibilityDescription() + " There have been " + entity.getAttribute(
-                LSDAttribute.VISITS_METRIC
-                                                                                                                   )
+        visibilityDescription.setInnerText(buildVisibilityDescription()
+                                           + " There have been "
+                                           + entity.getAttribute(LSDAttribute.VISITS_METRIC)
                                            +
-                                           " visits including " +
-                                           entity.getAttribute(LSDAttribute.REGISTERED_VISITORS_METRIC) +
-                                           " registered users and " +
-                                           entity.getAttribute(LSDAttribute.COMMENT_COUNT, "no") +
-                                           " comments left." + tagText
-                                          );
-//        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
-//        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
-//        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
+                                           " visits including "
+                                           +
+                                           entity.getAttribute(LSDAttribute.REGISTERED_VISITORS_METRIC)
+                                           +
+                                           " registered users and "
+                                           +
+                                           entity.getAttribute(LSDAttribute.COMMENT_COUNT, "no")
+                                           +
+                                           " comments left."
+                                           + tagText);
+        //        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
+        //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
+        //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
 
         final boolean adminPermission = entity.getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
         final String boardTitle = entity.getAttribute(LSDAttribute.TITLE);
@@ -402,20 +381,21 @@ public class PublicBoard extends EntityBackedFormPanel {
                 public void onSuccess() {
                     contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
                     final String snapshotUrl = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + System.currentTimeMillis();
-                    final String imageUrl = "/_image-service?url=" + URL.encode(snapshotUrl)
+                    final String imageUrl = "/_image-service?url="
+                                            + URL.encode(snapshotUrl)
                                             + "&size=LARGE&width=150&height=200&delay=60";
 
 
-//                    <img class="thumbnail"
-//                    src='<c:url value="_image-service">
-//                        <c:param name="url" value="${board.snapshotUrl}"/>
-//                    <c:param name="text" value="${board.title}"/>
-//                    <c:param name="size" value="LARGE"/>
-//                    <c:param name="width" value="300"/>
-//                    <c:param name="height" value="400"/>
-//                    <c:param name="delay" value="60"/>
-//                    </c:url>'
-//                    alt="${board.description}"/>
+                    //                    <img class="thumbnail"
+                    //                    src='<c:url value="_image-service">
+                    //                        <c:param name="url" value="${board.snapshotUrl}"/>
+                    //                    <c:param name="text" value="${board.title}"/>
+                    //                    <c:param name="size" value="LARGE"/>
+                    //                    <c:param name="width" value="300"/>
+                    //                    <c:param name="height" value="400"/>
+                    //                    <c:param name="delay" value="60"/>
+                    //                    </c:url>'
+                    //                    alt="${board.description}"/>
 
                     //bottom toolbar
                     configureShareThis(imageUrl, boardTitle, shortUrl);
@@ -430,8 +410,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     WidgetUtil.showGracefully(getWidget(), false);
                     removeStyleName("loading");
                 }
-            }
-                        );
+            });
         }
 
 
@@ -451,21 +430,18 @@ public class PublicBoard extends EntityBackedFormPanel {
                 }
                 addCommentBox.init(poolURI);
             }
-        }
-                    );
+        });
     }
 
     private void configureShareThis(String imageUrl, String boardTitle, String board) {
-        final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName(
-                "span"
-                                                                                                       );
+        final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName("span");
         final int max = spans.getLength();
         for (int i = 0; i < max; i++) {
             final Element span = spans.getItem(i);
             if (span.hasAttribute("class") && "stButton".equalsIgnoreCase(span.getAttribute("class"))) {
-                setShareThisDetails(board, "Take a look at the Boardcast board '" + boardTitle + "' ", "",
-                                    imageUrl == null ? "" : imageUrl, span
-                                   );
+                setShareThisDetails(board, "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null
+                                                                                                           ? ""
+                                                                                                           : imageUrl, span);
             }
 
         }
@@ -522,13 +498,13 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private static native void setShareThisDetails(String board, String title, String summary, String image, Element element) /*-{
         $wnd.stWidget.addEntry({
-            "service":"sharethis",
-            "element":element,
-            "url":"http://boardca.st/" + board,
-            "title":title,
-            "image":image,
-            "summary":summary,
-            "text":"Share"
+            "service": "sharethis",
+            "element": element,
+            "url": "http://boardca.st/" + board,
+            "title": title,
+            "image": image,
+            "summary": summary,
+            "text": "Share"
         });
 
     }-*/;
@@ -545,11 +521,11 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private void init() {
         //sharethis button
-//        final RootPanel sharethis = RootPanel.get("sharethisbutton");
-//        sharethisElement = sharethis.getElement();
-//        sharethisElement.removeFromParent();
-//        sharethisElement.getStyle().setVisibility(Style.Visibility.VISIBLE);
-//        shareThisHolder.getElement().appendChild(sharethis.getElement());
+        //        final RootPanel sharethis = RootPanel.get("sharethisbutton");
+        //        sharethisElement = sharethis.getElement();
+        //        sharethisElement.removeFromParent();
+        //        sharethisElement.getStyle().setVisibility(Style.Visibility.VISIBLE);
+        //        shareThisHolder.getElement().appendChild(sharethis.getElement());
 
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
         if (poolURI != null) {
@@ -577,8 +553,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         chatMode = !chatMode;
     }
 
-    interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {
-    }
+    interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {}
 
     //TODO: Change all this into a proper command class type thing.
     private class LockIconClickHandler implements ClickHandler {
@@ -591,7 +566,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         @Override
         public void onClick(final ClickEvent event) {
             final LiquidPermissionChangeType change;
-//            LiquidPermissionSet permissionSet = LiquidPermissionSet.createPermissionSet(getEntity().getAttribute(LSDAttribute.PERMISSIONS));
+            //            LiquidPermissionSet permissionSet = LiquidPermissionSet.createPermissionSet(getEntity().getAttribute(LSDAttribute.PERMISSIONS));
             if (lock) {
                 change = LiquidPermissionChangeType.MAKE_PUBLIC_READONLY;
             }
@@ -599,20 +574,17 @@ public class PublicBoard extends EntityBackedFormPanel {
                 change = LiquidPermissionChangeType.MAKE_PUBLIC;
             }
 
-            BusFactory.getInstance().send(new ChangePermissionRequest(poolURI, change),
-                                          new AbstractResponseCallback<ChangePermissionRequest>() {
-                                              @Override
-                                              public void onSuccess(final ChangePermissionRequest message,
-                                                                    final ChangePermissionRequest response) {
-                                              }
+            BusFactory.getInstance()
+                      .send(new ChangePermissionRequest(poolURI, change), new AbstractResponseCallback<ChangePermissionRequest>() {
+                          @Override
+                          public void onSuccess(final ChangePermissionRequest message, final ChangePermissionRequest response) {
+                          }
 
-                                              @Override
-                                              public void onFailure(final ChangePermissionRequest message,
-                                                                    @Nonnull final ChangePermissionRequest response) {
-                                                  Window.alert("Failed to (un)lock.");
-                                              }
-                                          }
-                                         );
+                          @Override
+                          public void onFailure(final ChangePermissionRequest message, @Nonnull final ChangePermissionRequest response) {
+                              Window.alert("Failed to (un)lock.");
+                          }
+                      });
         }
     }
 }

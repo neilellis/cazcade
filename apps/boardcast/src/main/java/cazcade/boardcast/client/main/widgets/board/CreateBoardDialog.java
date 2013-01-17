@@ -61,7 +61,7 @@ public class CreateBoardDialog extends VortexPopupPanel implements HistoryAware 
         //        setAutoHideEnabled(true);
         setAutoHideOnHistoryEventsEnabled(true);
         setWidth("600px");
-        setHeight("220px");
+        setHeight("240px");
         //        setModal(false);
         setText("Create New Board");
         listedCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {

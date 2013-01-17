@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields">
@@ -6,10 +10,13 @@
             <div class="form-stacked">
                 <div class="row">
                     <div class="span5">
-                        <h3>Edit Website Link</h3>
-                        <label>Title <small>(optional)</small></label>
+                        <label>Title
+                            <small>(optional)</small>
+                        </label>
                         <fields:RegexTextBox ui:field="title"/>
-                        <label>Description <small>(optional)</small></label>
+                        <label>Description
+                            <small>(optional)</small>
+                        </label>
                         <fields:VortexTextArea ui:field="description"/>
                     </div>
 

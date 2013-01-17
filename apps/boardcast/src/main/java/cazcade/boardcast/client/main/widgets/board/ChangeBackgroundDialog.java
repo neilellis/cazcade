@@ -87,7 +87,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     }
 
     public void show() {
-        vortexPopupPanel.setWidget(this);
+        vortexPopupPanel.setMainPanel(this);
         vortexPopupPanel.setAutoHideEnabled(true);
         vortexPopupPanel.setAutoHideOnHistoryEventsEnabled(true);
         vortexPopupPanel.setWidth("820px");

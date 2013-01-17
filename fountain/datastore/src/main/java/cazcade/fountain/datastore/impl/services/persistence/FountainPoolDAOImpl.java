@@ -118,45 +118,45 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
                 throw new DataStoreException("Tried to create a pool with a null parent persistedEntityImpl.");
             }
             fountainNeo.assertAuthorized(parent, identity, LiquidPermission.MODIFY, LiquidPermission.VIEW);
-            final LSDPersistedEntity persistedEntityImpl = fountainNeo.createNode();
-            persistedEntityImpl.setIDIfNotSetOnNode();
-            persistedEntityImpl.setAttribute(LSDAttribute.LISTED, listed);
+            final LSDPersistedEntity persistedEntity = fountainNeo.createNode();
+            persistedEntity.setIDIfNotSetOnNode();
+            persistedEntity.setAttribute(LSDAttribute.LISTED, listed);
 
             String parentURI = parent.getAttribute(LSDAttribute.URI);
             if (!parentURI.endsWith("/")) {
                 parentURI += "/";
             }
             final String newURI = parentURI + poolName.toLowerCase();
-            persistedEntityImpl.setAttribute(LSDAttribute.URI, newURI);
-            persistedEntityImpl.setAttribute(LSDAttribute.NAME, poolName);
+            persistedEntity.setAttribute(LSDAttribute.URI, newURI);
+            persistedEntity.setAttribute(LSDAttribute.NAME, poolName);
             if (title != null) {
-                persistedEntityImpl.setAttribute(LSDAttribute.TITLE, title);
+                persistedEntity.setAttribute(LSDAttribute.TITLE, title);
             }
-            persistedEntityImpl.setAttribute(LSDAttribute.TYPE, type.asString());
+            persistedEntity.setAttribute(LSDAttribute.TYPE, type.asString());
             if (!parent.hasAttribute(LSDAttribute.PERMISSIONS)) {
                 throw new DataStoreException("The parent pool %s had no permissions, all pools must have permissions.", parentURI);
             }
-            persistedEntityImpl.inheritPermissions(parent);
-            parent.createRelationshipTo(persistedEntityImpl, FountainRelationships.CHILD);
+            persistedEntity.inheritPermissions(parent);
+            parent.createRelationshipTo(persistedEntity, FountainRelationships.CHILD);
             parent.modifiedTimestamp();
 
             final LSDPersistedEntity ownerPersistedEntity = fountainNeo.findByURIOrFail(owner);
-            persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.OWNER);
-            persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.CREATOR);
-            persistedEntityImpl.createRelationshipTo(ownerPersistedEntity, FountainRelationships.EDITOR);
+            persistedEntity.createRelationshipTo(ownerPersistedEntity, FountainRelationships.OWNER);
+            persistedEntity.createRelationshipTo(ownerPersistedEntity, FountainRelationships.CREATOR);
+            persistedEntity.createRelationshipTo(ownerPersistedEntity, FountainRelationships.EDITOR);
             final LSDTransferEntity view = LSDSimpleEntity.createEmpty();
             view.setAttribute(LSDAttribute.VIEW_X, String.valueOf(x));
             view.setAttribute(LSDAttribute.VIEW_Y, String.valueOf(y));
             view.setAttribute(LSDAttribute.VIEW_WIDTH, "200");
             view.setAttribute(LSDAttribute.VIEW_HEIGHT, "200");
-            createView(persistedEntityImpl, view);
-            userDAO.addAuthorToNodeNoTX(owner, false, persistedEntityImpl);
-            fountainNeo.indexBy(persistedEntityImpl, LSDAttribute.ID, LSDAttribute.ID, true);
-            fountainNeo.indexBy(persistedEntityImpl, LSDAttribute.URI, LSDAttribute.URI, true);
-            persistedEntityImpl.timestamp();
-            assertHasOwner(persistedEntityImpl);
-            indexDAO.syncBoard(persistedEntityImpl);
-            return persistedEntityImpl;
+            createView(persistedEntity, view);
+            userDAO.addAuthorToNodeNoTX(owner, false, persistedEntity);
+            fountainNeo.indexBy(persistedEntity, LSDAttribute.ID, LSDAttribute.ID, true);
+            fountainNeo.indexBy(persistedEntity, LSDAttribute.URI, LSDAttribute.URI, true);
+            persistedEntity.timestamp();
+            assertHasOwner(persistedEntity);
+            indexDAO.syncBoard(persistedEntity);
+            return persistedEntity;
         } finally {
             fountainNeo.end();
         }

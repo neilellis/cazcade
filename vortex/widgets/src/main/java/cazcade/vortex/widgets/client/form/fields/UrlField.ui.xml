@@ -1,15 +1,16 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
     <g:HTMLPanel styleName="url-field">
-        <image:CachedImage ui:field="previewImage" styleName="url-field-image" width="320px" height="240px"/>
         <div class="url-field-textbox-area">
-            <small>You can supply the URL of a web page or of an image. If you supply a web page URL here we will take a
-                snapshot and use that.
-            </small>
             <label>Url</label>
             <fields:RegexTextBox ui:field="urlField" styleName="url-field-text-box" regex="https?://.*"/>
         </div>
+        <image:CachedImage ui:field="previewImage" styleName="url-field-image" width="320px" height="240px"/>
     </g:HTMLPanel>
 </ui:UiBinder>

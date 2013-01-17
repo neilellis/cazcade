@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VisitPoolRequest extends AbstractRetrievalRequest {
-    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final int max, final boolean listed, @Nullable final LiquidPermissionChangeType permission) {
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final int max, final boolean listed, @Nullable final LiquidPermissionChangeType permission, @Nullable final String imageUrl) {
         super();
         setOrCreate(orCreate);
         setListed(listed);
@@ -27,14 +27,17 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         setPreviousPool(previous);
         setMax(max);
         setPoolType(type);
+        if (imageUrl != null) {
+            setImageUrl(imageUrl);
+        }
     }
 
     private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final boolean listed) {
-        this(id, identity, type, uri, previous, orCreate, 60, listed, null);
+        this(id, identity, type, uri, previous, orCreate, 60, listed, null, null);
     }
 
-    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final LiquidPermissionChangeType permission) {
-        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission);
+    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final LiquidPermissionChangeType permission, final String imageUrl) {
+        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission, imageUrl);
     }
 
     public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed) {

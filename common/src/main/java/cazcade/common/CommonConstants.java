@@ -12,9 +12,9 @@ import javax.annotation.Nonnull;
 public interface CommonConstants {
 
     //    String ADMIN_SECRET = "abcd";
-    @Nonnull String ADMIN_SECRET          = "puq5cedah8sTaw6EjAteVuhaxA5achubaDuDrUS4c4adE9tUqEwrEs5p9UBre8re";
+    @Nonnull String ADMIN_SECRET = "puq5cedah8sTaw6EjAteVuhaxA5achubaDuDrUS4c4adE9tUqEwrEs5p9UBre8re";
     @Nonnull
-             String YOUTUBE_DEVELOPER_KEY = "AI39si6nEOatwuN8NwnwLjm7eqblmrA4zT4rxG04DTZ0X5tfw7Nyie5YFGThlM8naM1cBwAa_bwPODUM-OHJ_lfINABw8XP32A";
+    String YOUTUBE_DEVELOPER_KEY = "AI39si6nEOatwuN8NwnwLjm7eqblmrA4zT4rxG04DTZ0X5tfw7Nyie5YFGThlM8naM1cBwAa_bwPODUM-OHJ_lfINABw8XP32A";
     String CAZCADE_HOME           = System.getProperty("cazcade.home", System.getProperty("user.home"));
     String DATASTORE_SESSION_LOGS = System.getProperty("session.logs", System.getProperty("user.home") + "/data/log/sessions");
 
@@ -40,4 +40,5 @@ public interface CommonConstants {
     String INFO_CAZCADE_COM = "info@cazcade.com";
     @Nonnull String ADMIN = "admin";
     @Nonnull String ANON  = "anon";
+    String CORKBOARD_URL = "http://boardcast.it/_background/misc/corkboard.jpg";
 }

@@ -30,9 +30,9 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
         final Transaction transaction = neo.beginTx();
         try {
             String parentString = request.getParent().toString();
-            if (!parentString.endsWith("/")) {
-                parentString += "/";
-            }
+
+            if (!parentString.endsWith("/")) { parentString += "/"; }
+
             final LiquidURI newLiquidURI = new LiquidURI(parentString + request.getName());
             if (neo.findByURI(newLiquidURI) != null) {
                 return LiquidResponseHelper.forDuplicateResource("Pool already exists.", request);
@@ -40,15 +40,17 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
 
             final LSDPersistedEntity parentPersistedEntity = neo.findByURI(request.getParent());
 
-            if (parentPersistedEntity == null) {
-                throw new DataStoreException("No such parent pool " + request.getParent());
-            }
+            if (parentPersistedEntity == null) {throw new DataStoreException("No such parent pool " + request.getParent());}
+
             LiquidURI owner = request.getAlias();
             owner = defaultAndCheckOwner(request, owner);
 
             final LSDPersistedEntity pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity, request
                     .getType(), request.getName(), request.getX(), request.getY(), request.getTitle(), request.isListed());
-            pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription());
+
+            if (request.hasDescription()) { pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription()); }
+            if (request.hasImageUrl()) { pool.setAttribute(LSDAttribute.IMAGE_URL, request.getImageUrl()); }
+
             final LSDTransferEntity entity = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), pool, null, request
                     .getDetail(), request.isInternal(), false);
             transaction.success();
