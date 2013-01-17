@@ -1,4 +1,8 @@
 <%@page contentType="text/html;charset=UTF-8" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -11,7 +15,7 @@
     <%@ include file="analytics.jspf" %>
 
     <c:if test="${not empty param.dev}">
-        <link rel="stylesheet/less"  href="/_less/boardcast-v2.less">
+        <link rel="stylesheet/less" href="/_less/boardcast-v2.less">
         <script src="/_js/less-dev.js" type="text/javascript"></script>
     </c:if>
     <c:if test="${empty param.dev}">
@@ -60,7 +64,7 @@
                                     <%--src='${board.iconUrl}' title='${board.title}'/>--%>
 
                                 <img class="thumbnail"
-                                     src='<c:url value="_image-service">
+                                     src='<c:url value="_website-snapshot">
                                     <c:param name="url" value="${board.snapshotUrl}"/>
                                     <c:param name="text" value="${board.title}"/>
                                     <%--<c:param name="fast" value="yes"/>--%>

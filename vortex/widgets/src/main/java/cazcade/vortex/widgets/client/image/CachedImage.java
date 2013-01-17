@@ -6,6 +6,8 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
+import com.google.gwt.event.dom.client.ErrorEvent;
+import com.google.gwt.event.dom.client.ErrorHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.http.client.URL;
@@ -40,12 +42,23 @@ public class CachedImage extends Image {
     private boolean cached       = true;
     private int requestedWidth;
     private int requestedHeight;
+    private boolean ready = false;
 
 
     public CachedImage(final String url, final String size) {
         this();
         setSize(size);
         setUrl(url);
+        addErrorHandler(new ErrorHandler() {
+            @Override public void onError(ErrorEvent event) {
+                setUrl(defaultDefaultMessage("Image Failed"));
+            }
+        });
+        addLoadHandler(new LoadHandler() {
+            @Override public void onLoad(LoadEvent event) {
+                ready = true;
+            }
+        });
     }
 
     public CachedImage(@Nonnull final Image image, final String size) {
@@ -94,10 +107,12 @@ public class CachedImage extends Image {
 
     @Override
     public void setUrl(final String url) {
+        ready = false;
         new Timer() {
             @Override public void run() {
                 //In case the load handler has not been triggered.
                 WidgetUtil.showGracefully(getElement(), false);
+
             }
         }.schedule(2000);
         final String oldUrl = this.url;
@@ -122,7 +137,7 @@ public class CachedImage extends Image {
         if (url != null && !url.isEmpty()) {
             if (CACHING && cached && !BrowserUtil.isInternalImage(url)) {
                 if (url.startsWith("http")) {
-                    super.setUrl("./_image-service?fast&url=" +
+                    super.setUrl("./_image-cache?url=" +
                                  URL.encode(url) +
                                  "&size=" +
                                  size +
@@ -132,7 +147,7 @@ public class CachedImage extends Image {
                                  getHeightWithDefault());
                 }
                 else {
-                    super.setUrl("./_image-service?fast&url=" +
+                    super.setUrl("./_image-cache?url=" +
                                  BrowserUtil.convertRelativeUrlToAbsolute(url) +
                                  "&size=" +
                                  size +
@@ -229,6 +244,8 @@ public class CachedImage extends Image {
             requestedHeight = Integer.parseInt(height.substring(0, height.length() - 2));
         }
     }
+
+
 }
 
 

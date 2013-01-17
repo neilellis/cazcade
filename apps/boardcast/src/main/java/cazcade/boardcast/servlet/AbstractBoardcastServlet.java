@@ -141,7 +141,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
             resp.sendRedirect(next);
         }
         else {
-            resp.sendRedirect("/_welcome");
+            resp.sendRedirect("/welcome");
         }
     }
 

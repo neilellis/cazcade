@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <!DOCTYPE urlrewrite
         PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
         "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
@@ -49,10 +53,15 @@
 
 
     <rule>
-        <from>^/_image-service$</from>
+        <from>^/_website-snapshot$</from>
         <to type="redirect">http://snapito.com/api/?%{query-string}</to>
     </rule>
 
+
+    <rule>
+        <from>^/_image-cache$</from>
+        <to type="redirect">http://snapito.com/api/?image&amp;%{query-string}</to>
+    </rule>
 
 
     <!--Create a board-->

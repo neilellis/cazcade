@@ -191,7 +191,7 @@ public class PoolContentArea extends Composite {
                 container.getElement().getStyle().setProperty("backgroundImage", "url('" + imageUrl + "')");
             }
             else {
-                container.getElement().getStyle().setProperty("backgroundImage", "url('./_image-service?url=" +
+                container.getElement().getStyle().setProperty("backgroundImage", "url('./_website-snapshot?url=" +
                                                                                  encode(imageUrl) +
                                                                                  "&size=LARGE&width=1024&height=2048')");
             }

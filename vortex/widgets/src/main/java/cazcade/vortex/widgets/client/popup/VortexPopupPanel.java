@@ -36,6 +36,7 @@ public class VortexPopupPanel extends DialogBox {
     private         Widget    widget;
     @Nullable
     private         Runnable  onFinishAction;
+    private         Runnable  onCancelAction;
 
     public VortexPopupPanel() {
         super();
@@ -55,8 +56,8 @@ public class VortexPopupPanel extends DialogBox {
 
     @UiHandler("cancel")
     public void cancelClicked(final ClickEvent e) {
-        if (onFinishAction != null) {
-            onFinishAction.run();
+        if (onCancelAction != null) {
+            onCancelAction.run();
         }
     }
 
@@ -108,4 +109,7 @@ public class VortexPopupPanel extends DialogBox {
     }
 
 
+    public void setOnCancelAction(final Runnable onCancelAction) {
+        this.onCancelAction = onCancelAction;
+    }
 }

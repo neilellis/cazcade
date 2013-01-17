@@ -20,11 +20,17 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Properties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <%
 
     final FountainDataStore dataStore = DataStoreFactory.getDataStore();
     final LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin");
-    final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(LiquidURIScheme.user, request.getParameter("user").toLowerCase())));
+    final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(LiquidURIScheme.user, request
+            .getParameter("user")
+            .toLowerCase())));
     final LSDTransferEntity user = retrieveUserResponse.getResponse();
 
     final String host = "smtp.postmarkapp.com";
@@ -36,12 +42,16 @@
 
     final StandardStringDigester digester = new StandardStringDigester();
 
-    final String url = "http://boardcast.it/_welcome";
-    final String messageText = "Welcome aboard! We're a pretty young application, so we're really looking for your feedback and help. Please feel free to email us at support@boardcast.it and let us know what we can do for you. You can now click on this link " + url + " and sign in using the username and password you supplied.\n";
+    final String url = "http://boardcast.it/welcome";
+    final String messageText =
+            "Welcome aboard! We're a pretty young application, so we're really looking for your feedback and help. Please feel free to email us at support@boardcast.it and let us know what we can do for you. You can now click on this link "
+            + url
+            + " and sign in using the username and password you supplied.\n";
 
     if (!EmailUtil.confirmEmailHash(to, request.getParameter("hash"))) {
         response.sendRedirect("failed.jsp?message=Confirm+Failed");
-    } else {
+    }
+    else {
         user.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "false");
         dataStore.process(new UpdateUserRequest(admin, user.getUUID(), user));
         final boolean sessionDebug = false;

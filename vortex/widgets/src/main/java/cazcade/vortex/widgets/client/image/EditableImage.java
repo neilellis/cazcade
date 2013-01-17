@@ -138,6 +138,12 @@ public class EditableImage extends Composite implements Bindable {
                     hide();
                 }
             });
+            setOnCancelAction(new Runnable() {
+                @Override
+                public void run() {
+                    hide();
+                }
+            });
 
 
         }

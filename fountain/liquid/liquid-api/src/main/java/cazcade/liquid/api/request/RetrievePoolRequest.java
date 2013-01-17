@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
@@ -9,15 +13,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrievePoolRequest extends AbstractRetrievalRequest {
-    public RetrievePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, @Nonnull final LiquidRequestDetailLevel detail, final boolean contents, final boolean orCreate) {
+    public RetrievePoolRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri, @Nonnull final LiquidRequestDetailLevel detail, final boolean contents, final boolean orCreate) {
         this(null, identity, null, uri, detail, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(@Nullable final LiquidUUID id, @Nullable final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, @Nonnull final LiquidRequestDetailLevel detail, final boolean contents, final boolean orCreate, @Nullable final ChildSortOrder order) {
+    public RetrievePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, @Nonnull final LiquidRequestDetailLevel detail, final boolean contents, final boolean orCreate, @Nullable final ChildSortOrder order) {
         this(id, identity, target, uri, detail, contents, orCreate, order, 50);
     }
 
-    public RetrievePoolRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri, @Nonnull final LiquidRequestDetailLevel detail, final boolean contents, final boolean orCreate, final ChildSortOrder order, final int max) {
+    public RetrievePoolRequest(final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri, @Nonnull final LiquidRequestDetailLevel detail, final boolean contents, final boolean orCreate, final ChildSortOrder order, final int max) {
         super();
         setOrCreate(orCreate);
         setSessionId(identity);
@@ -42,7 +46,7 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
     }
 
     public RetrievePoolRequest(final LiquidURI uri, @Nonnull final LiquidRequestDetailLevel detailLevel, final boolean contents, final boolean orCreate) {
-        this(null, null, null, uri, detailLevel, contents, orCreate, null);
+        this(null, LiquidSessionIdentifier.ANON, null, uri, detailLevel, contents, orCreate, null);
     }
 
     public RetrievePoolRequest(final LiquidSessionIdentifier sessionIdentifier, final LiquidURI uri, final ChildSortOrder sortOrder, final boolean orCreate) {
@@ -53,15 +57,15 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
      * @deprecated retrieve by URI not UUID.
      */
     public RetrievePoolRequest(final LiquidUUID target, final boolean contents, final boolean orCreate) {
-        this(null, null, target, null, LiquidRequestDetailLevel.NORMAL, contents, orCreate, null);
+        this(null, LiquidSessionIdentifier.ANON, target, null, LiquidRequestDetailLevel.NORMAL, contents, orCreate, null);
     }
 
     public RetrievePoolRequest(final LiquidURI uri, final boolean contents, final boolean orCreate) {
-        this(null, null, null, uri, LiquidRequestDetailLevel.NORMAL, contents, orCreate, null);
+        this(null, LiquidSessionIdentifier.ANON, null, uri, LiquidRequestDetailLevel.NORMAL, contents, orCreate, null);
     }
 
     public RetrievePoolRequest(final LiquidURI uri, final ChildSortOrder order, final boolean orCreate) {
-        this(null, null, null, uri, LiquidRequestDetailLevel.NORMAL, true, orCreate, order);
+        this(null, LiquidSessionIdentifier.ANON, null, uri, LiquidRequestDetailLevel.NORMAL, true, orCreate, order);
     }
 
     public RetrievePoolRequest() {
@@ -77,7 +81,7 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
         return new RetrievePoolRequest(getEntity());
     }
 
-    @Nonnull
+    @Override @Nonnull
     public List<AuthorizationRequest> getAuthorizationRequests() {
         if (hasTarget()) {
             return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
@@ -87,7 +91,7 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
         }
     }
 
-    @Nonnull
+    @Override @Nonnull
     public LiquidRequestType getRequestType() {
         return LiquidRequestType.RETRIEVE_POOL;
     }

@@ -100,6 +100,12 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
                 vortexPopupPanel.hide();
             }
         });
+        vortexPopupPanel.setOnCancelAction(new Runnable() {
+            @Override
+            public void run() {
+                vortexPopupPanel.hide();
+            }
+        });
     }
 
     interface ChangeBackgroundDialogUiBinder extends UiBinder<HTMLPanel, ChangeBackgroundDialog> {}

@@ -1,7 +1,7 @@
 #macro (boardsummary $board)
 <tr>
     <td><a href="http://boardcast.it/$board.shortUrl"><img border="0" width="80" height="60"
-                                                           src="http://boardcast.it/_image-service?width=80&height=60&size=LARGE&delay=120&url=$!board.snapshotUrl"/></a>
+                                                           src="http://boardcast.it/_website-snapshot?width=80&amp;height=60&amp;size=SMALL_CLIPPED&amp;fast&amp;delay=10&amp;url=$!board.snapshotUrl"/></a>
     </td>
     <td>
         <table>
@@ -20,7 +20,7 @@
 #macro (changesummary $change)
 <tr>
     <td><a href="http://boardcast.it/$change.sourceShortUrl"><img border="0" width="64" height="48"
-                                                                  src="http://boardcast.it/_image-service?width=80&height=60&size=LARGE&delay=120&url=$!change.snapshotUrl"/></a>
+                                                                  src="http://boardcast.it/_website-snapshot?width=64&amp;height=48&amp;size=SMALL_CLIPPED&amp;fast&amp;delay=10&amp;url=$!change.snapshotUrl"/></a>
     </td>
     <td>
         <table>

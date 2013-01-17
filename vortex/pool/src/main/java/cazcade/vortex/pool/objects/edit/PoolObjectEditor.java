@@ -23,10 +23,9 @@ public class PoolObjectEditor {
     private final int                           height;
 
 
-    PoolObjectEditor(final AbstractPoolObjectEditorPanel editorPanel, final Runnable onFinishAction, final int width, final int height) {
+    PoolObjectEditor(final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction, final int width, final int height) {
         this.editorPanel = editorPanel;
         this.onFinishAction = onFinishAction;
-
         this.width = width;
         this.height = height;
     }
@@ -77,6 +76,12 @@ public class PoolObjectEditor {
                 public void run() {
                     hide();
                     finish();
+                }
+            });
+            setOnCancelAction(new Runnable() {
+                @Override public void run() {
+                    finished = true;
+                    hide();
                 }
             });
         }

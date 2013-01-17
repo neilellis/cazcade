@@ -381,13 +381,13 @@ public class PublicBoard extends EntityBackedFormPanel {
                 public void onSuccess() {
                     contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
                     final String snapshotUrl = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + System.currentTimeMillis();
-                    final String imageUrl = "/_image-service?url="
+                    final String imageUrl = "/_website-snapshot?url="
                                             + URL.encode(snapshotUrl)
                                             + "&size=LARGE&width=150&height=200&delay=60";
 
 
                     //                    <img class="thumbnail"
-                    //                    src='<c:url value="_image-service">
+                    //                    src='<c:url value="_website-snapshot">
                     //                        <c:param name="url" value="${board.snapshotUrl}"/>
                     //                    <c:param name="text" value="${board.title}"/>
                     //                    <c:param name="size" value="LARGE"/>
