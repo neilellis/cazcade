@@ -129,7 +129,7 @@ public class CachedImage extends Image {
     }
 
     private void updateImageUrl() {
-        String prefix = website ? "./website-snapshot" : "./_image-cache";
+        String prefix = website ? "./_website-snapshot" : "./_image-cache";
 
         //        getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
