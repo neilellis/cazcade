@@ -204,7 +204,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             roleFullName.setText(entity.getAttribute(LSDAttribute.ROLE_TITLE));
         }
         else {
-            roleFullName.setText("Newcomer");
+            roleFullName.setText("Early Adopter");
         }
         if (entity.hasAttribute(LSDAttribute.NAME)) {
             final String username = entity.getAttribute(LSDAttribute.NAME);

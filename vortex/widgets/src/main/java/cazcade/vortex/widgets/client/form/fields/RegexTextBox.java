@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import com.google.gwt.core.client.GWT;
@@ -17,12 +21,9 @@ import javax.annotation.Nonnull;
 public class RegexTextBox extends VortexTextBox {
 
     private String regex = "^.*$";
-    @Nonnull
-    private final String oldText = "";
 
 
-    interface RegexTextBoxUiBinder extends UiBinder<HTMLPanel, RegexTextBox> {
-    }
+    interface RegexTextBoxUiBinder extends UiBinder<HTMLPanel, RegexTextBox> {}
 
     private static final RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
 
@@ -56,12 +57,12 @@ public class RegexTextBox extends VortexTextBox {
             }
         });
 
-//        textBox.addBlurHandler(new BlurHandler() {
-//            @Override
-//            public void onBlur(BlurEvent event) {
-//                callOnChangeAction();
-//            }
-//        });
+        //        textBox.addBlurHandler(new BlurHandler() {
+        //            @Override
+        //            public void onBlur(BlurEvent event) {
+        //                callOnChangeAction();
+        //            }
+        //        });
 
         textBox.addKeyUpHandler(new CleanUpKeyUpHandler());
 

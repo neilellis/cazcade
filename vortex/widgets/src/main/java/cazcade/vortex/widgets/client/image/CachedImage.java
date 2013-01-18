@@ -32,10 +32,7 @@ public class CachedImage extends Image {
     public static final String  LARGE         = "LARGE";
     public static final boolean CACHING       = true;
     private Runnable onChangeAction;
-
-
     private String size = SMALL;
-
     private String defaultUrl;
     private String url;
     private String  notReadyText = "Loading";
@@ -43,6 +40,7 @@ public class CachedImage extends Image {
     private int requestedWidth;
     private int requestedHeight;
     private boolean ready = false;
+    private boolean website;
 
 
     public CachedImage(final String url, final String size) {
@@ -63,6 +61,23 @@ public class CachedImage extends Image {
 
     public CachedImage(@Nonnull final Image image, final String size) {
         this(image.getUrl(), size);
+    }
+
+    public CachedImage() {
+        super();
+        WidgetUtil.hide(getElement(), false);
+        addLoadHandler(new LoadHandler() {
+            @Override
+            public void onLoad(final LoadEvent event) {
+                WidgetUtil.showGracefully(getElement(), false);
+            }
+        });
+
+    }
+
+    public CachedImage(@Nonnull final Image image) {
+        this();
+        setUrl(image.getUrl());
     }
 
     @Override
@@ -88,23 +103,6 @@ public class CachedImage extends Image {
         return "http://placehold.it/" + getWidthWithDefault() + "x" + getHeightWithDefault() + "&text=" + URL.encode(message);
     }
 
-    public CachedImage() {
-        super();
-        WidgetUtil.hide(getElement(), false);
-        addLoadHandler(new LoadHandler() {
-            @Override
-            public void onLoad(final LoadEvent event) {
-                WidgetUtil.showGracefully(getElement(), false);
-            }
-        });
-
-    }
-
-    public CachedImage(@Nonnull final Image image) {
-        this();
-        setUrl(image.getUrl());
-    }
-
     @Override
     public void setUrl(final String url) {
         ready = false;
@@ -123,7 +121,6 @@ public class CachedImage extends Image {
         }
     }
 
-
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -131,13 +128,14 @@ public class CachedImage extends Image {
 
     }
 
-
     private void updateImageUrl() {
+        String prefix = website ? "./website-snapshot" : "./_image-cache";
+
         //        getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
             if (CACHING && cached && !BrowserUtil.isInternalImage(url)) {
                 if (url.startsWith("http")) {
-                    super.setUrl("./_image-cache?url=" +
+                    super.setUrl(prefix + "?url=" +
                                  URL.encode(url) +
                                  "&size=" +
                                  size +
@@ -147,7 +145,7 @@ public class CachedImage extends Image {
                                  getHeightWithDefault());
                 }
                 else {
-                    super.setUrl("./_image-cache?url=" +
+                    super.setUrl(prefix + "?url=" +
                                  BrowserUtil.convertRelativeUrlToAbsolute(url) +
                                  "&size=" +
                                  size +
@@ -171,7 +169,7 @@ public class CachedImage extends Image {
     }
 
     private int getWidthWithDefault() {
-        if (getOffsetWidth() > 0) {
+        if (getOffsetWidth() > 0 && getOffsetWidth() > requestedWidth) {
             return getOffsetWidth();
         }
         else {
@@ -183,7 +181,7 @@ public class CachedImage extends Image {
         if (size.equals(LARGE)) {
             return 2048;
         }
-        if (getOffsetHeight() > 0) {
+        if (getOffsetHeight() > 0 && getOffsetHeight() > requestedHeight) {
             return getOffsetHeight();
         }
         else if (requestedHeight > 0) {
@@ -228,15 +226,6 @@ public class CachedImage extends Image {
     }
 
     @Override
-    public void setWidth(@Nonnull final String width) {
-        super.setWidth(width);
-        getElement().getStyle().setProperty("minWidth", width);
-        if (width.toLowerCase().endsWith("px")) {
-            requestedWidth = Integer.parseInt(width.substring(0, width.length() - 2));
-        }
-    }
-
-    @Override
     public void setHeight(@Nonnull final String height) {
         super.setHeight(height);
         getElement().getStyle().setProperty("minHeight", height);
@@ -245,7 +234,20 @@ public class CachedImage extends Image {
         }
     }
 
+    @Override
+    public void setWidth(@Nonnull final String width) {
+        super.setWidth(width);
+        getElement().getStyle().setProperty("minWidth", width);
+        if (width.toLowerCase().endsWith("px")) {
+            requestedWidth = Integer.parseInt(width.substring(0, width.length() - 2));
+        }
+    }
 
+    public void setWebsite(boolean website) {
+
+
+        this.website = website;
+    }
 }
 
 
