@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.website;
 
 import cazcade.vortex.pool.objects.PoolObjectView;
 import cazcade.vortex.widgets.client.image.CachedImage;
+import cazcade.vortex.widgets.client.spinner.Spinner;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -25,13 +30,10 @@ public class WebsiteView extends PoolObjectView {
     }
 
 
-    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, WebsiteView> {
-    }
+    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, WebsiteView> {}
 
-    @UiField
-    CachedImage website;
-    @UiField
-    HTMLPanel websiteSurround;
+    @UiField CachedImage website;
+    @UiField HTMLPanel   websiteSurround;
 
 
     private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
@@ -40,6 +42,7 @@ public class WebsiteView extends PoolObjectView {
         super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
+        website.setSpinner(new Spinner(websiteSurround));
         addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
@@ -47,8 +50,7 @@ public class WebsiteView extends PoolObjectView {
                     Window.open(url, "website", "");
                 }
             }
-        }
-                       );
+        });
 
     }
 
@@ -75,7 +77,7 @@ public class WebsiteView extends PoolObjectView {
             if (size.equals(LARGE)) {
                 website.setSize(CachedImage.LARGE);
                 website.setWidth(LARGE_WIDTH + "px");
-//                image.setHeight(LARGE_HEIGHT + "px");
+                //                image.setHeight(LARGE_HEIGHT + "px");
             }
         }
     }
@@ -88,13 +90,13 @@ public class WebsiteView extends PoolObjectView {
     @Override
     public void setLogicalWidth(final int width) {
         super.setLogicalWidth(width);
-//        image.setWidth(width + "px");
+        //        image.setWidth(width + "px");
     }
 
     @Override
     public void setLogicalHeight(final int height) {
         super.setLogicalHeight(height);
-//        image.setHeight(height + "px");
+        //        image.setHeight(height + "px");
     }
 
 

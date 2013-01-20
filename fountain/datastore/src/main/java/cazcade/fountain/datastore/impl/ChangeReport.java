@@ -18,25 +18,35 @@ import java.util.Map;
  */
 public class ChangeReport {
 
-    public static final int FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
+    public static final int       FORCE_IMAGE_REFRESH_TIME_IN_MILLIS = (1000 * 36000 * 24);
+    @Nonnull
+    private final       List<Map> changedFollowedBoards              = new ArrayList<Map>();
+    @Nonnull
+    private final       List<Map> changedOwnedBoards                 = new ArrayList<Map>();
+    @Nonnull
+    private final       List<Map> latestChanges                      = new ArrayList<Map>();
 
-    @Nonnull
-    private final List<Map> changedFollowedBoards = new ArrayList<Map>();
-    @Nonnull
-    private final List<Map> changedOwnedBoards    = new ArrayList<Map>();
-    @Nonnull
-    private final List<Map> latestChanges         = new ArrayList<Map>();
+    private static String addBoardSnaphotImageUrl(LSDTransferEntity boardEntity) {
+        return "http://boardcast.it/_snapshot-" + boardEntity.getURI().getWithoutFragment().asShortUrl().asUrlSafe() +
+               "?bid=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
+               System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
+    }
+
+
+    private static String addChangeSnaphotImageUrl(LSDTransferEntity boardEntity) {
+        return "http://boardcast.it/_snapshot-" + boardEntity.getURIAttribute(LSDAttribute.SOURCE)
+                                                             .getWithoutFragment()
+                                                             .asShortUrl()
+                                                             .asUrlSafe() +
+               "?bid=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
+               System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
+    }
+
 
     public void addChangedFollowedBoard(@Nonnull final LSDTransferEntity boardEntity) {
         final Map<String, String> map = boardEntity.getCamelCaseMap();
         map.put("snapshotUrl", addBoardSnaphotImageUrl(boardEntity));
         changedFollowedBoards.add(map);
-    }
-
-    private static String addBoardSnaphotImageUrl(LSDTransferEntity boardEntity) {
-        return "http://boardcast.it/_snapshot-" + boardEntity.getURI().asShortUrl().asUrlSafe() +
-               "?id=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
-               System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
     }
 
     public void addChangedOwnedBoard(@Nonnull final LSDTransferEntity boardEntity) {
@@ -77,16 +87,16 @@ public class ChangeReport {
         return !latestChanges.isEmpty();
     }
 
-    public void setLatestChanges(@Nonnull final Collection<LSDTransferEntity> changes) {
-        for (final LSDTransferEntity change : changes) {
-            final Map<String, String> map = change.getCamelCaseMap();
-            //            map.put("snapshotUrl", addBoardSnaphotImageUrl(change));
-            latestChanges.add(map);
-        }
-    }
-
     @Nonnull
     public List<Map> getLatestChanges() {
         return latestChanges;
+    }
+
+    public void setLatestChanges(@Nonnull final Collection<LSDTransferEntity> changes) {
+        for (final LSDTransferEntity change : changes) {
+            final Map<String, String> map = change.getCamelCaseMap();
+            map.put("snapshotUrl", addChangeSnaphotImageUrl(change));
+            latestChanges.add(map);
+        }
     }
 }

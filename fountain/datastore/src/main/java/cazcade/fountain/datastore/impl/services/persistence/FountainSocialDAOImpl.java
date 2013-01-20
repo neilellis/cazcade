@@ -5,6 +5,7 @@
 package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.common.Logger;
+import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.*;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
@@ -158,8 +159,12 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         final List<BoardIndexEntity> ownedBoards = boardDao.getMyBoards(0, 10000, aliasURI.asString());
         for (final BoardIndexEntity ownedBoard : ownedBoards) {
             if (ownedBoard.getUpdated().getTime() > since) {
-                report.addChangedOwnedBoard(fountainNeo.findByURIOrFail(new LiquidURI(ownedBoard.getUri()))
-                                                       .toLSD(LiquidRequestDetailLevel.NORMAL, true));
+                try {
+                    report.addChangedOwnedBoard(fountainNeo.findByURIOrFail(new LiquidURI(ownedBoard.getUri()))
+                                                           .toLSD(LiquidRequestDetailLevel.NORMAL, true));
+                } catch (EntityNotFoundException enfe) {
+                    log.error(enfe);
+                }
             }
         }
         final LatestContentFinder latestContentFinder = new LatestContentFinder(new LiquidSessionIdentifier(aliasURI), fountainNeo, aliasPersistedEntity, since, 25, 5000, LiquidRequestDetailLevel.NORMAL, 50, userDAO);

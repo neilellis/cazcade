@@ -329,9 +329,9 @@ public class LatestContentFinder {
     @Nonnull
     private LSDTransferEntity fromComment(@Nonnull final LSDPersistedEntity persistedEntity, @Nonnull final LiquidRequestDetailLevel resultDetail) throws InterruptedException {
         final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT_UPDATE, UUIDFactory.randomUUID());
-        entity.setAttribute(LSDAttribute.TEXT_BRIEF, persistedEntity.getAttribute(LSDAttribute.TEXT_BRIEF));
+        entity.copyAttribute(LSDAttribute.TEXT_BRIEF, persistedEntity);
         entity.setPublished(persistedEntity.getUpdated());
-        entity.setAttribute(LSDAttribute.TEXT_EXTENDED, persistedEntity.getAttribute(LSDAttribute.TEXT_EXTENDED));
+        entity.copyAttribute(LSDAttribute.TEXT_EXTENDED, persistedEntity);
 
         final LiquidURI objectURI = persistedEntity.getURI();
         final FountainRelationship authorRelationship = persistedEntity.getSingleRelationship(FountainRelationships.AUTHOR, Direction.OUTGOING);

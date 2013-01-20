@@ -80,7 +80,7 @@ public class LiquidBoardURL {
             }
         }
         else {
-            throw new IllegalArgumentException("Liquid URIs should start with " +
+            throw new IllegalArgumentException("Liquid URIs which require short form should start with " +
                                                PUBLIC_BOARD_USER_STEM +
                                                " or " +
                                                USER_STEM +
