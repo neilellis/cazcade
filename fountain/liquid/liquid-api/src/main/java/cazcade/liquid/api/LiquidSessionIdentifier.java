@@ -99,6 +99,11 @@ public class LiquidSessionIdentifier implements Serializable {
         return "alias:cazcade:anon".equals(alias.asString());
     }
 
+    public boolean isCazcadeAlias() {
+        return alias.toString().startsWith("alias:cazcade");
+    }
+
+
     public void setSession(final String session) {
         this.session = LiquidUUID.fromString(session);
     }

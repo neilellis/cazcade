@@ -38,6 +38,11 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
                                     ? entity.getAttribute(LSDAttribute.FULL_NAME)
                                     : null;
             final String name = entity.getAttribute(LSDAttribute.NAME);
+            if (aliasPersistedEntity.getURI().asString().startsWith("alias:cazcade")) {
+                if (!aliasPersistedEntity.hasAttribute(LSDAttribute.ROLE_TITLE)) {
+                    aliasPersistedEntity.setAttribute(LSDAttribute.ROLE_TITLE, "Early Adopter");
+                }
+            }
             poolDAO.createPoolsForAliasNoTx(entity.getURI(), name, fullName, false);
             //we reserve boards with user's name to avoid confusion with their profile boards.
             final LSDPersistedEntity boardsPoolEntity = fountainNeo.findByURI(new LiquidURI(FountainNeoImpl.BOARDS_URI));

@@ -14615,6 +14615,7 @@ div.checklist-entry-author {
     left: 0px;
     right: 0px;
     bottom: 0px;
+    opacity: 0.6;
 }
 
 .pool-object-photo .pool-object-photo-surround {

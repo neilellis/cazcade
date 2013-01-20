@@ -1,4 +1,10 @@
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <%--<footer>--%>
-    <%--<p>&copy; Company 2011</p>--%>
+<%--<p>&copy; Company 2011</p>--%>
 <%--</footer>--%>
 <div id="stylesheet-loaded" style="visibility:hidden"></div>
+
+

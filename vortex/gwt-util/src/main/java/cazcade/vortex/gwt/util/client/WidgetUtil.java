@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client;
 
 import com.google.gwt.dom.client.Style;
@@ -54,7 +58,8 @@ public class WidgetUtil {
         if (widget.getParent() != null) {
             if (widget.getParent().equals(replacement.getParent())) {
                 widget.removeFromParent();
-            } else {
+            }
+            else {
                 final ComplexPanel parent = (ComplexPanel) widget.getParent();
                 widget.removeFromParent();
                 parent.add(replacement);
@@ -71,12 +76,12 @@ public class WidgetUtil {
         widget.asWidget().getElement().getStyle().setProperty("maxHeight", "0");
         final Style style = childElement.getStyle();
         style.setOpacity(0.0);
-//        final Element parentElement = parentPanel.getElement();
-//        if (pos == 0 && parentElement.getChildCount() == 0) {
-//            parentElement.appendChild(childElement);
-//        } else {
-//            parentElement.insertBefore(childElement, parentElement.getChild(pos));
-//        }
+        //        final Element parentElement = parentPanel.getElement();
+        //        if (pos == 0 && parentElement.getChildCount() == 0) {
+        //            parentElement.appendChild(childElement);
+        //        } else {
+        //            parentElement.insertBefore(childElement, parentElement.getChild(pos));
+        //        }
         parentPanel.insert(widget.asWidget(), pos);
         new Timer() {
             @Override
@@ -136,6 +141,11 @@ public class WidgetUtil {
             element.getStyle().setProperty("maxHeight", "0%");
         }
     }
+
+    public static void hideButKeepSize(@Nonnull final com.google.gwt.dom.client.Element element) {
+        element.getStyle().setOpacity(0.0);
+    }
+
 
     public static void showGracefully(@Nonnull final com.google.gwt.dom.client.Element element, final boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.VISIBLE);

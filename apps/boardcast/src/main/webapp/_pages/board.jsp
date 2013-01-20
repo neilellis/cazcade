@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Boardcast: The Internet's Corkboard</title>
+    <title>Boardcast: The Internet's Corkboard </title>
     <%@ include file="navfunc.jspf" %>
     <%@ include file="header.jspf" %>
     <%@ include file="analytics.jspf" %>
@@ -40,6 +40,7 @@
         //Deferred loading to improve initial load time.
         loadjs("./_prettify/prettify.js");
     </script>
+
 
     <tags:hashbo-less/>
 
