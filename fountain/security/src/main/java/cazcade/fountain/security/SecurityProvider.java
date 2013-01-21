@@ -39,7 +39,7 @@ public class SecurityProvider {
     }
 
     @Nullable
-    public Principal doAuthentication(@Nonnull final String username, final String password) throws Exception {
+    public Principal doAuthentication(@Nonnull final String username, @Nonnull final String password) throws Exception {
         if ("anon".equals(username)) {
             return new LiquidPrincipal(ANON_IDENTITY.getName());
         }

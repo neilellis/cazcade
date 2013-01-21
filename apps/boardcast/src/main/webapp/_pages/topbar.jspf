@@ -48,6 +48,7 @@
                     <button class="btn" type="submit">Sign in</button>
                         <%--<img src="http://boardcast.it/_images/Sign-in-with-Twitter-darker.png"  style="cursor:pointer"--%>
                         <%--onclick='window.open("./_twitter/signin","Sign In With Twitter", "width=700,height=512");'/>--%>
+                    <button onclick="window.location='./_login-register'" class="btn primary">Join</button>
                 </form>
             </c:if>
             <c:if test="${not empty sessionScope.username}">

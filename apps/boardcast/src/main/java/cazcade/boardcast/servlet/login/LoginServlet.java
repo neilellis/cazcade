@@ -10,6 +10,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,6 @@ public class LoginServlet extends AbstractBoardcastServlet {
     @Nonnull
     private static final Logger log = Logger.getLogger(LoginServlet.class);
 
-
     @Override
     protected void doGet(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
         if (loggedIn(req.getSession(true))) {
@@ -37,15 +37,15 @@ public class LoginServlet extends AbstractBoardcastServlet {
 
     @Override
     protected void doPost(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp) throws ServletException, IOException {
-        final String username = req.getParameter("username");
-        final String password = req.getParameter("password");
+        @Nullable final String username = req.getParameter("username");
+        @Nullable final String password = req.getParameter("password");
         try {
             final HttpSession session = req.getSession(true);
             if (loggedIn(session) && loggedInAs(username, session)) {
                 forwardAfterLogin(req, resp);
             }
             else {
-                if (username == null) {
+                if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
                     req.getRequestDispatcher("/_pages/login.jsp").forward(req, resp);
                     return;
                 }
