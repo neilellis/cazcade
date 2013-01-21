@@ -11,7 +11,7 @@ import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.image.ImageOption;
 import cazcade.vortex.widgets.client.image.ImageSelection;
 import cazcade.vortex.widgets.client.popup.PopupEditPanel;
-import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
+import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -30,7 +30,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     @UiField ChangeImageUrlPanel changeBackgroundPanel;
     @UiField ImageSelection      imageSelector;
     private  LSDBaseEntity       oldEntity;
-    private  VortexPopupPanel    vortexPopupPanel;
+    private  VortexDialogPanel   vortexDialogPanel;
 
 
     public ChangeBackgroundDialog() {
@@ -43,7 +43,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
                 changeBackgroundPanel.callOnChangeAction();
             }
         });
-        vortexPopupPanel = new VortexPopupPanel();
+        vortexDialogPanel = new VortexDialogPanel();
     }
 
     @Override
@@ -80,30 +80,30 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
         changeBackgroundPanel.setOnChangeAction(new Runnable() {
             @Override public void run() {
-                vortexPopupPanel.hide();
+                vortexDialogPanel.hide();
                 onChangeAction.run();
             }
         });
     }
 
     public void show() {
-        vortexPopupPanel.setMainPanel(this);
-        vortexPopupPanel.setAutoHideEnabled(true);
-        vortexPopupPanel.setAutoHideOnHistoryEventsEnabled(true);
-        vortexPopupPanel.setWidth("820px");
-        vortexPopupPanel.setHeight("640px");
-        vortexPopupPanel.showDown();
-        vortexPopupPanel.setText("Change Background");
-        vortexPopupPanel.setOnFinishAction(new Runnable() {
+        vortexDialogPanel.setMainPanel(this);
+        vortexDialogPanel.setAutoHideEnabled(true);
+        vortexDialogPanel.setAutoHideOnHistoryEventsEnabled(true);
+        vortexDialogPanel.setWidth("820px");
+        vortexDialogPanel.setHeight("640px");
+        vortexDialogPanel.showDown();
+        vortexDialogPanel.setText("Change Background");
+        vortexDialogPanel.setOnFinishAction(new Runnable() {
             @Override
             public void run() {
-                vortexPopupPanel.hide();
+                vortexDialogPanel.hide();
             }
         });
-        vortexPopupPanel.setOnCancelAction(new Runnable() {
+        vortexDialogPanel.setOnCancelAction(new Runnable() {
             @Override
             public void run() {
-                vortexPopupPanel.hide();
+                vortexDialogPanel.hide();
             }
         });
     }

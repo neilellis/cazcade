@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UpdateAliasRequest extends AbstractUpdateRequest {
-    public UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
+    UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
         super();
         setUri(uri);
         setId(id);
@@ -23,7 +23,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    UpdateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
         super();
         setId(id);
         setSessionId(identity);
@@ -49,11 +49,11 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
 
-    public UpdateAliasRequest(final LiquidUUID target, final LSDTransferEntity entity) {
+    UpdateAliasRequest(final LiquidUUID target, final LSDTransferEntity entity) {
         this(null, LiquidSessionIdentifier.ANON, target, entity);
     }
 
-    public UpdateAliasRequest(final LiquidURI uri, final LSDTransferEntity newEntity) {
+    UpdateAliasRequest(final LiquidURI uri, final LSDTransferEntity newEntity) {
         super();
         setUri(uri);
         setRequestEntity(newEntity);
@@ -65,6 +65,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
 
     public UpdateAliasRequest(@Nonnull final LSDTransferEntity alias) {
         super();
+        setUri(alias.getURI());
         setRequestEntity(alias);
     }
 

@@ -159,6 +159,7 @@ public class CachedImage extends Image {
             @Override public void onError(final ErrorEvent event) {
                 unspin();
                 CachedImage.super.setUrl(defaultDefaultMessage("Image Failed"));
+                CachedImage.super.getElement().setAttribute("x-vortex-failed-url", newUrl);
                 newImage.removeFromParent();
             }
         });

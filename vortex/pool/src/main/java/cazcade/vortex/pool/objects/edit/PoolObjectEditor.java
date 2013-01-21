@@ -4,7 +4,7 @@
 
 package cazcade.vortex.pool.objects.edit;
 
-import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
+import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -49,7 +49,7 @@ public class PoolObjectEditor {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).edit();
     }
 
-    private class PoolObjectEditorPopup extends VortexPopupPanel {
+    private class PoolObjectEditorPopup extends VortexDialogPanel {
 
         boolean finished;
 

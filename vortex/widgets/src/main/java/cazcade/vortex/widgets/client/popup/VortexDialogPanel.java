@@ -21,12 +21,12 @@ import javax.annotation.Nullable;
 /**
  * @author neilellis@cazcade.com
  */
-public class VortexPopupPanel extends DialogBox {
+public class VortexDialogPanel extends DialogBox {
 
-    interface VortexPopupPanelUiBinder extends UiBinder<HTMLPanel, VortexPopupPanel> {}
+    interface VortexPopupPanelUiBinder extends UiBinder<HTMLPanel, VortexDialogPanel> {}
 
     private static final VortexPopupPanelUiBinder ourUiBinder       = GWT.create(VortexPopupPanelUiBinder.class);
-    private static final String                   POPUP_READY_STYLE = "popup-ready";
+    private static final String                   POPUP_READY_STYLE = "vtx-dialog-popup-ready";
     @UiField public Button    cancel;
     @UiField public Button    done;
     @UiField public HTMLPanel mainArea;
@@ -38,12 +38,12 @@ public class VortexPopupPanel extends DialogBox {
     private         Runnable  onFinishAction;
     private         Runnable  onCancelAction;
 
-    public VortexPopupPanel() {
+    public VortexDialogPanel() {
         super();
         setWidget(ourUiBinder.createAndBindUi(this));
         setModal(true);
         setGlassEnabled(true);
-        addStyleName("vortex-popup");
+        addStyleName("vtx-dialog-popup");
 
     }
 

@@ -213,7 +213,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         //        publicLink.setHref("#public@" + username);
         followersLabel.setText(entity.getAttribute(LSDAttribute.FOLLOWERS_COUNT, "no") + " followers");
         followingLabel.setText(entity.getAttribute(LSDAttribute.FOLLOWS_ALIAS_COUNT, "no") + " follows");
-        following = entity.getBooleanAttribute(LSDAttribute.FOLLOWING);
+        following = entity.getBooleanAttribute(LSDAttribute.FOLLOWING, false);
         followButton.setText(following ? "Unfollow" : "Follow");
         WidgetUtil.showGracefully(this, true);
 

@@ -40,9 +40,6 @@ public class UserProfileImage extends EditableImage {
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.getURI());
-        if (entity.hasAttribute(attribute)) {
-            setUrl(entity.getAttribute(attribute));
-        }
         if (!entity.getBooleanAttribute(LSDAttribute.EDITABLE, false) || !editable) {
             image.addMouseOverHandler(new MouseOverHandler() {
                 private ViewAliasDetailPanel aliasDetailPanel;

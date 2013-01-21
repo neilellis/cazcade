@@ -9177,26 +9177,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     -moz-box-shadow: 0 0 6px 4px rgba(80, 80, 80, 0.3);
     box-shadow: 0 0 6px 4px rgba(80, 80, 80, 0.3);
     font-size: 16px;
-    -webkit-transform: translate3d(0, -1000px, 0);
-    -moz-transform: translate3d(0, -1000px, 0);
-    -ms-transform: translate3d(0, -1000px, 0);
-    -o-transform: translate3d(0, -1000px, 0);
-    transform: translate3d(0, -1000px, 0);
-    -webkit-transform: translate3d(0, -1000px, 0);
-    -moz-transform: translate3d(0, -1000px, 0);
-    -ms-transform: translate3d(0, -1000px, 0);
-    -o-transform: translate3d(0, -1000px, 0);
-    transform: translate3d(0, -1000px, 0);
-    -webkit-transform: translate3d(0, -1000px, 0);
-    -moz-transform: translate3d(0, -1000px, 0);
-    -ms-transform: translate3d(0, -1000px, 0);
-    -o-transform: translate3d(0, -1000px, 0);
-    transform: translate3d(0, -1000px, 0);
-    -webkit-transform: translate3d(0, -1000px, 0);
-    -moz-transform: translate3d(0, -1000px, 0);
-    -ms-transform: translate3d(0, -1000px, 0);
-    -o-transform: translate3d(0, -1000px, 0);
-    transform: translate3d(0, -1000px, 0);
 }
 
 .gwt-DialogBox table, .gwt-PopupPanel table {
@@ -9240,7 +9220,30 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     font-size: 16px;
 }
 
-.popup-ready {
+.vtx-dialog-popup {
+    -webkit-transform: translate3d(0, -1000px, 0);
+    -moz-transform: translate3d(0, -1000px, 0);
+    -ms-transform: translate3d(0, -1000px, 0);
+    -o-transform: translate3d(0, -1000px, 0);
+    transform: translate3d(0, -1000px, 0);
+    -webkit-transform: translate3d(0, -1000px, 0);
+    -moz-transform: translate3d(0, -1000px, 0);
+    -ms-transform: translate3d(0, -1000px, 0);
+    -o-transform: translate3d(0, -1000px, 0);
+    transform: translate3d(0, -1000px, 0);
+    -webkit-transform: translate3d(0, -1000px, 0);
+    -moz-transform: translate3d(0, -1000px, 0);
+    -ms-transform: translate3d(0, -1000px, 0);
+    -o-transform: translate3d(0, -1000px, 0);
+    transform: translate3d(0, -1000px, 0);
+    -webkit-transform: translate3d(0, -1000px, 0);
+    -moz-transform: translate3d(0, -1000px, 0);
+    -ms-transform: translate3d(0, -1000px, 0);
+    -o-transform: translate3d(0, -1000px, 0);
+    transform: translate3d(0, -1000px, 0);
+}
+
+.vtx-dialog-popup-ready {
     -webkit-transition: -webkit-transform ease-in-out 1000ms;
     -moz-transition: -moz-transform ease-in-out 1000ms;
     -webkit-transition: -webkit-transform ease-in-out 1000ms;

@@ -41,8 +41,9 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
 
                 final String name = request.getUri().getLastPathElement();
                 assert name != null;
-                final String boardTitle = request.isListed() && (name.startsWith(request.getSessionIdentifier().getName() + "-")
-                                                                 || name.startsWith("-")) ? "Untitled" : name;
+                final String boardTitle = name.startsWith(request.getSessionIdentifier().getName() + "-") || name.startsWith("-")
+                                          ? "Untitled"
+                                          : name;
                 final StringBuilder newTitle = new StringBuilder();
                 boolean previousCharWhitespace = true;
                 for (int i = 0; i < boardTitle.length(); i++) {

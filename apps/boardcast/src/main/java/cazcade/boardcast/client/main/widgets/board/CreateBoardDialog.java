@@ -9,7 +9,7 @@ import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.form.fields.HashtagTextBox;
-import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
+import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.DivElement;
@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 /**
  * @author neilellis@cazcade.com
  */
-public class CreateBoardDialog extends VortexPopupPanel implements HistoryAware {
+public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware {
     private static final NewBoardDialogUiBinder ourUiBinder = GWT.create(NewBoardDialogUiBinder.class);
 
     @UiField HashtagTextBox tagBox;

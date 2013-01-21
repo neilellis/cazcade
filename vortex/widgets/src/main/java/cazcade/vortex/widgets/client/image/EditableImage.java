@@ -6,7 +6,7 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
-import cazcade.vortex.widgets.client.popup.VortexPopupPanel;
+import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -84,7 +84,7 @@ public class EditableImage extends Composite implements Bindable {
 
     @UiHandler("image")
     public void onClick(final ClickEvent e) {
-        if (entity.getBooleanAttribute(LSDAttribute.EDITABLE) && editable) {
+        if (entity.getBooleanAttribute(LSDAttribute.EDITABLE, false) && editable) {
             final ImageEditorDialogBox imageEditorDialogBox = new ImageEditorDialogBox();
             imageEditorDialogBox.addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
@@ -124,7 +124,7 @@ public class EditableImage extends Composite implements Bindable {
         editText.getStyle().setVisibility(editable ? Style.Visibility.VISIBLE : Style.Visibility.HIDDEN);
     }
 
-    private class ImageEditorDialogBox extends VortexPopupPanel {
+    private class ImageEditorDialogBox extends VortexDialogPanel {
         private ImageEditorDialogBox() {
             super();
             final ImageEditor editor = new ImageEditor(image);

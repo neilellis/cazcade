@@ -54,7 +54,7 @@
 
     <rule>
         <from>^/_website-snapshot$</from>
-        <to type="redirect">http://snapito.com/api/?fast&amp;%{query-string}</to>
+        <to type="redirect">http://snapito.com/api/?%{query-string}</to>
     </rule>
 
 
