@@ -34,7 +34,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
 
     @Override
     public int getHeight() {
-        return 630;
+        return 700;
     }
 
     @Override
@@ -60,6 +60,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
         initWidget(ourUiBinder.createAndBindUi(this));
         bind(entity);
 
+
     }
 
     @Override
@@ -67,7 +68,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
         super.onLoad();
     }
 
-    @SuppressWarnings({"ObjectEquality"})
+    @Override @SuppressWarnings({"ObjectEquality"})
     protected boolean autoCloseField(final Bindable field) {
         return field == changeImagePanel;
     }

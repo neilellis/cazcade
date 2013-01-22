@@ -55,19 +55,23 @@ public class PoolObjectEditor {
 
         private PoolObjectEditorPopup() {
             super();
-            setAutoHideEnabled(true);
             setAutoHideOnHistoryEventsEnabled(true);
             setHeight(height + "px");
             setWidth(width + "px");
             addStyleName("pool-object-editor-popup");
             setMainPanel(editorPanel);
-            setGlassEnabled(true);
             setText(editorPanel.getCaption());
 
             //            setGlassStyleName("pool-object-editor-popup-glass");
             addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
                 public void onClose(final CloseEvent<PopupPanel> popupPanelCloseEvent) {
+                    finish();
+                }
+            });
+            editorPanel.setOnFinishAction(new Runnable() {
+                @Override public void run() {
+                    hide();
                     finish();
                 }
             });

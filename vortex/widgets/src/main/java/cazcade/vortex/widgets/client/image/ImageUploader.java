@@ -25,9 +25,12 @@ public class ImageUploader extends Composite {
     private OnStartUploadHandler  onStartUploadHandler;
     private OnFinishUploadHandler onFinishHandler;
 
+
     public ImageUploader() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
+
+
     }
 
     @Override protected void onAttach() {
@@ -75,26 +78,26 @@ public class ImageUploader extends Composite {
         this.@cazcade.vortex.widgets.client.image.ImageUploader::setImageUrl(Ljava/lang/String;)('');
         var gwtThis = this;
         $wnd.filepicker.pick({
-                    mimetypes: ['image/*'],
-                    container: 'image-uploader-filepicker-frame'
-                },
-                function (FPFile) {
-                    console.log(JSON.stringify(FPFile));
-                    var url;
-                    if (FPFile.url.indexOf('https') == 0) {
-                        url = 'http' + FPFile.url.substring(5);
-                    } else {
-                        url = FPFile.url;
-                    }
-                    gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::setImageUrl(Ljava/lang/String;)(url);
-                    gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::setStatusByName(Ljava/lang/String;)('SUCCESS');
-                    gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::finish()();
-                },
-                function (FPError) {
-                    console.log(FPError.toString());
-                    gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::setStatusByName(Ljava/lang/String;)('FAILURE');
-                    gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::error()();
+                mimetypes: ['image/*'],
+                container: 'image-uploader-filepicker-frame'
+            },
+            function (FPFile) {
+                console.log(JSON.stringify(FPFile));
+                var url;
+                if (FPFile.url.indexOf('https') == 0) {
+                    url = 'http' + FPFile.url.substring(5);
+                } else {
+                    url = FPFile.url;
                 }
+                gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::setImageUrl(Ljava/lang/String;)(url);
+                gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::setStatusByName(Ljava/lang/String;)('SUCCESS');
+                gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::finish()();
+            },
+            function (FPError) {
+                console.log(FPError.toString());
+                gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::setStatusByName(Ljava/lang/String;)('FAILURE');
+                gwtThis.@cazcade.vortex.widgets.client.image.ImageUploader::error()();
+            }
         );
     }-*/;
 

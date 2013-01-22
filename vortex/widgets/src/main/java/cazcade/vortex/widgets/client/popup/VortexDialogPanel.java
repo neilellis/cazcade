@@ -7,6 +7,7 @@ package cazcade.vortex.widgets.client.popup;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -27,16 +28,18 @@ public class VortexDialogPanel extends DialogBox {
 
     private static final VortexPopupPanelUiBinder ourUiBinder       = GWT.create(VortexPopupPanelUiBinder.class);
     private static final String                   POPUP_READY_STYLE = "vtx-dialog-popup-ready";
-    @UiField public Button    cancel;
-    @UiField public Button    done;
-    @UiField public HTMLPanel mainArea;
+
+    @UiField public   Button              cancel;
+    @UiField public   Button              done;
+    @UiField public   HTMLPanel           mainArea;
     @Nullable
-    private         Timer     timer;
+    private           Timer               timer;
     @Nullable
-    private         Widget    widget;
+    private           Widget              mainPanel;
     @Nullable
-    private         Runnable  onFinishAction;
-    private         Runnable  onCancelAction;
+    private           Runnable            onFinishAction;
+    private           Runnable            onCancelAction;
+    @Nullable private HandlerRegistration antiScrollHandler;
 
     public VortexDialogPanel() {
         super();
@@ -70,7 +73,7 @@ public class VortexDialogPanel extends DialogBox {
     }
 
     public void setMainPanel(@Nonnull final Widget w) {
-        widget = w;
+        mainPanel = w;
         mainArea.add(w);
     }
 
@@ -80,6 +83,14 @@ public class VortexDialogPanel extends DialogBox {
                 setPopupPosition((Window.getClientWidth() - offsetWidth) / 2, 0);
                 getElement().getStyle().setPosition(Style.Position.FIXED);
                 addStyleName(POPUP_READY_STYLE);
+                antiScrollHandler = Window.addWindowScrollHandler(new Window.ScrollHandler() {
+                    @Override public void onWindowScroll(Window.ScrollEvent event) {
+                        //This is a hack to deal with some elemnts propagating events badly, like iFrames
+                        //Here we ensure that while the popup is visible the window won't scroll.
+                        Window.scrollTo(Window.getScrollLeft(), Window.getScrollTop() - event.getScrollTop());
+                    }
+                });
+
             }
         });
 
@@ -87,17 +98,21 @@ public class VortexDialogPanel extends DialogBox {
 
     @Override public void hide() {
         removeStyleName(POPUP_READY_STYLE);
+        if (antiScrollHandler != null) {
+            antiScrollHandler.removeHandler();
+            antiScrollHandler = null;
+        }
         super.hide();
     }
 
     @Override
     public void show() {
         super.show();
-        if (widget instanceof PopupEditPanel) {
+        if (mainPanel instanceof PopupEditPanel) {
             timer = new Timer() {
                 @Override
                 public void run() {
-                    done.setEnabled(((PopupEditPanel) widget).isValid());
+                    done.setEnabled(((PopupEditPanel) mainPanel).isValid());
                 }
             };
             timer.scheduleRepeating(50);
