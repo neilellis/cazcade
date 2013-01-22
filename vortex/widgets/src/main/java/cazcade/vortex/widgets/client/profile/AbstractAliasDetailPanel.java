@@ -71,6 +71,10 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         addBinding(userImage, LSDAttribute.IMAGE_URL);
     }
 
+    @Override protected boolean isSaveOnExit() {
+        return false;
+    }
+
     @Nonnull
     protected String getReferenceDataPrefix() {
         return "profile";

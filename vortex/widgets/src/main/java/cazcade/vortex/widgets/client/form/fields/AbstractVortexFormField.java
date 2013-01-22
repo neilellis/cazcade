@@ -35,6 +35,10 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     @Nullable
     protected Runnable          onValid;
 
+    @Override @Nullable public LSDAttribute getBoundAttribute() {
+        return boundAttribute;
+    }
+
     @Nullable @Override
     public String getStringValue() {
         throw new UnsupportedOperationException("This widget does not support single string values.");
@@ -179,17 +183,18 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         throw new UnsupportedOperationException("This widget does not support multiple values binding.");
     }
 
-    protected void callOnChangeAction() {
-        if (onChangeAction != null && isValid()) {
-            if (entity != null && boundAttribute != null) {
-                if (isMultiValue()) {
-                    entity.setValues(boundAttribute, getStringValues());
-                    ClientLog.log(entity.toString());
-                }
-                else {
-                    entity.setAttribute(boundAttribute, getStringValue());
-                }
+    protected void onChange() {
+        if (isValid() && entity != null && boundAttribute != null) {
+            if (isMultiValue()) {
+                entity.setValues(boundAttribute, getStringValues());
+                ClientLog.log(entity.toString());
             }
+            else {
+                entity.setAttribute(boundAttribute, getStringValue());
+            }
+        }
+
+        if (onChangeAction != null && isValid()) {
             onChangeAction.run();
         }
     }

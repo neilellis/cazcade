@@ -7,6 +7,8 @@ package cazcade.vortex.widgets.client.profile;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 
+import java.util.List;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -23,4 +25,12 @@ public interface Bindable {
     boolean isValid();
 
     boolean isBound();
+
+    boolean isMultiValue();
+
+    LSDAttribute getBoundAttribute();
+
+    List getStringValues();
+
+    String getStringValue();
 }

@@ -5,6 +5,7 @@
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
@@ -22,15 +23,19 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
 
     public void addBinding(final LSDTransferEntity otherEntity, @Nonnull final Bindable field, final LSDAttribute attribute) {
         field.bind(otherEntity, attribute, getReferenceDataPrefix());
-        final Runnable onEnterAction = getUpdateEntityAction(field);
-        field.setOnChangeAction(onEnterAction);
+        if (!isSaveOnExit()) {
+            final Runnable onEnterAction = getUpdateEntityAction(field);
+            field.setOnChangeAction(onEnterAction);
+        }
         bindings.put(attribute, field);
     }
 
     public void addBinding(@Nonnull final Bindable field, @Nullable final LSDAttribute attribute) {
         field.bind(entity, attribute, getReferenceDataPrefix());
-        final Runnable onEnterAction = getUpdateEntityAction(field);
-        field.setOnChangeAction(onEnterAction);
+        if (!isSaveOnExit()) {
+            final Runnable onEnterAction = getUpdateEntityAction(field);
+            field.setOnChangeAction(onEnterAction);
+        }
         bindings.put(attribute, field);
     }
 
@@ -41,6 +46,32 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
         }
         setEntityInternal(entity);
     }
+
+    @Nonnull
+    public LSDTransferEntity getEntityDiff() {
+        final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(entity.getTypeDef());
+        if (entity.hasURI()) {
+            newEntity.setAttribute(LSDAttribute.URI, entity.getURI().toString());
+        }
+        for (final Bindable bindable : bindings.values()) {
+            if (bindable.isMultiValue()) {
+                newEntity.setValues(bindable.getBoundAttribute(), bindable.getStringValues());
+            }
+            else {
+                String stringValue = bindable.getStringValue();
+                if (stringValue != null) {
+                    newEntity.setAttribute(bindable.getBoundAttribute(), stringValue);
+                }
+            }
+        }
+        return newEntity;
+    }
+
+    public void save() {
+
+    }
+
+    protected abstract boolean isSaveOnExit();
 
     @Nonnull
     protected abstract String getReferenceDataPrefix();

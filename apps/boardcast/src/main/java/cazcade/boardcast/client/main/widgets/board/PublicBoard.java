@@ -255,6 +255,10 @@ public class PublicBoard extends EntityBackedFormPanel {
         //        addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
+    @Override protected boolean isSaveOnExit() {
+        return false;
+    }
+
     @Nonnull @Override
     protected String getReferenceDataPrefix() {
         return "board";

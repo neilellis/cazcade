@@ -4,48 +4,12 @@
     <entry_points version="2.0" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="gwt" url="file://$PROJECT_DIR$" />
-    <file type="gwt" url="file://$PROJECT_DIR$/apps" />
     <file type="gwt" url="file://$PROJECT_DIR$/apps/boardcast" />
-    <file type="gwt" url="file://$PROJECT_DIR$/apps/cli" />
-    <file type="gwt" url="file://$PROJECT_DIR$/apps/download" />
-    <file type="gwt" url="file://$PROJECT_DIR$/apps/io" />
-    <file type="gwt" url="file://$PROJECT_DIR$/apps/twitter-auth" />
-    <file type="gwt" url="file://$PROJECT_DIR$/apps/upload" />
-    <file type="gwt" url="file://$PROJECT_DIR$/common" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain" />
     <file type="gwt" url="file://$PROJECT_DIR$/fountain/common" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore" />
     <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore-api" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore-client" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore-server" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/dist" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/index" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/liquid" />
     <file type="gwt" url="file://$PROJECT_DIR$/fountain/liquid/liquid-api" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/liquid/liquid-impl" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/messaging" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/notification" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/rest-server" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/security" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/social" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/test" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/validation" />
-    <file type="gwt" url="file://$PROJECT_DIR$/scrape" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/bus" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/common" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/comms" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/dnd" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/gwt-util" />
     <file type="gwt" url="file://$PROJECT_DIR$/vortex/main" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/plugins" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/plugins/twitter" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/pool" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/widgets" />
-    <file type="Spring" url="file://$PROJECT_DIR$/../cyclone/CycloneWebApplication/main/src/main/resources/registration-process-spring-config.xml" />
     <file type="web" url="file://$PROJECT_DIR$/apps/boardcast" />
-    <file type="web" url="file://$PROJECT_DIR$/fountain/datastore-server" />
   </component>
   <component name="IdProvider" IDEtalkID="57F14E2F49A52322AD003B3CE7E3BFB9" />
   <component name="MavenProjectsManager">
@@ -104,7 +68,7 @@
       </entry>
     </default-configurations>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 " project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="SvnBranchConfigurationManager">

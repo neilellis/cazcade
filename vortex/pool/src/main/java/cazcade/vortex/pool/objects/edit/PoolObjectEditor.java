@@ -30,17 +30,6 @@ public class PoolObjectEditor {
         this.height = height;
     }
 
-    public void edit() {
-        final PoolObjectEditorPopup popup = new PoolObjectEditorPopup();
-        popup.showDown();
-    }
-
-
-    public void create() {
-        final PoolObjectEditorPopup popup = new PoolObjectEditorPopup();
-        popup.showDown();
-    }
-
     public static void showForCreate(@Nonnull final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction) {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).create();
     }
@@ -49,12 +38,24 @@ public class PoolObjectEditor {
         new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).edit();
     }
 
+    public void edit() {
+        final PoolObjectEditorPopup popup = new PoolObjectEditorPopup(false);
+        popup.showDown();
+    }
+
+    public void create() {
+        final PoolObjectEditorPopup popup = new PoolObjectEditorPopup(true);
+        popup.showDown();
+    }
+
     private class PoolObjectEditorPopup extends VortexDialogPanel {
 
         boolean finished;
+        private boolean create;
 
-        private PoolObjectEditorPopup() {
+        private PoolObjectEditorPopup(boolean create) {
             super();
+            this.create = create;
             setAutoHideOnHistoryEventsEnabled(true);
             setHeight(height + "px");
             setWidth(width + "px");
@@ -92,6 +93,9 @@ public class PoolObjectEditor {
 
         private void finish() {
             if (!finished) {
+                if (!create) {
+                    editorPanel.save();
+                }
                 finished = true;
                 if (onFinishAction != null) {
                     onFinishAction.run();

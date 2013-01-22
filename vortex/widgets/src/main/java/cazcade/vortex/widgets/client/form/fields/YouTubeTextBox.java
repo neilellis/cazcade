@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -19,7 +23,7 @@ public class YouTubeTextBox extends VortexTextBox {
 
     @Nonnull
     public static final String YOU_TUBE_URL_REGEX = "http[s]?://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9\\-_]+).*";
-    private String oldText = "";
+    private             String oldText            = "";
 
     @Nonnull
     private static final String VIDEO_REGEX = "[A-Za-z0-9\\-_]+";
@@ -29,8 +33,7 @@ public class YouTubeTextBox extends VortexTextBox {
     public static final String INVALID_URL_MESSAGE = "Please supply a valid YouTube id or URL (e.g. http://www.youtube.com/watch?v=hfjGRBFd7mQ or hfjGRBFd7mQ)";
 
 
-    interface RegexTextBoxUiBinder extends UiBinder<HTMLPanel, YouTubeTextBox> {
-    }
+    interface RegexTextBoxUiBinder extends UiBinder<HTMLPanel, YouTubeTextBox> {}
 
     private static final RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
 
@@ -83,19 +86,22 @@ public class YouTubeTextBox extends VortexTextBox {
             if (text.matches(YOU_TUBE_URL_REGEX)) {
                 text = text.replaceAll("http[s]?://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9\\-_]+).*", "$1");
                 setValue(text);
-                callOnChangeAction();
+                onChange();
                 errorMessage.setText("");
-            } else {
+            }
+            else {
                 errorMessage.setText(INVALID_URL_MESSAGE);
             }
-        } else {
+        }
+        else {
             if (text.matches(VIDEO_REGEX)) {
                 setValue(text);
                 errorMessage.setText("");
                 if (andCallOnChange) {
-                    callOnChangeAction();
+                    onChange();
                 }
-            } else {
+            }
+            else {
                 errorMessage.setText(INVALID_URL_MESSAGE);
             }
         }
@@ -108,8 +114,7 @@ public class YouTubeTextBox extends VortexTextBox {
         return textBox.getText().matches(YOU_TUBE_URL_REGEX) || textBox.getText().matches(VIDEO_REGEX);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());
         newEntity.setAttribute(LSDAttribute.URI, getEntity().getURI().toString());

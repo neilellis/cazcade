@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.LiquidCachingScope;
@@ -31,12 +35,12 @@ public class VortexListBox extends AbstractVortexFormField {
     @Nonnull
     public static final String OTHER_FIELD_VALUE = "_______OTHER_________";
     @Nonnull
-    protected final Bus bus = BusFactory.getInstance();
+    protected final     Bus    bus               = BusFactory.getInstance();
 
     protected boolean useVisibleText;
     protected boolean otherOption;
-    private boolean cacheOptions;
-    private String value;
+    private   boolean cacheOptions;
+    private   String  value;
 
     @Override
     public String getStringValue() {
@@ -47,7 +51,8 @@ public class VortexListBox extends AbstractVortexFormField {
         }
         if (useVisibleText) {
             return listBox.getItemText(listBox.getSelectedIndex());
-        } else {
+        }
+        else {
             return listBox.getValue(listBox.getSelectedIndex());
         }
 
@@ -74,7 +79,8 @@ public class VortexListBox extends AbstractVortexFormField {
                     listBox.setSelectedIndex(i);
                     found = true;
                 }
-            } else {
+            }
+            else {
                 if (listBox.getValue(i).equals(text)) {
                     listBox.setSelectedIndex(i);
                     found = true;
@@ -103,8 +109,7 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
 
-    interface VortexListBoxUiBinder extends UiBinder<HTMLPanel, VortexListBox> {
-    }
+    interface VortexListBoxUiBinder extends UiBinder<HTMLPanel, VortexListBox> {}
 
     private static final VortexListBoxUiBinder listBoxBinder = GWT.create(VortexListBoxUiBinder.class);
 
@@ -112,11 +117,9 @@ public class VortexListBox extends AbstractVortexFormField {
         return listBoxBinder;
     }
 
-    @UiField
-    ListBox listBox;
+    @UiField ListBox listBox;
 
-    @UiField
-    RegexTextBox otherBox;
+    @UiField RegexTextBox otherBox;
 
     public VortexListBox() {
         super();
@@ -127,11 +130,12 @@ public class VortexListBox extends AbstractVortexFormField {
                 if (otherOption) {
                     if (listBox.getSelectedIndex() == listBox.getItemCount() - 1) {
                         otherBox.removeStyleName("invisible");
-                    } else {
+                    }
+                    else {
                         otherBox.addStyleName("invisible");
                     }
                 }
-                callOnChangeAction();
+                VortexListBox.this.onChange();
             }
         });
         listBox.addItem("Choose ...", "");
@@ -141,7 +145,8 @@ public class VortexListBox extends AbstractVortexFormField {
     @Override
     public void bind(@Nonnull final LSDAttribute attribute, final String prefix, final String initialValue) {
         boundAttribute = attribute;
-        final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
+        final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName()
+                                                                                                    .replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false);
         retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {

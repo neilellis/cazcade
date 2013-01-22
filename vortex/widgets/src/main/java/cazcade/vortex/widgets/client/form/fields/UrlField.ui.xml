@@ -9,8 +9,8 @@
     <g:HTMLPanel styleName="url-field">
         <div class="url-field-textbox-area">
             <label>Url</label>
-            <fields:RegexTextBox ui:field="urlField" styleName="url-field-text-box" regex="https?://.*"/>
+            <fields:UrlTextBox ui:field="urlField" styleName="url-field-text-box"/>
         </div>
-        <image:CachedImage ui:field="previewImage" styleName="url-field-image" width="320px" height="240px"/>
+        <image:CachedImage ui:field="previewImage" styleName="url-field-image" width="320px" height="240px" website="true"/>
     </g:HTMLPanel>
 </ui:UiBinder>

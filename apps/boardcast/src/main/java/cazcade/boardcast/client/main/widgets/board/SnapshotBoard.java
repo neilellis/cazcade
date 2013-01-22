@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.*;
@@ -35,14 +39,13 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class SnapshotBoard extends EntityBackedFormPanel {
-    private static final NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
-    public static final int WAIT_UNTIL_READY_FOR_SNAPSHOT = 5 * 1000;
+    private static final NewBoardUiBinder ourUiBinder                   = GWT.create(NewBoardUiBinder.class);
+    public static final  int              WAIT_UNTIL_READY_FOR_SNAPSHOT = 5 * 1000;
 
 
-    @UiField
-    PoolContentArea contentArea;
+    @UiField PoolContentArea contentArea;
 
-    private long updatePoolListener;
+    private long    updatePoolListener;
     private boolean inited;
 
 
@@ -87,8 +90,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                 public void onSuccess() {
                     refresh();
                 }
-            }
-                        );
+            });
         }
     }
 
@@ -97,15 +99,13 @@ public class SnapshotBoard extends EntityBackedFormPanel {
             BusFactory.getInstance().removeListener(updatePoolListener);
         }
 
-        updatePoolListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL,
-                                                                                           new BusListener() {
-                                                                                               @Override
-                                                                                               public void handle(
-                                                                                                       final LiquidMessage response) {
-                                                                                                   update((LiquidRequest) response);
-                                                                                               }
-                                                                                           }
-                                                                                          );
+        updatePoolListener = BusFactory.getInstance()
+                                       .listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL, new BusListener() {
+                                           @Override
+                                           public void handle(final LiquidMessage response) {
+                                               update((LiquidRequest) response);
+                                           }
+                                       });
 
 
         final boolean listed = poolURI.asShortUrl().isListedByConvention();
@@ -140,8 +140,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                     Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
             }
-        }
-                );
+        });
     }
 
     private void update(@Nonnull final LiquidRequest response) {
@@ -152,14 +151,16 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         super.bind(entity);
     }
 
-    @Nonnull
-    @Override
+    @Override protected boolean isSaveOnExit() {
+        return false;
+    }
+
+    @Nonnull @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected Runnable getUpdateEntityAction(final Bindable field) {
         throw new UnsupportedOperationException("Readonly snapshot board.");
     }
@@ -202,6 +203,5 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         }
     }
 
-    interface NewBoardUiBinder extends UiBinder<HTMLPanel, SnapshotBoard> {
-    }
+    interface NewBoardUiBinder extends UiBinder<HTMLPanel, SnapshotBoard> {}
 }

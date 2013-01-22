@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -20,12 +24,9 @@ import javax.annotation.Nonnull;
 public class PersonalBoardHeader extends EntityBackedFormPanel {
     private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
-    @UiField
-    VortexEditableLabel title;
-    @UiField
-    VortexEditableLabel description;
-    @UiField
-    VortexEditableLabel text;
+    @UiField VortexEditableLabel title;
+    @UiField VortexEditableLabel description;
+    @UiField VortexEditableLabel text;
 
     public PersonalBoardHeader() {
         super();
@@ -40,14 +41,16 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
-    @Nonnull
-    @Override
+    @Override protected boolean isSaveOnExit() {
+        return false;
+    }
+
+    @Nonnull @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
@@ -62,12 +65,10 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
                     public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
-                }
-                             );
+                });
             }
         };
     }
 
-    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PersonalBoardHeader> {
-    }
+    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PersonalBoardHeader> {}
 }

@@ -9,6 +9,7 @@ import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
+import com.google.gwt.user.client.Window;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +28,9 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
         return "object";
     }
 
+    @Override protected boolean isSaveOnExit() {
+        return true;
+    }
 
     @Nonnull @Override
     protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
@@ -56,6 +60,27 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                 }
             }
         };
+    }
+
+    @Override public void save() {
+        super.save();
+        if (isValid()) {
+            getBus().send(new UpdatePoolObjectRequest(getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
+                @Override
+                public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
+                    setEntity(response.getResponse().copy());
+                }
+
+                @Override
+                public void onFailure(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
+                    Window.alert(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
+                }
+            });
+        }
+        else {
+            Window.alert("Not valid.");
+        }
+
     }
 
     protected boolean autoCloseField(final Bindable field) {

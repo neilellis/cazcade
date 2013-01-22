@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -29,18 +33,12 @@ import javax.annotation.Nonnull;
 public class PublicBoardHeader extends EntityBackedFormPanel {
     private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
 
-    @UiField
-    VortexEditableLabel title;
-    @UiField
-    VortexEditableLabel description;
-    @UiField
-    VortexEditableLabel tag;
-    @UiField
-    VortexEditableLabel url;
-    @UiField
-    DivElement contentArea;
-    @UiField
-    EditableImage boardIcon;
+    @UiField VortexEditableLabel title;
+    @UiField VortexEditableLabel description;
+    @UiField VortexEditableLabel tag;
+    @UiField VortexEditableLabel url;
+    @UiField DivElement          contentArea;
+    @UiField EditableImage       boardIcon;
 
     public PublicBoardHeader() {
         super();
@@ -53,15 +51,13 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
             public void onClick(final ClickEvent event) {
                 Window.alert("What did you expect to happen when you clicked this? Please let us know (info@hashbo.com)");
             }
-        }
-                           );
+        });
         url.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
                 Window.Location.replace(url.getValue());
             }
-        }
-                           );
+        });
         boardIcon.sinkEvents(Event.MOUSEEVENTS);
     }
 
@@ -72,33 +68,34 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         addBinding(boardIcon, LSDAttribute.ICON_URL);
     }
 
-    @Nonnull
-    @Override
+    @Override protected boolean isSaveOnExit() {
+        return false;
+    }
+
+    @Nonnull @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected Runnable getUpdateEntityAction(@Nonnull final Bindable field) {
         return new Runnable() {
             @Override
             public void run() {
-//                Window.alert("Sending..");
+                //                Window.alert("Sending..");
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         setEntity(response.getResponse().copy());
-//                        Window.alert("Success..");
+                        //                        Window.alert("Success..");
                     }
 
                     @Override
                     public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-//                        Window.alert("Failed.");
+                        //                        Window.alert("Failed.");
                         field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                     }
-                }
-                             );
+                });
             }
         };
     }
@@ -124,6 +121,5 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         WidgetUtil.showGracefully(contentArea, false);
     }
 
-    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {
-    }
+    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {}
 }

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		  http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
          version="2.4">
 
 
@@ -167,7 +171,6 @@
     </servlet-mapping>
 
 
-
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/_logout</url-pattern>
@@ -235,8 +238,6 @@
     </servlet-mapping>
 
 
-
-
     <servlet>
         <servlet-name>cazcade.boardcast.Boardcast ScriptService</servlet-name>
         <servlet-class>cazcade.boardcast.server.ScriptServiceImpl</servlet-class>
@@ -247,8 +248,15 @@
         <servlet-name>cazcade.boardcast.Boardcast BuildVersionService</servlet-name>
         <servlet-class>cazcade.boardcast.server.BuildVersionServiceImpl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UrlValidationServlet</servlet-name>
+        <servlet-class>cazcade.boardcast.servlet.UrlValidationServlet</servlet-class>
+    </servlet>
 
-
+    <servlet-mapping>
+        <servlet-name>UrlValidationServlet</servlet-name>
+        <url-pattern>/_validate-url</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>cazcade.boardcast.Boardcast ScriptService</servlet-name>

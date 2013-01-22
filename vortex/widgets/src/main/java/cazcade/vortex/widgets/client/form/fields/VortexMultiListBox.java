@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.LiquidCachingScope;
@@ -31,11 +35,9 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     protected boolean useVisibleText;
     protected boolean otherOption;
 
-    @UiField
-    ListBox listBox;
+    @UiField ListBox listBox;
 
-    @UiField
-    RegexTextBox otherBox;
+    @UiField RegexTextBox otherBox;
 
     public boolean isUseVisibleText() {
         return useVisibleText;
@@ -46,8 +48,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     }
 
 
-    interface VortexMultiListBoxUiBinder extends UiBinder<HTMLPanel, VortexMultiListBox> {
-    }
+    interface VortexMultiListBoxUiBinder extends UiBinder<HTMLPanel, VortexMultiListBox> {}
 
     private static final VortexMultiListBoxUiBinder multiListBoxBinder = GWT.create(VortexMultiListBoxUiBinder.class);
 
@@ -61,13 +62,12 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         listBox.addChangeHandler(new ChangeHandler() {
             @Override
             public void onChange(final ChangeEvent event) {
-                callOnChangeAction();
+                VortexMultiListBox.this.onChange();
             }
         });
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getStringValue() {
         //todo: refactor classes so we don't have this mess
         throw new UnsupportedOperationException("This widget does not support single value operations");
@@ -95,7 +95,8 @@ public class VortexMultiListBox extends AbstractVortexFormField {
             if (listBox.isItemSelected(i)) {
                 if (useVisibleText) {
                     values.add(listBox.getItemText(i));
-                } else {
+                }
+                else {
                     values.add(listBox.getValue(i));
                 }
             }
@@ -113,7 +114,8 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         for (int i = 0; i < max; i++) {
             if (useVisibleText) {
                 listBox.setItemSelected(i, values.contains(listBox.getItemText(i)));
-            } else {
+            }
+            else {
                 listBox.setItemSelected(i, values.contains(listBox.getValue(i)));
             }
         }
@@ -124,7 +126,8 @@ public class VortexMultiListBox extends AbstractVortexFormField {
                     if (listBox.getItemText(i).equals(value)) {
                         found = true;
                     }
-                } else {
+                }
+                else {
                     if (listBox.getValue(i).equals(value)) {
                         found = true;
                     }
@@ -140,7 +143,8 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     @Override
     public void bind(@Nonnull final LSDAttribute attribute, final String prefix, @Nonnull final List<String> initialValues) {
         boundAttribute = attribute;
-        final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName().replace('.', '/'));
+        final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName()
+                                                                                                    .replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, true, false);
         retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {

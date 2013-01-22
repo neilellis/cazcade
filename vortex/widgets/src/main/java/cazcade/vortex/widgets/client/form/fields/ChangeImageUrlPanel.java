@@ -87,7 +87,7 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
 
 
     public void callOnChangeAction() {
-        urlField.callOnChangeAction();
+        urlField.onChange();
     }
 
     @Override
@@ -135,6 +135,10 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     @Override
     public boolean isMultiValue() {
         return urlField.isMultiValue();
+    }
+
+    @Override public LSDAttribute getBoundAttribute() {
+        return urlField.getBoundAttribute();
     }
 
     @Override

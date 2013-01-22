@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * @author neilellis@cazcade.com
@@ -69,6 +70,22 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
 
     @Override public boolean isBound() {
         return changeBackgroundPanel.isBound();
+    }
+
+    @Override public boolean isMultiValue() {
+        return false;
+    }
+
+    @Override public LSDAttribute getBoundAttribute() {
+        return changeBackgroundPanel.getBoundAttribute();
+    }
+
+    @Override public List getStringValues() {
+        throw new UnsupportedOperationException("Single value field");
+    }
+
+    @Override public String getStringValue() {
+        return changeBackgroundPanel.getStringValue();
     }
 
     @Override

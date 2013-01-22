@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -38,12 +42,10 @@ public class VortexTextArea extends AbstractVortexFormField {
         setValue(initialValue);
     }
 
-    interface VortexTextAreaUiBinder extends UiBinder<HTMLPanel, VortexTextArea> {
-    }
+    interface VortexTextAreaUiBinder extends UiBinder<HTMLPanel, VortexTextArea> {}
 
     private static final VortexTextAreaUiBinder ourUiBinder = GWT.create(VortexTextAreaUiBinder.class);
-    @UiField
-    TextArea textArea;
+    @UiField TextArea textArea;
 
     public VortexTextArea() {
         super();
@@ -53,7 +55,7 @@ public class VortexTextArea extends AbstractVortexFormField {
                 final int keyCode = event.getUnicodeCharCode();
 
                 if (keyCode == KeyCodes.KEY_ENTER) {
-                    callOnChangeAction();
+                    onChange();
                 }
 
 
@@ -63,14 +65,14 @@ public class VortexTextArea extends AbstractVortexFormField {
         textArea.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
             public void onValueChange(final ValueChangeEvent<String> stringValueChangeEvent) {
-                callOnChangeAction();
+                onChange();
             }
         });
 
         textArea.addBlurHandler(new BlurHandler() {
             @Override
             public void onBlur(final BlurEvent event) {
-                callOnChangeAction();
+                onChange();
             }
         });
 

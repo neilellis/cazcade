@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.boardcast.client.main.widgets.AddChatBox;
@@ -55,40 +59,31 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
     private static final BoardUiBinder ourUiBinder = GWT.create(BoardUiBinder.class);
 
-    @UiField
-    ChatStreamPanel stream;
-    @UiField
-    AddChatBox addChatBox;
+    @UiField ChatStreamPanel stream;
+    @UiField AddChatBox      addChatBox;
 
-    @UiField
-    PoolContentArea contentArea;
-    @UiField
-    BoardMenuBar menuBar;
-    @UiField
-    HTMLPanel board;
-    @UiField
-    HTMLPanel rhs;
-    @UiField
-    ToggleButton hideReveal;
-    @UiField
-    DivElement boardLockedIcon;
-    @UiField
-    Label returnFromChatButton;
+    @UiField PoolContentArea contentArea;
+    @UiField BoardMenuBar    menuBar;
+    @UiField HTMLPanel       board;
+    @UiField HTMLPanel       rhs;
+    @UiField ToggleButton    hideReveal;
+    @UiField DivElement      boardLockedIcon;
+    @UiField Label           returnFromChatButton;
     @Nonnull
     private final Bus bus = BusFactory.getInstance();
-    private LiquidURI poolURI;
+    private LiquidURI      poolURI;
     private LiquidBoardURL boardURL;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-    private LiquidURI previousPoolURI;
+    private LiquidURI         previousPoolURI;
     private LSDTransferEntity poolEntity;
-    private long changePermissionListener;
-//    @UiField
-//    TabLayoutPanel communicationTabPanel;
-//    @UiField
-//    InboxPanel inbox;
-//    @UiField
-//    ActivityStreamPanel activity;
+    private long              changePermissionListener;
+    //    @UiField
+    //    TabLayoutPanel communicationTabPanel;
+    //    @UiField
+    //    InboxPanel inbox;
+    //    @UiField
+    //    ActivityStreamPanel activity;
 
 
     public BoardcastChatView() {
@@ -105,26 +100,23 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     }
 
     private void refresh() {
-//        inbox.setFeatures(FormatUtil.getInstance());
+        //        inbox.setFeatures(FormatUtil.getInstance());
         if (changePermissionListener != 0) {
             BusFactory.getInstance().removeListener(changePermissionListener);
         }
 
-        changePermissionListener = BusFactory.getInstance().listenForURIAndSuccessfulRequestType(poolURI,
-                                                                                                 LiquidRequestType.CHANGE_PERMISSION,
-                                                                                                 new BusListener() {
-                                                                                                     @Override
-                                                                                                     public void handle(
-                                                                                                             final LiquidMessage message) {
-                                                                                                         refresh();
-                                                                                                     }
-                                                                                                 }
-                                                                                                );
+        changePermissionListener = BusFactory.getInstance()
+                                             .listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.CHANGE_PERMISSION, new BusListener() {
+                                                 @Override
+                                                 public void handle(final LiquidMessage message) {
+                                                     refresh();
+                                                 }
+                                             });
 
 
-        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(),
-                                      poolURI.asShortUrl().isListedByConvention()
-        ), new AbstractResponseCallback<VisitPoolRequest>() {
+        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI
+                .asShortUrl()
+                .isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
             public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
@@ -158,8 +150,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                         contentArea.clear();
                         contentArea.init(poolEntity, FormatUtil.getInstance(), threadSafeExecutor);
                     }
-                }
-                            );
+                });
                 GWT.runAsync(new RunAsyncCallback() {
                     @Override
                     public void onFailure(final Throwable reason) {
@@ -172,17 +163,16 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                             contentArea.setBackgroundImage(poolEntity.getAttribute(LSDAttribute.IMAGE_URL));
                         }
                         if (poolEntity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-//                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
+                            //                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
-//                            menuBar.init(poolEntity, true, null);
+                            //                            menuBar.init(poolEntity, true, null);
                         }
                         else {
-//                            menuBar.init(poolEntity, false, null);
+                            //                            menuBar.init(poolEntity, false, null);
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
                         }
                     }
-                }
-                            );
+                });
                 GWT.runAsync(new RunAsyncCallback() {
                     @Override
                     public void onFailure(final Throwable reason) {
@@ -194,21 +184,21 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                         stream.init(poolURI);
                         addChatBox.init(poolURI);
                     }
-                }
-                            );
+                });
             }
-        }
-                );
+        });
     }
 
-    @Nonnull
-    @Override
+    @Override protected boolean isSaveOnExit() {
+        return false;
+    }
+
+    @Nonnull @Override
     protected String getReferenceDataPrefix() {
         return "board";
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected Runnable getUpdateEntityAction(final Bindable field) {
         return new Runnable() {
             @Override
@@ -228,7 +218,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     protected void onLoad() {
         super.onLoad();
         stream.sinkEvents(Event.MOUSEEVENTS);
-//        stream.addHandler(new RHSMouseOverHandler(), MouseOverEvent.getType());
+        //        stream.addHandler(new RHSMouseOverHandler(), MouseOverEvent.getType());
         rhs.sinkEvents(Event.MOUSEEVENTS);
         rhs.addHandler(new RHSMouseOutHandler(), MouseOutEvent.getType());
         addChatBox.sinkEvents(Event.MOUSEEVENTS);
@@ -248,8 +238,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                     hideRhs();
                 }
             }
-        }
-                                        );
+        });
         hideReveal.setValue(ClientPreferences.booleanPreference(ClientPreferences.Preference.RHS_HIDE), true);
 
         returnFromChatButton.addClickHandler(new ClickHandler() {
@@ -257,8 +246,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
             public void onClick(final ClickEvent event) {
                 HistoryManager.navigate(boardURL.toString());
             }
-        }
-                                            );
+        });
     }
 
     private void showRhs() {
@@ -269,14 +257,13 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         rhs.getElement().getStyle().setRight(Window.getClientWidth() - (PoolContentArea.DEFAULT_WIDTH + 500), Style.Unit.PX);
     }
 
-    interface BoardUiBinder extends UiBinder<HTMLPanel, BoardcastChatView> {
-    }
+    interface BoardUiBinder extends UiBinder<HTMLPanel, BoardcastChatView> {}
 
     private class RHSMouseOutHandler implements MouseOutHandler {
         @Override
         public void onMouseOut(final MouseOutEvent mouseOutEvent) {
             if (hideReveal.getValue()) {
-//                board.addStyleName(RHS_MINIMIZED);
+                //                board.addStyleName(RHS_MINIMIZED);
                 hideRhs();
             }
         }
@@ -285,7 +272,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     private class RHSMouseOverHandler implements MouseOverHandler {
         @Override
         public void onMouseOver(final MouseOverEvent mouseOverEvent) {
-//            board.removeStyleName(RHS_MINIMIZED);
+            //            board.removeStyleName(RHS_MINIMIZED);
             showRhs();
         }
     }

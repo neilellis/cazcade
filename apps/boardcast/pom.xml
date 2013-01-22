@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -120,42 +124,49 @@
             <artifactId>java-image-scaling</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
 
         <plugins>
             <!--<plugin>-->
-                <!--<groupId>com.pyx4me</groupId>-->
-                <!--<artifactId>proguard-maven-plugin</artifactId>-->
-                <!--<version>2.0.4</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>prepare-package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>proguard</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<obfuscate>false</obfuscate>-->
-                    <!--<includeDependency>false</includeDependency>-->
-                    <!--<injar>${project.build.finalName}.war</injar>-->
-                    <!--&lt;!&ndash;<injar>${project.artifactId}-${project.version}.war</injar>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<outjar>${project.artifactId}-${project.version}-obf.war</outjar>&ndash;&gt;-->
-                    <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
-                    <!--<maxMemory>256m</maxMemory>-->
-                    <!--<libs>-->
-                        <!--&lt;!&ndash;  Java Runtime &ndash;&gt;-->
-                        <!--<lib>${java.home}/../Classes/classes.jar</lib>-->
-                        <!--<lib>${java.home}/../Classes/jce.jar</lib>-->
-                    <!--</libs>-->
-                    <!--<options>-->
-                        <!--<option>-allowaccessmodification</option>-->
-                        <!--<option>-dontskipnonpubliclibraryclasses</option>-->
-                        <!--<option>-dontskipnonpubliclibraryclassmembers</option>-->
-                    <!--</options>-->
-                <!--</configuration>-->
+            <!--<groupId>com.pyx4me</groupId>-->
+            <!--<artifactId>proguard-maven-plugin</artifactId>-->
+            <!--<version>2.0.4</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<phase>prepare-package</phase>-->
+            <!--<goals>-->
+            <!--<goal>proguard</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--<configuration>-->
+            <!--<obfuscate>false</obfuscate>-->
+            <!--<includeDependency>false</includeDependency>-->
+            <!--<injar>${project.build.finalName}.war</injar>-->
+            <!--&lt;!&ndash;<injar>${project.artifactId}-${project.version}.war</injar>&ndash;&gt;-->
+            <!--&lt;!&ndash;<outjar>${project.artifactId}-${project.version}-obf.war</outjar>&ndash;&gt;-->
+            <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
+            <!--<maxMemory>256m</maxMemory>-->
+            <!--<libs>-->
+            <!--&lt;!&ndash;  Java Runtime &ndash;&gt;-->
+            <!--<lib>${java.home}/../Classes/classes.jar</lib>-->
+            <!--<lib>${java.home}/../Classes/jce.jar</lib>-->
+            <!--</libs>-->
+            <!--<options>-->
+            <!--<option>-allowaccessmodification</option>-->
+            <!--<option>-dontskipnonpubliclibraryclasses</option>-->
+            <!--<option>-dontskipnonpubliclibraryclassmembers</option>-->
+            <!--</options>-->
+            <!--</configuration>-->
             <!--</plugin>-->
 
             <plugin>
@@ -293,19 +304,19 @@
     </repositories>
 
     <!--<pluginRepositories>-->
-        <!--<pluginRepository>-->
-            <!--<snapshots>-->
-                <!--<enabled>false</enabled>-->
-            <!--</snapshots>-->
-            <!--<id>central</id>-->
-            <!--<name>plugins-release</name>-->
-            <!--<url>http://repo.jelastic.dogado.eu/plugins-release</url>-->
-        <!--</pluginRepository>-->
-        <!--<pluginRepository>-->
-            <!--<snapshots></snapshots>-->
-            <!--<id>snapshots</id>-->
-            <!--<name>plugins-snapshot</name>-->
-            <!--<url>http://repo.jelastic.dogado.eu/plugins-snapshot</url>-->
-        <!--</pluginRepository>-->
+    <!--<pluginRepository>-->
+    <!--<snapshots>-->
+    <!--<enabled>false</enabled>-->
+    <!--</snapshots>-->
+    <!--<id>central</id>-->
+    <!--<name>plugins-release</name>-->
+    <!--<url>http://repo.jelastic.dogado.eu/plugins-release</url>-->
+    <!--</pluginRepository>-->
+    <!--<pluginRepository>-->
+    <!--<snapshots></snapshots>-->
+    <!--<id>snapshots</id>-->
+    <!--<name>plugins-snapshot</name>-->
+    <!--<url>http://repo.jelastic.dogado.eu/plugins-snapshot</url>-->
+    <!--</pluginRepository>-->
     <!--</pluginRepositories>-->
 </project>

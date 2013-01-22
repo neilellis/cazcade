@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -30,7 +34,8 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     public void setWordwrap(final boolean wordwrap) {
         if (wordwrap) {
             container.addClassName("word-wrap");
-        } else {
+        }
+        else {
             container.removeClassName("word-wrap");
         }
         hoverEdit.setVisible(!wordwrap);
@@ -44,7 +49,8 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     public void setFormat(final boolean format) {
         if (format) {
             label.setFormatter(FormatUtil.getInstance());
-        } else {
+        }
+        else {
             label.setFormatter(null);
         }
     }
@@ -53,8 +59,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         label.addDomHandler(clickHandler, ClickEvent.getType());
     }
 
-    interface VortexEditableLabelUiBinder extends UiBinder<HTMLPanel, VortexEditableLabel> {
-    }
+    interface VortexEditableLabelUiBinder extends UiBinder<HTMLPanel, VortexEditableLabel> {}
 
     private static final VortexEditableLabelUiBinder ourUiBinder = GWT.create(VortexEditableLabelUiBinder.class);
 
@@ -64,21 +69,17 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         label.setOnEditEndAction(new Runnable() {
             @Override
             public void run() {
-                callOnChangeAction();
+                onChange();
             }
         });
 
     }
 
-    @UiField
-    EditableLabel label;
-    @UiField
-    Label hoverEdit;
-    @UiField
-    SpanElement container;
+    @UiField EditableLabel label;
+    @UiField Label         hoverEdit;
+    @UiField SpanElement   container;
 
-    @UiHandler("hoverEdit")
-    void onHoverEditClick(final ClickEvent e) {
+    @UiHandler("hoverEdit") void onHoverEditClick(final ClickEvent e) {
         label.startEdit();
     }
 
@@ -97,8 +98,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         return true;
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public String getStringValue() {
         return label.getText();
     }
@@ -161,13 +161,13 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         setValue(initialValue);
     }
 
-    @Override
-    void setEditable(final boolean editable) {
+    @Override void setEditable(final boolean editable) {
         if (!readonly) {
             label.setEditable(editable);
             if (editable) {
                 container.addClassName("editable");
-            } else {
+            }
+            else {
                 container.removeClassName("editable");
             }
             hoverEdit.setVisible(editable);
@@ -181,7 +181,8 @@ public class VortexEditableLabel extends AbstractVortexFormField {
             container.removeClassName("editable");
             label.setEditable(false);
             hoverEdit.setVisible(false);
-        } else {
+        }
+        else {
             container.removeClassName("readonly");
         }
 
