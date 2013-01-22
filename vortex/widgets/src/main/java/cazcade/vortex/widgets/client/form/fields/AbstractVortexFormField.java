@@ -105,7 +105,9 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(entity.getTypeDef());
-        newEntity.setAttribute(LSDAttribute.URI, entity.getURI().toString());
+        if (entity.hasURI()) {
+            newEntity.setAttribute(LSDAttribute.URI, entity.getURI().toString());
+        }
         if (isMultiValue()) {
             newEntity.setValues(boundAttribute, getStringValues());
         }

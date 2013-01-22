@@ -8,6 +8,7 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.widgets.client.image.CachedImage;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.*;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -15,6 +16,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -28,6 +30,7 @@ public class UrlField extends Composite implements VortexFormField {
     private static final ChangeImageUrlPanelUiBinder ourUiBinder = GWT.create(ChangeImageUrlPanelUiBinder.class);
     @UiField RegexTextBox urlField;
     @UiField CachedImage  previewImage;
+    private  boolean      validUrl;
 
     public UrlField() {
         super();
@@ -47,11 +50,12 @@ public class UrlField extends Composite implements VortexFormField {
         //
         //
         //        });
-        urlField.setOnValid(new Runnable() {
-            @Override public void run() {
-                previewImage.setUrl(urlField.getValue());
-            }
-        });
+        //        urlField.setOnValid(new Runnable() {
+        //            @Override public void run() {
+        //                previewImage.setUrl(urlField.getValue());
+        //            }
+        //        });
+        setOnChangeAction(null);
     }
 
     public void callOnChangeAction() {
@@ -62,16 +66,36 @@ public class UrlField extends Composite implements VortexFormField {
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);
-        previewImage.setUrl(urlField.getValue());
     }
 
     @Override
-    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
+    public void setOnChangeAction(@Nullable final Runnable onChangeAction) {
         urlField.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                onChangeAction.run();
-                previewImage.setUrl(urlField.getValue());
+                RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(urlField.getValue()));
+
+                try {
+                    Request request = builder.sendRequest(null, new RequestCallback() {
+                        @Override public void onError(final Request request, final Throwable exception) {
+                            // Couldn't connect to server (could be timeout, SOP violation, etc.)
+                        }
+
+                        @Override public void onResponseReceived(final Request request, final Response response) {
+                            if (200 == response.getStatusCode()) {
+                                previewImage.setUrl(urlField.getValue());
+                                validUrl = true;
+                                **Need to create a URLBox that extends RegexBox to do { this }
+                                if (onChangeAction != null) { onChangeAction.run(); }
+                            }
+                            else {
+                                validUrl = false;
+                            }
+                        }
+                    });
+                } catch (RequestException e) {
+                    validUrl = false;
+                }
             }
         });
     }
@@ -87,7 +111,11 @@ public class UrlField extends Composite implements VortexFormField {
 
     @Override
     public boolean isValid() {
-        return urlField.isValid();
+        return urlField.isValid() && isValidURL();
+    }
+
+    private boolean isValidURL() {
+        return validUrl;
     }
 
     @Override

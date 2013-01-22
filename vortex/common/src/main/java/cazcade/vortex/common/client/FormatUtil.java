@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.common.client;
 
 import cazcade.liquid.api.LiquidBoardURL;
@@ -11,37 +15,37 @@ import javax.annotation.Nullable;
  */
 public class FormatUtil {
 
-    public static final String SMILEY_STRING = String.valueOf((char) 0x263a);
-    public static final String SAD_SMILEY_STRING = String.valueOf((char) 0x2639);
+    public static final String SMILEY_STRING             = String.valueOf((char) 0x263a);
+    public static final String SAD_SMILEY_STRING         = String.valueOf((char) 0x2639);
     public static final String SMILEY_STRING_SLANT_MOUTH = String.valueOf((char) 0x30C4);
-    public static final String RIGHT_POINT = String.valueOf((char) 0x261e);
-    public static final String LEFT_POINT = String.valueOf((char) 0x261c);
-    public static final String HEART = String.valueOf((char) 0x2665);
-    public static final String PEACE = String.valueOf((char) 0x262E);
-    public static final String CROSSBONES = String.valueOf((char) 0x2620);
-    public static final String BIOHAZRD = String.valueOf((char) 0x2623);
-    public static final String YING_YANG = String.valueOf((char) 0x262F);
-    public static final String NUCLEAR = String.valueOf((char) 0x2620);
-    public static final String WHEEL = String.valueOf((char) 0x2638);
-    public static final String SUN = String.valueOf((char) 0x263C);
-    public static final String NOTE = String.valueOf((char) 0x266C);
-    public static final String RECYCLE = String.valueOf((char) 0x267B);
-    public static final String STAR = String.valueOf((char) 0x2605);
+    public static final String RIGHT_POINT               = String.valueOf((char) 0x261e);
+    public static final String LEFT_POINT                = String.valueOf((char) 0x261c);
+    public static final String HEART                     = String.valueOf((char) 0x2665);
+    public static final String PEACE                     = String.valueOf((char) 0x262E);
+    public static final String CROSSBONES                = String.valueOf((char) 0x2620);
+    public static final String BIOHAZRD                  = String.valueOf((char) 0x2623);
+    public static final String YING_YANG                 = String.valueOf((char) 0x262F);
+    public static final String NUCLEAR                   = String.valueOf((char) 0x2620);
+    public static final String WHEEL                     = String.valueOf((char) 0x2638);
+    public static final String SUN                       = String.valueOf((char) 0x263C);
+    public static final String NOTE                      = String.valueOf((char) 0x266C);
+    public static final String RECYCLE                   = String.valueOf((char) 0x267B);
+    public static final String STAR                      = String.valueOf((char) 0x2605);
 
-    public static final String FEMALE = String.valueOf((char) 0x2640);
-    public static final String MALE = String.valueOf((char) 0x2642);
-    public static final String ANCHOR = String.valueOf((char) 0x2693);
+    public static final String FEMALE     = String.valueOf((char) 0x2640);
+    public static final String MALE       = String.valueOf((char) 0x2642);
+    public static final String ANCHOR     = String.valueOf((char) 0x2693);
     public static final String BLACK_FLAG = String.valueOf((char) 0x2691);
-    public static final String MOON = String.valueOf((char) 0x263E);
-    public static final String TELEPHONE = String.valueOf((char) 0x260E);
-    public static final String CLOUD = String.valueOf((char) 0x2601);
+    public static final String MOON       = String.valueOf((char) 0x263E);
+    public static final String TELEPHONE  = String.valueOf((char) 0x260E);
+    public static final String CLOUD      = String.valueOf((char) 0x2601);
 
-    public static final String COFFEE = String.valueOf((char) 0x2615);
+    public static final String COFFEE   = String.valueOf((char) 0x2615);
     public static final String UMBRELLA = String.valueOf((char) 0x2602);
-    public static final String SNOWMAN = String.valueOf((char) 0x2603);
+    public static final String SNOWMAN  = String.valueOf((char) 0x2603);
 
-    public static final String BUNNY = String.valueOf((char) 0x2649);
-    public static final String DISABLED = String.valueOf((char) 0x267f);
+    public static final String BUNNY          = String.valueOf((char) 0x2649);
+    public static final String DISABLED       = String.valueOf((char) 0x267f);
     @Nonnull
     public static final String NEWLINE_MARKER = "~~~NEWLINE~~~";
 
@@ -96,7 +100,8 @@ public class FormatUtil {
 
             if (count++ % 2 == 0) {
                 result += formatTextInternal(s);
-            } else {
+            }
+            else {
                 result += "<pre><code class='prettyprint'>" + prettyPrint(s) + "</pre></code>";
             }
 
@@ -109,10 +114,11 @@ public class FormatUtil {
         if (text == null) {
             return "";
         }
-//        text = text.replaceAll("`([^`]*)`", "<pre><code>$1</code></pre>");
+        //        text = text.replaceAll("`([^`]*)`", "<pre><code>$1</code></pre>");
         text = text.replaceAll("(^|\\W+)\\_([^_]+)\\_", "$1<u>$2</u>");
         text = text.replaceAll("(^|\\W+)(http[s]?://[^<> ]+)", "$1<a href='$2' class='external-link'>$2</a>");
-//        text = text.replaceAll("^(#[a-zA-Z]+[a-zA-Z0-9./_\\-\\+@]*[a-zA-Z0-9]+)", " #$1");
+        text = text.replaceAll("(^|\\W+)mailto:([^<> ]+)", "$1<a href='mailto:$2' class='mail-link external-link'>$2</a>");
+        //        text = text.replaceAll("^(#[a-zA-Z]+[a-zA-Z0-9./_\\-\\+@]*[a-zA-Z0-9]+)", " #$1");
         text = text.replaceAll("\\*\\*([^\\*]+)\\*\\*", "<b>$1</b>");
         text = text.replaceAll("\\*([^\\*]+)\\*", "<i>$1</i>");
         text = text.replaceAll("&nbsp;", " ");
@@ -129,12 +135,12 @@ public class FormatUtil {
         text = text.replaceAll("(^|[^\\w]+)#([a-zA-Z]+[a-zA-Z0-9./_\\-\\+@]*[a-zA-Z0-9]+)", "$1<a href=\"javascript:void(0)\"  onclick=\"_nav('$2')\" class='board-link'>#$2</a>");
         text = text.replaceAll("(^|[^\\w]+)@([a-zA-Z]+[a-zA-Z0-9./_\\-\\+]*[a-zA-Z0-9]+)", "$1<a href=\"javascript:void(0)\"  onclick=\"_nav('~$2')\"  class='person-link'>@$2</a>");
 
-//        html = html.replaceAll("(^|\\s+)#\\.([a-zA-Z0-9./_\\+]*[a-zA-Z0-9]+)", "$1<a href='#" + boardName + ".$2'>#.$2</a>");
+        //        html = html.replaceAll("(^|\\s+)#\\.([a-zA-Z0-9./_\\+]*[a-zA-Z0-9]+)", "$1<a href='#" + boardName + ".$2'>#.$2</a>");
 
 
-//        html = html.replaceAll("(^|\\s+)(![a-zA-Z]+)", "$1<a href='#$2'>$2</a>");
-//        html = html.replaceAll("(^|[^\\w]+)_(\\w.*\\w)_($|\\s+)", "$1<u>$2</u>$3");
-//        html = html.replaceAll("(^|\\W+)\\*([^*]+)\\*", "$1<b>$2</b>");
+        //        html = html.replaceAll("(^|\\s+)(![a-zA-Z]+)", "$1<a href='#$2'>$2</a>");
+        //        html = html.replaceAll("(^|[^\\w]+)_(\\w.*\\w)_($|\\s+)", "$1<u>$2</u>$3");
+        //        html = html.replaceAll("(^|\\W+)\\*([^*]+)\\*", "$1<b>$2</b>");
 
         text = translateNamedEmoticonSymbol(text, "peace", PEACE);
         text = translateNamedEmoticonSymbol(text, "bio", BIOHAZRD);
