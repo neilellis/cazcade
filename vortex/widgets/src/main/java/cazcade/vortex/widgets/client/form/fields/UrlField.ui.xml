@@ -11,6 +11,6 @@
             <label>Url</label>
             <fields:UrlTextBox ui:field="urlField" styleName="url-field-text-box"/>
         </div>
-        <image:CachedImage ui:field="previewImage" styleName="url-field-image" width="320px" height="240px" website="true"/>
+        <image:CachedImage ui:field="previewImage" styleName="url-field-image" width="200px" height="150px" website="true"/>
     </g:HTMLPanel>
 </ui:UiBinder>

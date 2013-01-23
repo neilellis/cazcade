@@ -44,7 +44,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
 
     @Override
     public int getHeight() {
-        return 500;
+        return 360;
     }
 
     @Override
