@@ -1,6 +1,9 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.youtube;
 
-import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.dnd.client.gesture.drag.DragEvent;
@@ -36,8 +39,8 @@ public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                if (newEntity.hasAttribute(LSDAttribute.EURI)) {
-                    getPoolObjectView().setVideoId(new LiquidURI(newEntity.getAttribute(LSDAttribute.EURI)).getSubURI().toString());
+                if (newEntity.hasAttribute(LSDAttribute.MEDIA_ID)) {
+                    getPoolObjectView().setVideoId(newEntity.getAttribute(LSDAttribute.MEDIA_ID));
                 }
                 YouTubePresenter.super.update(newEntity, replaceEntity);
                 getPoolObjectView().resetMode();

@@ -392,7 +392,9 @@ public final class LSDAttribute {
     public static final LSDAttribute CATEGORY_TERM = LSDAttribute.create("category.term", "text:shortname:", "An array of terms for the category this entity belongs to see http://www.atomenabled.org/developers/syndication/#category .", false, false, false, false, false, false, false);
 
     @Nonnull
-    public static final LSDAttribute MEDIA_SOURCE       = LSDAttribute.create("media.content.source", "uri:", "The source of the  = LSDAttributes.create(file, video, image, anything really) associated with the entity.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_SOURCE       = LSDAttribute.create("media.content.source", "uri:", "The source of the  file, video, image, anything really associated with the entity.", false, false, false, false, false, false, false);
+    @Nonnull
+    public static final LSDAttribute MEDIA_ID           = LSDAttribute.create("media.content.id", "text:", "An identifier for the media, local to the media provider not universally unique", false, false, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute MEDIA_SIZE         = LSDAttribute.create("media.content.filesize", "number:int:", "The size in bytes of the media  = LSDAttributes.create(file, video, image, anything really) associated with the entity.", false, false, false, false, false, false, false);
     @Nonnull

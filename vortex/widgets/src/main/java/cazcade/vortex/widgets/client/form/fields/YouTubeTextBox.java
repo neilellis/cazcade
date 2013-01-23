@@ -117,11 +117,12 @@ public class YouTubeTextBox extends VortexTextBox {
     @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());
-        newEntity.setAttribute(LSDAttribute.URI, getEntity().getURI().toString());
-
+        if (getEntity().hasURI()) { newEntity.setAttribute(LSDAttribute.URI, getEntity().getURI().toString()); }
         newEntity.setAttribute(LSDAttribute.EURI, "youtube:" + getValue());
         newEntity.setAttribute(LSDAttribute.SOURCE, "http://www.youtube.com/embed/" + getValue() + "?wmode=transparent");
         newEntity.setAttribute(LSDAttribute.IMAGE_URL, "http://img.youtube.com/vi/" + getValue() + "/hqdefault.jpg");
+        newEntity.setAttribute(LSDAttribute.MEDIA_ID, getValue());
+
 
         return newEntity;
     }

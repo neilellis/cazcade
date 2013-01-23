@@ -5,6 +5,7 @@
 package cazcade.vortex.pool.objects.edit;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.widgets.client.profile.Bindable;
@@ -62,9 +63,15 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
         };
     }
 
+    protected void onSave() {
+
+    }
+
+
     @Override public void save() {
         super.save();
         if (isValid()) {
+            onSave();
             getBus().send(new UpdatePoolObjectRequest(getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                 @Override
                 public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
@@ -104,4 +111,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
     }
 
 
+    public LSDTransferEntity getEntityForCreation() {
+        return getEntity();
+    }
 }

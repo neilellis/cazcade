@@ -734,6 +734,18 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         }
     }
 
+    @Override public LSDBaseEntity merge(final LSDBaseEntity newEntity, final boolean destructive) {
+        final LSDBaseEntity result = copy();
+        final Map<String, String> map = newEntity.getMap();
+        for (final Map.Entry<String, String> entry : map.entrySet()) {
+            if (!destructive && result.getValue(entry.getKey()) == null || destructive) {
+                result.setValue(entry.getKey(), entry.getValue());
+            }
+        }
+        return result;
+
+    }
+
     @Override
     public final String getValue(@Nonnull final String key) {
         return lsdProperties.get(key);

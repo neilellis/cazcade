@@ -10,6 +10,7 @@ import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.YouTubeTextBox;
 import cazcade.vortex.widgets.client.image.CachedImage;
+import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -19,6 +20,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author neilellis@cazcade.com
@@ -29,15 +31,16 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
 
     @UiHandler("done")
     public void doneClicked(final ClickEvent e) {
-        onFinishAction.run();
+        if (onFinishAction != null) {
+            onFinishAction.run();
+        }
     }
 
 
     @Override
     public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
-        //no attribute required for binding YouTube videos
-        addBinding(urlTextBox, null);
+        addBinding(urlTextBox, LSDAttribute.MEDIA_ID);
     }
 
     @Override
@@ -86,6 +89,17 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
         }
         image.setSize(CachedImage.MEDIUM);
 
+    }
+
+    @Override protected void onChange(Bindable field, @Nullable LSDAttribute attribute) {
+        super.onChange(field, attribute);
+
+
+    }
+
+
+    @Override public LSDTransferEntity getEntityForCreation() {
+        return getEntity().merge(urlTextBox.getEntityDiff(), true);
     }
 
     private void showPreview() {

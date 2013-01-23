@@ -232,6 +232,15 @@ public interface LSDBaseEntity {
 
     String getNameOrId();
 
+    /**
+     * Returns a new entity which is the merge result of this entity and the supplied otherEntity.
+     *
+     * @param otherEntity the entity to merge with this entity.
+     * @param destructive if true then overwrite values from this entity during the merge.
+     * @return a new entity which is the result of a merge between this entity and the otherEntity.
+     */
+    <T extends LSDBaseEntity> T merge(LSDBaseEntity otherEntity, boolean destructive);
+
 
     class EntityUpdatedComparator implements Comparator<LSDBaseEntity> {
         @Override

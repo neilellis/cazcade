@@ -5,7 +5,6 @@
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 
 import javax.annotation.Nonnull;
@@ -28,15 +27,32 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
             field.setOnChangeAction(onEnterAction);
         }
         bindings.put(attribute, field);
+        onChange(field, attribute);
     }
 
     public void addBinding(@Nonnull final Bindable field, @Nullable final LSDAttribute attribute) {
         field.bind(entity, attribute, getReferenceDataPrefix());
         if (!isSaveOnExit()) {
-            final Runnable onEnterAction = getUpdateEntityAction(field);
-            field.setOnChangeAction(onEnterAction);
+            field.setOnChangeAction(new Runnable() {
+                @Override public void run() {
+                    if (field.isValid()) { onChange(field, attribute); }
+                    getUpdateEntityAction(field).run();
+                }
+            });
         }
+        else {
+            field.setOnChangeAction(new Runnable() {
+                @Override public void run() {
+                    if (field.isValid()) { onChange(field, attribute); }
+                }
+            });
+        }
+        onChange(field, attribute);
         bindings.put(attribute, field);
+    }
+
+    protected void onChange(Bindable field, @Nullable LSDAttribute attribute) {
+        //Override to participate in binding lifecycle
     }
 
     @Override
@@ -49,7 +65,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
 
     @Nonnull
     public LSDTransferEntity getEntityDiff() {
-        final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(entity.getTypeDef());
+        final LSDTransferEntity newEntity = entity.asUpdateEntity();
         if (entity.hasURI()) {
             newEntity.setAttribute(LSDAttribute.URI, entity.getURI().toString());
         }
