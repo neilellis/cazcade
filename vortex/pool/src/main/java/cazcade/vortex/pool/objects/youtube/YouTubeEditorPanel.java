@@ -42,12 +42,12 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
 
     @Override
     public int getHeight() {
-        return 400;
+        return 480;
     }
 
     @Override
     public int getWidth() {
-        return 350;
+        return 400;
     }
 
     @Override public String getCaption() {
@@ -71,6 +71,11 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
             urlTextBox.setValue(entity.getAttribute(LSDAttribute.EURI).split(":")[1]);
             showPreview();
         }
+        urlTextBox.setOnValid(new Runnable() {
+            @Override public void run() {
+                showPreview();
+            }
+        });
     }
 
     @Override

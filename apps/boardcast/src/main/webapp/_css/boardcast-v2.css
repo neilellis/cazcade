@@ -11159,7 +11159,7 @@ input[type="file"].gwt-FileUpload {
 }
 
 .url-field-image {
-    margin: 12px;
+    margin: 11px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -11190,8 +11190,49 @@ input[type="file"].gwt-FileUpload {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    position: relative;
-    float: left;
+    border: 1px solid #bfbfbf;
+    background-color: #e6e6e6;
+}
+
+.vtx-youtube-preview {
+    margin: 11px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #bfbfbf;
+    background-color: #e6e6e6;
+}
+
+.vtx-youtube-url-textbox input.gwt-TextBox {
+    margin-top: 20px;
+    width: 318px;
 }
 
 .gwt-TabLayoutPanel {

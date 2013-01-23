@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 public class YouTubeTextBox extends VortexTextBox {
 
     @Nonnull
-    public static final String YOU_TUBE_URL_REGEX = "http[s]?://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9\\-_]+).*";
+    public static final String YOU_TUBE_URL_REGEX = "http[s]?://www\\.youtube\\.com/watch\\?(.*)v=([A-Za-z0-9\\-_]+).*";
     private             String oldText            = "";
 
     @Nonnull
@@ -84,7 +84,7 @@ public class YouTubeTextBox extends VortexTextBox {
         String text = textBox.getText();
         if (text.startsWith("http")) {
             if (text.matches(YOU_TUBE_URL_REGEX)) {
-                text = text.replaceAll("http[s]?://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9\\-_]+).*", "$1");
+                text = text.replaceAll("http[s]?://www\\.youtube\\.com/watch\\?(.*)v=([A-Za-z0-9\\-_]+).*", "$2");
                 setValue(text);
                 onChange();
                 errorMessage.setText("");
