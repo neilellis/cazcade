@@ -160,6 +160,7 @@ public class CachedImage extends Image {
                 unspin();
                 CachedImage.super.setUrl(defaultDefaultMessage("Image Failed"));
                 CachedImage.super.getElement().setAttribute("x-vortex-failed-url", newUrl);
+                CachedImage.super.getElement().setAttribute("x-vortex-failed-event", event.toDebugString());
                 newImage.removeFromParent();
             }
         });
@@ -174,8 +175,8 @@ public class CachedImage extends Image {
         });
         spin();
         newImage.setVisible(false);
-        newImage.setUrl(newUrl);
         RootPanel.get().add(newImage);
+        newImage.setUrl(newUrl);
 
     }
 

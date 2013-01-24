@@ -1,80 +1,75 @@
 @import "bootstrap/variables.less";
+
 //Font sizes
-@streamFontSize : 13px;
+@streamFontSize: 13px;
 @streamFontSmallSize: 10px;
 @boardTextFontSize: 13px;
 @captionFontSize: 20px;
 @topBarFontSize: 15px;
 @topTabsFontSize: @topBarFontSize;
 
-@topBarHeight:29px;
+@topBarHeight: 29px;
 @topBarExpandedHeight: 78px;
-@topBarImageSize:18px;
+@topBarImageSize: 18px;
 @boardImageSize: @topBarImageSize;
 @topToolbarIconSize: 40px;
 @topToolbarIconImageSize: 24px;
-@topBarTabHeight:18px;
+@topBarTabHeight: 18px;
 
 @boardToolbarHeight: 50px;
 @boardToolbarIconSize: 36px;
 @boardToolbarIconImageSize: 24px;
 
-@topBarFontColor:#f1f1f1;
-
-
+@topBarFontColor: #f1f1f1;
 
 //Magic ratio stuff for pool objects
 
-
 @poolWidth: 1024px;
 @poolObjectPadding: 10px;
+@coreRatio: 3/2;
+@altRatio1: 4/3;
+@altRatio2: 16/9;
+@goldenRatio: 1.618;
 
 //These sizes for the objects, remember that they get padded
-@poolObjectSmallWidth:(@poolWidth - (@poolWidth/1.618)) - ( 2 * @poolObjectPadding );
-@poolObjectSmallHeight:(@poolWidth - (@poolWidth/1.618))/1.618 - ( 2 * @poolObjectPadding );
-@poolObjectMediumWidth:(@poolWidth/1.618) - ( 2 * @poolObjectPadding );
-@poolObjectMediumHeight:(@poolWidth/(1.618*1.618)) - ( 2 * @poolObjectPadding );
-@poolObjectLargeWidth:@poolWidth - ( 2 * @poolObjectPadding );
-@poolObjectLargeHeight:@poolWidth/1.618 - ( 2 * @poolObjectPadding );
-
+@poolObjectSmallWidth: (@poolWidth - (@poolWidth/@coreRatio)) - ( 2 * @poolObjectPadding );
+@poolObjectSmallHeight: (@poolWidth - (@poolWidth/@coreRatio))/@coreRatio - ( 2 * @poolObjectPadding );
+@poolObjectMediumWidth: (@poolWidth/@coreRatio) - ( 2 * @poolObjectPadding );
+@poolObjectMediumHeight: (@poolWidth/(@coreRatio*@coreRatio)) - ( 2 * @poolObjectPadding );
+@poolObjectLargeWidth: @poolWidth - ( 2 * @poolObjectPadding );
+@poolObjectLargeHeight: @poolWidth/@coreRatio - ( 2 * @poolObjectPadding );
 
 @highlightColor: #4b8d2d;
-@grayVeryDark:lighten(@black, 15%);
+@grayVeryDark: lighten(@black, 15%);
 
 @highlightColorLight: lighten(@highlightColor, 10%);
 @highlightColorLighter: lighten(@highlightColor, 20%);
 @highlightColorVeryLight: lighten(@highlightColor, 40%);
 @highlightColorExtremeLight: lighten(@highlightColor, 62%);
 
-
 @highlightColorDark: darken(@highlightColor, 10%);
 @highlightColorDarker: darken(@highlightColor, 20%);
 @highlightColorVeryDark: darken(@highlightColor, 40%);
 @highlightColorExtremeDark: darken(@highlightColor, 70%);
 
-@highlightColorTransparent:rgba(29%, 55%, 18%, 0.2) ;
+@highlightColorTransparent: rgba(29%, 55%, 18%, 0.2);
 
-@guidelinesColor: rgba(90, 200, 250,0.5);
+@guidelinesColor: rgba(90, 200, 250, 0.5);
 
-@whiteLinen:  url('../_images/wallpapers/linen-white.jpg');
+@whiteLinen: url('../_images/wallpapers/linen-white.jpg');
 @blackTexture: url('../_images/wallpapers/noise-black.jpg');
 @greyNoise: url('../_images/wallpapers/noise-grey.jpg');
 @lightGreyNoise: url('../_images/wallpapers/noise-light-grey.jpg');
 
-
-
-
 @dialogGlassBackground: @blackTexture;
 @dialogGlassBackgroundColor: black;
-@dialogBackground:  url('../_images/wallpapers/noise-light-white.jpg');
-
-
+@dialogBackground: url('../_images/wallpapers/noise-light-white.jpg');
 
 @toolbarTexture: url('../_images/wallpapers/noise-black.jpg');
 @boardTexture: url('../_images/wallpapers/pattern_diagonal_light_grey.png');
 //@bodyTexture: url('../_images/wallpapers/noise-white.jpg');
-@bodyTexture:  url('../_images/wallpapers/linen-gray.jpg');
+@bodyTexture: url('../_images/wallpapers/linen-gray.jpg');
 //@backgroundTexture: url('../_images/wallpapers/pattern_diagonal_white.png');
 //@bodyTexture: url('../_images/wallpapers/noise-black.jpg');
-@backgroundTexture:ur l('../_images/wallpapers/pattern_diagonal_dark.png');
-@speckled:url('../_images/wallpapers/speckled-texture.png');
+@backgroundTexture: ur l('../_images/wallpapers/pattern_diagonal_dark.png');
+@speckled: url('../_images/wallpapers/speckled-texture.png');

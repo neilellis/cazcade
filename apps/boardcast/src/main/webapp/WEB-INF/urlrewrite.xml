@@ -5,8 +5,8 @@
   -->
 
 <!DOCTYPE urlrewrite
-        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
-        "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite4.0.dtd">
 
 <urlrewrite>
 
@@ -60,7 +60,7 @@
 
     <rule>
         <from>^/_image-cache$</from>
-        <to type="redirect">http://snapito.com/api/?image&amp;%{query-string}</to>
+        <to type="proxy">http://snapito.com/api/?image&amp;%{query-string}</to>
     </rule>
 
 
