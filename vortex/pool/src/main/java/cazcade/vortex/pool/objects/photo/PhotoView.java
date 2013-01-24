@@ -9,9 +9,12 @@ import cazcade.vortex.widgets.client.image.CachedImage;
 import cazcade.vortex.widgets.client.spinner.Spinner;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 
@@ -36,6 +39,12 @@ public class PhotoView extends PoolObjectView {
         image.setSpinner(new Spinner(widget));
         effect.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
         image.getElement().getStyle().setBackgroundColor("#fefefe");
+        addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                Window.open(image.getRawUrl(), "photo", "");
+            }
+        });
 
     }
 

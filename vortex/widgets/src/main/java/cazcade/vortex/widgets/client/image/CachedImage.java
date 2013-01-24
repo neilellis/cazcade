@@ -6,6 +6,7 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.widgets.client.spinner.Spinner;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ErrorEvent;
 import com.google.gwt.event.dom.client.ErrorHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
@@ -115,7 +116,7 @@ public class CachedImage extends Image {
     }
 
     private void updateImageUrl() {
-        final String prefix = website ? "./_website-snapshot" : "./_image-cache";
+        final String prefix = website ? "/_website-snapshot" : "/_image-cache";
 
         //        getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
@@ -155,27 +156,34 @@ public class CachedImage extends Image {
 
     private void swapUrl(final String newUrl) {
         final Image newImage = new Image();
+        newImage.setVisible(false);
+        RootPanel.get().add(newImage);
         newImage.addErrorHandler(new ErrorHandler() {
             @Override public void onError(final ErrorEvent event) {
-                unspin();
-                CachedImage.super.setUrl(defaultDefaultMessage("Image Failed"));
-                CachedImage.super.getElement().setAttribute("x-vortex-failed-url", newUrl);
-                CachedImage.super.getElement().setAttribute("x-vortex-failed-event", event.toDebugString());
-                newImage.removeFromParent();
+                Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+                    @Override public void execute() {
+                        unspin();
+                        CachedImage.super.setUrl(defaultDefaultMessage("Image Failed"));
+                        CachedImage.super.getElement().setAttribute("x-vortex-failed-url", newUrl);
+                        CachedImage.super.getElement().setAttribute("x-vortex-failed-event", event.toDebugString());
+                        newImage.removeFromParent();
+                    }
+                });
             }
         });
         newImage.addLoadHandler(new LoadHandler() {
             @Override public void onLoad(final LoadEvent event) {
-                //                WidgetUtil.showGracefully(CachedImage.this.getElement(), false);
-                ready = true;
-                unspin();
-                newImage.removeFromParent();
-                CachedImage.super.setUrl(newUrl);
+                Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+                    @Override public void execute() {
+                        unspin();
+                        CachedImage.super.setUrl(newUrl);
+                        newImage.removeFromParent();
+                        ready = true;
+                    }
+                });
             }
         });
         spin();
-        newImage.setVisible(false);
-        RootPanel.get().add(newImage);
         newImage.setUrl(newUrl);
 
     }
@@ -229,7 +237,7 @@ public class CachedImage extends Image {
         }
     }
 
-    public String getUnCachedUrl() {
+    public String getRawUrl() {
         return url;
     }
 

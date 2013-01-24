@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
@@ -25,18 +29,16 @@ public class ImageEditor extends Composite implements PopupEditPanel {
         return changeImagePanel.isValid();
     }
 
-    interface ImageEditorUiBinder extends UiBinder<HTMLPanel, ImageEditor> {
-    }
+    interface ImageEditorUiBinder extends UiBinder<HTMLPanel, ImageEditor> {}
 
     private static final ImageEditorUiBinder ourUiBinder = GWT.create(ImageEditorUiBinder.class);
-    @UiField
-    ChangeImageUrlPanel changeImagePanel;
+    @UiField ChangeImageUrlPanel changeImagePanel;
 
     public ImageEditor(@Nonnull final CachedImage displayImage) {
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-        changeImagePanel.setValue(displayImage.getUnCachedUrl());
+        changeImagePanel.setValue(displayImage.getRawUrl());
         changeImagePanel.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
