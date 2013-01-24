@@ -30,22 +30,28 @@ import java.net.URISyntaxException;
  * @todo document.
  */
 public class UrlValidationServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url = request.getParameter("url");
-        final URI uri;
         try {
-            uri = new URI(url);
-        } catch (URISyntaxException e) {
-            response.sendError(403, e.getMessage());
-            return;
-        }
+            final URI uri;
+            try {
+                uri = new URI(url);
+            } catch (URISyntaxException e) {
+                response.sendError(403, e.getMessage());
+                return;
+            }
 
-        StatusLine statusLine = getStatusLineForMethod(new HttpHead(uri));
-        //If 405 - Invalid Method - Server doesn't support HEAD so try GET instead (which it MUST support to be valid).
-        if (statusLine.getStatusCode() == 405) {
-            statusLine = getStatusLineForMethod(new HttpGet(uri));
+            StatusLine statusLine = getStatusLineForMethod(new HttpHead(uri));
+            //If 405 - Invalid Method - Server doesn't support HEAD so try GET instead (which it MUST support to be valid).
+            if (statusLine.getStatusCode() == 405) {
+                statusLine = getStatusLineForMethod(new HttpGet(uri));
+            }
+            response.sendError(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+        } catch (IOException e) {
+            System.out.println("Error for " + url);
+            e.printStackTrace();
         }
-        response.sendError(statusLine.getStatusCode(), statusLine.getReasonPhrase());
 
     }
 
@@ -58,7 +64,5 @@ public class UrlValidationServlet extends HttpServlet {
         return httpResponse.getStatusLine();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -19,8 +23,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     private int maxLength = Integer.MAX_VALUE;
 
 
-    @UiField
-    TextBox textBox;
+    @UiField TextBox textBox;
     private String oldText = "";
 
     @Override
@@ -38,8 +41,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
         return true;
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public String getStringValue() {
         return textBox.getText();
     }
@@ -90,19 +92,18 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     protected class CleanUpKeyUpHandler implements KeyUpHandler {
         @Override
         public void onKeyUp(@Nonnull final KeyUpEvent event) {
-            if (!event.isAnyModifierKeyDown()) {
-                String text = textBox.getText();
-                if (!oldText.equals(text)) {
-                    text = cleanUpText(text);
-                    if (!text.equals(textBox.getText())) {
-                        textBox.setText(text);
-                    }
-                    oldText = text;
-                    if (text.length() > 0) {
-                        showValidity();
-                    }
+            String text = textBox.getText();
+            if (!oldText.equals(text)) {
+                text = cleanUpText(text);
+                if (!text.equals(textBox.getText())) {
+                    textBox.setText(text);
+                }
+                oldText = text;
+                if (text.length() > 0) {
+                    showValidity();
                 }
             }
+
         }
     }
 

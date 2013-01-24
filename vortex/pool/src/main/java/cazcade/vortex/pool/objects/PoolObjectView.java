@@ -42,25 +42,25 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     public static final String MEDIUM            = "medium";
     @Nonnull
     public static final String LARGE             = "large";
-    //GOLDEN VERSION
-    //    public static final double SIZE_RATIO        = 1.618;
-    //Pragmatic Version
-    public static final double SIZE_RATIO        = 1.5;
+    public static final double CORE_RATIO        = 3.0 / 2.0;
+    public static final double ALT_RATIO_1       = 4.0 / 3.0;
+    public static final double ALT_RATIO_2       = 16.0 / 9.0;
+    public static final double GOLDEN_RATIO      = 1.618;
     public static final int    BOARD_WIDTH       = 1024;
     public static final int    PADDING           = 10;
     public static final int    BORDER            = 2;
-    public static final double ASPECT_RATIO      = 1.333;
+    public static final double ASPECT_RATIO      = CORE_RATIO;
     public static final int    ADDITIONAL_WIDTH  = PADDING * 2 + BORDER * 2;
     public static final int    ADDITIONAL_HEIGHT = PADDING * 2 + BORDER * 2;
     public static final int    THUMBNAIL_WIDTH   = 92;
     public static final int    THUMBNAIL_HEIGHT  = (int) (THUMBNAIL_WIDTH / ASPECT_RATIO);
-    public static final int    SMALL_WIDTH       = (int) (BOARD_WIDTH - BOARD_WIDTH / SIZE_RATIO) - ADDITIONAL_WIDTH;
-    public static final int    SMALL_HEIGHT      = (int) ((BOARD_WIDTH - BOARD_WIDTH / SIZE_RATIO) / ASPECT_RATIO)
+    public static final int    SMALL_WIDTH       = (int) (BOARD_WIDTH - BOARD_WIDTH / CORE_RATIO) - ADDITIONAL_WIDTH;
+    public static final int    SMALL_HEIGHT      = (int) ((BOARD_WIDTH - BOARD_WIDTH / CORE_RATIO) / ASPECT_RATIO)
                                                    - ADDITIONAL_HEIGHT;
-    public static final int    MEDIUM_WIDTH      = (int) (BOARD_WIDTH / SIZE_RATIO) - ADDITIONAL_WIDTH;
-    public static final int    MEDIUM_HEIGHT     = (int) (BOARD_WIDTH / SIZE_RATIO / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
+    public static final int    MEDIUM_WIDTH      = (int) (BOARD_WIDTH / CORE_RATIO) - ADDITIONAL_WIDTH;
+    public static final int    MEDIUM_HEIGHT     = (int) ((BOARD_WIDTH / CORE_RATIO) / ASPECT_RATIO) - ADDITIONAL_HEIGHT;
     public static final int    LARGE_WIDTH       = BOARD_WIDTH - ADDITIONAL_WIDTH;
-    public static final int    LARGE_HEIGHT      = (int) (BOARD_WIDTH / SIZE_RATIO) - ADDITIONAL_HEIGHT;
+    public static final int    LARGE_HEIGHT      = (int) (BOARD_WIDTH / CORE_RATIO) - ADDITIONAL_HEIGHT;
 
     private Runnable onDelete;
     private int      logicalWidth;

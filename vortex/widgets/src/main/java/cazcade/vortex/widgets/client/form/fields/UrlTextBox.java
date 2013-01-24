@@ -33,7 +33,7 @@ public class UrlTextBox extends RegexTextBox {
                     }
 
                     @Override public void onResponseReceived(final Request request, final Response response) {
-                        validUrl = 200 == response.getStatusCode();
+                        validUrl = response.getStatusCode() < 400;
                         UrlTextBox.super.showValidity();
                     }
                 });

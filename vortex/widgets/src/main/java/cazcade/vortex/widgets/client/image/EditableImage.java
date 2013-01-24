@@ -70,7 +70,7 @@ public class EditableImage extends Composite implements Bindable {
     @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         final LSDTransferEntity result = entity.asUpdateEntity();
-        result.setAttribute(attribute, image.getUnCachedUrl());
+        result.setAttribute(attribute, image.getRawUrl());
         return result;
     }
 
@@ -96,7 +96,7 @@ public class EditableImage extends Composite implements Bindable {
     }
 
     @Override public String getStringValue() {
-        return image.getUnCachedUrl();
+        return image.getRawUrl();
     }
 
     @UiHandler("image")
@@ -147,7 +147,7 @@ public class EditableImage extends Composite implements Bindable {
             final ImageEditor editor = new ImageEditor(image);
             setMainPanel(editor);
             setWidth("840px");
-            setHeight("560px");
+            setHeight("610px");
             setText("Edit Image");
             setOnFinishAction(new Runnable() {
                 @Override
