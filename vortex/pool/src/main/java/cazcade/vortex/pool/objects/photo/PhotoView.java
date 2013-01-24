@@ -42,7 +42,7 @@ public class PhotoView extends PoolObjectView {
         addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                Window.open(image.getRawUrl(), "photo", "");
+                if (!isEditable()) { Window.open(image.getRawUrl(), "photo", ""); }
             }
         });
 
