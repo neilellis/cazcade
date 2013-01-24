@@ -22,7 +22,7 @@ public class UrlTextBox extends RegexTextBox {
 
     @Override protected void showValidity() {
         if (super.isValid()) {
-            final RequestBuilder builder = new RequestBuilder(RequestBuilder.HEAD, "./_validate-url?url=" + URL.encode(getValue()));
+            final RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "./_validate-url?url=" + URL.encode(getValue()));
 
             try {
                 builder.sendRequest(null, new RequestCallback() {

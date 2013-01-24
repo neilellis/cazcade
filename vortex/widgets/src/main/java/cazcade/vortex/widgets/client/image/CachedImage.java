@@ -108,21 +108,17 @@ public class CachedImage extends Image {
         }
     }
 
-    @Override
-    protected void onLoad() {
-        super.onLoad();
-        updateImageUrl();
-
-    }
 
     private void updateImageUrl() {
-        final String prefix = website ? "/_website-snapshot" : "/_image-cache";
+        final String prefix = website
+                              ? "http://cache.snapito.com/api/image?_cache_redirect=true&"
+                              : "http://cache.snapito.com/api/image?image&_cache_redirect=true&";
 
         //        getElement().getStyle().setBackgroundImage(placeholderImage());
         if (url != null && !url.isEmpty()) {
             if (CACHING && cached && !BrowserUtil.isInternalImage(url)) {
                 if (url.startsWith("http")) {
-                    swapUrl(prefix + "?url=" +
+                    swapUrl(prefix + "url=" +
                             URL.encode(url) +
                             "&size=" +
                             size +
@@ -132,7 +128,7 @@ public class CachedImage extends Image {
                             getHeightWithDefault());
                 }
                 else {
-                    swapUrl(prefix + "?url=" +
+                    swapUrl(prefix + "url=" +
                             BrowserUtil.convertRelativeUrlToAbsolute(url) +
                             "&size=" +
                             size +
@@ -155,9 +151,30 @@ public class CachedImage extends Image {
     }
 
     private void swapUrl(final String newUrl) {
-        final Image newImage = new Image();
+
+        //        final RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "./_validate-url?url=" + URL.encode(newUrl));
+        //
+        //        try {
+        //            builder.sendRequest(null, new RequestCallback() {
+        //                @Override public void onError(final Request request, final Throwable exception) {
+        //                    // Couldn't connect to server (could be timeout, SOP violation, etc.)
+        //                    ClientLog.log(exception);
+        //                    Window.alert("Image Failed");
+        //                }
+        //
+        //                @Override public void onResponseReceived(final Request request, final Response response) {
+        //                    if(response.getStatusCode() < 400) {
+        //                        CachedImage.super.setUrl(newUrl);
+        //                    }
+        //                }
+        //            });
+        //        } catch (RequestException e) {
+        //            ClientLog.log(e);
+        //        }
+
+
+        final Image newImage = new Image(newUrl);
         newImage.setVisible(false);
-        RootPanel.get().add(newImage);
         newImage.addErrorHandler(new ErrorHandler() {
             @Override public void onError(final ErrorEvent event) {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
@@ -166,25 +183,27 @@ public class CachedImage extends Image {
                         CachedImage.super.setUrl(defaultDefaultMessage("Image Failed"));
                         CachedImage.super.getElement().setAttribute("x-vortex-failed-url", newUrl);
                         CachedImage.super.getElement().setAttribute("x-vortex-failed-event", event.toDebugString());
-                        newImage.removeFromParent();
+                        if (newImage.isAttached()) {
+                            newImage.removeFromParent();
+                        }
                     }
                 });
             }
         });
         newImage.addLoadHandler(new LoadHandler() {
             @Override public void onLoad(final LoadEvent event) {
-                Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-                    @Override public void execute() {
-                        unspin();
-                        CachedImage.super.setUrl(newUrl);
-                        newImage.removeFromParent();
-                        ready = true;
-                    }
-                });
+                unspin();
+                CachedImage.super.setUrl(newUrl);
+                if (newImage.isAttached()) {
+                    newImage.removeFromParent();
+                }
+                ready = true;
+
             }
         });
         spin();
-        newImage.setUrl(newUrl);
+        RootPanel.get().add(newImage);
+
 
     }
 

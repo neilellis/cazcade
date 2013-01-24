@@ -55,13 +55,13 @@
 
     <rule>
         <from>^/_website-snapshot$</from>
-        <to type="proxy">http://snapito.com/api/?_cache_redirect=true&amp;%{query-string}</to>
+        <to type="temporary-redirect">http://snapito.com/api/?%{query-string}</to>
     </rule>
 
 
     <rule>
         <from>^/_image-cache$</from>
-        <to type="proxy">http://snapito.com/api/?_cache_redirect=true&amp;image&amp;%{query-string}</to>
+        <to type="temporary-redirect">http://snapito.com/api/?image&amp;%{query-string}</to>
     </rule>
 
 
