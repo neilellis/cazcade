@@ -34,15 +34,16 @@
         <from>^/(.*)</from>
         <to type="redirect">http://boardcast.it/$1</to>
     </rule>
+
     <rule>
         <from>^/(.*);.*</from>
         <to type="redirect">$1</to>
     </rule>
 
-    <rule>
-        <from>^/*.gupld$</from>
-        <to type="forward" last="true">/_image-upload</to>
-    </rule>
+    <!--<rule>-->
+    <!--<from>^/*.gupld$</from>-->
+    <!--<to type="forward" last="true">/_image-upload</to>-->
+    <!--</rule>-->
 
 
     <!--Board or username-->
@@ -54,13 +55,13 @@
 
     <rule>
         <from>^/_website-snapshot$</from>
-        <to type="redirect">http://snapito.com/api/?%{query-string}</to>
+        <to type="proxy">http://snapito.com/api/?_cache_redirect=true&amp;%{query-string}</to>
     </rule>
 
 
     <rule>
         <from>^/_image-cache$</from>
-        <to type="proxy">http://snapito.com/api/?image&amp;%{query-string}</to>
+        <to type="proxy">http://snapito.com/api/?_cache_redirect=true&amp;image&amp;%{query-string}</to>
     </rule>
 
 
@@ -127,7 +128,8 @@
         <from>^/_password-forgot$</from>
         <to type="forward">/_pages/forgot.jsp?%{query-string}</to>
     </rule>
-    <!--Straight to brochure site-->
+
+    <!--Straight to welcome board.-->
     <rule>
         <from>^/$</from>
         <to type="redirect">/welcome?%{query-string}</to>
