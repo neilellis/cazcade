@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.checklist;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -28,29 +32,31 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
             @Override
             public void run() {
                 final LSDTransferEntity minimalEntity = getEntity().asUpdateEntity();
-                BusFactory.getInstance().send(new UpdatePoolRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolRequest>() {
-                    @Override
-                    public void onSuccess(final UpdatePoolRequest message, final UpdatePoolRequest response) {
-                    }
-                });
+                BusFactory.getInstance()
+                          .send(new UpdatePoolRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolRequest>() {
+                              @Override
+                              public void onSuccess(final UpdatePoolRequest message, final UpdatePoolRequest response) {
+                              }
+                          });
             }
         });
 
-        BusFactory.getInstance().send(new RetrievePoolRequest(getEntity().getURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
-            @Override
-            public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final List<LSDTransferEntity> children = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (final LSDTransferEntity child : children) {
+        BusFactory.getInstance()
+                  .send(new RetrievePoolRequest(getEntity().getURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
+                      @Override
+                      public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
+                          final List<LSDTransferEntity> children = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                          for (final LSDTransferEntity child : children) {
 
-                    final String text = child.getAttribute(LSDAttribute.TEXT_EXTENDED);
-                    if (text != null) {
-                        //todo: checklistview should take the ent
-                        getPoolObjectView().addView(new ChecklistEntryView(child));
-//                        getWidget().addView(new Label(text.replaceAll("<[^>]*>", " ").replaceAll("\n", " ")));
-                    }
-                }
-            }
-        });
+                              if (child.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
+                                  //                        final String text = child.getAttribute(LSDAttribute.TEXT_EXTENDED);
+                                  //todo: checklistview should take the ent
+                                  getPoolObjectView().addView(new ChecklistEntryView(child));
+                                  //                        getWidget().addView(new Label(text.replaceAll("<[^>]*>", " ").replaceAll("\n", " ")));
+                              }
+                          }
+                      }
+                  });
     }
 
     @Override
@@ -73,8 +79,7 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
         return 400;
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDDictionaryTypes getType() {
         return LSDDictionaryTypes.CHECKLIST_POOL;
     }

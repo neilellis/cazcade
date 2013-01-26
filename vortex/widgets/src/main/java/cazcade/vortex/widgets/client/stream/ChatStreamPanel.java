@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.*;
@@ -31,27 +35,27 @@ import java.util.List;
 public class ChatStreamPanel extends Composite {
     public static final int INACTIVITY_TIMEOUT = 5000;
 
-    public static final int UPDATE_LIEFTIME = 1200 * 1000;
-    public static final boolean AUTOSCROLL = true;
+    public static final int                      UPDATE_LIEFTIME    = 1200 * 1000;
+    public static final boolean                  AUTOSCROLL         = true;
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private int maxRows = 100;
-    private final long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
-    private boolean showStatusUpdates = true;
+    private final       Bus                      bus                = BusFactory.getInstance();
+    private             int                      maxRows            = 100;
+    private final       long                     lastUpdate         = System.currentTimeMillis() - UPDATE_LIEFTIME;
+    private             boolean                  showStatusUpdates  = true;
     @Nonnull
-    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    private final       VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
     @Nonnull
     private final List<LSDBaseEntity> entryEntities = new ArrayList<LSDBaseEntity>();
     @Nonnull
     private final VortexScrollPanel scrollPanel;
-    private boolean initialized;
-    private LiquidURI pool;
+    private       boolean           initialized;
+    private       LiquidURI         pool;
     @Nonnull
-    private final SoundController soundController;
-    private final Sound userEnteredSound;
-    private final Sound chatMessageSound;
-    private final Sound statusUpdateSound;
+    private final SoundController   soundController;
+    private final Sound             userEnteredSound;
+    private final Sound             chatMessageSound;
+    private final Sound             statusUpdateSound;
 
     private long lastUserAction;
     private boolean autoScrollOn = true;
@@ -74,8 +78,7 @@ public class ChatStreamPanel extends Composite {
     }
 
 
-    interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, ChatStreamPanel> {
-    }
+    interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, ChatStreamPanel> {}
 
     private static final VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
 
@@ -93,24 +96,17 @@ public class ChatStreamPanel extends Composite {
             public void run() {
                 lastUserAction = System.currentTimeMillis();
             }
-        }
-        );
+        });
         widget.add(scrollPanel);
         soundController = new SoundController();
 
-        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                                                       "_audio/user_entered.mp3"
-                                                      );
+        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/user_entered.mp3");
         userEnteredSound.setVolume(100);
 
-        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                                                       "_audio/new_chat_message.mp3"
-                                                      );
+        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/new_chat_message.mp3");
         chatMessageSound.setVolume(20);
 
-        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                                                        "_audio/status_update.mp3"
-                                                       );
+        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/status_update.mp3");
         statusUpdateSound.setVolume(50);
 
         if (AUTOSCROLL) {
@@ -135,8 +131,7 @@ public class ChatStreamPanel extends Composite {
                 parentPanel.add(filler);
                 filler.setHeight(getOffsetHeight() + "px");
             }
-        }
-                                  );
+        });
 
 
         if (!initialized) {
@@ -146,42 +141,34 @@ public class ChatStreamPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            final LSDBaseEntity response = message.getResponse();
-                            if (response != null && response.isA(LSDDictionaryTypes.CHAT)
-                                && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(
-                                    LSDAttribute.TEXT_BRIEF
-                                                                                                                   ).isEmpty()) {
-                                addStreamEntry(new VortexStreamEntryPanel(response, FormatUtil.getInstance()));
-                                chatMessageSound.play();
+                            if (message.hasResponseEntity()) {
+                                final LSDBaseEntity response = message.getResponse();
+                                if (response.isA(LSDDictionaryTypes.CHAT)
+                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null
+                                    && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                                    addStreamEntry(new VortexStreamEntryPanel(response, FormatUtil.getInstance()));
+                                    chatMessageSound.play();
 
 
-                            }
-                            if (response != null &&
-                                message.getState() != LiquidMessageState.PROVISIONAL &&
-                                message.getState() != LiquidMessageState.INITIAL &&
-                                message.getState() != LiquidMessageState.FAIL &&
-                                ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
-                                addStreamEntry(new VortexPresenceNotificationPanel(response, pool, message.getId().toString()));
-                                userEnteredSound.play();
+                                }
+                                if (message.getState() != LiquidMessageState.PROVISIONAL
+                                    && message.getState() != LiquidMessageState.INITIAL
+                                    && message.getState() != LiquidMessageState.FAIL
+                                    && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
+                                    addStreamEntry(new VortexPresenceNotificationPanel(response, pool, message.getId().toString()));
+                                    userEnteredSound.play();
+                                }
                             }
                         }
-                    }
-                              );
-                    BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(),
-                                                                                  LiquidRequestType.SEND,
-                                                                                  new BusListener<SendRequest>() {
-                                                                                      @Override
-                                                                                      public void handle(
-                                                                                              @Nonnull final SendRequest request) {
-                                                                                          addStreamEntry(
-                                                                                                  new DirectMessageStreamEntryPanel(
-                                                                                                          request.getResponse(),
-                                                                                                          FormatUtil.getInstance()
-                                                                                                  )
-                                                                                                        );
-                                                                                      }
-                                                                                  }
-                                                                                 );
+                    });
+                    BusFactory.getInstance()
+                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
+                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                                  @Override
+                                  public void handle(@Nonnull final SendRequest request) {
+                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), FormatUtil.getInstance()));
+                                  }
+                              });
 
                 }
             }.schedule(1000);
@@ -207,8 +194,7 @@ public class ChatStreamPanel extends Composite {
             public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
                 super.onSuccess(message, response);
             }
-        }
-                );
+        });
     }
 
     private void autoScroll() {
@@ -221,7 +207,7 @@ public class ChatStreamPanel extends Composite {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-//        entryEntities.add(vortexStreamContent.getEntity());
+                //        entryEntities.add(vortexStreamContent.getEntity());
                 boolean inserted = false;
                 final boolean atBottom = scrollPanel.isAtBottom();
                 int i = parentPanel.getWidgetCount();
@@ -264,8 +250,7 @@ public class ChatStreamPanel extends Composite {
                 }
                 autoScroll();
             }
-        }
-                                  );
+        });
 
     }
 
@@ -287,17 +272,16 @@ public class ChatStreamPanel extends Composite {
             final List<LSDBaseEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             for (final LSDBaseEntity entry : entries) {
                 if (entry.isA(LSDDictionaryTypes.COMMENT)
-                    && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF)
-                                                                                    .isEmpty()) {
+                    && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null
+                    && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                     addStreamEntry(new VortexStreamEntryPanel(entry, FormatUtil.getInstance()));
                 }
                 else {
                     if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
                         final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
-                        final boolean isMe = author.getAttribute(LSDAttribute.URI).equals(
-                                UserUtil.getIdentity().getAliasURL().asString()
-                                                                                         );
+                        final boolean isMe = author.getAttribute(LSDAttribute.URI)
+                                                   .equals(UserUtil.getIdentity().getAliasURL().asString());
                         final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
                         final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
                         final boolean isHere = sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());

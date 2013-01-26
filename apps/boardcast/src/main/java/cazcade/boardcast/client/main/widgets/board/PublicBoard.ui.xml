@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:stream="urn:import:cazcade.vortex.widgets.client.stream"
@@ -29,7 +33,6 @@
                                           focusOnHoverEnabled="true"/>
 
                 </div>
-                <hr/>
 
                 <div class="board-content"
                      style="">
@@ -50,9 +53,7 @@
 
                 </div>
 
-                <hr/>
-
-                <div class="row">
+                <div class="row page-bottom">
                     <h2>Comments</h2>
                     <widgets:AddCommentBox ui:field="addCommentBox"/>
 
@@ -112,7 +113,6 @@
                             </g:HTMLPanel>
                         </g:east>
                     </g:DockLayoutPanel>
-
                 </div>
             </div>
         </div>

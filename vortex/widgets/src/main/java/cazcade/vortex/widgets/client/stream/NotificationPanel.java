@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.*;
@@ -31,40 +35,25 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class NotificationPanel extends Composite {
-    public static final int UPDATE_LIEFTIME = 1200 * 1000;
-    public static final int STATUS_CHECK_FREQUENCY = 30000;
-    @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private int maxRows = 10;
-    private final long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
-    @Nonnull
-    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, NotificationPanel> {}
 
-    private FormatUtil features;
-    private boolean initialized;
-    private LiquidURI pool;
+    public static final  int                       UPDATE_LIEFTIME        = 1200 * 1000;
+    public static final  int                       STATUS_CHECK_FREQUENCY = 30000;
+    private static final VortexStreamPanelUiBinder ourUiBinder            = GWT.create(VortexStreamPanelUiBinder.class);
+    @Nonnull
+    private final        Bus                       bus                    = BusFactory.getInstance();
+    private final        long                      lastUpdate             = System.currentTimeMillis() - UPDATE_LIEFTIME;
+    @Nonnull
+    private final        VortexThreadSafeExecutor  threadSafeExecutor     = new VortexThreadSafeExecutor();
     @Nonnull
     private final SoundController soundController;
-    private final Sound userEnteredSound;
-    private final Sound statusUpdateSound;
-
-
-    public void setMaxRows(final int maxRows) {
-        this.maxRows = maxRows;
-    }
-
-    public void clear() {
-        WidgetUtil.removeAllChildren(parentPanel);
-    }
-
-
-    interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, NotificationPanel> {
-    }
-
-    private static final VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
-
-    @UiField
-    HorizontalPanel parentPanel;
+    private final Sound           userEnteredSound;
+    private final Sound           statusUpdateSound;
+    @UiField      HorizontalPanel parentPanel;
+    private int maxRows = 10;
+    private FormatUtil features;
+    private boolean    initialized;
+    private LiquidURI  pool;
 
     public NotificationPanel() {
         super();
@@ -72,25 +61,32 @@ public class NotificationPanel extends Composite {
         initWidget(widget);
         soundController = new SoundController();
 
-        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/user_entered.mp3");
+        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/user_entered.mp3");
         userEnteredSound.setVolume(100);
 
-        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/status_update.mp3");
+        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/status_update.mp3");
         statusUpdateSound.setVolume(50);
         new Timer() {
             @Override
             public void run() {
                 if (parentPanel.getWidgetCount() == 0) {
                     removeStyleName("show");
-                } else {
+                }
+                else {
                     addStyleName("show");
                 }
 
             }
         }.scheduleRepeating(2000);
 
+    }
+
+    public void setMaxRows(final int maxRows) {
+        this.maxRows = maxRows;
+    }
+
+    public void clear() {
+        WidgetUtil.removeAllChildren(parentPanel);
     }
 
     public void init(final LiquidURI newPool, @Nonnull final FormatUtil formatter) {
@@ -105,51 +101,62 @@ public class NotificationPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            final LSDBaseEntity response = message.getResponse();
-                            if (response != null && response.isA(LSDDictionaryTypes.COMMENT)
-                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                addToStream(new CommentEntryPanel(response));
-                            }
-                            if (response != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
-                                    && !UserUtil.isAnonymousAliasURI(response.getSubEntity(LSDAttribute.VISITOR, false).getURI().toString())
-                                    ) {
-                                final VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(response, pool, message.getId().toString());
-                                addToStream(content);
-                                try {
-                                    userEnteredSound.play();
-                                } catch (Exception e) {
-                                    ClientLog.log(e);
+                            if (message.hasResponseEntity()) {
+                                final LSDBaseEntity response = message.getResponse();
+                                if (response.isA(LSDDictionaryTypes.COMMENT)
+                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null
+                                    && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                                    addToStream(new CommentEntryPanel(response));
+                                }
+                                if (message.getState() != LiquidMessageState.PROVISIONAL
+                                    && message.getState() != LiquidMessageState.INITIAL
+                                    && message.getState() != LiquidMessageState.FAIL
+                                    && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
+                                    && !UserUtil.isAnonymousAliasURI(response.getSubEntity(LSDAttribute.VISITOR, false)
+                                                                             .getURI()
+                                                                             .toString())) {
+                                    final VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(response, pool, message
+                                            .getId()
+                                            .toString());
+                                    addToStream(content);
+                                    try {
+                                        userEnteredSound.play();
+                                    } catch (Exception e) {
+                                        ClientLog.log(e);
+                                    }
                                 }
                             }
                         }
                     });
 
-                    BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
-                        @Override
-                        public void handle(@Nonnull final SendRequest request) {
-                            final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), formatter);
-                            addToStream(content);
-                        }
-                    });
+                    BusFactory.getInstance()
+                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
+                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                                  @Override
+                                  public void handle(@Nonnull final SendRequest request) {
+                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), formatter);
+                                      addToStream(content);
+                                  }
+                              });
 
                 }
             }.schedule(1000);
 
-//            if (ClientApplicationConfiguration.isRetrieveUpdates()) {
-//                new Timer() {
-//                    @Override
-//                    public void run() {
-//                        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(formatter, maxRows, parentPanel, pool, threadSafeExecutor, true) {
-//                            @Override
-//                            public void onSuccess(AbstractRequest message, AbstractRequest response) {
-//                                //relying on system time is a bad idea, so we use server time.
-//                                lastUpdate = response.getResponse().getUpdated().getTime();
-//                                super.onSuccess(message, response);
-//                            }
-//                        });
-//                    }
-//                }.scheduleRepeating(STATUS_CHECK_FREQUENCY);
-//            }
+            //            if (ClientApplicationConfiguration.isRetrieveUpdates()) {
+            //                new Timer() {
+            //                    @Override
+            //                    public void run() {
+            //                        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(formatter, maxRows, parentPanel, pool, threadSafeExecutor, true) {
+            //                            @Override
+            //                            public void onSuccess(AbstractRequest message, AbstractRequest response) {
+            //                                //relying on system time is a bad idea, so we use server time.
+            //                                lastUpdate = response.getResponse().getUpdated().getTime();
+            //                                super.onSuccess(message, response);
+            //                            }
+            //                        });
+            //                    }
+            //                }.scheduleRepeating(STATUS_CHECK_FREQUENCY);
+            //            }
             initialized = true;
         }
     }
