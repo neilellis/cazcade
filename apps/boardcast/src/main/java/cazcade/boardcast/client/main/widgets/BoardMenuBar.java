@@ -74,6 +74,12 @@ public class BoardMenuBar extends MenuBar {
                 }
                 if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
                     accessMenuBar = new MenuBar(true);
+                    //                    addItem(new MenuItem("<div width='100%'>", true, new Scheduler.ScheduledCommand() {
+                    //                        @Override public void execute() {
+                    //
+                    //                        }
+                    //                    }));
+                    addSeparator();
                     addItem(iconWithName("key", "Access"), accessMenuBar);
                     createAccessMenu(board);
                 }

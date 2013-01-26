@@ -39,8 +39,7 @@ div.pool-object {
 //    .transition-opacity;
 //    .transition-transform;
   background: none;
-  border: 2px dotted rgba(90, 200, 250, 0.0);
-  overflow: hidden;
+  border: 2px dotted rgba(200, 200, 200, 0);
 
   .transition3(left ease-in-out 400ms, top ease-in-out 400ms, opacity ease-in-out 400ms);
 }
@@ -110,50 +109,11 @@ div.pool-object {
 
 @stickyColor: #FCF0AD;
 
-.pool-object-rich-text-inner {
-  margin-bottom: 10px;
-  margin: 4px;
-  width: @poolObjectSmallWidth;
-  height: @poolObjectSmallWidth;
-  color: #111;
-  background-color: #FCF0AD; //    background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 20%)), to(@stickyColor));
-  .shadow-border(@stickyColor);
-  .border-radius(4px);
-  font-size: @boardTextFontSize;
-  overflow: visible;
-  position: relative;
-  float: left;
-
-/* Lifted corners */ //     .box-shadow(0 1px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(0, 0, 0, 0.05) inset) ;
-
-  &:before,
-  &:after {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    bottom: 15px;
-    left: 10px;
-    width: 50%;
-    height: 20%;
-    max-width: 300px;
-    .box-shadow(0 15px 10px rgba(0, 0, 0, 0.7));
-    .transform(rotate(-3deg));
-  }
-
-  &:after {
-    right: 10px;
-    left: auto;
-    .transform(rotate(3deg));
-  }
-
-}
-
 .pool-object-rich-text {
   overflow: visible;
   position: static;
   z-index: 7000;
-  height: 274px;
+  height: @poolObjectSmallWidth;
 
   .editableLabel-label {
     position: absolute;
@@ -176,6 +136,44 @@ div.pool-object {
     width: 100%;
     height: 205px;
     font-size: @boardTextFontSize;
+  }
+
+}
+
+.pool-object-rich-text-inner {
+  width: @poolObjectSmallWidth;
+  height: @poolObjectSmallWidth;
+  color: #111;
+  background-color: #FCF0AD; //    background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 20%)), to(@stickyColor));
+  .shadow-border(@stickyColor);
+  .border-radius(2px);
+  font-size: @boardTextFontSize;
+  overflow: visible;
+  position: relative;
+  float: left;
+  .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.2));
+
+/* Lifted corners */ //     .box-shadow(0 1px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(0, 0, 0, 0.05) inset) ;
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    bottom: 15px;
+    left: 10px;
+    width: 50%;
+    height: 20%;
+    max-width: 300px;
+    .box-shadow(0 15px 20px rgba(0, 0, 0, 0.8));
+    .transform(rotate(-3deg));
+  }
+
+  &:after {
+    right: 10px;
+    left: auto;
+    .transform(rotate(3deg));
   }
 
 }
@@ -437,17 +435,17 @@ div.checklist-entry-author {
 
 .pool-object-photo {
   background: none;
-  border: none;
-  .border-radius(4px);
+  border: none; //  .border-radius(4px);
+  .box-shadow(2px 3px 5px 3px rgba(20,20,20,0.5));
   margin: 0px;
 
   .photo-effect {
     .absolute-full;
-    opacity: 0.6;
+    opacity: 0.4;
   }
 
   .pool-object-photo-surround {
-    .border-radius(6px); //    &::after {
+    .border-radius(2px); //    &::after {
   //        display: block;
   //        content:  " ";
   //        background-image: url('../_images/photo-masks/gloss-medium-noframe.png');
@@ -470,7 +468,7 @@ div.checklist-entry-author {
       -webkit-transition: src ease-in-out 300ms;
       -moz-transition: src ease-in-out 300ms;
       .border-radius(2px);
-      .box-shadow(2px 2px 3px 1px rgba(0,0,0,0.2));
+      display: block
     }
 
   }
@@ -561,6 +559,12 @@ div.checklist-entry-author {
 
 .pool-object-website {
   cursor: pointer;
+  .box-shadow(2px 2px 3px 2px rgba(10, 10, 10, 0.5));
+
+  img {
+    display: block;
+  }
+
 }
 
 .pool-object-image {
