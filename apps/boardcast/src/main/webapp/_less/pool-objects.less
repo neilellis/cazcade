@@ -562,10 +562,13 @@ div.checklist-entry-author {
 
 .pool-object-website {
   cursor: pointer;
-  .box-shadow(2px 2px 3px 2px rgba(10, 10, 10, 0.2));
 
   img {
     display: block;
+    -webkit-mask-box-image: url('/_images/torn/torn-mask.png');
+    -webkit-mask-size: 100% 100%;
+    -webkit-filter: drop-shadow(16px 16px 20px black);
+    .box-shadow(2px 2px 3px 2px rgba(10, 10, 10, 0.9));
   }
 
 }
@@ -573,6 +576,7 @@ div.checklist-entry-author {
 .pool-object-image {
   z-index: 9000;
   opacity: 0.8;
+  -webkit-filter: blur(1px);
 }
 
 
