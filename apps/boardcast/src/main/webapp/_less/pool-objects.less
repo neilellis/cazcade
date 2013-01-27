@@ -145,6 +145,7 @@ div.pool-object {
   height: @poolObjectSmallWidth;
   color: #111;
   background-color: #FCF0AD; //    background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 20%)), to(@stickyColor));
+  background-image: url('/_images/wallpapers/speckled-texture.png');
   .shadow-border(@stickyColor);
   .border-radius(2px);
   font-size: @boardTextFontSize;
@@ -436,12 +437,12 @@ div.checklist-entry-author {
 .pool-object-photo {
   background: none;
   border: none; //  .border-radius(4px);
-  .box-shadow(2px 3px 5px 3px rgba(20,20,20,0.5));
+  .box-shadow(2px 3px 5px 3px rgba(20,20,20,0.2));
   margin: 0px;
 
   .photo-effect {
     .absolute-full;
-    opacity: 0.4;
+    opacity: 0.25;
   }
 
   .pool-object-photo-surround {
@@ -534,6 +535,7 @@ div.checklist-entry-author {
   -moz-transition: src ease-in-out 300ms;
   margin: 0px;
   padding: 0px;
+  display: block;
 
 }
 
@@ -542,6 +544,7 @@ div.checklist-entry-author {
   margin: 0px;
   padding: 0px;
   overflow: hidden;
+
 }
 
 .pool-object-youtube-video {
@@ -559,7 +562,7 @@ div.checklist-entry-author {
 
 .pool-object-website {
   cursor: pointer;
-  .box-shadow(2px 2px 3px 2px rgba(10, 10, 10, 0.5));
+  .box-shadow(2px 2px 3px 2px rgba(10, 10, 10, 0.2));
 
   img {
     display: block;
@@ -569,6 +572,7 @@ div.checklist-entry-author {
 
 .pool-object-image {
   z-index: 9000;
+  opacity: 0.8;
 }
 
 
