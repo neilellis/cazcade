@@ -56,6 +56,14 @@
   -moz-transform: scale(0.995);
 }
 
+.filter(@filter) {
+  -webkit-filter: @filter;
+  -moz-filter: @filter;
+  -o-filter: @filter;
+  -ms-filter: @filter;
+  -filter: @filter;
+}
+
 .transitions-off {
   transition-property: none;
   -o-transition-property: none;

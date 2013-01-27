@@ -48,6 +48,7 @@ public class VortexDialogPanel extends DialogBox {
         setGlassEnabled(true);
         addStyleName("vtx-dialog-popup");
         addStyleName("non-glassed");
+        setGlassStyleName("vtx-dialog-glass");
 
     }
 
@@ -83,7 +84,6 @@ public class VortexDialogPanel extends DialogBox {
             public void setPosition(int offsetWidth, int offsetHeight) {
                 setPopupPosition((Window.getClientWidth() - offsetWidth) / 2, 0);
                 getElement().getStyle().setPosition(Style.Position.FIXED);
-                RootPanel.get().getElement().addClassName("glassed");
                 addStyleName(POPUP_READY_STYLE);
                 antiScrollHandler = Window.addWindowScrollHandler(new Window.ScrollHandler() {
                     @Override public void onWindowScroll(Window.ScrollEvent event) {
@@ -104,8 +104,6 @@ public class VortexDialogPanel extends DialogBox {
             antiScrollHandler.removeHandler();
             antiScrollHandler = null;
         }
-        RootPanel.get().getElement().removeClassName("glassed");
-
         super.hide();
     }
 

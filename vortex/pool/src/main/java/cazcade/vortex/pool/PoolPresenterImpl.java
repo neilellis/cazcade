@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool;
 
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -27,32 +31,28 @@ import javax.annotation.Nullable;
  */
 public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
-    public static final int BORDER_BEFORE_PAGEFLOW_STARTS = 0;
-    public static final int DEFAULT_HEIGHT = 636;
+    public static final int BORDER_BEFORE_PAGEFLOW_STARTS = 80;
+    public static final int DEFAULT_HEIGHT                = 636;
     @Nonnull
-    private final VortexScrollPanel scrollPanel;
+    private final VortexScrollPanel        scrollPanel;
     @Nonnull
-    private final AbsolutePanel panel;
+    private final AbsolutePanel            panel;
     @Nonnull
-    private final LSDTransferEntity entity;
-    private final boolean pageFlow;
+    private final LSDTransferEntity        entity;
+    private final boolean                  pageFlow;
     private final VortexThreadSafeExecutor threadSafeExecutor;
-    private final int width = 1024;
-    private int height = DEFAULT_HEIGHT;
+    private final int width  = 1024;
+    private       int height = DEFAULT_HEIGHT;
 
     @Nonnull
     private final PoolObjectContainerManager poolObjectContainerManager;
 
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel,
-                             @Nonnull final LSDTransferEntity entity, final FormatUtil features,
-                             final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
 
         this(scrollPanel, panel, entity, false, features, threadSafeExecutor);
     }
 
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel,
-                             @Nonnull final LSDTransferEntity entity, final boolean pageFlow, final FormatUtil features,
-                             final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
         this.panel = panel;
         this.entity = entity;
@@ -138,9 +138,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
             if (widget.getParent() != panel) {
                 ClientLog.log("Widget parent was " + widget.getParent() + " not " + panel);
                 ClientLog.log("Offending widget was " + widget);
-                throw new IllegalArgumentException(
-                        "Pool widget does not have this as a parent, check the log for more information."
-                );
+                throw new IllegalArgumentException("Pool widget does not have this as a parent, check the log for more information.");
             }
             else {
                 double newX = x;
@@ -165,13 +163,13 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
                 presenter.setY(newY);
                 //No done in the timer thread
 
-//                if (pageFlow) {
-//                    final int newHeight = (int) newY + widget.getOffsetHeight() + 20;
-//                    if (newHeight > (height - BORDER_BEFORE_PAGEFLOW_STARTS)) {
-//                        height = newHeight + BORDER_BEFORE_PAGEFLOW_STARTS;
-//                        adjustHeight();
-//                    }
-//                }
+                //                if (pageFlow) {
+                //                    final int newHeight = (int) newY + widget.getOffsetHeight() + 20;
+                //                    if (newHeight > (height - BORDER_BEFORE_PAGEFLOW_STARTS)) {
+                //                        height = newHeight + BORDER_BEFORE_PAGEFLOW_STARTS;
+                //                        adjustHeight();
+                //                    }
+                //                }
             }
             poolObjectContainerManager.checkForCollisions(presenter);
         }
@@ -184,9 +182,9 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     @Override
     public void moveToVisibleCentre(@Nonnull final PoolObjectPresenter poolObjectPresenter) {
-        move(poolObjectPresenter, scrollPanel.getOffsetX() + scrollPanel.getOffsetWidth() / 2,
-             scrollPanel.getOffsetY() + scrollPanel.getOffsetHeight() / 2, true
-            );
+        move(poolObjectPresenter, scrollPanel.getOffsetX() + scrollPanel.getOffsetWidth() / 2, scrollPanel.getOffsetY()
+                                                                                               + scrollPanel.getOffsetHeight()
+                                                                                                 / 2, true);
     }
 
     public int getAbsoluteLeft() {
@@ -224,8 +222,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         poolObjectContainerManager.transfer(source, destination);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDDictionaryTypes getType() {
         return LSDDictionaryTypes.POOL2D;
     }
