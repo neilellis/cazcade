@@ -47,6 +47,7 @@ public class VortexDialogPanel extends DialogBox {
         setModal(true);
         setGlassEnabled(true);
         addStyleName("vtx-dialog-popup");
+        addStyleName("non-glassed");
 
     }
 
