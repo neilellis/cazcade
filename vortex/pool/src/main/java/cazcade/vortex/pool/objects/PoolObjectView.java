@@ -75,6 +75,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
 
     protected PoolObjectView() {
         super();
+
     }
 
 
@@ -153,6 +154,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
                 deleteButton.addStyleName("invisible");
             }
         });
+        getElement().getStyle().setZIndex(getDefaultZIndex());
 
 
     }
@@ -226,6 +228,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     }
 
     public void onAddToPool() {
-
     }
+
+    public abstract int getDefaultZIndex();
 }

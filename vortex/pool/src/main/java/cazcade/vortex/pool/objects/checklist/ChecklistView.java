@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.checklist;
 
 import cazcade.vortex.common.client.FormatUtil;
@@ -24,12 +28,10 @@ public class ChecklistView extends PoolObjectView {
     }
 
 
-    interface ChecklistViewUiBinder extends UiBinder<HTMLPanel, ChecklistView> {
-    }
+    interface ChecklistViewUiBinder extends UiBinder<HTMLPanel, ChecklistView> {}
 
     private static final ChecklistViewUiBinder ourUiBinder = GWT.create(ChecklistViewUiBinder.class);
-    @UiField
-    VerticalPanel listPanel;
+    @UiField VerticalPanel listPanel;
 
 
     public ChecklistView() {
@@ -49,8 +51,9 @@ public class ChecklistView extends PoolObjectView {
     public void onBrowserEvent(final Event event) {
         if (isEditing()) {
             ClientLog.log("Browser event while edit mode on.");
-//            label.onBrowserEvent(event);
-        } else {
+            //            label.onBrowserEvent(event);
+        }
+        else {
             super.onBrowserEvent(event);
         }
     }
@@ -58,6 +61,10 @@ public class ChecklistView extends PoolObjectView {
     @Override
     public void addView(final Widget widget) {
         listPanel.add(widget);
+    }
+
+    @Override public int getDefaultZIndex() {
+        return 1000;
     }
 
 

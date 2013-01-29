@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.alias;
 
 import cazcade.liquid.api.LiquidURI;
@@ -17,12 +21,10 @@ import javax.annotation.Nonnull;
 public class AliasReferenceView extends PoolObjectView {
 
 
-    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, AliasReferenceView> {
-    }
+    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, AliasReferenceView> {}
 
 
-    @UiField
-    AliasDetailPanel aliasDetailPanel;
+    @UiField AliasDetailPanel aliasDetailPanel;
 
     @Override
     protected void onLoad() {
@@ -43,4 +45,7 @@ public class AliasReferenceView extends PoolObjectView {
     }
 
 
+    @Override public int getDefaultZIndex() {
+        return 1000;
+    }
 }

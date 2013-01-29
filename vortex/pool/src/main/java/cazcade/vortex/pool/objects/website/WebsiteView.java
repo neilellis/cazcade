@@ -82,6 +82,10 @@ public class WebsiteView extends PoolObjectView {
         }
     }
 
+    @Override public int getDefaultZIndex() {
+        return 1000;
+    }
+
     @Override
     protected void onLoad() {
         super.onLoad();

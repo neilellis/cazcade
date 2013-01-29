@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.image;
 
 import cazcade.vortex.pool.objects.PoolObjectView;
@@ -18,11 +22,9 @@ public class ImageView extends PoolObjectView {
     }
 
 
-    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, ImageView> {
-    }
+    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, ImageView> {}
 
-    @UiField
-    Image image;
+    @UiField Image image;
 
     private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
@@ -30,7 +32,6 @@ public class ImageView extends PoolObjectView {
         super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
-        getElement().getStyle().setZIndex(9000);
     }
 
     @Override
@@ -41,6 +42,10 @@ public class ImageView extends PoolObjectView {
 
     }
 
+    @Override public int getDefaultZIndex() {
+        return 9000;
+    }
+
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -49,13 +54,13 @@ public class ImageView extends PoolObjectView {
     @Override
     public void setLogicalWidth(final int width) {
         super.setLogicalWidth(width);
-//        image.setWidth(width + "px");
+        //        image.setWidth(width + "px");
     }
 
     @Override
     public void setLogicalHeight(final int height) {
         super.setLogicalHeight(height);
-//        image.setHeight(height + "px");
+        //        image.setHeight(height + "px");
     }
 
 

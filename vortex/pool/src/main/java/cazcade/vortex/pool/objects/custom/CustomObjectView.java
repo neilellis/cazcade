@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.custom;
 
 import cazcade.vortex.pool.objects.PoolObjectView;
@@ -38,7 +42,8 @@ public class CustomObjectView extends PoolObjectView {
     public void resetMode() {
         if (image.getUrl() == null || image.getUrl().isEmpty()) {
             editMode();
-        } else {
+        }
+        else {
             viewMode();
         }
     }
@@ -48,11 +53,9 @@ public class CustomObjectView extends PoolObjectView {
     }
 
 
-    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, CustomObjectView> {
-    }
+    interface ImageObjectUiBinder extends UiBinder<HTMLPanel, CustomObjectView> {}
 
-    @UiField
-    Image image;
+    @UiField Image image;
 
     @Override
     protected void onLoad() {
@@ -86,6 +89,10 @@ public class CustomObjectView extends PoolObjectView {
     public void setLogicalHeight(final int height) {
         super.setLogicalHeight(height);
         image.setHeight(height + "px");
+    }
+
+    @Override public int getDefaultZIndex() {
+        return 1000;
     }
 
 

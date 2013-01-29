@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.richtext;
 
 import cazcade.vortex.common.client.FormatUtil;
@@ -12,8 +16,7 @@ public class StickyView extends RichTextView {
 
     protected static final StickyViewUiBinder ourUiBinder = GWT.create(StickyViewUiBinder.class);
 
-    interface StickyViewUiBinder extends UiBinder<HTMLPanel, RichTextView> {
-    }
+    interface StickyViewUiBinder extends UiBinder<HTMLPanel, RichTextView> {}
 
     public StickyView() {
         super();
@@ -28,5 +31,7 @@ public class StickyView extends RichTextView {
 
     }
 
-
+    @Override public int getDefaultZIndex() {
+        return 5000;
+    }
 }

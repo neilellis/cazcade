@@ -114,5 +114,9 @@ public class PhotoView extends PoolObjectView {
         effect.setHeight(image.getOffsetHeight() + "px");
     }
 
+    @Override public int getDefaultZIndex() {
+        return 1000;
+    }
+
 
 }

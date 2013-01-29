@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.youtube;
 
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -32,12 +36,13 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
         this.videoId = videoId;
         //wmode=transparent is required to stop visual artifacts, but we do need to look at a way to optimize this
         //because transparent is a lot slower.
-//        final String imageUrl = "http://img.youtube.com/vi/" + videoId + ((size == null || size.equals(SMALL)) ? "/default.jpg" : "/hqdefault.jpg");
+        //        final String imageUrl = "http://img.youtube.com/vi/" + videoId + ((size == null || size.equals(SMALL)) ? "/default.jpg" : "/hqdefault.jpg");
         final String imageUrl = "http://img.youtube.com/vi/" + videoId + "/hqdefault.jpg";
         image.setUrl(imageUrl);
         if (SMALL.equals(size)) {
             image.setSize(CachedImage.MEDIUM);
-        } else {
+        }
+        else {
             image.setSize(CachedImage.LARGE);
         }
         videoFrameHolder.getElement().getStyle().setBackgroundImage(imageUrl);
@@ -48,7 +53,8 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
     public void resetMode() {
         if (videoId == null) {
             editMode();
-        } else {
+        }
+        else {
             viewMode();
         }
     }
@@ -85,16 +91,12 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
         }
     }
 
-    interface YouTubeUiBinder extends UiBinder<HTMLPanel, YouTubeView> {
-    }
+    interface YouTubeUiBinder extends UiBinder<HTMLPanel, YouTubeView> {}
 
 
-    @UiField
-    IFrameElement videoFrame;
-    @UiField
-    HTMLPanel videoFrameHolder;
-    @UiField
-    CachedImage image;
+    @UiField IFrameElement videoFrame;
+    @UiField HTMLPanel     videoFrameHolder;
+    @UiField CachedImage   image;
 
 
     @Override
@@ -120,6 +122,10 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
                 image.setHeight(LARGE_HEIGHT + "px");
             }
         }
+    }
+
+    @Override public int getDefaultZIndex() {
+        return 1000;
     }
 
     @Override
@@ -157,14 +163,14 @@ public class YouTubeView extends PoolObjectView implements HasValueChangeHandler
     @Override
     public void setLogicalWidth(final int width) {
         super.setLogicalWidth(width);
-//        videoFrameHolder.setWidth(width + "px");
+        //        videoFrameHolder.setWidth(width + "px");
     }
 
     @Override
     public void setLogicalHeight(final int height) {
         //resizing not supported
         super.setLogicalHeight(height);
-//        videoFrameHolder.setHeight(height + "px");
+        //        videoFrameHolder.setHeight(height + "px");
     }
 
 

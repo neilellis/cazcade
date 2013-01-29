@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.richtext;
 
 import cazcade.vortex.gwt.util.client.ClientLog;
@@ -18,14 +22,10 @@ import javax.annotation.Nullable;
  */
 public class RichTextView extends PoolObjectView {
     private Runnable onChangeAction;
-    @UiField
-    EditableLabel label;
-    @UiField
-    Label dateTime;
-    @UiField
-    Label location;
-    @UiField
-    Label authorName;
+    @UiField EditableLabel label;
+    @UiField Label         dateTime;
+    @UiField Label         location;
+    @UiField Label         authorName;
 
     @Override
     protected void onLoad() {
@@ -41,8 +41,8 @@ public class RichTextView extends PoolObjectView {
     }
 
     public void setText(@Nonnull final String value) {
-//        label.setWordWrap(true);
-//        label.setText(SimpleHtmlSanitizer.sanitizeHtml(value));
+        //        label.setWordWrap(true);
+        //        label.setText(SimpleHtmlSanitizer.sanitizeHtml(value));
         label.setText(value);
         label.setEditable(isEditable());
         label.setOnEditAction(new Runnable() {
@@ -73,9 +73,14 @@ public class RichTextView extends PoolObjectView {
     public void onBrowserEvent(final Event event) {
         if (isEditing()) {
             ClientLog.log("Browser event while edit mode on.");
-//            label.onBrowserEvent(event);
-        } else {
+            //            label.onBrowserEvent(event);
+        }
+        else {
             super.onBrowserEvent(event);
         }
+    }
+
+    @Override public int getDefaultZIndex() {
+        return 1000;
     }
 }

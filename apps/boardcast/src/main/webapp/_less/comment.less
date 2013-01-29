@@ -1,97 +1,90 @@
 .vortex-add-comment-box {
-    position: relative;
-    margin-bottom: 10px;
-    width:100%;
-    button {
-        position: absolute;
-        top:30px;
-        right: 180px;
-    }
+  position: relative;
+  margin-bottom: 10px;
+  width: 100%;
+  button {
+    position: absolute;
+    top: 30px;
+    right: 180px;
+  }
 }
-
 
 .hashbo-chat {
-    .vortex-add-comment-box {
-        position: relative;
-        margin-bottom: 10px;
-        width:100%;
-        background-color: #eee;
+  .vortex-add-comment-box {
+    .gwt-RichTextArea {
     }
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: #eee;
+  }
 }
-
 
 .hashbo-add-comment {
+  display: inline;
+  .twitter-signin {
     display: inline;
-    .twitter-signin {
-        display: inline;
-        img {
-            margin-bottom:-6px;
-        }
+    img {
+      margin-bottom: -6px;
     }
+  }
 }
 
-
-
-
 .comment-panel {
-    margin-top: 16px;
-    margin-bottom: 24px;
-    width:1004px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+  width: 1004px;
 
-    .comment-entry-panel {
-        .transition3(max-height ease-in-out 2000ms, height ease-in-out 2000ms, opacity ease-in-out 500ms);
-        .row;
-        .clearfix();
-        overflow:hidden;
-        margin-top:8px;
+  .comment-entry-panel {
+    .transition3(max-height ease-in-out 2000ms, height ease-in-out 2000ms, opacity ease-in-out 500ms);
+    .row;
+    .clearfix();
+    overflow: hidden;
+    margin-top: 8px;
 
-        .comment-entry-user-panel {
-            .span1;
-            .gridColumn();
-        }
+    .comment-entry-user-panel {
+      .span1;
+      .gridColumn();
+    }
 
-        .comment-entry-details {
-            width:100%;
-            color:black;
-            font-size:14px;
-            display: block;
-            clear:both;
-            margin-bottom: 6px;
-        }
+    .comment-entry-details {
+      width: 100%;
+      font-size: 14px;
+      display: block;
+      clear: both;
+      margin-bottom: 6px;
+    }
 
+    .comment-entry-main {
+      .span16;
+      .gridColumn();
 
-        .comment-entry-main {
-            .span16;
-            .gridColumn();
+      .comment-author-fullname-label {
+        font-size: 1.2em;
+        opacity: 0.95;
+      }
+      .comment-author-username-label {
+        font-size: 1.1em;
+        opacity: 0.8;
+      }
 
-            .comment-author-fullname-label {
-                 font-size:1.2em;
-                 opacity: 0.80;
-            }
-            .comment-author-username-label {
-                 font-size:1.1em;
-                 opacity: 0.65;
-            }
+      .comment-entry-message {
+        font-size: 15px;
+      }
 
-            .comment-entry-message {
-                font-size:15px;
-            }
+      .comment-entry-time {
+        float: right;
+        font-size: 12px;
+        opacity: 0.5;
+      }
 
-
-            .comment-entry-time {
-                float:right;
-                font-size:12px;
-                 opacity: 0.5;
-            }
-
-            .comment-author-follow-badge {
-                 font-size:0.9em;
-                 opacity: 0.6;
-            }
-
-        }
+      .comment-author-follow-badge {
+        font-size: 0.9em;
+        opacity: 0.6;
+      }
 
     }
 
+  }
 
 }

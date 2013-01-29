@@ -19,13 +19,14 @@ body {
   .font;
   font-size: 13px; /*color: #302820;*/
 
-  a {
-    color: #666;
+  .content  a {
+    color: #8995c5;
     &:hover {
-      color: @gray;
-      text-decoration: none;
+      color: #67f;
+      text-decoration: underline;
     }
     text-decoration: none;
+    border-bottom: 1px dotted #8995c5;
   }
 
   div {
@@ -62,7 +63,8 @@ body {
   padding: 20px;
   padding-top: 0px;
   padding-bottom: 0px;
-  margin: 0px -20px 0px 0px;
+  margin: 0px -20px 0px 0px; //  background: url('/_images/wallpapers/noise-vlight-grey.jpg');
+  background-color: #fefefe;
 
 /* negative indent the amount of the padding to maintain the grid system */
 /*-webkit-border-radius: 0 0 6px 6px;*/
@@ -73,6 +75,7 @@ body {
 /*box-shadow: 0 1px 2px rgba(0, 0, 0, .15);*/
   border-left: 10px solid #fefefe;
   border-right: 10px solid #fefefe;
+  border-bottom: 10px solid #fefefe;
   .box-shadow(0 10px 10px rgba(0,0,0,0.9));
 
 }
@@ -104,6 +107,9 @@ body {
 .topbar {
   .btn {
     border: 0;
+  }
+  .fill {
+    background: @blackTexture;
   }
 
 }
@@ -224,6 +230,8 @@ img.logged-in-user-icon {
     &:hover {
       font-weight: bolder;
       text-decoration: none;
+      border-bottom: none;
+
     }
   }
 }

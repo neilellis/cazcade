@@ -3,55 +3,30 @@
 .board-panel { //            .left-right-shadows(6px);
 }
 
-.board-footer .content {
-  border: none;
-  .box-shadow(none);
-
-}
-
-.chat .container {
-  margin-right: 500px;
-}
-
-.modifiable-board:hover {
-
-}
-
-.board-locked {
-  position: absolute;
-  top: 43px;
-  left: 6px;
-  width: 48px;
-  height: 48px;
-  background-image: url('../_images/board_locked_small.png');
-  visibility: visible;
-}
-
-.modifiable-board .board-locked {
-  visibility: hidden;
-}
-
-.page-bottom {
-  background-color: white;
-  margin-right: -20px;
+.main-content-panel.readonly  .page-header {
+  border-bottom: 20px solid #fefefe;
 }
 
 .page-header {
   position: relative;
   min-height: 120px;
-  color: @grayVeryDark;
-  background-color: white;
+  color: @boardHeaderTextColor;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  .shallow-inset;
+  background-color: @highlightColorLighter;
+  background-image: url('/_background/misc/corkboard.jpg');
+  background-image: url('/_images/blackboard.jpg');
   padding: 0px;
   padding-bottom: 20px;
+
   .page-header-inner {
     .absolute-full; //        background: @speckled;
     padding-bottom: 24px;
     padding-top: 12px;
     padding-left: 20px;
     padding-right: 20px;
+    margin-left: 20px;
   }
-//    .top-bottom-inset-shadows(4px);
   .board-page-header-content {
     position: absolute;
     left: 20px;
@@ -87,6 +62,117 @@
     }
   }
 
+}
+
+.board-top-menu-row {
+  margin-top: 2px;
+  margin-bottom: 0px; //  margin-right: -36px;
+  margin-left: -42px; //  background-color: #8C3E2C;
+  background: url('/_images/wallpapers/noise-vlight-grey.jpg');
+
+  background-image: url("/_images/wallpapers/linen-white-light.jpg");
+  padding: 2px;
+  padding-bottom: 0px;
+  height: 82px;
+  border-top: 1px solid #cccc;
+  border-bottom: 1px solid #bbb;
+  border-left: 1px solid #b8beb8;
+  border-right: 1px solid #b8beb8; //  .border-radius(1px);
+  .box-shadow(0px 1px 4px 2px rgba(12,11,10,0.3));
+  z-index: 1;
+  position: relative;
+  width: 1060px;
+  top: -8px;
+
+/* These are the two ribbon "curls". The :before curl is placed to the left, :after to the right */
+  &:before, &:after {
+    border-color: #606060;
+    border-style: solid;
+    border-width: 0;
+    border-top-width: 5px; /* This sets the height of the curls, making it half the width to angle the curls more. */
+    content: ''; /* Tells the browser to actually generate the pseudo element */
+    position: absolute;
+    z-index: -100;
+    display: block;
+  }
+  &:before {
+  /* Position the :before element to the left and below the ribbon element */
+    left: 0;
+    bottom: -5px; /* Equal to the height of the curl */
+    border-left: 10px solid transparent; /* Makes the curl slant right */
+  }
+  &:after {
+  /* Position the :after element to the right and below the ribbon element */
+    right: 0;
+    bottom: -5px; /* Equal to the height of the curl */
+    border-right: 10px solid transparent; /* Makes the curl slant left */
+  }
+
+}
+
+.main-content-panel.readonly   .board-top-menu-row {
+  opacity: 0;
+  max-height: 0px;
+}
+
+.board-top-bar {
+  height: 40px;
+  position: relative;
+  margin-left: -20px;
+  margin-right: -20px;
+  width: 100%;
+}
+
+.board-content {
+
+  width: 1024px;
+  height: 100%;
+  position: relative;
+  overflow: visible;
+  left: -20px;
+  margin: 0px;
+  border: 1px solid #999;
+  margin-top: 0px;
+  top: -12px;
+}
+
+.board-footer .content {
+  background-image: url('/_background/misc/corkboard.jpg');
+  .deep-inset;
+}
+
+.chat .container {
+  margin-right: 500px;
+}
+
+.modifiable-board:hover {
+
+}
+
+.board-locked {
+  position: absolute;
+  top: 43px;
+  left: 6px;
+  width: 48px;
+  height: 48px;
+  background-image: url('../_images/board_locked_small.png');
+  visibility: visible;
+}
+
+.modifiable-board .board-locked {
+  visibility: hidden;
+}
+
+.page-bottom {
+  margin-right: -20px;
+  background-image: url('/_images/blackboard.jpg');
+  color: white;
+  padding-left: 20px;
+  .shallow-inset;
+
+  h1, h2, h3, h4 {
+    color: white;
+  }
 }
 
 .board-link-row {
@@ -126,38 +212,25 @@
   }
 }
 
-.board-top-menu-row {
-  margin-bottom: 0px;
-  margin-right: -16px;
-  margin-left: -20px;
-  background-image: url("/_images/wallpapers/noise-vlight-grey.jpg");
-  padding: 2px;
-  padding-bottom: 0px;
-  height: 82px;
-  border-top: 1px solid #bbb;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc; //  .border-radius(1px);
-  .box-shadow(0px 2px 6px rgba(0,0,0,0.2));
-  z-index: 10;
-  position: absolute;
-  width: 1018px;
-
-}
-
-.board-top-bar {
-  height: 40px;
-  position: relative;
-  margin-left: -20px;
-  margin-right: -20px;
-  width: 100%;
-}
-
 .tweet-button {
   display: none;
   float: right;
   clear: both;
   margin-top: 0px;
   opacity: 0;
+}
+
+div.pool-area-content {
+  background-color: white;
+  .transition(height ease-in-out 1000ms);
+  .deep-inset;
+  padding-top: 40px;
+
+/*background-image:url('../_images/wallpapers/noise-white.jpg');*/
+/*.background-cached-image {*/
+/*overflow: hidden;*/
+/*width:1024px;*/
+/*}*/
 }
 
 body.boards-body {
@@ -187,11 +260,12 @@ body.boards-body {
   display: inline;
   float: left;
   font-size: 64px;
-  line-height: 70px;
+  line-height: 66px;
   opacity: 0.95;
   margin-left: -20px;
   margin-top: 20px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 1);
+  opacity: 0.9;
 }
 
 .board-description {
@@ -200,9 +274,10 @@ body.boards-body {
   float: left;
   font-size: 22px;
   padding-top: 10px;
-  padding-bottom: 20px; //  margin-left: 0px;
-/*padding-left: 16px;*/
+  padding-bottom: 20px;
   opacity: 0.6;
+
+  text-shadow: 0px 0px 2px 1px rgba(255, 255, 255, 0.3);
 
 }
 
@@ -296,17 +371,6 @@ body.boards-body {
 
 }
 
-.board-content { //    .box-shadow(0px 0px 4px 3px rgba(0,0,0,0.3));
-  width: 1024px;
-  height: 100%;
-  position: relative;
-  overflow: visible;
-  left: -20px;
-  margin: 0px;
-  border: 1px solid #999;
-
-}
-
 .pool-area div.pool-visibility-ribbon {
   opacity: 0;
   .transform(rotate(-45deg));
@@ -336,18 +400,6 @@ body.boards-body {
 .pool-area:hover div.pool-visibility-ribbon {
   opacity: 0;
   z-index: 1000;
-}
-
-div.pool-area-content {
-  margin-top: 86px;
-  background-color: white;
-  .transition(height ease-in-out 1000ms);
-
-/*background-image:url('../_images/wallpapers/noise-white.jpg');*/
-/*.background-cached-image {*/
-/*overflow: hidden;*/
-/*width:1024px;*/
-/*}*/
 }
 
 .pool-area-inset {
@@ -870,16 +922,14 @@ div.pool-area-content {
   left: 10px;
 }
 
-.board-footer {
-  .box-shadow(0 -2px 2px rgba(0,0,0,0.5));
-  pading-top: 10px;
-  background-color: #555;
-  background: url('../_images/wallpapers/noise-black.jpg');
+.board-footer { //  .box-shadow(0 -2px 2px rgba(0,0,0,0.5));
+  pading-top: 10px; //  background-color: #555;
+//  background: url('../_images/wallpapers/noise-black.jpg');
   width: 100%;
   height: 100%;
-  color: #fbfbfb;
+  color: #111;
   div, p, span, h1, h2, h3, h4, h5, h6 {
-    color: #fbfbfb;
+    color: #222;
   }
   h1, h2, h3 {
     text-align: center;
@@ -903,6 +953,14 @@ div.pool-area-content {
     p {
       font-size: 12px;
     }
+  }
+
+  .footer-lhs, .footer-middle, .footer-rhs {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.5));
+
   }
 
 }

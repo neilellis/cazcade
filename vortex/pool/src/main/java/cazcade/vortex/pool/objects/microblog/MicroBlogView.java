@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.microblog;
 
 import cazcade.vortex.pool.objects.PoolObjectView;
@@ -13,22 +17,22 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  * @author neilellis@cazcade.com
  */
 public class MicroBlogView extends PoolObjectView {
-    interface MicroBlogViewUiBinder extends UiBinder<HTMLPanel, MicroBlogView> {
-    }
+    interface MicroBlogViewUiBinder extends UiBinder<HTMLPanel, MicroBlogView> {}
 
     private static final MicroBlogViewUiBinder ourUiBinder = GWT.create(MicroBlogViewUiBinder.class);
-    @UiField
-    ImageElement image;
-    @UiField
-    HeadingElement title;
-    @UiField
-    SpanElement shortText;
+    @UiField ImageElement   image;
+    @UiField HeadingElement title;
+    @UiField SpanElement    shortText;
 
     public MicroBlogView() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         setLogicalWidth(300);
         setLogicalHeight(100);
+    }
+
+    @Override public int getDefaultZIndex() {
+        return 1000;
     }
 
     public void setProfileImage(final String url) {
