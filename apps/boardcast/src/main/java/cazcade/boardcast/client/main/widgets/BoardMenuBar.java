@@ -72,6 +72,7 @@ public class BoardMenuBar extends MenuBar {
                     //                    final MenuItem add = addItem("Add", addMenubar);
                     //                    add.addStyleName("board-menu-add");
                 }
+                addSeparator();
                 if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
                     accessMenuBar = new MenuBar(true);
                     //                    addItem(new MenuItem("<div width='100%'>", true, new Scheduler.ScheduledCommand() {
@@ -79,7 +80,6 @@ public class BoardMenuBar extends MenuBar {
                     //
                     //                        }
                     //                    }));
-                    addSeparator();
                     addItem(iconWithName("key", "Access"), accessMenuBar);
                     createAccessMenu(board);
                 }

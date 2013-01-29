@@ -33,16 +33,15 @@ body {
     .transition-opacity;
   }
 
-  background: none; //            background-image: @bodyTexture;
-  background-image: url("/_images/wallpapers/noise-grey.jpg");
+  background: none;
+  background: white;
 
 }
 
 .inner-body {
   min-height: 100%;
-  height: auto; //            background: @white;
-//            background-image: @backgroundTexture;
-  background-image: url("/_images/wallpapers/pattern_diagonal_light_grey.png");
+  height: auto; //
+  background-image: @backgroundTexture;
   width: 100%;
   overflow: none;
   position: static;
@@ -60,10 +59,12 @@ body {
 
 /* The white background content wrapper */
 .content {
-  padding: 20px;
+  margin: 0px -20px 0px 0px;
   padding-top: 0px;
-  padding-bottom: 0px;
-  margin: 0px -20px 0px 0px; //  background: url('/_images/wallpapers/noise-vlight-grey.jpg');
+  padding-right: 10px;
+  padding-left: 30px;
+  padding-bottom: 10px;
+  background: @thickBorderColor;
   background-color: #fefefe;
 
 /* negative indent the amount of the padding to maintain the grid system */
@@ -72,23 +73,11 @@ body {
 /*border-radius: 0 0 6px 6px;*/
 /*-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);*/
 /*-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);*/
-/*box-shadow: 0 1px 2px rgba(0, 0, 0, .15);*/
-  border-left: 10px solid #fefefe;
-  border-right: 10px solid #fefefe;
-  border-bottom: 10px solid #fefefe;
+/*box-shadow: 0 1px 2px rgba(0, 0, 0, .15);*/ //  border-left: 10px solid @thickBorderColor;
+//  border-right: 10px solid @thickBorderColor;
+//  border-bottom: 10px solid @thickBorderColor;
   .box-shadow(0 10px 10px rgba(0,0,0,0.9));
 
-}
-
-/* Page header tweaks */
-.page-header {
-  padding: 20px;
-  margin: -20px -20px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-bottom: 10px;
-  max-height: 999px;
-  border: none;
 }
 
 /* Styles you shouldn't keep as they are for displaying this base example only */
@@ -108,8 +97,14 @@ body {
   .btn {
     border: 0;
   }
-  .fill {
-    background: @blackTexture;
+  .fill { //    background:;
+  }
+
+  a {
+    color: white;
+    &:hover {
+      color: @highlightColorLighter !important;
+    }
   }
 
 }
@@ -140,8 +135,7 @@ h1, h2, h3, h4, h5, h6 {
 
 img.logged-in-user-icon {
   margin-top: 4px;
-  .border-radius(2px);
-  border: solid 1px #333;
+  .border-radius(2px); //  border: solid 1px #333;
 }
 
 .account {
@@ -215,8 +209,7 @@ img.logged-in-user-icon {
   position: relative;
   top: 2.5em;
 
-/* Defaults friendly for white pages. */
-  .box-shadow(0 0 8px #888);
+  .box-shadow(0 0 8px #000);
   color: #FFF;
   display: block;
   line-height: 1.35em;
@@ -224,6 +217,7 @@ img.logged-in-user-icon {
   width: 145px;
   height: 28px;
   text-align: center;
+  .handwriting-font;
 
   a {
     color: white;
@@ -266,6 +260,16 @@ img.logged-in-user-icon {
 .orange.rib {
   background-color: #E57504;
   #gradient >.vertical(#dc7202,#ee7906);
+}
+
+.blue.rib {
+  background-color: #0000cc;
+  #gradient >.vertical(#0000cc,#0000bb);
+}
+
+.black.rib {
+  background-color: #111;
+  #gradient >.vertical(#111,#222);
 }
 
 @import "widgets.less";
@@ -354,120 +358,6 @@ img.logged-in-user-icon {
 }
 
 @import "menubar.less";
-
-/*
-.hashbo-top-menu {
-    float: right;
-    width: 200px;
-}
-
-.hashbo-top-menu table {
-    float: right;
-}
-
-
-.hashbo-top-menuPopup  .gwt-MenuBar-vertical table td {
-    width: 190px;
-}
-
-.hashbo-top-menuPopup .gwt-MenuItem {
-    font-size: 0.6em;
-    color: #ddd;
-    font-weight: bolder;
-    padding: 1px 4px 1px 3px;
-    text-align: right;
-
-}
-
-.hashbo-top-menuPopup .gwt-MenuItem-selected {
-    color: #fff;
-    background-image: @blackTexture;
-}
-
-*/
-
-/* End Menus */
-
-/*
-.vortex-image-uploader .upld-multiple {
-    font-size: 1.2em;
-}
-
-
-.hashbo-profile-editor {
-    z-index: 10001;
-}
-
-.hashbo-profile-editor .popupContent {
-    background-color: #333;
-    border-radius: 4px;
-    padding: 10px;
-    color: #eee;
-    border: 5px #222 solid;
-    z-index: 15000;
-}
-
-.hashbo-profile-editor .popupContent table {
-    width: 100%;
-}
-
-.hashbo-profile-editor .popupContent td {
-    height: 100%;
-    width: 100%;
-}
-
-.hashbo-profile-editor-cancel-link {
-    float: right;
-    display: inline;
-}
-
-.hashbo-profile-editor-change-button {
-    font-size: 0.6em;
-    padding: 4px;
-    margin-top: 20px;
-    display: inline;
-    float: right;
-}
-
-.popupContent  .vortex-image-uploader h2 {
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: center;
-    color: whitesmoke;
-}
-
-.popupContent .vortex-image-uploader-single-image-preview img {
-    background-color: #333;
-    border-radius: 4px;
-    border: 2px #313131 solid;
-    margin: 12px;
-    width: 128px;
-    height: 128px;
-}
-
-.vortex-image-uploader .gwt-FileUpload {
-    padding: 5px;
-    color: white;
-}
-
-.gwt-PopupPanel .vortex-image-uploader table.GWTUpld {
-    background-color: #666;
-    border: none;
-    width: 100%;
-}
-
-.vortex-image-uploader .vortex-image-uploader-loader-area {
-    background-color: #666;
-    color: white;
-    border: 1px solid #888;
-    width: 180px;
-    overflow: hidden;
-    padding-right: 4px;
-    margin-top: 4px;
-
-}
-
-*/
 
 /* Address */
 
