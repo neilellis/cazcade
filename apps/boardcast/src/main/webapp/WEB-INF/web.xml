@@ -37,11 +37,11 @@
     <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
     <!--</listener>-->
     <!--<servlet>-->
-    <!--<servlet-name>hashbogwt</servlet-name>-->
-    <!--<servlet-class>com.hashbo.server.HashBoServiceImpl</servlet-class>-->
+    <!--<servlet-name>boardcastgwt</servlet-name>-->
+    <!--<servlet-class>com.boardcast.server.BoardcastServiceImpl</servlet-class>-->
     <!--</servlet>-->
     <!--<servlet-mapping>-->
-    <!--<servlet-name>hashbogwt</servlet-name>-->
+    <!--<servlet-name>boardcastgwt</servlet-name>-->
     <!--<url-pattern>/gwt/main</url-pattern>-->
     <!--</servlet-mapping>-->
     <filter>
@@ -70,7 +70,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/hashbo-web.xml</param-value>
+        <param-value>/WEB-INF/boardcast-web.xml</param-value>
     </context-param>
 
     <listener>

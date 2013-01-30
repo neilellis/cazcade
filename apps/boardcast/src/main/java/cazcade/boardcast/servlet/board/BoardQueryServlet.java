@@ -76,7 +76,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             final BoardQueryRequest request = new BoardQueryRequest(liquidSessionId, type, alias);
             request.setMax(MAX);
             final BoardQueryRequest response = dataStore.process(request);
-            //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/hashbo/public"), ChildSortOrder.POPULARITY, false));
+            //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/boardcast/public"), ChildSortOrder.POPULARITY, false));
             final List<LSDTransferEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
             req.setAttribute("boards", makeJSPFriendly(req, boards));
             req.setAttribute("title", titleLookup.get(queryName));

@@ -8,10 +8,9 @@
 }
 
 .page-header {
-  padding: 20px;
   margin-left: -20px;
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   max-height: 999px;
   border: none;
   margin-right: 0px;
@@ -71,10 +70,10 @@
 }
 
 .board-top-menu-row {
-  margin-top: 2px;
+  margin-top: 4px;
   margin-bottom: 0px;
   margin-left: -42px;
-  background-image: @menuBackground;
+  background: @menuBackground;
   padding: 2px;
   padding-bottom: 0px;
   height: 82px;
@@ -86,7 +85,7 @@
   z-index: 1;
   position: relative;
   width: 1060px;
-  top: -8px;
+  top: -10px;
 
 /* These are the two ribbon "curls". The :before curl is placed to the left, :after to the right */
   &:before, &:after {
@@ -141,8 +140,15 @@
 }
 
 .board-footer .content {
-  background-image: @corkboard;
-  .deep-inset;
+  background: url('/_images/torn/white-800.png') no-repeat;
+  min-height: 350px;
+  max-height: 350px;
+  margin-bottom: 100px;
+  .box-shadow(none);
+  max-width: 940px;
+  width: 940px;
+  margin-left: 30px;
+
 }
 
 .chat .container {
@@ -216,11 +222,18 @@
 }
 
 .tweet-button {
-  display: none;
-  float: right;
-  clear: both;
   margin-top: 0px;
-  opacity: 0;
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  z-index: 100000;
+  width: 80px;
+  height: 20px;
+  opacity: 0.6;
+  &:hover {
+    opacity: 1.0;
+  }
+
 }
 
 div.pool-area-content {
@@ -797,7 +810,7 @@ body.boards-body {
 
 //Chat View
 
-.hashbo-main {
+.boardcast-main {
   position: absolute;
   top: 40px;
   left: 0;
@@ -807,11 +820,11 @@ body.boards-body {
 
 }
 
-/*.rhs-minimized .hashbo-main {*/
+/*.rhs-minimized .boardcast-main {*/
 /*right: 50px;*/
 /*}*/
 
-.hashbo-rhs {
+.boardcast-rhs {
   position: fixed;
   right: 0px;
   width: 500px;
@@ -822,7 +835,7 @@ body.boards-body {
   .box-shadow(-4px 0 6px 2px rgba(30,30,30,0.5));
   background-image: url('../_images/wallpapers/linen-black.jpg');
 
-  .hashbo-rhs-inner {
+  .boardcast-rhs-inner {
     position: relative;
     height: 100%;
   }
@@ -839,7 +852,7 @@ body.boards-body {
   z-index: 2;
 }
 
-/*.rhs-minimized .hashbo-rhs {*/
+/*.rhs-minimized .boardcast-rhs {*/
 /*right: -450px;*/
 /*}*/
 
@@ -901,11 +914,11 @@ body.boards-body {
 
 }
 
-.hashbo-chat {
+.boardcast-chat {
   opacity: 0;
 }
 
-.chat .hashbo-chat {
+.chat .boardcast-chat {
   opacity: 1;
   position: fixed;
   min-width: 500px;
@@ -931,6 +944,8 @@ body.boards-body {
   width: 100%;
   height: 100%;
   color: #111;
+  position: relative;
+  z-index: 0;
   div, p, span, h1, h2, h3, h4, h5, h6 {
     color: #222;
   }
@@ -940,12 +955,13 @@ body.boards-body {
 
   .footer-lhs {
     padding: 16px;
+    max-width: 300px;
   }
 
   .footer-middle {
     padding: 16px;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.07);
+    border-right: 1px solid rgba(0, 0, 0, 0.07);
     p {
       font-size: 12px;
     }
@@ -960,10 +976,9 @@ body.boards-body {
 
   .footer-lhs, .footer-middle, .footer-rhs {
     margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: white;
-    .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.5));
-
+    margin-bottom: 20px; //    background-color: white;
+  //    .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.5));
+  //
   }
 
 }

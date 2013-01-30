@@ -30,7 +30,7 @@ public class FountainNeoIntializer {
     @Nonnull
     public static final  LiquidSessionIdentifier ADMIN_SESSION    = new LiquidSessionIdentifier(CommonConstants.ADMIN, null);
     @Nonnull
-    public static final  String                  HASHBO           = "hashbo";
+    public static final  String                  BOARDCAST        = "boardcast";
     @Nonnull
     private static final Logger                  log              = Logger.getLogger(FountainNeoIntializer.class);
     @Autowired FountainNeoImpl fountainNeo;
@@ -124,7 +124,7 @@ public class FountainNeoIntializer {
 
                 poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo.getRootPool(), "bluetooth", (double) 0, (double) 0, null, false);
 
-                createHashboUser();
+                createBoardcastUser();
                 createAnonUser();
                 createAdminUser();
                 return null; //TODO
@@ -144,16 +144,16 @@ public class FountainNeoIntializer {
         //        poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:system"), FountainNeoImpl.SYSTEM, "Administrator", true);
     }
 
-    private void createHashboUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDTransferEntity hashboUser = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
-        hashboUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, DEFAULT_PASSWORD);
-        hashboUser.setAttribute(LSDAttribute.NAME, HASHBO);
-        hashboUser.setAttribute(LSDAttribute.FULL_NAME, "Hashbo");
-        hashboUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@hashbo.com");
+    private void createBoardcastUser() throws InterruptedException, UnsupportedEncodingException {
+        final LSDTransferEntity boardcastUser = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
+        boardcastUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, DEFAULT_PASSWORD);
+        boardcastUser.setAttribute(LSDAttribute.NAME, BOARDCAST);
+        boardcastUser.setAttribute(LSDAttribute.FULL_NAME, "Boardcast");
+        boardcastUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@boardcast.it");
 
-        userDAO.createUser(hashboUser, false);
-        poolDAO.createPoolsForUserNoTx(HASHBO);
-        poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:hashbo"), "hashbo", "Hashbo", false);
+        userDAO.createUser(boardcastUser, false);
+        poolDAO.createPoolsForUserNoTx(BOARDCAST);
+        poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:boardcast"), "boardcast", "Boardcast", false);
     }
 
     private void createAnonUser() throws InterruptedException, UnsupportedEncodingException {
@@ -168,13 +168,13 @@ public class FountainNeoIntializer {
     }
 
     private void createAdminUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDSimpleEntity hashboUser = (LSDSimpleEntity) LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
-        hashboUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, CommonConstants.ADMIN);
-        hashboUser.setAttribute(LSDAttribute.NAME, CommonConstants.ADMIN);
-        hashboUser.setAttribute(LSDAttribute.FULL_NAME, "Admin");
-        hashboUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM);
+        final LSDSimpleEntity boardcastUser = (LSDSimpleEntity) LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
+        boardcastUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, CommonConstants.ADMIN);
+        boardcastUser.setAttribute(LSDAttribute.NAME, CommonConstants.ADMIN);
+        boardcastUser.setAttribute(LSDAttribute.FULL_NAME, "Admin");
+        boardcastUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM);
 
-        final LSDPersistedEntity user = userDAO.createUser(hashboUser, false);
+        final LSDPersistedEntity user = userDAO.createUser(boardcastUser, false);
         poolDAO.createPoolsForUserNoTx(CommonConstants.ADMIN);
         poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:admin"), CommonConstants.ADMIN, "Admin", false);
     }

@@ -34,7 +34,10 @@ import cazcade.vortex.widgets.client.stream.CommentPanel;
 import cazcade.vortex.widgets.client.stream.NotificationPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
-import com.google.gwt.dom.client.*;
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.IFrameElement;
+import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -45,7 +48,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -325,7 +327,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     .asUrlSafe()) +
                                "&text=" + encode("Check out " +
                                                  entity.getAttribute(LSDAttribute.TITLE, "this board") +
-                                                 " on Boardcast #bc") + "&count=horizontal");
+                                                 " on Boardcast #bc") + "&count=horizontal&hashtags=bc&via=boardcast_it");
         }
         else {
             profileBoardHeader.setVisible(true);
@@ -402,7 +404,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     //                    alt="${board.description}"/>
 
                     //bottom toolbar
-                    configureShareThis(imageUrl, boardTitle, shortUrl);
+                    //                    configureShareThis(imageUrl, boardTitle, shortUrl);
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.init(PublicBoard.this, getEntity(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
@@ -437,19 +439,19 @@ public class PublicBoard extends EntityBackedFormPanel {
         });
     }
 
-    private void configureShareThis(String imageUrl, String boardTitle, String board) {
-        final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName("span");
-        final int max = spans.getLength();
-        for (int i = 0; i < max; i++) {
-            final Element span = spans.getItem(i);
-            if (span.hasAttribute("class") && "stButton".equalsIgnoreCase(span.getAttribute("class"))) {
-                setShareThisDetails(board, "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null
-                                                                                                           ? ""
-                                                                                                           : imageUrl, span);
-            }
-
-        }
-    }
+    //    private void configureShareThis(String imageUrl, String boardTitle, String board) {
+    //        final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName("span");
+    //        final int max = spans.getLength();
+    //        for (int i = 0; i < max; i++) {
+    //            final Element span = spans.getItem(i);
+    //            if (span.hasAttribute("class") && "stButton".equalsIgnoreCase(span.getAttribute("class"))) {
+    //                setShareThisDetails(board, "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null
+    //                                                                                                           ? ""
+    //                                                                                                           : imageUrl, span);
+    //            }
+    //
+    //        }
+    //    }
 
     @Nonnull
     private String buildVisibilityDescription() {
@@ -500,18 +502,18 @@ public class PublicBoard extends EntityBackedFormPanel {
         return description;
     }
 
-    private static native void setShareThisDetails(String board, String title, String summary, String image, Element element) /*-{
-        $wnd.stWidget.addEntry({
-            "service": "sharethis",
-            "element": element,
-            "url": "http://boardca.st/" + board,
-            "title": title,
-            "image": image,
-            "summary": summary,
-            "text": "Share"
-        });
-
-    }-*/;
+    //    private static native void setShareThisDetails(String board, String title, String summary, String image, Element element) /*-{
+    //        $wnd.stWidget.addEntry({
+    //            "service": "sharethis",
+    //            "element": element,
+    //            "url": "http://boardca.st/" + board,
+    //            "title": title,
+    //            "image": image,
+    //            "summary": summary,
+    //            "text": "Share"
+    //        });
+    //
+    //    }-*/;
 
 
     @Override

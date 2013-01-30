@@ -21,7 +21,7 @@ import java.util.List;
 @Transactional
 public class AliasDAOImpl implements AliasDAO {
     @Nonnull
-    public static final String SYSTEM_USER = "hashbo";
+    public static final String SYSTEM_USER = "boardcast";
 
     @Nonnull
     private final Logger log = Logger.getLogger(AliasDAOImpl.class);

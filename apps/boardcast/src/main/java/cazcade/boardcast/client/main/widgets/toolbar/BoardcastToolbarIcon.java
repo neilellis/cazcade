@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.toolbar;
 
 import com.google.gwt.core.client.GWT;
@@ -16,7 +20,7 @@ import com.google.gwt.user.client.ui.Label;
  * Time: 15:32
  * To change this template use File | Settings | File Templates.
  */
-public class HashboToolbarIcon extends Composite {
+public class BoardcastToolbarIcon extends Composite {
 
     public void setSrc(final String src) {
         image.setUrl(src);
@@ -26,16 +30,13 @@ public class HashboToolbarIcon extends Composite {
         label.setText(text);
     }
 
-    interface ToolbarIconUiBinder extends UiBinder<HTMLPanel, HashboToolbarIcon> {
-    }
+    interface ToolbarIconUiBinder extends UiBinder<HTMLPanel, BoardcastToolbarIcon> {}
 
     private static final ToolbarIconUiBinder ourUiBinder = GWT.create(ToolbarIconUiBinder.class);
-    @UiField
-    Image image;
-    @UiField
-    Label label;
+    @UiField Image image;
+    @UiField Label label;
 
-    public HashboToolbarIcon() {
+    public BoardcastToolbarIcon() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         getWidget().sinkEvents(Event.ONCLICK);

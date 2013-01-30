@@ -12,6 +12,10 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Properties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <%
     final LSDBaseEntity user = (LSDBaseEntity) session.getAttribute(CommonConstants.NEW_USER_ATTRIBUTE);
     if (user == null) {
@@ -19,15 +23,15 @@
     }
     final String host = "smtp.sendgrid.net";
     final String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
-    final String from = "info@hashbo.com";
+    final String from = "info@boardcast.com";
 
     final String name = user.getAttribute(LSDAttribute.FULL_NAME);
     final String subject = "Welcome!";
 
     final StandardStringDigester digester = new StandardStringDigester();
-    final String messageText = "Please click on this link to register: http://beta.hashbo.com/confirm_reg.jsp?user=" +
-            URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
-            "&hash=" + URLEncoder.encode(digester.digest(to), "utf8");
+    final String messageText = "Please click on this link to register: http://beta.boardcast.com/confirm_reg.jsp?user=" +
+                               URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                               "&hash=" + URLEncoder.encode(digester.digest(to), "utf8");
 
     final boolean sessionDebug = false;
     final Properties props = System.getProperties();
@@ -37,7 +41,7 @@
     final Session mailSession = Session.getDefaultInstance(props, null);
     mailSession.setDebug(sessionDebug);
     final Message msg = new MimeMessage(mailSession);
-    msg.setFrom(new InternetAddress(from, "Hashbo"));
+    msg.setFrom(new InternetAddress(from, "Boardcast"));
     final InternetAddress[] address = {new InternetAddress(to)};
     msg.setRecipients(Message.RecipientType.TO, address);
     msg.setSubject(subject);
@@ -46,7 +50,7 @@
 
     msg.saveChanges();
     final Transport transport = mailSession.getTransport("smtp");
-    transport.connect(host, "hashbo", "thx1139");
+    transport.connect(host, "boardcast", "thx1139");
     transport.sendMessage(msg, msg.getAllRecipients());
     transport.close();
 
@@ -54,7 +58,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-    <title>Hashbo Registration</title>
+    <title>Boardcast Registration</title>
     <link rel="stylesheet" href="_css/static.css">
     <script type="text/javascript">
 
@@ -62,7 +66,7 @@
         _gaq.push(['_setAccount', 'UA-25104667-1']);
         _gaq.push(['_trackPageview']);
 
-        (function() {
+        (function () {
             var ga = document.createElement('script');
             ga.type = 'text/javascript';
             ga.async = true;

@@ -42,7 +42,7 @@
     </script>
 
 
-    <tags:hashbo-less/>
+    <tags:boardcast-less/>
 
 
     <div id="cache-panel">
@@ -71,9 +71,6 @@
 
 </div>
 
-<span id="sharethisbar">
-    <%@ include file="bottom-toolbar.jspf" %>
-</span>
 
 <script type="text/javascript" language="javascript"
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>

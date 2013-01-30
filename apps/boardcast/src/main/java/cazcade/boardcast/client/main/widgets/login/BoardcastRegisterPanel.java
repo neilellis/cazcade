@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.login;
 
 import cazcade.liquid.api.lsd.LSDBaseEntity;
@@ -21,31 +25,23 @@ import javax.annotation.Nullable;
 /**
  * @author neilellis@cazcade.com
  */
-public class HashboRegisterPanel extends Composite {
+public class BoardcastRegisterPanel extends Composite {
     private static final RegisterPanelUiBinder ourUiBinder = GWT.create(RegisterPanelUiBinder.class);
-    @UiField
-    UsernameTextBox username;
-    @UiField
-    VortexPasswordTextBox password;
-    @UiField
-    VortexPasswordTextBox passwordConfirm;
-    @UiField
-    Button registerButton;
-    @UiField
-    Label registerErrorMessage;
-    @UiField
-    Hyperlink login;
-    @UiField
-    RegexTextBox fullname;
-    @UiField
-    RegexTextBox email;
+    @UiField UsernameTextBox       username;
+    @UiField VortexPasswordTextBox password;
+    @UiField VortexPasswordTextBox passwordConfirm;
+    @UiField Button                registerButton;
+    @UiField Label                 registerErrorMessage;
+    @UiField Hyperlink             login;
+    @UiField RegexTextBox          fullname;
+    @UiField RegexTextBox          email;
 
-    private Runnable onSwitchToLoginAction;
-    private Runnable onSuccessAction;
+    private Runnable      onSwitchToLoginAction;
+    private Runnable      onSuccessAction;
     @Nullable
     private LSDBaseEntity newUser;
 
-    public HashboRegisterPanel() {
+    public BoardcastRegisterPanel() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         registerButton.addClickHandler(new ClickHandler() {
@@ -53,39 +49,34 @@ public class HashboRegisterPanel extends Composite {
             public void onClick(final ClickEvent event) {
                 submit();
             }
-        }
-                                      );
+        });
         username.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
                 submit();
             }
-        }
-                                  );
+        });
 
         password.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
                 submit();
             }
-        }
-                                  );
+        });
 
         passwordConfirm.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
                 submit();
             }
-        }
-                                         );
+        });
 
         login.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
                 onSwitchToLoginAction.run();
             }
-        }
-                             );
+        });
 
         passwordConfirm.setPairedBox(password);
     }
@@ -105,29 +96,30 @@ public class HashboRegisterPanel extends Composite {
         }
         Track.getInstance().trackEvent("Register", "Submit");
 
-        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(),
-                                                    email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
-            @Override
-            public void onFailure(final Throwable caught) {
-                ClientLog.log(caught);
-                Track.getInstance().trackEvent("Register", "Error");
-            }
+        DataStoreService.App
+                        .getInstance()
+                        .register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
+                            @Override
+                            public void onFailure(final Throwable caught) {
+                                ClientLog.log(caught);
+                                Track.getInstance().trackEvent("Register", "Error");
+                            }
 
-            @Override
-            public void onSuccess(@Nullable final LSDTransferEntity result) {
-                if (result == null) {
-                    registerErrorMessage.setText("Could not register you.");
-                    Track.getInstance().trackEvent("Register", "Fail");
-                }
-                else {
-                    newUser = result;
-                    Track.getInstance().userRegistered(username.getStringValue(), fullname.getStringValue(), result.getMap());
-                    Track.getInstance().trackEvent("Register", "Success");
-                    onSuccessAction.run();
-                }
-            }
-        }
-                                                   );
+                            @Override
+                            public void onSuccess(@Nullable final LSDTransferEntity result) {
+                                if (result == null) {
+                                    registerErrorMessage.setText("Could not register you.");
+                                    Track.getInstance().trackEvent("Register", "Fail");
+                                }
+                                else {
+                                    newUser = result;
+                                    Track.getInstance()
+                                         .userRegistered(username.getStringValue(), fullname.getStringValue(), result.getMap());
+                                    Track.getInstance().trackEvent("Register", "Success");
+                                    onSuccessAction.run();
+                                }
+                            }
+                        });
     }
 
     @Nullable
@@ -143,6 +135,5 @@ public class HashboRegisterPanel extends Composite {
         this.onSwitchToLoginAction = onSwitchToLoginAction;
     }
 
-    interface RegisterPanelUiBinder extends UiBinder<HTMLPanel, HashboRegisterPanel> {
-    }
+    interface RegisterPanelUiBinder extends UiBinder<HTMLPanel, BoardcastRegisterPanel> {}
 }

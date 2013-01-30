@@ -49,7 +49,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         tag.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                Window.alert("What did you expect to happen when you clicked this? Please let us know (info@hashbo.com)");
+                Window.alert("What did you expect to happen when you clicked this? Please let us know (info@boardcast.com)");
             }
         });
         url.addClickHandler(new ClickHandler() {

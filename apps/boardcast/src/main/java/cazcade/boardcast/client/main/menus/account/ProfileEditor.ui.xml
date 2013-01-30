@@ -1,9 +1,13 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image"
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel>
         <g:PopupPanel width="400px" height="250px"
-                      ui:field="popup" glassEnabled="true" modal="true" styleName="hashbo-profile-editor">
+                      ui:field="popup" glassEnabled="true" modal="true" styleName="boardcast-profile-editor">
             <g:HTMLPanel>
                 <h2>Update Profile Photo</h2>
                 <g:VerticalPanel>

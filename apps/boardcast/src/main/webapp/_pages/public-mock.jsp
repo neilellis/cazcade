@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Hashbo</title>
+    <title>Boardcast</title>
     <%@ include file="header.jspf" %>
 
 </head>
@@ -24,7 +24,7 @@
 <script>
     //Deferred loading to improve initial load time.
     loadjs("../_prettify/prettify.js");
-    loadcss("../_less/hashbo.less", "hashbo", function () {
+    loadcss("../_less/boardcast.less", "boardcast", function () {
         document.getElementById('loading-panel').style.opacity = 0.0;
         document.getElementById('cache-panel').style.opacity = 1.0;
         document.getElementById('top-bar-wrapper').style.opacity = 1.0;
@@ -191,7 +191,7 @@
         </div>
     </div>
     <div class="stream-entry-main">
-        <div class="stream-entry-message">Would you like me to give you a quick tour of Hashbo Nick?
+        <div class="stream-entry-message">Would you like me to give you a quick tour of Boardcast Nick?
 
         </div>
         <div class="stream-entry-details">
@@ -560,7 +560,7 @@
     </div>
     <div class="stream-entry-main">
         <div class="stream-entry-message">Hi Sarah, Hi Neil. I'll be offline now until tomorrow
-            evening. Have fun on Hashbo! ?
+            evening. Have fun on Boardcast! ?
 
         </div>
         <div class="stream-entry-details">

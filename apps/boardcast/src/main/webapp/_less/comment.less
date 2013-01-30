@@ -9,7 +9,14 @@
   }
 }
 
-.hashbo-chat {
+.board-comments-title {
+  .handwriting-font;
+  font-weight: normal;
+  font-size: 40px;
+  opacity: 0.9;
+}
+
+.boardcast-chat {
   .vortex-add-comment-box {
     .gwt-RichTextArea {
     }
@@ -20,7 +27,7 @@
   }
 }
 
-.hashbo-add-comment {
+.boardcast-add-comment {
   display: inline;
   .twitter-signin {
     display: inline;
@@ -48,11 +55,14 @@
     }
 
     .comment-entry-details {
-      width: 100%;
+      width: 300px;
       font-size: 14px;
       display: block;
       clear: both;
+      float: right;
       margin-bottom: 6px;
+      padding-right: 20px;
+      text-align: right;
     }
 
     .comment-entry-main {
@@ -60,20 +70,23 @@
       .gridColumn();
 
       .comment-author-fullname-label {
-        font-size: 1.2em;
-        opacity: 0.95;
+        font-size: 1em;
+        opacity: 0.3;
+        font-weight: normal;
       }
       .comment-author-username-label {
-        font-size: 1.1em;
-        opacity: 0.8;
+        font-size: 1em;
+        opacity: 0.2;
       }
 
       .comment-entry-message {
-        font-size: 15px;
+        font-size: 18px;
+        opacity: 0.9;
+        position: relative;
+        top: 8px;
       }
 
-      .comment-entry-time {
-        float: right;
+      .comment-entry-time { //        float: right;
         font-size: 12px;
         opacity: 0.5;
       }

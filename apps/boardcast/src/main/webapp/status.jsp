@@ -9,10 +9,14 @@
 <%@ page import="cazcade.liquid.api.LiquidURIScheme" %>
 <%@ page import="cazcade.liquid.api.request.RetrieveUserRequest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-    <title>Hashbo Monitor Page</title>
+    <title>Boardcast Monitor Page</title>
     <link rel="stylesheet" href="_css/static.css">
 </head>
 <body>
@@ -33,7 +37,8 @@
     %>
     RETRIEVE_USER: SUCCESS
     <%
-    } else {
+    }
+    else {
     %>
     RETRIEVE_USER: FAIL
     <%

@@ -8,6 +8,7 @@
             <a class="logo" href="/">&nbsp;</a>
             <ul class="nav" id="nav-bar">
                 <%--<li><a href="/_welcome">Start</a></li>--%>
+                <li><a href="/_create-listed" style="font-weight:bolder;">Create</a></li>
                 <li><a href="/_query-popular">Popular</a></li>
                 <li><a href="/_query-new">Latest</a></li>
                 <c:if test="${not empty sessionScope.username}">
@@ -17,7 +18,6 @@
                     <%--TODO: reintroduce activity--%>
                     <%--<li><a href="/_activity">Activity</a></li>--%>
                 </c:if>
-                <li><a href="/_create-listed" style="font-weight:bolder;">Create</a></li>
             </ul>
 
             <script type="text/javascript">

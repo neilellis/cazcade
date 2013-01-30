@@ -13,33 +13,28 @@
         <div class="container" ui:field="containerDiv">
 
             <div class="content">
+                <iframe allowtransparency="true" frameborder="0" scrolling="no" seamless="seamless" class="tweet-button"
+                        ui:field="tweetButton"
+                        ></iframe>
+                <stream:NotificationPanel ui:field="notificationPanel"/>
+                <board:PublicBoardHeader ui:field="publicBoardHeader" visible="false"/>
+                <profile:ProfileBoardHeader ui:field="profileBoardHeader" visible="false"/>
                 <div class="board-share-surround">
 
                     <div class="board-share">
-                        <iframe allowtransparency="true" frameborder="0" scrolling="no" class="tweet-button"
-                                ui:field="tweetButton"
-
-                                style="width:100px; height:20px;"></iframe>
                         <!--<g:HTMLPanel ui:field="shareThisHolder" styleName="board-share-this-holder"/>-->
 
                     </div>
                 </div>
-                <stream:NotificationPanel ui:field="notificationPanel"/>
-                <board:PublicBoardHeader ui:field="publicBoardHeader" visible="false"/>
-                <profile:ProfileBoardHeader ui:field="profileBoardHeader" visible="false"/>
 
                 <div class="row board-top-menu-row">
-                    <widgets:BoardMenuBar styleName="hashbo-board-menu" autoOpen="true" ui:field="menuBar"
+                    <widgets:BoardMenuBar styleName="boardcast-board-menu" autoOpen="true" ui:field="menuBar"
                                           focusOnHoverEnabled="true"/>
 
                 </div>
 
                 <div class="board-content"
                      style="">
-                    <!--<div class="board-content-top-divider"/>-->
-                    <!--<div class="board-content-bottom-divider"/>-->
-                    <!--<div style="position:absolute;z-index:40000;top:-6px;left:0;right:0;background-image: url('_images/shadow-bottom-to-top-narrow.png');height:6px;"/>-->
-                    <!--<div style="position:absolute;z-index:40000;bottom:-6px;left:0;right:0;background-image: url('_images/shadow-top-to-bottom-narrow.png');height:6px;"/>-->
                     <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="contentArea" pageFlow="true"/>
 
                     <!--<div class="board-locked" ui:field="boardLockedIcon"-->
@@ -54,7 +49,7 @@
                 </div>
 
                 <div class="row page-bottom">
-                    <h2>Comments</h2>
+                    <h2 class="board-comments-title">Comments</h2>
                     <widgets:AddCommentBox ui:field="addCommentBox"/>
 
                     <stream:CommentPanel ui:field="comments"/>
@@ -71,10 +66,10 @@
 
                     <g:DockLayoutPanel height="300px" unit="PX">
 
-                        <g:west size="380">
+                        <g:west size="350">
                             <g:HTMLPanel styleName="footer-lhs">
                                 <div class="board-author-info-box">
-                                    <h3>About the author</h3>
+                                    <h3>Board Owner</h3>
                                     <profile:AliasDetailFlowPanel ui:field="ownerDetailPanel"/>
                                 </div>
                             </g:HTMLPanel>
@@ -91,7 +86,7 @@
                                 </p>
                             </g:HTMLPanel>
                         </g:center>
-                        <g:east size="380">
+                        <g:east size="360">
                             <g:HTMLPanel styleName="footer-rhs">
                                 <h3>About Boardcast</h3>
                                 <!--<p>Boardcast is brought to you by Cazcade Ltd. We're a small UK based company looking to add-->
@@ -116,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="hashbo-chat">
+        <div class="boardcast-chat">
             <g:DockLayoutPanel height="100%" unit="PX">
                 <g:center>
                     <stream:ChatStreamPanel ui:field="stream"

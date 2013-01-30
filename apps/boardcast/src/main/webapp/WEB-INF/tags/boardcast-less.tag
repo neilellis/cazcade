@@ -1,3 +1,7 @@
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <script type="text/javascript">
     waitForStylesheetLoad(function () {
         if (document.getElementById('top-bar-wrapper')) {

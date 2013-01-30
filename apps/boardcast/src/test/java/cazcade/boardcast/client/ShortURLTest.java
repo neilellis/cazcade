@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client;
 
 import cazcade.liquid.api.LiquidBoardURL;
@@ -21,7 +25,7 @@ public class ShortURLTest extends TestCase {
         assertEquals("welcome/stuff", boardURL.toString());
     }
 
-    public void testHashboOnly() {
+    public void testBoardcastOnly() {
         final LiquidBoardURL boardURL = new LiquidBoardURL("$welcome");
         assertEquals("pool:///boards/$welcome", boardURL.asURI().toString());
         assertEquals("$welcome", boardURL.toString());

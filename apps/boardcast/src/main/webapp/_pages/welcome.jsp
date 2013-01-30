@@ -1,5 +1,9 @@
 <%@page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -37,7 +41,7 @@
 
 <body>
 <%@ include file="chrome_frame.jspf" %>
-<tags:hashbo-less/>
+<tags:boardcast-less/>
 
 
 <div id="top-bar-wrapper">

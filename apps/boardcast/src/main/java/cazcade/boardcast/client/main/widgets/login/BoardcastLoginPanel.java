@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.login;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -18,30 +22,25 @@ import javax.annotation.Nullable;
 /**
  * @author neilellis@cazcade.com
  */
-public class HashboLoginPanel extends Composite {
+public class BoardcastLoginPanel extends Composite {
     private static final LoginPanelUiBinder ourUiBinder = GWT.create(LoginPanelUiBinder.class);
 
-    @UiField
-    UsernameTextBox username;
+    @UiField UsernameTextBox username;
 
-    @UiField
-    VortexPasswordTextBox password;
+    @UiField VortexPasswordTextBox password;
 
-    @UiField
-    Button loginButton;
+    @UiField Button loginButton;
 
-    @UiField
-    Label loginErrorMessage;
+    @UiField Label loginErrorMessage;
 
-    @UiField
-    Hyperlink register;
-    private Runnable onSuccessAction;
-    private Runnable onFailureAction;
-    private Runnable onSwitchToRegisterAction;
+    @UiField Hyperlink register;
+    private Runnable                onSuccessAction;
+    private Runnable                onFailureAction;
+    private Runnable                onSwitchToRegisterAction;
     @Nullable
     private LiquidSessionIdentifier identity;
 
-    public HashboLoginPanel() {
+    public BoardcastLoginPanel() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         loginButton.addClickHandler(new ClickHandler() {
@@ -49,54 +48,50 @@ public class HashboLoginPanel extends Composite {
             public void onClick(final ClickEvent event) {
                 submit();
             }
-        }
-                                   );
+        });
         username.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
                 submit();
             }
-        }
-                                  );
+        });
 
         password.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
                 submit();
             }
-        }
-                                  );
+        });
 
         register.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
                 onSwitchToRegisterAction.run();
             }
-        }
-                                );
+        });
     }
 
     private void submit() {
         if (password.isValid() && username.isValid()) {
-            DataStoreService.App.getInstance().login(username.getStringValue(), password.getStringValue(),
-                                                     new AsyncCallback<LiquidSessionIdentifier>() {
-                                                         @Override
-                                                         public void onFailure(final Throwable caught) {
-                                                             ClientLog.log(caught);
-                                                         }
+            DataStoreService.App
+                            .getInstance()
+                            .login(username.getStringValue(), password.getStringValue(), new AsyncCallback<LiquidSessionIdentifier>() {
+                                @Override
+                                public void onFailure(final Throwable caught) {
+                                    ClientLog.log(caught);
+                                }
 
-                                                         @Override
-                                                         public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
-                                                             if (result == null) {
-                                                                 doFailure();
-                                                             }
-                                                             else {
-                                                                 identity = result;
-                                                                 onSuccessAction.run();
-                                                             }
-                                                         }
-                                                     }
-                                                    );
+                                @Override
+                                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
+                                    if (result == null) {
+                                        doFailure();
+                                    }
+                                    else {
+                                        identity = result;
+                                        onSuccessAction.run();
+                                    }
+                                }
+                            });
         }
     }
 
@@ -122,6 +117,5 @@ public class HashboLoginPanel extends Composite {
         this.onSwitchToRegisterAction = onSwitchToRegisterAction;
     }
 
-    interface LoginPanelUiBinder extends UiBinder<HTMLPanel, HashboLoginPanel> {
-    }
+    interface LoginPanelUiBinder extends UiBinder<HTMLPanel, BoardcastLoginPanel> {}
 }

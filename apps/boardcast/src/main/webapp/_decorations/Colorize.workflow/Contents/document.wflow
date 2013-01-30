@@ -58,7 +58,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>defaultLocation</key>
-					<string>~/Development/Cazcade/cazcade/apps/hashbo/src/main/webapp/_decorations</string>
+					<string>~/Development/Cazcade/cazcade/apps/boardcast/src/main/webapp/_decorations</string>
 					<key>granularity</key>
 					<integer>0</integer>
 					<key>multipleSelection</key>
@@ -69,7 +69,7 @@
 				<key>ActionRuntimeParameters</key>
 				<dict>
 					<key>defaultLocation</key>
-					<string>/Users/neilellis/Development/Cazcade/cazcade/apps/hashbo/src/main/webapp/_decorations</string>
+					<string>/Users/neilellis/Development/Cazcade/cazcade/apps/boardcast/src/main/webapp/_decorations</string>
 					<key>granularity</key>
 					<integer>0</integer>
 					<key>multipleSelection</key>

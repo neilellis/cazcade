@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets.login;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -16,17 +20,16 @@ import javax.annotation.Nullable;
 /**
  * @author neilellis@cazcade.com
  */
-public class HashboLoginOrRegisterPanel extends DialogBox {
+public class BoardcastLoginOrRegisterPanel extends DialogBox {
     private static final LoginOrRegisterPanelUiBinder ourUiBinder = GWT.create(LoginOrRegisterPanelUiBinder.class);
 
-    @UiField
-    HashboLoginPanel loginPanel;
+    @UiField BoardcastLoginPanel loginPanel;
 
     @Nonnull
-    final HashboRegisterPanel registerPanel;
-    private boolean registerPanelShowing;
+    final   BoardcastRegisterPanel registerPanel;
+    private boolean                registerPanelShowing;
 
-    public HashboLoginOrRegisterPanel(final boolean register, final Runnable loginAction, final Runnable registerAction) {
+    public BoardcastLoginOrRegisterPanel(final boolean register, final Runnable loginAction, final Runnable registerAction) {
         super();
         setWidget(ourUiBinder.createAndBindUi(this));
         setWidth("600px");
@@ -34,7 +37,7 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
         setText("Login");
         setGlassEnabled(true);
         setModal(false);
-        registerPanel = new HashboRegisterPanel();
+        registerPanel = new BoardcastRegisterPanel();
         loginPanel.setOnSuccessAction(loginAction);
         registerPanel.setOnSuccessAction(registerAction);
 
@@ -50,15 +53,13 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
                     }
                 }.schedule(2000);
             }
-        }
-                                     );
+        });
         loginPanel.setOnSwitchToRegisterAction(new Runnable() {
             @Override
             public void run() {
                 switchToRegister();
             }
-        }
-                                              );
+        });
 
         registerPanel.setOnSwitchToLoginAction(new Runnable() {
             @Override
@@ -72,8 +73,7 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
                 getWidget().addStyleName("login-panel");
                 Track.getInstance().trackEvent("Login", "Switched to login panel.");
             }
-        }
-                                              );
+        });
         if (register) {
             switchToRegister();
         }
@@ -100,6 +100,5 @@ public class HashboLoginOrRegisterPanel extends DialogBox {
         }
     }
 
-    interface LoginOrRegisterPanelUiBinder extends UiBinder<HTMLPanel, HashboLoginOrRegisterPanel> {
-    }
+    interface LoginOrRegisterPanelUiBinder extends UiBinder<HTMLPanel, BoardcastLoginOrRegisterPanel> {}
 }

@@ -58,7 +58,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>defaultLocation</key>
-					<string>~/Development/Cazcade/cazcade/apps/hashbo/src/main/webapp</string>
+					<string>~/Development/Cazcade/cazcade/apps/boardcast/src/main/webapp</string>
 					<key>granularity</key>
 					<integer>0</integer>
 					<key>multipleSelection</key>

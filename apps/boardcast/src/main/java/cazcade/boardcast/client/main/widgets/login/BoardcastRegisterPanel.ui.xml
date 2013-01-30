@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:field='urn:import:cazcade.vortex.widgets.client.form.fields'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>

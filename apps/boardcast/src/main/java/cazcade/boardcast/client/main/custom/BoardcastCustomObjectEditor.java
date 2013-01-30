@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.custom;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -29,33 +33,26 @@ import javax.annotation.Nonnull;
 /**
  * @author neilellis@cazcade.com
  */
-public class HashboCustomObjectEditor extends Composite implements CustomObjectEditor {
+public class BoardcastCustomObjectEditor extends Composite implements CustomObjectEditor {
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
 
-    @UiField
-    PopupPanel popup;
+    @UiField PopupPanel popup;
 
-    @UiField
-    ImageUploader imageUploader;
+    @UiField ImageUploader imageUploader;
 
-    @UiField
-    Label changeButton;
+    @UiField Label changeButton;
 
-    @UiField
-    Label cancelButton;
-    @UiField
-    RegexTextBox widthField;
-    @UiField
-    RegexTextBox heightField;
-    @UiField
-    VortexTextArea scriptField;
+    @UiField Label          cancelButton;
+    @UiField RegexTextBox   widthField;
+    @UiField RegexTextBox   heightField;
+    @UiField VortexTextArea scriptField;
 
     private LSDTransferEntity updateEntity;
-    private boolean sizeDirty;
+    private boolean           sizeDirty;
 
     private ChangeAction onChangeAction;
 
-    public HashboCustomObjectEditor() {
+    public BoardcastCustomObjectEditor() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         imageUploader.setOnFinishHandler(new OnFinishUploadHandler() {
@@ -66,47 +63,42 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
                     updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
                     imageUploader.setImageUrl(url);
-                } else {
+                }
+                else {
                     Window.alert("Failed to upload image.");
                 }
             }
-        }
-        );
+        });
 
 
         changeButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
                 if (sizeDirty) {
-                    BusFactory.getInstance().send(new ResizePoolObjectRequest(updateEntity.getURI(), Integer.parseInt(
-                            widthField.getValue()
-                                                                                                                     ) * 40,
-                                                                              Integer.parseInt(heightField.getValue()) * 40
-                    ), new AbstractResponseCallback<ResizePoolObjectRequest>() {
-                        @Override
-                        public void onSuccess(final ResizePoolObjectRequest message, final ResizePoolObjectRequest response) {
-                        }
-                    }
-                                                 );
+                    BusFactory.getInstance()
+                              .send(new ResizePoolObjectRequest(updateEntity.getURI(), Integer.parseInt(widthField.getValue()) * 40,
+                                      Integer.parseInt(heightField.getValue())
+                                      * 40), new AbstractResponseCallback<ResizePoolObjectRequest>() {
+                                  @Override
+                                  public void onSuccess(final ResizePoolObjectRequest message, final ResizePoolObjectRequest response) {
+                                  }
+                              });
                 }
-                BusFactory.getInstance().send(new UpdatePoolObjectRequest( updateEntity),
-                                              new AbstractResponseCallback<UpdatePoolObjectRequest>() {
-                                                  @Override
-                                                  public void onSuccess(final UpdatePoolObjectRequest message,
-                                                                        final UpdatePoolObjectRequest response) {
-                                                      sizeDirty = false;
-                                                      try {
-                                                          popup.hide();
-                                                      } catch (Exception e) {
-                                                          ClientLog.log("Mysterious popup.hide() exception." + e.getMessage());
-                                                      }
-                                                      onChangeAction.run(updateEntity);
-                                                  }
-                                              }
-                                             );
+                BusFactory.getInstance()
+                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
+                              @Override
+                              public void onSuccess(final UpdatePoolObjectRequest message, final UpdatePoolObjectRequest response) {
+                                  sizeDirty = false;
+                                  try {
+                                      popup.hide();
+                                  } catch (Exception e) {
+                                      ClientLog.log("Mysterious popup.hide() exception." + e.getMessage());
+                                  }
+                                  onChangeAction.run(updateEntity);
+                              }
+                          });
             }
-        }
-                                    );
+        });
 
         cancelButton.addClickHandler(new ClickHandler() {
             @Override
@@ -117,16 +109,14 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
                     ClientLog.log("Mysterious popup.hide() exception." + e.getMessage());
                 }
             }
-        }
-                                    );
+        });
 
         addDomHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
-        }, ClickEvent.getType()
-                     );
+        }, ClickEvent.getType());
     }
 
     @Override
@@ -149,12 +139,10 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
         popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             @Override
             public void setPosition(final int offsetWidth, final int offsetHeight) {
-                popup.setPopupPosition(Window.getClientWidth() / 2 - offsetWidth / 2,
-                                       Window.getClientHeight() / 2 - offsetHeight / 2
-                                      );
+                popup.setPopupPosition(Window.getClientWidth() / 2 - offsetWidth / 2, Window.getClientHeight() / 2
+                                                                                      - offsetHeight / 2);
             }
-        }
-                                     );
+        });
     }
 
     @Override
@@ -162,6 +150,5 @@ public class HashboCustomObjectEditor extends Composite implements CustomObjectE
         this.onChangeAction = onChangeAction;
     }
 
-    interface EditorUiBinder extends UiBinder<HTMLPanel, HashboCustomObjectEditor> {
-    }
+    interface EditorUiBinder extends UiBinder<HTMLPanel, BoardcastCustomObjectEditor> {}
 }

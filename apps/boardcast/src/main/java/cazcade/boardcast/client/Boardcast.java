@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client;
 
 import cazcade.boardcast.client.main.version.VersionNumberChecker;
@@ -5,9 +9,9 @@ import cazcade.boardcast.client.main.widgets.board.BoardcastChatView;
 import cazcade.boardcast.client.main.widgets.board.CreateBoardDialog;
 import cazcade.boardcast.client.main.widgets.board.PublicBoard;
 import cazcade.boardcast.client.main.widgets.board.SnapshotBoard;
-import cazcade.boardcast.client.main.widgets.login.HashboLoginOrRegisterPanel;
+import cazcade.boardcast.client.main.widgets.login.BoardcastLoginOrRegisterPanel;
 import cazcade.boardcast.client.preflight.PreflightCheck;
-import cazcade.boardcast.client.resources.HashboClientBundle;
+import cazcade.boardcast.client.resources.BoardcastClientBundle;
 import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -48,24 +52,24 @@ import java.util.Map;
  */
 public class Boardcast implements EntryPoint {
     @Nonnull
-    public static final String MAIN_PANEL_ID = "main-panel";
+    public static final String MAIN_PANEL_ID         = "main-panel";
     @Nonnull
-    public static final String LOGIN_PANEL_ID = "login-panel";
+    public static final String LOGIN_PANEL_ID        = "login-panel";
     @Nonnull
     public static final String PUBLIC_BOARD_PANEL_ID = "board-panel";
     @Nonnull
-    public static final String SNAPSHOT_PANEL_ID = "snapshot-panel";
-    private HashboLoginOrRegisterPanel loginOrRegisterPanel;
-    private HistoryManager historyManager;
-    private boolean registerRequest;
-    private boolean createRequest;
-    private boolean loginRequest;
-    private boolean createUnlistedRequest;
-    private Track tracker;
+    public static final String SNAPSHOT_PANEL_ID     = "snapshot-panel";
+    private BoardcastLoginOrRegisterPanel loginOrRegisterPanel;
+    private HistoryManager                historyManager;
+    private boolean                       registerRequest;
+    private boolean                       createRequest;
+    private boolean                       loginRequest;
+    private boolean                       createUnlistedRequest;
+    private Track                         tracker;
 
     public void onModuleLoad() {
         //        Window.alert(History.getToken());
-        HashboClientBundle.INSTANCE.css().ensureInjected();
+        BoardcastClientBundle.INSTANCE.css().ensureInjected();
         ClientApplicationConfiguration.init();
         ClientLog.setDebugMode(ClientApplicationConfiguration.isDebug());
 
@@ -176,7 +180,7 @@ public class Boardcast implements EntryPoint {
             checkUserLoggedIn(loginAction);
         }
         else if (RootPanel.get(LOGIN_PANEL_ID) != null) {
-            loginOrRegisterPanel = new HashboLoginOrRegisterPanel(registerRequest, new Runnable() {
+            loginOrRegisterPanel = new BoardcastLoginOrRegisterPanel(registerRequest, new Runnable() {
                 @Override
                 public void run() {
                     UserUtil.storeIdentity(loginOrRegisterPanel.getIdentity());
@@ -274,7 +278,7 @@ public class Boardcast implements EntryPoint {
     }
 
     private void createLoginPanel(@Nonnull final Runnable loginAction) {
-        loginOrRegisterPanel = new HashboLoginOrRegisterPanel(registerRequest, new Runnable() {
+        loginOrRegisterPanel = new BoardcastLoginOrRegisterPanel(registerRequest, new Runnable() {
             @Override
             public void run() {
                 final LiquidSessionIdentifier identity = loginOrRegisterPanel.getIdentity();

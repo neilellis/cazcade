@@ -442,11 +442,11 @@
         </image:ImageSelection>
 
         <!--<div class="board-toolbar">-->
-        <!--<toolbar:HashboToolbarIcon src="_images/toolbar/unlocked_small.png" text="Unlock"-->
+        <!--<toolbar:BoardcastToolbarIcon src="_images/toolbar/unlocked_small.png" text="Unlock"-->
         <!--ui:field="unlockIcon"/>-->
-        <!--<toolbar:HashboToolbarIcon src="_images/toolbar/locked_small.png" text="Lock"-->
+        <!--<toolbar:BoardcastToolbarIcon src="_images/toolbar/locked_small.png" text="Lock"-->
         <!--ui:field="lockIcon"/>-->
-        <!--<toolbar:HashboToolbarIcon src="_images/toolbar/personal.png" text="Personal"-->
+        <!--<toolbar:BoardcastToolbarIcon src="_images/toolbar/personal.png" text="Personal"-->
         <!--ui:field="personalIcon" visible="false"/>-->
         <!--</div>-->
         <!--<hr/>-->
