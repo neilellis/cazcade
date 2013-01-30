@@ -4747,8 +4747,9 @@ input[type=submit].btn::-moz-focus-inner {
 .gwt-PopupPanelGlass,
 .vtx-dialog-glass {
     background: url('../_images/wallpapers/noise-black.jpg');
-    opacity: 0.5;
+    opacity: 0.85;
     z-index: 1000;
+    -webkit-filter: blur(2px);
 }
 
 .dialog-box-contents {

@@ -73,12 +73,12 @@ public class VortexDialogPanel extends DialogBox {
             timer.cancel();
         }
 
-        removeStyleName(POPUP_READY_STYLE);
-        new Timer() {
-            @Override public void run() {
-                VortexDialogPanel.super.hide(autoClosed);
-            }
-        }.schedule(750);
+        //        removeStyleName(POPUP_READY_STYLE);
+        //        new Timer() {
+        //            @Override public void run() {
+        //                VortexDialogPanel.super.hide(autoClosed);
+        //            }
+        //        }.schedule(750);
 
     }
 
@@ -88,6 +88,7 @@ public class VortexDialogPanel extends DialogBox {
     }
 
     public void showDown() {
+        getGlassElement().getStyle().setOpacity(0.0);
         setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             public void setPosition(int offsetWidth, int offsetHeight) {
                 setPopupPosition((Window.getClientWidth() - offsetWidth) / 2, 0);
@@ -100,6 +101,11 @@ public class VortexDialogPanel extends DialogBox {
                         Window.scrollTo(Window.getScrollLeft(), Window.getScrollTop() - event.getScrollTop());
                     }
                 });
+                new Timer() {
+                    @Override public void run() {
+                        getGlassElement().getStyle().setOpacity(0.85);
+                    }
+                }.schedule(300);
 
             }
         });
