@@ -75,18 +75,18 @@ public class WebsiteView extends PoolObjectView {
             if (size.equals(THUMBNAIL)) {
                 website.setSize(CachedImage.SMALL);
                 website.setWidth(THUMBNAIL_WIDTH + "px");
-                website.setHeight(THUMBNAIL_WIDTH * ROOT_2_RATIO + "px");
+                website.setHeight((int) (THUMBNAIL_WIDTH * ROOT_2_RATIO) + "px");
             }
 
             if (size.equals(SMALL)) {
                 website.setSize(CachedImage.MEDIUM);
                 website.setWidth(SMALL_WIDTH + "px");
-                website.setHeight(SMALL_WIDTH * ROOT_2_RATIO + "px");
+                website.setHeight((int) (SMALL_WIDTH * ROOT_2_RATIO) + "px");
             }
             if (size.equals(MEDIUM)) {
                 website.setSize(CachedImage.CLIPPED_LARGE);
                 website.setWidth(MEDIUM_WIDTH + "px");
-                website.setHeight(MEDIUM_WIDTH * ROOT_2_RATIO + "px");
+                website.setHeight((int) (MEDIUM_WIDTH * ROOT_2_RATIO) + "px");
             }
             if (size.equals(LARGE)) {
                 website.setSize(CachedImage.LARGE);
