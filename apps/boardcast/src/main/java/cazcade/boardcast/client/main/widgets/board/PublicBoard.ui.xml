@@ -51,7 +51,6 @@
                 <div class="row page-bottom">
                     <h2 class="board-comments-title">Comments</h2>
                     <widgets:AddCommentBox ui:field="addCommentBox"/>
-
                     <stream:CommentPanel ui:field="comments"/>
                 </div>
 
@@ -89,14 +88,11 @@
                         <g:east size="360">
                             <g:HTMLPanel styleName="footer-rhs">
                                 <h3>About Boardcast</h3>
-                                <!--<p>Boardcast is brought to you by Cazcade Ltd. We're a small UK based company looking to add-->
-                                <!--exciting new interactive applications to the internet.</p>-->
-                                <p>Boardcast is still in the Alpha stage of development which is a technical way of saying
+                                <p>Boardcast is still in the Beta stage of development which is a technical way of saying
                                     there are still a few bugs kicking around and we're still trying to make things look nice.
                                     We'd love you to have a play, look around and tell us how we can make your life easier!
                                 </p>
                                 <p>We have a
-                                    <a href="http://boardcast.posterous.com">blog</a>, and a
                                     <a href="http://twitter.com/boardcast_it">Twitter account</a>
                                     where you can keep up to date with the latest improvements.
                                 </p>
