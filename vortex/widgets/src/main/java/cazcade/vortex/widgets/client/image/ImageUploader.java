@@ -79,7 +79,8 @@ public class ImageUploader extends Composite {
         var gwtThis = this;
         $wnd.filepicker.pick({
                 mimetypes: ['image/*'],
-                container: 'image-uploader-filepicker-frame'
+                container: 'image-uploader-filepicker-frame',
+                services: ['COMPUTER', 'FACEBOOK', 'FLICKR', 'DROPBOX', 'WEBCAM', 'INSTAGRAM', 'PICASA', 'URL', 'IMAGE_SEARCH']
             },
             function (FPFile) {
                 console.log(JSON.stringify(FPFile));

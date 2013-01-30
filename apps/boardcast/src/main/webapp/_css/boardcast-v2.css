@@ -4674,21 +4674,19 @@ input[type=submit].btn::-moz-focus-inner {
     -webkit-box-shadow: 0 0 6px 4px rgba(80, 80, 80, 0.3);
     -moz-box-shadow: 0 0 6px 4px rgba(80, 80, 80, 0.3);
     box-shadow: 0 0 6px 4px rgba(80, 80, 80, 0.3);
-    /*border:  1px solid black;*/
+    background: url('/_images/torn/white-1300.png');
+    background-position: bottom center;
     font-size: 16px;
 }
 
 .gwt-DialogBox table,
 .gwt-PopupPanel table {
-    background-color: white;
-    background: url('../_images/wallpapers/noise-light-white.jpg');
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -o-border-radius: 2px;
     padding: 18px;
-    /*overflow:hidden;*/
-
+    padding-top: 0px;
     display: block;
 }
 
@@ -4698,6 +4696,8 @@ input[type=submit].btn::-moz-focus-inner {
 }
 
 .vtx-dialog-popup {
+    -webkit-transition: -webkit-transform ease-in-out 1000ms;
+    -moz-transition: -moz-transform ease-in-out 1000ms;
     -webkit-transform: translate3d(0, -1000px, 0);
     -moz-transform: translate3d(0, -1000px, 0);
     -ms-transform: translate3d(0, -1000px, 0);
@@ -4706,8 +4706,6 @@ input[type=submit].btn::-moz-focus-inner {
 }
 
 .vtx-dialog-popup-ready {
-    -webkit-transition: -webkit-transform ease-in-out 1000ms;
-    -moz-transition: -moz-transform ease-in-out 1000ms;
     -webkit-transform: translate3d(0, -6px, 0);
     -moz-transform: translate3d(0, -6px, 0);
     -ms-transform: translate3d(0, -6px, 0);
@@ -4718,7 +4716,7 @@ input[type=submit].btn::-moz-focus-inner {
 .gwt-PopupPanel {
     border: none;
     z-index: 10000;
-    background: url('../_images/wallpapers/noise-light-white.jpg');
+    background: url('/_images/torn/white-1300.png');
     border-radius: 9px;
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
@@ -4735,7 +4733,7 @@ input[type=submit].btn::-moz-focus-inner {
 .gwt-DialogBox .btn,
 .gwt-PopupPanel .btn {
     position: absolute;
-    bottom: 16px;
+    bottom: 44px;
     left: 16px;
     right: auto;
 }
@@ -4746,14 +4744,16 @@ input[type=submit].btn::-moz-focus-inner {
     right: 16px;
 }
 
-.gwt-PopupPanelGlass {
-    background-color: #888;
+.gwt-PopupPanelGlass,
+.vtx-dialog-glass {
+    background: url('../_images/wallpapers/noise-black.jpg');
     opacity: 0.5;
     z-index: 1000;
 }
 
 .dialog-box-contents {
     padding: 16px;
+    padding-top: 0px;
 }
 
 .dialog-box-contents label {
@@ -4776,18 +4776,7 @@ input[type=submit].btn::-moz-focus-inner {
     left: 0px;
     right: 0px;
     overflow: hidden;
-    background-color: #233d0c;
-    background-repeat: repeat-x;
-    background-image: -khtml-gradient(linear, left top, left bottom, from(#2c4e10), to(#233d0c));
-    background-image: -moz-linear-gradient(top, #2c4e10, #233d0c);
-    background-image: -ms-linear-gradient(top, #2c4e10, #233d0c);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2c4e10), color-stop(100%, #233d0c));
-    background-image: -webkit-linear-gradient(top, #2c4e10, #233d0c);
-    background-image: -o-linear-gradient(top, #2c4e10, #233d0c);
-    background-image: linear-gradient(top, #2c4e10, #233d0c);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#2c4e10', endColorstr = '#233d0c', GradientType = 0);
-    border-bottom: 2px solid highlightColorDarker;
-    color: #f5f5f5;
+    color: #222;
     padding-left: 20px;
     padding-right: 10px;
     padding-top: 14px;
@@ -4994,6 +4983,13 @@ body div {
     padding-left: 19px;
     /*border-left: 1px solid #eee;*/
 
+}
+
+.topbar {
+    z-index: 900000;
+    -webkit-box-shadow: 0px 2px 3px 1px #111111;
+    -moz-box-shadow: 0px 2px 3px 1px #111111;
+    box-shadow: 0px 2px 3px 1px #111111;
 }
 
 .topbar .btn {
@@ -7965,7 +7961,6 @@ div.pool-object {
     -webkit-box-shadow: 1px 1px 3px 1px rgba(10, 10, 10, 0.2);
     -moz-box-shadow: 1px 1px 3px 1px rgba(10, 10, 10, 0.2);
     box-shadow: 1px 1px 3px 1px rgba(10, 10, 10, 0.2);
-    /* Lifted corners */
 }
 
 .pool-object-rich-text-inner:before,
@@ -8268,11 +8263,11 @@ div.checklist-entry-author {
 
 .pool-object-youtube {
     position: relative;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -o-border-radius: 4px;
     z-index: 1000;
+}
+
+.pool-object-youtube .pool-object-youtube-inner {
+    overflow: visible;
 }
 
 .pool-object-youtube img {
@@ -8290,8 +8285,10 @@ div.checklist-entry-author {
     position: relative;
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
     display: block;
+    -webkit-box-shadow: 1px 3px 4px 2px rgba(10, 10, 10, 0.9);
+    -moz-box-shadow: 1px 3px 4px 2px rgba(10, 10, 10, 0.9);
+    box-shadow: 1px 3px 4px 2px rgba(10, 10, 10, 0.9);
 }
 
 .pool-object-youtube-video {
@@ -8299,6 +8296,9 @@ div.checklist-entry-author {
     margin: 0px;
     padding: 0px;
     z-index: 0;
+    -webkit-box-shadow: 1px 3px 4px 2px rgba(10, 10, 10, 0.9);
+    -moz-box-shadow: 1px 3px 4px 2px rgba(10, 10, 10, 0.9);
+    box-shadow: 1px 3px 4px 2px rgba(10, 10, 10, 0.9);
 }
 
 .pool-object-business-card {
@@ -8309,6 +8309,12 @@ div.checklist-entry-author {
 .pool-object-website {
     cursor: pointer;
     -moz-box-shadow: 3px 3px 5px rgba(10, 10, 10, 0.2);
+    -webkit-filter: drop-shadow(1px 3px 20px rgba(10, 10, 10, 0.9));
+    -moz-filter: drop-shadow(1px 3px 20px rgba(10, 10, 10, 0.9));
+    -o-filter: drop-shadow(1px 3px 20px rgba(10, 10, 10, 0.9));
+    -ms-filter: drop-shadow(1px 3px 20px rgba(10, 10, 10, 0.9));
+    filter: drop-shadow(1px 3px 20px rgba(10, 10, 10, 0.9));
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#0A0A0A')";
 }
 
 .pool-object-website img {
@@ -8318,15 +8324,6 @@ div.checklist-entry-author {
     display: block;
     -webkit-mask-box-image: url('/_images/torn/torn-mask-left.png');
     -webkit-mask-size: 100% 100%;
-    -webkit-filter: drop-shadow(3px 3px 5px rgba(10, 10, 10, 0.2));
-    -moz-filter: drop-shadow(3px 3px 5px rgba(10, 10, 10, 0.2));
-    -o-filter: drop-shadow(3px 3px 5px rgba(10, 10, 10, 0.2));
-    -ms-filter: drop-shadow(3px 3px 5px rgba(10, 10, 10, 0.2));
-    -filter: drop-shadow(3px 3px 5px rgba(10, 10, 10, 0.2));
-    border-radius: 1px;
-    -webkit-border-radius: 1px;
-    -moz-border-radius: 1px;
-    -o-border-radius: 1px;
 }
 
 .pool-object-image {
@@ -9494,7 +9491,7 @@ box-shadow: 0px 0px 2px #ccc;*/
 }
 
 .chat .container {
-    margin-right: 500px;
+    margin-right: 550px;
 }
 
 .board-locked {
@@ -10372,7 +10369,8 @@ body.boards-body a:hover {
 .chat .boardcast-chat {
     opacity: 1;
     position: fixed;
-    min-width: 500px;
+    min-width: 450px;
+    max-width: 450px;
     right: 0px;
     top: 0px;
     bottom: 0px;

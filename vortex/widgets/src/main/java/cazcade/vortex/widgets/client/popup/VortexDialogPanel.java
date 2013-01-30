@@ -72,6 +72,14 @@ public class VortexDialogPanel extends DialogBox {
         if (timer != null) {
             timer.cancel();
         }
+
+        removeStyleName(POPUP_READY_STYLE);
+        new Timer() {
+            @Override public void run() {
+                VortexDialogPanel.super.hide(autoClosed);
+            }
+        }.schedule(750);
+
     }
 
     public void setMainPanel(@Nonnull final Widget w) {
@@ -99,12 +107,16 @@ public class VortexDialogPanel extends DialogBox {
     }
 
     @Override public void hide() {
-        removeStyleName(POPUP_READY_STYLE);
         if (antiScrollHandler != null) {
             antiScrollHandler.removeHandler();
             antiScrollHandler = null;
         }
-        super.hide();
+        removeStyleName(POPUP_READY_STYLE);
+        new Timer() {
+            @Override public void run() {
+                VortexDialogPanel.super.hide();
+            }
+        }.schedule(750);
     }
 
     @Override

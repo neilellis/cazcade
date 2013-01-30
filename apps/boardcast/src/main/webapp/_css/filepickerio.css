@@ -3,5 +3,6 @@
  */
 
 body {
-    background-image: url('http://boardcast.it/_images/wallpapers/noise-light-white.jpg');
+    background-image: url('http://boardcast.it/_images/torn/white.png');
+    background: none;
 }
