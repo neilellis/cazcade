@@ -43,6 +43,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     @Nonnull
     public static final String LARGE             = "large";
     public static final double CORE_RATIO        = 3.0 / 2.0;
+    public static final double ROOT_2_RATIO      = Math.sqrt(2.0);
     public static final double ALT_RATIO_1       = 4.0 / 3.0;
     public static final double ALT_RATIO_2       = 16.0 / 9.0;
     public static final double GOLDEN_RATIO      = 1.618;

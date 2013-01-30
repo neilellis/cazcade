@@ -21,22 +21,13 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class WebsiteView extends PoolObjectView {
 
 
-    private String url;
-
-    public void setUrl(final String url) {
-        website.setUrl(url);
-        website.setTitle("Click to visit " + url);
-        this.url = url;
-    }
-
-
     interface ImageObjectUiBinder extends UiBinder<HTMLPanel, WebsiteView> {}
 
+    private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
     @UiField CachedImage website;
     @UiField HTMLPanel   websiteSurround;
+    private  String      url;
 
-
-    private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
     public WebsiteView() {
         super();
@@ -54,36 +45,10 @@ public class WebsiteView extends PoolObjectView {
 
     }
 
-    @Override
-    public void onAddToPool() {
-        super.onAddToPool();
-        if (size != null) {
-            if (size.equals(THUMBNAIL)) {
-                website.setSize(CachedImage.SMALL);
-                website.setWidth(THUMBNAIL_WIDTH + "px");
-                website.setHeight(THUMBNAIL_HEIGHT + "px");
-            }
-
-            if (size.equals(SMALL)) {
-                website.setSize(CachedImage.MEDIUM);
-                website.setWidth(SMALL_WIDTH + "px");
-                website.setHeight(SMALL_HEIGHT + "px");
-            }
-            if (size.equals(MEDIUM)) {
-                website.setSize(CachedImage.CLIPPED_LARGE);
-                website.setWidth(MEDIUM_WIDTH + "px");
-                website.setHeight(MEDIUM_HEIGHT + "px");
-            }
-            if (size.equals(LARGE)) {
-                website.setSize(CachedImage.LARGE);
-                website.setWidth(LARGE_WIDTH + "px");
-                //                image.setHeight(LARGE_HEIGHT + "px");
-            }
-        }
-    }
-
-    @Override public int getDefaultZIndex() {
-        return 1000;
+    public void setUrl(final String url) {
+        website.setUrl(url);
+        website.setTitle("Click to visit " + url);
+        this.url = url;
     }
 
     @Override
@@ -101,6 +66,38 @@ public class WebsiteView extends PoolObjectView {
     public void setLogicalHeight(final int height) {
         super.setLogicalHeight(height);
         //        image.setHeight(height + "px");
+    }
+
+    @Override
+    public void onAddToPool() {
+        super.onAddToPool();
+        if (size != null) {
+            if (size.equals(THUMBNAIL)) {
+                website.setSize(CachedImage.SMALL);
+                website.setWidth(THUMBNAIL_WIDTH + "px");
+                website.setHeight(THUMBNAIL_WIDTH * ROOT_2_RATIO + "px");
+            }
+
+            if (size.equals(SMALL)) {
+                website.setSize(CachedImage.MEDIUM);
+                website.setWidth(SMALL_WIDTH + "px");
+                website.setHeight(SMALL_WIDTH * ROOT_2_RATIO + "px");
+            }
+            if (size.equals(MEDIUM)) {
+                website.setSize(CachedImage.CLIPPED_LARGE);
+                website.setWidth(MEDIUM_WIDTH + "px");
+                website.setHeight(MEDIUM_WIDTH * ROOT_2_RATIO + "px");
+            }
+            if (size.equals(LARGE)) {
+                website.setSize(CachedImage.LARGE);
+                website.setWidth(LARGE_WIDTH + "px");
+                //                image.setHeight(LARGE_HEIGHT + "px");
+            }
+        }
+    }
+
+    @Override public int getDefaultZIndex() {
+        return 1000;
     }
 
 

@@ -272,7 +272,8 @@ public class GWTDataStore {
                     }
                 }.schedule(10000);
                 ClientLog.log(throwable);
-                Window.alert("A new version of the application is now available, this page will reload in 10 seconds, if you have further problems please clear your browsers cache, exit and restart your browser please.");
+                Window.alert(throwable.getMessage());
+                //                Window.alert("A new version of the application is now available, this page will reload in 10 seconds, if you have further problems please clear your browsers cache, exit and restart your browser please.");
             }
             else {
 
