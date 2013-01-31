@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:fields="urn:import:cazcade.vortex.widgets.client.form.fields"
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
@@ -8,7 +12,11 @@
         <div ui:field="contentArea">
 
             <div class="row profile-board-header-top">
+
                 <div class="profile-header-top-left">
+                    <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="120px"
+                                            size="CLIPPED_MEDIUM"
+                                            height="160px"/>
                     <fields:VortexEditableLabel ui:field="userFullName" styleName="profile-board-user-fullname"/>
                     <span class="profile-board-user-role">(<g:Label ui:field="roleFullName"/>)
                     </span>
@@ -40,11 +48,6 @@
                     </g:HTMLPanel>
                 </div>
                 <div class="profile-header-top-right">
-                    <div>
-                        <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="120px"
-                                                size="CLIPPED_MEDIUM"
-                                                height="160px"/>
-                    </div>
                     <dm:DirectMessagePanel ui:field="directMessagePanel" visible="false"/>
                 </div>
             </div>
