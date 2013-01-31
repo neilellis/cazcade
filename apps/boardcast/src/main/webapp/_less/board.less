@@ -455,20 +455,24 @@ body.boards-body {
 }
 
 .profile-board-header {
-  overflow: hidden;
-/*background-image:url('../_images/profile_bar.png');*/
-  color: @grayVeryDark;
+  overflow: hidden; //  font-family: Georgia, serif;
+  background-image: url('../_images/brass.jpg');
+  .box-shadow(1px 2px 3px 1px #111);
+  text-shadow: 1px 1px 1px #ffe1c7;
+  color: #372c23; //  color: rgba(255,255,255,0.5);
   margin-top: 0px;
   margin-left: -20px;
+  margin-bottom: 24px;
   padding-left: -20px;
   padding-right: 20px;
-  width: 1024px;
+  width: 1004px;
   .profile-board-header-top {
     padding-top: 12px;
     height: 240px;
+    width: 950px;
     .profile-header-top-middle {
       position: relative;
-      width: 240px;
+      width: 230px;
       height: 220px;
       float: left;
     }
@@ -476,8 +480,8 @@ body.boards-body {
       margin-top: 24px;
       float: left;
       height: 184px;
-      width: 500px;
-      margin-left: 40px;
+      width: 400px;
+      margin-left: 30px;
       padding-left: 20px;
       position: relative;
 
@@ -511,17 +515,12 @@ body.boards-body {
     clear: left;
     font-size: 22px;
     font-weight: bold;
-    line-height: 28px;
-    opacity: 0.75;
-
+    line-height: 28px; //    opacity: 0.75;
   }
 
   .profile-board-user-description {
     font-style: italic;
-    font-family: Times, serif;
-    font-size: 20px;
-    opacity: 0.85;
-    text-shadow: 0 0 1px white;
+    font-size: 20px; //    opacity: 0.85;
     line-height: 28px;
     margin-top: 16px;
     display: inline;
@@ -533,37 +532,27 @@ body.boards-body {
       display: inline;
     }
     font-size: 20px;
-    line-height: 30px;
-    margin-top: 2px;
+    line-height: 20px; //    margin-top: 2px;
     margin-left: 1em;
-    float: left;
-    opacity: 0.5;
-
+    float: left; //    opacity: 0.5;
   }
 
-  .profile-board-user-fullname {
-    .handwriting-font;
+  .profile-board-user-fullname { //    .handwriting-font;
     display: inline;
     float: left;
     font-weight: bold;
-    clear: left;
-    text-shadow: 0 0 2px rgba(10, 15, 40, 0.2);
-    opacity: 0.95; //    margin-bottom: @baseline;
-    font-size: 30px;
-    line-height: 30px; //    line-height: @baseline * 2;
+    clear: left; //    opacity: 0.95; //    margin-bottom: @baseline;
+    font-size: 30px; //    line-height: 30px; //    line-height: @baseline * 2;
   }
 
   .profile-board-followers {
     font-size: 16px;
-    line-height: 30px;
-    opacity: 0.9;
-
+    line-height: 30px; //    opacity: 0.9;
   }
 
   .profile-board-following {
     font-size: 16px;
-    line-height: 30px;
-    opacity: 0.9;
+    line-height: 30px; //    opacity: 0.9;
   }
 
   .board-text {
@@ -573,6 +562,26 @@ body.boards-body {
       margin-right: -20px;
       height: 140px;
       margin-bottom: 10px;
+    }
+  }
+  .profile-board-user-image {
+    .box-shadow(1px 1px 2px #ffe1c7);
+    margin-top: 10px;
+    .editable-image {
+      position: relative;
+      &:after {
+        content: "";
+        display: block;
+        background-image: url('/_images/covergloss.png'); //         background-color: red;
+        background-size: 100% 100%;
+        opacity: 0.5;
+
+        width: 120px;
+        height: 160px;
+        bottom: 2px;
+        top: 0px;
+        position: absolute;
+      }
     }
   }
 
