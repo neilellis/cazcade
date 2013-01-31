@@ -66,7 +66,6 @@ div.pool-object {
     &:hover {
       border: 2px @guidelinesColor solid;
       .border-radius(4px);
-      z-index: 32000;
     }
   }
 }
@@ -98,7 +97,7 @@ div.pool-object {
 
 .pool-object:hover {
   cursor: move;
-/* We override the programmatic behaviour to make sure we have focus now */
+/* We override the programmatic behaviour to make sure we have focus now (the element will have a z-index added to it programmaticaly)*/
   z-index: @maxZindexMidground !important;
 }
 
@@ -179,7 +178,7 @@ div.pool-object {
   color: #111;
   background-color: @stickyColor;
   background-image: url('/_images/wallpapers/speckled-texture.png');
-  background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 1%)), to(darken(@stickyColor, 2%)));
+  background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 1%)), to(darken(@stickyColor, 5%)));
   .shadow-border(@stickyColor);
   .border-radius(2px);
   font-size: @boardTextFontSize;
