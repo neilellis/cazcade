@@ -3,7 +3,7 @@
 //Font sizes
 @streamFontSize: 13px;
 @streamFontSmallSize: 10px;
-@boardTextFontSize: 13px;
+@boardTextFontSize: 14px;
 @captionFontSize: 20px;
 @topBarFontSize: 15px;
 @topTabsFontSize: @topBarFontSize;
@@ -44,6 +44,10 @@
 @poolObjectLargeWidth: @poolWidth - ( 2 * @poolObjectPadding + 2 * @poolObjectBorder);
 @poolObjectLargeHeight: @poolWidth/@coreRatio - ( 2 * @poolObjectPadding + 2 * @poolObjectBorder);
 
+@maxZindex: 2147483638;
+@maxZindexMidground: 100000;
+
+@almostBlack: #111;
 @highlightColor: #49811A,;
 @grayVeryDark: lighten(@black, 15%);
 
@@ -59,7 +63,7 @@
 
 @highlightColorTransparent: rgba(29%, 55%, 18%, 0.2);
 
-@guidelinesColor: rgba(200, 200, 210, 0.5);
+@guidelinesColor: rgba(50, 40, 40, 0.3);
 @thickBorderColor: url('/_images/wood.jpg');
 
 @whiteLinen: url('../_images/wallpapers/linen-white.jpg');
@@ -81,3 +85,6 @@
 @speckled: url('../_images/wallpapers/speckled-texture.png');
 
 @menuBackground: url('/_images/brushed-aluminium.jpg');
+
+@closeBox: url("/_images/closebox.png");
+@closeBoxPressed: url("/_images/closebox_pressed.png");

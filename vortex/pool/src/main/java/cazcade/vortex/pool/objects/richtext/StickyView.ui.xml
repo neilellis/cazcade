@@ -1,10 +1,14 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:misc='urn:import:cazcade.vortex.widgets.client.misc'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel styleName="pool-object-inner">
         <g:HTMLPanel styleName="pool-object-rich-text">
             <g:HTMLPanel styleName="pool-object-rich-text-inner">
-                <misc:EditableLabel ui:field="label" wordWrap="true" doubleClick="true"
+                <misc:EditableLabel ui:field="label" wordWrap="true" doubleClick="false"
                                     placeholder="Double Click to Edit"/>
                 <div class="rich-text-detail">
                     <g:Label styleName="rich-text-author-label" ui:field="authorName"/>

@@ -72,7 +72,7 @@ public interface LSDBaseEntity {
 
     boolean getBooleanAttribute(@Nonnull LSDAttribute attribute, boolean defaultValue);
 
-    boolean getBooleanAttribute(@Nonnull LSDAttribute editable);
+    boolean getBooleanAttribute(@Nonnull LSDAttribute attribute);
 
     @Nonnull Double getDoubleAttribute(@Nonnull LSDAttribute attribute) throws NumberFormatException;
 

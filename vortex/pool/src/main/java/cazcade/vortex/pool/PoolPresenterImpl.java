@@ -4,6 +4,7 @@
 
 package cazcade.vortex.pool;
 
+import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
@@ -46,11 +47,6 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     @Nonnull
     private final PoolObjectContainerManager poolObjectContainerManager;
-
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
-
-        this(scrollPanel, panel, entity, false, features, threadSafeExecutor);
-    }
 
     public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
@@ -256,6 +252,10 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     public void hideInitMode() {
         panel.removeStyleName("init-mode");
+    }
+
+    @Override public boolean isModifiable() {
+        return entity.getBooleanAttribute(LSDAttribute.MODIFIABLE, false);
     }
 
 

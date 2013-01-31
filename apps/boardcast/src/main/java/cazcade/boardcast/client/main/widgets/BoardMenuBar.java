@@ -41,9 +41,7 @@ public class BoardMenuBar extends MenuBar {
 
     @Nullable
     private LiquidURI   poolURI;
-    private MenuBar     addMenubar;
     private MenuBar     accessMenuBar;
-    private MenuBar     collaborateMenuBar;
     private PublicBoard boardWidget;
 
     public BoardMenuBar() {
@@ -67,19 +65,11 @@ public class BoardMenuBar extends MenuBar {
             @Override
             public void onSuccess() {
                 if (modifierOptions) {
-                    addMenubar = new MenuBar(true);
                     createAddMenu(poolURI, backgroundDialog, board, BoardMenuBar.this);
-                    //                    final MenuItem add = addItem("Add", addMenubar);
-                    //                    add.addStyleName("board-menu-add");
                 }
                 addSeparator();
                 if (board.getBooleanAttribute(LSDAttribute.ADMINISTERABLE)) {
                     accessMenuBar = new MenuBar(true);
-                    //                    addItem(new MenuItem("<div width='100%'>", true, new Scheduler.ScheduledCommand() {
-                    //                        @Override public void execute() {
-                    //
-                    //                        }
-                    //                    }));
                     addItem(iconWithName("key", "Access"), accessMenuBar);
                     createAccessMenu(board);
                 }
@@ -91,10 +81,10 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private SafeHtml iconWithName(String name, String title) {
-        return SafeHtmlUtils.fromTrustedString("<img class='menubar-icon' src='/_images/icons/"
+        return SafeHtmlUtils.fromTrustedString("<img class='menubar-icon' width='56px' height='56px' src='/_images/icons/"
                                                + name
                                                + ".png'/><div class='menubar-icon-title'>"
-                                               + title
+                                               + (!title.isEmpty() ? title : "&nbsp;")
                                                + "</div>");
     }
 
@@ -231,14 +221,13 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private void createCollaborateMenu(@Nonnull final LSDBaseEntity board) {
-        collaborateMenuBar = new MenuBar(true);
+        MenuBar collaborateMenuBar = new MenuBar(true);
         addItem(iconWithName("collaborate", "Collab"), collaborateMenuBar);
         final MenuItem chat = new MenuItem(iconWithName("chat", "Chat"), (Command) null);
 
         chat.setCommand(new Command() {
             @Override
             public void execute() {
-                //                HistoryManager.navigate("chat", board.getURI().asShortUrl().asUrlSafe());
                 boardWidget.toggleChat();
                 if ("Chat".equals(chat.getText())) {
                     chat.setText("End Chat");

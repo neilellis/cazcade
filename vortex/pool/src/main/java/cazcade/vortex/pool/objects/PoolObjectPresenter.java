@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects;
 
 import cazcade.liquid.api.lsd.LSDTransferEntity;
@@ -16,8 +20,10 @@ public interface PoolObjectPresenter<T extends PoolObjectView> {
 
     /**
      * The pool presenter calls this method when the object is added to pool.
+     *
+     * @param count
      */
-    void onAddToPool();
+    void onAddToPool(int count);
 
     void onRemoveFromPool();
 

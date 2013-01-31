@@ -1,5 +1,13 @@
 //Editor
 
+.main-content-panel .pool-object {
+  cursor: move;
+}
+
+.main-content-panel.readonly .pool-object {
+  cursor: pointer;
+}
+
 .pool-object-editor-popup-glass {
   background: @dialogGlassBackground;
   background-color: @dialogGlassBackgroundColor;
@@ -58,6 +66,7 @@ div.pool-object {
     &:hover {
       border: 2px @guidelinesColor solid;
       .border-radius(4px);
+      z-index: 32000;
     }
   }
 }
@@ -89,25 +98,51 @@ div.pool-object {
 
 .pool-object:hover {
   cursor: move;
+/* We override the programmatic behaviour to make sure we have focus now */
+  z-index: @maxZindexMidground !important;
 }
 
 .pool-object-edit-mode {
-  z-index: 32000;
+  z-index: @maxZindexMidground;
 }
 
 .pool-object-delete {
   position: absolute;
-  background-image: url("../_images/delete.png");
-  width: 24px;
-  height: 24px;
+  background-image: @closeBoxPressed;
+  width: 31px;
+  height: 32px;
   top: 0px;
   right: 0px;
   z-index: 50;
   cursor: pointer;
+  &:active {
+    background-image: @closeBoxPressed;
+  }
+  &:hover {
+    background-image: @closeBox;
+  }
 
 }
 
 @stickyColor: #FCF0AD;
+
+.main-content-panel.readonly .pool-object-rich-text {
+  cursor: default;
+}
+
+.main-content-panel .pool-object-rich-text .editableLabel-label {
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(@stickyColor, 5%);
+  }
+}
+
+.main-content-panel.readonly .pool-object-rich-text .editableLabel-label {
+  cursor: text;
+  &:hover {
+    background-color: lighten(@stickyColor, 5%);
+  }
+}
 
 .pool-object-rich-text {
   overflow: visible;
@@ -120,12 +155,10 @@ div.pool-object {
     left: 10px;
     right: 10px;
     top: 10px;
-    bottom: 10px;
-
     font-size: @boardTextFontSize;
+    min-height: 2em;
     word-wrap: break-word;
     overflow: hidden;
-    cursor: pointer;
   }
 
   .editableLabel-buttonPanel {
@@ -144,7 +177,7 @@ div.pool-object {
   width: @poolObjectSmallWidth;
   height: @poolObjectSmallWidth;
   color: #111;
-  background-color: #FCF0AD;
+  background-color: @stickyColor;
   background-image: url('/_images/wallpapers/speckled-texture.png');
   background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 1%)), to(darken(@stickyColor, 2%)));
   .shadow-border(@stickyColor);
@@ -418,7 +451,8 @@ div.checklist-entry-author {
       -webkit-transition: src ease-in-out 300ms;
       -moz-transition: src ease-in-out 300ms;
       .border-radius(2px);
-      display: block
+      display: block;
+      background-color: white;
     }
 
   }
@@ -459,6 +493,7 @@ div.checklist-entry-author {
   margin: 0px;
   padding: 0px;
   z-index: 0;
+  background-color: #111;
   .box-shadow(1px 3px 4px 2px rgba(10, 10, 10, 0.9));
 }
 
@@ -468,20 +503,24 @@ div.checklist-entry-author {
 }
 
 .pool-object-website {
-  cursor: pointer;
   -moz-box-shadow: 3px 3px 5px rgba(10, 10, 10, 0.2);
   .filter(drop-shadow(1px 3px 20px rgba(10, 10, 10, 0.9)));
   -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#0A0A0A')";
 
   img {
-    border: 12px solid #ffffff;
-    border-left: 10px solid #ffffff;
-    border-right: 8px solid #ffffff;
+    border: 12px solid #f8f8ff;
+    border-left: 10px solid #f8f8ff;
+    border-right: 8px solid #f8f8ff;
     display: block;
     -webkit-mask-box-image: url('/_images/torn/torn-mask-left.png');
     -webkit-mask-size: 100% 100%;
+    background-color: white;
   }
 
+}
+
+.main-content-panel.readonly .pool-object-image {
+  cursor: default;
 }
 
 .pool-object-image {

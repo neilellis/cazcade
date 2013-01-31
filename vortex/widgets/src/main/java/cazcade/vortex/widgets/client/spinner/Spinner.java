@@ -37,9 +37,9 @@ public class Spinner {
     private static native JavaScriptObject init() /*-{
         var opts = {
             lines: 13, // The number of lines to draw
-            length: 21, // The length of each line
-            width: 8, // The line thickness
-            radius: 21, // The radius of the inner circle
+            length: 12, // The length of each line
+            width: 4, // The line thickness
+            radius: 8, // The radius of the inner circle
             corners: 1, // Corner roundness (0..1)
             rotate: 0, // The rotation offset
             color: '#ddd', // #rgb or #rrggbb

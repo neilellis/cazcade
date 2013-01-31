@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.api;
 
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
@@ -14,8 +18,7 @@ import javax.annotation.Nullable;
  */
 public interface PoolPresenter {
 
-    @Nullable
-    PoolMode getMode();
+    @Nullable PoolMode getMode();
 
     int getWidth();
 
@@ -30,8 +33,7 @@ public interface PoolPresenter {
     boolean isWithinYBounds(int i);
 
 
-    @Nonnull
-    LSDTransferEntity getEntity();
+    @Nonnull LSDTransferEntity getEntity();
 
     void move(PoolObjectPresenter presenter, double x, double y, boolean onServer);
 
@@ -39,8 +41,7 @@ public interface PoolPresenter {
 
     int getAbsoluteTop();
 
-    @Nonnull
-    AbsolutePanel getDragBoundContainer();
+    @Nonnull AbsolutePanel getDragBoundContainer();
 
     void add(PoolObjectPresenter poolObjectPresenter);
 
@@ -50,8 +51,7 @@ public interface PoolPresenter {
 
     void transfer(PoolObjectPresenter source, PoolObjectPresenterContainer destination);
 
-    @Nonnull
-    LSDDictionaryTypes getType();
+    @Nonnull LSDDictionaryTypes getType();
 
     void destroy();
 
@@ -64,4 +64,6 @@ public interface PoolPresenter {
     void showInitMode();
 
     void hideInitMode();
+
+    boolean isModifiable();
 }

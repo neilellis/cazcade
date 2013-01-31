@@ -14,9 +14,9 @@
             <div class="row profile-board-header-top">
 
                 <div class="profile-header-top-left">
-                    <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="120px"
+                    <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="90px"
                                             size="CLIPPED_MEDIUM"
-                                            height="160px"/>
+                                            height="120px"/>
                     <fields:VortexEditableLabel ui:field="userFullName" styleName="profile-board-user-fullname"/>
                     <span class="profile-board-user-role">(<g:Label ui:field="roleFullName"/>)
                     </span>
