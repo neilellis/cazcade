@@ -119,6 +119,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
     private String color;
     private String fontFamily;
     private String fontSize;
+    private int    height;
 
     public EditableLabel() {
         super();
@@ -231,6 +232,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
             fontFamily = WidgetUtil.getComputedStyle(text.getElement(), "fontFamily");
             fontSize = WidgetUtil.getComputedStyle(text.getElement(), "fontSize");
             color = getColor() != null ? color : WidgetUtil.getComputedStyle(text.getElement(), "color");
+            height = getWidget().getOffsetHeight();
 
             // Change the view from Label to TextBox and Buttons
             text.removeFromParent();
@@ -414,7 +416,8 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
                 final IFrameElement fe = (IFrameElement) changeTextArea.getElement().cast();
                 fe.setFrameBorder(0);
                 //                fe.setMarginWidth(10);
-                fe.setScrolling("no");
+                changeTextArea.setHeight(height + "px");
+                //                fe.setScrolling("no");
                 final Style s = fe.getContentDocument().getBody().getStyle();
                 s.setProperty("fontFamily", fontFamily == null || fontFamily.isEmpty()
                                             ? "'Helvetica Neue',Arial,sans-serif"

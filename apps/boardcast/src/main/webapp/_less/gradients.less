@@ -199,13 +199,16 @@
   .box-shadow(1px 1px 3px 2px rgba(20,20,30,0.5) inset);
 }
 
-.ruled-paper-effect {
-  font: normal 12px/1.5 "Georgia", "Times New Roman", serif;
+.ruled-paper-effect(@fontSize: 20px) { //  font: normal 12px/1.5 "Georgia", "Times New Roman", serif;
   margin: 0 auto 10px;
-  padding: 6px 5px 4px 42px;
+  padding-top: @fontSize + 4;
+  padding-right: @fontSize;
+  padding-left: @fontSize + 12;
+  padding-bottom: @fontSize;
   position: relative;
   color: #444;
-  line-height: 20px;
+  line-height: @fontSize;
+  font-size: @fontSize;
   border: 1px solid #d2d2d2;
 
   background: #fff;
@@ -216,19 +219,16 @@
   background: -o-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
   background: linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
 
-  -webkit-background-size: 100% 20px;
-  -moz-background-size: 100% 20px;
-  -ms-background-size: 100% 20px;
-  -o-background-size: 100% 20px;
-  background-size: 100% 20px;
+  -webkit-background-size: 100% @fontSize;
+  -moz-background-size: 100% @fontSize;
+  -ms-background-size: 100% @fontSize;
+  -o-background-size: 100% @fontSize;
+  background-size: 100% @fontSize;
 
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  .border-radius(3px);
 
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  .box-shadow(0 1px 2px rgba(0, 0, 0, 0.07));
+
   &::before {
     content: '';
     position: absolute;
@@ -242,15 +242,15 @@
 
   h1,
   h2 {
-    font-size: 16px;
-    line-height: 16px;
+    font-size: @fontSize * 0.75;
+    line-height: @fontSize -  4;
     margin: 0 0 4px;
   }
   h3,
   h4,
   h5 {
-    font-size: 14px;
-    line-height: 16px;
+    font-size: @fontSize * 0.6;
+    line-height: @fontSize -  4;
     margin: 0 0 4px;
   }
   h4,
@@ -258,15 +258,44 @@
     font-weight: normal;
   }
   p {
-    margin: 0 0 20px;
+    margin: 0 0 @fontSize;
   }
   p:last-child {
     margin: 0;
   }
   ul {
-    margin: 0 0 20px;
+    margin: 0 0 @fontSize;
   }
 
+}
+
+.lifted-shadow {
+  position: relative;
+  float: left;
+
+  .border-radius(2px);
+  .box-shadow(0px 1px 1px 1px rgba(10, 10, 10, 0.2));
+
+  &:before,
+  &:after {
+    bottom: 15px;
+    left: 10px;
+    width: 50%;
+    height: 20%;
+    .box-shadow(0 5px 10px 5px rgba(0, 0, 0, 0.7));
+    .transform(rotate(-3deg));
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+
+  }
+
+  &:after {
+    right: 10px;
+    left: auto;
+    .transform(rotate(3deg));
+  }
 }
 
 

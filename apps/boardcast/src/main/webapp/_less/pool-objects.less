@@ -1,3 +1,5 @@
+@import "common.less";
+
 //Editor
 
 .main-content-panel .pool-object {
@@ -101,7 +103,7 @@ div.pool-object {
 }
 
 .pool-object-edit-mode {
-  z-index: @maxZindexMidground;
+  z-index: @maxZIndex;
 }
 
 .pool-object-delete {
@@ -175,16 +177,22 @@ div.pool-object {
   width: @poolObjectSmallWidth;
   height: @poolObjectSmallWidth;
   color: #111;
+  .marker-font;
+  font-weight: lighter;
   background-color: @stickyColor;
   background-image: url('/_images/wallpapers/speckled-texture.png');
   background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 1%)), to(darken(@stickyColor, 5%)));
   .shadow-border(@stickyColor);
   .border-radius(2px);
-  font-size: @boardTextFontSize;
   overflow: visible;
   position: relative;
   float: left;
   .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.2));
+
+  .editableLabel-label {
+    font-size: 34px;
+    line-height: 40px;
+  }
 
   &:before,
   &:after {
@@ -213,6 +221,12 @@ div.pool-object {
   height: auto;
   min-height: 30px;
 
+  .pool-object-note-inner {
+    color: @almostBlack;
+    background-color: @almostWhite;
+    font-size: @boardTextFontSize;
+  }
+
   &.size-small, &.size-medium, &.size-large {
     height: auto;
   }
@@ -226,7 +240,9 @@ div.pool-object {
   &.theme-black {
     .pool-object-note-inner {
       background: @blackTexture;
-      color: white;
+      .border-radius(3px);
+
+      color: @slightTransparentWhite;
       width: 100%;
       .editableLabel-label {
         font-size: 26px;
@@ -236,39 +252,49 @@ div.pool-object {
         padding-bottom: 1em;
       }
 
-      position: relative;
-      float: left;
-      .border-radius(2px);
-      .box-shadow(0px 1px 1px 1px rgba(10, 10, 10, 0.2));
+      .lifted-shadow;
+    }
+  }
 
-      &:before,
-      &:after {
-        bottom: 15px;
-        left: 10px;
-        width: 50%;
-        height: 20%;
-        .box-shadow(0 5px 10px 5px rgba(0, 0, 0, 0.7));
-        .transform(rotate(-3deg));
-        content: "";
-        display: block;
-        position: absolute;
-        z-index: -1;
+  &.theme-lined {
+    .pool-object-note-inner {
+      .clear-handwriting-font;
+      .ruled-paper-effect(26px);
+      min-height: 180px;
+      .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.4));
+    }
+  }
 
-      }
-
-      &:after {
-        right: 10px;
-        left: auto;
-        .transform(rotate(3deg));
+  &.theme-default {
+    .pool-object-note-inner {
+      min-height: 180px;
+      .border-radius(1px);
+      #gradient > .vertical(@almostWhite,darken(@almostWhite,5%));
+      .box-shadow(0px 1px 2px 1px rgba(10, 10, 10, 0.4));
+      .editableLabel-label {
+        font-size: 16px;
+        margin: 1em;
+        margin-top: 2em;
+        margin-bottom: 2em;
       }
     }
   }
 
   &.theme-white {
     .pool-object-note-inner {
-      .ruled-paper-effect;
-      min-height: 180px;
-      .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.4));
+      .border-radius(3px);
+      background: @whiteTexture;
+      color: @slightTransparentBlack;
+      width: 100%;
+      .editableLabel-label {
+        font-size: 26px;
+        font-family: "Gill Sans", sans-serif;
+        font-weight: normal;
+        margin: 1em;
+        padding-bottom: 1em;
+      }
+
+      .lifted-shadow;
     }
   }
 
@@ -278,22 +304,13 @@ div.pool-object {
 
   background: none;
   color: @grayDark;
-
   .border-radius(2px);
-
-/*border: 1px dashed rgba(0,0,0,0.0);*/
-
-/*&:hover {*/
-/*border: 1px dashed rgba(0,0,0,0.5);*/
-/*}*/
 
 }
 
 .pool-object-note .editableLabel-label {
-  position: static;
-  width: 100%;
+  position: static; //  width: 100%;
   height: 100%;
-  font-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis-word;
   word-wrap: break-word;

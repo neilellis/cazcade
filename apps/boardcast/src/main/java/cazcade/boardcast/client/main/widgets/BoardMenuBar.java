@@ -100,7 +100,9 @@ public class BoardMenuBar extends MenuBar {
         }
 
         menubar.addItem(iconWithName("sticky", "Sticky"), new CreateRichTextCommand(poolURI, LSDDictionaryTypes.STICKY, AbstractCreateCommand.Size.DEFAULT, "default"));
+
         menubar.addItem(iconWithName("caption", "Caption"), new CreateRichTextCommand(poolURI, LSDDictionaryTypes.CAPTION, AbstractCreateCommand.Size.DEFAULT, "default"));
+
         menubar.addItem(iconWithName("plain", "Text"), createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Nonnull @Override
             public CreateItemCommand create(final CreateItemCommand.Size size) {
@@ -108,18 +110,25 @@ public class BoardMenuBar extends MenuBar {
             }
         }, false));
 
-        menubar.addItem(iconWithName("black_on_white", "Text"), createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        menubar.addItem(iconWithName("lined", "Lined"), createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Nonnull @Override
             public CreateItemCommand create(final CreateItemCommand.Size size) {
-                return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
+                return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "lined");
             }
         }, false));
 
 
-        menubar.addItem(iconWithName("white_on_black", "Text"), createMenuBarForSizeVariants(new SizeVariantBuilder() {
+        menubar.addItem(iconWithName("white_on_black", "Card"), createMenuBarForSizeVariants(new SizeVariantBuilder() {
             @Nonnull @Override
             public CreateItemCommand create(final CreateItemCommand.Size size) {
                 return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "black");
+            }
+        }, false));
+
+        menubar.addItem(iconWithName("black_on_white", "Card"), createMenuBarForSizeVariants(new SizeVariantBuilder() {
+            @Nonnull @Override
+            public CreateItemCommand create(final CreateItemCommand.Size size) {
+                return new CreateRichTextCommand(poolURI, LSDDictionaryTypes.NOTE, size, "white");
             }
         }, false));
 

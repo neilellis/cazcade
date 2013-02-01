@@ -97,13 +97,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         oldX = x;
         oldY = y;
         pool.move(this, x, y, false);
-        if (viewEntity.hasAttribute(LSDAttribute.VIEW_Z)) {
-            widget.getElement().getStyle().setZIndex(viewEntity.getDoubleAttribute(LSDAttribute.VIEW_Z).intValue());
-        }
-        else {
-            //The z-index should reflect the order in which objects have been added to the pool (at this stage).
-            widget.getElement().getStyle().setZIndex(widget.getDefaultZIndex() + count);
-        }
+        setZIndexAccordingToPoolOrder(viewEntity, widget, count);
 
 
         //        DOM.setStyleAttribute(widget.getElement(), "position", "relative");
@@ -111,6 +105,16 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         //        DOM.setStyleAttribute(widget.getElement(), "top", (y + (pool.getHeight() / 2) - widget.getOffsetHeight() / 2) + "px");
         //        ClientLog.log("left " + (x + (pool.getWidth() / 2) - widget.getOffsetWidth() / 2) + "px");
         //        ClientLog.log("top " + (y + (pool.getHeight() / 2) - widget.getOffsetHeight() / 2) + "px");
+    }
+
+    private void setZIndexAccordingToPoolOrder(LSDBaseEntity viewEntity, T widget, int count) {
+        if (viewEntity.hasAttribute(LSDAttribute.VIEW_Z)) {
+            widget.getElement().getStyle().setZIndex(viewEntity.getDoubleAttribute(LSDAttribute.VIEW_Z).intValue());
+        }
+        else {
+            //The z-index should reflect the order in which objects have been added to the pool (at this stage).
+            widget.getElement().getStyle().setZIndex(widget.getDefaultZIndex() + count);
+        }
     }
 
     protected int getDefaultHeight() {
@@ -133,7 +137,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         //        DOM.setStyleAttribute(widget.getElement(), "border", "green 2px solid");
     }
 
-    public void onAddToPool(int count) {
+    public void onAddToPool(final int count) {
         if (poolObjectView.getParent() == null) {
             throw new RuntimeException("Cannot add pool object to pool with a widget parent of null.");
         }
@@ -144,14 +148,15 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         poolObjectView.addHandler(new EditStartHandler() {
             @Override
             public void onEditStart(final EditStart event) {
-                //gestureController.setActive(false);
+                poolObjectView.getElement().getStyle().setZIndex(Integer.MAX_VALUE);
+
             }
         }, EditStart.TYPE);
 
         poolObjectView.addHandler(new EditFinishHandler() {
             @Override
             public void onEditFinish(final EditFinish event) {
-                //gestureController.setActive(true);
+                setZIndexAccordingToPoolOrder(viewEntity, poolObjectView, count);
             }
         }, EditFinish.TYPE);
 
