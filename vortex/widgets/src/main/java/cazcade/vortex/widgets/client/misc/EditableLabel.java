@@ -1,21 +1,9 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.misc;
 
-
-/*
- * Copyright 2006 Robert Hanson <iamroberthanson AT gmail.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 /*
  * This code is part of the GWT Widget Library
@@ -23,6 +11,7 @@ package cazcade.vortex.widgets.client.misc;
 
 
 import cazcade.vortex.common.client.FormatUtil;
+import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.misc.toolbar.RichTextToolbar;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.Style;
@@ -61,89 +50,146 @@ import javax.annotation.Nullable;
  *          + made originalText have default value of empty string [to support ref request id: 1518134]
  *          *End*
  */
-public class EditableLabel extends Composite implements HasWordWrap,
-                                                        HasText,
-                                                        HasHorizontalAlignment,
-                                                        SourcesClickEvents,
-                                                        SourcesChangeEvents,
-                                                        SourcesMouseEvents {
+public class EditableLabel extends Composite implements HasWordWrap, HasText, HasHorizontalAlignment, SourcesClickEvents, SourcesChangeEvents, SourcesMouseEvents {
 
     @Nonnull
-    public static final String EDITABLE_LABEL_PLACEHOLDER_STYLE = "editableLabel-placeholder";
+    public static final  String  EDITABLE_LABEL_PLACEHOLDER_STYLE = "editableLabel-placeholder";
+    private static final boolean SUPPORT_TOOLBAR                  = false;
+    /**
+     * Default String value for OK button
+     */
+    @Nonnull
+    private final        String  defaultOkButtonText              = "OK";
+    /**
+     * Default String value for Cancel button
+     */
+    @Nonnull
+    private final        String  defaultCancelButtonText          = "Cancel";
+    ChangeListenerCollection changeListeners;
     /**
      * TextBox element to enable text to be changed if Label is not word wrapped
      */
-    private TextBox changeText;
-
+    private TextBox      changeText;
     /**
      * TextArea element to enable text to be changed if Label is wordwrapped
      */
     private RichTextArea changeTextArea;
-
     @Nonnull
-    private FormatUtil formatter;
-
-
+    private FormatUtil   formatter;
     /**
      * Label element, which is initially is diplayed.
      */
     @Nonnull
-    private HTML text;
-
+    private HTML         text;
     /**
      * String element that contains the original text of a
      * Label prior to it being edited.
      */
     @Nullable
-    private String originalText;
-
+    private String       originalText;
     /**
      * Simple button to confirm changes
      */
-    private Widget confirmChange;
-
+    private Widget       confirmChange;
     /**
      * Simple button to cancel changes
      */
-    private Widget cancelChange;
-
+    private Widget       cancelChange;
     /**
      * Flag to indicate that Label is in editing mode.
      */
-    private boolean isEditing;
-
+    private boolean      isEditing;
     /**
      * Flag to indicate that label can be edited.
      */
     private boolean editable = true;
-
-    ChangeListenerCollection changeListeners;
-
-    /**
-     * Default String value for OK button
-     */
-    @Nonnull
-    private final String defaultOkButtonText = "OK";
-
-    /**
-     * Default String value for Cancel button
-     */
-    @Nonnull
-    private final String defaultCancelButtonText = "Cancel";
     private RichTextToolbar toolbar;
-    private FlowPanel buttonPanel;
-    private FlowPanel instance;
-    private Runnable onEditAction;
-    private Runnable onEditEndAction;
+    private FlowPanel       buttonPanel;
+    private FlowPanel       instance;
+    private Runnable        onEditAction;
+    private Runnable        onEditEndAction;
     @Nullable
-    private String plainText;
-    private String okButtonText;
-    private String cancelButtonText;
-    private boolean doubleClick;
-    private boolean showBrief;
+    private String          plainText;
+    private String          okButtonText;
+    private String          cancelButtonText;
+    private boolean         doubleClick;
+    private boolean         showBrief;
     private String placeholder = "Click to edit";
-    private static final boolean SUPPORT_TOOLBAR = false;
-    private String prefix = "";
+    private String prefix      = "";
+    private String color;
+    private String fontFamily;
+    private String fontSize;
+
+    public EditableLabel() {
+        super();
+        createEditableLabel("", defaultOkButtonText, defaultCancelButtonText, false);
+    }
+
+    /**
+     * Constructor that changes default text for buttons and allows the setting of the wordwrap property directly.
+     *
+     * @param labelText   The initial text of the label.
+     * @param okText      Text for use in overiding the default OK button text.
+     * @param cancelText  Text for use in overiding the default CANCEL button text.
+     * @param wordWrap    Boolean representing if the label should be word wrapped or not
+     * @param doubleClick
+     */
+    public EditableLabel(final String labelText, final String okText, final String cancelText, final boolean wordWrap, final boolean doubleClick) {
+        super();
+        createEditableLabel(labelText, okText, cancelText, doubleClick);
+        text.setWordWrap(wordWrap);
+    }
+
+    /**
+     * Constructor that uses default text values for buttons and sets the word wrap property.
+     *
+     * @param labelText   The initial text of the label.
+     * @param wordWrap    Boolean representing if the label should be word wrapped or not
+     * @param doubleClick
+     */
+    public EditableLabel(final String labelText, final boolean wordWrap, final boolean doubleClick) {
+        super();
+        createEditableLabel(labelText, defaultOkButtonText, defaultCancelButtonText, doubleClick);
+        text.setWordWrap(wordWrap);
+    }
+
+    /**
+     * Constructor that changes default button text.
+     *
+     * @param labelText   The initial text of the label.
+     * @param okText      Text for use in overiding the default OK button text.
+     * @param cancelText  Text for use in overiding the default CANCEL button text.
+     * @param doubleClick
+     */
+    public EditableLabel(final String labelText, final String okText, final String cancelText, final boolean doubleClick) {
+        super();
+        createEditableLabel(labelText, okText, cancelText, doubleClick);
+    }
+
+    /**
+     * Constructor that uses default text values for buttons.
+     *
+     * @param labelText The initial text of the label.
+     * @param onUpdate  Handler object for performing actions once label is updated.
+     */
+    public EditableLabel(final String labelText) {
+        super();
+        createEditableLabel(labelText, defaultOkButtonText, defaultCancelButtonText, false);
+    }
+
+
+    public EditableLabel(final String labelText, final boolean doubleClick) {
+        super();
+        createEditableLabel(labelText, defaultOkButtonText, defaultCancelButtonText, doubleClick);
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     /**
      * Allows the setting of the isEditable flag, marking
@@ -174,7 +220,6 @@ public class EditableLabel extends Composite implements HasWordWrap,
         return isEditing;
     }
 
-
     /**
      * Change the displayed label to be a TextBox and copy label
      * text into the TextBox.
@@ -183,13 +228,16 @@ public class EditableLabel extends Composite implements HasWordWrap,
         if (editable) {
             // Set up the TextBox
             originalText = plainText;
+            fontFamily = WidgetUtil.getComputedStyle(text.getElement(), "fontFamily");
+            fontSize = WidgetUtil.getComputedStyle(text.getElement(), "fontSize");
+            color = getColor() != null ? color : WidgetUtil.getComputedStyle(text.getElement(), "color");
 
             // Change the view from Label to TextBox and Buttons
             text.removeFromParent();
 
             if (text.getWordWrap()) {
                 // If Label word wrapped use the TextArea to edit
-//                instance.add(toolbar);
+                //                instance.add(toolbar);
                 instance.add(changeTextArea);
                 instance.add(buttonPanel);
                 changeTextArea.setHTML(originalText);
@@ -276,7 +324,6 @@ public class EditableLabel extends Composite implements HasWordWrap,
         restoreVisibility();
     }
 
-
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -287,8 +334,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
                         changeTextLabel();
                     }
                 }
-            }
-                                      );
+            });
         }
         else {
             text.addClickListener(new ClickListener() {
@@ -297,8 +343,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
                         changeTextLabel();
                     }
                 }
-            }
-                                 );
+            });
         }
     }
 
@@ -311,8 +356,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
      * @param cancelButtonText The text displayed in the Cancel button.
      * @param doubleClick
      */
-    private void createEditableLabel(final String labelText,
-                                     final String okButtonText, final String cancelButtonText, final boolean doubleClick) {
+    private void createEditableLabel(final String labelText, final String okButtonText, final String cancelButtonText, final boolean doubleClick) {
         this.okButtonText = okButtonText;
         this.cancelButtonText = cancelButtonText;
         this.doubleClick = doubleClick;
@@ -350,8 +394,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
                         break;
                 }
             }
-        }
-                                  );
+        });
 
         changeText.addBlurHandler(new BlurHandler() {
             @Override
@@ -360,8 +403,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
                     setTextLabel();
                 }
             }
-        }
-                                 );
+        });
 
         // Create the TextAre element used for word-wrapped Labels
         // and add a KeyboardListener for Esc key presses (not return in this case)
@@ -369,21 +411,23 @@ public class EditableLabel extends Composite implements HasWordWrap,
         changeTextArea = new RichTextArea();
         changeTextArea.addInitializeHandler(new InitializeHandler() {
             public void onInitialize(final InitializeEvent ie) {
-                final IFrameElement fe = (IFrameElement)
-                        changeTextArea.getElement().cast();
+                final IFrameElement fe = (IFrameElement) changeTextArea.getElement().cast();
                 fe.setFrameBorder(0);
-//                fe.setMarginWidth(10);
+                //                fe.setMarginWidth(10);
                 fe.setScrolling("no");
                 final Style s = fe.getContentDocument().getBody().getStyle();
-                s.setProperty("fontFamily", "'Helvetica Neue',Arial,sans- serif");
-                s.setProperty("fontSize", "0.9em");
+                s.setProperty("fontFamily", fontFamily == null || fontFamily.isEmpty()
+                                            ? "'Helvetica Neue',Arial,sans-serif"
+                                            : fontFamily);
+                //                Window.alert(fontFamily);
+                //                Window.alert(fontSize);
+                s.setProperty("fontSize", fontSize);
                 s.setProperty("wordWrap", "break-word");
                 s.setOverflow(Style.Overflow.HIDDEN);
-                s.setColor("black");
+                s.setColor(color);
                 fe.focus();
             }
-        }
-                                           );
+        });
 
 
         if (SUPPORT_TOOLBAR) {
@@ -391,11 +435,11 @@ public class EditableLabel extends Composite implements HasWordWrap,
             toolbar.setWidth("100%");
         }
 
-//        // Add the components to a panel
-//        grid = new Grid(2, 1);
-//        grid.setStyleName("editableLabel-RichText");
-//        grid.setWidget(0, 0, toolbar);
-//        grid.setWidget(1, 0, changeTextArea);
+        //        // Add the components to a panel
+        //        grid = new Grid(2, 1);
+        //        grid.setStyleName("editableLabel-RichText");
+        //        grid.setWidget(0, 0, toolbar);
+        //        grid.setWidget(1, 0, changeTextArea);
 
         changeTextArea.setStyleName("editableLabel-textArea");
         changeText.sinkEvents(Event.KEYEVENTS);
@@ -414,8 +458,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
                         break;
                 }
             }
-        }
-                                  );
+        });
 
 
         changeTextArea.addBlurHandler(new BlurHandler() {
@@ -425,12 +468,12 @@ public class EditableLabel extends Composite implements HasWordWrap,
                     setTextLabel();
                 }
             }
-        }
-                                     );
+        });
 
 
         // Add panels/widgets to the widget panel
         instance.add(text);
+
 
         // Set initial visibilities.  This needs to be after
         // adding the widgets to the panel because the FlowPanel
@@ -440,8 +483,17 @@ public class EditableLabel extends Composite implements HasWordWrap,
         // Assume that this is a non word wrapped Label unless explicitly set otherwise
         text.setWordWrap(false);
 
-        // Set the widget that this Composite represents
         initWidget(instance);
+
+
+        // Set the widget that this Composite represents
+
+
+    }
+
+
+    @Override protected void onAttach() {
+        super.onAttach();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     /**
@@ -491,6 +543,12 @@ public class EditableLabel extends Composite implements HasWordWrap,
         }
     }
 
+    /**
+     * Return whether the Label is word wrapped or not.
+     */
+    public boolean getWordWrap() {
+        return text.getWordWrap();
+    }
 
     /**
      * Set the word wrapping on the label (if word wrapped then the editable
@@ -513,8 +571,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
                 public void onClick(final Widget sender) {
                     setTextLabel();
                 }
-            }
-                                                                 );
+            });
 
             // Set up Cancel Button
             cancelChange = createCancelButton(cancelButtonText);
@@ -526,8 +583,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
                 public void onClick(final Widget sender) {
                     cancelLabelChange();
                 }
-            }
-                                                                );
+            });
 
             // Put the buttons in a panel
             buttonPanel = new FlowPanel();
@@ -535,13 +591,6 @@ public class EditableLabel extends Composite implements HasWordWrap,
             buttonPanel.add(confirmChange);
             buttonPanel.add(cancelChange);
         }
-    }
-
-    /**
-     * Return whether the Label is word wrapped or not.
-     */
-    public boolean getWordWrap() {
-        return text.getWordWrap();
     }
 
     /**
@@ -594,6 +643,21 @@ public class EditableLabel extends Composite implements HasWordWrap,
         }
     }
 
+    /**
+     * Get the number of Visible Lines of editable area of a word-wrapped editable Label.
+     *
+     * @return Number of Visible Lines.
+     * @throws RuntimeException If the Label is not word-wrapped.
+     */
+    public int getVisibleLines() {
+        if (text.getWordWrap()) {
+            //            return changeTextArea.getVisibleLines();
+            return 1;
+        }
+        else {
+            throw new RuntimeException("Editable Label that is not word-wrapped has no number of Visible Lines");
+        }
+    }
 
     /**
      * Sets the number of visible lines for a word-wrapped editable label.
@@ -603,40 +667,10 @@ public class EditableLabel extends Composite implements HasWordWrap,
      */
     public void setVisibleLines(final int number) {
         if (text.getWordWrap()) {
-//            changeTextArea.setVisibleLines(number);
+            //            changeTextArea.setVisibleLines(number);
         }
         else {
             throw new RuntimeException("Cannnot set number of visible lines for a non word-wrapped Editable Label");
-        }
-    }
-
-    /**
-     * Get the number of Visible Lines of editable area of a word-wrapped editable Label.
-     *
-     * @return Number of Visible Lines.
-     * @throws RuntimeException If the Label is not word-wrapped.
-     */
-    public int getVisibleLines() {
-        if (text.getWordWrap()) {
-//            return changeTextArea.getVisibleLines();
-            return 1;
-        }
-        else {
-            throw new RuntimeException("Editable Label that is not word-wrapped has no number of Visible Lines");
-        }
-    }
-
-    /**
-     * Set maximum length of editable area.
-     *
-     * @param length Length of editable area.
-     */
-    public void setMaxLength(final int length) {
-        if (text.getWordWrap()) {
-//            changeTextArea.setCharacterWidth(length);
-        }
-        else {
-            changeText.setMaxLength(length);
         }
     }
 
@@ -647,7 +681,7 @@ public class EditableLabel extends Composite implements HasWordWrap,
      */
     public int getMaxLength() {
         if (text.getWordWrap()) {
-//            return changeTextArea.getCharacterWidth();
+            //            return changeTextArea.getCharacterWidth();
             return 0;
         }
         else {
@@ -656,16 +690,16 @@ public class EditableLabel extends Composite implements HasWordWrap,
     }
 
     /**
-     * Set the visible length of the editable area.
+     * Set maximum length of editable area.
      *
-     * @throws RuntimeException If editable label is word wrapped.
+     * @param length Length of editable area.
      */
-    public void setVisibleLength(final int length) {
+    public void setMaxLength(final int length) {
         if (text.getWordWrap()) {
-            throw new RuntimeException("Cannnot set visible length for a word-wrapped Editable Label");
+            //            changeTextArea.setCharacterWidth(length);
         }
         else {
-            changeText.setVisibleLength(length);
+            changeText.setMaxLength(length);
         }
     }
 
@@ -684,70 +718,18 @@ public class EditableLabel extends Composite implements HasWordWrap,
         }
     }
 
-
-    public EditableLabel() {
-        super();
-        createEditableLabel("", defaultOkButtonText, defaultCancelButtonText, false);
-    }
-
     /**
-     * Constructor that changes default text for buttons and allows the setting of the wordwrap property directly.
+     * Set the visible length of the editable area.
      *
-     * @param labelText   The initial text of the label.
-     * @param okText      Text for use in overiding the default OK button text.
-     * @param cancelText  Text for use in overiding the default CANCEL button text.
-     * @param wordWrap    Boolean representing if the label should be word wrapped or not
-     * @param doubleClick
+     * @throws RuntimeException If editable label is word wrapped.
      */
-    public EditableLabel(final String labelText, final String okText,
-                         final String cancelText, final boolean wordWrap, final boolean doubleClick) {
-        super();
-        createEditableLabel(labelText, okText, cancelText, doubleClick);
-        text.setWordWrap(wordWrap);
-    }
-
-    /**
-     * Constructor that uses default text values for buttons and sets the word wrap property.
-     *
-     * @param labelText   The initial text of the label.
-     * @param wordWrap    Boolean representing if the label should be word wrapped or not
-     * @param doubleClick
-     */
-    public EditableLabel(final String labelText, final boolean wordWrap, final boolean doubleClick) {
-        super();
-        createEditableLabel(labelText, defaultOkButtonText, defaultCancelButtonText, doubleClick);
-        text.setWordWrap(wordWrap);
-    }
-
-
-    /**
-     * Constructor that changes default button text.
-     *
-     * @param labelText   The initial text of the label.
-     * @param okText      Text for use in overiding the default OK button text.
-     * @param cancelText  Text for use in overiding the default CANCEL button text.
-     * @param doubleClick
-     */
-    public EditableLabel(final String labelText, final String okText,
-                         final String cancelText, final boolean doubleClick) {
-        super();
-        createEditableLabel(labelText, okText, cancelText, doubleClick);
-    }
-
-    /**
-     * Constructor that uses default text values for buttons.
-     *
-     * @param labelText The initial text of the label.
-     * @param onUpdate  Handler object for performing actions once label is updated.
-     */
-    public EditableLabel(final String labelText) {
-        super();
-        createEditableLabel(labelText, defaultOkButtonText, defaultCancelButtonText, false);
-    }
-
-    public EditableLabel(final String labelText, final boolean doubleClick) {
-        super();
-        createEditableLabel(labelText, defaultOkButtonText, defaultCancelButtonText, doubleClick);
+    public void setVisibleLength(final int length) {
+        if (text.getWordWrap()) {
+            throw new RuntimeException("Cannnot set visible length for a word-wrapped Editable Label");
+        }
+        else {
+            changeText.setVisibleLength(length);
+        }
     }
 
     public HorizontalAlignmentConstant getHorizontalAlignment() {
@@ -792,7 +774,6 @@ public class EditableLabel extends Composite implements HasWordWrap,
         this.onEditAction = onEditAction;
     }
 
-
     public void setOnEditEndAction(final Runnable onEditEndAction) {
         this.onEditEndAction = onEditEndAction;
     }
@@ -801,12 +782,12 @@ public class EditableLabel extends Composite implements HasWordWrap,
         this.formatter = formatter;
     }
 
-    public void setDoubleClick(final boolean doubleClick) {
-        this.doubleClick = doubleClick;
-    }
-
     public boolean isDoubleClick() {
         return doubleClick;
+    }
+
+    public void setDoubleClick(final boolean doubleClick) {
+        this.doubleClick = doubleClick;
     }
 
     public void setShowBrief(final boolean b) {
@@ -820,18 +801,17 @@ public class EditableLabel extends Composite implements HasWordWrap,
         }
     }
 
-    public void setPlaceholder(final String placeholder) {
-        this.placeholder = placeholder;
-    }
-
     public String getPlaceholder() {
         return placeholder;
+    }
+
+    public void setPlaceholder(final String placeholder) {
+        this.placeholder = placeholder;
     }
 
     public void startEdit() {
         changeTextLabel();
     }
-
 
     public void setPrefix(final String prefix) {
         this.prefix = prefix;

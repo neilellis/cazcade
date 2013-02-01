@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.richtext;
 
 import cazcade.vortex.common.client.FormatUtil;
@@ -12,8 +16,7 @@ public class NoteView extends RichTextView {
 
     protected static final NoteViewUIBinder ourUiBinder = GWT.create(NoteViewUIBinder.class);
 
-    interface NoteViewUIBinder extends UiBinder<HTMLPanel, RichTextView> {
-    }
+    interface NoteViewUIBinder extends UiBinder<HTMLPanel, RichTextView> {}
 
     public NoteView() {
         super();
@@ -27,16 +30,19 @@ public class NoteView extends RichTextView {
         if (size != null) {
             if (size.equals(SMALL)) {
                 getInnerWidget().setWidth(SMALL_WIDTH + "px");
-//                getWidget().setHeight(SMALL_HEIGHT + "px");
+                //                getWidget().setHeight(SMALL_HEIGHT + "px");
             }
             if (size.equals(MEDIUM)) {
                 getInnerWidget().setWidth(MEDIUM_WIDTH + "px");
-//                getWidget().setHeight(MEDIUM_HEIGHT + "px");
+                //                getWidget().setHeight(MEDIUM_HEIGHT + "px");
             }
             if (size.equals(LARGE)) {
                 getInnerWidget().setWidth(LARGE_WIDTH + "px");
-//                getWidget().setHeight(LARGE_HEIGHT + "px");
+                //                getWidget().setHeight(LARGE_HEIGHT + "px");
             }
+        }
+        if ("black".equals(theme)) {
+            label.setColor("white");
         }
     }
 

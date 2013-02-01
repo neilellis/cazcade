@@ -95,8 +95,7 @@ div.pool-object {
 
 }
 
-.pool-object:hover {
-  cursor: move;
+.main-content-panel.readonly .pool-object:hover {
 /* We override the programmatic behaviour to make sure we have focus now (the element will have a z-index added to it programmaticaly)*/
   z-index: @maxZindexMidground !important;
 }
@@ -210,7 +209,7 @@ div.pool-object {
 
 }
 
-.pool-object-note { //golden ratio
+.pool-object-note {
   height: auto;
   min-height: 30px;
 
@@ -226,15 +225,50 @@ div.pool-object {
 
   &.theme-black {
     .pool-object-note-inner {
-      background-color: rgba(0, 0, 0, 0.6);
+      background: @blackTexture;
       color: white;
+      width: 100%;
+      .editableLabel-label {
+        font-size: 26px;
+        font-family: "Gill Sans", sans-serif;
+        font-weight: normal;
+        margin: 1em;
+        padding-bottom: 1em;
+      }
+
+      position: relative;
+      float: left;
+      .border-radius(2px);
+      .box-shadow(0px 1px 1px 1px rgba(10, 10, 10, 0.2));
+
+      &:before,
+      &:after {
+        bottom: 15px;
+        left: 10px;
+        width: 50%;
+        height: 20%;
+        .box-shadow(0 5px 10px 5px rgba(0, 0, 0, 0.7));
+        .transform(rotate(-3deg));
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+
+      }
+
+      &:after {
+        right: 10px;
+        left: auto;
+        .transform(rotate(3deg));
+      }
     }
   }
 
   &.theme-white {
     .pool-object-note-inner {
-      background-color: rgba(255, 255, 255, 0.6);
-      color: black;
+      .ruled-paper-effect;
+      min-height: 180px;
+      .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.4));
     }
   }
 
@@ -246,7 +280,6 @@ div.pool-object {
   color: @grayDark;
 
   .border-radius(2px);
-  padding: 11px;
 
 /*border: 1px dashed rgba(0,0,0,0.0);*/
 
