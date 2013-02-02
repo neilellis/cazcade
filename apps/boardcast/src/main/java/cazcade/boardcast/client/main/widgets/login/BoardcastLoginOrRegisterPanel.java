@@ -32,8 +32,8 @@ public class BoardcastLoginOrRegisterPanel extends DialogBox {
     public BoardcastLoginOrRegisterPanel(final boolean register, final Runnable loginAction, final Runnable registerAction) {
         super();
         setWidget(ourUiBinder.createAndBindUi(this));
-        setWidth("600px");
-        setHeight("280px");
+        setWidth("640px");
+        setHeight("350px");
         setText("Login");
         setGlassEnabled(true);
         setModal(false);
@@ -67,8 +67,8 @@ public class BoardcastLoginOrRegisterPanel extends DialogBox {
                 setText("Login");
                 registerPanelShowing = false;
                 WidgetUtil.swap(registerPanel, loginPanel);
-                setWidth("600px");
-                setHeight("280px");
+                setWidth("640px");
+                setHeight("350px");
                 getWidget().removeStyleName("register-panel");
                 getWidget().addStyleName("login-panel");
                 Track.getInstance().trackEvent("Login", "Switched to login panel.");
@@ -86,7 +86,7 @@ public class BoardcastLoginOrRegisterPanel extends DialogBox {
         getWidget().addStyleName("register-panel");
         WidgetUtil.swap(loginPanel, registerPanel);
         setWidth("650px");
-        setHeight("400px");
+        setHeight("450px");
         Track.getInstance().trackEvent("Register", "Switched to register panel.");
     }
 
