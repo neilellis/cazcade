@@ -184,7 +184,6 @@ div.pool-object {
   background-image: -webkit-gradient(radial, 140 0, 140, 170 80, 230, from(lighten(@stickyColor, 1%)), to(darken(@stickyColor, 5%)));
   .shadow-border(@stickyColor);
   .border-radius(2px);
-  overflow: visible;
   position: relative;
   float: left;
   .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.2));
@@ -192,6 +191,9 @@ div.pool-object {
   .editableLabel-label {
     font-size: 24px;
     line-height: 40px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    max-height: @poolObjectSmallWidth - 40;
   }
 
   &:before,
@@ -213,6 +215,10 @@ div.pool-object {
     right: 10px;
     left: auto;
     .transform(rotate(3deg));
+  }
+
+  a.board-link, a.person-link {
+    color: #4466ff
   }
 
 }
@@ -252,6 +258,18 @@ div.pool-object {
         padding-bottom: 1em;
       }
 
+      a.board-link, a.person-link, a {
+        padding-left: 4px;
+        padding-right: 4px;
+        border: none;
+        color: @linkColorOnBlack;
+        &:hover {
+          color: darken(@linkColorOnBlack, 20%);
+
+        }
+      }
+
+
       .lifted-shadow;
     }
   }
@@ -262,6 +280,27 @@ div.pool-object {
       .ruled-paper-effect(26px);
       min-height: 180px;
       .box-shadow(1px 1px 3px 1px rgba(10, 10, 10, 0.4));
+      a {
+        color: lighten(@linkColorOnWhite, 10%);
+        text-decoration: underline;
+        &:hover {
+          color: lighten(@linkColorOnWhite, 30%);
+        }
+      }
+
+      a.board-link, a.person-link {
+        text-decoration: none;
+        color: darken(@linkColorOnWhite, 15%);
+        background-color: rgba(254, 253, 40, 0.15);
+        padding-left: 4px;
+        padding-right: 4px;
+        border: none;
+
+        &:hover {
+          color: lighten(@linkColorOnWhite, 10%);
+        }
+      }
+
     }
   }
 
@@ -293,7 +332,16 @@ div.pool-object {
         margin: 1em;
         padding-bottom: 1em;
       }
-
+      a {
+        border: none;
+        color: lighten(@linkColorOnWhite, 10%);
+      }
+      a.board-link, a.person-link {
+        padding-left: 4px;
+        padding-right: 4px;
+        border: none;
+        color: lighten(@linkColorOnWhite, 15%);
+      }
       .lifted-shadow;
     }
   }

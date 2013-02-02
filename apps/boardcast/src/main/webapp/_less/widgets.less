@@ -35,26 +35,25 @@
 
 }
 
-.tag-style-link(@fontsize: @boardTextFontSize) {
-  background-color: @highlightColorTransparent;
-  color: darken(@highlightColor, 25%);
-  .border-radius(8px);
-  border: 1px solid darken(@highlightColorTransparent, 20%);
+.tag-style-link(@fontsize: @boardTextFontSize) { //  background-color: @highlightColorTransparent;
+  color: @linkColorOnWhite;
+  .border-radius(2px); //  border: 1px solid darken(@highlightColorTransparent, 20%);
   padding-left: 4px;
   padding-right: 4px;
   padding-top: 1px;
   padding-bottom: 0px;
   margin-bottom: 1px;
   text-decoration: none;
-  font-size: @fontsize - 2px;
+  line-height: 1.6em;
+  border-bottom: 1px dashed @highlightColorTransparent;
 
   &:hover {
-    background-color: lighten(@highlightColorTransparent, 20%);
+    color: lighten(@linkColorOnWhite, 20%);
     text-decoration: none;
   }
 }
 
-.board-link {
+.content  a.board-link {
   .tag-style-link;
 }
 
@@ -62,7 +61,7 @@
 
 }
 
-.person-link {
+.content  a.person-link {
   .tag-style-link;
 
 }

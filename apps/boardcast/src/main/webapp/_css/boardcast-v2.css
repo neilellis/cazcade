@@ -8386,7 +8386,7 @@ body {
 }
 
 body .content a {
-    color: #8995c5;
+    color: #111144;
     text-decoration: none;
     border-bottom: 1px dotted #8995c5;
 }
@@ -9165,93 +9165,91 @@ img.logged-in-user-icon {
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
 
-.board-link {
-    background-color: rgba(0, 1, 0, 0.2);
-    color: #0d1705;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -o-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -o-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -o-border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+.content a.board-link {
+    color: #111144;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
     padding-left: 4px;
     padding-right: 4px;
     padding-top: 1px;
     padding-bottom: 0px;
     margin-bottom: 1px;
     text-decoration: none;
-    font-size: 12px;
+    line-height: 1.6em;
+    border-bottom: 1px dashed rgba(73, 129, 26, 0.3);
 }
 
-.board-link:hover {
-    background-color: rgba(41, 77, 25, 0.2);
+.content a.board-link:hover {
+    color: #252596;
     text-decoration: none;
 }
 
-.person-link {
-    background-color: rgba(0, 1, 0, 0.2);
-    color: #0d1705;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -o-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -o-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -o-border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+.content a.person-link {
+    color: #111144;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
     padding-left: 4px;
     padding-right: 4px;
     padding-top: 1px;
     padding-bottom: 0px;
     margin-bottom: 1px;
     text-decoration: none;
-    font-size: 12px;
+    line-height: 1.6em;
+    border-bottom: 1px dashed rgba(73, 129, 26, 0.3);
 }
 
-.person-link:hover {
-    background-color: rgba(41, 77, 25, 0.2);
+.content a.person-link:hover {
+    color: #252596;
     text-decoration: none;
 }
 
@@ -14460,7 +14458,6 @@ div.pool-object {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -o-border-radius: 2px;
-    overflow: visible;
     position: relative;
     float: left;
     -webkit-box-shadow: 1px 1px 3px 1px rgba(10, 10, 10, 0.2);
@@ -14483,6 +14480,9 @@ div.pool-object {
 .pool-object-rich-text-inner .editableLabel-label {
     font-size: 24px;
     line-height: 40px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    max-height: 277.33333333333337px;
 }
 
 .pool-object-rich-text-inner:before, .pool-object-rich-text-inner:after {
@@ -14555,6 +14555,10 @@ div.pool-object {
     -ms-transform: rotate(3deg);
     -o-transform: rotate(3deg);
     transform: rotate(3deg);
+}
+
+.pool-object-rich-text-inner a.board-link, .pool-object-rich-text-inner a.person-link {
+    color: #4466ff;
 }
 
 .pool-object-note {
@@ -14655,6 +14659,17 @@ div.pool-object {
     font-weight: normal;
     margin: 1em;
     padding-bottom: 1em;
+}
+
+.pool-object-note.theme-black .pool-object-note-inner a.board-link, .pool-object-note.theme-black .pool-object-note-inner a.person-link, .pool-object-note.theme-black .pool-object-note-inner a {
+    padding-left: 4px;
+    padding-right: 4px;
+    border: none;
+    color: #88ccff;
+}
+
+.pool-object-note.theme-black .pool-object-note-inner a.board-link:hover, .pool-object-note.theme-black .pool-object-note-inner a.person-link:hover, .pool-object-note.theme-black .pool-object-note-inner a:hover {
+    color: #22a0ff;
 }
 
 .pool-object-note.theme-black .pool-object-note-inner:before, .pool-object-note.theme-black .pool-object-note-inner:after {
@@ -14853,6 +14868,28 @@ div.pool-object {
     margin: 0 0 26px;
 }
 
+.pool-object-note.theme-lined .pool-object-note-inner a {
+    color: #1b1b6d;
+    text-decoration: underline;
+}
+
+.pool-object-note.theme-lined .pool-object-note-inner a:hover {
+    color: #3030be;
+}
+
+.pool-object-note.theme-lined .pool-object-note-inner a.board-link, .pool-object-note.theme-lined .pool-object-note-inner a.person-link {
+    text-decoration: none;
+    color: #020207;
+    background-color: rgba(254, 253, 40, 0.15);
+    padding-left: 4px;
+    padding-right: 4px;
+    border: none;
+}
+
+.pool-object-note.theme-lined .pool-object-note-inner a.board-link:hover, .pool-object-note.theme-lined .pool-object-note-inner a.person-link:hover {
+    color: #1b1b6d;
+}
+
 .pool-object-note.theme-default .pool-object-note-inner {
     min-height: 180px;
     -webkit-border-radius: 1px;
@@ -15039,6 +15076,18 @@ div.pool-object {
     font-weight: normal;
     margin: 1em;
     padding-bottom: 1em;
+}
+
+.pool-object-note.theme-white .pool-object-note-inner a {
+    border: none;
+    color: #1b1b6d;
+}
+
+.pool-object-note.theme-white .pool-object-note-inner a.board-link, .pool-object-note.theme-white .pool-object-note-inner a.person-link {
+    padding-left: 4px;
+    padding-right: 4px;
+    border: none;
+    color: #202081;
 }
 
 .pool-object-note.theme-white .pool-object-note-inner:before, .pool-object-note.theme-white .pool-object-note-inner:after {
