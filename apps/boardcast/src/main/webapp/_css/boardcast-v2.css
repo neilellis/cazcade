@@ -9281,10 +9281,30 @@ img.logged-in-user-icon {
     opacity: 0;
     display: block;
     position: absolute;
-    font-size: 8pt;
+    font-size: 0.7em;
     font-color: #bfbfbf;
-    right: -20px;
+    right: -1em;
     top: -8px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
     z-index: 1;
 }
 
@@ -11892,7 +11912,7 @@ div.gwt-TabLayoutPanelTab:hover {
 
 .login-or-register-panel .twitter-signin {
     position: absolute;
-    bottom: 16px;
+    bottom: 42px;
     left: 50%;
     margin-left: -80px;
 }
@@ -11912,7 +11932,7 @@ div.gwt-TabLayoutPanelTab:hover {
 .login-panel {
     position: relative;
     width: 640;
-    height: 180px;
+    height: 220px;
 }
 
 .login-panel .login-panel-lhs {
@@ -11974,11 +11994,12 @@ div.gwt-TabLayoutPanelTab:hover {
 
 .register-panel {
     width: 580px;
-    height: 300px;
+    height: 342px;
     position: relative;
 }
 
 .register-panel .register-panel-inner {
+    margin-bottom: 60px;
     transition: opacity ease-in-out 300ms;
     -o-transition: opacity ease-in-out 300ms;
     -webkit-transition: opacity ease-in-out 300ms;
@@ -11991,7 +12012,7 @@ div.gwt-TabLayoutPanelTab:hover {
     -o-transition: opacity ease-in-out 300ms;
     -webkit-transition: opacity ease-in-out 300ms;
     -moz-transition: opacity ease-in-out 300ms;
-    height: 250px;
+    height: 100%;
     width: 100%;
 }
 
