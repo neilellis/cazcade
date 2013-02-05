@@ -8,8 +8,10 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 
 import javax.annotation.Nonnull;
@@ -20,8 +22,7 @@ import javax.annotation.Nullable;
  */
 public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPanel {
 
-    @Nullable protected Runnable onFinishAction;
-    private             boolean  create;
+    private boolean create;
 
 
     @Nonnull @Override
@@ -44,9 +45,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                         public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
                             setEntity(response.getResponse().copy());
                             if (autoCloseField(field)) {
-                                if (onFinishAction != null) {
-                                    onFinishAction.run();
-                                }
+                                fireEvent(new EditFinishEvent());
                             }
                         }
 
@@ -76,6 +75,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                 @Override
                 public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
                     setEntity(response.getResponse().copy());
+                    fireEvent(new EditFinishEvent());
                 }
 
                 @Override
@@ -94,8 +94,8 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
         return false;
     }
 
-    public void setOnFinishAction(@Nullable final Runnable onFinishAction) {
-        this.onFinishAction = onFinishAction;
+    public HandlerRegistration addEditFinishHandler(@Nullable final EditFinishHandler onFinishAction) {
+        return addHandler(onFinishAction, EditFinishEvent.TYPE);
     }
 
 
@@ -113,5 +113,13 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
 
     public LSDTransferEntity getEntityForCreation() {
         return getEntity();
+    }
+
+    public void addValidHandler(ValidHandler validHandler) {
+        addHandler(validHandler, ValidEvent.TYPE);
+    }
+
+    public void addInvalidHandler(InvalidHandler invalidHandler) {
+        addHandler(invalidHandler, InvalidEvent.TYPE);
     }
 }

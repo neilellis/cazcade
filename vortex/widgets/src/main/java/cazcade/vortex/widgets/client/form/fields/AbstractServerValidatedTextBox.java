@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.vortex.widgets.client.Resources;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 
 import javax.annotation.Nonnull;
 
@@ -22,9 +27,9 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
         textBox.addKeyPressHandler(new KeyPressHandler() {
             public void onKeyPress(@Nonnull final KeyPressEvent event) {
                 if (!event.isAnyModifierKeyDown()) {
-//
+                    //
                     final int keyCode = event.getUnicodeCharCode();
-//
+                    //
                     if (keyCode == KeyCodes.KEY_ENTER && isValid()) {
                         event.preventDefault();
                         Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
@@ -32,7 +37,7 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
                             public void execute() {
                                 final String text = cleanUpText(textBox.getText());
                                 textBox.setText(text);
-                                onChangeAction.run();
+                                ValueChangeEvent.fire(AbstractServerValidatedTextBox.this, text);
                             }
                         });
                     }
@@ -55,7 +60,8 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
                 super.onKeyUp(event);
                 if (!isValidName()) {
                     showInvalidName();
-                } else {
+                }
+                else {
                     checkAvailable();
                 }
             }
@@ -63,15 +69,15 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected String cleanUpText(@Nonnull String text) {
         if (text.length() == 0) {
             return text;
         }
         if ("!@".indexOf(text.charAt(0)) >= 0) {
             text = text.charAt(0) + text.substring(1).replaceAll("[^@a-zA-Z0-9_-]", "");
-        } else {
+        }
+        else {
             text = text.replaceAll("[^@a-zA-Z0-9_-]", "");
         }
         return text;

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.login;
 
 import cazcade.liquid.api.lsd.LSDBaseEntity;
@@ -10,6 +14,8 @@ import cazcade.vortex.widgets.client.form.fields.VortexPasswordTextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -22,8 +28,8 @@ import javax.annotation.Nullable;
  */
 public class RegisterPanel extends Composite {
 
-    private Runnable onSwitchToLoginAction;
-    private Runnable onSuccessAction;
+    private Runnable      onSwitchToLoginAction;
+    private Runnable      onSuccessAction;
     @Nullable
     private LSDBaseEntity newUser;
 
@@ -33,26 +39,17 @@ public class RegisterPanel extends Composite {
     }
 
 
-    interface RegisterPanelUiBinder extends UiBinder<HTMLPanel, RegisterPanel> {
-    }
+    interface RegisterPanelUiBinder extends UiBinder<HTMLPanel, RegisterPanel> {}
 
     private static final RegisterPanelUiBinder ourUiBinder = GWT.create(RegisterPanelUiBinder.class);
-    @UiField
-    UsernameTextBox username;
-    @UiField
-    VortexPasswordTextBox password;
-    @UiField
-    VortexPasswordTextBox passwordConfirm;
-    @UiField
-    Button registerButton;
-    @UiField
-    Label registerErrorMessage;
-    @UiField
-    Hyperlink login;
-    @UiField
-    RegexTextBox fullname;
-    @UiField
-    RegexTextBox email;
+    @UiField UsernameTextBox       username;
+    @UiField VortexPasswordTextBox password;
+    @UiField VortexPasswordTextBox passwordConfirm;
+    @UiField Button                registerButton;
+    @UiField Label                 registerErrorMessage;
+    @UiField Hyperlink             login;
+    @UiField RegexTextBox          fullname;
+    @UiField RegexTextBox          email;
 
     public RegisterPanel() {
         super();
@@ -63,26 +60,19 @@ public class RegisterPanel extends Composite {
                 submit();
             }
         });
-        username.setOnChangeAction(new Runnable() {
-
-            @Override
-            public void run() {
+        username.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
+                submit();
+            }
+        });
+        password.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 submit();
             }
         });
 
-        password.setOnChangeAction(new Runnable() {
-
-            @Override
-            public void run() {
-                submit();
-            }
-        });
-
-        passwordConfirm.setOnChangeAction(new Runnable() {
-
-            @Override
-            public void run() {
+        passwordConfirm.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 submit();
             }
         });
@@ -112,22 +102,25 @@ public class RegisterPanel extends Composite {
             registerErrorMessage.setText("Password must include letters and numbers.");
             return;
         }
-        DataStoreService.App.getInstance().register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
-            @Override
-            public void onFailure(final Throwable caught) {
-                ClientLog.log(caught);
-            }
+        DataStoreService.App
+                        .getInstance()
+                        .register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
+                            @Override
+                            public void onFailure(final Throwable caught) {
+                                ClientLog.log(caught);
+                            }
 
-            @Override
-            public void onSuccess(@Nullable final LSDTransferEntity result) {
-                if (result == null) {
-                    registerErrorMessage.setText("Could not register you.");
-                } else {
-                    newUser = result;
-                    onSuccessAction.run();
-                }
-            }
-        });
+                            @Override
+                            public void onSuccess(@Nullable final LSDTransferEntity result) {
+                                if (result == null) {
+                                    registerErrorMessage.setText("Could not register you.");
+                                }
+                                else {
+                                    newUser = result;
+                                    onSuccessAction.run();
+                                }
+                            }
+                        });
     }
 
     public void setOnSwitchToLoginAction(final Runnable onSwitchToLoginAction) {

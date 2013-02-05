@@ -6,6 +6,7 @@ package cazcade.vortex.pool.objects.website;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
 import cazcade.vortex.widgets.client.form.fields.UrlField;
@@ -27,9 +28,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
 
     @UiHandler("done")
     public void doneClicked(final ClickEvent e) {
-        if (onFinishAction != null) {
-            onFinishAction.run();
-        }
+        fireEvent(new EditFinishEvent());
     }
 
 
@@ -56,10 +55,11 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         return "Choose website";
     }
 
-    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, WebsiteEditorPanel> {}
+    interface WebsiteEditorUIBinder extends UiBinder<HTMLPanel, WebsiteEditorPanel> {}
 
 
-    private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
+    private static final WebsiteEditorUIBinder ourUiBinder = GWT.create(WebsiteEditorUIBinder.class);
+
     @UiField VortexTextArea description;
     @UiField RegexTextBox   title;
     @UiField UrlField       urlField;
@@ -69,5 +69,16 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         bind(entity);
+
+        urlField.addValidHandler(new ValidHandler() {
+            @Override public void onValid(ValidEvent event) {
+                fireEvent(event);
+            }
+        });
+        urlField.addInvalidHandler(new InvalidHandler() {
+            @Override public void onInvalid(InvalidEvent event) {
+                fireEvent(event);
+            }
+        });
     }
 }

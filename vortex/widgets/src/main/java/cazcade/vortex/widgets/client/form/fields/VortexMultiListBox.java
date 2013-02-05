@@ -62,7 +62,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         listBox.addChangeHandler(new ChangeHandler() {
             @Override
             public void onChange(final ChangeEvent event) {
-                VortexMultiListBox.this.onChange();
+                VortexMultiListBox.this.processChange();
             }
         });
     }

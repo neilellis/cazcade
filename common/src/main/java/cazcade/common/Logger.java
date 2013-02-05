@@ -233,14 +233,17 @@ public class Logger {
                     notifyOfError(t, MessageFormat.format(message, params));
                     //                NewRelic.noticeError(t);
                 }
-                else {
+                else if (CommonConstants.IS_PRODUCTION) {
                     if (t instanceof RuntimeException) {
                         throw (RuntimeException) t;
                     }
                     else {
                         throw new RuntimeException(t);
+
                     }
-                    //                System.exit(-1);
+                }
+                else {
+                    System.exit(-1);
                 }
             }
         } catch (Exception e) {

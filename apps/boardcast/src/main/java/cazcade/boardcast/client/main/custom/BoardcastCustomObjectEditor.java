@@ -12,14 +12,17 @@ import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.common.client.CustomObjectEditor;
+import cazcade.vortex.common.client.events.EditFinishEvent;
+import cazcade.vortex.common.client.events.EditFinishHandler;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
 import cazcade.vortex.widgets.client.form.fields.VortexTextArea;
 import cazcade.vortex.widgets.client.image.ImageUploader;
-import cazcade.vortex.widgets.client.image.OnFinishUploadHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
@@ -34,32 +37,27 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class BoardcastCustomObjectEditor extends Composite implements CustomObjectEditor {
+    interface EditorUiBinder extends UiBinder<HTMLPanel, BoardcastCustomObjectEditor> {}
+
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
-
-    @UiField PopupPanel popup;
-
-    @UiField ImageUploader imageUploader;
-
-    @UiField Label changeButton;
-
-    @UiField Label          cancelButton;
-    @UiField RegexTextBox   widthField;
-    @UiField RegexTextBox   heightField;
-    @UiField VortexTextArea scriptField;
-
-    private LSDTransferEntity updateEntity;
-    private boolean           sizeDirty;
-
-    private ChangeAction onChangeAction;
+    @UiField PopupPanel        popup;
+    @UiField ImageUploader     imageUploader;
+    @UiField Label             changeButton;
+    @UiField Label             cancelButton;
+    @UiField RegexTextBox      widthField;
+    @UiField RegexTextBox      heightField;
+    @UiField VortexTextArea    scriptField;
+    private  LSDTransferEntity updateEntity;
+    private  boolean           sizeDirty;
+    private  ChangeAction      onChangeAction;
 
     public BoardcastCustomObjectEditor() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        imageUploader.setOnFinishHandler(new OnFinishUploadHandler() {
-            @Override
-            public void onFinish(@Nonnull final ImageUploader uploader) {
-                if (uploader.getStatus() == ImageUploader.Status.SUCCESS) {
-                    final String url = uploader.getImageUrl();
+        imageUploader.setOnFinishHandler(new EditFinishHandler() {
+            @Override public void onEditFinish(EditFinishEvent event) {
+                if (imageUploader.getStatus() == ImageUploader.Status.SUCCESS) {
+                    final String url = imageUploader.getImageUrl();
                     updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
                     updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
                     imageUploader.setImageUrl(url);
@@ -126,14 +124,13 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
         final LSDBaseEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
         widthField.setValue(view.getAttribute(LSDAttribute.VIEW_WIDTH));
         heightField.setValue(view.getAttribute(LSDAttribute.VIEW_HEIGHT));
-        final Runnable sizeDirtyAction = new Runnable() {
-            @Override
-            public void run() {
+        final ValueChangeHandler sizeDirtyAction = new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 sizeDirty = true;
             }
         };
-        widthField.setOnChangeAction(sizeDirtyAction);
-        heightField.setOnChangeAction(sizeDirtyAction);
+        widthField.addChangeHandler(sizeDirtyAction);
+        heightField.addChangeHandler(sizeDirtyAction);
         scriptField.bind(updateEntity, LSDAttribute.SERVER_SCRIPT, "");
 
         popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
@@ -149,6 +146,4 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
     public void setOnChangeAction(final ChangeAction onChangeAction) {
         this.onChangeAction = onChangeAction;
     }
-
-    interface EditorUiBinder extends UiBinder<HTMLPanel, BoardcastCustomObjectEditor> {}
 }

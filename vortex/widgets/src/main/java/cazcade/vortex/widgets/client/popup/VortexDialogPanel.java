@@ -4,6 +4,10 @@
 
 package cazcade.vortex.widgets.client.popup;
 
+import cazcade.vortex.common.client.events.EditCancelEvent;
+import cazcade.vortex.common.client.events.EditCancelHandler;
+import cazcade.vortex.common.client.events.EditFinishEvent;
+import cazcade.vortex.common.client.events.EditFinishHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -36,9 +40,6 @@ public class VortexDialogPanel extends DialogBox {
     private           Timer               timer;
     @Nullable
     private           Widget              mainPanel;
-    @Nullable
-    private           Runnable            onFinishAction;
-    private           Runnable            onCancelAction;
     @Nullable private HandlerRegistration antiScrollHandler;
 
     public VortexDialogPanel() {
@@ -54,16 +55,12 @@ public class VortexDialogPanel extends DialogBox {
 
     @UiHandler("done")
     public void doneClicked(final ClickEvent e) {
-        if (onFinishAction != null) {
-            onFinishAction.run();
-        }
+        fireEvent(new EditFinishEvent());
     }
 
     @UiHandler("cancel")
     public void cancelClicked(final ClickEvent e) {
-        if (onCancelAction != null) {
-            onCancelAction.run();
-        }
+        fireEvent(new EditCancelEvent());
     }
 
     @Override
@@ -139,12 +136,12 @@ public class VortexDialogPanel extends DialogBox {
         }
     }
 
-    public void setOnFinishAction(@Nullable final Runnable onFinishAction) {
-        this.onFinishAction = onFinishAction;
+    public HandlerRegistration addEditFinishHandler(@Nullable final EditFinishHandler onFinishAction) {
+        return addHandler(onFinishAction, EditFinishEvent.TYPE);
     }
 
 
-    public void setOnCancelAction(final Runnable onCancelAction) {
-        this.onCancelAction = onCancelAction;
+    public HandlerRegistration addEditCancelHandler(final EditCancelHandler onCancelAction) {
+        return addHandler(onCancelAction, EditCancelEvent.TYPE);
     }
 }

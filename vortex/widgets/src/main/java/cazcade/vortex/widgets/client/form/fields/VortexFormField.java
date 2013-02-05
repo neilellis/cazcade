@@ -47,5 +47,4 @@ public interface VortexFormField extends Bindable {
      */
     @Nonnull LSDTransferEntity getEntityDiff();
 
-    void setOnValid(Runnable runnable);
 }

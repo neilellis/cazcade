@@ -7,10 +7,18 @@ package cazcade.vortex.widgets.client.form.fields;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.common.client.events.InvalidEvent;
+import cazcade.vortex.common.client.events.InvalidHandler;
+import cazcade.vortex.common.client.events.ValidEvent;
+import cazcade.vortex.common.client.events.ValidHandler;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.widgets.client.Resources;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
@@ -23,21 +31,14 @@ import java.util.List;
 /**
  * @author neilellis@cazcade.com
  */
-public abstract class AbstractVortexFormField extends Composite implements VortexFormField {
-    private final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
-    protected Runnable onChangeAction;
-    protected boolean showValidityFlag = true;
+public abstract class AbstractVortexFormField extends Composite implements VortexFormField, HasValueChangeHandlers<Object> {
+    private final BrowserUtil browserUtil      = GWT.create(BrowserUtil.class);
+    protected     boolean     showValidityFlag = true;
     @Nullable
     protected LSDAttribute      boundAttribute;
     @UiField  Label             errorMessage;
     @UiField  Image             validityImage;
     private   LSDTransferEntity entity;
-    @Nullable
-    protected Runnable          onValid;
-
-    @Override @Nullable public LSDAttribute getBoundAttribute() {
-        return boundAttribute;
-    }
 
     @Nullable @Override
     public String getStringValue() {
@@ -124,21 +125,17 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         return newEntity;
     }
 
-    @Override public void setOnValid(@Nullable Runnable runnable) {
-        onValid = runnable;
-    }
-
-    @Override public boolean isBound() {
-        return boundAttribute != null;
-    }
 
     protected boolean isVisibleKeyPress(final int keyCode) {
         return browserUtil.isVisibleKeyPress(keyCode);
     }
 
     protected void showValidity() {
-        if (isValid() && onValid != null) {
-            onValid.run();
+        if (isValid()) {
+            fireEvent(new ValidEvent());
+        }
+        else {
+            fireEvent(new InvalidEvent());
         }
 
         if (showValidityFlag) {
@@ -169,9 +166,26 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         }
     }
 
+    @Override public boolean isBound() {
+        return boundAttribute != null;
+    }
+
+    @Override @Nullable public LSDAttribute getBoundAttribute() {
+        return boundAttribute;
+    }
+
+    @Override public HandlerRegistration addValidHandler(@Nullable ValidHandler handler) {
+        return addHandler(handler, ValidEvent.TYPE);
+
+    }
+
+    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
+        return addHandler(invalidHandler, InvalidEvent.TYPE);
+    }
+
     @Override
-    public void setOnChangeAction(final Runnable onChangeAction) {
-        this.onChangeAction = onChangeAction;
+    public HandlerRegistration addChangeHandler(final ValueChangeHandler onChangeAction) {
+        return addValueChangeHandler(onChangeAction);
     }
 
     void setEditable(final boolean editable) {
@@ -183,7 +197,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         throw new UnsupportedOperationException("This widget does not support multiple values binding.");
     }
 
-    protected void onChange() {
+    protected void processChange() {
         if (isValid() && entity != null && boundAttribute != null) {
             if (isMultiValue()) {
                 entity.setValues(boundAttribute, getStringValues());
@@ -194,8 +208,13 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
             }
         }
 
-        if (onChangeAction != null && isValid()) {
-            onChangeAction.run();
+        if (isValid()) {
+            if (isMultiValue()) {
+                ValueChangeEvent.fire(this, getStringValues());
+            }
+            else {
+                ValueChangeEvent.fire(this, getStringValue());
+            }
         }
     }
 
@@ -203,4 +222,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         throw new UnsupportedOperationException("This widget does not support single value binding.");
     }
 
+    @Override public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Object> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
 }

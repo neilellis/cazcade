@@ -7,6 +7,7 @@ package cazcade.boardcast.client.main.widgets.board;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDBaseEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.image.ImageOption;
 import cazcade.vortex.widgets.client.image.ImageSelection;
@@ -14,6 +15,9 @@ import cazcade.vortex.widgets.client.popup.PopupEditPanel;
 import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
@@ -41,10 +45,20 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
             @Override
             public void onSelect(@Nonnull final ImageOption imageOption) {
                 changeBackgroundPanel.setValue(imageOption.getUrl());
-                changeBackgroundPanel.callOnChangeAction();
+                changeBackgroundPanel.processChange();
             }
         });
         vortexDialogPanel = new VortexDialogPanel();
+        changeBackgroundPanel.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
+                vortexDialogPanel.hide();
+            }
+        });
+
+    }
+
+    @Override public HandlerRegistration addChangeHandler(ValueChangeHandler onChangeAction) {
+        return changeBackgroundPanel.addChangeHandler(onChangeAction);
     }
 
     @Override
@@ -88,20 +102,19 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
         return changeBackgroundPanel.getStringValue();
     }
 
+    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
+        return changeBackgroundPanel.addInvalidHandler(invalidHandler);
+    }
+
+    @Override public HandlerRegistration addValidHandler(ValidHandler validHandler) {
+        return changeBackgroundPanel.addValidHandler(validHandler);
+    }
+
     @Override
     public void setErrorMessage(final String message) {
         Window.alert(message);
     }
 
-    @Override
-    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
-        changeBackgroundPanel.setOnChangeAction(new Runnable() {
-            @Override public void run() {
-                vortexDialogPanel.hide();
-                onChangeAction.run();
-            }
-        });
-    }
 
     public void show() {
         vortexDialogPanel.setMainPanel(this);
@@ -111,15 +124,13 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
         vortexDialogPanel.setHeight("640px");
         vortexDialogPanel.showDown();
         vortexDialogPanel.setText("Change Background");
-        vortexDialogPanel.setOnFinishAction(new Runnable() {
-            @Override
-            public void run() {
+        vortexDialogPanel.addEditFinishHandler(new EditFinishHandler() {
+            @Override public void onEditFinish(EditFinishEvent event) {
                 vortexDialogPanel.hide();
             }
         });
-        vortexDialogPanel.setOnCancelAction(new Runnable() {
-            @Override
-            public void run() {
+        vortexDialogPanel.addEditCancelHandler(new EditCancelHandler() {
+            @Override public void onEditCancel(EditCancelEvent event) {
                 vortexDialogPanel.hide();
             }
         });

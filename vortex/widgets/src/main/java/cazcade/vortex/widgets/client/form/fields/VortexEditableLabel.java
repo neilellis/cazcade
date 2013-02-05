@@ -69,7 +69,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
         label.setOnEditEndAction(new Runnable() {
             @Override
             public void run() {
-                onChange();
+                processChange();
             }
         });
 

@@ -46,9 +46,8 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
         super();
         setWidget(ourUiBinder.createAndBindUi(this));
         tagBox.sinkEvents(Event.KEYEVENTS);
-        tagBox.setOnChangeAction(new Runnable() {
-            @Override
-            public void run() {
+        tagBox.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                     @Override
                     public void execute() {

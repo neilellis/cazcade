@@ -6,12 +6,14 @@ package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.image.ImageUploader;
-import cazcade.vortex.widgets.client.image.OnFinishUploadHandler;
-import cazcade.vortex.widgets.client.image.OnStartUploadHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
@@ -48,24 +50,26 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
-        imageUploader.setOnFinishHandler(new OnFinishUploadHandler() {
-            @Override
-            public void onFinish(@Nonnull ImageUploader uploader) {
-                if (uploader.getStatus() == ImageUploader.Status.SUCCESS) {
-                    setValue(uploader.getImageUrl());
-                    callOnChangeAction();
+        imageUploader.setOnFinishHandler(new EditFinishHandler() {
+            @Override public void onEditFinish(EditFinishEvent event) {
+                if (imageUploader.getStatus() == ImageUploader.Status.SUCCESS) {
+                    setValue(imageUploader.getImageUrl());
+                    processChange();
                 }
                 else {
                     Window.alert("Failed to upload image.");
                 }
             }
-
-
         });
 
-        imageUploader.setOnStartUploadHandler(new OnStartUploadHandler() {
-            @Override
-            public void onStart(@Nonnull ImageUploader uploader) {
+
+        urlField.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
+                imageUploader.setImageUrl(urlField.getValue());
+            }
+        });
+        imageUploader.setOnStartUploadHandler(new EditStartHandler() {
+            @Override public void onEditStart(EditStartEvent event) {
                 urlField.setValue("");
             }
         });
@@ -86,19 +90,13 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
     }
 
 
-    public void callOnChangeAction() {
-        urlField.onChange();
+    public void processChange() {
+        urlField.processChange();
     }
 
     @Override
-    public void setOnChangeAction(@Nonnull final Runnable onChangeAction) {
-        urlField.setOnChangeAction(new Runnable() {
-            @Override
-            public void run() {
-                onChangeAction.run();
-                imageUploader.setImageUrl(urlField.getValue());
-            }
-        });
+    public HandlerRegistration addChangeHandler(@Nonnull final ValueChangeHandler onChangeAction) {
+        return urlField.addValueChangeHandler(onChangeAction);
     }
 
 
@@ -162,13 +160,18 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
         return urlField.getEntityDiff();
     }
 
-    @Override public void setOnValid(Runnable runnable) {
-        urlField.setOnValid(runnable);
+    @Override public HandlerRegistration addValidHandler(ValidHandler handler) {
+        urlField.addValidHandler(handler);
+        return null;
     }
 
     @Override
     public String getStringValue() {
         return urlField.getValue();
+    }
+
+    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
+        return urlField.addInvalidHandler(invalidHandler);
     }
 
 

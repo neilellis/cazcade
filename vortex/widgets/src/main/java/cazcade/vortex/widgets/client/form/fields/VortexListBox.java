@@ -16,6 +16,8 @@ import cazcade.vortex.bus.client.BusFactory;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -135,7 +137,7 @@ public class VortexListBox extends AbstractVortexFormField {
                         otherBox.addStyleName("invisible");
                     }
                 }
-                VortexListBox.this.onChange();
+                VortexListBox.this.processChange();
             }
         });
         listBox.addItem("Choose ...", "");
@@ -167,9 +169,10 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void setOnChangeAction(final Runnable onChangeAction) {
-        super.setOnChangeAction(onChangeAction);
-        otherBox.setOnChangeAction(onChangeAction);
+    public HandlerRegistration addChangeHandler(final ValueChangeHandler onChangeAction) {
+        super.addChangeHandler(onChangeAction);
+        otherBox.addChangeHandler(onChangeAction);
+        return null;
     }
 
     public void setOtherOption(final boolean otherOption) {

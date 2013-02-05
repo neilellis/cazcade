@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.login;
 
 import cazcade.liquid.api.LiquidSessionIdentifier;
@@ -8,6 +12,8 @@ import cazcade.vortex.widgets.client.form.fields.VortexPasswordTextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -19,33 +25,27 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class LoginPanel extends Composite {
-    private Runnable onSuccessAction;
-    private Runnable onFailureAction;
-    private Runnable onSwitchToRegisterAction;
+    private Runnable                onSuccessAction;
+    private Runnable                onFailureAction;
+    private Runnable                onSwitchToRegisterAction;
     @Nullable
     private LiquidSessionIdentifier identity;
 
 
-    interface LoginPanelUiBinder extends UiBinder<HTMLPanel, LoginPanel> {
-    }
+    interface LoginPanelUiBinder extends UiBinder<HTMLPanel, LoginPanel> {}
 
 
     private static final LoginPanelUiBinder ourUiBinder = GWT.create(LoginPanelUiBinder.class);
 
-    @UiField
-    UsernameTextBox username;
+    @UiField UsernameTextBox username;
 
-    @UiField
-    VortexPasswordTextBox password;
+    @UiField VortexPasswordTextBox password;
 
-    @UiField
-    Button loginButton;
+    @UiField Button loginButton;
 
-    @UiField
-    Label loginErrorMessage;
+    @UiField Label loginErrorMessage;
 
-    @UiField
-    Hyperlink register;
+    @UiField Hyperlink register;
 
     public LoginPanel() {
         super();
@@ -56,18 +56,13 @@ public class LoginPanel extends Composite {
                 submit();
             }
         });
-        username.setOnChangeAction(new Runnable() {
-
-            @Override
-            public void run() {
+        username.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 submit();
             }
         });
-
-        password.setOnChangeAction(new Runnable() {
-
-            @Override
-            public void run() {
+        password.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 submit();
             }
         });
@@ -84,22 +79,25 @@ public class LoginPanel extends Composite {
 
     private void submit() {
         if (password.isValid() && username.isValid()) {
-            DataStoreService.App.getInstance().login(username.getStringValue(), password.getStringValue(), new AsyncCallback<LiquidSessionIdentifier>() {
-                @Override
-                public void onFailure(final Throwable caught) {
-                    ClientLog.log(caught);
-                }
+            DataStoreService.App
+                            .getInstance()
+                            .login(username.getStringValue(), password.getStringValue(), new AsyncCallback<LiquidSessionIdentifier>() {
+                                @Override
+                                public void onFailure(final Throwable caught) {
+                                    ClientLog.log(caught);
+                                }
 
-                @Override
-                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
-                    if (result == null) {
-                        doFailure();
-                    } else {
-                        identity = result;
-                        onSuccessAction.run();
-                    }
-                }
-            });
+                                @Override
+                                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
+                                    if (result == null) {
+                                        doFailure();
+                                    }
+                                    else {
+                                        identity = result;
+                                        onSuccessAction.run();
+                                    }
+                                }
+                            });
         }
     }
 

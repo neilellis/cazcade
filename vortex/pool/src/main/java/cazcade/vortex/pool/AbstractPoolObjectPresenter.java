@@ -17,6 +17,10 @@ import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
+import cazcade.vortex.common.client.events.EditFinishEvent;
+import cazcade.vortex.common.client.events.EditFinishHandler;
+import cazcade.vortex.common.client.events.EditStartEvent;
+import cazcade.vortex.common.client.events.EditStartHandler;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.dnd.client.gesture.EventBasedGestureController;
 import cazcade.vortex.dnd.client.gesture.GestureControllable;
@@ -147,18 +151,18 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         gestureController.setActive(pool.isModifiable());
         poolObjectView.addHandler(new EditStartHandler() {
             @Override
-            public void onEditStart(final EditStart event) {
+            public void onEditStart(final EditStartEvent event) {
                 poolObjectView.getElement().getStyle().setZIndex(Integer.MAX_VALUE);
 
             }
-        }, EditStart.TYPE);
+        }, EditStartEvent.TYPE);
 
         poolObjectView.addHandler(new EditFinishHandler() {
             @Override
-            public void onEditFinish(final EditFinish event) {
+            public void onEditFinish(final EditFinishEvent event) {
                 setZIndexAccordingToPoolOrder(viewEntity, poolObjectView, count);
             }
-        }, EditFinish.TYPE);
+        }, EditFinishEvent.TYPE);
 
         poolObjectView.initHandlers(gestureController);
         poolObjectView.addDragHandler(this);

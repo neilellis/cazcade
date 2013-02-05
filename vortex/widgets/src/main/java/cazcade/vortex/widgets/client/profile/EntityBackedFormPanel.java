@@ -6,6 +6,10 @@ package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.common.client.events.InvalidEvent;
+import cazcade.vortex.common.client.events.ValidEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,27 +27,31 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
     public void addBinding(final LSDTransferEntity otherEntity, @Nonnull final Bindable field, final LSDAttribute attribute) {
         field.bind(otherEntity, attribute, getReferenceDataPrefix());
         if (!isSaveOnExit()) {
-            final Runnable onEnterAction = getUpdateEntityAction(field);
-            field.setOnChangeAction(onEnterAction);
+            field.addChangeHandler(new ValueChangeHandler() {
+                @Override public void onValueChange(ValueChangeEvent event) {
+                    getUpdateEntityAction(field).run();
+                }
+            });
         }
         bindings.put(attribute, field);
         onChange(field, attribute);
     }
 
     public void addBinding(@Nonnull final Bindable field, @Nullable final LSDAttribute attribute) {
+        assert entity != null;
         field.bind(entity, attribute, getReferenceDataPrefix());
-        if (!isSaveOnExit()) {
-            field.setOnChangeAction(new Runnable() {
-                @Override public void run() {
-                    if (field.isValid()) { onChange(field, attribute); }
-                    getUpdateEntityAction(field).run();
+        if (isSaveOnExit()) {
+            field.addChangeHandler(new ValueChangeHandler() {
+                @Override public void onValueChange(ValueChangeEvent event) {
+                    onChange(field, attribute);
                 }
             });
+
         }
         else {
-            field.setOnChangeAction(new Runnable() {
-                @Override public void run() {
-                    if (field.isValid()) { onChange(field, attribute); }
+            field.addChangeHandler(new ValueChangeHandler() {
+                @Override public void onValueChange(ValueChangeEvent event) {
+                    getUpdateEntityAction(field).run();
                 }
             });
         }
@@ -52,7 +60,12 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
     }
 
     protected void onChange(Bindable field, @Nullable LSDAttribute attribute) {
-        //Override to participate in binding lifecycle
+        if (isValid()) {
+            fireEvent(new ValidEvent());
+        }
+        else {
+            fireEvent(new InvalidEvent());
+        }
     }
 
     @Override

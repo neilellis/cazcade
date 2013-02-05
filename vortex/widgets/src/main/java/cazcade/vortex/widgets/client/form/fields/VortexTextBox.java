@@ -20,11 +20,9 @@ import javax.annotation.Nullable;
  */
 public abstract class VortexTextBox extends AbstractVortexFormField {
 
-    private int maxLength = Integer.MAX_VALUE;
-
-
     @UiField TextBox textBox;
-    private String oldText = "";
+    private int    maxLength = Integer.MAX_VALUE;
+    private String oldText   = "";
 
     @Override
     protected void initWidget(final Widget widget) {
@@ -35,7 +33,6 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     protected String cleanUpText(final String text) {
         return text;
     }
-
 
     protected boolean validCharacter(final int keyCode) {
         return true;
@@ -73,7 +70,9 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     @Override
     public void setValue(final String text) {
         textBox.setText(text);
+        processChange();
     }
+
 
     @Override
     public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {

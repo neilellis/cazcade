@@ -55,7 +55,7 @@ public class VortexTextArea extends AbstractVortexFormField {
                 final int keyCode = event.getUnicodeCharCode();
 
                 if (keyCode == KeyCodes.KEY_ENTER) {
-                    onChange();
+                    processChange();
                 }
 
 
@@ -65,14 +65,14 @@ public class VortexTextArea extends AbstractVortexFormField {
         textArea.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
             public void onValueChange(final ValueChangeEvent<String> stringValueChangeEvent) {
-                onChange();
+                processChange();
             }
         });
 
         textArea.addBlurHandler(new BlurHandler() {
             @Override
             public void onBlur(final BlurEvent event) {
-                onChange();
+                processChange();
             }
         });
 

@@ -6,6 +6,7 @@ package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import com.google.gwt.core.client.GWT;
@@ -13,8 +14,8 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.event.logical.shared.*;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * @author neilellis@cazcade.com
  */
-public class EditableImage extends Composite implements Bindable {
+public class EditableImage extends Composite implements Bindable, HasValueChangeHandlers<String> {
     interface EditableImageUiBinder extends UiBinder<HTMLPanel, EditableImage> {}
 
     private static final EditableImageUiBinder ourUiBinder = GWT.create(EditableImageUiBinder.class);
@@ -37,14 +38,17 @@ public class EditableImage extends Composite implements Bindable {
     protected boolean editable = true;
     @UiField CachedImage  image;
     @UiField SpanElement  editText;
-    private  Runnable     onChangeAction;
     private  LSDAttribute attribute;
 
     public EditableImage() {
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-        image.setOnChangeAction(onChangeAction);
+        image.setOnChangeAction(new Runnable() {
+            @Override public void run() {
+                ValueChangeEvent.fire(EditableImage.this, image.getUrl());
+            }
+        });
     }
 
     @Override
@@ -57,9 +61,8 @@ public class EditableImage extends Composite implements Bindable {
     }
 
     @Override
-    public void setOnChangeAction(final Runnable onChangeAction) {
-        this.onChangeAction = onChangeAction;
-        //        Window.alert("On Change Action is "+onChangeAction);
+    public HandlerRegistration addChangeHandler(final ValueChangeHandler onChangeAction) {
+        return addValueChangeHandler(onChangeAction);
     }
 
     @Override
@@ -99,6 +102,14 @@ public class EditableImage extends Composite implements Bindable {
         return image.getRawUrl();
     }
 
+    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
+        return addHandler(invalidHandler, InvalidEvent.TYPE);
+    }
+
+    @Override public HandlerRegistration addValidHandler(ValidHandler validHandler) {
+        return addHandler(validHandler, ValidEvent.TYPE);
+    }
+
     @UiHandler("image")
     public void onClick(final ClickEvent e) {
         if (entity.getBooleanAttribute(LSDAttribute.EDITABLE, false) && editable) {
@@ -109,7 +120,7 @@ public class EditableImage extends Composite implements Bindable {
                     Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                         @Override
                         public void execute() {
-                            onChangeAction.run();
+                            ValueChangeEvent.fire(EditableImage.this, image.getUrl());
                         }
                     });
                 }
@@ -141,6 +152,10 @@ public class EditableImage extends Composite implements Bindable {
         editText.getStyle().setVisibility(editable ? Style.Visibility.VISIBLE : Style.Visibility.HIDDEN);
     }
 
+    @Override public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
+
     private class ImageEditorDialogBox extends VortexDialogPanel {
         private ImageEditorDialogBox() {
             super();
@@ -149,20 +164,16 @@ public class EditableImage extends Composite implements Bindable {
             setWidth("840px");
             setHeight("610px");
             setText("Edit Image");
-            setOnFinishAction(new Runnable() {
-                @Override
-                public void run() {
+            addEditFinishHandler(new EditFinishHandler() {
+                @Override public void onEditFinish(EditFinishEvent event) {
                     hide();
                 }
             });
-            setOnCancelAction(new Runnable() {
-                @Override
-                public void run() {
+            addEditCancelHandler(new EditCancelHandler() {
+                @Override public void onEditCancel(EditCancelEvent event) {
                     hide();
                 }
             });
-
-
         }
 
     }

@@ -86,7 +86,7 @@ public class YouTubeTextBox extends VortexTextBox {
             if (text.matches(YOU_TUBE_URL_REGEX)) {
                 text = text.replaceAll("http[s]?://www\\.youtube\\.com/watch\\?(.*)v=([A-Za-z0-9\\-_]+).*", "$2");
                 setValue(text);
-                onChange();
+                processChange();
                 errorMessage.setText("");
             }
             else {
@@ -98,7 +98,7 @@ public class YouTubeTextBox extends VortexTextBox {
                 setValue(text);
                 errorMessage.setText("");
                 if (andCallOnChange) {
-                    onChange();
+                    processChange();
                 }
             }
             else {

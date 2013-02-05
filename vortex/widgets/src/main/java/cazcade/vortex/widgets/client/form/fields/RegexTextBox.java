@@ -43,7 +43,7 @@ public class RegexTextBox extends VortexTextBox {
                     }
 
                     if (keyCode == KeyCodes.KEY_ENTER) {
-                        onChange();
+                        processChange();
                     }
 
                 }
@@ -53,14 +53,14 @@ public class RegexTextBox extends VortexTextBox {
         textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
             public void onValueChange(final ValueChangeEvent<String> stringValueChangeEvent) {
-                onChange();
+                processChange();
             }
         });
 
         //        textBox.addBlurHandler(new BlurHandler() {
         //            @Override
         //            public void onBlur(BlurEvent event) {
-        //                onChange();
+        //                processChange();
         //            }
         //        });
 

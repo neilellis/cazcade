@@ -1,6 +1,9 @@
 .btn {
   &.primary {
-    .gradientBar(@highlightColor, @highlightColorDark);
+    .gradientBar(@highlightColorLight, @highlightColor);
+    &[disabled] {
+      .gradientBar(desaturate(@highlightColorLight,70%), desaturate(@highlightColor, 70%));
+    }
   }
 }
 

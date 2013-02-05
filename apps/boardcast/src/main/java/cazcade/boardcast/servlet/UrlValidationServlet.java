@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
 /**
  * @author <a href="http://uk.linkedin.com/in/neilellis">Neil Ellis</a>
@@ -31,8 +32,8 @@ import java.net.URISyntaxException;
  */
 public class UrlValidationServlet extends HttpServlet {
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = request.getParameter("url");
+    protected void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+        final String url = request.getParameter("url");
         try {
             final URI uri;
             try {
@@ -48,9 +49,13 @@ public class UrlValidationServlet extends HttpServlet {
                 statusLine = getStatusLineForMethod(new HttpGet(uri));
             }
             response.sendError(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+        } catch (UnknownHostException uhe) {
+            response.sendError(403, "Invalid host " + uhe.getMessage());
+
         } catch (IOException e) {
             System.out.println("Error for " + url);
             e.printStackTrace();
+            response.sendError(500, e.getMessage());
         }
 
     }

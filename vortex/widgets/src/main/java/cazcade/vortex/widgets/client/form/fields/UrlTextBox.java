@@ -51,4 +51,14 @@ public class UrlTextBox extends RegexTextBox {
     @Override public boolean isValid() {
         return validUrl && super.isValid();
     }
+
+    @Override protected String cleanUpText(final String text) {
+
+        if ((text.startsWith("http://") || text.startsWith("https://")) || text.indexOf('.') < 0) {
+            return text;
+        }
+        else {
+            return "http://" + text;
+        }
+    }
 }

@@ -4,6 +4,8 @@
 
 package cazcade.vortex.pool.objects;
 
+import cazcade.vortex.common.client.events.EditFinishEvent;
+import cazcade.vortex.common.client.events.EditStartEvent;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.dnd.client.gesture.drag.DragEvent;
 import cazcade.vortex.dnd.client.gesture.drag.DragHandler;
@@ -14,8 +16,6 @@ import cazcade.vortex.dnd.client.gesture.enddrag.HasEndDragHandler;
 import cazcade.vortex.dnd.client.gesture.hdrag.HasHoldDragHandler;
 import cazcade.vortex.dnd.client.gesture.hdrag.HoldDragEvent;
 import cazcade.vortex.dnd.client.gesture.hdrag.HoldDragHandler;
-import cazcade.vortex.pool.EditFinish;
-import cazcade.vortex.pool.EditStart;
 import cazcade.vortex.pool.widgets.dnd.GestureAwareView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -96,14 +96,14 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
     public void viewMode() {
         getWidget().removeStyleName("pool-object-edit-mode");
         editing = false;
-        fireEvent(new EditFinish());
+        fireEvent(new EditFinishEvent());
     }
 
     public void editMode() {
         if (isEditable()) {
             getWidget().addStyleName("pool-object-edit-mode");
             editing = true;
-            fireEvent(new EditStart());
+            fireEvent(new EditStartEvent());
         }
     }
 

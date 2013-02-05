@@ -4,6 +4,10 @@
 
 package cazcade.vortex.widgets.client.image;
 
+import cazcade.vortex.common.client.events.EditFinishEvent;
+import cazcade.vortex.common.client.events.EditFinishHandler;
+import cazcade.vortex.common.client.events.EditStartEvent;
+import cazcade.vortex.common.client.events.EditStartHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
@@ -15,15 +19,13 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class ImageUploader extends Composite {
 
 
-    public enum Status {SUCCESS, FAILURE}
+    public static enum Status {SUCCESS, FAILURE}
 
     interface ImageUploaderUiBinder extends UiBinder<HTMLPanel, ImageUploader> {}
 
     private static final ImageUploaderUiBinder ourUiBinder = GWT.create(ImageUploaderUiBinder.class);
-    private Status                status;
-    private String                imageUrl;
-    private OnStartUploadHandler  onStartUploadHandler;
-    private OnFinishUploadHandler onFinishHandler;
+    private Status status;
+    private String imageUrl;
 
 
     public ImageUploader() {
@@ -50,12 +52,12 @@ public class ImageUploader extends Composite {
         this.imageUrl = imageUrl;
     }
 
-    public void setOnStartUploadHandler(OnStartUploadHandler onStartUploadHandler) {
-        this.onStartUploadHandler = onStartUploadHandler;
+    public void setOnStartUploadHandler(EditStartHandler onStartUploadHandler) {
+        addHandler(onStartUploadHandler, EditStartEvent.TYPE);
     }
 
-    public void setOnFinishHandler(OnFinishUploadHandler onFinishHandler) {
-        this.onFinishHandler = onFinishHandler;
+    public void setOnFinishHandler(EditFinishHandler onFinishHandler) {
+        addHandler(onFinishHandler, EditFinishEvent.TYPE);
     }
 
     private void setStatusByName(final String name) {
@@ -63,14 +65,14 @@ public class ImageUploader extends Composite {
     }
 
     private void finish() {
-        onFinishHandler.onFinish(this);
+        fireEvent(new EditFinishEvent());
     }
 
     private void error() {
     }
 
     private void start() {
-        onStartUploadHandler.onStart(this);
+        fireEvent(new EditStartEvent());
     }
 
     public native void pick() /*-{

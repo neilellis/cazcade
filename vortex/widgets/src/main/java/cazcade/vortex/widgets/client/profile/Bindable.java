@@ -6,7 +6,12 @@ package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.vortex.common.client.events.InvalidHandler;
+import cazcade.vortex.common.client.events.ValidHandler;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -14,9 +19,7 @@ import java.util.List;
  */
 public interface Bindable {
 
-    void bind(LSDTransferEntity entity, LSDAttribute attribute, String referenceDataPrefix);
-
-    void setOnChangeAction(Runnable onEnterAction);
+    void bind(LSDTransferEntity entity, @Nullable LSDAttribute attribute, String referenceDataPrefix);
 
     void setErrorMessage(String message);
 
@@ -33,4 +36,10 @@ public interface Bindable {
     List getStringValues();
 
     String getStringValue();
+
+    HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler);
+
+    HandlerRegistration addValidHandler(ValidHandler validHandler);
+
+    HandlerRegistration addChangeHandler(ValueChangeHandler onChangeAction);
 }

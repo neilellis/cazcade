@@ -15,6 +15,8 @@ import cazcade.vortex.widgets.client.form.fields.VortexPasswordTextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -50,24 +52,23 @@ public class BoardcastRegisterPanel extends Composite {
                 submit();
             }
         });
-        username.setOnChangeAction(new Runnable() {
-            @Override
-            public void run() {
+        username.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 submit();
+
+            }
+        });
+        password.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
+                submit();
+
             }
         });
 
-        password.setOnChangeAction(new Runnable() {
-            @Override
-            public void run() {
+        passwordConfirm.addChangeHandler(new ValueChangeHandler() {
+            @Override public void onValueChange(ValueChangeEvent event) {
                 submit();
-            }
-        });
 
-        passwordConfirm.setOnChangeAction(new Runnable() {
-            @Override
-            public void run() {
-                submit();
             }
         });
 

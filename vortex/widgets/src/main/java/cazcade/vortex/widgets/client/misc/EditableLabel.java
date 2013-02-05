@@ -310,7 +310,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
         // Call the update method provided in the Constructor
         // (this could be anything from alerting the user through to
         // Making an AJAX call to store the data.
-        //updater.onChange(this);
+        //updater.processChange(this);
         if (changeListeners != null) {
             changeListeners.fireChange(this);
         }

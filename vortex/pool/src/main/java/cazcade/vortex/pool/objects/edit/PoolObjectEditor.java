@@ -4,10 +4,8 @@
 
 package cazcade.vortex.pool.objects.edit;
 
+import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.user.client.ui.PopupPanel;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,20 +29,31 @@ public class PoolObjectEditor {
     }
 
     public static void showForCreate(@Nonnull final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction) {
-        new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).create();
+        PoolObjectEditor poolObjectEditor = new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight());
+        poolObjectEditor.create(onFinishAction);
     }
 
     public static void showForEdit(@Nonnull final AbstractPoolObjectEditorPanel editorPanel, @Nullable final Runnable onFinishAction) {
-        new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).edit();
+        new PoolObjectEditor(editorPanel, onFinishAction, editorPanel.getWidth(), editorPanel.getHeight()).edit(onFinishAction);
     }
 
-    public void edit() {
+    public void edit(final Runnable onFinishAction) {
         final PoolObjectEditorPopup popup = new PoolObjectEditorPopup(false);
+        popup.addEditFinishHandler(new EditFinishHandler() {
+            @Override public void onEditFinish(EditFinishEvent event) {
+                onFinishAction.run();
+            }
+        });
         popup.showDown();
     }
 
-    public void create() {
+    public void create(final Runnable onFinishAction) {
         final PoolObjectEditorPopup popup = new PoolObjectEditorPopup(true);
+        popup.addEditFinishHandler(new EditFinishHandler() {
+            @Override public void onEditFinish(EditFinishEvent event) {
+                onFinishAction.run();
+            }
+        });
         popup.showDown();
     }
 
@@ -64,31 +73,43 @@ public class PoolObjectEditor {
             setText(editorPanel.getCaption());
 
             //            setGlassStyleName("pool-object-editor-popup-glass");
-            addCloseHandler(new CloseHandler<PopupPanel>() {
-                @Override
-                public void onClose(final CloseEvent<PopupPanel> popupPanelCloseEvent) {
-                    finish();
-                }
-            });
-            editorPanel.setOnFinishAction(new Runnable() {
-                @Override public void run() {
+            //            addCloseHandler(new CloseHandler<PopupPanel>() {
+            //                @Override
+            //                public void onClose(final CloseEvent<PopupPanel> popupPanelCloseEvent) {
+            //                    finish();
+            //                }
+            //            });
+            done.setEnabled(false);
+            editorPanel.addEditFinishHandler(new EditFinishHandler() {
+                @Override public void onEditFinish(EditFinishEvent event) {
                     hide();
                     finish();
                 }
             });
-            setOnFinishAction(new Runnable() {
-                @Override
-                public void run() {
+            editorPanel.addValidHandler(new ValidHandler() {
+                @Override public void onValid(ValidEvent event) {
+                    done.setEnabled(true);
+                }
+            });
+            editorPanel.addInvalidHandler(new InvalidHandler() {
+                @Override public void onInvalid(InvalidEvent event) {
+                    done.setEnabled(false);
+                }
+            });
+            addEditFinishHandler(new EditFinishHandler() {
+                @Override public void onEditFinish(EditFinishEvent event) {
                     hide();
                     finish();
                 }
             });
-            setOnCancelAction(new Runnable() {
-                @Override public void run() {
+
+            addEditCancelHandler(new EditCancelHandler() {
+                @Override public void onEditCancel(EditCancelEvent event) {
                     finished = true;
                     hide();
                 }
             });
+
         }
 
         private void finish() {

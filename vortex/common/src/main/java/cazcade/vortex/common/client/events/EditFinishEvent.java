@@ -1,4 +1,8 @@
-package cazcade.vortex.pool;
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
+package cazcade.vortex.common.client.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -7,7 +11,7 @@ import javax.annotation.Nonnull;
 /**
  * @author neilellis@cazcade.com
  */
-public class EditFinish extends GwtEvent<EditFinishHandler> {
+public class EditFinishEvent extends GwtEvent<EditFinishHandler> {
     @Nonnull
     public static final Type<EditFinishHandler> TYPE = new Type<EditFinishHandler>();
 

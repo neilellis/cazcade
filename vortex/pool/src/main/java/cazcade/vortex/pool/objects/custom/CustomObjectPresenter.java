@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.custom;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -7,10 +11,10 @@ import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.common.client.CustomObjectEditor;
+import cazcade.vortex.common.client.events.EditStartEvent;
+import cazcade.vortex.common.client.events.EditStartHandler;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
-import cazcade.vortex.pool.EditStart;
-import cazcade.vortex.pool.EditStartHandler;
 import cazcade.vortex.pool.api.PoolPresenter;
 
 import javax.annotation.Nonnull;
@@ -40,10 +44,10 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
                 }
                 getPoolObjectView().addHandler(new EditStartHandler() {
                     @Override
-                    public void onEditStart(final EditStart event) {
+                    public void onEditStart(final EditStartEvent event) {
                         customObjectEditor.show(newEntity);
                     }
-                }, EditStart.TYPE);
+                }, EditStartEvent.TYPE);
 
                 CustomObjectPresenter.super.update(newEntity, replaceEntity);
 
