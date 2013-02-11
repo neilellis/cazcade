@@ -38,7 +38,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     @UiField VortexEditableLabel tag;
     @UiField VortexEditableLabel url;
     @UiField DivElement          contentArea;
-    @UiField EditableImage       boardIcon;
+    @UiField EditableImage       boardImage;
 
     public PublicBoardHeader() {
         super();
@@ -58,14 +58,14 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
                 Window.Location.replace(url.getValue());
             }
         });
-        boardIcon.sinkEvents(Event.MOUSEEVENTS);
+        boardImage.sinkEvents(Event.MOUSEEVENTS);
     }
 
     public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
         addBinding(title, LSDAttribute.TITLE);
         addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(boardIcon, LSDAttribute.ICON_URL);
+        addBinding(boardImage, LSDAttribute.IMAGE_URL);
     }
 
     @Override protected boolean isSaveOnExit() {

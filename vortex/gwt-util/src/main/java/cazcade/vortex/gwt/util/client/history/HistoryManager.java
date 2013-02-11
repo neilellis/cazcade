@@ -43,7 +43,7 @@ public class HistoryManager {
     }
 
     public static void navigate(final String action, final String local) {
-        navigate("_" + action + "-" + local);
+        navigate('_' + action + '-' + local);
     }
 
     public static void navigate(final String url) {
@@ -51,7 +51,7 @@ public class HistoryManager {
             History.newItem(url);
         }
         else {
-            Window.Location.assign("/" + url);
+            Window.Location.assign('/' + url);
         }
     }
 
@@ -121,7 +121,7 @@ public class HistoryManager {
     }
 
     public void addHistory(final String historyToken, final String localHistory) {
-        navigate(historyToken + ":" + localHistory);
+        navigate(historyToken + ':' + localHistory);
     }
 
     public void fireCurrentHistoryState() {

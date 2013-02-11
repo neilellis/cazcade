@@ -111,7 +111,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.FULL_NAME, LSDAttribute.IMAGE_URL, LSDAttribute.ID, LSDAttribute.URI);
         }
         else if (detail == LiquidRequestDetailLevel.BOARD_LIST) {
-            copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.TITLE, LSDAttribute.DESCRIPTION, LSDAttribute.COMMENT_COUNT, LSDAttribute.FOLLOWERS_COUNT, LSDAttribute.IMAGE_URL, LSDAttribute.ICON_URL, LSDAttribute.ID, LSDAttribute.URI, LSDAttribute.MODIFIED);
+            copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.TITLE, LSDAttribute.DESCRIPTION, LSDAttribute.COMMENT_COUNT, LSDAttribute.FOLLOWERS_COUNT, LSDAttribute.IMAGE_URL, LSDAttribute.ICON_URL, LSDAttribute.ICON_HEIGHT, LSDAttribute.ICON_WIDTH, LSDAttribute.ID, LSDAttribute.URI, LSDAttribute.MODIFIED);
         }
         else if (detail == LiquidRequestDetailLevel.PERMISSION_DELTA) {
             copyValuesToEntity(entity, LSDAttribute.URI, LSDAttribute.ID, LSDAttribute.MODIFIABLE, LSDAttribute.EDITABLE, LSDAttribute.VIEWABLE);

@@ -92,7 +92,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
                 map.put("shortUrl", shortUrl);
 
                 final String url = "http://"
-                                   + req.getServerName()
+                                   + ("127.0.0.1".equals(req.getServerName()) ? "boardcast.it" : req.getServerName())
                                    + "/_snapshot-"
                                    + shortUrl
                                    + "?bid="

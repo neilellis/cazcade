@@ -4,7 +4,6 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.common.CommonConstants;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.liquid.api.request.CreatePoolRequest;
@@ -24,7 +23,7 @@ public abstract class CreateContainerCommand extends AbstractCreateCommand {
 
     @Override
     public void execute() {
-        CreatePoolRequest request = new CreatePoolRequest(getType(), pool, getInitialName(), getInitialName(), getInitialName(), 200.0, 200.0, CommonConstants.CORKBOARD_URL);
+        CreatePoolRequest request = new CreatePoolRequest(getType(), pool, getInitialName(), getInitialName(), getInitialName(), 200.0, 200.0);
         BusFactory.getInstance().send(request, new AbstractResponseCallback<CreatePoolRequest>() {
             @Override
             public void onSuccess(final CreatePoolRequest message, final CreatePoolRequest response) {

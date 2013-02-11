@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client.history;
 
 import com.google.gwt.core.client.GWT;
@@ -6,12 +10,14 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import javax.annotation.Nonnull;
 
 /**
+ * This is used to help with code splitting.
+ *
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractLazyHistoryAwareFactory implements HistoryAwareFactory {
     private HistoryManager historyManager;
-    private String token;
-    private HistoryAware instance;
+    private String         token;
+    private HistoryAware   instance;
 
 
     @Override

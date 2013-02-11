@@ -45,13 +45,19 @@
     <tags:boardcast-less/>
 
 
-    <div id="cache-panel">
+    <div id="cache-panel" style="width:100%">
+        <img id="cache-image" style="margin:0 auto;display:block;z-index: 10000;position: relative;top:-60px;"/>
+
         <div id="loading-panel">
             <div class="loading-bar-outer">
                 <tags:loading-bar/>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('cache-image').src = 'http://snapito.com/api?type=jpeg&fast&delay=60&url=http://boardcast.it/' + encodeURI(window.location.pathname);
+    </script>
 
     <div id="board-panel">
     </div>

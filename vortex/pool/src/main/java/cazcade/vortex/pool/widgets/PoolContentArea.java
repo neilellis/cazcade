@@ -48,7 +48,8 @@ import static com.google.gwt.http.client.URL.encode;
 public class PoolContentArea extends Composite {
     public static final int DEFAULT_WIDTH = 1024;
 
-    private static final PoolContentAreaUiBinder ourUiBinder = GWT.create(PoolContentAreaUiBinder.class);
+    private static final PoolContentAreaUiBinder ourUiBinder              = GWT.create(PoolContentAreaUiBinder.class);
+    public static final  String                  DEFAULT_BACKGROUND_IMAGE = "http://boardcast.it/_background/misc/corkboard.jpg";
 
     @UiField AbsolutePanel container;
     @UiField Label         visibilityStatus;
@@ -102,9 +103,12 @@ public class PoolContentArea extends Composite {
     }
 
     public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
-        if (poolEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
+        if (poolEntity.hasAttribute(LSDAttribute.BACKGROUND_URL)) {
             final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
             setBackgroundImage(imageUrl);
+        }
+        else {
+            setBackgroundImage(DEFAULT_BACKGROUND_IMAGE);
         }
         //        backgroundImage.setWidth("100%");
         //        backgroundImage.setHeight("100%");

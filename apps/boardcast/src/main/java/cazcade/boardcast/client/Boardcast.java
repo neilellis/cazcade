@@ -59,6 +59,8 @@ public class Boardcast implements EntryPoint {
     public static final String PUBLIC_BOARD_PANEL_ID = "board-panel";
     @Nonnull
     public static final String SNAPSHOT_PANEL_ID     = "snapshot-panel";
+
+
     private BoardcastLoginOrRegisterPanel loginOrRegisterPanel;
     private HistoryManager                historyManager;
     private boolean                       registerRequest;
@@ -98,7 +100,7 @@ public class Boardcast implements EntryPoint {
             VersionNumberChecker.start();
         }
         if (ClientApplicationConfiguration.isDebug()) {
-            //            Window.alert("Debugging build " + VersionNumberChecker.getBuildNumber());
+            Window.alert("Debugging build " + VersionNumberChecker.getBuildNumber());
         }
 
 
@@ -132,7 +134,7 @@ public class Boardcast implements EntryPoint {
     private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
         private final boolean embedded;
 
-        public SnapshotBoardFactory(final boolean embedded) {
+        private SnapshotBoardFactory(final boolean embedded) {
             super();
 
             this.embedded = embedded;
@@ -152,8 +154,6 @@ public class Boardcast implements EntryPoint {
         }
         tracker = Track.getInstance();
         History.addValueChangeHandler(tracker);
-
-        //        addLogPanel();
 
         if (RootPanel.get(PUBLIC_BOARD_PANEL_ID) != null) {
             final Runnable loginAction = new Runnable() {
@@ -195,7 +195,6 @@ public class Boardcast implements EntryPoint {
             );
             loginOrRegisterPanel.center();
             StartupUtil.showLiveVersion(RootPanel.get(LOGIN_PANEL_ID).getElement());
-
             loginOrRegisterPanel.show();
         }
         else {
@@ -395,21 +394,6 @@ public class Boardcast implements EntryPoint {
             loginUser(identity, loginAction);
         }
     }
-
-    //    protected void addLogPanel() {
-    //        if (RootPanel.get("log-panel") != null) {
-    //            if (Window.Location.getParameterMap().containsKey("debug") && Window.Location.getParameter("debug").equals("true")) {
-    //                HTMLPanel logPanel = new HTMLPanel("log");
-    //                ScrollPanel scrollPanel = new ScrollPanel(logPanel);
-    //                RootPanel.get("log-panel").add(scrollPanel);
-    //                RootPanel.get("log-panel").setWidth("100%");
-    //                RootPanel.get("log-panel").setHeight("200");
-    //                ClientLog.logWidget = logPanel.getElement();
-    //            } else {
-    //                RootPanel.get("log-panel").addStyleName("invisible");
-    //            }
-    //        }
-    //    }
 
 
 }

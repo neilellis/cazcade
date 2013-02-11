@@ -389,6 +389,9 @@ public final class LSDAttribute {
     public static final LSDAttribute IMAGE_REFRESH = LSDAttribute.create("image.refresh", "number:int:", "The time in milliseconds beyond the published value that the image should be refreshed.", true, false, false, false, false, false, false);
 
     @Nonnull
+    public static final LSDAttribute BACKGROUND_URL = LSDAttribute.create("background.url", "url:", "The URL of an image suitable for rendering as the background image on a 2D display for this entity.", false, false, false, false, false, false, false);
+
+    @Nonnull
     public static final LSDAttribute CATEGORY_TERM = LSDAttribute.create("category.term", "text:shortname:", "An array of terms for the category this entity belongs to see http://www.atomenabled.org/developers/syndication/#category .", false, false, false, false, false, false, false);
 
     @Nonnull

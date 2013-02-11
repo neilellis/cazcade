@@ -58,25 +58,25 @@
                         <a href="./<c:url value='${board.shortUrl}'/>" alt="${board.description}"
                            title="${board.description}">
                             <div class="board-image-wrapper">
-                                    <%--<img class="thumbnail"--%>
-                                    <%--width="300"--%>
-                                    <%--height="400"--%>
-                                    <%--src='${board.iconUrl}' title='${board.title}'/>--%>
-
                                 <img class="thumbnail"
-                                     src='<c:url value="_website-snapshot">
-                                    <c:param name="url" value="${board.snapshotUrl}"/>
-                                    <c:param name="text" value="${board.title}"/>
-                                    <%--<c:param name="fast" value="yes"/>--%>
-                                    <%--<c:param name="preview" value="yes"/>--%>
-                                    <%--<c:param name="boardcast" value="yes"/>--%>
-                                    <%--<c:param name="size" value="LARGE"/>--%>
-                                    <c:param name="width" value="300"/>
-                                    <%--<c:param name="height" value="600"/>--%>
-                                    <%--<c:param name="delay" value="60"/>--%>
-                                    <c:param name="windowStatus" value="snapshot-loaded"/>
-                                    </c:url>'
-                                     alt="${board.description}"/>
+                                     width="400"
+                                     height="300"
+                                     src='${board.imageUrl}' title='${board.title}'/>
+
+                                    <%--<img class="thumbnail"--%>
+                                    <%--src='<c:url value="_website-snapshot">--%>
+                                    <%--<c:param name="url" value="${board.snapshotUrl}"/>--%>
+                                    <%--<c:param name="text" value="${board.title}"/>--%>
+                                    <%--&lt;%&ndash;<c:param name="fast" value="yes"/>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<c:param name="preview" value="yes"/>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<c:param name="boardcast" value="yes"/>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<c:param name="size" value="LARGE"/>&ndash;%&gt;--%>
+                                    <%--<c:param name="width" value="300"/>--%>
+                                    <%--&lt;%&ndash;<c:param name="height" value="600"/>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<c:param name="delay" value="60"/>&ndash;%&gt;--%>
+                                    <%--<c:param name="windowStatus" value="snapshot-loaded"/>--%>
+                                    <%--</c:url>'--%>
+                                    <%--alt="${board.description}"/>--%>
 
 
                             </div>

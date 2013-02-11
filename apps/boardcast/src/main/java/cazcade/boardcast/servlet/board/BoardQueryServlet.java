@@ -29,11 +29,11 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
 
     public static final  int                                      MAX         = 24;
     @Nonnull
+    private static final Logger                                   log         = Logger.getLogger(BoardQueryServlet.class);
+    @Nonnull
     private final        Map<String, BoardQueryRequest.QueryType> queryLookup = new HashMap<String, BoardQueryRequest.QueryType>();
     @Nonnull
     private final        Map<String, String>                      titleLookup = new HashMap<String, String>();
-    @Nonnull
-    private static final Logger                                   log         = Logger.getLogger(BoardQueryServlet.class);
 
     @Override
     public void init(@Nonnull final ServletConfig config) throws ServletException {
@@ -47,21 +47,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
         queryLookup.put("new", BoardQueryRequest.QueryType.RECENT);
         titleLookup.put("new", "New Boards");
         queryLookup.put("profile", BoardQueryRequest.QueryType.USERS_BOARDS);
-        //        titleLookup.put("profile", BoardQueryRequest.QueryType.USERS_BOARDS);
-    }
-
-    @Override
-    protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            super.service(req, resp);
-        } catch (EOFException e) {
-            log.debug("EOF");
-        }
-    }
-
-    @Override
-    protected void doPost(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+        titleLookup.put("profile", "User Boards");
     }
 
     @Override
@@ -83,6 +69,20 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             req.getRequestDispatcher("_pages/boards.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e);
+        }
+    }
+
+    @Override
+    protected void doPost(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
+
+    @Override
+    protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            super.service(req, resp);
+        } catch (EOFException e) {
+            log.debug("EOF");
         }
     }
 

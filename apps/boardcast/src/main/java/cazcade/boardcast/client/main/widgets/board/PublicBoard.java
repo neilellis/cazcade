@@ -253,7 +253,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     @Override public void bind(final LSDTransferEntity entity) {
         super.bind(entity);
-        addBinding(getChangeBackgroundDialog(), LSDAttribute.IMAGE_URL);
+        addBinding(getChangeBackgroundDialog(), LSDAttribute.BACKGROUND_URL);
         //        addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
