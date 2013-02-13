@@ -23,11 +23,9 @@ import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.HasKeyboardPagingPolicy;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.view.client.AsyncDataProvider;
-import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.gwt.view.client.*;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,8 +52,12 @@ public class BoardList extends HistoryAwareComposite {
         // Set a key provider that provides a unique key for each contact. If key is
         // used to identify contacts when fields (such as the name and address)
         // change.
-        cellList = new CellList<LSDBaseEntity>(new BoardCell());
-        cellList.setPageSize(30);
+        cellList = new CellList<LSDBaseEntity>(new BoardCell(), new ProvidesKey<LSDBaseEntity>() {
+            @Nullable @Override public Object getKey(final LSDBaseEntity item) {
+                return item == null ? null : item.getURI();
+            }
+        });
+        cellList.setPageSize(10);
         cellList.setKeyboardPagingPolicy(HasKeyboardPagingPolicy.KeyboardPagingPolicy.INCREASE_RANGE);
         cellList.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.BOUND_TO_SELECTION);
         cellList.setStyleName("board-list");
