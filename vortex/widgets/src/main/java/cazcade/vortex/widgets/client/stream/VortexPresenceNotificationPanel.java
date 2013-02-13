@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidURI;
@@ -21,12 +25,9 @@ import java.util.Date;
 public class VortexPresenceNotificationPanel extends Composite implements StreamEntry {
 
 
-    @UiField
-    UserProfileImage profileImage;
-    @UiField
-    SpanElement text;
-    @UiField
-    SelfUpdatingRelativeDate dateTime;
+    @UiField UserProfileImage         profileImage;
+    @UiField SpanElement              text;
+    @UiField SelfUpdatingRelativeDate dateTime;
 
     @Nonnull
     private final LSDBaseEntity entity;
@@ -34,10 +35,9 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
     private final Date date = new Date();
     @Nonnull
     private final LSDBaseEntity visitor;
-    private final String id;
+    private final String        id;
 
-    interface VortexPresenceNotificationPanelUiBinder extends UiBinder<HTMLPanel, VortexPresenceNotificationPanel> {
-    }
+    interface VortexPresenceNotificationPanelUiBinder extends UiBinder<HTMLPanel, VortexPresenceNotificationPanel> {}
 
     private static final VortexPresenceNotificationPanelUiBinder ourUiBinder = GWT.create(VortexPresenceNotificationPanelUiBinder.class);
 
@@ -52,14 +52,15 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
         profileImage.setUrl(visitor.getAttribute(LSDAttribute.IMAGE_URL));
         if (pool.equals(entity.getURI())) {
             text.setInnerText(visitor.getAttribute(LSDAttribute.FULL_NAME) + " has just entered.");
-        } else {
-            text.setInnerText(visitor.getAttribute(LSDAttribute.FULL_NAME) + " has just left for " + streamEntry.getURI().asShortUrl());
+        }
+        else {
+            text.setInnerText(visitor.getAttribute(LSDAttribute.FULL_NAME) + " has just left for " + streamEntry.getURI()
+                                                                                                                .asBoardURL());
         }
         dateTime.setDate(date);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDBaseEntity getEntity() {
         return entity;
     }
@@ -70,8 +71,7 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
         return id;
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public Date getSortDate() {
         return date;
     }

@@ -45,7 +45,7 @@ public class BoardQueryHandler extends AbstractDataStoreHandler<BoardQueryReques
             else if (request.getQueryType() == BoardQueryRequest.QueryType.RECENT) {
                 searchResultEntity = queryDAO.getRecentPublicBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
             }
-            else if (request.getQueryType() == BoardQueryRequest.QueryType.USERS_BOARDS) {
+            else if (request.getQueryType() == BoardQueryRequest.QueryType.PROFILE) {
                 searchResultEntity = queryDAO.getUserPublicBoards(request.getStart(), request.getMax(), request.getSessionIdentifier(), request
                         .getAlias());
             }

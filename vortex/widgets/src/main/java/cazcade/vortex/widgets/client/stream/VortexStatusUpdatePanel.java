@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidURI;
@@ -29,25 +33,21 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
 
     @Nonnull
     public static final String THE_VOID = "the void";
-    @UiField
-    UserProfileImage profileImage;
-    @UiField
-    SpanElement text;
-    @UiField
-    SelfUpdatingRelativeDate dateTime;
+    @UiField UserProfileImage         profileImage;
+    @UiField SpanElement              text;
+    @UiField SelfUpdatingRelativeDate dateTime;
 
     @Nonnull
     private final LSDBaseEntity entity;
     @Nonnull
     private final LSDBaseEntity author;
-    private final String authorFullName;
-    private final String typeAsString;
-    private final String locationName;
+    private final String        authorFullName;
+    private final String        typeAsString;
+    private final String        locationName;
     @Nullable
-    private final Date date;
+    private final Date          date;
 
-    interface VortexStatusUpdatePanelUiBinder extends UiBinder<HTMLPanel, VortexStatusUpdatePanel> {
-    }
+    interface VortexStatusUpdatePanelUiBinder extends UiBinder<HTMLPanel, VortexStatusUpdatePanel> {}
 
     private static final VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
 
@@ -59,7 +59,8 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
             profileImage.setWidth("48px");
             profileImage.setHeight("64px");
             profileImage.setSize(CachedImage.MEDIUM);
-        } else {
+        }
+        else {
             profileImage.setWidth("14px");
             profileImage.setHeight("18px");
             profileImage.setSize(CachedImage.SMALL);
@@ -68,19 +69,25 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
         author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR, false);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
         if (statusUpdate.hasAttribute(LSDAttribute.SOURCE)) {
-            locationName = new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment().asShortUrl().asUrlSafe();
-        } else {
+            locationName = new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment()
+                                                                                  .asBoardURL()
+                                                                                  .asUrlSafe();
+        }
+        else {
             locationName = THE_VOID;
         }
         authorFullName = author.getAttribute(LSDAttribute.FULL_NAME);
         typeAsString = entity.getTypeDef().asString();
         if (statusUpdate.isA(LSDDictionaryTypes.OBJECT_UPDATE)) {
             text.setInnerText(authorFullName + " is making changes in " + locationName);
-        } else if (statusUpdate.isA(LSDDictionaryTypes.COMMENT_UPDATE)) {
+        }
+        else if (statusUpdate.isA(LSDDictionaryTypes.COMMENT_UPDATE)) {
             text.setInnerText(author.getAttribute(LSDAttribute.FULL_NAME) + " is saying something in " + locationName);
-        } else if (statusUpdate.isA(LSDDictionaryTypes.PRESENCE_UPDATE)) {
+        }
+        else if (statusUpdate.isA(LSDDictionaryTypes.PRESENCE_UPDATE)) {
             text.setInnerText(author.getAttribute(LSDAttribute.FULL_NAME) + " is in " + locationName);
-        } else {
+        }
+        else {
             text.setInnerText("Unknown type " + statusUpdate.getTypeDef());
         }
         addDomHandler(new ClickHandler() {
@@ -95,21 +102,18 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
         dateTime.setDate(date);
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public LSDBaseEntity getEntity() {
         return entity;
     }
 
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getStreamIdentifier() {
         return authorFullName + locationName + typeAsString;
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public Date getSortDate() {
         return date;
     }

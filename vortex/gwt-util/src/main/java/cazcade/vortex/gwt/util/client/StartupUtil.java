@@ -26,15 +26,15 @@ public class StartupUtil {
             //            RootPanel.get("loading-panel").getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
         }
         if (RootPanel.get("cache-panel") != null) {
-            //            RootPanel.get("cache-panel").getElement().getStyle().setOpacity(0.0);
+            RootPanel.get("cache-panel").getElement().getStyle().setOpacity(0.0);
             //            RootPanel.get("cache-panel").getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
-            panel.getStyle().setOpacity(1.0);
             panel.getStyle().setVisibility(Style.Visibility.VISIBLE);
+            panel.getStyle().setOpacity(1.0);
             new Timer() {
                 @Override public void run() {
                     RootPanel.get("cache-panel").getElement().removeFromParent();
                 }
-            }.schedule(5000);
+            }.schedule(500);
         }
     }
 }

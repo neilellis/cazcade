@@ -88,7 +88,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
             final LiquidURI uri = entity.getURI();
             final String uriString = uri.toString();
             if (uriString.startsWith("pool")) {
-                final String shortUrl = uri.asShortUrl().asUrlSafe();
+                final String shortUrl = uri.asBoardURL().asUrlSafe();
                 map.put("shortUrl", shortUrl);
 
                 final String url = "http://"

@@ -119,7 +119,7 @@ public class LiquidURI implements Serializable {
     }
 
     @Nonnull
-    public LiquidBoardURL asShortUrl() {
+    public LiquidBoardURL asBoardURL() {
         return new LiquidBoardURL(this);
     }
 

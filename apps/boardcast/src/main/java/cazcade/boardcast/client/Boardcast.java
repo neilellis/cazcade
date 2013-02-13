@@ -9,6 +9,7 @@ import cazcade.boardcast.client.main.widgets.board.BoardcastChatView;
 import cazcade.boardcast.client.main.widgets.board.CreateBoardDialog;
 import cazcade.boardcast.client.main.widgets.board.PublicBoard;
 import cazcade.boardcast.client.main.widgets.board.SnapshotBoard;
+import cazcade.boardcast.client.main.widgets.list.BoardList;
 import cazcade.boardcast.client.main.widgets.login.BoardcastLoginOrRegisterPanel;
 import cazcade.boardcast.client.preflight.PreflightCheck;
 import cazcade.boardcast.client.resources.BoardcastClientBundle;
@@ -232,6 +233,12 @@ public class Boardcast implements EntryPoint {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
                 return new ActivityStreamPanel();
+            }
+        });
+        historyManager.registerTopLevelComposite("list", new AbstractLazyHistoryAwareFactory() {
+            @Nonnull @Override
+            protected HistoryAware getInstanceInternal() {
+                return new BoardList();
             }
         });
     }

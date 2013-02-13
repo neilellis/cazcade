@@ -115,7 +115,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
 
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI
-                .asShortUrl()
+                .asBoardURL()
                 .isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
             public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {

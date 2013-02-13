@@ -73,7 +73,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
             Window.alert("Invalid board name " + value);
             return;
         }
-        if (poolURI != null && poolURI.asShortUrl().asUrlSafe().equalsIgnoreCase(value)) {
+        if (poolURI != null && poolURI.asBoardURL().asUrlSafe().equalsIgnoreCase(value)) {
             return;
         }
         poolURI = new LiquidURI(LiquidBoardURL.convertFromShort(value));
@@ -106,7 +106,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                                        });
 
 
-        final boolean listed = poolURI.asShortUrl().isListedByConvention();
+        final boolean listed = poolURI.asBoardURL().isListedByConvention();
         //start listed boards as public readonly, default is public writeable
         contentArea.clear();
         bus.send(new RetrievePoolRequest(poolURI, true, false), new AbstractResponseCallback<RetrievePoolRequest>() {

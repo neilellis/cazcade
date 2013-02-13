@@ -18,6 +18,9 @@ public class LSDMapPropertyStore implements LSDPropertyStore {
     private TreeMap<String, String> map = new TreeMap<String, String>();
 
     public LSDMapPropertyStore(final Map<String, String> lsdProperties) {
+        for (Map.Entry<String, String> entry : lsdProperties.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
         map.putAll(lsdProperties);
     }
 

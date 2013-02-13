@@ -87,6 +87,12 @@
     </rule>
 
     <rule>
+        <from>^/_list.*$</from>
+        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+    </rule>
+
+
+    <rule>
         <from>^/_snapshot-.*$</from>
         <to type="forward">/_pages/snapshot.jsp?%{query-string}</to>
     </rule>

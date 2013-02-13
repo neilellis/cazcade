@@ -21,14 +21,21 @@ public class BoardQueryRequest extends AbstractRequest {
         setSessionId(identity);
     }
 
-    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type, @Nullable final LiquidURI alias, int start, int max) {
         this(null, sessionIdentifier, type, alias);
+        setStart(start);
+        setMax(max);
     }
 
-    public BoardQueryRequest(final LiquidSessionIdentifier liquidSessionId, @Nonnull final QueryType type) {
-        this(null, liquidSessionId, type, null);
+    public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LiquidURI alias, int start, int max) {
+        this(null, LiquidSessionIdentifier.ANON, type, alias);
+        setStart(start);
+        setMax(max);
     }
 
+    public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+        this(null, LiquidSessionIdentifier.ANON, type, alias);
+    }
 
     public BoardQueryRequest() {
         super();

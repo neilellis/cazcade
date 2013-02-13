@@ -45,7 +45,7 @@
     <tags:boardcast-less/>
 
 
-    <div id="cache-panel" style="width:100%">
+    <div id="cache-panel" style="width:100%;margin-left:-20px;">
         <img id="cache-image" style="margin:0 auto;display:block;z-index: 10000;position: relative;top:-60px;"/>
 
         <div id="loading-panel">
@@ -56,7 +56,10 @@
     </div>
 
     <script>
-        document.getElementById('cache-image').src = 'http://snapito.com/api?type=jpeg&fast&delay=60&url=http://boardcast.it/' + encodeURI(window.location.pathname);
+        if (window.location.pathname.indexOf('/_') != 0) {
+//            document.getElementById('cache-image').src = 'http://snapito.com/api?type=jpeg&delay=60&url=http://boardcast.it/' + encodeURI(window.location.pathname);
+//            document.getElementById('cache-image').src = 'http://snapito.com/api?type=jpeg&delay=60&url=http://boardcast.it/loading';
+        }
     </script>
 
     <div id="board-panel">

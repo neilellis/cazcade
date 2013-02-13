@@ -46,7 +46,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
         titleLookup.put("popular", "Popular Boards");
         queryLookup.put("new", BoardQueryRequest.QueryType.RECENT);
         titleLookup.put("new", "New Boards");
-        queryLookup.put("profile", BoardQueryRequest.QueryType.USERS_BOARDS);
+        queryLookup.put("profile", BoardQueryRequest.QueryType.PROFILE);
         titleLookup.put("profile", "User Boards");
     }
 
@@ -59,7 +59,7 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
             final LiquidSessionIdentifier liquidSessionId = getLiquidSessionId(req.getSession(true));
-            final BoardQueryRequest request = new BoardQueryRequest(liquidSessionId, type, alias);
+            final BoardQueryRequest request = new BoardQueryRequest(liquidSessionId, type, alias, 0, 100);
             request.setMax(MAX);
             final BoardQueryRequest response = dataStore.process(request);
             //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/boardcast/public"), ChildSortOrder.POPULARITY, false));

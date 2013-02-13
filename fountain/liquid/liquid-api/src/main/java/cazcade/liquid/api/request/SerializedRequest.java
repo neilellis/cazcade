@@ -13,6 +13,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
+ * Note that this class may contain unsafe data and may have come from an untrusted source, the conversion to a LSDTransferEntity
+ * will strip certain types of HTML data from values in the underlying map during this process.
+ *
  * @author neilellis@cazcade.com
  */
 public final class SerializedRequest implements Serializable {
@@ -28,6 +31,7 @@ public final class SerializedRequest implements Serializable {
 
     protected SerializedRequest() {
     }
+
 
     @Nonnull
     public LSDTransferEntity getEntity() {

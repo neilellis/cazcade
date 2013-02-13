@@ -18,7 +18,7 @@ public abstract class AbstractRequest implements LiquidRequest {
 
 
     public enum QueryType {
-        MY, USERS_BOARDS, RECENT, HISTORY, POPULAR
+        MY, PROFILE, RECENT, HISTORY, POPULAR
     }
 
     public enum Category {

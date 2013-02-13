@@ -104,7 +104,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     protected void onChange(@Nonnull final LSDBaseEntity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(this, true);
-        final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
+        final String shortUrl = entity.getURI().asBoardURL().asUrlSafe();
         if (shortUrl.startsWith("-")) {
             //unlisted board, probably has a nasty name so let's not show it here.
             WidgetUtil.hideGracefully(tag, false);

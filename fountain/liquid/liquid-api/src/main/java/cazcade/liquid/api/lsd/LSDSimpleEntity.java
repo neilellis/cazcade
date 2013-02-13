@@ -5,6 +5,7 @@
 package cazcade.liquid.api.lsd;
 
 import cazcade.liquid.api.*;
+import cazcade.vortex.gwt.util.client.VortexHtmlSanitizer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -447,7 +448,7 @@ public class LSDSimpleEntity implements LSDTransferEntity {
                                                + "', <default>) to avoid this problem.");
         }
         //        }
-        return value;
+        return VortexHtmlSanitizer.sanitizeHtml(value);
     }
 
     @Nonnull @Override
@@ -1018,12 +1019,12 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         if (hasURI()) {
             final LiquidURI uri = getURI();
             if (LiquidBoardURL.isConvertable(uri)) {
-                result.put("shortUrl", uri.asShortUrl().asUrlSafe());
+                result.put("shortUrl", uri.asBoardURL().asUrlSafe());
             }
         }
         if (hasAttribute(LSDAttribute.SOURCE) && LiquidBoardURL.isConvertable(getURIAttribute(LSDAttribute.SOURCE))) {
             //noinspection ConstantConditions
-            result.put("sourceShortUrl", getURIAttribute(LSDAttribute.SOURCE).asShortUrl().asUrlSafe());
+            result.put("sourceShortUrl", getURIAttribute(LSDAttribute.SOURCE).asBoardURL().asUrlSafe());
         }
         return result;
     }

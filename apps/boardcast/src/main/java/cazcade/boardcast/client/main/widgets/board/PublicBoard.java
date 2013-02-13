@@ -101,12 +101,6 @@ public class PublicBoard extends EntityBackedFormPanel {
     //    private Element sharethisElement;
 
 
-    private static native void replaceState(String title, String state) /*-{
-        if (window.history.replaceState != 'undefined') {
-            window.history.replaceState(state, title, state);
-        }
-    }-*/;
-
     public PublicBoard() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -130,7 +124,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             Window.alert("Invalid board name " + value);
             return;
         }
-        if (poolURI != null && poolURI.asShortUrl().asUrlSafe().equalsIgnoreCase(value)) {
+        if (poolURI != null && poolURI.asBoardURL().asUrlSafe().equalsIgnoreCase(value)) {
             return;
         }
         previousPoolURI = poolURI;
@@ -204,7 +198,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                                        });
 
 
-        final boolean listed = poolURI.asShortUrl().isListedByConvention();
+        final boolean listed = poolURI.asBoardURL().isListedByConvention();
         //start listed boards as public readonly, default is public writeable
         if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
             contentArea.clear();
@@ -234,7 +228,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 if (responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Could not find the board.");
                     if (previousPoolURI != null) {
-                        HistoryManager.navigate(previousPoolURI.asShortUrl().toString());
+                        HistoryManager.navigate(previousPoolURI.asBoardURL().toString());
                     }
                 }
                 else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
@@ -313,17 +307,16 @@ public class PublicBoard extends EntityBackedFormPanel {
             removeStyleName("modifiable-board");
         }
 
-        if (!getEntity().getURI().asShortUrl().isProfileBoard()) {
+        if (!getEntity().getURI().asBoardURL().isProfileBoard()) {
             publicBoardHeader.bind(getEntity());
             publicBoardHeader.setVisible(true);
             profileBoardHeader.setVisible(false);
             footer.getStyle().setVisibility(Style.Visibility.VISIBLE);
             ownerDetailPanel.setAliasURI(owner.getURI());
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
-            //            replaceState("Boardcast : " + getEntity().getAttribute(LSDAttribute.TITLE), "/" + getEntity().getAttribute(LSDAttribute.NAME));
             tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity
                     .getURI()
-                    .asShortUrl()
+                    .asBoardURL()
                     .asUrlSafe()) +
                                "&text=" + encode("Check out " +
                                                  entity.getAttribute(LSDAttribute.TITLE, "this board") +
@@ -335,17 +328,16 @@ public class PublicBoard extends EntityBackedFormPanel {
             ownerDetailPanel.setVisible(false);
             footer.getStyle().setVisibility(Style.Visibility.HIDDEN);
             profileBoardHeader.setAliasURI(owner.getURI());
-            //            replaceState("Boardcast : User : " + owner.getAttribute(LSDAttribute.FULL_NAME), "/~" + getEntity().getAttribute(LSDAttribute.NAME));
             tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity
                     .getURI()
-                    .asShortUrl()
+                    .asBoardURL()
                     .asUrlSafe()) +
                                "&text=" + encode("Check out this profile on Boardcast #bc") + "&count=horizontal");
         }
         authorFullname.setInnerText(owner.getAttribute(LSDAttribute.FULL_NAME));
         final Date published = entity.getPublished();
         publishDate.setInnerText(published.toString());
-        final String shortUrl = entity.getURI().asShortUrl().asUrlSafe();
+        final String shortUrl = entity.getURI().asBoardURL().asUrlSafe();
         String tagText = "";
         if (!shortUrl.startsWith("-")) {
             tagText = " The hashtag for this board is #" +

@@ -27,7 +27,7 @@ public class ChangeReport {
     private final       List<Map> latestChanges                      = new ArrayList<Map>();
 
     private static String addBoardSnaphotImageUrl(LSDTransferEntity boardEntity) {
-        return "http://boardcast.it/_snapshot-" + boardEntity.getURI().getWithoutFragment().asShortUrl().asUrlSafe() +
+        return "http://boardcast.it/_snapshot-" + boardEntity.getURI().getWithoutFragment().asBoardURL().asUrlSafe() +
                "?bid=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
                System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
     }
@@ -36,7 +36,7 @@ public class ChangeReport {
     private static String addChangeSnaphotImageUrl(LSDTransferEntity boardEntity) {
         return "http://boardcast.it/_snapshot-" + boardEntity.getURIAttribute(LSDAttribute.SOURCE)
                                                              .getWithoutFragment()
-                                                             .asShortUrl()
+                                                             .asBoardURL()
                                                              .asUrlSafe() +
                "?bid=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
                System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
