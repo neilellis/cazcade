@@ -43,8 +43,10 @@ public class HistoryManager {
                 @Override
                 public void onValueChange(@Nonnull final ValueChangeEvent<String> stringValueChangeEvent) {
                     final String newToken = stringValueChangeEvent.getValue();
-                    currentUrl = newToken;
-                    handleTokenChange(newToken);
+                    if (!newToken.equals(currentUrl)) {
+                        currentUrl = newToken;
+                        handleTokenChange(newToken);
+                    }
                 }
             });
             instance = this;
@@ -151,6 +153,7 @@ public class HistoryManager {
 
     public void fireCurrentHistoryState() {
         if (isPushStateSupported()) {
+            ClientLog.log(ClientLog.Type.HISTORY, "History.fireCurrentHistoryState()");
             History.fireCurrentHistoryState();
         }
         else {

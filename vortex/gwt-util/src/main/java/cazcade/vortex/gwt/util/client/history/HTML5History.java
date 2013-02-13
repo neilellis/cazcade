@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client.history;
 
 import com.google.gwt.user.client.impl.HistoryImpl;
@@ -18,7 +22,7 @@ public class HTML5History extends HistoryImpl {
         }
         if (path.length > 0) {
             token =
-                    this.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
+                this.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
         }
 
         @com.google.gwt.user.client.impl.HistoryImpl::setToken(Ljava/lang/String;)(token);
@@ -27,7 +31,7 @@ public class HTML5History extends HistoryImpl {
 
         var oldHandler = $wnd.history.onpopstate;
 
-        $wnd.onpopstate = $entry(function() {
+        $wnd.onpopstate = $entry(function () {
             var token = '';
 
             var path = $wnd.location.pathname;
@@ -36,7 +40,7 @@ public class HTML5History extends HistoryImpl {
             }
 
             if (path.length > 0) {
-                token= historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
+                token = historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::decodeFragment(Ljava/lang/String;)(path);
             }
 
 
@@ -47,7 +51,7 @@ public class HTML5History extends HistoryImpl {
             }
         });
 
-         $wnd.fireGWTHistoryEvent = function (nativeToken) {
+        $wnd.fireGWTHistoryEvent = function (nativeToken) {
             historyImpl.@com.google.gwt.user.client.impl.HistoryImpl::newItemOnEvent(Ljava/lang/String;)(nativeToken);
         };
 
@@ -56,8 +60,10 @@ public class HTML5History extends HistoryImpl {
 
     protected native void nativeUpdate(String historyToken) /*-{
         var encodedToken =
-                this.@com.google.gwt.user.client.impl.HistoryImpl::encodeFragment(Ljava/lang/String;)(historyToken);
-        $wnd.history.pushState(encodedToken, $wnd.document.title,
+            this.@com.google.gwt.user.client.impl.HistoryImpl::encodeFragment(Ljava/lang/String;)(historyToken);
+        if ($wnd.history.state != encodedToken) {
+            $wnd.history.pushState(encodedToken, $wnd.document.title,
                 encodedToken);
+        }
     }-*/;
 }
