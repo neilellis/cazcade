@@ -8,7 +8,7 @@
     <g:HTMLPanel>
         <div class="container">
             <h1 class="board-list-title" ui:field="boardListTitle"/>
-            <scroll:ShowMorePagerPanel ui:field="pagerPanel"/>
+            <scroll:ShowMoreWindowPagerPanel ui:field="pagerPanel"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -34,7 +34,7 @@ import java.util.Set;
 public final class VortexHtmlSanitizer implements HtmlSanitizer {
 
     private static final VortexHtmlSanitizer INSTANCE      = new VortexHtmlSanitizer();
-    private static final Set<String>         TAG_WHITELIST = new HashSet<String>(Arrays.asList("br", "hr", "b", "em", "i", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ul", "ol", "li"));
+    private static final Set<String>         TAG_WHITELIST = new HashSet<String>(Arrays.asList("br", "div", "span", "p", "hr", "b", "em", "i", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ul", "ol", "li"));
 
     // prevent external instantiation
     private VortexHtmlSanitizer() {

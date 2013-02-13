@@ -14,7 +14,7 @@ import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
-import cazcade.vortex.widgets.client.panels.scroll.ShowMorePagerPanel;
+import cazcade.vortex.widgets.client.panels.scroll.InfiniteScrollPagerPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.HeadingElement;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -27,6 +27,7 @@ import com.google.gwt.view.client.*;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +39,7 @@ public class BoardList extends HistoryAwareComposite {
 
     private static BoardListUiBinder ourUiBinder = GWT.create(BoardListUiBinder.class);
     private final CellList<LSDBaseEntity>   cellList;
-    @UiField      ShowMorePagerPanel        pagerPanel;
+    @UiField      InfiniteScrollPagerPanel  pagerPanel;
     @UiField      HeadingElement            boardListTitle;
     private       AbstractRequest.QueryType queryType;
     private final Map<String, String> titleLookup = new HashMap<String, String>();
@@ -57,7 +58,7 @@ public class BoardList extends HistoryAwareComposite {
                 return item == null ? null : item.getURI();
             }
         });
-        cellList.setPageSize(10);
+        cellList.setPageSize(4);
         cellList.setKeyboardPagingPolicy(HasKeyboardPagingPolicy.KeyboardPagingPolicy.INCREASE_RANGE);
         cellList.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.BOUND_TO_SELECTION);
         cellList.setStyleName("board-list");
@@ -80,8 +81,11 @@ public class BoardList extends HistoryAwareComposite {
                                                                                                                                  .getLength()), new AbstractResponseCallback<BoardQueryRequest>() {
                               @Override public void onSuccess(BoardQueryRequest message, BoardQueryRequest response) {
                                   super.onSuccess(message, response);
-                                  updateRowData(display.getVisibleRange().getStart(), response.getResponse()
-                                                                                              .getSubEntities(LSDAttribute.CHILD));
+                                  List<LSDBaseEntity> subEntities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                                  if (subEntities.size() < message.getMax()) {
+                                      cellList.setRowCount(message.getStart() + subEntities.size());
+                                  }
+                                  updateRowData(display.getVisibleRange().getStart(), subEntities);
                               }
                           });
 
