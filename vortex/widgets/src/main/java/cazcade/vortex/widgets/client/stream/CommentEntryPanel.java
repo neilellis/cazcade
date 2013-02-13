@@ -94,14 +94,14 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
         profileName.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                HistoryManager.navigate("~" + name);
+                HistoryManager.get().navigate("~" + name);
             }
         });
         authorFullname.setText(author.getAttribute(LSDAttribute.FULL_NAME));
         authorFullname.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                HistoryManager.navigate("~" + name);
+                HistoryManager.get().navigate("~" + name);
             }
         });
         //        profileName.addClickHandler(new ClickHandler() {

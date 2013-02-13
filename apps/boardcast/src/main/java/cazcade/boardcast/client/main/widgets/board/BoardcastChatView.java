@@ -244,7 +244,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         returnFromChatButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                HistoryManager.navigate(boardURL.toString());
+                HistoryManager.get().navigate(boardURL.toString());
             }
         });
     }

@@ -4,6 +4,7 @@
 
 package cazcade.vortex.gwt.util.client.history;
 
+import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
@@ -25,41 +26,61 @@ import java.util.Map;
 public class HistoryManager {
 
 
+    private static HistoryManager instance;
     @Nonnull
-    final Map<String, HistoryAwareFactory> compositeMap = new HashMap<String, HistoryAwareFactory>();
-    private final String mainPanelId;
+    final Map<String, HistoryLocation> compositeMap = new HashMap<String, HistoryLocation>();
+    private final String          mainPanelId;
+    private       String          currentUrl;
+    private       HistoryLocation currentHistoryItem;
 
     public HistoryManager(final String mainPanelId) {
+        if (instance != null) {
+            throw new IllegalStateException("Already activated.");
+        }
         this.mainPanelId = mainPanelId;
         if (RootPanel.get(mainPanelId) != null) {
             History.addValueChangeHandler(new ValueChangeHandler<String>() {
                 @Override
                 public void onValueChange(@Nonnull final ValueChangeEvent<String> stringValueChangeEvent) {
                     final String newToken = stringValueChangeEvent.getValue();
+                    currentUrl = newToken;
                     handleTokenChange(newToken);
                 }
             });
+            instance = this;
         }
     }
 
-    public static void navigate(final String action, final String local) {
-        navigate('_' + action + '-' + local);
-    }
-
-    public static void navigate(final String url) {
-        if (isPushStateSupported()) {
-            History.newItem(url);
-        }
-        else {
-            Window.Location.assign('/' + url);
-        }
+    public static HistoryManager get() {
+        assert instance != null;
+        return instance;
     }
 
     private static native boolean isPushStateSupported()/*-{
         return typeof($wnd.history.pushState) == "function" && !$wnd.testNoPushState;
     }-*/;
 
+    public void navigate(final String action, final String local) {
+        navigate('_' + action + '-' + local);
+    }
+
+    public void navigate(final String url) {
+        if (isPushStateSupported()) {
+            if (url.equals(currentUrl)) {
+                ClientLog.log(ClientLog.Type.HISTORY, "Skipping " + url);
+            }
+            else {
+                ClientLog.log(ClientLog.Type.HISTORY, "History.newItem(" + url + ')');
+                History.newItem(url);
+            }
+        }
+        else {
+            Window.Location.assign('/' + url);
+        }
+    }
+
     private void handleTokenChange(@Nonnull String newToken) {
+        ClientLog.log(ClientLog.Type.HISTORY, "HistoryManager.handleTokenChange(" + newToken + ')');
         final String tokenFirstPart;
         //grrr Jsession id nonsense
         if (newToken.contains(";")) {
@@ -90,11 +111,14 @@ public class HistoryManager {
             tokenFirstPart = "default";
             localToken = newToken;
         }
-        final HistoryAwareFactory historyAwareFactory = compositeMap.get(tokenFirstPart);
-        if (historyAwareFactory == null) {
+        if (currentHistoryItem != null) {
+            currentHistoryItem.beforeRemove();
+        }
+        currentHistoryItem = compositeMap.get(tokenFirstPart);
+        if (currentHistoryItem == null) {
             throw new IllegalArgumentException("Unrecognized history component " + tokenFirstPart);
         }
-        historyAwareFactory.withInstance(new HistoryAwareFactoryCallback() {
+        currentHistoryItem.handle(new HistoryLocationCallback() {
             @Override
             public void withInstance(@Nullable final HistoryAware composite) {
                 if (composite != null) {
@@ -106,6 +130,7 @@ public class HistoryManager {
                         composite.asWidget().addStyleName("main-content-panel");
                         RootPanel.get(mainPanelId).add(composite);
                     }
+                    composite.onActive();
                     composite.onLocalHistoryTokenChanged(localToken);
 
                 }
@@ -114,7 +139,7 @@ public class HistoryManager {
 
     }
 
-    public void registerTopLevelComposite(final String token, @Nonnull final HistoryAwareFactory composite) {
+    public void registerTopLevelComposite(final String token, @Nonnull final HistoryLocation composite) {
         compositeMap.put(token, composite);
         composite.setHistoryManager(this);
         composite.setHistoryToken(token);

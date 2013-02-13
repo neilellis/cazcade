@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client;
 
 import com.google.gwt.storage.client.Storage;
@@ -17,6 +21,7 @@ public class ClientApplicationConfiguration {
     private static boolean retrieveUpdates = true;
     private static boolean register;
     private static boolean snapshotMode = false;
+    private static String debugType;
 
     public static boolean isDebug() {
         return debug;
@@ -60,6 +65,7 @@ public class ClientApplicationConfiguration {
         setPreflight(Window.Location.getParameter("skippreflight") == null);
         setLoginRequired(Window.Location.getParameter("forceLogin") != null);
         setDebug(Window.Location.getParameter("debug") != null);
+        setDebugType(Window.Location.getParameter("debug"));
         setAlphaFeatures(Window.Location.getParameter("alpha") != null);
         setRetrieveUpdates(Window.Location.getParameter("noupdates") == null);
         setRegister(Window.Location.getParameter("register") != null);
@@ -77,10 +83,6 @@ public class ClientApplicationConfiguration {
         ClientApplicationConfiguration.register = register;
     }
 
-    public static boolean xxxisRegister() {
-        return register;
-    }
-
     public static void setSnapshotMode(boolean snapshotMode) {
         ClientApplicationConfiguration.snapshotMode = snapshotMode;
     }
@@ -95,5 +97,14 @@ public class ClientApplicationConfiguration {
 
     public static boolean isLocalStorageSupported() {
         return !isSnapshotMode() && Storage.isLocalStorageSupported();
+    }
+
+
+    public static void setDebugType(String debugType) {
+        ClientApplicationConfiguration.debugType = debugType;
+    }
+
+    public static String getDebugType() {
+        return debugType;
     }
 }

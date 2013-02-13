@@ -93,6 +93,14 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
         return false;
     }
 
+    @Override public void beforeInactive() {
+
+    }
+
+    @Override public void onActive() {
+
+    }
+
     @UiHandler("cancel")
     public void cancelClick(final ClickEvent e) {
         hide();

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client.history;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -8,7 +12,7 @@ import com.google.gwt.user.client.ui.Composite;
 public class HistoryAwareComposite extends Composite implements HistoryAware {
 
     private HistoryManager historyManager;
-    private String historyToken;
+    private String         historyToken;
 
     @Override
     public void onLocalHistoryTokenChanged(final String token) {
@@ -38,5 +42,13 @@ public class HistoryAwareComposite extends Composite implements HistoryAware {
     @Override
     public boolean addToRootPanel() {
         return true;
+    }
+
+    @Override public void beforeInactive() {
+
+    }
+
+    @Override public void onActive() {
+
     }
 }

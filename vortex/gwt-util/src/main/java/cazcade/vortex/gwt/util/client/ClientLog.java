@@ -23,15 +23,36 @@ import java.util.Date;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr"})
 public class ClientLog {
-    private static boolean loginWindowActive;
+    public static enum Type {
+        HISTORY, ALL, NONE
+    }
+
+    private static final int                      MAX_BUFFER_LENGTH = 50000;
     @Nonnull
-    private static       StringBuffer logBuffer         = new StringBuffer();
-    private static final int          MAX_BUFFER_LENGTH = 50000;
+    private static final VortexThreadSafeExecutor executor          = new VortexThreadSafeExecutor();
+
+    static {
+        String debugType = ClientApplicationConfiguration.getDebugType();
+        if (debugType == null) {
+            type = Type.NONE;
+        }
+        else {
+            if ("true".equals(debugType) && debugType.isEmpty()) {
+                type = Type.ALL;
+            }
+            else {
+                type = Type.valueOf(debugType.toUpperCase());
+            }
+        }
+    }
+
     @Nullable
     public static  Element logWidget;
-    private static boolean debugMode;
+    private static boolean loginWindowActive;
     @Nonnull
-    private static final VortexThreadSafeExecutor executor = new VortexThreadSafeExecutor();
+    private static StringBuffer logBuffer = new StringBuffer();
+    private static final Type    type;
+    private static       boolean debugMode;
 
     public static String getLog() {
         return logBuffer.toString();
@@ -45,11 +66,16 @@ public class ClientLog {
         ClientLog.debugMode = debugMode;
     }
 
-    public boolean isLogging() {
-        return !GWT.isScript() || logWidget != null;
+    public static void log(Type type, String message) {
+        if (type == ClientLog.type) {
+            logInternal(message, null);
+        }
     }
 
     public static void log(@Nullable final String message, @Nullable final Throwable exception) {
+        if (type != Type.ALL) {
+            return;
+        }
         if (exception instanceof StatusCodeException && ((StatusCodeException) exception).getStatusCode() == 0) {
             return;
         }
@@ -95,16 +121,13 @@ public class ClientLog {
         return trace;
     }
 
-
     public static void log(final Throwable exception) {
         log(null, exception);
     }
 
-
     public static void log(final String message) {
         log(message, null);
     }
-
 
     private static void logInternal(@Nullable final String message, @Nullable final Throwable exception) {
         if (isDebugMode()) {
@@ -180,5 +203,9 @@ public class ClientLog {
 
     public static void warn(@Nonnull final String message) {
         log("WARN: " + message);
+    }
+
+    public boolean isLogging() {
+        return !GWT.isScript() || logWidget != null;
     }
 }

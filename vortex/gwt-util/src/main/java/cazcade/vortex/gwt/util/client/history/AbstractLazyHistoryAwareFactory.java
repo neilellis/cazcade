@@ -14,14 +14,14 @@ import javax.annotation.Nonnull;
  *
  * @author neilellis@cazcade.com
  */
-public abstract class AbstractLazyHistoryAwareFactory implements HistoryAwareFactory {
+public abstract class AbstractLazyHistoryAwareFactory implements HistoryLocation {
     private HistoryManager historyManager;
     private String         token;
     private HistoryAware   instance;
 
 
     @Override
-    public void withInstance(@Nonnull final HistoryAwareFactoryCallback callback) {
+    public void handle(@Nonnull final HistoryLocationCallback callback) {
         GWT.runAsync(new RunAsyncCallback() {
             @Override
             public void onFailure(final Throwable reason) {
@@ -52,5 +52,9 @@ public abstract class AbstractLazyHistoryAwareFactory implements HistoryAwareFac
     @Override
     public void setHistoryToken(final String token) {
         this.token = token;
+    }
+
+    @Override public void beforeRemove() {
+        instance.beforeInactive();
     }
 }

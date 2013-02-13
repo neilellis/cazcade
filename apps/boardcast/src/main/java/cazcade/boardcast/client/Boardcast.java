@@ -263,12 +263,12 @@ public class Boardcast implements EntryPoint {
                                                                     uuid.toString().toLowerCase() +
                                                                     "~" +
                                                                     UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
-                                    HistoryManager.navigate(unlistedShortUrl);
+                                    HistoryManager.get().navigate(unlistedShortUrl);
                                 }
                             });
                         }
                         else {
-                            HistoryManager.navigate(board);
+                            HistoryManager.get().navigate(board);
                         }
                     }
                 });

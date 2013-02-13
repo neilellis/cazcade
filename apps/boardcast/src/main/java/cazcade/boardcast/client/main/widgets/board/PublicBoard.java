@@ -228,7 +228,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 if (responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Could not find the board.");
                     if (previousPoolURI != null) {
-                        HistoryManager.navigate(previousPoolURI.asBoardURL().toString());
+                        HistoryManager.get().navigate(previousPoolURI.asBoardURL().toString());
                     }
                 }
                 else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {

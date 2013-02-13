@@ -94,7 +94,7 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
             @Override
             public void onClick(final ClickEvent event) {
                 if (locationName != null && !THE_VOID.equals(locationName)) {
-                    HistoryManager.navigate(locationName);
+                    HistoryManager.get().navigate(locationName);
                 }
             }
         }, ClickEvent.getType());

@@ -17,6 +17,7 @@ import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.panels.scroll.InfiniteScrollPagerPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.HeadingElement;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
@@ -43,6 +44,9 @@ public class BoardList extends HistoryAwareComposite {
     @UiField      HeadingElement            boardListTitle;
     private       AbstractRequest.QueryType queryType;
     private final Map<String, String> titleLookup = new HashMap<String, String>();
+    private NoSelectionModel<LSDBaseEntity> selectionModel;
+    private HandlerRegistration             selectionChangeHandler;
+    private SelectionChangeEvent.Handler    handler;
 
     public BoardList() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -58,19 +62,11 @@ public class BoardList extends HistoryAwareComposite {
                 return item == null ? null : item.getURI();
             }
         });
-        cellList.setPageSize(4);
+        cellList.setPageSize(20);
         cellList.setKeyboardPagingPolicy(HasKeyboardPagingPolicy.KeyboardPagingPolicy.INCREASE_RANGE);
         cellList.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.BOUND_TO_SELECTION);
         cellList.setStyleName("board-list");
         // Add a selection model so we can select cells.
-        final SingleSelectionModel<LSDBaseEntity> selectionModel = new SingleSelectionModel<LSDBaseEntity>();
-        cellList.setSelectionModel(selectionModel);
-        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-            public void onSelectionChange(SelectionChangeEvent event) {
-                LSDBaseEntity selected = selectionModel.getSelectedObject();
-                HistoryManager.navigate(selected.getURI().asBoardURL().asUrlSafe());
-            }
-        });
 
         AsyncDataProvider<LSDBaseEntity> dataProvider = new AsyncDataProvider<LSDBaseEntity>() {
 
@@ -101,11 +97,28 @@ public class BoardList extends HistoryAwareComposite {
         titleLookup.put("popular", "Popular Boards");
         titleLookup.put("new", "New Boards");
         titleLookup.put("profile", "User Boards");
+
+        handler = new SelectionChangeEvent.Handler() {
+            public void onSelectionChange(SelectionChangeEvent event) {
+                LSDBaseEntity selected = selectionModel.getLastSelectedObject();
+                HistoryManager.get().navigate(selected.getURI().asBoardURL().asUrlSafe());
+            }
+        };
+
     }
 
     @Override public void onLocalHistoryTokenChanged(String token) {
         if (token != null && !token.isEmpty()) { queryType = AbstractRequest.QueryType.valueOf(token.toUpperCase()); }
         cellList.setVisibleRangeAndClearData(cellList.getVisibleRange(), true);
         boardListTitle.setInnerText(titleLookup.get(token));
+        selectionModel = new NoSelectionModel<LSDBaseEntity>();
+        cellList.setSelectionModel(selectionModel);
+        selectionChangeHandler = selectionModel.addSelectionChangeHandler(handler);
+
+    }
+
+    @Override public void beforeInactive() {
+        cellList.setSelectionModel(null);
+        selectionChangeHandler.removeHandler();
     }
 }
