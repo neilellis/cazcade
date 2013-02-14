@@ -28,7 +28,7 @@ public class HistoryManager {
 
     private static HistoryManager instance;
     @Nonnull
-    final Map<String, HistoryLocation> compositeMap = new HashMap<String, HistoryLocation>();
+    final Map<String, HistoryLocation> locationMap = new HashMap<String, HistoryLocation>();
     private final String          mainPanelId;
     private       String          currentUrl;
     private       HistoryLocation currentHistoryItem;
@@ -116,7 +116,7 @@ public class HistoryManager {
         if (currentHistoryItem != null) {
             currentHistoryItem.beforeRemove();
         }
-        currentHistoryItem = compositeMap.get(tokenFirstPart);
+        currentHistoryItem = locationMap.get(tokenFirstPart);
         if (currentHistoryItem == null) {
             throw new IllegalArgumentException("Unrecognized history component " + tokenFirstPart);
         }
@@ -141,10 +141,10 @@ public class HistoryManager {
 
     }
 
-    public void registerTopLevelComposite(final String token, @Nonnull final HistoryLocation composite) {
-        compositeMap.put(token, composite);
-        composite.setHistoryManager(this);
-        composite.setHistoryToken(token);
+    public void registerTopLevelComposite(final String token, @Nonnull final HistoryLocation location) {
+        locationMap.put(token, location);
+        location.setHistoryManager(this);
+        location.setHistoryToken(token);
     }
 
     public void addHistory(final String historyToken, final String localHistory) {

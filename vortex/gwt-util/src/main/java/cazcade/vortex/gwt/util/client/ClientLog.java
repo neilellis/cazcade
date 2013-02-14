@@ -66,20 +66,26 @@ public class ClientLog {
         ClientLog.debugMode = debugMode;
     }
 
-    public static void log(Type type, String message) {
-        if (type == ClientLog.type) {
-            logInternal(message, null);
+    public static void log(final Type type, final String message) {
+        log(type, message, null);
+    }
+
+    public static void log(final Type type, @Nullable final String message, @Nullable final Throwable exception) {
+        if (type == ClientLog.type || exception != null) {
+            logInternal(message, exception);
         }
+
     }
 
     public static void log(@Nullable final String message, @Nullable final Throwable exception) {
-        if (type != Type.ALL) {
-            return;
-        }
+        log(Type.ALL, message, exception);
+    }
+
+    private static void logInternal(@Nullable final String message, @Nullable final Throwable exception) {
         if (exception instanceof StatusCodeException && ((StatusCodeException) exception).getStatusCode() == 0) {
             return;
         }
-        logInternal(message, exception);
+        doLog(message, exception);
         if (!GWT.isScript()) {
             if (exception != null) {
                 exception.printStackTrace(System.err);
@@ -129,7 +135,7 @@ public class ClientLog {
         log(message, null);
     }
 
-    private static void logInternal(@Nullable final String message, @Nullable final Throwable exception) {
+    private static void doLog(@Nullable final String message, @Nullable final Throwable exception) {
         if (isDebugMode()) {
             final StringBuffer localBuffer = new StringBuffer();
             if (exception != null) {

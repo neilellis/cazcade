@@ -6,8 +6,12 @@ package cazcade.boardcast.client.main.widgets.list;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -25,6 +29,10 @@ public class BoardCell extends AbstractCell<LSDBaseEntity> {
     }
 
     private static final BoardCellTemplates TEMPLATES = GWT.create(BoardCellTemplates.class);
+
+    public BoardCell() {
+        super("click");
+    }
 
     @Override public void render(final Context context, final LSDBaseEntity board, final SafeHtmlBuilder sb) {
         if (board == null) {
@@ -82,5 +90,13 @@ public class BoardCell extends AbstractCell<LSDBaseEntity> {
         }
         sb.appendHtmlConstant("</div>");
         sb.appendHtmlConstant("</div>");
+    }
+
+    @Override
+    public void onBrowserEvent(Context context, Element parent, LSDBaseEntity value, NativeEvent event, ValueUpdater<LSDBaseEntity> valueUpdater) {
+        super.onBrowserEvent(context, parent, value, event, valueUpdater);
+        if ("click".equals(event.getType())) {
+            HistoryManager.get().navigate(value.getURI().asBoardURL().asUrlSafe());
+        }
     }
 }

@@ -38,7 +38,7 @@ public class InfiniteScrollPagerPanel extends AbstractPager {
         initWidget(widget);
 
         // Do not let the scrollable take tab focus.
-        widget.getElement().setTabIndex(-1);
+        //        widget.getElement().setTabIndex(-1);
         Window.addWindowScrollHandler(new Window.ScrollHandler() {
             @Override public void onWindowScroll(final Window.ScrollEvent event) {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {

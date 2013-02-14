@@ -46,7 +46,6 @@
       <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/vortex.iml" filepath="$PROJECT_DIR$/vortex/vortex.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/widgets/widgets.iml" filepath="$PROJECT_DIR$/vortex/widgets/widgets.iml" />
     </modules>
   </component>
 </project>

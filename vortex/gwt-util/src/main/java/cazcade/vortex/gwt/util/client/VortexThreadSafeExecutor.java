@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.gwt.util.client;
 
 
@@ -11,16 +15,16 @@ import java.util.Stack;
  */
 public class VortexThreadSafeExecutor {
 
-    public static final int SCHEDULER_DELAY_MIILLIS = 50;
+    public static final int             SCHEDULER_DELAY_MIILLIS = 50;
     @Nonnull
-    private final Stack<Runnable> stack = new Stack<Runnable>();
+    private final       Stack<Runnable> stack                   = new Stack<Runnable>();
 
     public VortexThreadSafeExecutor() {
         new Timer() {
             @Override
             public void run() {
                 while (!stack.isEmpty()) {
-                    final Runnable runnable = stack.pop();
+                    final Runnable runnable = stack.remove(0);
                     try {
                         runnable.run();
                     } catch (Exception e) {

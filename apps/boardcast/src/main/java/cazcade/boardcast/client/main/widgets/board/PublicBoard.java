@@ -172,6 +172,7 @@ public class PublicBoard extends EntityBackedFormPanel {
     */
 
     private void refresh() {
+        ClientLog.log(ClientLog.Type.HISTORY, "PublicBoard.refresh()");
         if (changePermissionListener != 0) {
             BusFactory.getInstance().removeListener(changePermissionListener);
         }
