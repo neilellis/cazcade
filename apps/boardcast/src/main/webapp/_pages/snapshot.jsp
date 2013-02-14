@@ -19,14 +19,6 @@
         style="padding-top:0px;max-width:1024px;max-height:1365px;height:auto;min-height:636px;background-color:white;overflow:hidden;">
 <tags:log-panel/>
 
-<script>
-    //Deferred loading to improve initial load time.
-    loadjs("./_prettify/prettify.js");
-</script>
-
-
-<tags:boardcast-less/>
-
 
 <div id="cache-panel">
     <div id="loading-panel">
@@ -40,6 +32,8 @@
 </div>
 
 <%@ include file="footer.jspf" %>
+
+<%@ include file="libs.jspf" %>
 
 <script type="text/javascript" language="javascript"
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>

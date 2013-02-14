@@ -112,6 +112,7 @@
 </div>
 
 <%@ include file="bottom-toolbar.jspf" %>
+<%@ include file="libs.jspf" %>
 
 </body>
 </html>

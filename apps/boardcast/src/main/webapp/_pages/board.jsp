@@ -24,7 +24,7 @@
 
 <%@ include file="chrome_frame.jspf" %>
 
-<div style="opacity: 0" id="top-bar-wrapper">
+<div id="top-bar-wrapper">
     <div class="right rib-holder">
         <div class="black rib"><a href="http://en.wikipedia.org/wiki/Software_release_life_cycle#Beta">Beta</a></div>
     </div>
@@ -35,14 +35,6 @@
 
 
     <tags:log-panel/>
-
-    <script>
-        //Deferred loading to improve initial load time.
-        loadjs("./_prettify/prettify.js");
-    </script>
-
-
-    <tags:boardcast-less/>
 
 
     <div id="cache-panel" style="width:100%;margin-left:-20px;">
@@ -80,9 +72,12 @@
 
 </div>
 
+<%@ include file="libs.jspf" %>
+
 
 <script type="text/javascript" language="javascript"
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>
+
 
 </body>
 </html>

@@ -135,5 +135,7 @@
 
 </div>
 
+<%@ include file="libs.jspf" %>
+
 </body>
 </html>
