@@ -14,13 +14,7 @@
     <%@ include file="header.jspf" %>
     <%@ include file="analytics.jspf" %>
 
-    <c:if test="${not empty param.dev}">
-        <link rel="stylesheet/less" href="/_less/boardcast-v2.less">
-        <script src="/_js/less-dev.js" type="text/javascript"></script>
-    </c:if>
-    <c:if test="${empty param.dev}">
-        <link rel="stylesheet" href="/_css/boardcast-v2.css">
-    </c:if>
+
     <script type="text/javascript">
         function resizeCenter() {
             document.getElementById('boards-list').style.width = (Math.floor(document.body.offsetWidth / 400) * 400) + "px";

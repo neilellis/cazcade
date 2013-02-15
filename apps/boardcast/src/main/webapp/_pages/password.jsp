@@ -1,5 +1,9 @@
 <%@page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE HTML>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -9,7 +13,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Change Password</title>
     <link rel="stylesheet" type="text/less" href="/_less/bootstrap/bootstrap-full.less">
-    <script src="/_js/less-1.2.1.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.3.3/less.min.js" type="text/javascript"></script>
     <%@ include file="analytics.jspf" %>
 
 </head>

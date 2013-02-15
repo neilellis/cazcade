@@ -9,12 +9,12 @@
             <ul class="nav" id="nav-bar">
                 <%--<li><a href="/_welcome">Start</a></li>--%>
                 <li><a href="/_create-listed" style="font-weight:bolder;">Create</a></li>
-                <li><a href="/_query-popular">Popular</a></li>
-                <li><a href="/_query-new">Latest</a></li>
+                <li><a href="/_list-popular">Popular</a></li>
+                <li><a href="/_list-recent">Latest</a></li>
                 <c:if test="${not empty sessionScope.username}">
 
-                    <li><a href="/_query-history">History</a></li>
-                    <li><a href="/_query-my">My Boards</a></li>
+                    <li><a href="/_list-history">History</a></li>
+                    <li><a href="/_list-my">My Boards</a></li>
                     <%--TODO: reintroduce activity--%>
                     <%--<li><a href="/_activity">Activity</a></li>--%>
                 </c:if>
