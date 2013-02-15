@@ -21,7 +21,10 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.*;
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.StartupUtil;
+import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
@@ -104,7 +107,6 @@ public class PublicBoard extends EntityBackedFormPanel {
     public PublicBoard() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        WidgetUtil.hide(getWidget(), false);
         Window.addResizeHandler(new ResizeHandler() {
             @Override
             public void onResize(final ResizeEvent event) {
@@ -427,7 +429,6 @@ public class PublicBoard extends EntityBackedFormPanel {
                         menuBar.init(PublicBoard.this, getEntity(), false, getChangeBackgroundDialog());
                     }
                     StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
-                    WidgetUtil.showGracefully(getWidget(), false);
                     removeStyleName("loading");
                 }
             });

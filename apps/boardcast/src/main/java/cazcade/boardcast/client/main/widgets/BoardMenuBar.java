@@ -46,7 +46,7 @@ public class BoardMenuBar extends MenuBar {
 
     public BoardMenuBar() {
         super(false);
-        setVisible(true);
+        setVisible(false);
         setAnimationEnabled(false);
         setAutoOpen(true);
         setFocusOnHoverEnabled(true);

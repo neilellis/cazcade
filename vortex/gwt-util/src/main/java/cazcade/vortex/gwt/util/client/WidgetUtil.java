@@ -146,7 +146,6 @@ public class WidgetUtil {
         element.getStyle().setOpacity(0.0);
     }
 
-
     public static void showGracefully(@Nonnull final com.google.gwt.dom.client.Element element, final boolean verticalFlow) {
         element.getStyle().setVisibility(Style.Visibility.VISIBLE);
         element.getStyle().setOpacity(1.0);
@@ -154,7 +153,6 @@ public class WidgetUtil {
             element.getStyle().setProperty("maxHeight", "100%");
         }
     }
-
 
     public static int secondsFromBeginningOfBoardcastEpoch() {
         return (int) ((System.currentTimeMillis() - BEGINNING_OF_BOARDCAST_TIME) / 1000);
