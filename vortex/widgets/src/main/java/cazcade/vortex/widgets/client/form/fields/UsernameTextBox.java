@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.vortex.comms.datastore.client.DataStoreService;
@@ -14,27 +18,26 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class UsernameTextBox extends AbstractServerValidatedTextBox {
 
 
-    private static final UsernameTextBoxUiBinder ourUiBinder = GWT.create(UsernameTextBoxUiBinder.class);
+    interface UsernameTextBoxUiBinder extends UiBinder<HTMLPanel, UsernameTextBox> {}
 
-    interface UsernameTextBoxUiBinder extends UiBinder<HTMLPanel, UsernameTextBox> {
-    }
+    private static final UsernameTextBoxUiBinder ourUiBinder = GWT.create(UsernameTextBoxUiBinder.class);
 
     public UsernameTextBox() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         init();
 
-//        textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
-//            @Override
-//            public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
-//
-//                String boardName = stringValueChangeEvent.getAttribute();
-//                boardName = cleanUpName(boardName);
-//                textBox.setText(boardName);
-////                History.newItem(boardName);
-//
-//            }
-//        });
+        //        textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
+        //            @Override
+        //            public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+        //
+        //                String boardName = stringValueChangeEvent.getAttribute();
+        //                boardName = cleanUpName(boardName);
+        //                textBox.setText(boardName);
+        ////                History.newItem(boardName);
+        //
+        //            }
+        //        });
     }
 
     @Override
@@ -57,7 +60,8 @@ public class UsernameTextBox extends AbstractServerValidatedTextBox {
                             if (result) {
                                 showAvailable();
 
-                            } else {
+                            }
+                            else {
                                 showTaken();
                             }
                         }

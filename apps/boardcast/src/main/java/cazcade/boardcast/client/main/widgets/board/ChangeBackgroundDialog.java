@@ -61,6 +61,10 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
         return changeBackgroundPanel.addChangeHandler(onChangeAction);
     }
 
+    @Override public void clear() {
+        //TODO
+    }
+
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         oldEntity = entity.copy();

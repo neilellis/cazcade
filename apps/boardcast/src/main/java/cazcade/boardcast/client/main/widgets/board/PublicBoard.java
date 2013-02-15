@@ -173,6 +173,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     private void refresh() {
         ClientLog.log(ClientLog.Type.HISTORY, "PublicBoard.refresh()");
+        clear();
         if (changePermissionListener != 0) {
             BusFactory.getInstance().removeListener(changePermissionListener);
         }
@@ -293,6 +294,26 @@ public class PublicBoard extends EntityBackedFormPanel {
                          .getStyle()
                          .setRight(Window.getClientWidth() - (contentArea.getAbsoluteLeft()
                                                               + contentArea.getOffsetWidth()), Style.Unit.PX);
+    }
+
+
+    @Override public void beforeInactive() {
+        super.beforeInactive();
+        clear();
+    }
+
+    private void clear() {
+        publicBoardHeader.clear();
+        profileBoardHeader.clear();
+        comments.clear();
+        //        if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
+        //            contentArea.clear();
+        //        }
+        ownerDetailPanel.clear();
+        authorFullname.setInnerText("");
+        publishDate.setInnerText("");
+        notificationPanel.clear();
+        stream.clear();
     }
 
     @Override

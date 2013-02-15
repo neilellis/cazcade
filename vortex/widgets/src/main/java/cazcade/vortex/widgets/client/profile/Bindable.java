@@ -42,4 +42,6 @@ public interface Bindable {
     HandlerRegistration addValidHandler(ValidHandler validHandler);
 
     HandlerRegistration addChangeHandler(ValueChangeHandler onChangeAction);
+
+    void clear();
 }

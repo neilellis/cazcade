@@ -1,14 +1,18 @@
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <script type="text/javascript">
     var _nav;
     var testNoPushState = false;
     if (typeof(window.history.pushState) == "function" && !testNoPushState) {
-        _nav = function(href) {
+        _nav = function (href) {
             window.history.pushState(href, window.document.title, "/" + href);
             fireGWTHistoryEvent(href);
         };
     } else {
-        _nav = function(href) {
-            window.location.href = window.location.href = "./" + href;
+        _nav = function (href) {
+            window.location.href = "./" + href;
         };
     }
 

@@ -122,4 +122,13 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     }
 
     interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {}
+
+
+    public void clear() {
+        title.clear();
+        description.clear();
+        tag.clear();
+        url.clear();
+        boardImage.clear();
+    }
 }

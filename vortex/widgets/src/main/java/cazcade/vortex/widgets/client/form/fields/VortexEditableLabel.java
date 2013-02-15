@@ -196,4 +196,9 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     public void setPlaceholder(final String placeholder) {
         label.setPlaceholder(placeholder);
     }
+
+    @Override public void clear() {
+        super.clear();
+        setValue("");
+    }
 }

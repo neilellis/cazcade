@@ -23,6 +23,11 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
 
     protected abstract void checkAvailable();
 
+    @Override public void clear() {
+        super.clear();
+        oldText = "";
+    }
+
     protected void init() {
         textBox.addKeyPressHandler(new KeyPressHandler() {
             public void onKeyPress(@Nonnull final KeyPressEvent event) {
@@ -82,7 +87,6 @@ public abstract class AbstractServerValidatedTextBox extends VortexTextBox {
         }
         return text;
     }
-
 
     public boolean isShowAvailability() {
         return showAvailability;

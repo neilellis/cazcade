@@ -99,6 +99,11 @@ public class ChangeImageUrlPanel extends Composite implements VortexFormField {
         return urlField.addValueChangeHandler(onChangeAction);
     }
 
+    @Override public void clear() {
+        urlField.clear();
+        imageUploader.clear();
+    }
+
 
     @Override
     public Image getValidityImage() {

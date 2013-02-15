@@ -227,6 +227,18 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         this.features = features;
     }
 
+
+    public void clear() {
+        userImage.clear();
+        userShortName.clear();
+        userFullName.clear();
+        description.clear();
+        profileLink.setName("");
+        followersLabel.setText("");
+        followingLabel.setText("");
+        directMessagePanel.clear();
+    }
+
     private class UsernameClickHandler implements ClickHandler {
         @Override
         public void onClick(final ClickEvent event) {

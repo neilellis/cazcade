@@ -5,6 +5,7 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.LSDSimpleEntity;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
@@ -63,6 +64,11 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
     @Override
     public HandlerRegistration addChangeHandler(final ValueChangeHandler onChangeAction) {
         return addValueChangeHandler(onChangeAction);
+    }
+
+    @Override public void clear() {
+        image.clear();
+        this.entity = LSDSimpleEntity.emptyUnmodifiable();
     }
 
     @Override

@@ -322,6 +322,10 @@ public class CachedImage extends Image {
     public void setRequestedHeight(int requestedHeight) {
         this.requestedHeight = requestedHeight;
     }
+
+    public void clear() {
+        super.setUrl(this.placeholderImage());
+    }
 }
 
 

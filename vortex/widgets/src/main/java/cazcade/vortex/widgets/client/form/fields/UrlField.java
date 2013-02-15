@@ -32,6 +32,7 @@ public class UrlField extends Composite implements VortexFormField {
     interface ChangeImageUrlPanelUiBinder extends UiBinder<HTMLPanel, UrlField> {}
 
     private static final ChangeImageUrlPanelUiBinder ourUiBinder = GWT.create(ChangeImageUrlPanelUiBinder.class);
+
     @UiField UrlTextBox  urlField;
     @UiField CachedImage previewImage;
 
@@ -45,14 +46,36 @@ public class UrlField extends Composite implements VortexFormField {
         });
     }
 
+
+    @Override public void clear() {
+        urlField.clear();
+        previewImage.clear();
+    }
+
+
     public void callOnChangeAction() {
         urlField.processChange();
     }
 
-
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);
+    }
+
+    @Override public boolean isBound() {
+        return urlField.isBound();
+    }
+
+    @Override public LSDAttribute getBoundAttribute() {
+        return urlField.getBoundAttribute();
+    }
+
+    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
+        return urlField.addInvalidHandler(invalidHandler);
+    }
+
+    @Override public HandlerRegistration addValidHandler(ValidHandler handler) {
+        return urlField.addValidHandler(handler);
     }
 
     @Override
@@ -60,25 +83,16 @@ public class UrlField extends Composite implements VortexFormField {
         return urlField.addChangeHandler(onChangeAction);
     }
 
-    @Override public boolean isBound() {
-        return urlField.isBound();
-    }
 
     @Override
     public String getStringValue() {
         return urlField.getValue();
     }
 
-    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
-        urlField.addInvalidHandler(invalidHandler);
-        return null;
-    }
-
     @Override
     public boolean isValid() {
         return urlField.isValid();
     }
-
 
     @Override
     public Image getValidityImage() {
@@ -89,6 +103,10 @@ public class UrlField extends Composite implements VortexFormField {
     public void setValidityImage(final Image validityImage) {
         urlField.setValidityImage(validityImage);
     }
+    //
+    //    public void setEditable(boolean editable) {
+    //        urlField.setEditable(editable);
+    //    }
 
     @Override
     public void setShowValidity(final boolean showValidity) {
@@ -99,10 +117,6 @@ public class UrlField extends Composite implements VortexFormField {
     public void setErrorMessage(final String errorMessage) {
         urlField.setErrorMessage(errorMessage);
     }
-    //
-    //    public void setEditable(boolean editable) {
-    //        urlField.setEditable(editable);
-    //    }
 
     @Override
     public void setValue(final String imageUrl) {
@@ -113,10 +127,6 @@ public class UrlField extends Composite implements VortexFormField {
     @Override
     public boolean isMultiValue() {
         return urlField.isMultiValue();
-    }
-
-    @Override public LSDAttribute getBoundAttribute() {
-        return urlField.getBoundAttribute();
     }
 
     @Override
@@ -137,11 +147,6 @@ public class UrlField extends Composite implements VortexFormField {
     @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         return urlField.getEntityDiff();
-    }
-
-    @Override public HandlerRegistration addValidHandler(ValidHandler handler) {
-        urlField.addValidHandler(handler);
-        return null;
     }
 
 

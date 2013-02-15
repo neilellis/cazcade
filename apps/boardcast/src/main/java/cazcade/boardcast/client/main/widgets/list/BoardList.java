@@ -90,7 +90,7 @@ public class BoardList extends HistoryAwareComposite {
         titleLookup.put("history", "Recently Visited");
         titleLookup.put("my", "Your Boards");
         titleLookup.put("popular", "Popular Boards");
-        titleLookup.put("new", "New Boards");
+        titleLookup.put("recent", "New Boards");
         titleLookup.put("profile", "User Boards");
 
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.LiquidBoardURL;
@@ -16,10 +20,9 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class HashtagTextBox extends AbstractServerValidatedTextBox {
 
 
-    private static final HashtagTextBoxUiBinder ourUiBinder = GWT.create(HashtagTextBoxUiBinder.class);
+    interface HashtagTextBoxUiBinder extends UiBinder<HTMLPanel, HashtagTextBox> {}
 
-    interface HashtagTextBoxUiBinder extends UiBinder<HTMLPanel, HashtagTextBox> {
-    }
+    private static final HashtagTextBoxUiBinder ourUiBinder = GWT.create(HashtagTextBoxUiBinder.class);
 
 
     public HashtagTextBox() {
@@ -35,26 +38,29 @@ public class HashtagTextBox extends AbstractServerValidatedTextBox {
             new Timer() {
                 @Override
                 public void run() {
-                    DataStoreService.App.getInstance().checkBoardAvailability(new LiquidURI(LiquidBoardURL.convertFromShort(textBox.getText())), new AsyncCallback<Boolean>() {
+                    DataStoreService.App
+                                    .getInstance()
+                                    .checkBoardAvailability(new LiquidURI(LiquidBoardURL.convertFromShort(textBox.getText())), new AsyncCallback<Boolean>() {
 
 
-                        @Override
-                        public void onFailure(final Throwable caught) {
-                            ClientLog.log(caught);
-                        }
+                                        @Override
+                                        public void onFailure(final Throwable caught) {
+                                            ClientLog.log(caught);
+                                        }
 
-                        @Override
-                        public void onSuccess(final Boolean result) {
-                            acceptable = result;
-                            if (result) {
-                                showAvailable();
+                                        @Override
+                                        public void onSuccess(final Boolean result) {
+                                            acceptable = result;
+                                            if (result) {
+                                                showAvailable();
 
 
-                            } else {
-                                showTaken();
-                            }
-                        }
-                    });
+                                            }
+                                            else {
+                                                showTaken();
+                                            }
+                                        }
+                                    });
                 }
             }.schedule(300);
 

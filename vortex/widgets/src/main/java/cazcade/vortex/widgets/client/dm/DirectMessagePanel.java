@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.dm;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -30,8 +34,8 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class DirectMessagePanel extends Composite {
-    private String recipient;
-    private Runnable onFinish;
+    private String        recipient;
+    private Runnable      onFinish;
     private IFrameElement fe;
 
     public void setRecipient(final String recipient) {
@@ -43,19 +47,15 @@ public class DirectMessagePanel extends Composite {
     }
 
 
-    interface DirectMessagePopupUiBinder extends UiBinder<HTMLPanel, DirectMessagePanel> {
-    }
+    interface DirectMessagePopupUiBinder extends UiBinder<HTMLPanel, DirectMessagePanel> {}
 
     private static final DirectMessagePopupUiBinder ourUiBinder = GWT.create(DirectMessagePopupUiBinder.class);
 
-    @UiField
-    RichTextArea textBox;
+    @UiField RichTextArea textBox;
     //    @UiField
-//    VortexListBox listBox;
-    @UiField
-    Label cancelButton;
-    @UiField
-    Label sendButton;
+    //    VortexListBox listBox;
+    @UiField Label        cancelButton;
+    @UiField Label        sendButton;
 
     public DirectMessagePanel() {
         super();
@@ -71,9 +71,9 @@ public class DirectMessagePanel extends Composite {
 
 
     private void initTextBox() {
-//        textBox.setHeight("180px");
+        //        textBox.setHeight("180px");
         DOM.setStyleAttribute(getWidget().getElement(), "overflow", "hidden");
-//        DOM.setStyleAttribute(textBox.getElement(), "width", "492px");
+        //        DOM.setStyleAttribute(textBox.getElement(), "width", "492px");
         DOM.setStyleAttribute(textBox.getElement(), "border", "none");
         DOM.setStyleAttribute(textBox.getElement(), "margin", "4px");
         DOM.setStyleAttribute(textBox.getElement(), "marginTop", "7px");
@@ -84,8 +84,7 @@ public class DirectMessagePanel extends Composite {
         DOM.setStyleAttribute(textBox.getElement(), "borderLeft", "1px solid #ddd");
         textBox.addInitializeHandler(new InitializeHandler() {
             public void onInitialize(final InitializeEvent ie) {
-                fe = (IFrameElement)
-                        textBox.getElement().cast();
+                fe = (IFrameElement) textBox.getElement().cast();
                 fe.setFrameBorder(0);
                 fe.setMarginWidth(0);
                 fe.setScrolling("no");
@@ -119,28 +118,32 @@ public class DirectMessagePanel extends Composite {
                         textBox.setText("");
                         final LSDTransferEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
                         messageEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
-                        BusFactory.getInstance().send(new SendRequest(messageEntity, recipient), new AbstractResponseCallback<SendRequest>() {
-                            @Override
-                            public void onSuccess(final SendRequest message, final SendRequest response) {
-                                onFinish.run();
-                            }
+                        BusFactory.getInstance()
+                                  .send(new SendRequest(messageEntity, recipient), new AbstractResponseCallback<SendRequest>() {
+                                      @Override
+                                      public void onSuccess(final SendRequest message, final SendRequest response) {
+                                          onFinish.run();
+                                      }
 
-                            @Override
-                            public void onFailure(final SendRequest message, @Nonnull final SendRequest response) {
-                                textBox.setText(text);
-                                super.onFailure(message, response);
-                            }
+                                      @Override
+                                      public void onFailure(final SendRequest message, @Nonnull final SendRequest response) {
+                                          textBox.setText(text);
+                                          super.onFailure(message, response);
+                                      }
 
-                            @Override
-                            public void onException(@Nonnull final SendRequest message, @Nonnull final Throwable error) {
-                                textBox.setText(text);
-                                super.onException(message, error);
-                            }
-                        });
+                                      @Override
+                                      public void onException(@Nonnull final SendRequest message, @Nonnull final Throwable error) {
+                                          textBox.setText(text);
+                                          super.onException(message, error);
+                                      }
+                                  });
                     }
                 });
             }
         });
     }
 
+    public void clear() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
 }

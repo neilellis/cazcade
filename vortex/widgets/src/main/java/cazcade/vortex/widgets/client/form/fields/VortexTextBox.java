@@ -24,6 +24,17 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     private int    maxLength = Integer.MAX_VALUE;
     private String oldText   = "";
 
+    @Override public void clear() {
+        super.clear();
+        textBox.setText("");
+        oldText = "";
+    }
+
+    @Nullable @Override
+    public String getStringValue() {
+        return textBox.getText();
+    }
+
     @Override
     protected void initWidget(final Widget widget) {
         super.initWidget(widget);
@@ -36,11 +47,6 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
 
     protected boolean validCharacter(final int keyCode) {
         return true;
-    }
-
-    @Nullable @Override
-    public String getStringValue() {
-        return textBox.getText();
     }
 
     public TextBox getTextBox() {
@@ -72,7 +78,6 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
         textBox.setText(text);
         processChange();
     }
-
 
     @Override
     public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {

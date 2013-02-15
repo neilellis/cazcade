@@ -105,4 +105,7 @@ public class ImageUploader extends Composite {
     }-*/;
 
 
+    public void clear() {
+
+    }
 }

@@ -21,21 +21,16 @@ import javax.annotation.Nonnull;
  */
 public class YouTubeTextBox extends VortexTextBox {
 
-    @Nonnull
-    public static final String YOU_TUBE_URL_REGEX = "http[s]?://www\\.youtube\\.com/watch\\?(.*)v=([A-Za-z0-9\\-_]+).*";
-    private             String oldText            = "";
-
-    @Nonnull
-    private static final String VIDEO_REGEX = "[A-Za-z0-9\\-_]+";
-
-
-    @Nonnull
-    public static final String INVALID_URL_MESSAGE = "Please supply a valid YouTube id or URL (e.g. http://www.youtube.com/watch?v=hfjGRBFd7mQ or hfjGRBFd7mQ)";
-
-
     interface RegexTextBoxUiBinder extends UiBinder<HTMLPanel, YouTubeTextBox> {}
 
-    private static final RegexTextBoxUiBinder ourUiBinder = GWT.create(RegexTextBoxUiBinder.class);
+    @Nonnull
+    public static final  String               YOU_TUBE_URL_REGEX  = "http[s]?://www\\.youtube\\.com/watch\\?(.*)v=([A-Za-z0-9\\-_]+).*";
+    @Nonnull
+    public static final  String               INVALID_URL_MESSAGE = "Please supply a valid YouTube id or URL (e.g. http://www.youtube.com/watch?v=hfjGRBFd7mQ or hfjGRBFd7mQ)";
+    @Nonnull
+    private static final String               VIDEO_REGEX         = "[A-Za-z0-9\\-_]+";
+    private static final RegexTextBoxUiBinder ourUiBinder         = GWT.create(RegexTextBoxUiBinder.class);
+    private              String               oldText             = "";
 
     public YouTubeTextBox() {
         super();
@@ -79,7 +74,6 @@ public class YouTubeTextBox extends VortexTextBox {
 
     }
 
-
     public void update(final boolean andCallOnChange) {
         String text = textBox.getText();
         if (text.startsWith("http")) {
@@ -107,7 +101,6 @@ public class YouTubeTextBox extends VortexTextBox {
         }
 
     }
-
 
     @Override
     public boolean isValid() {

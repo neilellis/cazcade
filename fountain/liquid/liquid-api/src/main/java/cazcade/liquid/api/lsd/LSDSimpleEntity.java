@@ -17,9 +17,10 @@ import java.util.*;
  */
 
 public class LSDSimpleEntity implements LSDTransferEntity {
-    private static final String ID_KEY           = LSDAttribute.ID.getKeyName();
-    private static final String TYPE_KEY         = LSDAttribute.TYPE.getKeyName();
-    private static final long   serialVersionUID = 1697435148665350511L;
+    private static final String          ID_KEY           = LSDAttribute.ID.getKeyName();
+    private static final String          TYPE_KEY         = LSDAttribute.TYPE.getKeyName();
+    private static final long            serialVersionUID = 1697435148665350511L;
+    public static final  LSDSimpleEntity EMPTY_ENTITY     = new LSDSimpleEntity(true);
 
 
     @SuppressWarnings("FieldAccessedSynchronizedAndUnsynchronized") @Nonnull
@@ -59,6 +60,11 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 
     public LSDSimpleEntity() {
         lsdProperties = new LSDMapPropertyStore(new HashMap<String, String>());
+    }
+
+    LSDSimpleEntity(boolean readonly) {
+        lsdProperties = new LSDMapPropertyStore(new HashMap<String, String>());
+        this.readonly = readonly;
     }
 
     //    public boolean isValidOrEmptyValue(LSDDictionary key) {
@@ -207,6 +213,11 @@ public class LSDSimpleEntity implements LSDTransferEntity {
         final LSDSimpleEntity entity = new LSDSimpleEntity();
         entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         return entity;
+    }
+
+    @Nonnull
+    public static LSDTransferEntity emptyUnmodifiable() {
+        return EMPTY_ENTITY;
     }
 
     private static String convertToCamel(@Nonnull final CharSequence key) {

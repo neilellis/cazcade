@@ -40,6 +40,13 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     @UiField  Image             validityImage;
     private   LSDTransferEntity entity;
 
+    @Override public void clear() {
+        errorMessage.setText("");
+        validityImage.setResource(Resources.INSTANCE.validFormValueImage());
+        validityImage.setVisible(false);
+        entity = LSDSimpleEntity.emptyUnmodifiable();
+    }
+
     @Nullable @Override
     public String getStringValue() {
         throw new UnsupportedOperationException("This widget does not support single string values.");
@@ -97,16 +104,6 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         return entity;
     }
 
-    public void setEntity(@Nonnull final LSDTransferEntity entity) {
-        if (entity.isReadonly()) {
-            throw new IllegalArgumentException("Cannot accept readonly entities.");
-        }
-        if (entity.isError()) {
-            throw new IllegalArgumentException("Cannot accept error entities.");
-        }
-        this.entity = entity;
-    }
-
     @Nonnull @Override
     public LSDTransferEntity getEntityDiff() {
         final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(entity.getTypeDef());
@@ -125,6 +122,15 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         return newEntity;
     }
 
+    public void setEntity(@Nonnull final LSDTransferEntity entity) {
+        if (entity.isReadonly()) {
+            throw new IllegalArgumentException("Cannot accept readonly entities.");
+        }
+        if (entity.isError()) {
+            throw new IllegalArgumentException("Cannot accept error entities.");
+        }
+        this.entity = entity;
+    }
 
     protected boolean isVisibleKeyPress(final int keyCode) {
         return browserUtil.isVisibleKeyPress(keyCode);
@@ -174,13 +180,13 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         return boundAttribute;
     }
 
+    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
+        return addHandler(invalidHandler, InvalidEvent.TYPE);
+    }
+
     @Override public HandlerRegistration addValidHandler(@Nullable ValidHandler handler) {
         return addHandler(handler, ValidEvent.TYPE);
 
-    }
-
-    @Override public HandlerRegistration addInvalidHandler(InvalidHandler invalidHandler) {
-        return addHandler(invalidHandler, InvalidEvent.TYPE);
     }
 
     @Override
