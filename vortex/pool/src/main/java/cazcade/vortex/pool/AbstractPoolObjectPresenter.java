@@ -78,6 +78,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         this.pool = pool;
         this.entity = entity;
         this.poolObjectView = poolObjectView;
+        poolObjectView.getElement().setId(entity.getUUID().toString());
         this.threadSafeExecutor = threadSafeExecutor;
         update(entity, true);
     }

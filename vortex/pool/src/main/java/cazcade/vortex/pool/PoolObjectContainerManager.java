@@ -27,22 +27,18 @@ import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class PoolObjectContainerManager {
-    @Nonnull
-    private final PoolObjectContainer      container;
-    private final VortexThreadSafeExecutor executor;
+
     @Nonnull
     final HashMap<LiquidURI, Widget>              poolObjectWidgetsByURI = new HashMap<LiquidURI, Widget>();
     @Nonnull
     final HashMap<LiquidURI, PoolObjectPresenter> objectPresenters       = new HashMap<LiquidURI, PoolObjectPresenter>();
-    private final long createListenerId;
-    private final long deleteListenerId;
-    private       int  poolObjectCount;
+    private final long                     createListenerId;
+    private final long                     deleteListenerId;
+    private       PoolObjectContainer      container;
+    private       VortexThreadSafeExecutor executor;
+    private       int                      poolObjectCount;
+    private       boolean                  destroyed;
 
-
-    @Nonnull
-    private HashMap<LiquidURI, PoolObjectPresenter> getObjectPresenters() {
-        return objectPresenters;
-    }
 
     public PoolObjectContainerManager(@Nonnull final PoolObjectContainer container, final VortexThreadSafeExecutor executor, final LiquidURI poolURI, final FormatUtil features) {
         this.container = container;
@@ -52,6 +48,10 @@ public class PoolObjectContainerManager {
                                      .listenForURIAndRequestType(poolURI, LiquidRequestType.CREATE_POOL_OBJECT, new BusListener() {
                                          @Override
                                          public void handle(@Nonnull final LiquidMessage message) {
+                                             if (destroyed) {
+                                                 return;
+                                             }
+
                                              ClientLog.log("Received create pool object request.");
                                              if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                                                  ClientLog.log("Received create pool object request from server - processing it.");
@@ -87,6 +87,10 @@ public class PoolObjectContainerManager {
                                      .listenForURIAndRequestType(poolURI, LiquidRequestType.DELETE_POOL_OBJECT, new BusListener() {
                                          @Override
                                          public void handle(@Nonnull final LiquidMessage message) {
+                                             if (destroyed) {
+                                                 return;
+                                             }
+
                                              if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
                                                  if (message.getState() == LiquidMessageState.FAIL) {
                                                      Window.alert("Failed to delete pool object.");
@@ -110,10 +114,18 @@ public class PoolObjectContainerManager {
                                      });
     }
 
+    @Nonnull
+    private HashMap<LiquidURI, PoolObjectPresenter> getObjectPresenters() {
+        return objectPresenters;
+    }
+
     public void add(@Nonnull final PoolObjectPresenter poolObjectPresenter, final boolean centre) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                if (destroyed) {
+                    return;
+                }
                 final LiquidURI uri = poolObjectPresenter.getEntity().getURI();
                 objectPresenters.put(uri, poolObjectPresenter);
                 if (poolObjectWidgetsByURI.get(uri) == null) {
@@ -173,6 +185,9 @@ public class PoolObjectContainerManager {
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                if (destroyed) {
+                    return;
+                }
                 final double x = source.getX();
                 final double y = source.getY();
                 for (final PoolObjectPresenter presenter : objectPresenters.values()) {
@@ -199,7 +214,16 @@ public class PoolObjectContainerManager {
     }
 
     public void destroy() {
-        BusFactory.getInstance().removeListener(deleteListenerId);
-        BusFactory.getInstance().removeListener(createListenerId);
+        destroyed = true;
+        executor.execute(new Runnable() {
+            @Override public void run() {
+                container = null;
+                executor = null;
+                BusFactory.getInstance().removeListener(deleteListenerId);
+                BusFactory.getInstance().removeListener(createListenerId);
+                poolObjectWidgetsByURI.clear();
+                objectPresenters.clear();
+            }
+        });
     }
 }

@@ -75,6 +75,7 @@ public class Boardcast implements EntryPoint {
         BoardcastClientBundle.INSTANCE.css().ensureInjected();
         ClientApplicationConfiguration.init();
         ClientLog.setDebugMode(ClientApplicationConfiguration.isDebug());
+        ClientLog.setDebugMode(ClientApplicationConfiguration.isDev());
 
 
         final RootPanel logPanel = RootPanel.get("log-panel");

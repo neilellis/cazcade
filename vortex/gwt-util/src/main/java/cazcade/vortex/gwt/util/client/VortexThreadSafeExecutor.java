@@ -37,6 +37,9 @@ public class VortexThreadSafeExecutor {
     }
 
     public void execute(final Runnable run) {
+        //        run.run();
         stack.push(run);
     }
+
+
 }

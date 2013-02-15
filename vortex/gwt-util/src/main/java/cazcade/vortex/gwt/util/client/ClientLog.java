@@ -53,6 +53,7 @@ public class ClientLog {
     private static StringBuffer logBuffer = new StringBuffer();
     private static final Type    type;
     private static       boolean debugMode;
+    private static       boolean devMode;
 
     public static String getLog() {
         return logBuffer.toString();
@@ -105,7 +106,7 @@ public class ClientLog {
                 trace = buildTrace(e, trace);
                 e = e.getCause();
             }
-            if (debugMode) {
+            if (debugMode || devMode) {
                 Window.alert(message + ':' + exception.getMessage() + '\n' + trace);
             }
         }
@@ -209,6 +210,10 @@ public class ClientLog {
 
     public static void warn(@Nonnull final String message) {
         log("WARN: " + message);
+    }
+
+    public static void setDevMode(boolean devMode) {
+        ClientLog.devMode = devMode;
     }
 
     public boolean isLogging() {

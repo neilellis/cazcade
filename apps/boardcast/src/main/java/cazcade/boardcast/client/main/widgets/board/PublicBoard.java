@@ -207,6 +207,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
             contentArea.clear();
         }
+
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), listed,
                 listed
                 ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY

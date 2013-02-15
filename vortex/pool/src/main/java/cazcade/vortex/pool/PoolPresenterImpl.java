@@ -264,6 +264,9 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     public void addView(@Nonnull final Widget view) {
+        if (panel.getElement().getOwnerDocument().getElementById(view.getElement().getId()) != null) {
+            throw new IllegalStateException("Attempting to add a view that has already been added.");
+        }
         WidgetUtil.addGracefully(panel, view);
     }
 

@@ -21,7 +21,8 @@ public class ClientApplicationConfiguration {
     private static boolean retrieveUpdates = true;
     private static boolean register;
     private static boolean snapshotMode = false;
-    private static String debugType;
+    private static String  debugType;
+    private static boolean dev;
 
     public static boolean isDebug() {
         return debug;
@@ -64,6 +65,7 @@ public class ClientApplicationConfiguration {
         setSnapshotMode(Window.Location.getParameter("snapshot") == null);
         setPreflight(Window.Location.getParameter("skippreflight") == null);
         setLoginRequired(Window.Location.getParameter("forceLogin") != null);
+        setDev(Window.Location.getParameter("dev") != null);
         setDebug(Window.Location.getParameter("debug") != null);
         setDebugType(Window.Location.getParameter("debug"));
         setAlphaFeatures(Window.Location.getParameter("alpha") != null);
@@ -106,5 +108,14 @@ public class ClientApplicationConfiguration {
 
     public static String getDebugType() {
         return debugType;
+    }
+
+
+    public static boolean isDev() {
+        return dev;
+    }
+
+    public static void setDev(boolean dev) {
+        ClientApplicationConfiguration.dev = dev;
     }
 }
