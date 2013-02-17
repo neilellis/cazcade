@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.inbox;
 
 import cazcade.liquid.api.LiquidRequestType;
@@ -34,13 +38,11 @@ public class InboxPanel extends Composite {
         this.features = features;
     }
 
-    interface InboxPanelUiBinder extends UiBinder<HTMLPanel, InboxPanel> {
-    }
+    interface InboxPanelUiBinder extends UiBinder<HTMLPanel, InboxPanel> {}
 
     private static final InboxPanelUiBinder ourUiBinder = GWT.create(InboxPanelUiBinder.class);
 
-    @UiField
-    ScrollableList list;
+    @UiField ScrollableList list;
 
     public InboxPanel() {
         super();
@@ -49,21 +51,24 @@ public class InboxPanel extends Composite {
     }
 
     public void init() {
-        BusFactory.getInstance().send(new RetrievePoolRequest(UserUtil.getInboxURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
-            @Override
-            public void onSuccess(final RetrievePoolRequest request, @Nonnull final RetrievePoolRequest response) {
-                final List<LSDBaseEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (final LSDBaseEntity message : messages) {
-                    list.addEntry(new DirectMessageListEntryPanel(message, features));
-                }
-            }
-        });
-        BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
-            @Override
-            public void handle(@Nonnull final SendRequest request) {
-                list.addEntry(new DirectMessageListEntryPanel(request.getResponse(), features));
-            }
-        });
+        BusFactory.getInstance()
+                  .send(new RetrievePoolRequest(UserUtil.getInboxURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
+                      @Override
+                      public void onSuccess(final RetrievePoolRequest request, @Nonnull final RetrievePoolRequest response) {
+                          final List<LSDBaseEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                          for (final LSDBaseEntity message : messages) {
+                              list.addEntry(new DirectMessageListEntryPanel(message));
+                          }
+                      }
+                  });
+        BusFactory.getInstance()
+                  .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
+                                                                .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                      @Override
+                      public void handle(@Nonnull final SendRequest request) {
+                          list.addEntry(new DirectMessageListEntryPanel(request.getResponse()));
+                      }
+                  });
     }
 
 

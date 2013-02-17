@@ -113,6 +113,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 sizeNotificationPanel();
             }
         });
+        addBinding(getChangeBackgroundDialog(), LSDAttribute.BACKGROUND_URL);
     }
 
     @Override
@@ -211,18 +212,16 @@ public class PublicBoard extends EntityBackedFormPanel {
         bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), listed,
                 listed
                 ? LiquidPermissionChangeType.MAKE_PUBLIC_READONLY
-                : null, CORKBOARD), new AbstractResponseCallback<VisitPoolRequest>() {
+                : null), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
             public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
-                    }
-                    else {
+                    } else {
                         Window.alert("You don't have permission");
                     }
-                }
-                else {
+                } else {
                     super.onFailure(message, response);
                 }
             }
@@ -235,11 +234,9 @@ public class PublicBoard extends EntityBackedFormPanel {
                     if (previousPoolURI != null) {
                         HistoryManager.get().navigate(previousPoolURI.asBoardURL().toString());
                     }
-                }
-                else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
-                    bind(responseEntity.copy());
-                }
-                else {
+                } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
+                    bindEntity(responseEntity.copy());
+                } else {
                     Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
             }
@@ -247,12 +244,11 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     private void update(@Nonnull final LiquidRequest response) {
-        bind(response.getResponse().copy());
+        bindEntity(response.getResponse().copy());
     }
 
-    @Override public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
-        addBinding(getChangeBackgroundDialog(), LSDAttribute.BACKGROUND_URL);
+    @Override public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
         //        addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
@@ -327,13 +323,12 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         if (entity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
             addStyleName("modifiable-board");
-        }
-        else {
+        } else {
             removeStyleName("modifiable-board");
         }
 
         if (!getEntity().getURI().asBoardURL().isProfileBoard()) {
-            publicBoardHeader.bind(getEntity());
+            publicBoardHeader.bindEntity(getEntity());
             publicBoardHeader.setVisible(true);
             profileBoardHeader.setVisible(false);
             footer.getStyle().setVisibility(Style.Visibility.VISIBLE);
@@ -346,8 +341,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                                "&text=" + encode("Check out " +
                                                  entity.getAttribute(LSDAttribute.TITLE, "this board") +
                                                  " on Boardcast #bc") + "&count=horizontal&hashtags=bc&via=boardcast_it");
-        }
-        else {
+        } else {
             profileBoardHeader.setVisible(true);
             publicBoardHeader.setVisible(false);
             ownerDetailPanel.setVisible(false);
@@ -425,8 +419,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     if (getEntity().getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
                         menuBar.init(PublicBoard.this, getEntity(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
-                    }
-                    else {
+                    } else {
                         menuBar.init(PublicBoard.this, getEntity(), false, getChangeBackgroundDialog());
                     }
                     StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
@@ -446,9 +439,9 @@ public class PublicBoard extends EntityBackedFormPanel {
             public void onSuccess() {
                 comments.clear();
 
-                comments.init(poolURI, FormatUtil.getInstance());
+                comments.init(poolURI);
                 if (ClientApplicationConfiguration.isAlphaFeatures()) {
-                    notificationPanel.init(poolURI, FormatUtil.getInstance());
+                    notificationPanel.init(poolURI);
                 }
                 addCommentBox.init(poolURI);
             }
@@ -481,37 +474,30 @@ public class PublicBoard extends EntityBackedFormPanel {
                 description += "visible to all";
                 if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
                     description += " and editable by all.";
-                }
-                else {
+                } else {
                     if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                         description += " and modifiable by all.";
-                    }
-                    else {
+                    } else {
                         description += ". ";
                     }
                 }
-            }
-            else {
+            } else {
                 description += "currently only visible to the creator.";
             }
-        }
-        else {
+        } else {
             description += "It is an unlisted board which is ";
             if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
                 description += "visible to those who know the URL";
                 if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
                     description += " and editable by them. ";
-                }
-                else {
+                } else {
                     if (entity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
                         description += " and modifiable by them. ";
-                    }
-                    else {
+                    } else {
                         description += ". ";
                     }
                 }
-            }
-            else {
+            } else {
                 description += "visible only to the creator.";
             }
         }
@@ -566,8 +552,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         chatMode = getWidget().getElement().getAttribute("class").contains("chat");
         if (chatMode) {
             getWidget().removeStyleName("chat");
-        }
-        else {
+        } else {
             getWidget().addStyleName("chat");
             addChatBox.init(poolURI);
             stream.init(poolURI);
@@ -591,8 +576,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             //            LiquidPermissionSet permissionSet = LiquidPermissionSet.createPermissionSet(getEntity().getAttribute(LSDAttribute.PERMISSIONS));
             if (lock) {
                 change = LiquidPermissionChangeType.MAKE_PUBLIC_READONLY;
-            }
-            else {
+            } else {
                 change = LiquidPermissionChangeType.MAKE_PUBLIC;
             }
 

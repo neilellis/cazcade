@@ -28,18 +28,38 @@ import javax.annotation.Nonnull;
  */
 public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
 
-    @UiField Button done;
+    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, YouTubeEditorPanel> {}
+
+    private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
+    @UiField Button         done;
+    @UiField YouTubeTextBox urlTextBox;
+    @UiField CachedImage    image;
+
+    public YouTubeEditorPanel(@Nonnull final LSDTransferEntity entity) {
+        super();
+        initWidget(ourUiBinder.createAndBindUi(this));
+        setEntity(entity);
+        if (entity.hasAttribute(LSDAttribute.EURI)) {
+            urlTextBox.setValue(entity.getAttribute(LSDAttribute.EURI).split(":")[1]);
+            showPreview();
+        }
+        urlTextBox.addValidHandler(new ValidHandler() {
+            @Override public void onValid(ValidEvent event) {
+                showPreview();
+            }
+        });
+        addBinding(urlTextBox, LSDAttribute.MEDIA_ID);
+
+    }
 
     @UiHandler("done")
     public void doneClicked(final ClickEvent e) {
         fireEvent(new EditFinishEvent());
     }
 
-
     @Override
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
-        addBinding(urlTextBox, LSDAttribute.MEDIA_ID);
+    public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
     }
 
     @Override
@@ -56,28 +76,8 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
         return "Choose Video";
     }
 
-    interface PhotoEditorUiBinder extends UiBinder<HTMLPanel, YouTubeEditorPanel> {}
-
-
-    private static final PhotoEditorUiBinder ourUiBinder = GWT.create(PhotoEditorUiBinder.class);
-
-    @UiField YouTubeTextBox urlTextBox;
-    @UiField CachedImage    image;
-
-
-    public YouTubeEditorPanel(@Nonnull final LSDTransferEntity entity) {
-        super();
-        initWidget(ourUiBinder.createAndBindUi(this));
-        setEntity(entity);
-        if (entity.hasAttribute(LSDAttribute.EURI)) {
-            urlTextBox.setValue(entity.getAttribute(LSDAttribute.EURI).split(":")[1]);
-            showPreview();
-        }
-        urlTextBox.addValidHandler(new ValidHandler() {
-            @Override public void onValid(ValidEvent event) {
-                showPreview();
-            }
-        });
+    @Override public LSDTransferEntity getEntityForCreation() {
+        return getEntity().merge(urlTextBox.getEntityDiff(), true);
     }
 
     @Override
@@ -88,11 +88,6 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
         }
         image.setSize(CachedImage.MEDIUM);
 
-    }
-
-
-    @Override public LSDTransferEntity getEntityForCreation() {
-        return getEntity().merge(urlTextBox.getEntityDiff(), true);
     }
 
     private void showPreview() {

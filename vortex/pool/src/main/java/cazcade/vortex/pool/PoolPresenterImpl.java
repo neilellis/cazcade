@@ -10,6 +10,7 @@ import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.common.client.FormatUtil;
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -56,8 +57,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
         if (pageFlow) {
             panel.setHeight(height + "px");
             scrollPanel.setHeight(height + "px");
-        }
-        else {
+        } else {
             panel.setHeight("100%");
             scrollPanel.setHeight("100%");
         }
@@ -127,16 +127,14 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     public void move(@Nonnull final PoolObjectPresenter presenter, final double x, final double y, final boolean onServer) {
         if (onServer) {
             BusFactory.getInstance().dispatch(new MovePoolObjectRequest(presenter.getEntity().getURI(), x, y, 0.0));
-        }
-        else {
+        } else {
             final Widget widget = presenter.getPoolObjectView();
             //noinspection ObjectEquality
             if (widget.getParent() != panel) {
                 ClientLog.log("Widget parent was " + widget.getParent() + " not " + panel);
                 ClientLog.log("Offending widget was " + widget);
                 throw new IllegalArgumentException("Pool widget does not have this as a parent, check the log for more information.");
-            }
-            else {
+            } else {
                 double newX = x;
                 double newY = y;
                 if (newX > width - widget.getOffsetWidth()) {
@@ -265,7 +263,11 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     public void addView(@Nonnull final Widget view) {
         if (panel.getElement().getOwnerDocument().getElementById(view.getElement().getId()) != null) {
-            throw new IllegalStateException("Attempting to add a view that has already been added.");
+            if (ClientApplicationConfiguration.isDev()) {
+                throw new IllegalStateException("Attempting to add a view that has already been added.");
+            } else {
+                ClientLog.warn("Attempting to add a view for a pool object which has already been added.");
+            }
         }
         WidgetUtil.addGracefully(panel, view);
     }

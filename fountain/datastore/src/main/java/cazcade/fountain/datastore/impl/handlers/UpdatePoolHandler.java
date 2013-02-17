@@ -29,8 +29,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
 
             if (!request.hasUri()) {
                 throw new UnsupportedOperationException("Only URI based updates of pools supported");
-            }
-            else {
+            } else {
             }
 
             final LiquidRequestDetailLevel detail = request.getDetail();
@@ -42,7 +41,7 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
             final boolean contents = true;
 
 
-            persistedEntityImpl = fountainNeo.findByURI(request.getUri());
+            persistedEntityImpl = fountainNeo.findByURIAndLockForWrite(request.getUri());
             final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
             final LSDTransferEntity requestEntity = request.getRequestEntity();
 

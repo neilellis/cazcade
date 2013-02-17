@@ -25,11 +25,11 @@ public class UpdatePoolObjectHandler extends AbstractUpdateHandler<UpdatePoolObj
             final LSDTransferEntity entity;
             LSDPersistedEntity pool = null;
             if (request.hasUri()) {
-                persistedEntityImpl = fountainNeo.findByURIOrFail(request.getUri());
+                persistedEntityImpl = fountainNeo.findByURIAndLockForWrite(request.getUri());
                 pool = fountainNeo.findByURIOrFail(request.getUri().getWithoutFragment());
-            }
-            else {
+            } else {
                 persistedEntityImpl = fountainNeo.findByUUID(request.getTarget());
+                throw new UnsupportedOperationException("Only updating by URI is supported now.");
             }
 
             entity = poolDAO.updatePoolObjectNoTx(request.getSessionIdentifier(), request.getSessionIdentifier(), request.getRequestEntity(), pool, persistedEntityImpl, request

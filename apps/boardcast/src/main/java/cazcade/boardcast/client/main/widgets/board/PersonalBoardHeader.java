@@ -32,13 +32,13 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-    }
-
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
         addBinding(title, LSDAttribute.TITLE);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
+    }
+
+    public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
     }
 
     @Override protected boolean isSaveOnExit() {

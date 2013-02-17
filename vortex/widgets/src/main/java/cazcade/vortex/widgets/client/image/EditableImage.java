@@ -45,11 +45,11 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-        image.setOnChangeAction(new Runnable() {
-            @Override public void run() {
-                ValueChangeEvent.fire(EditableImage.this, image.getUrl());
-            }
-        });
+        //        image.setOnChangeAction(new Runnable() {
+        //            @Override public void run() {
+        //                ValueChangeEvent.fire(EditableImage.this, image.getUrl());
+        //            }
+        //        });
     }
 
     @Override
@@ -57,7 +57,10 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
         this.entity = entity;
         this.attribute = attribute;
         if (entity.hasAttribute(attribute)) {
-            image.setUrl(entity.getAttribute(attribute));
+            String url = entity.getAttribute(attribute);
+            if (!url.equals(image.getUrl())) {
+                image.setUrl(url);
+            }
         }
     }
 

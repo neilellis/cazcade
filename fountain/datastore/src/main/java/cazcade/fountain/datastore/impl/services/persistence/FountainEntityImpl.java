@@ -20,9 +20,7 @@ import org.neo4j.graphdb.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 import static cazcade.liquid.api.lsd.LSDAttribute.*;
 
@@ -38,6 +36,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
 
 
     private static final Cache nodeAuthCache;
+    public static final String LOCKED_PROPERTY = "___locked___";
 
     @SuppressWarnings({"TransientFieldNotInitialized"}) @Nonnull
     private final transient org.neo4j.graphdb.Node neoNode;
@@ -48,6 +47,8 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         }
         nodeAuthCache = CacheManager.getInstance().getCache("nodeauth");
     }
+
+    @Nullable private Lock lock;
 
     public FountainEntityImpl(@Nonnull final org.neo4j.graphdb.Node neoNode) {
         super(new NeoPropertyStore(neoNode));
@@ -60,8 +61,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             final double x = Double.valueOf(getAttribute(LSDAttribute.VIEW_X));
             final double y = Double.valueOf(getAttribute(LSDAttribute.VIEW_Y));
             return Math.sqrt(x * x + y * y);
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -71,8 +71,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         final LSDTransferEntity entity = createEmpty();
         if (hasAttribute(TYPE)) {
             entity.setAttribute(LSDAttribute.TYPE, getAttribute(TYPE));
-        }
-        else {
+        } else {
             throw new DataStoreException("FountainEntityImpl had no type");
         }
         if (detail == LiquidRequestDetailLevel.COMPLETE ||
@@ -88,8 +87,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                         //so we don't recognize, it well fine! it got there somehow so we'll give it to you ;-)
                         //also child entities will not be understood as attributes.
                         entity.setValue(key, value);
-                    }
-                    else if (!attributeItem.isHidden() || internal) {
+                    } else if (!attributeItem.isHidden() || internal) {
                         //We don't return non-indexable attributes for a search index level of detail
                         if (detail != LiquidRequestDetailLevel.FREE_TEXT_SEARCH_INDEX || attributeItem.isFreeTexSearchable()) {
                             entity.setAttribute(attributeItem, value);
@@ -97,8 +95,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                     }
                 }
             }
-        }
-        else if (detail == LiquidRequestDetailLevel.TITLE_AND_NAME) {
+        } else if (detail == LiquidRequestDetailLevel.TITLE_AND_NAME) {
             if (hasAttribute(TITLE)) {
                 entity.copyAttribute(LSDAttribute.TITLE, this);
             }
@@ -106,20 +103,15 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                 entity.copyAttribute(LSDAttribute.NAME, this);
             }
             entity.copyAttribute(LSDAttribute.ID, this);
-        }
-        else if (detail == LiquidRequestDetailLevel.PERSON_MINIMAL) {
+        } else if (detail == LiquidRequestDetailLevel.PERSON_MINIMAL) {
             copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.FULL_NAME, LSDAttribute.IMAGE_URL, LSDAttribute.ID, LSDAttribute.URI);
-        }
-        else if (detail == LiquidRequestDetailLevel.BOARD_LIST) {
+        } else if (detail == LiquidRequestDetailLevel.BOARD_LIST) {
             copyValuesToEntity(entity, LSDAttribute.NAME, LSDAttribute.TITLE, LSDAttribute.DESCRIPTION, LSDAttribute.COMMENT_COUNT, LSDAttribute.FOLLOWERS_COUNT, LSDAttribute.IMAGE_URL, LSDAttribute.ICON_URL, LSDAttribute.ICON_HEIGHT, LSDAttribute.ICON_WIDTH, LSDAttribute.ID, LSDAttribute.URI, LSDAttribute.MODIFIED);
-        }
-        else if (detail == LiquidRequestDetailLevel.PERMISSION_DELTA) {
+        } else if (detail == LiquidRequestDetailLevel.PERMISSION_DELTA) {
             copyValuesToEntity(entity, LSDAttribute.URI, LSDAttribute.ID, LSDAttribute.MODIFIABLE, LSDAttribute.EDITABLE, LSDAttribute.VIEWABLE);
-        }
-        else if (detail == LiquidRequestDetailLevel.MINIMAL) {
+        } else if (detail == LiquidRequestDetailLevel.MINIMAL) {
             copyValuesToEntity(entity, LSDAttribute.URI, LSDAttribute.ID);
-        }
-        else {
+        } else {
             throw new UnsupportedOperationException("The level of detail " + detail + " was not recognized.");
         }
         return entity;
@@ -178,6 +170,15 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         return new RelationshipIterable(neoNode.getRelationships(type, dir));
     }
 
+    @Nonnull public Set<FountainRelationship> getRelationshipsAsSet(final FountainRelationships type, final Direction dir) {
+        final HashSet<FountainRelationship> result = new HashSet<FountainRelationship>();
+        final Iterable<Relationship> relationships = neoNode.getRelationships(type, dir);
+        for (final Relationship relationship : relationships) {
+            result.add(new FountainRelationshipImpl(relationship));
+        }
+        return result;
+    }
+
     @SuppressWarnings({"ReturnOfThis"}) @Override @Nonnull
     public LSDPersistedEntity getLatestVersionFromFork() {
         log.debug("Getting latest version for {0}.", getAttribute(ID));
@@ -185,12 +186,10 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             final FountainRelationship rel = getSingleRelationship(FountainRelationships.VERSION_PARENT, Direction.INCOMING);
             if (rel != null) {
                 return rel.getOtherNode(this).getLatestVersionFromFork();
-            }
-            else {
+            } else {
                 return this;
             }
-        }
-        else {
+        } else {
             return this;
         }
     }
@@ -303,21 +302,18 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         for (final Map.Entry<String, String> entry : map.entrySet()) {
             if (entry.getKey().equals(ID.getKeyName())) {
                 if (update) {
-                }
-                else {
+                } else {
                     if (hasAttribute(ID)) {
                         final String currentId = getUUID().toString();
                         if (!currentId.equals(entry.getValue())) {
                             throw new CannotChangeIdException("You cannot change the id of entity from %s to %s", currentId, entry.getValue());
                         }
-                    }
-                    else {
+                    } else {
                         //force lower case for IDs
                         setID(new LiquidUUID(entry.getValue()));
                     }
                 }
-            }
-            else if (entry.getKey().equals(NAME.getKeyName()) && hasAttribute(NAME)) {
+            } else if (entry.getKey().equals(NAME.getKeyName()) && hasAttribute(NAME)) {
                 //trigger a URL recalculation
                 if (!entry.getValue().equals(getAttribute(LSDAttribute.NAME))) {
                     setAttribute(LSDAttribute.NAME, entry.getValue());
@@ -325,8 +321,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                         onRenameAction.run();
                     }
                 }
-            }
-            else {
+            } else {
                 setValue(entry.getKey(), entry.getValue());
             }
         }
@@ -366,8 +361,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             entity.setAttribute(LSDAttribute.MODIFIABLE, isAuthorized(session, LiquidPermission.MODIFY));
             entity.setAttribute(LSDAttribute.EDITABLE, isAuthorized(session, LiquidPermission.EDIT));
             entity.setAttribute(LSDAttribute.DELETABLE, isAuthorized(session, LiquidPermission.DELETE));
-        }
-        else {
+        } else {
             entity.setAttribute(LSDAttribute.MODIFIABLE, parent.isAuthorized(session, LiquidPermission.EDIT)
                                                          || parent.isAuthorized(session, LiquidPermission.MODIFY)
                                                             && isAuthorized(session, LiquidPermission.MODIFY));
@@ -393,8 +387,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
         final String cacheKey = cacheKeyBuilder.toString();
         if (nodeAuthCache.get(cacheKey) != null) {
             return (Boolean) nodeAuthCache.get(cacheKey).getValue();
-        }
-        else {
+        } else {
             final boolean result = isAuthorizedInternal(identity, permissions);
 
             //remember nodes are regarded by Fountain as immutable
@@ -431,8 +424,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
             final FountainRelationship ownerRelationship = getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
             if (ownerRelationship == null) {
                 log.debug("No owner found on {0}/{1} .", getAttribute(ID), getAttribute(URI));
-            }
-            else {
+            } else {
                 log.debug("Owner node is {0}", ownerRelationship.getEndNode().getAttribute(URI));
             }
         } catch (Exception e) {
@@ -447,8 +439,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                 }
             }
             return true;
-        }
-        else if ("anon".equals(identity.getName())) {
+        } else if ("anon".equals(identity.getName())) {
             log.debug("Authorizing {0} as anonymous on {1}.", identity.getName(), getAttribute(URI));
             for (final LiquidPermission permission : permissions) {
                 if (!permissionSet.hasPermission(LiquidPermissionScope.UNKNOWN, permission)) {
@@ -456,8 +447,7 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
                 }
             }
             return true;
-        }
-        else {
+        } else {
             log.debug("Authorizing {0} as world on {1}.", identity.getName(), getAttribute(URI));
             for (final LiquidPermission permission : permissions) {
                 if (!permissionSet.hasPermission(LiquidPermissionScope.WORLD, permission)) {
@@ -535,6 +525,17 @@ public final class FountainEntityImpl extends LSDSimpleEntity implements LSDPers
     @Nonnull @Override
     public Traverser traverse(final Traverser.Order traversalOrder, final StopEvaluator stopEvaluator, final ReturnableEvaluator returnableEvaluator, final Object... relationshipTypesAndDirections) {
         return neoNode.traverse(traversalOrder, stopEvaluator, returnableEvaluator, relationshipTypesAndDirections);
+    }
+
+    @Override public void writeLock() {
+        lock = FountainNeoImpl.getTransactionInternal().acquireWriteLock(neoNode);
+    }
+
+    @Override public void unLock() {
+        if (lock != null) {
+            lock.release();
+        }
+        lock = null;
     }
 
     @Override

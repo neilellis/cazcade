@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.ErrorHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.http.client.URL;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -126,8 +127,7 @@ public class CachedImage extends Image {
                             getWidthWithDefault() +
                             "&height=" +
                             getHeightWithDefault());
-                }
-                else {
+                } else {
                     swapUrl(prefix + "url=" +
                             BrowserUtil.convertRelativeUrlToAbsolute(url) +
                             "&size=" +
@@ -137,15 +137,12 @@ public class CachedImage extends Image {
                             "&height=" +
                             getHeightWithDefault());
                 }
-            }
-            else {
+            } else {
                 swapUrl(url);
             }
-        }
-        else if (defaultUrl != null) {
+        } else if (defaultUrl != null) {
             super.setUrl(defaultUrl);
-        }
-        else {
+        } else {
             super.setUrl(placeholderImage());
         }
     }
@@ -201,7 +198,13 @@ public class CachedImage extends Image {
 
             }
         });
-        spin();
+        new Timer() {
+            @Override public void run() {
+                if (newUrl != null && !newUrl.equals(CachedImage.super.getUrl())) {
+                    spin();
+                }
+            }
+        }.schedule(1000);
         RootPanel.get().add(newImage);
 
 
@@ -223,8 +226,7 @@ public class CachedImage extends Image {
     public int getWidthWithDefault() {
         if (getOffsetWidth() > 0 && getOffsetWidth() > requestedWidth) {
             return getOffsetWidth();
-        }
-        else {
+        } else {
             return requestedWidth;
         }
     }
@@ -235,11 +237,9 @@ public class CachedImage extends Image {
         }
         if (getOffsetHeight() > 0 && getOffsetHeight() > requestedHeight) {
             return getOffsetHeight();
-        }
-        else if (requestedHeight > 0) {
+        } else if (requestedHeight > 0) {
             return requestedHeight;
-        }
-        else {
+        } else {
             return 2048;
         }
     }

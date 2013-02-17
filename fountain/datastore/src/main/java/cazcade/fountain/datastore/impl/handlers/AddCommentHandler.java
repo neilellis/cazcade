@@ -28,9 +28,6 @@ public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> 
                     .addCommentNoTX(commentTargetPersistedEntity, request.getRequestEntity(), request.getAlias()), null, request.getDetail(), request
                     .isInternal(), false);
 
-            //This is an iPad app hack//
-            // removed by Neil, we'll need to go back and fix a lot in the iPad application
-            //request.getEntity().addSubEntity(LSDAttribute.AUTHOR, fountainNeo.toLSD(fountainNeo.findByURI(request.getAlias()), request.getDetail(), request.isInternal()));
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, response);
         } catch (RuntimeException e) {

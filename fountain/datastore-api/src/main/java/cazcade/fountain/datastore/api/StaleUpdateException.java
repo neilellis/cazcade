@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.api;
 
 import javax.annotation.Nonnull;
@@ -8,6 +12,7 @@ import javax.annotation.Nonnull;
 
 
 public class StaleUpdateException extends DataStoreException {
+
     public StaleUpdateException(final Throwable cause, @Nonnull final String message, final Object... params) {
         super(cause, message, params);
     }
@@ -18,5 +23,9 @@ public class StaleUpdateException extends DataStoreException {
 
     public StaleUpdateException(final Throwable throwable) {
         super(throwable);
+    }
+
+    @Override public boolean isClientException() {
+        return true;
     }
 }

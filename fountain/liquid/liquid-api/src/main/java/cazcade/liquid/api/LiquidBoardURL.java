@@ -18,7 +18,7 @@ public class LiquidBoardURL {
     public static final String BOARD_PREFIX = "";
 
     @Nonnull
-    private static final String PUBLIC_BOARD_USER_STEM = "pool:///boards";
+    private static final String PUBLIC_BOARD_USER_STEM = "pool:///boards/public";
     @Nonnull
     private static final String USER_STEM              = "pool:///people";
 
@@ -46,13 +46,12 @@ public class LiquidBoardURL {
 
     public static String convertToShort(@Nullable final String longURL) {
         if (longURL == null) {
-            throw new NullPointerException("Attempted to pass in a null longURL to LiquidBoardURL.converToShort()");
+            throw new NullPointerException("Attempted to pass in a null longURL to LiquidBoardURL.convertToShort()");
         }
         String result = "";
         if (longURL.startsWith(PUBLIC_BOARD_USER_STEM)) {
             result = longURL.substring(PUBLIC_BOARD_USER_STEM.length() + 1);
-        }
-        else if (longURL.startsWith(USER_STEM)) {
+        } else if (longURL.startsWith(USER_STEM)) {
             final String str = longURL.substring(USER_STEM.length() + 1);
             final String[] strings = str.split("/");
             if (strings.length > 1) {
@@ -66,20 +65,17 @@ public class LiquidBoardURL {
                 }
                 if ("profile".equals(strings[1])) {
                     result = "@" + strings[0];
-                }
-                else {
+                } else {
                     final String board = str.substring(strings[0].length() + strings[1].length() + 2);
                     result = board + "@" + strings[0];
                 }
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException(
                         "Format not valid for conversion to short url cannot reference top level for user, '"
                         + longURL
                         + "'.");
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Liquid URIs which require short form should start with " +
                                                PUBLIC_BOARD_USER_STEM +
                                                " or " +
@@ -119,13 +115,11 @@ public class LiquidBoardURL {
 
             if (shortURL.startsWith("@")) {
                 str = str + shortURL.substring(1) + "/profile";
-            }
-            else {
+            } else {
                 final String[] strings = shortURL.split("@");
                 str = str + strings[1] + "/public/" + strings[0];
             }
-        }
-        else {
+        } else {
             str = PUBLIC_BOARD_USER_STEM + "/" + BOARD_PREFIX + shortURL;
         }
         return str;

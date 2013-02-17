@@ -8,6 +8,7 @@ import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.common.client.FormatUtil;
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.widgets.client.profile.ViewAliasDetailPanel;
 import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -40,7 +41,8 @@ public class UserProfileImage extends EditableImage {
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.getURI());
-        if (!entity.getBooleanAttribute(LSDAttribute.EDITABLE, false) || !editable) {
+        if (ClientApplicationConfiguration.isAlphaFeatures() && (!entity.getBooleanAttribute(LSDAttribute.EDITABLE, false)
+                                                                 || !editable)) {
             image.addMouseOverHandler(new MouseOverHandler() {
                 private ViewAliasDetailPanel aliasDetailPanel;
 
@@ -49,8 +51,7 @@ public class UserProfileImage extends EditableImage {
                     if (aliasDetailPanel == null) {
                         aliasDetailPanel = ViewAliasDetailPanel.createViewAliasDetailPanel(getAliasUri(), FormatUtil.getInstance());
                         showPopup(event);
-                    }
-                    else {
+                    } else {
                         showPopup(event);
                     }
                 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidBoardURL;
@@ -13,7 +17,6 @@ import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
@@ -37,20 +40,20 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class ActivityStreamPanel extends HistoryAwareComposite {
-    public static final int UPDATE_LIEFTIME = 7 * 24 * 3600 * 1000;
-    public static final int STATUS_CHECK_FREQUENCY = 30 * 1000;
+    public static final int                      UPDATE_LIEFTIME        = 7 * 24 * 3600 * 1000;
+    public static final int                      STATUS_CHECK_FREQUENCY = 30 * 1000;
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private int maxRows = 10;
-    private long lastUpdate = System.currentTimeMillis() - UPDATE_LIEFTIME;
+    private final       Bus                      bus                    = BusFactory.getInstance();
+    private             int                      maxRows                = 10;
+    private             long                     lastUpdate             = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
-    private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    private final       VortexThreadSafeExecutor threadSafeExecutor     = new VortexThreadSafeExecutor();
 
-    private boolean initialized;
+    private       boolean         initialized;
     @Nonnull
     private final SoundController soundController;
-    private final Sound statusUpdateSound;
-    private final Sound chatMessageSound;
+    private final Sound           statusUpdateSound;
+    private final Sound           chatMessageSound;
 
 
     public void setMaxRows(final int maxRows) {
@@ -67,13 +70,11 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
         init();
     }
 
-    interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, ActivityStreamPanel> {
-    }
+    interface VortexStreamPanelUiBinder extends UiBinder<HTMLPanel, ActivityStreamPanel> {}
 
     private static final VortexStreamPanelUiBinder ourUiBinder = GWT.create(VortexStreamPanelUiBinder.class);
 
-    @UiField
-    VerticalPanel parentPanel;
+    @UiField VerticalPanel parentPanel;
 
     public ActivityStreamPanel() {
         super();
@@ -81,12 +82,10 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
         soundController = new SoundController();
 
 
-        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/status_update.mp3");
+        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/status_update.mp3");
         statusUpdateSound.setVolume(50);
 
-        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-                "_audio/new_chat_message.mp3");
+        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/new_chat_message.mp3");
         chatMessageSound.setVolume(20);
 
     }
@@ -97,14 +96,16 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
                 @Override
                 public void run() {
 
-                    BusFactory.getInstance().listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias().getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
-                        @Override
-                        public void handle(@Nonnull final SendRequest request) {
-                            final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), FormatUtil.getInstance());
-                            addToStream(content);
-                            chatMessageSound.play();
-                        }
-                    });
+                    BusFactory.getInstance()
+                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
+                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                                  @Override
+                                  public void handle(@Nonnull final SendRequest request) {
+                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse());
+                                      addToStream(content);
+                                      chatMessageSound.play();
+                                  }
+                              });
 
                 }
             }.schedule(1000);
@@ -137,7 +138,8 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
                 Collections.reverse(entries);
                 for (final LSDTransferEntity entry : entries) {
                     if (entry.isA(LSDDictionaryTypes.COMMENT)
-                            && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                        && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null
+                        && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false, true);
                     } else {
                         final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
@@ -152,14 +154,14 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
                 }
             }
         });
-//        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(FormatUtil.getInstance(), maxRows, parentPanel, null, threadSafeExecutor, true) {
-//            @Override
-//            public void onSuccess(AbstractRequest message, AbstractRequest response) {
-//                lastUpdate = response.getResponse().getUpdated().getTime();
-//                Window.alert("Success");
-//                super.onSuccess(message, response);
-//            }
-//        });
+        //        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(FormatUtil.getInstance(), maxRows, parentPanel, null, threadSafeExecutor, true) {
+        //            @Override
+        //            public void onSuccess(AbstractRequest message, AbstractRequest response) {
+        //                lastUpdate = response.getResponse().getUpdated().getTime();
+        //                Window.alert("Success");
+        //                super.onSuccess(message, response);
+        //            }
+        //        });
     }
 
 }

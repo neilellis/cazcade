@@ -63,12 +63,16 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     private  long                updateAliasListenId;
     private  LiquidURI           aliasURI;
 
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
+
+    protected void addBindings() {
         addBinding(userShortName, LSDAttribute.NAME);
         addBinding(userFullName, LSDAttribute.FULL_NAME);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(userImage, LSDAttribute.IMAGE_URL);
+    }
+
+    public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
     }
 
     @Override protected boolean isSaveOnExit() {
@@ -121,8 +125,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         if (UserUtil.isAnonymousOrLoggedOut() || isMe || !ClientApplicationConfiguration.isAlphaFeatures()) {
             followButton.addStyleName("invisible");
             dmButton.addStyleName("invisible");
-        }
-        else {
+        } else {
             initDMAndFollow(aliasURI);
         }
 
@@ -135,7 +138,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                                        @Override
                                        public void handle(@Nonnull final FollowRequest response) {
                                            if (response.getUri().equals(aliasURI)) {
-                                               bind(response.getResponse().copy());
+                                               bindEntity(response.getResponse().copy());
                                            }
                                        }
                                    });
@@ -147,7 +150,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                                             @Override
                                             public void handle(@Nonnull final UpdateAliasRequest response) {
                                                 if (response.getUri().equals(aliasURI)) {
-                                                    bind(response.getResponse().copy());
+                                                    bindEntity(response.getResponse().copy());
                                                 }
                                             }
                                         });
@@ -155,7 +158,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         BusFactory.getInstance().send(new RetrieveAliasRequest(aliasURI), new AbstractResponseCallback<RetrieveAliasRequest>() {
             @Override
             public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                bind(response.getResponse().copy());
+                bindEntity(response.getResponse().copy());
 
             }
         });
@@ -191,8 +194,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                     WidgetUtil.swap(detailPanel, directMessagePanel);
                     directMessagePanel.setVisible(true);
                     directMessagePanel.start();
-                }
-                else {
+                } else {
                     Window.alert("Feature coming very soon.");
                 }
             }
@@ -206,8 +208,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         getWidget().setVisible(true);
         if (entity.hasAttribute(LSDAttribute.ROLE_TITLE)) {
             roleFullName.setText(entity.getAttribute(LSDAttribute.ROLE_TITLE));
-        }
-        else {
+        } else {
             roleFullName.setText("Mysterious Being");
         }
         if (entity.hasAttribute(LSDAttribute.NAME)) {
@@ -226,7 +227,6 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     public void setFeatures(final FormatUtil features) {
         this.features = features;
     }
-
 
     public void clear() {
         userImage.clear();

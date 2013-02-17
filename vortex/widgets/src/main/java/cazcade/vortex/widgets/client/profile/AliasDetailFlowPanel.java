@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.profile;
 
 import com.google.gwt.core.client.GWT;
@@ -10,8 +14,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class AliasDetailFlowPanel extends AbstractAliasDetailPanel {
 
 
-    interface AliasDetailPanelUiBinder extends UiBinder<HTMLPanel, AliasDetailFlowPanel> {
-    }
+    interface AliasDetailPanelUiBinder extends UiBinder<HTMLPanel, AliasDetailFlowPanel> {}
 
     private static final AliasDetailPanelUiBinder ourUiBinder = GWT.create(AliasDetailPanelUiBinder.class);
 
@@ -19,7 +22,6 @@ public class AliasDetailFlowPanel extends AbstractAliasDetailPanel {
     public AliasDetailFlowPanel() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-
-
+        addBindings();
     }
 }

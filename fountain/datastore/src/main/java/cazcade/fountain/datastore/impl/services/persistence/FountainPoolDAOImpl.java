@@ -96,8 +96,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             final int commentCount;
             if (commentEntity.hasAttribute(LSDAttribute.COMMENT_COUNT)) {
                 commentCount = commentEntity.getIntegerAttribute(LSDAttribute.COMMENT_COUNT) + 1;
-            }
-            else {
+            } else {
                 commentCount = getCommentTraverser(commentEntity, FountainNeoImpl.MAX_COMMENTS_DEFAULT).getAllNodes().size();
             }
             log.debug("Comment count is now {0}", commentCount);
@@ -253,8 +252,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             if (!entityCopy.hasAttribute(LSDAttribute.NAME)) {
                 name = entityCopy.getTypeDef().getPrimaryType().getGenus().toLowerCase() + System.currentTimeMillis();
                 entityCopy.setAttribute(LSDAttribute.NAME, name);
-            }
-            else {
+            } else {
                 name = entityCopy.getAttribute(LSDAttribute.NAME);
 
             }
@@ -734,7 +732,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
             LSDTransferEntity newObject;
             final Transaction transaction = fountainNeo.beginTx();
             try {
-                final LSDPersistedEntity persistedEntity = fountainNeo.findByURIOrFail(target);
+                final LSDPersistedEntity persistedEntity = fountainNeo.findByURIAndLockForWrite(target);
                 persistedEntity.setAttribute(LSDAttribute.SELECTED, selected);
                 newObject = convertNodeToEntityWithRelatedEntitiesNoTX(identity, persistedEntity, null, detail, internal, false);
                 indexDAO.incrementBoardActivity(persistedEntity);
@@ -832,8 +830,7 @@ public class FountainPoolDAOImpl implements FountainPoolDAO {
         final LSDPersistedEntity pool;
         if (persistedEntityImpl.getAttribute(LSDAttribute.TYPE).startsWith(LSDDictionaryTypes.POOL.getValue())) {
             pool = persistedEntityImpl;
-        }
-        else {
+        } else {
             pool = persistedEntityImpl.parentNode();
         }
         return pool;

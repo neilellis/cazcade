@@ -30,8 +30,7 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
 
             if (request.hasUri()) {
                 pool = fountainNeo.findByURI(request.getUri());
-            }
-            else {
+            } else {
                 pool = fountainNeo.findByUUID(request.getTarget());
             }
 
@@ -53,25 +52,21 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                             newTitle.append(" ");
                         }
                         previousCharWhitespace = true;
-                    }
-                    else if (Character.isWhitespace(c)) {
+                    } else if (Character.isWhitespace(c)) {
                         if (!previousCharWhitespace) {
                             newTitle.append(' ');
                         }
                         previousCharWhitespace = true;
-                    }
-                    else if (Character.isUpperCase(c)) {
+                    } else if (Character.isUpperCase(c)) {
                         if (!previousCharWhitespace) {
                             newTitle.append(' ');
                         }
                         newTitle.append(c);
                         previousCharWhitespace = false;
-                    }
-                    else {
+                    } else {
                         if (previousCharWhitespace) {
                             newTitle.append(Character.toUpperCase(c));
-                        }
-                        else {
+                        } else {
                             newTitle.append(c);
                         }
                         previousCharWhitespace = false;
@@ -79,7 +74,8 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
                 }
                 pool = poolDAO.createPoolNoTx(request.getSessionIdentifier(), owner, parentPersistedEntity, request.getType(), name, 0.0, 0.0, newTitle
                         .toString(), request.isListed());
-
+                if (request.hasDescription()) { pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription()); }
+                if (request.hasImageUrl()) { pool.setAttribute(LSDAttribute.IMAGE_URL, request.getImageUrl()); }
                 final LiquidPermissionChangeType requestPermission = request.getPermission();
                 if (requestPermission != null) {
                     pool = fountainNeo.changeNodePermissionNoTx(pool, request.getSessionIdentifier(), requestPermission);
@@ -89,13 +85,10 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
 
             if (pool == null) {
                 return LiquidResponseHelper.forResourceNotFound("Could not find pool " + request.getUri(), request);
-            }
-            else {
+            } else {
                 pool.assertLatestVersion();
                 poolDAO.visitNodeNoTx(pool, request.getSessionIdentifier());
                 pool.assertLatestVersion();
-                if (request.hasDescription()) { pool.setAttribute(LSDAttribute.DESCRIPTION, request.getDescription()); }
-                if (request.hasImageUrl()) { pool.setAttribute(LSDAttribute.IMAGE_URL, request.getImageUrl()); }
                 entity = poolDAO.getPoolAndContentsNoTx(pool, request.getDetail(), true, ChildSortOrder.AGE, request.isInternal(), request
                         .getSessionIdentifier(), null, null, request.isHistorical());
                 final LSDTransferEntity visitor = userDAO.getAliasFromNode(fountainNeo.findByURIOrFail(request.getAlias()), request.isInternal(), request

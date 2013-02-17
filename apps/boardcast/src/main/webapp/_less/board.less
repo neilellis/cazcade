@@ -478,12 +478,12 @@ body.boards-body {
     width: 990px;
     .profile-header-top-middle {
       position: relative;
-      width: 200px; //      height: 220px;
+      width: 100px; //      height: 220px;
       float: left;
     }
     .profile-header-top-left {
       float: left; //      height: 184px;
-      width: 540px;
+      width: 640px;
       padding-left: 40px;
       position: relative;
 
@@ -512,10 +512,9 @@ body.boards-body {
   }
 
   .profile-board-username {
-    display: block;
+    display: inline;
     font-size: 22px;
     font-weight: bold;
-    line-height: 28px; //    opacity: 0.75;
   }
 
   .profile-board-user-description {
@@ -523,7 +522,7 @@ body.boards-body {
     font-size: 20px; //    opacity: 0.85;
     line-height: 28px;
     margin-top: 16px;
-    display: inline;
+    display: inline-block; //    width:100%;
   }
 
   .profile-board-user-role {
@@ -536,11 +535,11 @@ body.boards-body {
   }
 
   .profile-board-user-fullname { //    .handwriting-font;
-    display: inline;
+    display: inline-block;
     font-weight: bold;
-    clear: left; //    opacity: 0.95; //    margin-bottom: @baseline;
     font-size: 24px;
     line-height: 28px; //    line-height: 30px; //    line-height: @baseline * 2;
+    min-width: 100%;
   }
 
   .profile-board-followers {

@@ -24,22 +24,43 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  */
 public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
 
-    @UiField Button done;
+    interface WebsiteEditorUIBinder extends UiBinder<HTMLPanel, WebsiteEditorPanel> {}
+
+    private static final WebsiteEditorUIBinder ourUiBinder = GWT.create(WebsiteEditorUIBinder.class);
+    @UiField Button         done;
+    @UiField VortexTextArea description;
+    @UiField RegexTextBox   title;
+    @UiField UrlField       urlField;
+
+    public WebsiteEditorPanel(final LSDTransferEntity entity) {
+        super();
+        initWidget(ourUiBinder.createAndBindUi(this));
+        bindEntity(entity);
+
+        urlField.addValidHandler(new ValidHandler() {
+            @Override public void onValid(ValidEvent event) {
+                fireEvent(event);
+            }
+        });
+        urlField.addInvalidHandler(new InvalidHandler() {
+            @Override public void onInvalid(InvalidEvent event) {
+                fireEvent(event);
+            }
+        });
+        addBinding(urlField, LSDAttribute.SOURCE);
+        addBinding(description, LSDAttribute.DESCRIPTION);
+        addBinding(title, LSDAttribute.TITLE);
+    }
 
     @UiHandler("done")
     public void doneClicked(final ClickEvent e) {
         fireEvent(new EditFinishEvent());
     }
 
-
     @Override
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
-        addBinding(urlField, LSDAttribute.SOURCE);
-        addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(title, LSDAttribute.TITLE);
+    public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
     }
-
 
     @Override
     public int getHeight() {
@@ -53,32 +74,5 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
 
     @Override public String getCaption() {
         return "Choose website";
-    }
-
-    interface WebsiteEditorUIBinder extends UiBinder<HTMLPanel, WebsiteEditorPanel> {}
-
-
-    private static final WebsiteEditorUIBinder ourUiBinder = GWT.create(WebsiteEditorUIBinder.class);
-
-    @UiField VortexTextArea description;
-    @UiField RegexTextBox   title;
-    @UiField UrlField       urlField;
-
-
-    public WebsiteEditorPanel(final LSDTransferEntity entity) {
-        super();
-        initWidget(ourUiBinder.createAndBindUi(this));
-        bind(entity);
-
-        urlField.addValidHandler(new ValidHandler() {
-            @Override public void onValid(ValidEvent event) {
-                fireEvent(event);
-            }
-        });
-        urlField.addInvalidHandler(new InvalidHandler() {
-            @Override public void onInvalid(InvalidEvent event) {
-                fireEvent(event);
-            }
-        });
     }
 }

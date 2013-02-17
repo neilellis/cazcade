@@ -55,11 +55,10 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
             log.debug(enfe.getMessage(), enfe);
             return LiquidResponseHelper.forEmptyResultResponse(request);
         } catch (DataStoreException de) {
-            log.error(de);
             if (de.isClientException()) {
                 return LiquidResponseHelper.forException(de, request);
-            }
-            else {
+            } else {
+                log.error(de);
                 throw de;
             }
         }

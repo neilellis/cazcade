@@ -115,12 +115,10 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
-                    }
-                    else {
+                    } else {
                         Window.alert("You don't have permission");
                     }
-                }
-                else {
+                } else {
                     super.onFailure(message, response);
                 }
             }
@@ -130,11 +128,9 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                 final LSDTransferEntity responseEntity = response.getResponse();
                 if (responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
-                }
-                else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
-                    bind(responseEntity.copy());
-                }
-                else {
+                } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
+                    bindEntity(responseEntity.copy());
+                } else {
                     Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
             }
@@ -142,11 +138,11 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     }
 
     private void update(@Nonnull final LiquidRequest response) {
-        bind(response.getResponse().copy());
+        bindEntity(response.getResponse().copy());
     }
 
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
+    public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
     }
 
     @Override protected boolean isSaveOnExit() {

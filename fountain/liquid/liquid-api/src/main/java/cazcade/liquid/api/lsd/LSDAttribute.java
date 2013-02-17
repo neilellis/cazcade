@@ -26,7 +26,7 @@ public final class LSDAttribute {
     @Nonnull
     public static final LSDAttribute VERSION        = LSDAttribute.create("version", "text:", "The version of the entity", true, true, false, false, false, true, true);
     @Nonnull
-    public static final LSDAttribute NAME           = LSDAttribute.create("name", "text:regex:[a-z0-9A-Z._-]+", "A short name for this entity, this is what is used to uniquely identify it within a given scope  = LSDAttributes.create(does not need to be universally unique).", false, false, false, false, false, true, false);
+    public static final LSDAttribute NAME           = LSDAttribute.create("name", "text:regex:[a-z0-9A-Z._-]+", "A short name for this entity, this is what is used to uniquely identify it within a given scope (does not need to be universally unique).", false, false, false, false, false, true, false);
     //    @Nonnull public static final LSDAttribute INTERNAL_URI_PATH = LSDAttribute.create("_path", "text:", "The internal path location of the object.", false, false, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute TITLE          = LSDAttribute.create("title", "text:title:", "The title of an entity, e.g. picture name or a formatted fullname.", false, false, false, false, false, false, false);
@@ -51,7 +51,7 @@ public final class LSDAttribute {
     @Nonnull
     public static final LSDAttribute SELECTED       = LSDAttribute.create("selected", "boolean:", "Simple boolean flag to say if the entity has been selected in some manner.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute CHECKED        = LSDAttribute.create("selected", "boolean:", "Simple boolean flag to say if the entity has been 'ticked' in some manner.", false, false, false, false, false, false, false);
+    public static final LSDAttribute CHECKED        = LSDAttribute.create("checked", "boolean:", "Simple boolean flag to say if the entity has been 'ticked' in some manner.", false, false, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute PINNED         = LSDAttribute.create("pinned", "boolean:", "Simple boolean flag to say if the entity has been pinned, i.e. made immovable by the user.", false, false, false, false, false, false, false);
     @Nonnull
@@ -338,7 +338,7 @@ public final class LSDAttribute {
     @Nonnull
     public static final LSDAttribute CHANGE_PASSWORD_ON_LOGIN   = LSDAttribute.create("security.password.change", "boolean:", "If set to true then on next login the client should force the user to change their password and then the client should set this value to false.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute SECURITY_BLOCKED           = LSDAttribute.create("security.access.blocked", "boolean:", "If set to true the user cannot login  = LSDAttributes.create(enforced by server); the informational text should be displayed to the user.", false, false, false, false, false, false, false);
+    public static final LSDAttribute SECURITY_BLOCKED           = LSDAttribute.create("security.access.blocked", "boolean:", "If set to true the user cannot login the informational text should be displayed to the user.", false, false, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute SECURITY_CONFIRMATION_HASH = LSDAttribute.create("security.confirm.hash", "text:", "An MD5 Hash of the current password, user UUID and a salt, used to pre-auth actions.", false, false, false, false, false, false, false);
     @Nonnull
@@ -346,13 +346,13 @@ public final class LSDAttribute {
     @Nonnull
     public static final LSDAttribute SECURITY_SECRET            = LSDAttribute.create("security.oauth.secret", "text:", "Secret for oauth token based logins, for example Twitter.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute SECURITY_RESTRICTED        = LSDAttribute.create("security.access.restricted", "boolean:", "If set to true the user cannot login  = LSDAttributes.create(enforced by client); the informational text should be displayed to the user.", false, false, false, false, false, false, false);
+    public static final LSDAttribute SECURITY_RESTRICTED        = LSDAttribute.create("security.access.restricted", "boolean:", "If set to true the user cannot login   the informational text should be displayed to the user.", false, false, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute SECURITY_STATUS            = LSDAttribute.create("security.access.text", "text:", "Informational text relating to the status of the user's account, this should be displayed if the account is blocked.", false, false, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute PERMISSIONS                = LSDAttribute.create("security.permissions", "text:", "The numeric value of the permission set for this entity, note that you cannot change this property by changing the entity, an appropriate request must be made.", true, true, false, false, false, true, false);
     @Nonnull
-    public static final LSDAttribute PERMISSION_CHANGE          = LSDAttribute.create("security.alter.permission", "text:", "A request to change the permissions of a resource.", false, false, false, false, false, false, false);
+    public static final LSDAttribute PERMISSION_CHANGE          = LSDAttribute.create("security.alter.permission", "text:", "A request to change the permissions of a resource.", false, false, false, false, false, false, true);
     @Nonnull
     public static final LSDAttribute PLAIN_PASSWORD             = LSDAttribute.create("security.password.plain", "text:", "Plain text password, will not be stored.", true, false, false, false, true, false, true);
 
@@ -367,9 +367,9 @@ public final class LSDAttribute {
     @Nonnull
     public static final LSDAttribute VIEW_Y         = LSDAttribute.create("view2d.y", "number:", "The y position in pixels when rendering on a 2D pixel based display.", true, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute VIEW_Z         = LSDAttribute.create("view2d.z", "number:", "The z position  = LSDAttributes.create(i.e plane) in pixels when rendering on a 2D pixel based display.", true, false, false, false, false, false, false);
+    public static final LSDAttribute VIEW_Z         = LSDAttribute.create("view2d.z", "number:", "The z position (i.e plane) in pixels when rendering on a 2D pixel based display.", true, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute VIEW_RADIUS    = LSDAttribute.create("view2d.radius", "number:", "The distance from the center  = LSDAttributes.create(caculated from X and Y).", true, true, false, false, false, false, false);
+    public static final LSDAttribute VIEW_RADIUS    = LSDAttribute.create("view2d.radius", "number:", "The distance from the center (caculated from X and Y).", true, true, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute VIEW_ROTATE_XY = LSDAttribute.create("view2d.rotatexy", "number:", "The rotation in degress in the XY plain of the entity.", true, false, false, false, false, false, false);
     @Nonnull
@@ -399,21 +399,21 @@ public final class LSDAttribute {
     @Nonnull
     public static final LSDAttribute MEDIA_ID           = LSDAttribute.create("media.content.id", "text:", "An identifier for the media, local to the media provider not universally unique", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_SIZE         = LSDAttribute.create("media.content.filesize", "number:int:", "The size in bytes of the media  = LSDAttributes.create(file, video, image, anything really) associated with the entity.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_SIZE         = LSDAttribute.create("media.content.filesize", "number:int:", "The size in bytes of the media (file, video, image, anything really) associated with the entity.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_BITRATE      = LSDAttribute.create("media.content.bitrate", "number:", "The bitrate of the media  = LSDAttributes.create(in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_BITRATE      = LSDAttribute.create("media.content.bitrate", "number:", "The bitrate of the media (in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_FRAMERATE    = LSDAttribute.create("media.content.framerate", "number:", "The framerate of the media  = LSDAttributes.create(in this case likely to be video) associated with the entity.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_FRAMERATE    = LSDAttribute.create("media.content.framerate", "number:", "The framerate of the media (in this case likely to be video) associated with the entity.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_SAMPLINGRATE = LSDAttribute.create("media.content.samplingrate", "number:", "The sampling rate of the media  = LSDAttributes.create(in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_SAMPLINGRATE = LSDAttribute.create("media.content.samplingrate", "number:", "The sampling rate of the media  (in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_CHANNELS     = LSDAttribute.create("media.content.channels", "number:int:", "The number of audio channels of the media  = LSDAttributes.create(in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_CHANNELS     = LSDAttribute.create("media.content.channels", "number:int:", "The number of audio channels of the media (in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_DURATION     = LSDAttribute.create("media.content.duration", "number:", "The duration of the media  = LSDAttributes.create(in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_DURATION     = LSDAttribute.create("media.content.duration", "number:", "The duration of the media (in this case likely to be video or audio) associated with the entity.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_WIDTH        = LSDAttribute.create("media.content.width", "number:int:", "The original width of the media  = LSDAttributes.create(probably video) associated with the entity, only supplied if not an image itself.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_WIDTH        = LSDAttribute.create("media.content.width", "number:int:", "The original width of the media (probably video) associated with the entity, only supplied if not an image itself.", false, false, false, false, false, false, false);
     @Nonnull
-    public static final LSDAttribute MEDIA_HEIGHT       = LSDAttribute.create("media.content.height", "number:int:", "The original width of the media  = LSDAttributes.create(probably video) associated with the entity, only supplied if not an image itself.", false, false, false, false, false, false, false);
+    public static final LSDAttribute MEDIA_HEIGHT       = LSDAttribute.create("media.content.height", "number:int:", "The original width of the media (probably video) associated with the entity, only supplied if not an image itself.", false, false, false, false, false, false, false);
     @Nonnull
     public static final LSDAttribute MEDIA_HASH         = LSDAttribute.create("media.hash", "text:", "A hash of the media.", false, false, false, false, false, false, false);
     @Nonnull
@@ -483,14 +483,13 @@ public final class LSDAttribute {
     private final String  validationString;
     private final String  description;
     private final boolean nonupdateable;
-    private final boolean nonPersistable;
+    private final boolean isTransient;
 
     private final boolean systemGenerated;
     private final boolean subEntity;
     private final boolean hidden;
     private final boolean common;
     private final boolean topLevelEntity;
-    private       boolean isTransient;
 
 
     public static LSDAttribute valueOf(@Nonnull final String key) {
@@ -528,7 +527,7 @@ public final class LSDAttribute {
         topLevelEntity = topLevel;
         this.hidden = hidden;
         this.common = common;
-        nonPersistable = isTransient;
+        this.isTransient = isTransient;
         if (!nonupdateable && systemGenerated) {
             throw new IllegalArgumentException("Can't be writeable and system generated.");
         }
@@ -572,13 +571,9 @@ public final class LSDAttribute {
     }
 
     boolean includeAttributeInPersistence(final boolean ignoreType, final boolean update) {
-        return (isPersistable() || isTransient()) && (isUpdateable() || !update) && !isSystemGenerated() && (!this.equals(TYPE)
-                                                                                                             || !ignoreType);
+        return !isTransient() && (isUpdateable() || !update) && !isSystemGenerated() && (!this.equals(TYPE) || !ignoreType);
     }
 
-    public boolean isPersistable() {
-        return !nonPersistable;
-    }
 
     public boolean isTransient() {
         return isTransient;

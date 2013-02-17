@@ -8,6 +8,7 @@ import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.vortex.common.client.events.InvalidEvent;
 import cazcade.vortex.common.client.events.ValidEvent;
+import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
@@ -38,8 +39,9 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
     }
 
     public void addBinding(@Nonnull final Bindable field, @Nullable final LSDAttribute attribute) {
-        assert entity != null;
-        field.bind(entity, attribute, getReferenceDataPrefix());
+        if (bindings.containsKey(attribute)) {
+            throw new IllegalStateException("Attribute " + attribute + " is already bound.");
+        }
         if (isSaveOnExit()) {
             field.addChangeHandler(new ValueChangeHandler() {
                 @Override public void onValueChange(ValueChangeEvent event) {
@@ -47,31 +49,38 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
                 }
             });
 
-        }
-        else {
+        } else {
             field.addChangeHandler(new ValueChangeHandler() {
                 @Override public void onValueChange(ValueChangeEvent event) {
+                    if (ClientLog.isDebugMode()) {
+                        ClientLog.log("Sending update for " + attribute + " (" + field + ")");
+                    }
                     getUpdateEntityAction(field).run();
                 }
             });
         }
-        onChange(field, attribute);
         bindings.put(attribute, field);
     }
 
     protected void onChange(Bindable field, @Nullable LSDAttribute attribute) {
         if (isValid()) {
             fireEvent(new ValidEvent());
-        }
-        else {
+        } else {
             fireEvent(new InvalidEvent());
         }
     }
 
     @Override
-    protected void bind(@Nullable final LSDTransferEntity entity) {
+    protected void bindEntity(@Nullable final LSDTransferEntity entity) {
         if (entity == null) {
             throw new NullPointerException("Attempted to bind to a null entity.");
+        }
+        for (Map.Entry<LSDAttribute, Bindable> entry : bindings.entrySet()) {
+            final Bindable field = entry.getValue();
+            final LSDAttribute attribute = entry.getKey();
+            field.bind(entity, attribute, getReferenceDataPrefix());
+            onChange(field, attribute);
+
         }
         setEntityInternal(entity);
     }
@@ -85,8 +94,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
         for (final Bindable bindable : bindings.values()) {
             if (bindable.isMultiValue()) {
                 newEntity.setValues(bindable.getBoundAttribute(), bindable.getStringValues());
-            }
-            else {
+            } else {
                 String stringValue = bindable.getStringValue();
                 if (stringValue != null) {
                     newEntity.setAttribute(bindable.getBoundAttribute(), stringValue);

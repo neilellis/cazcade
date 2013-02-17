@@ -14,6 +14,7 @@ import org.neo4j.graphdb.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Set;
 
 /**
  * This is the core persistent object used by Fountain. Like all LSDBaseEntity objects it's type is derived from
@@ -61,6 +62,8 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
 
     @SuppressWarnings({"TypeMayBeWeakened"}) @Nonnull
     Iterable<FountainRelationship> getRelationships(FountainRelationships type, Direction dir);
+
+    @Nonnull Set<FountainRelationship> getRelationshipsAsSet(FountainRelationships type, Direction dir);
 
     @Nonnull Iterable<FountainRelationship> getRelationships(FountainRelationships... types);
 
@@ -128,4 +131,8 @@ public interface LSDPersistedEntity extends LSDBaseEntity {
 
     @Nonnull
     Traverser traverse(Traverser.Order traversalOrder, StopEvaluator stopEvaluator, ReturnableEvaluator returnableEvaluator, Object... relationshipTypesAndDirections);
+
+    void writeLock();
+
+    void unLock();
 }

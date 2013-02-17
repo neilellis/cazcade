@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api;
 
 import cazcade.liquid.api.request.*;
 import com.google.gwt.core.client.GWT;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 /**
  * @author neilelliz@cazcade.com
@@ -65,7 +69,7 @@ public enum LiquidRequestType {
         this.requestClass = requestClass;
     }
 
-    @Nullable
+    @Nonnull
     public AbstractRequest createInGWT() {
         if (this == CREATE_POOL) {
             return GWT.create(CreatePoolRequest.class);
@@ -190,7 +194,7 @@ public enum LiquidRequestType {
         if (this == BOARD_QUERY) {
             return GWT.create(BoardQueryRequest.class);
         }
-        return null;
+        throw new IllegalArgumentException("Unrecognized request " + this);
     }
 
     public Class<? extends LiquidMessage> getRequestClass() {

@@ -39,7 +39,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
     public PhotoEditorPanel(final LSDTransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        bind(entity);
+        bindEntity(entity);
         changeImagePanel.addChangeHandler(new ValueChangeHandler() {
             @Override public void onValueChange(ValueChangeEvent event) {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
@@ -49,16 +49,14 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
                 });
             }
         });
-
-
-    }
-
-    @Override
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
         addBinding(changeImagePanel, LSDAttribute.IMAGE_URL);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(title, LSDAttribute.TITLE);
+    }
+
+    @Override
+    public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
     }
 
     @Override

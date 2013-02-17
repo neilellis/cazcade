@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.lsd.LSDBaseEntity;
@@ -14,18 +18,17 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class ProfileBoardHeader extends AbstractAliasDetailPanel {
 
 
-    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, ProfileBoardHeader> {
-    }
+    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, ProfileBoardHeader> {}
 
     private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
-    @UiField
-    DivElement contentArea;
+    @UiField DivElement contentArea;
 
     public ProfileBoardHeader() {
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
         WidgetUtil.hide(contentArea, false);
+        addBindings();
 
     }
 

@@ -10,7 +10,6 @@
         <codeStyleSettings language="JAVA">
           <option name="KEEP_LINE_BREAKS" value="false" />
           <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
-          <option name="ELSE_ON_NEW_LINE" value="true" />
           <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
           <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
           <option name="ALIGN_MULTILINE_TERNARY_OPERATION" value="true" />

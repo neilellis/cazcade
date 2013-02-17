@@ -36,8 +36,8 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         this(id, identity, type, uri, previous, orCreate, 60, listed, null, null);
     }
 
-    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final LiquidPermissionChangeType permission, final String imageUrl) {
-        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission, imageUrl);
+    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final LiquidPermissionChangeType permission) {
+        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission, null);
     }
 
     public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed) {
@@ -80,8 +80,7 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
     public List<String> getNotificationLocations() {
         if (hasPreviousPool()) {
             return Arrays.asList(getUri().asReverseDNSString(), getPreviousPool().asReverseDNSString());
-        }
-        else {
+        } else {
             return Arrays.asList(getUri().asReverseDNSString());
         }
     }

@@ -21,10 +21,10 @@ public class UpdateAliasHandler extends AbstractUpdateHandler<UpdateAliasRequest
                     .getDetail(), null);
             return LiquidResponseHelper.forServerSuccess(request, socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request
                     .getUri(), request.isInternal(), request.getDetail()));
-        }
-        else {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(request.getSessionIdentifier(), request
-                    .getTarget(), request.getRequestEntity(), request.isInternal(), request.getDetail(), null));
+        } else {
+            throw new UnsupportedOperationException("Only URIs supported for updateAlias");
+            //            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(request.getSessionIdentifier(), request
+            //                    .getTarget(), request.getRequestEntity(), request.isInternal(), request.getDetail(), null));
         }
     }
 }

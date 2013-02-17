@@ -13,7 +13,6 @@ import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
@@ -51,9 +50,8 @@ public class NotificationPanel extends Composite {
     private final Sound           statusUpdateSound;
     @UiField      HorizontalPanel parentPanel;
     private int maxRows = 10;
-    private FormatUtil features;
-    private boolean    initialized;
-    private LiquidURI  pool;
+    private boolean   initialized;
+    private LiquidURI pool;
 
     public NotificationPanel() {
         super();
@@ -71,8 +69,7 @@ public class NotificationPanel extends Composite {
             public void run() {
                 if (parentPanel.getWidgetCount() == 0) {
                     removeStyleName("show");
-                }
-                else {
+                } else {
                     addStyleName("show");
                 }
 
@@ -89,9 +86,8 @@ public class NotificationPanel extends Composite {
         WidgetUtil.removeAllChildren(parentPanel);
     }
 
-    public void init(final LiquidURI newPool, @Nonnull final FormatUtil formatter) {
+    public void init(final LiquidURI newPool) {
         pool = newPool;
-        features = formatter;
         clear();
 
         if (!initialized) {
@@ -134,7 +130,7 @@ public class NotificationPanel extends Composite {
                                                                             .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
-                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse(), formatter);
+                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse());
                                       addToStream(content);
                                   }
                               });

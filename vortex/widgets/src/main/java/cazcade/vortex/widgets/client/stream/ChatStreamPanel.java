@@ -166,7 +166,7 @@ public class ChatStreamPanel extends Composite {
                                                                             .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
-                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), FormatUtil.getInstance()));
+                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse()));
                                   }
                               });
 
@@ -239,8 +239,7 @@ public class ChatStreamPanel extends Composite {
                 if (!inserted) {
                     if (parentPanel.getWidgetCount() > 1) {
                         parentPanel.insert(vortexStreamContent, 1);
-                    }
-                    else {
+                    } else {
                         parentPanel.add(vortexStreamContent);
                     }
                 }
@@ -275,8 +274,7 @@ public class ChatStreamPanel extends Composite {
                     && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null
                     && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
                     addStreamEntry(new VortexStreamEntryPanel(entry, FormatUtil.getInstance()));
-                }
-                else {
+                } else {
                     if (entry.hasAttribute(LSDAttribute.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
                         final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);

@@ -46,7 +46,6 @@ public class BoardMenuBar extends MenuBar {
 
     public BoardMenuBar() {
         super(false);
-        setVisible(false);
         setAnimationEnabled(false);
         setAutoOpen(true);
         setFocusOnHoverEnabled(true);
@@ -217,13 +216,11 @@ public class BoardMenuBar extends MenuBar {
         if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
             if (board.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                 accessMenuBar.addItem("Readonly", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
-            }
-            else {
+            } else {
                 accessMenuBar.addItem("Editable", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI));
             }
             accessMenuBar.addItem("Hide", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PRIVATE, poolURI));
-        }
-        else {
+        } else {
             accessMenuBar.addItem("Publish (Readonly)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
             accessMenuBar.addItem("Publish (Editable)", new ChangePermissionCommand(LiquidPermissionChangeType.MAKE_PUBLIC, poolURI));
         }
@@ -240,8 +237,7 @@ public class BoardMenuBar extends MenuBar {
                 boardWidget.toggleChat();
                 if ("Chat".equals(chat.getText())) {
                     chat.setText("End Chat");
-                }
-                else {
+                } else {
                     chat.setText("Chat");
                 }
                 Track.getInstance().trackEvent("Chat", "Switched to Chat");

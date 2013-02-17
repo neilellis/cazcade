@@ -49,7 +49,7 @@ public interface FountainNeo extends ServiceStateMachine {
     @Nonnull
     LSDTransferEntity deleteEntityTx(@Nonnull LiquidURI uri, boolean children, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
 
-    @Nonnull
+    @Nonnull @Deprecated
     LSDTransferEntity deleteEntityTx(@Nonnull LiquidUUID objectId, boolean children, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
 
 
@@ -112,8 +112,6 @@ public interface FountainNeo extends ServiceStateMachine {
 
     void indexBy(@Nonnull LSDPersistedEntity entity, @Nonnull LSDAttribute key, @Nonnull LSDAttribute luceneIndex, boolean unique) throws InterruptedException;
 
-    void migrateParentNode(@Nonnull LSDPersistedEntity entity, @Nonnull LSDPersistedEntity clone, boolean fork);
-
     void putProfileInformationIntoAlias(@Nonnull LSDPersistedEntity alias);
 
     void recalculateURI(@Nonnull LSDPersistedEntity childPersistedEntity) throws InterruptedException;
@@ -129,7 +127,7 @@ public interface FountainNeo extends ServiceStateMachine {
     @Nonnull
     LSDTransferEntity updateEntityByURITx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LiquidURI uri, @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
 
-    @Nonnull
+    @Nonnull @Deprecated
     LSDTransferEntity updateEntityByUUIDTx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LiquidUUID id, @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
 
     LSDPersistedEntity updateNodeAndReturnNodeNoTx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LSDPersistedEntity origPersistedEntity, @Nonnull LSDTransferEntity entity, Runnable onRenameAction) throws Exception;
@@ -138,4 +136,8 @@ public interface FountainNeo extends ServiceStateMachine {
 
     @Nullable
     LSDTransferEntity updateUnversionedEntityByUUIDTx(@Nonnull LiquidUUID id, @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail, @Nullable Runnable onRenameAction) throws InterruptedException;
+
+    Transaction getCurrentTransaction();
+
+    LSDPersistedEntity findByURIAndLockForWrite(@Nonnull LiquidURI uri) throws InterruptedException;
 }

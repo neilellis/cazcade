@@ -16,7 +16,6 @@ import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -30,6 +29,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author neilellis@cazcade.com
@@ -52,9 +52,8 @@ public class CommentPanel extends Composite {
     private final Sound           statusUpdateSound;
     private int     maxRows           = 100;
     private boolean showStatusUpdates = true;
-    private FormatUtil features;
-    private boolean    initialized;
-    private LiquidURI  pool;
+    private           boolean   initialized;
+    @Nullable private LiquidURI pool;
 
     public CommentPanel() {
         super();
@@ -89,11 +88,11 @@ public class CommentPanel extends Composite {
 
     public void clear() {
         WidgetUtil.removeAllChildren(parentPanel);
+        pool = null;
     }
 
-    public void init(final LiquidURI newPool, @Nonnull final FormatUtil features) {
+    public void init(final LiquidURI newPool) {
         pool = newPool;
-        this.features = features;
 
         if (!initialized) {
             new Timer() {
@@ -123,7 +122,7 @@ public class CommentPanel extends Composite {
                                                                             .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
-                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse(), features));
+                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse()));
                                   }
                               });
 
@@ -144,7 +143,7 @@ public class CommentPanel extends Composite {
             //            }
             initialized = true;
         }
-        bus.send(new RetrieveCommentsRequest(pool, 50), new RetrieveStreamEntityCallback(features, maxRows, parentPanel, pool, threadSafeExecutor, false));
+        bus.send(new RetrieveCommentsRequest(pool, 50), new RetrieveStreamEntityCallback(maxRows, parentPanel, pool, threadSafeExecutor, false));
     }
 
     private void addStreamEntry(@Nonnull final StreamEntry vortexStreamContent) {

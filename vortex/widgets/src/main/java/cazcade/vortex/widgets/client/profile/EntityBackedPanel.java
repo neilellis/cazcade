@@ -36,15 +36,14 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite implements
 
     public void setEntity(@Nonnull final LSDTransferEntity entity) {
         this.entity = entity;
-        bind(entity);
+        bindEntity(entity);
 
     }
 
     public void setEntityInternal(@Nonnull final LSDTransferEntity entity) {
         if (this.entity == null) {
             this.entity = entity;
-        }
-        else {
+        } else {
             this.entity = entity;
             ValueChangeEvent.fire(this, entity);
         }
@@ -70,7 +69,7 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite implements
         return bus;
     }
 
-    protected abstract void bind(LSDTransferEntity entity);
+    protected abstract void bindEntity(LSDTransferEntity entity);
 
 
     @Override public HandlerRegistration addValueChangeHandler(ValueChangeHandler<LSDTransferEntity> handler) {

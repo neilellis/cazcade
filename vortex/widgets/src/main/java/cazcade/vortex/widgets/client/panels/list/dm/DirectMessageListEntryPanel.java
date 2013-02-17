@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.panels.list.dm;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
@@ -33,20 +37,17 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         return entity;
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public String getListIdentifier() {
         return entity.getURI().toString();
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public String getStreamIdentifier() {
         return getListIdentifier();
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public Date getSortDate() {
         return entity.getUpdated();
     }
@@ -61,33 +62,27 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         return entity.getUpdated().compareTo(scrollableListEntry.getEntity().getUpdated());
     }
 
-    interface DirectMessageListEntryPanelUiBinder extends UiBinder<HTMLPanel, DirectMessageListEntryPanel> {
-    }
+    interface DirectMessageListEntryPanelUiBinder extends UiBinder<HTMLPanel, DirectMessageListEntryPanel> {}
 
     private static final DirectMessageListEntryPanelUiBinder ourUiBinder = GWT.create(DirectMessageListEntryPanelUiBinder.class);
 
-    @UiField
-    UserProfileImage profileImage;
-    @UiField
-    Label profileName;
-    @UiField
-    SpanElement text;
-    @UiField
-    SelfUpdatingRelativeDate dateTime;
-    @UiField
-    HTMLPanel imageSurround;
+    @UiField UserProfileImage         profileImage;
+    @UiField Label                    profileName;
+    @UiField SpanElement              text;
+    @UiField SelfUpdatingRelativeDate dateTime;
+    @UiField HTMLPanel                imageSurround;
 
     protected DirectMessageListEntryPanel() {
         super();
     }
 
-    public DirectMessageListEntryPanel(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final FormatUtil features) {
+    public DirectMessageListEntryPanel(@Nonnull final LSDBaseEntity streamEntry) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        init(streamEntry, features);
+        init(streamEntry);
     }
 
-    protected void init(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final FormatUtil features) {
+    protected void init(@Nonnull final LSDBaseEntity streamEntry) {
         entity = streamEntry;
         final LSDBaseEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, true);
         profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
@@ -102,7 +97,7 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         });
 
 
-        text.setInnerHTML(features.formatRichText(streamEntry.getAttribute(LSDAttribute.TEXT_EXTENDED)));
+        text.setInnerHTML(FormatUtil.getInstance().formatRichText(streamEntry.getAttribute(LSDAttribute.TEXT_EXTENDED)));
         //todo - format date :-)
         final String publishedDateStringInMillis = streamEntry.getAttribute(LSDAttribute.PUBLISHED);
         if (publishedDateStringInMillis != null) {

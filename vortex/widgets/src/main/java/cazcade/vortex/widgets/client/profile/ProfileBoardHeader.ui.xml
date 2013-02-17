@@ -14,16 +14,22 @@
             <div class="row profile-board-header-top">
 
                 <div class="profile-header-top-left">
-                    <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="90px"
-                                            size="CLIPPED_MEDIUM"
-                                            height="120px"/>
-                    <fields:VortexEditableLabel ui:field="userFullName" styleName="profile-board-user-fullname"/>
-                    <span class="profile-board-user-role">(<g:Label ui:field="roleFullName"/>)
-                    </span>
-                    <fields:VortexEditableLabel ui:field="userShortName" prefix="@" readonly="true"
-                                                styleName="profile-board-username"/>
-                    <fields:VortexEditableLabel wordwrap="false" ui:field="description" visibleLength="30"
-                                                styleName="profile-board-user-description"/>
+                    <div class="row">
+                        <div class="span2">
+                            <image:UserProfileImage ui:field="userImage" styleName="profile-board-user-image" width="90px"
+                                                    size="CLIPPED_MEDIUM"
+                                                    height="120px"/>
+                        </div>
+                        <div class="span5">
+                            <fields:VortexEditableLabel ui:field="userFullName" styleName="profile-board-user-fullname"/>
+                            <span class="profile-board-user-role">(<g:Label ui:field="roleFullName"/>)
+                            </span>
+                            <fields:VortexEditableLabel ui:field="userShortName" prefix="@" readonly="true"
+                                                        styleName="profile-board-username"/>
+                            <fields:VortexEditableLabel wordwrap="false" ui:field="description" visibleLength="30"
+                                                        styleName="profile-board-user-description"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="profile-header-top-middle">
                     <g:HTMLPanel ui:field="detailPanel" styleName="profile-header-top-right">
@@ -31,10 +37,10 @@
                         <a ui:field="profileLink" class="profile-board-followers" style="visibility:hidden;">Profile</a>
                         <!--<a ui:field="publicLink" class="profile-board-followers" style="visibility:hidden;">Public</a>-->
 
-                        <g:Label ui:field="followersLabel" styleName="profile-board-followers">X
+                        <g:Label ui:field="followersLabel" styleName="profile-board-followers" visible="false">X
                             Followers
                         </g:Label>
-                        <g:Label ui:field="followingLabel" styleName="profile-board-following">
+                        <g:Label ui:field="followingLabel" styleName="profile-board-following" visible="false">
                             Following Y
                         </g:Label>
                         <div class="row profile-board-header-middle-bar">

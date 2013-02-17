@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets;
 
 import cazcade.boardcast.client.main.widgets.login.TwitterLoginBox;
@@ -18,15 +22,14 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class AddCommentBox extends Composite {
+    interface AddCommentBoxUiBinder extends UiBinder<HTMLPanel, AddCommentBox> {}
+
     private static final AddCommentBoxUiBinder ourUiBinder = GWT.create(AddCommentBoxUiBinder.class);
-    @UiField
-    CommentBox addCommentBox;
-    @UiField
-    HTMLPanel loginPanel;
-    @UiField
-    AnchorElement loginLink;
-    @UiField
-    TwitterLoginBox twitterLoginBox;
+
+    @UiField CommentBox      addCommentBox;
+    @UiField HTMLPanel       loginPanel;
+    @UiField AnchorElement   loginLink;
+    @UiField TwitterLoginBox twitterLoginBox;
 
     public AddCommentBox() {
         super();
@@ -39,13 +42,9 @@ public class AddCommentBox extends Composite {
         if (UserUtil.isAnonymousOrLoggedOut()) {
             loginPanel.setVisible(true);
             addCommentBox.setVisible(false);
-        }
-        else {
+        } else {
             loginPanel.setVisible(false);
             addCommentBox.setVisible(true);
         }
-    }
-
-    interface AddCommentBoxUiBinder extends UiBinder<HTMLPanel, AddCommentBox> {
     }
 }

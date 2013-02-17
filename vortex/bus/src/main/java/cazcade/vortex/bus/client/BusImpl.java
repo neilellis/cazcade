@@ -58,8 +58,7 @@ public class BusImpl implements Bus {
                     then.run();
                 }
             });
-        }
-        else {
+        } else {
             //Keep all this  out of the event loops.
             Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
@@ -113,8 +112,7 @@ public class BusImpl implements Bus {
                     then.run();
                 }
             });
-        }
-        else {
+        } else {
             //Let's keep all this out of any event loops.
             Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
@@ -136,6 +134,7 @@ public class BusImpl implements Bus {
             && responseCallbacks.containsKey(id)) {
             final CallbackProcessor responseCallbackProcessor = responseCallbacks.get(id);
             try {
+
                 responseCallbackProcessor.handleResponse(message);
             } catch (Exception e) {
                 ClientLog.log(e);
@@ -165,8 +164,7 @@ public class BusImpl implements Bus {
         final String responseEntityId;
         if (message.hasResponseEntity()) {
             responseEntityId = message.getResponse().getUUID().toString();
-        }
-        else {
+        } else {
             responseEntityId = "";
         }
 
@@ -245,8 +243,7 @@ public class BusImpl implements Bus {
                     if (((LiquidRequest) message).getRequestType() == type) {
                         ClientLog.log("Calling " + listener.getClass().getName() + " for " + uri);
                         listener.handle(message);
-                    }
-                    else {
+                    } else {
                         ClientLog.log("Not calling "
                                       + listener.getClass().getName()
                                       + " for "
@@ -270,8 +267,7 @@ public class BusImpl implements Bus {
                     if (((LiquidRequest) message).getRequestType() == type) {
                         ClientLog.log("Calling " + listener.getClass().getName() + " for " + uri);
                         listener.handle(message);
-                    }
-                    else {
+                    } else {
                         ClientLog.log("Not calling "
                                       + listener.getClass().getName()
                                       + " for "
@@ -382,8 +378,7 @@ public class BusImpl implements Bus {
                 if (listener == null) {
                     ClientLog.log("Removing stale listener " + listenerId);
                     deleteThese.add(listenerId);
-                }
-                else {
+                } else {
                     try {
                         listener.handle(message);
                     } catch (Exception e) {
@@ -420,8 +415,7 @@ public class BusImpl implements Bus {
                     final LSDBaseEntity responseEntity = response.getResponse();
                     ClientLog.log("Callback handling failed " + responseEntity.asDebugText());
                     responseCallback.onFailure(message, response);
-                }
-                else {
+                } else {
                     final LSDBaseEntity responseEntity = response.getResponse();
                     ClientLog.log("Callback handling success " + responseEntity.asDebugText());
                     responseCallback.onSuccess(message, response);

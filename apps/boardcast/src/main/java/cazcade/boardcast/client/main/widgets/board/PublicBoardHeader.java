@@ -59,13 +59,13 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
             }
         });
         boardImage.sinkEvents(Event.MOUSEEVENTS);
-    }
-
-    public void bind(final LSDTransferEntity entity) {
-        super.bind(entity);
         addBinding(title, LSDAttribute.TITLE);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(boardImage, LSDAttribute.IMAGE_URL);
+    }
+
+    public void bindEntity(final LSDTransferEntity entity) {
+        super.bindEntity(entity);
     }
 
     @Override protected boolean isSaveOnExit() {
@@ -109,8 +109,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
             //unlisted board, probably has a nasty name so let's not show it here.
             WidgetUtil.hideGracefully(tag, false);
             WidgetUtil.hideGracefully(url, false);
-        }
-        else {
+        } else {
             WidgetUtil.showGracefully(tag, false);
             WidgetUtil.showGracefully(url, false);
         }

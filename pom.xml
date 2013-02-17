@@ -20,7 +20,7 @@
         <spring.security.version>3.0.7.RELEASE</spring.security.version>
         <ehcache.version>2.3.3</ehcache.version>
 
-        <neo4j.version>1.4</neo4j.version>
+        <neo4j.version>1.8.1</neo4j.version>
 
     </properties>
     <modules>
