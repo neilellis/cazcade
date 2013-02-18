@@ -305,6 +305,12 @@
         </repository>
     </repositories>
 
+    <scm>
+        <connection>scm:git:git://github.com/cazcade/cazcade.git</connection>
+        <developerConnection>scm:git:git://github.com/cazcade/cazcade.git</developerConnection>
+        <url>https://github.com/cazcade/cazcade</url>
+    </scm>
+
     <!--<pluginRepositories>-->
     <!--<pluginRepository>-->
     <!--<snapshots>-->
