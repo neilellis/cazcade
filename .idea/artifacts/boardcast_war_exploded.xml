@@ -62,7 +62,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.1.2.RELEASE" />
-          <element id="archive" name="vortex-1.1-SNAPSHOT.jar">
+          <element id="archive" name="comms-1.1-SNAPSHOT.jar">
             <element id="module-output" name="comms" />
           </element>
           <element id="archive" name="datastore-api-1.1-SNAPSHOT.jar">
@@ -131,7 +131,7 @@
           <element id="library" level="project" name="Maven: org.apache.camel:camel-mina:2.7.3" />
           <element id="library" level="project" name="Maven: org.apache.mina:mina-core:1.1.7" />
           <element id="library" level="project" name="Maven: org.apache.camel:camel-spring:2.7.3" />
-          <element id="archive" name="fountain-1.1-SNAPSHOT.jar">
+          <element id="archive" name="security-1.1-SNAPSHOT.jar">
             <element id="module-output" name="security" />
           </element>
           <element id="library" level="project" name="Maven: org.springframework:spring-web:3.1.2.RELEASE" />

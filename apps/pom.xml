@@ -7,7 +7,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cazcade.apps</artifactId>
+    <artifactId>apps</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>io</module>
