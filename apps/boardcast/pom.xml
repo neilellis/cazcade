@@ -306,8 +306,8 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com/cazcade/cazcade.git</connection>
-        <developerConnection>scm:git:git://github.com/cazcade/cazcade.git</developerConnection>
+        <connection>scm:git:ssh://github.com/cazcade/cazcade.git</connection>
+        <developerConnection>scm:git:ssh://github.com/cazcade/cazcade.git</developerConnection>
         <url>https://github.com/cazcade/cazcade</url>
     </scm>
 
