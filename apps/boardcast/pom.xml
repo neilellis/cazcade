@@ -230,7 +230,7 @@
                                         <argument>--exclude</argument>
                                         <argument>*~</argument>
                                         <argument>${build.directory}/${build.finalName}/*</argument>
-                                        <argument>~/jetty/webapps/root</argument>
+                                        <argument>cazcade@37.188.115.34:~/jetty/webapps/ROOT</argument>
                                     </arguments>
                                 </configuration>
                             </execution>

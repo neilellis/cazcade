@@ -843,9 +843,9 @@
     </pluginRepositories>
 
     <scm>
-        <connection>scm:svn:https://boardcast.svn.beanstalkapp.com/cazcade/trunk</connection>
-        <developerConnection>scm:svn:https://boardcast.svn.beanstalkapp.com/cazcade/trunk</developerConnection>
-        <url>https://boardcast.svn.beanstalkapp.com/cazcade/trunk</url>
+        <connection>scm:git:git@github.com:cazcade/cazcade.git</connection>
+        <developerConnection>scm:git:git@github.com:cazcade/cazcade.git</developerConnection>
+        <url>https://github.com/cazcade/cazcade</url>
     </scm>
 
     <profiles>
