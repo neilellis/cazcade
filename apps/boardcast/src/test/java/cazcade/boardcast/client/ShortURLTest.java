@@ -14,20 +14,20 @@ public class ShortURLTest extends TestCase {
 
     public void testBasic() {
         final LiquidBoardURL boardURL = new LiquidBoardURL("welcome");
-        assertEquals("pool:///boards/welcome", boardURL.asURI().toString());
+        assertEquals("pool:///boards/public/welcome", boardURL.asURI().toString());
         assertEquals("welcome", boardURL.toString());
     }
 
 
     public void testSub() {
         final LiquidBoardURL boardURL = new LiquidBoardURL("welcome/stuff");
-        assertEquals("pool:///boards/welcome/stuff", boardURL.asURI().toString());
+        assertEquals("pool:///boards/public/welcome/stuff", boardURL.asURI().toString());
         assertEquals("welcome/stuff", boardURL.toString());
     }
 
     public void testBoardcastOnly() {
         final LiquidBoardURL boardURL = new LiquidBoardURL("$welcome");
-        assertEquals("pool:///boards/$welcome", boardURL.asURI().toString());
+        assertEquals("pool:///boards/public/$welcome", boardURL.asURI().toString());
         assertEquals("$welcome", boardURL.toString());
     }
 

@@ -238,28 +238,28 @@
 
                     </plugin>
 
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <phase>install</phase>
-                                <configuration>
-                                    <target>
-                                        <exec executable="bash"
-                                              dir="/bin"
-                                              spawn="true">
-                                            <arg value="~/jetty/bin/jetty.sh"/>
-                                            <arg value="start"/>
-                                        </exec>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+                    <!--<plugin>-->
+                    <!--<artifactId>maven-antrun-plugin</artifactId>-->
+                    <!--<version>1.6</version>-->
+                    <!--<executions>-->
+                    <!--<execution>-->
+                    <!--<phase>install</phase>-->
+                    <!--<configuration>-->
+                    <!--<target>-->
+                    <!--<exec executable="bash"-->
+                    <!--dir="/bin"-->
+                    <!--spawn="true">-->
+                    <!--<arg value="~/jetty/bin/jetty.sh"/>-->
+                    <!--<arg value="restart"/>-->
+                    <!--</exec>-->
+                    <!--</target>-->
+                    <!--</configuration>-->
+                    <!--<goals>-->
+                    <!--<goal>run</goal>-->
+                    <!--</goals>-->
+                    <!--</execution>-->
+                    <!--</executions>-->
+                    <!--</plugin>-->
 
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -278,6 +278,7 @@
                             <doUpdate>true</doUpdate>
                         </configuration>
                     </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
