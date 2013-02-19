@@ -1,3 +1,7 @@
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE HTML>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -6,10 +10,10 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Register with Boardcast</title>
-    <link rel="stylesheet" type="text/less" href="../_less/bootstrap/bootstrap-full.less">
-    <script src="../_js/less-dev.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/less" href="/_static/_less/bootstrap/bootstrap-full.less">
+    <script src="/_static/_js/less-dev.js" type="text/javascript"></script>
 
-    <%--<link rel="stylesheet" href="../_css/boardcast-v2.less">--%>
+    <%--<link rel="stylesheet" href="/_static/_css/boardcast-v2.less">--%>
 </head>
 <body>
 
@@ -31,7 +35,7 @@
                     </c:if>
                     your email address
                     . If you already have a Boardcast account and would like to use that, click <a
-                            href="./link.jsp">here</a>.</p>
+                            href="link.jsp">here</a>.</p>
             </div>
             <div class="span4">
                 <form action="./register" method="GET">

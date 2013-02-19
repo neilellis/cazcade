@@ -1,4 +1,8 @@
 <%@page contentType="text/html;charset=UTF-8" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE HTML>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,8 +11,8 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Login</title>
-    <link rel="stylesheet" type="text/less" href="_css/bootstrap/bootstrap-full.less">
-    <script src="_js/less-1.2.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/less" href="/_static/_css/bootstrap/bootstrap-full.less">
+    <script src="/_static/_js/less-1.2.1.min.js" type="text/javascript"></script>
     <%@ include file="analytics.jspf" %>
 
 </head>

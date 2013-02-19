@@ -36,9 +36,9 @@ public interface CommonConstants {
     int    MINUTE           = 60000;
     int    HOUR             = 3600000;
     int    SECOND           = 1000;
-    String BLANK_PNG_URL    = "http://boardcast.it/_images/user/blank.png";
+    String BLANK_PNG_URL    = "http://boardcast.it/_static/_images/user/blank.png";
     String INFO_CAZCADE_COM = "info@cazcade.com";
     @Nonnull String ADMIN = "admin";
     @Nonnull String ANON  = "anon";
-    String CORKBOARD_URL = "http://boardcast.it/_background/misc/corkboard.jpg";
+    String CORKBOARD_URL = "/_static/_background/misc/corkboard.jpg";
 }

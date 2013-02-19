@@ -28,16 +28,16 @@
 
                 <g:ToggleButton ui:field="hideReveal" styleName="board-rhs-reveal-hide">
                     <g:upFace>
-                        <img src="_images/toolbar/hide-rhs.png"/>
+                        <img src="/_static/_images/toolbar/hide-rhs.png"/>
                     </g:upFace>
                     <g:downFace>
-                        <img src="_images/toolbar/reveal-rhs.png"/>
+                        <img src="/_static/_images/toolbar/reveal-rhs.png"/>
                     </g:downFace>
                     <g:upHoveringFace>
-                        <img src="_images/toolbar/hide-rhs-hover.png"/>
+                        <img src="/_static/_images/toolbar/hide-rhs-hover.png"/>
                     </g:upHoveringFace>
                     <g:downHoveringFace>
-                        <img src="_images/toolbar/reveal-rhs-hover.png"/>
+                        <img src="/_static/_images/toolbar/reveal-rhs-hover.png"/>
                     </g:downHoveringFace>
                 </g:ToggleButton>
 
@@ -91,7 +91,7 @@
                               ui:field="menuBar"/>
         <!--<g:MenuBar styleName="boardcast-board-menu" autoOpen="true" ui:field="menuBar" focusOnHoverEnabled="true">-->
         <!--<g:MenuItem>-->
-        <!--<img alt="add" src="_images/add.png"/>-->
+        <!--<img alt="add" src="/_static/_images/add.png"/>-->
         <!--<g:MenuBar vertical="true" ui:field="addMenuBarSubMenu">-->
         <!--</g:MenuBar>-->
         <!--</g:MenuItem>-->

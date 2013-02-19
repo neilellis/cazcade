@@ -1,3 +1,7 @@
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE HTML>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -6,7 +10,7 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Link Twitter to Boardcast Account</title>
-    <link rel="stylesheet" href="../_less/bootstrap/bootstrap-full.less">
+    <link rel="stylesheet" href="/_static/_less/bootstrap/bootstrap-full.less">
     <%@ include file="analytics.jspf" %>
 
 </head>

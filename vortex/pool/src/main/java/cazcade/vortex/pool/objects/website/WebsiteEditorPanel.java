@@ -35,7 +35,6 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
     public WebsiteEditorPanel(final LSDTransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        bindEntity(entity);
 
         urlField.addValidHandler(new ValidHandler() {
             @Override public void onValid(ValidEvent event) {
@@ -50,6 +49,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         addBinding(urlField, LSDAttribute.SOURCE);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(title, LSDAttribute.TITLE);
+        setEntity(entity);
     }
 
     @UiHandler("done")

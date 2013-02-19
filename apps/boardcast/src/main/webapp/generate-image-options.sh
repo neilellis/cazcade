@@ -4,7 +4,7 @@ do
 if echo $file | grep -v thumb > /dev/null
 then
 f="`echo $file | sed -e \"s/\.\///\"`"
-echo  "<image:option><image:ImageOption url=\"_background/$f\"  thumbnail=\"_background/thumb/$f\"/> </image:option>"
+echo  "<image:option><image:ImageOption url=\"/_static/_background/$f\"  thumbnail=\"/_static/_background/thumb/$f\"/> </image:option>"
 fi
 done
 

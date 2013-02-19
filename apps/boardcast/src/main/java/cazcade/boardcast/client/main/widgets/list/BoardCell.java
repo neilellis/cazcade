@@ -42,12 +42,10 @@ public class BoardCell extends AbstractCell<LSDBaseEntity> {
         sb.appendHtmlConstant("<div class='board-list-item-photo-area'>");
         if (board.hasAttribute(LSDAttribute.ICON_URL)) {
             sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.getAttribute(LSDAttribute.ICON_URL)));
-        }
-        else if (board.hasAttribute(LSDAttribute.IMAGE_URL)) {
+        } else if (board.hasAttribute(LSDAttribute.IMAGE_URL)) {
             sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.getAttribute(LSDAttribute.IMAGE_URL)));
-        }
-        else {
-            sb.append(TEMPLATES.icon("/_images/blank.png"));
+        } else {
+            sb.append(TEMPLATES.icon("/_static/_images/blank.png"));
         }
         sb.appendHtmlConstant("</div>");
         sb.appendHtmlConstant("<div class='board-list-item-main-area'>");
@@ -77,11 +75,9 @@ public class BoardCell extends AbstractCell<LSDBaseEntity> {
             final String commentText;
             if (commentCount == 0) {
                 commentText = "No comments";
-            }
-            else if (commentCount == 1) {
+            } else if (commentCount == 1) {
                 commentText = "1 comment";
-            }
-            else {
+            } else {
                 commentText = commentCount + " comments";
             }
             sb.appendHtmlConstant("<div class='board-list-item-comment-count'>")

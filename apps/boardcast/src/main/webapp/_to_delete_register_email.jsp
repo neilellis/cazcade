@@ -59,7 +59,7 @@
 <html>
 <head>
     <title>Boardcast Registration</title>
-    <link rel="stylesheet" href="_css/static.css">
+    <link rel="stylesheet" href="/_static/_css/static.css">
     <script type="text/javascript">
 
         var _gaq = _gaq || [];

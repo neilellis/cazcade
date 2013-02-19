@@ -15,7 +15,6 @@
     <title>Boardcast: The Internet's Corkboard </title>
     <%@ include file="navfunc.jspf" %>
     <%@ include file="header.jspf" %>
-    <%@ include file="analytics.jspf" %>
 
 </head>
 
@@ -74,6 +73,8 @@
 
 <%@ include file="libs.jspf" %>
 
+
+<%@ include file="analytics.jspf" %>
 
 <script type="text/javascript" language="javascript"
         src="_boardcast_gwt/_boardcast_gwt.nocache.js"></script>

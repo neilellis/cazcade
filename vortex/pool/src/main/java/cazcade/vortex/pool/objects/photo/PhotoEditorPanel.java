@@ -39,7 +39,6 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
     public PhotoEditorPanel(final LSDTransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        bindEntity(entity);
         changeImagePanel.addChangeHandler(new ValueChangeHandler() {
             @Override public void onValueChange(ValueChangeEvent event) {
                 Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
@@ -52,6 +51,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
         addBinding(changeImagePanel, LSDAttribute.IMAGE_URL);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(title, LSDAttribute.TITLE);
+        bindEntity(entity);
     }
 
     @Override

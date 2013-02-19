@@ -1,0 +1,257 @@
+.boardcast-board-menu {
+  float: left;
+  width: 100%;
+
+  td.gwt-MenuItem { //    .btn;
+    margin: 0px;
+    margin-right: 2px;
+    padding: 0px;
+    padding-bottom: 1px;
+    width: 64px;
+  }
+
+  td.gwt-MenuItemSeparator {
+    width: 100%;
+  }
+
+  td.gwt-MenuItem:hover {
+    background-image: url('/_static/_images/wallpapers/pattern_diagonal_medium.png');
+  }
+
+  table {
+    width: 100%;
+  }
+
+}
+
+.board-menu-add {
+  color: @highlightColorDark;
+  font-weight: bolder;
+  font-size: 1.2em;
+}
+
+.menubar-icon-title {
+  margin-top: -4px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 16px;
+  border-top: 1px solid rgba(100, 100, 100, 20%);
+  opacity: 0.8;
+  color: black;
+}
+
+.gwt-MenuBar {
+  cursor: default;
+  font-size: 14px;
+}
+
+.gwt-MenuBar .gwt-MenuItem {
+  cursor: default;
+  font-size: 14px;
+}
+
+.gwt-MenuBar .gwt-MenuItem-selected {
+  background: #444;
+  color: #eee;
+}
+
+.gwt-MenuBar-horizontal {
+  background-image: @menuBackground;
+  border: 1px solid #444;
+}
+
+.gwt-MenuBar-horizontal .gwt-MenuItem {
+  padding: 5px 10px;
+  vertical-align: bottom;
+  color: #000;
+  font-weight: bold;
+/*border:2px solid black;*/
+/*background-color: red;*/
+}
+
+.gwt-MenuBar-horizontal .gwt-MenuItemSeparator {
+  width: 1px;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  border-left: 1px solid #ccc;
+  background: white;
+}
+
+.gwt-MenuBar-horizontal .gwt-MenuItemSeparator .menuSeparatorInner {
+  width: 1px;
+  height: 1px;
+  background: white;
+}
+
+.gwt-MenuBar-vertical {
+  margin-left: -4px;
+  margin-top: 1px;
+  background-image: @menuBackground;
+  padding: 4px;
+  .border-radius(1px);
+  border: 1px solid #ddd;
+  .box-shadow(0px 3px 4px rgba(0,0,0,0.7));
+  z-index: 100000;
+
+}
+
+.gwt-MenuBar-vertical table {
+  border-collapse: collapse;
+  opacity: 0.9;
+}
+
+.gwt-MenuBar-vertical .gwt-MenuItem {
+  padding-top: 4px;
+  padding-right: 1px;
+  padding-left: 1px;
+  padding-bottom: 2px;
+  max-width: 46px;
+  font-size: 13px;
+
+}
+
+.gwt-MenuBar-vertical tr:hover {
+  background: #ddd;
+}
+
+.gwt-MenuBar-vertical  tr {
+  border-bottom: 1px solid #ddd;
+
+}
+
+.gwt-MenuBar-vertical  tr:last-child {
+  border-bottom: none;
+}
+
+.gwt-MenuBar-vertical .gwt-MenuItemSeparator {
+  padding: 2px 0px;
+}
+
+.gwt-MenuBar-vertical .gwt-MenuItemSeparator .menuSeparatorInner {
+  height: 1px;
+  padding: 0px;
+  border: 0px;
+  border-top: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.gwt-MenuBar-vertical .subMenuIcon {
+  padding-right: 4px;
+}
+
+.gwt-MenuBar-vertical .subMenuIcon-selected {
+  background: #E3E8F3;
+}
+
+.gwt-MenuBarPopup {
+  margin: 0px 0px 0px 0px;
+  z-index: 100000;
+
+}
+
+.gwt-MenuBarPopup .menuPopupTopCenter {
+/*background: url(_images/hborder.png) 0px -12px repeat-x;*/
+}
+
+.gwt-MenuBarPopup .menuPopupBottomCenter {
+/*background: url(_images/hborder.png) 0px -13px repeat-x;*/
+/*-background: url(_images/hborder_ie6.png) 0px -13px repeat-x;*/
+}
+
+.gwt-MenuBarPopup .menuPopupMiddleLeft {
+/*background: url(_images/vborder.png) -12px 0px repeat-y;*/
+/*-background: url(_images/vborder_ie6.png) -12px 0px repeat-y;*/
+}
+
+.gwt-MenuBarPopup .menuPopupMiddleRight {
+/*background: url(_images/vborder.png) -13px 0px repeat-y;*/
+/*-background: url(_images/vborder_ie6.png) -13px 0px repeat-y;*/
+}
+
+.gwt-MenuBarPopup .menuPopupTopLeftInner {
+  width: 5px;
+  height: 5px;
+  zoom: 1;
+}
+
+.gwt-MenuBarPopup .menuPopupTopRightInner {
+  width: 8px;
+  height: 5px;
+  zoom: 1;
+}
+
+.gwt-MenuBarPopup .menuPopupBottomLeftInner {
+  width: 5px;
+  height: 8px;
+  zoom: 1;
+}
+
+.gwt-MenuBarPopup .menuPopupBottomRightInner {
+  width: 8px;
+  height: 8px;
+  zoom: 1;
+}
+
+.gwt-MenuBarPopup .menuPopupTopLeft {
+/*background: url(_images/corner.png) no-repeat 0px -36px;*/
+/*-background: url(_images/corner_ie6.png) no-repeat 0px -36px;*/
+}
+
+.gwt-MenuBarPopup .menuPopupTopRight {
+/*background: url(_images/corner.png) no-repeat -5px -36px;*/
+/*-background: url(_images/corner_ie6.png) no-repeat -5px -36px;*/
+}
+
+.gwt-MenuBarPopup .menuPopupBottomLeft {
+/*background: url(_images/corner.png) no-repeat 0px -41px;*/
+/*-background: url(_images/corner_ie6.png) no-repeat 0px -41px;*/
+}
+
+.gwt-MenuBarPopup .menuPopupBottomRight {
+/*background: url(_images/corner.png) no-repeat -5px -41px;*/
+/*-background: url(_images/corner_ie6.png) no-repeat -5px -41px;*/
+}
+
+html>body .gwt-MenuBarPopup {
+}
+
+* html .gwt-MenuBarPopup .menuPopupTopLeftInner {
+  width: 5px;
+  height: 5px;
+  overflow: hidden;
+}
+
+* html .gwt-MenuBarPopup .menuPopupTopRightInner {
+  width: 8px;
+  height: 5px;
+  overflow: hidden;
+}
+
+* html .gwt-MenuBarPopup .menuPopupBottomLeftInner {
+  width: 5px;
+  height: 8px;
+  overflow: hidden;
+}
+
+* html .gwt-MenuBarPopup .menuPopupBottomRightInner {
+  width: 8px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.boardcast-top-menuPopup .gwt-MenuBar {
+  background-image: url('/_static/_images/background.png');
+  border: #444 solid 1px;
+  font-size: 0.9em;
+  color: #eee;
+  font-weight: bolder;
+  opacity: 0.85;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  padding: 2px;
+  padding-top: 0px;
+  float: right;
+
+}

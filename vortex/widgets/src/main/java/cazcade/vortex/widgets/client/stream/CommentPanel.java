@@ -62,13 +62,13 @@ public class CommentPanel extends Composite {
         parentPanel = widget;
         soundController = new SoundController();
 
-        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/user_entered.mp3");
+        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "/_static/_audio/user_entered.mp3");
         userEnteredSound.setVolume(100);
 
-        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/new_chat_message.mp3");
+        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "/_static/_audio/new_chat_message.mp3");
         chatMessageSound.setVolume(20);
 
-        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/status_update.mp3");
+        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "/_static/_audio/status_update.mp3");
         statusUpdateSound.setVolume(50);
 
 

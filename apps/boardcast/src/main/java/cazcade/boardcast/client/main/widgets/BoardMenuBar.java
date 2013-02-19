@@ -80,7 +80,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private SafeHtml iconWithName(String name, String title) {
-        return SafeHtmlUtils.fromTrustedString("<img class='menubar-icon' width='56px' height='56px' src='/_images/icons/"
+        return SafeHtmlUtils.fromTrustedString("<img class='menubar-icon' width='56px' height='56px' src='/_static/_images/icons/"
                                                + name
                                                + ".png'/><div class='menubar-icon-title'>"
                                                + (!title.isEmpty() ? title : "&nbsp;")
@@ -209,7 +209,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private String createUrlForDecoration(final String name, final String theme) {
-        return BrowserUtil.convertRelativeUrlToAbsolute("./_decorations/" + theme + "/" + name);
+        return BrowserUtil.convertRelativeUrlToAbsolute("/_static/_decorations/" + theme + "/" + name);
     }
 
     private void createAccessMenu(@Nonnull final LSDBaseEntity board) {

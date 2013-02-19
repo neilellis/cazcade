@@ -95,7 +95,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
             if (bindable.isMultiValue()) {
                 newEntity.setValues(bindable.getBoundAttribute(), bindable.getStringValues());
             } else {
-                String stringValue = bindable.getStringValue();
+                final String stringValue = bindable.getStringValue();
                 if (stringValue != null) {
                     newEntity.setAttribute(bindable.getBoundAttribute(), stringValue);
                 }

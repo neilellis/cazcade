@@ -180,7 +180,7 @@
                             <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
                             <!--<style>OBFUSCATED</style>-->
                             <style>PRETTY</style>
-                            <!--<compileReport>true</compileReport>-->
+                            <compileReport>true</compileReport>
                         </configuration>
                         <goals>
                             <goal>compile</goal>
@@ -261,23 +261,6 @@
                     <!--</executions>-->
                     <!--</plugin>-->
 
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>buildnumber-maven-plugin</artifactId>
-                        <version>1.0</version>
-                        <executions>
-                            <execution>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>create</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <doCheck>true</doCheck>
-                            <doUpdate>true</doUpdate>
-                        </configuration>
-                    </plugin>
 
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>

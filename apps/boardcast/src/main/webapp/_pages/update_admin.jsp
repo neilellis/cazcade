@@ -12,6 +12,10 @@
 <%@ page import="cazcade.liquid.api.request.UpdateUserRequest" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <%
 
     final FountainDataStore dataStore = DataStoreFactory.getDataStore();
@@ -19,7 +23,8 @@
     final LiquidRequest retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(request.getParameter("user"))));
     final LSDTransferEntity user = retrieveUserResponse.getResponse();
     if (retrieveUserResponse.getResponse().isError()) {
-        response.sendRedirect("/_pages/failed.jsp?message=" + URLEncoder.encode(retrieveUserResponse.getResponse().getAttribute(LSDAttribute.DESCRIPTION), "utf8"));
+        response.sendRedirect("/_pages/failed.jsp?message=" + URLEncoder.encode(retrieveUserResponse.getResponse()
+                                                                                                    .getAttribute(LSDAttribute.DESCRIPTION), "utf8"));
     } else if (!EmailUtil.confirmEmailHash(user.getAttribute(LSDAttribute.EMAIL_ADDRESS), request.getParameter("hash"))) {
         response.sendRedirect("/_pages/failed.jsp?message=Incorrect+URL");
     } else {
@@ -34,7 +39,7 @@
 <html>
 <head>
     <title>Boardcast Email Update Frequency</title>
-    <link rel="stylesheet" href="../_css/static.css">
+    <link rel="stylesheet" href="/_static/_css/static.css">
     <%@ include file="analytics.jspf" %>
 </head>
 <body>

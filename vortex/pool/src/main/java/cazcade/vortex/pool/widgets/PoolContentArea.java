@@ -49,7 +49,7 @@ public class PoolContentArea extends Composite {
     public static final int DEFAULT_WIDTH = 1024;
 
     private static final PoolContentAreaUiBinder ourUiBinder              = GWT.create(PoolContentAreaUiBinder.class);
-    public static final  String                  DEFAULT_BACKGROUND_IMAGE = "http://boardcast.it/_background/misc/corkboard.jpg";
+    public static final  String                  DEFAULT_BACKGROUND_IMAGE = "/_static/_background/misc/corkboard.jpg";
 
     @UiField AbsolutePanel container;
     @UiField Label         visibilityStatus;
@@ -106,8 +106,7 @@ public class PoolContentArea extends Composite {
         if (poolEntity.hasAttribute(LSDAttribute.BACKGROUND_URL)) {
             final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
             setBackgroundImage(imageUrl);
-        }
-        else {
+        } else {
             setBackgroundImage(DEFAULT_BACKGROUND_IMAGE);
         }
         //        backgroundImage.setWidth("100%");
@@ -124,40 +123,32 @@ public class PoolContentArea extends Composite {
                 if (listed) {
                     visibilityStatus.setText("All can edit");
                     visibilityStatus.addStyleName("danger");
-                }
-                else {
+                } else {
                     visibilityStatus.setText("Invitees can edit");
                 }
-            }
-            else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
                 if (listed) {
                     visibilityStatus.setText("Everyone can modify");
                     visibilityStatus.addStyleName("warning");
-                }
-                else {
+                } else {
                     visibilityStatus.setText("Invitees can modify");
                 }
-            }
-            else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
                 if (listed) {
                     visibilityStatus.setText("Everyone can view");
-                }
-                else {
+                } else {
                     visibilityStatus.setText("Invitees can view");
                 }
-            }
-            else {
+            } else {
                 if (listed) {
                     visibilityStatus.setText("Listed but not visible");
                     visibilityStatus.addStyleName("warning");
-                }
-                else {
+                } else {
                     visibilityStatus.setText("Only you can view");
                 }
             }
             WidgetUtil.show(visibilityStatus);
-        }
-        else {
+        } else {
             WidgetUtil.hideGracefully(visibilityStatus, false);
         }
         clear();
@@ -192,9 +183,10 @@ public class PoolContentArea extends Composite {
         if (container != null && imageUrl != null) {
             //            Window.alert("setting background "+imageUrl);
             if (BrowserUtil.isInternalImage(imageUrl)) {
-                container.getElement().getStyle().setProperty("backgroundImage", "url('" + imageUrl + "')");
-            }
-            else {
+                container.getElement()
+                         .getStyle()
+                         .setProperty("backgroundImage", "url('" + BrowserUtil.convertRelativeUrlToAbsolute(imageUrl) + "')");
+            } else {
                 container.getElement().getStyle().setProperty("backgroundImage", "url('./_website-snapshot?url=" +
                                                                                  encode(imageUrl) +
                                                                                  "&size=LARGE&width=1024&height=2048')");

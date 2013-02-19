@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.dnd.client.browser;
 
 import com.google.gwt.dom.client.Element;
@@ -15,9 +19,13 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class BrowserUtil {
+
     public static String convertRelativeUrlToAbsolute(@Nonnull String url) {
         if (url.startsWith("./")) {
             url = url.substring(2);
+        }
+        if (url.startsWith("/")) {
+            url = url.substring(1);
         }
         final String cleanUrl = Window.Location.getHref().split("\\?")[0].split("#")[0];
         return URL.encode(cleanUrl.substring(0, cleanUrl.lastIndexOf('/')) + "/" + url);
@@ -110,9 +118,16 @@ public class BrowserUtil {
     }-*/;
 
     public static boolean isInternalImage(@Nonnull final String url) {
-        final int pathStart = url.indexOf('/', url.indexOf(':') + 3);
-        final String pathString = url.substring(pathStart + 1);
-        return pathString.startsWith("_images") || pathString.startsWith("_decorations") || pathString.startsWith("_background");
+        final String pathString;
+        if (url.startsWith("/")) {
+            pathString = url;
+        } else {
+            final int pathStart = url.indexOf('/', url.indexOf(':') + 3);
+            pathString = url.substring(pathStart + 1);
+        }
+        return pathString.startsWith("/_static/_images")
+               || pathString.startsWith("/_static/_decorations")
+               || pathString.startsWith("/_static/_background");
     }
 
     public static boolean isImage(@Nullable final String url) {
@@ -120,6 +135,10 @@ public class BrowserUtil {
             return false;
         }
         final String urlLowerCase = url.toLowerCase();
-        return urlLowerCase.endsWith(".jpg") || urlLowerCase.endsWith(".jpeg") || urlLowerCase.endsWith(".gif") || urlLowerCase.endsWith(".png") || urlLowerCase.endsWith(".tiff");
+        return urlLowerCase.endsWith(".jpg")
+               || urlLowerCase.endsWith(".jpeg")
+               || urlLowerCase.endsWith(".gif")
+               || urlLowerCase.endsWith(".png")
+               || urlLowerCase.endsWith(".tiff");
     }
 }

@@ -38,7 +38,6 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     public YouTubeEditorPanel(@Nonnull final LSDTransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        setEntity(entity);
         if (entity.hasAttribute(LSDAttribute.EURI)) {
             urlTextBox.setValue(entity.getAttribute(LSDAttribute.EURI).split(":")[1]);
             showPreview();
@@ -49,6 +48,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
             }
         });
         addBinding(urlTextBox, LSDAttribute.MEDIA_ID);
+        setEntity(entity);
 
     }
 

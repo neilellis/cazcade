@@ -50,8 +50,7 @@
 
     if (!EmailUtil.confirmEmailHash(to, request.getParameter("hash"))) {
         response.sendRedirect("failed.jsp?message=Confirm+Failed");
-    }
-    else {
+    } else {
         user.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "false");
         dataStore.process(new UpdateUserRequest(admin, user.getUUID(), user));
         final boolean sessionDebug = false;
@@ -84,7 +83,7 @@
 <html>
 <head>
     <title>Boardcast Registration</title>
-    <link rel="stylesheet" href="../_css/static.css">
+    <link rel="stylesheet" href="/_static/_css/static.css">
     <%@ include file="analytics.jspf" %>
 
 </head>

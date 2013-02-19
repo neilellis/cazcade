@@ -12,7 +12,7 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Change Password</title>
-    <link rel="stylesheet" type="text/less" href="/_less/bootstrap/bootstrap-full.less">
+    <link rel="stylesheet" type="text/less" href="/_static/_less/bootstrap/bootstrap-full.less">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.3.3/less.min.js" type="text/javascript"></script>
     <%@ include file="analytics.jspf" %>
 

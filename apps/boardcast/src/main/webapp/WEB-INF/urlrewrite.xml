@@ -48,8 +48,8 @@
 
     <!--Board or username-->
     <rule>
-        <from>^/(\~?[0-9a-zA-Z-][0-9a-zA-Z_~.-]*)$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <from>^/(\~?[0-9a-zA-Z-][0-9a-zA-Z_~-]*)$</from>
+        <to type="forward">/?%{query-string}</to>
     </rule>
 
 
@@ -68,27 +68,27 @@
     <!--Create a board-->
     <rule>
         <from>^/_create-listed$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <to type="forward">/?%{query-string}</to>
     </rule>
 
     <rule>
         <from>^/_create-unlisted$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <to type="forward">/?%{query-string}</to>
     </rule>
 
     <rule>
         <from>^/_chat-.*$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <to type="forward">/?%{query-string}</to>
     </rule>
 
     <rule>
         <from>^/_activity.*$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <to type="forward">/?%{query-string}</to>
     </rule>
 
     <rule>
         <from>^/_list.*$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <to type="forward">/?%{query-string}</to>
     </rule>
 
 
@@ -122,7 +122,7 @@
 
     <rule>
         <from>^/_login-register$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <to type="forward">/?%{query-string}</to>
     </rule>
 
     <rule>
@@ -135,11 +135,17 @@
         <to type="forward">/_pages/forgot.jsp?%{query-string}</to>
     </rule>
 
-    <!--Straight to welcome board.-->
     <rule>
         <from>^/$</from>
-        <to type="redirect">/welcome?%{query-string}</to>
+        <to type="forward">/_pages/board.jsp?%{query-string}</to>
     </rule>
+
+
+    <!--&lt;!&ndash;Straight to welcome board.&ndash;&gt;-->
+    <!--<rule>-->
+    <!--<from>^/$</from>-->
+    <!--<to type="redirect">/welcome?%{query-string}</to>-->
+    <!--</rule>-->
 
 
 </urlrewrite>

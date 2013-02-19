@@ -1,0 +1,18 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
+@-webkit-keyframes justsayno {
+    0% {
+        -webkit-transform: translate(10px, 0px);
+    }
+    33% {
+        -webkit-transform: translate(0px, 0px);
+    }
+    66% {
+        -webkit-transform: translate(-10px, 0px);
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px);
+    }
+}

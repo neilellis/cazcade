@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel styleName="vortex-image-uploader vortex-profile-image-uploader">
@@ -8,7 +12,7 @@
 
         </g:HTMLPanel>
         <g:HTMLPanel ui:field="statusWidget" styleName="vortex-image-uploader-status">
-            <g:Image url="_images/spinner06.gif" ui:field="spinner" visible="false"/>
+            <g:Image url="/_static/_images/spinner06.gif" ui:field="spinner" visible="false"/>
             <span ui:field="statusText"/>
         </g:HTMLPanel>
     </g:HTMLPanel>

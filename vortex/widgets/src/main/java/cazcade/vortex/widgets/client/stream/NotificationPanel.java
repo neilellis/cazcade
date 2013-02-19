@@ -59,10 +59,10 @@ public class NotificationPanel extends Composite {
         initWidget(widget);
         soundController = new SoundController();
 
-        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/user_entered.mp3");
+        userEnteredSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "/_static/_audio/user_entered.mp3");
         userEnteredSound.setVolume(100);
 
-        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/status_update.mp3");
+        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "/_static/_audio/status_update.mp3");
         statusUpdateSound.setVolume(50);
         new Timer() {
             @Override

@@ -1,0 +1,346 @@
+//This contains all the basic general purpose definitions for CSS for Boardcast
+
+.absolute-full {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.font {
+  font-family: "HelveticaNeue", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.handwriting-font {
+  font-family: Pacifico, Arial, cursive, sans-serif;
+}
+
+.marker-font {
+  font-family: 'Permanent Marker', "Comic Sans MS", "Arial Black", Gadget, cursive;
+}
+
+.clear-handwriting-font {
+  font-family: 'Annie Use Your Telescope', "Comic Sans MS", "Arial Black", Gadget, cursive;
+}
+
+.border-radius(@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -o-border-radius: @radius;
+}
+
+.border-radius4(@tl, @tr, @br, @bl) {
+  border-radius: @arguments;
+  -webkit-border-radius: @arguments;
+  -moz-border-radius: @arguments;
+  -o-border-radius: @arguments;
+}
+
+.hsh-box-shadow(@h: 0px, @v: 0px, @blur: 10px, @spread: 10px, @r: 160, @g: 160, @b: 160, @a: 0.2) {
+  -moz-box-shadow: @h @v @blur @spread rgba(@r, @g, @b, @a);
+  box-shadow: @h @v @blur @spread rgba(@r, @g, @b, @a);
+  -webkit-box-shadow: @h @v @blur @spread rgba(@r, @g, @b, @a);
+}
+
+.shadow-border(@color: #666, @size: 1px) {
+  border-left: @size solid darken(@color, 5%);
+  border-top: @size solid darken(@color, 5%);
+  border-right: @size solid darken(@color, 15%);
+  border-bottom: @size solid darken(@color, 15%);
+}
+
+.inset-border(@color: #666, @size: 1px) {
+  border-left: @size solid darken(@color, 10%);
+  border-top: @size solid darken(@color, 10%);
+  border-right: @size solid lighten(@color, 10%);
+  border-bottom: @size solid lighten(@color, 10%);
+}
+
+.scale(@scale: 0.5) {
+  transform: scale(0.995);
+  -webkit-transform: scale(0.995);
+  -moz-transform: scale(0.995);
+}
+
+.filter(@filter) {
+  -webkit-filter: @filter;
+  -moz-filter: @filter;
+  -o-filter: @filter;
+  -ms-filter: @filter;
+  filter: @filter;
+}
+
+.transitions-off {
+  transition-property: none;
+  -o-transition-property: none;
+  -webkit-transition-property: none;
+  -moz-transition-property: none;
+}
+
+.transition-border(@duration: 300ms) {
+  transition: border ease-in-out @duration;
+  -o-transition: border ease-in-out @duration;
+  -webkit-transition: border ease-in-out @duration;
+  -moz-transition: border ease-in-out @duration;
+}
+
+.transition-transform(@duration: 300ms) {
+  -webkit-transition: -webkit-transform ease-in-out @duration;
+  -moz-transition: -moz-transform ease-in-out @duration;
+}
+
+.transition-opacity(@duration: 300ms) {
+  transition: opacity ease-in-out @duration;
+  -o-transition: opacity ease-in-out @duration;
+  -webkit-transition: opacity ease-in-out @duration;
+  -moz-transition: opacity ease-in-out @duration;
+}
+
+.transition-height(@duration: 300ms) {
+
+  transition: height ease-in-out @duration;
+  -o-transition: height ease-in-out @duration;
+  -webkit-transition: height ease-in-out @duration;
+  -moz-transition: height ease-in-out @duration;
+
+  transition: max-height ease-in-out @duration;
+  -o-transition: max-height ease-in-out @duration;
+  -webkit-transition: max-height ease-in-out @duration;
+  -moz-transition: max-height ease-in-out @duration;
+
+}
+
+.transition-width(@duration: 300ms) {
+  transition: width ease-in-out @duration;
+  -o-transition: width ease-in-out @duration;
+  -webkit-transition: width ease-in-out @duration;
+  -moz-transition: width ease-in-out @duration;
+}
+
+.transition-top(@duration: 300ms) {
+  transition: top ease-in-out @duration;
+  -o-transition: top ease-in-out @duration;
+  -webkit-transition: top ease-in-out @duration;
+  -moz-transition: top ease-in-out @duration;
+}
+
+.transition-bottom(@duration: 300ms) {
+  transition: bottom ease-in-out @duration;
+  -o-transition: bottom ease-in-out @duration;
+  -webkit-transition: bottom ease-in-out @duration;
+  -moz-transition: bottom ease-in-out @duration;
+}
+
+.transition-right(@duration: 300ms) {
+  transition: right ease-in-out @duration;
+  -o-transition: right ease-in-out @duration;
+  -webkit-transition: right ease-in-out @duration;
+  -moz-transition: right ease-in-out @duration;
+}
+
+.transition-left(@duration: 300ms) {
+  transition: left ease-in-out @duration;
+  -o-transition: left ease-in-out @duration;
+  -webkit-transition: left ease-in-out @duration;
+  -moz-transition: left ease-in-out @duration;
+}
+
+.transition1(@transition) {
+  -webkit-transition: @transition;
+  -moz-transition: @transition;
+  -ms-transition: @transition;
+  -o-transition: @transition;
+  transition: @transition;
+}
+
+.transition2(@transition1, @transition2) {
+  -webkit-transition: @transition1, @transition2;
+  -moz-transition: @transition1,  @transition2;
+  -ms-transition: @transition1,  @transition2;
+  -o-transition: @transition1,  @transition2;
+  transition: @transition1,  @transition2;
+}
+
+.transition3(@transition1, @transition2, @transition3) {
+  -webkit-transition: @transition1, @transition2, @transition3;
+  -moz-transition: @transition1,  @transition2, @transition3;
+  -ms-transition: @transition1,  @transition2, @transition3;
+  -o-transition: @transition1,  @transition2, @transition3;
+  transition: @transition1,  @transition2, @transition3;
+}
+
+.transition4(@transition1, @transition2, @transition3, @transition4) {
+  -webkit-transition: @transition1, @transition2, @transition3, @transition4;
+  -moz-transition: @transition1,  @transition2, @transition3, @transition4;
+  -ms-transition: @transition1,  @transition2, @transition3, @transition4;
+  -o-transition: @transition1,  @transition2, @transition3, @transition4;
+  transition: @transition1,  @transition2, @transition3, @transition4;
+}
+
+.transition5(@transition1, @transition2, @transition3, @transition4, @transition5) {
+  -webkit-transition: @transition1, @transition2, @transition3, @transition4, @transition5;
+  -moz-transition: @transition1,  @transition2, @transition3, @transition4, @transition5;
+  -ms-transition: @transition1,  @transition2, @transition3, @transition4, @transition5;
+  -o-transition: @transition1,  @transition2, @transition3, @transition4, @transition5;
+  transition: @transition1,  @transition2, @transition3, @transition4, @transition5;
+}
+
+.transform(@transform) {
+  -webkit-transform: @transform;
+  -moz-transform: @transform;
+  -ms-transform: @transform;
+  -o-transform: @transform;
+  transform: @transform;
+}
+
+.linear-gradient(@gradient) {
+  background-image: linear-gradient(@gradient);
+  background-image: -webkit-linear-gradient(@gradient);
+  background-image: -moz-linear-gradient(@gradient);
+  background-image: -o-linear-gradient(@gradient);
+  background-image: -ms-linear-gradient(@gradient);
+}
+
+//Masks
+
+.image-mask(@url) {
+  position: relative;
+  display: inline-block;
+  width: auto;
+
+  img {
+    position: relative;
+    margin: 0px;
+    border-radius: 3px;
+  }
+
+  &::after {
+    display: block;
+    content: " ";
+    background-image: @url;
+  /*background: red;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+}
+
+.gloss-thumbnail-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/gloss-large.png'));
+}
+
+.gloss-small-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/gloss-small.png'));
+}
+
+.gloss-med-small-mask {
+  .image-mask(url('/_static/_images/photo-masks/gloss-med-small.png'));
+}
+
+.gloss-medium-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/gloss-medium.png'));
+}
+
+.gloss-large-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/gloss-large.png'));
+}
+
+.border-thumbnail-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/border-large.png'));
+}
+
+.border-small-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/border-small.png'));
+}
+
+.border-medium-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/border-medium.png'));
+}
+
+.border-large-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/border-large.png'));
+}
+
+.corners-thumbnail-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/corners-large.png'));
+}
+
+.corners-small-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/corners-small.png'));
+}
+
+.corners-medium-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/corners-medium.png'));
+}
+
+.corners-large-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/corners-large.png'));
+}
+
+.matte-thumbnail-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/matte-large.png'));
+}
+
+.matte-small-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/matte-small.png'));
+}
+
+.matte-medium-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/matte-medium.png'));
+}
+
+.matte-large-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/matte-large.png'));
+}
+
+.perforated-thumbnail-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/perforated-large.png'));
+}
+
+.perforated-small-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/perforated-small.png'));
+}
+
+.perforated-medium-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/perforated-medium.png'));
+}
+
+.perforated-large-mask {
+
+  .image-mask(url('/_static/_images/photo-masks/perforated-large.png'));
+}
+
+.curved-divider {
+  min-height: 18px;
+  background-image: url('/_static/_images/divider.png');
+  position: absolute;
+  bottom: -14px;
+  left: -50px;
+  right: -50px;
+}
+
+

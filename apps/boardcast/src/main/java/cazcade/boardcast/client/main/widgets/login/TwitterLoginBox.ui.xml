@@ -1,6 +1,10 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel ui:field="panel" styleName="twitter-signin">
-        <g:Image url="./_images/Sign-in-with-Twitter-darker.png" ui:field="imageButton"/>
+        <g:Image url="/_static/_images/Sign-in-with-Twitter-darker.png" ui:field="imageButton"/>
     </g:HTMLPanel>
 </ui:UiBinder>

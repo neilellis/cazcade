@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
@@ -8,7 +12,7 @@
                 <g:HTMLPanel styleName="pool-object-photo-surround" ui:field="imageSurround">
                     <image:CachedImage ui:field="image" size="CLIPPED_MEDIUM"/>
                 </g:HTMLPanel>
-                <g:Image styleName="photo-effect" ui:field="effect" url="_images/photo-masks/gloss-medium-noframe.png"/>
+                <g:Image styleName="photo-effect" ui:field="effect" url="/_static/_images/photo-masks/gloss-medium-noframe.png"/>
             </g:AbsolutePanel>
 
 

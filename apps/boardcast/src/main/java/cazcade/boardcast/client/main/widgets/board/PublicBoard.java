@@ -63,7 +63,7 @@ import static com.google.gwt.http.client.URL.encode;
  */
 public class PublicBoard extends EntityBackedFormPanel {
     private static final NewBoardUiBinder ourUiBinder = GWT.create(NewBoardUiBinder.class);
-    public static final  String           CORKBOARD   = "http://boardcast.it/_background/misc/corkboard.jpg";
+    public static final  String           CORKBOARD   = "/_static/_background/misc/corkboard.jpg";
 
 
     @UiField CommentPanel  comments;
@@ -378,9 +378,9 @@ public class PublicBoard extends EntityBackedFormPanel {
                                            +
                                            " comments left."
                                            + tagText);
-        //        imageSelector.init(Arrays.asList("_images/wallpapers/light-blue-linen.jpg", "_images/wallpapers/linen-blue.jpg", "_images/wallpapers/linen-white.jpg"
-        //        ,"_images/wallpapers/linen-black.jpg", "_images/wallpapers/noise-white.jpg", "_images/wallpapers/noise-grey.jpg", "_images/wallpapers/noise-vlight-grey.jpg"
-        //        ,"_images/wallpapers/noise-black.jpg", "_images/wallpapers/noise-black.jpg"));
+        //        imageSelector.init(Arrays.asList("/_static/_images/wallpapers/light-blue-linen.jpg", "/_static/_images/wallpapers/linen-blue.jpg", "/_static/_images/wallpapers/linen-white.jpg"
+        //        ,"/_static/_images/wallpapers/linen-black.jpg", "/_static/_images/wallpapers/noise-white.jpg", "/_static/_images/wallpapers/noise-grey.jpg", "/_static/_images/wallpapers/noise-vlight-grey.jpg"
+        //        ,"/_static/_images/wallpapers/noise-black.jpg", "/_static/_images/wallpapers/noise-black.jpg"));
 
         final boolean adminPermission = entity.getBooleanAttribute(LSDAttribute.ADMINISTERABLE);
         final String boardTitle = entity.getAttribute(LSDAttribute.TITLE);

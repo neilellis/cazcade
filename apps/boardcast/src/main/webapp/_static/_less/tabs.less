@@ -1,0 +1,55 @@
+.gwt-TabLayoutPanel {
+  height: 100%;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
+  background-color: #444;
+  background-color: rgba(100, 100, 100, 0.2);
+  background-image: url('/_static/_images/wallpapers/pattern_diagonal_dark.png');
+  margin: 0px 5px;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+  background-color: #666;
+  background-color: rgba(200, 200, 200, 0.2);
+  background-image: url('/_static/_images/wallpapers/pattern_diagonal_medium.png');
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabInner {
+}
+
+.gwt-TabLayoutPanel.boardcast-rhs-tab-panel {
+
+}
+
+.gwt-TabLayoutPanelTabs {
+  height: @topBarHeight;
+  color: whitesmoke;
+  font-size: @topTabsFontSize;
+  margin-left: 30px;
+  top: 0px;
+
+}
+
+div.gwt-TabLayoutPanelTab {
+  @paddingTopBottom: 2px;
+
+  height: @topBarTabHeight;
+  .border-radius(6px);
+  padding-right: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+  padding-top: @paddingTopBottom;
+  padding-bottom: @paddingTopBottom;
+  top: (@topBarHeight - @topBarTabHeight - ( @paddingTopBottom * 2) ) /2;
+  &:hover {
+    background-color: #888;
+    background-color: rgba(100, 100, 100, 0.5);
+  }
+}
+
+div.gwt-TabLayoutPanelTab.gwt-TabLayoutPanelTab-selected:hover {
+}

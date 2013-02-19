@@ -82,10 +82,10 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
         soundController = new SoundController();
 
 
-        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/status_update.mp3");
+        statusUpdateSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "/_static/_audio/status_update.mp3");
         statusUpdateSound.setVolume(50);
 
-        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "_audio/new_chat_message.mp3");
+        chatMessageSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3, "/_static/_audio/new_chat_message.mp3");
         chatMessageSound.setVolume(20);
 
     }

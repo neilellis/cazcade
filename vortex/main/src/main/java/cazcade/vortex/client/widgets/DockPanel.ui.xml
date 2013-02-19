@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HorizontalPanel width="100%">
@@ -24,12 +28,12 @@
         </g:HorizontalPanel>
         <g:HorizontalPanel width="200">
             <!--<g:HTMLPanel>-->
-            <!--<img src="./_images/UIComponents/GeneralIcons/48x48/Clipboard.png"-->
+            <!--<img src="/_static/_images/UIComponents/GeneralIcons/48x48/Clipboard.png"-->
             <!--alt="Twitter"/>-->
             <!--</g:HTMLPanel>-->
             <g:HTMLPanel>
                 <a href="www.cazcade.com">
-                    <img src="./_images/UIComponents/GeneralIcons/48x48/EmptyRecycleBin.png"
+                    <img src="/_static/_images/UIComponents/GeneralIcons/48x48/EmptyRecycleBin.png"
                          alt="Twitter"/>
                 </a>
             </g:HTMLPanel>

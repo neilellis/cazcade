@@ -9,8 +9,8 @@
 <%--<script type="text/javascript">stLight.options({publisher: 'c2dcef1f-34f2-4795-b2c4-d55b9ff9528d', publisherGA: "UA-25104667-1", onhover: true});</script>--%>
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
-<script type="text/javascript" src="/_js/scrollsupport.js"></script>
-<script type="text/javascript" src="https://api.filepicker.io/v1/filepicker.js"></script>
+<script type="text/javascript" src="/_static/_js/scrollsupport.js"></script>
+<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
 <script type="text/javascript">
     //Seting up Filepicker.io with your api key

@@ -76,7 +76,7 @@ public class CachedImage extends Image {
 
     @Nonnull
     private String placeholderImage() {
-        return "./_images/blank.png";
+        return "/_static/_images/blank.png";
     }
 
     public void setDefaultMessage(final String message) {

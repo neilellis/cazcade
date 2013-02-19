@@ -1,10 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Login Successful</title>
-    <link rel="stylesheet"  href="../_less/boardcast-v2.css">
-    <script src="../_js/less-dev.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/_static/_less/boardcast-v2.css">
+    <script src="/_static/_js/less-dev.js" type="text/javascript"></script>
 
 </head>
 <body bgcolor="#EFF0F3">
