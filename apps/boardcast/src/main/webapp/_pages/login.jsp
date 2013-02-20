@@ -11,7 +11,7 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Login</title>
-    <link rel="stylesheet" type="text/less" href="/_static/_css/bootstrap/bootstrap-full.less">
+    <link rel="stylesheet" type="text/less" href="/_static/css/bootstrap/bootstrap-full.less">
     <script src="/_static/_js/less-1.2.1.min.js" type="text/javascript"></script>
     <%@ include file="analytics.jspf" %>
 

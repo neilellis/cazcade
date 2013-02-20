@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <groups xmlns="http://www.isdc.ro/wro"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
 
     <group name="core">
-        <css>/_css/*.css</css>
-        <css>/_less/bootstrap/*.less</css>
-        <css>/_less/*.less</css>
+        <css>/css/*.css</css>
+        <css>/less/bootstrap/*.less</css>
+        <css>/less/*.less</css>
     </group>
 
 </groups>

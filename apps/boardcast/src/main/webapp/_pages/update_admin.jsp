@@ -39,7 +39,7 @@
 <html>
 <head>
     <title>Boardcast Email Update Frequency</title>
-    <link rel="stylesheet" href="/_static/_css/static.css">
+    <link rel="stylesheet" href="/_static/css/static.css">
     <%@ include file="analytics.jspf" %>
 </head>
 <body>

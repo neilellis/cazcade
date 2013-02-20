@@ -10,5 +10,5 @@
 <%--//        document.getElementById('loading-panel').style.opacity = 0.0;--%>
 <%--document.getElementById('cache-panel').style.opacity = 1.0;--%>
 <%--});--%>
-<%--loadcss("./_css/hackabout.css", "hack", null);--%>
+<%--loadcss("./css/hackabout.css", "hack", null);--%>
 <%--</script>--%>
