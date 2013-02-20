@@ -3,14 +3,6 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
-  <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="gwt" url="file://$PROJECT_DIR$/apps/boardcast" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/common" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/datastore-api" />
-    <file type="gwt" url="file://$PROJECT_DIR$/fountain/liquid/liquid-api" />
-    <file type="gwt" url="file://$PROJECT_DIR$/vortex/main" />
-    <file type="web" url="file://$PROJECT_DIR$/apps/boardcast" />
-  </component>
   <component name="IdProvider" IDEtalkID="57F14E2F49A52322AD003B3CE7E3BFB9" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
