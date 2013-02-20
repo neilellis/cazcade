@@ -137,7 +137,7 @@
 
     <rule>
         <from>^/$</from>
-        <to type="forward">/_pages/board.jsp?%{query-string}</to>
+        <to type="forward">/_static/board.html?%{query-string}</to>
     </rule>
 
 

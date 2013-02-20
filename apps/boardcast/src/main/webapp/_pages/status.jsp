@@ -17,7 +17,7 @@
 <html>
 <head>
     <title>Boardcast Monitor Page</title>
-    <link rel="stylesheet" href="/_static/_css/static.css">
+    <link rel="stylesheet" href="/_static/css/static.css">
 </head>
 <body>
 

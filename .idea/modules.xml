@@ -32,7 +32,6 @@
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/pool/pool.iml" filepath="$PROJECT_DIR$/vortex/pool/pool.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/rest-server/rest-server.iml" filepath="$PROJECT_DIR$/fountain/rest-server/rest-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrape/scrape.iml" filepath="$PROJECT_DIR$/scrape/scrape.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/security/security.iml" filepath="$PROJECT_DIR$/fountain/security/security.iml" />

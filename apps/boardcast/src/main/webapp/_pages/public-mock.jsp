@@ -24,12 +24,12 @@
 <script>
     //Deferred loading to improve initial load time.
     loadjs("../_prettify/prettify.js");
-    loadcss("/_static/_less/boardcast.less", "boardcast", function () {
+    loadcss("/_static/less/boardcast.less", "boardcast", function () {
         document.getElementById('loading-panel').style.opacity = 0.0;
         document.getElementById('cache-panel').style.opacity = 1.0;
         document.getElementById('top-bar-wrapper').style.opacity = 1.0;
     });
-    loadcss("/_static/_css/hackabout.css", "hack", null);
+    loadcss("/_static/css/hackabout.css", "hack", null);
 </script>
 
 <div id="loading-panel">

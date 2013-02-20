@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
  */
+
 (function (window, undefined) {
 //
 // Stub out `require` in the browser
@@ -2463,11 +2464,11 @@
             }
         };
         tree.Selector.prototype.toCSS = function (env) {
-            if (this._css) {
-                return this._css
+            if (this.css) {
+                return this.css
             }
 
-            return this._css = this.elements.map(
+            return this.css = this.elements.map(
                 function (e) {
                     if (typeof(e) === 'string') {
                         return ' ' + e.trim();

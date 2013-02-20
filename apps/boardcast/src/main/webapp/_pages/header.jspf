@@ -16,9 +16,9 @@
 
 <%--This provides a temporary stylesheet while we wait for the less processing to start--%>
 
-<link rel="stylesheet" type="text/css" href="/_static/_less/loading.css">
+<link rel="stylesheet" type="text/css" href="/_static/less/loading.css">
 <link href='//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css' rel='stylesheet' type='text/css'>
-<link rel="stylesheet/less" href="/_static/_less/boardcast-v2.less">
+<link rel="stylesheet/less" href="/_static/less/boardcast-v2.less">
 
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->

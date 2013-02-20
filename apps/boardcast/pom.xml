@@ -191,8 +191,8 @@
                             <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
                             <!--<style>OBFUSCATED</style>-->
                             <style>DETAILED</style>
-                            <draftCompile>true</draftCompile>
-
+                            <!--<draftCompile>true</draftCompile>-->
+                            <!--<webappDirectory>${project.basedir}/src/main/webapp/</webappDirectory>-->
                             <!--<compileReport>true</compileReport>-->
                         </configuration>
                         <goals>

@@ -7,7 +7,7 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Login Successful</title>
-    <link rel="stylesheet" href="/_static/_less/boardcast-v2.css">
+    <link rel="stylesheet" href="/_static/css/boardcast-v2.css">
     <script src="/_static/_js/less-dev.js" type="text/javascript"></script>
 
 </head>

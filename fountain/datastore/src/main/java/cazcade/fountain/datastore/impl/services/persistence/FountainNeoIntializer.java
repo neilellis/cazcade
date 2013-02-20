@@ -57,14 +57,15 @@ public class FountainNeoIntializer {
                     public Object call() throws Exception {
                         final LSDPersistedEntity boardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo
                                 .getRootPool(), "boards", 0, 0, FountainNeoImpl.privatePermissionValue, false);
-                        poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "public", 0, 0, FountainNeoImpl.publicPermissionNoDeleteValue, false);
-                        poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "geo", 0, 0, FountainNeoImpl.publicPermissionNoDeleteValue, false);
+                        final LSDPersistedEntity publicBoardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "public", 0, 0, "Public Boards", false);
+                        fountainNeo.changePermissionNoTx(ADMIN_SESSION, publicBoardsPool.getURI(), LiquidPermissionChangeType.MAKE_PUBLIC, LiquidRequestDetailLevel.MINIMAL, true);
+                        final LSDPersistedEntity geoBoardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "geo", 0, 0, "Location Boards", false);
+                        fountainNeo.changePermissionNoTx(ADMIN_SESSION, geoBoardsPool.getURI(), LiquidPermissionChangeType.MAKE_PUBLIC, LiquidRequestDetailLevel.MINIMAL, true);
                         log.info("Created core boards pools");
                         return null;
                     }
                 });
-            }
-            else {
+            } else {
                 fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
                     @Nullable @Override
                     public Object call() throws Exception {
