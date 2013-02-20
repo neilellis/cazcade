@@ -37,7 +37,8 @@
 
 
     <div id="cache-panel" style="position: absolute;width:100%;height:100%;top:0px;">
-        <img id="cache-image" style="margin:0 auto;display: block;opacity:0.3; -webkit-filter: blur(1px) grayscale(0.4)"/>
+        <%--<img id="cache-image" style="margin:0 auto;display: block;opacity:0.3; -webkit-filter: blur(1px) grayscale(0.4)"/>--%>
+        <img id="cache-image" style="margin:0 auto;display: block;z-index:100000;opacity:1.0;position: relative"/>
         <%@include file="cached-html.jspf" %>
         <div id="loading-panel">
             <div class="loading-bar-outer">
