@@ -45,6 +45,8 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
+        setEditable(true);
+
         //        image.setOnChangeAction(new Runnable() {
         //            @Override public void run() {
         //                ValueChangeEvent.fire(EditableImage.this, image.getUrl());
@@ -62,6 +64,8 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
                 image.setUrl(url);
             }
         }
+        updateEditText();
+
     }
 
     @Override
@@ -158,7 +162,14 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
 
     public void setEditable(final boolean editable) {
         this.editable = editable;
-        editText.getStyle().setVisibility(editable ? Style.Visibility.VISIBLE : Style.Visibility.HIDDEN);
+        updateEditText();
+    }
+
+    private void updateEditText() {
+        editText.getStyle()
+                .setVisibility((this.editable && (entity == null || entity.getBooleanAttribute(LSDAttribute.EDITABLE, true)))
+                               ? Style.Visibility.VISIBLE
+                               : Style.Visibility.HIDDEN);
     }
 
     @Override public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
