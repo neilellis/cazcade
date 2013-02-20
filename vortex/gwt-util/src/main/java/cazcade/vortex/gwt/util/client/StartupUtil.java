@@ -26,14 +26,19 @@ public class StartupUtil {
             //            RootPanel.get("loading-panel").getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
         }
         if (RootPanel.get("cache-panel") != null) {
-            //            RootPanel.get("cache-panel").getElement().getStyle().setOpacity(0.0);
-            RootPanel.get("cache-panel").getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
+            RootPanel.get("cache-panel").getElement().getStyle().setOpacity(0.05);
+            panel.getStyle().setOpacity(0.0);
             panel.getStyle().setVisibility(Style.Visibility.VISIBLE);
+            new Timer() {
+                @Override public void run() {
+                    panel.getStyle().setOpacity(1.0);
+                }
+            }.schedule(300);
             new Timer() {
                 @Override public void run() {
                     RootPanel.get("cache-panel").getElement().removeFromParent();
                 }
-            }.schedule(500);
+            }.schedule(30000);
         }
     }
 }

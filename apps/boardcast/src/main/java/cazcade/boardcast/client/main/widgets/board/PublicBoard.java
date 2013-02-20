@@ -114,6 +114,7 @@ public class PublicBoard extends EntityBackedFormPanel {
             }
         });
         addBinding(getChangeBackgroundDialog(), LSDAttribute.BACKGROUND_URL);
+        getWidget().getElement().getStyle().setOpacity(0.0);
     }
 
     @Override
@@ -422,7 +423,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                     } else {
                         menuBar.init(PublicBoard.this, getEntity(), false, getChangeBackgroundDialog());
                     }
-                    StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
+                    StartupUtil.showLiveVersion(getWidget().getElement());
                     removeStyleName("loading");
                 }
             });

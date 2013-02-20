@@ -1,16 +1,25 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.version;
 
 import cazcade.boardcast.client.BuildVersionService;
+import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import javax.annotation.Nullable;
+import java.util.HashMap;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class VersionNumberChecker {
-    private static String version;
+    @Nullable private static String version;
+    private static HashMap<String, String> properties = new HashMap<String, String>();
 
     public static void start() {
         getVersionFromServer();
@@ -23,22 +32,23 @@ public class VersionNumberChecker {
     }
 
     private static void getVersionFromServer() {
-        BuildVersionService.App.getInstance().getBuildVersion(new AsyncCallback<String>() {
-            @Override
-            public void onFailure(final Throwable caught) {
-                ClientLog.log("Failed to obtain version number.");
+        BuildVersionService.App.getInstance().getBuildVersion(new AsyncCallback<HashMap<String, String>>() {
+            @Override public void onFailure(Throwable caught) {
+                ClientLog.log(caught);
             }
 
-            @Override
-            public void onSuccess(final String result) {
-                ClientLog.log("Build version is " + result);
-                if (version == null) {
-                    version = result;
-                    return;
+            @Override public void onSuccess(HashMap<String, String> result) {
+                if (ClientApplicationConfiguration.isDebug()) {
+                    ClientLog.logImportant("Build version details " + result);
                 }
-                if (!version.equals(result)) {
-                    Window.alert("A new version of this application is available, please refresh this page.");
+                String newVersion = result.get("build.timestamp");
+                if (version != null && !newVersion.equals(version)) {
+                    ClientLog.logVeryImportant("VERSION CHANGE: " + version + " -> " + newVersion);
+                    Window.alert("New version released, please refresh your browser.");
                 }
+                version = newVersion;
+                properties = result;
+
             }
         });
     }

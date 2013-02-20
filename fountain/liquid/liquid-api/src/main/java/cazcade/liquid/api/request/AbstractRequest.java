@@ -53,8 +53,7 @@ public abstract class AbstractRequest implements LiquidRequest {
         final LiquidSessionIdentifier sessionIdentifier = getSessionIdentifier();
         if (sessionIdentifier.getSession() == null) {
             return null;
-        }
-        else {
+        } else {
             return sessionIdentifier.getSession().toString();
         }
     }
@@ -72,8 +71,7 @@ public abstract class AbstractRequest implements LiquidRequest {
         final Boolean rpc = getRpc();
         if (rpc != null) {
             return !rpc;
-        }
-        else {
+        } else {
             return isMutationRequest();
         }
     }
@@ -87,8 +85,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     public final Boolean getRpc() {
         if (entity.hasAttribute(LSDAttribute.REQUEST_EXPLICIT_RPC)) {
             return entity.getBooleanAttribute(LSDAttribute.REQUEST_EXPLICIT_RPC);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -189,8 +186,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     public final LSDTransferEntity getResponse() {
         if (entity.hasSubEntity(LSDAttribute.REQUEST_RESULT)) {
             return entity.getSubEntity(LSDAttribute.REQUEST_RESULT, true);
-        }
-        else {
+        } else {
             throw new IllegalStateException("Response expected but none set.");
         }
     }
@@ -199,8 +195,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     public final LSDBaseEntity getResponseOrRequestEntity() {
         if (hasResponseEntity()) {
             return getResponse();
-        }
-        else {
+        } else {
             return getRequestEntity();
         }
     }
@@ -241,8 +236,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     public final void setId(@Nullable final LiquidUUID id) {
         if (id != null && id.toString() != null) {
             entity.setId(id.toString());
-        }
-        else {
+        } else {
             entity.removeCompletely(LSDAttribute.ID);
         }
     }
@@ -287,8 +281,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     private List<LiquidURI> uriSplitToParent(@Nonnull final LiquidURI theURI) {
         if (theURI.hasFragment()) {
             return Arrays.asList(theURI, theURI.getWithoutFragment());
-        }
-        else {
+        } else {
             return Arrays.asList(theURI);
         }
     }
@@ -499,8 +492,7 @@ public abstract class AbstractRequest implements LiquidRequest {
         if (entity.hasAttribute(LSDAttribute.PERMISSION_CHANGE)) {
             //noinspection ConstantConditions
             return LiquidPermissionChangeType.valueOf(entity.getAttribute(LSDAttribute.PERMISSION_CHANGE));
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -776,7 +768,7 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     @Override @Nonnull
     public String toString() {
-        return getClass() + " " + entity.toString();
+        return getClass() + " " + entity.asDebugText();
     }
 
     public String getImageUrl() {

@@ -35,7 +35,6 @@ import cazcade.vortex.widgets.client.stream.ActivityStreamPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
-import com.google.gwt.dom.client.FrameElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Timer;
@@ -80,12 +79,11 @@ public class Boardcast implements EntryPoint {
 
         final RootPanel logPanel = RootPanel.get("log-panel");
         if (ClientApplicationConfiguration.isDebug()) {
-            ClientLog.logWidget = ((FrameElement) logPanel.getElement().cast()).getContentDocument().getBody();
+            ClientLog.logWidget = logPanel.getElement();
             logPanel.setHeight("400px");
             logPanel.setVisible(true);
             logPanel.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
-        }
-        else {
+        } else {
             logPanel.setHeight("0px");
             logPanel.setVisible(false);
         }
@@ -100,9 +98,6 @@ public class Boardcast implements EntryPoint {
 
         if (!ClientApplicationConfiguration.isSnapshotMode()) {
             VersionNumberChecker.start();
-        }
-        if (ClientApplicationConfiguration.isDebug()) {
-            Window.alert("Debugging build " + VersionNumberChecker.getBuildNumber());
         }
 
 
@@ -169,8 +164,7 @@ public class Boardcast implements EntryPoint {
 
             createLoginPanel(loginAction);
             checkUserLoggedIn(loginAction);
-        }
-        else if (RootPanel.get(SNAPSHOT_PANEL_ID) != null) {
+        } else if (RootPanel.get(SNAPSHOT_PANEL_ID) != null) {
             final Runnable loginAction = new Runnable() {
                 @Override
                 public void run() {
@@ -180,8 +174,7 @@ public class Boardcast implements EntryPoint {
             };
             createLoginPanel(loginAction);
             checkUserLoggedIn(loginAction);
-        }
-        else if (RootPanel.get(LOGIN_PANEL_ID) != null) {
+        } else if (RootPanel.get(LOGIN_PANEL_ID) != null) {
             loginOrRegisterPanel = new BoardcastLoginOrRegisterPanel(registerRequest, new Runnable() {
                 @Override
                 public void run() {
@@ -198,8 +191,7 @@ public class Boardcast implements EntryPoint {
             loginOrRegisterPanel.center();
             StartupUtil.showLiveVersion(RootPanel.get(LOGIN_PANEL_ID).getElement());
             loginOrRegisterPanel.show();
-        }
-        else {
+        } else {
             StartupUtil.showLiveVersion(RootPanel.get(MAIN_PANEL_ID).getElement());
             final Runnable loginAction = new Runnable() {
                 @Override
@@ -267,8 +259,7 @@ public class Boardcast implements EntryPoint {
                                     HistoryManager.get().navigate(unlistedShortUrl);
                                 }
                             });
-                        }
-                        else {
+                        } else {
                             HistoryManager.get().navigate(board);
                         }
                     }
@@ -297,8 +288,7 @@ public class Boardcast implements EntryPoint {
             public void run() {
                 if (registerRequest || loginRequest) {
                     Window.Location.assign("/welcome?justRegistered=true");
-                }
-                else {
+                } else {
                     Window.Location.reload();
                 }
             }
@@ -391,14 +381,12 @@ public class Boardcast implements EntryPoint {
                                         loginOrRegisterPanel.center();
                                         loginOrRegisterPanel.show();
                                         //                            Window.Location.assign("./" + (Window.Location.getQueryString().length() > 1 ? ("?" + Window.Location.getQueryString().substring(1)) : ""));
-                                    }
-                                    else {
+                                    } else {
                                         loginUser(result, loginAction);
                                     }
                                 }
                             });
-        }
-        else {
+        } else {
             loginUser(identity, loginAction);
         }
     }

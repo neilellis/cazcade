@@ -16,6 +16,9 @@
     <groupId>cazcade</groupId>
     <artifactId>boardcast</artifactId>
     <packaging>war</packaging>
+    <properties>
+        <build.number>${buildNumber}</build.number>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -136,6 +139,14 @@
 
     <build>
 
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+
         <plugins>
             <!--<plugin>-->
             <!--<groupId>com.pyx4me</groupId>-->
@@ -176,11 +187,13 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <module>cazcade.boardcast.Boardcast</module>
+                            <module>cazcade.boardcast.BoardcastDev</module>
                             <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
                             <!--<style>OBFUSCATED</style>-->
-                            <style>PRETTY</style>
-                            <compileReport>true</compileReport>
+                            <style>DETAILED</style>
+                            <draftCompile>true</draftCompile>
+
+                            <!--<compileReport>true</compileReport>-->
                         </configuration>
                         <goals>
                             <goal>compile</goal>

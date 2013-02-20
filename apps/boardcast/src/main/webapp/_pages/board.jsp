@@ -36,7 +36,8 @@
     <tags:log-panel/>
 
 
-    <div id="cache-panel">
+    <div id="cache-panel" style="position: absolute;width:100%;height:100%;top:0px;">
+        <img id="cache-image" style="margin:0 auto;display: block;opacity:0.3; -webkit-filter: blur(1px) grayscale(0.4)"/>
         <%@include file="cached-html.jspf" %>
         <div id="loading-panel">
             <div class="loading-bar-outer">
@@ -47,8 +48,8 @@
 
     <script>
         if (window.location.pathname.indexOf('/_') != 0) {
-//            document.getElementById('cache-image').src = 'http://snapito.com/api?type=jpeg&delay=60&url=http://boardcast.it/' + encodeURI(window.location.pathname);
-            document.getElementById('cache-board-panel').style.visibility = 'visible';
+            document.getElementById('cache-image').src = 'http://snapito.com/api?type=jpeg&delay=60&url=http://boardcast.it/' + encodeURI(window.location.pathname);
+//            document.getElementById('cache-board-panel').style.visibility = 'visible';
 
         }
     </script>

@@ -43,8 +43,7 @@ public class ClientApplicationConfiguration {
     public static boolean isAlphaFeatures() {
         if (ALPHA_FEATURES_AVAILABLE) {
             return alphaFeatures;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -62,7 +61,7 @@ public class ClientApplicationConfiguration {
     }
 
     public static void init() {
-        setSnapshotMode(Window.Location.getParameter("snapshot") == null);
+        setSnapshotMode(Window.Location.getParameter("snapshot") != null);
         setPreflight(Window.Location.getParameter("skippreflight") == null);
         setLoginRequired(Window.Location.getParameter("forceLogin") != null);
         setDev(Window.Location.getParameter("dev") != null);

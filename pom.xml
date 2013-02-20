@@ -19,8 +19,9 @@
         <spring.version>3.1.2.RELEASE</spring.version>
         <spring.security.version>3.0.7.RELEASE</spring.security.version>
         <ehcache.version>2.3.3</ehcache.version>
-
         <neo4j.version>1.8.1</neo4j.version>
+        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
 
     </properties>
     <modules>
@@ -645,6 +646,23 @@
             <plugins>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.0</version>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <doCheck>true</doCheck>
+                        <doUpdate>true</doUpdate>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
                     <version>${gwt.maven.plugin.version}</version>
                     <dependencies>
@@ -859,23 +877,7 @@
             <id>all-tests</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>buildnumber-maven-plugin</artifactId>
-                        <version>1.0</version>
-                        <executions>
-                            <execution>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>create</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <doCheck>true</doCheck>
-                            <doUpdate>true</doUpdate>
-                        </configuration>
-                    </plugin>
+
 
                     <plugin>
                         <groupId>org.jbehave</groupId>

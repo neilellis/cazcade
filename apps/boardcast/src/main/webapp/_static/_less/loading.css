@@ -3,7 +3,11 @@
  */
 
 body {
-    background-image: url('/_static/_images/wallpapers/noise-vlight-grey.jpg');
+    /*background-image: url('/_static/_images/wallpapers/noise-vlight-grey.jpg');*/
+}
+
+#top-bar-wrapper {
+    visibility: hidden;
 }
 
 @-webkit-keyframes anim-5 {

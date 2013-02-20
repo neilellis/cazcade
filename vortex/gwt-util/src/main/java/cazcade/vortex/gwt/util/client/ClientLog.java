@@ -35,12 +35,10 @@ public class ClientLog {
         String debugType = ClientApplicationConfiguration.getDebugType();
         if (debugType == null) {
             type = Type.NONE;
-        }
-        else {
-            if ("true".equals(debugType) && debugType.isEmpty()) {
+        } else {
+            if ("true".equals(debugType) || debugType.isEmpty()) {
                 type = Type.ALL;
-            }
-            else {
+            } else {
                 type = Type.valueOf(debugType.toUpperCase());
             }
         }
@@ -87,15 +85,16 @@ public class ClientLog {
             return;
         }
         doLog(message, exception);
-        if (!GWT.isScript()) {
+        if (GWT.isScript() && (debugMode || devMode)) {
+            consoleLog(message);
+        } else {
             if (exception != null) {
                 exception.printStackTrace(System.err);
                 if (message != null) {
                     System.out.println("ClientLog: " + message);
                 }
                 GWT.log(message != null ? message : exception.getMessage(), exception);
-            }
-            else if (message != null) {
+            } else if (message != null) {
                 GWT.log(message, null);
             }
         }
@@ -108,6 +107,8 @@ public class ClientLog {
             }
             if (debugMode || devMode) {
                 Window.alert(message + ':' + exception.getMessage() + '\n' + trace);
+            } else {
+                consoleLog(message + ':' + exception.getMessage() + '\n' + trace);
             }
         }
     }
@@ -219,4 +220,16 @@ public class ClientLog {
     public boolean isLogging() {
         return !GWT.isScript() || logWidget != null;
     }
+
+    public static void logImportant(String s) {
+        log("<span style='color:blue'>" + s + "</span>");
+    }
+
+    public static void logVeryImportant(String s) {
+        log("<span style='color:darkblue'>" + s + "</span>");
+    }
+
+    private static native void consoleLog(String message) /*-{
+        console.log(message);
+    }-*/;
 }
