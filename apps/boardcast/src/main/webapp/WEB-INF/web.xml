@@ -213,6 +213,35 @@
         <exception-type>twitter4j.TwitterException</exception-type>
         <location>/_twitter/error.jsp</location>
     </error-page>
+    <error-page>
+        <description>Missing login</description>
+        <error-code>401</error-code>
+        <location>/_pages/error.jsp</location>
+    </error-page>
+    <error-page>
+        <description>Forbidden directory listing</description>
+        <error-code>403</error-code>
+        <location>/_pages/error.jsp</location>
+    </error-page>
+    <error-page>
+        <description>Not Found</description>
+        <error-code>404</error-code>
+        <location>/_static/404.html</location>
+    </error-page>
+    <error-page>
+        <description>Uncaught exception</description>
+        <error-code>500</error-code>
+        <location>/_pages/error.jsp</location>
+    </error-page>
+    <error-page>
+        <description>Not Ready</description>
+        <error-code>503</error-code>
+        <location>/_static/503.html</location>
+    </error-page>
+    <error-page>
+        <location>/pages/error.jsp</location>
+    </error-page>
+
 
     <!--<servlet-mapping>-->
     <!--<servlet-name>less</servlet-name>-->
