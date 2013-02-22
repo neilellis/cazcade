@@ -1,0 +1,80 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
+    <g:HTMLPanel styleName="container">
+        <a class="logo" href="javascript:void(0)" onclick="_nav('welcome')">
+            <span/>
+        </a>
+        <ul class="nav" id="nav-bar">
+
+            <li>
+                <a href="javascript:void(0)" onclick="_nav('_create-listed')" style="font-weight:bolder;">Create</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="_nav('_list-popular')">Popular</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="_nav('_list-recent')">Latest</a>
+            </li>
+
+            <li>
+                <a ui:field="historyLink" href="javascript:void(0)" onclick="_nav('_list-history')">History</a>
+            </li>
+            <li>
+                <a ui:field="yourBoardsLink" href="javascript:void(0)" onclick="_nav('_list-my')">Your Boards</a>
+            </li>
+
+        </ul>
+
+        <script type="text/javascript">
+            <![CDATA[
+                var body = document.getElementsByTagName("body")[0];
+                body.addEventListener("load", initNavEls(), false);
+                function initNavEls() {
+                var navEls = document.getElementById('nav-bar').getElementsByTagName("li");
+                for (var i = 0; i < navEls.length ; i++) {
+                var v1 = navEls[i].getElementsByTagName("a");
+                var v2 = navEls[i].getElementsByTagName("a")[0];
+                var v3 = navEls[i].getElementsByTagName("a")[0].href;
+                if (window.location.href.indexOf(navEls[i].getElementsByTagName("a")[0].href) >= 0) {
+                navEls[i].className += "active";
+                }
+                }
+                }
+                ]]>
+        </script>
+        <span class="account">
+
+            <form ui:field="login" action="/_login" method="POST" class="pull-right"
+                  onsubmit="document.getElementById('loginNextUrl').value=window.location.href;  window.sessionStorage.setItem('boardcast.identity','');">
+                <input class="input-small" type="text" name="username" placeholder="Username" value=""/>
+                <input class="input-small" type="password" name="password" placeholder="Password"/>
+                <input type="hidden" id="loginNextUrl" name="next"/>
+                <button class="btn" type="submit">Sign in</button>
+                <button type="reset" onclick="window.location='./_login-register'" class="btn primary">Join</button>
+            </form>
+            <ul ui:field="userDetails" class="nav">
+                <li>
+                    <a class="logged-in-user-fullname" ui:field="usernameLink"
+                       href="/"></a>
+                </li>
+                <!--src='/_website-snapshot?url=<c:url value="${sessionScope.alias.imageUrl}"/>&amp;size=PROFILE_SMALL&amp;width=21&amp;height=28'-->
+                <li>
+                    <image:UserProfileImage ui:field="userIcon" styleName="logged-in-user-icon" editable="false"
+                                            width="21px" height="28px"/>
+                </li>
+            </ul>
+            <form ui:field="logout" action="/_logout" method="POST" class="pull-right"
+                  onsubmit="document.getElementById('logoutNextUrl').value= window.location.href;  window.sessionStorage.setItem('boardcast.identity','');">
+                <input type="hidden" id="logoutNextUrl" name="next"/>
+                <button class="btn" type="submit">Sign Out</button>
+            </form>
+
+
+        </span>
+
+    </g:HTMLPanel>
+</ui:UiBinder>

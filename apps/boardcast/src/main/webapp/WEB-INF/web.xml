@@ -86,34 +86,34 @@
     </listener>
 
 
-    <!--<servlet>-->
-    <!--<servlet-name>less</servlet-name>-->
-    <!--<servlet-class>com.asual.lesscss.LessServlet</servlet-class>-->
-    <!--<init-param>-->
-    <!--<param-name>compress</param-name>-->
-    <!--<param-value>false</param-value>-->
-    <!--</init-param>-->
-    <!--<init-param>-->
-    <!--<param-name>cache</param-name>-->
-    <!--<param-value>true</param-value>-->
-    <!--</init-param>-->
-    <!--<load-on-startup>1</load-on-startup>-->
-    <!--</servlet>-->
+    <servlet>
+        <servlet-name>less</servlet-name>
+        <servlet-class>com.asual.lesscss.LessServlet</servlet-class>
+        <init-param>
+            <param-name>compress</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cache</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-    <!--<servlet>-->
-    <!--<servlet-name>resource</servlet-name>-->
-    <!--<servlet-class>com.asual.lesscss.ResourceServlet</servlet-class>-->
-    <!--<load-on-startup>1</load-on-startup>-->
-    <!--<init-param>-->
-    <!--<param-name>compress</param-name>-->
-    <!--<param-value>false</param-value>-->
-    <!--</init-param>-->
-    <!--<init-param>-->
-    <!--<param-name>cache</param-name>-->
-    <!--<param-value>true</param-value>-->
-    <!--</init-param>-->
+    <servlet>
+        <servlet-name>resource</servlet-name>
+        <servlet-class>com.asual.lesscss.ResourceServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <init-param>
+            <param-name>compress</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cache</param-name>
+            <param-value>true</param-value>
+        </init-param>
 
-    <!--</servlet>-->
+    </servlet>
 
     <servlet>
         <servlet-name>signin</servlet-name>
@@ -280,6 +280,11 @@
     <servlet>
         <servlet-name>UrlValidationServlet</servlet-name>
         <servlet-class>cazcade.boardcast.servlet.UrlValidationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LessCompilationServlet</servlet-name>
+        <servlet-class>cazcade.boardcast.servlet.LessCompilationServlet</servlet-class>
+        <display-name>Less Compilation Servlet</display-name>
     </servlet>
 
     <servlet-mapping>

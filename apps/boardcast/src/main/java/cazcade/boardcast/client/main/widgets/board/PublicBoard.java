@@ -329,9 +329,9 @@ public class PublicBoard extends EntityBackedFormPanel {
         }
 
         if (!getEntity().getURI().asBoardURL().isProfileBoard()) {
+            publicBoardHeader.getElement().getStyle().setDisplay(Style.Display.BLOCK);
+            profileBoardHeader.getElement().getStyle().setDisplay(Style.Display.NONE);
             publicBoardHeader.bindEntity(getEntity());
-            publicBoardHeader.setVisible(true);
-            profileBoardHeader.setVisible(false);
             footer.getStyle().setVisibility(Style.Visibility.VISIBLE);
             ownerDetailPanel.setAliasURI(owner.getURI());
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
@@ -342,11 +342,12 @@ public class PublicBoard extends EntityBackedFormPanel {
                                "&text=" + encode("Check out " +
                                                  entity.getAttribute(LSDAttribute.TITLE, "this board") +
                                                  " on Boardcast #bc") + "&count=horizontal&hashtags=bc&via=boardcast_it");
+            footer.getStyle().setDisplay(Style.Display.BLOCK);
         } else {
-            profileBoardHeader.setVisible(true);
-            publicBoardHeader.setVisible(false);
+            publicBoardHeader.getElement().getStyle().setDisplay(Style.Display.NONE);
+            profileBoardHeader.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             ownerDetailPanel.setVisible(false);
-            footer.getStyle().setVisibility(Style.Visibility.HIDDEN);
+            footer.getStyle().setDisplay(Style.Display.NONE);
             profileBoardHeader.setAliasURI(owner.getURI());
             tweetButton.setSrc("http://platform.twitter.com/widgets/tweet_button.html?url=" + encode("http://boardcast.it/" + entity
                     .getURI()
@@ -423,8 +424,8 @@ public class PublicBoard extends EntityBackedFormPanel {
                     } else {
                         menuBar.init(PublicBoard.this, getEntity(), false, getChangeBackgroundDialog());
                     }
-                    StartupUtil.showLiveVersion(getWidget().getElement());
                     removeStyleName("loading");
+                    StartupUtil.showLiveVersion(getWidget().getElement());
                 }
             });
         }
@@ -538,7 +539,15 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
         if (poolURI != null) {
-            refresh();
+            GWT.runAsync(new RunAsyncCallback() {
+                @Override public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
+                }
+
+                @Override public void onSuccess() {
+                    refresh();
+                }
+            });
         }
     }
 

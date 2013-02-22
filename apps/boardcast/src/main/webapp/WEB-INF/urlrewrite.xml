@@ -49,7 +49,7 @@
     <!--Board or username-->
     <rule>
         <from>^/(\~?[0-9a-zA-Z-][0-9a-zA-Z_~-]*)$</from>
-        <to type="forward">/?%{query-string}</to>
+        <to type="forward">/_static/board.html?%{query-string}</to>
     </rule>
 
 
@@ -138,6 +138,10 @@
     <rule>
         <from>^/$</from>
         <to type="forward">/_static/board.html?%{query-string}</to>
+    </rule>
+    <rule>
+        <from>^/_nonstatic/(.*)$</from>
+        <to type="forward">/_static/$1?%{query-string}</to>
     </rule>
 
 

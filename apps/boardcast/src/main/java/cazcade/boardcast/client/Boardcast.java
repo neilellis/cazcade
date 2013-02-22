@@ -5,6 +5,7 @@
 package cazcade.boardcast.client;
 
 import cazcade.boardcast.client.main.version.VersionNumberChecker;
+import cazcade.boardcast.client.main.widgets.TopBar;
 import cazcade.boardcast.client.main.widgets.board.BoardcastChatView;
 import cazcade.boardcast.client.main.widgets.board.CreateBoardDialog;
 import cazcade.boardcast.client.main.widgets.board.PublicBoard;
@@ -97,7 +98,15 @@ public class Boardcast implements EntryPoint {
         });
 
         if (!ClientApplicationConfiguration.isSnapshotMode()) {
-            VersionNumberChecker.start();
+            GWT.runAsync(new RunAsyncCallback() {
+                @Override public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
+                }
+
+                @Override public void onSuccess() {
+                    VersionNumberChecker.start();
+                }
+            });
         }
 
 
@@ -321,6 +330,16 @@ public class Boardcast implements EntryPoint {
 
                                   RootPanel.get().addStyleName("app-mode");
                                   loginOrRegisterPanel.hide();
+                                  GWT.runAsync(new RunAsyncCallback() {
+                                      @Override public void onFailure(Throwable reason) {
+                                          ClientLog.log(reason);
+                                      }
+
+                                      @Override public void onSuccess() {
+                                          RootPanel.get("topbar-menu-container").add(new TopBar());
+                                      }
+                                  });
+
                                   new Timer() {
                                       @Override
                                       public void run() {

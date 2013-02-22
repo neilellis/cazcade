@@ -1,11 +1,24 @@
-@import "bootstrap/bootstrap-full";
-@import "variables";
-@import "../_prettify/prettify.css";
-@import "shadows";
-@import "common";
-@import "gradients";
-@import "dialogs";
-@import "lists";
+@import-once
+"bootstrap/bootstrap-full"
+;
+@import-once
+"variables"
+;
+@import-once
+"shadows"
+;
+@import-once
+"common"
+;
+@import-once
+"gradients"
+;
+@import-once
+"dialogs"
+;
+@import-once
+"lists"
+;
 
 /* Override some defaults */
 html {
@@ -133,9 +146,21 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Pacifico, Helvetica, sans-serif;
 }
 
-img.logged-in-user-icon {
-  margin-top: 4px;
-  .border-radius(2px);
+.logged-in-user-icon {
+  display: inline;
+  div {
+    display: inline;
+  }
+  .editable-image-text {
+    display: none;
+  }
+  img {
+    margin-top: 4px;
+    .border-radius(2px);
+    background-color: white;
+    padding-left: 1px;
+    padding-right: 1px;
+  }
 }
 
 .account {
@@ -272,13 +297,27 @@ img.logged-in-user-icon {
   #gradient >.vertical(#111,#222);
 }
 
-@import "widgets";
-@import "tabs";
-@import "inbox";
-@import "activity";
-@import "login";
-@import "viewuser";
-@import "upload";
+@import-once
+"widgets"
+;
+@import-once
+"tabs"
+;
+@import-once
+"inbox"
+;
+@import-once
+"activity"
+;
+@import-once
+"login"
+;
+@import-once
+"viewuser"
+;
+@import-once
+"upload"
+;
 
 /* Search */
 .search-panel {
@@ -322,21 +361,29 @@ img.logged-in-user-icon {
 
 /* Scroll area */
 
-@import "scroll";
+@import-once
+"scroll"
+;
 
 /* End Scroll Area */
 
 /* Entity Views */
-@import "pool-objects";
+@import-once
+"pool-objects"
+;
 
 .pool-area {
   position: relative;
   background: none;
-  background-repeat: repeat; //    background-image: @boardTexture;
+  background-repeat: repeat;
 }
 
-@import "stream";
-@import "comment";
+@import-once
+"stream"
+;
+@import-once
+"comment"
+;
 
 .editableLabel-buttons {
   margin-bottom: 12px;
@@ -357,7 +404,9 @@ img.logged-in-user-icon {
   width: 100%;
 }
 
-@import "menubar";
+@import-once
+"menubar"
+;
 
 /* Address */
 
@@ -529,10 +578,14 @@ img.logged-in-user-icon {
 }
 
 /* Search */
-@import "search";
+@import-once
+"search"
+;
 
 /* board */
-@import "board";
+@import-once
+"board"
+;
 
 /*
 .board-presence-panel {
