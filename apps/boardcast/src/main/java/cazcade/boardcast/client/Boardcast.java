@@ -27,6 +27,7 @@ import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.GWTUtil;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.AbstractLazyHistoryAwareFactory;
@@ -35,10 +36,8 @@ import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.stream.ActivityStreamPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -98,12 +97,8 @@ public class Boardcast implements EntryPoint {
         });
 
         if (!ClientApplicationConfiguration.isSnapshotMode()) {
-            GWT.runAsync(new RunAsyncCallback() {
-                @Override public void onFailure(Throwable reason) {
-                    ClientLog.log(reason);
-                }
-
-                @Override public void onSuccess() {
+            GWTUtil.runAsync(new Runnable() {
+                @Override public void run() {
                     VersionNumberChecker.start();
                 }
             });
@@ -120,14 +115,8 @@ public class Boardcast implements EntryPoint {
         createRequest = Window.Location.getPath().startsWith("/_create-");
         createUnlistedRequest = Window.Location.getPath().startsWith("/_create-unlisted");
 
-        GWT.runAsync(new RunAsyncCallback() {
-            @Override
-            public void onFailure(final Throwable reason) {
-                ClientLog.log(reason);
-            }
-
-            @Override
-            public void onSuccess() {
+        GWTUtil.runAsync(new Runnable() {
+            @Override public void run() {
                 injectChildren();
             }
         });
@@ -330,34 +319,16 @@ public class Boardcast implements EntryPoint {
 
                                   RootPanel.get().addStyleName("app-mode");
                                   loginOrRegisterPanel.hide();
-                                  GWT.runAsync(new RunAsyncCallback() {
-                                      @Override public void onFailure(Throwable reason) {
-                                          ClientLog.log(reason);
-                                      }
-
-                                      @Override public void onSuccess() {
+                                  GWTUtil.runAsync(new Runnable() {
+                                      @Override public void run() {
                                           RootPanel.get("topbar-menu-container").add(new TopBar());
                                       }
                                   });
-
-                                  new Timer() {
-                                      @Override
-                                      public void run() {
-                                          GWT.runAsync(new RunAsyncCallback() {
-                                              @Override
-                                              public void onFailure(final Throwable reason) {
-                                                  ClientLog.log(reason);
-                                              }
-
-                                              @Override
-                                              public void onSuccess() {
-                                                  onLogin.run();
-
-                                              }
-                                          });
-                                      }
-                                  }.schedule(200);
+                                  GWTUtil.runAsyncWithDelay(200, new Runnable() {
+                                      @Override public void run() { onLogin.run(); }
+                                  });
                               }
+
 
                               @Override
                               public void onFailure(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {

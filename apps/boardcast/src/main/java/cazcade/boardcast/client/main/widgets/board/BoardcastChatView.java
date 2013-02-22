@@ -21,17 +21,13 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.ClientLog;
-import cazcade.vortex.gwt.util.client.ClientPreferences;
-import cazcade.vortex.gwt.util.client.StartupUtil;
-import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
+import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import cazcade.vortex.widgets.client.stream.ChatStreamPanel;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
@@ -122,12 +118,10 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     if (UserUtil.isAnonymousOrLoggedOut()) {
                         Window.alert("Please login first.");
-                    }
-                    else {
+                    } else {
                         Window.alert("You don't have permission");
                     }
-                }
-                else {
+                } else {
                     super.onFailure(message, response);
                 }
             }
@@ -138,27 +132,15 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
                 ClientLog.log("Got response.");
                 poolEntity = response.getResponse().copy();
-                GWT.runAsync(new RunAsyncCallback() {
-                    @Override
-                    public void onFailure(final Throwable reason) {
-                        ClientLog.log(reason);
-                    }
-
-                    @Override
-                    public void onSuccess() {
+                GWTUtil.runAsync(new Runnable() {
+                    @Override public void run() {
                         ClientLog.log(poolEntity.dump());
                         contentArea.clear();
                         contentArea.init(poolEntity, FormatUtil.getInstance(), threadSafeExecutor);
                     }
                 });
-                GWT.runAsync(new RunAsyncCallback() {
-                    @Override
-                    public void onFailure(final Throwable reason) {
-                        ClientLog.log(reason);
-                    }
-
-                    @Override
-                    public void onSuccess() {
+                GWTUtil.runAsync(new Runnable() {
+                    @Override public void run() {
                         if (poolEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
                             contentArea.setBackgroundImage(poolEntity.getAttribute(LSDAttribute.IMAGE_URL));
                         }
@@ -166,25 +148,19 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                             //                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
                             //                            menuBar.init(poolEntity, true, null);
-                        }
-                        else {
+                        } else {
                             //                            menuBar.init(poolEntity, false, null);
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.VISIBLE);
                         }
                     }
                 });
-                GWT.runAsync(new RunAsyncCallback() {
-                    @Override
-                    public void onFailure(final Throwable reason) {
-                        ClientLog.log(reason);
-                    }
-
-                    @Override
-                    public void onSuccess() {
+                GWTUtil.runAsync(new Runnable() {
+                    @Override public void run() {
                         stream.init(poolURI);
                         addChatBox.init(poolURI);
                     }
                 });
+
             }
         });
     }
@@ -233,8 +209,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 ClientPreferences.setBooleanPreference(ClientPreferences.Preference.RHS_HIDE, booleanValueChangeEvent.getValue());
                 if (!booleanValueChangeEvent.getValue()) {
                     showRhs();
-                }
-                else {
+                } else {
                     hideRhs();
                 }
             }

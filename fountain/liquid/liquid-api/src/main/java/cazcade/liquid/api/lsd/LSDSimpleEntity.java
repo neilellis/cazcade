@@ -302,8 +302,9 @@ public class LSDSimpleEntity implements LSDTransferEntity {
 
     @SuppressWarnings("DesignForExtension") @Override
     public boolean equals(@Nullable final Object o) {
-        final LiquidURI uri = getURI();
-        return this == o || !(o == null || getClass() != o.getClass()) && uri.equals(((LSDBaseEntity) o).getURI());
+        throw new UnsupportedOperationException(".equals() not supported due to ambiguous semantics; you probably want to use getUUID() and perform equals on that since all changes to versioned entities trigger a new UUUID. Of course this doesn't work on any unversioned entities.");
+        //        final LiquidURI uri = getURI();
+        //        return this == o || !(o == null || getClass() != o.getClass()) && uri.equals(((LSDBaseEntity) o).getURI());
     }
 
     @SuppressWarnings("DesignForExtension") @Override

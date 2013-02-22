@@ -72,8 +72,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         this.errorMessage.setText(errorMessage);
         if (errorMessage != null && !errorMessage.isEmpty()) {
             this.errorMessage.setVisible(true);
-        }
-        else {
+        } else {
             this.errorMessage.setVisible(false);
         }
     }
@@ -112,8 +111,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         }
         if (isMultiValue()) {
             newEntity.setValues(boundAttribute, getStringValues());
-        }
-        else {
+        } else {
             String stringValue = getStringValue();
             if (stringValue != null) {
                 newEntity.setAttribute(boundAttribute, stringValue);
@@ -139,8 +137,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     protected void showValidity() {
         if (isValid()) {
             fireEvent(new ValidEvent());
-        }
-        else {
+        } else {
             fireEvent(new InvalidEvent());
         }
 
@@ -148,8 +145,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
             if (isValid()) {
                 validityImage.setResource(Resources.INSTANCE.validFormValueImage());
                 errorMessage.addStyleName("invisible");
-            }
-            else {
+            } else {
                 validityImage.setResource(Resources.INSTANCE.invalidFormValueImage());
                 errorMessage.removeStyleName("invisible");
             }
@@ -165,8 +161,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         if (attribute != null) {
             if (isMultiValue()) {
                 bind(attribute, prefix, entity.getAttributeAsList(attribute));
-            }
-            else {
+            } else {
                 bind(attribute, prefix, entity.hasAttribute(attribute) ? entity.getAttribute(attribute) : "");
             }
         }
@@ -203,13 +198,12 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         throw new UnsupportedOperationException("This widget does not support multiple values binding.");
     }
 
-    protected void processChange() {
+    public void processChange() {
         if (isValid() && entity != null && boundAttribute != null) {
             if (isMultiValue()) {
                 entity.setValues(boundAttribute, getStringValues());
                 ClientLog.log(entity.toString());
-            }
-            else {
+            } else {
                 entity.setAttribute(boundAttribute, getStringValue());
             }
         }
@@ -217,15 +211,15 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         if (isValid()) {
             if (isMultiValue()) {
                 ValueChangeEvent.fire(this, getStringValues());
-            }
-            else {
+            } else {
                 ValueChangeEvent.fire(this, getStringValue());
             }
         }
     }
 
-    void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
-        throw new UnsupportedOperationException("This widget does not support single value binding.");
+    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+        boundAttribute = attribute;
+        setValue(initialValue);
     }
 
     @Override public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Object> handler) {

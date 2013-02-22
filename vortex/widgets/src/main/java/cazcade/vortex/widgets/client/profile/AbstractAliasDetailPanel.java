@@ -8,7 +8,6 @@ import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.LSDAttribute;
 import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.FollowRequest;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.api.request.UpdateAliasRequest;
@@ -71,9 +70,6 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         addBinding(userImage, LSDAttribute.IMAGE_URL);
     }
 
-    public void bindEntity(final LSDTransferEntity entity) {
-        super.bindEntity(entity);
-    }
 
     @Override protected boolean isSaveOnExit() {
         return false;
@@ -93,7 +89,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                 getBus().send(new UpdateAliasRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdateAliasRequest>() {
                     @Override
                     public void onSuccess(final UpdateAliasRequest message, @Nonnull final UpdateAliasRequest response) {
-                        setEntity(response.getResponse().copy());
+                        setAndBindEntity(response.getResponse().copy());
                         getWidget().getElement().getStyle().setOpacity(1.0);
 
                     }
@@ -138,7 +134,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                                        @Override
                                        public void handle(@Nonnull final FollowRequest response) {
                                            if (response.getUri().equals(aliasURI)) {
-                                               bindEntity(response.getResponse().copy());
+                                               setAndBindEntity(response.getResponse().copy());
                                            }
                                        }
                                    });
@@ -150,7 +146,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                                             @Override
                                             public void handle(@Nonnull final UpdateAliasRequest response) {
                                                 if (response.getUri().equals(aliasURI)) {
-                                                    bindEntity(response.getResponse().copy());
+                                                    setAndBindEntity(response.getResponse().copy());
                                                 }
                                             }
                                         });
@@ -158,7 +154,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         BusFactory.getInstance().send(new RetrieveAliasRequest(aliasURI), new AbstractResponseCallback<RetrieveAliasRequest>() {
             @Override
             public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                bindEntity(response.getResponse().copy());
+                setAndBindEntity(response.getResponse().copy());
 
             }
         });

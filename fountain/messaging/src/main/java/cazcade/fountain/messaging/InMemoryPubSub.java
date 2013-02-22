@@ -25,7 +25,8 @@ public class InMemoryPubSub implements FountainPubSub {
 
     @Override
     public void dispatch(final String key, final LiquidRequest request) {
-        for (final KeyedListener listener : listeners.values()) {
+
+        for (final KeyedListener listener : getListenersCopy()) {
             if (listener.matches(key)) {
                 try {
                     listener.getHandler().handle(request);
@@ -36,9 +37,17 @@ public class InMemoryPubSub implements FountainPubSub {
         }
     }
 
+    private ArrayList<KeyedListener> getListenersCopy() {
+        ArrayList<KeyedListener> keyedListeners;
+        synchronized (listeners) {
+            keyedListeners = new ArrayList<KeyedListener>(listeners.values());
+        }
+        return keyedListeners;
+    }
+
     @Override
     public LiquidRequest sendSync(final String key, final LiquidRequest request) throws Exception {
-        for (final KeyedListener listener : listeners.values()) {
+        for (final KeyedListener listener : getListenersCopy()) {
             if (listener.matches(key)) {
                 return listener.getHandler().handle(request);
             }
@@ -50,7 +59,9 @@ public class InMemoryPubSub implements FountainPubSub {
     public synchronized long addListener(final String key, final LiquidMessageHandler<LiquidRequest> requestLiquidMessageHandler) {
         final KeyedListener keyedListener = new KeyedListener(key, requestLiquidMessageHandler);
         final long count = counter.incrementAndGet();
-        listeners.put(count, keyedListener);
+        synchronized (listeners) {
+            listeners.put(count, keyedListener);
+        }
         return count;
     }
 
@@ -82,7 +93,9 @@ public class InMemoryPubSub implements FountainPubSub {
 
     @Override
     public void removeListener(final long listenerId) {
-        listeners.remove(listenerId);
+        synchronized (listeners) {
+            listeners.remove(listenerId);
+        }
     }
 
     @Override
@@ -112,8 +125,7 @@ public class InMemoryPubSub implements FountainPubSub {
         public LiquidMessage readSingle() {
             if (messages.size() > 0) {
                 return messages.remove(0);
-            }
-            else {
+            } else {
                 return null;
             }
         }

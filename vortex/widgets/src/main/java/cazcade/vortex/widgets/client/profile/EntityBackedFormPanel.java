@@ -11,6 +11,7 @@ import cazcade.vortex.common.client.events.ValidEvent;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Window;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,6 +26,18 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
     @Nonnull
     private final Map<LSDAttribute, Bindable> bindings = new HashMap<LSDAttribute, Bindable>();
 
+
+    @Override public void setEntity(@Nonnull LSDTransferEntity entity) {
+        super.setEntity(entity);
+
+    }
+
+    public void setAndBindEntity(@Nonnull LSDTransferEntity entity) {
+        super.setEntity(entity);
+        bindEntity(entity);
+
+    }
+
     public void addBinding(final LSDTransferEntity otherEntity, @Nonnull final Bindable field, final LSDAttribute attribute) {
         field.bind(otherEntity, attribute, getReferenceDataPrefix());
         if (!isSaveOnExit()) {
@@ -35,7 +48,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
             });
         }
         bindings.put(attribute, field);
-        onChange(field, attribute);
+
     }
 
     public void addBinding(@Nonnull final Bindable field, @Nullable final LSDAttribute attribute) {
@@ -45,13 +58,18 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
         if (isSaveOnExit()) {
             field.addChangeHandler(new ValueChangeHandler() {
                 @Override public void onValueChange(ValueChangeEvent event) {
-                    onChange(field, attribute);
+                    if (isValid()) {
+                        fireEvent(new ValidEvent());
+                    } else {
+                        fireEvent(new InvalidEvent());
+                    }
                 }
             });
 
         } else {
             field.addChangeHandler(new ValueChangeHandler() {
                 @Override public void onValueChange(ValueChangeEvent event) {
+                    Window.alert("Sending update for " + attribute + " (" + field + ")");
                     if (ClientLog.isDebugMode()) {
                         ClientLog.log("Sending update for " + attribute + " (" + field + ")");
                     }
@@ -62,16 +80,8 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
         bindings.put(attribute, field);
     }
 
-    protected void onChange(Bindable field, @Nullable LSDAttribute attribute) {
-        if (isValid()) {
-            fireEvent(new ValidEvent());
-        } else {
-            fireEvent(new InvalidEvent());
-        }
-    }
 
-    @Override
-    protected void bindEntity(@Nullable final LSDTransferEntity entity) {
+    private void bindEntity(@Nullable final LSDTransferEntity entity) {
         if (entity == null) {
             throw new NullPointerException("Attempted to bind to a null entity.");
         }
@@ -79,10 +89,13 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
             final Bindable field = entry.getValue();
             final LSDAttribute attribute = entry.getKey();
             field.bind(entity, attribute, getReferenceDataPrefix());
-            onChange(field, attribute);
 
         }
-        setEntityInternal(entity);
+        if (isValid()) {
+            fireEvent(new ValidEvent());
+        } else {
+            fireEvent(new InvalidEvent());
+        }
     }
 
     @Nonnull

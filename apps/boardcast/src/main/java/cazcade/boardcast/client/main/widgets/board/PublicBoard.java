@@ -21,10 +21,7 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
-import cazcade.vortex.gwt.util.client.ClientLog;
-import cazcade.vortex.gwt.util.client.StartupUtil;
-import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
+import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
@@ -36,7 +33,6 @@ import cazcade.vortex.widgets.client.stream.ChatStreamPanel;
 import cazcade.vortex.widgets.client.stream.CommentPanel;
 import cazcade.vortex.widgets.client.stream.NotificationPanel;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.SpanElement;
@@ -134,17 +130,12 @@ public class PublicBoard extends EntityBackedFormPanel {
         previousPoolURI = poolURI;
         poolURI = new LiquidURI(LiquidBoardURL.convertFromShort(value));
         if (isAttached()) {
-            GWT.runAsync(new RunAsyncCallback() {
-                @Override
-                public void onFailure(final Throwable reason) {
-                    ClientLog.log(reason);
-                }
-
-                @Override
-                public void onSuccess() {
+            GWTUtil.runAsync(new Runnable() {
+                @Override public void run() {
                     refresh();
                 }
             });
+
         }
     }
 
@@ -236,7 +227,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                         HistoryManager.get().navigate(previousPoolURI.asBoardURL().toString());
                     }
                 } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
-                    bindEntity(responseEntity.copy());
+                    setAndBindEntity(responseEntity.copy());
                 } else {
                     Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
@@ -245,13 +236,9 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     private void update(@Nonnull final LiquidRequest response) {
-        bindEntity(response.getResponse().copy());
+        setAndBindEntity(response.getResponse().copy());
     }
 
-    @Override public void bindEntity(final LSDTransferEntity entity) {
-        super.bindEntity(entity);
-        //        addBinding(text, LSDAttribute.TEXT_EXTENDED);
-    }
 
     @Override protected boolean isSaveOnExit() {
         return false;
@@ -270,7 +257,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        setEntity(response.getResponse().copy());
+                        setAndBindEntity(response.getResponse().copy());
                     }
 
                     @Override
@@ -331,7 +318,7 @@ public class PublicBoard extends EntityBackedFormPanel {
         if (!getEntity().getURI().asBoardURL().isProfileBoard()) {
             publicBoardHeader.getElement().getStyle().setDisplay(Style.Display.BLOCK);
             profileBoardHeader.getElement().getStyle().setDisplay(Style.Display.NONE);
-            publicBoardHeader.bindEntity(getEntity());
+            publicBoardHeader.setAndBindEntity(getEntity());
             footer.getStyle().setVisibility(Style.Visibility.VISIBLE);
             ownerDetailPanel.setAliasURI(owner.getURI());
             ownerDetailPanel.setVisible(!UserUtil.isAlias(owner.getURI()));
@@ -390,14 +377,8 @@ public class PublicBoard extends EntityBackedFormPanel {
 
 
         if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
-            GWT.runAsync(new RunAsyncCallback() {
-                @Override
-                public void onFailure(final Throwable reason) {
-                    ClientLog.log(reason);
-                }
-
-                @Override
-                public void onSuccess() {
+            GWTUtil.runAsync(new Runnable() {
+                @Override public void run() {
                     contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
                     final String snapshotUrl = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + System.currentTimeMillis();
                     final String imageUrl = "/_website-snapshot?url="
@@ -428,26 +409,21 @@ public class PublicBoard extends EntityBackedFormPanel {
                     StartupUtil.showLiveVersion(getWidget().getElement());
                 }
             });
+
+
+            GWTUtil.runAsync(new Runnable() {
+                @Override public void run() {
+                    comments.clear();
+
+                    comments.init(poolURI);
+                    if (ClientApplicationConfiguration.isAlphaFeatures()) {
+                        notificationPanel.init(poolURI);
+                    }
+                    addCommentBox.init(poolURI);
+                }
+            });
         }
 
-
-        GWT.runAsync(new RunAsyncCallback() {
-            @Override
-            public void onFailure(final Throwable reason) {
-                ClientLog.log(reason);
-            }
-
-            @Override
-            public void onSuccess() {
-                comments.clear();
-
-                comments.init(poolURI);
-                if (ClientApplicationConfiguration.isAlphaFeatures()) {
-                    notificationPanel.init(poolURI);
-                }
-                addCommentBox.init(poolURI);
-            }
-        });
     }
 
     //    private void configureShareThis(String imageUrl, String boardTitle, String board) {
@@ -539,15 +515,12 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
         if (poolURI != null) {
-            GWT.runAsync(new RunAsyncCallback() {
-                @Override public void onFailure(Throwable reason) {
-                    ClientLog.log(reason);
-                }
-
-                @Override public void onSuccess() {
+            GWTUtil.runAsync(new Runnable() {
+                @Override public void run() {
                     refresh();
                 }
             });
+
         }
     }
 

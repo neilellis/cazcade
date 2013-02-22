@@ -21,12 +21,14 @@ public class StartupUtil {
     }
 
     public static void showLiveVersion(@Nonnull final Element panel) {
-        if (RootPanel.get("loading-panel") != null) {
-            RootPanel.get("loading-panel").getElement().getStyle().setOpacity(0.0);
+        final RootPanel loadingPanel = RootPanel.get("loading-panel");
+        if (loadingPanel != null) {
+            loadingPanel.getElement().getStyle().setOpacity(0.0);
             //            RootPanel.get("loading-panel").getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
         }
-        if (RootPanel.get("cache-panel") != null) {
-            RootPanel.get("cache-panel").getElement().getStyle().setOpacity(0.05);
+        final RootPanel cachePanel = RootPanel.get("cache-panel");
+        if (cachePanel != null) {
+            cachePanel.getElement().getStyle().setOpacity(0.05);
             panel.getStyle().setOpacity(0.0);
             panel.getStyle().setVisibility(Style.Visibility.VISIBLE);
             new Timer() {
@@ -36,7 +38,7 @@ public class StartupUtil {
             }.schedule(300);
             new Timer() {
                 @Override public void run() {
-                    RootPanel.get("cache-panel").getElement().removeFromParent();
+                    cachePanel.getElement().removeFromParent();
                 }
             }.schedule(30000);
         }

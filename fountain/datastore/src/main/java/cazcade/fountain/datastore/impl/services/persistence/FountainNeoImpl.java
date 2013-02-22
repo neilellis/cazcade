@@ -414,9 +414,9 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
             if (matchingFountainEntityImpl == null && mustMatch) {
                 throw new EntityNotFoundException("Could not locate " + uri);
             } else {
-                if (matchingFountainEntityImpl != null) {
-                    matchingFountainEntityImpl.assertLatestVersion();
-                }
+                //                if (matchingFountainEntityImpl != null) {
+                //                    matchingFountainEntityImpl.assertLatestVersion();
+                //                }
                 return matchingFountainEntityImpl;
             }
         } finally {

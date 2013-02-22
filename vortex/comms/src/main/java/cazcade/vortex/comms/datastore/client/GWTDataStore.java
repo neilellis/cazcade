@@ -13,9 +13,8 @@ import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.GWTUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -67,17 +66,10 @@ public class GWTDataStore {
             }
         }.scheduleRepeating(1000);
 
-        GWT.runAsync(new RunAsyncCallback() {
-            @Override
-            public void onFailure(final Throwable reason) {
-                ClientLog.log(reason);
-            }
-
-            @Override
-            public void onSuccess() {
+        GWTUtil.runAsync(new Runnable() {
+            @Override public void run() {
                 setupListeners(newIdentity);
                 onStartup.run();
-
             }
         });
 

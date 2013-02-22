@@ -5,7 +5,6 @@
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
@@ -37,9 +36,6 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
         addBinding(text, LSDAttribute.TEXT_EXTENDED);
     }
 
-    public void bindEntity(final LSDTransferEntity entity) {
-        super.bindEntity(entity);
-    }
 
     @Override protected boolean isSaveOnExit() {
         return false;
@@ -58,7 +54,7 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        setEntity(response.getResponse().copy());
+                        setAndBindEntity(response.getResponse().copy());
                     }
 
                     @Override

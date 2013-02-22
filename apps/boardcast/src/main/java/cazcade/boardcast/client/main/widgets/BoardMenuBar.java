@@ -17,10 +17,8 @@ import cazcade.liquid.api.lsd.LSDDictionaryTypes;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
-import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.GWTUtil;
 import cazcade.vortex.gwt.util.client.analytics.Track;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -55,14 +53,8 @@ public class BoardMenuBar extends MenuBar {
         this.boardWidget = boardWidget;
         poolURI = board.getURI();
         clearItems();
-        GWT.runAsync(new RunAsyncCallback() {
-            @Override
-            public void onFailure(final Throwable reason) {
-                ClientLog.log(reason);
-            }
-
-            @Override
-            public void onSuccess() {
+        GWTUtil.runAsync(new Runnable() {
+            @Override public void run() {
                 if (modifierOptions) {
                     createAddMenu(poolURI, backgroundDialog, board, BoardMenuBar.this);
                 }
@@ -77,6 +69,7 @@ public class BoardMenuBar extends MenuBar {
                 }
             }
         });
+
     }
 
     private SafeHtml iconWithName(String name, String title) {

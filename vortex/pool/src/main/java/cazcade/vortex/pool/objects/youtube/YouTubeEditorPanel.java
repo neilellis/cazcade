@@ -48,7 +48,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
             }
         });
         addBinding(urlTextBox, LSDAttribute.MEDIA_ID);
-        setEntity(entity);
+        setAndBindEntity(entity);
 
     }
 
@@ -57,10 +57,6 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
         fireEvent(new EditFinishEvent());
     }
 
-    @Override
-    public void bindEntity(final LSDTransferEntity entity) {
-        super.bindEntity(entity);
-    }
 
     @Override
     public int getHeight() {

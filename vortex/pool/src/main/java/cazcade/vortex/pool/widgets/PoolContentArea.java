@@ -104,7 +104,7 @@ public class PoolContentArea extends Composite {
 
     public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
         if (poolEntity.hasAttribute(LSDAttribute.BACKGROUND_URL)) {
-            final String imageUrl = poolEntity.getAttribute(LSDAttribute.IMAGE_URL);
+            final String imageUrl = poolEntity.getAttribute(LSDAttribute.BACKGROUND_URL);
             setBackgroundImage(imageUrl);
         } else {
             setBackgroundImage(DEFAULT_BACKGROUND_IMAGE);

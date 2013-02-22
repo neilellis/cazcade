@@ -165,7 +165,7 @@
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.1" />
         </element>
       </element>
-      <element id="gwt-compiler-deploy-output" facet="boardcast/gwt/GWT" />
+      <element id="gwt-compiler-output" facet="boardcast/gwt/GWT" />
     </root>
   </artifact>
 </component>

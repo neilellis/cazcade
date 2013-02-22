@@ -51,13 +51,9 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
         addBinding(changeImagePanel, LSDAttribute.IMAGE_URL);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(title, LSDAttribute.TITLE);
-        bindEntity(entity);
+        setAndBindEntity(entity);
     }
 
-    @Override
-    public void bindEntity(final LSDTransferEntity entity) {
-        super.bindEntity(entity);
-    }
 
     @Override
     protected void onLoad() {

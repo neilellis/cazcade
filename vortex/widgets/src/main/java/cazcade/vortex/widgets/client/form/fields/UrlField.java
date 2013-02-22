@@ -53,10 +53,6 @@ public class UrlField extends Composite implements VortexFormField {
     }
 
 
-    public void callOnChangeAction() {
-        urlField.processChange();
-    }
-
     @Override
     public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);

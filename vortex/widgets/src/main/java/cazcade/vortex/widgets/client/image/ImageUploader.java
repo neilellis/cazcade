@@ -21,6 +21,8 @@ public class ImageUploader extends Composite {
 
     public static enum Status {SUCCESS, FAILURE}
 
+    ;
+
     interface ImageUploaderUiBinder extends UiBinder<HTMLPanel, ImageUploader> {}
 
     private static final ImageUploaderUiBinder ourUiBinder = GWT.create(ImageUploaderUiBinder.class);

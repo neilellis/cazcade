@@ -49,7 +49,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         addBinding(urlField, LSDAttribute.SOURCE);
         addBinding(description, LSDAttribute.DESCRIPTION);
         addBinding(title, LSDAttribute.TITLE);
-        setEntity(entity);
+        setAndBindEntity(entity);
     }
 
     @UiHandler("done")
@@ -57,10 +57,6 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
         fireEvent(new EditFinishEvent());
     }
 
-    @Override
-    public void bindEntity(final LSDTransferEntity entity) {
-        super.bindEntity(entity);
-    }
 
     @Override
     public int getHeight() {

@@ -16,7 +16,7 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.GWTUtil;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -24,7 +24,6 @@ import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
@@ -78,17 +77,12 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         }
         poolURI = new LiquidURI(LiquidBoardURL.convertFromShort(value));
         if (isAttached()) {
-            GWT.runAsync(new RunAsyncCallback() {
-                @Override
-                public void onFailure(final Throwable reason) {
-                    ClientLog.log(reason);
-                }
-
-                @Override
-                public void onSuccess() {
+            GWTUtil.runAsync(new Runnable() {
+                @Override public void run() {
                     refresh();
                 }
             });
+
         }
     }
 
@@ -129,7 +123,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
                 if (responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                 } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
-                    bindEntity(responseEntity.copy());
+                    setAndBindEntity(responseEntity.copy());
                 } else {
                     Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
                 }
@@ -138,12 +132,9 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     }
 
     private void update(@Nonnull final LiquidRequest response) {
-        bindEntity(response.getResponse().copy());
+        setAndBindEntity(response.getResponse().copy());
     }
 
-    public void bindEntity(final LSDTransferEntity entity) {
-        super.bindEntity(entity);
-    }
 
     @Override protected boolean isSaveOnExit() {
         return false;

@@ -43,7 +43,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                     getBus().send(new UpdatePoolObjectRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                         @Override
                         public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                            setEntity(response.getResponse().copy());
+                            setAndBindEntity(response.getResponse().copy());
                             if (autoCloseField(field)) {
                                 fireEvent(new EditFinishEvent());
                             }
@@ -54,8 +54,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                             field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                         }
                     });
-                }
-                else {
+                } else {
 
                 }
             }
@@ -74,7 +73,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
             getBus().send(new UpdatePoolObjectRequest(getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                 @Override
                 public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                    setEntity(response.getResponse().copy());
+                    setAndBindEntity(response.getResponse().copy());
                     fireEvent(new EditFinishEvent());
                 }
 
@@ -83,8 +82,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                     Window.alert(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
                 }
             });
-        }
-        else {
+        } else {
             Window.alert("Not valid.");
         }
 
