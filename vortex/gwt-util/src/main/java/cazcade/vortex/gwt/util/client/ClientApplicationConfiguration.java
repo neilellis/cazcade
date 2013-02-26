@@ -40,7 +40,7 @@ public class ClientApplicationConfiguration {
         ClientApplicationConfiguration.preflight = preflight;
     }
 
-    public static boolean isAlphaFeatures() {
+    public static boolean alpha() {
         if (ALPHA_FEATURES_AVAILABLE) {
             return alphaFeatures;
         } else {

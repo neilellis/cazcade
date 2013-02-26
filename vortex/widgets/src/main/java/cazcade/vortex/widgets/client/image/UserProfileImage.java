@@ -42,7 +42,7 @@ public class UserProfileImage extends EditableImage {
     public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.uri());
-        if (ClientApplicationConfiguration.isAlphaFeatures() && (!entity.default$bool(Dictionary.EDITABLE, false) || !editable)) {
+        if (ClientApplicationConfiguration.alpha() && (!entity.default$bool(Dictionary.EDITABLE, false) || !editable)) {
             image.addMouseOverHandler(new MouseOverHandler() {
                 private ViewAliasDetailPanel aliasDetailPanel;
 

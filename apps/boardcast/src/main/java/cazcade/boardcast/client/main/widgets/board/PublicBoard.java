@@ -7,16 +7,16 @@ package cazcade.boardcast.client.main.widgets.board;
 import cazcade.boardcast.client.main.widgets.AddChatBox;
 import cazcade.boardcast.client.main.widgets.AddCommentBox;
 import cazcade.boardcast.client.main.widgets.BoardMenuBar;
-import cazcade.liquid.api.*;
+import cazcade.liquid.api.BoardURL;
+import cazcade.liquid.api.LiquidMessage;
+import cazcade.liquid.api.LiquidRequest;
+import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.ChangePermissionRequest;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.liquid.api.request.VisitPoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.bus.client.BusListener;
+import cazcade.vortex.bus.client.*;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.analytics.Track;
@@ -37,7 +37,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.http.client.URL;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
@@ -63,12 +62,12 @@ import static com.google.gwt.http.client.URL.encode;
 public class PublicBoard extends EntityBackedFormPanel {
     interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {}
 
-    public static final  String                   CORKBOARD          = "/_static/_background/misc/corkboard.jpg";
-    private static final NewBoardUiBinder         ourUiBinder        = GWT.create(NewBoardUiBinder.class);
+    public static final  String                   CORKBOARD   = "/_static/_background/misc/corkboard.jpg";
+    private static final NewBoardUiBinder         ourUiBinder = GWT.create(NewBoardUiBinder.class);
     @Nonnull
-    private final        Bus                      bus                = BusFactory.get();
+    private final        Bus                      bus         = BusFactory.get();
     @Nonnull
-    private final        VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
+    private final        VortexThreadSafeExecutor executor    = new VortexThreadSafeExecutor();
     @UiField CommentPanel           comments;
     @UiField AddCommentBox          addCommentBox;
     @UiField PoolContentArea        content;
@@ -180,7 +179,6 @@ public class PublicBoard extends EntityBackedFormPanel {
             @Override
             public void handle(final LiquidMessage message) {
                 Window.alert("The access rights have just changed for this board, please refresh the page in your browser.");
-                //                refresh();
             }
         });
 
@@ -198,43 +196,33 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         final boolean listed = uri.board().isListedByConvention();
         //start listed boards as public readonly, default is public writeable
-        if (previousUri == null || !previousUri.equals(uri)) {
-            content.clear();
-        }
+        if (previousUri == null || !previousUri.equals(uri)) { content.clear(); }
 
-        bus.send(new VisitPoolRequest(T_BOARD, uri, previousUri, !UserUtil.anon(), listed, listed
-                                                                                           ? MAKE_PUBLIC_READONLY
-                                                                                           : null), new AbstractResponseCallback<VisitPoolRequest>() {
-            @Override
-            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
-                final TransferEntity resp = response.response();
-                if (resp.canBe(T_RESOURCE_NOT_FOUND)) {
-                    Window.alert("Could not find the board.");
-                    if (previousUri != null) {
-                        $.navigate(previousUri.board().toString());
+        RequestUtil.visit(T_BOARD, uri, previousUri, listed, new Callback<VisitPoolRequest>() {
+                    @Override public void handle(VisitPoolRequest message) throws Exception {
+                        final TransferEntity resp = message.response();
+                        if (resp.canBe(T_RESOURCE_NOT_FOUND)) {
+                            Window.alert("Could not find the board.");
+                            $.navigate(previousUri != null ? previousUri.board().toString() : "welcome");
+                        } else if (resp.canBe(T_POOL)) {
+                            $(resp.$());
+                        } else {
+                            Window.alert(resp.$(TITLE));
+                        }
                     }
-                } else if (resp.canBe(T_POOL)) {
-                    $(resp.$());
-                } else {
-                    Window.alert(resp.$(TITLE));
-                }
-            }
+                }, new Callback<VisitPoolRequest>() {
+                    @Override public void handle(VisitPoolRequest message) throws Exception {
+                        Window.alert(message.response().type().canBe(T_RESOURCE_NOT_FOUND)
+                                     ? UserUtil.anon()
+                                       ? "Please login first."
+                                       : "You don't have permission"
+                                     : message.response().$(TITLE));
+                        ClientLog.log(message);
 
-            @Override
-            public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest resp) {
-                if (resp.response().type().canBe(T_RESOURCE_NOT_FOUND)) {
-                    if (UserUtil.anon()) {
-                        Window.alert("Please login first.");
-                    } else {
-                        Window.alert("You don't have permission");
                     }
-                } else {
-                    super.onFailure(message, resp);
                 }
-            }
+                         );
 
-
-        });
     }
 
     private void update(@Nonnull final LiquidRequest response) {
@@ -255,17 +243,16 @@ public class PublicBoard extends EntityBackedFormPanel {
         return new Runnable() {
             @Override
             public void run() {
-                bus.send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
-                    @Override
-                    public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        $(response.response().$());
-                    }
-
-                    @Override
-                    public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        field.setErrorMessage(response.response().$(DESCRIPTION));
-                    }
-                });
+                RequestUtil.updatePool(field.getEntityDiff(), new Callback<UpdatePoolRequest>() {
+                            @Override public void handle(UpdatePoolRequest message) throws Exception {
+                                $(message.response().$());
+                            }
+                        }, new Callback<UpdatePoolRequest>() {
+                            @Override public void handle(UpdatePoolRequest message) throws Exception {
+                                field.setErrorMessage(message.response().$(DESCRIPTION));
+                            }
+                        }
+                                      );
             }
         };
     }
@@ -286,10 +273,6 @@ public class PublicBoard extends EntityBackedFormPanel {
     private void clear() {
         publicBoardHeader.clear();
         profileBoardHeader.clear();
-        comments.clear();
-        //        if (previousPoolURI == null || !previousPoolURI.equals(poolURI)) {
-        //            contentArea.clear();
-        //        }
         ownerDetailPanel.clear();
         authorFullname.setInnerText("");
         publishDate.setInnerText("");
@@ -297,19 +280,6 @@ public class PublicBoard extends EntityBackedFormPanel {
         stream.clear();
     }
 
-    //    private void configureShareThis(String imageUrl, String boardTitle, String board) {
-    //        final NodeList<Element> spans = RootPanel.get("sharethisbar").getElement().getElementsByTagName("span");
-    //        final int max = spans.getLength();
-    //        for (int i = 0; i < max; i++) {
-    //            final Element span = spans.getItem(i);
-    //            if (span.has$("class") && "stButton".equalsIgnoreCase(span.$("class"))) {
-    //                setShareThisDetails(board, "Take a look at the Boardcast board '" + boardTitle + "' ", "", imageUrl == null
-    //                                                                                                           ? ""
-    //                                                                                                           : imageUrl, span);
-    //            }
-    //
-    //        }
-    //    }
 
     @Override
     protected void onChange(@Nonnull final Entity entity) {
@@ -365,27 +335,21 @@ public class PublicBoard extends EntityBackedFormPanel {
                                            " registered users and " +
                                            $().default$(COMMENT_COUNT, "no") +
                                            " comments left." + tagText);
-        //        imageSelector.init(Arrays.asList("/_static/_images/wallpapers/light-blue-linen.jpg", "/_static/_images/wallpapers/linen-blue.jpg", "/_static/_images/wallpapers/linen-white.jpg"
-        //        ,"/_static/_images/wallpapers/linen-black.jpg", "/_static/_images/wallpapers/noise-white.jpg", "/_static/_images/wallpapers/noise-grey.jpg", "/_static/_images/wallpapers/noise-vlight-grey.jpg"
-        //        ,"/_static/_images/wallpapers/noise-black.jpg", "/_static/_images/wallpapers/noise-black.jpg"));
-
 
         final boolean adminPermission = $().$bool(ADMINISTERABLE);
         Window.setTitle("Boardcast : " + $().$(TITLE));
 
+        //                    final String imageUrl = "/_website-snapshot?url="
+        //                                            + URL.encode("http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + System.currentTimeMillis())
+        //                                            + "&size=LARGE&width=150&height=200&delayAsync=60";
+
         if (previousUri == null || !previousUri.equals(uri)) {
             $.async(new Runnable() {
                 @Override public void run() {
-                    content.init($(), threadSafeExecutor);
-                    final String snapshotUrl = "http://boardcast.it/_snapshot-" + shortUrl + "?bid=" + System.currentTimeMillis();
-                    final String imageUrl = "/_website-snapshot?url="
-                                            + URL.encode(snapshotUrl)
-                                            + "&size=LARGE&width=150&height=200&delayAsync=60";
+                    content.init($(), executor);
+                    menuBar.init(PublicBoard.this, $(), $().$bool(MODIFIABLE), getChangeBackgroundDialog());
                     if ($().$bool(MODIFIABLE)) {
-                        menuBar.init(PublicBoard.this, $(), true, getChangeBackgroundDialog());
                         removeStyleName("readonly");
-                    } else {
-                        menuBar.init(PublicBoard.this, $(), false, getChangeBackgroundDialog());
                     }
                     removeStyleName("loading");
                     StartupUtil.showLiveVersion(getWidget().getElement());
@@ -397,7 +361,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                 @Override public void run() {
                     comments.clear();
                     comments.init(uri);
-                    if (ClientApplicationConfiguration.isAlphaFeatures()) {
+                    if (ClientApplicationConfiguration.alpha()) {
                         notificationPanel.init(uri);
                     }
                     addCommentBox.init(uri);
@@ -407,59 +371,28 @@ public class PublicBoard extends EntityBackedFormPanel {
 
     }
 
-    //    private static native void setShareThisDetails(String board, String title, String summary, String image, Element element) /*-{
-    //        $wnd.stWidget.addEntry({
-    //            "service": "sharethis",
-    //            "element": element,
-    //            "url": "http://boardca.st/" + board,
-    //            "title": title,
-    //            "image": image,
-    //            "summary": summary,
-    //            "text": "Share"
-    //        });
-    //
-    //    }-*/;
 
     @Nonnull
     private String buildVisibilityDescription() {
-        String description = "";
         if (entity == null) {
             return "";
         }
-        if (entity.$bool(LISTED)) {
-            description += "It is a listed board which is ";
-            if (entity.allowed(WORLD_SCOPE, VIEW_PERM)) {
-                description += "visible to all";
-                if (entity.allowed(WORLD_SCOPE, EDIT_PERM)) {
-                    description += " and editable by all.";
-                } else {
-                    if (entity.allowed(WORLD_SCOPE, MODIFY_PERM)) {
-                        description += " and modifiable by all.";
-                    } else {
-                        description += ". ";
-                    }
-                }
-            } else {
-                description += "currently only visible to the creator.";
-            }
-        } else {
-            description += "It is an unlisted board which is ";
-            if (entity.allowed(WORLD_SCOPE, VIEW_PERM)) {
-                description += "visible to those who know the URL";
-                if (entity.allowed(WORLD_SCOPE, EDIT_PERM)) {
-                    description += " and editable by them. ";
-                } else {
-                    if (entity.allowed(WORLD_SCOPE, EDIT_PERM)) {
-                        description += " and modifiable by them. ";
-                    } else {
-                        description += ". ";
-                    }
-                }
-            } else {
-                description += "visible only to the creator.";
-            }
-        }
-        return description;
+        return entity.$bool(LISTED)
+               ? "It is a listed board which is " + (entity.allowed(WORLD_SCOPE, VIEW_PERM)
+                                                     ? "visible to all"
+                                                       + (entity.allowed(WORLD_SCOPE, EDIT_PERM)
+                                                          ? " and editable by all."
+                                                          : entity.allowed(WORLD_SCOPE, MODIFY_PERM)
+                                                            ? " and modifiable by all."
+                                                            : ". ")
+                                                     : "currently only visible to the creator.")
+               : "It is an unlisted board which is " + (entity.allowed(WORLD_SCOPE, VIEW_PERM) ?
+                                                        "visible to those who know the URL "
+                                                        + (entity.allowed(WORLD_SCOPE, EDIT_PERM)
+                                                           ? " and editable by them. "
+                                                           : entity.allowed(WORLD_SCOPE, EDIT_PERM)
+                                                             ? " and modifiable by them. "
+                                                             : ". ") : "visible only to the creator.");
     }
 
     @Override
@@ -472,12 +405,6 @@ public class PublicBoard extends EntityBackedFormPanel {
     }
 
     private void init() {
-        //sharethis button
-        //        final RootPanel sharethis = RootPanel.get("sharethisbutton");
-        //        sharethisElement = sharethis.getElement();
-        //        sharethisElement.removeFromParent();
-        //        sharethisElement.getStyle().setVisibility(Style.Visibility.VISIBLE);
-        //        shareThisHolder.getElement().appendChild(sharethis.getElement());
 
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
         if (uri != null) {
@@ -519,21 +446,12 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         @Override
         public void onClick(final ClickEvent event) {
-            final PermissionChangeType change;
-            //            PermissionSet permissionSet = PermissionSet.createPermissionSet($().$(Attribute.PERMISSIONS));
-            if (lock) {
-                change = MAKE_PUBLIC_READONLY;
-            } else {
-                change = MAKE_PUBLIC;
-            }
+            RequestUtil.changePermission(uri, lock ? MAKE_PUBLIC_READONLY : MAKE_PUBLIC, new Callback<ChangePermissionRequest>() {
+                @Override public void handle(ChangePermissionRequest message) throws Exception {
+                    Window.alert("Failed to (un)lock.");
+                }
+            });
 
-            BusFactory.get()
-                      .send(new ChangePermissionRequest(uri, change), new AbstractResponseCallback<ChangePermissionRequest>() {
-                          @Override
-                          public void onFailure(final ChangePermissionRequest message, @Nonnull final ChangePermissionRequest response) {
-                              Window.alert("Failed to (un)lock.");
-                          }
-                      });
         }
     }
 }

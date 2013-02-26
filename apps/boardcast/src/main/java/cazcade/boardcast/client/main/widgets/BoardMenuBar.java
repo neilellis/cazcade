@@ -64,7 +64,7 @@ public class BoardMenuBar extends MenuBar {
                     addItem(iconWithName("key", "Access"), accessMenuBar);
                     createAccessMenu(board);
                 }
-                if (!UserUtil.anon() && ClientApplicationConfiguration.isAlphaFeatures()) {
+                if (!UserUtil.anon() && ClientApplicationConfiguration.alpha()) {
                     createCollaborateMenu(board);
                 }
             }
@@ -148,7 +148,7 @@ public class BoardMenuBar extends MenuBar {
 
         menubar.addItem(iconWithName("squiggle", "Marks"), createShapeMenuBar());
 
-        if (ClientApplicationConfiguration.isAlphaFeatures()) {
+        if (ClientApplicationConfiguration.alpha()) {
             menubar.addItem(iconWithName("address", ""), new CreateAliasRefCommand(poolURI, Types.T_ALIAS_REF, UserUtil.currentAlias()
                                                                                                                        .uri()));
             //                                subMenu.addItem("Custom Object (ALPHA)", new CreateCustomObjectCommand(poolURI, Types.CUSTOM_OBJECT));

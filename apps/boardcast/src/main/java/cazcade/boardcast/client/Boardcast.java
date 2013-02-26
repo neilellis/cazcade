@@ -307,9 +307,7 @@ public class Boardcast implements EntryPoint {
                                   final Map<String, String> propertyMap = new HashMap<String, String>();
                                   propertyMap.putAll(alias.map());
                                   propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
-                                  propertyMap.put("alpha.mode", ClientApplicationConfiguration.isAlphaFeatures()
-                                                                ? "true"
-                                                                : "false");
+                                  propertyMap.put("alpha.mode", ClientApplicationConfiguration.alpha() ? "true" : "false");
                                   final String name = alias.$(Dictionary.NAME);
                                   final String fn = alias.$(Dictionary.FULL_NAME);
                                   tracker.registerUser(name, fn, propertyMap);

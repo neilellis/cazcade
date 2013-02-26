@@ -25,4 +25,5 @@ public class $ implements Dictionary {
         HistoryManager.get().navigate(location);
     }
 
+
 }

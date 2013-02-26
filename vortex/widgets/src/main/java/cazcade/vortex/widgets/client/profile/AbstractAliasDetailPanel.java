@@ -117,7 +117,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             userFullName.sinkEvents(Event.MOUSEEVENTS);
         }
 
-        if (UserUtil.anon() || isMe || !ClientApplicationConfiguration.isAlphaFeatures()) {
+        if (UserUtil.anon() || isMe || !ClientApplicationConfiguration.alpha()) {
             followButton.addStyleName("invisible");
             dmButton.addStyleName("invisible");
         } else {
@@ -183,7 +183,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             @Override
             public void onClick(final ClickEvent event) {
 
-                if (ClientApplicationConfiguration.isAlphaFeatures()) {
+                if (ClientApplicationConfiguration.alpha()) {
                     directMessagePanel.setRecipient(aliasURI.sub().sub().asString());
                     WidgetUtil.swap(detailPanel, directMessagePanel);
                     directMessagePanel.setVisible(true);

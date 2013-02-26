@@ -11,9 +11,10 @@ import cazcade.liquid.api.lsd.CollectionCallback;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Type;
 import cazcade.liquid.api.request.VisitPoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.Callback;
+import cazcade.vortex.bus.client.RequestUtil;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
@@ -86,16 +87,15 @@ public class PoolContentArea extends Composite {
 
     public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final Type type, final boolean listed) {
         this.threadSafeExecutor = threadSafeExecutor;
-        bus.send(new VisitPoolRequest(type, uri, uri, true, listed), new AbstractResponseCallback<VisitPoolRequest>() {
-            @Override
-            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
+        RequestUtil.visit(type, uri, listed, new Callback<VisitPoolRequest>() {
+            @Override public void handle(VisitPoolRequest message) throws Exception {
                 ClientLog.log("Got response.");
-                final TransferEntity poolEntity = response.response().$();
+                final TransferEntity poolEntity = message.response().$();
                 ClientLog.log(poolEntity.dump());
-
                 init(poolEntity, threadSafeExecutor);
             }
         });
+
     }
 
     public void init(@Nonnull final TransferEntity poolEntity, final VortexThreadSafeExecutor threadSafeExecutor) {
