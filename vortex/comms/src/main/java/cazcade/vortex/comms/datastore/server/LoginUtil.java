@@ -28,86 +28,79 @@ import java.util.Date;
  */
 public class LoginUtil {
     @Nonnull
-    private static final Logger log               = Logger.getLogger(LoginUtil.class);
-    @Nonnull
     public static final  String SESSION_KEY       = "sessionId";
     @Nonnull
     public static final  String ALIAS_KEY         = "alias_entity";
     @Nonnull
     public static final  String ALIAS_KEY_FOR_JSP = "alias";
     @Nonnull
+    public static final  String APP_KEY           = "123";
+    @Nonnull
+    private static final Logger log               = Logger.getLogger(LoginUtil.class);
+    @Nonnull
     private static final String USERNAME_KEY      = "username";
 
-
     @Nonnull
-    public static final String APP_KEY = "123";
-
-    @Nonnull
-    public static LiquidSessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias, @Nonnull final HttpSession session, FountainPubSub pubSub) throws Exception {
+    public static SessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias, @Nonnull final HttpSession session, FountainPubSub pubSub) throws Exception {
         final LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
-        final LSDBaseEntity responseEntity = response.getResponse();
-        if (responseEntity.isA(LSDDictionaryTypes.SESSION)) {
-            final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(alias.getSubURI()
-                                                                                           .getSubURI()
-                                                                                           .asString(), responseEntity.getUUID());
+        final Entity responseEntity = response.response();
+        if (responseEntity.is(Types.T_SESSION)) {
+            final SessionIdentifier serverSession = new SessionIdentifier(alias.sub().sub().asString(), responseEntity.id());
             createClientSession(clientSessionManager, serverSession, true, pubSub);
-            if (!serverSession.isAnon()) {
+            if (!serverSession.anon()) {
                 placeServerSessionInHttpSession(dataStore, session, serverSession);
             }
             return serverSession;
-        }
-        else {
+        } else {
             log.error("{0}", responseEntity.asFreeText());
-            throw new RuntimeException("Unexpected result " + responseEntity.getTypeDef());
+            throw new RuntimeException("Unexpected result " + responseEntity.type());
         }
     }
 
-    public static void placeServerSessionInHttpSession(@Nonnull final FountainDataStore dataStore, @Nonnull final HttpSession session, @Nonnull final LiquidSessionIdentifier serverSession) {
-        final LSDTransferEntity aliasEntity;
+    public static void placeServerSessionInHttpSession(@Nonnull final FountainDataStore dataStore, @Nonnull final HttpSession session, @Nonnull final SessionIdentifier serverSession) {
+        final TransferEntity aliasEntity;
         try {
-            aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.getAliasURL())).getResponse();
+            aliasEntity = dataStore.process(new RetrieveAliasRequest(serverSession, serverSession.aliasURI())).response();
         } catch (Exception e) {
             log.error(e);
             return;
         }
         session.setAttribute(SESSION_KEY, serverSession);
-        session.setAttribute(USERNAME_KEY, serverSession.getName());
+        session.setAttribute(USERNAME_KEY, serverSession.name());
         session.setAttribute(ALIAS_KEY, aliasEntity);
         session.setAttribute(ALIAS_KEY_FOR_JSP, aliasEntity.getCamelCaseMap());
     }
 
-
-    public static ClientSession createClientSession(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final LiquidSessionIdentifier identity, final boolean create, FountainPubSub pubSub) {
+    public static ClientSession createClientSession(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final SessionIdentifier identity, final boolean create, FountainPubSub pubSub) {
         final ClientSession clientSession;
-        if (!clientSessionManager.hasSession(identity.getSession().toString()) && create) {
+        if (!clientSessionManager.hasSession(identity.session().toString()) && create) {
             //
             //The session manager looks after long lived sessions and expires them.
             clientSession = new ClientSession(new Date(), pubSub.createCollector());
-            clientSessionManager.addSession(identity.getSession().toString(), clientSession);
-        }
-        else {
-            clientSession = clientSessionManager.getSession(identity.getSession().toString());
+            clientSessionManager.addSession(identity.session().toString(), clientSession);
+        } else {
+            clientSession = clientSessionManager.getSession(identity.session().toString());
         }
         return clientSession;
     }
 
     @Nullable
-    public static LSDTransferEntity register(@Nonnull final HttpSession session, @Nonnull final FountainDataStore theDataStore, final String fullname, @Nonnull final String username, final String password, final String emailAddress, final boolean restricted) {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.USER, UUIDFactory.randomUUID());
-        entity.setAttribute(LSDAttribute.FULL_NAME, fullname);
-        entity.setAttribute(LSDAttribute.NAME, username);
-        entity.setAttribute(LSDAttribute.PLAIN_PASSWORD, password);
-        entity.setAttribute(LSDAttribute.EMAIL_ADDRESS, emailAddress);
-        entity.setAttribute(LSDAttribute.SECURITY_RESTRICTED, restricted);
-        entity.setAttribute(LSDAttribute.IMAGE_URL, CommonConstants.BLANK_PNG_URL);
+    public static TransferEntity register(@Nonnull final HttpSession session, @Nonnull final FountainDataStore theDataStore, final String fullname, @Nonnull final String username, final String password, final String emailAddress, final boolean restricted) {
+        final TransferEntity entity = SimpleEntity.createNewTransferEntity(Types.T_USER, UUIDFactory.randomUUID());
+        entity.$(Dictionary.FULL_NAME, fullname)
+              .$(Dictionary.NAME, username)
+              .$(Dictionary.PLAIN_PASSWORD, password)
+              .$(Dictionary.EMAIL_ADDRESS, emailAddress)
+              .$(Dictionary.SECURITY_RESTRICTED, restricted)
+              .$(Dictionary.IMAGE_URL, CommonConstants.BLANK_PNG_URL);
         try {
-            final LiquidMessage response = theDataStore.process(new CreateUserRequest(new LiquidSessionIdentifier(username), entity));
+            final LiquidMessage response = theDataStore.process(new CreateUserRequest(new SessionIdentifier(username), entity));
             if (response.getState() == LiquidMessageState.SUCCESS) {
-                session.setAttribute(CommonConstants.NEW_USER_ATTRIBUTE, response.getResponse());
+                session.setAttribute(CommonConstants.NEW_USER_ATTRIBUTE, response.response());
                 session.setAttribute(CommonConstants.NEW_USER_PASSWORD_ATTRIBUTE, password);
-                return response.getResponse();
+                return response.response();
             }
             return null;
         } catch (Exception e) {

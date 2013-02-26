@@ -7,7 +7,7 @@ package cazcade.liquid.impl.xstream;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.RequestType;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -45,7 +45,7 @@ public class RequestConverter implements Converter {
     public void marshal(@Nonnull final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
         final LiquidRequest request = (LiquidRequest) o;
         hierarchicalStreamWriter.startNode("type");
-        hierarchicalStreamWriter.setValue(request.getRequestType().name().toLowerCase());
+        hierarchicalStreamWriter.setValue(request.requestType().name().toLowerCase());
         hierarchicalStreamWriter.endNode();
         hierarchicalStreamWriter.startNode("body");
         try {
@@ -85,8 +85,8 @@ public class RequestConverter implements Converter {
         final String type = hierarchicalStreamReader.getValue();
         hierarchicalStreamReader.moveUp();
 
-        final LiquidRequestType liquidRequestType = LiquidRequestType.valueOf(type.toUpperCase());
-        final Class<? extends LiquidMessage> requestClass = liquidRequestType.getRequestClass();
+        final RequestType requestType = RequestType.valueOf(type.toUpperCase());
+        final Class<? extends LiquidMessage> requestClass = requestType.getRequestClass();
         LiquidRequest liquidRequest = null;
         try {
             final Class[] empty = {};
@@ -108,7 +108,7 @@ public class RequestConverter implements Converter {
         }
         final Object result = unmarshallingContext.convertAnother(liquidRequest, requestClass, CONVERTER);
         hierarchicalStreamReader.moveUp();
-        //        System.out.println(liquidRequest.getId().toString());
+        //        System.out.println(liquidRequest.id().toString());
         return result;
     }
 }

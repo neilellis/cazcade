@@ -5,8 +5,8 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -14,37 +14,37 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreatePoolObjectRequest extends AbstractCreationRequest {
-    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDTransferEntity entity, final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final SessionIdentifier authenticatedUser, final LiquidURI uri, final TransferEntity entity, final LiquidURI authorURI) {
         this(authenticatedUser, null, uri, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final LSDTransferEntity entity, @Nullable final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(@Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final TransferEntity entity, @Nullable final LiquidURI authorURI) {
         super();
         setUri(uri);
-        setId(id);
+        id(id);
         setAuthor(authorURI);
-        setSessionId(identity);
+        session(identity);
         setPoolUUID(pool);
         setRequestEntity(entity);
     }
 
-    public CreatePoolObjectRequest(final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LSDTransferEntity entity, final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final SessionIdentifier authenticatedUser, final LiquidUUID pool, final TransferEntity entity, final LiquidURI authorURI) {
         this(authenticatedUser, pool, null, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(@Nonnull final LiquidSessionIdentifier authenticatedUser, final LiquidURI uri, final LSDTransferEntity entity) {
-        this(authenticatedUser, null, uri, null, entity, authenticatedUser.getAlias());
+    public CreatePoolObjectRequest(@Nonnull final SessionIdentifier authenticatedUser, final LiquidURI uri, final TransferEntity entity) {
+        this(authenticatedUser, null, uri, null, entity, authenticatedUser.alias());
     }
 
-    public CreatePoolObjectRequest(final LiquidURI uri, final LSDTransferEntity entity) {
-        this(LiquidSessionIdentifier.ANON, null, uri, null, entity, null);
+    public CreatePoolObjectRequest(final LiquidURI uri, final TransferEntity entity) {
+        this(SessionIdentifier.ANON, null, uri, null, entity, null);
     }
 
     public CreatePoolObjectRequest() {
         super();
     }
 
-    public CreatePoolObjectRequest(final LSDTransferEntity entity) {
+    public CreatePoolObjectRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -54,40 +54,31 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.MODIFY));
-        }
-        else {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.MODIFY));
+            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.MODIFY_PERM));
+        } else {
+            return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
         }
     }
 
-    public List<String> getNotificationLocations() {
-        if (hasRequestEntity() && !hasResponseEntity()) {
-            LSDTransferEntity requestEntity = getRequestEntity();
-            if (requestEntity.hasURI() && requestEntity.hasAttribute(LSDAttribute.NAME) || requestEntity.hasId()) {
-                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString()
-                                                                    + "."
-                                                                    + requestEntity.getNameOrId());
-            }
-            else {
+    public List<String> notificationLocations() {
+        if (hasRequestEntity() && !hasResponse()) {
+            TransferEntity requestEntity = request();
+            if (requestEntity.hasURI() && requestEntity.has$(Dictionary.NAME) || requestEntity.hasId()) {
+                return Arrays.asList(uri().asReverseDNSString(), uri().asReverseDNSString() + "." + requestEntity.nameOrId());
+            } else {
                 if (requestEntity.hasId()) {
-                    return Arrays.asList(getPoolUUID().toString(), requestEntity.getUUID().toString());
-                }
-                else {
+                    return Arrays.asList(getPoolUUID().toString(), requestEntity.id().toString());
+                } else {
                     return Arrays.asList(getPoolUUID().toString());
                 }
             }
-        }
-        else {
+        } else {
             if (hasUri()) {
-                return Arrays.asList(getUri().asReverseDNSString(), getUri().asReverseDNSString()
-                                                                    + "."
-                                                                    + getResponse().getNameOrId());
-            }
-            else {
-                return Arrays.asList(getPoolUUID().toString(), getResponse().getUUID().toString());
+                return Arrays.asList(uri().asReverseDNSString(), uri().asReverseDNSString() + "." + response().nameOrId());
+            } else {
+                return Arrays.asList(getPoolUUID().toString(), response().id().toString());
             }
         }
     }
@@ -98,7 +89,7 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CREATE_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.CREATE_POOL_OBJECT;
     }
 }

@@ -7,9 +7,8 @@ package cazcade.vortex.pool;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
 import cazcade.liquid.api.request.ResizePoolObjectRequest;
 import cazcade.liquid.api.request.RotateXYPoolObjectRequest;
@@ -47,18 +46,22 @@ import com.google.gwt.user.client.ui.Widget;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
+
 
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> implements PoolObjectPresenter<T>, GestureControllable, EndDragHandler, DragHandler, HoldDragHandler {
 
-    protected final BrowserUtil browserUtil = GWT.create(BrowserUtil.class);
-    protected       Bus                         bus;
-    protected       LSDTransferEntity           entity;
-    private final   T                           poolObjectView;
+    private static final int         SNAP_BORDER_X = 20;
+    private static final int         SNAP_BORDER_Y = 20;
+    protected static     Bus         bus           = BusFactory.get();
+    protected final      BrowserUtil browserUtil   = GWT.create(BrowserUtil.class);
     protected final VortexThreadSafeExecutor    threadSafeExecutor;
+    private final   T                           objectView;
     private final   PoolPresenter               pool;
+    protected       TransferEntity              entity;
     private         boolean                     locked;
     private         EventBasedGestureController gestureController;
     @Nullable
@@ -71,55 +74,33 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     private         double                      oldY;
     private         double                      deltaX;
     private         double                      deltaY;
-    private static final int SNAP_BORDER_X = 20;
-    private static final int SNAP_BORDER_Y = 20;
 
-    public AbstractPoolObjectPresenter(final PoolPresenter pool, final LSDTransferEntity entity, final T poolObjectView, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public AbstractPoolObjectPresenter(final PoolPresenter pool, final TransferEntity entity, final T objectView, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.pool = pool;
         this.entity = entity;
-        this.poolObjectView = poolObjectView;
-        poolObjectView.getElement().setId(entity.getUUID().toString());
+        this.objectView = objectView;
+        objectView.getElement().setId(entity.id().toString());
         this.threadSafeExecutor = threadSafeExecutor;
         update(entity, true);
     }
 
-    private void positionToView(@Nonnull final PoolPresenter pool, @Nonnull final LSDBaseEntity viewEntity, @Nonnull final T widget, int count) {
-        if (viewEntity.hasAttribute(LSDAttribute.VIEW_WIDTH)) {
-            widget.setLogicalWidth(Integer.parseInt(viewEntity.getAttribute(LSDAttribute.VIEW_WIDTH)));
-        }
-        else {
-            widget.setLogicalWidth(getDefaultWidth());
-        }
-        if (viewEntity.hasAttribute(LSDAttribute.VIEW_HEIGHT)) {
-            widget.setLogicalHeight(Integer.parseInt(viewEntity.getAttribute(LSDAttribute.VIEW_HEIGHT)));
-        }
-        else {
-            widget.setLogicalHeight(getDefaultHeight());
-        }
+    private void positionToView(@Nonnull final PoolPresenter pool, @Nonnull final Entity view, @Nonnull final T widget, int count) {
+        widget.setLogicalWidth(view.has$(VIEW_WIDTH) ? view.$i(VIEW_WIDTH) : getDefaultWidth());
+        widget.setLogicalHeight(view.has$(VIEW_HEIGHT) ? view.$i(VIEW_HEIGHT) : getDefaultHeight());
 
-        x = Double.parseDouble(viewEntity.getAttribute(LSDAttribute.VIEW_X));
-        y = Double.parseDouble(viewEntity.getAttribute(LSDAttribute.VIEW_Y));
+        x = view.$d(VIEW_X);
+        y = view.$d(VIEW_Y);
+
         oldX = x;
         oldY = y;
         pool.move(this, x, y, false);
-        setZIndexAccordingToPoolOrder(viewEntity, widget, count);
-
-
-        //        DOM.setStyleAttribute(widget.getElement(), "position", "relative");
-        //        DOM.setStyleAttribute(widget.getElement(), "left", (x + (pool.getWidth() / 2) - widget.getOffsetWidth() / 2) + "px");
-        //        DOM.setStyleAttribute(widget.getElement(), "top", (y + (pool.getHeight() / 2) - widget.getOffsetHeight() / 2) + "px");
-        //        ClientLog.log("left " + (x + (pool.getWidth() / 2) - widget.getOffsetWidth() / 2) + "px");
-        //        ClientLog.log("top " + (y + (pool.getHeight() / 2) - widget.getOffsetHeight() / 2) + "px");
+        setZIndexAccordingToPoolOrder(view, widget, count);
     }
 
-    private void setZIndexAccordingToPoolOrder(LSDBaseEntity viewEntity, T widget, int count) {
-        if (viewEntity.hasAttribute(LSDAttribute.VIEW_Z)) {
-            widget.getElement().getStyle().setZIndex(viewEntity.getDoubleAttribute(LSDAttribute.VIEW_Z).intValue());
-        }
-        else {
-            //The z-index should reflect the order in which objects have been added to the pool (at this stage).
-            widget.getElement().getStyle().setZIndex(widget.getDefaultZIndex() + count);
-        }
+    private void setZIndexAccordingToPoolOrder(Entity view, T widget, int count) {
+        widget.getElement()
+              .getStyle()
+              .setZIndex(view.has$(VIEW_Z) ? view.$d(VIEW_Z).intValue() : widget.getDefaultZIndex() + count);
     }
 
     protected int getDefaultHeight() {
@@ -130,12 +111,12 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return 300;
     }
 
-    public LSDTransferEntity getEntity() {
+    public TransferEntity getEntity() {
         return entity;
     }
 
     public T getPoolObjectView() {
-        return poolObjectView;
+        return objectView;
     }
 
     public void select() {
@@ -143,60 +124,56 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
     public void onAddToPool(final int count) {
-        if (poolObjectView.getParent() == null) {
+        if (objectView.getParent() == null) {
             throw new RuntimeException("Cannot add pool object to pool with a widget parent of null.");
         }
-        final LSDBaseEntity viewEntity = entity.getSubEntity(LSDAttribute.VIEW, true);
-        browserUtil.initDraggable(poolObjectView);
-        gestureController = new EventBasedGestureController(this, poolObjectView.getInnerWidget(), true, true);
+        final Entity viewEntity = entity.child(VIEW_ENTITY, true);
+        browserUtil.initDraggable(objectView);
+        gestureController = new EventBasedGestureController(this, objectView.getInnerWidget(), true, true);
         gestureController.setActive(pool.isModifiable());
-        poolObjectView.addHandler(new EditStartHandler() {
+        objectView.addHandler(new EditStartHandler() {
             @Override
             public void onEditStart(final EditStartEvent event) {
-                poolObjectView.getElement().getStyle().setZIndex(Integer.MAX_VALUE);
+                objectView.getElement().getStyle().setZIndex(Integer.MAX_VALUE);
 
             }
         }, EditStartEvent.TYPE);
 
-        poolObjectView.addHandler(new EditFinishHandler() {
+        objectView.addHandler(new EditFinishHandler() {
             @Override
             public void onEditFinish(final EditFinishEvent event) {
-                setZIndexAccordingToPoolOrder(viewEntity, poolObjectView, count);
+                setZIndexAccordingToPoolOrder(viewEntity, objectView, count);
             }
         }, EditFinishEvent.TYPE);
 
-        poolObjectView.initHandlers(gestureController);
-        poolObjectView.addDragHandler(this);
-        poolObjectView.addHoldDragHandler(this);
-        poolObjectView.addEndDragHandler(this);
-        if (viewEntity.hasAttribute(LSDAttribute.THEME)) {
-            getPoolObjectView().setStyleTheme(viewEntity.getAttribute(LSDAttribute.THEME));
-        }
-        if (viewEntity.hasAttribute(LSDAttribute.SIZE)) {
-            getPoolObjectView().setStyleSize(viewEntity.getAttribute(LSDAttribute.SIZE));
+        objectView.initHandlers(gestureController);
+        objectView.addDragHandler(this);
+        objectView.addHoldDragHandler(this);
+        objectView.addEndDragHandler(this);
 
-        }
+        if (viewEntity.has$(THEME)) { objectView.setStyleTheme(viewEntity.$(THEME)); }
+        if (viewEntity.has$(SIZE)) { objectView.setStyleSize(viewEntity.$(SIZE)); }
+
         //This must be called after theme and size are set but before positionToView
-        poolObjectView.onAddToPool();
+        objectView.onAddToPool();
 
 
-        bus = BusFactory.getInstance();
-        listenerId = bus.listenForURI(entity.getURI(), new PoolObjectPresenterBusAdapter());
+        listenerId = bus.listen(entity.uri(), new PoolObjectPresenterBusAdapter());
 
 
         //This must be called last as all size changes will have been confirmed.
-        positionToView(pool, viewEntity, poolObjectView, count);
+        positionToView(pool, viewEntity, objectView, count);
 
     }
 
     @Override
     public void onRemoveFromPool() {
-        bus.removeListener(listenerId);
+        bus.remove(listenerId);
     }
 
     @Override
     public void setOnDelete(final Runnable runnable) {
-        poolObjectView.setOnDelete(runnable);
+        objectView.setOnDelete(runnable);
     }
 
     @Override
@@ -216,7 +193,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
     @Override
     public double getRight() {
-        return x + poolObjectView.getOffsetWidth();
+        return x + objectView.getOffsetWidth();
     }
 
     @Override
@@ -226,29 +203,37 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
     @Override
     public double getBottom() {
-        return y + poolObjectView.getOffsetHeight();
+        return y + objectView.getOffsetHeight();
     }
 
     @Override
     public void hide() {
-        poolObjectView.setVisible(false);
+        objectView.setVisible(false);
     }
 
+    @Override
+    public void setY(final double y) {
+        this.y = y;
+    }
+
+    @Override
+    public void setX(final double x) {
+        this.x = x;
+    }
 
     @Nullable
     public LiquidMessage handle(@Nonnull final UpdatePoolObjectRequest request) {
-        final LSDTransferEntity responseEntity = request.getResponse();
+        final TransferEntity responseEntity = request.response();
         if (responseEntity != null) {
             update(responseEntity, true);
-        }
-        else if (request.getRequestEntity() != null) {
+        } else if (request.request() != null) {
             //only a provisional change, so we don't change the underlying entity just it's view.
-            update(request.getRequestEntity(), false);
+            update(request.request(), false);
         }
         return null;
     }
 
-    protected void update(final LSDTransferEntity newEntity, final boolean replaceEntity) {
+    protected void update(final TransferEntity newEntity, final boolean replaceEntity) {
         if (replaceEntity) {
             entity = newEntity;
         }
@@ -260,14 +245,14 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     public LiquidMessage handle(@Nonnull final MovePoolObjectRequest request) {
         oldX = x;
         oldY = y;
-        browserUtil.translateXY(poolObjectView, 0, 0, 0);
+        browserUtil.translateXY(objectView, 0, 0, 0);
         pool.move(this, request.getX(), request.getY(), false);
         return null;
     }
 
     @Nullable
     public LiquidMessage handle(@Nonnull final ResizePoolObjectRequest request) {
-        browserUtil.resize(poolObjectView, request.getWidth(), request.getHeight(), 100);
+        browserUtil.resize(objectView, request.getWidth(), request.getHeight(), 100);
         return null;
     }
 
@@ -276,7 +261,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                browserUtil.rotate(poolObjectView, request.getAngle(), 100);
+                browserUtil.rotate(objectView, request.getAngle(), 100);
             }
         });
         return null;
@@ -286,14 +271,11 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         gestureController.reset();
         if (request instanceof MovePoolObjectRequest) {
             handle((MovePoolObjectRequest) request);
-        }
-        else if (request instanceof ResizePoolObjectRequest) {
+        } else if (request instanceof ResizePoolObjectRequest) {
             handle((ResizePoolObjectRequest) request);
-        }
-        else if (request instanceof RotateXYPoolObjectRequest) {
+        } else if (request instanceof RotateXYPoolObjectRequest) {
             handle((RotateXYPoolObjectRequest) request);
-        }
-        else if (request instanceof UpdatePoolObjectRequest) {
+        } else if (request instanceof UpdatePoolObjectRequest) {
             handle((UpdatePoolObjectRequest) request);
         }
     }
@@ -305,16 +287,16 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         try {
             clone = new SimplePanel();
             clone.setVisible(false);
-            DOM.setStyleAttribute(poolObjectView.getElement(), "opacity", "0.0");
+            DOM.setStyleAttribute(objectView.getElement(), "opacity", "0.0");
             RootPanel.get().add(clone);
-            clone.getElement().setInnerHTML(poolObjectView.getElement().getInnerHTML());
+            clone.getElement().setInnerHTML(objectView.getElement().getInnerHTML());
             DOM.setStyleAttribute(clone.getElement(), "position", "absolute");
-            DOM.setStyleAttribute(clone.getElement(), "left", poolObjectView.getPageX() + "px");
-            DOM.setStyleAttribute(clone.getElement(), "top", poolObjectView.getPageY() + "px");
-            DOM.setStyleAttribute(clone.getElement(), "width", poolObjectView.getLogicalWidth() + "px");
-            DOM.setStyleAttribute(clone.getElement(), "height", poolObjectView.getLogicalHeight() + "px");
+            DOM.setStyleAttribute(clone.getElement(), "left", objectView.getPageX() + "px");
+            DOM.setStyleAttribute(clone.getElement(), "top", objectView.getPageY() + "px");
+            DOM.setStyleAttribute(clone.getElement(), "width", objectView.getLogicalWidth() + "px");
+            DOM.setStyleAttribute(clone.getElement(), "height", objectView.getLogicalHeight() + "px");
             DOM.setStyleAttribute(clone.getElement(), "zIndex", String.valueOf(Integer.MAX_VALUE));
-            clone.getElement().setAttribute("class", poolObjectView.getElement().getAttribute("class"));
+            clone.getElement().setAttribute("class", objectView.getElement().getAttribute("class"));
             clone.setVisible(true);
             DOM.setStyleAttribute(clone.getElement(), "opacity", "1.0");
             //            pool.getDragBoundContainer().add(clone);
@@ -335,7 +317,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
                 removeClone();
             }
         }.schedule(300);
-        DOM.setStyleAttribute(poolObjectView.getElement(), "opacity", "1");
+        DOM.setStyleAttribute(objectView.getElement(), "opacity", "1");
     }
 
     private void removeClone() {
@@ -351,17 +333,17 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
             deltaY = dragEvent.getDeltaY();
             constrainMovement();
             //            pool.move(this, x, y);
-            if (!poolObjectView.getStyleName().contains("dragging")) {
-                poolObjectView.addStyleName("dragging");
+            if (!objectView.getStyleName().contains("dragging")) {
+                objectView.addStyleName("dragging");
             }
-            browserUtil.translateXY(poolObjectView, deltaX, deltaY, 0);
+            browserUtil.translateXY(objectView, deltaX, deltaY, 0);
             pool.showDragMode();
         }
     }
 
     private void constrainMovement() {
-        final int offsetWidth = poolObjectView.getOffsetWidth();
-        final int offsetHeight = poolObjectView.getOffsetHeight();
+        final int offsetWidth = objectView.getOffsetWidth();
+        final int offsetHeight = objectView.getOffsetHeight();
         if (x + deltaX + offsetWidth > pool.getWidth() - SNAP_BORDER_X) {
             deltaX = pool.getWidth() - offsetWidth - x;
             //            deltaX= 0;
@@ -384,7 +366,6 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return modifiable;
     }
 
-
     public void onHoldDrag(@Nonnull final HoldDragEvent dragEvent) {
         if (isDraggable()) {
             //            if (clone == null) {
@@ -393,16 +374,15 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
             deltaX = dragEvent.getDeltaX();
             deltaY = dragEvent.getDeltaY();
             constrainMovement();
-            if (!poolObjectView.getStyleName().contains("dragging")) {
-                poolObjectView.addStyleName("dragging");
+            if (!objectView.getStyleName().contains("dragging")) {
+                objectView.addStyleName("dragging");
             }
-            browserUtil.translateXY(poolObjectView, deltaX, deltaY, 0);
+            browserUtil.translateXY(objectView, deltaX, deltaY, 0);
             //            pool.move(this, x, y);
             pool.showDragMode();
 
         }
     }
-
 
     public void onEndDrag(final EndDragEvent dragEvent) {
         //        int oldLeft= widget.getAbsoluteLeft();
@@ -413,92 +393,70 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         y = y + deltaY;
         oldX = x;
         oldY = y;
-        poolObjectView.addStyleName("dragging");
+        objectView.addStyleName("dragging");
         pool.move(this, x, y, true);
-        browserUtil.translateXY(poolObjectView, 0, 0, 0);
+        browserUtil.translateXY(objectView, 0, 0, 0);
         pool.move(this, x, y, false);
         new Timer() {
             @Override
             public void run() {
-                poolObjectView.removeStyleName("dragging");
+                objectView.removeStyleName("dragging");
             }
         }.schedule(1000);
         pool.hideDragMode();
 
     }
 
-
     public boolean hasCapture() {
-        return DOM.getCaptureElement().equals(poolObjectView.getElement());
+        return DOM.getCaptureElement().equals(objectView.getElement());
     }
 
     public void startCapture() {
-        DOM.setCapture(poolObjectView.getElement());
+        DOM.setCapture(objectView.getElement());
     }
 
     public void releaseCapture() {
-        DOM.releaseCapture(poolObjectView.getElement());
+        DOM.releaseCapture(objectView.getElement());
         if (clone != null) {
             DOM.releaseCapture(clone.getElement());
         }
     }
 
     public void fireEvent(final GwtEvent<?> event) {
-        poolObjectView.fireEvent(event);
+        objectView.fireEvent(event);
+    }
+
+    @Override
+    public double getLeftBounds() {
+        return 0;
+    }
+
+    @Override
+    public double getRightBounds() {
+        return objectView.getOffsetWidth();
+    }
+
+    @Override
+    public double getBottomBounds() {
+        return objectView.getOffsetHeight();
+    }
+
+    @Override
+    public double getTopBounds() {
+        return 0;
+    }
+
+    @Override
+    public Element getBoundingElement() {
+        return objectView.getElement();
     }
 
     protected void updateAccessInformation() {
-        if (entity.hasAttribute(LSDAttribute.EDITABLE)) {
-            getPoolObjectView().setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
+        if (entity.has$(EDITABLE)) {
+            getPoolObjectView().setEditable(entity.$bool(EDITABLE));
         }
-        modifiable = entity.hasAttribute(LSDAttribute.MODIFIABLE) && entity.getBooleanAttribute(LSDAttribute.MODIFIABLE);
+        modifiable = entity.has$(MODIFIABLE) && entity.$bool(MODIFIABLE);
 
-    }
-
-
-    private class PoolObjectPresenterBusAdapter implements BusListener {
-        public void handle(@Nonnull final LiquidMessage message) {
-            ClientLog.log("Received message with id of " + message.getId());
-            final LiquidMessageState state = message.getState();
-            if (state == LiquidMessageState.SUCCESS && message instanceof LiquidRequest) {
-                final LiquidRequest response = (LiquidRequest) message;
-                ClientLog.log("** Successful **  PoolObject message "
-                              + response.getRequestType()
-                              + " affecting "
-                              + response.getAffectedEntities()
-                              + " and sent to locations "
-                              + response.getNotificationLocations());
-                handleRequestInternal(response);
-                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid green");
-            }
-            else if (state == LiquidMessageState.DEFERRED && message instanceof LiquidRequest) {
-                ClientLog.log("Message with state " + state + " ignored.");
-                //                LiquidRequest request = (LiquidRequest) message;
-                //                handleRequestInternal(request);
-                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid orange");
-            }
-            else if (state == LiquidMessageState.PROVISIONAL && message instanceof LiquidRequest) {
-                final LiquidRequest request = (LiquidRequest) message;
-                handleRequestInternal(request);
-                ClientLog.log("** Provisional ** PoolObject message "
-                              + request.getRequestType()
-                              + " affecting "
-                              + request.getAffectedEntities());
-                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid yellow");
-            }
-            else if (state == LiquidMessageState.FAIL && message instanceof LiquidRequest) {
-                ClientLog.log("Message FAILED.");
-                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid red");
-            }
-            else if (state == LiquidMessageState.INITIAL) {
-                ClientLog.log("Message with state " + state + " ignored.");
-                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid white");
-            }
-            else {
-                ClientLog.log("Message with state " + state + " ignored.");
-                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid blue");
-            }
-        }
     }
 
     public PoolPresenter getPool() {
@@ -513,39 +471,44 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return browserUtil;
     }
 
-    @Override
-    public void setX(final double x) {
-        this.x = x;
-    }
-
-    @Override
-    public void setY(final double y) {
-        this.y = y;
-    }
-
-    @Override
-    public double getLeftBounds() {
-        return 0;
-    }
-
-    @Override
-    public double getRightBounds() {
-        return poolObjectView.getOffsetWidth();
-    }
-
-    @Override
-    public double getBottomBounds() {
-        return poolObjectView.getOffsetHeight();
-    }
-
-    @Override
-    public double getTopBounds() {
-        return 0;
-    }
-
-    @Override
-    public Element getBoundingElement() {
-        return poolObjectView.getElement();
+    private class PoolObjectPresenterBusAdapter implements BusListener {
+        public void handle(@Nonnull final LiquidMessage message) {
+            ClientLog.log("Received message with id of " + message.id());
+            final LiquidMessageState state = message.getState();
+            if (state == LiquidMessageState.SUCCESS && message instanceof LiquidRequest) {
+                final LiquidRequest response = (LiquidRequest) message;
+                ClientLog.log("** Successful **  PoolObject message "
+                              + response.requestType()
+                              + " affecting "
+                              + response.affectedEntities()
+                              + " and sent to locations "
+                              + response.notificationLocations());
+                handleRequestInternal(response);
+                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid green");
+            } else if (state == LiquidMessageState.DEFERRED && message instanceof LiquidRequest) {
+                ClientLog.log("Message with state " + state + " ignored.");
+                //                LiquidRequest request = (LiquidRequest) message;
+                //                handleRequestInternal(request);
+                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid orange");
+            } else if (state == LiquidMessageState.PROVISIONAL && message instanceof LiquidRequest) {
+                final LiquidRequest request = (LiquidRequest) message;
+                handleRequestInternal(request);
+                ClientLog.log("** Provisional ** PoolObject message "
+                              + request.requestType()
+                              + " affecting "
+                              + request.affectedEntities());
+                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid yellow");
+            } else if (state == LiquidMessageState.FAIL && message instanceof LiquidRequest) {
+                ClientLog.log("Message FAILED.");
+                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid red");
+            } else if (state == LiquidMessageState.INITIAL) {
+                ClientLog.log("Message with state " + state + " ignored.");
+                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid white");
+            } else {
+                ClientLog.log("Message with state " + state + " ignored.");
+                //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid blue");
+            }
+        }
     }
 
 

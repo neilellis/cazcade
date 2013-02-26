@@ -13,7 +13,7 @@ import cazcade.fountain.validation.api.ValidationLevel;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageOrigin;
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.impl.UUIDFactory;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 
@@ -72,24 +72,23 @@ public class FountainDataStoreFacadeProxyFactory {
             }
             final LiquidRequest liquidRequest = (LiquidRequest) args[0];
             if (!liquidRequest.hasId()) {
-                liquidRequest.setId(UUIDFactory.randomUUID());
+                liquidRequest.id(UUIDFactory.randomUUID());
             }
-            liquidRequest.setOrigin(LiquidMessageOrigin.CLIENT);
+            liquidRequest.origin(LiquidMessageOrigin.CLIENT);
             LiquidMessage response = null;
             try {
                 if (liquidRequest.hasRequestEntity()) {
-                    entityValidator.validate(liquidRequest.getRequestEntity(), ValidationLevel.MODERATE);
+                    entityValidator.validate(liquidRequest.request(), ValidationLevel.MODERATE);
                 }
                 response = authorizationService.authorize(liquidRequest);
                 if (response == null) {
                     log.debug("SUCCESS Authorized.");
                     response = dataStore.process(liquidRequest);
-                    final LSDTransferEntity responseEntity = response.getResponse();
+                    final TransferEntity responseEntity = response.response();
                     entityValidator.validate(responseEntity, ValidationLevel.MODERATE);
                     log.debug("SUCCESS Post validation okay returning response.");
                     return response;
-                }
-                else {
+                } else {
                     log.debug("FAIL Authorization failed.");
                     return response;
                 }

@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,25 +17,25 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class LinkPoolRequest extends AbstractRequest {
-    public LinkPoolRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, @Nullable final LiquidUUID from, @Nullable final LiquidUUID to, final boolean unlink) {
+    public LinkPoolRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, @Nullable final LiquidUUID from, @Nullable final LiquidUUID to, final boolean unlink) {
         super();
         setFrom(from);
         setTo(to);
         setTarget(target);
         setUnlink(unlink);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
     }
 
-    public LinkPoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final boolean unlink) {
+    public LinkPoolRequest(final SessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final boolean unlink) {
         this(null, identity, target, from, null, unlink);
     }
 
-    public LinkPoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final LiquidUUID to) {
+    public LinkPoolRequest(final SessionIdentifier identity, final LiquidUUID target, final LiquidUUID from, final LiquidUUID to) {
         this(null, identity, target, from, to, false);
     }
 
-    public LinkPoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidUUID to) {
+    public LinkPoolRequest(final SessionIdentifier identity, final LiquidUUID target, final LiquidUUID to) {
         this(null, identity, target, null, to, false);
     }
 
@@ -43,7 +43,7 @@ public class LinkPoolRequest extends AbstractRequest {
         super();
     }
 
-    public LinkPoolRequest(final LSDTransferEntity entity) {
+    public LinkPoolRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -52,7 +52,7 @@ public class LinkPoolRequest extends AbstractRequest {
         return new LinkPoolRequest(getEntity());
     }
 
-    public Collection<LiquidURI> getAffectedEntities() {
+    public Collection<LiquidURI> affectedEntities() {
         //        ArrayList<LiquidUUID> ids = new ArrayList<LiquidUUID>();
         //        if (from != null) {
         //            ids.add(from);
@@ -63,36 +63,34 @@ public class LinkPoolRequest extends AbstractRequest {
         //        ids.add(target);
         //        return ids;
         //todo: support uris
-        return super.getAffectedEntities();
+        return super.affectedEntities();
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (isUnlink()) {
             final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
             if (hasFrom()) {
-                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.EDIT));
-                requests.add(new AuthorizationRequest(getSessionIdentifier(), getFrom(), LiquidPermission.MODIFY));
+                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.EDIT_PERM));
+                requests.add(new AuthorizationRequest(session(), getFrom(), Permission.MODIFY_PERM));
             }
             return requests;
-        }
-        else {
+        } else {
             final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
             if (hasFrom() && hasTo()) {
-                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.EDIT));
-                requests.add(new AuthorizationRequest(getSessionIdentifier(), getFrom(), LiquidPermission.MODIFY));
-                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTo(), LiquidPermission.MODIFY));
-            }
-            else if (hasTo()) {
-                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
-                requests.add(new AuthorizationRequest(getSessionIdentifier(), getTo(), LiquidPermission.MODIFY));
+                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.EDIT_PERM));
+                requests.add(new AuthorizationRequest(session(), getFrom(), Permission.MODIFY_PERM));
+                requests.add(new AuthorizationRequest(session(), getTo(), Permission.MODIFY_PERM));
+            } else if (hasTo()) {
+                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
+                requests.add(new AuthorizationRequest(session(), getTo(), Permission.MODIFY_PERM));
             }
             return requests;
         }
     }
 
     @Nonnull
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         final List<String> locations = new ArrayList<String>();
         if (hasFrom()) {
             locations.add(getFrom().toString());
@@ -104,8 +102,8 @@ public class LinkPoolRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.LINK_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.LINK_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

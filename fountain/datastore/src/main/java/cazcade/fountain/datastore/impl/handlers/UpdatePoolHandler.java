@@ -4,13 +4,13 @@
 
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.ChildSortOrder;
-import cazcade.liquid.api.LiquidRequestDetailLevel;
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.RequestDetailLevel;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.handler.UpdatePoolRequestHandler;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -22,18 +22,18 @@ import javax.annotation.Nonnull;
 public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> implements UpdatePoolRequestHandler {
     @Nonnull
     public UpdatePoolRequest handle(@Nonnull final UpdatePoolRequest request) throws Exception {
-        final Transaction transaction = fountainNeo.beginTx();
+        final Transaction transaction = neo.beginTx();
         try {
-            final LSDTransferEntity entity;
-            final LSDPersistedEntity persistedEntityImpl;
+            final TransferEntity entity;
+            final PersistedEntity persistedEntityImpl;
 
             if (!request.hasUri()) {
                 throw new UnsupportedOperationException("Only URI based updates of pools supported");
             } else {
             }
 
-            final LiquidRequestDetailLevel detail = request.getDetail();
-            final boolean internal = request.isInternal();
+            final RequestDetailLevel detail = request.detail();
+            final boolean internal = request.internal();
             final boolean historical = false;
             final Integer end = null;
             final int start = 0;
@@ -41,9 +41,9 @@ public class UpdatePoolHandler extends AbstractUpdateHandler<UpdatePoolRequest> 
             final boolean contents = true;
 
 
-            persistedEntityImpl = fountainNeo.findByURIAndLockForWrite(request.getUri());
-            final LiquidSessionIdentifier sessionIdentifier = request.getSessionIdentifier();
-            final LSDTransferEntity requestEntity = request.getRequestEntity();
+            persistedEntityImpl = neo.findForWrite(request.uri());
+            final SessionIdentifier sessionIdentifier = request.session();
+            final TransferEntity requestEntity = request.request();
 
             final Runnable onRenameAction = new Runnable() {
                 @Override

@@ -4,8 +4,8 @@
 
 package cazcade.vortex.pool.objects.youtube;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.dnd.client.gesture.drag.DragEvent;
 import cazcade.vortex.dnd.client.gesture.enddrag.EndDragEvent;
 import cazcade.vortex.dnd.client.gesture.hdrag.HoldDragEvent;
@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
-    public YouTubePresenter(final PoolPresenter pool, final LSDTransferEntity entity, final YouTubeView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public YouTubePresenter(final PoolPresenter pool, final TransferEntity entity, final YouTubeView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addHandler(new DoubleClickHandler() {
             @Override
@@ -35,12 +35,12 @@ public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
     }
 
     @Override
-    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                if (newEntity.hasAttribute(LSDAttribute.MEDIA_ID)) {
-                    getPoolObjectView().setVideoId(newEntity.getAttribute(LSDAttribute.MEDIA_ID));
+                if (newEntity.has$(Dictionary.MEDIA_ID)) {
+                    getPoolObjectView().setVideoId(newEntity.$(Dictionary.MEDIA_ID));
                 }
                 YouTubePresenter.super.update(newEntity, replaceEntity);
                 getPoolObjectView().resetMode();

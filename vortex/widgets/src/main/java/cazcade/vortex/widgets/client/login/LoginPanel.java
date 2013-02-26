@@ -4,7 +4,7 @@
 
 package cazcade.vortex.widgets.client.login;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.widgets.client.form.fields.UsernameTextBox;
@@ -25,11 +25,11 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public class LoginPanel extends Composite {
-    private Runnable                onSuccessAction;
-    private Runnable                onFailureAction;
-    private Runnable                onSwitchToRegisterAction;
+    private Runnable          onSuccessAction;
+    private Runnable          onFailureAction;
+    private Runnable          onSwitchToRegisterAction;
     @Nullable
-    private LiquidSessionIdentifier identity;
+    private SessionIdentifier identity;
 
 
     interface LoginPanelUiBinder extends UiBinder<HTMLPanel, LoginPanel> {}
@@ -81,18 +81,17 @@ public class LoginPanel extends Composite {
         if (password.isValid() && username.isValid()) {
             DataStoreService.App
                             .getInstance()
-                            .login(username.getStringValue(), password.getStringValue(), new AsyncCallback<LiquidSessionIdentifier>() {
+                            .login(username.getStringValue(), password.getStringValue(), new AsyncCallback<SessionIdentifier>() {
                                 @Override
                                 public void onFailure(final Throwable caught) {
                                     ClientLog.log(caught);
                                 }
 
                                 @Override
-                                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
+                                public void onSuccess(@Nullable final SessionIdentifier result) {
                                     if (result == null) {
                                         doFailure();
-                                    }
-                                    else {
+                                    } else {
                                         identity = result;
                                         onSuccessAction.run();
                                     }
@@ -120,7 +119,7 @@ public class LoginPanel extends Composite {
     }
 
     @Nullable
-    public LiquidSessionIdentifier getIdentity() {
+    public SessionIdentifier getIdentity() {
         return identity;
     }
 

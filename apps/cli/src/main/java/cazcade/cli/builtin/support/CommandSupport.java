@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin.support;
 
 import cazcade.cli.ShellSession;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.*;
 
 import javax.annotation.Nonnull;
@@ -19,16 +23,16 @@ public class CommandSupport {
         final LiquidURI poolURI;
 
         if (".".equals(pool)) {
-            poolURI = shellSession.getCurrentPool().getURI();
+            poolURI = shellSession.getCurrentPool().uri();
         } else if ("..".equals(pool)) {
-            poolURI = shellSession.getCurrentPool().getURI().getParentURI();
+            poolURI = shellSession.getCurrentPool().uri().parent();
         } else if (pool.startsWith("pool://")) {
             poolURI = new LiquidURI(pool);
         } else if (pool.startsWith("/")) {
             poolURI = new LiquidURI("pool://" + pool);
         } else {
 
-            poolURI = new LiquidURI(shellSession.getCurrentPool().getURI(), pool);
+            poolURI = new LiquidURI(shellSession.getCurrentPool().uri(), pool);
         }
         return poolURI;
     }
@@ -51,9 +55,11 @@ public class CommandSupport {
             aliasURI = resolveAlias(shellSession, alias);
             response = shellSession.getDataStore().process(new RetrieveUserRequest(shellSession.getIdentity(), aliasURI, true));
         } else if ("object".equals(args[0])) {
-            response = shellSession.getDataStore().process(new RetrievePoolObjectRequest(shellSession.getIdentity(), resolvePoolOrObject(shellSession, args[1]), false));
+            response = shellSession.getDataStore()
+                                   .process(new RetrievePoolObjectRequest(shellSession.getIdentity(), resolvePoolOrObject(shellSession, args[1]), false));
         } else if ("pool".equals(args[0])) {
-            response = shellSession.getDataStore().process(new RetrievePoolRequest(shellSession.getIdentity(), resolvePoolOrObject(shellSession, args[1]), false, false));
+            response = shellSession.getDataStore()
+                                   .process(new RetrievePoolRequest(shellSession.getIdentity(), resolvePoolOrObject(shellSession, args[1]), false, false));
         } else {
             System.err.println("Unrecognized resource type " + args[0]);
         }
@@ -63,7 +69,7 @@ public class CommandSupport {
     public static LiquidURI resolveAlias(@Nonnull final ShellSession shellSession, @Nonnull final String alias) {
         final LiquidURI aliasURI;
         if ("self".equals(alias)) {
-            aliasURI = shellSession.getIdentity().getAliasURL();
+            aliasURI = shellSession.getIdentity().aliasURI();
         } else {
             aliasURI = new LiquidURI(LiquidURIScheme.alias, alias);
         }
@@ -73,7 +79,7 @@ public class CommandSupport {
     public static LiquidUUID resolveSession(@Nonnull final ShellSession shellSession, @Nonnull final String session) {
         final LiquidUUID sessionId;
         if ("self".equals(session)) {
-            sessionId = shellSession.getIdentity().getSession();
+            sessionId = shellSession.getIdentity().session();
         } else {
             sessionId = new LiquidUUID(session);
         }
@@ -83,7 +89,7 @@ public class CommandSupport {
     public static LiquidURI resolveUser(@Nonnull final ShellSession shellSession, @Nonnull final String arg) {
         final LiquidURI user;
         if ("self".equals(arg)) {
-            user = shellSession.getIdentity().getUserURL();
+            user = shellSession.getIdentity().userURL();
         } else {
             user = new LiquidURI(LiquidURIScheme.user, arg);
         }
@@ -101,20 +107,22 @@ public class CommandSupport {
 
     @Nullable
     public static String alterObject(@Nonnull final ShellSession shellSession, @Nonnull final LiquidURI objectURI, @Nonnull final AlterEntityCallback callback) throws Exception {
-        final LiquidURI poolURI = objectURI.getWithoutFragment();
-        final LiquidMessage response1 = shellSession.getDataStore().process(new RetrievePoolObjectRequest(shellSession.getIdentity(), objectURI, false));
-        final LSDTransferEntity entity1 = response1.getResponse();
+        final LiquidURI poolURI = objectURI.withoutFragment();
+        final LiquidMessage response1 = shellSession.getDataStore()
+                                                    .process(new RetrievePoolObjectRequest(shellSession.getIdentity(), objectURI, false));
+        final TransferEntity entity1 = response1.response();
         if (response1.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity1.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity1.$(Dictionary.DESCRIPTION));
             return null;
         }
 
-        final LSDTransferEntity newEntity = callback.alter(entity1);
+        final TransferEntity newEntity = callback.alter(entity1);
 
-        final LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolObjectRequest(shellSession.getIdentity(), objectURI, newEntity));
-        final LSDBaseEntity entity2 = response2.getResponse();
+        final LiquidMessage response2 = shellSession.getDataStore()
+                                                    .process(new UpdatePoolObjectRequest(shellSession.getIdentity(), objectURI, newEntity));
+        final Entity entity2 = response2.response();
         if (response2.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity2.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity2.$(Dictionary.DESCRIPTION));
             return null;
         }
         return objectURI.toString();
@@ -122,19 +130,21 @@ public class CommandSupport {
 
     @Nullable
     public static String alterPool(@Nonnull final ShellSession shellSession, @Nonnull final LiquidURI poolURI, @Nonnull final AlterEntityCallback callback) throws Exception {
-        final LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, false, false));
-        final LSDTransferEntity entity = response.getResponse();
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, false, false));
+        final TransferEntity entity = response.response();
         if (response.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity.$(Dictionary.DESCRIPTION));
             return null;
         }
 
-        final LSDTransferEntity newEntity = callback.alter(entity);
+        final TransferEntity newEntity = callback.alter(entity);
 
-        final LiquidMessage response2 = shellSession.getDataStore().process(new UpdatePoolRequest(shellSession.getIdentity(), poolURI, newEntity));
-        final LSDBaseEntity entity2 = response2.getResponse();
+        final LiquidMessage response2 = shellSession.getDataStore()
+                                                    .process(new UpdatePoolRequest(shellSession.getIdentity(), poolURI, newEntity));
+        final Entity entity2 = response2.response();
         if (response2.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity2.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity2.$(Dictionary.DESCRIPTION));
             return null;
         }
         return poolURI.toString();
@@ -142,19 +152,21 @@ public class CommandSupport {
 
     @Nullable
     public static String alterAlias(@Nonnull final ShellSession shellSession, @Nonnull final LiquidURI aliasURI, @Nonnull final AlterEntityCallback callback) throws Exception {
-        final LiquidMessage response = shellSession.getDataStore().process(new RetrieveAliasRequest(shellSession.getIdentity(), aliasURI));
-        final LSDTransferEntity entity = response.getResponse();
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new RetrieveAliasRequest(shellSession.getIdentity(), aliasURI));
+        final TransferEntity entity = response.response();
         if (response.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity.$(Dictionary.DESCRIPTION));
             return null;
         }
 
-        final LSDTransferEntity newEntity = callback.alter(entity);
+        final TransferEntity newEntity = callback.alter(entity);
 
-        final LiquidMessage response2 = shellSession.getDataStore().process(new UpdateAliasRequest(shellSession.getIdentity(), aliasURI, newEntity));
-        final LSDBaseEntity entity2 = response2.getResponse();
+        final LiquidMessage response2 = shellSession.getDataStore()
+                                                    .process(new UpdateAliasRequest(shellSession.getIdentity(), aliasURI, newEntity));
+        final Entity entity2 = response2.response();
         if (response2.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity2.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity2.$(Dictionary.DESCRIPTION));
             return null;
         }
         return aliasURI.toString();
@@ -163,19 +175,21 @@ public class CommandSupport {
 
     @Nullable
     public static String alterUser(@Nonnull final ShellSession shellSession, @Nonnull final LiquidURI userURI, @Nonnull final AlterEntityCallback callback) throws Exception {
-        final LiquidMessage response = shellSession.getDataStore().process(new RetrieveUserRequest(shellSession.getIdentity(), userURI, false));
-        final LSDTransferEntity entity = response.getResponse();
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new RetrieveUserRequest(shellSession.getIdentity(), userURI, false));
+        final TransferEntity entity = response.response();
         if (response.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity.$(Dictionary.DESCRIPTION));
             return null;
         }
 
-        final LSDTransferEntity newEntity = callback.alter(entity);
+        final TransferEntity newEntity = callback.alter(entity);
 
-        final LiquidMessage response2 = shellSession.getDataStore().process(new UpdateUserRequest(shellSession.getIdentity(), entity.getUUID(), newEntity));
-        final LSDBaseEntity entity2 = response2.getResponse();
+        final LiquidMessage response2 = shellSession.getDataStore()
+                                                    .process(new UpdateUserRequest(shellSession.getIdentity(), entity.id(), newEntity));
+        final Entity entity2 = response2.response();
         if (response2.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity2.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity2.$(Dictionary.DESCRIPTION));
             return null;
         }
         return userURI.toString();
@@ -183,6 +197,6 @@ public class CommandSupport {
 
     public interface AlterEntityCallback {
 
-        LSDTransferEntity alter(LSDTransferEntity entity);
+        TransferEntity alter(TransferEntity entity);
     }
 }

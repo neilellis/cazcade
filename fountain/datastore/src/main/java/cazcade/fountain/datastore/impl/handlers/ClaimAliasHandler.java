@@ -6,10 +6,10 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.handler.ClaimAliasRequestHandler;
 import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.ClaimAliasRequest;
@@ -27,41 +27,40 @@ import java.util.List;
 public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasRequest> implements ClaimAliasRequestHandler {
     @Nonnull
     public ClaimAliasRequest handle(@Nonnull final ClaimAliasRequest request) throws Exception {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS_LIST);
+        final TransferEntity entity = SimpleEntity.create(Types.T_ALIAS_LIST);
         entity.timestamp();
-        entity.setID(UUIDFactory.randomUUID());
-        final List<LSDBaseEntity> children = new ArrayList<LSDBaseEntity>();
+        entity.id(UUIDFactory.randomUUID());
+        final List<Entity> children = new ArrayList<Entity>();
 
-        final Transaction transaction = fountainNeo.beginTx();
+        final Transaction transaction = neo.beginTx();
         try {
-            final LSDPersistedEntity userPersistedEntityImpl = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
+            final PersistedEntity userPersistedEntityImpl = neo.find(request.session().userURL());
             assert userPersistedEntityImpl != null;
-            if (userPersistedEntityImpl.hasRelationship(FountainRelationships.CLAIMED, Direction.OUTGOING)) {
-                final Iterable<FountainRelationship> claims = userPersistedEntityImpl.getRelationships(FountainRelationships.CLAIMED, Direction.OUTGOING);
+            if (userPersistedEntityImpl.has(FountainRelationships.CLAIMED, Direction.OUTGOING)) {
+                final Iterable<FountainRelationship> claims = userPersistedEntityImpl.relationships(FountainRelationships.CLAIMED, Direction.OUTGOING);
                 for (final FountainRelationship claim : claims) {
-                    final LSDPersistedEntity claimedPersistedEntity = claim.getOtherNode(userPersistedEntityImpl);
-                    final Iterable<FountainRelationship> aliases = userPersistedEntityImpl.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    final PersistedEntity claimedPersistedEntity = claim.other(userPersistedEntityImpl);
+                    final Iterable<FountainRelationship> aliases = userPersistedEntityImpl.relationships(FountainRelationships.ALIAS, Direction.INCOMING);
                     //clean up any multiple alias mess!
                     for (final FountainRelationship alias : aliases) {
-                        if (alias.getOtherNode(userPersistedEntityImpl).equals(claimedPersistedEntity)) {
+                        if (alias.other(userPersistedEntityImpl).equals(claimedPersistedEntity)) {
                             alias.delete();
                         }
                     }
-                    claimedPersistedEntity.createRelationshipTo(userPersistedEntityImpl, FountainRelationships.ALIAS);
-                    final LSDBaseEntity child = claimedPersistedEntity.toLSD(request.getDetail(), request.isInternal());
+                    claimedPersistedEntity.relate(userPersistedEntityImpl, FountainRelationships.ALIAS);
+                    final Entity child = claimedPersistedEntity.toTransfer(request.detail(), request.internal());
                     children.add(child);
                     //todo: auto add feeds
-                    if (child.attributeIs(LSDAttribute.NETWORK, "twitter")) {
-                        addTwitterFeed(request.getSessionIdentifier(), request, child);
+                    if (child.attributeIs(Dictionary.NETWORK, "twitter")) {
+                        addTwitterFeed(request.session(), request, child);
                     }
                     claim.delete();
                 }
-            }
-            else {
+            } else {
                 transaction.success();
                 return LiquidResponseHelper.forEmptyResultResponse(request);
             }
-            entity.addSubEntities(LSDAttribute.CHILD, children);
+            entity.children(Dictionary.CHILD_A, children);
 
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
@@ -73,17 +72,16 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
         }
     }
 
-    private void addTwitterFeed(final LiquidSessionIdentifier identity, @Nonnull final ClaimAliasRequest request, @Nonnull final LSDBaseEntity child) throws Exception {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.TWITTER_FEED, UUIDFactory.randomUUID());
-        final String name = child.getAttribute(LSDAttribute.NAME);
-        entity.setAttribute(LSDAttribute.EURI, String.format("timeline://%s@twitter/", name));
-        entity.setAttribute(LSDAttribute.SOURCE, String.format("http://twitter.com/%s", name));
-        entity.setAttribute(LSDAttribute.DESCRIPTION, String.format("%s's Twitter Feed", child.getAttribute(LSDAttribute.FULL_NAME)));
-        entity.setAttribute(LSDAttribute.NAME, String.format("twitter_%s_%d", name, System.currentTimeMillis()));
-        final LSDPersistedEntity pool = fountainNeo.findByURI(new LiquidURI("pool:///people/" + request.getSessionIdentifier()
-                                                                                                       .getName() + "/stream"));
-        final LSDBaseEntity feed = poolDAO.createPoolObjectTx(pool, identity, request.getSessionIdentifier()
-                                                                                     .getAlias(), child.getURI(), entity, request.getDetail(), request
-                .isInternal(), false);
+    private void addTwitterFeed(final SessionIdentifier identity, @Nonnull final ClaimAliasRequest request, @Nonnull final Entity child) throws Exception {
+        final TransferEntity entity = SimpleEntity.createNewTransferEntity(Types.T_TWITTER_FEED, UUIDFactory.randomUUID());
+        final String name = child.$(Dictionary.NAME);
+        entity.$(Dictionary.EURI, String.format("timeline://%s@twitter/", name));
+        entity.$(Dictionary.SOURCE, String.format("http://twitter.com/%s", name));
+        entity.$(Dictionary.DESCRIPTION, String.format("%s's Twitter Feed", child.$(Dictionary.FULL_NAME)));
+        entity.$(Dictionary.NAME, String.format("twitter_%s_%d", name, System.currentTimeMillis()));
+        final PersistedEntity pool = neo.find(new LiquidURI("pool:///people/" + request.session().name() + "/stream"));
+        final Entity feed = poolDAO.createPoolObjectTx(pool, identity, request.session()
+                                                                              .alias(), child.uri(), entity, request.detail(), request
+                .internal(), false);
     }
 }

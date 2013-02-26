@@ -5,15 +5,15 @@
 package cazcade.vortex.comms.datastore.client;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.SerializedRequest;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.gwt.util.client.$;
 import cazcade.vortex.gwt.util.client.ClientLog;
-import cazcade.vortex.gwt.util.client.GWTUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
@@ -47,13 +47,13 @@ public class GWTDataStore {
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
     @Nonnull
-    private LiquidSessionIdentifier identity;
-    private boolean                 collecting;
+    private SessionIdentifier identity;
+    private boolean           collecting;
 
-    public GWTDataStore(@Nonnull final LiquidSessionIdentifier newIdentity, @Nonnull final Runnable onStartup, final Runnable onLoggedOutAction) {
+    public GWTDataStore(@Nonnull final SessionIdentifier newIdentity, @Nonnull final Runnable onStartup, final Runnable onLoggedOutAction) {
         this.onLoggedOutAction = onLoggedOutAction;
         identity = newIdentity;
-        bus = BusFactory.getInstance();
+        bus = BusFactory.get();
 
         new Timer() {
             @Override
@@ -66,7 +66,7 @@ public class GWTDataStore {
             }
         }.scheduleRepeating(1000);
 
-        GWTUtil.runAsync(new Runnable() {
+        $.async(new Runnable() {
             @Override public void run() {
                 setupListeners(newIdentity);
                 onStartup.run();
@@ -76,32 +76,30 @@ public class GWTDataStore {
 
     }
 
-    private void setupListeners(@Nonnull final LiquidSessionIdentifier newIdentity) {
+    private void setupListeners(@Nonnull final SessionIdentifier newIdentity) {
         bus.listen(new AbstractBusListener() {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
-                if (((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
+                if (((LiquidRequest) message).requestType() == RequestType.VISIT_POOL) {
                     final VisitPoolRequest request = (VisitPoolRequest) message;
-                    if (request.getSessionIdentifier().getSession() == null || request.getSessionIdentifier()
-                                                                                      .getAlias()
-                                                                                      .equals(identity.getAlias())) {
+                    if (request.session().session() == null || request.session().alias().equals(identity.alias())) {
                         if (request.getState() == LiquidMessageState.SUCCESS) {
                             locations.clear();
-                            locations.add(newIdentity.getAlias().asReverseDNSString());
-                            final LSDBaseEntity responseEntity = request.getResponse();
-                            locations.add(responseEntity.getURI().asReverseDNSString() + ".#");
-                            locations.add(responseEntity.getUUID().toString());
+                            locations.add(newIdentity.alias().asReverseDNSString());
+                            final Entity responseEntity = request.response();
+                            locations.add(responseEntity.uri().asReverseDNSString() + ".#");
+                            locations.add(responseEntity.id().toString());
                         } else if (request.getState() == LiquidMessageState.PROVISIONAL
                                    || request.getState() == LiquidMessageState.INITIAL) {
                             if (request.hasUri()) {
-                                locations.add(request.getUri().asReverseDNSString() + ".#");
+                                locations.add(request.uri().asReverseDNSString() + ".#");
                             }
                             if (request.hasTarget()) {
                                 locations.add(request.getTarget().toString());
                             }
                         } else if (request.getState() == LiquidMessageState.FAIL) {
                             if (request.hasUri()) {
-                                locations.remove(request.getUri().asReverseDNSString() + ".#");
+                                locations.remove(request.uri().asReverseDNSString() + ".#");
                             }
                             if (request.hasTarget()) {
                                 locations.remove(request.getTarget().toString());
@@ -113,19 +111,18 @@ public class GWTDataStore {
                 }
             }
         });
-        bus.listenForAllButTheseTypes(Arrays.asList(LiquidMessageType.RESPONSE), new AbstractBusListener() {
+        bus.listenAllBut(Arrays.asList(LiquidMessageType.RESPONSE), new AbstractBusListener() {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
                 ClientLog.log("Received a potential message to be stored " + message);
-                if (message.getOrigin() == LiquidMessageOrigin.UNASSIGNED
-                    && message.getMessageType() == LiquidMessageType.REQUEST) {
+                if (message.origin() == LiquidMessageOrigin.UNASSIGNED && message.messageType() == LiquidMessageType.REQUEST) {
                     ClientLog.log("Storing " + message);
                     //remove the id to allow caching.
-                    //                            final LiquidUUID id = message.getId();
-                    //                            message.setId(null);
+                    //                            final LiquidUUID id = message.id();
+                    //                            message.id(null);
                     //remove the identity
                     //                            ((LiquidRequest) message).setIdentity(null);
-                    ((LiquidRequest) message).setSessionId(identity);
+                    ((LiquidRequest) message).session(identity);
 
                     DataStoreService.App
                                     .getInstance()
@@ -148,7 +145,7 @@ public class GWTDataStore {
                                         }
 
                                         @Override public void onSuccess(@Nullable final SerializedRequest result) {
-                                            //                                    result.setId(id);
+                                            //                                    result.id(id);
                                             if (result != null) {
                                                 final AbstractRequest response = deserializeRequest(result);
                                                 bus.dispatch(response);
@@ -194,8 +191,8 @@ public class GWTDataStore {
     //    }
 
     public void process(@Nonnull final LiquidRequest request, @Nonnull final AsyncCallback<LiquidMessage> callback) {
-        request.setSessionId(identity);
-        if (request.asSerializedRequest().getEntity().getTypeDef() == null) {
+        request.session(identity);
+        if (request.asSerializedRequest().getEntity().type() == null) {
             throw new RuntimeException("Invalid request.");
         }
         DataStoreService.App.getInstance().process(request.asSerializedRequest(), new AsyncCallback<SerializedRequest>() {
@@ -290,8 +287,8 @@ public class GWTDataStore {
                 ClientLog.log("Result from collect was " + requests.size());
                 for (final SerializedRequest serializedRequest : requests) {
                     final AbstractRequest request = deserializeRequest(serializedRequest);
-                    ClientLog.log("Dispatching request " + request.getId());
-                    final String uniqueId = request.getDeduplicationIdentifier();
+                    ClientLog.log("Dispatching request " + request.id());
+                    final String uniqueId = request.deduplicationIdentifier();
                     if (unique(uniqueId)) {
                         bus.dispatch(request);
                     }

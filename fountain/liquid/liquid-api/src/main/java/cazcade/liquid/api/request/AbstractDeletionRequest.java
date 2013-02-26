@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.LiquidPermission;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.Permission;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,7 +17,7 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractDeletionRequest extends AbstractRequest {
-    public AbstractDeletionRequest(final LSDTransferEntity entity) {
+    public AbstractDeletionRequest(@Nonnull final TransferEntity entity) {
         super(entity);
     }
 
@@ -22,15 +26,13 @@ public abstract class AbstractDeletionRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (hasTarget()) {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.DELETE));
-        }
-        else {
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.DELETE_PERM));
+        } else {
             if (hasUri()) {
-                return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.DELETE));
-            }
-            else {
+                return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.DELETE_PERM));
+            } else {
                 return Collections.emptyList();
             }
         }
@@ -38,7 +40,7 @@ public abstract class AbstractDeletionRequest extends AbstractRequest {
 
 
     @Nullable
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return null;
     }
 

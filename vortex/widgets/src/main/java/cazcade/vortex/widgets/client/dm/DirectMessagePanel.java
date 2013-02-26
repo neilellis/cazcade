@@ -4,10 +4,10 @@
 
 package cazcade.vortex.widgets.client.dm;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -116,9 +116,9 @@ public class DirectMessagePanel extends Composite {
                     public void execute() {
                         final String text = SafeHtmlUtils.fromString(textBox.getText()).asString();
                         textBox.setText("");
-                        final LSDTransferEntity messageEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.TEXT_MESSAGE);
-                        messageEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, text);
-                        BusFactory.getInstance()
+                        final TransferEntity messageEntity = SimpleEntity.create(Types.T_TEXT_MESSAGE);
+                        messageEntity.$(Dictionary.TEXT_EXTENDED, text);
+                        BusFactory.get()
                                   .send(new SendRequest(messageEntity, recipient), new AbstractResponseCallback<SendRequest>() {
                                       @Override
                                       public void onSuccess(final SendRequest message, final SendRequest response) {

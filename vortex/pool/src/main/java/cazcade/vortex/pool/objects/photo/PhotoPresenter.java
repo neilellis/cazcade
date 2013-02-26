@@ -4,8 +4,8 @@
 
 package cazcade.vortex.pool.objects.photo;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
-    public PhotoPresenter(final PoolPresenter pool, final LSDTransferEntity entity, final PhotoView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PhotoPresenter(final PoolPresenter pool, final TransferEntity entity, final PhotoView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addDoubleClickHandler(new DoubleClickHandler() {
             @Override
@@ -32,12 +32,12 @@ public class PhotoPresenter extends AbstractPoolObjectPresenter<PhotoView> {
     }
 
     @Override
-    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                if (newEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
-                    getPoolObjectView().setUrl(newEntity.getAttribute(LSDAttribute.IMAGE_URL));
+                if (newEntity.has$(Dictionary.IMAGE_URL)) {
+                    getPoolObjectView().setUrl(newEntity.$(Dictionary.IMAGE_URL));
                 }
                 PhotoPresenter.super.update(newEntity, replaceEntity);
             }

@@ -8,12 +8,11 @@ import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.impl.FountainPoolDAO;
 import cazcade.fountain.datastore.impl.FountainUserDAO;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.Types;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nonnull;
@@ -26,13 +25,13 @@ import java.util.concurrent.Callable;
  */
 public class FountainNeoIntializer {
     @Nonnull
-    public static final  String                  DEFAULT_PASSWORD = "npt78eb&AB--gi7";
+    public static final  String            DEFAULT_PASSWORD = "npt78eb&AB--gi7";
     @Nonnull
-    public static final  LiquidSessionIdentifier ADMIN_SESSION    = new LiquidSessionIdentifier(CommonConstants.ADMIN, null);
+    public static final  SessionIdentifier ADMIN_SESSION    = new SessionIdentifier(CommonConstants.ADMIN, null);
     @Nonnull
-    public static final  String                  BOARDCAST        = "boardcast";
+    public static final  String            BOARDCAST        = "boardcast";
     @Nonnull
-    private static final Logger                  log              = Logger.getLogger(FountainNeoIntializer.class);
+    private static final Logger            log              = Logger.getLogger(FountainNeoIntializer.class);
     @Autowired FountainNeoImpl fountainNeo;
     @Autowired FountainPoolDAO poolDAO;
     @Autowired FountainUserDAO userDAO;
@@ -55,12 +54,12 @@ public class FountainNeoIntializer {
                 fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
                     @Nullable @Override
                     public Object call() throws Exception {
-                        final LSDPersistedEntity boardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo
+                        final PersistedEntity boardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo
                                 .getRootPool(), "boards", 0, 0, FountainNeoImpl.privatePermissionValue, false);
-                        final LSDPersistedEntity publicBoardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "public", 0, 0, "Public Boards", false);
-                        fountainNeo.changePermissionNoTx(ADMIN_SESSION, publicBoardsPool.getURI(), LiquidPermissionChangeType.MAKE_PUBLIC, LiquidRequestDetailLevel.MINIMAL, true);
-                        final LSDPersistedEntity geoBoardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "geo", 0, 0, "Location Boards", false);
-                        fountainNeo.changePermissionNoTx(ADMIN_SESSION, geoBoardsPool.getURI(), LiquidPermissionChangeType.MAKE_PUBLIC, LiquidRequestDetailLevel.MINIMAL, true);
+                        final PersistedEntity publicBoardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "public", 0, 0, "Public Boards", false);
+                        fountainNeo.changePermissionNoTx(ADMIN_SESSION, publicBoardsPool.uri(), PermissionChangeType.MAKE_PUBLIC, RequestDetailLevel.MINIMAL, true);
+                        final PersistedEntity geoBoardsPool = poolDAO.createPoolNoTx(ADMIN_SESSION, FountainNeoImpl.SYSTEM_ALIAS_URI, boardsPool, "geo", 0, 0, "Location Boards", false);
+                        fountainNeo.changePermissionNoTx(ADMIN_SESSION, geoBoardsPool.uri(), PermissionChangeType.MAKE_PUBLIC, RequestDetailLevel.MINIMAL, true);
                         log.info("Created core boards pools");
                         return null;
                     }
@@ -69,11 +68,11 @@ public class FountainNeoIntializer {
                 fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
                     @Nullable @Override
                     public Object call() throws Exception {
-                        final LSDPersistedEntity boardsPersistedEntity = fountainNeo.findByURI(boardsUri, false);
+                        final PersistedEntity boardsPersistedEntity = fountainNeo.findByURI(boardsUri, false);
                         assert boardsPersistedEntity != null;
-                        if (!LiquidPermissionSet.createPermissionSet(boardsPersistedEntity.getAttribute(LSDAttribute.PERMISSIONS))
-                                                .hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
-                            fountainNeo.changePermissionNoTx(ADMIN_SESSION, boardsUri, LiquidPermissionChangeType.MAKE_PUBLIC, LiquidRequestDetailLevel.MINIMAL, true);
+                        if (!PermissionSet.createPermissionSet(boardsPersistedEntity.$(Dictionary.PERMISSIONS))
+                                          .hasPermission(PermissionScope.WORLD_SCOPE, Permission.MODIFY_PERM)) {
+                            fountainNeo.changePermissionNoTx(ADMIN_SESSION, boardsUri, PermissionChangeType.MAKE_PUBLIC, RequestDetailLevel.MINIMAL, true);
                         }
                         return null;
                     }
@@ -93,7 +92,7 @@ public class FountainNeoIntializer {
                 fountainNeo.setRootPool(fountainNeo.createSystemPool("pool:///"));
 
                 createSystemUser();
-                final LiquidSessionIdentifier identity = new LiquidSessionIdentifier(FountainNeoImpl.SYSTEM, null);
+                final SessionIdentifier identity = new SessionIdentifier(FountainNeoImpl.SYSTEM, null);
 
                 poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo.getRootPool(), "users", (double) 0, (double) 0, null, false);
 
@@ -101,19 +100,14 @@ public class FountainNeoIntializer {
 
                 poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo.getRootPool(), "system", (double) 0, (double) 0, null, false);
 
-                final LSDPersistedEntity cazcadePool = poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo
-                        .getRootPool(), "cazcade", (double) 0, (double) 0, null, false);
-                final double x1 = -210;
-                final double y1 = -210;
+                final PersistedEntity cazcadePool = poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, fountainNeo.getRootPool(), "cazcade", (double) 0, (double) 0, null, false);
 
-                final LSDPersistedEntity cazcadePublicPool = poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, cazcadePool, "playground", x1, y1, "Playground", false);
-                cazcadePublicPool.setAttribute(LSDAttribute.PERMISSIONS, FountainNeoImpl.publicPermissionValue);
-                final double x = -210;
+                final PersistedEntity cazcadePublicPool = poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, cazcadePool, "playground", (double) -210, (double) -210, "Playground", false);
+                cazcadePublicPool.$(Dictionary.PERMISSIONS, FountainNeoImpl.publicPermissionValue);
 
-                poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, cazcadePool, "welcome", x, (double) 210, "Welcome", false);
-                final double y = -210;
+                poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, cazcadePool, "welcome", (double) -210, (double) 210, "Welcome", false);
 
-                poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, cazcadePool, "help", (double) 210, y, "Help", false);
+                poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, cazcadePool, "help", (double) 210, (double) -210, "Help", false);
 
                 poolDAO.createPoolNoTx(identity, FountainNeoImpl.SYSTEM_ALIAS_URI, cazcadePool, "latest", (double) 210, (double) 210, "Latest", false);
 
@@ -135,47 +129,43 @@ public class FountainNeoIntializer {
     }
 
     private void createSystemUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDTransferEntity systemUser = LSDSimpleEntity.createEmpty();
-        systemUser.setAttribute(LSDAttribute.NAME, FountainNeoImpl.SYSTEM);
-        systemUser.setAttribute(LSDAttribute.FULL_NAME, "Administrator");
-        systemUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM);
-        systemUser.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.USER.getValue());
-        userDAO.createUser(systemUser, true);
+        userDAO.createUser(SimpleEntity.createEmpty()
+                                       .$(Dictionary.NAME, FountainNeoImpl.SYSTEM)
+                                       .$(Dictionary.FULL_NAME, "Administrator")
+                                       .$(Dictionary.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM)
+                                       .$(Dictionary.TYPE, Types.T_USER.getValue()), true);
         //        poolDAO.createPoolsForUserNoTx(FountainNeoImpl.SYSTEM);
         //        poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:system"), FountainNeoImpl.SYSTEM, "Administrator", true);
     }
 
     private void createBoardcastUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDTransferEntity boardcastUser = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
-        boardcastUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, DEFAULT_PASSWORD);
-        boardcastUser.setAttribute(LSDAttribute.NAME, BOARDCAST);
-        boardcastUser.setAttribute(LSDAttribute.FULL_NAME, "Boardcast");
-        boardcastUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, "info@boardcast.it");
 
-        userDAO.createUser(boardcastUser, false);
+        userDAO.createUser(SimpleEntity.create(Types.T_USER)
+                                       .$(Dictionary.PLAIN_PASSWORD, DEFAULT_PASSWORD)
+                                       .$(Dictionary.NAME, BOARDCAST)
+                                       .$(Dictionary.FULL_NAME, "Boardcast")
+                                       .$(Dictionary.EMAIL_ADDRESS, "info@boardcast.it"), false);
         poolDAO.createPoolsForUserNoTx(BOARDCAST);
         poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:boardcast"), "boardcast", "Boardcast", false);
     }
 
     private void createAnonUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDTransferEntity anonUser = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
-        anonUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, DEFAULT_PASSWORD);
-        anonUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM);
-        anonUser.setAttribute(LSDAttribute.NAME, CommonConstants.ANON);
-        anonUser.setAttribute(LSDAttribute.FULL_NAME, "Anonymous");
-        userDAO.createUser(anonUser, false);
+        userDAO.createUser(SimpleEntity.create(Types.T_USER)
+                                       .$(Dictionary.PLAIN_PASSWORD, DEFAULT_PASSWORD)
+                                       .$(Dictionary.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM)
+                                       .$(Dictionary.NAME, CommonConstants.ANON)
+                                       .$(Dictionary.FULL_NAME, "Anonymous"), false);
         poolDAO.createPoolsForUserNoTx(CommonConstants.ANON);
         poolDAO.createPoolsForAliasNoTx(new LiquidURI(CommonConstants.ANONYMOUS_ALIAS), CommonConstants.ANON, "Anonymous", false);
     }
 
     private void createAdminUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDSimpleEntity boardcastUser = (LSDSimpleEntity) LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
-        boardcastUser.setAttribute(LSDAttribute.PLAIN_PASSWORD, CommonConstants.ADMIN);
-        boardcastUser.setAttribute(LSDAttribute.NAME, CommonConstants.ADMIN);
-        boardcastUser.setAttribute(LSDAttribute.FULL_NAME, "Admin");
-        boardcastUser.setAttribute(LSDAttribute.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM);
 
-        final LSDPersistedEntity user = userDAO.createUser(boardcastUser, false);
+        userDAO.createUser((SimpleEntity) SimpleEntity.create(Types.T_USER)
+                                                      .$(Dictionary.PLAIN_PASSWORD, CommonConstants.ADMIN)
+                                                      .$(Dictionary.NAME, CommonConstants.ADMIN)
+                                                      .$(Dictionary.FULL_NAME, "Admin")
+                                                      .$(Dictionary.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM), false);
         poolDAO.createPoolsForUserNoTx(CommonConstants.ADMIN);
         poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:admin"), CommonConstants.ADMIN, "Admin", false);
     }

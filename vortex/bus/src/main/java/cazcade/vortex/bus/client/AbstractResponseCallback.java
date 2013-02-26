@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.bus.client;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.user.client.Window;
@@ -18,11 +22,11 @@ public abstract class AbstractResponseCallback<T extends LiquidMessage> implemen
     }
 
     public void onFailure(final T message, @Nonnull final T response) {
-        final LSDBaseEntity responseEntity = response.getResponse();
+        final Entity responseEntity = response.response();
         ClientLog.log(responseEntity.toString());
         if (ClientApplicationConfiguration.isDebug()) {
-            if (responseEntity.hasAttribute(LSDAttribute.DESCRIPTION)) {
-                Window.alert("Server error: " + responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
+            if (responseEntity.has$(Dictionary.DESCRIPTION)) {
+                Window.alert("Server error: " + responseEntity.$(Dictionary.DESCRIPTION));
             } else {
                 Window.alert("Server error: " + responseEntity.toString());
             }
@@ -31,7 +35,12 @@ public abstract class AbstractResponseCallback<T extends LiquidMessage> implemen
     }
 
     public void onException(@Nonnull final T message, @Nonnull final Throwable error) {
-        final String msg = "Message " + message.getId() + " of type " + message.getMessageType().name() + " had error " + error.getMessage();
+        final String msg = "Message "
+                           + message.id()
+                           + " of type "
+                           + message.messageType().name()
+                           + " had error "
+                           + error.getMessage();
         ClientLog.log(msg, error);
     }
 }

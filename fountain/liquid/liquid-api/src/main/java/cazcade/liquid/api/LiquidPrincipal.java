@@ -4,7 +4,7 @@
 
 package cazcade.liquid.api;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Entity;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -13,10 +13,10 @@ import java.security.Principal;
  * @author neilelliz@cazcade.com
  */
 public class LiquidPrincipal implements Principal, Serializable {
-    private String        name;
-    private LSDBaseEntity aliasEntity;
+    private String name;
+    private Entity aliasEntity;
 
-    public LiquidPrincipal(final String name, final LSDBaseEntity aliasEntity) {
+    public LiquidPrincipal(final String name, final Entity aliasEntity) {
         this.aliasEntity = aliasEntity;
     }
 

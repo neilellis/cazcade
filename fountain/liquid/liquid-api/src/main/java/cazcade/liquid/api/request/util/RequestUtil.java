@@ -5,8 +5,8 @@
 package cazcade.liquid.api.request.util;
 
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 
@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
  */
 public class RequestUtil {
     public static boolean positiveResponse(@Nonnull final LiquidRequest response) {
-        final LSDBaseEntity responseEntity = response.getResponse();
-        return !(responseEntity.isA(LSDDictionaryTypes.EMPTY_RESULT)
-                 || responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL)
-                 || responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND));
+        final Entity responseEntity = response.response();
+        return !(responseEntity.is(Types.T_EMPTY_RESULT)
+                 || responseEntity.is(Types.T_AUTHORIZATION_DENIAL)
+                 || responseEntity.is(Types.T_RESOURCE_NOT_FOUND));
     }
 }

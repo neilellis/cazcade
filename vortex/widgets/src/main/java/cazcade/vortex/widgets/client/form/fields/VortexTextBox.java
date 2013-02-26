@@ -4,7 +4,7 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.Attribute;
 import cazcade.vortex.widgets.client.Resources;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -80,7 +80,7 @@ public abstract class VortexTextBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+    public void bind(final Attribute attribute, final String prefix, final String initialValue) {
         boundAttribute = attribute;
         setValue(initialValue);
     }

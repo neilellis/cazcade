@@ -5,9 +5,9 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.api.request.SendRequest;
@@ -38,7 +38,7 @@ public class ChatStreamPanel extends Composite {
     public static final int                      UPDATE_LIEFTIME    = 1200 * 1000;
     public static final boolean                  AUTOSCROLL         = true;
     @Nonnull
-    private final       Bus                      bus                = BusFactory.getInstance();
+    private final       Bus                      bus                = BusFactory.get();
     private             int                      maxRows            = 100;
     private final       long                     lastUpdate         = System.currentTimeMillis() - UPDATE_LIEFTIME;
     private             boolean                  showStatusUpdates  = true;
@@ -46,7 +46,7 @@ public class ChatStreamPanel extends Composite {
     private final       VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
     @Nonnull
-    private final List<LSDBaseEntity> entryEntities = new ArrayList<LSDBaseEntity>();
+    private final List<Entity> entryEntities = new ArrayList<Entity>();
     @Nonnull
     private final VortexScrollPanel scrollPanel;
     private       boolean           initialized;
@@ -141,11 +141,11 @@ public class ChatStreamPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            if (message.hasResponseEntity()) {
-                                final LSDBaseEntity response = message.getResponse();
-                                if (response.isA(LSDDictionaryTypes.CHAT)
-                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null
-                                    && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                            if (message.hasResponse()) {
+                                final Entity response = message.response();
+                                if (response.is(Types.T_CHAT)
+                                    && response.$(Dictionary.TEXT_BRIEF) != null
+                                    && !response.$(Dictionary.TEXT_BRIEF).isEmpty()) {
                                     addStreamEntry(new VortexStreamEntryPanel(response, FormatUtil.getInstance()));
                                     chatMessageSound.play();
 
@@ -154,19 +154,18 @@ public class ChatStreamPanel extends Composite {
                                 if (message.getState() != LiquidMessageState.PROVISIONAL
                                     && message.getState() != LiquidMessageState.INITIAL
                                     && message.getState() != LiquidMessageState.FAIL
-                                    && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
-                                    addStreamEntry(new VortexPresenceNotificationPanel(response, pool, message.getId().toString()));
+                                    && ((LiquidRequest) message).requestType() == RequestType.VISIT_POOL) {
+                                    addStreamEntry(new VortexPresenceNotificationPanel(response, pool, message.id().toString()));
                                     userEnteredSound.play();
                                 }
                             }
                         }
                     });
-                    BusFactory.getInstance()
-                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
-                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                    BusFactory.get()
+                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
-                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse()));
+                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.response()));
                                   }
                               });
 
@@ -207,7 +206,7 @@ public class ChatStreamPanel extends Composite {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                //        entryEntities.add(vortexStreamContent.getEntity());
+                //        entryEntities.add(vortexStreamContent.$());
                 boolean inserted = false;
                 final boolean atBottom = scrollPanel.isAtBottom();
                 int i = parentPanel.getWidgetCount();
@@ -260,32 +259,30 @@ public class ChatStreamPanel extends Composite {
     }
 
     @Nonnull
-    private String entryComparisonString(@Nonnull final LSDBaseEntity entity) {
-        final LSDBaseEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, true);
-        return entity.getAttribute(LSDAttribute.TEXT_BRIEF) + (author == null ? "null" : author.getAttribute(LSDAttribute.NAME));
+    private String entryComparisonString(@Nonnull final Entity entity) {
+        final Entity author = entity.child(Dictionary.AUTHOR_A, true);
+        return entity.$(Dictionary.TEXT_BRIEF) + (author == null ? "null" : author.$(Dictionary.NAME));
     }
 
     private class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequest> {
         @Override
         public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
-            final List<LSDBaseEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-            for (final LSDBaseEntity entry : entries) {
-                if (entry.isA(LSDDictionaryTypes.COMMENT)
-                    && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null
-                    && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+            final List<Entity> entries = response.response().children(Dictionary.CHILD_A);
+            for (final Entity entry : entries) {
+                if (entry.is(Types.T_COMMENT) && entry.$(Dictionary.TEXT_BRIEF) != null && !entry.$(Dictionary.TEXT_BRIEF)
+                                                                                                 .isEmpty()) {
                     addStreamEntry(new VortexStreamEntryPanel(entry, FormatUtil.getInstance()));
                 } else {
-                    if (entry.hasAttribute(LSDAttribute.SOURCE)) {
+                    if (entry.has$(Dictionary.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
-                        final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
-                        final boolean isMe = author.getAttribute(LSDAttribute.URI)
-                                                   .equals(UserUtil.getIdentity().getAliasURL().asString());
-                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
-                        final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
-                        final boolean isHere = sourceURI.getWithoutFragmentOrComment().equals(pool.getWithoutFragmentOrComment());
-                        final boolean expired = entry.getPublished().getTime() < System.currentTimeMillis() - UPDATE_LIEFTIME;
+                        final Entity author = entry.child(Dictionary.AUTHOR_A, true);
+                        final boolean isMe = author.$(Dictionary.URI).equals(UserUtil.getIdentity().aliasURI().asString());
+                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.$(Dictionary.URI));
+                        final LiquidURI sourceURI = new LiquidURI(entry.$(Dictionary.SOURCE));
+                        final boolean isHere = sourceURI.withoutFragmentOrComment().equals(pool.withoutFragmentOrComment());
+                        final boolean expired = entry.published().getTime() < System.currentTimeMillis() - UPDATE_LIEFTIME;
 
-                        if (!isAnon && !expired && !isMe && !isHere && LiquidBoardURL.isConvertable(sourceURI)) {
+                        if (!isAnon && !expired && !isMe && !isHere && BoardURL.isConvertable(sourceURI)) {
                             addStreamEntry(new VortexStatusUpdatePanel(entry, false));
                             //  statusUpdateSound.play();
                         }

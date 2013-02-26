@@ -5,10 +5,10 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.FountainNeo;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.handler.CreateSessionRequestHandler;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -20,11 +20,11 @@ import javax.annotation.Nonnull;
 public class CreateSessionHandler extends AbstractDataStoreHandler<CreateSessionRequest> implements CreateSessionRequestHandler {
     @Nonnull
     public CreateSessionRequest handle(@Nonnull final CreateSessionRequest request) throws InterruptedException {
-        final FountainNeo neo = fountainNeo;
+        final FountainNeo neo = this.neo;
         final Transaction transaction = neo.beginTx();
         try {
-            final LSDPersistedEntity sessionPersistedEntity = userDAO.createSession(request.getUri(), request.getClient());
-            final LSDTransferEntity entity = sessionPersistedEntity.toLSD(request.getDetail(), request.isInternal());
+            final PersistedEntity sessionPersistedEntity = userDAO.createSession(request.uri(), request.getClient());
+            final TransferEntity entity = sessionPersistedEntity.toTransfer(request.detail(), request.internal());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

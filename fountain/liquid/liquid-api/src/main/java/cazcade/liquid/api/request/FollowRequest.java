@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,20 +15,20 @@ import java.util.Collection;
 import java.util.List;
 
 public class FollowRequest extends AbstractRequest {
-    public FollowRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean follow) {
+    public FollowRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI uri, final boolean follow) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setFollow(follow);
         setUri(uri);
     }
 
-    public FollowRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean follow) {
+    public FollowRequest(final SessionIdentifier identity, final LiquidURI uri, final boolean follow) {
         this(null, identity, uri, follow);
     }
 
     public FollowRequest(final LiquidURI uri, final boolean follow) {
-        this(null, LiquidSessionIdentifier.ANON, uri, follow);
+        this(null, SessionIdentifier.ANON, uri, follow);
     }
 
     /**
@@ -40,7 +40,7 @@ public class FollowRequest extends AbstractRequest {
         super();
     }
 
-    public FollowRequest(final LSDTransferEntity entity) {
+    public FollowRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -49,28 +49,27 @@ public class FollowRequest extends AbstractRequest {
         return new FollowRequest(getEntity());
     }
 
-    public Collection<LiquidURI> getAffectedEntities() {
-        if (!getSessionIdentifier().isAnon()) {
-            return Arrays.asList(getUri(), getSessionIdentifier().getAliasURL());
-        }
-        else {
-            return Arrays.asList(getUri());
+    public Collection<LiquidURI> affectedEntities() {
+        if (!session().anon()) {
+            return Arrays.asList(uri(), session().aliasURI());
+        } else {
+            return Arrays.asList(uri());
         }
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return new ArrayList<AuthorizationRequest>();
     }
 
     @Override
-    public List<String> getNotificationLocations() {
-        return Arrays.asList(getUri().toString());
+    public List<String> notificationLocations() {
+        return Arrays.asList(uri().toString());
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.FOLLOW;
+    public RequestType requestType() {
+        return RequestType.FOLLOW;
     }
 
     public boolean isMutationRequest() {

@@ -5,11 +5,11 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
@@ -41,7 +41,7 @@ public class CommentPanel extends Composite {
     private static final VortexStreamPanelUiBinder ourUiBinder     = GWT.create(VortexStreamPanelUiBinder.class);
     final VerticalPanel parentPanel;
     @Nonnull
-    private final Bus                      bus                = BusFactory.getInstance();
+    private final Bus                      bus                = BusFactory.get();
     private final long                     lastUpdate         = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
@@ -101,28 +101,26 @@ public class CommentPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            if (message.hasResponseEntity()) {
-                                final LSDBaseEntity response = message.getResponse();
-                                if (response.isA(LSDDictionaryTypes.COMMENT)
-                                    && response.hasAttribute(LSDAttribute.TEXT_BRIEF)
-                                    && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
-                                    addStreamEntry(new CommentEntryPanel(response));
+                            if (message.hasResponse()) {
+                                final TransferEntity resp = message.response();
+                                if (resp.is(Types.T_COMMENT) && resp.has$(Dictionary.TEXT_BRIEF) && !resp.$(Dictionary.TEXT_BRIEF)
+                                                                                                         .isEmpty()) {
+                                    addStreamEntry(new CommentEntryPanel(resp));
                                     chatMessageSound.play();
                                 }
 
                             }
-                            //                            if (message.getResponse() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL) {
-                            //                                addStreamEntry(new VortexPresenceNotificationPanel(message.getResponse(), pool, message.getId().toString()));
+                            //                            if (message.response() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).requestType() == RequestType.VISIT_POOL) {
+                            //                                addStreamEntry(new VortexPresenceNotificationPanel(message.response(), pool, message.id().toString()));
                             //                                userEnteredSound.play();
                             //                            }
                         }
                     });
-                    BusFactory.getInstance()
-                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
-                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                    BusFactory.get()
+                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
-                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.getResponse()));
+                                      addStreamEntry(new DirectMessageStreamEntryPanel(request.response()));
                                   }
                               });
 

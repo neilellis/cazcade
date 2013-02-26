@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
@@ -7,8 +11,8 @@ import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.DeletePoolRequest;
 import org.apache.commons.cli.Options;
 
@@ -28,8 +32,7 @@ public class DeletePoolCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Deletes a pool";
     }
@@ -45,13 +48,14 @@ public class DeletePoolCommand extends AbstractShortLivedCommand {
             System.err.println("rmdir <pool>");
         }
         final LiquidURI poolURI = CommandSupport.resolvePoolOrObject(shellSession, args[0]);
-        final LiquidMessage response = shellSession.getDataStore().process(new DeletePoolRequest(shellSession.getIdentity(), poolURI));
-        final LSDBaseEntity entity = response.getResponse();
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new DeletePoolRequest(shellSession.getIdentity(), poolURI));
+        final Entity entity = response.response();
         if (response.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(entity.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(entity.$(Dictionary.DESCRIPTION));
             return null;
         }
-        return entity.getURI().toString();
+        return entity.uri().toString();
     }
 
 

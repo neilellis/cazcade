@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.profile;
 
 import cazcade.liquid.api.LiquidURI;
@@ -17,7 +21,7 @@ import javax.annotation.Nonnull;
 public class ViewAliasDetailPanel extends PopupPanel {
 
     public static final int POPUP_HEIGHT = 180;
-    public static final int POPUP_WIDTH = 360;
+    public static final int POPUP_WIDTH  = 360;
 
     private static ViewAliasDetailPanel current;
 
@@ -25,7 +29,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
         if (current == null) {
             current = new ViewAliasDetailPanel(aliasURI, features);
         } else {
-            current.init(aliasURI, features);
+            current.init(aliasURI);
         }
         return current;
     }
@@ -47,20 +51,18 @@ public class ViewAliasDetailPanel extends PopupPanel {
         });
     }
 
-    interface ViewUserDetailPanelUiBinder extends UiBinder<HTMLPanel, ViewAliasDetailPanel> {
-    }
+    interface ViewUserDetailPanelUiBinder extends UiBinder<HTMLPanel, ViewAliasDetailPanel> {}
 
     private static final ViewUserDetailPanelUiBinder ourUiBinder = GWT.create(ViewUserDetailPanelUiBinder.class);
 
 
-    @UiField
-    AliasDetailPanel detailPanel;
+    @UiField AliasDetailPanel detailPanel;
 
 
-//    @Override
-//    protected void onLoad() {
-//        popup.showRelativeTo(trigger);
-//    }
+    //    @Override
+    //    protected void onLoad() {
+    //        popup.showRelativeTo(trigger);
+    //    }
 
     private ViewAliasDetailPanel(@Nonnull final LiquidURI aliasURI, final FormatUtil features) {
         super();
@@ -72,12 +74,11 @@ public class ViewAliasDetailPanel extends PopupPanel {
         setGlassEnabled(false);
         setModal(false);
         setAutoHideEnabled(true);
-        init(aliasURI, features);
+        init(aliasURI);
 
     }
 
-    private void init(@Nonnull final LiquidURI aliasURI, final FormatUtil features) {
+    private void init(@Nonnull final LiquidURI aliasURI) {
         detailPanel.setAliasURI(aliasURI);
-        detailPanel.setFeatures(features);
     }
 }

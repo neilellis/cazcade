@@ -15,8 +15,8 @@ import javax.annotation.Nonnull;
  */
 public class UnlinkAliasHandler extends AbstractDataStoreHandler<UnlinkAliasRequest> implements UnlinkAliasRequestHandler {
     @Nonnull
-    public UnlinkAliasRequest handle(@Nonnull final UnlinkAliasRequest request) throws InterruptedException {
-        return LiquidResponseHelper.forServerSuccess(request, userDAO.unlinkAliasTX(request.getSessionIdentifier(), request.getTarget(), request
-                .isInternal(), request.getDetail()));
+    public UnlinkAliasRequest handle(@Nonnull final UnlinkAliasRequest request) throws Exception {
+        return LiquidResponseHelper.forServerSuccess(request, userDAO.unlinkAliasTX(request.session(), request.getTarget(), request.internal(), request
+                .detail()));
     }
 }

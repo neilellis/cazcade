@@ -4,7 +4,8 @@
 
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import junit.framework.TestCase;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,16 +25,16 @@ public class LSDXMLTest extends TestCase {
         props.load(getClass().getResourceAsStream("test.properties"));
         final HashMap<String, String> propMap = new HashMap(props);
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
-        final LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
-        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
-        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
-        //        LSDNode lsdNode = entity.asFormatIndependentTree();
+        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.createFromProperties(propMap);
+        //        ((EntityFactory)applicationContext.getBean("EntityFactory")).marshall(Format.plist, entity, System.out);
+        //        ((EntityFactory)applicationContext.getBean("EntityFactory")).marshall(Format.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
+        //        Node lsdNode = entity.asFormatIndependentTree();
         final String xmlEntity = LiquidXStreamFactory.getXstream().toXML(entity);
 
 
         System.out.println(xmlEntity);
-        final LSDSimpleEntity convertedEntity = (LSDSimpleEntity) LiquidXStreamFactory.getXstream().fromXML(xmlEntity);
-        final Map<String, String> convertedMap = convertedEntity.getMap();
+        final SimpleEntity convertedEntity = (SimpleEntity) LiquidXStreamFactory.getXstream().fromXML(xmlEntity);
+        final Map<String, String> convertedMap = convertedEntity.map();
         for (final Map.Entry<String, String> entry : convertedMap.entrySet()) {
             System.out.println(entry.getKey() + "=" + entry.getValue());
         }

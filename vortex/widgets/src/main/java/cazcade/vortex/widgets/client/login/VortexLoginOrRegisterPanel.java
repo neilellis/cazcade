@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.login;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -19,7 +23,7 @@ public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
     private boolean registerPanelShowing;
 
     @Nullable
-    public LiquidSessionIdentifier getIdentity() {
+    public SessionIdentifier getIdentity() {
         if (registerPanelShowing) {
             return null;
         } else {
@@ -32,13 +36,11 @@ public class VortexLoginOrRegisterPanel extends HistoryAwareComposite {
 
     }
 
-    interface LoginOrRegisterPanelUiBinder extends UiBinder<SimplePanel, VortexLoginOrRegisterPanel> {
-    }
+    interface LoginOrRegisterPanelUiBinder extends UiBinder<SimplePanel, VortexLoginOrRegisterPanel> {}
 
     private static final LoginOrRegisterPanelUiBinder ourUiBinder = GWT.create(LoginOrRegisterPanelUiBinder.class);
 
-    @UiField
-    LoginPanel loginPanel;
+    @UiField LoginPanel loginPanel;
 
     @Nonnull
     final RegisterPanel registerPanel;

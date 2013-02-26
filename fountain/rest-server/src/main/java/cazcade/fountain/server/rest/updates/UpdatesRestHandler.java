@@ -10,7 +10,7 @@ import cazcade.fountain.datastore.api.FountainDataStoreFacade;
 import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 
 import javax.annotation.Nonnull;
@@ -34,7 +34,7 @@ public class UpdatesRestHandler extends AbstractRestHandler {
 
     @Nonnull
     public LiquidMessage get(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
-        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+        final SessionIdentifier username = RestContext.getContext().getCredentials();
         checkForSingleValueParams(parameters, "since");
         final String since = parameters.get("since")[0];
 

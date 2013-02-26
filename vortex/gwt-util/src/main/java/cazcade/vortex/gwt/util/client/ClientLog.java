@@ -137,6 +137,10 @@ public class ClientLog {
         log(message, null);
     }
 
+    public static void log(final Object o) {
+        log(String.valueOf(o), null);
+    }
+
     private static void doLog(@Nullable final String message, @Nullable final Throwable exception) {
         if (isDebugMode()) {
             final StringBuffer localBuffer = new StringBuffer();

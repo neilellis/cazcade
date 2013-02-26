@@ -4,8 +4,8 @@
 
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.handler.RetrievePoolRosterRequestHandler;
 import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.RetrievePoolRosterRequest;
@@ -21,27 +21,24 @@ import java.util.Collection;
 public class RetrievePoolRosterHandler extends AbstractDataStoreHandler<RetrievePoolRosterRequest> implements RetrievePoolRosterRequestHandler {
     @Nonnull
     public RetrievePoolRosterRequest handle(@Nonnull final RetrievePoolRosterRequest request) throws InterruptedException {
-        LSDPersistedEntity persistedEntity;
-        final Transaction transaction = fountainNeo.beginTx();
+        PersistedEntity persistedEntity;
+        final Transaction transaction = neo.beginTx();
         try {
-            final Collection<LSDBaseEntity> entities;
-            final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS_LIST);
+            final Collection<Entity> entities;
+            final TransferEntity entity = SimpleEntity.create(Types.T_ALIAS_LIST);
             entity.timestamp();
-            entity.setID(UUIDFactory.randomUUID());
+            entity.id(UUIDFactory.randomUUID());
 
             if (request.hasUri()) {
-                entities = socialDAO.getRosterNoTX(request.getUri(), request.isInternal(), request.getSessionIdentifier(), request.getDetail());
-            }
-            else {
-                entities = socialDAO.getRosterNoTX(request.getTarget(), request.isInternal(), request.getSessionIdentifier(), request
-                        .getDetail());
+                entities = socialDAO.getRosterNoTX(request.uri(), request.internal(), request.session(), request.detail());
+            } else {
+                entities = socialDAO.getRosterNoTX(request.getTarget(), request.internal(), request.session(), request.detail());
             }
             transaction.success();
             if (entities == null || entities.isEmpty()) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
-            }
-            else {
-                entity.addSubEntities(LSDAttribute.CHILD, entities);
+            } else {
+                entity.children(Dictionary.CHILD_A, entities);
                 return LiquidResponseHelper.forServerSuccess(request, entity);
             }
         } catch (RuntimeException e) {

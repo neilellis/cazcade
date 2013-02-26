@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,15 +13,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SelectPoolObjectRequest extends AbstractUpdateRequest {
-    public SelectPoolObjectRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
+    public SelectPoolObjectRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final boolean selected) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setSelected(selected);
     }
 
-    public SelectPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final boolean selected) {
+    public SelectPoolObjectRequest(final SessionIdentifier identity, final LiquidUUID target, final boolean selected) {
         this(null, identity, target, selected);
     }
 
@@ -29,7 +29,7 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
         super();
     }
 
-    public SelectPoolObjectRequest(final LSDTransferEntity entity) {
+    public SelectPoolObjectRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -39,17 +39,17 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.MODIFY));
+    public List<AuthorizationRequest> authorizationRequests() {
+        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.MODIFY_PERM));
     }
 
     @Nullable
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return null;
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.SELECT_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.SELECT_POOL_OBJECT;
     }
 }

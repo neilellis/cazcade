@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.datastore.impl.email;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import org.jasypt.digest.StandardStringDigester;
 
 import javax.annotation.Nonnull;
@@ -18,8 +22,8 @@ public class EmailUtil {
     private static final StandardStringDigester digester = new StandardStringDigester();
 
 
-    public static String getEmailHash(@Nonnull final LSDBaseEntity entity) {
-        return digester.digest(encodeEmail(entity.getAttribute(LSDAttribute.EMAIL_ADDRESS)));
+    public static String getEmailHash(@Nonnull final Entity entity) {
+        return digester.digest(encodeEmail(entity.$(Dictionary.EMAIL_ADDRESS)));
     }
 
     @Nonnull

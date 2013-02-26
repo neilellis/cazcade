@@ -5,10 +5,10 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,22 +17,22 @@ import java.util.Collections;
 import java.util.List;
 
 public class SearchRequest extends AbstractRequest {
-    public SearchRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final String searchText) {
+    public SearchRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final String searchText) {
         super();
-        setId(id);
+        id(id);
         setSearchText(searchText);
-        setSessionId(identity);
+        session(identity);
     }
 
     public SearchRequest(final String searchText) {
-        this(null, LiquidSessionIdentifier.ANON, searchText);
+        this(null, SessionIdentifier.ANON, searchText);
     }
 
     public SearchRequest() {
         super();
     }
 
-    public SearchRequest(final LSDTransferEntity entity) {
+    public SearchRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -42,18 +42,18 @@ public class SearchRequest extends AbstractRequest {
     }
 
     @Override @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return Arrays.asList();
     }
 
     @Override @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.SEARCH;
+    public RequestType requestType() {
+        return RequestType.SEARCH;
     }
 
     @Override

@@ -5,17 +5,17 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UpdateAliasRequest extends AbstractUpdateRequest {
-    UpdateAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final LSDTransferEntity entity) {
+    UpdateAliasRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final TransferEntity entity) {
         super();
         setUri(uri);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setRequestEntity(entity);
     }
@@ -23,10 +23,10 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    UpdateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    UpdateAliasRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setRequestEntity(entity);
     }
@@ -34,14 +34,14 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     /**
      * @deprecated use URIs where possible.
      */
-    public UpdateAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    public UpdateAliasRequest(final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity) {
         this(null, identity, target, entity);
     }
 
-    public UpdateAliasRequest(@Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDTransferEntity newEntity) {
+    public UpdateAliasRequest(@Nonnull final SessionIdentifier identity, final LiquidURI uri, final TransferEntity newEntity) {
         super();
         setUri(uri);
-        setSessionId(identity);
+        session(identity);
         setRequestEntity(newEntity);
     }
 
@@ -49,27 +49,27 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
      * @deprecated use URIs where possible.
      */
 
-    UpdateAliasRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, LiquidSessionIdentifier.ANON, target, entity);
+    UpdateAliasRequest(final LiquidUUID target, final TransferEntity entity) {
+        this(null, SessionIdentifier.ANON, target, entity);
     }
 
-    UpdateAliasRequest(final LiquidURI uri, final LSDTransferEntity newEntity) {
+    UpdateAliasRequest(final LiquidURI uri, final TransferEntity newEntity) {
         super();
         setUri(uri);
         setRequestEntity(newEntity);
     }
 
-    public UpdateAliasRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LSDTransferEntity alias) {
-        this(null, sessionIdentifier, null, alias.getURI(), alias);
+    public UpdateAliasRequest(final SessionIdentifier sessionIdentifier, @Nonnull final TransferEntity alias) {
+        this(null, sessionIdentifier, null, alias.uri(), alias);
     }
 
-    public UpdateAliasRequest(@Nonnull final LSDTransferEntity alias) {
+    public UpdateAliasRequest(@Nonnull final TransferEntity alias) {
         super();
-        setUri(alias.getURI());
+        setUri(alias.uri());
         setRequestEntity(alias);
     }
 
-    UpdateAliasRequest(@Nonnull final LSDTransferEntity entity, String marker) {
+    UpdateAliasRequest(@Nonnull final TransferEntity entity, String marker) {
         super(entity);
     }
 
@@ -83,8 +83,8 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.UPDATE_ALIAS;
+    public RequestType requestType() {
+        return RequestType.UPDATE_ALIAS;
     }
 
     @Override

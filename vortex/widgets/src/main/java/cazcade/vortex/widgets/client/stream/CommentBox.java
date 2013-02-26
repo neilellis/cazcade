@@ -107,7 +107,7 @@ public class CommentBox extends Composite {
             private void sendMessage(final String text) {
                 textBox.setText("");
 
-                BusFactory.getInstance().send(new AddCommentRequest(uri, text), new AbstractResponseCallback<AddCommentRequest>() {
+                BusFactory.get().send(new AddCommentRequest(uri, text), new AbstractResponseCallback<AddCommentRequest>() {
                     @Override
                     public void onSuccess(final AddCommentRequest message, final AddCommentRequest response) {
                         Track.getInstance().trackEvent("Comment", "Comment Added");

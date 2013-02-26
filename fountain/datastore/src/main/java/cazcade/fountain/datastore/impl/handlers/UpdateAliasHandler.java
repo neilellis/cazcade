@@ -17,14 +17,13 @@ public class UpdateAliasHandler extends AbstractUpdateHandler<UpdateAliasRequest
     @Nonnull
     public UpdateAliasRequest handle(@Nonnull final UpdateAliasRequest request) throws Exception {
         if (request.hasUri()) {
-            fountainNeo.updateEntityByURITx(request.getSessionIdentifier(), request.getUri(), request.getRequestEntity(), request.isInternal(), request
-                    .getDetail(), null);
-            return LiquidResponseHelper.forServerSuccess(request, socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request
-                    .getUri(), request.isInternal(), request.getDetail()));
+            neo.updateEntityByURITx(request.session(), request.uri(), request.request(), request.internal(), request.detail(), null);
+            return LiquidResponseHelper.forServerSuccess(request, socialDAO.getAliasAsProfileTx(request.session(), request.uri(), request
+                    .internal(), request.detail()));
         } else {
             throw new UnsupportedOperationException("Only URIs supported for updateAlias");
-            //            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(request.getSessionIdentifier(), request
-            //                    .getTarget(), request.getRequestEntity(), request.isInternal(), request.getDetail(), null));
+            //            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.updateEntityByUUIDTx(request.session(), request
+            //                    .getTarget(), request.request(), request.internal(), request.detail(), null));
         }
     }
 }

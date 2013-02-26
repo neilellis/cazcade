@@ -6,9 +6,10 @@ package cazcade.fountain.datastore.impl;
 
 import cazcade.fountain.common.service.ServiceStateMachine;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
+import cazcade.fountain.datastore.impl.services.persistence.FountainEntity;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.TransferEntity;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.index.Index;
@@ -25,36 +26,36 @@ import java.util.concurrent.Callable;
  * @todo: remove any org.neo4j classes from this interface, that includes beginTx :-) (should be done in a callback).
  */
 public interface FountainNeo extends ServiceStateMachine {
-    void assertAuthorized(@Nonnull LSDPersistedEntity persistedEntity, @Nonnull LiquidSessionIdentifier identity, LiquidPermission... permissions) throws InterruptedException;
+    void assertAuthorized(@Nonnull PersistedEntity persistedEntity, @Nonnull SessionIdentifier identity, Permission... permissions) throws InterruptedException;
 
     void backup() throws Exception;
 
     Transaction beginTx();
 
     @Nonnull
-    LSDPersistedEntity changeNodePermissionNoTx(@Nonnull LSDPersistedEntity entity, @Nonnull LiquidSessionIdentifier editor, LiquidPermissionChangeType change) throws Exception;
+    PersistedEntity changeNodePermissionNoTx(@Nonnull PersistedEntity entity, @Nonnull SessionIdentifier editor, PermissionChangeType change) throws Exception;
 
     @Nullable
-    LSDTransferEntity changePermissionNoTx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LiquidURI uri, LiquidPermissionChangeType change, LiquidRequestDetailLevel detail, boolean internal) throws Exception;
+    TransferEntity changePermissionNoTx(@Nonnull SessionIdentifier editor, @Nonnull LiquidURI uri, PermissionChangeType change, RequestDetailLevel detail, boolean internal) throws Exception;
 
     @Nonnull
-    LSDPersistedEntity cloneNodeForNewVersion(@Nonnull LiquidSessionIdentifier editor, @Nonnull LSDPersistedEntity entity, boolean fork) throws InterruptedException;
+    PersistedEntity cloneNodeForNewVersion(@Nonnull SessionIdentifier editor, @Nonnull PersistedEntity entity, boolean fork) throws InterruptedException;
 
-    @Nonnull LSDPersistedEntity createNode();
+    @Nonnull FountainEntity createNode();
 
-    @Nonnull LSDPersistedEntity createSystemPool(String pool) throws InterruptedException;
+    @Nonnull PersistedEntity createSystemPool(String pool) throws InterruptedException;
 
-    void delete(@Nonnull LSDPersistedEntity entity);
+    void delete(@Nonnull PersistedEntity entity);
 
     @Nonnull
-    LSDTransferEntity deleteEntityTx(@Nonnull LiquidURI uri, boolean children, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    TransferEntity deleteEntityTx(@Nonnull LiquidURI uri, boolean children, boolean internal, RequestDetailLevel detail) throws InterruptedException;
 
     @Nonnull @Deprecated
-    LSDTransferEntity deleteEntityTx(@Nonnull LiquidUUID objectId, boolean children, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    TransferEntity deleteEntityTx(@Nonnull LiquidUUID objectId, boolean children, boolean internal, RequestDetailLevel detail) throws InterruptedException;
 
 
     @Nullable
-    LSDTransferEntity deleteNodeTx(boolean children, boolean internal, @Nonnull LSDPersistedEntity persistedEntity, LiquidRequestDetailLevel detail) throws InterruptedException;
+    TransferEntity deleteNodeTx(boolean children, boolean internal, @Nonnull PersistedEntity persistedEntity, RequestDetailLevel detail) throws InterruptedException;
 
     <T> T doInBeginBlock(@Nonnull Callable<T> callable) throws Exception;
 
@@ -63,40 +64,40 @@ public interface FountainNeo extends ServiceStateMachine {
     <T> T doInTransactionAndBeginBlock(@Nonnull Callable<T> callable) throws Exception;
 
     /**
-     * Find the {@link LSDPersistedEntity} entity that matches the supplied URI, if mustMatch is true then thius will throw an
+     * Find the {@link PersistedEntity} entity that matches the supplied URI, if mustMatch is true then thius will throw an
      * EntityNotFoundException if there is no match, otherwise it returns null.
      *
-     * @param uri       the uri of the LSDPersistedEntity we are looking for.
+     * @param uri       the uri of the PersistedEntity we are looking for.
      * @param mustMatch if true then exception thrown if not found, otherwise return null.
-     * @return the LSDPersistedEntity or null if mustMatch is false.
+     * @return the PersistedEntity or null if mustMatch is false.
      * @throws InterruptedException    if the execution thread is interrupted.
      * @throws EntityNotFoundException if mustMatch is true and nothing matches the uri.
      */
     @Nullable
-    LSDPersistedEntity findByURI(@Nonnull LiquidURI uri, boolean mustMatch) throws InterruptedException, EntityNotFoundException;
+    PersistedEntity findByURI(@Nonnull LiquidURI uri, boolean mustMatch) throws InterruptedException, EntityNotFoundException;
 
     /**
-     * Equivalent of findByURI(uri, false)
+     * Equivalent of find(uri, false)
      *
      * @see FountainNeo#findByURI(LiquidURI, boolean)
      */
-    @Nullable LSDPersistedEntity findByURI(@Nonnull LiquidURI uri) throws InterruptedException;
+    @Nullable FountainEntity find(@Nonnull LiquidURI uri) throws InterruptedException;
 
     /**
-     * Equivalent of findByURI(uri, false)
+     * Equivalent of find(uri, false)
      *
      * @see FountainNeo#findByURI(LiquidURI, boolean)
      */
-    @Nonnull LSDPersistedEntity findByURIOrFail(@Nonnull LiquidURI uri) throws InterruptedException;
+    @Nonnull FountainEntity findOrFail(@Nonnull LiquidURI uri) throws InterruptedException;
 
-    @Nonnull LSDPersistedEntity findByUUID(@Nonnull LiquidUUID id) throws InterruptedException;
+    @Nonnull FountainEntity find(@Nonnull LiquidUUID id) throws InterruptedException;
 
-    void freeTextIndexNoTx(@Nonnull LSDPersistedEntity persistedEntity) throws InterruptedException;
+    void freeTextIndexNoTx(@Nonnull PersistedEntity persistedEntity) throws InterruptedException;
 
-    LSDTransferEntity freeTextSearch(String searchText, LiquidRequestDetailLevel detail, boolean internal) throws InterruptedException;
+    TransferEntity freeTextSearch(String searchText, RequestDetailLevel detail, boolean internal) throws InterruptedException;
 
     @Nullable
-    LSDTransferEntity getEntityByUUID(@Nonnull LiquidUUID id, boolean internal, LiquidRequestDetailLevel detail) throws InterruptedException;
+    TransferEntity getEntityByUUID(@Nonnull LiquidUUID id, boolean internal, RequestDetailLevel detail) throws InterruptedException;
 
     /**
      * This needs to be deprecated as we don't want to expose the Node interface directly.
@@ -105,39 +106,39 @@ public interface FountainNeo extends ServiceStateMachine {
      */
     Index<Node> getIndexService();
 
-    LSDPersistedEntity getPeoplePool();
+    PersistedEntity getPeoplePool();
 
-    LSDPersistedEntity getRootPool();
+    PersistedEntity getRootPool();
 
 
-    void indexBy(@Nonnull LSDPersistedEntity entity, @Nonnull LSDAttribute key, @Nonnull LSDAttribute luceneIndex, boolean unique) throws InterruptedException;
+    void indexBy(@Nonnull PersistedEntity entity, @Nonnull Attribute key, @Nonnull Attribute luceneIndex, boolean unique) throws InterruptedException;
 
-    void putProfileInformationIntoAlias(@Nonnull LSDPersistedEntity alias);
+    void putProfileInformationIntoAlias(@Nonnull PersistedEntity alias);
 
-    void recalculateURI(@Nonnull LSDPersistedEntity childPersistedEntity) throws InterruptedException;
+    void recalculateURI(@Nonnull PersistedEntity childPersistedEntity) throws InterruptedException;
 
-    void reindex(@Nonnull LSDPersistedEntity entity, @Nonnull LSDAttribute key, @Nonnull LSDAttribute luceneIndex);
+    void reindex(@Nonnull PersistedEntity entity, @Nonnull Attribute key, @Nonnull Attribute luceneIndex);
 
-    void setPeoplePool(LSDPersistedEntity peoplePool);
+    void setPeoplePool(PersistedEntity peoplePool);
 
-    void setRootPool(LSDPersistedEntity rootPool);
+    void setRootPool(PersistedEntity rootPool);
 
-    void unindex(@Nonnull LSDPersistedEntity entity, @Nonnull LSDAttribute key, String luceneIndex);
+    void unindex(@Nonnull PersistedEntity entity, @Nonnull Attribute key, String luceneIndex);
 
     @Nonnull
-    LSDTransferEntity updateEntityByURITx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LiquidURI uri, @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
+    TransferEntity updateEntityByURITx(@Nonnull SessionIdentifier editor, @Nonnull LiquidURI uri, @Nonnull TransferEntity entity, boolean internal, RequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
 
     @Nonnull @Deprecated
-    LSDTransferEntity updateEntityByUUIDTx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LiquidUUID id, @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
+    TransferEntity updateEntityByUUIDTx(@Nonnull SessionIdentifier editor, @Nonnull LiquidUUID id, @Nonnull TransferEntity entity, boolean internal, RequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
 
-    LSDPersistedEntity updateNodeAndReturnNodeNoTx(@Nonnull LiquidSessionIdentifier editor, @Nonnull LSDPersistedEntity origPersistedEntity, @Nonnull LSDTransferEntity entity, Runnable onRenameAction) throws Exception;
+    PersistedEntity updateNodeAndReturnNodeNoTx(@Nonnull SessionIdentifier editor, @Nonnull PersistedEntity origPersistedEntity, @Nonnull TransferEntity entity, Runnable onRenameAction) throws Exception;
 
     void updateSessionTx(@Nonnull LiquidUUID session) throws InterruptedException;
 
     @Nullable
-    LSDTransferEntity updateUnversionedEntityByUUIDTx(@Nonnull LiquidUUID id, @Nonnull LSDTransferEntity entity, boolean internal, LiquidRequestDetailLevel detail, @Nullable Runnable onRenameAction) throws InterruptedException;
+    TransferEntity updateUnversionedEntityByUUIDTx(@Nonnull LiquidUUID id, @Nonnull TransferEntity entity, boolean internal, RequestDetailLevel detail, @Nullable Runnable onRenameAction) throws InterruptedException;
 
     Transaction getCurrentTransaction();
 
-    LSDPersistedEntity findByURIAndLockForWrite(@Nonnull LiquidURI uri) throws InterruptedException;
+    PersistedEntity findForWrite(@Nonnull LiquidURI uri) throws InterruptedException;
 }

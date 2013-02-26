@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -14,36 +14,36 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
-    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
         super();
-        setSessionId(authenticatedUser);
+        session(authenticatedUser);
         setPoolUUID(pool);
         setTarget(target);
         setHistorical(historical);
     }
 
-    private RetrievePoolObjectRequest(final LiquidUUID id, final LiquidSessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri) {
+    private RetrievePoolObjectRequest(final LiquidUUID id, final SessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri) {
         super();
-        setId(id);
-        setSessionId(authenticatedUser);
+        id(id);
+        session(authenticatedUser);
         setPoolUUID(pool);
         setTarget(target);
         setUri(uri);
     }
 
-    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean historical) {
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI uri, final boolean historical) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setUri(uri);
         setHistorical(historical);
     }
 
-    public RetrievePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
+    public RetrievePoolObjectRequest(final SessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final boolean historical) {
         this(null, identity, pool, target, historical);
     }
 
-    public RetrievePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final boolean historical) {
+    public RetrievePoolObjectRequest(final SessionIdentifier identity, final LiquidURI uri, final boolean historical) {
         this(null, identity, uri, historical);
     }
 
@@ -52,7 +52,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         super();
     }
 
-    public RetrievePoolObjectRequest(final LSDTransferEntity entity) {
+    public RetrievePoolObjectRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -62,17 +62,16 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (hasPoolUUID()) {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW), new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.VIEW));
-        }
-        else {
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM), new AuthorizationRequest(session(), getPoolUUID(), Permission.VIEW_PERM));
+        } else {
             return Collections.EMPTY_LIST;
         }
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.RETRIEVE_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.RETRIEVE_POOL_OBJECT;
     }
 }

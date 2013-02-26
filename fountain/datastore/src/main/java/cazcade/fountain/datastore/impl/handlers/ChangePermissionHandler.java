@@ -17,10 +17,10 @@ import javax.annotation.Nonnull;
 public class ChangePermissionHandler extends AbstractDataStoreHandler<ChangePermissionRequest> implements ChangePermissionRequestHandler {
     @Nonnull
     public ChangePermissionRequest handle(@Nonnull final ChangePermissionRequest request) throws Exception {
-        final Transaction transaction = fountainNeo.beginTx();
+        final Transaction transaction = neo.beginTx();
         try {
-            final ChangePermissionRequest message = LiquidResponseHelper.forServerSuccess(request, fountainNeo.changePermissionNoTx(request
-                    .getSessionIdentifier(), request.getUri(), request.getPermission(), request.getDetail(), request.isInternal()));
+            final ChangePermissionRequest message = LiquidResponseHelper.forServerSuccess(request, neo.changePermissionNoTx(request.session(), request
+                    .uri(), request.permission(), request.detail(), request.internal()));
             transaction.success();
             return message;
         } catch (RuntimeException e) {

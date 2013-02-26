@@ -4,7 +4,7 @@
 
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import java.io.OutputStream;
@@ -16,5 +16,5 @@ import java.io.OutputStream;
 public interface LSDMarshaler {
     @Nonnull String getMimeType();
 
-    void marshal(LSDTransferEntity lsdEntity, OutputStream output);
+    void marshal(TransferEntity lsdEntity, OutputStream output);
 }

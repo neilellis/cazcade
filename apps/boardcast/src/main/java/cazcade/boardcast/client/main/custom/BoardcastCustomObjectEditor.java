@@ -4,9 +4,9 @@
 
 package cazcade.boardcast.client.main.custom;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.ResizePoolObjectRequest;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -40,16 +40,16 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
     interface EditorUiBinder extends UiBinder<HTMLPanel, BoardcastCustomObjectEditor> {}
 
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
-    @UiField PopupPanel        popup;
-    @UiField ImageUploader     imageUploader;
-    @UiField Label             changeButton;
-    @UiField Label             cancelButton;
-    @UiField RegexTextBox      widthField;
-    @UiField RegexTextBox      heightField;
-    @UiField VortexTextArea    scriptField;
-    private  LSDTransferEntity updateEntity;
-    private  boolean           sizeDirty;
-    private  ChangeAction      onChangeAction;
+    @UiField PopupPanel     popup;
+    @UiField ImageUploader  imageUploader;
+    @UiField Label          changeButton;
+    @UiField Label          cancelButton;
+    @UiField RegexTextBox   widthField;
+    @UiField RegexTextBox   heightField;
+    @UiField VortexTextArea scriptField;
+    private  TransferEntity updateEntity;
+    private  boolean        sizeDirty;
+    private  ChangeAction   onChangeAction;
 
     public BoardcastCustomObjectEditor() {
         super();
@@ -58,11 +58,10 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
             @Override public void onEditFinish(EditFinishEvent event) {
                 if (imageUploader.getStatus() == ImageUploader.Status.SUCCESS) {
                     final String url = imageUploader.getImageUrl();
-                    updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
-                    updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
+                    updateEntity.$(Dictionary.IMAGE_URL, url);
+                    updateEntity.$(Dictionary.ICON_URL, url);
                     imageUploader.setImageUrl(url);
-                }
-                else {
+                } else {
                     Window.alert("Failed to upload image.");
                 }
             }
@@ -73,8 +72,8 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
             @Override
             public void onClick(final ClickEvent event) {
                 if (sizeDirty) {
-                    BusFactory.getInstance()
-                              .send(new ResizePoolObjectRequest(updateEntity.getURI(), Integer.parseInt(widthField.getValue()) * 40,
+                    BusFactory.get()
+                              .send(new ResizePoolObjectRequest(updateEntity.uri(), Integer.parseInt(widthField.getValue()) * 40,
                                       Integer.parseInt(heightField.getValue())
                                       * 40), new AbstractResponseCallback<ResizePoolObjectRequest>() {
                                   @Override
@@ -82,7 +81,7 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
                                   }
                               });
                 }
-                BusFactory.getInstance()
+                BusFactory.get()
                           .send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                               @Override
                               public void onSuccess(final UpdatePoolObjectRequest message, final UpdatePoolObjectRequest response) {
@@ -118,12 +117,12 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
     }
 
     @Override
-    public void show(@Nonnull final LSDTransferEntity object) {
+    public void show(@Nonnull final TransferEntity object) {
         updateEntity = object.asUpdateEntity();
-        imageUploader.setImageUrl(object.getAttribute(LSDAttribute.IMAGE_URL));
-        final LSDBaseEntity view = object.getSubEntity(LSDAttribute.VIEW, false);
-        widthField.setValue(view.getAttribute(LSDAttribute.VIEW_WIDTH));
-        heightField.setValue(view.getAttribute(LSDAttribute.VIEW_HEIGHT));
+        imageUploader.setImageUrl(object.$(Dictionary.IMAGE_URL));
+        final Entity view = object.child(Dictionary.VIEW_ENTITY, false);
+        widthField.setValue(view.$(Dictionary.VIEW_WIDTH));
+        heightField.setValue(view.$(Dictionary.VIEW_HEIGHT));
         final ValueChangeHandler sizeDirtyAction = new ValueChangeHandler() {
             @Override public void onValueChange(ValueChangeEvent event) {
                 sizeDirty = true;
@@ -131,7 +130,7 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
         };
         widthField.addChangeHandler(sizeDirtyAction);
         heightField.addChangeHandler(sizeDirtyAction);
-        scriptField.bind(updateEntity, LSDAttribute.SERVER_SCRIPT, "");
+        scriptField.bind(updateEntity, Dictionary.SERVER_SCRIPT, "");
 
         popup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
             @Override

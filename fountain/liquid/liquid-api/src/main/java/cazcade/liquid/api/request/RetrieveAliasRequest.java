@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,54 +13,54 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveAliasRequest extends AbstractRetrievalRequest {
-    private RetrieveAliasRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+    private RetrieveAliasRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
         super();
         setTarget(target);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setUri(uri);
     }
 
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
     }
 
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI uri) {
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI uri) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setUri(uri);
     }
 
-    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public RetrieveAliasRequest(final SessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
-    public RetrieveAliasRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
+    public RetrieveAliasRequest(final SessionIdentifier identity, final LiquidURI uri) {
         this(null, identity, uri);
     }
 
     public RetrieveAliasRequest(final LiquidUUID target) {
-        this(null, LiquidSessionIdentifier.ANON, target);
+        this(null, SessionIdentifier.ANON, target);
     }
 
     public RetrieveAliasRequest(final LiquidURI uri) {
-        this(null, LiquidSessionIdentifier.ANON, uri);
+        this(null, SessionIdentifier.ANON, uri);
     }
 
-    public RetrieveAliasRequest(final LiquidSessionIdentifier identity) {
+    public RetrieveAliasRequest(final SessionIdentifier identity) {
         super();
-        setSessionId(identity);
+        session(identity);
     }
 
     public RetrieveAliasRequest() {
         super();
     }
 
-    public RetrieveAliasRequest(final LSDTransferEntity entity) {
+    public RetrieveAliasRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -70,12 +70,12 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
     }
 
     @Nonnull @Override
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.emptyList();
     }
 
     @Override @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.RETRIEVE_ALIAS;
+    public RequestType requestType() {
+        return RequestType.RETRIEVE_ALIAS;
     }
 }

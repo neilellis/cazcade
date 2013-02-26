@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
 import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Entity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -23,8 +27,7 @@ public class UnsetCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Removes an attribute from an entity.";
     }
@@ -43,7 +46,7 @@ public class UnsetCommand extends AbstractShortLivedCommand {
             System.err.println("unset <attribute-name>");
         }
 
-        final LSDBaseEntity currentEntity = shellSession.getCurrentEntity();
+        final Entity currentEntity = shellSession.getCurrentEntity();
         //The empty string causes the server to remove the value completely.
         currentEntity.setValue(args[0], "");
         return args[0];

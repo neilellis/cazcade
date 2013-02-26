@@ -8,11 +8,11 @@ import cazcade.common.Logger;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.admin.AdminCommand;
-import cazcade.liquid.api.LiquidPermissionSet;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.PermissionSet;
+import cazcade.liquid.api.lsd.Dictionary;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.ReturnableEvaluator;
 import org.neo4j.graphdb.StopEvaluator;
@@ -29,27 +29,26 @@ public class FixAllPermissions implements AdminCommand {
 
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
-        final LSDPersistedEntity peoplePool = fountainNeo.findByURI(new LiquidURI("pool:///people"));
+        final PersistedEntity peoplePool = fountainNeo.find(new LiquidURI("pool:///people"));
         assert peoplePool != null;
-        final Iterable<FountainRelationship> children = peoplePool.getRelationships(FountainRelationships.CHILD, Direction.OUTGOING);
+        final Iterable<FountainRelationship> children = peoplePool.relationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final FountainRelationship child : children) {
-            final LSDPersistedEntity personPool = child.getOtherNode(peoplePool);
-            final String personPoolURI = personPool.getAttribute(LSDAttribute.URI);
+            final PersistedEntity personPool = child.other(peoplePool);
+            final String personPoolURI = personPool.$(Dictionary.URI);
+            resetPermissions(fountainNeo, new LiquidURI(personPoolURI + "/profile"), PermissionSet.getDefaultPermissionsNoDelete());
             resetPermissions(fountainNeo, new LiquidURI(personPoolURI
-                                                        + "/profile"), LiquidPermissionSet.getDefaultPermissionsNoDelete());
-            resetPermissions(fountainNeo, new LiquidURI(personPoolURI
-                                                        + "/private"), LiquidPermissionSet.getPrivateNoDeletePermissionSet());
+                                                        + "/private"), PermissionSet.getPrivateNoDeletePermissionSet());
         }
     }
 
-    private void resetPermissions(@Nonnull final FountainNeo fountainNeo, @Nonnull final LiquidURI uri, @Nonnull final LiquidPermissionSet permissionSet) throws InterruptedException {
+    private void resetPermissions(@Nonnull final FountainNeo fountainNeo, @Nonnull final LiquidURI uri, @Nonnull final PermissionSet permissionSet) throws InterruptedException {
         log.info("Fixing permissions on {0}", uri);
-        final LSDPersistedEntity profilePool = fountainNeo.findByURI(uri);
+        final PersistedEntity profilePool = fountainNeo.find(uri);
         if (profilePool != null) {
             final String permissionString = permissionSet.toString();
             final Traverser traverse = profilePool.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.END_OF_GRAPH, ReturnableEvaluator.ALL, FountainRelationships.CHILD, Direction.OUTGOING, FountainRelationships.VIEW, Direction.OUTGOING);
             for (final org.neo4j.graphdb.Node node : traverse) {
-                node.setProperty(LSDAttribute.PERMISSIONS.getKeyName(), permissionString);
+                node.setProperty(Dictionary.PERMISSIONS.getKeyName(), permissionString);
             }
         }
     }

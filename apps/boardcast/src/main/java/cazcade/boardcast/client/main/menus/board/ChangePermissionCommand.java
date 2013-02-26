@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidPermissionChangeType;
 import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.PermissionChangeType;
 import cazcade.liquid.api.request.ChangePermissionRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -16,10 +20,10 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class ChangePermissionCommand implements Command {
-    private final LiquidPermissionChangeType change;
-    private final LiquidURI poolURI;
+    private final PermissionChangeType change;
+    private final LiquidURI            poolURI;
 
-    public ChangePermissionCommand(final LiquidPermissionChangeType change, final LiquidURI poolURI) {
+    public ChangePermissionCommand(final PermissionChangeType change, final LiquidURI poolURI) {
         this.change = change;
         this.poolURI = poolURI;
     }
@@ -27,15 +31,16 @@ public class ChangePermissionCommand implements Command {
     @Override
     public void execute() {
         Track.getInstance().trackEvent("Permission Change", "Changed board permission to " + change);
-        BusFactory.getInstance().send(new ChangePermissionRequest(poolURI, change), new AbstractResponseCallback<ChangePermissionRequest>() {
-            @Override
-            public void onSuccess(final ChangePermissionRequest message, final ChangePermissionRequest response) {
-            }
+        BusFactory.get()
+                  .send(new ChangePermissionRequest(poolURI, change), new AbstractResponseCallback<ChangePermissionRequest>() {
+                      @Override
+                      public void onSuccess(final ChangePermissionRequest message, final ChangePermissionRequest response) {
+                      }
 
-            @Override
-            public void onFailure(final ChangePermissionRequest message, @Nonnull final ChangePermissionRequest response) {
-                Window.alert("Failed to (un)lock.");
-            }
-        });
+                      @Override
+                      public void onFailure(final ChangePermissionRequest message, @Nonnull final ChangePermissionRequest response) {
+                          Window.alert("Failed to (un)lock.");
+                      }
+                  });
     }
 }

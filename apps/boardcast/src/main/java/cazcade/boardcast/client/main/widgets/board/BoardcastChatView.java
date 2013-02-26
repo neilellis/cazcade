@@ -6,20 +6,19 @@ package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.boardcast.client.main.widgets.AddChatBox;
 import cazcade.boardcast.client.main.widgets.BoardMenuBar;
-import cazcade.liquid.api.LiquidBoardURL;
+import cazcade.liquid.api.BoardURL;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
@@ -66,14 +65,14 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     @UiField DivElement      boardLockedIcon;
     @UiField Label           returnFromChatButton;
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private LiquidURI      poolURI;
-    private LiquidBoardURL boardURL;
+    private final Bus bus = BusFactory.get();
+    private LiquidURI poolURI;
+    private BoardURL  boardURL;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-    private LiquidURI         previousPoolURI;
-    private LSDTransferEntity poolEntity;
-    private long              changePermissionListener;
+    private LiquidURI      previousPoolURI;
+    private TransferEntity poolEntity;
+    private long           changePermissionListener;
     //    @UiField
     //    TabLayoutPanel communicationTabPanel;
     //    @UiField
@@ -89,7 +88,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
     @Override
     public void onLocalHistoryTokenChanged(@Nonnull final String token) {
-        boardURL = new LiquidBoardURL(token);
+        boardURL = new BoardURL(token);
         previousPoolURI = poolURI;
         poolURI = boardURL.asURI();
         refresh();
@@ -98,25 +97,23 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     private void refresh() {
         //        inbox.setFeatures(FormatUtil.getInstance());
         if (changePermissionListener != 0) {
-            BusFactory.getInstance().removeListener(changePermissionListener);
+            BusFactory.get().remove(changePermissionListener);
         }
 
-        changePermissionListener = BusFactory.getInstance()
-                                             .listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.CHANGE_PERMISSION, new BusListener() {
-                                                 @Override
-                                                 public void handle(final LiquidMessage message) {
-                                                     refresh();
-                                                 }
-                                             });
+        changePermissionListener = BusFactory.get().listenForSuccess(poolURI, RequestType.CHANGE_PERMISSION, new BusListener() {
+            @Override
+            public void handle(final LiquidMessage message) {
+                refresh();
+            }
+        });
 
 
-        bus.send(new VisitPoolRequest(LSDDictionaryTypes.BOARD, poolURI, previousPoolURI, !UserUtil.isAnonymousOrLoggedOut(), poolURI
-                .asBoardURL()
-                .isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
+        bus.send(new VisitPoolRequest(Types.T_BOARD, poolURI, previousPoolURI, !UserUtil.anon(), poolURI.board()
+                                                                                                        .isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
             public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
-                if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
-                    if (UserUtil.isAnonymousOrLoggedOut()) {
+                if (response.response().type().canBe(Types.T_RESOURCE_NOT_FOUND)) {
+                    if (UserUtil.anon()) {
                         Window.alert("Please login first.");
                     } else {
                         Window.alert("You don't have permission");
@@ -131,21 +128,21 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
 
                 ClientLog.log("Got response.");
-                poolEntity = response.getResponse().copy();
-                GWTUtil.runAsync(new Runnable() {
+                poolEntity = response.response().$();
+                $.async(new Runnable() {
                     @Override public void run() {
                         ClientLog.log(poolEntity.dump());
                         contentArea.clear();
-                        contentArea.init(poolEntity, FormatUtil.getInstance(), threadSafeExecutor);
+                        contentArea.init(poolEntity, threadSafeExecutor);
                     }
                 });
-                GWTUtil.runAsync(new Runnable() {
+                $.async(new Runnable() {
                     @Override public void run() {
-                        if (poolEntity.hasAttribute(LSDAttribute.IMAGE_URL)) {
-                            contentArea.setBackgroundImage(poolEntity.getAttribute(LSDAttribute.IMAGE_URL));
+                        if (poolEntity.has$(Dictionary.IMAGE_URL)) {
+                            contentArea.setBackgroundImage(poolEntity.$(Dictionary.IMAGE_URL));
                         }
-                        if (poolEntity.getBooleanAttribute(LSDAttribute.MODIFIABLE)) {
-                            //                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, LSDDictionaryTypes.BITMAP_IMAGE_2D));
+                        if (poolEntity.$bool(Dictionary.MODIFIABLE)) {
+                            //                    addMenuBarSubMenu.addItem("Decoration", new CreateImageCommand(poolURI, Types.BITMAP_IMAGE_2D));
                             boardLockedIcon.getStyle().setVisibility(Style.Visibility.HIDDEN);
                             //                            menuBar.init(poolEntity, true, null);
                         } else {
@@ -154,7 +151,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                         }
                     }
                 });
-                GWTUtil.runAsync(new Runnable() {
+                $.async(new Runnable() {
                     @Override public void run() {
                         stream.init(poolURI);
                         addChatBox.init(poolURI);
@@ -185,7 +182,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(final LSDBaseEntity entity) {
+    protected void onChange(final Entity entity) {
         super.onChange(entity);
         refresh();
     }
@@ -194,7 +191,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     protected void onLoad() {
         super.onLoad();
         stream.sinkEvents(Event.MOUSEEVENTS);
-        //        stream.addHandler(new RHSMouseOverHandler(), MouseOverEvent.getType());
+        //        stream.addHandler(new RHSMouseOverHandler(), MouseOverEvent.type());
         rhs.sinkEvents(Event.MOUSEEVENTS);
         rhs.addHandler(new RHSMouseOutHandler(), MouseOutEvent.getType());
         addChatBox.sinkEvents(Event.MOUSEEVENTS);

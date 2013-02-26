@@ -17,12 +17,11 @@ public class DeletePoolHandler extends AbstractDataStoreHandler<DeletePoolReques
     @Nonnull
     public DeletePoolRequest handle(@Nonnull final DeletePoolRequest request) throws InterruptedException {
         if (request.hasUri()) {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getUri(), true, request.isInternal(), request
-                    .getDetail()));
-        }
-        else {
-            return LiquidResponseHelper.forServerSuccess(request, fountainNeo.deleteEntityTx(request.getTarget(), true, request.isInternal(), request
-                    .getDetail()));
+            return LiquidResponseHelper.forServerSuccess(request, neo.deleteEntityTx(request.uri(), true, request.internal(), request
+                    .detail()));
+        } else {
+            return LiquidResponseHelper.forServerSuccess(request, neo.deleteEntityTx(request.getTarget(), true, request.internal(), request
+                    .detail()));
         }
     }
 }

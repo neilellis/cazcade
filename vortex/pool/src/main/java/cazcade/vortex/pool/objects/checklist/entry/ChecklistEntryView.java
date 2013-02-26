@@ -1,11 +1,15 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.objects.checklist.entry;
 
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -27,36 +31,32 @@ import javax.annotation.Nonnull;
  */
 public class ChecklistEntryView extends Composite {
 
-    public static final String BALLOT = String.valueOf((char) 0x2610);
-    public static final String BALLOT_TICKED = String.valueOf((char) 0x2611);
+    public static final String BALLOT         = String.valueOf((char) 0x2610);
+    public static final String BALLOT_TICKED  = String.valueOf((char) 0x2611);
     public static final String BALLOT_CROSSED = String.valueOf((char) 0x2612);
 
-    private boolean checked;
+    private       boolean        checked;
     @Nonnull
-    private final LSDTransferEntity entity;
+    private final TransferEntity entity;
 
-    interface ChecklistEntryViewUiBinder extends UiBinder<HTMLPanel, ChecklistEntryView> {
-    }
+    interface ChecklistEntryViewUiBinder extends UiBinder<HTMLPanel, ChecklistEntryView> {}
 
     private static final ChecklistEntryViewUiBinder ourUiBinder = GWT.create(ChecklistEntryViewUiBinder.class);
-    @UiField
-    EditableLabel label;
-    @UiField
-    Label checkbox;
-    @UiField
-    Label author;
+    @UiField EditableLabel label;
+    @UiField Label         checkbox;
+    @UiField Label         author;
 
-    public ChecklistEntryView(@Nonnull final LSDTransferEntity newEntity) {
+    public ChecklistEntryView(@Nonnull final TransferEntity newEntity) {
         super();
         entity = newEntity;
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setShowBrief(true);
         update(newEntity);
-        BusFactory.getInstance().listenForResponsesForURIAndType(newEntity.getURI(), LiquidRequestType.UPDATE_POOL_OBJECT, new BusListener() {
+        BusFactory.get().listenForResponses(newEntity.uri(), RequestType.UPDATE_POOL_OBJECT, new BusListener() {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
                 if (message.getState() != LiquidMessageState.PROVISIONAL) {
-                    update(message.getResponse().copy());
+                    update(message.response().$());
                 }
             }
         });
@@ -66,20 +66,20 @@ public class ChecklistEntryView extends Composite {
             public void onClick(final ClickEvent event) {
                 checked = !checked;
                 updateCheckStatus();
-                final LSDTransferEntity updateEntity = entity.asUpdateEntity();
-                updateEntity.setAttribute(LSDAttribute.CHECKED, checked);
-                BusFactory.getInstance().send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
-                });
+                final TransferEntity updateEntity = entity.asUpdateEntity();
+                updateEntity.$(Dictionary.CHECKED, checked);
+                BusFactory.get()
+                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {});
             }
         });
 
         label.setOnEditEndAction(new Runnable() {
             @Override
             public void run() {
-                final LSDTransferEntity updateEntity = entity.asUpdateEntity();
-                updateEntity.setAttribute(LSDAttribute.TEXT_EXTENDED, label.getText());
-                BusFactory.getInstance().send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
-                });
+                final TransferEntity updateEntity = entity.asUpdateEntity();
+                updateEntity.$(Dictionary.TEXT_EXTENDED, label.getText());
+                BusFactory.get()
+                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {});
             }
         });
     }
@@ -92,16 +92,16 @@ public class ChecklistEntryView extends Composite {
         }
     }
 
-    private void update(@Nonnull final LSDBaseEntity entity) {
-        if (entity.hasAttribute(LSDAttribute.CHECKED)) {
-            checked = entity.getBooleanAttribute(LSDAttribute.CHECKED);
+    private void update(@Nonnull final Entity entity) {
+        if (entity.has$(Dictionary.CHECKED)) {
+            checked = entity.$bool(Dictionary.CHECKED);
         }
-        if (entity.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
-            label.setText(entity.getAttribute(LSDAttribute.TEXT_EXTENDED));
+        if (entity.has$(Dictionary.TEXT_EXTENDED)) {
+            label.setText(entity.$(Dictionary.TEXT_EXTENDED));
         }
-        final LSDBaseEntity authorEntity = entity.getSubEntity(LSDAttribute.AUTHOR, true);
+        final Entity authorEntity = entity.child(Dictionary.AUTHOR_A, true);
         if (authorEntity != null) {
-            author.setText(authorEntity.getAttribute(LSDAttribute.NAME));
+            author.setText(authorEntity.$(Dictionary.NAME));
         } else {
             author.setText("unknown");
         }

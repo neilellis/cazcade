@@ -15,7 +15,7 @@ import java.util.Map;
  * @author neilelliz@cazcade.com
  */
 public class FountainEntityValidator {
-    private LSDPropertyFormatValidator formatValidator;
+    private PropertyFormatValidator formatValidator;
 
     private Map<String, TypeValidator> typeValidatorMap;
 
@@ -24,27 +24,27 @@ public class FountainEntityValidator {
         this.typeValidatorMap = typeValidatorMap;
     }
 
-    public void validate(@Nonnull final LSDTransferEntity entity, final ValidationLevel level) {
+    public void validate(@Nonnull final TransferEntity entity, final ValidationLevel level) {
         validateFormat(entity);
-        final LSDTypeDef lsdTypeDef = entity.getTypeDef();
+        final TypeDef typeDef = entity.type();
         //noinspection ConstantConditions
-        if (lsdTypeDef == null) {
-            throw new LSDValidationException("All entities must have a type, entity %s had no type.", entity.getAttribute(LSDAttribute.NAME));
+        if (typeDef == null) {
+            throw new ValidationException("All entities must have a type, entity %s had no type.", entity.$(Dictionary.NAME));
         }
-        final String value = entity.getAttribute(LSDAttribute.UPDATED);
+        final String value = entity.$(Dictionary.UPDATED);
         //noinspection ConstantConditions
         if (value == null) {
-            throw new LSDValidationException("All entities must be timestamped (i.e. they must have a key: "
-                                             + LSDAttribute.UPDATED
-                                                           .getKeyName()
-                                             + ").");
+            throw new ValidationException("All entities must be timestamped (i.e. they must have a key: "
+                                          + Dictionary.UPDATED
+                                                      .getKeyName()
+                                          + ").");
         }
-        final LSDType primaryType = lsdTypeDef.getPrimaryType();
+        final Type primaryType = typeDef.getPrimaryType();
         validateForType(primaryType, entity, level);
     }
 
-    private void validateFormat(@Nonnull final LSDTransferEntity entity) {
-        final Map<String, String> propertyMap = entity.getMap();
+    private void validateFormat(@Nonnull final TransferEntity entity) {
+        final Map<String, String> propertyMap = entity.map();
         for (final Map.Entry<String, String> entry : propertyMap.entrySet()) {
             final String key = entry.getKey();
             final String value = entry.getValue();
@@ -56,7 +56,7 @@ public class FountainEntityValidator {
     private void validateKeyValue(@Nonnull final String key, final String value) {
         final String[] parts = key.split("\\.");
         if (parts.length > 0) {
-            final LSDAttribute attribute = LSDAttribute.valueOf(parts[0]);
+            final Attribute attribute = Attribute.valueOf(parts[0]);
             if (attribute != null && attribute.isSubEntity()) {
                 validateKeyValue(key.substring(parts[0].length() + 1), value);
                 return;
@@ -65,50 +65,48 @@ public class FountainEntityValidator {
         if (!key.startsWith("x.")) {
             //The x namespace is reserved for custom properties, so we don't validate them.
             // Once they are standardized the x.<domain> part will be removed and the correct property added to the enumeration.
-            final LSDAttribute attributeEntry = LSDAttribute.valueOf(key);
+            final Attribute attributeEntry = Attribute.valueOf(key);
             if (attributeEntry == null) {
-                throw new LSDValidationException("The LSD property with the name " +
-                                                 key +
-                                                 " is not known to the server, try using the dictionary REST service to find our which are valid property names.");
+                throw new ValidationException("The LSD property with the name " +
+                                              key +
+                                              " is not known to the server, try using the dictionary REST service to find our which are valid property names.");
             }
             if (!formatValidator.isValidFormat(attributeEntry.getFormatValidationString(), value)) {
-                throw new LSDValidationException("The LSD property with the name "
-                                                 + key
-                                                 + " has an incorrect value of '"
-                                                 + value
-                                                 + "'.");
+                throw new ValidationException("The LSD property with the name "
+                                              + key
+                                              + " has an incorrect value of '"
+                                              + value
+                                              + "'.");
             }
         }
     }
 
-    private void validateForType(final LSDType primaryType, final LSDBaseEntity entity, final ValidationLevel level) {
+    private void validateForType(final Type primaryType, final Entity entity, final ValidationLevel level) {
         String typeString;
         String name;
-        LSDType lsdType;
-        lsdType = primaryType;
+        Type type;
+        type = primaryType;
         while (true) {
-            typeString = lsdType.asString();
-            name = LSDDictionaryTypes.getNameForValue(typeString);
+            typeString = type.asString();
+            name = Types.getNameForValue(typeString);
             if (name != null) {
                 final TypeValidator typeValidator = typeValidatorMap.get(typeString);
                 if (typeValidator == null && level == ValidationLevel.STRICT) {
-                    throw new LSDValidationException("Validation is set to strict but there is no validator for "
-                                                     + typeString
-                                                     + ".");
+                    throw new ValidationException("Validation is set to strict but there is no validator for " + typeString + ".");
                 }
                 if (typeValidator != null) {
                     typeValidator.validate(entity);
                 }
                 return;
             }
-            if (lsdType.getFlavors().isEmpty()) {
-                throw new LSDValidationException("The type " + typeString + " is unknown.");
+            if (type.getFlavors().isEmpty()) {
+                throw new ValidationException("The type " + typeString + " is unknown.");
             }
-            lsdType = lsdType.getParentType();
+            type = type.getParentType();
         }
     }
 
-    public void setFormatValidator(final LSDPropertyFormatValidator formatValidator) {
+    public void setFormatValidator(final PropertyFormatValidator formatValidator) {
         this.formatValidator = formatValidator;
     }
 }

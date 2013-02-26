@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.validation.request;
 
 import cazcade.common.Logger;
@@ -17,6 +21,6 @@ public class CreatePoolObjectRequestValidator extends AbstractRequestValidator<C
         log.debug("Validating create pool object request.");
         validPoolObject(request);
 
-        entityValidator.validate(request.getRequestEntity(), level);
+        entityValidator.validate(request.request(), level);
     }
 }

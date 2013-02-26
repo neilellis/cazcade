@@ -20,11 +20,11 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public abstract class CreateItemCommand extends AbstractCreateCommand {
-    public CreateItemCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
+    public CreateItemCommand(final LiquidURI pool, final Types type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 
-    public CreateItemCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
+    public CreateItemCommand(final LiquidURI pool, final Types type) {
         super(pool, type);
     }
 
@@ -32,7 +32,7 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
     public void execute() {
         buildEntity(new BuildCallback() {
             @Override
-            public void onBuilt(final LSDTransferEntity entity) {
+            public void onBuilt(final TransferEntity entity) {
                 create(entity, new CreateCallback() {
                     @Override
                     public void onCreate(final CreatePoolObjectRequest response) {
@@ -45,39 +45,38 @@ public abstract class CreateItemCommand extends AbstractCreateCommand {
 
     protected abstract void buildEntity(BuildCallback onBuilt);
 
-    protected void create(final LSDTransferEntity entity, @Nonnull final CreateCallback callback) {
-        BusFactory.getInstance()
-                  .send(new CreatePoolObjectRequest(pool, entity), new AbstractResponseCallback<CreatePoolObjectRequest>() {
-                      @Override
-                      public void onSuccess(final CreatePoolObjectRequest message, final CreatePoolObjectRequest response) {
-                          callback.onCreate(response);
-                      }
+    protected void create(final TransferEntity entity, @Nonnull final CreateCallback callback) {
+        BusFactory.get().send(new CreatePoolObjectRequest(pool, entity), new AbstractResponseCallback<CreatePoolObjectRequest>() {
+            @Override
+            public void onSuccess(final CreatePoolObjectRequest message, final CreatePoolObjectRequest response) {
+                callback.onCreate(response);
+            }
 
-                      @Override
-                      public void onFailure(final CreatePoolObjectRequest message, @Nonnull final CreatePoolObjectRequest response) {
-                          Window.alert("Failed to create object, permissions issue?");
-                      }
-                  });
+            @Override
+            public void onFailure(final CreatePoolObjectRequest message, @Nonnull final CreatePoolObjectRequest response) {
+                Window.alert("Failed to create object, permissions issue?");
+            }
+        });
     }
 
-    @Nonnull LSDTransferEntity createEntityWithDefaultView() {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
+    @Nonnull TransferEntity createEntityWithDefaultView() {
+        final TransferEntity entity = SimpleEntity.create(getType());
         addDefaultView(entity);
         return entity;
     }
 
-    protected void addDefaultView(@Nonnull final LSDBaseEntity entity) {
+    protected void addDefaultView(@Nonnull final Entity entity) {
         //todo: give a more sensible starting point
-        final LSDTransferEntity view = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.VIEW);
-        view.setAttribute(LSDAttribute.VIEW_X, "0");
-        view.setAttribute(LSDAttribute.VIEW_Y, "0");
+        final TransferEntity view = SimpleEntity.create(Types.T_VIEW);
+        view.$(Dictionary.VIEW_X, "0");
+        view.$(Dictionary.VIEW_Y, "0");
         if (theme != null) {
-            view.setAttribute(LSDAttribute.THEME, theme);
+            view.$(Dictionary.THEME, theme);
         }
         if (size != null) {
-            view.setAttribute(LSDAttribute.SIZE, size.name().toLowerCase());
+            view.$(Dictionary.SIZE, size.name().toLowerCase());
         }
-        entity.addAnonymousSubEntity(LSDAttribute.VIEW, view);
+        entity.addAnonymousSubEntity(Dictionary.VIEW_ENTITY, view);
     }
 
     protected void showEditorPanel(@Nonnull final AbstractPoolObjectEditorPanel editorPanel) {

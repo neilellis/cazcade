@@ -4,8 +4,8 @@
 
 package cazcade.vortex.pool.objects.website;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
-    public WebsitePresenter(final PoolPresenter pool, final LSDTransferEntity entity, final WebsiteView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public WebsitePresenter(final PoolPresenter pool, final TransferEntity entity, final WebsiteView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
         getPoolObjectView().addHandler(new DoubleClickHandler() {
             @Override
@@ -33,15 +33,14 @@ public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
     }
 
     @Override
-    public void update(@Nonnull final LSDTransferEntity newEntity, final boolean replaceEntity) {
+    public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                if (newEntity.hasAttribute(LSDAttribute.SOURCE)) {
-                    getPoolObjectView().setUrl(newEntity.getAttribute(LSDAttribute.SOURCE));
-                }
-                else {
-                    ClientLog.warn("No source for " + newEntity.getURI());
+                if (newEntity.has$(Dictionary.SOURCE)) {
+                    getPoolObjectView().setUrl(newEntity.$(Dictionary.SOURCE));
+                } else {
+                    ClientLog.warn("No source for " + newEntity.uri());
                 }
                 WebsitePresenter.super.update(newEntity, replaceEntity);
             }

@@ -4,8 +4,8 @@
 
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.LiquidPermission;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.Permission;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractRetrievalRequest extends AbstractRequest {
-    public AbstractRetrievalRequest(final LSDTransferEntity entity) {
+    public AbstractRetrievalRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -27,35 +27,33 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
     }
 
     @Nonnull @Override
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (hasTarget()) {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
-        }
-        else {
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
+        } else {
             if (hasUri()) {
-                return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.VIEW));
-            }
-            else {
+                return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
+            } else {
                 return Collections.emptyList();
             }
         }
     }
 
     @Nonnull @Override
-    public String getCacheIdentifier() {
-        return getRequestType().name() +
+    public String cacheIdentifier() {
+        return requestType().name() +
                ":" +
                getState().name() +
                ":" +
-               getDetail() +
+               detail() +
                ":" +
-               (hasUri() ? getUri() : getTarget()) +
+               (hasUri() ? uri() : getTarget()) +
                ":" +
-               (isHistorical() ? "historical" : "latest");
+               (historical() ? "historical" : "latest");
     }
 
     @Nullable
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return null;
     }
 

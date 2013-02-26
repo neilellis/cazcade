@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.web;
 
 
@@ -27,17 +31,17 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         super();
     }
 
-//    public LSDTransferEntity expand(Map<String, String[]> parameters) throws URISyntaxException {
+//    public TransferEntity expand(Map<String, String[]> parameters) throws URISyntaxException {
 //        checkForSingleValueParams(parameters, "url");
 //        final String url = parameters.get("url")[0];
 //        URI uri = shortener.getFullURI(new URI(url));
-//        LSDSimpleEntity entity = LSDSimpleEntity.createNewEntity(LSDTypes.WEBPAGE);
-//        entity.setAttribute(LSDAttributes.SOURCE, uri.toString());
+//        SimpleEntity entity = SimpleEntity.create(Types.WEBPAGE);
+//        entity.$(LSDAttributes.SOURCE, uri.toString());
 //        return entity;
 //    }
 
     @Nonnull
-    public LSDBaseEntity get(@Nonnull final Map<String, String[]> parameters)
+    public Entity get(@Nonnull final Map<String, String[]> parameters)
             throws URISyntaxException, ExecutionException, InterruptedException {
         checkForSingleValueParams(parameters, "url", "size");
         final String url = parameters.get("url")[0];
@@ -47,7 +51,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    private LSDTransferEntity createWebsiteEntity(final String url, final ImageSize size, final boolean generate)
+    private TransferEntity createWebsiteEntity(final String url, final ImageSize size, final boolean generate)
             throws URISyntaxException, ExecutionException, InterruptedException {
         final Future<CacheResponse> futureResponse = getWebsiteSnapshot(url, size, generate);
         return convertSnapshotToEntity(url, futureResponse);
@@ -77,34 +81,34 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    private LSDTransferEntity convertSnapshotToEntity(final String url, @Nonnull final Future<CacheResponse> futureResponse)
+    private TransferEntity convertSnapshotToEntity(final String url, @Nonnull final Future<CacheResponse> futureResponse)
             throws InterruptedException, ExecutionException {
-        final LSDTransferEntity responseEntity = LSDSimpleEntity.createEmpty();
-        responseEntity.setID(UUIDFactory.randomUUID());
-        responseEntity.setType(LSDDictionaryTypes.WEBPAGE);
-        responseEntity.setAttribute(LSDAttribute.NAME, "webpage" + System.currentTimeMillis());
-        responseEntity.setAttribute(LSDAttribute.SOURCE, url);
-        responseEntity.setAttribute(LSDAttribute.LINK_EXTERNAL_URL, url);
+        final TransferEntity responseEntity = SimpleEntity.createEmpty();
+        responseEntity.id(UUIDFactory.randomUUID());
+        responseEntity.setType(Types.WEBPAGE);
+        responseEntity.$(Attribute.NAME, "webpage" + System.currentTimeMillis());
+        responseEntity.$(Attribute.SOURCE, url);
+        responseEntity.$(Attribute.LINK_EXTERNAL_URL, url);
         final CacheResponse response = futureResponse.get();
-        responseEntity.setAttribute(LSDAttribute.IMAGE_URL, response.getURI().toString());
-        responseEntity.setAttribute(LSDAttribute.IMAGE_REFRESH, String.valueOf(response.getRefreshIndicator()));
-        responseEntity.setAttribute(LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
-        responseEntity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        responseEntity.$(Attribute.IMAGE_URL, response.uri().toString());
+        responseEntity.$(Attribute.IMAGE_REFRESH, String.valueOf(response.getRefreshIndicator()));
+        responseEntity.$(Attribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        responseEntity.$(Attribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         if (response.getImageSize() != null) {
             if (response.getImageSize().getX() > 0) {
-                responseEntity.setAttribute(LSDAttribute.IMAGE_WIDTH, String.valueOf(response.getImageSize().getX()));
+                responseEntity.$(Attribute.IMAGE_WIDTH, String.valueOf(response.getImageSize().getX()));
             }
             if (response.getImageSize().getY() > 0) {
-                responseEntity.setAttribute(LSDAttribute.IMAGE_HEIGHT, String.valueOf(response.getImageSize().getY()));
+                responseEntity.$(Attribute.IMAGE_HEIGHT, String.valueOf(response.getImageSize().getY()));
             }
         }
         return responseEntity;
     }
 
     @Nonnull
-    public LSDBaseEntity scrape(@Nonnull final Map<String, String[]> parameters)
+    public Entity scrape(@Nonnull final Map<String, String[]> parameters)
             throws URISyntaxException, ExecutionException, InterruptedException {
-        final ArrayList<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>();
+        final ArrayList<Entity> entities = new ArrayList<Entity>();
         final HttpClient client = new HttpClient();
         checkForSingleValueParams(parameters, "url");
         final String url = parameters.get("url")[0];
@@ -143,66 +147,66 @@ public class WebUtilRestHandler extends AbstractRestHandler {
             //If the snapshot is ready return it, otherwise wait until next time.
             //The client hits us twice anyway!
             if (futureResponse.isDone()) {
-                final LSDTransferEntity snapshotEntity = convertSnapshotToEntity(url, futureResponse);
+                final TransferEntity snapshotEntity = convertSnapshotToEntity(url, futureResponse);
                 if (favicon != null) {
-                    snapshotEntity.setAttribute(LSDAttribute.ICON_URL, favicon);
+                    snapshotEntity.$(Attribute.ICON_URL, favicon);
                 }
                 entities.add(0, snapshotEntity);
             }
         }
-        final LSDTransferEntity collectionEntity = LSDSimpleEntity.createEmpty();
-        collectionEntity.setType(LSDDictionaryTypes.ENTITY_LIST);
-        collectionEntity.addSubEntities(LSDAttribute.CHILD, entities);
+        final TransferEntity collectionEntity = SimpleEntity.createEmpty();
+        collectionEntity.setType(Types.ENTITY_LIST);
+        collectionEntity.$children(Attribute.CHILD, entities);
         return collectionEntity;
     }
 
-    private void addFeeds(@Nonnull final ArrayList<LSDBaseEntity> entities, @Nonnull final List<String> feeds) {
+    private void addFeeds(@Nonnull final ArrayList<Entity> entities, @Nonnull final List<String> feeds) {
         int count = 1;
         for (final String feed : feeds) {
             try {
-                final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
+                final TransferEntity entity = SimpleEntity.createEmpty();
                 if (feed.startsWith("atom")) {
-                    entity.setType(LSDDictionaryTypes.ATOM_FEED);
+                    entity.setType(Types.ATOM_FEED);
                 }
                 else if (feed.startsWith("rss")) {
-                    entity.setType(LSDDictionaryTypes.RSS_FEED);
+                    entity.setType(Types.RSS_FEED);
                 }
                 else {
-                    entity.setType(LSDDictionaryTypes.RSS_OR_ATOM_FEED);
+                    entity.setType(Types.RSS_OR_ATOM_FEED);
                 }
                 final String feedUrl = feed.substring(feed.indexOf(':') + 1);
-                entity.setAttribute(LSDAttribute.NAME, "feed_" + System.currentTimeMillis() + "_" + count++ + "_" + getNameFromURL(
+                entity.$(Attribute.NAME, "feed_" + System.currentTimeMillis() + "_" + count++ + "_" + getNameFromURL(
                         feedUrl
                                                                                                                                   )
                                    );
-                entity.setAttribute(LSDAttribute.SOURCE, feedUrl);
+                entity.$(Attribute.SOURCE, feedUrl);
                 final SyndFeedInput input = new SyndFeedInput();
                 final SyndFeed syndFeed = input.build(new XmlReader(new URL(feedUrl)));
                 if (syndFeed.getAuthor() != null) {
-                    final LSDTransferEntity author = LSDSimpleEntity.createEmpty();
-                    author.setAttribute(LSDAttribute.FULL_NAME, syndFeed.getAuthor());
-                    author.setID(UUIDFactory.randomUUID());
-                    entity.addSubEntity(LSDAttribute.AUTHOR, author, true);
+                    final TransferEntity author = SimpleEntity.createEmpty();
+                    author.$(Attribute.FULL_NAME, syndFeed.getAuthor());
+                    author.id(UUIDFactory.randomUUID());
+                    entity.$child(Attribute.AUTHOR, author, true);
                 }
-//                entity.setValues(LSDDictionary.CATEGORY_TERM, syndFeed.getCategories());
-                entity.setAttributeConditonally(LSDAttribute.RIGHTS, syndFeed.getCopyright());
-                entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, syndFeed.getDescription());
-                entity.setAttributeConditonally(LSDAttribute.LOCALE_LANGUAGE, syndFeed.getLanguage());
+//                entity.$(LSDDictionary.CATEGORY_TERM, syndFeed.getCategories());
+                entity.$notnull(Attribute.RIGHTS, syndFeed.getCopyright());
+                entity.$notnull(Attribute.DESCRIPTION, syndFeed.description());
+                entity.$notnull(Attribute.LOCALE_LANGUAGE, syndFeed.getLanguage());
                 final ArrayList stringLinks = new ArrayList();
                 for (final Object o : syndFeed.getLinks()) {
                     final SyndLink link = (SyndLink) o;
                     stringLinks.add(link.getHref());
                 }
-                entity.setValues(LSDAttribute.LINK_EXTERNAL_URL, stringLinks);
-                entity.setAttributeConditonally(LSDAttribute.TITLE, syndFeed.getTitle());
+                entity.$(Attribute.LINK_EXTERNAL_URL, stringLinks);
+                entity.$notnull(Attribute.TITLE, syndFeed.getTitle());
                 if (syndFeed.getPublishedDate() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.PUBLISHED, String.valueOf(syndFeed.getPublishedDate().getTime()));
+                    entity.$notnull(Attribute.PUBLISHED, String.valueOf(syndFeed.getPublishedDate().getTime()));
                 }
                 if (syndFeed.getImage() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.IMAGE_URL, syndFeed.getImage().getUrl());
-                    entity.setAttributeConditonally(LSDAttribute.ICON_URL, syndFeed.getImage().getUrl());
+                    entity.$notnull(Attribute.IMAGE_URL, syndFeed.getImage().getUrl());
+                    entity.$notnull(Attribute.ICON_URL, syndFeed.getImage().getUrl());
                 }
-                entity.setID(UUIDFactory.randomUUID());
+                entity.id(UUIDFactory.randomUUID());
                 entities.add(entity);
             } catch (Exception e) {
                 log.warn(e.getMessage(), e);
@@ -212,7 +216,7 @@ public class WebUtilRestHandler extends AbstractRestHandler {
 
     private String getNameFromURL(final String url) {
         try {
-            final String path = new URL(url).getPath();
+            final String path = new URL(url).path();
             return path.substring(path.lastIndexOf('/') + 1).replaceAll("[^a-zA-Z0-9_]+", "_").toLowerCase();
         } catch (MalformedURLException e) {
             log.warn(e.getMessage(), e);
@@ -220,60 +224,60 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         }
     }
 
-    private void addYouTubeVideos(@Nonnull final ArrayList<LSDBaseEntity> entities, @Nonnull final List<String> videos) {
+    private void addYouTubeVideos(@Nonnull final ArrayList<Entity> entities, @Nonnull final List<String> videos) {
         int count = 1;
         for (final String video : videos) {
             try {
-                final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-                entity.setAttribute(LSDAttribute.NAME,
+                final TransferEntity entity = SimpleEntity.createEmpty();
+                entity.$(Attribute.NAME,
                                     "youtube_" + System.currentTimeMillis() + "_" + count++ + "_" + video.replaceAll("[^a-zA-Z0-9]",
                                                                                                                      ""
                                                                                                                     ).toLowerCase()
                                    );
-                entity.setType(LSDDictionaryTypes.YOUTUBE_MOVIE);
-                entity.setAttribute(LSDAttribute.SOURCE, "http://www.youtube.com/v/" + video);
+                entity.setType(Types.YOUTUBE_MOVIE);
+                entity.$(Attribute.SOURCE, "http://www.youtube.com/v/" + video);
                 final YouTubeService service = new YouTubeService("Cazcade", CommonConstants.YOUTUBE_DEVELOPER_KEY);
                 log.debug("Video is {0}", video);
                 final String apiURL = "http://gdata.youtube.com/feeds/api/videos/" + video;
                 final VideoEntry videoEntry = service.getEntry(new URL(apiURL), VideoEntry.class);
                 final List<Person> authors = videoEntry.getAuthors();
-                final ArrayList<LSDBaseEntity> authorEntities = new ArrayList<LSDBaseEntity>();
+                final ArrayList<Entity> authorEntities = new ArrayList<Entity>();
                 for (final Person author : authors) {
-                    final LSDTransferEntity authorEntity = LSDSimpleEntity.createEmpty();
-                    authorEntity.setType(LSDDictionaryTypes.ALIAS);
-                    authorEntity.setAttributeConditonally(LSDAttribute.FULL_NAME, author.getName());
-                    authorEntity.setAttributeConditonally(LSDAttribute.EMAIL_ADDRESS, author.getEmail());
-                    authorEntity.setAttributeConditonally(LSDAttribute.URI, "alias:youtube:" + author.getName());
-                    authorEntity.setID(UUIDFactory.randomUUID());
+                    final TransferEntity authorEntity = SimpleEntity.createEmpty();
+                    authorEntity.setType(Types.ALIAS);
+                    authorEntity.$notnull(Attribute.FULL_NAME, author.name());
+                    authorEntity.$notnull(Attribute.EMAIL_ADDRESS, author.getEmail());
+                    authorEntity.$notnull(Attribute.URI, "alias:youtube:" + author.name());
+                    authorEntity.id(UUIDFactory.randomUUID());
                     authorEntities.add(authorEntity);
                 }
 
                 if (!authorEntities.isEmpty()) {
-                    entity.addSubEntities(LSDAttribute.AUTHOR, authorEntities);
+                    entity.$children(Attribute.AUTHOR, authorEntities);
                 }
                 if (videoEntry.getGeoCoordinates() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.LOCATION_LAT, String.valueOf(
+                    entity.$notnull(Attribute.LOCATION_LAT, String.valueOf(
                             videoEntry.getGeoCoordinates().getLatitude()
                                                                                              )
                                                    );
-                    entity.setAttributeConditonally(LSDAttribute.LOCATION_LONG, String.valueOf(
+                    entity.$notnull(Attribute.LOCATION_LONG, String.valueOf(
                             videoEntry.getGeoCoordinates().getLongitude()
                                                                                               )
                                                    );
                 }
-//                entity.setValues(LSDDictionary.CATEGORY_TERM, syndFeed.getCategories());
+//                entity.$(LSDDictionary.CATEGORY_TERM, syndFeed.getCategories());
                 if (videoEntry.getRights() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.RIGHTS, videoEntry.getRights().getPlainText());
+                    entity.$notnull(Attribute.RIGHTS, videoEntry.getRights().getPlainText());
                 }
                 if (videoEntry.getSummary() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, videoEntry.getSummary().getPlainText());
+                    entity.$notnull(Attribute.DESCRIPTION, videoEntry.getSummary().getPlainText());
                 }
-//                entity.setAttributeConditonally(LSDDictionary.LOCALE_LANGUAGE, videoEntry.get);
+//                entity.$notnull(LSDDictionary.LOCALE_LANGUAGE, videoEntry.get);
                 if (videoEntry.getTitle() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.TITLE, videoEntry.getTitle().getPlainText());
+                    entity.$notnull(Attribute.TITLE, videoEntry.getTitle().getPlainText());
                 }
-                if (videoEntry.getPublished() != null) {
-                    entity.setAttributeConditonally(LSDAttribute.PUBLISHED, String.valueOf(videoEntry.getPublished().getValue()));
+                if (videoEntry.published() != null) {
+                    entity.$notnull(Attribute.PUBLISHED, String.valueOf(videoEntry.published().getValue()));
                 }
                 if (videoEntry.getMediaGroup() != null) {
                     final List<MediaThumbnail> thumbnails = videoEntry.getMediaGroup().getThumbnails();
@@ -282,18 +286,18 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                         final int thumbWidth = thumbnails.get(0).getWidth();
                         final int thumbHeight = thumbnails.get(0).getHeight();
 
-                        entity.setAttributeConditonally(LSDAttribute.IMAGE_URL, thumbUrl);
-                        entity.setAttributeConditonally(LSDAttribute.IMAGE_WIDTH, String.valueOf(thumbWidth));
-                        entity.setAttributeConditonally(LSDAttribute.IMAGE_HEIGHT, String.valueOf(thumbHeight));
+                        entity.$notnull(Attribute.IMAGE_URL, thumbUrl);
+                        entity.$notnull(Attribute.IMAGE_WIDTH, String.valueOf(thumbWidth));
+                        entity.$notnull(Attribute.IMAGE_HEIGHT, String.valueOf(thumbHeight));
                     }
                 }
-                final LSDTransferEntity view = LSDSimpleEntity.createEmpty();
-                view.setID(UUIDFactory.randomUUID());
-                view.setType(LSDDictionaryTypes.VIEW);
-                view.setAttribute(LSDAttribute.VIEW_WIDTH, "430");
-                view.setAttribute(LSDAttribute.VIEW_HEIGHT, "385");
-                entity.addSubEntity(LSDAttribute.VIEW, view, true);
-                entity.setID(UUIDFactory.randomUUID());
+                final TransferEntity view = SimpleEntity.createEmpty();
+                view.id(UUIDFactory.randomUUID());
+                view.setType(Types.VIEW);
+                view.$(Attribute.VIEW_WIDTH, "430");
+                view.$(Attribute.VIEW_HEIGHT, "385");
+                entity.$child(Attribute.VIEW, view, true);
+                entity.id(UUIDFactory.randomUUID());
                 entities.add(entity);
             } catch (Exception e) {
                 log.warn(e.getMessage(), e);
@@ -301,8 +305,8 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         }
     }
 
-    private void addImages(@Nonnull final ArrayList<LSDBaseEntity> entitiesToAddTo, @Nonnull final List<String> images) {
-        final ArrayList<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>();
+    private void addImages(@Nonnull final ArrayList<Entity> entitiesToAddTo, @Nonnull final List<String> images) {
+        final ArrayList<Entity> entities = new ArrayList<Entity>();
         final HttpClient client = new HttpClient();
         int count = 1;
         for (final String image : images) {
@@ -324,17 +328,17 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                                             : headMethod.getResponseHeader("Content-Type").getValue();
                     final long size = Long.parseLong(sizeStr);
                     if (size >= MINIMUM_IMAGE_SIZE_IN_BYTES) {
-                        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
+                        final TransferEntity entity = SimpleEntity.createEmpty();
                         final String photoName = getNameFromURL(image);
-                        entity.setAttribute(LSDAttribute.NAME,
+                        entity.$(Attribute.NAME,
                                             "image_" + System.currentTimeMillis() + "_" + count++ + "_" + photoName
                                            );
-                        entity.setType(LSDDictionaryTypes.BITMAP_IMAGE_2D);
-                        entity.setAttribute(LSDAttribute.SOURCE, image);
-                        entity.setAttribute(LSDAttribute.IMAGE_URL, image);
-                        entity.setAttribute(LSDAttribute.MEDIA_SIZE, sizeStr);
-                        entity.setAttribute(LSDAttribute.FORMAT, mimeType);
-                        entity.setID(UUIDFactory.randomUUID());
+                        entity.setType(Types.BITMAP_IMAGE_2D);
+                        entity.$(Attribute.SOURCE, image);
+                        entity.$(Attribute.IMAGE_URL, image);
+                        entity.$(Attribute.MEDIA_SIZE, sizeStr);
+                        entity.$(Attribute.FORMAT, mimeType);
+                        entity.id(UUIDFactory.randomUUID());
                         entities.add(entity);
                     }
                 }
@@ -344,11 +348,11 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                 log.error(e);
             }
         }
-        Collections.sort(entities, new Comparator<LSDBaseEntity>() {
-            public int compare(@Nonnull final LSDBaseEntity o1, @Nonnull final LSDBaseEntity o2) {
-                final String sizeStr1 = o1.getAttribute(LSDAttribute.MEDIA_SIZE);
+        Collections.sort(entities, new Comparator<Entity>() {
+            public int compare(@Nonnull final Entity o1, @Nonnull final Entity o2) {
+                final String sizeStr1 = o1.$(Attribute.MEDIA_SIZE);
                 final long size1 = Long.parseLong(sizeStr1);
-                final String sizeStr2 = o2.getAttribute(LSDAttribute.MEDIA_SIZE);
+                final String sizeStr2 = o2.$(Attribute.MEDIA_SIZE);
                 final long size2 = Long.parseLong(sizeStr2);
                 if (size2 > size1) {
                     return 1;
@@ -366,14 +370,14 @@ public class WebUtilRestHandler extends AbstractRestHandler {
     }
 
     @Nonnull
-    public LSDBaseEntity shorten(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
+    public Entity board(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         checkForSingleValueParams(parameters, "url");
         final String url = parameters.get("url")[0];
         final URI uri = shortener.getShortenedURI(url);
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.WEBPAGE,
+        final TransferEntity entity = SimpleEntity.createNewTransferEntity(Types.WEBPAGE,
                                                                                  UUIDFactory.randomUUID()
                                                                                 );
-        entity.setAttribute(LSDAttribute.SOURCE, uri.toString());
+        entity.$(Attribute.SOURCE, uri.toString());
         return entity;
     }
 

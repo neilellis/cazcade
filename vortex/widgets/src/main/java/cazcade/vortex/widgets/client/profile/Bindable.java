@@ -4,8 +4,8 @@
 
 package cazcade.vortex.widgets.client.profile;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.InvalidHandler;
 import cazcade.vortex.common.client.events.ValidHandler;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -19,11 +19,11 @@ import java.util.List;
  */
 public interface Bindable {
 
-    void bind(LSDTransferEntity entity, @Nullable LSDAttribute attribute, String referenceDataPrefix);
+    void bind(TransferEntity entity, @Nullable Attribute attribute, String referenceDataPrefix);
 
     void setErrorMessage(String message);
 
-    LSDTransferEntity getEntityDiff();
+    TransferEntity getEntityDiff();
 
     boolean isValid();
 
@@ -31,7 +31,7 @@ public interface Bindable {
 
     boolean isMultiValue();
 
-    LSDAttribute getBoundAttribute();
+    Attribute getBoundAttribute();
 
     List getStringValues();
 

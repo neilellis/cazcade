@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="LSDFactory" class="cazcade.liquid.api.lsd.LSDSimpleEntityFactory"/>
+    <bean id="LSDFactory" class="cazcade.liquid.api.lsd.SimpleEntityFactory"/>
 
     <bean id="marshalerFactory" class="cazcade.liquid.impl.LSDMarshallerFactory">
         <property name="marshalers">
@@ -36,7 +40,7 @@
     </bean>
 
 
-    <bean id="formatValidator" class="cazcade.liquid.impl.LSDPropertyFormatValidatorImpl">
+    <bean id="formatValidator" class="cazcade.liquid.impl.PropertyFormatValidatorImpl">
         <property name="validators">
             <map>
                 <entry key="text">

@@ -4,8 +4,8 @@
 
 package cazcade.boardcast.client.main.widgets.list;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.BoardQueryRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -39,15 +39,15 @@ public class BoardList extends HistoryAwareComposite {
 
     public static final int               PAGE_SIZE   = 20;
     private static      BoardListUiBinder ourUiBinder = GWT.create(BoardListUiBinder.class);
-    private final CellList<LSDBaseEntity> cellList;
+    private final CellList<Entity> cellList;
     private final Map<String, String> titleLookup = new HashMap<String, String>();
-    private final     AsyncDataProvider<LSDBaseEntity> dataProvider;
-    @UiField          InfiniteScrollPagerPanel         pagerPanel;
-    @UiField          HeadingElement                   boardListTitle;
-    private           AbstractRequest.QueryType        queryType;
-    @Nullable private NoSelectionModel<LSDBaseEntity>  selectionModel;
-    private           HandlerRegistration              selectionChangeHandler;
-    private           SelectionChangeEvent.Handler     handler;
+    private final     AsyncDataProvider<Entity>    dataProvider;
+    @UiField          InfiniteScrollPagerPanel     pagerPanel;
+    @UiField          HeadingElement               boardListTitle;
+    private           AbstractRequest.QueryType    queryType;
+    @Nullable private NoSelectionModel<Entity>     selectionModel;
+    private           HandlerRegistration          selectionChangeHandler;
+    private           SelectionChangeEvent.Handler handler;
 
     public BoardList() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -58,24 +58,24 @@ public class BoardList extends HistoryAwareComposite {
         // Set a key provider that provides a unique key for each contact. If key is
         // used to identify contacts when fields (such as the name and address)
         // change.
-        cellList = new CellList<LSDBaseEntity>(new BoardCell(), new LSDBaseEntityProvidesKey());
+        cellList = new CellList<Entity>(new BoardCell(), new LSDBaseEntityProvidesKey());
         cellList.setPageSize(PAGE_SIZE);
         cellList.setKeyboardPagingPolicy(HasKeyboardPagingPolicy.KeyboardPagingPolicy.INCREASE_RANGE);
         cellList.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.BOUND_TO_SELECTION);
         cellList.setStyleName("board-list");
         // Add a selection model so we can select cells.
 
-        dataProvider = new AsyncDataProvider<LSDBaseEntity>() {
+        dataProvider = new AsyncDataProvider<Entity>() {
 
-            @Override protected void onRangeChanged(final HasData<LSDBaseEntity> display) {
+            @Override protected void onRangeChanged(final HasData<Entity> display) {
                 //                Window.alert(queryType.toString());
-                BusFactory.getInstance()
-                          .send(new BoardQueryRequest(queryType, UserUtil.getCurrentAlias().getURI(), display.getVisibleRange()
-                                                                                                             .getStart(), display.getVisibleRange()
-                                                                                                                                 .getLength()), new AbstractResponseCallback<BoardQueryRequest>() {
+                BusFactory.get()
+                          .send(new BoardQueryRequest(queryType, UserUtil.currentAlias().uri(), display.getVisibleRange()
+                                                                                                       .getStart(), display.getVisibleRange()
+                                                                                                                           .getLength()), new AbstractResponseCallback<BoardQueryRequest>() {
                               @Override public void onSuccess(BoardQueryRequest message, BoardQueryRequest response) {
                                   super.onSuccess(message, response);
-                                  List<LSDBaseEntity> subEntities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                                  List<Entity> subEntities = response.response().children(Dictionary.CHILD_A);
                                   updateRowData(display.getVisibleRange().getStart(), subEntities);
                                   if (subEntities.size() < message.getMax()) {
                                       cellList.setRowCount(message.getStart() + subEntities.size());
@@ -94,7 +94,7 @@ public class BoardList extends HistoryAwareComposite {
         titleLookup.put("profile", "User Boards");
 
 
-        selectionModel = new NoSelectionModel<LSDBaseEntity>(new LSDBaseEntityProvidesKey());
+        selectionModel = new NoSelectionModel<Entity>(new LSDBaseEntityProvidesKey());
         cellList.setSelectionModel(selectionModel);
         pagerPanel.setDisplay(cellList);
 
@@ -116,9 +116,9 @@ public class BoardList extends HistoryAwareComposite {
         dataProvider.removeDataDisplay(cellList);
     }
 
-    private static class LSDBaseEntityProvidesKey implements ProvidesKey<LSDBaseEntity> {
-        @Nullable @Override public Object getKey(final LSDBaseEntity item) {
-            return item == null ? null : item.getURI();
+    private static class LSDBaseEntityProvidesKey implements ProvidesKey<Entity> {
+        @Nullable @Override public Object getKey(final Entity item) {
+            return item == null ? null : item.uri();
         }
     }
 }

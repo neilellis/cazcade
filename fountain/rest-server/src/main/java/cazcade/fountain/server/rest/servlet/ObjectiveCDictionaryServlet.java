@@ -5,8 +5,8 @@
 package cazcade.fountain.server.rest.servlet;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
@@ -28,9 +28,9 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
     public void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("text/plain");
-            final LSDAttribute[] keys = LSDAttribute.values();
+            final Attribute[] keys = Attribute.values();
             Arrays.sort(keys);
-            final LSDDictionaryTypes[] types = LSDDictionaryTypes.values();
+            final Types[] types = Types.values();
             final PrintWriter out = response.getWriter();
             out.printf("//Begin server generated section  (This was generated from %s on %s)%n", request.getRequestURL()
                                                                                                         .toString(), new Date());
@@ -39,7 +39,7 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
             out.printf("//Server recognized entity types %n");
             out.println();
             out.println();
-            for (final LSDDictionaryTypes type : types) {
+            for (final Types type : types) {
                 final String name = type.name();
                 final StringBuffer newName = convertEnumToCamelCase(name);
 
@@ -54,7 +54,7 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
             out.println("//   Updateable attributes  //");
             out.println("//////////////////////////////");
             out.println();
-            for (final LSDAttribute key : keys) {
+            for (final Attribute key : keys) {
                 if (key.isUpdateable() && !key.isHidden() && !key.isSubEntity()) {
                     writeOutAttribute(out, key, convertEnumToCamelCase(key.name()));
                 }
@@ -65,7 +65,7 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
             out.println("// Non-updateable attributes  //");
             out.println("////////////////////////////////");
             out.println();
-            for (final LSDAttribute key : keys) {
+            for (final Attribute key : keys) {
                 if (!key.isUpdateable() && !key.isHidden() && !key.isSubEntity()) {
                     writeOutAttribute(out, key, convertEnumToCamelCase(key.name()));
                 }
@@ -78,7 +78,7 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
             out.println("//      Sub Entity Keys      //");
             out.println("////////////////////////////////");
             out.println();
-            for (final LSDAttribute key : keys) {
+            for (final Attribute key : keys) {
                 if (!key.isHidden() && key.isSubEntity()) {
                     writeOutAttribute(out, key, convertEnumToCamelCase(key.name()));
                 }
@@ -89,7 +89,7 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
         }
     }
 
-    private void writeOutAttribute(@Nonnull final PrintWriter out, @Nonnull final LSDAttribute key, final StringBuffer newName) {
+    private void writeOutAttribute(@Nonnull final PrintWriter out, @Nonnull final Attribute key, final StringBuffer newName) {
         out.printf("//%s%n", key.getDescription());
         out.printf("#define kAttr%s @\"%s\" //Format is '%s'%n", newName, key.getKeyName(), key.getFormatValidationString());
         out.println();
@@ -101,11 +101,9 @@ public class ObjectiveCDictionaryServlet extends HttpServlet {
         for (int i = 0; i < name.length(); i++) {
             if (i == 0) {
                 newName.append(Character.toUpperCase(name.charAt(i)));
-            }
-            else if (name.charAt(i) == '_') {
+            } else if (name.charAt(i) == '_') {
                 newName.append(Character.toUpperCase(name.charAt(++i)));
-            }
-            else {
+            } else {
                 newName.append(Character.toLowerCase(name.charAt(i)));
             }
         }

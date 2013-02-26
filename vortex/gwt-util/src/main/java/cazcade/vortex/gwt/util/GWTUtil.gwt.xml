@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
         "http://google-web-toolkit.googlecode.com/svn/releases/2.0/distro-source/core/src/gwt-module.dtd">
 <module>
@@ -24,6 +28,7 @@
     </replace-with>
 
     <inherits name='com.google.gwt.user.User'/>
+    <inherits name="cazcade.liquid.LiquidAPI"/>
     <source path="client"/>
     <super-source path="jre"/>
     <servlet path="/WebScrapeService" class="cazcade.vortex.gwt.util.server.WebScrapeServiceImpl"/>

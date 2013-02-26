@@ -14,8 +14,8 @@ import java.util.List;
  * @author neilelliz@cazcade.com
  */
 public interface LiquidRequest extends LiquidMessage {
-    void adjustTimeStampForServerTime();
 
+    void adjustTimeStampForServerTime();
 
     /**
      * Used for pre-authorization, passing the authorization request does not guarantee
@@ -23,21 +23,19 @@ public interface LiquidRequest extends LiquidMessage {
      *
      * @return
      */
-    @Nonnull List<AuthorizationRequest> getAuthorizationRequests();
+    @Nonnull List<AuthorizationRequest> authorizationRequests();
 
-    long getCacheExpiry();
+    long cacheExpiry();
 
-    @Nullable List<String> getNotificationLocations();
+    @Nullable List<String> notificationLocations();
 
+    @Nullable String notificationSession();
 
-    @Nullable String getNotificationSession();
+    @Nonnull RequestType requestType();
 
-    @Nonnull LiquidRequestType getRequestType();
-
-    @Nonnull LiquidSessionIdentifier getSessionIdentifier();
+    @Nonnull SessionIdentifier session();
 
     boolean isAsyncRequest();
-
 
     boolean isMutationRequest();
 
@@ -49,17 +47,17 @@ public interface LiquidRequest extends LiquidMessage {
      */
     boolean isSecureOperation();
 
-    void setId(LiquidUUID uuid);
+    void id(LiquidUUID uuid);
 
     /**
      * If true forces synchronous communication.
      */
-    void setRpc(Boolean b);
+    void rpc(Boolean b);
 
     /**
      * This can only be called if no identity has yet been set. *
      */
-    void setSessionId(LiquidSessionIdentifier identity);
+    void session(SessionIdentifier identity);
 
     boolean shouldNotify();
 

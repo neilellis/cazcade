@@ -24,8 +24,7 @@ public class LiquidURI implements Serializable {
     private static String lowerCaseIfRequired(final LiquidURIScheme scheme, @Nonnull final String path) {
         if (scheme == LiquidURIScheme.alias || scheme == LiquidURIScheme.user || scheme == LiquidURIScheme.session) {
             return path.toLowerCase();
-        }
-        else {
+        } else {
             return path;
         }
     }
@@ -40,15 +39,15 @@ public class LiquidURI implements Serializable {
     }
 
     public LiquidURI(@Nonnull final LiquidURI url, @Nonnull final String subPath) {
-        this(url.getPath().endsWith("/")
-             ? url + lowerCaseIfRequired(url.getScheme(), subPath)
-             : lowerCaseIfRequired(url.getScheme(), subPath) +
+        this(url.path().endsWith("/")
+             ? url + lowerCaseIfRequired(url.scheme(), subPath)
+             : lowerCaseIfRequired(url.scheme(), subPath) +
                "/" +
                subPath);
     }
 
-    public LiquidURIScheme getScheme() {
-        final String schemeStr = getSchemeAsString();
+    public LiquidURIScheme scheme() {
+        final String schemeStr = schemeString();
         if (schemeStr == null) {
             throw new InvalidURLException("No scheme.");
         }
@@ -56,7 +55,7 @@ public class LiquidURI implements Serializable {
     }
 
     @Nullable
-    public String getSchemeAsString() {
+    public String schemeString() {
         final int index = uri.indexOf(':');
         if (index <= 0) {
             return null;
@@ -77,8 +76,7 @@ public class LiquidURI implements Serializable {
             || uri.startsWith("user:")
             || uri.startsWith("session:")) {
             this.uri = uri.toLowerCase();
-        }
-        else {
+        } else {
             this.uri = uri;
         }
     }
@@ -88,11 +86,11 @@ public class LiquidURI implements Serializable {
 
     @Nonnull
     public String asReverseDNSString() {
-        final String scheme = getSchemeAsString();
+        final String scheme = schemeString();
         String reverseDNS = "";
         if (scheme == null) {
             int count = 0;
-            for (final String element : getPathElements()) {
+            for (final String element : pathElements()) {
                 if (element.length() > 0) {
                     reverseDNS = (count == 0 ? "" : reverseDNS + ".") + element;
                     count++;
@@ -101,9 +99,8 @@ public class LiquidURI implements Serializable {
             if (getFragment() != null && getFragment().length() > 0) {
                 reverseDNS = (count == 0 ? "" : reverseDNS + ".") + getFragment().substring(1);
             }
-        }
-        else {
-            reverseDNS = scheme + "." + getSubURI().asReverseDNSString();
+        } else {
+            reverseDNS = scheme + "." + sub().asReverseDNSString();
         }
         return reverseDNS;
     }
@@ -112,15 +109,14 @@ public class LiquidURI implements Serializable {
         final int index = uri.indexOf('#');
         if (index < 0) {
             return "";
-        }
-        else {
+        } else {
             return uri.substring(index);
         }
     }
 
     @Nonnull
-    public LiquidBoardURL asBoardURL() {
-        return new LiquidBoardURL(this);
+    public BoardURL board() {
+        return new BoardURL(this);
     }
 
     @Override
@@ -142,8 +138,8 @@ public class LiquidURI implements Serializable {
     }
 
     @Nullable
-    public String getLastPathElement() {
-        final String[] pathElements = getPathElements();
+    public String lastPath() {
+        final String[] pathElements = pathElements();
         if (pathElements.length == 0) {
             return null;
         }
@@ -151,26 +147,25 @@ public class LiquidURI implements Serializable {
     }
 
     @Nonnull
-    private String[] getPathElements() {
-        final String path = getPath();
+    private String[] pathElements() {
+        final String path = path();
         return path.split("/");
     }
 
     /**
-     * getParentURI().equals(this) if  top level path element
+     * parent().equals(this) if  top level path element
      *
      * @return
      */
     @Nonnull
-    public LiquidURI getParentURI() {
+    public LiquidURI parent() {
         final String scheme;
         if (uri.startsWith(POOL_SCHEME_PREFIX)) {
             scheme = POOL_SCHEME_PREFIX;
+        } else {
+            scheme = schemeString() + ":";
         }
-        else {
-            scheme = getSchemeAsString() + ":";
-        }
-        final String path = getPath();
+        final String path = path();
         final int i = path.lastIndexOf('/');
         if (i <= 0) {
             return new LiquidURI(uri);
@@ -179,10 +174,10 @@ public class LiquidURI implements Serializable {
     }
 
     @Nonnull
-    public String getPath() {
+    public String path() {
         final String withoutFragment;
         final int i = uri.indexOf(':');
-        withoutFragment = getWithoutFragment().asString();
+        withoutFragment = withoutFragment().asString();
         if (withoutFragment.startsWith(LiquidURI.POOL_SCHEME_PREFIX)) {
             final String schemeless = withoutFragment.substring(LiquidURI.POOL_SCHEME_PREFIX.length());
             final int firstSlash = schemeless.indexOf('/');
@@ -190,17 +185,15 @@ public class LiquidURI implements Serializable {
                 throw new InvalidURLException("Invalid url %s", uri);
             }
             return schemeless.substring(firstSlash);
-        }
-        else if (i >= 0) {
+        } else if (i >= 0) {
             return withoutFragment.substring(i + 1);
-        }
-        else {
+        } else {
             return withoutFragment;
         }
     }
 
     @Nonnull
-    public LiquidURI getSubURI() {
+    public LiquidURI sub() {
         final int i = getColonPos();
         return new LiquidURI(uri.substring(i + 1));
     }
@@ -214,18 +207,17 @@ public class LiquidURI implements Serializable {
     }
 
     @Nonnull
-    public LiquidURI getWithoutFragment() {
+    public LiquidURI withoutFragment() {
         if (uri.contains("#")) {
             final int i = uri.indexOf('#');
             return new LiquidURI(uri.substring(0, i));
-        }
-        else {
+        } else {
             return new LiquidURI(uri);
         }
     }
 
     @Nonnull
-    public LiquidURI getWithoutFragmentOrComment() {
+    public LiquidURI withoutFragmentOrComment() {
         String newStr = uri;
         if (uri.contains("#")) {
             final int i = uri.indexOf('#');

@@ -4,7 +4,7 @@
 
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDPropertyFormatValidator;
+import cazcade.liquid.api.lsd.PropertyFormatValidator;
 import junit.framework.TestCase;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,7 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class LSDPropertyFormatValidatorTest extends TestCase {
     private ClassPathXmlApplicationContext applicationContext;
-    private LSDPropertyFormatValidator     validator;
+    private PropertyFormatValidator        validator;
 
 
     public void test() {
@@ -74,6 +74,6 @@ public class LSDPropertyFormatValidatorTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
-        validator = (LSDPropertyFormatValidator) applicationContext.getBean("formatValidator");
+        validator = (PropertyFormatValidator) applicationContext.getBean("formatValidator");
     }
 }

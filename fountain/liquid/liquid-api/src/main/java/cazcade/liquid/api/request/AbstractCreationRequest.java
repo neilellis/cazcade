@@ -4,8 +4,8 @@
 
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractCreationRequest extends AbstractRequest {
-    public AbstractCreationRequest(final LSDTransferEntity entity) {
+    public AbstractCreationRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -28,17 +28,17 @@ public abstract class AbstractCreationRequest extends AbstractRequest {
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
         if (hasRequestEntity()) {
-            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+            getEntity().$(Dictionary.REQUEST_ENTITY, Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.EMPTY_LIST;
     }
 
     @Nullable
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return null;
     }
 

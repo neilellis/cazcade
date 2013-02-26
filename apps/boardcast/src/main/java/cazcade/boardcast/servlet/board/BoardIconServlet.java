@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.servlet.board;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidBoardURL;
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.BoardURL;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 
 import javax.annotation.Nonnull;
@@ -27,9 +31,12 @@ public class BoardIconServlet extends AbstractBoardListServlet {
                 resp.sendError(400, "No board specified.");
                 return;
             }
-            final RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(new LiquidSessionIdentifier("anon"), new LiquidBoardURL(board).asURI(), false, false));
-            req.setAttribute("board", response.getResponse().getCamelCaseMap());
-            final String jsp = req.getParameter("gwt.codesvr") == null ? "_pages/iconmaker.jsp" : "_pages/iconmaker.jsp?gwt.codesvr=" + req.getParameter("gwt.codesvr");
+            final RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(new SessionIdentifier("anon"), new BoardURL(board)
+                    .asURI(), false, false));
+            req.setAttribute("board", response.response().getCamelCaseMap());
+            final String jsp = req.getParameter("gwt.codesvr") == null
+                               ? "_pages/iconmaker.jsp"
+                               : "_pages/iconmaker.jsp?gwt.codesvr=" + req.getParameter("gwt.codesvr");
             req.getRequestDispatcher(jsp).forward(req, resp);
         } catch (Exception e) {
             log.error(e);

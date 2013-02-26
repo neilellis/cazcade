@@ -7,8 +7,8 @@ package cazcade.fountain.server.rest.servlet;
 import cazcade.common.Logger;
 import cazcade.fountain.common.error.CazcadeException;
 import cazcade.fountain.server.rest.RestContext;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
+import cazcade.liquid.api.SessionIdentifier;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -76,13 +76,12 @@ public abstract class AbstractRestServlet extends HttpServlet {
             log.debug("Handling {0} request for URL {1}", req.getMethod(), req.getPathInfo());
             RestContext.clearContext();
             if (req.getUserPrincipal() != null) {
-                RestContext.getContext().setCredentials(new LiquidSessionIdentifier(req.getUserPrincipal().getName()));
-            }
-            else {
-                RestContext.getContext().setCredentials(new LiquidSessionIdentifier(null, null));
+                RestContext.getContext().setCredentials(new SessionIdentifier(req.getUserPrincipal().getName()));
+            } else {
+                RestContext.getContext().setCredentials(new SessionIdentifier(null, null));
             }
             if (sessionId != null) {
-                RestContext.getContext().getCredentials().setSession(sessionId);
+                RestContext.getContext().getCredentials().session(sessionId);
             }
             final String pathWithQuery = req.getPathInfo();
             final String[] pathAndQuery = pathWithQuery.split("\\?");
@@ -108,12 +107,10 @@ public abstract class AbstractRestServlet extends HttpServlet {
                 if (pathElements[i].contains("-")) {
                     //No method name can contain a '-' symbol, so we take this to be a UUID
                     uuids.add(LiquidUUID.fromString(pathElements[i].toLowerCase()));
-                }
-                else if (methodName == null) {
+                } else if (methodName == null) {
                     //We have no method name so we use this as a method name.
                     methodName = pathElements[i];
-                }
-                else {
+                } else {
                     //Okay so we already have a method name so this is an error.
                     log.warn("Failed to parse rest path, unrecognized element {0}", pathElements[i]);
                     resp.sendError(400, "Failed to parse rest path, unrecognized element " + pathElements[i]);
@@ -141,8 +138,7 @@ public abstract class AbstractRestServlet extends HttpServlet {
         } catch (CazcadeException e) {
             if (e.isClientException()) {
                 log.warn(e, "{0}?{1} caused {2}", req.getRequestURL(), req.getQueryString(), e.getMessage());
-            }
-            else {
+            } else {
                 log.error(e, "{0}?{1} caused {2}", req.getRequestURL(), req.getQueryString(), e.getMessage());
             }
             resp.sendError(500, "Server Error: " + e.getMessage() + ":" + ExceptionUtils.getFullStackTrace(e));

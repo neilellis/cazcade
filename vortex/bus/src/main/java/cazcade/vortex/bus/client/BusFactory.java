@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.bus.client;
 
 import javax.annotation.Nonnull;
@@ -11,7 +15,7 @@ public class BusFactory {
     private static final Bus instance = new BusImpl();
 
     @Nonnull
-    public static Bus getInstance() {
+    public static Bus get() {
         return instance;
     }
 }

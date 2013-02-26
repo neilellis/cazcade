@@ -35,7 +35,7 @@
 
                 <div class="board-content"
                      style="">
-                    <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="contentArea" pageFlow="true"/>
+                    <pool:PoolContentArea scrollX="false" scrollY="false" ui:field="content" pageFlow="true"/>
 
                     <!--<div class="board-locked" ui:field="boardLockedIcon"-->
                     <!--title="You don't have permission to edit this board."/>-->

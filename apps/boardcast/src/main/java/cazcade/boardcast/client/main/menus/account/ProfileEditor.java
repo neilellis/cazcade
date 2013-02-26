@@ -4,10 +4,10 @@
 
 package cazcade.boardcast.client.main.menus.account;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdateAliasRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
@@ -42,21 +42,20 @@ public class ProfileEditor extends Composite {
 
     private ChangeAction onChangeAction;
 
-    public ProfileEditor(@Nonnull final LSDTransferEntity alias) {
+    public ProfileEditor(@Nonnull final TransferEntity alias) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        final LSDTransferEntity updateEntity = alias.asUpdateEntity();
-        imageUploader.setImageUrl(alias.getAttribute(LSDAttribute.IMAGE_URL));
+        final TransferEntity updateEntity = alias.asUpdateEntity();
+        imageUploader.setImageUrl(alias.$(Dictionary.IMAGE_URL));
         imageUploader.setOnFinishHandler(new EditFinishHandler() {
             @Override public void onEditFinish(EditFinishEvent event) {
                 if (imageUploader.getStatus() == ImageUploader.Status.SUCCESS) {
                     final String url = imageUploader.getImageUrl();
-                    updateEntity.setAttribute(LSDAttribute.IMAGE_URL, url);
-                    updateEntity.setAttribute(LSDAttribute.ICON_URL, url);
+                    updateEntity.$(Dictionary.IMAGE_URL, url);
+                    updateEntity.$(Dictionary.ICON_URL, url);
                     imageUploader.setImageUrl(url);
                     // The server sends useful information to the client by default
-                }
-                else {
+                } else {
                     Window.alert("Failed to upload image.");
                 }
             }
@@ -66,8 +65,8 @@ public class ProfileEditor extends Composite {
         changeButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                BusFactory.getInstance()
-                          .send(new UpdateAliasRequest(LiquidSessionIdentifier.ANON, updateEntity), new AbstractResponseCallback<UpdateAliasRequest>() {
+                BusFactory.get()
+                          .send(new UpdateAliasRequest(SessionIdentifier.ANON, updateEntity), new AbstractResponseCallback<UpdateAliasRequest>() {
                               @Override
                               public void onSuccess(final UpdateAliasRequest message, final UpdateAliasRequest response) {
                                   try {
@@ -110,6 +109,6 @@ public class ProfileEditor extends Composite {
     interface ProfileImageUiBinder extends UiBinder<HTMLPanel, ProfileEditor> {}
 
     public interface ChangeAction {
-        void run(LSDBaseEntity newAlias);
+        void run(Entity newAlias);
     }
 }

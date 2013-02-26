@@ -4,8 +4,8 @@
 
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import java.io.InputStream;
@@ -15,7 +15,7 @@ import java.io.InputStream;
  */
 
 public interface LSDUnmarshaler {
-    void unmarshal(LSDBaseEntity lsdEntity, InputStream input);
+    void unmarshal(Entity lsdEntity, InputStream input);
 
-    @Nonnull LSDTransferEntity unmarshal(InputStream input);
+    @Nonnull TransferEntity unmarshal(InputStream input);
 }

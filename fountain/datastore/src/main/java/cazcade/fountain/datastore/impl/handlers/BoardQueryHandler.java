@@ -9,7 +9,7 @@ import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainBoardQueryDAO;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.BoardQueryRequestHandler;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.BoardQueryRequest;
 import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,33 +27,27 @@ public class BoardQueryHandler extends AbstractDataStoreHandler<BoardQueryReques
     @Autowired FountainBoardQueryDAO queryDAO;
 
     @Nonnull
-    public BoardQueryRequest handle(@Nonnull final BoardQueryRequest request) throws InterruptedException {
-        final Transaction transaction = fountainNeo.beginTx();
+    public BoardQueryRequest handle(@Nonnull final BoardQueryRequest request) throws Exception {
+        final Transaction transaction = neo.beginTx();
         try {
             log.debug("Processing Pool Query of type {0}", request.getQueryType());
 
-            final LSDTransferEntity searchResultEntity;
+            final TransferEntity searchResultEntity;
             if (request.getQueryType() == BoardQueryRequest.QueryType.POPULAR) {
-                searchResultEntity = queryDAO.getPopularBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            }
-            else if (request.getQueryType() == BoardQueryRequest.QueryType.HISTORY) {
-                searchResultEntity = queryDAO.getMyVisitedBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            }
-            else if (request.getQueryType() == BoardQueryRequest.QueryType.MY) {
-                searchResultEntity = queryDAO.getMyBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            }
-            else if (request.getQueryType() == BoardQueryRequest.QueryType.RECENT) {
-                searchResultEntity = queryDAO.getRecentPublicBoards(request.getStart(), request.getMax(), request.getSessionIdentifier());
-            }
-            else if (request.getQueryType() == BoardQueryRequest.QueryType.PROFILE) {
-                searchResultEntity = queryDAO.getUserPublicBoards(request.getStart(), request.getMax(), request.getSessionIdentifier(), request
-                        .getAlias());
-            }
-            else {
-                throw new DataStoreException("Unsupported query type " + request.getType());
+                searchResultEntity = queryDAO.getPopularBoards(request.getStart(), request.getMax(), request.session());
+            } else if (request.getQueryType() == BoardQueryRequest.QueryType.HISTORY) {
+                searchResultEntity = queryDAO.getMyVisitedBoards(request.getStart(), request.getMax(), request.session());
+            } else if (request.getQueryType() == BoardQueryRequest.QueryType.MY) {
+                searchResultEntity = queryDAO.getMyBoards(request.getStart(), request.getMax(), request.session());
+            } else if (request.getQueryType() == BoardQueryRequest.QueryType.RECENT) {
+                searchResultEntity = queryDAO.getRecentPublicBoards(request.getStart(), request.getMax(), request.session());
+            } else if (request.getQueryType() == BoardQueryRequest.QueryType.PROFILE) {
+                searchResultEntity = queryDAO.getUserPublicBoards(request.getStart(), request.getMax(), request.session(), request.alias());
+            } else {
+                throw new DataStoreException("Unsupported query type " + request.type());
             }
             return LiquidResponseHelper.forServerSuccess(request, searchResultEntity);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             transaction.failure();
             throw e;
         } finally {

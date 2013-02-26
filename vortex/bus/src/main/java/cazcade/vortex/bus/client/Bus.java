@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.bus.client;
 
 import cazcade.liquid.api.*;
@@ -12,7 +16,7 @@ public interface Bus {
 
     void start();
 
-    void removeListener(long listenerId);
+    void remove(long listenerId);
 
     interface UUIDCallback {
         void callback(LiquidUUID uuid);
@@ -43,28 +47,28 @@ public interface Bus {
 
     long listen(BusListener listener);
 
-    long listenForURI(LiquidURI uri, BusListener listener);
+    long listen(LiquidURI uri, BusListener listener);
 
-    long listenForResponsesForURIAndType(LiquidURI uri, LiquidRequestType type, BusListener listener);
+    long listenForResponses(LiquidURI uri, RequestType type, BusListener listener);
 
-    long listenForURIAndRequestType(LiquidURI uri, LiquidRequestType type, BusListener listener);
+    long listen(LiquidURI uri, RequestType type, BusListener listener);
 
-    long listenForURIAndSuccessfulRequestType(LiquidURI uri, LiquidRequestType type, BusListener listener);
+    <T extends LiquidMessage> long listenForSuccess(LiquidURI uri, RequestType type, BusListener<T> listener);
 
     long listenForType(LiquidMessageType type, BusListener listener);
 
-    long listenForAllButTheseTypes(List<LiquidMessageType> types, BusListener listener);
+    long listenAllBut(List<LiquidMessageType> types, BusListener listener);
 
 
     long listenForIdAndType(LiquidURI id, LiquidMessageType type, BusListener listener);
 
-    long listenForIdAndTypes(LiquidURI id, LiquidMessageType types, BusListener listener);
+    long listen(LiquidURI id, LiquidMessageType types, BusListener listener);
 
-    long listenForIds(List<LiquidURI> ids, BusListener listener);
+    long listen(List<LiquidURI> ids, BusListener listener);
 
-    long listenForUrisAndType(List<LiquidURI> id, LiquidMessageType type, BusListener listener);
+    long listen(List<LiquidURI> id, LiquidMessageType type, BusListener listener);
 
-    long listenForIdsAndTypes(List<LiquidURI> ids, List<LiquidMessageType> types, BusListener listener);
+    long listen(List<LiquidURI> ids, List<LiquidMessageType> types, BusListener listener);
 
     long listenForTypes(List<LiquidMessageType> types, BusListener listener);
 }

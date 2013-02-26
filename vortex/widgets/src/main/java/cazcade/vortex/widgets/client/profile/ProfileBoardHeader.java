@@ -4,7 +4,7 @@
 
 package cazcade.vortex.widgets.client.profile;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -34,7 +34,7 @@ public class ProfileBoardHeader extends AbstractAliasDetailPanel {
 
 
     @Override
-    public void onChange(final LSDBaseEntity entity) {
+    public void onChange(final Entity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(contentArea, false);
     }

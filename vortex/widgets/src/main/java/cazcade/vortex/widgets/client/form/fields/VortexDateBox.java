@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.Attribute;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -30,19 +34,17 @@ public class VortexDateBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+    public void bind(final Attribute attribute, final String prefix, final String initialValue) {
         boundAttribute = attribute;
         final DateTimeFormat dateFormat = DateTimeFormat.getLongDateFormat();
         dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
 
     }
 
-    interface VortexDateBoxUiBinder extends UiBinder<HTMLPanel, VortexDateBox> {
-    }
+    interface VortexDateBoxUiBinder extends UiBinder<HTMLPanel, VortexDateBox> {}
 
     private static final VortexDateBoxUiBinder ourUiBinder = GWT.create(VortexDateBoxUiBinder.class);
-    @UiField
-    DateBox dateBox;
+    @UiField DateBox dateBox;
 
     public VortexDateBox() {
         super();

@@ -9,10 +9,10 @@ import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.liquid.api.ClientApplicationIdentifier;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDEntityFactory;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.EntityFactory;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.liquid.api.request.DeleteSessionRequest;
 import cazcade.liquid.api.request.RetrieveSessionRequest;
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 
 public class SessionRestHandler extends AbstractRestHandler {
-    private LSDEntityFactory lsdEntityFactory;
+    private EntityFactory entityFactory;
 
     private FountainDataStoreFacade dataStoreFacade;
 
@@ -39,7 +39,7 @@ public class SessionRestHandler extends AbstractRestHandler {
         final String hostinfo = parameters.get("hostinfo")[0];
         return dataStoreFacade.process(new CreateSessionRequest(RestContext.getContext()
                                                                            .getCredentials()
-                                                                           .getAlias(), new ClientApplicationIdentifier(name, key, hostinfo)));
+                                                                           .alias(), new ClientApplicationIdentifier(name, key, hostinfo)));
     }
 
     @Nonnull
@@ -56,21 +56,21 @@ public class SessionRestHandler extends AbstractRestHandler {
         return dataStoreFacade;
     }
 
-    public LSDEntityFactory getLsdFactory() {
-        return lsdEntityFactory;
+    public EntityFactory getLsdFactory() {
+        return entityFactory;
     }
 
     public void setDataStore(final FountainDataStoreFacade dataStoreFacade) {
         this.dataStoreFacade = dataStoreFacade;
     }
 
-    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
-        this.lsdEntityFactory = lsdEntityFactory;
+    public void setLsdFactory(final EntityFactory entityFactory) {
+        this.entityFactory = entityFactory;
     }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID sessionId, final LSDTransferEntity lsdEntity) throws URISyntaxException {
-        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
+    public LiquidMessage update(final LiquidUUID sessionId, final TransferEntity lsdEntity) throws URISyntaxException {
+        final SessionIdentifier username = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new UpdateSessionRequest(username, sessionId, lsdEntity, false));
     }
 }

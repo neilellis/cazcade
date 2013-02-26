@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.comms.datastore.client;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestException;
@@ -10,10 +14,10 @@ import javax.annotation.Nonnull;
 
 public class OfflineRequestBuilder extends RequestBuilder {
 
-    private final LiquidSessionIdentifier identity;
-    private final String applicationVersion;
+    private final SessionIdentifier identity;
+    private final String            applicationVersion;
 
-    public OfflineRequestBuilder(final LiquidSessionIdentifier identity, final Method httpMethod, final String url, final String applicationVersion) {
+    public OfflineRequestBuilder(final SessionIdentifier identity, final Method httpMethod, final String url, final String applicationVersion) {
         super(httpMethod, url);
         this.identity = identity;
         this.applicationVersion = applicationVersion;
@@ -36,16 +40,14 @@ public class OfflineRequestBuilder extends RequestBuilder {
                 setHeader(DataStoreService.X_VORTEX_SINCE, "-1");
             }
         }
-        final OfflineRequestCallback requestCallbackWrapper = new
-                OfflineRequestCallback(requestData, identity,
-                getCallback(), applicationVersion);
+        final OfflineRequestCallback requestCallbackWrapper = new OfflineRequestCallback(requestData, identity, getCallback(), applicationVersion);
 
         return sendRequest(requestData, requestCallbackWrapper);
     }
 
     @Nonnull
     private String cacheKey(final String requestData) {
-        return identity.getName() + ":" + applicationVersion + ":" + requestData;
+        return identity.name() + ":" + applicationVersion + ":" + requestData;
     }
 
 }

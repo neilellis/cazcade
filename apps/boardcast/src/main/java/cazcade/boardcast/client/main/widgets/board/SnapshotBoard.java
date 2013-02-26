@@ -5,18 +5,15 @@
 package cazcade.boardcast.client.main.widgets.board;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
-import cazcade.vortex.gwt.util.client.GWTUtil;
+import cazcade.vortex.gwt.util.client.$;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -33,6 +30,10 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cazcade.liquid.api.lsd.Dictionary.TITLE;
+import static cazcade.liquid.api.lsd.Types.T_POOL;
+import static cazcade.liquid.api.lsd.Types.T_RESOURCE_NOT_FOUND;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -48,7 +49,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
 
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
+    private final Bus bus = BusFactory.get();
     private LiquidURI poolURI;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
@@ -72,12 +73,12 @@ public class SnapshotBoard extends EntityBackedFormPanel {
             Window.alert("Invalid board name " + value);
             return;
         }
-        if (poolURI != null && poolURI.asBoardURL().asUrlSafe().equalsIgnoreCase(value)) {
+        if (poolURI != null && poolURI.board().safe().equalsIgnoreCase(value)) {
             return;
         }
-        poolURI = new LiquidURI(LiquidBoardURL.convertFromShort(value));
+        poolURI = new LiquidURI(BoardURL.from(value));
         if (isAttached()) {
-            GWTUtil.runAsync(new Runnable() {
+            $.async(new Runnable() {
                 @Override public void run() {
                     refresh();
                 }
@@ -88,26 +89,25 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
     private void refresh() {
         if (updatePoolListener != 0) {
-            BusFactory.getInstance().removeListener(updatePoolListener);
+            BusFactory.get().remove(updatePoolListener);
         }
 
-        updatePoolListener = BusFactory.getInstance()
-                                       .listenForURIAndSuccessfulRequestType(poolURI, LiquidRequestType.UPDATE_POOL, new BusListener() {
-                                           @Override
-                                           public void handle(final LiquidMessage response) {
-                                               update((LiquidRequest) response);
-                                           }
-                                       });
+        updatePoolListener = BusFactory.get().listenForSuccess(poolURI, RequestType.UPDATE_POOL, new BusListener() {
+            @Override
+            public void handle(final LiquidMessage response) {
+                update((LiquidRequest) response);
+            }
+        });
 
 
-        final boolean listed = poolURI.asBoardURL().isListedByConvention();
+        final boolean listed = poolURI.board().isListedByConvention();
         //start listed boards as public readonly, default is public writeable
         contentArea.clear();
         bus.send(new RetrievePoolRequest(poolURI, true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
             public void onFailure(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                if (response.getResponse().getTypeDef().canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
-                    if (UserUtil.isAnonymousOrLoggedOut()) {
+                if (response.response().type().canBe(T_RESOURCE_NOT_FOUND)) {
+                    if (UserUtil.anon()) {
                         Window.alert("Please login first.");
                     } else {
                         Window.alert("You don't have permission");
@@ -119,20 +119,20 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
             @Override
             public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final LSDTransferEntity responseEntity = response.getResponse();
-                if (responseEntity.canBe(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
+                final TransferEntity resp = response.response();
+                if (resp.canBe(T_RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
-                } else if (responseEntity.canBe(LSDDictionaryTypes.POOL)) {
-                    setAndBindEntity(responseEntity.copy());
+                } else if (resp.canBe(T_POOL)) {
+                    $(resp.$());
                 } else {
-                    Window.alert(responseEntity.getAttribute(LSDAttribute.TITLE));
+                    Window.alert(resp.$(TITLE));
                 }
             }
         });
     }
 
     private void update(@Nonnull final LiquidRequest response) {
-        setAndBindEntity(response.getResponse().copy());
+        $(response.response().$());
     }
 
 
@@ -156,12 +156,11 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(final LSDBaseEntity entity) {
+    protected void onChange(final Entity entity) {
         addStyleName("readonly");
         addStyleName("loading");
-        final String boardTitle = getEntity().getAttribute(LSDAttribute.TITLE);
-        Window.setTitle("Boardcast : " + boardTitle);
-        contentArea.init(getEntity(), FormatUtil.getInstance(), threadSafeExecutor);
+        Window.setTitle("Boardcast : " + $().$(TITLE));
+        contentArea.init($(), threadSafeExecutor);
         StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
         WidgetUtil.showGracefully(getWidget(), false);
         removeStyleName("loading");

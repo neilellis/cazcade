@@ -4,8 +4,7 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.vortex.common.client.FormatUtil;
+import cazcade.liquid.api.lsd.Attribute;
 import cazcade.vortex.widgets.client.Resources;
 import cazcade.vortex.widgets.client.misc.EditableLabel;
 import com.google.gwt.core.client.GWT;
@@ -30,12 +29,12 @@ public class VortexEditableLabel extends AbstractVortexFormField {
 
     private final int maxLength = Integer.MAX_VALUE;
     private boolean readonly;
+    private boolean format = true;
 
     public void setWordwrap(final boolean wordwrap) {
         if (wordwrap) {
             container.addClassName("word-wrap");
-        }
-        else {
+        } else {
             container.removeClassName("word-wrap");
         }
         hoverEdit.setVisible(!wordwrap);
@@ -47,12 +46,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     }
 
     public void setFormat(final boolean format) {
-        if (format) {
-            label.setFormatter(FormatUtil.getInstance());
-        }
-        else {
-            label.setFormatter(null);
-        }
+        this.format = format;
     }
 
     public void addClickHandler(final ClickHandler clickHandler) {
@@ -156,7 +150,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(final LSDAttribute attribute, final String prefix, @Nonnull final String initialValue) {
+    public void bind(final Attribute attribute, final String prefix, @Nonnull final String initialValue) {
         boundAttribute = attribute;
         setValue(initialValue);
     }
@@ -166,8 +160,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
             label.setEditable(editable);
             if (editable) {
                 container.addClassName("editable");
-            }
-            else {
+            } else {
                 container.removeClassName("editable");
             }
             hoverEdit.setVisible(editable);
@@ -181,8 +174,7 @@ public class VortexEditableLabel extends AbstractVortexFormField {
             container.removeClassName("editable");
             label.setEditable(false);
             hoverEdit.setVisible(false);
-        }
-        else {
+        } else {
             container.removeClassName("readonly");
         }
 

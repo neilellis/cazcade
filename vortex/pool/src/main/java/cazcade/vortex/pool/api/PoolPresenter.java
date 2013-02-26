@@ -4,8 +4,8 @@
 
 package cazcade.vortex.pool.api;
 
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.vortex.pool.PoolMode;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -33,7 +33,7 @@ public interface PoolPresenter {
     boolean isWithinYBounds(int i);
 
 
-    @Nonnull LSDTransferEntity getEntity();
+    @Nonnull TransferEntity getEntity();
 
     void move(PoolObjectPresenter presenter, double x, double y, boolean onServer);
 
@@ -51,7 +51,7 @@ public interface PoolPresenter {
 
     void transfer(PoolObjectPresenter source, PoolObjectPresenterContainer destination);
 
-    @Nonnull LSDDictionaryTypes getType();
+    @Nonnull Types getType();
 
     void destroy();
 

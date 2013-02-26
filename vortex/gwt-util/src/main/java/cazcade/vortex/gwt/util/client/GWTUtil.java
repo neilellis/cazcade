@@ -13,7 +13,7 @@ import com.google.gwt.user.client.Timer;
  */
 public class GWTUtil {
 
-    public static void runAsync(final Runnable runnable) {
+    public static void async(final Runnable runnable) {
         GWT.runAsync(new RunAsyncCallback() {
             @Override public void onFailure(Throwable reason) {
                 ClientLog.log(reason);
@@ -31,10 +31,10 @@ public class GWTUtil {
 
     }
 
-    public static void runAsyncWithDelay(int delay, final Runnable runnable) {
+    public static void delayAsync(int delay, final Runnable runnable) {
         new Timer() {
             @Override public void run() {
-                runAsync(runnable);
+                async(runnable);
             }
         }.schedule(delay);
 

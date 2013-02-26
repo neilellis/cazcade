@@ -4,8 +4,8 @@
 
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.handler.LinkPoolObjectRequestHandler;
@@ -20,31 +20,29 @@ import javax.annotation.Nonnull;
  */
 public class LinkPoolHandler extends AbstractDataStoreHandler<LinkPoolObjectRequest> implements LinkPoolObjectRequestHandler {
     @Nonnull
-    public LinkPoolObjectRequest handle(@Nonnull final LinkPoolObjectRequest request) throws InterruptedException {
-        final Transaction transaction = fountainNeo.beginTx();
+    public LinkPoolObjectRequest handle(@Nonnull final LinkPoolObjectRequest request) throws Exception {
+        final Transaction transaction = neo.beginTx();
         try {
             final LiquidUUID to = request.getTo();
             final LiquidUUID target = request.getTarget();
-            final LSDPersistedEntity result;
-            final LSDPersistedEntity targetPool = fountainNeo.findByUUID(target);
+            final PersistedEntity result;
+            final PersistedEntity targetPool = neo.find(target);
 
             if (request.isUnlink()) {
                 result = poolDAO.unlinkPool(targetPool);
-            }
-            else {
-                final LiquidURI alias = request.getAlias();
-                final LSDPersistedEntity newOwner = fountainNeo.findByURIOrFail(alias);
+            } else {
+                final LiquidURI alias = request.alias();
+                final PersistedEntity newOwner = neo.findOrFail(alias);
                 if (!request.hasFrom()) {
-                    result = poolDAO.linkPool(newOwner, targetPool, fountainNeo.findByUUID(to));
-                }
-                else {
+                    result = poolDAO.linkPool(newOwner, targetPool, neo.find(to));
+                } else {
                     final LiquidUUID from = request.getFrom();
-                    result = poolDAO.linkPool(newOwner, targetPool, fountainNeo.findByUUID(from), fountainNeo.findByUUID(to));
+                    result = poolDAO.linkPool(newOwner, targetPool, neo.find(from), neo.find(to));
                 }
             }
 
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, result.toLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, result.toTransfer(request.detail(), request.internal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

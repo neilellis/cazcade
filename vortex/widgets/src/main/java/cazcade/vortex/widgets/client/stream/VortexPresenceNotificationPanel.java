@@ -5,8 +5,8 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.core.client.GWT;
@@ -30,38 +30,36 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
     @UiField SelfUpdatingRelativeDate dateTime;
 
     @Nonnull
-    private final LSDBaseEntity entity;
+    private final Entity entity;
     @Nonnull
     private final Date date = new Date();
     @Nonnull
-    private final LSDBaseEntity visitor;
-    private final String        id;
+    private final Entity visitor;
+    private final String id;
 
     interface VortexPresenceNotificationPanelUiBinder extends UiBinder<HTMLPanel, VortexPresenceNotificationPanel> {}
 
     private static final VortexPresenceNotificationPanelUiBinder ourUiBinder = GWT.create(VortexPresenceNotificationPanelUiBinder.class);
 
 
-    public VortexPresenceNotificationPanel(@Nonnull final LSDBaseEntity streamEntry, @Nonnull final LiquidURI pool, final String id) {
+    public VortexPresenceNotificationPanel(@Nonnull final Entity streamEntry, @Nonnull final LiquidURI pool, final String id) {
         super();
         this.id = id;
 
         initWidget(ourUiBinder.createAndBindUi(this));
         entity = streamEntry;
-        visitor = streamEntry.getSubEntity(LSDAttribute.VISITOR, false);
-        profileImage.setUrl(visitor.getAttribute(LSDAttribute.IMAGE_URL));
-        if (pool.equals(entity.getURI())) {
-            text.setInnerText(visitor.getAttribute(LSDAttribute.FULL_NAME) + " has just entered.");
-        }
-        else {
-            text.setInnerText(visitor.getAttribute(LSDAttribute.FULL_NAME) + " has just left for " + streamEntry.getURI()
-                                                                                                                .asBoardURL());
+        visitor = streamEntry.child(Dictionary.VISITOR_A, false);
+        profileImage.setUrl(visitor.$(Dictionary.IMAGE_URL));
+        if (pool.equals(entity.uri())) {
+            text.setInnerText(visitor.$(Dictionary.FULL_NAME) + " has just entered.");
+        } else {
+            text.setInnerText(visitor.$(Dictionary.FULL_NAME) + " has just left for " + streamEntry.uri().board());
         }
         dateTime.setDate(date);
     }
 
     @Nonnull @Override
-    public LSDBaseEntity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 

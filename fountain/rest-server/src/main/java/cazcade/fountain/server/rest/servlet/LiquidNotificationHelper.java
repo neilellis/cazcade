@@ -37,10 +37,10 @@ public class LiquidNotificationHelper {
     //
     //        //Finish configuring the continuation before suspending it.
     //        //continuation.setTimeout(CommonConstants.NOTIFICATION_TIMEOUT);
-    //        continuation.setAttribute(CommonConstants.CHANNEL_ATTRIBUTE, asyncChannel);
-    //        continuation.setAttribute(CommonConstants.OUTPUT_STREAM_ATTRIBUTE, resp.getOutputStream());
-    //        continuation.setAttribute(CommonConstants.MESSAGES_ATTRIBUTE, Collections.synchronizedList(new ArrayList<String>()));
-    //        continuation.setAttribute(CommonConstants.LIQUID_CHANNEL_CONFIGURATION, channelConfiguration);
+    //        continuation.$(CommonConstants.CHANNEL_ATTRIBUTE, asyncChannel);
+    //        continuation.$(CommonConstants.OUTPUT_STREAM_ATTRIBUTE, resp.getOutputStream());
+    //        continuation.$(CommonConstants.MESSAGES_ATTRIBUTE, Collections.synchronizedList(new ArrayList<String>()));
+    //        continuation.$(CommonConstants.LIQUID_CHANNEL_CONFIGURATION, channelConfiguration);
     //        continuation.suspend();
     //
     //        outputXML(BEGIN_STREAM_TAG_MESSAGE, continuation);
@@ -59,7 +59,7 @@ public class LiquidNotificationHelper {
     //
     //        //Start the channel to listening for messages.
     //        asyncChannel.configureChannel(channelConfiguration);
-    //        continuation.setAttribute(CommonConstants.QUEUE_ATTRIBUTE, channelConfiguration.getQueueName());
+    //        continuation.$(CommonConstants.QUEUE_ATTRIBUTE, channelConfiguration.getQueueName());
     //
     //    }
     //
@@ -67,16 +67,16 @@ public class LiquidNotificationHelper {
     //    public static synchronized void performContinuation(String sessionId, final Continuation continuation) throws IOException {
     //        continuation.suspend();
     //        //this order of add and remove to avoid threading issues.
-    //        List<byte[]> messageList = (List<byte[]>) continuation.getAttribute(CommonConstants.MESSAGES_ATTRIBUTE);
+    //        List<byte[]> messageList = (List<byte[]>) continuation.$(CommonConstants.MESSAGES_ATTRIBUTE);
     //        List<byte[]> messages = new ArrayList<byte[]>(messageList);
     //        messageList.removeAll(messages);
     //        try {
     //            if (messages.size() == 0) {
-    //                outputXML(("<heartbeat poolURI='" + continuation.getAttribute(CommonConstants.POOL_URI_ATTRIBUTE) + "'>OK</heartbeat>").getBytes(CommonConstants.STRING_ENCODING), continuation);
+    //                outputXML(("<heartbeat poolURI='" + continuation.$(CommonConstants.POOL_URI_ATTRIBUTE) + "'>OK</heartbeat>").getBytes(CommonConstants.STRING_ENCODING), continuation);
     //            } else {
     //                for (byte[] message : messages) {
     //                    Object messageObject = LiquidXStreamFactory.getXstream().fromXML(new String(message, CommonConstants.STRING_ENCODING));
-    //                    if (messageObject instanceof VisitPoolRequest && ((VisitPoolRequest) messageObject).getSessionIdentifier().getSession().toString().equals(sessionId)) {
+    //                    if (messageObject instanceof VisitPoolRequest && ((VisitPoolRequest) messageObject).session().session().toString().equals(sessionId)) {
     //                        log.debug("**** Pool visit, so now switching pools. ****");
     //                        handlePoolVisit(continuation, messageObject);
     //
@@ -95,15 +95,15 @@ public class LiquidNotificationHelper {
     //
     //    public static synchronized void endContinuation(Continuation continuation) {
     //        try {
-    //            String queueName = (String) continuation.getAttribute(CommonConstants.QUEUE_ATTRIBUTE);
-    //            Channel channel = (Channel) continuation.getAttribute(CommonConstants.CHANNEL_ATTRIBUTE);
+    //            String queueName = (String) continuation.$(CommonConstants.QUEUE_ATTRIBUTE);
+    //            Channel channel = (Channel) continuation.$(CommonConstants.CHANNEL_ATTRIBUTE);
     //            try {
     //                channel.queueDelete(queueName);
     //            } finally {
     //                channel.close();
     //            }
     //            outputXML(END_STREAM_TAG_MESSAGE, continuation);
-    //            ((OutputStream) continuation.getAttribute(CommonConstants.OUTPUT_STREAM_ATTRIBUTE)).close();
+    //            ((OutputStream) continuation.$(CommonConstants.OUTPUT_STREAM_ATTRIBUTE)).close();
     //        } catch (IOException ioe) {
     //            //To be expected we've got a disconnected sender
     //        } catch (RuntimeIOException e) {
@@ -113,14 +113,14 @@ public class LiquidNotificationHelper {
     //
     //    private static void handlePoolVisit(Continuation continuation, Object messageObject) throws IOException {
     //        //We have visited a pool so we now need to listen to events there.
-    //        Channel channel = (Channel) continuation.getAttribute(CommonConstants.CHANNEL_ATTRIBUTE);
+    //        Channel channel = (Channel) continuation.$(CommonConstants.CHANNEL_ATTRIBUTE);
     //        LiquidChannelConfiguration channelConfiguration = (LiquidChannelConfiguration)
-    //                continuation.getAttribute(CommonConstants.LIQUID_CHANNEL_CONFIGURATION);
+    //                continuation.$(CommonConstants.LIQUID_CHANNEL_CONFIGURATION);
     //        VisitPoolRequest request = (VisitPoolRequest) messageObject;
     //        if (request.getState() == LiquidMessageState.SUCCESS) {
     //            log.debug("Switching pools....");
-    //            channelConfiguration.reconfigurePoolBindings(request.getResponse().getID(),
-    //                    request.getResponse().getURI(), channel);
+    //            channelConfiguration.reconfigurePoolBindings(request.response().getID(),
+    //                    request.response().uri(), channel);
     //        }
     //    }
     //
@@ -132,7 +132,7 @@ public class LiquidNotificationHelper {
     //            log.error(e);
     //        }
     //
-    //        OutputStream out = (OutputStream) continuation.getAttribute(CommonConstants.OUTPUT_STREAM_ATTRIBUTE);
+    //        OutputStream out = (OutputStream) continuation.$(CommonConstants.OUTPUT_STREAM_ATTRIBUTE);
     //        out.write(output);
     //        out.write('\n');
     //        out.flush();

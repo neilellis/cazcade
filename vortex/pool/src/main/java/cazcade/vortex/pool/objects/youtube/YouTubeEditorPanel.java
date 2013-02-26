@@ -4,9 +4,9 @@
 
 package cazcade.vortex.pool.objects.youtube;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.EditFinishEvent;
 import cazcade.vortex.common.client.events.ValidEvent;
 import cazcade.vortex.common.client.events.ValidHandler;
@@ -35,11 +35,11 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     @UiField YouTubeTextBox urlTextBox;
     @UiField CachedImage    image;
 
-    public YouTubeEditorPanel(@Nonnull final LSDTransferEntity entity) {
+    public YouTubeEditorPanel(@Nonnull final TransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        if (entity.hasAttribute(LSDAttribute.EURI)) {
-            urlTextBox.setValue(entity.getAttribute(LSDAttribute.EURI).split(":")[1]);
+        if (entity.has$(Dictionary.EURI)) {
+            urlTextBox.setValue(entity.$(Dictionary.EURI).split(":")[1]);
             showPreview();
         }
         urlTextBox.addValidHandler(new ValidHandler() {
@@ -47,8 +47,8 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
                 showPreview();
             }
         });
-        addBinding(urlTextBox, LSDAttribute.MEDIA_ID);
-        setAndBindEntity(entity);
+        bind(urlTextBox, Dictionary.MEDIA_ID);
+        $(entity);
 
     }
 
@@ -72,12 +72,12 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
         return "Choose Video";
     }
 
-    @Override public LSDTransferEntity getEntityForCreation() {
-        return getEntity().merge(urlTextBox.getEntityDiff(), true);
+    @Override public TransferEntity getEntityForCreation() {
+        return (TransferEntity) $().merge(urlTextBox.getEntityDiff(), true);
     }
 
     @Override
-    protected void onChange(final LSDBaseEntity entity) {
+    protected void onChange(final Entity entity) {
         super.onChange(entity);
         if (urlTextBox.isValid()) {
             showPreview();

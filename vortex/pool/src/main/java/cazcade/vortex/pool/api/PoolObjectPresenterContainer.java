@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.api;
 
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 
 import javax.annotation.Nonnull;
@@ -15,8 +19,7 @@ public interface PoolObjectPresenterContainer {
 
     void remove(PoolObjectPresenter presenter);
 
-    @Nonnull
-    LSDDictionaryTypes getType();
+    @Nonnull Types getType();
 
-    LSDTransferEntity getEntity();
+    TransferEntity getEntity();
 }

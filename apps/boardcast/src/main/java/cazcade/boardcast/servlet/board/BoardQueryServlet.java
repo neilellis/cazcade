@@ -5,10 +5,10 @@
 package cazcade.boardcast.servlet.board;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.BoardQueryRequest;
 
 import javax.annotation.Nonnull;
@@ -58,12 +58,12 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             final String queryName = req.getParameter("query");
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
             final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
-            final LiquidSessionIdentifier liquidSessionId = getLiquidSessionId(req.getSession(true));
+            final SessionIdentifier liquidSessionId = getLiquidSessionId(req.getSession(true));
             final BoardQueryRequest request = new BoardQueryRequest(liquidSessionId, type, alias, 0, 100);
             request.setMax(MAX);
             final BoardQueryRequest response = dataStore.process(request);
             //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/boardcast/public"), ChildSortOrder.POPULARITY, false));
-            final List<LSDTransferEntity> boards = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+            final List<TransferEntity> boards = response.response().children(Dictionary.CHILD_A);
             req.setAttribute("boards", makeJSPFriendly(req, boards));
             req.setAttribute("title", titleLookup.get(queryName));
             req.getRequestDispatcher("_pages/boards.jsp").forward(req, resp);

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.validation.request;
 
 import cazcade.common.Logger;
@@ -16,7 +20,7 @@ public class DefaultRequestValidator extends AbstractRequestValidator<LiquidRequ
     public void validate(@Nonnull final LiquidRequest request, final ValidationLevel level) {
         log.debug("Default validator.");
         if (request.hasRequestEntity()) {
-            entityValidator.validate(request.getRequestEntity(), level);
+            entityValidator.validate(request.request(), level);
         }
     }
 }

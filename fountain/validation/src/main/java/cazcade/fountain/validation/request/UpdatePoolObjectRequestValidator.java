@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.validation.request;
 
 import cazcade.common.Logger;
@@ -16,6 +20,6 @@ public class UpdatePoolObjectRequestValidator extends AbstractRequestValidator<U
     public void validate(@Nonnull final UpdatePoolObjectRequest request, final ValidationLevel level) {
         log.debug("Validating update pool object request.");
         validPoolObject(request);
-        entityValidator.validate(request.getRequestEntity(), level);
+        entityValidator.validate(request.request(), level);
     }
 }

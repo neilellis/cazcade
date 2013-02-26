@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,28 +13,28 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeletePoolObjectRequest extends AbstractDeletionRequest {
-    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri) {
+    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setPoolUUID(pool);
         setTarget(target);
         setUri(uri);
     }
 
-    public DeletePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target) {
+    public DeletePoolObjectRequest(final SessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target) {
         this(null, identity, pool, target, null);
     }
 
     public DeletePoolObjectRequest(final LiquidURI uri) {
-        this(null, LiquidSessionIdentifier.ANON, null, null, uri);
+        this(null, SessionIdentifier.ANON, null, null, uri);
     }
 
     public DeletePoolObjectRequest() {
         super();
     }
 
-    public DeletePoolObjectRequest(final LSDTransferEntity entity) {
+    public DeletePoolObjectRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -44,27 +44,25 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.DELETE).or(new AuthorizationRequest(getSessionIdentifier(), getUri()
-                    .getWithoutFragment(), LiquidPermission.EDIT)), new AuthorizationRequest(getSessionIdentifier(), getUri().getWithoutFragment(), LiquidPermission.MODIFY));
-        }
-        else {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.DELETE).or(new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.EDIT)), new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.MODIFY));
+            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.DELETE_PERM).or(new AuthorizationRequest(session(), uri()
+                    .withoutFragment(), Permission.EDIT_PERM)), new AuthorizationRequest(session(), uri().withoutFragment(), Permission.MODIFY_PERM));
+        } else {
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.DELETE_PERM).or(new AuthorizationRequest(session(), getPoolUUID(), Permission.EDIT_PERM)), new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
         }
     }
 
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         if (hasUri()) {
-            return Arrays.asList(getUri().asReverseDNSString(), getUri().getWithoutFragment().asReverseDNSString());
-        }
-        else {
+            return Arrays.asList(uri().asReverseDNSString(), uri().withoutFragment().asReverseDNSString());
+        } else {
             return Arrays.asList(getPoolUUID().toString(), getTarget().toString());
         }
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.DELETE_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.DELETE_POOL_OBJECT;
     }
 }

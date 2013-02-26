@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class LSDEntityConverter implements Converter {
     public boolean canConvert(@Nonnull final Class aClass) {
-        return aClass.equals(LSDSimpleEntity.class);
+        return aClass.equals(SimpleEntity.class);
     }
 
     @Nullable
@@ -29,9 +29,9 @@ public class LSDEntityConverter implements Converter {
     }
 
     public void marshal(final Object o, @Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, final MarshallingContext marshallingContext) {
-        final LSDTransferEntity entity = (LSDTransferEntity) o;
-        final LSDNode lsdNode = entity.asFormatIndependentTree();
-        marshal(hierarchicalStreamWriter, lsdNode);
+        final TransferEntity entity = (TransferEntity) o;
+        final Node node = entity.asFormatIndependentTree();
+        marshal(hierarchicalStreamWriter, node);
     }
 
     @Nullable
@@ -42,29 +42,27 @@ public class LSDEntityConverter implements Converter {
     @Nonnull
     public Object unmarshal(@Nonnull final HierarchicalStreamReader hierarchicalStreamReader, final UnmarshallingContext unmarshallingContext) {
         final Map<String, List> map = unmarshal(hierarchicalStreamReader);
-        final LSDSimpleNode lsdNode = new LSDSimpleNode("root", Arrays.asList(map));
-        final LSDSimpleEntity entity = LSDSimpleEntity.createFromNode(lsdNode);
+        final SimpleNode lsdNode = new SimpleNode("root", Arrays.asList(map));
+        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.createFromNode(lsdNode);
         return entity;
     }
 
-    private void marshal(@Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, @Nonnull final LSDNode lsdNode) {
+    private void marshal(@Nonnull final HierarchicalStreamWriter hierarchicalStreamWriter, @Nonnull final Node lsdNode) {
         if (lsdNode.isLeaf()) {
-            //            hierarchicalStreamWriter.startNode(lsdNode.getName());
+            //            hierarchicalStreamWriter.startNode(lsdNode.name());
             hierarchicalStreamWriter.setValue(lsdNode.getLeafValue());
             //            hierarchicalStreamWriter.endNode();
-        }
-        else {
-            final List<LSDNode> lsdNodeList = lsdNode.getChildren();
-            for (final LSDNode node : lsdNodeList) {
+        } else {
+            final List<Node> nodeList = lsdNode.getChildren();
+            for (final Node node : nodeList) {
                 if (node.isArray()) {
-                    final List<LSDNode> children = node.getChildren();
-                    for (final LSDNode child : children) {
+                    final List<Node> children = node.getChildren();
+                    for (final Node child : children) {
                         hierarchicalStreamWriter.startNode(child.getName());
                         marshal(hierarchicalStreamWriter, child);
                         hierarchicalStreamWriter.endNode();
                     }
-                }
-                else {
+                } else {
                     hierarchicalStreamWriter.startNode(node.getName());
                     marshal(hierarchicalStreamWriter, node);
                     hierarchicalStreamWriter.endNode();
@@ -80,7 +78,7 @@ public class LSDEntityConverter implements Converter {
             hierarchicalStreamReader.moveDown();
             final String name = hierarchicalStreamReader.getNodeName();
             if (!name.matches("[a-z]+[a-z0-9\\-_]*")) {
-                throw new LSDSerializationException("The XML node '" + name + "' contains an illegal charcter.");
+                throw new SerializationException("The XML node '" + name + "' contains an illegal charcter.");
             }
             List list = map.get(name);
             if (list == null) {
@@ -90,8 +88,7 @@ public class LSDEntityConverter implements Converter {
 
             if (hierarchicalStreamReader.hasMoreChildren()) {
                 list.add(unmarshal(hierarchicalStreamReader));
-            }
-            else {
+            } else {
                 list.add(hierarchicalStreamReader.getValue());
             }
             hierarchicalStreamReader.moveUp();

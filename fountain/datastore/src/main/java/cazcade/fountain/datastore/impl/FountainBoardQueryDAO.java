@@ -4,9 +4,9 @@
 
 package cazcade.fountain.datastore.impl;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 
@@ -14,15 +14,13 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public interface FountainBoardQueryDAO {
-    @Nonnull LSDTransferEntity getMyBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException;
+    @Nonnull TransferEntity getMyBoards(int start, int end, SessionIdentifier session) throws Exception;
 
-    @Nonnull LSDTransferEntity getMyVisitedBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException;
+    @Nonnull TransferEntity getMyVisitedBoards(int start, int end, SessionIdentifier session) throws Exception;
 
-    @Nonnull LSDTransferEntity getPopularBoards(int max, int end, LiquidSessionIdentifier session) throws InterruptedException;
+    @Nonnull TransferEntity getPopularBoards(int max, int end, SessionIdentifier session) throws Exception;
 
-    @Nonnull
-    LSDTransferEntity getRecentPublicBoards(int start, int end, LiquidSessionIdentifier session) throws InterruptedException;
+    @Nonnull TransferEntity getRecentPublicBoards(int start, int end, SessionIdentifier session) throws Exception;
 
-    @Nonnull
-    LSDTransferEntity getUserPublicBoards(int start, int end, LiquidSessionIdentifier session, LiquidURI alias) throws InterruptedException;
+    @Nonnull TransferEntity getUserPublicBoards(int start, int end, SessionIdentifier session, LiquidURI alias) throws Exception;
 }

@@ -5,8 +5,8 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,27 +15,27 @@ import java.util.Collection;
 import java.util.List;
 
 public class CreatePoolRequest extends AbstractCreationRequest {
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, @Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+    public CreatePoolRequest(@Nonnull final Types type, @Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
         super();
         setTitle(title);
         setDescription(description);
         setX(x);
         setY(y);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setParent(parent);
         setName(name);
         setType(type);
     }
 
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, @Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
+    public CreatePoolRequest(@Nonnull final Types type, @Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
         super();
         setTitle(title);
         setDescription(description);
         setX(x);
         setY(y);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setParent(parent);
         setName(name);
         setType(type);
@@ -43,20 +43,20 @@ public class CreatePoolRequest extends AbstractCreationRequest {
     }
 
 
-    public CreatePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
-        this(LSDDictionaryTypes.POOL2D, null, identity, parent, name, title, description, x, y);
+    public CreatePoolRequest(final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+        this(Types.T_POOL2D, null, identity, parent, name, title, description, x, y);
     }
 
-    public CreatePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, String imageUrl) {
-        this(LSDDictionaryTypes.POOL2D, null, identity, parent, name, title, description, x, y, imageUrl);
+    public CreatePoolRequest(final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, String imageUrl) {
+        this(Types.T_POOL2D, null, identity, parent, name, title, description, x, y, imageUrl);
     }
 
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
-        this(type, null, LiquidSessionIdentifier.ANON, parent, name, title, description, x, y);
+    public CreatePoolRequest(@Nonnull final Types type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+        this(type, null, SessionIdentifier.ANON, parent, name, title, description, x, y);
     }
 
-    public CreatePoolRequest(@Nonnull final LSDDictionaryTypes type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
-        this(type, null, LiquidSessionIdentifier.ANON, parent, name, title, description, x, y, imageUrl);
+    public CreatePoolRequest(@Nonnull final Types type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
+        this(type, null, SessionIdentifier.ANON, parent, name, title, description, x, y, imageUrl);
     }
 
 
@@ -64,7 +64,7 @@ public class CreatePoolRequest extends AbstractCreationRequest {
         super();
     }
 
-    public CreatePoolRequest(final LSDTransferEntity entity) {
+    public CreatePoolRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -74,17 +74,17 @@ public class CreatePoolRequest extends AbstractCreationRequest {
     }
 
     @Nonnull
-    public Collection<LiquidURI> getAffectedEntities() {
+    public Collection<LiquidURI> affectedEntities() {
         return getStandardAffectedEntitiesInternalPlus(getParent());
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getParent(), LiquidPermission.MODIFY));
+    public List<AuthorizationRequest> authorizationRequests() {
+        return Arrays.asList(new AuthorizationRequest(session(), getParent(), Permission.MODIFY_PERM));
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CREATE_POOL;
+    public RequestType requestType() {
+        return RequestType.CREATE_POOL;
     }
 }

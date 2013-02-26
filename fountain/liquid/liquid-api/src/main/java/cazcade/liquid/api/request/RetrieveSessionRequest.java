@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,14 +13,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrieveSessionRequest extends AbstractRetrievalRequest {
-    public RetrieveSessionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public RetrieveSessionRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
     }
 
-    public RetrieveSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public RetrieveSessionRequest(final SessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
@@ -29,7 +29,7 @@ public class RetrieveSessionRequest extends AbstractRetrievalRequest {
         super();
     }
 
-    public RetrieveSessionRequest(final LSDTransferEntity entity) {
+    public RetrieveSessionRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -39,12 +39,12 @@ public class RetrieveSessionRequest extends AbstractRetrievalRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW));
+    public List<AuthorizationRequest> authorizationRequests() {
+        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.RETRIEVE_SESSION;
+    public RequestType requestType() {
+        return RequestType.RETRIEVE_SESSION;
     }
 }

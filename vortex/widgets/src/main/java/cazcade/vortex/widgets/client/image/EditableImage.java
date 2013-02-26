@@ -4,9 +4,10 @@
 
 package cazcade.vortex.widgets.client.image;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.popup.VortexDialogPanel;
 import cazcade.vortex.widgets.client.profile.Bindable;
@@ -35,11 +36,11 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
     interface EditableImageUiBinder extends UiBinder<HTMLPanel, EditableImage> {}
 
     private static final EditableImageUiBinder ourUiBinder = GWT.create(EditableImageUiBinder.class);
-    protected LSDTransferEntity entity;
+    protected TransferEntity entity;
     protected boolean editable = true;
-    @UiField CachedImage  image;
-    @UiField SpanElement  editText;
-    private  LSDAttribute attribute;
+    @UiField CachedImage image;
+    @UiField SpanElement editText;
+    private  Attribute   attribute;
 
     public EditableImage() {
         super();
@@ -55,11 +56,11 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
     }
 
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
+    public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String referenceDataPrefix) {
         this.entity = entity;
         this.attribute = attribute;
-        if (entity.hasAttribute(attribute)) {
-            String url = entity.getAttribute(attribute);
+        if (entity.has$(attribute)) {
+            String url = entity.$(attribute);
             if (!url.equals(image.getUrl())) {
                 image.setUrl(url);
             }
@@ -75,7 +76,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
 
     @Override public void clear() {
         image.clear();
-        this.entity = LSDSimpleEntity.emptyUnmodifiable();
+        this.entity = SimpleEntity.emptyUnmodifiable();
     }
 
     @Override
@@ -84,10 +85,8 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getEntityDiff() {
-        final LSDTransferEntity result = entity.asUpdateEntity();
-        result.setAttribute(attribute, image.getRawUrl());
-        return result;
+    public TransferEntity getEntityDiff() {
+        return (TransferEntity) entity.asUpdateEntity().$(attribute, image.getRawUrl());
     }
 
     @Override
@@ -103,7 +102,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
         return false;
     }
 
-    @Override public LSDAttribute getBoundAttribute() {
+    @Override public Attribute getBoundAttribute() {
         return attribute;
     }
 
@@ -125,7 +124,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
 
     @UiHandler("image")
     public void onClick(final ClickEvent e) {
-        if (entity.getBooleanAttribute(LSDAttribute.EDITABLE, false) && editable) {
+        if (entity.default$bool(Dictionary.EDITABLE, false) && editable) {
             final ImageEditorDialogBox imageEditorDialogBox = new ImageEditorDialogBox();
             imageEditorDialogBox.addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
@@ -167,7 +166,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
 
     private void updateEditText() {
         editText.getStyle()
-                .setVisibility((this.editable && (entity == null || entity.getBooleanAttribute(LSDAttribute.EDITABLE, true)))
+                .setVisibility((this.editable && (entity == null || entity.default$bool(Dictionary.EDITABLE, true)))
                                ? Style.Visibility.VISIBLE
                                : Style.Visibility.HIDDEN);
     }

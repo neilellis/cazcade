@@ -11,10 +11,14 @@ import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
-import org.neo4j.graphdb.*;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import org.neo4j.graphdb.ReturnableEvaluator;
+import org.neo4j.graphdb.StopEvaluator;
+import org.neo4j.graphdb.TraversalPosition;
+import org.neo4j.graphdb.Traverser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nonnull;
@@ -26,8 +30,9 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import static cazcade.fountain.datastore.impl.FountainRelationships.*;
-import static cazcade.liquid.api.lsd.LSDAttribute.*;
-import static cazcade.liquid.api.lsd.LSDDictionaryTypes.BOARD;
+import static cazcade.liquid.api.lsd.Types.T_BOARD;
+import static org.neo4j.graphdb.Direction.INCOMING;
+import static org.neo4j.graphdb.Direction.OUTGOING;
 
 public class FountainSocialDAOImpl implements FountainSocialDAO {
     @Nonnull
@@ -44,27 +49,26 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     private FountainIndexServiceImpl indexDAO;
 
     @Override
-    public LSDTransferEntity followResourceTX(@Nonnull final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final LiquidRequestDetailLevel detail, final boolean internal) throws Exception {
-        return fountainNeo.doInTransactionAndBeginBlock(new Callable<LSDTransferEntity>() {
+    public TransferEntity followResourceTX(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final RequestDetailLevel detail, final boolean internal) throws Exception {
+        return fountainNeo.doInTransactionAndBeginBlock(new Callable<TransferEntity>() {
             @Nullable @Override
-            public LSDTransferEntity call() throws Exception {
-                final LSDPersistedEntity currentAlias = fountainNeo.findByURIOrFail(sessionIdentifier.getAlias());
-                final LSDPersistedEntity resourceToFollow = fountainNeo.findByURIOrFail(uri);
+            public TransferEntity call() throws Exception {
+                final PersistedEntity currentAlias = fountainNeo.findOrFail(sessionIdentifier.alias());
+                final PersistedEntity resourceToFollow = fountainNeo.findOrFail(uri);
 
                 deltaFollowersCount(resourceToFollow, 1);
                 indexDAO.syncFollowerCount(resourceToFollow);
 
 
-                if (uri.getScheme() == LiquidURIScheme.alias) {
+                if (uri.scheme() == LiquidURIScheme.alias) {
                     if (!isFollowing(currentAlias, resourceToFollow)) {
-                        currentAlias.createRelationshipTo(resourceToFollow, FOLLOW_ALIAS);
+                        currentAlias.relate(resourceToFollow, FOLLOW_ALIAS);
                         deltaFollowsAliasCount(currentAlias, 1);
                     }
                     return getAliasAsProfile(sessionIdentifier, uri, detail, internal);
-                }
-                else {
+                } else {
                     if (!isFollowing(currentAlias, resourceToFollow)) {
-                        currentAlias.createRelationshipTo(resourceToFollow, FOLLOW_CONTENT);
+                        currentAlias.relate(resourceToFollow, FOLLOW_CONTENT);
                         deltaFollowsResourcesCount(currentAlias, 1);
                     }
                     indexDAO.syncFollowCounts(currentAlias);
@@ -75,20 +79,20 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Override
-    public LSDTransferEntity getAliasAsProfileTx(@Nonnull final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final boolean internal, final LiquidRequestDetailLevel detail) throws Exception {
-        return fountainNeo.doInTransactionAndBeginBlock(new Callable<LSDTransferEntity>() {
+    public TransferEntity getAliasAsProfileTx(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final boolean internal, final RequestDetailLevel detail) throws Exception {
+        return fountainNeo.doInTransactionAndBeginBlock(new Callable<TransferEntity>() {
             @Nullable @Override
-            public LSDTransferEntity call() throws Exception {
+            public TransferEntity call() throws Exception {
                 return getAliasAsProfile(sessionIdentifier, uri, detail, internal);
             }
         });
     }
 
     @Nullable @Override
-    public Collection<LSDBaseEntity> getRosterNoTX(@Nonnull final LiquidURI uri, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel request) throws InterruptedException {
+    public Collection<Entity> getRosterNoTX(@Nonnull final LiquidURI uri, final boolean internal, final SessionIdentifier identity, final RequestDetailLevel request) throws InterruptedException {
         fountainNeo.begin();
         try {
-            final LSDPersistedEntity persistedEntity = fountainNeo.findByURI(uri);
+            final PersistedEntity persistedEntity = fountainNeo.find(uri);
             if (persistedEntity == null) {
                 return null;
             }
@@ -99,26 +103,25 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nonnull
-    Collection<LSDBaseEntity> getRosterNoTX(@Nonnull final LSDPersistedEntity poolPersistedEntity, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel detail) {
-        final ArrayList<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>();
-        final Iterable<FountainRelationship> visitingSessions = poolPersistedEntity.getRelationships(VISITING, Direction.INCOMING);
-        for (final FountainRelationship visitingSession : visitingSessions) {
+    Collection<Entity> getRosterNoTX(@Nonnull final PersistedEntity pool, final boolean internal, final SessionIdentifier identity, final RequestDetailLevel detail) {
+        final ArrayList<Entity> entities = new ArrayList<Entity>();
+        Iterable<FountainRelationship> relationships = pool.relationships(VISITING, INCOMING);
+        for (final FountainRelationship visitingSession : relationships) {
             try {
-                final LSDPersistedEntity sessionPersistedEntity = visitingSession.getOtherNode(poolPersistedEntity);
-                if (sessionPersistedEntity.hasUpdated()) {
-                    final Date updatedDate = sessionPersistedEntity.getUpdated();
+                final PersistedEntity session = visitingSession.other(pool);
+                if (session.hasUpdated()) {
+                    final Date updatedDate = session.updated();
                     final long updated = updatedDate.getTime();
                     if (updated < System.currentTimeMillis() - FountainNeoImpl.SESSION_INACTIVE_MILLI) {
-                        sessionPersistedEntity.setAttribute(ACTIVE, false);
+                        session.$(Dictionary.ACTIVE, false);
                     }
                 }
-                if (sessionPersistedEntity.hasAttribute(ACTIVE) && sessionPersistedEntity.getBooleanAttribute(ACTIVE)) {
-                    final FountainRelationship relationship = sessionPersistedEntity.getSingleRelationship(FountainRelationships.OWNER, Direction.OUTGOING);
-                    final LSDPersistedEntity aliasPersistedEntity = relationship.getOtherNode(sessionPersistedEntity);
+                if (session.has$(Dictionary.ACTIVE) && session.$bool(Dictionary.ACTIVE)) {
+                    final FountainRelationship relationship = session.relationship(OWNER, OUTGOING);
+                    final PersistedEntity alias = relationship.other(session);
                     //If the alias has no profile image, take it from the profile pool!
-                    fountainNeo.putProfileInformationIntoAlias(aliasPersistedEntity);
-                    final LSDBaseEntity aliasEntity = aliasPersistedEntity.toLSD(detail, internal);
-                    entities.add(aliasEntity);
+                    fountainNeo.putProfileInformationIntoAlias(alias);
+                    entities.add(alias.toTransfer(detail, internal));
                 }
             } catch (Exception e) {
                 log.error(e);
@@ -128,10 +131,10 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nullable @Override
-    public Collection<LSDBaseEntity> getRosterNoTX(@Nonnull final LiquidUUID target, final boolean internal, final LiquidSessionIdentifier identity, final LiquidRequestDetailLevel detail) throws InterruptedException {
+    public Collection<Entity> getRosterNoTX(@Nonnull final LiquidUUID target, final boolean internal, final SessionIdentifier identity, final RequestDetailLevel detail) throws InterruptedException {
         fountainNeo.begin();
         try {
-            final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(target);
+            final PersistedEntity persistedEntity = fountainNeo.find(target);
             return getRosterNoTX(persistedEntity, internal, identity, detail);
         } finally {
             fountainNeo.end();
@@ -139,48 +142,49 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nonnull @Override
-    public ChangeReport getUpdateSummaryForAlias(@Nonnull final LiquidURI aliasURI, final long since) throws InterruptedException {
+    public ChangeReport getUpdateSummaryForAlias(@Nonnull final LiquidURI aliasURI, final long since) throws Exception {
         final ChangeReport report = new ChangeReport();
-        final LSDPersistedEntity aliasPersistedEntity = fountainNeo.findByURIOrFail(aliasURI);
+        final PersistedEntity aliasPersistedEntity = fountainNeo.findOrFail(aliasURI);
         final Traverser traverse = aliasPersistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.DEPTH_ONE, new ReturnableEvaluator() {
             @Override
             public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
-                return currentPos.currentNode().getProperty(TYPE.getKeyName()).toString().startsWith(BOARD.asString());
+                return currentPos.currentNode().getProperty(Dictionary.TYPE.getKeyName()).toString().startsWith(T_BOARD.asString());
             }
-        }, FOLLOW_CONTENT, Direction.INCOMING);
+        }, FOLLOW_CONTENT, INCOMING);
         for (final org.neo4j.graphdb.Node node : traverse) {
-            final LSDPersistedEntity currPersistedEntity = new FountainEntityImpl(node);
-            final Date updatedDate = currPersistedEntity.getUpdated();
+            final PersistedEntity currPersistedEntity = new FountainEntity(node);
+            final Date updatedDate = currPersistedEntity.updated();
             final long updated = updatedDate.getTime();
             if (updated > since) {
-                report.addChangedFollowedBoard(currPersistedEntity.toLSD(LiquidRequestDetailLevel.NORMAL, true));
+                report.addChangedFollowedBoard(currPersistedEntity.toTransfer(RequestDetailLevel.NORMAL, true));
             }
         }
         final List<BoardIndexEntity> ownedBoards = boardDao.getMyBoards(0, 10000, aliasURI.asString());
         for (final BoardIndexEntity ownedBoard : ownedBoards) {
             if (ownedBoard.getUpdated().getTime() > since) {
                 try {
-                    report.addChangedOwnedBoard(fountainNeo.findByURIOrFail(new LiquidURI(ownedBoard.getUri()))
-                                                           .toLSD(LiquidRequestDetailLevel.NORMAL, true));
+                    report.addChangedOwnedBoard(fountainNeo.findOrFail(new LiquidURI(ownedBoard.getUri()))
+                                                           .toTransfer(RequestDetailLevel.NORMAL, true));
                 } catch (EntityNotFoundException enfe) {
                     log.error(enfe);
                 }
             }
         }
-        final LatestContentFinder latestContentFinder = new LatestContentFinder(new LiquidSessionIdentifier(aliasURI), fountainNeo, aliasPersistedEntity, since, 25, 5000, LiquidRequestDetailLevel.NORMAL, 50, userDAO);
+        final LatestContentFinder latestContentFinder = new LatestContentFinder(new SessionIdentifier(aliasURI), fountainNeo, aliasPersistedEntity, since, 25, 5000, RequestDetailLevel.NORMAL, 50, userDAO);
         report.setLatestChanges(latestContentFinder.getNodes());
 
         return report;
     }
 
     @Override
-    public boolean isFollowing(@Nonnull final LSDPersistedEntity currentAlias, final LSDPersistedEntity persistedEntity) throws InterruptedException {
+    public boolean isFollowing(@Nonnull final PersistedEntity currentAlias, final PersistedEntity persistedEntity) throws InterruptedException {
         fountainNeo.begin();
         try {
             boolean following = false;
 
-            for (final FountainRelationship relationship : currentAlias.getRelationships(FOLLOW_ALIAS, FOLLOW_CONTENT)) {
-                if (relationship.getEndNode().equals(persistedEntity)) {
+            Iterable<FountainRelationship> relationships = currentAlias.relationships(FOLLOW_ALIAS, FOLLOW_CONTENT);
+            for (final FountainRelationship relationship : relationships) {
+                if (relationship.end().equals(persistedEntity)) {
                     following = true;
                 }
             }
@@ -191,32 +195,33 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Override
-    public void recordChat(final LiquidSessionIdentifier sessionIdentifier, final LiquidURI uri, final LSDBaseEntity entity) {
+    public void recordChat(final SessionIdentifier sessionIdentifier, final LiquidURI uri, final Entity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public LSDTransferEntity unfollowResourceTX(@Nonnull final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final LiquidRequestDetailLevel detail, final boolean internal) throws Exception {
-        return fountainNeo.doInTransactionAndBeginBlock(new Callable<LSDTransferEntity>() {
+    public TransferEntity unfollowResourceTX(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final RequestDetailLevel detail, final boolean internal) throws Exception {
+        return fountainNeo.doInTransactionAndBeginBlock(new Callable<TransferEntity>() {
             @Nullable @Override
-            public LSDTransferEntity call() throws Exception {
-                final LSDPersistedEntity currentAlias = fountainNeo.findByURIOrFail(sessionIdentifier.getAlias());
-                final LSDPersistedEntity resourceToFollow = fountainNeo.findByURIOrFail(uri);
+            public TransferEntity call() throws Exception {
+                final PersistedEntity currentAlias = fountainNeo.findOrFail(sessionIdentifier.alias());
+                final PersistedEntity resourceToFollow = fountainNeo.findOrFail(uri);
                 deltaFollowersCount(resourceToFollow, -1);
                 indexDAO.syncFollowerCount(resourceToFollow);
 
-                if (uri.getScheme() == LiquidURIScheme.alias) {
-                    for (final FountainRelationship relationship : currentAlias.getRelationships(FOLLOW_ALIAS, Direction.OUTGOING)) {
-                        if (relationship.getOtherNode(currentAlias).equals(resourceToFollow)) {
+                if (uri.scheme() == LiquidURIScheme.alias) {
+                    Iterable<FountainRelationship> relationships = currentAlias.relationships(FOLLOW_ALIAS, OUTGOING);
+                    for (final FountainRelationship relationship : relationships) {
+                        if (relationship.other(currentAlias).equals(resourceToFollow)) {
                             relationship.delete();
                             deltaFollowsAliasCount(currentAlias, -1);
                         }
                     }
                     return getAliasAsProfile(sessionIdentifier, uri, detail, internal);
-                }
-                else {
-                    for (final FountainRelationship relationship : currentAlias.getRelationships(FOLLOW_CONTENT, Direction.OUTGOING)) {
-                        if (relationship.getOtherNode(currentAlias).equals(resourceToFollow)) {
+                } else {
+                    Iterable<FountainRelationship> relationships = currentAlias.relationships(FOLLOW_CONTENT, OUTGOING);
+                    for (final FountainRelationship relationship : relationships) {
+                        if (relationship.other(currentAlias).equals(resourceToFollow)) {
                             relationship.delete();
                             deltaFollowsResourcesCount(currentAlias, -1);
                         }
@@ -228,45 +233,36 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         });
     }
 
-    private void deltaFollowsResourcesCount(@Nonnull final LSDPersistedEntity persistedEntity, final int delta) {
-        deltaCount(FOLLOWS_RESOURCES_COUNT, persistedEntity, delta);
+    private void deltaFollowsResourcesCount(@Nonnull final PersistedEntity persistedEntity, final int delta) {
+        deltaCount(Dictionary.FOLLOWS_RESOURCES_COUNT, persistedEntity, delta);
     }
 
     @Nullable
-    LSDTransferEntity getAliasAsProfile(@Nonnull final LiquidSessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final LiquidRequestDetailLevel detail, final boolean internal) throws InterruptedException {
-        final LSDPersistedEntity currentAlias = fountainNeo.findByURIOrFail(sessionIdentifier.getAlias());
-        final LSDPersistedEntity persistedEntity = fountainNeo.findByURIOrFail(uri);
-        final LSDTransferEntity result = persistedEntity.toLSD(detail, internal);
+    TransferEntity getAliasAsProfile(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final RequestDetailLevel detail, final boolean internal) throws InterruptedException {
+        final PersistedEntity currentAlias = fountainNeo.findOrFail(sessionIdentifier.alias());
+        final PersistedEntity persistedEntity = fountainNeo.findOrFail(uri);
+        final TransferEntity result = persistedEntity.toTransfer(detail, internal);
 
         //        int follows = node.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.DEPTH_ONE, ReturnableEvaluator.ALL_BUT_START_NODE, FountainRelationships.FOLLOW_ALIAS, Direction.OUTGOING).getAllNodes().size();
         //        int followers = node.traverse(Traverser.Order.BREADTH_FIRST, StopEvaluator.DEPTH_ONE, ReturnableEvaluator.ALL_BUT_START_NODE, FountainRelationships.FOLLOW_ALIAS, Direction.INCOMING).getAllNodes().size();
-        //        result.setAttribute(LSDAttribute.FOLLOWS_ALIAS_COUNT, String.valueOf(follows));
+        //        result.$(Attribute.FOLLOWS_ALIAS_COUNT, String.valueOf(follows));
 
         final boolean following = isFollowing(currentAlias, persistedEntity);
-        result.setAttribute(FOLLOWING, following);
+        result.$(Dictionary.FOLLOWING, following);
         persistedEntity.setPermissionFlagsOnEntity(sessionIdentifier, null, result);
 
         return result;
     }
 
-    private void deltaFollowsAliasCount(@Nonnull final LSDPersistedEntity persistedEntity, final int delta) {
-        deltaCount(FOLLOWS_ALIAS_COUNT, persistedEntity, delta);
+    private void deltaFollowsAliasCount(@Nonnull final PersistedEntity persistedEntity, final int delta) {
+        deltaCount(Dictionary.FOLLOWS_ALIAS_COUNT, persistedEntity, delta);
     }
 
-    private void deltaFollowersCount(@Nonnull final LSDPersistedEntity persistedEntity, final int delta) {
-        deltaCount(FOLLOWERS_COUNT, persistedEntity, delta);
+    private void deltaFollowersCount(@Nonnull final PersistedEntity persistedEntity, final int delta) {
+        deltaCount(Dictionary.FOLLOWERS_COUNT, persistedEntity, delta);
     }
 
-    private void deltaCount(@Nonnull final LSDAttribute attribute, @Nonnull final LSDPersistedEntity resourceToFollow, final int delta) {
-        final int followerCount;
-        final String attributeKey = attribute.getKeyName();
-        if (resourceToFollow.hasAttribute(attribute)) {
-            followerCount = resourceToFollow.getIntegerAttribute(attribute);
-        }
-        else {
-            followerCount = 0;
-        }
-        log.debug("Count is now {0} for {1}", followerCount + delta, attribute);
-        resourceToFollow.setAttribute(attribute, followerCount + delta);
+    private void deltaCount(@Nonnull final Attribute attribute, @Nonnull final PersistedEntity resourceToFollow, final int delta) {
+        resourceToFollow.$(attribute, (resourceToFollow.has$(attribute) ? resourceToFollow.$i(attribute) : 0) + delta);
     }
 }

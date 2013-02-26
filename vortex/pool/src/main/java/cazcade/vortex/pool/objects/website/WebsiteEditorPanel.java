@@ -4,8 +4,8 @@
 
 package cazcade.vortex.pool.objects.website;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
@@ -32,7 +32,7 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
     @UiField RegexTextBox   title;
     @UiField UrlField       urlField;
 
-    public WebsiteEditorPanel(final LSDTransferEntity entity) {
+    public WebsiteEditorPanel(final TransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
 
@@ -46,10 +46,10 @@ public class WebsiteEditorPanel extends AbstractPoolObjectEditorPanel {
                 fireEvent(event);
             }
         });
-        addBinding(urlField, LSDAttribute.SOURCE);
-        addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(title, LSDAttribute.TITLE);
-        setAndBindEntity(entity);
+        bind(urlField, Dictionary.SOURCE);
+        bind(description, Dictionary.DESCRIPTION);
+        bind(title, Dictionary.TITLE);
+        $(entity);
     }
 
     @UiHandler("done")

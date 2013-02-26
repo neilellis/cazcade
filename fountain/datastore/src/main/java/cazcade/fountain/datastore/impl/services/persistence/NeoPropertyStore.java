@@ -4,7 +4,7 @@
 
 package cazcade.fountain.datastore.impl.services.persistence;
 
-import cazcade.liquid.api.lsd.LSDPropertyStore;
+import cazcade.liquid.api.lsd.PropertyStore;
 import org.neo4j.graphdb.Node;
 
 import javax.annotation.Nonnull;
@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * @author neilellis@cazcade.com
  */
-public class NeoPropertyStore implements LSDPropertyStore {
+public class NeoPropertyStore implements PropertyStore {
     private final Node neoNode;
 
     public NeoPropertyStore(final Node neoNode) {
@@ -32,7 +32,7 @@ public class NeoPropertyStore implements LSDPropertyStore {
     }
 
     @Nonnull @Override
-    public LSDPropertyStore copy() {
+    public PropertyStore copy() {
         return new NeoPropertyStore(neoNode);
     }
 

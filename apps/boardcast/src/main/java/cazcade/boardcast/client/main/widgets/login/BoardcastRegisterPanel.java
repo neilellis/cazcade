@@ -4,8 +4,8 @@
 
 package cazcade.boardcast.client.main.widgets.login;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.analytics.Track;
@@ -38,10 +38,10 @@ public class BoardcastRegisterPanel extends Composite {
     @UiField RegexTextBox          fullname;
     @UiField RegexTextBox          email;
 
-    private Runnable      onSwitchToLoginAction;
-    private Runnable      onSuccessAction;
+    private Runnable onSwitchToLoginAction;
+    private Runnable onSuccessAction;
     @Nullable
-    private LSDBaseEntity newUser;
+    private Entity   newUser;
 
     public BoardcastRegisterPanel() {
         super();
@@ -99,7 +99,7 @@ public class BoardcastRegisterPanel extends Composite {
 
         DataStoreService.App
                         .getInstance()
-                        .register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<LSDTransferEntity>() {
+                        .register(fullname.getStringValue(), username.getStringValue(), password.getStringValue(), email.getStringValue(), new AsyncCallback<TransferEntity>() {
                             @Override
                             public void onFailure(final Throwable caught) {
                                 ClientLog.log(caught);
@@ -107,15 +107,14 @@ public class BoardcastRegisterPanel extends Composite {
                             }
 
                             @Override
-                            public void onSuccess(@Nullable final LSDTransferEntity result) {
+                            public void onSuccess(@Nullable final TransferEntity result) {
                                 if (result == null) {
                                     registerErrorMessage.setText("Could not register you.");
                                     Track.getInstance().trackEvent("Register", "Fail");
-                                }
-                                else {
+                                } else {
                                     newUser = result;
                                     Track.getInstance()
-                                         .userRegistered(username.getStringValue(), fullname.getStringValue(), result.getMap());
+                                         .userRegistered(username.getStringValue(), fullname.getStringValue(), result.map());
                                     Track.getInstance().trackEvent("Register", "Success");
                                     onSuccessAction.run();
                                 }
@@ -124,7 +123,7 @@ public class BoardcastRegisterPanel extends Composite {
     }
 
     @Nullable
-    public LSDBaseEntity getNewUser() {
+    public Entity getNewUser() {
         return newUser;
     }
 

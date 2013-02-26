@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,11 +15,11 @@ import java.util.List;
 public class AdminCommandRequest extends AbstractRequest {
     private String[] args;
 
-    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final String... args) {
+    public AdminCommandRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final String... args) {
         super();
         setArgs(args);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
     }
 
 
@@ -27,7 +27,7 @@ public class AdminCommandRequest extends AbstractRequest {
         super();
     }
 
-    public AdminCommandRequest(final LSDTransferEntity entity) {
+    public AdminCommandRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -37,17 +37,17 @@ public class AdminCommandRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), new LiquidURI("pool:///"), LiquidPermission.SYSTEM));
+    public List<AuthorizationRequest> authorizationRequests() {
+        return Arrays.asList(new AuthorizationRequest(session(), new LiquidURI("pool:///"), Permission.SYSTEM_PERM));
     }
 
-    public List<String> getNotificationLocations() {
-        return Arrays.asList(getUri().getWithoutFragment().asReverseDNSString(), getUri().asReverseDNSString());
+    public List<String> notificationLocations() {
+        return Arrays.asList(uri().withoutFragment().asReverseDNSString(), uri().asReverseDNSString());
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.ADMIN_COMMAND;
+    public RequestType requestType() {
+        return RequestType.ADMIN_COMMAND;
     }
 
     @Override

@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,17 +13,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RotateXYPoolObjectRequest extends AbstractRequest {
-    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object, final Double angle) {
+    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object, final Double angle) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setObjectUUID(object);
         setPoolUUID(poolId);
         setAngle(angle);
         setUri(objectURI);
     }
 
-    public RotateXYPoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
+    public RotateXYPoolObjectRequest(final SessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
         this(null, identity, objectURI, poolId, object, angle);
     }
 
@@ -32,7 +32,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
         super();
     }
 
-    public RotateXYPoolObjectRequest(final LSDTransferEntity entity) {
+    public RotateXYPoolObjectRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -42,17 +42,17 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.MODIFY));
+    public List<AuthorizationRequest> authorizationRequests() {
+        return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
     }
 
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return Arrays.asList(getPoolUUID().toString());
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.ROTATE_XY_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.ROTATE_XY_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

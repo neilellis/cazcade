@@ -14,10 +14,10 @@ import cazcade.boardcast.client.main.widgets.list.BoardList;
 import cazcade.boardcast.client.main.widgets.login.BoardcastLoginOrRegisterPanel;
 import cazcade.boardcast.client.preflight.PreflightCheck;
 import cazcade.boardcast.client.resources.BoardcastClientBundle;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -25,10 +25,7 @@ import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
-import cazcade.vortex.gwt.util.client.ClientLog;
-import cazcade.vortex.gwt.util.client.GWTUtil;
-import cazcade.vortex.gwt.util.client.StartupUtil;
+import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.AbstractLazyHistoryAwareFactory;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
@@ -97,7 +94,7 @@ public class Boardcast implements EntryPoint {
         });
 
         if (!ClientApplicationConfiguration.isSnapshotMode()) {
-            GWTUtil.runAsync(new Runnable() {
+            $.async(new Runnable() {
                 @Override public void run() {
                     VersionNumberChecker.start();
                 }
@@ -115,7 +112,7 @@ public class Boardcast implements EntryPoint {
         createRequest = Window.Location.getPath().startsWith("/_create-");
         createUnlistedRequest = Window.Location.getPath().startsWith("/_create-unlisted");
 
-        GWTUtil.runAsync(new Runnable() {
+        $.async(new Runnable() {
             @Override public void run() {
                 injectChildren();
             }
@@ -247,13 +244,13 @@ public class Boardcast implements EntryPoint {
                         final boolean listed = createBoardDialog.isListed();
                         final String url = Window.Location.getParameter("url");
                         if (!listed || url != null) {
-                            BusFactory.getInstance().retrieveUUID(new Bus.UUIDCallback() {
+                            BusFactory.get().retrieveUUID(new Bus.UUIDCallback() {
                                 @Override
                                 public void callback(@Nonnull final LiquidUUID uuid) {
                                     final String unlistedShortUrl = "-" +
                                                                     uuid.toString().toLowerCase() +
                                                                     "~" +
-                                                                    UserUtil.getCurrentAlias().getAttribute(LSDAttribute.NAME);
+                                                                    UserUtil.currentAlias().$(Dictionary.NAME);
                                     HistoryManager.get().navigate(unlistedShortUrl);
                                 }
                             });
@@ -277,7 +274,7 @@ public class Boardcast implements EntryPoint {
         loginOrRegisterPanel = new BoardcastLoginOrRegisterPanel(registerRequest, new Runnable() {
             @Override
             public void run() {
-                final LiquidSessionIdentifier identity = loginOrRegisterPanel.getIdentity();
+                final SessionIdentifier identity = loginOrRegisterPanel.getIdentity();
                 assert identity != null;
                 loginUser(identity, loginAction);
             }
@@ -294,37 +291,37 @@ public class Boardcast implements EntryPoint {
         );
     }
 
-    private void loginUser(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final Runnable onLogin) {
+    private void loginUser(@Nonnull final SessionIdentifier identity, @Nonnull final Runnable onLogin) {
         UserUtil.setIdentity(identity);
         UserUtil.storeIdentity(identity);
         final GWTDataStore dataStore = new GWTDataStore(identity, new Runnable() {
             @Override
             public void run() {
-                BusFactory.getInstance().start();
-                BusFactory.getInstance()
-                          .send(new RetrieveAliasRequest(identity.getAliasURL()), new AbstractResponseCallback<RetrieveAliasRequest>() {
+                BusFactory.get().start();
+                BusFactory.get()
+                          .send(new RetrieveAliasRequest(identity.aliasURI()), new AbstractResponseCallback<RetrieveAliasRequest>() {
                               @Override
                               public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                                  final LSDTransferEntity alias = response.getResponse();
+                                  final TransferEntity alias = response.response();
                                   UserUtil.setCurrentAlias(alias);
                                   final Map<String, String> propertyMap = new HashMap<String, String>();
-                                  propertyMap.putAll(alias.getMap());
+                                  propertyMap.putAll(alias.map());
                                   propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
                                   propertyMap.put("alpha.mode", ClientApplicationConfiguration.isAlphaFeatures()
                                                                 ? "true"
                                                                 : "false");
-                                  final String name = alias.getAttribute(LSDAttribute.NAME);
-                                  final String fn = alias.getAttribute(LSDAttribute.FULL_NAME);
+                                  final String name = alias.$(Dictionary.NAME);
+                                  final String fn = alias.$(Dictionary.FULL_NAME);
                                   tracker.registerUser(name, fn, propertyMap);
 
                                   RootPanel.get().addStyleName("app-mode");
                                   loginOrRegisterPanel.hide();
-                                  GWTUtil.runAsync(new Runnable() {
+                                  $.async(new Runnable() {
                                       @Override public void run() {
                                           RootPanel.get("topbar-menu-container").add(new TopBar());
                                       }
                                   });
-                                  GWTUtil.runAsyncWithDelay(200, new Runnable() {
+                                  GWTUtil.delayAsync(200, new Runnable() {
                                       @Override public void run() { onLogin.run(); }
                                   });
                               }
@@ -332,9 +329,7 @@ public class Boardcast implements EntryPoint {
 
                               @Override
                               public void onFailure(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                                  final LSDTransferEntity result = response.getResponse();
-                                  final String description = result.getAttribute(LSDAttribute.DESCRIPTION);
-                                  ClientLog.log(description);
+                                  ClientLog.log(response.response().$(Dictionary.DESCRIPTION));
                               }
                           });
             }
@@ -349,23 +344,23 @@ public class Boardcast implements EntryPoint {
     }
 
     private void checkUserLoggedIn(@Nonnull final Runnable loginAction) {
-        final LiquidSessionIdentifier identity = UserUtil.retrieveUser();
+        final SessionIdentifier identity = UserUtil.retrieveUser();
         if (identity == null ||
-            identity.getSession() == null ||
+            identity.session() == null ||
             registerRequest ||
-            createRequest && UserUtil.isAnonymousOrLoggedOut()) {
+            createRequest && UserUtil.anon()) {
             DataStoreService.App
                             .getInstance()
                             .loginQuick(!ClientApplicationConfiguration.isLoginRequired()
                                         && !createRequest
-                                        && !registerRequest, new AsyncCallback<LiquidSessionIdentifier>() {
+                                        && !registerRequest, new AsyncCallback<SessionIdentifier>() {
                                 @Override
                                 public void onFailure(final Throwable caught) {
                                     ClientLog.log(caught);
                                 }
 
                                 @Override
-                                public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
+                                public void onSuccess(@Nullable final SessionIdentifier result) {
                                     if (result == null) {
                                         //                        Window.alert("Login required.");
                                         loginOrRegisterPanel.center();

@@ -4,9 +4,9 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -82,20 +82,17 @@ public class YouTubeTextBox extends VortexTextBox {
                 setValue(text);
                 processChange();
                 errorMessage.setText("");
-            }
-            else {
+            } else {
                 errorMessage.setText(INVALID_URL_MESSAGE);
             }
-        }
-        else {
+        } else {
             if (text.matches(VIDEO_REGEX)) {
                 setValue(text);
                 errorMessage.setText("");
                 if (andCallOnChange) {
                     processChange();
                 }
-            }
-            else {
+            } else {
                 errorMessage.setText(INVALID_URL_MESSAGE);
             }
         }
@@ -108,13 +105,13 @@ public class YouTubeTextBox extends VortexTextBox {
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getEntityDiff() {
-        final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(getEntity().getTypeDef());
-        if (getEntity().hasURI()) { newEntity.setAttribute(LSDAttribute.URI, getEntity().getURI().toString()); }
-        newEntity.setAttribute(LSDAttribute.EURI, "youtube:" + getValue());
-        newEntity.setAttribute(LSDAttribute.SOURCE, "http://www.youtube.com/embed/" + getValue() + "?wmode=transparent");
-        newEntity.setAttribute(LSDAttribute.IMAGE_URL, "http://img.youtube.com/vi/" + getValue() + "/hqdefault.jpg");
-        newEntity.setAttribute(LSDAttribute.MEDIA_ID, getValue());
+    public TransferEntity getEntityDiff() {
+        final TransferEntity newEntity = SimpleEntity.createNewEntity(getEntity().type());
+        if (getEntity().hasURI()) { newEntity.$(Dictionary.URI, getEntity().uri().toString()); }
+        newEntity.$(Dictionary.EURI, "youtube:" + getValue());
+        newEntity.$(Dictionary.SOURCE, "http://www.youtube.com/embed/" + getValue() + "?wmode=transparent");
+        newEntity.$(Dictionary.IMAGE_URL, "http://img.youtube.com/vi/" + getValue() + "/hqdefault.jpg");
+        newEntity.$(Dictionary.MEDIA_ID, getValue());
 
 
         return newEntity;

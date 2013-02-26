@@ -4,8 +4,8 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.InvalidHandler;
 import cazcade.vortex.common.client.events.ValidEvent;
 import cazcade.vortex.common.client.events.ValidHandler;
@@ -54,7 +54,7 @@ public class UrlField extends Composite implements VortexFormField {
 
 
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
+    public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String prefix) {
         urlField.bind(entity, attribute, prefix);
     }
 
@@ -62,7 +62,7 @@ public class UrlField extends Composite implements VortexFormField {
         return urlField.isBound();
     }
 
-    @Override public LSDAttribute getBoundAttribute() {
+    @Override public Attribute getBoundAttribute() {
         return urlField.getBoundAttribute();
     }
 
@@ -136,12 +136,12 @@ public class UrlField extends Composite implements VortexFormField {
     }
 
     @Override
-    public LSDTransferEntity getEntity() {
+    public TransferEntity getEntity() {
         return urlField.getEntity();
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getEntityDiff() {
+    public TransferEntity getEntityDiff() {
         return urlField.getEntityDiff();
     }
 

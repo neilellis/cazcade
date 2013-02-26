@@ -4,8 +4,8 @@
 
 package cazcade.liquid.api;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.SerializedRequest;
 
 import javax.annotation.Nonnull;
@@ -17,6 +17,7 @@ import java.util.Collection;
  * @author neilellis@cazcade.com
  */
 public interface LiquidMessage extends Serializable {
+
     @Nonnull SerializedRequest asSerializedRequest();
 
 
@@ -32,45 +33,45 @@ public interface LiquidMessage extends Serializable {
      *
      * @return
      */
-    Collection<LiquidURI> getAffectedEntities();
+    @Deprecated Collection<LiquidURI> affectedEntities();
 
-    @Nonnull String getCacheIdentifier();
+    @Nonnull String cacheIdentifier();
 
-    LiquidCachingScope getCachingScope();
+    CachingScope cachingScope();
 
-    @Nonnull String getDeduplicationIdentifier();
+    @Nonnull String deduplicationIdentifier();
 
-    @Nonnull LiquidUUID getId();
+    @Nonnull LiquidUUID id();
 
-    @Nonnull LiquidMessageType getMessageType();
+    @Nonnull LiquidMessageType messageType();
 
-    LiquidMessageOrigin getOrigin();
+    LiquidMessageOrigin origin();
 
-    @Nonnull LSDTransferEntity getRequestEntity();
+    @Nonnull TransferEntity request();
 
-    @Nonnull LSDTransferEntity getResponse();
+    @Nonnull TransferEntity response();
 
     /**
      * If there is a response entity returns that otherwise returns the original entity from the request.
      */
-    @Nullable LSDBaseEntity getResponseOrRequestEntity();
+    @Nullable Entity getResponseOrRequestEntity();
 
     LiquidMessageState getState();
 
     boolean isCacheable();
 
-    void setCachingScope(LiquidCachingScope cachingScope);
+    void setCachingScope(CachingScope cachingScope);
 
-    void setId(LiquidUUID id);
+    void id(LiquidUUID id);
 
-    void setOrigin(LiquidMessageOrigin origin);
+    void origin(LiquidMessageOrigin origin);
 
 
-    void setResponse(LSDTransferEntity entity);
+    void response(TransferEntity entity);
 
-    void setState(LiquidMessageState status);
+    void state(LiquidMessageState status);
 
-    boolean hasResponseEntity();
+    boolean hasResponse();
 
     boolean hasId();
 }

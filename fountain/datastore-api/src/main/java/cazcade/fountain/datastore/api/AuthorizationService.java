@@ -14,8 +14,7 @@ import javax.annotation.Nullable;
  * @author neilelliz@cazcade.com
  */
 public interface AuthorizationService {
-    @Nonnull
-    AuthorizationStatus authorize(LiquidSessionIdentifier identity, LiquidUUID resource, LiquidPermission permission) throws Exception;
+    @Nonnull AuthorizationStatus authorize(SessionIdentifier identity, LiquidUUID resource, Permission permission) throws Exception;
 
     @Nullable LiquidRequest authorize(LiquidRequest liquidRequest) throws Exception;
 
@@ -36,5 +35,5 @@ public interface AuthorizationService {
      * @return the entity passed in or an authorization failure entity.
      */
     @Nonnull
-    LiquidMessage postAuthorize(LiquidSessionIdentifier identity, AbstractRetrievalRequest request, LiquidPermission permission) throws Exception;
+    LiquidMessage postAuthorize(SessionIdentifier identity, AbstractRetrievalRequest request, Permission permission) throws Exception;
 }

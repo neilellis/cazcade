@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli;
 
 import cazcade.fountain.datastore.api.FountainDataStore;
-import cazcade.liquid.api.LiquidSessionIdentifier;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -13,28 +17,28 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class ShellSession {
-    private LiquidSessionIdentifier identity;
-    private LSDBaseEntity currentPool;
+    private SessionIdentifier identity;
+    private TransferEntity    currentPool;
 
     private String lastCommand;
     @Nonnull
-    private final List<LSDTransferEntity> entityStack = new ArrayList<LSDTransferEntity>();
+    private final List<TransferEntity> entityStack = new ArrayList<TransferEntity>();
 
     private FountainDataStore dataStore;
 
-    public void setIdentity(final LiquidSessionIdentifier identity) {
+    public void setIdentity(final SessionIdentifier identity) {
         this.identity = identity;
     }
 
-    public LiquidSessionIdentifier getIdentity() {
+    public SessionIdentifier getIdentity() {
         return identity;
     }
 
-    public LSDBaseEntity getCurrentPool() {
+    public TransferEntity getCurrentPool() {
         return currentPool;
     }
 
-    public void setCurrentPool(final LSDBaseEntity currentPool) {
+    public void setCurrentPool(final TransferEntity currentPool) {
         this.currentPool = currentPool;
     }
 
@@ -47,18 +51,18 @@ public class ShellSession {
     }
 
 
-    public void pushEntity(final LSDTransferEntity entity) {
+    public void pushEntity(final TransferEntity entity) {
         entityStack.add(entity);
     }
 
-    public LSDTransferEntity popEntity() {
+    public TransferEntity popEntity() {
         if (entityStack.isEmpty()) {
             throw new IllegalStateException("Cannot pop entity as stack is empty, how did this happen?");
         }
         return entityStack.remove(entityStack.size() - 1);
     }
 
-    public LSDBaseEntity getCurrentEntity() {
+    public Entity getCurrentEntity() {
         if (entityStack.isEmpty()) {
             throw new IllegalStateException("Not within the context of an entity.");
         }

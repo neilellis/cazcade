@@ -4,8 +4,8 @@
 
 package cazcade.fountain.server.rest.test;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.Types;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
@@ -42,16 +42,16 @@ public class FountainTestDataBuilderClient {
                 +
                 "&.fn=Neil+Ellis&.type="
                 +
-                LSDDictionaryTypes.USER.getValue());
+                Types.T_USER.getValue());
         client.getState()
               .setCredentials(new AuthScope(FountainTestClientSupport.host, FountainTestClientSupport.port, AuthScope.ANY_REALM), new UsernamePasswordCredentials(username, username));
-        final LSDBaseEntity sessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, username), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
-        final String sessionId = sessionEntity.getUUID().toString();
+        final Entity sessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, username), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
+        final String sessionId = sessionEntity.id().toString();
 
         clientSession = new ClientSession(client, sessionId, username);
         //        FountainTestClientSupport.callRESTApiWithGet(clientSession, "alias/create.xml?me&.name=neilellis&.network=twitter&.type=Identity.Person.Alias");
-        //        LSDTransferEntity aliasEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "alias.xml?uri=alias:twitter:neilellis");
-        //        assertTrue(aliasEntity.getTypeDef().getPrimaryType().toString().equals(LSDTypeDictionary.ALIAS.getAttribute()));
+        //        TransferEntity aliasEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "alias.xml?uri=alias:twitter:neilellis");
+        //        assertTrue(aliasEntity.type().getPrimaryType().toString().equals(LSDTypeDictionary.ALIAS.$()));
 
 
         initHomePool();
@@ -60,9 +60,9 @@ public class FountainTestDataBuilderClient {
     }
 
     private static void initHomePool() throws IOException {
-        final LSDBaseEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/"
-                                                                                                     + username);
-        final String entityId = poolEntity.getUUID().toString();
+        final Entity poolEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/"
+                                                                                              + username);
+        final String entityId = poolEntity.id().toString();
         FountainTestClientSupport.putEntityToURL(clientSession, "pool/"
                                                                 + entityId
                                                                 + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject1"),
@@ -86,17 +86,11 @@ public class FountainTestDataBuilderClient {
         FountainTestClientSupport.putEntityToURL(clientSession, "pool/"
                                                                 + entityId
                                                                 + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject5"), "alias:youtube:HomeAdditionPlus");
-        final LSDBaseEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/"
-                                                                                                     +
-                                                                                                     username
-                                                                                                     +
-                                                                                                     "%23TestObject4");
+        final Entity testEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" +
+                                                                                              username +
+                                                                                              "%23TestObject4");
         System.err.println(testEntity.toString());
-        assertTrue(testEntity.getTypeDef()
-                             .getPrimaryType()
-                             .getClassOnlyType()
-                             .asString()
-                             .equals(LSDDictionaryTypes.BITMAP_IMAGE_2D.getValue()));
+        assertTrue(testEntity.type().getPrimaryType().getClassOnlyType().asString().equals(Types.T_BITMAP_IMAGE_2D.getValue()));
     }
 
     private static void assertTrue(final boolean condition) {
@@ -106,13 +100,10 @@ public class FountainTestDataBuilderClient {
     }
 
     private static void initStream() throws IOException {
-        final LSDBaseEntity streamEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession,
-                "pool.xml?url=pool:///people/"
-                +
-                username
-                +
-                "/.stream");
-        final String streamId = streamEntity.getUUID().toString();
+        final Entity streamEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" +
+                                                                                                username +
+                                                                                                "/.stream");
+        final String streamId = streamEntity.id().toString();
         //        FountainTestClientSupport.postEntityToURL(clientSession, "pool/" + streamId + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TwitterFeed"), "alias:cazcade:"+username);
         FountainTestClientSupport.putEntityToURL(clientSession, "pool/"
                                                                 + streamId
@@ -132,12 +123,10 @@ public class FountainTestDataBuilderClient {
     }
 
     private static void initInbox() throws IOException {
-        final LSDBaseEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/"
-                                                                                                     +
-                                                                                                     username
-                                                                                                     +
-                                                                                                     "/.inbox");
-        final String entityId = poolEntity.getUUID().toString();
+        final Entity poolEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" +
+                                                                                              username +
+                                                                                              "/.inbox");
+        final String entityId = poolEntity.id().toString();
         FountainTestClientSupport.putEntityToURL(clientSession, "pool/"
                                                                 + entityId
                                                                 + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject1"),
@@ -161,16 +150,10 @@ public class FountainTestDataBuilderClient {
         FountainTestClientSupport.putEntityToURL(clientSession, "pool/"
                                                                 + entityId
                                                                 + ".xml", FountainTestClientSupport.createEntityFromPropertyfile("TestObject5"), "alias:youtube:HomeAdditionPlus");
-        final LSDBaseEntity testEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/"
-                                                                                                     +
-                                                                                                     username
-                                                                                                     +
-                                                                                                     "/.inbox%23TestObject4");
+        final Entity testEntity = FountainTestClientSupport.callRESTApiWithGet(clientSession, "pool.xml?url=pool:///people/" +
+                                                                                              username +
+                                                                                              "/.inbox%23TestObject4");
         System.err.println(testEntity.toString());
-        assertTrue(testEntity.getTypeDef()
-                             .getPrimaryType()
-                             .getClassOnlyType()
-                             .asString()
-                             .equals(LSDDictionaryTypes.BITMAP_IMAGE_2D.getValue()));
+        assertTrue(testEntity.type().getPrimaryType().getClassOnlyType().asString().equals(Types.T_BITMAP_IMAGE_2D.getValue()));
     }
 }

@@ -5,14 +5,13 @@
 package cazcade.vortex.pool;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.DeletePoolObjectRequest;
 import cazcade.liquid.api.request.LinkPoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.api.PoolObjectContainer;
@@ -40,78 +39,72 @@ public class PoolObjectContainerManager {
     private       boolean                  destroyed;
 
 
-    public PoolObjectContainerManager(@Nonnull final PoolObjectContainer container, final VortexThreadSafeExecutor executor, final LiquidURI poolURI, final FormatUtil features) {
+    public PoolObjectContainerManager(@Nonnull final PoolObjectContainer container, final VortexThreadSafeExecutor executor, final LiquidURI poolURI) {
         this.container = container;
         this.executor = executor;
 
-        createListenerId = BusFactory.getInstance()
-                                     .listenForURIAndRequestType(poolURI, LiquidRequestType.CREATE_POOL_OBJECT, new BusListener() {
-                                         @Override
-                                         public void handle(@Nonnull final LiquidMessage message) {
-                                             if (destroyed) {
-                                                 return;
-                                             }
+        createListenerId = BusFactory.get().listen(poolURI, RequestType.CREATE_POOL_OBJECT, new BusListener() {
+            @Override
+            public void handle(@Nonnull final LiquidMessage message) {
+                if (destroyed) {
+                    return;
+                }
 
-                                             ClientLog.log("Received create pool object request.");
-                                             if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
-                                                 ClientLog.log("Received create pool object request from server - processing it.");
-                                                 if (message.getState() == LiquidMessageState.FAIL) {
-                                                     Window.alert("Failed to add pool object.");
-                                                 }
-                                                 else if (message.getState() == LiquidMessageState.SUCCESS) {
-                                                     try {
-                                                         final LSDTransferEntity requestEntity = message.getResponse();
-                                                         ClientLog.log("Adding " + requestEntity.getTypeDef().asString());
-                                                         final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(container, requestEntity, features, executor);
-                                                         if (poolObjectPresenter != null) {
-                                                             add(poolObjectPresenter, true);
-                                                         }
+                ClientLog.log("Received create pool object request.");
+                if (message.origin() == LiquidMessageOrigin.SERVER) {
+                    ClientLog.log("Received create pool object request from server - processing it.");
+                    if (message.getState() == LiquidMessageState.FAIL) {
+                        Window.alert("Failed to add pool object.");
+                    } else if (message.getState() == LiquidMessageState.SUCCESS) {
+                        try {
+                            final TransferEntity requestEntity = message.response();
+                            ClientLog.log("Adding " + requestEntity.type().asString());
+                            final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(container, requestEntity, executor);
+                            if (poolObjectPresenter != null) {
+                                add(poolObjectPresenter, true);
+                            }
 
-                                                     } catch (Throwable e) {
-                                                         ClientLog.log(e);
-                                                     }
-                                                 }
-                                                 else {
-                                                     ClientLog.log("Create pool object request was neither success or fail, ignoring.");
-                                                 }
+                        } catch (Throwable e) {
+                            ClientLog.log(e);
+                        }
+                    } else {
+                        ClientLog.log("Create pool object request was neither success or fail, ignoring.");
+                    }
 
-                                             }
-                                             else {
-                                                 ClientLog.log("Received create pool object request from server - processing it.");
-                                             }
+                } else {
+                    ClientLog.log("Received create pool object request from server - processing it.");
+                }
 
 
-                                         }
-                                     });
-        deleteListenerId = BusFactory.getInstance()
-                                     .listenForURIAndRequestType(poolURI, LiquidRequestType.DELETE_POOL_OBJECT, new BusListener() {
-                                         @Override
-                                         public void handle(@Nonnull final LiquidMessage message) {
-                                             if (destroyed) {
-                                                 return;
-                                             }
+            }
+        });
+        deleteListenerId = BusFactory.get().listen(poolURI, RequestType.DELETE_POOL_OBJECT, new BusListener() {
+            @Override
+            public void handle(@Nonnull final LiquidMessage message) {
+                if (destroyed) {
+                    return;
+                }
 
-                                             if (message.getOrigin() == LiquidMessageOrigin.SERVER) {
-                                                 if (message.getState() == LiquidMessageState.FAIL) {
-                                                     Window.alert("Failed to delete pool object.");
-                                                 }
-                                                 else {
+                if (message.origin() == LiquidMessageOrigin.SERVER) {
+                    if (message.getState() == LiquidMessageState.FAIL) {
+                        Window.alert("Failed to delete pool object.");
+                    } else {
 
-                                                     try {
-                                                         final LSDBaseEntity response = message.getResponse();
-                                                         final LiquidURI uri = response.getURI();
-                                                         if (getObjectPresenters().containsKey(uri)) {
-                                                             remove(getObjectPresenters().get(uri));
-                                                         }
+                        try {
+                            final Entity response = message.response();
+                            final LiquidURI uri = response.uri();
+                            if (getObjectPresenters().containsKey(uri)) {
+                                remove(getObjectPresenters().get(uri));
+                            }
 
-                                                     } catch (Throwable e) {
-                                                         ClientLog.log(e);
-                                                     }
-                                                 }
-                                             }
+                        } catch (Throwable e) {
+                            ClientLog.log(e);
+                        }
+                    }
+                }
 
-                                         }
-                                     });
+            }
+        });
     }
 
     @Nonnull
@@ -126,7 +119,7 @@ public class PoolObjectContainerManager {
                 if (destroyed) {
                     return;
                 }
-                final LiquidURI uri = poolObjectPresenter.getEntity().getURI();
+                final LiquidURI uri = poolObjectPresenter.getEntity().uri();
                 objectPresenters.put(uri, poolObjectPresenter);
                 if (poolObjectWidgetsByURI.get(uri) == null) {
                     final Widget view = poolObjectPresenter.getPoolObjectView();
@@ -139,7 +132,7 @@ public class PoolObjectContainerManager {
                     poolObjectPresenter.setOnDelete(new Runnable() {
                         @Override
                         public void run() {
-                            BusFactory.getInstance()
+                            BusFactory.get()
                                       .send(new DeletePoolObjectRequest(uri), new AbstractResponseCallback<DeletePoolObjectRequest>() {
                                           @Override
                                           public void onSuccess(final DeletePoolObjectRequest message, final DeletePoolObjectRequest response) {
@@ -160,7 +153,7 @@ public class PoolObjectContainerManager {
 
     void remove(@Nonnull final PoolObjectPresenter poolObjectPresenter) {
         container.removeView(poolObjectPresenter.getPoolObjectView());
-        final LiquidURI uri = poolObjectPresenter.getEntity().getURI();
+        final LiquidURI uri = poolObjectPresenter.getEntity().uri();
         poolObjectWidgetsByURI.remove(uri);
         poolObjectPresenter.onRemoveFromPool();
         objectPresenters.remove(uri);
@@ -168,9 +161,9 @@ public class PoolObjectContainerManager {
 
     public void transfer(@Nonnull final PoolObjectPresenter source, @Nonnull final PoolObjectPresenterContainer destination) {
         source.hide();
-        BusFactory.getInstance()
-                  .send(new LinkPoolObjectRequest(source.getEntity().getUUID(), destination.getEntity()
-                                                                                           .getUUID(), true), new AbstractResponseCallback<LinkPoolObjectRequest>() {
+        BusFactory.get()
+                  .send(new LinkPoolObjectRequest(source.getEntity().id(), destination.getEntity()
+                                                                                      .id(), true), new AbstractResponseCallback<LinkPoolObjectRequest>() {
                       @Override
                       public void onSuccess(final LinkPoolObjectRequest message, final LinkPoolObjectRequest response) {
                           remove(source);
@@ -201,7 +194,7 @@ public class PoolObjectContainerManager {
                             executor.execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (((PoolObjectDropTarget) presenter).willAccept(source.getEntity().getTypeDef())) {
+                                    if (((PoolObjectDropTarget) presenter).willAccept(source.getEntity().type())) {
                                         ((PoolObjectDropTarget) presenter).accept(source);
                                     }
                                 }
@@ -219,8 +212,8 @@ public class PoolObjectContainerManager {
             @Override public void run() {
                 container = null;
                 executor = null;
-                BusFactory.getInstance().removeListener(deleteListenerId);
-                BusFactory.getInstance().removeListener(createListenerId);
+                BusFactory.get().remove(deleteListenerId);
+                BusFactory.get().remove(createListenerId);
                 poolObjectWidgetsByURI.clear();
                 objectPresenters.clear();
             }

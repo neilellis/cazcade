@@ -4,9 +4,9 @@
 
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import junit.framework.TestCase;
 
@@ -26,20 +26,20 @@ public class LSDEntityTest extends TestCase {
         props.load(getClass().getResourceAsStream("test.properties"));
         final HashMap<String, String> propMap = new HashMap(props);
         //        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
-        final LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
-        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, System.out);
-        //        ((LSDEntityFactory)applicationContext.getBean("LSDEntityFactory")).marshall(LSDFormat.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
-        //        LSDNode lsdNode = entity.asFormatIndependentTree();
+        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.createFromProperties(propMap);
+        //        ((EntityFactory)applicationContext.getBean("EntityFactory")).marshall(Format.plist, entity, System.out);
+        //        ((EntityFactory)applicationContext.getBean("EntityFactory")).marshall(Format.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
+        //        Node lsdNode = entity.asFormatIndependentTree();
         System.out.println(entity.dump());
-        final List<LSDTransferEntity> lsdEntities = (List<LSDTransferEntity>) entity.getSubEntities(LSDAttribute.CHILD);
-        for (final LSDTransferEntity lsdEntity : lsdEntities) {
+        final List<TransferEntity> lsdEntities = (List<TransferEntity>) entity.children(Dictionary.CHILD_A);
+        for (final TransferEntity lsdEntity : lsdEntities) {
             System.out.printf("****** %s ******%n", lsdEntity.dump());
-            final Map<String, String> stringMap = lsdEntity.getMap();
+            final Map<String, String> stringMap = lsdEntity.map();
             for (final Map.Entry<String, String> entry : stringMap.entrySet()) {
                 System.out.printf("%s=%s%n", entry.getKey(), entry.getValue());
             }
         }
-        assertEquals("600E8400-ABCD-1234-5678-446677889900", lsdEntities.get(0).getUUID().toString().toUpperCase());
+        assertEquals("600E8400-ABCD-1234-5678-446677889900", lsdEntities.get(0).id().toString().toUpperCase());
     }
 
     public void testUnMarshall() {
@@ -95,10 +95,10 @@ public class LSDEntityTest extends TestCase {
                                     "      </view>\n" +
                                     "      <published>1283565248612</published>\n" +
                                     "    </entity>";
-        final LSDSimpleEntity entity = (LSDSimpleEntity) LiquidXStreamFactory.getXstream().fromXML(entityString);
+        final SimpleEntity entity = (SimpleEntity) LiquidXStreamFactory.getXstream().fromXML(entityString);
         entity.asMapForPersistence(false, true);
         final String entityReSerialized = LiquidXStreamFactory.getXstream().toXML(entity);
-        final LSDSimpleEntity finalEntity = (LSDSimpleEntity) LiquidXStreamFactory.getXstream().fromXML(entityReSerialized);
+        final SimpleEntity finalEntity = (SimpleEntity) LiquidXStreamFactory.getXstream().fromXML(entityReSerialized);
         finalEntity.asMapForPersistence(false, true);
     }
 }

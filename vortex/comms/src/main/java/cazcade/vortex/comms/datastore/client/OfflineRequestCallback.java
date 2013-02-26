@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.comms.datastore.client;
 
-import cazcade.liquid.api.LiquidCachingScope;
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.CachingScope;
+import cazcade.liquid.api.SessionIdentifier;
 import com.google.gwt.http.client.Header;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
@@ -15,13 +19,13 @@ import javax.annotation.Nullable;
 public class OfflineRequestCallback implements RequestCallback {
 
     // This String we can save in localStorage.
-    private String serializedResponse;
-    private final String requestIdentifier;
-    private final LiquidSessionIdentifier identity;
-    private final RequestCallback callback;
-    private final String applicationVersion;
+    private       String            serializedResponse;
+    private final String            requestIdentifier;
+    private final SessionIdentifier identity;
+    private final RequestCallback   callback;
+    private final String            applicationVersion;
 
-    public OfflineRequestCallback(final String requestIdentifier, final LiquidSessionIdentifier identity, final RequestCallback callback, final String applicationVersion) {
+    public OfflineRequestCallback(final String requestIdentifier, final SessionIdentifier identity, final RequestCallback callback, final String applicationVersion) {
         this.requestIdentifier = requestIdentifier;
         this.identity = identity;
         this.callback = callback;
@@ -44,13 +48,17 @@ public class OfflineRequestCallback implements RequestCallback {
                 return;
             }
         }
-        if (response.getStatusCode() == 200 && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE) != null && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE).equals(LiquidCachingScope.USER.name())) {
+        if (response.getStatusCode() == 200
+            && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE) != null
+            && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE).equals(CachingScope.USER.name())) {
             serializedResponse = response.getText();
             if (Storage.isLocalStorageSupported()) {
                 final Storage storage = Storage.getLocalStorageIfSupported();
                 storage.setItem(cacheKey(), serializedResponse);
             }
-        } else if (response.getStatusCode() == 200 && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE) != null && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE).equals(LiquidCachingScope.SESSION.name())) {
+        } else if (response.getStatusCode() == 200
+                   && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE) != null
+                   && response.getHeader(DataStoreService.X_VORTEX_CACHE_SCOPE).equals(CachingScope.SESSION.name())) {
             serializedResponse = response.getText();
             if (Storage.isSessionStorageSupported()) {
                 final Storage storage = Storage.getSessionStorageIfSupported();
@@ -63,7 +71,7 @@ public class OfflineRequestCallback implements RequestCallback {
 
     @Nonnull
     private String cacheKey() {
-        return identity.getName() + ":" + applicationVersion + ":" + requestIdentifier;
+        return identity.name() + ":" + applicationVersion + ":" + requestIdentifier;
     }
 
 
@@ -86,8 +94,7 @@ public class OfflineRequestCallback implements RequestCallback {
         }
     }
 
-    @Nullable
-    Response getOldResponse(@Nonnull final Storage storage) {
+    @Nullable Response getOldResponse(@Nonnull final Storage storage) {
 
         return new Response() {
 
@@ -96,8 +103,7 @@ public class OfflineRequestCallback implements RequestCallback {
                 return storage.getItem(cacheKey());
             }
 
-            @Nullable
-            @Override
+            @Nullable @Override
             public String getStatusText() {
                 return null;
             }
@@ -107,20 +113,17 @@ public class OfflineRequestCallback implements RequestCallback {
                 return 200;
             }
 
-            @Nullable
-            @Override
+            @Nullable @Override
             public String getHeadersAsString() {
                 return null;
             }
 
-            @Nullable
-            @Override
+            @Nullable @Override
             public Header[] getHeaders() {
                 return null;
             }
 
-            @Nullable
-            @Override
+            @Nullable @Override
             public String getHeader(final String header) {
                 return null;
             }

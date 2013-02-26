@@ -4,7 +4,6 @@
 
 package cazcade.vortex.pool.objects.richtext;
 
-import cazcade.vortex.common.client.FormatUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -21,15 +20,8 @@ public class StickyView extends RichTextView {
     public StickyView() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-
     }
 
-    public StickyView(final FormatUtil formatter) {
-        super();
-        initWidget(ourUiBinder.createAndBindUi(this));
-        label.setFormatter(formatter);
-
-    }
 
     @Override public int getDefaultZIndex() {
         return 5000;

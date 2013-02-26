@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.commands;
 
 import cazcade.cli.ShellSession;
@@ -17,17 +21,13 @@ public interface Command extends ServiceStateMachine {
 
     boolean isShortLived();
 
-    @Nonnull
-    Options getOptions();
+    @Nonnull Options getOptions();
 
-    @Nonnull
-    String getDescription();
+    @Nonnull String getDescription();
 
-    @Nonnull
-    String getName();
+    @Nonnull String getName();
 
-    @Nullable
-    String getShortName();
+    @Nullable String getShortName();
 
     /**
      * A positive interval indicates a repeating job which should be repeated every n seconds. A negative interval
@@ -45,13 +45,12 @@ public interface Command extends ServiceStateMachine {
      * @param shellSession
      * @throws Exception if something goes wrong.
      */
-    @Nullable
-    String run(String[] args, ShellSession shellSession) throws Exception;
+    @Nullable String run(String[] args, ShellSession shellSession) throws Exception;
 
     /**
      * How long in seconds before this job should be executed.
      *
-     * @return initial delay in seconds.
+     * @return initial delayAsync in seconds.
      */
     long getInitialDelaySeconds();
 

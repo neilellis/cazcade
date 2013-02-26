@@ -5,9 +5,9 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.CachedImage;
@@ -38,57 +38,50 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
     @UiField SelfUpdatingRelativeDate dateTime;
 
     @Nonnull
-    private final LSDBaseEntity entity;
+    private final Entity entity;
     @Nonnull
-    private final LSDBaseEntity author;
-    private final String        authorFullName;
-    private final String        typeAsString;
-    private final String        locationName;
+    private final Entity author;
+    private final String authorFullName;
+    private final String typeAsString;
+    private final String locationName;
     @Nullable
-    private final Date          date;
+    private final Date   date;
 
     interface VortexStatusUpdatePanelUiBinder extends UiBinder<HTMLPanel, VortexStatusUpdatePanel> {}
 
     private static final VortexStatusUpdatePanelUiBinder ourUiBinder = GWT.create(VortexStatusUpdatePanelUiBinder.class);
 
 
-    public VortexStatusUpdatePanel(@Nonnull final LSDBaseEntity statusUpdate, final boolean large) {
+    public VortexStatusUpdatePanel(@Nonnull final Entity statusUpdate, final boolean large) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         if (large) {
             profileImage.setWidth("48px");
             profileImage.setHeight("64px");
             profileImage.setSize(CachedImage.MEDIUM);
-        }
-        else {
+        } else {
             profileImage.setWidth("14px");
             profileImage.setHeight("18px");
             profileImage.setSize(CachedImage.SMALL);
         }
         entity = statusUpdate;
-        author = statusUpdate.getSubEntity(LSDAttribute.AUTHOR, false);
-        profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
-        if (statusUpdate.hasAttribute(LSDAttribute.SOURCE)) {
-            locationName = new LiquidURI(entity.getAttribute(LSDAttribute.SOURCE)).getWithoutFragmentOrComment()
-                                                                                  .asBoardURL()
-                                                                                  .asUrlSafe();
-        }
-        else {
+        author = statusUpdate.child(Dictionary.AUTHOR_A, false);
+        profileImage.setUrl(author.$(Dictionary.IMAGE_URL));
+        if (statusUpdate.has$(Dictionary.SOURCE)) {
+            locationName = new LiquidURI(entity.$(Dictionary.SOURCE)).withoutFragmentOrComment().board().safe();
+        } else {
             locationName = THE_VOID;
         }
-        authorFullName = author.getAttribute(LSDAttribute.FULL_NAME);
-        typeAsString = entity.getTypeDef().asString();
-        if (statusUpdate.isA(LSDDictionaryTypes.OBJECT_UPDATE)) {
+        authorFullName = author.$(Dictionary.FULL_NAME);
+        typeAsString = entity.type().asString();
+        if (statusUpdate.is(Types.T_OBJECT_UPDATE)) {
             text.setInnerText(authorFullName + " is making changes in " + locationName);
-        }
-        else if (statusUpdate.isA(LSDDictionaryTypes.COMMENT_UPDATE)) {
-            text.setInnerText(author.getAttribute(LSDAttribute.FULL_NAME) + " is saying something in " + locationName);
-        }
-        else if (statusUpdate.isA(LSDDictionaryTypes.PRESENCE_UPDATE)) {
-            text.setInnerText(author.getAttribute(LSDAttribute.FULL_NAME) + " is in " + locationName);
-        }
-        else {
-            text.setInnerText("Unknown type " + statusUpdate.getTypeDef());
+        } else if (statusUpdate.is(Types.T_COMMENT_UPDATE)) {
+            text.setInnerText(author.$(Dictionary.FULL_NAME) + " is saying something in " + locationName);
+        } else if (statusUpdate.is(Types.T_PRESENCE_UPDATE)) {
+            text.setInnerText(author.$(Dictionary.FULL_NAME) + " is in " + locationName);
+        } else {
+            text.setInnerText("Unknown type " + statusUpdate.type());
         }
         addDomHandler(new ClickHandler() {
             @Override
@@ -98,12 +91,12 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
                 }
             }
         }, ClickEvent.getType());
-        date = entity.getPublished();
+        date = entity.published();
         dateTime.setDate(date);
     }
 
     @Nonnull @Override
-    public LSDBaseEntity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 

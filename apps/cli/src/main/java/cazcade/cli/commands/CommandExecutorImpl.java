@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.commands;
 
 import cazcade.cli.ShellSession;
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.CollectionPredicate;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,11 +78,10 @@ public class CommandExecutorImpl implements CommandExecutor {
                 }
                 //Why the random : http://apiblog.twitter.com/scheduling-your-twitter-bots
                 //so we're trying not to impact resources with precise scheduling, but attempting to get average
-                //scheduling correct (i.e. the average of Math.random() is 0.5 so the average initial delay
-                // (over multiple executions) will be equal to the initial delay specified. This is in case
+                //scheduling correct (i.e. the average of Math.random() is 0.5 so the average initial delayAsync
+                // (over multiple executions) will be equal to the initial delayAsync specified. This is in case
                 // any of our commands are externally scheduled (i.e. by cron).
-            }, (long) (0.5 + Math.random() * command.getInitialDelaySeconds()),
-                    interval, TimeUnit.SECONDS);
+            }, (long) (0.5 + Math.random() * command.getInitialDelaySeconds()), interval, TimeUnit.SECONDS);
 
         } else {
             schedulor.schedule(new Runnable() {
@@ -102,13 +105,13 @@ public class CommandExecutorImpl implements CommandExecutor {
                 String regex = arg.replaceAll("\\*", "(.*)");
                 regex = regex.replaceAll("\\.", "\\.");
                 regex = regex.replaceAll("\\+", "\\+");
-                final LSDBaseEntity curr = shellSession.getCurrentPool();
-                final List<LSDTransferEntity> childPools = curr.getSubEntities(LSDAttribute.CHILD);
-                for (final LSDTransferEntity childPool : childPools) {
-                    if (childPool.getAttribute(LSDAttribute.NAME).matches(regex)) {
-                        expanded.add(childPool.getURI().toString());
+                final TransferEntity curr = shellSession.getCurrentPool();
+                final String finalRegex = regex;
+                expanded.addAll(curr.children(Dictionary.CHILD_A).filter(new CollectionPredicate<TransferEntity>() {
+                    @Override public boolean call(TransferEntity childPool) {
+                        return childPool.$(Dictionary.NAME).matches(finalRegex);
                     }
-                }
+                }).$(Dictionary.URI));
             } else {
                 expanded.add(arg);
             }

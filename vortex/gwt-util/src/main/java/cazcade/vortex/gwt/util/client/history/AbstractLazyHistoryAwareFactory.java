@@ -4,7 +4,7 @@
 
 package cazcade.vortex.gwt.util.client.history;
 
-import cazcade.vortex.gwt.util.client.GWTUtil;
+import cazcade.vortex.gwt.util.client.$;
 
 import javax.annotation.Nonnull;
 
@@ -21,7 +21,7 @@ public abstract class AbstractLazyHistoryAwareFactory implements HistoryLocation
 
     @Override
     public void handle(@Nonnull final HistoryLocationCallback callback) {
-        GWTUtil.runAsync(new Runnable() {
+        $.async(new Runnable() {
             @Override public void run() {
                 if (instance == null) {
                     instance = getInstanceInternal();

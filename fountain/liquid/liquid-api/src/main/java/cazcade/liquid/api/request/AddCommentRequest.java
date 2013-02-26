@@ -5,10 +5,10 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,29 +17,29 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddCommentRequest extends AbstractUpdateRequest {
-    public AddCommentRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, @Nonnull final LSDTransferEntity entity) {
+    public AddCommentRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, @Nonnull final TransferEntity entity) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setRequestEntity(entity);
         setUri(uri);
     }
 
-    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    public AddCommentRequest(final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity) {
         this(null, identity, target, null, entity);
     }
 
-    public AddCommentRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDTransferEntity entity) {
+    public AddCommentRequest(final SessionIdentifier identity, final LiquidURI uri, final TransferEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
 
     public AddCommentRequest(final LiquidURI uri, final String text) {
         super();
-        final LSDTransferEntity requestEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.COMMENT);
-        requestEntity.remove(LSDAttribute.PUBLISHED);
-        requestEntity.setAttribute(LSDAttribute.TEXT_BRIEF, text);
+        final SimpleEntity<? extends TransferEntity> requestEntity = SimpleEntity.create(Types.T_COMMENT);
+        requestEntity.remove(Dictionary.PUBLISHED);
+        requestEntity.$(Dictionary.TEXT_BRIEF, text);
         setRequestEntity(requestEntity);
         //Time clocks vary so we don't want this set.
         setUri(uri);
@@ -49,14 +49,14 @@ public class AddCommentRequest extends AbstractUpdateRequest {
         super();
     }
 
-    public AddCommentRequest(final LSDTransferEntity entity) {
+    public AddCommentRequest(final TransferEntity entity) {
         super(entity);
     }
 
     @Override
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
-        getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        getEntity().$(Dictionary.REQUEST_ENTITY, Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
     }
 
     @Nonnull @Override
@@ -65,19 +65,18 @@ public class AddCommentRequest extends AbstractUpdateRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri().getScheme() == LiquidURIScheme.alias) {
+    public List<AuthorizationRequest> authorizationRequests() {
+        if (uri().scheme() == LiquidURIScheme.alias) {
             return Collections.EMPTY_LIST;
-        }
-        else {
+        } else {
             return hasTarget()
-                   ? Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW))
-                   : Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.VIEW));
+                   ? Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM))
+                   : Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
         }
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.ADD_COMMENT;
+    public RequestType requestType() {
+        return RequestType.ADD_COMMENT;
     }
 }

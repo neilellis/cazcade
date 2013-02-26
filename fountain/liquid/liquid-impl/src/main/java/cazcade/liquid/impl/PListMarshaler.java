@@ -4,8 +4,8 @@
 
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDNode;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Node;
+import cazcade.liquid.api.lsd.TransferEntity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -30,7 +30,7 @@ public class PListMarshaler implements LSDMarshaler {
         return "text/plist";
     }
 
-    public void marshal(@Nullable final LSDTransferEntity lsdEntity, final OutputStream output) {
+    public void marshal(@Nullable final TransferEntity lsdEntity, final OutputStream output) {
         if (lsdEntity == null) {
             throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
@@ -47,8 +47,8 @@ public class PListMarshaler implements LSDMarshaler {
         doc.appendChild(plist);
         final Element root = doc.createElement("dict");
         plist.appendChild(root);
-        final LSDNode lsdNode = lsdEntity.asFormatIndependentTree();
-        process(doc, root, lsdNode);
+        final Node node = lsdEntity.asFormatIndependentTree();
+        process(doc, root, node);
         try {
             // Prepare the DOM document for writing
             final Source source = new DOMSource(doc);
@@ -66,26 +66,23 @@ public class PListMarshaler implements LSDMarshaler {
         }
     }
 
-    private void process(@Nonnull final Document doc, @Nonnull final Element currentElement, @Nonnull final LSDNode lsdNode) {
-        for (final LSDNode node : lsdNode.getChildren()) {
+    private void process(@Nonnull final Document doc, @Nonnull final Element currentElement, @Nonnull final Node lsdNode) {
+        for (final Node node : lsdNode.getChildren()) {
             final Element keyElement = doc.createElement("key");
             keyElement.setTextContent(node.getName());
             currentElement.appendChild(keyElement);
             if (node.isLeaf()) {
                 if (node.isArray()) {
                     processArray(doc, currentElement, node);
-                }
-                else {
+                } else {
                     final Element valueElement = doc.createElement("string");
                     valueElement.setTextContent(node.getLeafValue());
                     currentElement.appendChild(valueElement);
                 }
-            }
-            else {
+            } else {
                 if (node.isArray()) {
                     processArray(doc, currentElement, node);
-                }
-                else {
+                } else {
                     final Element root = doc.createElement("dict");
                     currentElement.appendChild(root);
                     process(doc, root, node);
@@ -94,17 +91,16 @@ public class PListMarshaler implements LSDMarshaler {
         }
     }
 
-    private void processArray(@Nonnull final Document doc, @Nonnull final Element currentElement, @Nonnull final LSDNode node) {
+    private void processArray(@Nonnull final Document doc, @Nonnull final Element currentElement, @Nonnull final Node node) {
         final Element valueElement = doc.createElement("array");
         currentElement.appendChild(valueElement);
-        final List<LSDNode> children = node.getChildren();
-        for (final LSDNode child : children) {
+        final List<Node> children = node.getChildren();
+        for (final Node child : children) {
             if (child.isLeaf()) {
                 final Element arrayElement = doc.createElement("string");
                 arrayElement.setTextContent(child.getLeafValue());
                 valueElement.appendChild(arrayElement);
-            }
-            else {
+            } else {
                 final Element root = doc.createElement("dict");
                 valueElement.appendChild(root);
                 process(doc, root, child);

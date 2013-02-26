@@ -9,10 +9,10 @@ import cazcade.fountain.datastore.api.AuthorizationService;
 import cazcade.fountain.datastore.api.AuthorizationStatus;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDType;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.Type;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.AbstractRetrievalRequest;
 import cazcade.liquid.api.request.AuthorizationRequest;
 
@@ -30,59 +30,53 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private FountainDataStore dataStore;
 
     @Nonnull
-    public AuthorizationStatus authorize(final LiquidSessionIdentifier identity, final LiquidUUID resource, final LiquidPermission permission) throws Exception {
+    public AuthorizationStatus authorize(final SessionIdentifier identity, final LiquidUUID resource, final Permission permission) throws Exception {
         final LiquidMessage message = dataStore.process(new AuthorizationRequest(identity, resource, permission));
-        final LSDBaseEntity response = message.getResponse();
-        final LSDType lsdType = response.getTypeDef().getPrimaryType();
-        if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
+        final Entity response = message.response();
+        final Type type = response.type().getPrimaryType();
+        if (Types.T_AUTHORIZATION_ACCEPTANCE.equals(type)) {
             return AuthorizationStatus.ACCEPTED;
-        }
-        else if (LSDDictionaryTypes.AUTHORIZATION_DENIAL.equals(lsdType)) {
+        } else if (Types.T_AUTHORIZATION_DENIAL.equals(type)) {
             return AuthorizationStatus.DENIED;
-        }
-        else if (LSDDictionaryTypes.AUTHORIZATION_NOT_REQUIRED.equals(lsdType)) {
+        } else if (Types.T_AUTHORIZATION_NOT_REQUIRED.equals(type)) {
             return AuthorizationStatus.NOT_REQUIRED;
-        }
-        else if (LSDDictionaryTypes.AUTHORIZATION_INVALID.equals(lsdType)) {
+        } else if (Types.T_AUTHORIZATION_INVALID.equals(type)) {
             return AuthorizationStatus.INVALID;
-        }
-        else if (LSDDictionaryTypes.EXCEPTION.equals(lsdType.getClassOnlyType())) {
-            log.error(message.getResponse().getAttribute(LSDAttribute.TITLE));
-            log.error(message.getResponse().getAttribute(LSDAttribute.TEXT));
+        } else if (Types.T_EXCEPTION.equals(type.getClassOnlyType())) {
+            log.error(message.response().$(Dictionary.TITLE));
+            log.error(message.response().$(Dictionary.TEXT));
             return AuthorizationStatus.INVALID;
-        }
-        else {
+        } else {
             log.warn("Authorization denied due to the following reason:");
-            log.warn(message.getResponse().getAttribute(LSDAttribute.TITLE));
-            log.warn(message.getResponse().getAttribute(LSDAttribute.TEXT));
+            log.warn(message.response().$(Dictionary.TITLE));
+            log.warn(message.response().$(Dictionary.TEXT));
             return AuthorizationStatus.INVALID;
         }
     }
 
     @Nullable
     public LiquidRequest authorize(@Nonnull final LiquidRequest liquidRequest) throws Exception {
-        final List<AuthorizationRequest> authRequests = liquidRequest.getAuthorizationRequests();
+        final List<AuthorizationRequest> authRequests = liquidRequest.authorizationRequests();
         for (final AuthorizationRequest authRequest : authRequests) {
             log.debug("Authorization request {0} for {1} being processed.", authRequest.getActions(), authRequest.hasTarget()
                                                                                                       ? authRequest.getTarget()
                                                                                                       : "<no target>");
-            authRequest.setSessionId(liquidRequest.getSessionIdentifier());
+            authRequest.session(liquidRequest.session());
             final LiquidMessage message = dataStore.process(authRequest);
             //            //noinspection ConstantConditions
             //            if (message == null) {
             //                throw new NullPointerException("Received a null message back from the data store during authorization.");
             //            }
             //            //noinspection ConstantConditions
-            //            if (message.getResponse() == null) {
+            //            if (message.response() == null) {
             //                throw new NullPointerException("Received a null response back from the data store during authorization.");
             //            }
-            final LSDType lsdType = message.getResponse().getTypeDef().getPrimaryType();
-            if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
+            final Type type = message.response().type().getPrimaryType();
+            if (Types.T_AUTHORIZATION_ACCEPTANCE.equals(type)) {
                 log.debug("SUCCESS for authorization.");
-            }
-            else {
+            } else {
                 log.debug("FAILED authorization for actions {0}", authRequest.getActions());
-                message.setState(LiquidMessageState.FAIL);
+                message.state(LiquidMessageState.FAIL);
                 return (LiquidRequest) message;
             }
         }
@@ -90,20 +84,19 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Nonnull
-    public LiquidMessage postAuthorize(final LiquidSessionIdentifier identity, @Nonnull final AbstractRetrievalRequest message, final LiquidPermission permission) throws Exception {
+    public LiquidMessage postAuthorize(final SessionIdentifier identity, @Nonnull final AbstractRetrievalRequest message, final Permission permission) throws Exception {
         log.debug("Post authorizing: {0}", message.getClass().getSimpleName());
-        final LSDBaseEntity response = message.getResponse();
-        if (response.getTypeDef().getPrimaryType().isSystemType()) {
+        final Entity response = message.response();
+        if (response.type().getPrimaryType().isSystemType()) {
             return message;
         }
-        final LiquidUUID resource = response.getUUID();
+        final LiquidUUID resource = response.id();
         final LiquidMessage authMessage = dataStore.process(new AuthorizationRequest(identity, resource, permission));
-        final LSDType lsdType = authMessage.getResponse().getTypeDef().getPrimaryType();
-        if (LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE.equals(lsdType)) {
+        final Type type = authMessage.response().type().getPrimaryType();
+        if (Types.T_AUTHORIZATION_ACCEPTANCE.equals(type)) {
             log.debug("SUCCESS authorizing: {0}", message.getClass().getSimpleName());
             return message;
-        }
-        else {
+        } else {
             log.debug("FAILED authorizing: {0}", message.getClass().getSimpleName());
             return authMessage;
         }

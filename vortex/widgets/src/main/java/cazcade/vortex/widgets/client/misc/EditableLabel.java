@@ -74,8 +74,6 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
      * TextArea element to enable text to be changed if Label is wordwrapped
      */
     private RichTextArea changeTextArea;
-    @Nonnull
-    private FormatUtil   formatter;
     /**
      * Label element, which is initially is diplayed.
      */
@@ -244,8 +242,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
                 instance.add(buttonPanel);
                 changeTextArea.setHTML(originalText);
                 changeTextArea.setFocus(true);
-            }
-            else {
+            } else {
                 // Otherwise use the TextBox to edit.
                 instance.add(changeText);
                 changeText.setText(originalText);
@@ -275,8 +272,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
             if (buttonPanel != null) {
                 buttonPanel.removeFromParent();
             }
-        }
-        else {
+        } else {
             // Otherwise hide the TextBox
             changeText.removeFromParent();
             if (buttonPanel != null) {
@@ -299,8 +295,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
         if (text.getWordWrap()) {
             // Set the Label to be the text in the Text Box
             setText(changeTextArea.getHTML());
-        }
-        else {
+        } else {
             // Set the Label to be the text in the Text Box
             setText(changeText.getText());
         }
@@ -337,8 +332,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
                     }
                 }
             });
-        }
-        else {
+        } else {
             text.addClickListener(new ClickListener() {
                 public void onClick(final Widget sender) {
                     if (editable) {
@@ -370,12 +364,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
         plainText = labelText;
 
         // Create the Label element and add a ClickListener to call out Change method when clicked
-        if (formatter != null) {
-            text = new HTML(formatter.formatRichText(labelText));
-        }
-        else {
-            text = new HTML(labelText);
-        }
+        text = new HTML(FormatUtil.getInstance().formatRichText(labelText));
 
         text.setStyleName("editableLabel-label");
 
@@ -495,7 +484,6 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
 
     }
 
-
     @Override protected void onAttach() {
         super.onAttach();    //To change body of overridden methods use File | Settings | File Templates.
     }
@@ -512,8 +500,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
             result.setText(cancelButtonText);
             result.addStyleName("btn");
             return result;
-        }
-        else {
+        } else {
 
             final Label result = new Label("");
             result.setStyleName("editableLabel-button-images");
@@ -537,8 +524,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
             result.addStyleName("primary");
             result.setText(okButtonText);
             return result;
-        }
-        else {
+        } else {
             final Label result = new Label("");
             result.setStyleName("editableLabel-button-images");
             result.addStyleName("editableLabel-confirm-image");
@@ -614,36 +600,19 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
         if (displayText == null) {
             displayText = "";
         }
-        if (formatter != null) {
-            plainText = formatter.sanitize(newText);
-        }
-        else {
-            plainText = newText;
-        }
+        plainText = FormatUtil.getInstance().sanitize(newText);
         if (editable && displayText.isEmpty() && placeholder != null && !placeholder.isEmpty()) {
             displayText = placeholder;
             text.addStyleName(EDITABLE_LABEL_PLACEHOLDER_STYLE);
-        }
-        else {
+        } else {
             text.removeStyleName(EDITABLE_LABEL_PLACEHOLDER_STYLE);
         }
         if (showBrief) {
-            if (formatter != null) {
-                displayText = formatter.formatRichText(displayText).replaceAll("<[^>]*>", " ").replaceAll("\n", " ");
-            }
-            else {
-                displayText = displayText.replaceAll("<[^>]*>", " ").replaceAll("\n", " ");
-            }
+            displayText = FormatUtil.getInstance().formatRichText(displayText).replaceAll("<[^>]*>", " ").replaceAll("\n", " ");
             text.setHTML(displayText);
-        }
-        else {
-            if (formatter != null) {
-                final String formatted = formatter.formatRichText(displayText);
-                text.setHTML(prefix + formatted);
-            }
-            else {
-                text.setHTML(prefix + displayText);
-            }
+        } else {
+            final String formatted = FormatUtil.getInstance().formatRichText(displayText);
+            text.setHTML(prefix + formatted);
         }
     }
 
@@ -657,8 +626,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
         if (text.getWordWrap()) {
             //            return changeTextArea.getVisibleLines();
             return 1;
-        }
-        else {
+        } else {
             throw new RuntimeException("Editable Label that is not word-wrapped has no number of Visible Lines");
         }
     }
@@ -672,8 +640,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
     public void setVisibleLines(final int number) {
         if (text.getWordWrap()) {
             //            changeTextArea.setVisibleLines(number);
-        }
-        else {
+        } else {
             throw new RuntimeException("Cannnot set number of visible lines for a non word-wrapped Editable Label");
         }
     }
@@ -687,8 +654,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
         if (text.getWordWrap()) {
             //            return changeTextArea.getCharacterWidth();
             return 0;
-        }
-        else {
+        } else {
             return changeText.getMaxLength();
         }
     }
@@ -701,8 +667,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
     public void setMaxLength(final int length) {
         if (text.getWordWrap()) {
             //            changeTextArea.setCharacterWidth(length);
-        }
-        else {
+        } else {
             changeText.setMaxLength(length);
         }
     }
@@ -716,8 +681,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
     public int getVisibleLength() {
         if (text.getWordWrap()) {
             throw new RuntimeException("Cannnot get visible length for a word-wrapped Editable Label");
-        }
-        else {
+        } else {
             return changeText.getVisibleLength();
         }
     }
@@ -730,8 +694,7 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
     public void setVisibleLength(final int length) {
         if (text.getWordWrap()) {
             throw new RuntimeException("Cannnot set visible length for a word-wrapped Editable Label");
-        }
-        else {
+        } else {
             changeText.setVisibleLength(length);
         }
     }
@@ -780,10 +743,6 @@ public class EditableLabel extends Composite implements HasWordWrap, HasText, Ha
 
     public void setOnEditEndAction(final Runnable onEditEndAction) {
         this.onEditEndAction = onEditEndAction;
-    }
-
-    public void setFormatter(@Nullable final FormatUtil formatter) {
-        this.formatter = formatter;
     }
 
     public boolean isDoubleClick() {

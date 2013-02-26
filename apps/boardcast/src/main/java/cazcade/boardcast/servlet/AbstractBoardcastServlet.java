@@ -11,10 +11,10 @@ import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.fountain.security.SecurityProvider;
 import cazcade.liquid.api.ClientApplicationIdentifier;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
 import org.springframework.web.context.WebApplicationContext;
@@ -71,24 +71,24 @@ public class AbstractBoardcastServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected LiquidSessionIdentifier getLiquidSessionId(@Nonnull final HttpSession session) {
-        LiquidSessionIdentifier sessionIdentifier = (LiquidSessionIdentifier) session.getAttribute(SESSION_KEY);
+    protected SessionIdentifier getLiquidSessionId(@Nonnull final HttpSession session) {
+        SessionIdentifier sessionIdentifier = (SessionIdentifier) session.getAttribute(SESSION_KEY);
         if (sessionIdentifier == null) {
-            return LiquidSessionIdentifier.ANON;
+            return SessionIdentifier.ANON;
         }
         return sessionIdentifier;
     }
 
     @Nonnull
-    protected List<Map<String, String>> makeJSPFriendly(HttpServletRequest req, @Nonnull final List<LSDTransferEntity> entities) throws UnsupportedEncodingException {
+    protected List<Map<String, String>> makeJSPFriendly(HttpServletRequest req, @Nonnull final List<TransferEntity> entities) throws UnsupportedEncodingException {
         final List<Map<String, String>> result = new ArrayList<Map<String, String>>();
-        for (final LSDTransferEntity entity : entities) {
+        for (final TransferEntity entity : entities) {
             final Map<String, String> map = entity.getCamelCaseMap();
             result.add(map);
-            final LiquidURI uri = entity.getURI();
+            final LiquidURI uri = entity.uri();
             final String uriString = uri.toString();
             if (uriString.startsWith("pool")) {
-                final String shortUrl = uri.asBoardURL().asUrlSafe();
+                final String shortUrl = uri.board().safe();
                 map.put("shortUrl", shortUrl);
 
                 final String url = "http://"
@@ -96,7 +96,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
                                    + "/_snapshot-"
                                    + shortUrl
                                    + "?bid="
-                                   + entity.getAttribute(LSDAttribute.MODIFIED, "")
+                                   + entity.default$(Dictionary.MODIFIED, "")
                                    +
                                    "-v"
                                    + VERSION
@@ -119,11 +119,11 @@ public class AbstractBoardcastServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected LiquidSessionIdentifier createClientSession(@Nonnull final HttpSession session, @Nonnull final LiquidMessage createSessionResponse) {
+    protected SessionIdentifier createClientSession(@Nonnull final HttpSession session, @Nonnull final LiquidMessage createSessionResponse) {
 
-        final LSDTransferEntity createSessionResponseResponse = createSessionResponse.getResponse();
-        final String username = createSessionResponseResponse.getAttribute(LSDAttribute.NAME);
-        final LiquidSessionIdentifier serverSession = new LiquidSessionIdentifier(username, createSessionResponseResponse.getUUID());
+        final TransferEntity createSessionResponseResponse = createSessionResponse.response();
+        final String username = createSessionResponseResponse.$(Dictionary.NAME);
+        final SessionIdentifier serverSession = new SessionIdentifier(username, createSessionResponseResponse.id());
         session.setAttribute(SESSION_KEY, serverSession);
         session.setAttribute(USERNAME_KEY, username);
         LoginUtil.createClientSession(clientSessionManager, serverSession, true, pubSub);
@@ -139,8 +139,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
         final String next = req.getParameter("next");
         if (next != null) {
             resp.sendRedirect(next);
-        }
-        else {
+        } else {
             resp.sendRedirect("/welcome");
         }
     }

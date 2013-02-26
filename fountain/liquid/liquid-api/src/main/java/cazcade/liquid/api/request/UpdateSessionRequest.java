@@ -5,26 +5,26 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class UpdateSessionRequest extends AbstractUpdateRequest {
-    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
+    public UpdateSessionRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity, final boolean internal) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setRequestEntity(entity);
         setInternal(internal);
     }
 
-    public UpdateSessionRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity, final boolean internal) {
+    public UpdateSessionRequest(final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity, final boolean internal) {
         this(null, identity, target, entity, internal);
     }
 
@@ -33,7 +33,7 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
         super();
     }
 
-    public UpdateSessionRequest(final LSDTransferEntity entity) {
+    public UpdateSessionRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -43,18 +43,18 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
     }
 
     @Nullable @Override
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return null;
     }
 
     @Nullable @Override
-    public String getNotificationSession() {
+    public String notificationSession() {
         //Don't notify anyone of a session update.
         return null;
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.UPDATE_SESSION;
+    public RequestType requestType() {
+        return RequestType.UPDATE_SESSION;
     }
 }

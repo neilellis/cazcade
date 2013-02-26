@@ -4,12 +4,12 @@
 
 package cazcade.fountain.datastore.impl;
 
-import cazcade.liquid.api.LiquidRequestDetailLevel;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestDetailLevel;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,22 +19,22 @@ import java.util.Collection;
  * @author neilellis@cazcade.com
  */
 public interface FountainSocialDAO {
-    LSDTransferEntity followResourceTX(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LiquidRequestDetailLevel detail, boolean internal) throws Exception;
+    TransferEntity followResourceTX(SessionIdentifier sessionIdentifier, LiquidURI uri, RequestDetailLevel detail, boolean internal) throws Exception;
 
-    LSDTransferEntity getAliasAsProfileTx(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, boolean internal, LiquidRequestDetailLevel detail) throws Exception;
-
-    @Nullable
-    Collection<LSDBaseEntity> getRosterNoTX(LiquidURI uri, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel request) throws InterruptedException;
+    TransferEntity getAliasAsProfileTx(SessionIdentifier sessionIdentifier, LiquidURI uri, boolean internal, RequestDetailLevel detail) throws Exception;
 
     @Nullable
-    Collection<LSDBaseEntity> getRosterNoTX(LiquidUUID target, boolean internal, LiquidSessionIdentifier identity, LiquidRequestDetailLevel detail) throws InterruptedException;
+    Collection<Entity> getRosterNoTX(LiquidURI uri, boolean internal, SessionIdentifier identity, RequestDetailLevel request) throws InterruptedException;
+
+    @Nullable
+    Collection<Entity> getRosterNoTX(LiquidUUID target, boolean internal, SessionIdentifier identity, RequestDetailLevel detail) throws InterruptedException;
 
 
-    @Nonnull ChangeReport getUpdateSummaryForAlias(LiquidURI aliasURI, long since) throws InterruptedException;
+    @Nonnull ChangeReport getUpdateSummaryForAlias(LiquidURI aliasURI, long since) throws Exception;
 
-    boolean isFollowing(LSDPersistedEntity currentAlias, LSDPersistedEntity persistedEntity) throws InterruptedException;
+    boolean isFollowing(PersistedEntity currentAlias, PersistedEntity persistedEntity) throws InterruptedException;
 
-    void recordChat(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LSDBaseEntity entity);
+    void recordChat(SessionIdentifier sessionIdentifier, LiquidURI uri, Entity entity);
 
-    LSDTransferEntity unfollowResourceTX(LiquidSessionIdentifier sessionIdentifier, LiquidURI uri, LiquidRequestDetailLevel detail, boolean internal) throws Exception;
+    TransferEntity unfollowResourceTX(SessionIdentifier sessionIdentifier, LiquidURI uri, RequestDetailLevel detail, boolean internal) throws Exception;
 }

@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.client;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.vortex.client.widgets.VortexSplitPanel;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
@@ -47,12 +51,12 @@ public class Vortex implements EntryPoint {
             mainPanelParent = RootLayoutPanel.get();
 
         }
-        DataStoreService.App.getInstance().login("neil", "neil", new AsyncCallback<LiquidSessionIdentifier>() {
+        DataStoreService.App.getInstance().login("neil", "neil", new AsyncCallback<SessionIdentifier>() {
             public void onFailure(@Nonnull final Throwable caught) {
                 ClientLog.log(caught.getMessage(), caught);
             }
 
-            public void onSuccess(@Nullable final LiquidSessionIdentifier result) {
+            public void onSuccess(@Nullable final SessionIdentifier result) {
                 ClientLog.log("Logged in.");
                 if (result == null) {
                     ClientLog.log("Could not log in.");

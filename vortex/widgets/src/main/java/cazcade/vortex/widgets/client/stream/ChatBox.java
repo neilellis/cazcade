@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.LiquidURI;
@@ -32,17 +36,15 @@ import javax.annotation.Nonnull;
 public class ChatBox extends Composite {
 
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
+    private final Bus bus = BusFactory.get();
     private LiquidURI uri;
     @Nonnull
     private final ChatParser chatParser = new ChatParser();
 
-    interface VortexAddCommentBoxUiBinder extends UiBinder<HTMLPanel, ChatBox> {
-    }
+    interface VortexAddCommentBoxUiBinder extends UiBinder<HTMLPanel, ChatBox> {}
 
     private static final VortexAddCommentBoxUiBinder ourUiBinder = GWT.create(VortexAddCommentBoxUiBinder.class);
-    @UiField
-    RichTextArea textBox;
+    @UiField RichTextArea textBox;
 
     public ChatBox() {
         super();
@@ -56,14 +58,13 @@ public class ChatBox extends Composite {
         textBox.setHeight("65px");
         DOM.setStyleAttribute(getWidget().getElement(), "overflow", "hidden");
         DOM.setStyleAttribute(textBox.getElement(), "width", "592px");
-//        DOM.setStyleAttribute(textBox.getElement(), "border", "1px solid #ccc");
+        //        DOM.setStyleAttribute(textBox.getElement(), "border", "1px solid #ccc");
         DOM.setStyleAttribute(textBox.getElement(), "margin", "4px");
         DOM.setStyleAttribute(textBox.getElement(), "marginTop", "7px");
         DOM.setStyleAttribute(textBox.getElement(), "borderRadius", "4px");
         textBox.addInitializeHandler(new InitializeHandler() {
             public void onInitialize(final InitializeEvent ie) {
-                final IFrameElement fe = (IFrameElement)
-                        textBox.getElement().cast();
+                final IFrameElement fe = (IFrameElement) textBox.getElement().cast();
                 fe.setFrameBorder(0);
                 fe.setMarginWidth(0);
                 fe.setScrolling("no");
@@ -79,7 +80,7 @@ public class ChatBox extends Composite {
         });
 
         //        style.setInnerText("* { color:white; }");
-//        head.appendChild(style);
+        //        head.appendChild(style);
         textBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
             public void onKeyUp(@Nonnull final KeyUpEvent event) {

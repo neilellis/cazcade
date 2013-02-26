@@ -45,12 +45,12 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
     public LiquidRequest handle(final LiquidRequest message) {
         try {
             final LiquidRequest request = (LiquidRequest) message;
-            final Log4JStopWatch stopWatch = new Log4JStopWatch("recv.message." + request.getRequestType().name().toLowerCase());
+            final Log4JStopWatch stopWatch = new Log4JStopWatch("recv.message." + request.requestType().name().toLowerCase());
 
             log.addContext(request);
-            final LiquidUUID session = request.getSessionIdentifier().getSession();
-            log.setSession(session == null ? null : session.toString(), request.getSessionIdentifier().getName());
-            if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
+            final LiquidUUID session = request.session().session();
+            log.setSession(session == null ? null : session.toString(), request.session().name());
+            if (request.requestType() == RequestType.AUTHORIZATION_REQUEST) {
                 log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(), ((AbstractRequest) request)
                                                                                                                              .hasTarget()
                                                                                                                      ? ((AbstractRequest) request)
@@ -58,51 +58,45 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
                                                                                                                      : "null", ((AbstractRequest) request)
                                                                                                                                        .hasUri()
                                                                                                                                ? ((AbstractRequest) request)
-                                                                                                                                       .getUri()
+                                                                                                                                       .uri()
                                                                                                                                : "null");
-            }
-            else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
+            } else if (request.requestType() == RequestType.RETRIEVE_USER) {
                 log.debug("Retrieve user request for {0}/{1}", ((AbstractRequest) request).hasTarget() ? ((AbstractRequest) request)
-                        .getTarget() : "null", ((AbstractRequest) request).hasUri()
-                                               ? ((AbstractRequest) request).getUri()
-                                               : "null");
-            }
-            else {
+                        .getTarget() : "null", ((AbstractRequest) request).hasUri() ? ((AbstractRequest) request).uri() : "null");
+            } else {
                 log.debug("Received request {0}", request);
             }
 
             final LiquidRequest response;
             try {
-                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".1.prepro");
+                stopWatch.stop("recv." + request.requestType().name().toLowerCase() + ".1.prepro");
                 response = store.process(request);
-                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".2.postpro");
+                stopWatch.stop("recv." + request.requestType().name().toLowerCase() + ".2.postpro");
             } catch (InterruptedException e) {
                 Thread.interrupted();
                 return handleError(request, e);
             } catch (Exception e) {
                 return handleError(request, e);
             }
-            response.setOrigin(LiquidMessageOrigin.SERVER);
+            response.origin(LiquidMessageOrigin.SERVER);
 
             log.addContext(response);
 
-            if (request.getRequestType() == LiquidRequestType.AUTHORIZATION_REQUEST) {
+            if (request.requestType() == RequestType.AUTHORIZATION_REQUEST) {
                 log.debug("Authorization request {0}", request.getState());
-            }
-            else if (request.getRequestType() == LiquidRequestType.RETRIEVE_USER) {
+            } else if (request.requestType() == RequestType.RETRIEVE_USER) {
                 log.debug("Retrieve user request {0}", request.getState());
-            }
-            else {
+            } else {
                 log.debug("Async response: {0} ", response);
             }
             if (request.shouldNotify()) {
                 //Notify if async
                 //i.e. for pool visits.
-                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".3.prenot");
+                stopWatch.stop("recv." + request.requestType().name().toLowerCase() + ".3.prenot");
                 messageSender.sendNotifications(response);
-                stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".4.postnot");
+                stopWatch.stop("recv." + request.requestType().name().toLowerCase() + ".4.postnot");
             }
-            stopWatch.stop("recv." + request.getRequestType().name().toLowerCase() + ".5.end");
+            stopWatch.stop("recv." + request.requestType().name().toLowerCase() + ".5.end");
 
 
             return response;
@@ -117,7 +111,7 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
     @Nonnull
     private LiquidRequest handleError(@Nonnull final LiquidRequest request, @Nonnull final Exception e) {
         final LiquidRequest response = LiquidResponseHelper.forException(e, request);
-        response.setOrigin(LiquidMessageOrigin.SERVER);
+        response.origin(LiquidMessageOrigin.SERVER);
         messageSender.notifySession(response);
         final LiquidRequest compensation = compensator.compensate(request);
         if (compensation != null) {

@@ -4,10 +4,11 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.LiquidCachingScope;
+import cazcade.liquid.api.CachingScope;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -31,7 +32,7 @@ import java.util.List;
 public class VortexMultiListBox extends AbstractVortexFormField {
 
     @Nonnull
-    protected final Bus bus = BusFactory.getInstance();
+    protected final Bus bus = BusFactory.get();
     protected boolean useVisibleText;
     protected boolean otherOption;
 
@@ -95,8 +96,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
             if (listBox.isItemSelected(i)) {
                 if (useVisibleText) {
                     values.add(listBox.getItemText(i));
-                }
-                else {
+                } else {
                     values.add(listBox.getValue(i));
                 }
             }
@@ -114,8 +114,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
         for (int i = 0; i < max; i++) {
             if (useVisibleText) {
                 listBox.setItemSelected(i, values.contains(listBox.getItemText(i)));
-            }
-            else {
+            } else {
                 listBox.setItemSelected(i, values.contains(listBox.getValue(i)));
             }
         }
@@ -126,8 +125,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
                     if (listBox.getItemText(i).equals(value)) {
                         found = true;
                     }
-                }
-                else {
+                } else {
                     if (listBox.getValue(i).equals(value)) {
                         found = true;
                     }
@@ -141,19 +139,19 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(@Nonnull final LSDAttribute attribute, final String prefix, @Nonnull final List<String> initialValues) {
+    public void bind(@Nonnull final Attribute attribute, final String prefix, @Nonnull final List<String> initialValues) {
         boundAttribute = attribute;
         final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName()
                                                                                                     .replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, true, false);
-        retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
+        retrievePoolRequest.setCachingScope(CachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
             public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final List<LSDTransferEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                final List<TransferEntity> entities = response.response().children(Dictionary.CHILD_A);
                 Collections.reverse(entities);
-                for (final LSDTransferEntity entity : entities) {
-                    listBox.addItem(entity.getAttribute(LSDAttribute.TITLE), entity.getAttribute(LSDAttribute.NAME));
+                for (final TransferEntity entity : entities) {
+                    listBox.addItem(entity.$(Dictionary.TITLE), entity.$(Dictionary.NAME));
                 }
                 setValues(initialValues);
             }
@@ -161,7 +159,7 @@ public class VortexMultiListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+    public void bind(final Attribute attribute, final String prefix, final String initialValue) {
         throw new UnsupportedOperationException("This widget does not support single value operations");
     }
 

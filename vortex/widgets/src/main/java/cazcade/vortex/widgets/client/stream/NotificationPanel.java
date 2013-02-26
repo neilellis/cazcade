@@ -5,9 +5,9 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
@@ -40,7 +40,7 @@ public class NotificationPanel extends Composite {
     public static final  int                       STATUS_CHECK_FREQUENCY = 30000;
     private static final VortexStreamPanelUiBinder ourUiBinder            = GWT.create(VortexStreamPanelUiBinder.class);
     @Nonnull
-    private final        Bus                       bus                    = BusFactory.getInstance();
+    private final        Bus                       bus                    = BusFactory.get();
     private final        long                      lastUpdate             = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
     private final        VortexThreadSafeExecutor  threadSafeExecutor     = new VortexThreadSafeExecutor();
@@ -97,22 +97,22 @@ public class NotificationPanel extends Composite {
                     bus.listen(new AbstractBusListener() {
                         @Override
                         public void handle(@Nonnull final LiquidMessage message) {
-                            if (message.hasResponseEntity()) {
-                                final LSDBaseEntity response = message.getResponse();
-                                if (response.isA(LSDDictionaryTypes.COMMENT)
-                                    && response.getAttribute(LSDAttribute.TEXT_BRIEF) != null
-                                    && !response.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                            if (message.hasResponse()) {
+                                final TransferEntity response = message.response();
+                                if (response.is(Types.T_COMMENT)
+                                    && response.$(Dictionary.TEXT_BRIEF) != null
+                                    && !response.$(Dictionary.TEXT_BRIEF).isEmpty()) {
                                     addToStream(new CommentEntryPanel(response));
                                 }
                                 if (message.getState() != LiquidMessageState.PROVISIONAL
                                     && message.getState() != LiquidMessageState.INITIAL
                                     && message.getState() != LiquidMessageState.FAIL
-                                    && ((LiquidRequest) message).getRequestType() == LiquidRequestType.VISIT_POOL
-                                    && !UserUtil.isAnonymousAliasURI(response.getSubEntity(LSDAttribute.VISITOR, false)
-                                                                             .getURI()
+                                    && ((LiquidRequest) message).requestType() == RequestType.VISIT_POOL
+                                    && !UserUtil.isAnonymousAliasURI(response.child(Dictionary.VISITOR_A, false)
+                                                                             .uri()
                                                                              .toString())) {
                                     final VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(response, pool, message
-                                            .getId()
+                                            .id()
                                             .toString());
                                     addToStream(content);
                                     try {
@@ -125,12 +125,11 @@ public class NotificationPanel extends Composite {
                         }
                     });
 
-                    BusFactory.getInstance()
-                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
-                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                    BusFactory.get()
+                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
-                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse());
+                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.response());
                                       addToStream(content);
                                   }
                               });
@@ -146,7 +145,7 @@ public class NotificationPanel extends Composite {
             //                            @Override
             //                            public void onSuccess(AbstractRequest message, AbstractRequest response) {
             //                                //relying on system time is a bad idea, so we use server time.
-            //                                lastUpdate = response.getResponse().getUpdated().getTime();
+            //                                lastUpdate = response.response().updated().getTime();
             //                                super.onSuccess(message, response);
             //                            }
             //                        });

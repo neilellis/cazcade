@@ -4,7 +4,7 @@
 
 package cazcade.fountain.datastore.impl.io;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.Dictionary;
 import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
@@ -21,7 +21,7 @@ import java.io.IOException;
  * @author neilellis@cazcade.com
  */
 public class FountainNeoExporter {
-    public static final String ID = LSDAttribute.ID.getKeyName();
+    public static final String ID = Dictionary.ID.getKeyName();
     private final GraphDatabaseService graphDatabase;
 
     public FountainNeoExporter(final GraphDatabaseService graphDatabase) {

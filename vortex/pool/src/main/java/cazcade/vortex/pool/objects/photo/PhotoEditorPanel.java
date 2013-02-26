@@ -4,8 +4,8 @@
 
 package cazcade.vortex.pool.objects.photo;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.EditFinishEvent;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
@@ -36,7 +36,7 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
     @UiField RegexTextBox        title;
 
 
-    public PhotoEditorPanel(final LSDTransferEntity entity) {
+    public PhotoEditorPanel(final TransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         changeImagePanel.addChangeHandler(new ValueChangeHandler() {
@@ -48,10 +48,10 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
                 });
             }
         });
-        addBinding(changeImagePanel, LSDAttribute.IMAGE_URL);
-        addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(title, LSDAttribute.TITLE);
-        setAndBindEntity(entity);
+        bind(changeImagePanel, Dictionary.IMAGE_URL);
+        bind(description, Dictionary.DESCRIPTION);
+        bind(title, Dictionary.TITLE);
+        $(entity);
     }
 
 

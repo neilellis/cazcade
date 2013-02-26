@@ -1,11 +1,15 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.fountain.server.rest.test;
 
 import cazcade.common.Logger;
 import cazcade.fountain.server.rest.RestHandler;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDEntityFactory;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.EntityFactory;
+import cazcade.liquid.api.lsd.SimpleEntity;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.annotation.Nonnull;
@@ -22,16 +26,16 @@ public class PoolTestRestHandler implements RestHandler {
     @Nonnull
     private static final Logger log = Logger.getLogger(PoolTestRestHandler.class);
 
-    private LSDEntityFactory lsdEntityFactory;
+    private EntityFactory entityFactory;
 
     @Nonnull
-    public LSDBaseEntity create(final LSDBaseEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) {
+    public Entity create(final Entity lsdEntity, @Nonnull final Map<String, String[]> parameters) {
         log.debug("Create method called with url of. " + parameters.get("url")[0]);
-        return lsdEntityFactory.createFromServletProperties(parameters);
+        return entityFactory.createFromServletProperties(parameters);
     }
 
     @Nonnull
-    public LSDBaseEntity get(@Nonnull final Map<String, String[]> parameters) {
+    public Entity get(@Nonnull final Map<String, String[]> parameters) {
         final String url = parameters.get("url")[0];
         final Properties props = new Properties();
         try {
@@ -43,20 +47,20 @@ public class PoolTestRestHandler implements RestHandler {
         final HashMap propMap = new HashMap(props);
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
         log.debug("Get method called with url of. " + url);
-        return LSDSimpleEntity.createFromProperties(propMap);
+        return SimpleEntity.createFromProperties(propMap);
     }
 
-    public LSDEntityFactory getLsdFactory() {
-        return lsdEntityFactory;
+    public EntityFactory getLsdFactory() {
+        return entityFactory;
     }
 
-    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
-        this.lsdEntityFactory = lsdEntityFactory;
+    public void setLsdFactory(final EntityFactory entityFactory) {
+        this.entityFactory = entityFactory;
     }
 
     @Nonnull
-    public LSDBaseEntity update(final LiquidUUID poolId, final LSDBaseEntity lsdEntity, final Map<String, String[]> parameters) {
+    public Entity update(final LiquidUUID poolId, final Entity lsdEntity, final Map<String, String[]> parameters) {
         log.debug("Update method called.");
-        return lsdEntityFactory.createFromServletProperties(parameters);
+        return entityFactory.createFromServletProperties(parameters);
     }
 }

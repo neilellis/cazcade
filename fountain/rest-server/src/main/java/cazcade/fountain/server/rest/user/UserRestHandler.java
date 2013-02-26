@@ -10,9 +10,9 @@ import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.fountain.server.rest.RestHandlerException;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDEntityFactory;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.EntityFactory;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.*;
 
 import javax.annotation.Nonnull;
@@ -24,15 +24,15 @@ import java.util.Map;
  */
 
 public class UserRestHandler extends AbstractRestHandler {
-    private LSDEntityFactory lsdEntityFactory;
+    private EntityFactory entityFactory;
 
     private FountainDataStoreFacade dataStoreFacade;
 
     private AuthorizationService authorizationService;
 
     @Nonnull
-    public LiquidMessage create(final LSDTransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
-        final LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
+    public LiquidMessage create(final TransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
+        final SessionIdentifier identity = RestContext.getContext().getCredentials();
         return dataStoreFacade.process(new CreateUserRequest(identity, lsdEntity));
     }
 
@@ -49,7 +49,7 @@ public class UserRestHandler extends AbstractRestHandler {
                                                                                                  .getCredentials(), new LiquidURI(LiquidURIScheme.user, username), false));
 
         return authorizationService.postAuthorize(RestContext.getContext()
-                                                             .getCredentials(), (AbstractRetrievalRequest) message, LiquidPermission.VIEW);
+                                                             .getCredentials(), (AbstractRetrievalRequest) message, Permission.VIEW_PERM);
     }
 
     @Nonnull
@@ -61,8 +61,8 @@ public class UserRestHandler extends AbstractRestHandler {
         return dataStoreFacade;
     }
 
-    public LSDEntityFactory getLsdFactory() {
-        return lsdEntityFactory;
+    public EntityFactory getLsdFactory() {
+        return entityFactory;
     }
 
     @Nonnull
@@ -76,33 +76,33 @@ public class UserRestHandler extends AbstractRestHandler {
         this.dataStoreFacade = dataStoreFacade;
     }
 
-    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
-        this.lsdEntityFactory = lsdEntityFactory;
+    public void setLsdFactory(final EntityFactory entityFactory) {
+        this.entityFactory = entityFactory;
     }
 
     //    public LiquidMessage follow(Map<String, String[]> parameters) throws URISyntaxException {
     //        checkForSingleValueParams(parameters, "name");
     //        final String name = parameters.get("name")[0];
-    //        LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
+    //        SessionIdentifier identity = RestContext.getContext().getCredentials();
     //        return dataStoreFacade.process(new FollowRequest(identity, name, true));
     //    }
     //
     //    public LiquidMessage following(Map<String, String[]> parameters) throws URISyntaxException {
-    //        LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
+    //        SessionIdentifier identity = RestContext.getContext().getCredentials();
     //        return dataStoreFacade.process(new RetrieveFollowingRequest(identity,  true));
     //    }
     //
     //    public LiquidMessage followers(Map<String, String[]> parameters) throws URISyntaxException {
-    //        LiquidSessionIdentifier identity = RestContext.getContext().getCredentials();
+    //        SessionIdentifier identity = RestContext.getContext().getCredentials();
     //        return dataStoreFacade.process(new RetrieveFollowersRequest(identity,  true));
     //    }
 
     @Nonnull
-    public LiquidMessage update(final LiquidUUID userId, @Nonnull final LSDTransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
-        final LiquidSessionIdentifier username = RestContext.getContext().getCredentials();
-        if (username != null && !lsdEntity.getAttribute(LSDAttribute.NAME).equalsIgnoreCase(username.getName())) {
+    public LiquidMessage update(final LiquidUUID userId, @Nonnull final TransferEntity lsdEntity, final Map<String, String[]> parameters) throws URISyntaxException {
+        final SessionIdentifier username = RestContext.getContext().getCredentials();
+        if (username != null && !lsdEntity.$(Dictionary.NAME).equalsIgnoreCase(username.name())) {
             throw new RestHandlerException("You tried to update a different username than yourself. Naughty! make sure the " +
-                                           LSDAttribute.NAME.getKeyName() +
+                                           Dictionary.NAME.getKeyName() +
                                            " property is equal to you (in this case " +
                                            username +
                                            ")");

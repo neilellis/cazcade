@@ -1,36 +1,13 @@
 /*
-Copyright (c) 2007-2009, Yusuke Yamamoto
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the Yusuke Yamamoto nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY Yusuke Yamamoto ``AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL Yusuke Yamamoto BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
 package cazcade.boardcast.servlet.twitter.auth.signin;
 
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidURIScheme;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.api.request.RetrieveUserRequest;
@@ -52,8 +29,8 @@ import java.net.URLEncoder;
 
 public class CallbackServlet extends AbstractTwitterServlet {
     @Nonnull
-    private static final Logger log = Logger.getLogger(CallbackServlet.class);
-    private static final long serialVersionUID = 1657390011452788111L;
+    private static final Logger log              = Logger.getLogger(CallbackServlet.class);
+    private static final long   serialVersionUID = 1657390011452788111L;
 
     protected void doGet(@Nonnull final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -63,37 +40,45 @@ public class CallbackServlet extends AbstractTwitterServlet {
             final String verifier = request.getParameter("oauth_verifier");
 
             final AccessToken authAccessToken = twitter.getOAuthAccessToken(requestToken, verifier);
-//            LiquidSessionIdentifier identity = (LiquidSessionIdentifier) request.getSession().getAttribute(CommonConstants.IDENTITY_ATTRIBUTE);
+            //            SessionIdentifier identity = (SessionIdentifier) request.session().$(CommonConstants.IDENTITY_ATTRIBUTE);
             final User user = twitter.verifyCredentials();
             session.setAttribute(USER_KEY, user);
 
-            final LSDTransferEntity twitterAlias = buildAlias(authAccessToken, user, true);
+            final TransferEntity twitterAlias = buildAlias(authAccessToken, user, true);
 
-            final RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new LiquidSessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
+            final RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new SessionIdentifier("admin"), new LiquidURI(
+                    "alias:twitter:"
+                    + user.getScreenName())));
 
             if (RequestUtil.positiveResponse(retrieveAliasRequest)) {
-                final LSDBaseEntity responseEntity = retrieveAliasRequest.getResponse();
-                final LiquidMessage createSessionRequest = createSession(responseEntity.getURI());
-                if (createSessionRequest.getResponse().isA(LSDDictionaryTypes.SESSION)) {
-                    final LiquidSessionIdentifier serverSession = createClientSession(session, createSessionRequest);
+                final Entity responseEntity = retrieveAliasRequest.response();
+                final LiquidMessage createSessionRequest = createSession(responseEntity.uri());
+                if (createSessionRequest.response().is(Types.T_SESSION)) {
+                    final SessionIdentifier serverSession = createClientSession(session, createSessionRequest);
                     dataStore.process(new UpdateAliasRequest(serverSession, twitterAlias));
                     response.sendRedirect(request.getContextPath() + "/_twitter/login.jsp");
                     session.removeAttribute("requestToken");
                     return;
-                } else if (createSessionRequest.getResponse().isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
-                    log.warn("Could not locate Cazcade alias for {0}, will try to register as normal.", responseEntity.getURI());
+                } else if (createSessionRequest.response().is(Types.T_RESOURCE_NOT_FOUND)) {
+                    log.warn("Could not locate Cazcade alias for {0}, will try to register as normal.", responseEntity.uri());
                 } else {
-                    log.warn("Could not log alias {0} in, reason was {1}", responseEntity.getURI(), createSessionRequest.getResponse().asFreeText());
-                    response.sendRedirect(request.getContextPath() + "/_twitter/fail.jsp?message=" + URLEncoder.encode(createSessionRequest.getResponse().asFreeText(), "utf8"));
+                    log.warn("Could not log alias {0} in, reason was {1}", responseEntity.uri(), createSessionRequest.response()
+                                                                                                                     .asFreeText());
+                    response.sendRedirect(request.getContextPath()
+                                          + "/_twitter/fail.jsp?message="
+                                          + URLEncoder.encode(createSessionRequest.response().asFreeText(), "utf8"));
                     return;
                 }
             }
             session.setAttribute(TWITTER_ALIAS_KEY, twitterAlias);
-            final LSDTransferEntity cazcadeAlias = buildAlias(authAccessToken, user, false);
+            final TransferEntity cazcadeAlias = buildAlias(authAccessToken, user, false);
             session.setAttribute(CAZCADE_ALIAS_KEY, cazcadeAlias);
-            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new LiquidSessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, user.getScreenName()), true));
+            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new SessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, user
+                    .getScreenName()), true));
             if (RequestUtil.positiveResponse(retrieveUserRequest)) {
-                response.sendRedirect(request.getContextPath() + "/_twitter/register.jsp?username=" + URLEncoder.encode(user.getScreenName(), "utf8"));
+                response.sendRedirect(request.getContextPath()
+                                      + "/_twitter/register.jsp?username="
+                                      + URLEncoder.encode(user.getScreenName(), "utf8"));
             } else {
                 response.sendRedirect(request.getContextPath() + "/_twitter/register.jsp?username=");
             }
@@ -104,44 +89,44 @@ public class CallbackServlet extends AbstractTwitterServlet {
     }
 
     @Nonnull
-    private LSDTransferEntity buildAlias(@Nonnull final AccessToken authAccessToken, @Nonnull final User user, final boolean twitter) {
-        final LSDTransferEntity alias = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS);
+    private TransferEntity buildAlias(@Nonnull final AccessToken authAccessToken, @Nonnull final User user, final boolean twitter) {
+        final TransferEntity alias = SimpleEntity.create(Types.T_ALIAS);
         alias.timestamp();
         if (twitter) {
-            alias.setAttribute(LSDAttribute.NAME, user.getScreenName());
+            alias.$(Dictionary.NAME, user.getScreenName());
         }
-        alias.setAttributeConditonally(LSDAttribute.FULL_NAME, user.getName());
+        alias.$notnull(Dictionary.FULL_NAME, user.getName());
         if (user.getProfileImageURL() != null) {
-            alias.setAttributeConditonally(LSDAttribute.IMAGE_URL, user.getProfileImageURL().toString().replace("_normal.jpg", ".jpg"));
-            alias.setAttributeConditonally(LSDAttribute.ICON_URL, user.getProfileImageURL().toString());
+            alias.$notnull(Dictionary.IMAGE_URL, user.getProfileImageURL().toString().replace("_normal.jpg", ".jpg"));
+            alias.$notnull(Dictionary.ICON_URL, user.getProfileImageURL().toString());
         }
         if (user.getURL() != null) {
-            alias.setAttribute(LSDAttribute.SOURCE, user.getURL().toString());
+            alias.$(Dictionary.SOURCE, user.getURL().toString());
         }
-        alias.setAttributeConditonally(LSDAttribute.DESCRIPTION, user.getDescription());
-        alias.setAttributeConditonally(LSDAttribute.TEXT, user.getDescription());
-        alias.setAttributeConditonally(LSDAttribute.LOCALE_LANGUAGE, user.getLang());
+        alias.$notnull(Dictionary.DESCRIPTION, user.getDescription());
+        alias.$notnull(Dictionary.TEXT, user.getDescription());
+        alias.$notnull(Dictionary.LOCALE_LANGUAGE, user.getLang());
         final String location = user.getLocation();
         if (location != null) {
             final String[] strings = location.split(",");
 
             if (strings.length == 2 && StringUtils.isNumeric(strings[0].trim()) && StringUtils.isNumeric(strings[1].trim())) {
-                alias.setAttribute(LSDAttribute.LOCATION_LAT, strings[0].trim());
-                alias.setAttribute(LSDAttribute.LOCATION_LONG, strings[1].trim());
+                alias.$(Dictionary.LOCATION_LAT, strings[0].trim());
+                alias.$(Dictionary.LOCATION_LONG, strings[1].trim());
             } else {
-                alias.setAttribute(LSDAttribute.LOCATION_NAME, location);
+                alias.$(Dictionary.LOCATION_NAME, location);
             }
         }
-        alias.setAttributeConditonally(LSDAttribute.LOCALE_TIMEZONE, user.getTimeZone());
+        alias.$notnull(Dictionary.LOCALE_TIMEZONE, user.getTimeZone());
         if (user.getCreatedAt() != null) {
-            alias.setAttribute(LSDAttribute.PUBLISHED, String.valueOf(user.getCreatedAt().getTime()));
+            alias.$(Dictionary.PUBLISHED, String.valueOf(user.getCreatedAt().getTime()));
         }
         if (twitter) {
-            alias.setAttribute(LSDAttribute.URI, "alias:twitter:" + user.getScreenName());
-            alias.setAttribute(LSDAttribute.EURI, "twitter:user:" + user.getScreenName());
-            alias.setAttribute(LSDAttribute.NETWORK, "twitter");
-            alias.setAttribute(LSDAttribute.SECURITY_TOKEN, authAccessToken.getToken());
-            alias.setAttribute(LSDAttribute.SECURITY_SECRET, authAccessToken.getTokenSecret());
+            alias.$(Dictionary.URI, "alias:twitter:" + user.getScreenName());
+            alias.$(Dictionary.EURI, "twitter:user:" + user.getScreenName());
+            alias.$(Dictionary.NETWORK, "twitter");
+            alias.$(Dictionary.SECURITY_TOKEN, authAccessToken.getToken());
+            alias.$(Dictionary.SECURITY_SECRET, authAccessToken.getTokenSecret());
         }
         return alias;
     }

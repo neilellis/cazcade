@@ -6,7 +6,7 @@ package cazcade.fountain.datastore.impl.io;
 
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.services.persistence.FountainNeoImpl;
-import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.Dictionary;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
@@ -31,8 +31,8 @@ import java.util.HashMap;
  * @author neilellis@cazcade.com
  */
 public class FountainNeoImporter {
-    public static final String ID  = LSDAttribute.ID.getKeyName();
-    public static final String URI = LSDAttribute.URI.getKeyName();
+    public static final String ID  = Dictionary.ID.getKeyName();
+    public static final String URI = Dictionary.URI.getKeyName();
 
     @Nonnull
     private final BatchInserter batchInserter;

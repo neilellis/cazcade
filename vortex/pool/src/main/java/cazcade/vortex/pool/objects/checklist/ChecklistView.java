@@ -4,7 +4,6 @@
 
 package cazcade.vortex.pool.objects.checklist;
 
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.pool.objects.PoolObjectView;
 import com.google.gwt.core.client.GWT;
@@ -40,20 +39,13 @@ public class ChecklistView extends PoolObjectView {
 
     }
 
-    public ChecklistView(final FormatUtil features) {
-        super();
-        initWidget(ourUiBinder.createAndBindUi(this));
-
-    }
-
 
     @Override
     public void onBrowserEvent(final Event event) {
         if (isEditing()) {
             ClientLog.log("Browser event while edit mode on.");
             //            label.onBrowserEvent(event);
-        }
-        else {
+        } else {
             super.onBrowserEvent(event);
         }
     }

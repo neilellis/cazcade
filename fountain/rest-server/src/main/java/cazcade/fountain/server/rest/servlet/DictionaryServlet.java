@@ -5,8 +5,8 @@
 package cazcade.fountain.server.rest.servlet;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
@@ -26,15 +26,15 @@ public class DictionaryServlet extends HttpServlet {
 
     public void doGet(final HttpServletRequest request, @Nonnull final HttpServletResponse response) throws ServletException, IOException {
         try {
-            final LSDAttribute[] keys = LSDAttribute.values();
+            final Attribute[] keys = Attribute.values();
             Arrays.sort(keys);
-            final LSDDictionaryTypes[] types = LSDDictionaryTypes.values();
+            final Types[] types = Types.values();
             final PrintWriter out = response.getWriter();
             out.println("<html<head><title>Dictionary</title></head><body>");
             out.println("<h1>Types</h1>");
             out.println("<table>");
 
-            for (final LSDDictionaryTypes type : types) {
+            for (final Types type : types) {
                 out.printf("<tr><td>%s</td><td>%s</td></tr>%n", type.getValue(), type.getDescription());
             }
 
@@ -42,7 +42,7 @@ public class DictionaryServlet extends HttpServlet {
 
             out.println("<h1>Keys</h1>");
             out.println("<table>");
-            for (final LSDAttribute key : keys) {
+            for (final Attribute key : keys) {
                 if (!key.isUpdateable()) {
                     out.print("<i>");
                 }

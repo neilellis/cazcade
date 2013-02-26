@@ -4,8 +4,8 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.EditFinishEvent;
 import cazcade.vortex.common.client.events.EditFinishHandler;
 import cazcade.vortex.common.client.events.EditStartEvent;
@@ -19,6 +19,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author neilellis@cazcade.com
@@ -36,6 +37,9 @@ public class ChangeImageUrlPanel extends AbstractVortexFormField implements Vort
         return !url.isEmpty();
     }
 
+    @Nullable @Override public String getStringValue() {
+        return url;
+    }
 
     @UiField ImageUploader imageUploader;
 
@@ -83,7 +87,7 @@ public class ChangeImageUrlPanel extends AbstractVortexFormField implements Vort
 
 
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
+    public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String prefix) {
         super.bind(entity, attribute, prefix);
         imageUploader.setImageUrl(getValue());
     }

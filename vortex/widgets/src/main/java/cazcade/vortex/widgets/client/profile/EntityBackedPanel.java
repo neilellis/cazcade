@@ -4,8 +4,9 @@
 
 package cazcade.vortex.widgets.client.profile;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.EntityAware;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
@@ -20,38 +21,37 @@ import javax.annotation.Nullable;
 /**
  * @author neilellis@cazcade.com
  */
-public abstract class EntityBackedPanel extends HistoryAwareComposite implements HasValueChangeHandlers<LSDTransferEntity> {
+public abstract class EntityBackedPanel extends HistoryAwareComposite implements EntityAware<TransferEntity>, HasValueChangeHandlers<TransferEntity> {
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
+    private final Bus bus = BusFactory.get();
     @Nullable
-    protected LSDTransferEntity entity;
+    protected TransferEntity entity;
 
     protected EntityBackedPanel() {
-        addValueChangeHandler(new ValueChangeHandler<LSDTransferEntity>() {
-            @Override public void onValueChange(ValueChangeEvent<LSDTransferEntity> event) {
+        addValueChangeHandler(new ValueChangeHandler<TransferEntity>() {
+            @Override public void onValueChange(ValueChangeEvent<TransferEntity> event) {
                 onChange(event.getValue());
             }
         });
     }
 
-    public void setEntity(@Nonnull final LSDTransferEntity entity) {
+    public void setEntity(@Nonnull final TransferEntity entity) {
         if (this.entity == null) {
             this.entity = entity;
         } else {
             this.entity = entity;
-            ValueChangeEvent.fire(this, entity);
         }
-
+        ValueChangeEvent.fire(this, entity);
     }
 
 
-    protected void onChange(final LSDBaseEntity entity) {
+    protected void onChange(final Entity entity) {
 
     }
 
 
     @Nonnull
-    public LSDTransferEntity getEntity() {
+    public TransferEntity $() {
         if (entity == null) {
             throw new NullPointerException("Panel has not been initialized yet so the backing entity is null.");
         }
@@ -64,7 +64,7 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite implements
     }
 
 
-    @Override public HandlerRegistration addValueChangeHandler(ValueChangeHandler<LSDTransferEntity> handler) {
+    @Override public HandlerRegistration addValueChangeHandler(ValueChangeHandler<TransferEntity> handler) {
         return addHandler(handler, ValueChangeEvent.getType());
     }
 }

@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,10 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MovePoolObjectRequest extends AbstractRequest {
-    public MovePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Double x, final Double y, final Double z) {
+    public MovePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Double x, final Double y, final Double z) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setObjectUUID(object);
         setPoolUUID(pool);
         setX(x);
@@ -26,49 +26,47 @@ public class MovePoolObjectRequest extends AbstractRequest {
     }
 
     @Deprecated
-    public MovePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID pool, final LiquidUUID object, final Double x, final Double y, final Double z) {
+    public MovePoolObjectRequest(final SessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID pool, final LiquidUUID object, final Double x, final Double y, final Double z) {
         super();
         throw new UnsupportedOperationException();
         //        this(null, identity, objectURI, pool, object, x, y, z);
     }
 
     public MovePoolObjectRequest(final LiquidURI objectURI, final Double x, final Double y, final Double z) {
-        this(null, LiquidSessionIdentifier.ANON, objectURI, null, null, x, y, z);
+        this(null, SessionIdentifier.ANON, objectURI, null, null, x, y, z);
     }
 
     public MovePoolObjectRequest() {
         super();
     }
 
-    public MovePoolObjectRequest(final LSDTransferEntity entity) {
+    public MovePoolObjectRequest(final TransferEntity entity) {
         super(entity);
     }
 
     @Nonnull @Override
     public LiquidMessage copy() {
-        final LiquidURI uri = getUri();
+        final LiquidURI uri = uri();
         return new MovePoolObjectRequest(getEntity());
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (hasUri()) {
-            final LiquidURI uri = getUri();
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), uri.getParentURI(), LiquidPermission.MODIFY));
-        }
-        else {
+            final LiquidURI uri = uri();
+            return Arrays.asList(new AuthorizationRequest(session(), uri.parent(), Permission.MODIFY_PERM));
+        } else {
             final LiquidUUID poolUUID = getPoolUUID();
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), poolUUID, LiquidPermission.MODIFY));
+            return Arrays.asList(new AuthorizationRequest(session(), poolUUID, Permission.MODIFY_PERM));
         }
     }
 
     @Override
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         if (hasUri()) {
-            final LiquidURI uri = getUri();
-            return Arrays.asList(uri.getWithoutFragment().asReverseDNSString(), uri.asReverseDNSString());
-        }
-        else {
+            final LiquidURI uri = uri();
+            return Arrays.asList(uri.withoutFragment().asReverseDNSString(), uri.asReverseDNSString());
+        } else {
             final LiquidUUID poolUUID = getPoolUUID();
             final LiquidUUID objectUUID = getObjectUUID();
             return Arrays.asList(poolUUID.toString(), objectUUID.toString());
@@ -76,8 +74,8 @@ public class MovePoolObjectRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.MOVE_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.MOVE_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

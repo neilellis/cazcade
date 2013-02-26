@@ -4,9 +4,10 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.InvalidEvent;
 import cazcade.vortex.common.client.events.InvalidHandler;
 import cazcade.vortex.common.client.events.ValidEvent;
@@ -35,16 +36,16 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     private final BrowserUtil browserUtil      = GWT.create(BrowserUtil.class);
     protected     boolean     showValidityFlag = true;
     @Nullable
-    protected LSDAttribute      boundAttribute;
-    @UiField  Label             errorMessage;
-    @UiField  Image             validityImage;
-    private   LSDTransferEntity entity;
+    protected Attribute      boundAttribute;
+    @UiField  Label          errorMessage;
+    @UiField  Image          validityImage;
+    private   TransferEntity entity;
 
     @Override public void clear() {
         errorMessage.setText("");
         validityImage.setResource(Resources.INSTANCE.validFormValueImage());
         validityImage.setVisible(false);
-        entity = LSDSimpleEntity.emptyUnmodifiable();
+        entity = SimpleEntity.emptyUnmodifiable();
     }
 
     @Nullable @Override
@@ -99,32 +100,32 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     @Override
-    public LSDTransferEntity getEntity() {
+    public TransferEntity getEntity() {
         return entity;
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getEntityDiff() {
-        final LSDTransferEntity newEntity = LSDSimpleEntity.createNewEntity(entity.getTypeDef());
+    public TransferEntity getEntityDiff() {
+        final TransferEntity newEntity = SimpleEntity.createNewEntity(entity.type());
         if (entity.hasURI()) {
-            newEntity.setAttribute(LSDAttribute.URI, entity.getURI().toString());
+            newEntity.$(Dictionary.URI, entity.uri().toString());
         }
         if (isMultiValue()) {
-            newEntity.setValues(boundAttribute, getStringValues());
+            newEntity.$(boundAttribute, getStringValues());
         } else {
             String stringValue = getStringValue();
             if (stringValue != null) {
-                newEntity.setAttribute(boundAttribute, stringValue);
+                newEntity.$(boundAttribute, stringValue);
             }
         }
         return newEntity;
     }
 
-    public void setEntity(@Nonnull final LSDTransferEntity entity) {
-        if (entity.isReadonly()) {
+    public void setEntity(@Nonnull final TransferEntity entity) {
+        if (entity.readonly()) {
             throw new IllegalArgumentException("Cannot accept readonly entities.");
         }
-        if (entity.isError()) {
+        if (entity.error()) {
             throw new IllegalArgumentException("Cannot accept error entities.");
         }
         this.entity = entity;
@@ -153,16 +154,16 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     }
 
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, @Nullable final LSDAttribute attribute, final String prefix) {
+    public void bind(@Nonnull final TransferEntity entity, @Nullable final Attribute attribute, final String prefix) {
         setEntity(entity);
-        if (entity.hasAttribute(LSDAttribute.EDITABLE)) {
-            setEditable(entity.getBooleanAttribute(LSDAttribute.EDITABLE));
+        if (entity.has$(Dictionary.EDITABLE)) {
+            setEditable(entity.$bool(Dictionary.EDITABLE));
         }
         if (attribute != null) {
             if (isMultiValue()) {
-                bind(attribute, prefix, entity.getAttributeAsList(attribute));
+                bind(attribute, prefix, entity.$list(attribute));
             } else {
-                bind(attribute, prefix, entity.hasAttribute(attribute) ? entity.getAttribute(attribute) : "");
+                bind(attribute, prefix, entity.has$(attribute) ? entity.$(attribute) : "");
             }
         }
     }
@@ -171,7 +172,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         return boundAttribute != null;
     }
 
-    @Override @Nullable public LSDAttribute getBoundAttribute() {
+    @Override @Nullable public Attribute getBoundAttribute() {
         return boundAttribute;
     }
 
@@ -193,7 +194,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         /** override this behaviour*/
     }
 
-    public void bind(final LSDAttribute attribute, final String profile, final List<String> initialValues) {
+    public void bind(final Attribute attribute, final String profile, final List<String> initialValues) {
 
         throw new UnsupportedOperationException("This widget does not support multiple values binding.");
     }
@@ -201,10 +202,10 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     public void processChange() {
         if (isValid() && entity != null && boundAttribute != null) {
             if (isMultiValue()) {
-                entity.setValues(boundAttribute, getStringValues());
+                entity.$(boundAttribute, getStringValues());
                 ClientLog.log(entity.toString());
             } else {
-                entity.setAttribute(boundAttribute, getStringValue());
+                entity.$(boundAttribute, getStringValue());
             }
         }
 
@@ -217,7 +218,7 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
         }
     }
 
-    public void bind(final LSDAttribute attribute, final String prefix, final String initialValue) {
+    public void bind(final Attribute attribute, final String prefix, final String initialValue) {
         boundAttribute = attribute;
         setValue(initialValue);
     }

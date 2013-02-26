@@ -1,11 +1,15 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
 import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -24,8 +28,7 @@ public class DestrictUserCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "De-restrict a user.";
     }
@@ -42,10 +45,9 @@ public class DestrictUserCommand extends AbstractShortLivedCommand {
             return null;
         } else {
             return CommandSupport.alterUser(shellSession, CommandSupport.resolveUser(shellSession, args[0]), new CommandSupport.AlterEntityCallback() {
-                @Nonnull
-                @Override
-                public LSDTransferEntity alter(@Nonnull final LSDTransferEntity entity) {
-                    entity.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "false");
+                @Nonnull @Override
+                public TransferEntity alter(@Nonnull final TransferEntity entity) {
+                    entity.$(Dictionary.SECURITY_RESTRICTED, "false");
                     return entity;
 
                 }

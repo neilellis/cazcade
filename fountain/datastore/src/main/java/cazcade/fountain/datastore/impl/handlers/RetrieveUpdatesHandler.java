@@ -5,8 +5,8 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.EntityNotFoundException;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.handler.RetrieveUpdatesRequestHandler;
@@ -25,30 +25,29 @@ import java.util.List;
  */
 public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpdatesRequest> implements RetrieveUpdatesRequestHandler {
     @Nonnull
-    public RetrieveUpdatesRequest handle(@Nonnull final RetrieveUpdatesRequest request) throws InterruptedException {
-        final Transaction transaction = fountainNeo.beginTx();
+    public RetrieveUpdatesRequest handle(@Nonnull final RetrieveUpdatesRequest request) throws Exception {
+        final Transaction transaction = neo.beginTx();
         try {
-            final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ENTITY_LIST);
+            final TransferEntity entity = SimpleEntity.create(Types.T_ENTITY_LIST);
             entity.timestamp();
-            entity.setID(UUIDFactory.randomUUID());
-            final LiquidURI initialURI = request.getSessionIdentifier().getAlias();
-            final LSDPersistedEntity startPersistedEntity = fountainNeo.findByURI(initialURI);
+            entity.id(UUIDFactory.randomUUID());
+            final LiquidURI initialURI = request.session().alias();
+            final PersistedEntity startPersistedEntity = neo.find(initialURI);
             if (startPersistedEntity == null) {
                 throw new EntityNotFoundException("Could not find start point at " + initialURI);
             }
             //todo:tune parameters and make them part of the request too...
-            final List<LSDBaseEntity> entities = new ArrayList<LSDBaseEntity>(new LatestContentFinder(request.getSessionIdentifier(), fountainNeo, startPersistedEntity, request
-                    .getSince(), 20, 50000, request.getDetail(), 100, userDAO).getNodes());
-            Collections.sort(entities, new LSDBaseEntity.EntityPublishedComparator());
+            final List<Entity> entities = new ArrayList<Entity>(new LatestContentFinder(request.session(), neo, startPersistedEntity, request
+                    .getSince(), 20, 50000, request.detail(), 100, userDAO).getNodes());
+            Collections.sort(entities, new Entity.EntityPublishedComparator());
             transaction.success();
             if (entities.isEmpty()) {
                 return LiquidResponseHelper.forEmptyResultResponse(request);
-            }
-            else {
-                entity.addSubEntities(LSDAttribute.CHILD, entities);
+            } else {
+                entity.children(Dictionary.CHILD_A, entities);
                 return LiquidResponseHelper.forServerSuccess(request, entity);
             }
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             transaction.failure();
             throw e;
         } finally {

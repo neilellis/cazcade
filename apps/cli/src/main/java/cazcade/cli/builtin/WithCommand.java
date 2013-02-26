@@ -9,7 +9,7 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.cli.commands.ExecutableCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -51,11 +51,10 @@ public class WithCommand extends AbstractShortLivedCommand {
         if (args.length < 2) {
             System.err.println("with (user|alias|pool) <identifier> { <commands> }");
             return null;
-        }
-        else {
+        } else {
             final CommandSupport.AlterEntityCallback callback = new CommandSupport.AlterEntityCallback() {
                 @Override
-                public LSDTransferEntity alter(final LSDTransferEntity entity) {
+                public TransferEntity alter(final TransferEntity entity) {
                     shellSession.pushEntity(entity);
                     try {
                         command.execute();
@@ -68,17 +67,13 @@ public class WithCommand extends AbstractShortLivedCommand {
             };
             if ("user".equals(args[0])) {
                 return CommandSupport.alterUser(shellSession, CommandSupport.resolveUser(shellSession, args[1]), callback);
-            }
-            else if ("alias".equals(args[0])) {
+            } else if ("alias".equals(args[0])) {
                 return CommandSupport.alterAlias(shellSession, CommandSupport.resolveAlias(shellSession, args[1]), callback);
-            }
-            else if ("pool".equals(args[0])) {
+            } else if ("pool".equals(args[0])) {
                 return CommandSupport.alterPool(shellSession, CommandSupport.resolvePoolOrObject(shellSession, args[1]), callback);
-            }
-            else if ("object".equals(args[0])) {
+            } else if ("object".equals(args[0])) {
                 return CommandSupport.alterObject(shellSession, CommandSupport.resolvePoolOrObject(shellSession, args[1]), callback);
-            }
-            else {
+            } else {
                 System.err.println("with (user|alias|pool|object) <identifier> { <commands> }");
                 return null;
             }

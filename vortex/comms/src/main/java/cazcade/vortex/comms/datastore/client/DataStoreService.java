@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.comms.datastore.client;
 
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.SerializedRequest;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -15,32 +19,24 @@ import java.util.ArrayList;
 
 @RemoteServiceRelativePath("DataStoreService")
 public interface DataStoreService extends RemoteService {
-    @Nonnull
-    String X_VORTEX_CACHE_SCOPE = "X-Vortex-Cache-Scope";
-    @Nonnull
-    String X_VORTEX_CACHE_EXPIRY = "X-Vortex-Cache-Expiry";
-    @Nonnull
-    String X_VORTEX_SINCE = "X-Vortex-Cache-Since";
+    @Nonnull String X_VORTEX_CACHE_SCOPE  = "X-Vortex-Cache-Scope";
+    @Nonnull String X_VORTEX_CACHE_EXPIRY = "X-Vortex-Cache-Expiry";
+    @Nonnull String X_VORTEX_SINCE        = "X-Vortex-Cache-Since";
     // Sample interface method of remote interface
 
-    void logout(LiquidSessionIdentifier identity);
+    void logout(SessionIdentifier identity);
 
-    @Nullable
-    LiquidSessionIdentifier login(String username, String password);
+    @Nullable SessionIdentifier login(String username, String password);
 
-    @Nullable
-    LiquidSessionIdentifier loginQuick(boolean anon);
+    @Nullable SessionIdentifier loginQuick(boolean anon);
 
-    @Nullable
-    LSDTransferEntity register(String fullname, String username, String password, String emailAddress);
+    @Nullable TransferEntity register(String fullname, String username, String password, String emailAddress);
 
     boolean checkUsernameAvailability(String username);
 
-    @Nullable
-    ArrayList<SerializedRequest> collect(LiquidSessionIdentifier identity, ArrayList<String> location) throws Exception;
+    @Nullable ArrayList<SerializedRequest> collect(SessionIdentifier identity, ArrayList<String> location) throws Exception;
 
-    @Nullable
-    SerializedRequest process(SerializedRequest request) throws Exception;
+    @Nullable SerializedRequest process(SerializedRequest request) throws Exception;
 
     boolean checkBoardAvailability(LiquidURI board);
 

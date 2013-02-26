@@ -838,7 +838,7 @@
             text = converter.makeHtml(text);
 
             // Calculate the processing time of the HTML creation.
-            // It's used as the delay time in the event listener.
+            // It's used as the delayAsync time in the event listener.
             var currTime = new Date().getTime();
             elapsedTime = currTime - prevTime;
 

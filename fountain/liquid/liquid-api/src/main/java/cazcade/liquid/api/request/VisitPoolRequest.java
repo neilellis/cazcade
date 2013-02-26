@@ -5,9 +5,9 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
-import cazcade.liquid.api.lsd.LSDType;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Type;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,13 +16,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VisitPoolRequest extends AbstractRetrievalRequest {
-    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final int max, final boolean listed, @Nullable final LiquidPermissionChangeType permission, @Nullable final String imageUrl) {
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nonnull final Type type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final int max, final boolean listed, @Nullable final PermissionChangeType permission, @Nullable final String imageUrl) {
         super();
         setOrCreate(orCreate);
         setListed(listed);
         setPermission(permission);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setUri(uri);
         setPreviousPool(previous);
         setMax(max);
@@ -32,31 +32,31 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
         }
     }
 
-    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final boolean listed) {
+    private VisitPoolRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nonnull final Type type, final LiquidURI uri, @Nullable final LiquidURI previous, final boolean orCreate, final boolean listed) {
         this(id, identity, type, uri, previous, orCreate, 60, listed, null, null);
     }
 
-    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final LiquidPermissionChangeType permission) {
-        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission, null);
+    public VisitPoolRequest(@Nonnull final Type type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed, final PermissionChangeType permission) {
+        this(null, SessionIdentifier.ANON, type, uri, previous, orCreate, 60, listed, permission, null);
     }
 
-    public VisitPoolRequest(@Nonnull final LSDType type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed) {
-        this(null, LiquidSessionIdentifier.ANON, type, uri, previous, orCreate, listed);
+    public VisitPoolRequest(@Nonnull final Type type, final LiquidURI uri, final LiquidURI previous, final boolean orCreate, final boolean listed) {
+        this(null, SessionIdentifier.ANON, type, uri, previous, orCreate, listed);
     }
 
-    public VisitPoolRequest(@Nonnull final LiquidSessionIdentifier identity, @Nonnull final LSDType type, final LiquidURI uri, final boolean orCreate, final boolean listed) {
+    public VisitPoolRequest(@Nonnull final SessionIdentifier identity, @Nonnull final Type type, final LiquidURI uri, final boolean orCreate, final boolean listed) {
         this(null, identity, type, uri, null, orCreate, listed);
     }
 
-    public VisitPoolRequest(final LiquidSessionIdentifier identity, final LiquidURI uri) {
-        this(null, identity, LSDDictionaryTypes.POOL, uri, null, false, false);
+    public VisitPoolRequest(final SessionIdentifier identity, final LiquidURI uri) {
+        this(null, identity, Types.T_POOL, uri, null, false, false);
     }
 
     public VisitPoolRequest() {
         super();
     }
 
-    public VisitPoolRequest(final LSDTransferEntity entity) {
+    public VisitPoolRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -66,29 +66,29 @@ public class VisitPoolRequest extends AbstractRetrievalRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         //TODO:
         return new ArrayList<AuthorizationRequest>();
 
         //        if (orCreate) {
-        //            return Arrays.asList(new AuthorizationRequest(uri.getParentURI(), LiquidPermission.MODIFY));
+        //            return Arrays.asList(new AuthorizationRequest(uri.parent(), Permission.MODIFY));
         //        } else {
-        //            return Arrays.asList(new AuthorizationRequest(uri, LiquidPermission.VIEW));
+        //            return Arrays.asList(new AuthorizationRequest(uri, Permission.VIEW));
         //        }
     }
 
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         if (hasPreviousPool()) {
-            return Arrays.asList(getUri().asReverseDNSString(), getPreviousPool().asReverseDNSString());
+            return Arrays.asList(uri().asReverseDNSString(), getPreviousPool().asReverseDNSString());
         } else {
-            return Arrays.asList(getUri().asReverseDNSString());
+            return Arrays.asList(uri().asReverseDNSString());
         }
     }
 
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.VISIT_POOL;
+    public RequestType requestType() {
+        return RequestType.VISIT_POOL;
     }
 
     @Override

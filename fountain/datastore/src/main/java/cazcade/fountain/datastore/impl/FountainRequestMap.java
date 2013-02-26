@@ -22,7 +22,7 @@ public class FountainRequestMap {
 
     public void injectNeo(final FountainNeo fountainNeo) {
         for (final FountainRequestConfiguration configuration : map.values()) {
-            ((AbstractDataStoreHandler) configuration.getHandler()).setFountainNeo(fountainNeo);
+            ((AbstractDataStoreHandler) configuration.getHandler()).setNeo(fountainNeo);
             final AbstractRequestCompensator compensator = (AbstractRequestCompensator) configuration.getCompensator();
             if (compensator != null) {
                 compensator.setFountainNeo(fountainNeo);

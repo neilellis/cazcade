@@ -30,7 +30,7 @@ public class LiquidMessageSender {
 
     public void notifySession(@Nonnull final LiquidRequest request) {
         log.debug("Ready to send notification to session(s).");
-        final String session = request.getNotificationSession();
+        final String session = request.notificationSession();
         pubSub.dispatch("session." + session, request);
         log.debug("Notification(s) sent.");
     }
@@ -38,7 +38,7 @@ public class LiquidMessageSender {
     public void notifyLocation(@Nonnull final LiquidRequest request) {
         log.debug("Ready to send location notification(s).");
 
-        final List<String> locations = request.getNotificationLocations();
+        final List<String> locations = request.notificationLocations();
 
 
         if (locations != null) {

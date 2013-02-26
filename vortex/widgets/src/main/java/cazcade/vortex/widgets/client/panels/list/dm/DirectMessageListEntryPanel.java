@@ -4,8 +4,8 @@
 
 package cazcade.vortex.widgets.client.panels.list.dm;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
@@ -31,15 +31,15 @@ import java.util.Date;
  */
 public class DirectMessageListEntryPanel extends Composite implements ScrollableListEntry, StreamEntry {
 
-    LSDBaseEntity entity;
+    Entity entity;
 
-    public LSDBaseEntity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 
     @Nullable @Override
     public String getListIdentifier() {
-        return entity.getURI().toString();
+        return entity.uri().toString();
     }
 
     @Nullable @Override
@@ -49,7 +49,7 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
 
     @Nullable @Override
     public Date getSortDate() {
-        return entity.getUpdated();
+        return entity.updated();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
 
     @Override
     public int compareTo(@Nonnull final ScrollableListEntry scrollableListEntry) {
-        return entity.getUpdated().compareTo(scrollableListEntry.getEntity().getUpdated());
+        return entity.updated().compareTo(scrollableListEntry.getEntity().updated());
     }
 
     interface DirectMessageListEntryPanelUiBinder extends UiBinder<HTMLPanel, DirectMessageListEntryPanel> {}
@@ -76,19 +76,19 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         super();
     }
 
-    public DirectMessageListEntryPanel(@Nonnull final LSDBaseEntity streamEntry) {
+    public DirectMessageListEntryPanel(@Nonnull final Entity streamEntry) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         init(streamEntry);
     }
 
-    protected void init(@Nonnull final LSDBaseEntity streamEntry) {
+    protected void init(@Nonnull final Entity streamEntry) {
         entity = streamEntry;
-        final LSDBaseEntity author = streamEntry.getSubEntity(LSDAttribute.AUTHOR, true);
-        profileImage.setUrl(author.getAttribute(LSDAttribute.IMAGE_URL));
-        profileImage.setAliasUri(author.getURI());
+        final Entity author = streamEntry.child(Dictionary.AUTHOR_A, true);
+        profileImage.setUrl(author.$(Dictionary.IMAGE_URL));
+        profileImage.setAliasUri(author.uri());
 
-        profileName.setText("@" + author.getAttribute(LSDAttribute.NAME));
+        profileName.setText("@" + author.$(Dictionary.NAME));
         profileName.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent clickEvent) {
@@ -97,9 +97,9 @@ public class DirectMessageListEntryPanel extends Composite implements Scrollable
         });
 
 
-        text.setInnerHTML(FormatUtil.getInstance().formatRichText(streamEntry.getAttribute(LSDAttribute.TEXT_EXTENDED)));
+        text.setInnerHTML(FormatUtil.getInstance().formatRichText(streamEntry.$(Dictionary.TEXT_EXTENDED)));
         //todo - format date :-)
-        final String publishedDateStringInMillis = streamEntry.getAttribute(LSDAttribute.PUBLISHED);
+        final String publishedDateStringInMillis = streamEntry.$(Dictionary.PUBLISHED);
         if (publishedDateStringInMillis != null) {
             final Long publishedInMillis = Long.valueOf(publishedDateStringInMillis);
             dateTime.setDate(new Date(publishedInMillis));

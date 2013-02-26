@@ -6,16 +6,16 @@ package cazcade.fountain.datastore.test;
 
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainSocialDAO;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.services.persistence.FountainPoolDAOImpl;
 import cazcade.fountain.datastore.impl.services.persistence.FountainUserDAOImpl;
-import cazcade.liquid.api.LiquidRequestDetailLevel;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestDetailLevel;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,27 +42,27 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration({"classpath:datastore-spring-config.xml"})
 public class FollowIntegrationTest {
     @Autowired
-    private FountainNeo             fountainNeo;
-    private String                  stickyName;
-    private String                  userPublicPoolName;
+    private FountainNeo       fountainNeo;
+    private String            stickyName;
+    private String            userPublicPoolName;
     @Nullable
-    private LiquidSessionIdentifier session;
-    private LiquidURI               stickyURI;
-    private LiquidURI               publicPoolURI;
-    private LiquidURI               subPoolURI;
-    private String                  sticky2Name;
-    private LiquidURI               sticky2URI;
-    private LSDPersistedEntity      subPool;
-    private String                  userProfilePoolName;
-    private LiquidURI               sticky3URI;
-    private String                  sticky3Name;
-    private LiquidURI               profilePoolURI;
-    private String                  username;
-    private String                  otherUsername;
-    private String                  otherUserPublicPoolName;
-    private LiquidURI               otherUserPublicPoolURI;
-    private LiquidURI               otherUserURI;
-    private LiquidURI               userURI;
+    private SessionIdentifier session;
+    private LiquidURI         stickyURI;
+    private LiquidURI         publicPoolURI;
+    private LiquidURI         subPoolURI;
+    private String            sticky2Name;
+    private LiquidURI         sticky2URI;
+    private PersistedEntity   subPool;
+    private String            userProfilePoolName;
+    private LiquidURI         sticky3URI;
+    private String            sticky3Name;
+    private LiquidURI         profilePoolURI;
+    private String            username;
+    private String            otherUsername;
+    private String            otherUserPublicPoolName;
+    private LiquidURI         otherUserPublicPoolURI;
+    private LiquidURI         otherUserURI;
+    private LiquidURI         userURI;
 
     @Autowired
     private FountainPoolDAOImpl poolDAO;
@@ -76,13 +76,13 @@ public class FollowIntegrationTest {
         fountainNeo.doInTransaction(new Callable() {
             @Nullable @Override
             public Object call() throws InterruptedException, UnsupportedEncodingException {
-                final LSDPersistedEntity userPersistedEntity = createUser();
-                final LSDPersistedEntity otherUserPersistedEntity = createUser();
-                username = userPersistedEntity.getAttribute(LSDAttribute.NAME);
-                otherUsername = otherUserPersistedEntity.getAttribute(LSDAttribute.NAME);
+                final PersistedEntity userPersistedEntity = createUser();
+                final PersistedEntity otherUserPersistedEntity = createUser();
+                username = userPersistedEntity.$(Dictionary.NAME);
+                otherUsername = otherUserPersistedEntity.$(Dictionary.NAME);
                 otherUserURI = new LiquidURI("alias:cazcade:" + otherUsername);
                 userURI = new LiquidURI("alias:cazcade:" + username);
-                session = new LiquidSessionIdentifier(username, null);
+                session = new SessionIdentifier(username, null);
                 System.out.println(userPersistedEntity);
                 userPublicPoolName = "pool:///people/" + username + "/public";
                 userProfilePoolName = "pool:///people/" + username + "/profile";
@@ -97,10 +97,10 @@ public class FollowIntegrationTest {
                 stickyURI = new LiquidURI(userPublicPoolName + "/sub#" + stickyName);
                 sticky2URI = new LiquidURI(userPublicPoolName + "/sub#" + sticky2Name);
                 sticky3URI = new LiquidURI(userProfilePoolName + "#" + sticky3Name);
-                final LSDPersistedEntity publicPoolPersistedEntity = fountainNeo.findByURI(publicPoolURI);
-                final LSDPersistedEntity profilePoolPersistedEntity = fountainNeo.findByURI(profilePoolURI);
+                final PersistedEntity publicPoolPersistedEntity = fountainNeo.find(publicPoolURI);
+                final PersistedEntity profilePoolPersistedEntity = fountainNeo.find(profilePoolURI);
 
-                subPool = poolDAO.createPoolNoTx(session, session.getAliasURL(), publicPoolPersistedEntity, "sub", (double) 0, (double) 0, "sub", false);
+                subPool = poolDAO.createPoolNoTx(session, session.aliasURI(), publicPoolPersistedEntity, "sub", (double) 0, (double) 0, "sub", false);
                 createSticky(subPool, stickyName);
                 createSticky(profilePoolPersistedEntity, sticky3Name);
                 return null;
@@ -109,31 +109,31 @@ public class FollowIntegrationTest {
     }
 
     @Nonnull
-    private LSDPersistedEntity createUser() throws InterruptedException, UnsupportedEncodingException {
-        final LSDTransferEntity user = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.USER);
-        user.setAttribute(LSDAttribute.PLAIN_PASSWORD, "123");
-        user.setAttribute(LSDAttribute.EMAIL_ADDRESS, cazcade.common.CommonConstants.INFO_CAZCADE_COM);
+    private PersistedEntity createUser() throws InterruptedException, UnsupportedEncodingException {
+        final TransferEntity user = SimpleEntity.create(Types.T_USER);
+        user.$(Dictionary.PLAIN_PASSWORD, "123");
+        user.$(Dictionary.EMAIL_ADDRESS, cazcade.common.CommonConstants.INFO_CAZCADE_COM);
         final String username = "test" + System.currentTimeMillis();
-        user.setAttribute(LSDAttribute.NAME, username);
-        user.setAttribute(LSDAttribute.FULL_NAME, "Anonymous");
+        user.$(Dictionary.NAME, username);
+        user.$(Dictionary.FULL_NAME, "Anonymous");
 
-        final LSDPersistedEntity newUser = userDAO.createUser(user, false);
+        final PersistedEntity newUser = userDAO.createUser(user, false);
         poolDAO.createPoolsForUserNoTx(username);
-        poolDAO.createPoolsForCazcadeAliasNoTx(username, user.getAttribute(LSDAttribute.FULL_NAME), false);
+        poolDAO.createPoolsForCazcadeAliasNoTx(username, user.$(Dictionary.FULL_NAME), false);
         return newUser;
     }
 
-    private void createSticky(@Nonnull final LSDPersistedEntity subPool, final String stickyName) throws InterruptedException {
-        final LSDTransferEntity sticky = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.STICKY);
-        sticky.setAttribute(LSDAttribute.TEXT_EXTENDED, "TEST");
-        sticky.setAttribute(LSDAttribute.NAME, stickyName);
-        poolDAO.createPoolObjectNoTx(session, subPool, sticky, session.getAliasURL(), session.getAliasURL(), false);
+    private void createSticky(@Nonnull final PersistedEntity subPool, final String stickyName) throws InterruptedException {
+        final TransferEntity sticky = SimpleEntity.create(Types.T_STICKY);
+        sticky.$(Dictionary.TEXT_EXTENDED, "TEST");
+        sticky.$(Dictionary.NAME, stickyName);
+        poolDAO.createPoolObjectNoTx(session, subPool, sticky, session.aliasURI(), session.aliasURI(), false);
     }
 
     @Test
     public void testFollow() throws Exception {
-        assertFalse("Already following", socialDAO.isFollowing(fountainNeo.findByURI(userURI), fountainNeo.findByURI(otherUserURI)));
-        socialDAO.followResourceTX(session, otherUserURI, LiquidRequestDetailLevel.NORMAL, false);
-        assertTrue("Not following", socialDAO.isFollowing(fountainNeo.findByURI(userURI), fountainNeo.findByURI(otherUserURI)));
+        assertFalse("Already following", socialDAO.isFollowing(fountainNeo.find(userURI), fountainNeo.find(otherUserURI)));
+        socialDAO.followResourceTX(session, otherUserURI, RequestDetailLevel.NORMAL, false);
+        assertTrue("Not following", socialDAO.isFollowing(fountainNeo.find(userURI), fountainNeo.find(otherUserURI)));
     }
 }

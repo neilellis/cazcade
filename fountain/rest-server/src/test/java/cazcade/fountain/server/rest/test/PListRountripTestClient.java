@@ -4,8 +4,8 @@
 
 package cazcade.fountain.server.rest.test;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.impl.LSDMarshaler;
 import cazcade.liquid.impl.LSDMarshallerFactory;
 import cazcade.liquid.impl.LSDUnmarshaler;
@@ -37,7 +37,7 @@ public class PListRountripTestClient {
         final HttpMethod getMethod = new GetMethod("http://localhost:8080/liquid/rest/1.0/pool?url=pool:///people/neil");
         getMethod.setDoAuthentication(true);
         client.executeMethod(getMethod);
-        LSDTransferEntity poolEntity;
+        TransferEntity poolEntity;
         try {
             final InputStream bodyAsStream = getMethod.getResponseBodyAsStream();
             final LSDUnmarshallerFactory lsdUnmarshallerFactory = (LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory");
@@ -48,16 +48,16 @@ public class PListRountripTestClient {
             getMethod.releaseConnection();
         }
         Integer counter = 0;
-        if (poolEntity.hasAttribute(LSDAttribute.TEST_COUNTER)) {
-            counter = Integer.parseInt(poolEntity.getRawValue(LSDAttribute.TEST_COUNTER));
+        if (poolEntity.has$(Dictionary.TEST_COUNTER)) {
+            counter = Integer.parseInt(poolEntity.$raw(Dictionary.TEST_COUNTER));
         }
         counter++;
-        poolEntity.setAttribute(LSDAttribute.TEST_COUNTER, counter.toString());
+        poolEntity.$(Dictionary.TEST_COUNTER, counter.toString());
         final LSDMarshallerFactory lsdMarshalerFactory = (LSDMarshallerFactory) applicationContext.getBean("marshalerFactory");
         final LSDMarshaler marshaler = lsdMarshalerFactory.getMarshalers().get("xml");
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         marshaler.marshal(poolEntity, byteArrayOutputStream);
-        final String postURL = "http://localhost:8080/liquid/rest/1.0/pool/" + poolEntity.getUUID().toString();
+        final String postURL = "http://localhost:8080/liquid/rest/1.0/pool/" + poolEntity.id().toString();
         System.out.println("Calling " + postURL);
         final PostMethod postMethod = new PostMethod(postURL);
         System.out.println("Sending: +" + byteArrayOutputStream.toString());

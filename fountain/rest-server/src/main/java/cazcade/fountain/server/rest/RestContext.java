@@ -4,7 +4,7 @@
 
 package cazcade.fountain.server.rest;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 
 import javax.annotation.Nonnull;
 
@@ -20,8 +20,8 @@ public class RestContext {
             return new RestContext();
         }
     };
-    private LiquidSessionIdentifier username;
-    private String                  sessionId;
+    private SessionIdentifier username;
+    private String            sessionId;
 
     @Nonnull
     public static RestContext getContext() {
@@ -32,11 +32,11 @@ public class RestContext {
         context.set(new RestContext());
     }
 
-    public LiquidSessionIdentifier getCredentials() {
+    public SessionIdentifier getCredentials() {
         return username;
     }
 
-    public void setCredentials(final LiquidSessionIdentifier username) {
+    public void setCredentials(final SessionIdentifier username) {
         this.username = username;
     }
 }

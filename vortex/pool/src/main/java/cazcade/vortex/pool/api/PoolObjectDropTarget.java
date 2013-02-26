@@ -1,7 +1,10 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.pool.api;
 
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTypeDef;
+import cazcade.liquid.api.lsd.TypeDef;
 import cazcade.vortex.pool.objects.PoolObjectPresenter;
 
 /**
@@ -9,7 +12,8 @@ import cazcade.vortex.pool.objects.PoolObjectPresenter;
  */
 public interface PoolObjectDropTarget {
 
-    boolean willAccept(LSDTypeDef type);
+    boolean willAccept(TypeDef type);
+
     void accept(PoolObjectPresenter source);
 
 }

@@ -4,12 +4,11 @@
 
 package cazcade.vortex.pool;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
 import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
@@ -40,7 +39,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     @Nonnull
     private final AbsolutePanel            panel;
     @Nonnull
-    private final LSDTransferEntity        entity;
+    private final TransferEntity           entity;
     private final boolean                  pageFlow;
     private final VortexThreadSafeExecutor threadSafeExecutor;
     private final int width  = 1024;
@@ -49,7 +48,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     @Nonnull
     private final PoolObjectContainerManager poolObjectContainerManager;
 
-    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final LSDTransferEntity entity, final boolean pageFlow, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public PoolPresenterImpl(@Nonnull final VortexScrollPanel scrollPanel, @Nonnull final AbsolutePanel panel, @Nonnull final TransferEntity entity, final boolean pageFlow, final VortexThreadSafeExecutor threadSafeExecutor) {
         this.scrollPanel = scrollPanel;
         this.panel = panel;
         this.entity = entity;
@@ -62,7 +61,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
             scrollPanel.setHeight("100%");
         }
         this.threadSafeExecutor = threadSafeExecutor;
-        poolObjectContainerManager = new PoolObjectContainerManager(this, threadSafeExecutor, entity.getURI(), features);
+        poolObjectContainerManager = new PoolObjectContainerManager(this, threadSafeExecutor, entity.uri());
         if (pageFlow) {
             new Timer() {
                 @Override
@@ -119,14 +118,14 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Nonnull
-    public LSDTransferEntity getEntity() {
+    public TransferEntity getEntity() {
         return entity;
     }
 
     @Override
     public void move(@Nonnull final PoolObjectPresenter presenter, final double x, final double y, final boolean onServer) {
         if (onServer) {
-            BusFactory.getInstance().dispatch(new MovePoolObjectRequest(presenter.getEntity().getURI(), x, y, 0.0));
+            BusFactory.get().dispatch(new MovePoolObjectRequest(presenter.getEntity().uri(), x, y, 0.0));
         } else {
             final Widget widget = presenter.getPoolObjectView();
             //noinspection ObjectEquality
@@ -217,8 +216,8 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Nonnull @Override
-    public LSDDictionaryTypes getType() {
-        return LSDDictionaryTypes.POOL2D;
+    public Types getType() {
+        return Types.T_POOL2D;
     }
 
     @Override
@@ -253,7 +252,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Override public boolean isModifiable() {
-        return entity.getBooleanAttribute(LSDAttribute.MODIFIABLE, false);
+        return entity.default$bool(Dictionary.MODIFIABLE, false);
     }
 
 

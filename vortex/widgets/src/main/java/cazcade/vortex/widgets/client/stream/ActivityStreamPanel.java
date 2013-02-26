@@ -4,13 +4,13 @@
 
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.LiquidBoardURL;
-import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.BoardURL;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -43,7 +43,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     public static final int                      UPDATE_LIEFTIME        = 7 * 24 * 3600 * 1000;
     public static final int                      STATUS_CHECK_FREQUENCY = 30 * 1000;
     @Nonnull
-    private final       Bus                      bus                    = BusFactory.getInstance();
+    private final       Bus                      bus                    = BusFactory.get();
     private             int                      maxRows                = 10;
     private             long                     lastUpdate             = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
@@ -96,12 +96,11 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
                 @Override
                 public void run() {
 
-                    BusFactory.getInstance()
-                              .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
-                                                                            .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
+                    BusFactory.get()
+                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
-                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.getResponse());
+                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.response());
                                       addToStream(content);
                                       chatMessageSound.play();
                                   }
@@ -134,19 +133,18 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
             @Override
             public void onSuccess(final RetrieveUpdatesRequest message, @Nonnull final RetrieveUpdatesRequest response) {
                 lastUpdate = System.currentTimeMillis();
-                final List<LSDTransferEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                final List<TransferEntity> entries = response.response().children(Dictionary.CHILD_A);
                 Collections.reverse(entries);
-                for (final LSDTransferEntity entry : entries) {
-                    if (entry.isA(LSDDictionaryTypes.COMMENT)
-                        && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null
-                        && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+                for (final TransferEntity entry : entries) {
+                    if (entry.is(Types.T_COMMENT) && entry.has$(Dictionary.TEXT_BRIEF) && !entry.$(Dictionary.TEXT_BRIEF)
+                                                                                                .isEmpty()) {
                         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false, true);
                     } else {
-                        final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
-                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
-                        final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
+                        final Entity author = entry.child(Dictionary.AUTHOR_A, true);
+                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.$(Dictionary.URI));
+                        final LiquidURI sourceURI = new LiquidURI(entry.$(Dictionary.SOURCE));
 
-                        if (!isAnon && LiquidBoardURL.isConvertable(sourceURI)) {
+                        if (!isAnon && BoardURL.isConvertable(sourceURI)) {
                             StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, true), false, true);
                             //  statusUpdateSound.play();
                         }
@@ -157,7 +155,7 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
         //        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(FormatUtil.getInstance(), maxRows, parentPanel, null, threadSafeExecutor, true) {
         //            @Override
         //            public void onSuccess(AbstractRequest message, AbstractRequest response) {
-        //                lastUpdate = response.getResponse().getUpdated().getTime();
+        //                lastUpdate = response.response().updated().getTime();
         //                Window.alert("Success");
         //                super.onSuccess(message, response);
         //            }

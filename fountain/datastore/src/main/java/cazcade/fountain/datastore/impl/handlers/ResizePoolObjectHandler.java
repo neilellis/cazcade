@@ -6,10 +6,10 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.handler.ResizePoolObjectRequestHandler;
-import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.request.ResizePoolObjectRequest;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Transaction;
@@ -22,20 +22,20 @@ import javax.annotation.Nonnull;
 public class ResizePoolObjectHandler extends AbstractDataStoreHandler<ResizePoolObjectRequest> implements ResizePoolObjectRequestHandler {
     @Nonnull
     public ResizePoolObjectRequest handle(@Nonnull final ResizePoolObjectRequest request) throws InterruptedException {
-        final Transaction transaction = fountainNeo.beginTx();
+        final Transaction transaction = neo.beginTx();
         try {
-            final LSDPersistedEntity persistedEntity = fountainNeo.findByUUID(request.getObjectUUID());
-            final FountainRelationship relationship = persistedEntity.getSingleRelationship(FountainRelationships.VIEW, Direction.OUTGOING);
+            final PersistedEntity persistedEntity = neo.find(request.getObjectUUID());
+            final FountainRelationship relationship = persistedEntity.relationship(FountainRelationships.VIEW, Direction.OUTGOING);
             assert relationship != null;
-            final LSDPersistedEntity viewPersistedEntity = relationship.getOtherNode(persistedEntity);
+            final PersistedEntity viewPersistedEntity = relationship.other(persistedEntity);
             if (request.hasWidth()) {
-                viewPersistedEntity.setAttribute(LSDAttribute.VIEW_WIDTH, request.getWidth());
+                viewPersistedEntity.$(Dictionary.VIEW_WIDTH, request.getWidth());
             }
             if (request.hasHeight()) {
-                viewPersistedEntity.setAttribute(LSDAttribute.VIEW_HEIGHT, request.getHeight());
+                viewPersistedEntity.$(Dictionary.VIEW_HEIGHT, request.getHeight());
             }
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toTransfer(request.detail(), request.internal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

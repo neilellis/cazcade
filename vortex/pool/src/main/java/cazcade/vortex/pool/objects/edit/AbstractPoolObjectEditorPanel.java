@@ -4,8 +4,8 @@
 
 package cazcade.vortex.pool.objects.edit;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.common.client.events.*;
@@ -43,7 +43,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
                     getBus().send(new UpdatePoolObjectRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                         @Override
                         public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                            setAndBindEntity(response.getResponse().copy());
+                            $(response.response().$());
                             if (autoCloseField(field)) {
                                 fireEvent(new EditFinishEvent());
                             }
@@ -51,7 +51,7 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
 
                         @Override
                         public void onFailure(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                            field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
+                            field.setErrorMessage(response.response().$(Dictionary.DESCRIPTION));
                         }
                     });
                 } else {
@@ -73,13 +73,13 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
             getBus().send(new UpdatePoolObjectRequest(getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
                 @Override
                 public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                    setAndBindEntity(response.getResponse().copy());
+                    $(response.response().$());
                     fireEvent(new EditFinishEvent());
                 }
 
                 @Override
                 public void onFailure(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                    Window.alert(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
+                    Window.alert(response.response().$(Dictionary.DESCRIPTION));
                 }
             });
         } else {
@@ -109,8 +109,8 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
     }
 
 
-    public LSDTransferEntity getEntityForCreation() {
-        return getEntity();
+    public TransferEntity getEntityForCreation() {
+        return $();
     }
 
     public void addValidHandler(ValidHandler validHandler) {

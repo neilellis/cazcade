@@ -1,11 +1,15 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.CreateSessionRequest;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
@@ -26,8 +30,7 @@ public class LoginCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Login to the server.";
     }
@@ -43,24 +46,29 @@ public class LoginCommand extends AbstractShortLivedCommand {
             System.err.println("You must specify the username and password");
             return "";
         }
-//        Principal principal = securityProvider.doAuthentication(username, password);
-//        if (principal == null) {
-//            return null;
-//        }
+        //        Principal principal = securityProvider.doAuthentication(username, password);
+        //        if (principal == null) {
+        //            return null;
+        //        }
         final String username = args[0];
         final String password = args[1];
-        final LiquidMessage response = shellSession.getDataStore().process(new CreateSessionRequest(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username), new ClientApplicationIdentifier("Shell Client", "123", "UNKNOWN")));
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new CreateSessionRequest(new LiquidURI(LiquidURIScheme.alias, "cazcade:"
+                                                                                                                          + username), new ClientApplicationIdentifier("Shell Client", "123", "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
-        final LiquidUUID sessionId = response.getResponse().getUUID();
-        if (response.getResponse().isA(LSDDictionaryTypes.SESSION)) {
-            final LiquidSessionIdentifier identity = new LiquidSessionIdentifier(username, sessionId);
-            final LiquidMessage visitPoolResponse = shellSession.getDataStore().process(new VisitPoolRequest(identity, new LiquidURI("pool:///people/" + username)));
-            final LSDBaseEntity visitPoolEntity = visitPoolResponse.getResponse();
+        final LiquidUUID sessionId = response.response().id();
+        if (response.response().is(Types.T_SESSION)) {
+            final SessionIdentifier identity = new SessionIdentifier(username, sessionId);
+            final LiquidMessage visitPoolResponse = shellSession.getDataStore()
+                                                                .process(new VisitPoolRequest(identity, new LiquidURI(
+                                                                        "pool:///people/"
+                                                                        + username)));
+            final TransferEntity visitPoolEntity = visitPoolResponse.response();
             shellSession.setCurrentPool(visitPoolEntity);
             shellSession.setIdentity(identity);
             log.info("Logged in with session id of {0}", sessionId);
         } else {
-            throw new RuntimeException("Unexpected result " + response.getResponse().getTypeDef());
+            throw new RuntimeException("Unexpected result " + response.response().type());
         }
         return sessionId.toString();
     }

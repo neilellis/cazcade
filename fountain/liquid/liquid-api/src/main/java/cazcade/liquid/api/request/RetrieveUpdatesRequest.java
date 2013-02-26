@@ -5,10 +5,10 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,26 +16,26 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
-    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final long since) {
+    public RetrieveUpdatesRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final long since) {
         super();
         setSince(since);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
     }
 
-    public RetrieveUpdatesRequest(final LiquidSessionIdentifier identity, final long since) {
+    public RetrieveUpdatesRequest(final SessionIdentifier identity, final long since) {
         this(null, identity, since);
     }
 
     public RetrieveUpdatesRequest(final long since) {
-        this(null, LiquidSessionIdentifier.ANON, since);
+        this(null, SessionIdentifier.ANON, since);
     }
 
     public RetrieveUpdatesRequest() {
         super();
     }
 
-    public RetrieveUpdatesRequest(final LSDTransferEntity entity) {
+    public RetrieveUpdatesRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -45,12 +45,12 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.EMPTY_LIST;
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.RETRIEVE_UPDATES;
+    public RequestType requestType() {
+        return RequestType.RETRIEVE_UPDATES;
     }
 }

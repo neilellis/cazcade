@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ import java.util.Collection;
 public class CreateSessionRequest extends AbstractCreationRequest {
     public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
         super();
-        setId(id);
+        id(id);
         setUri(alias);
         setClient(client);
     }
@@ -33,7 +33,7 @@ public class CreateSessionRequest extends AbstractCreationRequest {
         super();
     }
 
-    public CreateSessionRequest(final LSDTransferEntity entity) {
+    public CreateSessionRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -42,13 +42,13 @@ public class CreateSessionRequest extends AbstractCreationRequest {
         return new CreateSessionRequest(getEntity());
     }
 
-    public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(getUri());
+    public Collection<LiquidURI> affectedEntities() {
+        return Arrays.asList(uri());
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CREATE_SESSION;
+    public RequestType requestType() {
+        return RequestType.CREATE_SESSION;
     }
 
     @Override

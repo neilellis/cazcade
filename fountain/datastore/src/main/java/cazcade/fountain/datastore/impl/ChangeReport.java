@@ -4,8 +4,8 @@
 
 package cazcade.fountain.datastore.impl;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -26,30 +26,27 @@ public class ChangeReport {
     @Nonnull
     private final       List<Map> latestChanges                      = new ArrayList<Map>();
 
-    private static String addBoardSnaphotImageUrl(LSDTransferEntity boardEntity) {
-        return "http://boardcast.it/_snapshot-" + boardEntity.getURI().getWithoutFragment().asBoardURL().asUrlSafe() +
-               "?bid=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
+    private static String addBoardSnaphotImageUrl(TransferEntity boardEntity) {
+        return "http://boardcast.it/_snapshot-" + boardEntity.uri().withoutFragment().board().safe() +
+               "?bid=" + boardEntity.id().toString() + boardEntity.default$(Dictionary.VERSION, "") +
                System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
     }
 
 
-    private static String addChangeSnaphotImageUrl(LSDTransferEntity boardEntity) {
-        return "http://boardcast.it/_snapshot-" + boardEntity.getURIAttribute(LSDAttribute.SOURCE)
-                                                             .getWithoutFragment()
-                                                             .asBoardURL()
-                                                             .asUrlSafe() +
-               "?bid=" + boardEntity.getUUID().toString() + boardEntity.getAttribute(LSDAttribute.VERSION, "") +
+    private static String addChangeSnaphotImageUrl(TransferEntity boardEntity) {
+        return "http://boardcast.it/_snapshot-" + boardEntity.getURIAttribute(Dictionary.SOURCE).withoutFragment().board().safe() +
+               "?bid=" + boardEntity.id().toString() + boardEntity.default$(Dictionary.VERSION, "") +
                System.currentTimeMillis() / FORCE_IMAGE_REFRESH_TIME_IN_MILLIS;
     }
 
 
-    public void addChangedFollowedBoard(@Nonnull final LSDTransferEntity boardEntity) {
+    public void addChangedFollowedBoard(@Nonnull final TransferEntity boardEntity) {
         final Map<String, String> map = boardEntity.getCamelCaseMap();
         map.put("snapshotUrl", addBoardSnaphotImageUrl(boardEntity));
         changedFollowedBoards.add(map);
     }
 
-    public void addChangedOwnedBoard(@Nonnull final LSDTransferEntity boardEntity) {
+    public void addChangedOwnedBoard(@Nonnull final TransferEntity boardEntity) {
         final Map<String, String> map = boardEntity.getCamelCaseMap();
         map.put("snapshotUrl", addBoardSnaphotImageUrl(boardEntity));
         changedOwnedBoards.add(map);
@@ -59,8 +56,7 @@ public class ChangeReport {
     public List<Map> getChangedFollowedBoards() {
         if (changedFollowedBoards.size() > 5) {
             return changedFollowedBoards.subList(0, 5);
-        }
-        else {
+        } else {
             return changedFollowedBoards;
         }
     }
@@ -69,8 +65,7 @@ public class ChangeReport {
     public List<Map> getChangedOwnedBoards() {
         if (changedOwnedBoards.size() > 5) {
             return changedOwnedBoards.subList(0, 5);
-        }
-        else {
+        } else {
             return changedOwnedBoards;
         }
     }
@@ -92,8 +87,8 @@ public class ChangeReport {
         return latestChanges;
     }
 
-    public void setLatestChanges(@Nonnull final Collection<LSDTransferEntity> changes) {
-        for (final LSDTransferEntity change : changes) {
+    public void setLatestChanges(@Nonnull final Collection<TransferEntity> changes) {
+        for (final TransferEntity change : changes) {
             final Map<String, String> map = change.getCamelCaseMap();
             map.put("snapshotUrl", addChangeSnaphotImageUrl(change));
             latestChanges.add(map);

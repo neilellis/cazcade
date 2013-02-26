@@ -4,10 +4,10 @@
 
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.handler.AddCommentRequestHandler;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.AddCommentRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -18,19 +18,18 @@ import javax.annotation.Nonnull;
  */
 public class AddCommentHandler extends AbstractUpdateHandler<AddCommentRequest> implements AddCommentRequestHandler {
     @Nonnull @Override
-    public AddCommentRequest handle(@Nonnull final AddCommentRequest request) throws InterruptedException {
-        final Transaction transaction = fountainNeo.beginTx();
+    public AddCommentRequest handle(@Nonnull final AddCommentRequest request) throws Exception {
+        final Transaction transaction = neo.beginTx();
         try {
-            final LSDPersistedEntity commentTargetPersistedEntity = request.hasTarget()
-                                                                    ? fountainNeo.findByUUID(request.getTarget())
-                                                                    : fountainNeo.findByURI(request.getUri());
-            final LSDTransferEntity response = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.getSessionIdentifier(), poolDAO
-                    .addCommentNoTX(commentTargetPersistedEntity, request.getRequestEntity(), request.getAlias()), null, request.getDetail(), request
-                    .isInternal(), false);
+            final PersistedEntity commentTargetPersistedEntity = request.hasTarget()
+                                                                 ? neo.find(request.getTarget())
+                                                                 : neo.find(request.uri());
+            final TransferEntity response = poolDAO.convertNodeToEntityWithRelatedEntitiesNoTX(request.session(), poolDAO.addCommentNoTX(commentTargetPersistedEntity, request
+                    .request(), request.alias()), null, request.detail(), request.internal(), false);
 
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, response);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             transaction.failure();
             throw e;
         } finally {

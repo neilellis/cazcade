@@ -5,10 +5,10 @@
 package cazcade.liquid.impl;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDEntityFactory;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.EntityFactory;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,13 +33,13 @@ public class PListUnmarshaler implements LSDUnmarshaler {
 
     private final DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 
-    private LSDEntityFactory lsdEntityFactory;
+    private EntityFactory entityFactory;
 
-    public void setLsdFactory(final LSDEntityFactory lsdEntityFactory) {
-        this.lsdEntityFactory = lsdEntityFactory;
+    public void setLsdFactory(final EntityFactory entityFactory) {
+        this.entityFactory = entityFactory;
     }
 
-    public void unmarshal(@Nullable final LSDBaseEntity lsdEntity, final InputStream input) {
+    public void unmarshal(@Nullable final Entity lsdEntity, final InputStream input) {
         if (lsdEntity == null) {
             throw new NullPointerException("A null lsdEntity was passed to be marshalled, this probably came from the datastore, maybe you want to see how it managed to return a null");
         }
@@ -67,7 +67,7 @@ public class PListUnmarshaler implements LSDUnmarshaler {
         }
     }
 
-    private void walk(@Nonnull final LSDBaseEntity entity, @Nonnull final String prefix, String lastKey, @Nonnull final Element rootElement) {
+    private void walk(@Nonnull final Entity entity, @Nonnull final String prefix, String lastKey, @Nonnull final Element rootElement) {
         final NodeList childNodes = rootElement.getChildNodes();
 
         for (int i = 0; i < childNodes.getLength(); i++) {
@@ -77,14 +77,11 @@ public class PListUnmarshaler implements LSDUnmarshaler {
             final String nodeName = node.getNodeName();
             if ("dict".equals(nodeName)) {
                 walk(entity, prefix.isEmpty() ? lastKey : prefix + "." + lastKey, lastKey, (Element) node);
-            }
-            else if ("key".equals(nodeName)) {
+            } else if ("key".equals(nodeName)) {
                 lastKey = node.getTextContent();
-            }
-            else if ("string".equals(nodeName)) {
+            } else if ("string".equals(nodeName)) {
                 entity.setValue(prefix.isEmpty() ? lastKey : prefix + "." + lastKey, node.getTextContent());
-            }
-            else if ("array".equals(nodeName)) {
+            } else if ("array".equals(nodeName)) {
                 final NodeList grandChildNodes = node.getChildNodes();
                 for (int j = 0; j < grandChildNodes.getLength(); j++) {
                     final Node grandChildNode = grandChildNodes.item(i);
@@ -93,16 +90,15 @@ public class PListUnmarshaler implements LSDUnmarshaler {
                                  ? lastKey + "." + j
                                  : prefix + "." + lastKey + j, lastKey, (Element) grandChildNode);
                 }
-            }
-            else {
+            } else {
                 assertThat(false, "Found an element with a name of " + node.getNodeName() + " in a plist, it is not supported.");
             }
         }
     }
 
     @Nonnull
-    public LSDTransferEntity unmarshal(final InputStream input) {
-        final LSDTransferEntity lsdEntity = LSDSimpleEntity.createEmpty();
+    public TransferEntity unmarshal(final InputStream input) {
+        final TransferEntity lsdEntity = SimpleEntity.createEmpty();
         unmarshal(lsdEntity, input);
         return lsdEntity;
     }

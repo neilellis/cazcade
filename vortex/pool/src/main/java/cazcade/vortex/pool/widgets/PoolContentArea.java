@@ -4,13 +4,12 @@
 
 package cazcade.vortex.pool.widgets;
 
-import cazcade.liquid.api.LiquidPermission;
-import cazcade.liquid.api.LiquidPermissionScope;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
-import cazcade.liquid.api.lsd.LSDType;
+import cazcade.liquid.api.Permission;
+import cazcade.liquid.api.PermissionScope;
+import cazcade.liquid.api.lsd.CollectionCallback;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Type;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -38,40 +37,33 @@ import com.google.gwt.user.client.ui.Label;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashSet;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
 import static com.google.gwt.http.client.URL.encode;
 
 /**
  * @author neilellis@cazcade.com
  */
 public class PoolContentArea extends Composite {
-    public static final int DEFAULT_WIDTH = 1024;
+    interface PoolContentAreaUiBinder extends UiBinder<HTMLPanel, PoolContentArea> {}
 
-    private static final PoolContentAreaUiBinder ourUiBinder              = GWT.create(PoolContentAreaUiBinder.class);
+    public static final  int                     DEFAULT_WIDTH            = 1024;
     public static final  String                  DEFAULT_BACKGROUND_IMAGE = "/_static/_background/misc/corkboard.jpg";
-
-    @UiField AbsolutePanel container;
-    @UiField Label         visibilityStatus;
-
+    private static final PoolContentAreaUiBinder ourUiBinder              = GWT.create(PoolContentAreaUiBinder.class);
     @Nonnull
-    private final Bus bus;
-
+    private final Bus                      bus;
     @Nullable
     private final VortexScrollPanel        scrollPanel;
+    private final boolean                  pageFlow;
+    @UiField      AbsolutePanel            container;
+    @UiField      Label                    status;
     @Nullable
     private       VortexThreadSafeExecutor threadSafeExecutor;
     @Nullable
     private       PoolPresenter            poolPresenter;
-    private final boolean                  pageFlow;
 
     public PoolContentArea() {
         this(false, false, true);
-    }
-
-    @Override
-    protected void onLoad() {
-        super.onLoad();
     }
 
     @UiConstructor
@@ -84,99 +76,99 @@ public class PoolContentArea extends Composite {
         if (!pageFlow) {
             setHeight("100%");
         }
-        bus = BusFactory.getInstance();
+        bus = BusFactory.get();
     }
 
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+    }
 
-    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final LSDType type, final boolean listed) {
+    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final Type type, final boolean listed) {
         this.threadSafeExecutor = threadSafeExecutor;
         bus.send(new VisitPoolRequest(type, uri, uri, true, listed), new AbstractResponseCallback<VisitPoolRequest>() {
             @Override
             public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
                 ClientLog.log("Got response.");
-                final LSDTransferEntity poolEntity = response.getResponse().copy();
+                final TransferEntity poolEntity = response.response().$();
                 ClientLog.log(poolEntity.dump());
 
-                init(poolEntity, features, threadSafeExecutor);
+                init(poolEntity, threadSafeExecutor);
             }
         });
     }
 
-    public void init(@Nonnull final LSDTransferEntity poolEntity, final FormatUtil features, final VortexThreadSafeExecutor threadSafeExecutor) {
-        if (poolEntity.hasAttribute(LSDAttribute.BACKGROUND_URL)) {
-            final String imageUrl = poolEntity.getAttribute(LSDAttribute.BACKGROUND_URL);
-            setBackgroundImage(imageUrl);
-        } else {
-            setBackgroundImage(DEFAULT_BACKGROUND_IMAGE);
-        }
+    public void init(@Nonnull final TransferEntity poolEntity, final VortexThreadSafeExecutor threadSafeExecutor) {
+        setBackgroundImage(poolEntity.has$(BACKGROUND_URL) ? poolEntity.$(BACKGROUND_URL) : DEFAULT_BACKGROUND_IMAGE);
         //        backgroundImage.setWidth("100%");
         //        backgroundImage.setHeight("100%");
         //        container.add(backgroundImage);
         if (poolPresenter != null) {
             poolPresenter.destroy();
         }
-        final boolean listed = poolEntity.getBooleanAttribute(LSDAttribute.LISTED, false);
-        visibilityStatus.removeStyleName("danger");
-        visibilityStatus.removeStyleName("warning");
-        if (poolEntity.getBooleanAttribute(LSDAttribute.EDITABLE, false)) {
-            if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.EDIT)) {
+        final boolean listed = poolEntity.default$bool(LISTED, false);
+        status.removeStyleName("danger");
+        status.removeStyleName("warning");
+        if (poolEntity.default$bool(EDITABLE, false)) {
+            if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.EDIT_PERM)) {
                 if (listed) {
-                    visibilityStatus.setText("All can edit");
-                    visibilityStatus.addStyleName("danger");
+                    status.setText("All can edit");
+                    status.addStyleName("danger");
                 } else {
-                    visibilityStatus.setText("Invitees can edit");
+                    status.setText("Invitees can edit");
                 }
-            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.MODIFY)) {
+            } else if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.MODIFY_PERM)) {
                 if (listed) {
-                    visibilityStatus.setText("Everyone can modify");
-                    visibilityStatus.addStyleName("warning");
+                    status.setText("Everyone can modify");
+                    status.addStyleName("warning");
                 } else {
-                    visibilityStatus.setText("Invitees can modify");
+                    status.setText("Invitees can modify");
                 }
-            } else if (poolEntity.hasPermission(LiquidPermissionScope.WORLD, LiquidPermission.VIEW)) {
+            } else if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.VIEW_PERM)) {
                 if (listed) {
-                    visibilityStatus.setText("Everyone can view");
+                    status.setText("Everyone can view");
                 } else {
-                    visibilityStatus.setText("Invitees can view");
+                    status.setText("Invitees can view");
                 }
             } else {
                 if (listed) {
-                    visibilityStatus.setText("Listed but not visible");
-                    visibilityStatus.addStyleName("warning");
+                    status.setText("Listed but not visible");
+                    status.addStyleName("warning");
                 } else {
-                    visibilityStatus.setText("Only you can view");
+                    status.setText("Only you can view");
                 }
             }
-            WidgetUtil.show(visibilityStatus);
+            WidgetUtil.show(status);
         } else {
-            WidgetUtil.hideGracefully(visibilityStatus, false);
+            WidgetUtil.hideGracefully(status, false);
         }
         clear();
-        poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, features, threadSafeExecutor);
+        poolPresenter = new PoolPresenterImpl(scrollPanel, container, poolEntity, pageFlow, threadSafeExecutor);
         poolPresenter.showInitMode();
-        final HashSet<LSDBaseEntity> entities = new HashSet<LSDBaseEntity>(poolEntity.getSubEntities(LSDAttribute.CHILD));
-        for (final LSDBaseEntity entity : entities) {
-            try {
-                ClientLog.log(entity.getTypeDef().asString());
-                final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, (LSDTransferEntity) entity, features, threadSafeExecutor);
-                if (poolObjectPresenter != null) {
-                    ClientLog.assertTrue(poolObjectPresenter != null, "Pool Object Presenter was null");
-                    poolObjectPresenter.setX(scrollPanel.getOffsetX() + 200);
-                    poolObjectPresenter.setY(scrollPanel.getOffsetY() + 200);
-                    poolPresenter.add(poolObjectPresenter);
-                }
-
-            } catch (Throwable e) {
-                ClientLog.log(e);
-            } finally {
-                new Timer() {
-                    @Override
-                    public void run() {
-                        poolPresenter.hideInitMode();
+        poolEntity.children().each(new CollectionCallback<TransferEntity>() {
+            @Override public void call(TransferEntity entity) {
+                try {
+                    ClientLog.log(entity.type());
+                    final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(poolPresenter, entity, threadSafeExecutor);
+                    if (poolObjectPresenter != null) {
+                        ClientLog.assertTrue(poolObjectPresenter != null, "Pool Object Presenter was null");
+                        poolObjectPresenter.setX(scrollPanel.getOffsetX() + 200);
+                        poolObjectPresenter.setY(scrollPanel.getOffsetY() + 200);
+                        poolPresenter.add(poolObjectPresenter);
                     }
-                }.schedule(500);
+
+                } catch (Throwable e) {
+                    ClientLog.log(e);
+                } finally {
+                    new Timer() {
+                        @Override
+                        public void run() {
+                            poolPresenter.hideInitMode();
+                        }
+                    }.schedule(500);
+                }
             }
-        }
+        });
     }
 
     public void setBackgroundImage(@Nullable final String imageUrl) {
@@ -195,15 +187,11 @@ public class PoolContentArea extends Composite {
         }
     }
 
-
     public void clear() {
         WidgetUtil.removeAllChildren(container);
         scrollPanel.scrollToTopLeft();
 
     }
-
-
-    interface PoolContentAreaUiBinder extends UiBinder<HTMLPanel, PoolContentArea> {}
 
     public void center() {
         scrollPanel.center();

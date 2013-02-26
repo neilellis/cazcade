@@ -1,6 +1,6 @@
 <%@ page import="cazcade.common.CommonConstants" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDBaseEntity" %>
+<%@ page import="cazcade.liquid.api.lsd.Dictionary" %>
+<%@ page import="cazcade.liquid.api.lsd.Entity" %>
 <%@ page import="org.jasypt.digest.StandardStringDigester" %>
 <%@ page import="javax.mail.Message" %>
 <%@ page import="javax.mail.Session" %>
@@ -17,20 +17,20 @@
   --%>
 
 <%
-    final LSDBaseEntity user = (LSDBaseEntity) session.getAttribute(CommonConstants.NEW_USER_ATTRIBUTE);
+    final Entity user = (Entity) session.getAttribute(CommonConstants.NEW_USER_ATTRIBUTE);
     if (user == null) {
         throw new RuntimeException("No user in session.");
     }
     final String host = "smtp.sendgrid.net";
-    final String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
+    final String to = user.$(Dictionary.EMAIL_ADDRESS);
     final String from = "info@boardcast.com";
 
-    final String name = user.getAttribute(LSDAttribute.FULL_NAME);
+    final String name = user.$(Dictionary.FULL_NAME);
     final String subject = "Welcome!";
 
     final StandardStringDigester digester = new StandardStringDigester();
     final String messageText = "Please click on this link to register: http://beta.boardcast.com/confirm_reg.jsp?user=" +
-                               URLEncoder.encode(user.getAttribute(LSDAttribute.NAME), "utf8") +
+                               URLEncoder.encode(user.$(Dictionary.NAME), "utf8") +
                                "&hash=" + URLEncoder.encode(digester.digest(to), "utf8");
 
     final boolean sessionDebug = false;

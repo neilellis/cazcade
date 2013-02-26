@@ -4,7 +4,6 @@
 
 package cazcade.vortex.pool.objects.richtext;
 
-import cazcade.vortex.common.client.FormatUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -44,14 +43,6 @@ public class NoteView extends RichTextView {
         if ("black".equals(theme)) {
             label.setColor("white");
         }
-    }
-
-    public NoteView(final FormatUtil formatter) {
-        super();
-        initWidget(ourUiBinder.createAndBindUi(this));
-        label.setFormatter(formatter);
-        getElement().getStyle().setZIndex(5000);
-
     }
 
 

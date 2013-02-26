@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusFactory;
 import com.google.gwt.core.client.GWT;
@@ -19,25 +24,17 @@ import java.util.Map;
  */
 public class VortexAddressPicker extends VortexCompoundFormField {
 
-    @Nonnull
-    Bus bus = BusFactory.getInstance();
+    @Nonnull Bus bus = BusFactory.get();
 
-    interface VortexAddressPickerUiBinder extends UiBinder<HTMLPanel, VortexAddressPicker> {
-    }
+    interface VortexAddressPickerUiBinder extends UiBinder<HTMLPanel, VortexAddressPicker> {}
 
     private static final VortexAddressPickerUiBinder ourUiBinder = GWT.create(VortexAddressPickerUiBinder.class);
-    @UiField
-    RegexTextBox addressFirstLine;
-    @UiField
-    RegexTextBox addressSecondLine;
-    @UiField
-    RegexTextBox city;
-    @UiField
-    RegexTextBox state;
-    @UiField
-    RegexTextBox postalCode;
-    @UiField
-    VortexListBox country;
+    @UiField RegexTextBox  addressFirstLine;
+    @UiField RegexTextBox  addressSecondLine;
+    @UiField RegexTextBox  city;
+    @UiField RegexTextBox  state;
+    @UiField RegexTextBox  postalCode;
+    @UiField VortexListBox country;
 
     public VortexAddressPicker() {
         super();
@@ -45,23 +42,23 @@ public class VortexAddressPicker extends VortexCompoundFormField {
     }
 
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String prefix) {
-        final LSDTransferEntity subEntity = entity.getSubEntity(attribute, false);
+    public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String prefix) {
+        final TransferEntity subEntity = (TransferEntity) entity.child(attribute, false);
         setEntity(subEntity);
-        final Map<LSDAttribute, VortexFormField> map = new HashMap<LSDAttribute, VortexFormField>();
-        map.put(LSDAttribute.ADDRESS_FIRST_LINE, addressFirstLine);
-        map.put(LSDAttribute.ADDRESS_SECOND_LINE, addressSecondLine);
-        map.put(LSDAttribute.ADDRESS_CITY, city);
-        map.put(LSDAttribute.ADDRESS_STATE, state);
-        map.put(LSDAttribute.ADDRESS_POSTALCODE, postalCode);
-        map.put(LSDAttribute.ADDRESS_COUNTRY, country);
+        final Map<Attribute, VortexFormField> map = new HashMap<Attribute, VortexFormField>();
+        map.put(Dictionary.ADDRESS_FIRST_LINE, addressFirstLine);
+        map.put(Dictionary.ADDRESS_SECOND_LINE, addressSecondLine);
+        map.put(Dictionary.ADDRESS_CITY, city);
+        map.put(Dictionary.ADDRESS_STATE, state);
+        map.put(Dictionary.ADDRESS_POSTALCODE, postalCode);
+        map.put(Dictionary.ADDRESS_COUNTRY, country);
         bindAll(entity, map, prefix, attribute);
-//        addressFirstLine.setAttribute(subEntity.getAttribute(LSDAttribute.ADDRESS_FIRST_LINE));
-//        addressSecondLine.setAttribute(subEntity.getAttribute(LSDAttribute.ADDRESS_SECOND_LINE));
-//        city.setAttribute(subEntity.getAttribute(LSDAttribute.ADDRESS_CITY));
-//        state.setAttribute(subEntity.getAttribute(LSDAttribute.ADDRESS_STATE));
-//        postalCode.setAttribute(subEntity.getAttribute(LSDAttribute.ADDRESS_POSTALCODE));
-//        country.setAttribute(subEntity.getAttribute(LSDAttribute.ADDRESS_COUNTRY));
+        //        addressFirstLine.$(subEntity.$(Attribute.ADDRESS_FIRST_LINE));
+        //        addressSecondLine.$(subEntity.$(Attribute.ADDRESS_SECOND_LINE));
+        //        city.$(subEntity.$(Attribute.ADDRESS_CITY));
+        //        state.$(subEntity.$(Attribute.ADDRESS_STATE));
+        //        postalCode.$(subEntity.$(Attribute.ADDRESS_POSTALCODE));
+        //        country.$(subEntity.$(Attribute.ADDRESS_COUNTRY));
     }
 
 

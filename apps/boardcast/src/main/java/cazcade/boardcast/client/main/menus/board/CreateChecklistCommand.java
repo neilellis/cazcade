@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 
 import javax.annotation.Nonnull;
@@ -10,7 +14,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateChecklistCommand extends CreateContainerCommand {
-    public CreateChecklistCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
+    public CreateChecklistCommand(final LiquidURI pool, final Types type) {
         super(pool, type);
     }
 
@@ -20,8 +24,7 @@ public class CreateChecklistCommand extends CreateContainerCommand {
         Track.getInstance().trackEvent("Add", "Add Checklist");
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     protected String getInitialName() {
         return "checklist" + System.currentTimeMillis();
     }

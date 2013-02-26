@@ -4,9 +4,9 @@
 
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDSimpleEntityFactory;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.SimpleEntityFactory;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 
 import javax.annotation.Nonnull;
@@ -18,26 +18,26 @@ import java.io.InputStream;
  */
 
 public class XMLUnmarshaler implements LSDUnmarshaler {
-    private XMLInputFactory        xmlInputFactory;
-    private LSDSimpleEntityFactory lsdFactory;
+    private XMLInputFactory     xmlInputFactory;
+    private SimpleEntityFactory lsdFactory;
 
 
-    public void unmarshal(final LSDBaseEntity lsdEntity, final InputStream input) {
+    public void unmarshal(final Entity lsdEntity, final InputStream input) {
         xmlInputFactory = XMLInputFactory.newInstance();
         LiquidXStreamFactory.getXstream().fromXML(input, lsdEntity);
     }
 
     @Nonnull
-    public LSDTransferEntity unmarshal(final InputStream input) {
+    public TransferEntity unmarshal(final InputStream input) {
         xmlInputFactory = XMLInputFactory.newInstance();
-        return (LSDTransferEntity) LiquidXStreamFactory.getXstream().fromXML(input);
+        return (TransferEntity) LiquidXStreamFactory.getXstream().fromXML(input);
     }
 
-    public LSDSimpleEntityFactory getLsdFactory() {
+    public SimpleEntityFactory getLsdFactory() {
         return lsdFactory;
     }
 
-    public void setLsdFactory(final LSDSimpleEntityFactory lsdFactory) {
+    public void setLsdFactory(final SimpleEntityFactory lsdFactory) {
         this.lsdFactory = lsdFactory;
     }
 }

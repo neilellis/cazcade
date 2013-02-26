@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,27 +15,27 @@ import java.util.Collections;
 import java.util.List;
 
 public class SendRequest extends AbstractRequest {
-    public SendRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
+    public SendRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final TransferEntity entity, final String recipient) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setRecipient(recipient);
         setRequestEntity(entity);
     }
 
-    public SendRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity entity, final String recipient) {
+    public SendRequest(final SessionIdentifier identity, final TransferEntity entity, final String recipient) {
         this(null, identity, entity, recipient);
     }
 
-    public SendRequest(final LSDTransferEntity entity, final String recipient) {
-        this(null, LiquidSessionIdentifier.ANON, entity, recipient);
+    public SendRequest(final TransferEntity entity, final String recipient) {
+        this(null, SessionIdentifier.ANON, entity, recipient);
     }
 
     public SendRequest() {
         super();
     }
 
-    public SendRequest(final LSDTransferEntity entity) {
+    public SendRequest(final TransferEntity entity) {
         getEntity();
     }
 
@@ -44,7 +44,7 @@ public class SendRequest extends AbstractRequest {
         return new SendRequest(getEntity());
     }
 
-    public Collection<LiquidURI> getAffectedEntities() {
+    public Collection<LiquidURI> affectedEntities() {
         return Arrays.asList(getRecipientAlias());
     }
 
@@ -54,7 +54,7 @@ public class SendRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.emptyList();
     }
 
@@ -64,13 +64,13 @@ public class SendRequest extends AbstractRequest {
     }
 
     @Override
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return Arrays.asList(new LiquidURI("alias:cazcade:" + getRecipient()).asReverseDNSString());
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.SEND;
+    public RequestType requestType() {
+        return RequestType.SEND;
     }
 
     public boolean isMutationRequest() {

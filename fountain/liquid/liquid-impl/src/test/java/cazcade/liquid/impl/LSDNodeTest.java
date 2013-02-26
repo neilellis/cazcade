@@ -27,15 +27,15 @@ public class LSDNodeTest extends TestCase {
         final Properties props = new Properties();
         props.load(getClass().getResourceAsStream("test.properties"));
         final Map<String, String> propMap = (HashMap<String, String>) new HashMap(props);
-        final LSDSimpleEntity entity = LSDSimpleEntity.createFromProperties(propMap);
-        final LSDNode lsdNode = entity.asFormatIndependentTree();
+        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.createFromProperties(propMap);
+        final Node node = entity.asFormatIndependentTree();
 
-        final LSDSimpleEntity convertedEntity = LSDSimpleEntity.createFromNode(lsdNode);
+        final SimpleEntity<? extends TransferEntity> convertedEntity = SimpleEntity.createFromNode(node);
         marshallerFactory.getMarshalers().get("plist").marshal(entity, System.out);
         marshallerFactory.getMarshalers()
                          .get("plist")
                          .marshal(entity, new FileOutputStream(System.getProperty("java.io.tmpdir") + "/liquid_test.plist"));
-        final Map<String, String> convertedMap = convertedEntity.getMap();
+        final Map<String, String> convertedMap = convertedEntity.map();
         for (final Map.Entry<String, String> entry : convertedMap.entrySet()) {
             System.out.println(entry.getKey() + '=' + entry.getValue());
         }
@@ -46,28 +46,28 @@ public class LSDNodeTest extends TestCase {
     }
 
     public void testArrayMarshalling() throws IOException {
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setValues(LSDAttribute.valueOf("x.test_with_underscore"), Arrays.asList("1", "2", "3"));
+        final TransferEntity entity = SimpleEntity.createEmpty();
+        entity.$(Attribute.valueOf("x.test_with_underscore"), Arrays.asList("1", "2", "3"));
         System.err.println(entity);
-        final LSDNode lsdNode = entity.asFormatIndependentTree();
-        System.err.println(lsdNode);
-        final List<LSDNode> children = lsdNode.getChildren().get(1).getChildren();
-        for (final LSDNode child : children) {
+        final Node node = entity.asFormatIndependentTree();
+        System.err.println(node);
+        final List<Node> children = node.getChildren().get(1).getChildren();
+        for (final Node child : children) {
             System.out.println(child.getName());
-            final List<LSDNode> subChildren = child.getChildren();
-            for (final LSDNode subChild : subChildren) {
+            final List<Node> subChildren = child.getChildren();
+            for (final Node subChild : subChildren) {
                 System.out.println('+' + subChild.getName());
             }
         }
-        assertEquals("3", lsdNode.getChildren().get(1).getChildren().get(0).getChildren().get(2).getLeafValue());
-        final LSDSimpleEntity convertedEntity = LSDSimpleEntity.createFromNode(lsdNode);
+        assertEquals("3", node.getChildren().get(1).getChildren().get(0).getChildren().get(2).getLeafValue());
+        final SimpleEntity<? extends TransferEntity> convertedEntity = SimpleEntity.createFromNode(node);
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         marshallerFactory.getMarshalers().get("xml").marshal(entity, byteArrayOutputStream);
         System.err.println(new String(byteArrayOutputStream.toByteArray(), "utf8"));
-        final LSDBaseEntity unmarshalledEntity = unmarshallerFactory.getUnmarshalers()
-                                                                    .get("xml")
-                                                                    .unmarshal(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
-        final List<String> values = unmarshalledEntity.getAttributeAsList(LSDAttribute.valueOf("x.test_with_underscore"));
+        final Entity unmarshalledEntity = unmarshallerFactory.getUnmarshalers()
+                                                             .get("xml")
+                                                             .unmarshal(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+        final List<String> values = unmarshalledEntity.$list(Attribute.valueOf("x.test_with_underscore"));
         assertEquals("1", values.get(0));
         assertEquals("2", values.get(1));
         assertEquals("3", values.get(2));

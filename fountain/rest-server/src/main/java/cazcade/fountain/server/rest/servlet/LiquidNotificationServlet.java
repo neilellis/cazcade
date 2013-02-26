@@ -10,9 +10,9 @@ import cazcade.fountain.datastore.api.AuthorizationStatus;
 import cazcade.fountain.messaging.FountainPubSub;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 
@@ -40,9 +40,9 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
 
     @Override
     public void doRestCall(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final String pathWithQuery, final String serviceName, final String methodName, @Nonnull final List<LiquidUUID> uuids, final String sessionId, final String format) throws RuntimeException, ServletException, IOException {
-        final LSDTransferEntity sessionStateEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.SESSION);
+        final TransferEntity sessionStateEntity = SimpleEntity.create(Types.T_SESSION);
         final LiquidUUID sessionUUID = LiquidUUID.fromString(sessionId);
-        sessionStateEntity.setID(sessionUUID);
+        sessionStateEntity.id(sessionUUID);
         final String queue = getQueue(req);
         for (final LiquidUUID uuid : uuids) {
             authorize(resp, uuid);
@@ -65,7 +65,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         try {
             final AuthorizationService authorizationService = (AuthorizationService) applicationContext.getBean("authorizationService");
             final AuthorizationStatus authorizationStatus = authorizationService.authorize(RestContext.getContext()
-                                                                                                      .getCredentials(), uuid, LiquidPermission.EDIT);
+                                                                                                      .getCredentials(), uuid, Permission.EDIT_PERM);
             if (!(authorizationStatus == AuthorizationStatus.ACCEPTED)) {
                 doAuthorizationError(resp);
                 return false;
@@ -83,14 +83,14 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
 
 
     @Nonnull
-    public ArrayList<LiquidMessage> collect(final String queue, List<LiquidUUID> uuids, @Nonnull final HttpServletResponse response, LiquidSessionIdentifier identity) {
+    public ArrayList<LiquidMessage> collect(final String queue, List<LiquidUUID> uuids, @Nonnull final HttpServletResponse response, SessionIdentifier identity) {
         final ArrayList<String> queues = new ArrayList<String>();
         for (LiquidUUID uuid : uuids) {
             queues.add("location." + uuid.toString());
         }
-        queues.add("session." + identity.getSession());
-        queues.add("user." + identity.getUserURL());
-        queues.add("alias." + identity.getAliasURL());
+        queues.add("session." + identity.session());
+        queues.add("user." + identity.userURL());
+        queues.add("alias." + identity.aliasURI());
         FountainPubSub.Collector collector = pubSub.createCollector(queues);
 
         try {
@@ -101,20 +101,20 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
             while (count == 0) {
                 message = (LiquidMessage) collector.readSingle();
 
-                if (message instanceof VisitPoolRequest && ((VisitPoolRequest) message).getSessionIdentifier()
-                                                                                       .getSession()
+                if (message instanceof VisitPoolRequest && ((VisitPoolRequest) message).session()
+                                                                                       .session()
                                                                                        .toString()
                                                                                        .equals(RestContext.getContext()
                                                                                                           .getCredentials()
-                                                                                                          .getSession()
+                                                                                                          .session()
                                                                                                           .toString())) {
                     log.debug("**** Pool visit, so now switching pools. ****");
                     //We have visited a pool so we now need to listen to events there.
                     final VisitPoolRequest request = (VisitPoolRequest) message;
                     if (request.getState() == LiquidMessageState.SUCCESS) {
                         log.debug("Switching pools....");
-                        queues.add(request.getResponse().getUUID().toString());
-                        queues.add(request.getResponse().getURI().toString());
+                        queues.add(request.response().id().toString());
+                        queues.add(request.response().uri().toString());
                     }
                 }
                 response.getWriter().write(LiquidXStreamFactory.getXstream().toXML(message));

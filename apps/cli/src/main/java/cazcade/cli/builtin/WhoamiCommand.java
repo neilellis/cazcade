@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -22,8 +26,7 @@ public class WhoamiCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Show details of the current user and session.";
     }
@@ -35,14 +38,15 @@ public class WhoamiCommand extends AbstractShortLivedCommand {
 
     @Nullable
     public String run(final String[] args, @Nonnull final ShellSession shellSession) throws Exception {
-        final LiquidSessionIdentifier identity = shellSession.getIdentity();
+        final SessionIdentifier identity = shellSession.getIdentity();
         if (identity == null) {
             System.err.println("Not logged in.");
             return null;
         } else {
             System.out.println(identity);
-            if ("admin".equals(identity.getName()) || "neo".equals(identity.getName())) {
-                System.err.println("Currently your username is hardwired to have super-user privileges, tread carefully young Skywalker.");
+            if ("admin".equals(identity.name()) || "neo".equals(identity.name())) {
+                System.err
+                      .println("Currently your username is hardwired to have super-user privileges, tread carefully young Skywalker.");
             }
             return identity.toString();
         }

@@ -4,7 +4,7 @@
 
 package cazcade.vortex.common.client;
 
-import cazcade.liquid.api.LiquidBoardURL;
+import cazcade.liquid.api.BoardURL;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -100,8 +100,7 @@ public class FormatUtil {
 
             if (count++ % 2 == 0) {
                 result += formatTextInternal(s);
-            }
-            else {
+            } else {
                 result += "<pre><code class='prettyprint'>" + prettyPrint(s) + "</pre></code>";
             }
 
@@ -190,7 +189,7 @@ public class FormatUtil {
         if (pool == null) {
             return "";
         }
-        return LiquidBoardURL.convertToShort(pool);
+        return BoardURL.convertToShort(pool);
     }
 
     public String translateNamedEmoticonSymbol(@Nonnull final String html, final String symbol, final String unicode) {

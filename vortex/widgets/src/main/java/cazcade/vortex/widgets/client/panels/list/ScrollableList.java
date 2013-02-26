@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.panels.list;
 
 import cazcade.vortex.bus.client.Bus;
@@ -18,14 +22,13 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class ScrollableList extends Composite {
-    interface ScrollableListUiBinder extends UiBinder<HTMLPanel, ScrollableList> {
-    }
+    interface ScrollableListUiBinder extends UiBinder<HTMLPanel, ScrollableList> {}
 
     private static final ScrollableListUiBinder ourUiBinder = GWT.create(ScrollableListUiBinder.class);
 
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
-    private int maxRows = 100;
+    private final Bus                      bus                = BusFactory.get();
+    private       int                      maxRows            = 100;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
@@ -62,9 +65,9 @@ public class ScrollableList extends Composite {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
-//        entryEntities.add(scrollableStreamContent.getEntity());
+                //        entryEntities.add(scrollableStreamContent.$());
                 boolean inserted = false;
-//                boolean atBottom = scrollPanel.isAtBottom();
+                //                boolean atBottom = scrollPanel.isAtBottom();
                 int i = parentPanel.getWidgetCount();
                 while (i > 0) {
                     i--;
@@ -102,7 +105,7 @@ public class ScrollableList extends Composite {
                     final Widget widgetToRemove = parentPanel.getWidget(1);
                     widgetToRemove.removeFromParent();
                 }
-//                scrollPanel.scrollToBottom();
+                //                scrollPanel.scrollToBottom();
             }
         });
 

@@ -4,16 +4,16 @@
 
 package cazcade.liquid.api.request;
 
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * Note that this class may contain unsafe data and may have come from an untrusted source, the conversion to a LSDTransferEntity
+ * Note that this class may contain unsafe data and may have come from an untrusted source, the conversion to a TransferEntity
  * will strip certain types of HTML data from values in the underlying map during this process.
  *
  * @author neilellis@cazcade.com
@@ -24,9 +24,9 @@ public final class SerializedRequest implements Serializable {
     private String                  typeRaw;
     private HashMap<String, String> entityRaw;
 
-    public SerializedRequest(@Nonnull final LiquidRequestType type, @Nonnull final LSDTransferEntity entity) {
+    public SerializedRequest(@Nonnull final RequestType type, @Nonnull final TransferEntity entity) {
         typeRaw = type.name();
-        entityRaw = new HashMap<String, String>(entity.getMap());
+        entityRaw = new HashMap<String, String>(entity.map());
     }
 
     protected SerializedRequest() {
@@ -34,13 +34,14 @@ public final class SerializedRequest implements Serializable {
 
 
     @Nonnull
-    public LSDTransferEntity getEntity() {
-        return LSDSimpleEntity.createFromProperties(entityRaw);
+    public TransferEntity getEntity() {
+        SimpleEntity<? extends TransferEntity> result = SimpleEntity.createFromProperties(entityRaw);
+        return result;
     }
 
     @Nonnull
-    public LiquidRequestType getType() {
-        return LiquidRequestType.valueOf(typeRaw);
+    public RequestType getType() {
+        return RequestType.valueOf(typeRaw);
     }
 
     @Override

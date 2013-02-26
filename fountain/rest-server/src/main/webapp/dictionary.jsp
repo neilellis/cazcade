@@ -1,9 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDDictionaryTypes" %>
+<%@ page import="cazcade.liquid.api.lsd.Attribute" %>
+<%@ page import="cazcade.liquid.api.lsd.Dictionary" %>
+<%@ page import="cazcade.liquid.api.lsd.Types" %>
 <%@ page import="java.util.Arrays" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  --%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
@@ -26,10 +31,10 @@
 
 
 <%
-    final LSDAttribute[] keys = LSDAttribute.values();
+    final Attribute[] keys = Dictionary.values();
     Arrays.sort(keys);
     request.setAttribute("keys", keys);
-    request.setAttribute("types", LSDDictionaryTypes.values());
+    request.setAttribute("types", Types.values());
 %>
 
 <c:out value="${requestScope.identities}"/>

@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import com.google.gwt.user.client.Command;
 
 /**
@@ -13,33 +17,33 @@ public abstract class AbstractCreateCommand implements Command {
         THUMBNAIL, SMALL, MEDIUM, LARGE, DEFAULT
     }
 
-    protected LSDDictionaryTypes type;
-    protected final LiquidURI pool;
-    protected AbstractCreateCommand.Size size;
-    protected String theme;
+    protected       Types                      type;
+    protected final LiquidURI                  pool;
+    protected       AbstractCreateCommand.Size size;
+    protected       String                     theme;
 
 
-    protected AbstractCreateCommand(final LiquidURI pool, final LSDDictionaryTypes type, final Size size, final String theme) {
+    protected AbstractCreateCommand(final LiquidURI pool, final Types type, final Size size, final String theme) {
         this.type = type;
         this.pool = pool;
         this.size = size;
         this.theme = theme;
     }
 
-    public AbstractCreateCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
+    public AbstractCreateCommand(final LiquidURI pool, final Types type) {
         this.pool = pool;
         this.type = type;
     }
 
-    public LSDDictionaryTypes getType() {
+    public Types getType() {
         return type;
     }
 
-    public void setType(final LSDDictionaryTypes type) {
+    public void setType(final Types type) {
         this.type = type;
     }
 
     protected interface BuildCallback {
-        void onBuilt(LSDTransferEntity entity);
+        void onBuilt(TransferEntity entity);
     }
 }

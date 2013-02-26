@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 
@@ -11,13 +15,13 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateCustomObjectCommand extends CreateItemCommand {
-    public CreateCustomObjectCommand(final LiquidURI pool, final LSDDictionaryTypes type) {
+    public CreateCustomObjectCommand(final LiquidURI pool, final Types type) {
         super(pool, type);
     }
 
     @Override
     protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
+        final TransferEntity entity = SimpleEntity.create(getType());
         addDefaultView(entity);
         onBuilt.onBuilt(entity);
     }

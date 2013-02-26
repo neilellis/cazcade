@@ -10,10 +10,10 @@ import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainPoolDAO;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
-import cazcade.liquid.api.LiquidRequestDetailLevel;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
+import cazcade.liquid.api.RequestDetailLevel;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,51 +36,49 @@ public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
     private BoardDAO        boardDAO;
 
     @Nonnull @Override
-    public LSDTransferEntity getMyBoards(final int start, final int end, @Nonnull final LiquidSessionIdentifier session) throws InterruptedException {
-        final List<BoardIndexEntity> boards = boardDAO.getMyBoards(start, end, session.getAliasURL().toString());
+    public TransferEntity getMyBoards(final int start, final int end, @Nonnull final SessionIdentifier session) throws Exception {
+        final List<BoardIndexEntity> boards = boardDAO.getMyBoards(start, end, session.aliasURI().toString());
         return convertToEntityResult(session, boards);
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getMyVisitedBoards(final int start, final int end, @Nonnull final LiquidSessionIdentifier session) throws InterruptedException {
-        final List<BoardIndexEntity> boards = boardDAO.getVisitedBoards(start, end, session.getAliasURL().toString());
+    public TransferEntity getMyVisitedBoards(final int start, final int end, @Nonnull final SessionIdentifier session) throws Exception {
+        final List<BoardIndexEntity> boards = boardDAO.getVisitedBoards(start, end, session.aliasURI().toString());
         return convertToEntityResult(session, boards);
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getPopularBoards(final int start, final int end, final LiquidSessionIdentifier session) throws InterruptedException {
+    public TransferEntity getPopularBoards(final int start, final int end, final SessionIdentifier session) throws Exception {
         final List<BoardIndexEntity> boards = boardDAO.getPopularBoards(start, end);
         return convertToEntityResult(session, boards);
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getRecentPublicBoards(final int start, final int end, final LiquidSessionIdentifier session) throws InterruptedException {
+    public TransferEntity getRecentPublicBoards(final int start, final int end, final SessionIdentifier session) throws Exception {
         final List<BoardIndexEntity> boards = boardDAO.getRecentBoards(start, end);
         return convertToEntityResult(session, boards);
     }
 
     @Nonnull @Override
-    public LSDTransferEntity getUserPublicBoards(final int start, final int end, final LiquidSessionIdentifier session, @Nonnull final LiquidURI alias) throws InterruptedException {
+    public TransferEntity getUserPublicBoards(final int start, final int end, final SessionIdentifier session, @Nonnull final LiquidURI alias) throws Exception {
         final List<BoardIndexEntity> boards = boardDAO.getUserBoards(start, end, alias.toString());
         return convertToEntityResult(session, boards);
     }
 
     @Nonnull
-    private LSDTransferEntity convertToEntityResult(final LiquidSessionIdentifier session, @Nonnull final List<BoardIndexEntity> boards) throws InterruptedException {
-        final List<LSDBaseEntity> subEntities = new ArrayList<LSDBaseEntity>();
-        final LSDTransferEntity result = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.BOARD_LIST, LiquidUUID.fromString(UUID
-                .randomUUID()
-                .toString()));
+    private TransferEntity convertToEntityResult(final SessionIdentifier session, @Nonnull final List<BoardIndexEntity> boards) throws Exception {
+        final List<Entity> subEntities = new ArrayList<Entity>();
+        final TransferEntity result = SimpleEntity.createNewTransferEntity(Types.T_BOARD_LIST, LiquidUUID.fromString(UUID.randomUUID()
+                                                                                                                         .toString()));
         for (final BoardIndexEntity board : boards) {
-            final LSDBaseEntity poolObjectTx = poolDAO.getPoolObjectTx(session, new LiquidURI(board.getUri()), false, false, LiquidRequestDetailLevel.BOARD_LIST);
+            final Entity poolObjectTx = poolDAO.getPoolObjectTx(session, new LiquidURI(board.getUri()), false, false, RequestDetailLevel.BOARD_LIST);
             if (poolObjectTx == null) {
                 log.warn("Board " + board.getUri() + " was null from getPoolObjectTx, skipping.");
-            }
-            else {
+            } else {
                 subEntities.add(poolObjectTx);
             }
         }
-        result.addSubEntities(LSDAttribute.CHILD, subEntities);
+        result.children(Dictionary.CHILD_A, subEntities);
         return result;
     }
 }

@@ -5,8 +5,9 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.widgets.client.profile.ViewAliasDetailPanel;
@@ -38,11 +39,10 @@ public class UserProfileImage extends EditableImage {
 
 
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
+    public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
-        setAliasUri(entity.getURI());
-        if (ClientApplicationConfiguration.isAlphaFeatures() && (!entity.getBooleanAttribute(LSDAttribute.EDITABLE, false)
-                                                                 || !editable)) {
+        setAliasUri(entity.uri());
+        if (ClientApplicationConfiguration.isAlphaFeatures() && (!entity.default$bool(Dictionary.EDITABLE, false) || !editable)) {
             image.addMouseOverHandler(new MouseOverHandler() {
                 private ViewAliasDetailPanel aliasDetailPanel;
 

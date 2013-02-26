@@ -4,8 +4,8 @@
 
 package cazcade.fountain.datastore.impl.handlers;
 
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.handler.MovePoolObjectRequestHandler;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
 import org.neo4j.graphdb.Transaction;
@@ -18,12 +18,12 @@ import javax.annotation.Nonnull;
 public class MovePoolObjectHandler extends AbstractDataStoreHandler<MovePoolObjectRequest> implements MovePoolObjectRequestHandler {
     @Nonnull
     public MovePoolObjectRequest handle(@Nonnull final MovePoolObjectRequest request) throws Exception {
-        final Transaction transaction = fountainNeo.beginTx();
+        final Transaction transaction = neo.beginTx();
         try {
-            final LSDPersistedEntity viewPersistedEntity = poolDAO.movePoolObjectNoTx(request.getUri(), request.getX(), request.getY(), request
+            final PersistedEntity viewPersistedEntity = poolDAO.movePoolObjectNoTx(request.uri(), request.getX(), request.getY(), request
                     .getZ());
             transaction.success();
-            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toLSD(request.getDetail(), request.isInternal()));
+            return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toTransfer(request.detail(), request.internal()));
         } catch (RuntimeException e) {
             transaction.failure();
             throw e;

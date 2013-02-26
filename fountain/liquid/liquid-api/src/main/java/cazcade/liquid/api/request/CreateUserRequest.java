@@ -5,10 +5,10 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidUUID;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,14 +16,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class CreateUserRequest extends AbstractCreationRequest {
-    public CreateUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LSDTransferEntity entity) {
+    public CreateUserRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final TransferEntity entity) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setRequestEntity(entity);
     }
 
-    public CreateUserRequest(final LiquidSessionIdentifier identity, final LSDTransferEntity entity) {
+    public CreateUserRequest(final SessionIdentifier identity, final TransferEntity entity) {
         this(null, identity, entity);
     }
 
@@ -31,7 +31,7 @@ public class CreateUserRequest extends AbstractCreationRequest {
         super();
     }
 
-    public CreateUserRequest(final LSDTransferEntity entity) {
+    public CreateUserRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -41,19 +41,19 @@ public class CreateUserRequest extends AbstractCreationRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.EMPTY_LIST;
     }
 
     @Nullable @Override
-    public String getNotificationSession() {
+    public String notificationSession() {
         //Don't notify anyone of a user creation request.
         return null;
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CREATE_USER;
+    public RequestType requestType() {
+        return RequestType.CREATE_USER;
     }
 
     @Override

@@ -6,7 +6,7 @@ package cazcade.fountain.datastore.impl.services.persistence;
 
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 import javax.annotation.Nonnull;
@@ -34,8 +34,8 @@ public class FountainRelationshipImpl implements FountainRelationship {
     }
 
     @Override @Nonnull
-    public LSDPersistedEntity getEndNode() {
-        return new FountainEntityImpl(relationship.getEndNode());
+    public PersistedEntity end() {
+        return new FountainEntity(relationship.getEndNode());
     }
 
     public GraphDatabaseService getGraphDatabase() {
@@ -48,20 +48,20 @@ public class FountainRelationshipImpl implements FountainRelationship {
         return relationship.getId();
     }
 
-    public LSDPersistedEntity[] getNodes() {
-        final List<LSDPersistedEntity> fountainPersistedEntities = new ArrayList<LSDPersistedEntity>();
+    public PersistedEntity[] getNodes() {
+        final List<PersistedEntity> fountainPersistedEntities = new ArrayList<PersistedEntity>();
         assert relationship != null;
         final org.neo4j.graphdb.Node[] nodes = relationship.getNodes();
         for (final org.neo4j.graphdb.Node node : nodes) {
-            fountainPersistedEntities.add(new FountainEntityImpl(node));
+            fountainPersistedEntities.add(new FountainEntity(node));
         }
-        return fountainPersistedEntities.toArray(new LSDPersistedEntity[fountainPersistedEntities.size()]);
+        return fountainPersistedEntities.toArray(new PersistedEntity[fountainPersistedEntities.size()]);
     }
 
     @Override @Nonnull
-    public LSDPersistedEntity getOtherNode(@Nonnull final LSDPersistedEntity persistedEntity) {
+    public PersistedEntity other(@Nonnull final PersistedEntity persistedEntity) {
         assert relationship != null;
-        return new FountainEntityImpl(relationship.getOtherNode(persistedEntity.getNeoNode()));
+        return new FountainEntity(relationship.getOtherNode(persistedEntity.getNeoNode()));
     }
 
     public Object getProperty(@Nonnull final String key, @Nonnull final Object defaultValue) {
@@ -70,7 +70,7 @@ public class FountainRelationshipImpl implements FountainRelationship {
     }
 
     @Override
-    public Object getProperty(@Nonnull final String key) {
+    public Object $(@Nonnull final String key) {
         assert relationship != null;
         return relationship.getProperty(key);
     }
@@ -81,19 +81,19 @@ public class FountainRelationshipImpl implements FountainRelationship {
     }
 
     @Override @Nonnull
-    public LSDPersistedEntity getStartNode() {
+    public PersistedEntity start() {
         assert relationship != null;
-        return new FountainEntityImpl(relationship.getStartNode());
+        return new FountainEntity(relationship.getStartNode());
     }
 
     @Override
-    public FountainRelationships getType() {
+    public FountainRelationships type() {
         assert relationship != null;
         return FountainRelationships.valueOf(relationship.getType().name());
     }
 
     @Override
-    public boolean hasProperty(@Nonnull final String key) {
+    public boolean has(@Nonnull final String key) {
         assert relationship != null;
         return relationship.hasProperty(key);
     }
@@ -109,7 +109,7 @@ public class FountainRelationshipImpl implements FountainRelationship {
     }
 
     @Override
-    public void setProperty(@Nonnull final String key, @Nonnull final Object value) {
+    public void $(@Nonnull final String key, @Nonnull final Object value) {
         assert relationship != null;
         relationship.setProperty(key, value);
     }

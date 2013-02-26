@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
@@ -5,11 +9,11 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestDetailLevel;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestDetailLevel;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import org.apache.commons.cli.Options;
 
@@ -29,8 +33,7 @@ public class ListPoolCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "List contents of a pool";
     }
@@ -52,17 +55,18 @@ public class ListPoolCommand extends AbstractShortLivedCommand {
         }
         final LiquidURI poolURI;
         if (pool.isEmpty()) {
-            poolURI = shellSession.getCurrentPool().getURI();
+            poolURI = shellSession.getCurrentPool().uri();
         } else {
             poolURI = CommandSupport.resolvePoolOrObject(shellSession, pool);
         }
-        final LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false));
-        final LSDBaseEntity listPoolEntity = response.getResponse();
-        final List<LSDTransferEntity> subEntities = listPoolEntity.getSubEntities(LSDAttribute.CHILD);
-//        System.out.println(visitPoolResponseEntity);
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, RequestDetailLevel.TITLE_AND_NAME, true, false));
+        final Entity listPoolEntity = response.response();
+        final List<TransferEntity> subEntities = listPoolEntity.children(Dictionary.CHILD_A);
+        //        System.out.println(visitPoolResponseEntity);
         String result = "";
-        for (final LSDBaseEntity subEntity : subEntities) {
-            final String name = subEntity.getAttribute(LSDAttribute.NAME);
+        for (final Entity subEntity : subEntities) {
+            final String name = subEntity.$(Dictionary.NAME);
             System.out.println(name);
             result = result + " ";
         }

@@ -6,10 +6,10 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.RetrieveCommentsRequestHandler;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.impl.UUIDFactory;
 
@@ -21,16 +21,15 @@ import java.util.Collection;
  */
 public class RetrieveCommentsHandler extends AbstractRetrievalHandler<RetrieveCommentsRequest> implements RetrieveCommentsRequestHandler {
     @Nonnull
-    public RetrieveCommentsRequest handle(@Nonnull final RetrieveCommentsRequest request) throws InterruptedException {
-        final Collection<LSDTransferEntity> entities;
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewTransferEntity(LSDDictionaryTypes.COMMENT_LIST, UUIDFactory.randomUUID());
+    public RetrieveCommentsRequest handle(@Nonnull final RetrieveCommentsRequest request) throws Exception {
+        final Collection<TransferEntity> entities;
+        final TransferEntity entity = SimpleEntity.createNewTransferEntity(Types.T_COMMENT_LIST, UUIDFactory.randomUUID());
 
-        entities = poolDAO.getCommentsTx(request.getSessionIdentifier(), request.getUri(), request.getMax(), request.isInternal(), request
-                .getDetail());
+        entities = poolDAO.getCommentsTx(request.session(), request.uri(), request.getMax(), request.internal(), request.detail());
         if (entities == null) {
             return LiquidResponseHelper.forEmptyResultResponse(request);
         }
-        entity.addSubEntities(LSDAttribute.CHILD, entities);
+        entity.children(Dictionary.CHILD_A, entities);
         return LiquidResponseHelper.forServerSuccess(request, entity);
     }
 }

@@ -4,8 +4,8 @@
 
 package cazcade.boardcast.client.main.widgets.list;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -20,7 +20,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
  * @author <a href="http://uk.linkedin.com/in/neilellis">Neil Ellis</a>
  * @todo document.
  */
-public class BoardCell extends AbstractCell<LSDBaseEntity> {
+public class BoardCell extends AbstractCell<Entity> {
 
     private static String IMAGE_PREFIX = "http://cache.snapito.com/api?_cache_redirect=true&width=120&height=90&image&url=";
 
@@ -34,44 +34,44 @@ public class BoardCell extends AbstractCell<LSDBaseEntity> {
         super("click");
     }
 
-    @Override public void render(final Context context, final LSDBaseEntity board, final SafeHtmlBuilder sb) {
+    @Override public void render(final Context context, final Entity board, final SafeHtmlBuilder sb) {
         if (board == null) {
             return;
         }
         sb.appendHtmlConstant("<div class='board-list-item'>");
         sb.appendHtmlConstant("<div class='board-list-item-photo-area'>");
-        if (board.hasAttribute(LSDAttribute.ICON_URL)) {
-            sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.getAttribute(LSDAttribute.ICON_URL)));
-        } else if (board.hasAttribute(LSDAttribute.IMAGE_URL)) {
-            sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.getAttribute(LSDAttribute.IMAGE_URL)));
+        if (board.has$(Dictionary.ICON_URL)) {
+            sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.$(Dictionary.ICON_URL)));
+        } else if (board.has$(Dictionary.IMAGE_URL)) {
+            sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.$(Dictionary.IMAGE_URL)));
         } else {
             sb.append(TEMPLATES.icon("/_static/_images/blank.png"));
         }
         sb.appendHtmlConstant("</div>");
         sb.appendHtmlConstant("<div class='board-list-item-main-area'>");
-        if (board.hasAttribute(LSDAttribute.TITLE)) {
+        if (board.has$(Dictionary.TITLE)) {
             sb.appendHtmlConstant("<h2 class='board-list-item-title'>")
-              .appendEscaped(board.getAttribute(LSDAttribute.TITLE))
+              .appendEscaped(board.$(Dictionary.TITLE))
               .appendHtmlConstant("</h2>");
         }
-        if (board.hasAttribute(LSDAttribute.DESCRIPTION)) {
+        if (board.has$(Dictionary.DESCRIPTION)) {
             sb.appendHtmlConstant("<h3 class='board-list-item-description'>")
-              .appendEscaped(board.getAttribute(LSDAttribute.DESCRIPTION))
+              .appendEscaped(board.$(Dictionary.DESCRIPTION))
               .appendHtmlConstant("</h3>");
         }
-        if (board.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
+        if (board.has$(Dictionary.TEXT_EXTENDED)) {
             sb.appendHtmlConstant("<p class='board-list-item-text'>")
-              .appendEscaped(board.getAttribute(LSDAttribute.TEXT_EXTENDED))
+              .appendEscaped(board.$(Dictionary.TEXT_EXTENDED))
               .appendHtmlConstant("</p>");
         }
         sb.appendHtmlConstant("</div>");
         sb.appendHtmlConstant("<div class='board-list-item-metadata-area'>");
-        LSDBaseEntity author = board.getSubEntity(LSDAttribute.OWNER, false);
+        Entity author = board.child(Dictionary.A_OWNER, false);
         sb.appendHtmlConstant("<div class='board-list-item-author'>")
-          .appendEscaped(author.getAttribute(LSDAttribute.FULL_NAME))
+          .appendEscaped(author.$(Dictionary.FULL_NAME))
           .appendHtmlConstant("</div>");
-        if (board.hasAttribute(LSDAttribute.COMMENT_COUNT)) {
-            final int commentCount = board.getIntegerAttribute(LSDAttribute.COMMENT_COUNT);
+        if (board.has$(Dictionary.COMMENT_COUNT)) {
+            final int commentCount = board.$i(Dictionary.COMMENT_COUNT);
             final String commentText;
             if (commentCount == 0) {
                 commentText = "No comments";
@@ -89,10 +89,10 @@ public class BoardCell extends AbstractCell<LSDBaseEntity> {
     }
 
     @Override
-    public void onBrowserEvent(Context context, Element parent, LSDBaseEntity value, NativeEvent event, ValueUpdater<LSDBaseEntity> valueUpdater) {
+    public void onBrowserEvent(Context context, Element parent, Entity value, NativeEvent event, ValueUpdater<Entity> valueUpdater) {
         super.onBrowserEvent(context, parent, value, event, valueUpdater);
         if ("click".equals(event.getType())) {
-            HistoryManager.get().navigate(value.getURI().asBoardURL().asUrlSafe());
+            HistoryManager.get().navigate(value.uri().board().safe());
         }
     }
 }

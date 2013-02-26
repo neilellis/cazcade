@@ -4,17 +4,15 @@
 
 package cazcade.vortex.widgets.client.profile;
 
-import cazcade.liquid.api.LiquidRequestType;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.FollowRequest;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.liquid.api.request.UpdateAliasRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -35,6 +33,8 @@ import com.google.gwt.user.client.ui.Label;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
+
 /**
  * @author neilellis@cazcade.com
  */
@@ -54,7 +54,6 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
     @UiField Label               dmButton;
     @UiField DirectMessagePanel  directMessagePanel;
     @UiField HTMLPanel           detailPanel;
-    private  FormatUtil          features;
     private  boolean             following;
     private  HandlerRegistration followHandler;
     private  HandlerRegistration dmHandler;
@@ -64,10 +63,10 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
 
 
     protected void addBindings() {
-        addBinding(userShortName, LSDAttribute.NAME);
-        addBinding(userFullName, LSDAttribute.FULL_NAME);
-        addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(userImage, LSDAttribute.IMAGE_URL);
+        bind(userShortName, NAME);
+        bind(userFullName, FULL_NAME);
+        bind(description, DESCRIPTION);
+        bind(userImage, IMAGE_URL);
     }
 
 
@@ -89,14 +88,14 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
                 getBus().send(new UpdateAliasRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdateAliasRequest>() {
                     @Override
                     public void onSuccess(final UpdateAliasRequest message, @Nonnull final UpdateAliasRequest response) {
-                        setAndBindEntity(response.getResponse().copy());
+                        $(response.response().$());
                         getWidget().getElement().getStyle().setOpacity(1.0);
 
                     }
 
                     @Override
                     public void onFailure(final UpdateAliasRequest message, @Nonnull final UpdateAliasRequest response) {
-                        field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
+                        field.setErrorMessage(response.response().$(DESCRIPTION));
                     }
 
 
@@ -109,7 +108,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         this.aliasURI = aliasURI;
 
 
-        final boolean isMe = UserUtil.getCurrentAlias().getURI().equals(aliasURI);
+        final boolean isMe = UserUtil.currentAlias().uri().equals(aliasURI);
 
         if (!isMe) {
             userShortName.addClickHandler(new UsernameClickHandler());
@@ -118,7 +117,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             userFullName.sinkEvents(Event.MOUSEEVENTS);
         }
 
-        if (UserUtil.isAnonymousOrLoggedOut() || isMe || !ClientApplicationConfiguration.isAlphaFeatures()) {
+        if (UserUtil.anon() || isMe || !ClientApplicationConfiguration.isAlphaFeatures()) {
             followButton.addStyleName("invisible");
             dmButton.addStyleName("invisible");
         } else {
@@ -127,34 +126,33 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
 
 
         if (followListenId != 0) {
-            BusFactory.getInstance().removeListener(followListenId);
+            BusFactory.get().remove(followListenId);
         }
-        followListenId = BusFactory.getInstance()
-                                   .listenForURIAndSuccessfulRequestType(aliasURI, LiquidRequestType.FOLLOW, new AbstractBusListener<FollowRequest>() {
-                                       @Override
-                                       public void handle(@Nonnull final FollowRequest response) {
-                                           if (response.getUri().equals(aliasURI)) {
-                                               setAndBindEntity(response.getResponse().copy());
-                                           }
-                                       }
-                                   });
+        followListenId = BusFactory.get().listenForSuccess(aliasURI, RequestType.FOLLOW, new AbstractBusListener<FollowRequest>() {
+            @Override
+            public void handle(@Nonnull final FollowRequest response) {
+                if (response.uri().equals(aliasURI)) {
+                    $(response.response().$());
+                }
+            }
+        });
         if (updateAliasListenId != 0) {
-            BusFactory.getInstance().removeListener(updateAliasListenId);
+            BusFactory.get().remove(updateAliasListenId);
         }
-        updateAliasListenId = BusFactory.getInstance()
-                                        .listenForURIAndSuccessfulRequestType(aliasURI, LiquidRequestType.UPDATE_ALIAS, new AbstractBusListener<UpdateAliasRequest>() {
+        updateAliasListenId = BusFactory.get()
+                                        .listenForSuccess(aliasURI, RequestType.UPDATE_ALIAS, new AbstractBusListener<UpdateAliasRequest>() {
                                             @Override
                                             public void handle(@Nonnull final UpdateAliasRequest response) {
-                                                if (response.getUri().equals(aliasURI)) {
-                                                    setAndBindEntity(response.getResponse().copy());
+                                                if (response.uri().equals(aliasURI)) {
+                                                    $(response.response().$());
                                                 }
                                             }
                                         });
 
-        BusFactory.getInstance().send(new RetrieveAliasRequest(aliasURI), new AbstractResponseCallback<RetrieveAliasRequest>() {
+        BusFactory.get().send(new RetrieveAliasRequest(aliasURI), new AbstractResponseCallback<RetrieveAliasRequest>() {
             @Override
             public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                setAndBindEntity(response.getResponse().copy());
+                $(response.response().$());
 
             }
         });
@@ -169,7 +167,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         followHandler = followButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                BusFactory.getInstance().dispatch(new FollowRequest(aliasURI, !following));
+                BusFactory.get().dispatch(new FollowRequest(aliasURI, !following));
             }
         });
         if (dmHandler != null) {
@@ -186,7 +184,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
             public void onClick(final ClickEvent event) {
 
                 if (ClientApplicationConfiguration.isAlphaFeatures()) {
-                    directMessagePanel.setRecipient(aliasURI.getSubURI().getSubURI().asString());
+                    directMessagePanel.setRecipient(aliasURI.sub().sub().asString());
                     WidgetUtil.swap(detailPanel, directMessagePanel);
                     directMessagePanel.setVisible(true);
                     directMessagePanel.start();
@@ -197,32 +195,29 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         });
     }
 
-    public void onChange(@Nullable final LSDBaseEntity entity) {
+    public void onChange(@Nullable final Entity entity) {
         if (entity == null) {
             return;
         }
         getWidget().setVisible(true);
-        if (entity.hasAttribute(LSDAttribute.ROLE_TITLE)) {
-            roleFullName.setText(entity.getAttribute(LSDAttribute.ROLE_TITLE));
+        if (entity.has$(ROLE_TITLE)) {
+            roleFullName.setText(entity.$(ROLE_TITLE));
         } else {
             roleFullName.setText("Mysterious Being");
         }
-        if (entity.hasAttribute(LSDAttribute.NAME)) {
-            final String username = entity.getAttribute(LSDAttribute.NAME);
+        if (entity.has$(NAME)) {
+            final String username = entity.$(NAME);
             profileLink.setHref("#@" + username);
         }
         //        publicLink.setHref("#public@" + username);
-        followersLabel.setText(entity.getAttribute(LSDAttribute.FOLLOWERS_COUNT, "no") + " followers");
-        followingLabel.setText(entity.getAttribute(LSDAttribute.FOLLOWS_ALIAS_COUNT, "no") + " follows");
-        following = entity.getBooleanAttribute(LSDAttribute.FOLLOWING, false);
+        followersLabel.setText(entity.default$(FOLLOWERS_COUNT, "no") + " followers");
+        followingLabel.setText(entity.default$(FOLLOWS_ALIAS_COUNT, "no") + " follows");
+        following = entity.default$bool(FOLLOWING, false);
         followButton.setText(following ? "Unfollow" : "Follow");
         WidgetUtil.showGracefully(this, true);
 
     }
 
-    public void setFeatures(final FormatUtil features) {
-        this.features = features;
-    }
 
     public void clear() {
         userImage.clear();
@@ -234,6 +229,7 @@ public class AbstractAliasDetailPanel extends EntityBackedFormPanel {
         followingLabel.setText("");
         directMessagePanel.clear();
     }
+
 
     private class UsernameClickHandler implements ClickHandler {
         @Override

@@ -5,10 +5,10 @@
 package cazcade.vortex.common.client;
 
 import cazcade.common.CommonConstants;
-import cazcade.liquid.api.LiquidSessionIdentifier;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.SessionIdentifier;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.storage.client.Storage;
@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 @SuppressWarnings({"StaticNonFinalField"})
 public class UserUtil {
     @Nullable
-    private static LiquidSessionIdentifier identity;
+    private static SessionIdentifier identity;
     @Nullable
-    private static LSDBaseEntity           currentAlias;
+    private static Entity            currentAlias;
     @Nonnull
     public static final String ANON            = "anon";
     @Nonnull
@@ -33,49 +33,48 @@ public class UserUtil {
     public static final String VORTEX_IDENTITY = "boardcast.identity";
 
     @Nullable
-    public static LiquidSessionIdentifier getIdentity() {
+    public static SessionIdentifier getIdentity() {
         return identity;
     }
 
-    public static void setIdentity(@Nullable final LiquidSessionIdentifier identity) {
+    public static void setIdentity(@Nullable final SessionIdentifier identity) {
         UserUtil.identity = identity;
     }
 
-    public static boolean isAnonymousOrLoggedOut() {
-        return identity == null || "anon".equals(identity.getName());
+    public static boolean anon() {
+        return identity == null || "anon".equals(identity.name());
     }
 
     @Nonnull
-    public static LSDBaseEntity getCurrentAlias() {
+    public static Entity currentAlias() {
         if (currentAlias == null) {
             throw new IllegalStateException("Attempted to get the current alias when it has not been set, check if logged in first.");
         }
         return currentAlias;
     }
 
-    public static void setCurrentAlias(@Nullable final LSDBaseEntity currentAlias) {
+    public static void setCurrentAlias(@Nullable final Entity currentAlias) {
         UserUtil.currentAlias = currentAlias;
     }
 
     @SuppressWarnings({"MethodParameterOfConcreteClass"})
-    public static void storeIdentity(@Nullable final LiquidSessionIdentifier storeIdentity) {
+    public static void storeIdentity(@Nullable final SessionIdentifier storeIdentity) {
         if (storeIdentity != null
-            && storeIdentity.getSession() != null
+            && storeIdentity.session() != null
             && ClientApplicationConfiguration.isSessionStorageSupported()) {
             Storage.getSessionStorageIfSupported().setItem(VORTEX_IDENTITY, storeIdentity.toString());
         }
     }
 
     @Nullable
-    public static LiquidSessionIdentifier retrieveUser() {
+    public static SessionIdentifier retrieveUser() {
         if (ClientApplicationConfiguration.isSessionStorageSupported()) {
             final Storage storage = Storage.getSessionStorageIfSupported();
-            return LiquidSessionIdentifier.fromString(storage.getItem(VORTEX_IDENTITY));
-        }
-        else {
+            return SessionIdentifier.fromString(storage.getItem(VORTEX_IDENTITY));
+        } else {
             //fallback to anonymous usage
             ClientLog.log("Returning anonymous identifier as session storage not available or in snapshot mode.");
-            return new LiquidSessionIdentifier(new LiquidURI(ANON_ALIAS));
+            return new SessionIdentifier(new LiquidURI(ANON_ALIAS));
 
         }
     }
@@ -97,12 +96,12 @@ public class UserUtil {
         if (currentAlias == null) {
             return false;
         }
-        final LiquidURI uri = currentAlias.getURI();
+        final LiquidURI uri = currentAlias.uri();
         return uri != null && "alias:cazcade:admin".equals(uri.toString());
     }
 
     public static boolean isAlias(final LiquidURI uri) {
-        return identity != null && identity.getAliasURL().equals(uri);
+        return identity != null && identity.aliasURI().equals(uri);
     }
 
     @Nonnull
@@ -110,14 +109,13 @@ public class UserUtil {
         if (currentAlias == null) {
             throw new NullPointerException("Attempted to use a null currentAlias to 'getInboxURI' in UserUtil.");
         }
-        return new LiquidURI("pool:///people/" + currentAlias.getAttribute(LSDAttribute.NAME) + "/.inbox");
+        return new LiquidURI("pool:///people/" + currentAlias.$(Dictionary.NAME) + "/.inbox");
     }
 
     public static String getCurrentAliasName() {
         if (currentAlias != null) {
-            return currentAlias.getAttribute(LSDAttribute.NAME);
-        }
-        else {
+            return currentAlias.$(Dictionary.NAME);
+        } else {
             return "";
         }
 

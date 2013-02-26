@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -36,21 +35,20 @@ public class FountainSteps {
     private static FountainRestServer      restServer;
     @Nonnull
     private final Map<String, UserDetails> userMap = new HashMap<String, UserDetails>();
-    private Exception         serverStartupException;
-    private HttpClient        client;
-    private String            currentUser;
-    private LSDTransferEntity currentEntity;
-    private String            currentPool;
-    private String            currentPoolId;
+    private Exception      serverStartupException;
+    private HttpClient     client;
+    private String         currentUser;
+    private TransferEntity currentEntity;
+    private String         currentPool;
+    private String         currentPoolId;
 
     @Then("a pool called $poolName exists with a title of \"$title\"")
     public void aPoolExists(@Nonnull final String poolName, final String title) throws IOException {
         final UserDetails details = userMap.get(currentUser);
         final String pool = substitutePoolVariables(poolName);
-        final LSDBaseEntity poolEntity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "pool.xml?uri="
-                                                                                                                + pool);
-        assertTrue(poolEntity.getTypeDef().getPrimaryType().isA(LSDDictionaryTypes.POOL2D));
-        assertEquals(title, poolEntity.getAttribute(LSDAttribute.TITLE));
+        final Entity poolEntity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "pool.xml?uri=" + pool);
+        assertTrue(poolEntity.type().getPrimaryType().isA(Types.T_POOL2D));
+        assertEquals(title, poolEntity.$(Dictionary.TITLE));
     }
 
     @When("the user adds a comment to the object saying \"$text\"")
@@ -59,7 +57,7 @@ public class FountainSteps {
         final String entityURL = "comment/create.xml?uri=" +
                                  currentPool +
                                  "%23" +
-                                 currentEntity.getAttribute(LSDAttribute.NAME) +
+                                 currentEntity.$(Dictionary.NAME) +
                                  "&text=HelloWorld&image=";
         log.debug("Current Entity URL: " + entityURL);
         FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), entityURL);
@@ -93,8 +91,8 @@ public class FountainSteps {
         final String poolId = FountainTestClientSupport.convertLiquidURIToId(details.getUserSession(), pool);
         for (int i = 0; i < objectTable.getRowCount(); i++) {
             final Map<String, String> objectRow = objectTable.getRow(i);
-            objectRow.put(LSDAttribute.TYPE.getKeyName(), objectType);
-            final LSDSimpleEntity object = LSDSimpleEntity.createFromProperties(objectRow);
+            objectRow.put(Dictionary.TYPE.getKeyName(), objectType);
+            final SimpleEntity object = SimpleEntity.createFromProperties(objectRow);
             FountainTestClientSupport.putEntityToURL(details.getUserSession(), "pool/" + poolId + ".xml", object, "alias:cazcade:"
                                                                                                                   + details.getUsername());
         }
@@ -103,8 +101,8 @@ public class FountainSteps {
     @When("the user moves the object to $x, $y")
     public void moveObject(final int x, final int y) throws IOException, InterruptedException {
         //TODO implement with the correct move request...
-        currentEntity.setAttribute(LSDAttribute.VIEW_X, Integer.toString(x));
-        currentEntity.setAttribute(LSDAttribute.VIEW_Y, Integer.toString(y));
+        currentEntity.$(Dictionary.VIEW_X, Integer.toString(x));
+        currentEntity.$(Dictionary.VIEW_Y, Integer.toString(y));
         updateCurrentEntity();
     }
 
@@ -112,11 +110,11 @@ public class FountainSteps {
     public void noObjectWithIdInPool(final String objectName, @Nonnull final String poolName) throws IOException {
         final UserDetails details = userMap.get(currentUser);
         final String actualPoolName = substitutePoolVariables(poolName);
-        final LSDBaseEntity entity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "pool.xml?url=" +
-                                                                                                            actualPoolName +
-                                                                                                            "/stream%23" +
-                                                                                                            objectName);
-        assertTrue(entity.getTypeDef().getPrimaryType().isA(LSDDictionaryTypes.EMPTY_RESULT));
+        final Entity entity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "pool.xml?url=" +
+                                                                                                     actualPoolName +
+                                                                                                     "/stream%23" +
+                                                                                                     objectName);
+        assertTrue(entity.type().getPrimaryType().isA(Types.T_EMPTY_RESULT));
     }
 
     @Then("the object has $count comments") @Alias("the object has $count comment")
@@ -132,14 +130,14 @@ public class FountainSteps {
         FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "pool/"
                                                                                + currentPoolId
                                                                                + "/"
-                                                                               + currentEntity.getUUID()
+                                                                               + currentEntity.id()
                                                                                + "/link?to="
                                                                                + poolId);
     }
 
     @Then("the object's rights are \"$text\"")
     public void objectRightsAre(final String text) {
-        assertEquals(text, currentEntity.getAttribute(LSDAttribute.RIGHTS));
+        assertEquals(text, currentEntity.$(Dictionary.RIGHTS));
     }
 
     @When("the user relocates the object to the pool called $poolName")
@@ -149,7 +147,7 @@ public class FountainSteps {
         FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "pool/" +
                                                                                currentPoolId +
                                                                                "/" +
-                                                                               currentEntity.getUUID() +
+                                                                               currentEntity.id() +
                                                                                "/relocate?to=" +
                                                                                toPoolId);
     }
@@ -178,7 +176,7 @@ public class FountainSteps {
         currentPool = actualPoolName;
         currentPoolId = FountainTestClientSupport.convertLiquidURIToId(details.getUserSession(), currentPool);
         assertNotNull(currentEntity);
-        assertEquals(typeString, currentEntity.getTypeDef().getPrimaryType().asString());
+        assertEquals(typeString, currentEntity.type().getPrimaryType().asString());
     }
 
     @Nonnull
@@ -200,7 +198,7 @@ public class FountainSteps {
         currentPool = details.getHomePool() + "/stream";
         currentPoolId = FountainTestClientSupport.convertLiquidURIToId(details.getUserSession(), currentPool);
         assertNotNull(currentEntity);
-        assertEquals(url, currentEntity.getAttribute(LSDAttribute.SOURCE));
+        assertEquals(url, currentEntity.$(Dictionary.SOURCE));
     }
 
     @Given("the servers are running")
@@ -243,28 +241,27 @@ public class FountainSteps {
         currentUser = user;
         if (!userMap.containsKey(user)) {
             final String username = randomName("cazcadetest");
-            final LSDBaseEntity userEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, username),
+            final Entity userEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, username),
                     "user/create.xml?.email=neil.ellis@mangala.co.uk&.name="
                     + username
                     +
                     "&.security.password.plain=test&.fn=Neil+Ellis&.type="
-                    + LSDDictionaryTypes.USER.getValue());
-            final LiquidUUID userId = userEntity.getUUID();
+                    + Types.T_USER.getValue());
+            final LiquidUUID userId = userEntity.id();
             final Credentials credentials = new UsernamePasswordCredentials(username, "test");
             client.getState().clearCredentials();
             client.getState().setCredentials(FountainTestClientSupport.AUTH_SCOPE, credentials);
 
-            final LSDBaseEntity sessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, username), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
-            final String sessionId = sessionEntity.getUUID().toString();
+            final Entity sessionEntity = FountainTestClientSupport.callRESTApiWithGet(new ClientSession(client, null, username), "session/create.xml?client=TestDataBuilder&key=123&hostinfo=macosx");
+            final String sessionId = sessionEntity.id().toString();
             final ClientSession userSession = new ClientSession(client, sessionId, username);
 
             FountainTestClientSupport.callRESTApiWithGet(userSession, "alias/create.xml?me&.network=twitter&.name=" +
                                                                       username +
                                                                       "&.type=Identity.Person.Alias");
-            final LSDBaseEntity aliasEntity = FountainTestClientSupport.callRESTApiWithGet(userSession,
-                    "alias.xml?uri=alias:twitter:"
-                    + username);
-            assertTrue(aliasEntity.getTypeDef().getPrimaryType().asString().equals(LSDDictionaryTypes.ALIAS.getValue()));
+            final Entity aliasEntity = FountainTestClientSupport.callRESTApiWithGet(userSession, "alias.xml?uri=alias:twitter:"
+                                                                                                 + username);
+            assertTrue(aliasEntity.type().getPrimaryType().asString().equals(Types.T_ALIAS.getValue()));
 
             final String homePool = "pool:///people/" + username;
             final String homePoolId = FountainTestClientSupport.convertLiquidURIToId(userSession, homePool);
@@ -287,7 +284,7 @@ public class FountainSteps {
     @When("the user updates the object's rights with \"$text\"")
     public void updateObjectRights(final String text) throws IOException, InterruptedException {
         final UserDetails details = userMap.get(currentUser);
-        currentEntity.setAttribute(LSDAttribute.RIGHTS, text);
+        currentEntity.$(Dictionary.RIGHTS, text);
         updateCurrentEntity();
     }
 
@@ -297,20 +294,19 @@ public class FountainSteps {
         FountainTestClientSupport.putEntityToURL(details.getUserSession(), "pool/"
                                                                            + currentPoolId
                                                                            + "/"
-                                                                           + currentEntity.getUUID(), currentEntity,
-                "alias:cazcade:"
-                + details.getUsername());
+                                                                           + currentEntity.id(), currentEntity, "alias:cazcade:"
+                                                                                                                + details.getUsername());
         currentEntity = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "pool.xml?url="
-                                                                                               + URLEncoder.encode(currentEntity.getAttribute(LSDAttribute.URI)));
+                                                                                               + URLEncoder.encode(currentEntity.$(Dictionary.URI)));
     }
 
     @Nonnull
-    private List<LSDBaseEntity> getCurrentEntityComments() throws IOException {
+    private TransferEntityCollection getCurrentEntityComments() throws IOException {
         final UserDetails details = userMap.get(currentUser);
-        final LSDBaseEntity commentList = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "comment.xml?uri="
-                                                                                                                 + URLEncoder.encode(currentEntity
-                .getAttribute(LSDAttribute.URI)));
-        final List<LSDBaseEntity> comments = commentList.getSubEntities(LSDAttribute.CHILD);
+        final Entity commentList = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "comment.xml?uri="
+                                                                                                          + URLEncoder.encode(currentEntity
+                .$(Dictionary.URI)));
+        final TransferEntityCollection comments = commentList.children(Dictionary.CHILD_A);
         return comments;
     }
 }

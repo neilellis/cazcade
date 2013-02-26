@@ -4,8 +4,8 @@
 
 package cazcade.boardcast.client.main.widgets.board;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -58,9 +58,9 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
             }
         });
         boardImage.sinkEvents(Event.MOUSEEVENTS);
-        addBinding(title, LSDAttribute.TITLE);
-        addBinding(description, LSDAttribute.DESCRIPTION);
-        addBinding(boardImage, LSDAttribute.IMAGE_URL);
+        bind(title, Dictionary.TITLE);
+        bind(description, Dictionary.DESCRIPTION);
+        bind(boardImage, Dictionary.IMAGE_URL);
     }
 
 
@@ -82,14 +82,14 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
                 getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
                     @Override
                     public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        setAndBindEntity(response.getResponse().copy());
+                        $(response.response().$());
                         //                        Window.alert("Success..");
                     }
 
                     @Override
                     public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
                         //                        Window.alert("Failed.");
-                        field.setErrorMessage(response.getResponse().getAttribute(LSDAttribute.DESCRIPTION));
+                        field.setErrorMessage(response.response().$(Dictionary.DESCRIPTION));
                     }
                 });
             }
@@ -97,10 +97,10 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     }
 
     @Override
-    protected void onChange(@Nonnull final LSDBaseEntity entity) {
+    protected void onChange(@Nonnull final Entity entity) {
         super.onChange(entity);
         WidgetUtil.showGracefully(this, true);
-        final String shortUrl = entity.getURI().asBoardURL().asUrlSafe();
+        final String shortUrl = entity.uri().board().safe();
         if (shortUrl.startsWith("-")) {
             //unlisted board, probably has a nasty name so let's not show it here.
             WidgetUtil.hideGracefully(tag, false);

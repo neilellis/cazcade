@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.search;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.SearchRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -22,7 +26,7 @@ import java.util.List;
 public class VortexSearchPanel extends HistoryAwareComposite {
 
     @Nonnull
-    private final Bus bus = BusFactory.getInstance();
+    private final Bus bus = BusFactory.get();
     private final ResultWidgetStrategy resultWidgetStrategy;
 
     @Override
@@ -30,13 +34,11 @@ public class VortexSearchPanel extends HistoryAwareComposite {
         search(token);
     }
 
-    interface VortexSearchPanelUiBinder extends UiBinder<HTMLPanel, VortexSearchPanel> {
-    }
+    interface VortexSearchPanelUiBinder extends UiBinder<HTMLPanel, VortexSearchPanel> {}
 
 
     public interface ResultWidgetStrategy {
-        @Nonnull
-        Widget getResultWidgetForEntity(LSDBaseEntity subEntity);
+        @Nonnull Widget getResultWidgetForEntity(Entity subEntity);
     }
 
 
@@ -70,8 +72,8 @@ public class VortexSearchPanel extends HistoryAwareComposite {
         bus.send(new SearchRequest(search), new AbstractResponseCallback<SearchRequest>() {
             @Override
             public void onSuccess(final SearchRequest message, @Nonnull final SearchRequest response) {
-                final List<LSDBaseEntity> subEntities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                for (final LSDBaseEntity subEntity : subEntities) {
+                final List<Entity> subEntities = response.response().children(Dictionary.CHILD_A);
+                for (final Entity subEntity : subEntities) {
                     final Widget widgetForEntity = resultWidgetStrategy.getResultWidgetForEntity(subEntity);
                     if (widgetForEntity != null) {
                         searchResults.addResult(widgetForEntity);

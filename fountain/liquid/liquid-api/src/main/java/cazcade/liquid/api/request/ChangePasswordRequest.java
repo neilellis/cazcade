@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,32 +15,32 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChangePasswordRequest extends AbstractRequest {
-    public ChangePasswordRequest(final LiquidSessionIdentifier identity, final String password, final String hash) {
+    public ChangePasswordRequest(final SessionIdentifier identity, final String password, final String hash) {
         super();
-        setSessionId(identity);
+        session(identity);
         setPassword(password);
         setChangePasswordSecurityHash(hash);
     }
 
-    public ChangePasswordRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final String password) {
+    public ChangePasswordRequest(final LiquidUUID id, final SessionIdentifier identity, final String password) {
         super();
         setPassword(password);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
     }
 
-    public ChangePasswordRequest(final LiquidSessionIdentifier identity, final String password) {
+    public ChangePasswordRequest(final SessionIdentifier identity, final String password) {
         super();
-        setSessionId(identity);
+        session(identity);
         setPassword(password);
     }
 
-    public ChangePasswordRequest(final LiquidSessionIdentifier liquidSessionIdentifier) {
+    public ChangePasswordRequest(final SessionIdentifier sessionIdentifier) {
         super();
-        setSessionId(liquidSessionIdentifier);
+        session(sessionIdentifier);
     }
 
-    public ChangePasswordRequest(@Nonnull final LSDTransferEntity entity) {
+    public ChangePasswordRequest(@Nonnull final TransferEntity entity) {
         super(entity);
     }
 
@@ -58,23 +58,23 @@ public class ChangePasswordRequest extends AbstractRequest {
         return new ChangePasswordRequest(getEntity());
     }
 
-    public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(getSessionIdentifier().getAliasURL());
+    public Collection<LiquidURI> affectedEntities() {
+        return Arrays.asList(session().aliasURI());
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.EMPTY_LIST;
     }
 
     @Nullable
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return null;
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CHANGE_PASSWORD;
+    public RequestType requestType() {
+        return RequestType.CHANGE_PASSWORD;
     }
 
     @Override

@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,13 +15,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class ClaimAliasRequest extends AbstractRequest {
-    public ClaimAliasRequest(@Nullable final LiquidUUID id, final LiquidSessionIdentifier identity) {
+    public ClaimAliasRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
     }
 
-    public ClaimAliasRequest(final LiquidSessionIdentifier identity) {
+    public ClaimAliasRequest(final SessionIdentifier identity) {
         this(null, identity);
     }
 
@@ -29,7 +29,7 @@ public class ClaimAliasRequest extends AbstractRequest {
         super();
     }
 
-    public ClaimAliasRequest(final LSDTransferEntity entity) {
+    public ClaimAliasRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -38,23 +38,23 @@ public class ClaimAliasRequest extends AbstractRequest {
         return new ClaimAliasRequest(getEntity());
     }
 
-    public Collection<LiquidURI> getAffectedEntities() {
-        return Arrays.asList(getSessionIdentifier().getAliasURL());
+    public Collection<LiquidURI> affectedEntities() {
+        return Arrays.asList(session().aliasURI());
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Collections.EMPTY_LIST;
     }
 
     @Nullable
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return null;
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CLAIM_ALIAS;
+    public RequestType requestType() {
+        return RequestType.CLAIM_ALIAS;
     }
 
     @Override

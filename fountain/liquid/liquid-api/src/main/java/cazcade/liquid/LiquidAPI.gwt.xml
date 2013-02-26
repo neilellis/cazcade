@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.4//EN"
         "http://google-web-toolkit.googlecode.com/svn/tags/2.2.0/distro-source/core/src/gwt-module.dtd">
 
@@ -6,7 +10,7 @@
 
     <inherits name="com.google.gwt.user.User"/>
     <inherits name="cazcade.fountain.common.CommonError"/>
-    <inherits name="cazcade.vortex.gwt.util.GWTUtil"/>
+    <inherits name="com.google.common.collect.Collect"/>
     <source path="api" excludes="**/LSDMarshaler.java,**LSDUnmarshaler.java, **/UUIDFactory"/>
 
 </module>

@@ -4,9 +4,9 @@
 
 package cazcade.boardcast.client.main.widgets.board;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.image.ImageOption;
@@ -34,7 +34,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
     private static final ChangeBackgroundDialogUiBinder ourUiBinder = GWT.create(ChangeBackgroundDialogUiBinder.class);
     @UiField ChangeImageUrlPanel changeBackgroundPanel;
     @UiField ImageSelection      imageSelector;
-    private  LSDBaseEntity       oldEntity;
+    private  Entity              oldEntity;
     private  VortexDialogPanel   vortexDialogPanel;
 
 
@@ -65,18 +65,19 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
         //TODO
     }
 
+
     @Override
-    public void bind(@Nonnull final LSDTransferEntity entity, final LSDAttribute attribute, final String referenceDataPrefix) {
-        oldEntity = entity.copy();
+    public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String referenceDataPrefix) {
+        oldEntity = entity.$();
         changeBackgroundPanel.bind(entity, attribute, referenceDataPrefix);
     }
 
     @Override
-    public LSDTransferEntity getEntityDiff() {
-        final LSDTransferEntity updateEntity = changeBackgroundPanel.getEntityDiff();
-        //        final String oldIconUrl = oldEntity.getAttribute(LSDAttribute.ICON_URL);
-        //        if (oldIconUrl == null || oldIconUrl.equals(oldEntity.getAttribute(LSDAttribute.IMAGE_URL))) {
-        //            updateEntity.setAttribute(LSDAttribute.ICON_URL, changeBackgroundPanel.getStringValue());
+    public TransferEntity getEntityDiff() {
+        final TransferEntity updateEntity = changeBackgroundPanel.getEntityDiff();
+        //        final String oldIconUrl = oldEntity.$(Attribute.ICON_URL);
+        //        if (oldIconUrl == null || oldIconUrl.equals(oldEntity.$(Attribute.IMAGE_URL))) {
+        //            updateEntity.$(Attribute.ICON_URL, changeBackgroundPanel.getStringValue());
         //        }
         return updateEntity;
     }
@@ -94,7 +95,7 @@ public class ChangeBackgroundDialog extends Composite implements Bindable, Popup
         return false;
     }
 
-    @Override public LSDAttribute getBoundAttribute() {
+    @Override public Attribute getBoundAttribute() {
         return changeBackgroundPanel.getBoundAttribute();
     }
 

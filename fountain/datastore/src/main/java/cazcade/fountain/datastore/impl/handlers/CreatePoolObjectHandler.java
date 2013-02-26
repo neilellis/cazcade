@@ -6,12 +6,12 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.handler.CreatePoolObjectRequestHandler;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.CreatePoolObjectRequest;
 import org.neo4j.graphdb.Transaction;
 
@@ -23,33 +23,31 @@ import javax.annotation.Nonnull;
 public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePoolObjectRequest> implements CreatePoolObjectRequestHandler {
     @Nonnull
     public CreatePoolObjectRequest handle(@Nonnull final CreatePoolObjectRequest request) throws Exception {
-        final FountainNeo neo = fountainNeo;
+        final FountainNeo neo = this.neo;
         final Transaction transaction = neo.beginTx();
         try {
-            final LSDPersistedEntity poolPersistedEntity;
+            final PersistedEntity poolPersistedEntity;
             if (request.hasUri()) {
                 final LiquidURI poolURI = request.getPoolURI();
-                poolPersistedEntity = fountainNeo.findByURI(poolURI);
+                poolPersistedEntity = this.neo.find(poolURI);
                 if (poolPersistedEntity == null) {
                     throw new DataStoreException("No such parent pool " + poolURI);
                 }
-            }
-            else {
+            } else {
                 final LiquidUUID pool = request.getPool();
                 assert pool != null;
-                poolPersistedEntity = fountainNeo.findByUUID(pool);
+                poolPersistedEntity = this.neo.find(pool);
             }
-            final LiquidURI owner = request.getAlias();
+            final LiquidURI owner = request.alias();
             //            owner = defaultAndCheckOwner(request, owner);
             final LiquidURI result;
             if (request.hasAuthor()) {
                 result = request.getAuthor();
+            } else {
+                result = request.alias();
             }
-            else {
-                result = request.getAlias();
-            }
-            final LSDTransferEntity entity = poolDAO.createPoolObjectTx(poolPersistedEntity, request.getSessionIdentifier(), owner, result, request
-                    .getRequestEntity(), request.getDetail(), request.isInternal(), true);
+            final TransferEntity entity = poolDAO.createPoolObjectTx(poolPersistedEntity, request.session(), owner, result, request.request(), request
+                    .detail(), request.internal(), true);
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, entity);
         } catch (RuntimeException e) {

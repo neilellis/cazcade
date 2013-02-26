@@ -5,12 +5,12 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.api.AuthorizationException;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
-import cazcade.liquid.api.LiquidRequestDetailLevel;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.handler.ChangePasswordRequestHandler;
-import cazcade.liquid.api.lsd.LSDAttribute;
+import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.request.ChangePasswordRequest;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.neo4j.graphdb.Transaction;
@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswordRequest> implements ChangePasswordRequestHandler {
-    public static final String HASHED_PASSWORD = LSDAttribute.HASHED_AND_SALTED_PASSWORD.getKeyName();
+    public static final String HASHED_PASSWORD = Dictionary.HASHED_AND_SALTED_PASSWORD.getKeyName();
 
     @Nonnull
     public ChangePasswordRequest handle(@Nonnull final ChangePasswordRequest request) throws Exception {
-        final Transaction transaction = fountainNeo.beginTx();
+        final Transaction transaction = neo.beginTx();
         try {
-            final LiquidURI userURL = request.getSessionIdentifier().getUserURL();
-            final LSDPersistedEntity persistedEntity = fountainNeo.findByURI(userURL);
+            final LiquidURI userURL = request.session().userURL();
+            final PersistedEntity persistedEntity = neo.find(userURL);
             if (persistedEntity == null) {
                 throw new AuthorizationException("No such user " + userURL);
             }
@@ -40,16 +40,15 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
             if (!request.hasPassword()) {
                 userDAO.sendPasswordChangeRequest(userURL);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.toLSD(LiquidRequestDetailLevel.MINIMAL, request
-                        .isInternal()));
-            }
-            else {
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.toTransfer(RequestDetailLevel.MINIMAL, request
+                        .internal()));
+            } else {
                 final String plainPassword = request.getPassword();
                 final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
                 final String encryptedPassword = passwordEncryptor.encryptPassword(plainPassword);
-                persistedEntity.setAttribute(LSDAttribute.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
+                persistedEntity.$(Dictionary.HASHED_AND_SALTED_PASSWORD, encryptedPassword);
                 transaction.success();
-                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.toLSD(request.getDetail(), request.isInternal()));
+                return LiquidResponseHelper.forServerSuccess(request, persistedEntity.toTransfer(request.detail(), request.internal()));
             }
         } catch (RuntimeException e) {
             transaction.failure();

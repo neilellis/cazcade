@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.liquid.impl;
 
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.impl.xstream.LiquidXStreamFactory;
 import com.thoughtworks.xstream.XStream;
 
@@ -17,7 +21,7 @@ public class XMLMarshaler implements LSDMarshaler {
         return "text/xml";
     }
 
-    public void marshal(final LSDTransferEntity lsdEntity, final OutputStream output) {
+    public void marshal(final TransferEntity lsdEntity, final OutputStream output) {
         final XStream xstream = LiquidXStreamFactory.getXstream();
         xstream.toXML(lsdEntity, output);
     }

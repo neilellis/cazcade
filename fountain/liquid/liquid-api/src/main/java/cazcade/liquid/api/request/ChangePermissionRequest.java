@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,23 +13,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChangePermissionRequest extends AbstractRequest {
-    public ChangePermissionRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidPermissionChangeType change) {
+    public ChangePermissionRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, @Nullable final PermissionChangeType change) {
         super();
         setPermission(change);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setUri(objectURI);
     }
 
-    public ChangePermissionRequest(final LiquidURI objectURI, final LiquidPermissionChangeType change) {
-        this(null, LiquidSessionIdentifier.ANON, objectURI, change);
+    public ChangePermissionRequest(final LiquidURI objectURI, final PermissionChangeType change) {
+        this(null, SessionIdentifier.ANON, objectURI, change);
     }
 
     public ChangePermissionRequest() {
         super();
     }
 
-    public ChangePermissionRequest(final LSDTransferEntity entity) {
+    public ChangePermissionRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -39,17 +39,17 @@ public class ChangePermissionRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.SYSTEM));
+    public List<AuthorizationRequest> authorizationRequests() {
+        return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.SYSTEM_PERM));
     }
 
-    public List<String> getNotificationLocations() {
-        return Arrays.asList(getUri().getWithoutFragment().asReverseDNSString(), getUri().asReverseDNSString());
+    public List<String> notificationLocations() {
+        return Arrays.asList(uri().withoutFragment().asReverseDNSString(), uri().asReverseDNSString());
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CHANGE_PERMISSION;
+    public RequestType requestType() {
+        return RequestType.CHANGE_PERMISSION;
     }
 
     public boolean isMutationRequest() {

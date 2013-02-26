@@ -27,30 +27,29 @@ public class LiquidResponseHelper {
     public static <T extends LiquidRequest> T forException(@Nonnull final Exception e, @Nonnull final T request) {
         if (e instanceof EntityNotFoundException) {
             return forResourceNotFound(e.getMessage(), request);
-        }
-        else {
+        } else {
             log.warn(e, "{0}", e.getMessage());
             final T message = (T) request.copy();
-            message.setState(LiquidMessageState.FAIL);
-            message.setOrigin(LiquidMessageOrigin.SERVER);
+            message.state(LiquidMessageState.FAIL);
+            message.origin(LiquidMessageOrigin.SERVER);
 
-            final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-            entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.EXCEPTION.getValue() + "." + e.getClass().getSimpleName());
-            entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-            entity.setAttributeConditonally(LSDAttribute.TITLE, e.getMessage() != null
-                                                                ? e.getMessage()
-                                                                : e.getClass().getCanonicalName());
-            entity.setAttributeConditonally(LSDAttribute.DESCRIPTION, e.getMessage() != null
-                                                                      ? e.getMessage()
-                                                                      : e.getClass().getCanonicalName());
-            entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
 
-            if (!CommonConstants.IS_PRODUCTION) {
-                entity.setAttribute(LSDAttribute.TEXT, ExceptionUtils.getFullStackTrace(e));
-            }
-            entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
-            entity.setAttribute(LSDAttribute.URI, e.getClass().getCanonicalName());
-            message.setResponse(entity);
+            message.response(SimpleEntity.createEmpty()
+                                         .$(Dictionary.TYPE, Types.T_EXCEPTION.getValue() + "." + e.getClass().getSimpleName())
+                                         .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
+                                         .$(Dictionary.TITLE, e.getMessage() != null
+                                                              ? e.getMessage()
+                                                              : e.getClass().getCanonicalName())
+                                         .$(Dictionary.DESCRIPTION, e.getMessage() != null
+                                                                    ? e.getMessage()
+                                                                    : e.getClass().getCanonicalName())
+                                         .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()))
+                                         .$(Dictionary.SOURCE, request.id().toString())
+                                         .$(Dictionary.URI, e.getClass().getCanonicalName())
+
+                                         .$(Dictionary.TEXT, CommonConstants.IS_PRODUCTION
+                                                             ? ""
+                                                             : ExceptionUtils.getFullStackTrace(e)));
             return message;
         }
     }
@@ -58,122 +57,113 @@ public class LiquidResponseHelper {
     @Nonnull
     public static <T extends LiquidRequest> T forResourceNotFound(final String description, @Nonnull final T request) {
         final T message = (T) request.copy();
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.RESOURCE_NOT_FOUND.getValue());
-        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.setAttribute(LSDAttribute.TITLE, "Resource Not Found (40)");
-        entity.setAttribute(LSDAttribute.DESCRIPTION, description);
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        message.setResponse(entity);
-        message.setState(LiquidMessageState.FAIL);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.response(SimpleEntity.createEmpty()
+                                     .$(Dictionary.TYPE, Types.T_RESOURCE_NOT_FOUND.getValue())
+                                     .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
+                                     .$(Dictionary.TITLE, "Resource Not Found (40)")
+                                     .$(Dictionary.DESCRIPTION, description)
+                                     .$(Dictionary.UPDATED, System.currentTimeMillis())
+                                     .$(Dictionary.SOURCE, request.id().toString())
+                                     .$(Dictionary.UPDATED, System.currentTimeMillis()));
+        message.state(LiquidMessageState.FAIL);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forFailure(@Nonnull final T request, @Nonnull final LiquidRequest failure) {
         final T message = (T) request.copy();
-        message.setState(LiquidMessageState.FAIL);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setAttribute(LSDAttribute.TYPE, failure.getResponse().getTypeDef().asString());
-        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.copyAttribute(LSDAttribute.TITLE, failure.getResponse());
-        entity.copyAttribute(LSDAttribute.DESCRIPTION, failure.getResponse());
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
-        message.setResponse(entity);
+        message.state(LiquidMessageState.FAIL);
+        message.origin(LiquidMessageOrigin.SERVER);
+        message.response(SimpleEntity.createEmpty()
+                                     .$(Dictionary.TYPE, failure.response().type().asString())
+                                     .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
+                                     .$(failure.response(), Dictionary.TITLE)
+                                     .$(failure.response(), Dictionary.DESCRIPTION)
+                                     .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()))
+                                     .$(Dictionary.SOURCE, request.id().toString()));
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forEmptyResultResponse(@Nonnull final T request) {
         final T message = (T) request.copy();
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.EMPTY_RESULT.getValue());
-        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.setAttribute(LSDAttribute.TITLE, "Empty");
-        entity.setAttribute(LSDAttribute.DESCRIPTION, "Empty result, query returned no result.");
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        message.setResponse(entity);
-        message.setState(LiquidMessageState.SUCCESS);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.response(SimpleEntity.createEmpty()
+                                     .$(Dictionary.TYPE, Types.T_EMPTY_RESULT.getValue())
+                                     .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
+                                     .$(Dictionary.TITLE, "Empty")
+                                     .$(Dictionary.DESCRIPTION, "Empty result, query returned no result.")
+                                     .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()))
+                                     .$(Dictionary.SOURCE, request.id().toString())
+                                     .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis())));
+        message.state(LiquidMessageState.SUCCESS);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forDuplicateResource(final String description, @Nonnull final T request) {
         final T message = (T) request.copy();
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.DUPLICATE_RESOURCE_ERROR.getValue());
-        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.setAttribute(LSDAttribute.TITLE, "Duplicate Resource (409)");
-        entity.setAttribute(LSDAttribute.DESCRIPTION, description);
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.setAttribute(LSDAttribute.SOURCE, request.getId().toString());
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        message.setResponse(entity);
-        message.setState(LiquidMessageState.FAIL);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.response(SimpleEntity.createEmpty()
+                                     .$(Dictionary.TYPE, Types.T_DUPLICATE_RESOURCE_ERROR.getValue())
+                                     .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
+                                     .$(Dictionary.TITLE, "Duplicate Resource (409)")
+                                     .$(Dictionary.DESCRIPTION, description)
+                                     .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()))
+                                     .$(Dictionary.SOURCE, request.id().toString())
+                                     .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis())));
+        message.state(LiquidMessageState.FAIL);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 
     @Nonnull
-    public static <T extends LiquidRequest> T forServerSuccess(@Nonnull final T request, final LSDTransferEntity entity) {
+    public static <T extends LiquidRequest> T forServerSuccess(@Nonnull final T request, final TransferEntity entity) {
         final T message = (T) request.copy();
-        message.setResponse(entity);
-        message.setState(LiquidMessageState.SUCCESS);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.response(entity);
+        message.state(LiquidMessageState.SUCCESS);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forServerSuccess(@Nonnull final T request) {
         final T message = (T) request.copy();
-        message.setState(LiquidMessageState.SUCCESS);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.state(LiquidMessageState.SUCCESS);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, final String id, final String timestamp) {
         final T message = (T) request.copy();
-        final LSDTransferEntity response = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
-        response.setAttribute(LSDAttribute.ID, id);
-        response.setAttribute(LSDAttribute.UPDATED, timestamp);
-        message.setResponse(response);
-        message.setState(LiquidMessageState.SUCCESS);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.response(SimpleEntity.create(Types.T_DATA_STORE_REFERENCE_RESULT)
+                                     .$(Dictionary.ID, id)
+                                     .$(Dictionary.UPDATED, timestamp));
+        message.state(LiquidMessageState.SUCCESS);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 
     @Nonnull
-    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, @Nonnull final LSDBaseEntity entity) {
+    public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, @Nonnull final Entity entity) {
         final T message = (T) request.copy();
-        final LSDTransferEntity response = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.DATA_STORE_REFERENCE_RESULT);
-        response.setID(entity.getUUID());
-        response.copyAttribute(LSDAttribute.UPDATED, entity);
-        message.setResponse(response);
-        message.setState(LiquidMessageState.SUCCESS);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.response(SimpleEntity.create(Types.T_DATA_STORE_REFERENCE_RESULT).id(entity.id()).$(entity, Dictionary.UPDATED));
+        message.state(LiquidMessageState.SUCCESS);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forDeferral(@Nonnull final T request) {
         final T message = (T) request.copy();
-        final LSDTransferEntity entity = LSDSimpleEntity.createEmpty();
-        entity.setAttribute(LSDAttribute.TYPE, LSDDictionaryTypes.DATA_STORE_DEFERRED_RESULT.getValue());
-        entity.setAttribute(LSDAttribute.ID, UUIDFactory.randomUUID().toString());
-        entity.setAttribute(LSDAttribute.CORRELATION_ID, request.getId().toString());
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
-        message.setResponse(entity);
-        message.setState(LiquidMessageState.DEFERRED);
-        message.setOrigin(LiquidMessageOrigin.SERVER);
+        message.response(SimpleEntity.createEmpty()
+                                     .$(Dictionary.TYPE, Types.T_DATA_STORE_DEFERRED_RESULT.getValue())
+                                     .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
+                                     .$(Dictionary.CORRELATION_ID, request.id().toString())
+                                     .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis())));
+        message.state(LiquidMessageState.DEFERRED);
+        message.origin(LiquidMessageOrigin.SERVER);
         return message;
     }
 }

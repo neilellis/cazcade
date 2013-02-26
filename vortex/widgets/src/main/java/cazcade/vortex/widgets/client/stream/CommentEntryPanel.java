@@ -4,9 +4,8 @@
 
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
@@ -30,21 +29,21 @@ import java.util.Date;
  */
 public class CommentEntryPanel extends Composite implements StreamEntry {
 
-    LSDBaseEntity entity;
+    TransferEntity entity;
 
-    public LSDBaseEntity getEntity() {
+    public TransferEntity getEntity() {
         return entity;
     }
 
 
     @Nullable @Override
     public String getStreamIdentifier() {
-        return entity.getURI().toString();
+        return entity.uri().toString();
     }
 
     @Nullable @Override
     public Date getSortDate() {
-        return entity.getPublished();
+        return entity.published();
     }
 
     @Override
@@ -67,7 +66,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
         super();
     }
 
-    public CommentEntryPanel(@Nonnull final LSDBaseEntity streamEntry) {
+    public CommentEntryPanel(@Nonnull final TransferEntity streamEntry) {
         super();
         entity = streamEntry;
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -77,19 +76,17 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     @Override protected void onAttach() {
         super.onAttach();
         final String locationText;
-        if (entity.hasAttribute(LSDAttribute.EURI)) {
-            locationText = entity.getAttribute(LSDAttribute.EURI);
-        }
-        else if (entity.hasAttribute(LSDAttribute.SOURCE)) {
-            locationText = entity.getAttribute(LSDAttribute.SOURCE);
-        }
-        else {
-            locationText = entity.getURI().toString();
+        if (entity.has$(Dictionary.EURI)) {
+            locationText = entity.$(Dictionary.EURI);
+        } else if (entity.has$(Dictionary.SOURCE)) {
+            locationText = entity.$(Dictionary.SOURCE);
+        } else {
+            locationText = entity.uri().toString();
         }
         //        location.setText(locationText);
-        final LSDTransferEntity author = entity.getSubEntity(LSDAttribute.AUTHOR, false);
-        profileImage.bind(author, LSDAttribute.IMAGE_URL, "");
-        final String name = author.getAttribute(LSDAttribute.NAME);
+        final TransferEntity author = (TransferEntity) entity.child(Dictionary.AUTHOR_A, false);
+        profileImage.bind(author, Dictionary.IMAGE_URL, "");
+        final String name = author.$(Dictionary.NAME);
         profileName.setText("@" + name);
         profileName.addClickHandler(new ClickHandler() {
             @Override
@@ -97,7 +94,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
                 HistoryManager.get().navigate("~" + name);
             }
         });
-        authorFullname.setText(author.getAttribute(LSDAttribute.FULL_NAME));
+        authorFullname.setText(author.$(Dictionary.FULL_NAME));
         authorFullname.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
@@ -114,9 +111,9 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     OBJECT_UPDATE("Text.StatusUpdate.Object", "A pool object status update."),
     COMMENT_UPDATE("Text.StatusUpdate.Comment", "A comment based status update."),*/
 
-        text.setInnerHTML(FormatUtil.getInstance().formatRichText(entity.getAttribute(LSDAttribute.TEXT_BRIEF)));
+        text.setInnerHTML(FormatUtil.getInstance().formatRichText(entity.$(Dictionary.TEXT_BRIEF)));
         //todo - format date :-)
-        final String publishedDateStringInMillis = entity.getAttribute(LSDAttribute.PUBLISHED);
+        final String publishedDateStringInMillis = entity.$(Dictionary.PUBLISHED);
         if (publishedDateStringInMillis != null) {
             final Long publishedInMillis = Long.valueOf(publishedDateStringInMillis);
             dateTime.setDate(new Date(publishedInMillis));

@@ -4,15 +4,14 @@
 
 package cazcade.vortex.pool.objects.checklist;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
-import cazcade.liquid.api.lsd.LSDTypeDef;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.TypeDef;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractContainerObjectPresenterImpl;
 import cazcade.vortex.pool.api.PoolPresenter;
@@ -25,31 +24,30 @@ import java.util.List;
  * @author neilellis@cazcade.com
  */
 public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<ChecklistView> {
-    public ChecklistPresenter(final PoolPresenter poolPresenter, @Nonnull final LSDTransferEntity entity, @Nonnull final ChecklistView view, final VortexThreadSafeExecutor threadSafeExecutor, final FormatUtil features) {
-        super(poolPresenter, entity, view, threadSafeExecutor, features);
+    public ChecklistPresenter(final PoolPresenter poolPresenter, @Nonnull final TransferEntity entity, @Nonnull final ChecklistView view, final VortexThreadSafeExecutor threadSafeExecutor) {
+        super(poolPresenter, entity, view, threadSafeExecutor);
         //make sure we set editable before setText (very important)
         view.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                final LSDTransferEntity minimalEntity = getEntity().asUpdateEntity();
-                BusFactory.getInstance()
-                          .send(new UpdatePoolRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolRequest>() {
-                              @Override
-                              public void onSuccess(final UpdatePoolRequest message, final UpdatePoolRequest response) {
-                              }
-                          });
+                final TransferEntity minimalEntity = getEntity().asUpdateEntity();
+                BusFactory.get().send(new UpdatePoolRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolRequest>() {
+                    @Override
+                    public void onSuccess(final UpdatePoolRequest message, final UpdatePoolRequest response) {
+                    }
+                });
             }
         });
 
-        BusFactory.getInstance()
-                  .send(new RetrievePoolRequest(getEntity().getURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
+        BusFactory.get()
+                  .send(new RetrievePoolRequest(getEntity().uri(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
                       @Override
                       public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                          final List<LSDTransferEntity> children = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                          for (final LSDTransferEntity child : children) {
+                          final List<TransferEntity> children = response.response().children(Dictionary.CHILD_A);
+                          for (final TransferEntity child : children) {
 
-                              if (child.hasAttribute(LSDAttribute.TEXT_EXTENDED)) {
-                                  //                        final String text = child.getAttribute(LSDAttribute.TEXT_EXTENDED);
+                              if (child.has$(Dictionary.TEXT_EXTENDED)) {
+                                  //                        final String text = child.$(Attribute.TEXT_EXTENDED);
                                   //todo: checklistview should take the ent
                                   getPoolObjectView().addView(new ChecklistEntryView(child));
                                   //                        getWidget().addView(new Label(text.replaceAll("<[^>]*>", " ").replaceAll("\n", " ")));
@@ -60,7 +58,7 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
     }
 
     @Override
-    public void update(final LSDTransferEntity newEntity, final boolean replaceEntity) {
+    public void update(final TransferEntity newEntity, final boolean replaceEntity) {
         threadSafeExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -80,12 +78,12 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
     }
 
     @Nonnull @Override
-    public LSDDictionaryTypes getType() {
-        return LSDDictionaryTypes.CHECKLIST_POOL;
+    public Types getType() {
+        return Types.T_CHECKLIST_POOL;
     }
 
     @Override
-    public boolean willAccept(@Nonnull final LSDTypeDef type) {
-        return type.canBe(LSDDictionaryTypes.TEXT);
+    public boolean willAccept(@Nonnull final TypeDef type) {
+        return type.canBe(Types.T_TEXT);
     }
 }

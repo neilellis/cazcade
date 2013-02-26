@@ -31,7 +31,7 @@ public class UsernameTextBox extends AbstractServerValidatedTextBox {
         //            @Override
         //            public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
         //
-        //                String boardName = stringValueChangeEvent.getAttribute();
+        //                String boardName = stringValueChangeEvent.$();
         //                boardName = cleanUpName(boardName);
         //                textBox.setText(boardName);
         ////                History.newItem(boardName);
@@ -60,8 +60,7 @@ public class UsernameTextBox extends AbstractServerValidatedTextBox {
                             if (result) {
                                 showAvailable();
 
-                            }
-                            else {
+                            } else {
                                 showTaken();
                             }
                         }

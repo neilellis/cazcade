@@ -21,15 +21,14 @@ public class AdminCommandHandler extends AbstractDataStoreHandler<AdminCommandRe
 
     @Nonnull @Override
     public AdminCommandRequest handle(@Nonnull final AdminCommandRequest request) throws InterruptedException {
-        final Transaction transaction = fountainNeo.beginTx();
+        final Transaction transaction = neo.beginTx();
         try {
             final String command = request.getArgs()[0];
             final AdminCommand adminCommand = adminCommands.get(command);
             if (adminCommand == null) {
                 return LiquidResponseHelper.forResourceNotFound("No such command " + command, request);
-            }
-            else {
-                adminCommand.execute(request.getArgs(), fountainNeo);
+            } else {
+                adminCommand.execute(request.getArgs(), neo);
             }
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request);

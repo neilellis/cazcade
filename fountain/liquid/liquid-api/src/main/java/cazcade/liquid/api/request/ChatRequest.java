@@ -5,10 +5,10 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,30 +17,30 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChatRequest extends AbstractUpdateRequest {
-    public ChatRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final LSDTransferEntity entity) {
+    public ChatRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final TransferEntity entity) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setRequestEntity(entity);
         setUri(uri);
     }
 
-    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    public ChatRequest(final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity) {
         this(null, identity, target, null, entity);
     }
 
-    public ChatRequest(final LiquidSessionIdentifier identity, final LiquidURI uri, final LSDTransferEntity entity) {
+    public ChatRequest(final SessionIdentifier identity, final LiquidURI uri, final TransferEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
 
     public ChatRequest(final LiquidURI uri, final String value) {
         super();
-        final LSDTransferEntity requestEntity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.CHAT);
+        final SimpleEntity<? extends TransferEntity> requestEntity = SimpleEntity.create(Types.T_CHAT);
         //Time clocks vary so we don't want this set.
-        requestEntity.remove(LSDAttribute.PUBLISHED);
-        requestEntity.setAttribute(LSDAttribute.TEXT_BRIEF, value);
+        requestEntity.remove(Dictionary.PUBLISHED);
+        requestEntity.$(Dictionary.TEXT_BRIEF, value);
         setRequestEntity(requestEntity);
         setUri(uri);
     }
@@ -49,7 +49,7 @@ public class ChatRequest extends AbstractUpdateRequest {
         super();
     }
 
-    public ChatRequest(final LSDTransferEntity entity) {
+    public ChatRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -57,7 +57,7 @@ public class ChatRequest extends AbstractUpdateRequest {
     public void adjustTimeStampForServerTime() {
         super.adjustTimeStampForServerTime();
         if (hasRequestEntity()) {
-            getEntity().setAttribute(LSDAttribute.REQUEST_ENTITY, LSDAttribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+            getEntity().$(Dictionary.REQUEST_ENTITY, Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
     }
 
@@ -67,19 +67,18 @@ public class ChatRequest extends AbstractUpdateRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        if (getUri().getScheme() == LiquidURIScheme.alias) {
+    public List<AuthorizationRequest> authorizationRequests() {
+        if (uri().scheme() == LiquidURIScheme.alias) {
             return Collections.EMPTY_LIST;
-        }
-        else {
+        } else {
             return hasTarget()
-                   ? Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.VIEW))
-                   : Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri(), LiquidPermission.VIEW));
+                   ? Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM))
+                   : Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
         }
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.CHAT;
+    public RequestType requestType() {
+        return RequestType.CHAT;
     }
 }

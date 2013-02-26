@@ -17,12 +17,11 @@ public class DeletePoolObjectHandler extends AbstractDeletionHandler<DeletePoolO
     @Nonnull
     public DeletePoolObjectRequest handle(@Nonnull final DeletePoolObjectRequest request) throws Exception {
         if (request.hasUri()) {
-            return LiquidResponseHelper.forServerSuccess(request, poolDAO.deletePoolObjectTx(request.getUri(), request.isInternal(), request
-                    .getDetail()));
-        }
-        else {
+            return LiquidResponseHelper.forServerSuccess(request, poolDAO.deletePoolObjectTx(request.uri(), request.internal(), request
+                    .detail()));
+        } else {
             throw new UnsupportedOperationException("Only URI deletions supported now.");
-            //            return LiquidResponseHelper.forServerSuccess(request, poolDAO.deletePoolObjectTx(request.getTarget(), request.isInternal(), request.getDetail()));
+            //            return LiquidResponseHelper.forServerSuccess(request, poolDAO.deletePoolObjectTx(request.getTarget(), request.internal(), request.detail()));
         }
     }
 }

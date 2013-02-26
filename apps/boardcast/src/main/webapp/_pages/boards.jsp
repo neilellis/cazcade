@@ -67,7 +67,7 @@
                                     <%--&lt;%&ndash;<c:param name="size" value="LARGE"/>&ndash;%&gt;--%>
                                     <%--<c:param name="width" value="300"/>--%>
                                     <%--&lt;%&ndash;<c:param name="height" value="600"/>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<c:param name="delay" value="60"/>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<c:param name="delayAsync" value="60"/>&ndash;%&gt;--%>
                                     <%--<c:param name="windowStatus" value="snapshot-loaded"/>--%>
                                     <%--</c:url>'--%>
                                     <%--alt="${board.description}"/>--%>

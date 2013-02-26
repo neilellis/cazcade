@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
@@ -5,7 +9,7 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Entity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -24,8 +28,7 @@ public class ShowCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Show a resource e.g. user, session etc.";
     }
@@ -48,9 +51,9 @@ public class ShowCommand extends AbstractShortLivedCommand {
         if (response == null) {
             return null;
         }
-        final LSDBaseEntity entity = response.getResponse();
+        final Entity entity = response.response();
         System.out.println(entity);
-        return entity.getUUID().toString();
+        return entity.id().toString();
     }
 
 

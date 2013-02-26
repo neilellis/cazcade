@@ -4,11 +4,12 @@
 
 package cazcade.vortex.widgets.client.form.fields;
 
-import cazcade.liquid.api.LiquidCachingScope;
-import cazcade.liquid.api.LiquidRequestDetailLevel;
+import cazcade.liquid.api.CachingScope;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestDetailLevel;
+import cazcade.liquid.api.lsd.Attribute;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.bus.client.Bus;
@@ -37,7 +38,7 @@ public class VortexListBox extends AbstractVortexFormField {
     @Nonnull
     public static final String OTHER_FIELD_VALUE = "_______OTHER_________";
     @Nonnull
-    protected final     Bus    bus               = BusFactory.getInstance();
+    protected final     Bus    bus               = BusFactory.get();
 
     protected boolean useVisibleText;
     protected boolean otherOption;
@@ -53,8 +54,7 @@ public class VortexListBox extends AbstractVortexFormField {
         }
         if (useVisibleText) {
             return listBox.getItemText(listBox.getSelectedIndex());
-        }
-        else {
+        } else {
             return listBox.getValue(listBox.getSelectedIndex());
         }
 
@@ -81,8 +81,7 @@ public class VortexListBox extends AbstractVortexFormField {
                     listBox.setSelectedIndex(i);
                     found = true;
                 }
-            }
-            else {
+            } else {
                 if (listBox.getValue(i).equals(text)) {
                     listBox.setSelectedIndex(i);
                     found = true;
@@ -132,8 +131,7 @@ public class VortexListBox extends AbstractVortexFormField {
                 if (otherOption) {
                     if (listBox.getSelectedIndex() == listBox.getItemCount() - 1) {
                         otherBox.removeStyleName("invisible");
-                    }
-                    else {
+                    } else {
                         otherBox.addStyleName("invisible");
                     }
                 }
@@ -145,19 +143,19 @@ public class VortexListBox extends AbstractVortexFormField {
     }
 
     @Override
-    public void bind(@Nonnull final LSDAttribute attribute, final String prefix, final String initialValue) {
+    public void bind(@Nonnull final Attribute attribute, final String prefix, final String initialValue) {
         boundAttribute = attribute;
         final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName()
                                                                                                     .replace('.', '/'));
-        final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, LiquidRequestDetailLevel.TITLE_AND_NAME, true, false);
-        retrievePoolRequest.setCachingScope(LiquidCachingScope.USER);
+        final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, RequestDetailLevel.TITLE_AND_NAME, true, false);
+        retrievePoolRequest.setCachingScope(CachingScope.USER);
         bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
             @Override
             public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final List<LSDTransferEntity> entities = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+                final List<TransferEntity> entities = response.response().children(Dictionary.CHILD_A);
                 Collections.reverse(entities);
-                for (final LSDTransferEntity entity : entities) {
-                    listBox.addItem(entity.getAttribute(LSDAttribute.TITLE), entity.getAttribute(LSDAttribute.NAME));
+                for (final TransferEntity entity : entities) {
+                    listBox.addItem(entity.$(Dictionary.TITLE), entity.$(Dictionary.NAME));
                 }
                 if (otherOption) {
                     listBox.addItem("Other (please specify)", OTHER_FIELD_VALUE);

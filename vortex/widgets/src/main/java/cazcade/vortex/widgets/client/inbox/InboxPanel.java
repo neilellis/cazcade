@@ -4,9 +4,9 @@
 
 package cazcade.vortex.widgets.client.inbox;
 
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
@@ -51,24 +51,22 @@ public class InboxPanel extends Composite {
     }
 
     public void init() {
-        BusFactory.getInstance()
+        BusFactory.get()
                   .send(new RetrievePoolRequest(UserUtil.getInboxURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
                       @Override
                       public void onSuccess(final RetrievePoolRequest request, @Nonnull final RetrievePoolRequest response) {
-                          final List<LSDBaseEntity> messages = response.getResponse().getSubEntities(LSDAttribute.CHILD);
-                          for (final LSDBaseEntity message : messages) {
+                          final List<Entity> messages = response.response().children(Dictionary.CHILD_A);
+                          for (final Entity message : messages) {
                               list.addEntry(new DirectMessageListEntryPanel(message));
                           }
                       }
                   });
-        BusFactory.getInstance()
-                  .listenForURIAndSuccessfulRequestType(UserUtil.getCurrentAlias()
-                                                                .getURI(), LiquidRequestType.SEND, new BusListener<SendRequest>() {
-                      @Override
-                      public void handle(@Nonnull final SendRequest request) {
-                          list.addEntry(new DirectMessageListEntryPanel(request.getResponse()));
-                      }
-                  });
+        BusFactory.get().listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
+            @Override
+            public void handle(@Nonnull final SendRequest request) {
+                list.addEntry(new DirectMessageListEntryPanel(request.response()));
+            }
+        });
     }
 
 

@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.widgets.login;
 
-import cazcade.liquid.api.LiquidSessionIdentifier;
+import cazcade.liquid.api.SessionIdentifier;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.core.client.GWT;
@@ -91,11 +91,10 @@ public class BoardcastLoginOrRegisterPanel extends DialogBox {
     }
 
     @Nullable
-    public LiquidSessionIdentifier getIdentity() {
+    public SessionIdentifier getIdentity() {
         if (registerPanelShowing) {
             return null;
-        }
-        else {
+        } else {
             return loginPanel.getIdentity();
         }
     }

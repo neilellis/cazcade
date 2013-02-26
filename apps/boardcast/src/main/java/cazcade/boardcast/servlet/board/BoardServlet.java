@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.servlet.board;
 
 import cazcade.common.Logger;
@@ -21,17 +25,19 @@ public class BoardServlet extends AbstractBoardListServlet {
     protected void doGet(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         try {
 
-//            RetrieveAliasRequest response = dataStore.process(new RetrieveAliasRequest(getLiquidSessionId(), new LiquidURI("alias:cazcade:"+parts[0])));
-//            if(response.getResponse().isA(LSDDictionaryTypes.ALIAS)) {
-//                req.setAttribute("board", "@"+parts[0]);
-//            } else {
-//                req.setAttribute("board", parts[0]);
-//            }
+            //            RetrieveAliasRequest response = dataStore.process(new RetrieveAliasRequest(getLiquidSessionId(), new LiquidURI("alias:cazcade:"+parts[0])));
+            //            if(response.response().is(Types.ALIAS)) {
+            //                req.$("board", "@"+parts[0]);
+            //            } else {
+            //                req.$("board", parts[0]);
+            //            }
 
-//            final String[] parts = req.getServletPath().substring(1).split("\\.");
-//            req.setAttribute("board", parts[1].equals("profile") ? "@"+parts[0] : parts[0]);
+            //            final String[] parts = req.getServletPath().substring(1).split("\\.");
+            //            req.$("board", parts[1].equals("profile") ? "@"+parts[0] : parts[0]);
             req.setAttribute("board", req.getParameter("board"));
-            final String jsp = req.getParameter("gwt.codesvr") == null ? "_pages/board.jsp" : "_pages/board.jsp?gwt.codesvr=" + req.getParameter("gwt.codesvr");
+            final String jsp = req.getParameter("gwt.codesvr") == null
+                               ? "_pages/board.jsp"
+                               : "_pages/board.jsp?gwt.codesvr=" + req.getParameter("gwt.codesvr");
             req.getRequestDispatcher(jsp).forward(req, resp);
         } catch (Exception e) {
             log.error(e);

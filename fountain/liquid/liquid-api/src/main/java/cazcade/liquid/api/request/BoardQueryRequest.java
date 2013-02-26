@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,35 +13,35 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BoardQueryRequest extends AbstractRequest {
-    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
         super();
-        setId(id);
+        id(id);
         setQueryType(type);
         setAlias(alias);
-        setSessionId(identity);
+        session(identity);
     }
 
-    public BoardQueryRequest(final LiquidSessionIdentifier sessionIdentifier, @Nonnull final QueryType type, @Nullable final LiquidURI alias, int start, int max) {
+    public BoardQueryRequest(final SessionIdentifier sessionIdentifier, @Nonnull final QueryType type, @Nullable final LiquidURI alias, int start, int max) {
         this(null, sessionIdentifier, type, alias);
         setStart(start);
         setMax(max);
     }
 
     public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LiquidURI alias, int start, int max) {
-        this(null, LiquidSessionIdentifier.ANON, type, alias);
+        this(null, SessionIdentifier.ANON, type, alias);
         setStart(start);
         setMax(max);
     }
 
     public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LiquidURI alias) {
-        this(null, LiquidSessionIdentifier.ANON, type, alias);
+        this(null, SessionIdentifier.ANON, type, alias);
     }
 
     public BoardQueryRequest() {
         super();
     }
 
-    public BoardQueryRequest(final LSDTransferEntity entity) {
+    public BoardQueryRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -51,17 +51,17 @@ public class BoardQueryRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         return Arrays.asList();
     }
 
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         return Arrays.asList();
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.BOARD_QUERY;
+    public RequestType requestType() {
+        return RequestType.BOARD_QUERY;
     }
 
     public boolean isMutationRequest() {

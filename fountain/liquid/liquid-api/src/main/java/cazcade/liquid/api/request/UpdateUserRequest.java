@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,27 +13,27 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UpdateUserRequest extends AbstractUpdateRequest {
-    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    public UpdateUserRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setRequestEntity(entity);
     }
 
-    public UpdateUserRequest(final LiquidSessionIdentifier identity, final LiquidUUID target, final LSDTransferEntity entity) {
+    public UpdateUserRequest(final SessionIdentifier identity, final LiquidUUID target, final TransferEntity entity) {
         this(null, identity, target, entity);
     }
 
-    public UpdateUserRequest(final LiquidUUID target, final LSDTransferEntity entity) {
-        this(null, LiquidSessionIdentifier.ANON, target, entity);
+    public UpdateUserRequest(final LiquidUUID target, final TransferEntity entity) {
+        this(null, SessionIdentifier.ANON, target, entity);
     }
 
     public UpdateUserRequest() {
         super();
     }
 
-    public UpdateUserRequest(final LSDTransferEntity entity) {
+    public UpdateUserRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -43,13 +43,13 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getTarget(), LiquidPermission.EDIT));
+    public List<AuthorizationRequest> authorizationRequests() {
+        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.EDIT_PERM));
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.UPDATE_USER;
+    public RequestType requestType() {
+        return RequestType.UPDATE_USER;
     }
 
     public boolean isMutationRequest() {

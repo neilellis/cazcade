@@ -4,8 +4,8 @@
 
 package cazcade.boardcast.client.main.widgets;
 
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.common.client.UserUtil;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.core.client.GWT;
@@ -25,7 +25,7 @@ public class TopBar extends Composite {
     interface TopBarUiBinder extends UiBinder<HTMLPanel, TopBar> {}
 
     private static TopBarUiBinder ourUiBinder = GWT.create(TopBarUiBinder.class);
-    private final LSDBaseEntity    alias;
+    private final Entity           alias;
     @UiField      FormElement      login;
     @UiField      UListElement     userDetails;
     @UiField      AnchorElement    usernameLink;
@@ -35,21 +35,21 @@ public class TopBar extends Composite {
     @UiField      AnchorElement    yourBoardsLink;
 
     public TopBar() {
-        alias = UserUtil.getCurrentAlias();
+        alias = UserUtil.currentAlias();
         HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-        if (UserUtil.isAnonymousOrLoggedOut()) {
+        if (UserUtil.anon()) {
             logout.removeFromParent();
             userDetails.removeFromParent();
             historyLink.removeFromParent();
             yourBoardsLink.removeFromParent();
         } else {
             login.removeFromParent();
-            usernameLink.setInnerText(alias.getAttribute(LSDAttribute.FULL_NAME));
-            usernameLink.setHref("/~" + alias.getNameOrId());
-            if (alias.hasAttribute(LSDAttribute.IMAGE_URL)) {
-                userIcon.setUrl(alias.getAttribute(LSDAttribute.IMAGE_URL));
-                userIcon.setAliasUri(alias.getURI());
+            usernameLink.setInnerText(alias.$(Dictionary.FULL_NAME));
+            usernameLink.setHref("/~" + alias.nameOrId());
+            if (alias.has$(Dictionary.IMAGE_URL)) {
+                userIcon.setUrl(alias.$(Dictionary.IMAGE_URL));
+                userIcon.setAliasUri(alias.uri());
             }
         }
 

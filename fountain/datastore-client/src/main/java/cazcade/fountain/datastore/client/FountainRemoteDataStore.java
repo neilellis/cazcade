@@ -53,11 +53,11 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
         begin();
         try {
             if (!request.hasId()) {
-                request.setId(UUIDFactory.randomUUID());
+                request.id(UUIDFactory.randomUUID());
             }
-            log.debug("Processing request " + request.getId());
-            if (!request.hasRequestEntity() && !request.getRequestEntity().hasUpdated()) {
-                request.getRequestEntity().timestamp();
+            log.debug("Processing request " + request.id());
+            if (!request.hasRequestEntity() && !request.request().hasUpdated()) {
+                request.request().timestamp();
             }
             requestValidator.validate(request, ValidationLevel.MODERATE);
 
@@ -69,7 +69,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
                 }
             }
 
-            request.setState(LiquidMessageState.PROVISIONAL);
+            request.state(LiquidMessageState.PROVISIONAL);
 
             if (request.shouldNotify() && request.shouldSendProvisional()) {
                 notifyOfRequest(request);
@@ -77,17 +77,14 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
 
             if (request.isAsyncRequest() && !alwaysSynchronous) {
                 return (LiquidRequest) processAsync(request);
-            }
-            else {
+            } else {
                 final Object result;
                 result = processSync(request);
                 if (result instanceof LiquidRequest) {
                     return (LiquidRequest) result;
-                }
-                else if (result instanceof Exception) {
+                } else if (result instanceof Exception) {
                     throw (Exception) result;
-                }
-                else {
+                } else {
                     throw new Error("Unexpected return type from synchronous call to data store: " + result.getClass());
                 }
             }

@@ -3,12 +3,12 @@
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
 <%@ page import="cazcade.fountain.datastore.impl.email.EmailUtil" %>
 <%@ page import="cazcade.liquid.api.LiquidMessage" %>
-<%@ page import="cazcade.liquid.api.LiquidSessionIdentifier" %>
 <%@ page import="cazcade.liquid.api.LiquidURI" %>
 <%@ page import="cazcade.liquid.api.LiquidURIScheme" %>
+<%@ page import="cazcade.liquid.api.SessionIdentifier" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDAttribute" %>
-<%@ page import="cazcade.liquid.api.lsd.LSDTransferEntity" %>
+<%@ page import="cazcade.liquid.api.lsd.Dictionary" %>
+<%@ page import="cazcade.liquid.api.lsd.TransferEntity" %>
 <%@ page import="cazcade.liquid.api.request.RetrieveUserRequest" %>
 <%@ page import="cazcade.liquid.api.request.UpdateUserRequest" %>
 <%@ page import="org.jasypt.digest.StandardStringDigester" %>
@@ -27,17 +27,17 @@
 <%
 
     final FountainDataStore dataStore = DataStoreFactory.getDataStore();
-    final LiquidSessionIdentifier admin = new LiquidSessionIdentifier("admin");
+    final SessionIdentifier admin = new SessionIdentifier("admin");
     final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(LiquidURIScheme.user, request
             .getParameter("user")
             .toLowerCase())));
-    final LSDTransferEntity user = retrieveUserResponse.getResponse();
+    final TransferEntity user = retrieveUserResponse.response();
 
     final String host = "smtp.postmarkapp.com";
-    final String to = user.getAttribute(LSDAttribute.EMAIL_ADDRESS);
+    final String to = user.$(Dictionary.EMAIL_ADDRESS);
     final String from = "support@boardcast.it";
 
-    final String name = user.getAttribute(LSDAttribute.FULL_NAME);
+    final String name = user.$(Dictionary.FULL_NAME);
     final String subject = "Welcome!";
 
     final StandardStringDigester digester = new StandardStringDigester();
@@ -51,8 +51,8 @@
     if (!EmailUtil.confirmEmailHash(to, request.getParameter("hash"))) {
         response.sendRedirect("failed.jsp?message=Confirm+Failed");
     } else {
-        user.setAttribute(LSDAttribute.SECURITY_RESTRICTED, "false");
-        dataStore.process(new UpdateUserRequest(admin, user.getUUID(), user));
+        user.$(Dictionary.SECURITY_RESTRICTED, "false");
+        dataStore.process(new UpdateUserRequest(admin, user.id(), user));
         final boolean sessionDebug = false;
         final Properties props = System.getProperties();
         props.setProperty("mail.host", host);

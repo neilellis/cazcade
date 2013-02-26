@@ -8,8 +8,8 @@ import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
-import cazcade.fountain.datastore.impl.LSDPersistedEntity;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
+import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.handler.RetrieveAliasRequestHandler;
 import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
@@ -30,38 +30,36 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
 
     @Nonnull
     public RetrieveAliasRequest handle(@Nonnull final RetrieveAliasRequest request) throws Exception {
-        LSDTransferEntity result;
+        TransferEntity result;
         if (request.hasTarget()) {
             throw new UnsupportedOperationException("Retrieval by alias UUID not supported anymore.");
             //            log.warn("Retrieving alias using UUID - this behaviour is deprecated, use URIs.");
-            //            result = fountainNeo.getEntityByUUID(request.getTarget(), request.isInternal(), request.getDetail());
-        }
-        else if (request.hasUri()) {
-            log.debug("Retrieving alias using URI {0}", request.getUri());
-            result = socialDAO.getAliasAsProfileTx(request.getSessionIdentifier(), request.getUri(), request.isInternal(), request.getDetail());
-        }
-        else {
-            log.debug("Retrieving aliases for current user {0}", request.getSessionIdentifier().getUserURL());
+            //            result = fountainNeo.getEntityByUUID(request.getTarget(), request.internal(), request.detail());
+        } else if (request.hasUri()) {
+            log.debug("Retrieving alias using URI {0}", request.uri());
+            result = socialDAO.getAliasAsProfileTx(request.session(), request.uri(), request.internal(), request.detail());
+        } else {
+            log.debug("Retrieving aliases for current user {0}", request.session().userURL());
             //todo: make this part of FountainNeo
-            final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(LSDDictionaryTypes.ALIAS_LIST);
+            final TransferEntity entity = SimpleEntity.create(Types.T_ALIAS_LIST);
             entity.timestamp();
-            entity.setID(UUIDFactory.randomUUID());
-            final List<LSDBaseEntity> children = new ArrayList<LSDBaseEntity>();
-            final Transaction transaction = fountainNeo.beginTx();
+            entity.id(UUIDFactory.randomUUID());
+            final List<Entity> children = new ArrayList<Entity>();
+            final Transaction transaction = neo.beginTx();
             try {
-                final LSDPersistedEntity userPersistedEntity = fountainNeo.findByURI(request.getSessionIdentifier().getUserURL());
+                final PersistedEntity userPersistedEntity = neo.find(request.session().userURL());
                 if (userPersistedEntity == null) {
-                    throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.", request.getSessionIdentifier()
-                                                                                                                       .getName());
+                    throw new EntityNotFoundException("Could not locate the entity for the logged in user %s.", request.session()
+                                                                                                                       .name());
                 }
 
-                if (userPersistedEntity.hasRelationship(FountainRelationships.ALIAS, Direction.INCOMING)) {
+                if (userPersistedEntity.has(FountainRelationships.ALIAS, Direction.INCOMING)) {
                     boolean found = false;
-                    final Iterable<FountainRelationship> relationships = userPersistedEntity.getRelationships(FountainRelationships.ALIAS, Direction.INCOMING);
+                    final Iterable<FountainRelationship> relationships = userPersistedEntity.relationships(FountainRelationships.ALIAS, Direction.INCOMING);
                     for (final FountainRelationship relationship : relationships) {
-                        final LSDPersistedEntity aliasPersistedEntity = relationship.getOtherNode(userPersistedEntity);
-                        if (!aliasPersistedEntity.isDeleted()) {
-                            final LSDBaseEntity child = aliasPersistedEntity.toLSD(request.getDetail(), request.isInternal());
+                        final PersistedEntity aliasPersistedEntity = relationship.other(userPersistedEntity);
+                        if (!aliasPersistedEntity.deleted()) {
+                            final Entity child = aliasPersistedEntity.toTransfer(request.detail(), request.internal());
                             children.add(child);
                             found = true;
                         }
@@ -70,13 +68,12 @@ public class RetrieveAliasHandler extends AbstractRetrievalHandler<RetrieveAlias
                         transaction.success();
                         return LiquidResponseHelper.forEmptyResultResponse(request);
                     }
-                }
-                else {
+                } else {
                     transaction.success();
                     return LiquidResponseHelper.forEmptyResultResponse(request);
                 }
                 transaction.success();
-                entity.addSubEntities(LSDAttribute.CHILD, children);
+                entity.children(Dictionary.CHILD_A, children);
                 result = entity;
                 return LiquidResponseHelper.forServerSuccess(request, result);
             } catch (RuntimeException e) {

@@ -46,8 +46,7 @@ public class LiquidRestServlet extends AbstractRestServlet {
                                                                               "alias".equals(serviceName) ||
                                                                               "session".equals(serviceName))) {
                 //then all is well
-            }
-            else {
+            } else {
                 resp.sendError(400, "Session must be supplied as a parameter (_session).");
                 return;
             }
@@ -67,13 +66,13 @@ public class LiquidRestServlet extends AbstractRestServlet {
         final Class<? extends RestHandler> restHandlerClass = restHandler.getClass();
         final Method[] methods = restHandlerClass.getDeclaredMethods();
         final boolean handlerCalled = false;
-        final LSDTransferEntity entity = buildLSDObject(format, req);
+        final TransferEntity entity = buildLSDObject(format, req);
         log.addContext(entity);
         if (log.isDebugEnabled()) {
             log.debug("Entity passed in was {0}", entity.dump());
         }
         //All entities must be timestamped at source on the server side. We don't trust client applications to have the correct time on them!
-        entity.setAttribute(LSDAttribute.UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()));
         //Look for methods which explicitly specify the HTTP method
         for (final Method method : methods) {
             if (matchMethod(req, resp, restHandler, uuids, methodName + req.getMethod(), method, format, entity)) {
@@ -90,20 +89,19 @@ public class LiquidRestServlet extends AbstractRestServlet {
     }
 
     @Nonnull
-    private LSDTransferEntity buildLSDObject(final String format, @Nonnull final HttpServletRequest req) throws IOException {
+    private TransferEntity buildLSDObject(final String format, @Nonnull final HttpServletRequest req) throws IOException {
         final String method = req.getMethod();
         if ("PUT".equals(method)) {
             return ((LSDUnmarshallerFactory) applicationContext.getBean("unmarshalerFactory")).getUnmarshalers()
                                                                                               .get(format)
                                                                                               .unmarshal(req.getInputStream());
-        }
-        else {
+        } else {
             final Map parameters = req.getParameterMap();
-            return ((LSDEntityFactory) applicationContext.getBean("LSDFactory")).createFromServletProperties(parameters);
+            return ((EntityFactory) applicationContext.getBean("LSDFactory")).createFromServletProperties(parameters);
         }
     }
 
-    private boolean matchMethod(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final RestHandler restHandler, @Nonnull final List<LiquidUUID> uuids, final String methodName, @Nonnull final Method method, final String format, final LSDBaseEntity lsdEntity) throws Exception, InvocationTargetException, IllegalAccessException {
+    private boolean matchMethod(@Nonnull final HttpServletRequest req, @Nonnull final HttpServletResponse resp, final RestHandler restHandler, @Nonnull final List<LiquidUUID> uuids, final String methodName, @Nonnull final Method method, final String format, final Entity lsdEntity) throws Exception, InvocationTargetException, IllegalAccessException {
         final List<Object> arguments = new ArrayList<Object>();
         if (Modifier.isPublic(method.getModifiers())) {
             if (method.getName().equals(methodName)) {
@@ -114,15 +112,14 @@ public class LiquidRestServlet extends AbstractRestServlet {
                         if (i >= methodParamTypes.length || !methodParamTypes[i].equals(LiquidUUID.class)) {
                             log.debug("UUID match failed on {0}, with {1} UUIDs .", method.getName(), uuids.size());
                             return false;
-                        }
-                        else {
+                        } else {
                             arguments.add(uuids.get(i));
                         }
                         pos++;
                     }
                 }
                 log.debug("SUCCESS UUID match succeeded on {0}, with {1} UUIDs .", method.getName(), uuids.size());
-                if (arguments.size() < methodParamTypes.length && methodParamTypes[pos].equals(LSDTransferEntity.class)) {
+                if (arguments.size() < methodParamTypes.length && methodParamTypes[pos].equals(TransferEntity.class)) {
                     arguments.add(lsdEntity);
                     pos++;
                 }
@@ -140,13 +137,11 @@ public class LiquidRestServlet extends AbstractRestServlet {
                 }
                 invoke(resp, restHandler, method, format, arguments);
                 return true;
-            }
-            else {
+            } else {
                 log.info("Did not match method {0} to {1}", methodName, method.getName());
                 return false;
             }
-        }
-        else {
+        } else {
             log.info("Method " + methodName + " is not public.");
             return false;
         }
@@ -167,13 +162,11 @@ public class LiquidRestServlet extends AbstractRestServlet {
             if (targetException instanceof NormalFlowException) {
                 log.warn(targetException, targetMessage);
                 return;
-            }
-            else if (targetException instanceof LSDValidationException) {
+            } else if (targetException instanceof ValidationException) {
                 log.warn(targetException, targetMessage);
                 resp.sendError(400, targetMessage);
                 return;
-            }
-            else if (targetException instanceof Exception) {
+            } else if (targetException instanceof Exception) {
                 throw (Exception) targetException;
             }
         }
@@ -183,11 +176,10 @@ public class LiquidRestServlet extends AbstractRestServlet {
             if (message == null) {
                 throw new NullPointerException("FAIL The method " + method.getName() + " returned a null message.");
             }
-            final LSDTransferEntity responseEntity = message.getResponse();
+            final TransferEntity responseEntity = message.response();
             doLSDResponse(responseEntity, format, resp);
-        }
-        else if (method.getReturnType().equals(LSDTransferEntity.class)) {
-            final LSDTransferEntity entity = (LSDTransferEntity) result;
+        } else if (method.getReturnType().equals(TransferEntity.class)) {
+            final TransferEntity entity = (TransferEntity) result;
             if (entity == null) {
                 throw new NullPointerException("FAIL The method " + method.getName() + " returned a null message.");
             }
@@ -195,19 +187,16 @@ public class LiquidRestServlet extends AbstractRestServlet {
         }
     }
 
-    private void doLSDResponse(@Nonnull final LSDTransferEntity responseEntity, final String format, @Nonnull final HttpServletResponse resp) throws IOException {
+    private void doLSDResponse(@Nonnull final TransferEntity responseEntity, final String format, @Nonnull final HttpServletResponse resp) throws IOException {
         //todo: separate this code out
-        if (responseEntity.isA(LSDDictionaryTypes.RESOURCE_NOT_FOUND)) {
-            resp.sendError(404, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
-        }
-        else if (responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_DENIAL)) {
-            resp.sendError(403, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
-        }
-        else if (responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_NOT_REQUIRED)) {
-            resp.sendError(400, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
-        }
-        else if (responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_INVALID)) {
-            resp.sendError(400, responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
+        if (responseEntity.is(Types.T_RESOURCE_NOT_FOUND)) {
+            resp.sendError(404, responseEntity.$(Dictionary.DESCRIPTION));
+        } else if (responseEntity.is(Types.T_AUTHORIZATION_DENIAL)) {
+            resp.sendError(403, responseEntity.$(Dictionary.DESCRIPTION));
+        } else if (responseEntity.is(Types.T_AUTHORIZATION_NOT_REQUIRED)) {
+            resp.sendError(400, responseEntity.$(Dictionary.DESCRIPTION));
+        } else if (responseEntity.is(Types.T_AUTHORIZATION_INVALID)) {
+            resp.sendError(400, responseEntity.$(Dictionary.DESCRIPTION));
         }
 
         final LSDMarshaler marshaler = ((LSDMarshallerFactory) applicationContext.getBean("marshalerFactory")).getMarshalers()

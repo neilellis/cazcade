@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
@@ -6,7 +10,7 @@ import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.RetrievePoolObjectRequest;
 import org.apache.commons.cli.Options;
 
@@ -25,8 +29,7 @@ public class DescCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Describe a pool object (this includes pools).";
     }
@@ -47,15 +50,16 @@ public class DescCommand extends AbstractShortLivedCommand {
         }
         final LiquidURI poolURI;
         if (object.isEmpty()) {
-            poolURI = shellSession.getCurrentPool().getURI();
+            poolURI = shellSession.getCurrentPool().uri();
         } else {
             poolURI = CommandSupport.resolvePoolOrObject(shellSession, object);
         }
-        final LiquidMessage response = shellSession.getDataStore().process(new RetrievePoolObjectRequest(shellSession.getIdentity(), poolURI, true));
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new RetrievePoolObjectRequest(shellSession.getIdentity(), poolURI, true));
         System.err.println(poolURI);
-        final LSDBaseEntity entity = response.getResponse();
+        final Entity entity = response.response();
         System.out.println(entity);
-        return entity.getUUID().toString();
+        return entity.id().toString();
     }
 
 

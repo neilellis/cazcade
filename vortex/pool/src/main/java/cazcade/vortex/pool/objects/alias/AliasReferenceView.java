@@ -5,7 +5,6 @@
 package cazcade.vortex.pool.objects.alias;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.pool.objects.PoolObjectView;
 import cazcade.vortex.widgets.client.profile.AliasDetailPanel;
 import com.google.gwt.core.client.GWT;
@@ -37,11 +36,10 @@ public class AliasReferenceView extends PoolObjectView {
         aliasDetailPanel.setAliasURI(aliasURI);
     }
 
-    public AliasReferenceView(final FormatUtil features) {
+    public AliasReferenceView() {
         super();
         final HTMLPanel widget = ourUiBinder.createAndBindUi(this);
         initWidget(widget);
-        aliasDetailPanel.setFeatures(features);
     }
 
 

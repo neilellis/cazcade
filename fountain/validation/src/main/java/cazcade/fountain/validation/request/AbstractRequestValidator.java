@@ -19,14 +19,14 @@ public abstract class AbstractRequestValidator<T extends LiquidRequest> implemen
     protected void validPoolObject(@Nonnull final T request) {
         final boolean validType = true;
         //TODO: validate object types
-        //        for (LSDTypes type : LSDTypeGroups.CORE_POOL_OBJECT_TYPES) {
+        //        for (Types type : TypeGroups.CORE_POOL_OBJECT_TYPES) {
         //            if (request.getEntity().canBe(type)) {
         //                validType = true;
         //                break;
         //            }
         //        }
         //        if (!validType) {
-        //            throw new ValidationException("Unsupported type " + request.getRequestEntity().getTypeDef().asString() + " for pools.");
+        //            throw new ValidationException("Unsupported type " + request.request().type().asString() + " for pools.");
         //        }
     }
 

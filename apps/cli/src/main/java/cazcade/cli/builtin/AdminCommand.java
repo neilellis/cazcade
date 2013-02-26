@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
@@ -5,8 +9,8 @@ import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageState;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.AdminCommandRequest;
 import org.apache.commons.cli.Options;
 
@@ -27,8 +31,7 @@ public class AdminCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Send admin request to server.";
     }
@@ -44,10 +47,11 @@ public class AdminCommand extends AbstractShortLivedCommand {
             System.err.println("You must specify at least a command name");
             return "";
         }
-        final LiquidMessage response = shellSession.getDataStore().process(new AdminCommandRequest(null, shellSession.getIdentity(), args));
-        final LSDBaseEntity responseEntity = response.getResponse();
+        final LiquidMessage response = shellSession.getDataStore()
+                                                   .process(new AdminCommandRequest(null, shellSession.getIdentity(), args));
+        final Entity responseEntity = response.response();
         if (response.getState() != LiquidMessageState.SUCCESS) {
-            System.err.println(responseEntity.getAttribute(LSDAttribute.DESCRIPTION));
+            System.err.println(responseEntity.$(Dictionary.DESCRIPTION));
             return null;
         }
         return "";

@@ -5,34 +5,34 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DeletePoolRequest extends AbstractDeletionRequest {
-    public DeletePoolRequest(final LiquidUUID id, final LiquidSessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+    public DeletePoolRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
         setUri(uri);
     }
 
-    public DeletePoolRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public DeletePoolRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target) {
         super();
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setTarget(target);
     }
 
-    public DeletePoolRequest(final LiquidSessionIdentifier identity, final LiquidUUID target) {
+    public DeletePoolRequest(final SessionIdentifier identity, final LiquidUUID target) {
         this(null, identity, target);
     }
 
-    public DeletePoolRequest(final LiquidSessionIdentifier identity, final LiquidURI poolURI) {
+    public DeletePoolRequest(final SessionIdentifier identity, final LiquidURI poolURI) {
         super();
-        setSessionId(identity);
+        session(identity);
         setUri(poolURI);
     }
 
@@ -41,7 +41,7 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
         super();
     }
 
-    public DeletePoolRequest(final LSDTransferEntity entity) {
+    public DeletePoolRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -51,8 +51,8 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.DELETE_POOL;
+    public RequestType requestType() {
+        return RequestType.DELETE_POOL;
     }
 
     @Override

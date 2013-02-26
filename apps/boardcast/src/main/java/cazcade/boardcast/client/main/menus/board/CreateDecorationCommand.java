@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.menus.board;
 
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDSimpleEntity;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.SimpleEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 
 import javax.annotation.Nonnull;
@@ -15,8 +19,7 @@ import javax.annotation.Nonnull;
 public class CreateDecorationCommand extends CreateItemCommand {
     private final String urlForDecoration;
 
-    public CreateDecorationCommand(final LiquidURI pool, final LSDDictionaryTypes type, final String urlForDecoration,
-                                   final Size size, final String theme) {
+    public CreateDecorationCommand(final LiquidURI pool, final Types type, final String urlForDecoration, final Size size, final String theme) {
         super(pool, type, size, theme);
         this.urlForDecoration = urlForDecoration;
     }
@@ -29,8 +32,8 @@ public class CreateDecorationCommand extends CreateItemCommand {
 
     @Override
     protected void buildEntity(@Nonnull final BuildCallback onBuilt) {
-        final LSDTransferEntity entity = LSDSimpleEntity.createNewEntity(getType());
-        entity.setAttribute(LSDAttribute.IMAGE_URL, urlForDecoration);
+        final TransferEntity entity = SimpleEntity.create(getType());
+        entity.$(Dictionary.IMAGE_URL, urlForDecoration);
         addDefaultView(entity);
         onBuilt.onBuilt(entity);
     }

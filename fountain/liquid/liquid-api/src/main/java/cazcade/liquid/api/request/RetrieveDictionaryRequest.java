@@ -5,8 +5,8 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidRequestType;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.RequestType;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 
@@ -23,7 +23,7 @@ public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
         super();
     }
 
-    public RetrieveDictionaryRequest(final LSDTransferEntity entity) {
+    public RetrieveDictionaryRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -33,7 +33,7 @@ public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.RETRIEVE_DICTIONARY;
+    public RequestType requestType() {
+        return RequestType.RETRIEVE_DICTIONARY;
     }
 }

@@ -12,19 +12,20 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public interface FountainRelationship {
+
     void delete();
 
-    @Nonnull LSDPersistedEntity getEndNode();
+    @Nonnull PersistedEntity end();
 
-    @Nonnull LSDPersistedEntity getOtherNode(@Nonnull LSDPersistedEntity persistedEntity);
+    @Nonnull PersistedEntity other(@Nonnull PersistedEntity persistedEntity);
 
-    Object getProperty(String key);
+    Object $(String key);
 
-    @Nonnull LSDPersistedEntity getStartNode();
+    @Nonnull PersistedEntity start();
 
-    FountainRelationships getType();
+    FountainRelationships type();
 
-    boolean hasProperty(String key);
+    boolean has(String key);
 
-    void setProperty(String key, Object value);
+    void $(String key, Object value);
 }

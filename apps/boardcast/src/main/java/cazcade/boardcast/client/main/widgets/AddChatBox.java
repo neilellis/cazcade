@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.boardcast.client.main.widgets;
 
 import cazcade.boardcast.client.main.widgets.login.TwitterLoginBox;
@@ -18,14 +22,10 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  */
 public class AddChatBox extends Composite {
     private static final LoginOrCommentBoxUiBinder ourUiBinder = GWT.create(LoginOrCommentBoxUiBinder.class);
-    @UiField
-    ChatBox addChatBox;
-    @UiField
-    HTMLPanel loginPanel;
-    @UiField
-    AnchorElement loginLink;
-    @UiField
-    TwitterLoginBox twitterLoginBox;
+    @UiField ChatBox         addChatBox;
+    @UiField HTMLPanel       loginPanel;
+    @UiField AnchorElement   loginLink;
+    @UiField TwitterLoginBox twitterLoginBox;
 
     public AddChatBox() {
         super();
@@ -35,16 +35,14 @@ public class AddChatBox extends Composite {
     public void init(final LiquidURI poolURI) {
         addChatBox.init(poolURI);
         loginLink.setHref("login?loginNextUrl=" + URL.encode(Window.Location.getHref()));
-        if (UserUtil.isAnonymousOrLoggedOut()) {
+        if (UserUtil.anon()) {
             loginPanel.setVisible(true);
             addChatBox.setVisible(false);
-        }
-        else {
+        } else {
             loginPanel.setVisible(false);
             addChatBox.setVisible(true);
         }
     }
 
-    interface LoginOrCommentBoxUiBinder extends UiBinder<HTMLPanel, AddChatBox> {
-    }
+    interface LoginOrCommentBoxUiBinder extends UiBinder<HTMLPanel, AddChatBox> {}
 }

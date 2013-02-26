@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.cli.builtin;
 
 import cazcade.cli.ShellSession;
@@ -5,8 +9,8 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import org.apache.commons.cli.Options;
 
 import javax.annotation.Nonnull;
@@ -25,8 +29,7 @@ public class RenamePoolCommand extends AbstractShortLivedCommand {
         return new Options();
     }
 
-    @Nonnull
-    @Override
+    @Nonnull @Override
     public String getDescription() {
         return "Rename a pool";
     }
@@ -52,10 +55,9 @@ public class RenamePoolCommand extends AbstractShortLivedCommand {
         final LiquidURI poolURI;
         poolURI = CommandSupport.resolvePoolOrObject(shellSession, from);
         return CommandSupport.alterPool(shellSession, poolURI, new CommandSupport.AlterEntityCallback() {
-            @Nonnull
-            @Override
-            public LSDTransferEntity alter(@Nonnull final LSDTransferEntity entity) {
-                entity.setAttribute(LSDAttribute.NAME, to);
+            @Nonnull @Override
+            public TransferEntity alter(@Nonnull final TransferEntity entity) {
+                entity.$(Dictionary.NAME, to);
                 return entity;
 
             }

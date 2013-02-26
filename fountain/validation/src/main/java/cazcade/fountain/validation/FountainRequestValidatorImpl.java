@@ -9,7 +9,7 @@ import cazcade.fountain.validation.api.FountainRequestValidator;
 import cazcade.fountain.validation.api.ValidationException;
 import cazcade.fountain.validation.api.ValidationLevel;
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.LiquidRequestType;
+import cazcade.liquid.api.RequestType;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class FountainRequestValidatorImpl<T extends LiquidRequest> implements Fo
     }
 
     public void validate(@Nonnull final T request, final ValidationLevel level) {
-        final LiquidRequestType requestType = request.getRequestType();
+        final RequestType requestType = request.requestType();
 
         //noinspection ConstantConditions
         if (requestType == null) {
@@ -40,8 +40,7 @@ public class FountainRequestValidatorImpl<T extends LiquidRequest> implements Fo
 
         if (validator != null) {
             validator.validate(request, level);
-        }
-        else {
+        } else {
             defaultValidator.validate(request, level);
         }
     }

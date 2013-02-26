@@ -4,12 +4,12 @@
 
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.LiquidBoardURL;
+import cazcade.liquid.api.BoardURL;
 import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.vortex.bus.client.AbstractResponseCallback;
 import cazcade.vortex.common.client.UserUtil;
@@ -41,27 +41,24 @@ class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequ
 
     @Override
     public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
-        final List<LSDTransferEntity> entries = response.getResponse().getSubEntities(LSDAttribute.CHILD);
+        final List<TransferEntity> entries = response.response().children(Dictionary.CHILD_A);
         Collections.reverse(entries);
-        for (final LSDTransferEntity entry : entries) {
-            if (entry.isA(LSDDictionaryTypes.COMMENT)
-                && entry.getAttribute(LSDAttribute.TEXT_BRIEF) != null
-                && !entry.getAttribute(LSDAttribute.TEXT_BRIEF).isEmpty()) {
+        for (final TransferEntity entry : entries) {
+            if (entry.is(Types.T_COMMENT) && entry.$(Dictionary.TEXT_BRIEF) != null && !entry.$(Dictionary.TEXT_BRIEF).isEmpty()) {
                 StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), autoDelete, true);
             } else {
-                if (entry.hasAttribute(LSDAttribute.SOURCE)) {
+                if (entry.has$(Dictionary.SOURCE)) {
                     //TODO: This should all be done on the serverside (see LatestContentFinder).
-                    final LSDBaseEntity author = entry.getSubEntity(LSDAttribute.AUTHOR, true);
-                    final boolean isMe = author.getAttribute(LSDAttribute.URI)
-                                               .equals(UserUtil.getIdentity().getAliasURL().asString());
-                    final boolean isAnon = UserUtil.isAnonymousAliasURI(author.getAttribute(LSDAttribute.URI));
-                    final LiquidURI sourceURI = new LiquidURI(entry.getAttribute(LSDAttribute.SOURCE));
-                    final boolean isHere = pool == null || sourceURI.getWithoutFragmentOrComment()
-                                                                    .equals(pool.getWithoutFragmentOrComment());
-                    final boolean expired = entry.getPublished().getTime()
+                    final Entity author = entry.child(Dictionary.AUTHOR_A, true);
+                    final boolean isMe = author.$(Dictionary.URI).equals(UserUtil.getIdentity().aliasURI().asString());
+                    final boolean isAnon = UserUtil.isAnonymousAliasURI(author.$(Dictionary.URI));
+                    final LiquidURI sourceURI = new LiquidURI(entry.$(Dictionary.SOURCE));
+                    final boolean isHere = pool == null || sourceURI.withoutFragmentOrComment()
+                                                                    .equals(pool.withoutFragmentOrComment());
+                    final boolean expired = entry.published().getTime()
                                             < System.currentTimeMillis() - NotificationPanel.UPDATE_LIEFTIME;
 
-                    if (!isAnon && !expired && !isMe && !isHere && LiquidBoardURL.isConvertable(sourceURI)) {
+                    if (!isAnon && !expired && !isMe && !isHere && BoardURL.isConvertable(sourceURI)) {
                         StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, false), autoDelete, true);
                         //  statusUpdateSound.play();
                     }

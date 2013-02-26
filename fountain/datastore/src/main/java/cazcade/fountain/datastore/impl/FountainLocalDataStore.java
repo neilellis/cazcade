@@ -11,8 +11,8 @@ import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.api.FountainDataStore;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
-import cazcade.liquid.api.lsd.LSDBaseEntity;
-import cazcade.liquid.api.lsd.LSDDictionaryTypes;
+import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.AuthorizationRequest;
 
 import javax.annotation.Nonnull;
@@ -33,22 +33,22 @@ public class FountainLocalDataStore extends AbstractServiceStateMachine implemen
     @Nonnull @Override
     public <T extends LiquidRequest> T process(@Nonnull final T request) throws Exception {
         try {
-            final List<AuthorizationRequest> authorizationRequests = request.getAuthorizationRequests();
+            final List<AuthorizationRequest> authorizationRequests = request.authorizationRequests();
             for (final AuthorizationRequest authorizationRequest : authorizationRequests) {
-                authorizationRequest.setSessionId(request.getSessionIdentifier());
+                authorizationRequest.session(request.session());
                 final AuthorizationRequest result = authHandler.handle(authorizationRequest);
-                final LSDBaseEntity responseEntity = result.getResponse();
-                if (!responseEntity.isA(LSDDictionaryTypes.AUTHORIZATION_ACCEPTANCE)) {
+                final Entity responseEntity = result.response();
+                if (!responseEntity.is(Types.T_AUTHORIZATION_ACCEPTANCE)) {
                     LiquidResponseHelper.forFailure(request, result);
                 }
             }
 
-            final FountainRequestConfiguration config = requestMap.getConfiguration(request.getRequestType().getRequestClass());
+            final FountainRequestConfiguration config = requestMap.getConfiguration(request.requestType().getRequestClass());
             if (config == null) {
                 throw new Error("No configuration for " + request.getClass());
             }
-            if (request.getSessionIdentifier().getSession() != null) {
-                fountainNeo.updateSessionTx(request.getSessionIdentifier().getSession());
+            if (request.session().session() != null) {
+                fountainNeo.updateSessionTx(request.session().session());
             }
             return (T) config.getHandler().handle(request);
         } catch (EntityNotFoundException enfe) {

@@ -6,7 +6,7 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.liquid.api.handler.SearchRequestHandler;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.SearchRequest;
 
 import javax.annotation.Nonnull;
@@ -18,8 +18,7 @@ import javax.annotation.Nonnull;
 public class SearchHandler extends AbstractDataStoreHandler<SearchRequest> implements SearchRequestHandler {
     @Nonnull
     public SearchRequest handle(@Nonnull final SearchRequest request) throws InterruptedException {
-        final LSDTransferEntity searchResultEntity = fountainNeo.freeTextSearch(request.getSearchText(), request.getDetail(), request
-                .isInternal());
+        final TransferEntity searchResultEntity = neo.freeTextSearch(request.getSearchText(), request.detail(), request.internal());
         return LiquidResponseHelper.forServerSuccess(request, searchResultEntity);
     }
 }

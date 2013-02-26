@@ -5,7 +5,7 @@
 package cazcade.liquid.api.request;
 
 import cazcade.liquid.api.*;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.TransferEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,31 +13,31 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ResizePoolObjectRequest extends AbstractRequest {
-    public ResizePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final LiquidSessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Integer width, final Integer height) {
+    public ResizePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Integer width, final Integer height) {
         super();
         setWidth(width);
         setHeight(height);
-        setId(id);
-        setSessionId(identity);
+        id(id);
+        session(identity);
         setObjectUUID(object);
         setPoolUUID(pool);
         setUri(objectURI);
     }
 
-    public ResizePoolObjectRequest(final LiquidSessionIdentifier identity, final LiquidUUID pool, final LiquidUUID object, final Integer width, final Integer height, final LiquidURI objectURI) {
+    public ResizePoolObjectRequest(final SessionIdentifier identity, final LiquidUUID pool, final LiquidUUID object, final Integer width, final Integer height, final LiquidURI objectURI) {
         this(null, identity, objectURI, pool, object, width, height);
     }
 
 
     public ResizePoolObjectRequest(final LiquidURI objectURI, final Integer width, final Integer height) {
-        this(null, LiquidSessionIdentifier.ANON, objectURI, null, null, width, height);
+        this(null, SessionIdentifier.ANON, objectURI, null, null, width, height);
     }
 
     public ResizePoolObjectRequest() {
         super();
     }
 
-    public ResizePoolObjectRequest(final LSDTransferEntity entity) {
+    public ResizePoolObjectRequest(final TransferEntity entity) {
         super(entity);
     }
 
@@ -47,27 +47,25 @@ public class ResizePoolObjectRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public List<AuthorizationRequest> getAuthorizationRequests() {
+    public List<AuthorizationRequest> authorizationRequests() {
         if (!hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getPoolUUID(), LiquidPermission.MODIFY));
-        }
-        else {
-            return Arrays.asList(new AuthorizationRequest(getSessionIdentifier(), getUri().getParentURI(), LiquidPermission.MODIFY));
+            return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
+        } else {
+            return Arrays.asList(new AuthorizationRequest(session(), uri().parent(), Permission.MODIFY_PERM));
         }
     }
 
-    public List<String> getNotificationLocations() {
+    public List<String> notificationLocations() {
         if (!hasUri()) {
             return Arrays.asList(getPoolUUID().toString(), getObjectUUID().toString());
-        }
-        else {
-            return Arrays.asList(getUri().getParentURI().asReverseDNSString(), getUri().asReverseDNSString());
+        } else {
+            return Arrays.asList(uri().parent().asReverseDNSString(), uri().asReverseDNSString());
         }
     }
 
     @Nonnull
-    public LiquidRequestType getRequestType() {
-        return LiquidRequestType.RESIZE_POOL_OBJECT;
+    public RequestType requestType() {
+        return RequestType.RESIZE_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

@@ -11,13 +11,12 @@ import cazcade.fountain.datastore.impl.FountainSocialDAO;
 import cazcade.fountain.datastore.impl.FountainUserDAO;
 import cazcade.fountain.index.persistence.dao.AliasDAO;
 import cazcade.fountain.index.persistence.entities.AliasEntity;
-import cazcade.liquid.api.lsd.LSDAttribute;
-import cazcade.liquid.api.lsd.LSDTransferEntity;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.TransferEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.Nonnull;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 /**
@@ -67,31 +66,26 @@ public class FountainUserUpdateService {
 
         userDAO.forEachUser(new FountainUserDAO.UserCallback() {
             @Override
-            public void process(@Nonnull final LSDTransferEntity userEntity, @Nonnull final LSDTransferEntity aliasEntity) throws InterruptedException, UnsupportedEncodingException {
-                log.info("Sending update to " + aliasEntity.getURI());
-                final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.getURI().asString());
+            public void process(@Nonnull final TransferEntity userEntity, @Nonnull final TransferEntity aliasEntity) throws Exception {
+                log.info("Sending update to " + aliasEntity.uri());
+                final AliasEntity alias = aliasDAO.getOrCreateAlias(aliasEntity.uri().asString());
                 long lastEmailUpdateDate = alias.getLastEmailUpdateDate() != null
                                            ? alias.getLastEmailUpdateDate().getTime()
                                            : yesterday;
                 boolean send = yesterday >= lastEmailUpdateDate;
-                if (userEntity.hasAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY)) {
-                    final String frequency = userEntity.getAttribute(LSDAttribute.EMAIL_UPDATE_FREQUENCY);
+                if (userEntity.has$(Dictionary.EMAIL_UPDATE_FREQUENCY)) {
+                    final String frequency = userEntity.$(Dictionary.EMAIL_UPDATE_FREQUENCY);
                     if ("H".equals(frequency)) {
                         send = lastHour > lastEmailUpdateDate - HOUR_IN_MILLIS / 4;
-                    }
-                    else if ("D".equals(frequency)) {
+                    } else if ("D".equals(frequency)) {
                         send = yesterday > lastEmailUpdateDate - DAY_IN_MILLIS / 4;
-                    }
-                    else if ("W".equals(frequency)) {
+                    } else if ("W".equals(frequency)) {
                         send = lastWeek > lastEmailUpdateDate - DAY_IN_MILLIS / 2;
-                    }
-                    else if ("M".equals(frequency)) {
+                    } else if ("M".equals(frequency)) {
                         send = lastMonth > lastEmailUpdateDate - DAY_IN_MILLIS / 2;
-                    }
-                    else if ("U".equals(frequency)) {
+                    } else if ("U".equals(frequency)) {
                         send = false;
-                    }
-                    else {
+                    } else {
                         throw new IllegalArgumentException("Unrecognized period " + frequency);
                     }
                 }
@@ -100,7 +94,7 @@ public class FountainUserUpdateService {
                     lastEmailUpdateDate = 0;
                 }
                 if (send) {
-                    final ChangeReport report = socialDAO.getUpdateSummaryForAlias(aliasEntity.getURI(), lastEmailUpdateDate);
+                    final ChangeReport report = socialDAO.getUpdateSummaryForAlias(aliasEntity.uri(), lastEmailUpdateDate);
                     if (report.hasChangedFollowedBoards() || report.hasChangedOwnedBoards() || report.hasLatestChanges()) {
                         emailService.send(userEntity, aliasEntity, "latest-updates.vm", "Latest updates from Boardcast", report, test);
                         alias.setLastEmailUpdateDate(now);
