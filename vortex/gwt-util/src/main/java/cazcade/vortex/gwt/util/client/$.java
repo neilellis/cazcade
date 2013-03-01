@@ -6,6 +6,8 @@ package cazcade.vortex.gwt.util.client;
 
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.Timer;
 
 /**
  * @author <a href="http://uk.linkedin.com/in/neilellis">Neil Ellis</a>
@@ -25,5 +27,20 @@ public class $ implements Dictionary {
         HistoryManager.get().navigate(location);
     }
 
+    public static void defer(final Runnable runnable) {
+        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+            @Override public void execute() {
+                runnable.run();
+            }
+        });
+    }
 
+
+    public static void delay(int delayInMilli, final Runnable runnable) {
+        new Timer() {
+            @Override public void run() {
+                runnable.run();
+            }
+        }.schedule(delayInMilli);
+    }
 }

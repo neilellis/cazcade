@@ -15,7 +15,6 @@
           <option name="ALIGN_MULTILINE_TERNARY_OPERATION" value="true" />
           <option name="ALIGN_MULTILINE_THROWS_LIST" value="true" />
           <option name="ALIGN_MULTILINE_EXTENDS_LIST" value="true" />
-          <option name="ALIGN_MULTILINE_METHOD_BRACKETS" value="true" />
           <option name="ALIGN_GROUP_FIELD_DECLARATIONS" value="true" />
           <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
           <option name="BINARY_OPERATION_WRAP" value="5" />

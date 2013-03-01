@@ -8,7 +8,7 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
+import cazcade.liquid.api.MessageState;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.AdminCommandRequest;
@@ -50,7 +50,7 @@ public class AdminCommand extends AbstractShortLivedCommand {
         final LiquidMessage response = shellSession.getDataStore()
                                                    .process(new AdminCommandRequest(null, shellSession.getIdentity(), args));
         final Entity responseEntity = response.response();
-        if (response.getState() != LiquidMessageState.SUCCESS) {
+        if (response.state() != MessageState.SUCCESS) {
             System.err.println(responseEntity.$(Dictionary.DESCRIPTION));
             return null;
         }

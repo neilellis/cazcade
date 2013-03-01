@@ -9,11 +9,12 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.TransferEntityCollection;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import org.apache.commons.cli.Options;
 
@@ -53,7 +54,7 @@ public class ListPoolCommand extends AbstractShortLivedCommand {
         } else {
             pool = "";
         }
-        final LiquidURI poolURI;
+        final LURI poolURI;
         if (pool.isEmpty()) {
             poolURI = shellSession.getCurrentPool().uri();
         } else {
@@ -61,8 +62,8 @@ public class ListPoolCommand extends AbstractShortLivedCommand {
         }
         final LiquidMessage response = shellSession.getDataStore()
                                                    .process(new RetrievePoolRequest(shellSession.getIdentity(), poolURI, RequestDetailLevel.TITLE_AND_NAME, true, false));
-        final Entity listPoolEntity = response.response();
-        final List<TransferEntity> subEntities = listPoolEntity.children(Dictionary.CHILD_A);
+        final TransferEntity listPoolEntity = response.response();
+        final TransferEntityCollection<? extends TransferEntity> subEntities = listPoolEntity.children();
         //        System.out.println(visitPoolResponseEntity);
         String result = "";
         for (final Entity subEntity : subEntities) {

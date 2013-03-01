@@ -33,7 +33,7 @@ public class SortUtil {
     public static <T extends Entity> void dateSortEntities(final List<T> entities) {
         Collections.sort(entities, new Comparator<T>() {
             public int compare(@Nonnull final T lsdEntity, @Nonnull final T lsdEntity1) {
-                if (lsdEntity.has$(Dictionary.UPDATED) && lsdEntity1.has$(Dictionary.UPDATED)) {
+                if (lsdEntity.has(Dictionary.UPDATED) && lsdEntity1.has(Dictionary.UPDATED)) {
                     final Long updated = Long.valueOf(lsdEntity.$(Dictionary.UPDATED));
                     final Long updated1 = Long.valueOf(lsdEntity1.$(Dictionary.UPDATED));
                     return -updated.compareTo(updated1);
@@ -47,7 +47,7 @@ public class SortUtil {
     public static void popularitySortEntities(final List<Entity> entities) {
         Collections.sort(entities, new Comparator<Entity>() {
             public int compare(@Nonnull final Entity lsdEntity, @Nonnull final Entity lsdEntity1) {
-                if (lsdEntity.has$(Dictionary.POPULARITY_METRIC) && lsdEntity1.has$(Dictionary.POPULARITY_METRIC)) {
+                if (lsdEntity.has(Dictionary.POPULARITY_METRIC) && lsdEntity1.has(Dictionary.POPULARITY_METRIC)) {
                     final Long popularity = Long.valueOf(lsdEntity.$(Dictionary.POPULARITY_METRIC));
                     final Long popularity1 = Long.valueOf(lsdEntity1.$(Dictionary.POPULARITY_METRIC));
                     return -popularity.compareTo(popularity1);

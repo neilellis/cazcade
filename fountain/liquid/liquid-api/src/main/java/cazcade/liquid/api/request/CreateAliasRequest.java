@@ -47,7 +47,7 @@ public class CreateAliasRequest extends AbstractCreationRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CREATE_ALIAS;
+        return RequestType.R_CREATE_ALIAS;
     }
 
     @Override

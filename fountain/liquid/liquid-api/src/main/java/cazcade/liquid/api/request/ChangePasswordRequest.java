@@ -58,7 +58,7 @@ public class ChangePasswordRequest extends AbstractRequest {
         return new ChangePasswordRequest(getEntity());
     }
 
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         return Arrays.asList(session().aliasURI());
     }
 
@@ -74,7 +74,7 @@ public class ChangePasswordRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CHANGE_PASSWORD;
+        return RequestType.R_CHANGE_PASSWORD;
     }
 
     @Override

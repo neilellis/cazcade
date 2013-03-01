@@ -7,6 +7,7 @@ package cazcade.vortex.pool.objects.photo;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.EditFinishEvent;
+import cazcade.vortex.gwt.util.client.$;
 import cazcade.vortex.pool.objects.edit.AbstractPoolObjectEditorPanel;
 import cazcade.vortex.widgets.client.form.fields.ChangeImageUrlPanel;
 import cazcade.vortex.widgets.client.form.fields.RegexTextBox;
@@ -41,8 +42,8 @@ public class PhotoEditorPanel extends AbstractPoolObjectEditorPanel implements P
         initWidget(ourUiBinder.createAndBindUi(this));
         changeImagePanel.addChangeHandler(new ValueChangeHandler() {
             @Override public void onValueChange(ValueChangeEvent event) {
-                Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-                    @Override public void execute() {
+                $.defer(new Runnable() {
+                    @Override public void run() {
                         fireEvent(new EditFinishEvent());
                     }
                 });

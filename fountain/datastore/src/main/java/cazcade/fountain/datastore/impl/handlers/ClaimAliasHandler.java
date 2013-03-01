@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.handler.ClaimAliasRequestHandler;
 import cazcade.liquid.api.lsd.*;
@@ -79,7 +79,7 @@ public class ClaimAliasHandler extends AbstractDataStoreHandler<ClaimAliasReques
         entity.$(Dictionary.SOURCE, String.format("http://twitter.com/%s", name));
         entity.$(Dictionary.DESCRIPTION, String.format("%s's Twitter Feed", child.$(Dictionary.FULL_NAME)));
         entity.$(Dictionary.NAME, String.format("twitter_%s_%d", name, System.currentTimeMillis()));
-        final PersistedEntity pool = neo.find(new LiquidURI("pool:///people/" + request.session().name() + "/stream"));
+        final PersistedEntity pool = neo.find(new LURI("pool:///people/" + request.session().name() + "/stream"));
         final Entity feed = poolDAO.createPoolObjectTx(pool, identity, request.session()
                                                                               .alias(), child.uri(), entity, request.detail(), request
                 .internal(), false);

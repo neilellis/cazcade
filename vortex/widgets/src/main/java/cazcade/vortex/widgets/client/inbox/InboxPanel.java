@@ -9,11 +9,11 @@ import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.SendRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.FormatUtil;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.widgets.client.panels.list.ScrollableList;
 import cazcade.vortex.widgets.client.panels.list.dm.DirectMessageListEntryPanel;
 import com.google.gwt.core.client.GWT;
@@ -51,17 +51,17 @@ public class InboxPanel extends Composite {
     }
 
     public void init() {
-        BusFactory.get()
-                  .send(new RetrievePoolRequest(UserUtil.getInboxURI(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
+        Bus.get()
+                  .send(new RetrievePoolRequest(User.getInboxURI(), true, false), new AbstractMessageCallback<RetrievePoolRequest>() {
                       @Override
-                      public void onSuccess(final RetrievePoolRequest request, @Nonnull final RetrievePoolRequest response) {
+                      public void onSuccess(final RetrievePoolRequest original, @Nonnull final RetrievePoolRequest response) {
                           final List<Entity> messages = response.response().children(Dictionary.CHILD_A);
                           for (final Entity message : messages) {
                               list.addEntry(new DirectMessageListEntryPanel(message));
                           }
                       }
                   });
-        BusFactory.get().listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
+        Bus.get().listenForSuccess(User.currentAlias().uri(), RequestType.R_SEND, new BusListener<SendRequest>() {
             @Override
             public void handle(@Nonnull final SendRequest request) {
                 list.addEntry(new DirectMessageListEntryPanel(request.response()));

@@ -10,7 +10,7 @@ import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.admin.AdminCommand;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.PermissionSet;
 import cazcade.liquid.api.lsd.Dictionary;
 import org.neo4j.graphdb.Direction;
@@ -29,19 +29,19 @@ public class FixAllPermissions implements AdminCommand {
 
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
-        final PersistedEntity peoplePool = fountainNeo.find(new LiquidURI("pool:///people"));
+        final PersistedEntity peoplePool = fountainNeo.find(new LURI("pool:///people"));
         assert peoplePool != null;
         final Iterable<FountainRelationship> children = peoplePool.relationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final FountainRelationship child : children) {
             final PersistedEntity personPool = child.other(peoplePool);
             final String personPoolURI = personPool.$(Dictionary.URI);
-            resetPermissions(fountainNeo, new LiquidURI(personPoolURI + "/profile"), PermissionSet.getDefaultPermissionsNoDelete());
-            resetPermissions(fountainNeo, new LiquidURI(personPoolURI
+            resetPermissions(fountainNeo, new LURI(personPoolURI + "/profile"), PermissionSet.getDefaultPermissionsNoDelete());
+            resetPermissions(fountainNeo, new LURI(personPoolURI
                                                         + "/private"), PermissionSet.getPrivateNoDeletePermissionSet());
         }
     }
 
-    private void resetPermissions(@Nonnull final FountainNeo fountainNeo, @Nonnull final LiquidURI uri, @Nonnull final PermissionSet permissionSet) throws InterruptedException {
+    private void resetPermissions(@Nonnull final FountainNeo fountainNeo, @Nonnull final LURI uri, @Nonnull final PermissionSet permissionSet) throws InterruptedException {
         log.info("Fixing permissions on {0}", uri);
         final PersistedEntity profilePool = fountainNeo.find(uri);
         if (profilePool != null) {

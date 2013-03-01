@@ -117,7 +117,7 @@ public class LiquidNotificationHelper {
     //        LiquidChannelConfiguration channelConfiguration = (LiquidChannelConfiguration)
     //                continuation.$(CommonConstants.LIQUID_CHANNEL_CONFIGURATION);
     //        VisitPoolRequest request = (VisitPoolRequest) messageObject;
-    //        if (request.getState() == LiquidMessageState.SUCCESS) {
+    //        if (request.state() == MessageState.SUCCESS) {
     //            log.debug("Switching pools....");
     //            channelConfiguration.reconfigurePoolBindings(request.response().getID(),
     //                    request.response().uri(), channel);

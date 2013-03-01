@@ -4,7 +4,7 @@
 
 package cazcade.fountain.datastore.impl;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.TransferEntity;
 
@@ -22,5 +22,5 @@ public interface FountainBoardQueryDAO {
 
     @Nonnull TransferEntity getRecentPublicBoards(int start, int end, SessionIdentifier session) throws Exception;
 
-    @Nonnull TransferEntity getUserPublicBoards(int start, int end, SessionIdentifier session, LiquidURI alias) throws Exception;
+    @Nonnull TransferEntity getUserPublicBoards(int start, int end, SessionIdentifier session, LURI alias) throws Exception;
 }

@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -17,9 +17,9 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateAliasRefCommand extends CreateItemCommand {
-    private final LiquidURI uri;
+    private final LURI uri;
 
-    public CreateAliasRefCommand(final LiquidURI pool, final Types type, final LiquidURI uri) {
+    public CreateAliasRefCommand(final LURI pool, final Types type, final LURI uri) {
         super(pool, type);
         this.uri = uri;
     }

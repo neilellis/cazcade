@@ -89,7 +89,7 @@ public class FountainTestClientSupport {
             throw new RuntimeException(e);
         }
         final HashMap<String, String> propMap = new HashMap(props);
-        return SimpleEntity.createFromProperties(propMap);
+        return SimpleEntity.fromProperties(propMap);
     }
 
     @Nonnull

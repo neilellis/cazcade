@@ -3,7 +3,7 @@
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
 <%@ page import="cazcade.fountain.datastore.impl.email.EmailUtil" %>
 <%@ page import="cazcade.liquid.api.LiquidMessage" %>
-<%@ page import="cazcade.liquid.api.LiquidURI" %>
+<%@ page import="cazcade.liquid.api.LURI" %>
 <%@ page import="cazcade.liquid.api.LiquidURIScheme" %>
 <%@ page import="cazcade.liquid.api.SessionIdentifier" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
@@ -28,7 +28,7 @@
 
     final FountainDataStore dataStore = DataStoreFactory.getDataStore();
     final SessionIdentifier admin = new SessionIdentifier("admin");
-    final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(LiquidURIScheme.user, request
+    final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LURI(LiquidURIScheme.user, request
             .getParameter("user")
             .toLowerCase())));
     final TransferEntity user = retrieveUserResponse.response();

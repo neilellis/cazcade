@@ -5,7 +5,7 @@
 package cazcade.vortex.widgets.client.panels.list;
 
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.panels.scroll.VortexScrollPanel;
@@ -27,7 +27,7 @@ public class ScrollableList extends Composite {
     private static final ScrollableListUiBinder ourUiBinder = GWT.create(ScrollableListUiBinder.class);
 
     @Nonnull
-    private final Bus                      bus                = BusFactory.get();
+    private final BusService               bus                = Bus.get();
     private       int                      maxRows            = 100;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();

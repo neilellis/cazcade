@@ -6,7 +6,7 @@ package cazcade.apps.twitter.auth.signin;
 import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
+import cazcade.liquid.api.MessageState;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.SimpleEntity;
@@ -76,7 +76,7 @@ public class CallbackServlet extends AbstractTwitterServlet {
             alias.$(Dictionary.SECURITY_SECRET, authAccessToken.getTokenSecret());
 
             final LiquidMessage message = dataStore.process(new CreateAliasRequest(identity, alias, false, true, true));
-            if (message.getState() == LiquidMessageState.SUCCESS) {
+            if (message.state() == MessageState.SUCCESS) {
                 response.sendRedirect(request.getContextPath() + "/complete.jsp");
             } else {
                 log.error(LiquidXStreamFactory.getXstream().toXML(message));

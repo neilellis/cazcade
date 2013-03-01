@@ -30,7 +30,7 @@ public class RotateXYPoolObjectHandler extends AbstractDataStoreHandler<RotateXY
             final PersistedEntity viewPersistedEntity = relationship.other(persistedEntity);
 
             if (request.hasAngle()) {
-                persistedEntity.$(Dictionary.VIEW_ROTATE_XY, request.getAngle());
+                persistedEntity.$(Dictionary.VIEW_ROTATE_XY, request.angle());
             }
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toTransfer(request.detail(), request.internal()));

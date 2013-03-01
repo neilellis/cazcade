@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AbstractEntityValidator implements TypeValidator {
     void assertHasKey(@Nonnull final Entity entity, @Nonnull final Attribute key) {
-        if (!entity.has$(key)) {
+        if (!entity.has(key)) {
             throw new ValidationException("Entity of type " + entity.type() + " did not posses key " + key.getKeyName());
         }
     }

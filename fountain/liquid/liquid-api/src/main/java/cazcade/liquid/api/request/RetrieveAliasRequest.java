@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RetrieveAliasRequest extends AbstractRetrievalRequest {
-    private RetrieveAliasRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+    private RetrieveAliasRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LURI uri) {
         super();
         setTarget(target);
         id(id);
@@ -28,7 +28,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         setTarget(target);
     }
 
-    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI uri) {
+    public RetrieveAliasRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI uri) {
         super();
         id(id);
         session(identity);
@@ -39,7 +39,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         this(null, identity, target);
     }
 
-    public RetrieveAliasRequest(final SessionIdentifier identity, final LiquidURI uri) {
+    public RetrieveAliasRequest(final SessionIdentifier identity, final LURI uri) {
         this(null, identity, uri);
     }
 
@@ -47,7 +47,7 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
         this(null, SessionIdentifier.ANON, target);
     }
 
-    public RetrieveAliasRequest(final LiquidURI uri) {
+    public RetrieveAliasRequest(final LURI uri) {
         this(null, SessionIdentifier.ANON, uri);
     }
 
@@ -76,6 +76,6 @@ public class RetrieveAliasRequest extends AbstractRetrievalRequest {
 
     @Override @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_ALIAS;
+        return RequestType.R_RETRIEVE_ALIAS;
     }
 }

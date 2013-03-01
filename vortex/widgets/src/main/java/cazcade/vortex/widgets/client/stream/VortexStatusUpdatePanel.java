@@ -4,7 +4,7 @@
 
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.Types;
@@ -67,8 +67,8 @@ public class VortexStatusUpdatePanel extends Composite implements StreamEntry {
         entity = statusUpdate;
         author = statusUpdate.child(Dictionary.AUTHOR_A, false);
         profileImage.setUrl(author.$(Dictionary.IMAGE_URL));
-        if (statusUpdate.has$(Dictionary.SOURCE)) {
-            locationName = new LiquidURI(entity.$(Dictionary.SOURCE)).withoutFragmentOrComment().board().safe();
+        if (statusUpdate.has(Dictionary.SOURCE)) {
+            locationName = new LURI(entity.$(Dictionary.SOURCE)).withoutFragmentOrComment().board().safe();
         } else {
             locationName = THE_VOID;
         }

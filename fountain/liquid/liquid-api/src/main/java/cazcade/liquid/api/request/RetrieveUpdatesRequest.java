@@ -51,6 +51,6 @@ public class RetrieveUpdatesRequest extends AbstractRetrievalRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_UPDATES;
+        return RequestType.R_RETRIEVE_UPDATES;
     }
 }

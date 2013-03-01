@@ -30,6 +30,7 @@
         <option value="$PROJECT_DIR$/../billabong/snapshot/pom.xml" />
         <option value="$PROJECT_DIR$/../billabong/store/pom.xml" />
         <option value="$PROJECT_DIR$/apps/download/pom.xml" />
+        <option value="$PROJECT_DIR$/vortex/main/pom.xml" />
       </set>
     </option>
   </component>

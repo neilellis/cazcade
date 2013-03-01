@@ -40,7 +40,7 @@ public class DeleteUserRequest extends AbstractDeletionRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.DELETE_USER;
+        return RequestType.R_DELETE_USER;
     }
 
     @Override

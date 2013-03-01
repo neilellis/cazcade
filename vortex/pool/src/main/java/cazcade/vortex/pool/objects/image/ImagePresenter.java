@@ -23,10 +23,10 @@ public class ImagePresenter extends AbstractPoolObjectPresenter<ImageView> {
 
     @Override
     public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
-                getPoolObjectView().setUrl(newEntity.$(Dictionary.IMAGE_URL));
+                view().setUrl(newEntity.$(Dictionary.IMAGE_URL));
                 ImagePresenter.super.update(newEntity, replaceEntity);
             }
         });

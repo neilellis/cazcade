@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.handler.CreatePoolObjectRequestHandler;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -28,7 +28,7 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
         try {
             final PersistedEntity poolPersistedEntity;
             if (request.hasUri()) {
-                final LiquidURI poolURI = request.getPoolURI();
+                final LURI poolURI = request.getPoolURI();
                 poolPersistedEntity = this.neo.find(poolURI);
                 if (poolPersistedEntity == null) {
                     throw new DataStoreException("No such parent pool " + poolURI);
@@ -38,9 +38,9 @@ public class CreatePoolObjectHandler extends AbstractDataStoreHandler<CreatePool
                 assert pool != null;
                 poolPersistedEntity = this.neo.find(pool);
             }
-            final LiquidURI owner = request.alias();
+            final LURI owner = request.alias();
             //            owner = defaultAndCheckOwner(request, owner);
-            final LiquidURI result;
+            final LURI result;
             if (request.hasAuthor()) {
                 result = request.getAuthor();
             } else {

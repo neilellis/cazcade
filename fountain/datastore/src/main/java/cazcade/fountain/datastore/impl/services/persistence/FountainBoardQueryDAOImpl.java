@@ -10,7 +10,7 @@ import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainPoolDAO;
 import cazcade.fountain.index.persistence.dao.BoardDAO;
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.SessionIdentifier;
@@ -60,7 +60,7 @@ public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
     }
 
     @Nonnull @Override
-    public TransferEntity getUserPublicBoards(final int start, final int end, final SessionIdentifier session, @Nonnull final LiquidURI alias) throws Exception {
+    public TransferEntity getUserPublicBoards(final int start, final int end, final SessionIdentifier session, @Nonnull final LURI alias) throws Exception {
         final List<BoardIndexEntity> boards = boardDAO.getUserBoards(start, end, alias.toString());
         return convertToEntityResult(session, boards);
     }
@@ -71,7 +71,7 @@ public class FountainBoardQueryDAOImpl implements FountainBoardQueryDAO {
         final TransferEntity result = SimpleEntity.createNewTransferEntity(Types.T_BOARD_LIST, LiquidUUID.fromString(UUID.randomUUID()
                                                                                                                          .toString()));
         for (final BoardIndexEntity board : boards) {
-            final Entity poolObjectTx = poolDAO.getPoolObjectTx(session, new LiquidURI(board.getUri()), false, false, RequestDetailLevel.BOARD_LIST);
+            final Entity poolObjectTx = poolDAO.getPoolObjectTx(session, new LURI(board.getUri()), false, false, RequestDetailLevel.BOARD_LIST);
             if (poolObjectTx == null) {
                 log.warn("Board " + board.getUri() + " was null from getPoolObjectTx, skipping.");
             } else {

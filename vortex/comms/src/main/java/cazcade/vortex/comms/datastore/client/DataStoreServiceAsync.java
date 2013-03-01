@@ -4,7 +4,7 @@
 
 package cazcade.vortex.comms.datastore.client;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.SerializedRequest;
@@ -31,7 +31,7 @@ public interface DataStoreServiceAsync {
     void loginQuick(boolean anon, AsyncCallback<SessionIdentifier> async);
 
 
-    void checkBoardAvailability(LiquidURI board, AsyncCallback<Boolean> async);
+    void checkBoardAvailability(LURI board, AsyncCallback<Boolean> async);
 
     void process(SerializedRequest request, AsyncCallback<SerializedRequest> async);
 }

@@ -25,7 +25,7 @@ public final class SerializedRequest implements Serializable {
     private HashMap<String, String> entityRaw;
 
     public SerializedRequest(@Nonnull final RequestType type, @Nonnull final TransferEntity entity) {
-        typeRaw = type.name();
+        typeRaw = type.name().substring(2);
         entityRaw = new HashMap<String, String>(entity.map());
     }
 
@@ -35,13 +35,13 @@ public final class SerializedRequest implements Serializable {
 
     @Nonnull
     public TransferEntity getEntity() {
-        SimpleEntity<? extends TransferEntity> result = SimpleEntity.createFromProperties(entityRaw);
+        SimpleEntity<? extends TransferEntity> result = SimpleEntity.fromProperties(entityRaw);
         return result;
     }
 
     @Nonnull
     public RequestType getType() {
-        return RequestType.valueOf(typeRaw);
+        return RequestType.valueOf("R_"+typeRaw);
     }
 
     @Override

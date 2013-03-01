@@ -63,7 +63,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         return new LinkPoolObjectRequest(getEntity());
     }
 
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         //todo: support URIS
         //        ArrayList<LiquidUUID> ids = new ArrayList<LiquidUUID>();
         //        if (from != null) {
@@ -82,23 +82,23 @@ public class LinkPoolObjectRequest extends AbstractRequest {
         if (isUnlink()) {
             final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
             if (hasFrom() && hasTo()) {
-                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
-                requests.add(new AuthorizationRequest(session(), getFrom(), Permission.MODIFY_PERM));
-                requests.add(new AuthorizationRequest(session(), getTo(), Permission.MODIFY_PERM));
+                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
+                requests.add(new AuthorizationRequest(session(), getFrom(), Permission.P_MODIFY));
+                requests.add(new AuthorizationRequest(session(), getTo(), Permission.P_MODIFY));
             } else if (hasTo()) {
-                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
-                requests.add(new AuthorizationRequest(session(), getTo(), Permission.MODIFY_PERM));
+                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
+                requests.add(new AuthorizationRequest(session(), getTo(), Permission.P_MODIFY));
             }
             return requests;
         } else {
             final ArrayList<AuthorizationRequest> requests = new ArrayList<AuthorizationRequest>();
             if (hasFrom() && hasTo()) {
-                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
-                requests.add(new AuthorizationRequest(session(), getFrom(), Permission.VIEW_PERM));
-                requests.add(new AuthorizationRequest(session(), getTo(), Permission.MODIFY_PERM));
+                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
+                requests.add(new AuthorizationRequest(session(), getFrom(), Permission.P_VIEW));
+                requests.add(new AuthorizationRequest(session(), getTo(), Permission.P_MODIFY));
             } else if (hasTo()) {
-                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
-                requests.add(new AuthorizationRequest(session(), getTo(), Permission.MODIFY_PERM));
+                requests.add(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
+                requests.add(new AuthorizationRequest(session(), getTo(), Permission.P_MODIFY));
             }
             return requests;
         }
@@ -118,7 +118,7 @@ public class LinkPoolObjectRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.LINK_POOL_OBJECT;
+        return RequestType.R_LINK_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

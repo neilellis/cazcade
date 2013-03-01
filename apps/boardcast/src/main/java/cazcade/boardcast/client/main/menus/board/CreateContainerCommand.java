@@ -4,11 +4,11 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.CreatePoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 
 import javax.annotation.Nonnull;
 
@@ -17,16 +17,16 @@ import javax.annotation.Nonnull;
  */
 public abstract class CreateContainerCommand extends AbstractCreateCommand {
 
-    public CreateContainerCommand(final LiquidURI pool, final Types type) {
+    public CreateContainerCommand(final LURI pool, final Types type) {
         super(pool, type);
     }
 
     @Override
     public void execute() {
         CreatePoolRequest request = new CreatePoolRequest(getType(), pool, getInitialName(), getInitialName(), getInitialName(), 200.0, 200.0);
-        BusFactory.get().send(request, new AbstractResponseCallback<CreatePoolRequest>() {
+        Bus.get().send(request, new AbstractMessageCallback<CreatePoolRequest>() {
             @Override
-            public void onSuccess(final CreatePoolRequest message, final CreatePoolRequest response) {
+            public void onSuccess(final CreatePoolRequest original, final CreatePoolRequest message) {
             }
         });
     }

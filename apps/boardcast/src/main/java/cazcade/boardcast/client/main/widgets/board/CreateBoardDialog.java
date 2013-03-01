@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.widgets.board;
 
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
@@ -71,7 +71,7 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
             }
         });
 
-        tagBox.setValue(UserUtil.getCurrentAliasName()
+        tagBox.setValue(User.getCurrentAliasName()
                         + "-"
                         + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36));
     }

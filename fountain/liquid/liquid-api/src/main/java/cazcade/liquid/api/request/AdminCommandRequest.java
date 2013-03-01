@@ -38,7 +38,7 @@ public class AdminCommandRequest extends AbstractRequest {
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(session(), new LiquidURI("pool:///"), Permission.SYSTEM_PERM));
+        return Arrays.asList(new AuthorizationRequest(session(), new LURI("pool:///"), Permission.P_SYSTEM));
     }
 
     public List<String> notificationLocations() {
@@ -47,7 +47,7 @@ public class AdminCommandRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.ADMIN_COMMAND;
+        return RequestType.R_ADMIN_COMMAND;
     }
 
     @Override

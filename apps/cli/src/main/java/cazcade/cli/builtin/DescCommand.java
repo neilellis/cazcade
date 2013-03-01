@@ -9,7 +9,7 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.RetrievePoolObjectRequest;
 import org.apache.commons.cli.Options;
@@ -48,7 +48,7 @@ public class DescCommand extends AbstractShortLivedCommand {
         } else {
             object = "";
         }
-        final LiquidURI poolURI;
+        final LURI poolURI;
         if (object.isEmpty()) {
             poolURI = shellSession.getCurrentPool().uri();
         } else {

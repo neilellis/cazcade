@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
-    private RetrievePoolRosterRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+    private RetrievePoolRosterRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LURI uri) {
         super();
         setTarget(target);
         id(id);
@@ -32,11 +32,11 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
         session(identity);
     }
 
-    public RetrievePoolRosterRequest(final SessionIdentifier identity, final LiquidURI uri) {
+    public RetrievePoolRosterRequest(final SessionIdentifier identity, final LURI uri) {
         this(null, identity, uri);
     }
 
-    public RetrievePoolRosterRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI uri) {
+    public RetrievePoolRosterRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI uri) {
         super();
         id(id);
         session(identity);
@@ -59,14 +59,14 @@ public class RetrievePoolRosterRequest extends AbstractRetrievalRequest {
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasTarget()) {
-            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
         } else {
-            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_VIEW));
         }
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_POOL_ROSTER;
+        return RequestType.R_RETRIEVE_POOL_ROSTER;
     }
 }

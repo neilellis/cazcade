@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
+
 
 /**
  * @author Neil Ellis
@@ -17,8 +19,8 @@ import java.util.*;
 
 public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity<T> {
     public static final  SimpleEntity EMPTY_ENTITY     = new SimpleEntity(true);
-    private static final String       ID_KEY           = Dictionary.ID.getKeyName();
-    private static final String       TYPE_KEY         = Dictionary.TYPE.getKeyName();
+    private static final String       ID_KEY           = ID.getKeyName();
+    private static final String       TYPE_KEY         = TYPE.getKeyName();
     private static final long         serialVersionUID = 1697435148665350511L;
     @SuppressWarnings("FieldAccessedSynchronizedAndUnsynchronized") @Nonnull
     //Cannot be final if serialized by GWT
@@ -73,9 +75,9 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     public static final SimpleEntity<? extends TransferEntity> createNewTransferEntity(@Nonnull final Types type, @Nonnull final LiquidUUID uuid) {
         final SimpleEntity entity = new SimpleEntity();
         entity.setType(type);
-        entity.$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.$(Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
-        entity.$(Dictionary.ID, uuid.toString());
+        entity.$(UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.$(PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        entity.$(ID, uuid.toString());
         return entity;
     }
 
@@ -88,8 +90,8 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     public static final SimpleEntity<? extends TransferEntity> create(@Nonnull final Types type) {
         final SimpleEntity entity = new SimpleEntity();
         entity.setType(type);
-        entity.$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.$(Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        entity.$(UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.$(PUBLISHED, String.valueOf(System.currentTimeMillis()));
         return entity;
     }
 
@@ -97,8 +99,8 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     public static final SimpleEntity<? extends TransferEntity> createNewEntity(@Nonnull final TypeDef type) {
         final SimpleEntity entity = new SimpleEntity();
         entity.setTypeDef(type);
-        entity.$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.$(Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        entity.$(UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.$(PUBLISHED, String.valueOf(System.currentTimeMillis()));
         return entity;
     }
 
@@ -175,14 +177,14 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     public static final SimpleEntity<? extends TransferEntity> createNewEntity(@Nonnull final TypeDef type, @Nonnull final LiquidUUID uuid) {
         final SimpleEntity entity = new SimpleEntity();
         entity.setTypeDef(type);
-        entity.$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()));
-        entity.$(Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
-        entity.$(Dictionary.ID, uuid.toString());
+        entity.$(UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.$(PUBLISHED, String.valueOf(System.currentTimeMillis()));
+        entity.$(ID, uuid.toString());
         return entity;
     }
 
     @Nonnull
-    public static SimpleEntity<? extends TransferEntity> createFromProperties(@Nonnull final Map<String, String> lsdProperties) {
+    public static SimpleEntity<? extends TransferEntity> fromProperties(@Nonnull final Map<String, String> lsdProperties) {
         return new SimpleEntity(lsdProperties);
     }
 
@@ -202,7 +204,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     @Nonnull
     public static SimpleEntity<?> createEmpty() {
         final SimpleEntity entity = new SimpleEntity();
-        entity.$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()));
+        entity.$(UPDATED, String.valueOf(System.currentTimeMillis()));
         return entity;
     }
 
@@ -305,7 +307,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
         if (o == null || !(o instanceof SimpleEntity)) {
             return false;
         }
-        return get(Dictionary.ID.getKeyName()).equals(((SimpleEntity) o).get(Dictionary.ID.getKeyName()));
+        return get(ID.getKeyName()).equals(((SimpleEntity) o).get(ID.getKeyName()));
     }
 
     @SuppressWarnings("DesignForExtension") @Override
@@ -333,6 +335,11 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
         }
     }
 
+    public final void children(@Nonnull final Collection<? extends TransferEntity<T>> entities) {
+        children(CHILD_A, entities);
+    }
+
+
     @Override
     public final void children(@Nonnull final Attribute stem, @Nonnull final Collection<? extends TransferEntity<T>> entities) {
         assertNotReadonly();
@@ -355,7 +362,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     }
 
     @Override
-    public final void child(@Nonnull final Attribute stem, @Nonnull final TransferEntity<T> entity, final boolean requiresId) {
+    public final void child(@Nonnull final Attribute stem, @Nonnull final TransferEntity entity, final boolean requiresId) {
         assertNotReadonly();
         //noinspection ConstantConditions
         if (entity == null) {
@@ -397,7 +404,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override
     public final boolean attributeIs(@Nonnull final Attribute attribute, @Nonnull final String comparison) {
-        return has$(attribute) && $(attribute).equals(comparison);
+        return has(attribute) && $(attribute).equals(comparison);
     }
 
     @Override
@@ -407,7 +414,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override
     public final T $(@Nonnull final Entity entity, @Nonnull final Attribute attribute) {
-        if (entity.has$(attribute)) {
+        if (entity.has(attribute)) {
             $(attribute, entity.$(attribute));
         }
         return (T) this;
@@ -456,7 +463,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     @Nonnull @Override
     public final List<String> $list(@Nonnull final Attribute attribute) {
         final List<String> values = new ArrayList<String>();
-        if (has$(attribute)) {
+        if (has(attribute)) {
             values.add($(attribute));
         }
         int count = 1;
@@ -468,9 +475,9 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     }
 
     @Nonnull @Override
-    public final LiquidURI $uri(@Nonnull final Attribute attribute) {
-        if (has$(attribute)) {
-            return new LiquidURI($(attribute));
+    public final LURI $uri(@Nonnull final Attribute attribute) {
+        if (has(attribute)) {
+            return new LURI($(attribute));
         } else {
             throw new IllegalArgumentException("There is no value for key "
                                                + attribute
@@ -480,7 +487,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override
     public final boolean default$bool(@Nonnull final Attribute attribute, final boolean defaultValue) {
-        if (!has$(attribute)) {
+        if (!has(attribute)) {
             return defaultValue;
         }
         final String value = $(attribute);
@@ -519,8 +526,8 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Nonnull @Override
     public Date published() {
-        if (has$(Dictionary.PUBLISHED)) {
-            return new Date(Long.parseLong(lsdProperties.get(Dictionary.PUBLISHED.getKeyName())));
+        if (has(PUBLISHED)) {
+            return new Date(Long.parseLong(lsdProperties.get(PUBLISHED.getKeyName())));
         } else {
             throw new IllegalStateException("Attempted to get the published property of an entity before it had been set.");
         }
@@ -528,7 +535,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override
     public void published(@Nonnull final Date published) {
-        $(Dictionary.PUBLISHED, published);
+        $(PUBLISHED, published);
     }
 
     @Override
@@ -542,7 +549,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     }
 
     @Override @Nonnull
-    public final TransferEntityCollection children(@Nonnull final Attribute key) {
+    public final TransferEntityCollection<? extends TransferEntity<T>> children(@Nonnull final Attribute key) {
         final String keyString = key.getKeyName();
         final TreeMap<Integer, SimpleEntity<T>> entities = new TreeMap<Integer, SimpleEntity<T>>();
         for (final String property : lsdProperties.getKeys()) {
@@ -577,11 +584,11 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override @Nonnull
     public final TransferEntityCollection children() {
-        return children(Dictionary.CHILD_A);
+        return children(CHILD_A);
     }
 
     @Override @Nonnull
-    public final SimpleEntity<T> child(@Nonnull final Attribute path, final boolean readonlyEntity) {
+    public final TransferEntity child(@Nonnull final Attribute path, final boolean readonlyEntity) {
         final String keyString = path.getKeyName();
         return getSubEntity(keyString, readonlyEntity);
     }
@@ -598,29 +605,29 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     }
 
     @Override @Nonnull
-    public final LiquidURI uri() {
-        final String uri = lsdProperties.get(Dictionary.URI.getKeyName());
+    public final LURI uri() {
+        final String uri = lsdProperties.get(URI.getKeyName());
         if (uri == null) {
             throw new ValidationException("No URI for this entity: " + toString());
         }
-        return new LiquidURI(uri);
+        return new LURI(uri);
     }
 
     @Override
-    public final void uri(@Nonnull final LiquidURI uri) {
+    public final T uri(@Nonnull final LURI uri) {
         assertNotReadonly();
-        $(Dictionary.URI, uri.asString());
+        return $(URI, uri.asString());
     }
 
     @Override
     public final boolean hasURI() {
-        return getValue(Dictionary.URI.getKeyName()) != null;
+        return getValue(URI.getKeyName()) != null;
     }
 
     @Nonnull @Override
-    public final LiquidURI getURIAttribute(@Nonnull final Attribute attribute) {
+    public final LURI getURIAttribute(@Nonnull final Attribute attribute) {
         if (!$(attribute).isEmpty()) {
-            return new LiquidURI($(attribute));
+            return new LURI($(attribute));
         } else {
             throw new IllegalArgumentException("There is no value for key "
                                                + attribute
@@ -652,8 +659,8 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Nonnull @Override
     public Date updated() {
-        if (has$(Dictionary.UPDATED)) {
-            return new Date(Long.parseLong(lsdProperties.get(Dictionary.UPDATED.getKeyName())));
+        if (has(UPDATED)) {
+            return new Date(Long.parseLong(lsdProperties.get(UPDATED.getKeyName())));
         } else {
             throw new IllegalStateException("Attempted to get the updated property of an entity before it had been set.");
         }
@@ -661,7 +668,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override
     public void updated(@Nonnull final Date updated) {
-        $(Dictionary.UPDATED, updated);
+        $(UPDATED, updated);
     }
 
     @Override
@@ -670,13 +677,13 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     }
 
     @Override
-    public final boolean has$(@Nonnull final Attribute key) {
-        return lsdProperties.containsProperty(key.getKeyName());
+    public final boolean has(@Nonnull final Attribute key) {
+        return lsdProperties.containsProperty(key.getKeyName()) && !lsdProperties.get(key.getKeyName()).isEmpty();
     }
 
     @Override
     public final boolean allowed(@Nonnull final PermissionScope permissionScope, @Nonnull final Permission permission) {
-        return PermissionSet.createPermissionSet($(Dictionary.PERMISSIONS)).hasPermission(permissionScope, permission);
+        return PermissionSet.createPermissionSet($(PERMISSIONS)).hasPermission(permissionScope, permission);
     }
 
     @Override
@@ -816,7 +823,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     }
 
     @Override
-    public T $(@Nonnull final Attribute attribute, @Nonnull final LiquidURI uri) {
+    public T $(@Nonnull final Attribute attribute, @Nonnull final LURI uri) {
         assertNotReadonly();
         $(attribute, uri.asString());
         return (T) this;
@@ -904,7 +911,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override
     public T timestamp() {
-        lsdProperties.put(Dictionary.UPDATED.getKeyName(), String.valueOf(System.currentTimeMillis()));
+        lsdProperties.put(UPDATED.getKeyName(), String.valueOf(System.currentTimeMillis()));
         return (T) this;
     }
 
@@ -916,16 +923,16 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
 
     @Override
     public boolean hasUpdated() {
-        return has$(Dictionary.UPDATED);
+        return has(UPDATED);
     }
 
     @Override public boolean hasId() {
-        return has$(Dictionary.ID);
+        return has(ID);
     }
 
     @Override public String nameOrId() {
-        if (has$(Dictionary.NAME)) {
-            return $(Dictionary.NAME);
+        if (has(NAME)) {
+            return $(NAME);
         } else if (hasId()) {
             return id().toString();
         } else {
@@ -1001,15 +1008,14 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     }
 
     @Nonnull @Override
-    public final SimpleEntity asUpdateEntity() {
-        final SimpleEntity newEntity = createNewEntity(type());
-        newEntity.uri(uri());
-        return newEntity;
+    public final SimpleEntity<T> asUpdate() {
+        return (SimpleEntity<T>) createNewEntity(type())
+        .uri(uri());
     }
 
     @Override @Nonnull
-    public final SimpleEntity $() {
-        return createFromProperties(lsdProperties.asMap());
+    public final SimpleEntity<T> $() {
+        return (SimpleEntity<T>) fromProperties(lsdProperties.asMap());
     }
 
     @Override
@@ -1028,14 +1034,14 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
             result.put(convertToCamel(key), lsdProperties.get(key));
         }
         if (hasURI()) {
-            final LiquidURI uri = uri();
+            final LURI uri = uri();
             if (BoardURL.isConvertable(uri)) {
                 result.put("shortUrl", uri.board().safe());
             }
         }
-        if (has$(Dictionary.SOURCE) && BoardURL.isConvertable(getURIAttribute(Dictionary.SOURCE))) {
+        if (has(SOURCE) && BoardURL.isConvertable(getURIAttribute(SOURCE))) {
             //noinspection ConstantConditions
-            result.put("sourceShortUrl", getURIAttribute(Dictionary.SOURCE).board().safe());
+            result.put("sourceShortUrl", getURIAttribute(SOURCE).board().safe());
         }
         return result;
     }
@@ -1044,6 +1050,7 @@ public class SimpleEntity<T extends TransferEntity<T>> implements TransferEntity
     public final Map<String, String> map() {
         return lsdProperties.asMap();
     }
+
 
     private boolean hasSubEntity(final String keyString) {
         for (final String key : lsdProperties.getKeys()) {

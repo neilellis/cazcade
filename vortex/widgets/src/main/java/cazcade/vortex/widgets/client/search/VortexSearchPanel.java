@@ -7,9 +7,9 @@ package cazcade.vortex.widgets.client.search;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.SearchRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -26,7 +26,7 @@ import java.util.List;
 public class VortexSearchPanel extends HistoryAwareComposite {
 
     @Nonnull
-    private final Bus bus = BusFactory.get();
+    private final BusService bus = Bus.get();
     private final ResultWidgetStrategy resultWidgetStrategy;
 
     @Override
@@ -69,10 +69,10 @@ public class VortexSearchPanel extends HistoryAwareComposite {
 
     private void search(final String search) {
         searchResults.clear();
-        bus.send(new SearchRequest(search), new AbstractResponseCallback<SearchRequest>() {
+        bus.send(new SearchRequest(search), new AbstractMessageCallback<SearchRequest>() {
             @Override
-            public void onSuccess(final SearchRequest message, @Nonnull final SearchRequest response) {
-                final List<Entity> subEntities = response.response().children(Dictionary.CHILD_A);
+            public void onSuccess(final SearchRequest original, @Nonnull final SearchRequest message) {
+                final List<Entity> subEntities = message.response().children(Dictionary.CHILD_A);
                 for (final Entity subEntity : subEntities) {
                     final Widget widgetForEntity = resultWidgetStrategy.getResultWidgetForEntity(subEntity);
                     if (widgetForEntity != null) {
@@ -82,7 +82,7 @@ public class VortexSearchPanel extends HistoryAwareComposite {
             }
 
             @Override
-            public void onFailure(final SearchRequest message, @Nonnull final SearchRequest response) {
+            public void onFailure(final SearchRequest original, @Nonnull final SearchRequest message) {
             }
         });
     }

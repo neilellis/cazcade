@@ -42,10 +42,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.googlecode.gwtupload</groupId>
-            <artifactId>gwtupload</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.allen-sauer.gwt.voices</groupId>
             <artifactId>gwt-voices</artifactId>
         </dependency>

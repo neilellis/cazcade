@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UpdatePoolRequest extends AbstractUpdateRequest {
-    protected UpdatePoolRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LiquidURI uri, final TransferEntity entity) {
+    protected UpdatePoolRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LURI uri, final TransferEntity entity) {
         super();
         id(id);
         session(identity);
@@ -38,7 +38,7 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity);
     }
 
-    public UpdatePoolRequest(@Nonnull final SessionIdentifier identity, final LiquidURI poolURI, final TransferEntity newEntity) {
+    public UpdatePoolRequest(@Nonnull final SessionIdentifier identity, final LURI poolURI, final TransferEntity newEntity) {
         super();
         session(identity);
         setUri(poolURI);
@@ -71,6 +71,6 @@ public class UpdatePoolRequest extends AbstractUpdateRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.UPDATE_POOL;
+        return RequestType.R_UPDATE_POOL;
     }
 }

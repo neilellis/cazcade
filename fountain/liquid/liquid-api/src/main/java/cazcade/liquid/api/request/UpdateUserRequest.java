@@ -44,12 +44,12 @@ public class UpdateUserRequest extends AbstractUpdateRequest {
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.EDIT_PERM));
+        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_EDIT));
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.UPDATE_USER;
+        return RequestType.R_UPDATE_USER;
     }
 
     public boolean isMutationRequest() {

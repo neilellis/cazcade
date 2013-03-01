@@ -41,7 +41,7 @@ public class LoginUtil {
     private static final String USERNAME_KEY      = "username";
 
     @Nonnull
-    public static SessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final FountainDataStore dataStore, @Nonnull final LiquidURI alias, @Nonnull final HttpSession session, FountainPubSub pubSub) throws Exception {
+    public static SessionIdentifier login(@Nonnull final ClientSessionManager clientSessionManager, @Nonnull final FountainDataStore dataStore, @Nonnull final LURI alias, @Nonnull final HttpSession session, FountainPubSub pubSub) throws Exception {
         final LiquidMessage response = dataStore.process(new CreateSessionRequest(alias, new ClientApplicationIdentifier("GWT Client", APP_KEY, "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
 
@@ -97,7 +97,7 @@ public class LoginUtil {
               .$(Dictionary.IMAGE_URL, CommonConstants.BLANK_PNG_URL);
         try {
             final LiquidMessage response = theDataStore.process(new CreateUserRequest(new SessionIdentifier(username), entity));
-            if (response.getState() == LiquidMessageState.SUCCESS) {
+            if (response.state() == MessageState.SUCCESS) {
                 session.setAttribute(CommonConstants.NEW_USER_ATTRIBUTE, response.response());
                 session.setAttribute(CommonConstants.NEW_USER_PASSWORD_ATTRIBUTE, password);
                 return response.response();

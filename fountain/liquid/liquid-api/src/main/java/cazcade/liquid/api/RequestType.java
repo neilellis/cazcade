@@ -13,54 +13,48 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public enum RequestType {
-    CREATE_POOL(CreatePoolRequest.class),
-    CREATE_POOL_OBJECT(CreatePoolObjectRequest.class),
-    CREATE_USER(CreateUserRequest.class),
-    CREATE_SESSION(CreateSessionRequest.class),
-    CREATE_ALIAS(CreateAliasRequest.class),
-
-    RETRIEVE_POOL(RetrievePoolRequest.class),
-    RETRIEVE_POOL_OBJECT(RetrievePoolObjectRequest.class),
-    RETRIEVE_USER(RetrieveUserRequest.class),
-    RETRIEVE_SESSION(RetrieveSessionRequest.class),
-    RETRIEVE_ALIAS(RetrieveAliasRequest.class),
-
-    UPDATE_POOL(UpdatePoolRequest.class),
-    UPDATE_POOL_OBJECT(UpdatePoolObjectRequest.class),
-    UPDATE_USER(UpdateUserRequest.class),
-    UPDATE_SESSION(UpdateSessionRequest.class),
-    UPDATE_ALIAS(UpdateAliasRequest.class),
-
-    DELETE_POOL(DeletePoolRequest.class),
-    DELETE_POOL_OBJECT(DeletePoolObjectRequest.class),
-    DELETE_USER(DeleteUserRequest.class),
-    DELETE_SESSION(DeleteSessionRequest.class),
-    DELETE_ALIAS(UnlinkAliasRequest.class),
-
-    MOVE_POOL_OBJECT(MovePoolObjectRequest.class),
-    ROTATE_XY_POOL_OBJECT(RotateXYPoolObjectRequest.class),
-    RESIZE_POOL_OBJECT(ResizePoolObjectRequest.class),
-
-    AUTHORIZATION_REQUEST(AuthorizationRequest.class),
-    CHANGE_PASSWORD(ChangePasswordRequest.class),
-    CHANGE_PERMISSION(ChangePermissionRequest.class),
-    ADMIN_COMMAND(AdminCommandRequest.class),
-
-    RESPONSE(LiquidMessage.class),
-    RETRIEVE_DICTIONARY(RetrieveDictionaryRequest.class),
-    RETRIEVE_COMMENTS(RetrieveCommentsRequest.class),
-    CLAIM_ALIAS(ClaimAliasRequest.class),
-    LINK_POOL_OBJECT(LinkPoolObjectRequest.class),
-    VISIT_POOL(VisitPoolRequest.class),
-    RETRIEVE_POOL_ROSTER(RetrievePoolRosterRequest.class),
-    RETRIEVE_UPDATES(RetrieveUpdatesRequest.class),
-    SELECT_POOL_OBJECT(SelectPoolObjectRequest.class),
-    ADD_COMMENT(AddCommentRequest.class),
-    CHAT(ChatRequest.class),
-    FOLLOW(FollowRequest.class),
-    SEND(SendRequest.class),
-    SEARCH(SearchRequest.class),
-    BOARD_QUERY(BoardQueryRequest.class);
+    R_CREATE_POOL(CreatePoolRequest.class),
+    R_CREATE_POOL_OBJECT(CreatePoolObjectRequest.class),
+    R_CREATE_USER(CreateUserRequest.class),
+    R_CREATE_SESSION(CreateSessionRequest.class),
+    R_CREATE_ALIAS(CreateAliasRequest.class),
+    R_RETRIEVE_POOL(RetrievePoolRequest.class),
+    R_RETRIEVE_POOL_OBJECT(RetrievePoolObjectRequest.class),
+    R_RETRIEVE_USER(RetrieveUserRequest.class),
+    R_RETRIEVE_SESSION(RetrieveSessionRequest.class),
+    R_RETRIEVE_ALIAS(RetrieveAliasRequest.class),
+    R_UPDATE_POOL(UpdatePoolRequest.class),
+    R_UPDATE_POOL_OBJECT(UpdatePoolObjectRequest.class),
+    R_UPDATE_USER(UpdateUserRequest.class),
+    R_UPDATE_SESSION(UpdateSessionRequest.class),
+    R_UPDATE_ALIAS(UpdateAliasRequest.class),
+    R_DELETE_POOL(DeletePoolRequest.class),
+    R_DELETE_POOL_OBJECT(DeletePoolObjectRequest.class),
+    R_DELETE_USER(DeleteUserRequest.class),
+    R_DELETE_SESSION(DeleteSessionRequest.class),
+    R_DELETE_ALIAS(UnlinkAliasRequest.class),
+    R_MOVE_POOL_OBJECT(MovePoolObjectRequest.class),
+    R_ROTATE_XY_POOL_OBJECT(RotateXYPoolObjectRequest.class),
+    R_RESIZE_POOL_OBJECT(ResizePoolObjectRequest.class),
+    R_AUTHORIZATION_REQUEST(AuthorizationRequest.class),
+    R_CHANGE_PASSWORD(ChangePasswordRequest.class),
+    R_CHANGE_PERMISSION(ChangePermissionRequest.class),
+    R_ADMIN_COMMAND(AdminCommandRequest.class),
+    R_RESPONSE(LiquidMessage.class),
+    R_RETRIEVE_DICTIONARY(RetrieveDictionaryRequest.class),
+    R_RETRIEVE_COMMENTS(RetrieveCommentsRequest.class),
+    R_CLAIM_ALIAS(ClaimAliasRequest.class),
+    R_LINK_POOL_OBJECT(LinkPoolObjectRequest.class),
+    R_VISIT_POOL(VisitPoolRequest.class),
+    R_RETRIEVE_POOL_ROSTER(RetrievePoolRosterRequest.class),
+    R_RETRIEVE_UPDATES(RetrieveUpdatesRequest.class),
+    R_SELECT_POOL_OBJECT(SelectPoolObjectRequest.class),
+    R_ADD_COMMENT(AddCommentRequest.class),
+    R_CHAT(ChatRequest.class),
+    R_FOLLOW(FollowRequest.class),
+    R_SEND(SendRequest.class),
+    R_SEARCH(SearchRequest.class),
+    R_BOARD_QUERY(BoardQueryRequest.class);
 
     private final Class<? extends LiquidMessage> requestClass;
 
@@ -71,127 +65,127 @@ public enum RequestType {
 
     @Nonnull
     public AbstractRequest createInGWT() {
-        if (this == CREATE_POOL) {
+        if (this == R_CREATE_POOL) {
             return GWT.create(CreatePoolRequest.class);
         }
-        if (this == CREATE_POOL_OBJECT) {
+        if (this == R_CREATE_POOL_OBJECT) {
             return GWT.create(CreatePoolObjectRequest.class);
         }
-        if (this == CREATE_USER) {
+        if (this == R_CREATE_USER) {
             return GWT.create(CreateUserRequest.class);
         }
-        if (this == CREATE_SESSION) {
+        if (this == R_CREATE_SESSION) {
             return GWT.create(CreateSessionRequest.class);
         }
-        if (this == CREATE_ALIAS) {
+        if (this == R_CREATE_ALIAS) {
             return GWT.create(CreateAliasRequest.class);
         }
-        if (this == RETRIEVE_POOL) {
+        if (this == R_RETRIEVE_POOL) {
             return GWT.create(RetrievePoolRequest.class);
         }
-        if (this == RETRIEVE_POOL_OBJECT) {
+        if (this == R_RETRIEVE_POOL_OBJECT) {
             return GWT.create(RetrievePoolObjectRequest.class);
         }
-        if (this == RETRIEVE_USER) {
+        if (this == R_RETRIEVE_USER) {
             return GWT.create(RetrieveUserRequest.class);
         }
-        if (this == RETRIEVE_SESSION) {
+        if (this == R_RETRIEVE_SESSION) {
             return GWT.create(RetrieveSessionRequest.class);
         }
-        if (this == RETRIEVE_ALIAS) {
+        if (this == R_RETRIEVE_ALIAS) {
             return GWT.create(RetrieveAliasRequest.class);
         }
-        if (this == UPDATE_POOL) {
+        if (this == R_UPDATE_POOL) {
             return GWT.create(UpdatePoolRequest.class);
         }
-        if (this == UPDATE_POOL_OBJECT) {
+        if (this == R_UPDATE_POOL_OBJECT) {
             return GWT.create(UpdatePoolObjectRequest.class);
         }
-        if (this == UPDATE_USER) {
+        if (this == R_UPDATE_USER) {
             return GWT.create(UpdateUserRequest.class);
         }
-        if (this == UPDATE_SESSION) {
+        if (this == R_UPDATE_SESSION) {
             return GWT.create(UpdateSessionRequest.class);
         }
-        if (this == UPDATE_ALIAS) {
+        if (this == R_UPDATE_ALIAS) {
             return GWT.create(UpdateAliasRequest.class);
         }
-        if (this == DELETE_POOL) {
+        if (this == R_DELETE_POOL) {
             return GWT.create(DeletePoolRequest.class);
         }
-        if (this == DELETE_POOL_OBJECT) {
+        if (this == R_DELETE_POOL_OBJECT) {
             return GWT.create(DeletePoolObjectRequest.class);
         }
-        if (this == DELETE_USER) {
+        if (this == R_DELETE_USER) {
             return GWT.create(DeleteUserRequest.class);
         }
-        if (this == DELETE_SESSION) {
+        if (this == R_DELETE_SESSION) {
             return GWT.create(DeleteSessionRequest.class);
         }
-        if (this == DELETE_ALIAS) {
+        if (this == R_DELETE_ALIAS) {
             return GWT.create(UnlinkAliasRequest.class);
         }
-        if (this == MOVE_POOL_OBJECT) {
+        if (this == R_MOVE_POOL_OBJECT) {
             return GWT.create(MovePoolObjectRequest.class);
         }
-        if (this == ROTATE_XY_POOL_OBJECT) {
+        if (this == R_ROTATE_XY_POOL_OBJECT) {
             return GWT.create(RotateXYPoolObjectRequest.class);
         }
-        if (this == RESIZE_POOL_OBJECT) {
+        if (this == R_RESIZE_POOL_OBJECT) {
             return GWT.create(ResizePoolObjectRequest.class);
         }
-        if (this == AUTHORIZATION_REQUEST) {
+        if (this == R_AUTHORIZATION_REQUEST) {
             return GWT.create(AuthorizationRequest.class);
         }
-        if (this == CHANGE_PASSWORD) {
+        if (this == R_CHANGE_PASSWORD) {
             return GWT.create(ChangePasswordRequest.class);
         }
-        if (this == CHANGE_PERMISSION) {
+        if (this == R_CHANGE_PERMISSION) {
             return GWT.create(ChangePermissionRequest.class);
         }
-        if (this == ADMIN_COMMAND) {
+        if (this == R_ADMIN_COMMAND) {
             return GWT.create(AdminCommandRequest.class);
         }
-        if (this == RETRIEVE_DICTIONARY) {
+        if (this == R_RETRIEVE_DICTIONARY) {
             return GWT.create(RetrieveDictionaryRequest.class);
         }
-        if (this == RETRIEVE_COMMENTS) {
+        if (this == R_RETRIEVE_COMMENTS) {
             return GWT.create(RetrieveCommentsRequest.class);
         }
-        if (this == CLAIM_ALIAS) {
+        if (this == R_CLAIM_ALIAS) {
             return GWT.create(ClaimAliasRequest.class);
         }
-        if (this == LINK_POOL_OBJECT) {
+        if (this == R_LINK_POOL_OBJECT) {
             return GWT.create(LinkPoolObjectRequest.class);
         }
-        if (this == VISIT_POOL) {
+        if (this == R_VISIT_POOL) {
             return GWT.create(VisitPoolRequest.class);
         }
-        if (this == RETRIEVE_POOL_ROSTER) {
+        if (this == R_RETRIEVE_POOL_ROSTER) {
             return GWT.create(RetrievePoolRosterRequest.class);
         }
-        if (this == RETRIEVE_UPDATES) {
+        if (this == R_RETRIEVE_UPDATES) {
             return GWT.create(RetrieveUpdatesRequest.class);
         }
-        if (this == SELECT_POOL_OBJECT) {
+        if (this == R_SELECT_POOL_OBJECT) {
             return GWT.create(SelectPoolObjectRequest.class);
         }
-        if (this == ADD_COMMENT) {
+        if (this == R_ADD_COMMENT) {
             return GWT.create(AddCommentRequest.class);
         }
-        if (this == CHAT) {
+        if (this == R_CHAT) {
             return GWT.create(ChatRequest.class);
         }
-        if (this == FOLLOW) {
+        if (this == R_FOLLOW) {
             return GWT.create(FollowRequest.class);
         }
-        if (this == SEND) {
+        if (this == R_SEND) {
             return GWT.create(SendRequest.class);
         }
-        if (this == SEARCH) {
+        if (this == R_SEARCH) {
             return GWT.create(SearchRequest.class);
         }
-        if (this == BOARD_QUERY) {
+        if (this == R_BOARD_QUERY) {
             return GWT.create(BoardQueryRequest.class);
         }
         throw new IllegalArgumentException("Unrecognized request " + this);
@@ -200,4 +194,6 @@ public enum RequestType {
     public Class<? extends LiquidMessage> getRequestClass() {
         return requestClass;
     }
+
+
 }

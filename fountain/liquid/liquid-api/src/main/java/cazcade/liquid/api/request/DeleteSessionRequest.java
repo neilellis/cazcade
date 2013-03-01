@@ -40,6 +40,6 @@ public class DeleteSessionRequest extends AbstractDeletionRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.DELETE_SESSION;
+        return RequestType.R_DELETE_SESSION;
     }
 }

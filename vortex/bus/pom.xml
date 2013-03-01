@@ -11,10 +11,6 @@
     <artifactId>bus</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.google.gwt.inject</groupId>
-            <artifactId>gin</artifactId>
-        </dependency>
-        <dependency>
             <groupId>fountain</groupId>
             <artifactId>liquid-api</artifactId>
             <version>1.1-SNAPSHOT</version>

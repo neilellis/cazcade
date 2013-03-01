@@ -5,7 +5,7 @@
 package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.AbstractUpdateRequest;
@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 public class AbstractUpdateHandler<T extends AbstractUpdateRequest> extends AbstractDataStoreHandler<T> {
     @Nonnull
     public T handle(@Nonnull final T request) throws Exception {
-        final LiquidURI uri = request.uri();
+        final LURI uri = request.uri();
         final SessionIdentifier sessionIdentifier = request.session();
         final TransferEntity requestEntity = request.request();
         if (!request.hasRequestEntity()) {

@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.handler.SendRequestHandler;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -30,7 +30,7 @@ public class SendHandler extends AbstractDataStoreHandler<SendRequest> implement
             if (poolPersistedEntity == null) {
                 throw new EntityNotFoundException("No such inbox pool " + request.getInboxURI());
             }
-            final LiquidURI owner = request.getRecipientAlias();
+            final LURI owner = request.getRecipientAlias();
             //Note we run this as the recipient -- just like in email, the receiver owns the message.
             final TransferEntity entity;
             final SessionIdentifier recipientSessionId = new SessionIdentifier(request.getRecipient(), null);

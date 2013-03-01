@@ -4,7 +4,7 @@
 
 package cazcade.vortex.widgets.client.profile;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.vortex.common.client.FormatUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -25,7 +25,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 
     private static ViewAliasDetailPanel current;
 
-    public static ViewAliasDetailPanel createViewAliasDetailPanel(@Nonnull final LiquidURI aliasURI, final FormatUtil features) {
+    public static ViewAliasDetailPanel createViewAliasDetailPanel(@Nonnull final LURI aliasURI, final FormatUtil features) {
         if (current == null) {
             current = new ViewAliasDetailPanel(aliasURI, features);
         } else {
@@ -64,7 +64,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
     //        popup.showRelativeTo(trigger);
     //    }
 
-    private ViewAliasDetailPanel(@Nonnull final LiquidURI aliasURI, final FormatUtil features) {
+    private ViewAliasDetailPanel(@Nonnull final LURI aliasURI, final FormatUtil features) {
         super();
         setAutoHideEnabled(true);
         setAutoHideOnHistoryEventsEnabled(true);
@@ -78,7 +78,7 @@ public class ViewAliasDetailPanel extends PopupPanel {
 
     }
 
-    private void init(@Nonnull final LiquidURI aliasURI) {
+    private void init(@Nonnull final LURI aliasURI) {
         detailPanel.setAliasURI(aliasURI);
     }
 }

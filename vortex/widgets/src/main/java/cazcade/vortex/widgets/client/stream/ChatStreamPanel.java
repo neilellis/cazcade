@@ -13,7 +13,7 @@ import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.*;
 import cazcade.vortex.common.client.FormatUtil;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.panels.list.dm.DirectMessageStreamEntryPanel;
@@ -38,7 +38,7 @@ public class ChatStreamPanel extends Composite {
     public static final int                      UPDATE_LIEFTIME    = 1200 * 1000;
     public static final boolean                  AUTOSCROLL         = true;
     @Nonnull
-    private final       Bus                      bus                = BusFactory.get();
+    private final       BusService               bus                = Bus.get();
     private             int                      maxRows            = 100;
     private final       long                     lastUpdate         = System.currentTimeMillis() - UPDATE_LIEFTIME;
     private             boolean                  showStatusUpdates  = true;
@@ -50,7 +50,7 @@ public class ChatStreamPanel extends Composite {
     @Nonnull
     private final VortexScrollPanel scrollPanel;
     private       boolean           initialized;
-    private       LiquidURI         pool;
+    private       LURI              pool;
     @Nonnull
     private final SoundController   soundController;
     private final Sound             userEnteredSound;
@@ -120,7 +120,7 @@ public class ChatStreamPanel extends Composite {
 
     }
 
-    public void init(final LiquidURI newPool) {
+    public void init(final LURI newPool) {
         pool = newPool;
         threadSafeExecutor.execute(new Runnable() {
             @Override
@@ -151,18 +151,18 @@ public class ChatStreamPanel extends Composite {
 
 
                                 }
-                                if (message.getState() != LiquidMessageState.PROVISIONAL
-                                    && message.getState() != LiquidMessageState.INITIAL
-                                    && message.getState() != LiquidMessageState.FAIL
-                                    && ((LiquidRequest) message).requestType() == RequestType.VISIT_POOL) {
+                                if (message.state() != MessageState.PROVISIONAL
+                                    && message.state() != MessageState.INITIAL
+                                    && message.state() != MessageState.FAIL
+                                    && ((LiquidRequest) message).requestType() == RequestType.R_VISIT_POOL) {
                                     addStreamEntry(new VortexPresenceNotificationPanel(response, pool, message.id().toString()));
                                     userEnteredSound.play();
                                 }
                             }
                         }
                     });
-                    BusFactory.get()
-                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
+                    Bus.get()
+                              .listenForSuccess(User.currentAlias().uri(), RequestType.R_SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
                                       addStreamEntry(new DirectMessageStreamEntryPanel(request.response()));
@@ -173,7 +173,7 @@ public class ChatStreamPanel extends Composite {
             }.schedule(1000);
 
             /*
-            if (ClientApplicationConfiguration.isRetrieveUpdates()) {
+            if (Config.isRetrieveUpdates()) {
                 new Timer() {
                     @Override
                     public void run() {
@@ -190,8 +190,8 @@ public class ChatStreamPanel extends Composite {
         //warm it up with a few and then ask for the rest later :-)
         bus.send(new RetrieveCommentsRequest(pool, 50), new RetrieveStreamEntityCallback() {
             @Override
-            public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
-                super.onSuccess(message, response);
+            public void onSuccess(final AbstractRequest original, @Nonnull final AbstractRequest message) {
+                super.onSuccess(original, message);
             }
         });
     }
@@ -264,21 +264,21 @@ public class ChatStreamPanel extends Composite {
         return entity.$(Dictionary.TEXT_BRIEF) + (author == null ? "null" : author.$(Dictionary.NAME));
     }
 
-    private class RetrieveStreamEntityCallback extends AbstractResponseCallback<AbstractRequest> {
+    private class RetrieveStreamEntityCallback extends AbstractMessageCallback<AbstractRequest> {
         @Override
-        public void onSuccess(final AbstractRequest message, @Nonnull final AbstractRequest response) {
-            final List<Entity> entries = response.response().children(Dictionary.CHILD_A);
+        public void onSuccess(final AbstractRequest original, @Nonnull final AbstractRequest message) {
+            final List<Entity> entries = message.response().children(Dictionary.CHILD_A);
             for (final Entity entry : entries) {
                 if (entry.is(Types.T_COMMENT) && entry.$(Dictionary.TEXT_BRIEF) != null && !entry.$(Dictionary.TEXT_BRIEF)
                                                                                                  .isEmpty()) {
                     addStreamEntry(new VortexStreamEntryPanel(entry, FormatUtil.getInstance()));
                 } else {
-                    if (entry.has$(Dictionary.SOURCE)) {
+                    if (entry.has(Dictionary.SOURCE)) {
                         //TODO: This should all be done on the serverside (see LatestContentFinder).
                         final Entity author = entry.child(Dictionary.AUTHOR_A, true);
-                        final boolean isMe = author.$(Dictionary.URI).equals(UserUtil.getIdentity().aliasURI().asString());
-                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.$(Dictionary.URI));
-                        final LiquidURI sourceURI = new LiquidURI(entry.$(Dictionary.SOURCE));
+                        final boolean isMe = author.$(Dictionary.URI).equals(User.getIdentity().aliasURI().asString());
+                        final boolean isAnon = User.isAnonymousAliasURI(author.$(Dictionary.URI));
+                        final LURI sourceURI = new LURI(entry.$(Dictionary.SOURCE));
                         final boolean isHere = sourceURI.withoutFragmentOrComment().equals(pool.withoutFragmentOrComment());
                         final boolean expired = entry.published().getTime() < System.currentTimeMillis() - UPDATE_LIEFTIME;
 

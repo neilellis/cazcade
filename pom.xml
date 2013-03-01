@@ -12,10 +12,9 @@
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
     <properties>
-        <gwt.version>2.5.0</gwt.version>
-        <gwtVersion>2.5.0</gwtVersion>
+        <gwt.version>2.5.1-rc1</gwt.version>
         <!-- This is for some dependent projects-->
-        <gwt.maven.plugin.version>2.3.0</gwt.maven.plugin.version>
+        <gwt.maven.plugin.version>2.5.1-rc1</gwt.maven.plugin.version>
         <spring.version>3.1.2.RELEASE</spring.version>
         <spring.security.version>3.0.7.RELEASE</spring.security.version>
         <ehcache.version>2.3.3</ehcache.version>
@@ -345,13 +344,6 @@
                 <version>1.0</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>com.google.gwt.inject</groupId>
-                <artifactId>gin</artifactId>
-                <version>1.0</version>
-            </dependency>
-
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -457,11 +449,6 @@
                 <version>1.6.1</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.googlecode.gwtupload</groupId>
-                <artifactId>gwtupload</artifactId>
-                <version>0.6.3-compat</version>
-            </dependency>
 
             <dependency>
                 <groupId>com.allen-sauer.gwt.voices</groupId>
@@ -622,6 +609,7 @@
 
     <build>
 
+
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -686,6 +674,7 @@
             </plugins>
         </pluginManagement>
 
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -741,19 +730,19 @@
                     <goals>deploy -P no-tests</goals>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.jelastic</groupId>
-                <artifactId>jelastic-maven-plugin</artifactId>
-                <version>1.7-SNAPSHOT</version>
-                <configuration>
-                    <email>${jelastic.username}</email>
-                    <password>${jelastic.password}</password>
-                    <context>ROOT</context>
-                    <environment>boardcast</environment>
-                    <comment>${buildNumber}</comment>
-                    <api_hoster>app.j.layershift.co.uk</api_hoster>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>com.jelastic</groupId>-->
+                <!--<artifactId>jelastic-maven-plugin</artifactId>-->
+                <!--<version>1.7-SNAPSHOT</version>-->
+                <!--<configuration>-->
+                    <!--<email>${jelastic.username}</email>-->
+                    <!--<password>${jelastic.password}</password>-->
+                    <!--<context>ROOT</context>-->
+                    <!--<environment>boardcast</environment>-->
+                    <!--<comment>${buildNumber}</comment>-->
+                    <!--<api_hoster>app.j.layershift.co.uk</api_hoster>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <!--<plugin>-->
             <!--<groupId>org.zeroturnaround</groupId>-->
             <!--<artifactId>jrebel-maven-plugin</artifactId>-->
@@ -789,10 +778,6 @@
 
     <repositories>
 
-        <repository>
-            <id>gwtupload</id>
-            <url>http://gwtupload.googlecode.com/svn/mavenrepo/</url>
-        </repository>
 
         <repository>
             <id>repository.springframework.maven.milestone</id>

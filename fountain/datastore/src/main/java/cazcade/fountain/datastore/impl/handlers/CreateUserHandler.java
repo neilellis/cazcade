@@ -34,7 +34,7 @@ public class CreateUserHandler extends AbstractDataStoreHandler<CreateUserReques
             userPersistedEntity = userDAO.createUser(requestEntity, false);
 
             final TransferEntity entity = userPersistedEntity.toTransfer(request.detail(), request.internal());
-            if (!requestEntity.has$(Dictionary.NAME)) {
+            if (!requestEntity.has(Dictionary.NAME)) {
                 throw new DataStoreException("The name attribute was null on the entity passed in to create user.");
             }
             final String username = requestEntity.$(Dictionary.NAME);

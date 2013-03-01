@@ -76,7 +76,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                 log.debug("SUCCESS for authorization.");
             } else {
                 log.debug("FAILED authorization for actions {0}", authRequest.getActions());
-                message.state(LiquidMessageState.FAIL);
+                message.state(MessageState.FAIL);
                 return (LiquidRequest) message;
             }
         }

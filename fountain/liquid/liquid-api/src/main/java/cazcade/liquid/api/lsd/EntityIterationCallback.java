@@ -8,6 +8,6 @@ package cazcade.liquid.api.lsd;
  * @author <a href="http://uk.linkedin.com/in/neilellis">Neil Ellis</a>
  * @todo document.
  */
-public interface EntityIterationCallback<T extends TransferEntity<T>, U> {
+public interface EntityIterationCallback<T extends Entity<TransferEntity<T>, T> & TransferEntity<T>, U> {
     U call(T entity);
 }

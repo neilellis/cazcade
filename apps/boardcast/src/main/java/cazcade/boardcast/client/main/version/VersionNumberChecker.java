@@ -5,7 +5,7 @@
 package cazcade.boardcast.client.main.version;
 
 import cazcade.boardcast.client.BuildVersionService;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.gwt.util.client.Config;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
@@ -38,13 +38,17 @@ public class VersionNumberChecker {
             }
 
             @Override public void onSuccess(HashMap<String, String> result) {
-                if (ClientApplicationConfiguration.isDebug()) {
+                if (Config.debug()) {
                     ClientLog.logImportant("Build version details " + result);
                 }
                 String newVersion = result.get("build.timestamp");
                 if (version != null && !newVersion.equals(version)) {
-                    ClientLog.logVeryImportant("VERSION CHANGE: " + version + " -> " + newVersion);
-                    Window.alert("New version released, please refresh your browser.");
+                    if(Config.dev()) {
+                        ClientLog.logVeryImportant("VERSION CHANGE: " + version + " -> " + newVersion);
+                        Window.Location.reload();
+                    } else {
+                        Window.alert("New version released, please refresh your browser.");
+                    }
                 }
                 version = newVersion;
                 properties = result;

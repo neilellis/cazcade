@@ -9,8 +9,8 @@ import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.ResizePoolObjectRequest;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.common.client.CustomObjectEditor;
 import cazcade.vortex.common.client.events.EditFinishEvent;
 import cazcade.vortex.common.client.events.EditFinishHandler;
@@ -72,19 +72,19 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
             @Override
             public void onClick(final ClickEvent event) {
                 if (sizeDirty) {
-                    BusFactory.get()
+                    Bus.get()
                               .send(new ResizePoolObjectRequest(updateEntity.uri(), Integer.parseInt(widthField.getValue()) * 40,
                                       Integer.parseInt(heightField.getValue())
-                                      * 40), new AbstractResponseCallback<ResizePoolObjectRequest>() {
+                                      * 40), new AbstractMessageCallback<ResizePoolObjectRequest>() {
                                   @Override
-                                  public void onSuccess(final ResizePoolObjectRequest message, final ResizePoolObjectRequest response) {
+                                  public void onSuccess(final ResizePoolObjectRequest original, final ResizePoolObjectRequest message) {
                                   }
                               });
                 }
-                BusFactory.get()
-                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
+                Bus.get()
+                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractMessageCallback<UpdatePoolObjectRequest>() {
                               @Override
-                              public void onSuccess(final UpdatePoolObjectRequest message, final UpdatePoolObjectRequest response) {
+                              public void onSuccess(final UpdatePoolObjectRequest original, final UpdatePoolObjectRequest message) {
                                   sizeDirty = false;
                                   try {
                                       popup.hide();
@@ -118,7 +118,7 @@ public class BoardcastCustomObjectEditor extends Composite implements CustomObje
 
     @Override
     public void show(@Nonnull final TransferEntity object) {
-        updateEntity = object.asUpdateEntity();
+        updateEntity = object.asUpdate();
         imageUploader.setImageUrl(object.$(Dictionary.IMAGE_URL));
         final Entity view = object.child(Dictionary.VIEW_ENTITY, false);
         widthField.setValue(view.$(Dictionary.VIEW_WIDTH));

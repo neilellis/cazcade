@@ -4,11 +4,11 @@
 
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.request.ChatRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.widgets.client.stream.chat.ChatParser;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -36,8 +36,8 @@ import javax.annotation.Nonnull;
 public class ChatBox extends Composite {
 
     @Nonnull
-    private final Bus bus = BusFactory.get();
-    private LiquidURI uri;
+    private final BusService bus = Bus.get();
+    private LURI uri;
     @Nonnull
     private final ChatParser chatParser = new ChatParser();
 
@@ -105,15 +105,15 @@ public class ChatBox extends Composite {
                             private void sendMessage(final String text) {
                                 rebuildTextBox();
 
-                                bus.send(new ChatRequest(uri, text), new AbstractResponseCallback<ChatRequest>() {
+                                bus.send(new ChatRequest(uri, text), new AbstractMessageCallback<ChatRequest>() {
                                     @Override
-                                    public void onSuccess(final ChatRequest message, final ChatRequest response) {
+                                    public void onSuccess(final ChatRequest original, final ChatRequest message) {
                                     }
 
                                     @Override
-                                    public void onFailure(final ChatRequest message, @Nonnull final ChatRequest response) {
+                                    public void onFailure(final ChatRequest original, @Nonnull final ChatRequest message) {
                                         textBox.setText(text);
-                                        super.onFailure(message, response);
+                                        super.onFailure(original, message);
                                     }
 
                                     @Override
@@ -141,7 +141,7 @@ public class ChatBox extends Composite {
         textBox.setVisible(true);
     }
 
-    public void init(final LiquidURI uri) {
+    public void init(final LURI uri) {
         this.uri = uri;
     }
 }

@@ -219,7 +219,7 @@ public abstract class PoolObjectView extends GestureAwareView implements HasDrag
         throw new UnsupportedOperationException("This view does not support removing child views.");
     }
 
-    public void addView(final Widget widget) {
+    public void add(final Widget widget) {
         throw new UnsupportedOperationException("This view does not support adding child views.");
     }
 

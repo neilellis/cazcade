@@ -6,8 +6,8 @@ package cazcade.boardcast.client.main.widgets;
 
 import cazcade.boardcast.client.main.widgets.login.TwitterLoginBox;
 import cazcade.liquid.api.BoardURL;
-import cazcade.liquid.api.LiquidURI;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.liquid.api.LURI;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.widgets.client.stream.CommentBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.AnchorElement;
@@ -36,10 +36,10 @@ public class AddCommentBox extends Composite {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
-    public void init(@Nonnull final LiquidURI poolURI) {
+    public void init(@Nonnull final LURI poolURI) {
         addCommentBox.init(poolURI);
         loginLink.setHref("/" + new BoardURL(poolURI).safe() + "?forceLogin=true");
-        if (UserUtil.anon()) {
+        if (User.anon()) {
             loginPanel.setVisible(true);
             addCommentBox.setVisible(false);
         } else {

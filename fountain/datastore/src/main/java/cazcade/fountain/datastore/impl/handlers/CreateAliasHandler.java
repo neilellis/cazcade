@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.services.persistence.FountainNeoImpl;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.PermissionChangeType;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.handler.CreateAliasRequestHandler;
@@ -34,16 +34,16 @@ public class CreateAliasHandler extends AbstractDataStoreHandler<CreateAliasRequ
             final PersistedEntity aliasPersistedEntity = userDAO.createAlias(userPersistedEntityImpl, request.request(), request.isMe(), request
                     .isOrCreate(), request.isClaim(), false);
             final TransferEntity entity = aliasPersistedEntity.toTransfer(request.detail(), request.internal());
-            final String fullName = entity.has$(Dictionary.FULL_NAME) ? entity.$(Dictionary.FULL_NAME) : null;
+            final String fullName = entity.has(Dictionary.FULL_NAME) ? entity.$(Dictionary.FULL_NAME) : null;
             final String name = entity.$(Dictionary.NAME);
             if (aliasPersistedEntity.uri().asString().startsWith("alias:cazcade")) {
-                if (!aliasPersistedEntity.has$(Dictionary.ROLE_TITLE)) {
+                if (!aliasPersistedEntity.has(Dictionary.ROLE_TITLE)) {
                     aliasPersistedEntity.$(Dictionary.ROLE_TITLE, "Early Adopter");
                 }
             }
             poolDAO.createPoolsForAliasNoTx(entity.uri(), name, fullName, false);
             //we reserve boards with user's name to avoid confusion with their profile boards.
-            final PersistedEntity boardsPoolEntity = this.neo.find(new LiquidURI(FountainNeoImpl.BOARDS_URI));
+            final PersistedEntity boardsPoolEntity = this.neo.find(new LURI(FountainNeoImpl.BOARDS_URI));
             assert boardsPoolEntity != null;
             final PersistedEntity reservedPool = poolDAO.createPoolNoTx(request.session(), request.alias(), boardsPoolEntity, name, 0, 0, fullName, true);
             //            fountainNeo.removeAllPermissions(reservedPool);

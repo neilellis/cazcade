@@ -40,11 +40,11 @@ public class RetrieveSessionRequest extends AbstractRetrievalRequest {
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
+        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_SESSION;
+        return RequestType.R_RETRIEVE_SESSION;
     }
 }

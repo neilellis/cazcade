@@ -16,7 +16,7 @@ import cazcade.fountain.index.persistence.entities.AliasEntity;
 import cazcade.fountain.index.persistence.entities.BoardIndexEntity;
 import cazcade.fountain.index.persistence.entities.VisitEntity;
 import cazcade.liquid.api.BoardURL;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.Types;
@@ -110,13 +110,13 @@ public class FountainIndexServiceImpl {
     }
 
     private static void addCoreMetadataToBoard(@Nonnull final PersistedEntity entity, @Nonnull final BoardIndexEntity board) {
-        if (entity.has$(Dictionary.DESCRIPTION)) {
+        if (entity.has(Dictionary.DESCRIPTION)) {
             board.setDescription(entity.$(Dictionary.DESCRIPTION));
         }
-        if (entity.has$(Dictionary.TEXT_EXTENDED)) {
+        if (entity.has(Dictionary.TEXT_EXTENDED)) {
             board.setText(entity.$(Dictionary.TEXT_EXTENDED));
         }
-        if (entity.has$(Dictionary.TITLE)) {
+        if (entity.has(Dictionary.TITLE)) {
             board.setTitle(entity.$(Dictionary.TITLE));
         }
     }
@@ -204,7 +204,7 @@ public class FountainIndexServiceImpl {
     }
 
     @Transactional
-    public void visitBoard(@Nonnull final PersistedEntity persistedEntity, @Nonnull final LiquidURI visitor) {
+    public void visitBoard(@Nonnull final PersistedEntity persistedEntity, @Nonnull final LURI visitor) {
         if (!isBoard(persistedEntity)) {
             return;
         }

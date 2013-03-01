@@ -5,19 +5,13 @@
 package cazcade.vortex.widgets.client.stream;
 
 import cazcade.liquid.api.BoardURL;
-import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.RequestType;
-import cazcade.liquid.api.lsd.Dictionary;
-import cazcade.liquid.api.lsd.Entity;
-import cazcade.liquid.api.lsd.TransferEntity;
-import cazcade.liquid.api.lsd.Types;
+import cazcade.liquid.api.LURI;
+import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
 import cazcade.liquid.api.request.SendRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.bus.client.*;
+import cazcade.vortex.common.client.User;
+import cazcade.vortex.gwt.util.client.$;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -33,8 +27,10 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
+
+import static cazcade.liquid.api.RequestType.*;
+import static cazcade.liquid.api.lsd.Dictionary.*;
+import static cazcade.liquid.api.lsd.Types.*;
 
 /**
  * @author neilellis@cazcade.com
@@ -43,11 +39,11 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     public static final int                      UPDATE_LIEFTIME        = 7 * 24 * 3600 * 1000;
     public static final int                      STATUS_CHECK_FREQUENCY = 30 * 1000;
     @Nonnull
-    private final       Bus                      bus                    = BusFactory.get();
+    private final       BusService               bus                    = Bus.get();
     private             int                      maxRows                = 10;
     private             long                     lastUpdate             = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
-    private final       VortexThreadSafeExecutor threadSafeExecutor     = new VortexThreadSafeExecutor();
+    private final       VortexThreadSafeExecutor executor               = new VortexThreadSafeExecutor();
 
     private       boolean         initialized;
     @Nonnull
@@ -92,22 +88,17 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
 
     public void init() {
         if (!initialized) {
-            new Timer() {
-                @Override
+            $.delay(1000, new Runnable() {
                 public void run() {
-
-                    BusFactory.get()
-                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
-                                  @Override
-                                  public void handle(@Nonnull final SendRequest request) {
-                                      final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.response());
-                                      addToStream(content);
-                                      chatMessageSound.play();
-                                  }
-                              });
-
+                    Bus.get().listenForSuccess(User.currentAlias().uri(), R_SEND, new BusListener<SendRequest>() {
+                        @Override
+                        public void handle(@Nonnull final SendRequest message) {
+                            addToStream(new DirectMessageStreamEntryPanel(message.response()));
+                            chatMessageSound.play();
+                        }
+                    });
                 }
-            }.schedule(1000);
+            });
 
             new Timer() {
                 @Override
@@ -125,41 +116,25 @@ public class ActivityStreamPanel extends HistoryAwareComposite {
     }
 
     private void addToStream(@Nonnull final StreamEntry content) {
-        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, content, true, true);
+        StreamUtil.addStreamEntry(maxRows, parentPanel, executor, content, true, true);
     }
 
     private void retrieveUpdates() {
-        bus.send(new RetrieveUpdatesRequest(lastUpdate), new AbstractResponseCallback<RetrieveUpdatesRequest>() {
-            @Override
-            public void onSuccess(final RetrieveUpdatesRequest message, @Nonnull final RetrieveUpdatesRequest response) {
+        Bus.get().send(new RetrieveUpdatesRequest(lastUpdate), new Callback<RetrieveUpdatesRequest>() {
+            @Override public void handle(RetrieveUpdatesRequest message) throws Exception {
                 lastUpdate = System.currentTimeMillis();
-                final List<TransferEntity> entries = response.response().children(Dictionary.CHILD_A);
-                Collections.reverse(entries);
-                for (final TransferEntity entry : entries) {
-                    if (entry.is(Types.T_COMMENT) && entry.has$(Dictionary.TEXT_BRIEF) && !entry.$(Dictionary.TEXT_BRIEF)
-                                                                                                .isEmpty()) {
-                        StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new CommentEntryPanel(entry), false, true);
-                    } else {
-                        final Entity author = entry.child(Dictionary.AUTHOR_A, true);
-                        final boolean isAnon = UserUtil.isAnonymousAliasURI(author.$(Dictionary.URI));
-                        final LiquidURI sourceURI = new LiquidURI(entry.$(Dictionary.SOURCE));
-
-                        if (!isAnon && BoardURL.isConvertable(sourceURI)) {
-                            StreamUtil.addStreamEntry(maxRows, parentPanel, threadSafeExecutor, new VortexStatusUpdatePanel(entry, true), false, true);
+                message.response().children().reverse().each(new CollectionCallback<TransferEntity>() {
+                    @Override public void call(TransferEntity entry) {
+                        if (entry.is(T_COMMENT) && entry.has(TEXT_BRIEF)) {
+                            StreamUtil.addStreamEntry(maxRows, parentPanel, executor, new CommentEntryPanel(entry), false, true);
+                        } else if (!entry.child(AUTHOR_A, true).uri().anon() && BoardURL.isConvertable(entry.$uri(SOURCE))) {
+                            StreamUtil.addStreamEntry(maxRows, parentPanel, executor, new VortexStatusUpdatePanel(entry, true), false, true);
                             //  statusUpdateSound.play();
                         }
                     }
-                }
+                });
             }
         });
-        //        bus.send(new RetrieveUpdatesRequest(lastUpdate), new RetrieveStreamEntityCallback(FormatUtil.getInstance(), maxRows, parentPanel, null, threadSafeExecutor, true) {
-        //            @Override
-        //            public void onSuccess(AbstractRequest message, AbstractRequest response) {
-        //                lastUpdate = response.response().updated().getTime();
-        //                Window.alert("Success");
-        //                super.onSuccess(message, response);
-        //            }
-        //        });
     }
 
 }

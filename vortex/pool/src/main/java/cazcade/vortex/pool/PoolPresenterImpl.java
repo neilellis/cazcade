@@ -4,12 +4,11 @@
 
 package cazcade.vortex.pool;
 
-import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.MovePoolObjectRequest;
-import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.bus.client.Bus;
+import cazcade.vortex.gwt.util.client.Config;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -25,6 +24,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import static cazcade.liquid.api.lsd.Dictionary.*;
 
 
 /**
@@ -118,16 +119,16 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Nonnull
-    public TransferEntity getEntity() {
+    public TransferEntity entity() {
         return entity;
     }
 
     @Override
     public void move(@Nonnull final PoolObjectPresenter presenter, final double x, final double y, final boolean onServer) {
         if (onServer) {
-            BusFactory.get().dispatch(new MovePoolObjectRequest(presenter.getEntity().uri(), x, y, 0.0));
+            Bus.get().dispatch(new MovePoolObjectRequest(presenter.entity().uri(), x, y, 0.0));
         } else {
-            final Widget widget = presenter.getPoolObjectView();
+            final Widget widget = presenter.view();
             //noinspection ObjectEquality
             if (widget.getParent() != panel) {
                 ClientLog.log("Widget parent was " + widget.getParent() + " not " + panel);
@@ -252,7 +253,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
     }
 
     @Override public boolean isModifiable() {
-        return entity.default$bool(Dictionary.MODIFIABLE, false);
+        return entity.default$bool(MODIFIABLE, false);
     }
 
 
@@ -262,7 +263,7 @@ public class PoolPresenterImpl implements PoolPresenter, PoolObjectContainer {
 
     public void addView(@Nonnull final Widget view) {
         if (panel.getElement().getOwnerDocument().getElementById(view.getElement().getId()) != null) {
-            if (ClientApplicationConfiguration.isDev()) {
+            if (Config.dev()) {
                 throw new IllegalStateException("Attempting to add a view that has already been added.");
             } else {
                 ClientLog.warn("Attempting to add a view for a pool object which has already been added.");

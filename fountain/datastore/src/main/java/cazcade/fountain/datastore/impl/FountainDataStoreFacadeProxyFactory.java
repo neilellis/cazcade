@@ -11,7 +11,7 @@ import cazcade.fountain.datastore.api.FountainDataStoreFacade;
 import cazcade.fountain.validation.FountainEntityValidator;
 import cazcade.fountain.validation.api.ValidationLevel;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageOrigin;
+import cazcade.liquid.api.Origin;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.impl.UUIDFactory;
@@ -74,7 +74,7 @@ public class FountainDataStoreFacadeProxyFactory {
             if (!liquidRequest.hasId()) {
                 liquidRequest.id(UUIDFactory.randomUUID());
             }
-            liquidRequest.origin(LiquidMessageOrigin.CLIENT);
+            liquidRequest.origin(Origin.CLIENT);
             LiquidMessage response = null;
             try {
                 if (liquidRequest.hasRequestEntity()) {

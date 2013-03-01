@@ -23,10 +23,10 @@ public class BoardURL {
     private static final String USER_STEM              = "pool:///people";
 
     @Nonnull
-    private final LiquidURI uri;
-    private       String    shortURL;
+    private final LURI   uri;
+    private       String shortURL;
 
-    public static boolean isConvertable(@Nullable final LiquidURI uri) {
+    public static boolean isConvertable(@Nullable final LURI uri) {
         return uri != null && isConvertable(uri.asString());
     }
 
@@ -39,7 +39,7 @@ public class BoardURL {
         }
     }
 
-    public BoardURL(@Nonnull final LiquidURI uri) {
+    public BoardURL(@Nonnull final LURI uri) {
         this.uri = uri;
         shortURL = convertToShort(uri.withoutFragmentOrComment().asString());
     }
@@ -88,7 +88,7 @@ public class BoardURL {
 
     public BoardURL(@Nonnull final String shortURL) {
         this.shortURL = shortURL;
-        uri = new LiquidURI(from(shortURL));
+        uri = new LURI(from(shortURL));
     }
 
     public static String from(@Nonnull final String url) {
@@ -126,7 +126,7 @@ public class BoardURL {
     }
 
     @Nonnull
-    public LiquidURI asURI() {
+    public LURI asURI() {
         return uri;
     }
 
@@ -148,7 +148,7 @@ public class BoardURL {
      *
      * @return true if the board name starts with -
      */
-    public boolean isListedByConvention() {
+    public boolean listedConvention() {
         return !shortURL.startsWith("-");
     }
 

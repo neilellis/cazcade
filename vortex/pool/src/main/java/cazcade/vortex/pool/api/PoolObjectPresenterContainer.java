@@ -21,5 +21,5 @@ public interface PoolObjectPresenterContainer {
 
     @Nonnull Types getType();
 
-    TransferEntity getEntity();
+    TransferEntity entity();
 }

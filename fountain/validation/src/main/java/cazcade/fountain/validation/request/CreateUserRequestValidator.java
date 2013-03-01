@@ -27,7 +27,7 @@ public class CreateUserRequestValidator extends AbstractRequestValidator<CreateU
             throw new ValidationException("The entity supplied is not a user entity.");
         }
         entityValidator.validate(request.request(), level);
-        if (!request.request().has$(Dictionary.PLAIN_PASSWORD)) {
+        if (!request.request().has(Dictionary.PLAIN_PASSWORD)) {
             throw new ValidationException("You cannot create a new user without supplying the plain text password.");
         }
     }

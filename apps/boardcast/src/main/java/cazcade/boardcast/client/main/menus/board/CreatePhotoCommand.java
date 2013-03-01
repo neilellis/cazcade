@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.pool.objects.photo.PhotoEditorPanel;
@@ -13,7 +13,7 @@ import cazcade.vortex.pool.objects.photo.PhotoEditorPanel;
  * @author neilellis@cazcade.com
  */
 public class CreatePhotoCommand extends CreateItemCommand {
-    public CreatePhotoCommand(final LiquidURI pool, final Types type, final Size size, final String theme) {
+    public CreatePhotoCommand(final LURI pool, final Types type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 

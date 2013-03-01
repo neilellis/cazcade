@@ -16,7 +16,7 @@ import cazcade.fountain.messaging.LiquidMessageSender;
 import cazcade.fountain.validation.api.FountainRequestValidator;
 import cazcade.fountain.validation.api.ValidationLevel;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
+import cazcade.liquid.api.MessageState;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.impl.UUIDFactory;
 
@@ -69,7 +69,7 @@ public class FountainRemoteDataStore extends AbstractServiceStateMachine impleme
                 }
             }
 
-            request.state(LiquidMessageState.PROVISIONAL);
+            request.state(MessageState.PROVISIONAL);
 
             if (request.shouldNotify() && request.shouldSendProvisional()) {
                 notifyOfRequest(request);

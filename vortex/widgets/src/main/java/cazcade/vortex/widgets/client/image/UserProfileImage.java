@@ -4,12 +4,12 @@
 
 package cazcade.vortex.widgets.client.image;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Attribute;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.FormatUtil;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.gwt.util.client.Config;
 import cazcade.vortex.widgets.client.profile.ViewAliasDetailPanel;
 import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  */
 public class UserProfileImage extends EditableImage {
 
-    private LiquidURI aliasUri;
+    private LURI aliasUri;
 
 
     @Override
@@ -42,7 +42,7 @@ public class UserProfileImage extends EditableImage {
     public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String referenceDataPrefix) {
         super.bind(entity, attribute, referenceDataPrefix);
         setAliasUri(entity.uri());
-        if (ClientApplicationConfiguration.alpha() && (!entity.default$bool(Dictionary.EDITABLE, false) || !editable)) {
+        if (Config.alpha() && (!entity.default$bool(Dictionary.EDITABLE, false) || !editable)) {
             image.addMouseOverHandler(new MouseOverHandler() {
                 private ViewAliasDetailPanel aliasDetailPanel;
 
@@ -84,11 +84,11 @@ public class UserProfileImage extends EditableImage {
         }
     }
 
-    public LiquidURI getAliasUri() {
+    public LURI getAliasUri() {
         return aliasUri;
     }
 
-    public void setAliasUri(final LiquidURI aliasUri) {
+    public void setAliasUri(final LURI aliasUri) {
         this.aliasUri = aliasUri;
     }
 

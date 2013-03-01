@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BoardQueryRequest extends AbstractRequest {
-    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+    public BoardQueryRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nonnull final QueryType type, @Nullable final LURI alias) {
         super();
         id(id);
         setQueryType(type);
@@ -21,19 +21,19 @@ public class BoardQueryRequest extends AbstractRequest {
         session(identity);
     }
 
-    public BoardQueryRequest(final SessionIdentifier sessionIdentifier, @Nonnull final QueryType type, @Nullable final LiquidURI alias, int start, int max) {
+    public BoardQueryRequest(final SessionIdentifier sessionIdentifier, @Nonnull final QueryType type, @Nullable final LURI alias, int start, int max) {
         this(null, sessionIdentifier, type, alias);
         setStart(start);
         setMax(max);
     }
 
-    public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LiquidURI alias, int start, int max) {
+    public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LURI alias, int start, int max) {
         this(null, SessionIdentifier.ANON, type, alias);
         setStart(start);
         setMax(max);
     }
 
-    public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LiquidURI alias) {
+    public BoardQueryRequest(@Nonnull final QueryType type, @Nullable final LURI alias) {
         this(null, SessionIdentifier.ANON, type, alias);
     }
 
@@ -61,7 +61,7 @@ public class BoardQueryRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.BOARD_QUERY;
+        return RequestType.R_BOARD_QUERY;
     }
 
     public boolean isMutationRequest() {

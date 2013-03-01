@@ -8,9 +8,9 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.MessageState;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.VisitPoolRequest;
@@ -51,12 +51,12 @@ public class ChangePoolCommand extends AbstractShortLivedCommand {
         }
 
         final String pool = args[0];
-        final LiquidURI poolURI;
+        final LURI poolURI;
         poolURI = CommandSupport.resolvePoolOrObject(shellSession, pool);
         final LiquidMessage response = shellSession.getDataStore()
                                                    .process(new VisitPoolRequest(shellSession.getIdentity(), poolURI));
         final TransferEntity responseEntity = response.response();
-        if (response.getState() != LiquidMessageState.SUCCESS) {
+        if (response.state() != MessageState.SUCCESS) {
             System.err.println(responseEntity.$(Dictionary.DESCRIPTION));
             return null;
         }

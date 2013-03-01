@@ -9,8 +9,8 @@ import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.MessageState;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.DeletePoolRequest;
@@ -47,11 +47,11 @@ public class DeletePoolCommand extends AbstractShortLivedCommand {
         if (args.length < 1) {
             System.err.println("rmdir <pool>");
         }
-        final LiquidURI poolURI = CommandSupport.resolvePoolOrObject(shellSession, args[0]);
+        final LURI poolURI = CommandSupport.resolvePoolOrObject(shellSession, args[0]);
         final LiquidMessage response = shellSession.getDataStore()
                                                    .process(new DeletePoolRequest(shellSession.getIdentity(), poolURI));
         final Entity entity = response.response();
-        if (response.getState() != LiquidMessageState.SUCCESS) {
+        if (response.state() != MessageState.SUCCESS) {
             System.err.println(entity.$(Dictionary.DESCRIPTION));
             return null;
         }

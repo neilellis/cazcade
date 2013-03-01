@@ -14,11 +14,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreatePoolObjectRequest extends AbstractCreationRequest {
-    public CreatePoolObjectRequest(final SessionIdentifier authenticatedUser, final LiquidURI uri, final TransferEntity entity, final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final SessionIdentifier authenticatedUser, final LURI uri, final TransferEntity entity, final LURI authorURI) {
         this(authenticatedUser, null, uri, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(@Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidURI uri, @Nullable final LiquidUUID id, final TransferEntity entity, @Nullable final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(@Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LURI uri, @Nullable final LiquidUUID id, final TransferEntity entity, @Nullable final LURI authorURI) {
         super();
         setUri(uri);
         id(id);
@@ -28,15 +28,15 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
         setRequestEntity(entity);
     }
 
-    public CreatePoolObjectRequest(final SessionIdentifier authenticatedUser, final LiquidUUID pool, final TransferEntity entity, final LiquidURI authorURI) {
+    public CreatePoolObjectRequest(final SessionIdentifier authenticatedUser, final LiquidUUID pool, final TransferEntity entity, final LURI authorURI) {
         this(authenticatedUser, pool, null, null, entity, authorURI);
     }
 
-    public CreatePoolObjectRequest(@Nonnull final SessionIdentifier authenticatedUser, final LiquidURI uri, final TransferEntity entity) {
-        this(authenticatedUser, null, uri, null, entity, authenticatedUser.alias());
+    public CreatePoolObjectRequest(@Nonnull final SessionIdentifier session, final LURI uri, final TransferEntity entity) {
+        this(session, null, uri, null, entity, session.alias());
     }
 
-    public CreatePoolObjectRequest(final LiquidURI uri, final TransferEntity entity) {
+    public CreatePoolObjectRequest(final LURI uri, final TransferEntity entity) {
         this(SessionIdentifier.ANON, null, uri, null, entity, null);
     }
 
@@ -56,16 +56,16 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.MODIFY_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_MODIFY));
         } else {
-            return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.P_MODIFY));
         }
     }
 
     public List<String> notificationLocations() {
         if (hasRequestEntity() && !hasResponse()) {
             TransferEntity requestEntity = request();
-            if (requestEntity.hasURI() && requestEntity.has$(Dictionary.NAME) || requestEntity.hasId()) {
+            if (requestEntity.hasURI() && requestEntity.has(Dictionary.NAME) || requestEntity.hasId()) {
                 return Arrays.asList(uri().asReverseDNSString(), uri().asReverseDNSString() + "." + requestEntity.nameOrId());
             } else {
                 if (requestEntity.hasId()) {
@@ -90,6 +90,6 @@ public class CreatePoolObjectRequest extends AbstractCreationRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CREATE_POOL_OBJECT;
+        return RequestType.R_CREATE_POOL_OBJECT;
     }
 }

@@ -23,13 +23,13 @@ public class AuthorizationRequest extends AbstractRequest {
 
     private Permission[] permission;
 
-    public AuthorizationRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity, @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri, final Permission[] permission, final List<AuthorizationRequest> or, final List<AuthorizationRequest> and) {
+    public AuthorizationRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity, @Nullable final LiquidUUID resource, @Nullable final LURI uri, final Permission[] permission, final List<AuthorizationRequest> or, final List<AuthorizationRequest> and) {
         this(id, identity, resource, uri, permission);
         this.or.addAll(or);
         this.and.addAll(and);
     }
 
-    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier session, @Nullable final LiquidUUID resource, @Nullable final LiquidURI uri, final Permission... permission) {
+    public AuthorizationRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier session, @Nullable final LiquidUUID resource, @Nullable final LURI uri, final Permission... permission) {
         super();
         if (resource == null && uri == null) {
             throw new IllegalArgumentException("Cannot create an authorization request with a null resource id and uri.");
@@ -45,7 +45,7 @@ public class AuthorizationRequest extends AbstractRequest {
         this(null, identity, resource, null, permission);
     }
 
-    public AuthorizationRequest(final SessionIdentifier identity, final LiquidURI uri, final Permission... permission) {
+    public AuthorizationRequest(final SessionIdentifier identity, final LURI uri, final Permission... permission) {
         this(null, identity, null, uri, permission);
     }
 
@@ -53,7 +53,7 @@ public class AuthorizationRequest extends AbstractRequest {
     //        this(null, null, resource, null, permission);
     //    }
     //
-    //    public AuthorizationRequest(final LiquidURI uri, final Permission... permission) {
+    //    public AuthorizationRequest(final LURI uri, final Permission... permission) {
     //        this(null, null, null, uri, permission);
     //    }
 
@@ -90,7 +90,7 @@ public class AuthorizationRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.AUTHORIZATION_REQUEST;
+        return RequestType.R_AUTHORIZATION_REQUEST;
     }
 
     public boolean isMutationRequest() {

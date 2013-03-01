@@ -1,6 +1,6 @@
 package cazcade.boardcast.client.main.menus.account;
 
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.user.client.Command;
@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class LogoutCommand implements Command {
     @Override
     public void execute() {
-        DataStoreService.App.getInstance().logout(UserUtil.getIdentity(), new AsyncCallback<Void>() {
+        DataStoreService.App.getInstance().logout(User.getIdentity(), new AsyncCallback<Void>() {
             @Override
             public void onFailure(final Throwable caught) {
                 ClientLog.log(caught);

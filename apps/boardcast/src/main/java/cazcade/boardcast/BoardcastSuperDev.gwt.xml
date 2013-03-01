@@ -17,11 +17,11 @@
 
 
     <!--For Development-->
-    <set-property name="user.agent" value="safari"/>
-    <extend-property name='locale' values='en'/>
-    <set-property name='locale' value='en'/>
-    <set-property name="history.push.state" value="supported"/>
-    <set-property name="mobile.user.agent" value="none"/>
+    <!--<set-property name="user.agent" value="safari"/>-->
+    <!--<extend-property name='locale' values='en'/>-->
+    <!--<set-property name='locale' value='en'/>-->
+    <!--<set-property name="history.push.state" value="supported"/>-->
+    <!--<set-property name="mobile.user.agent" value="none"/>-->
 
 
     <collapse-all-properties/>

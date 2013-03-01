@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class UpdateAliasRequest extends AbstractUpdateRequest {
-    UpdateAliasRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity, @Nullable final LiquidUUID target, final LiquidURI uri, final TransferEntity entity) {
+    UpdateAliasRequest(@Nullable final LiquidUUID id, final SessionIdentifier identity, @Nullable final LiquidUUID target, final LURI uri, final TransferEntity entity) {
         super();
         setUri(uri);
         id(id);
@@ -38,7 +38,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, identity, target, entity);
     }
 
-    public UpdateAliasRequest(@Nonnull final SessionIdentifier identity, final LiquidURI uri, final TransferEntity newEntity) {
+    public UpdateAliasRequest(@Nonnull final SessionIdentifier identity, final LURI uri, final TransferEntity newEntity) {
         super();
         setUri(uri);
         session(identity);
@@ -53,7 +53,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
         this(null, SessionIdentifier.ANON, target, entity);
     }
 
-    UpdateAliasRequest(final LiquidURI uri, final TransferEntity newEntity) {
+    UpdateAliasRequest(final LURI uri, final TransferEntity newEntity) {
         super();
         setUri(uri);
         setRequestEntity(newEntity);
@@ -84,7 +84,7 @@ public class UpdateAliasRequest extends AbstractUpdateRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.UPDATE_ALIAS;
+        return RequestType.R_UPDATE_ALIAS;
     }
 
     @Override

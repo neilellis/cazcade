@@ -7,7 +7,7 @@ package cazcade.cli.builtin;
 import cazcade.cli.ShellSession;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Entity;
 import org.apache.commons.cli.Options;
 
@@ -44,7 +44,7 @@ public class PwdCommand extends AbstractShortLivedCommand {
             System.err.println("No current pool, please login.");
             return null;
         } else {
-            final LiquidURI poolURI = currentPool.uri();
+            final LURI poolURI = currentPool.uri();
             System.out.println(poolURI);
             return poolURI.toString();
         }

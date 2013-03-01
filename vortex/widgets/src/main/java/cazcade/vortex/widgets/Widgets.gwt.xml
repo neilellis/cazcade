@@ -14,7 +14,6 @@
     <inherits name="cazcade.vortex.comms.datastore.DataStore"/>
     <inherits name="cazcade.vortex.common.VortexCommon"/>
     <inherits name="com.google.gwt.resources.Resources"/>
-    <inherits name="gwtupload.GWTUpload"/>
     <!--<stylesheet src="Upload.css"/>-->
     <inherits name='com.allen_sauer.gwt.voices.gwt-voices'/>
 

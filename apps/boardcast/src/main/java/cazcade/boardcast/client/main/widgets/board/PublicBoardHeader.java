@@ -4,10 +4,10 @@
 
 package cazcade.boardcast.client.main.widgets.board;
 
-import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.Callback;
+import cazcade.vortex.bus.client.Request;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
 import cazcade.vortex.widgets.client.image.EditableImage;
@@ -25,13 +25,16 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 
 import javax.annotation.Nonnull;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
+
 
 /**
  * @author neilellis@cazcade.com
  */
 public class PublicBoardHeader extends EntityBackedFormPanel {
-    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
+    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {}
 
+    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
     @UiField VortexEditableLabel title;
     @UiField VortexEditableLabel description;
     @UiField VortexEditableLabel tag;
@@ -39,10 +42,10 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     @UiField DivElement          contentArea;
     @UiField EditableImage       boardImage;
 
+
     public PublicBoardHeader() {
         super();
-        final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
-        initWidget(rootElement);
+        initWidget(ourUiBinder.createAndBindUi(this));
         WidgetUtil.hide(contentArea, false);
 
         tag.addClickHandler(new ClickHandler() {
@@ -58,11 +61,10 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
             }
         });
         boardImage.sinkEvents(Event.MOUSEEVENTS);
-        bind(title, Dictionary.TITLE);
-        bind(description, Dictionary.DESCRIPTION);
-        bind(boardImage, Dictionary.IMAGE_URL);
+        bind(title, TITLE);
+        bind(description, DESCRIPTION);
+        bind(boardImage, IMAGE_URL);
     }
-
 
     @Override protected boolean isSaveOnExit() {
         return false;
@@ -78,20 +80,17 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         return new Runnable() {
             @Override
             public void run() {
-                //                Window.alert("Sending..");
-                getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
-                    @Override
-                    public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        $(response.response().$());
-                        //                        Window.alert("Success..");
-                    }
+                Request.updatePool(field.getEntityDiff(), new Callback<UpdatePoolRequest>() {
+                            @Override public void handle(UpdatePoolRequest message) throws Exception {
+                                $(message.response().$());
+                            }
+                        }, new Callback<UpdatePoolRequest>() {
+                            @Override public void handle(UpdatePoolRequest message) throws Exception {
+                                field.setErrorMessage(message.response().$(DESCRIPTION));
+                            }
+                        }
+                                  );
 
-                    @Override
-                    public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        //                        Window.alert("Failed.");
-                        field.setErrorMessage(response.response().$(Dictionary.DESCRIPTION));
-                    }
-                });
             }
         };
     }
@@ -111,13 +110,9 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         }
 
         tag.setValue("#" + shortUrl);
-        final String externalURL = "http://boardca.st/" + shortUrl;
-        url.setValue(externalURL);
+        url.setValue("http://boardca.st/" + shortUrl);
         WidgetUtil.showGracefully(contentArea, false);
     }
-
-    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PublicBoardHeader> {}
-
 
     public void clear() {
         title.clear();

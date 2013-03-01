@@ -48,7 +48,7 @@ public class PListRountripTestClient {
             getMethod.releaseConnection();
         }
         Integer counter = 0;
-        if (poolEntity.has$(Dictionary.TEST_COUNTER)) {
+        if (poolEntity.has(Dictionary.TEST_COUNTER)) {
             counter = Integer.parseInt(poolEntity.$raw(Dictionary.TEST_COUNTER));
         }
         counter++;

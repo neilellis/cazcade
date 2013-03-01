@@ -4,11 +4,11 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.PermissionChangeType;
 import cazcade.liquid.api.request.ChangePermissionRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
@@ -21,9 +21,9 @@ import javax.annotation.Nonnull;
  */
 public class ChangePermissionCommand implements Command {
     private final PermissionChangeType change;
-    private final LiquidURI            poolURI;
+    private final LURI                 poolURI;
 
-    public ChangePermissionCommand(final PermissionChangeType change, final LiquidURI poolURI) {
+    public ChangePermissionCommand(final PermissionChangeType change, final LURI poolURI) {
         this.change = change;
         this.poolURI = poolURI;
     }
@@ -31,14 +31,13 @@ public class ChangePermissionCommand implements Command {
     @Override
     public void execute() {
         Track.getInstance().trackEvent("Permission Change", "Changed board permission to " + change);
-        BusFactory.get()
-                  .send(new ChangePermissionRequest(poolURI, change), new AbstractResponseCallback<ChangePermissionRequest>() {
-                      @Override
-                      public void onSuccess(final ChangePermissionRequest message, final ChangePermissionRequest response) {
-                      }
+        Bus.get().send(new ChangePermissionRequest(poolURI, change), new AbstractMessageCallback<ChangePermissionRequest>() {
+            @Override
+            public void onSuccess(final ChangePermissionRequest original, final ChangePermissionRequest message) {
+            }
 
-                      @Override
-                      public void onFailure(final ChangePermissionRequest message, @Nonnull final ChangePermissionRequest response) {
+            @Override
+                      public void onFailure(final ChangePermissionRequest original, @Nonnull final ChangePermissionRequest message) {
                           Window.alert("Failed to (un)lock.");
                       }
                   });

@@ -25,7 +25,7 @@ public class LSDXMLTest extends TestCase {
         props.load(getClass().getResourceAsStream("test.properties"));
         final HashMap<String, String> propMap = new HashMap(props);
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
-        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.createFromProperties(propMap);
+        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.fromProperties(propMap);
         //        ((EntityFactory)applicationContext.getBean("EntityFactory")).marshall(Format.plist, entity, System.out);
         //        ((EntityFactory)applicationContext.getBean("EntityFactory")).marshall(Format.plist, entity, new FileOutputStream(System.getProperty("user.home")+"/Desktop/liquid_test.plist"));
         //        Node lsdNode = entity.asFormatIndependentTree();

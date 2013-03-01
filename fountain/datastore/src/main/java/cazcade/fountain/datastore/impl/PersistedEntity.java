@@ -89,7 +89,7 @@ public interface PersistedEntity extends TransferEntity<PersistedEntity> {
 
     boolean isAuthor(@Nonnull PersistedEntity ownerPersistedEntity) throws InterruptedException;
 
-    boolean isAuthorized(@Nonnull SessionIdentifier identity, @Nonnull Permission... permissions) throws InterruptedException;
+    boolean allowed(@Nonnull SessionIdentifier identity, @Nonnull Permission... permissions) throws InterruptedException;
 
     boolean deleted() throws InterruptedException;
 

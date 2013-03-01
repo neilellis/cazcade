@@ -6,7 +6,7 @@ package cazcade.boardcast.client.main.widgets;
 
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.widgets.client.image.UserProfileImage;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.AnchorElement;
@@ -35,10 +35,10 @@ public class TopBar extends Composite {
     @UiField      AnchorElement    yourBoardsLink;
 
     public TopBar() {
-        alias = UserUtil.currentAlias();
+        alias = User.currentAlias();
         HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-        if (UserUtil.anon()) {
+        if (User.anon()) {
             logout.removeFromParent();
             userDetails.removeFromParent();
             historyLink.removeFromParent();
@@ -47,7 +47,7 @@ public class TopBar extends Composite {
             login.removeFromParent();
             usernameLink.setInnerText(alias.$(Dictionary.FULL_NAME));
             usernameLink.setHref("/~" + alias.nameOrId());
-            if (alias.has$(Dictionary.IMAGE_URL)) {
+            if (alias.has(Dictionary.IMAGE_URL)) {
                 userIcon.setUrl(alias.$(Dictionary.IMAGE_URL));
                 userIcon.setAliasUri(alias.uri());
             }

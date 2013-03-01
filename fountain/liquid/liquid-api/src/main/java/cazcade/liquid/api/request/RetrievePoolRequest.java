@@ -13,15 +13,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RetrievePoolRequest extends AbstractRetrievalRequest {
-    public RetrievePoolRequest(@Nonnull final SessionIdentifier identity, final LiquidURI uri, @Nonnull final RequestDetailLevel detail, final boolean contents, final boolean orCreate) {
+    public RetrievePoolRequest(@Nonnull final SessionIdentifier identity, final LURI uri, @Nonnull final RequestDetailLevel detail, final boolean contents, final boolean orCreate) {
         this(null, identity, null, uri, detail, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, @Nonnull final RequestDetailLevel detail, final boolean contents, final boolean orCreate, @Nullable final ChildSortOrder order) {
+    public RetrievePoolRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LURI uri, @Nonnull final RequestDetailLevel detail, final boolean contents, final boolean orCreate, @Nullable final ChildSortOrder order) {
         this(id, identity, target, uri, detail, contents, orCreate, order, 50);
     }
 
-    public RetrievePoolRequest(final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target, final LiquidURI uri, @Nonnull final RequestDetailLevel detail, final boolean contents, final boolean orCreate, final ChildSortOrder order, final int max) {
+    public RetrievePoolRequest(final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidUUID target, final LURI uri, @Nonnull final RequestDetailLevel detail, final boolean contents, final boolean orCreate, final ChildSortOrder order, final int max) {
         super();
         setOrCreate(orCreate);
         session(identity);
@@ -41,15 +41,15 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
         this(null, identity, target, null, RequestDetailLevel.NORMAL, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(final SessionIdentifier identity, final LiquidURI uri, final boolean contents, final boolean orCreate) {
+    public RetrievePoolRequest(final SessionIdentifier identity, final LURI uri, final boolean contents, final boolean orCreate) {
         this(null, identity, null, uri, RequestDetailLevel.NORMAL, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(final LiquidURI uri, @Nonnull final RequestDetailLevel detailLevel, final boolean contents, final boolean orCreate) {
+    public RetrievePoolRequest(final LURI uri, @Nonnull final RequestDetailLevel detailLevel, final boolean contents, final boolean orCreate) {
         this(null, SessionIdentifier.ANON, null, uri, detailLevel, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(final SessionIdentifier sessionIdentifier, final LiquidURI uri, final ChildSortOrder sortOrder, final boolean orCreate) {
+    public RetrievePoolRequest(final SessionIdentifier sessionIdentifier, final LURI uri, final ChildSortOrder sortOrder, final boolean orCreate) {
         this(null, sessionIdentifier, null, uri, RequestDetailLevel.NORMAL, true, orCreate, sortOrder);
     }
 
@@ -60,11 +60,11 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
         this(null, SessionIdentifier.ANON, target, null, RequestDetailLevel.NORMAL, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(final LiquidURI uri, final boolean contents, final boolean orCreate) {
+    public RetrievePoolRequest(final LURI uri, final boolean contents, final boolean orCreate) {
         this(null, SessionIdentifier.ANON, null, uri, RequestDetailLevel.NORMAL, contents, orCreate, null);
     }
 
-    public RetrievePoolRequest(final LiquidURI uri, final ChildSortOrder order, final boolean orCreate) {
+    public RetrievePoolRequest(final LURI uri, final ChildSortOrder order, final boolean orCreate) {
         this(null, SessionIdentifier.ANON, null, uri, RequestDetailLevel.NORMAL, true, orCreate, order);
     }
 
@@ -84,14 +84,14 @@ public class RetrievePoolRequest extends AbstractRetrievalRequest {
     @Override @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasTarget()) {
-            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
         } else {
-            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_VIEW));
         }
     }
 
     @Override @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_POOL;
+        return RequestType.R_RETRIEVE_POOL;
     }
 }

@@ -40,26 +40,26 @@ public class BoardCell extends AbstractCell<Entity> {
         }
         sb.appendHtmlConstant("<div class='board-list-item'>");
         sb.appendHtmlConstant("<div class='board-list-item-photo-area'>");
-        if (board.has$(Dictionary.ICON_URL)) {
+        if (board.has(Dictionary.ICON_URL)) {
             sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.$(Dictionary.ICON_URL)));
-        } else if (board.has$(Dictionary.IMAGE_URL)) {
+        } else if (board.has(Dictionary.IMAGE_URL)) {
             sb.append(TEMPLATES.icon(IMAGE_PREFIX + board.$(Dictionary.IMAGE_URL)));
         } else {
             sb.append(TEMPLATES.icon("/_static/_images/blank.png"));
         }
         sb.appendHtmlConstant("</div>");
         sb.appendHtmlConstant("<div class='board-list-item-main-area'>");
-        if (board.has$(Dictionary.TITLE)) {
+        if (board.has(Dictionary.TITLE)) {
             sb.appendHtmlConstant("<h2 class='board-list-item-title'>")
               .appendEscaped(board.$(Dictionary.TITLE))
               .appendHtmlConstant("</h2>");
         }
-        if (board.has$(Dictionary.DESCRIPTION)) {
+        if (board.has(Dictionary.DESCRIPTION)) {
             sb.appendHtmlConstant("<h3 class='board-list-item-description'>")
               .appendEscaped(board.$(Dictionary.DESCRIPTION))
               .appendHtmlConstant("</h3>");
         }
-        if (board.has$(Dictionary.TEXT_EXTENDED)) {
+        if (board.has(Dictionary.TEXT_EXTENDED)) {
             sb.appendHtmlConstant("<p class='board-list-item-text'>")
               .appendEscaped(board.$(Dictionary.TEXT_EXTENDED))
               .appendHtmlConstant("</p>");
@@ -70,7 +70,7 @@ public class BoardCell extends AbstractCell<Entity> {
         sb.appendHtmlConstant("<div class='board-list-item-author'>")
           .appendEscaped(author.$(Dictionary.FULL_NAME))
           .appendHtmlConstant("</div>");
-        if (board.has$(Dictionary.COMMENT_COUNT)) {
+        if (board.has(Dictionary.COMMENT_COUNT)) {
             final int commentCount = board.$i(Dictionary.COMMENT_COUNT);
             final String commentText;
             if (commentCount == 0) {

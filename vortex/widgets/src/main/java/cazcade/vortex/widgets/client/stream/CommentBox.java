@@ -4,10 +4,10 @@
 
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.request.AddCommentRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.core.client.GWT;
@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
  */
 public class CommentBox extends Composite {
 
-    private LiquidURI uri;
+    private LURI uri;
 
     interface VortexAddCommentBoxUiBinder extends UiBinder<HTMLPanel, CommentBox> {}
 
@@ -107,16 +107,16 @@ public class CommentBox extends Composite {
             private void sendMessage(final String text) {
                 textBox.setText("");
 
-                BusFactory.get().send(new AddCommentRequest(uri, text), new AbstractResponseCallback<AddCommentRequest>() {
+                Bus.get().send(new AddCommentRequest(uri, text), new AbstractMessageCallback<AddCommentRequest>() {
                     @Override
-                    public void onSuccess(final AddCommentRequest message, final AddCommentRequest response) {
+                    public void onSuccess(final AddCommentRequest original, final AddCommentRequest message) {
                         Track.getInstance().trackEvent("Comment", "Comment Added");
                     }
 
                     @Override
-                    public void onFailure(final AddCommentRequest message, @Nonnull final AddCommentRequest response) {
+                    public void onFailure(final AddCommentRequest original, @Nonnull final AddCommentRequest message) {
                         textBox.setText(text);
-                        super.onFailure(message, response);
+                        super.onFailure(original, message);
                     }
 
                     @Override
@@ -130,7 +130,7 @@ public class CommentBox extends Composite {
     }
 
 
-    public void init(final LiquidURI uri) {
+    public void init(final LURI uri) {
         this.uri = uri;
     }
 }

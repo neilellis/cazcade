@@ -5,7 +5,7 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.BoardURL;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import com.google.gwt.core.client.GWT;
@@ -40,7 +40,7 @@ public class HashtagTextBox extends AbstractServerValidatedTextBox {
                 public void run() {
                     DataStoreService.App
                                     .getInstance()
-                                    .checkBoardAvailability(new LiquidURI(BoardURL.from(textBox.getText())), new AsyncCallback<Boolean>() {
+                                    .checkBoardAvailability(new LURI(BoardURL.from(textBox.getText())), new AsyncCallback<Boolean>() {
 
 
                                         @Override

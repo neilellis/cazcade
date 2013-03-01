@@ -109,7 +109,7 @@ public class LatestContentFinder {
     @SuppressWarnings({"OverlyComplexAnonymousInnerClass"})
     private void findContentNodesNewMethod(@Nonnull final PersistedEntity startPersistedEntity, @Nonnull final PersistedEntity myAliasPersistedEntity, @Nonnull final RequestDetailLevel resultDetail) throws Exception {
         final int[] count = new int[1];
-        final LiquidURI currentAliasURI = identity.aliasURI();
+        final LURI currentAliasURI = identity.aliasURI();
 
         final Traverser traverser = startPersistedEntity.traverse(Traverser.Order.BREADTH_FIRST, new StopEvaluator() {
                     @Override
@@ -139,11 +139,11 @@ public class LatestContentFinder {
                         if (!skip.contains(currentPersistedEntity.getPersistenceId()) && !globalSkip.contains(currentPersistedEntity
                                 .getPersistenceId())) {
                             try {
-                                if (currentPersistedEntity.has$(Dictionary.URI)) {
+                                if (currentPersistedEntity.has(Dictionary.URI)) {
                                     if (!currentPersistedEntity.hasURI()) {
                                         throw new NullPointerException("Attempted to use a null uri in 'isReturnableNode' in LatestContentFinder.");
                                     }
-                                    final LiquidURI uri = currentPersistedEntity.uri();
+                                    final LURI uri = currentPersistedEntity.uri();
                                     final LiquidURIScheme scheme = uri.scheme();
                                     //noinspection PointlessBooleanExpression,ConstantConditions
                                     if (scheme == LiquidURIScheme.session && INCLUDE_SESSION_INFORMATION ||
@@ -179,7 +179,7 @@ public class LatestContentFinder {
             if (!candidatePersistedEntity.hasURI()) {
                 throw new NullPointerException("Attempted to use a null uri in 'findContentNodesNewMethod' in LatestContentFinder.");
             }
-            final LiquidURI uri = candidatePersistedEntity.uri();
+            final LURI uri = candidatePersistedEntity.uri();
             final TransferEntity entity;
             //noinspection PointlessBooleanExpression,ConstantConditions
             if (candidatePersistedEntity.canBe(Types.T_SESSION) && INCLUDE_SESSION_INFORMATION) {
@@ -192,7 +192,7 @@ public class LatestContentFinder {
                 log.debug("FountainEntity {0} was filtered because of type {1}", uri, candidatePersistedEntity.type());
                 continue;
             }
-            if (entity.has$(Dictionary.TITLE)) {
+            if (entity.has(Dictionary.TITLE)) {
                 final String key = entity.default$sub(Dictionary.AUTHOR_A, Dictionary.NAME, "")
                                    + ':'
                                    + entity.default$(Dictionary.SOURCE, "");
@@ -221,12 +221,12 @@ public class LatestContentFinder {
     }
 
     @SuppressWarnings({"MethodOnlyUsedFromInnerClass"})
-    private boolean validForThisRequest(@Nonnull final PersistedEntity currentPersistedEntity, @Nonnull final LiquidURI uri, @Nonnull final PersistedEntity myAliasPersistedEntity, @Nonnull final LiquidURI currentAliasURI) throws InterruptedException {
+    private boolean validForThisRequest(@Nonnull final PersistedEntity currentPersistedEntity, @Nonnull final LURI uri, @Nonnull final PersistedEntity myAliasPersistedEntity, @Nonnull final LURI currentAliasURI) throws InterruptedException {
         final LiquidURIScheme scheme = uri.scheme();
         final Date updated = currentPersistedEntity.updated();
         final Long nodeAge = updated.getTime();
         if (nodeAge >= since) {
-            if (currentPersistedEntity.isAuthorized(identity, Permission.VIEW_PERM)) {
+            if (currentPersistedEntity.allowed(identity, Permission.P_VIEW)) {
                 final boolean authoredByMe = currentPersistedEntity.isAuthor(myAliasPersistedEntity);
                 if (!authoredByMe) {
                     if (scheme == LiquidURIScheme.session) {
@@ -284,7 +284,7 @@ public class LatestContentFinder {
         final Iterable<FountainRelationship> vistingRelationships = sessionPersistedEntity.relationships(FountainRelationships.VISITING, Direction.OUTGOING);
         for (final FountainRelationship vistingRelationship : vistingRelationships) {
             final PersistedEntity poolPersistedEntity = vistingRelationship.other(sessionPersistedEntity);
-            final LiquidURI poolUri = poolPersistedEntity.uri();
+            final LURI poolUri = poolPersistedEntity.uri();
 
             entity.$(Dictionary.TITLE, '@' + aliasName + " was spotted in " + poolUri);
             entity.$(Dictionary.TEXT_BRIEF, aliasFullName + " was spotted in " + poolUri);
@@ -302,7 +302,7 @@ public class LatestContentFinder {
             entity.$(aliasPersistedEntity, Dictionary.IMAGE_URL);
             entity.$(aliasPersistedEntity, Dictionary.ICON_URL);
             //The URI keeps it unique in the stream
-            entity.$(Dictionary.URI, new LiquidURI(LiquidURIScheme.status, "presence:" + aliasName).asString());
+            entity.$(Dictionary.URI, new LURI(LiquidURIScheme.status, "presence:" + aliasName).asString());
         }
         return entity;
     }
@@ -314,7 +314,7 @@ public class LatestContentFinder {
         entity.published(persistedEntity.updated());
         entity.$(persistedEntity, Dictionary.TEXT_EXTENDED);
 
-        final LiquidURI objectURI = persistedEntity.uri();
+        final LURI objectURI = persistedEntity.uri();
         final FountainRelationship authorRelationship = persistedEntity.relationship(FountainRelationships.AUTHOR, Direction.OUTGOING);
         TransferEntity aliasEntity = null;
         if (authorRelationship != null) {
@@ -347,7 +347,7 @@ public class LatestContentFinder {
             }
         }
         //The URI keeps it unique in the stream
-        entity.$(Dictionary.URI, new LiquidURI(LiquidURIScheme.status, "comment:" + objectURI).asString());
+        entity.$(Dictionary.URI, new LURI(LiquidURIScheme.status, "comment:" + objectURI).asString());
         return entity;
     }
 
@@ -364,9 +364,9 @@ public class LatestContentFinder {
         if (parentIterator.hasNext()) {
             boardPersistedEntity = new FountainEntity(parentIterator.next());
         }
-        if (persistedEntity.has$(Dictionary.MOTIVE_TEXT)) {
+        if (persistedEntity.has(Dictionary.MOTIVE_TEXT)) {
             final String motiveText = persistedEntity.$(Dictionary.MOTIVE_TEXT);
-            if (motiveText.isEmpty() && persistedEntity.has$(Dictionary.TEXT_EXTENDED)) {
+            if (motiveText.isEmpty() && persistedEntity.has(Dictionary.TEXT_EXTENDED)) {
                 final String extendedText = persistedEntity.$(Dictionary.TEXT_EXTENDED);
                 entity.$(Dictionary.TEXT_BRIEF, extendedText);
                 entity.$(Dictionary.TEXT_EXTENDED, extendedText);
@@ -379,9 +379,9 @@ public class LatestContentFinder {
         }
         entity.published(persistedEntity.updated());
         entity.$(Dictionary.SOURCE, persistedEntity.uri());
-        if (persistedEntity.has$(Dictionary.IMAGE_URL)) {
+        if (persistedEntity.has(Dictionary.IMAGE_URL)) {
             entity.$(persistedEntity, Dictionary.IMAGE_URL);
-        } else if (boardPersistedEntity != null && persistedEntity.has$(Dictionary.ICON_URL)) {
+        } else if (boardPersistedEntity != null && persistedEntity.has(Dictionary.ICON_URL)) {
             entity.$(Dictionary.IMAGE_URL, boardPersistedEntity.$(Dictionary.IMAGE_URL));
         }
         //The author of this update is the owner of the entity :-)
@@ -408,7 +408,7 @@ public class LatestContentFinder {
         }
 
         //The URI keeps it unique in the stream
-        entity.$(Dictionary.URI, new LiquidURI(LiquidURIScheme.status, "object:" + persistedEntity.uri()).asString());
+        entity.$(Dictionary.URI, new LURI(LiquidURIScheme.status, "object:" + persistedEntity.uri()).asString());
         return entity;
     }
 

@@ -329,11 +329,11 @@ public class FountainIntegrationTest {
     }
 
     //    public void testOtherDropPool() throws IOException, InterruptedException {
-    //        String LiquidURI = "pool:///users/" + otherUsername+"/drop";
-    //        TransferEntity entity = writeTestPool(userSession, LiquidURI);
+    //        String LURI = "pool:///users/" + otherUsername+"/drop";
+    //        TransferEntity entity = writeTestPool(userSession, LURI);
     //        Thread.sleep(100);
     //        assertEquals("Should be able to add to other user's drop pool.", "Image.Bitmap.2DBitmap.GIF", entity.type().getPrimaryType().toString());
-    //        TransferEntity readTestEntity = getTestPoolObject(userSession, LiquidURI, "TestObject4");
+    //        TransferEntity readTestEntity = getTestPoolObject(userSession, LURI, "TestObject4");
     //        assertEquals("Failed to read test object.", "TestObject4", readTestEntity.$(LSDDictionary.NAME));
     //    }
 
@@ -445,7 +445,7 @@ public class FountainIntegrationTest {
                                                                   "&text=HelloWorld&image=" +
                                                                   URLEncoder.encode("http://www.google.co.uk/logos/2011/calder11-sr.png"));
         Thread.sleep(2000);
-        Entity commentList = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?uri=" + objectURL);
+        TransferEntity commentList = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?uri=" + objectURL);
         TransferEntityCollection<? extends TransferEntity> comments = commentList.children(Dictionary.CHILD_A);
         Assert.assertEquals(1, comments.size());
         log.debug("Child");
@@ -469,7 +469,7 @@ public class FountainIntegrationTest {
         Assert.assertEquals(YOU_HAVE_NO_RIGHTS, updatedEntity.$(Dictionary.RIGHTS));
         Assert.assertEquals("3", updatedEntity.$(Dictionary.VERSION));
         commentList = FountainTestClientSupport.callRESTApiWithGet(userSession, "comment.xml?uri=" + objectURL);
-        comments = commentList.children(Dictionary.CHILD_A);
+        comments = commentList.children();
         Assert.assertEquals(1, comments.size());
         Assert.assertEquals("HelloWorld", comments.get(0).$(Dictionary.TEXT_EXTENDED));
         listenThread.stop();

@@ -7,7 +7,8 @@ package cazcade.vortex.pool.objects.richtext;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractPoolObjectPresenter;
 import cazcade.vortex.pool.api.PoolPresenter;
@@ -24,11 +25,11 @@ public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView>
         view.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                final TransferEntity minimalEntity = getEntity().asUpdateEntity();
+                final TransferEntity minimalEntity = entity().asUpdate();
                 minimalEntity.$(Dictionary.TEXT_EXTENDED, view.getText());
-                bus.send(new UpdatePoolObjectRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
+                Bus.get().send(new UpdatePoolObjectRequest(minimalEntity), new AbstractMessageCallback<UpdatePoolObjectRequest>() {
                     @Override
-                    public void onSuccess(final UpdatePoolObjectRequest message, final UpdatePoolObjectRequest response) {
+                    public void onSuccess(final UpdatePoolObjectRequest original, final UpdatePoolObjectRequest message) {
                     }
                 });
             }
@@ -37,14 +38,14 @@ public class RichTextPresenter extends AbstractPoolObjectPresenter<RichTextView>
 
     @Override
     public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 RichTextPresenter.super.update(newEntity, replaceEntity);
-                if (newEntity.has$(Dictionary.TEXT_EXTENDED)) {
-                    getPoolObjectView().setText(newEntity.$(Dictionary.TEXT_EXTENDED));
+                if (newEntity.has(Dictionary.TEXT_EXTENDED)) {
+                    view().setText(newEntity.$(Dictionary.TEXT_EXTENDED));
                 } else {
-                    getPoolObjectView().setText("");
+                    view().setText("");
                 }
             }
         });

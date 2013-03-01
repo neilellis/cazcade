@@ -151,7 +151,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
             if (principal == null) {
                 return null;
             }
-            return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:"
+            return LoginUtil.login(clientSessionManager, dataStore, new LURI(LiquidURIScheme.alias, "cazcade:"
                                                                                                          + username), getOrCreateSession(), pubSub);
         } catch (Exception e) {
             log.error(e);
@@ -164,7 +164,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         final String sessionUsername = (String) getOrCreateSession().getAttribute("username");
         if (sessionUsername != null) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(LiquidURIScheme.alias, "cazcade:"
+                return LoginUtil.login(clientSessionManager, dataStore, new LURI(LiquidURIScheme.alias, "cazcade:"
                                                                                                              + sessionUsername), getOrCreateSession(), pubSub);
             } catch (Exception e) {
                 log.error(e);
@@ -173,7 +173,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         }
         if (anon) {
             try {
-                return LoginUtil.login(clientSessionManager, dataStore, new LiquidURI(CommonConstants.ANONYMOUS_ALIAS), getOrCreateSession(), pubSub);
+                return LoginUtil.login(clientSessionManager, dataStore, new LURI(CommonConstants.ANONYMOUS_ALIAS), getOrCreateSession(), pubSub);
             } catch (Exception e) {
                 log.error(e);
                 return null;
@@ -190,7 +190,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
         final TransferEntity entity = LoginUtil.register(session, dataStore, fullname, username, password, emailAddress, true);
         try {
             if (entity != null && entity.is(Types.T_USER)) {
-                LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session, pubSub);
+                LoginUtil.login(clientSessionManager, dataStore, new LURI("alias:cazcade:" + username), session, pubSub);
             }
         } catch (Exception e) {
             log.error(e);
@@ -204,7 +204,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     public boolean checkUsernameAvailability(@Nonnull final String username) {
         try {
             final LiquidMessage message;
-            message = dataStore.process(new RetrieveUserRequest(new SessionIdentifier("admin"), new LiquidURI(LiquidURIScheme.user, username), true));
+            message = dataStore.process(new RetrieveUserRequest(new SessionIdentifier("admin"), new LURI(LiquidURIScheme.user, username), true));
             //TODO: clean all this up, it's a hack looking for authorization denials for non-existent resources
             final Entity responseEntity = message.response();
             return responseEntity.is(Types.T_EMPTY_RESULT)
@@ -330,7 +330,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
 
             request.adjustTimeStampForServerTime();
             //            request.setIdentity(currentUser());
-            request.origin(LiquidMessageOrigin.CLIENT);
+            request.origin(Origin.CLIENT);
             final LiquidMessage response = dataStore.process(request);
             log.debug("{0}", response.toString());
             getThreadLocalResponse().addHeader(X_VORTEX_CACHE_SCOPE, request.cachingScope().name());
@@ -345,7 +345,7 @@ public final class DataStoreServiceImpl extends RemoteServiceServlet implements 
     }
 
     @Override
-    public boolean checkBoardAvailability(final LiquidURI board) {
+    public boolean checkBoardAvailability(final LURI board) {
         try {
             final LiquidMessage message;
             message = dataStore.process(new RetrievePoolRequest(new SessionIdentifier("admin"), board, false, false));

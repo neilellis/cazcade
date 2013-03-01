@@ -25,7 +25,7 @@ public class BoardServlet extends AbstractBoardListServlet {
     protected void doGet(@Nonnull final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         try {
 
-            //            RetrieveAliasRequest response = dataStore.process(new RetrieveAliasRequest(getLiquidSessionId(), new LiquidURI("alias:cazcade:"+parts[0])));
+            //            RetrieveAliasRequest response = dataStore.process(new RetrieveAliasRequest(getLiquidSessionId(), new LURI("alias:cazcade:"+parts[0])));
             //            if(response.response().is(Types.ALIAS)) {
             //                req.$("board", "@"+parts[0]);
             //            } else {

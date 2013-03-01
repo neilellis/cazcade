@@ -46,9 +46,9 @@ public class SecurityProvider {
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         try {
             final Entity lsdEntity = loadUserInternal(username);
-            if (lsdEntity.has$(Dictionary.HASHED_AND_SALTED_PASSWORD)) {
+            if (lsdEntity.has(Dictionary.HASHED_AND_SALTED_PASSWORD)) {
                 final String hashedPassword = lsdEntity.$(Dictionary.HASHED_AND_SALTED_PASSWORD);
-                if ((!lsdEntity.has$(Dictionary.SECURITY_BLOCKED) || !lsdEntity.$bool(Dictionary.SECURITY_BLOCKED))
+                if ((!lsdEntity.has(Dictionary.SECURITY_BLOCKED) || !lsdEntity.$bool(Dictionary.SECURITY_BLOCKED))
                     && passwordEncryptor.checkPassword(password, hashedPassword)) {
                     return new LiquidPrincipal(new SessionIdentifier(username).name());
                 } else {
@@ -63,7 +63,7 @@ public class SecurityProvider {
     }
 
     @Nonnull public Entity loadUserInternal(@Nonnull final String username) throws Exception {
-        final LiquidMessage message = dataStore.process(new RetrieveUserRequest(new SessionIdentifier(username), new LiquidURI(LiquidURIScheme.user, username), true));
+        final LiquidMessage message = dataStore.process(new RetrieveUserRequest(new SessionIdentifier(username), new LURI(LiquidURIScheme.user, username), true));
         return message.response();
     }
 }

@@ -6,7 +6,7 @@ package cazcade.boardcast.servlet.login;
 
 import cazcade.boardcast.servlet.AbstractBoardcastServlet;
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.vortex.comms.datastore.server.LoginUtil;
 
 import javax.annotation.Nonnull;
@@ -52,7 +52,7 @@ public class LoginServlet extends AbstractBoardcastServlet {
                 final Principal principal = securityProvider.doAuthentication(username, password);
                 //noinspection VariableNotUsedInsideIf
                 if (principal != null) {
-                    LoginUtil.login(clientSessionManager, dataStore, new LiquidURI("alias:cazcade:" + username), session, pubSub);
+                    LoginUtil.login(clientSessionManager, dataStore, new LURI("alias:cazcade:" + username), session, pubSub);
                     forwardAfterLogin(req, resp);
                 }
                 else {

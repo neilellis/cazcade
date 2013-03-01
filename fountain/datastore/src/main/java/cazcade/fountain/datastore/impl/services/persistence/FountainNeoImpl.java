@@ -57,7 +57,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     @Nonnull
     public static final String            BOARDS_URI                 = "pool:///boards";
     @Nonnull
-    public static final LiquidURI         SYSTEM_ALIAS_URI           = new LiquidURI(LiquidURIScheme.alias, "cazcade:system");
+    public static final LURI              SYSTEM_ALIAS_URI           = new LURI(LiquidURIScheme.alias, "cazcade:system");
     @Nonnull
     public static final String            FREE_TEXT_SEARCH_INDEX_KEY = "ftsindex";
     public static final String publicPermissionValue;
@@ -132,13 +132,13 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 
     @Override
     public void assertAuthorized(@Nonnull final PersistedEntity persistedEntity, @Nonnull final SessionIdentifier identity, final Permission... permissions) throws InterruptedException {
-        if (!persistedEntity.isAuthorized(identity, permissions)) {
+        if (!persistedEntity.allowed(identity, permissions)) {
             throw new AuthorizationException("Session " +
                                              identity.toString() +
                                              " is not authorized to " +
                                              Arrays.toString(permissions) +
                                              " the resource " +
-                                             (persistedEntity.has$(Dictionary.URI)
+                                             (persistedEntity.has(Dictionary.URI)
                                               ? persistedEntity.$(Dictionary.URI)
                                               : "<unknown>") +
                                              " permissions are " +
@@ -182,7 +182,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override @Nullable
-    public TransferEntity changePermissionNoTx(@Nonnull final SessionIdentifier editor, @Nonnull final LiquidURI uri, final PermissionChangeType change, final RequestDetailLevel detail, final boolean internal) throws Exception {
+    public TransferEntity changePermissionNoTx(@Nonnull final SessionIdentifier editor, @Nonnull final LURI uri, final PermissionChangeType change, final RequestDetailLevel detail, final boolean internal) throws Exception {
         begin();
         try {
             PersistedEntity startPersistedEntityImpl = find(uri);
@@ -216,7 +216,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 
         if (fork) {
             Long lastFork = null;
-            if (entity.has$(Dictionary.LAST_FORK_VERSION)) {
+            if (entity.has(Dictionary.LAST_FORK_VERSION)) {
                 lastFork = entity.$l(Dictionary.LAST_FORK_VERSION);
             }
             if (lastFork == null) {
@@ -304,7 +304,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override @Nonnull
-    public TransferEntity deleteEntityTx(@Nonnull final LiquidURI uri, final boolean children, final boolean internal, final RequestDetailLevel detail) throws InterruptedException {
+    public TransferEntity deleteEntityTx(@Nonnull final LURI uri, final boolean children, final boolean internal, final RequestDetailLevel detail) throws InterruptedException {
         final PersistedEntity persistedEntity = find(uri);
         if (persistedEntity == null) {
             throw new EntityNotFoundException("Could not find persistedEntityImpl identified by %s.", uri);
@@ -330,7 +330,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
                 if (children) {
                     final Traverser traverser = persistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, new ReturnableEvaluator() {
                         public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
-                            return new FountainEntity(currentPos.currentNode()).has$(Dictionary.URI);
+                            return new FountainEntity(currentPos.currentNode()).has(Dictionary.URI);
                         }
                     }, CHILD, OUTGOING, VIEW, OUTGOING);
                     for (final Node childNode : traverser) {
@@ -398,7 +398,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override @Nullable
-    public FountainEntity findByURI(@Nonnull final LiquidURI uri, final boolean mustMatch) throws InterruptedException {
+    public FountainEntity findByURI(@Nonnull final LURI uri, final boolean mustMatch) throws InterruptedException {
         begin();
         try {
             final IndexHits<Node> nodes = indexService.get(Dictionary.URI.getKeyName(), uri.asString());
@@ -427,12 +427,12 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override @Nullable
-    public FountainEntity find(@Nonnull final LiquidURI uri) throws InterruptedException {
+    public FountainEntity find(@Nonnull final LURI uri) throws InterruptedException {
         return findByURI(uri, false);
     }
 
     @Override @Nonnull
-    public FountainEntity findOrFail(@Nonnull final LiquidURI uri) throws InterruptedException {
+    public FountainEntity findOrFail(@Nonnull final LURI uri) throws InterruptedException {
         //noinspection ConstantConditions
         return findByURI(uri, true);
     }
@@ -533,7 +533,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     }
 
     @Override @Nonnull
-    public TransferEntity updateEntityByURITx(@Nonnull final SessionIdentifier editor, @Nonnull final LiquidURI uri, @Nonnull final TransferEntity entity, final boolean internal, final RequestDetailLevel detail, @Nullable final Runnable onRenameAction) throws Exception {
+    public TransferEntity updateEntityByURITx(@Nonnull final SessionIdentifier editor, @Nonnull final LURI uri, @Nonnull final TransferEntity entity, final boolean internal, final RequestDetailLevel detail, @Nullable final Runnable onRenameAction) throws Exception {
         begin();
         try {
             final Transaction transaction = neo.beginTx();
@@ -656,7 +656,7 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
         return getTransactionInternal();
     }
 
-    @Override public FountainEntity findForWrite(@Nonnull final LiquidURI uri) throws InterruptedException {
+    @Override public FountainEntity findForWrite(@Nonnull final LURI uri) throws InterruptedException {
         FountainEntity entity;
         do {
             entity = findOrFail(uri);
@@ -691,18 +691,18 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
     @Override
     public void putProfileInformationIntoAlias(@Nonnull final PersistedEntity alias) {
         try {
-            final LiquidURI poolURI = new LiquidURI("pool:///people/" + alias.$(Dictionary.NAME) + "/profile");
+            final LURI poolURI = new LURI("pool:///people/" + alias.$(Dictionary.NAME) + "/profile");
             final PersistedEntity pool = find(poolURI);
             if (pool == null) {
                 throw new EntityNotFoundException("Could not locate pool %s", poolURI.toString());
             }
-            if (pool.has$(Dictionary.IMAGE_URL)) {
+            if (pool.has(Dictionary.IMAGE_URL)) {
                 alias.$(Dictionary.IMAGE_URL, pool.$(Dictionary.IMAGE_URL));
             }
-            if (pool.has$(Dictionary.IMAGE_WIDTH)) {
+            if (pool.has(Dictionary.IMAGE_WIDTH)) {
                 alias.$(Dictionary.IMAGE_WIDTH, pool.$(Dictionary.IMAGE_WIDTH));
             }
-            if (pool.has$(Dictionary.IMAGE_HEIGHT)) {
+            if (pool.has(Dictionary.IMAGE_HEIGHT)) {
                 alias.$(Dictionary.IMAGE_HEIGHT, pool.$(Dictionary.IMAGE_HEIGHT));
             }
         } catch (Exception e) {
@@ -830,10 +830,10 @@ public final class FountainNeoImpl extends AbstractServiceStateMachine implement
 
             final Transaction transaction = neo.beginTx();
             try {
-                final FountainEntity rootPool = find(new LiquidURI("pool:///"));
+                final FountainEntity rootPool = find(new LURI("pool:///"));
                 assert rootPool != null;
                 setRootPool(rootPool);
-                final FountainEntity peoplePool = find(new LiquidURI("pool:///people"));
+                final FountainEntity peoplePool = find(new LURI("pool:///people"));
                 assert peoplePool != null;
                 setPeoplePool(peoplePool);
                 transaction.success();

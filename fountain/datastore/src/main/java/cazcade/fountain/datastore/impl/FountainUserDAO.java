@@ -17,15 +17,15 @@ import java.io.UnsupportedEncodingException;
  * @author neilellis@cazcade.com
  */
 public interface FountainUserDAO {
-    void addAuthorToNodeNoTX(LiquidURI author, boolean createAuthor, PersistedEntity persistedEntity) throws InterruptedException;
+    void addAuthorToNodeNoTX(LURI author, boolean createAuthor, PersistedEntity persistedEntity) throws InterruptedException;
 
-    boolean confirmHash(LiquidURI author, String changePasswordSecurityHash) throws Exception;
+    boolean confirmHash(LURI author, String changePasswordSecurityHash) throws Exception;
 
     @Nonnull
     PersistedEntity createAlias(PersistedEntity userPersistedEntity, TransferEntity entity, boolean me, boolean orupdate, boolean claim, boolean systemUser) throws InterruptedException;
 
     @Nonnull
-    PersistedEntity createSession(LiquidURI aliasUri, ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException;
+    PersistedEntity createSession(LURI aliasUri, ClientApplicationIdentifier clientApplicationIdentifier) throws InterruptedException;
 
     //    PersistedEntity createAlias(TransferEntity entity) throws InterruptedException;
 
@@ -45,7 +45,7 @@ public interface FountainUserDAO {
     @Nonnull
     TransferEntity getAliasFromNode(PersistedEntity persistedEntity, boolean internal, RequestDetailLevel detail) throws Exception;
 
-    void sendPasswordChangeRequest(LiquidURI userURL) throws Exception;
+    void sendPasswordChangeRequest(LURI userURL) throws Exception;
 
 
     @Nullable

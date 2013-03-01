@@ -4,14 +4,12 @@
 
 package cazcade.vortex.pool;
 
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageOrigin;
-import cazcade.liquid.api.LiquidURI;
-import cazcade.liquid.api.RequestType;
-import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.Origin;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.TypeDef;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
@@ -26,25 +24,27 @@ import com.google.gwt.user.client.ui.Widget;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 
+import static cazcade.liquid.api.RequestType.*;
+
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectView> extends AbstractPoolObjectPresenter<T> implements PoolObjectDropTarget, PoolObjectPresenterContainer {
     @Nonnull
-    private final HashMap<LiquidURI, Widget>              poolObjectWidgetsByURI = new HashMap<LiquidURI, Widget>();
+    private final HashMap<LURI, Widget>              poolObjectWidgetsByURI = new HashMap<LURI, Widget>();
     @Nonnull
-    private final HashMap<LiquidURI, PoolObjectPresenter> objectPresenters       = new HashMap<LiquidURI, PoolObjectPresenter>();
+    private final HashMap<LURI, PoolObjectPresenter> objectPresenters       = new HashMap<LURI, PoolObjectPresenter>();
 
-    public AbstractContainerObjectPresenterImpl(final PoolPresenter pool, @Nonnull final TransferEntity entity, final T widget, final VortexThreadSafeExecutor threadSafeExecutor) {
-        super(pool, entity, widget, threadSafeExecutor);
-        BusFactory.get().listen(entity.uri(), RequestType.CREATE_POOL_OBJECT, new BusListener() {
+    public AbstractContainerObjectPresenterImpl(final PoolPresenter pool, @Nonnull final TransferEntity entity, final T widget, final VortexThreadSafeExecutor executor) {
+        super(pool, entity, widget, executor);
+        Bus.get().listen(entity.uri(), R_CREATE_POOL_OBJECT, new BusListener() {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
-                if (message.origin() == LiquidMessageOrigin.SERVER) {
+                if (message.origin() == Origin.SERVER) {
                     try {
-                        final TransferEntity requestEntity = message.response();
-                        ClientLog.log("Adding " + requestEntity.type().asString());
-                        final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(AbstractContainerObjectPresenterImpl.this, requestEntity, threadSafeExecutor);
+                        final TransferEntity response = message.response();
+                        ClientLog.log("Adding " + response.type());
+                        final PoolObjectPresenter poolObjectPresenter = PoolObjectPresenterFactory.getPresenterForEntity(AbstractContainerObjectPresenterImpl.this, response, executor);
                         if (poolObjectPresenter != null) {
                             add(poolObjectPresenter);
                         }
@@ -56,13 +56,12 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
 
             }
         });
-        BusFactory.get().listen(entity.uri(), RequestType.DELETE_POOL_OBJECT, new BusListener() {
+        Bus.get().listen(entity.uri(), R_DELETE_POOL_OBJECT, new BusListener() {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
-                if (message.origin() == LiquidMessageOrigin.SERVER) {
+                if (message.origin() == Origin.SERVER) {
                     try {
-                        final Entity response = message.response();
-                        final LiquidURI uri = response.uri();
+                        final LURI uri = message.response().uri();
                         if (objectPresenters.containsKey(uri)) {
                             remove(objectPresenters.get(uri));
                         }
@@ -78,10 +77,10 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
 
     @Override
     public void remove(@Nonnull final PoolObjectPresenter presenter) {
-        final LiquidURI uri = presenter.getEntity().uri();
+        final LURI uri = presenter.entity().uri();
         objectPresenters.remove(uri);
         poolObjectWidgetsByURI.remove(uri);
-        getPoolObjectView().removeView(presenter.getPoolObjectView());
+        view().removeView(presenter.view());
     }
 
 
@@ -97,9 +96,9 @@ public abstract class AbstractContainerObjectPresenterImpl<T extends PoolObjectV
 
     @Override
     public void add(@Nonnull final PoolObjectPresenter presenter) {
-        final LiquidURI uri = presenter.getEntity().uri();
+        final LURI uri = presenter.entity().uri();
         objectPresenters.put(uri, presenter);
-        poolObjectWidgetsByURI.put(uri, presenter.getPoolObjectView());
-        getPoolObjectView().addView(presenter.getPoolObjectView());
+        poolObjectWidgetsByURI.put(uri, presenter.view());
+        view().add(presenter.view());
     }
 }

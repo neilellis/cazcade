@@ -4,8 +4,8 @@
 
 package cazcade.vortex.widgets.client.stream;
 
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.RequestType;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -14,9 +14,9 @@ import cazcade.liquid.api.request.RetrieveCommentsRequest;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.panels.list.dm.DirectMessageStreamEntryPanel;
@@ -41,7 +41,7 @@ public class CommentPanel extends Composite {
     private static final VortexStreamPanelUiBinder ourUiBinder     = GWT.create(VortexStreamPanelUiBinder.class);
     final VerticalPanel parentPanel;
     @Nonnull
-    private final Bus                      bus                = BusFactory.get();
+    private final BusService               bus                = Bus.get();
     private final long                     lastUpdate         = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
@@ -52,8 +52,8 @@ public class CommentPanel extends Composite {
     private final Sound           statusUpdateSound;
     private int     maxRows           = 100;
     private boolean showStatusUpdates = true;
-    private           boolean   initialized;
-    @Nullable private LiquidURI pool;
+    private           boolean initialized;
+    @Nullable private LURI    pool;
 
     public CommentPanel() {
         super();
@@ -91,7 +91,7 @@ public class CommentPanel extends Composite {
         pool = null;
     }
 
-    public void init(final LiquidURI newPool) {
+    public void init(final LURI newPool) {
         pool = newPool;
 
         if (!initialized) {
@@ -103,21 +103,21 @@ public class CommentPanel extends Composite {
                         public void handle(@Nonnull final LiquidMessage message) {
                             if (message.hasResponse()) {
                                 final TransferEntity resp = message.response();
-                                if (resp.is(Types.T_COMMENT) && resp.has$(Dictionary.TEXT_BRIEF) && !resp.$(Dictionary.TEXT_BRIEF)
+                                if (resp.is(Types.T_COMMENT) && resp.has(Dictionary.TEXT_BRIEF) && !resp.$(Dictionary.TEXT_BRIEF)
                                                                                                          .isEmpty()) {
                                     addStreamEntry(new CommentEntryPanel(resp));
                                     chatMessageSound.play();
                                 }
 
                             }
-                            //                            if (message.response() != null && message.getState() != LiquidMessageState.PROVISIONAL && message.getState() != LiquidMessageState.INITIAL && message.getState() != LiquidMessageState.FAIL && ((LiquidRequest) message).requestType() == RequestType.VISIT_POOL) {
+                            //                            if (message.response() != null && message.state() != MessageState.PROVISIONAL && message.state() != MessageState.INITIAL && message.state() != MessageState.FAIL && ((LiquidRequest) message).requestType() == RequestType.VISIT_POOL) {
                             //                                addStreamEntry(new VortexPresenceNotificationPanel(message.response(), pool, message.id().toString()));
                             //                                userEnteredSound.play();
                             //                            }
                         }
                     });
-                    BusFactory.get()
-                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
+                    Bus.get()
+                              .listenForSuccess(User.currentAlias().uri(), RequestType.R_SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
                                       addStreamEntry(new DirectMessageStreamEntryPanel(request.response()));
@@ -128,7 +128,7 @@ public class CommentPanel extends Composite {
             }.schedule(1000);
 
             //            /* Moving this to seperate page ??? */
-            //            if (ClientApplicationConfiguration.isRetrieveUpdates()) {
+            //            if (Config.isRetrieveUpdates()) {
             //                new Timer() {
             //                    @Override
             //                    public void run() {

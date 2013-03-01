@@ -92,7 +92,7 @@ public class FountainSteps {
         for (int i = 0; i < objectTable.getRowCount(); i++) {
             final Map<String, String> objectRow = objectTable.getRow(i);
             objectRow.put(Dictionary.TYPE.getKeyName(), objectType);
-            final SimpleEntity object = SimpleEntity.createFromProperties(objectRow);
+            final SimpleEntity object = SimpleEntity.fromProperties(objectRow);
             FountainTestClientSupport.putEntityToURL(details.getUserSession(), "pool/" + poolId + ".xml", object, "alias:cazcade:"
                                                                                                                   + details.getUsername());
         }
@@ -303,7 +303,7 @@ public class FountainSteps {
     @Nonnull
     private TransferEntityCollection getCurrentEntityComments() throws IOException {
         final UserDetails details = userMap.get(currentUser);
-        final Entity commentList = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "comment.xml?uri="
+        final TransferEntity commentList = FountainTestClientSupport.callRESTApiWithGet(details.getUserSession(), "comment.xml?uri="
                                                                                                           + URLEncoder.encode(currentEntity
                 .$(Dictionary.URI)));
         final TransferEntityCollection comments = commentList.children(Dictionary.CHILD_A);

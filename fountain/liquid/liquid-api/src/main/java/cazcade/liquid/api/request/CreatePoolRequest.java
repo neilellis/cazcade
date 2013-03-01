@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class CreatePoolRequest extends AbstractCreationRequest {
-    public CreatePoolRequest(@Nonnull final Types type, @Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+    public CreatePoolRequest(@Nonnull final Types type, @Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI parent, final String name, final String title, final String description, final double x, final double y) {
         super();
         setTitle(title);
         setDescription(description);
@@ -28,7 +28,7 @@ public class CreatePoolRequest extends AbstractCreationRequest {
         setType(type);
     }
 
-    public CreatePoolRequest(@Nonnull final Types type, @Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
+    public CreatePoolRequest(@Nonnull final Types type, @Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
         super();
         setTitle(title);
         setDescription(description);
@@ -43,19 +43,19 @@ public class CreatePoolRequest extends AbstractCreationRequest {
     }
 
 
-    public CreatePoolRequest(final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+    public CreatePoolRequest(final SessionIdentifier identity, final LURI parent, final String name, final String title, final String description, final double x, final double y) {
         this(Types.T_POOL2D, null, identity, parent, name, title, description, x, y);
     }
 
-    public CreatePoolRequest(final SessionIdentifier identity, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, String imageUrl) {
+    public CreatePoolRequest(final SessionIdentifier identity, final LURI parent, final String name, final String title, final String description, final double x, final double y, String imageUrl) {
         this(Types.T_POOL2D, null, identity, parent, name, title, description, x, y, imageUrl);
     }
 
-    public CreatePoolRequest(@Nonnull final Types type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y) {
+    public CreatePoolRequest(@Nonnull final Types type, final LURI parent, final String name, final String title, final String description, final double x, final double y) {
         this(type, null, SessionIdentifier.ANON, parent, name, title, description, x, y);
     }
 
-    public CreatePoolRequest(@Nonnull final Types type, final LiquidURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
+    public CreatePoolRequest(@Nonnull final Types type, final LURI parent, final String name, final String title, final String description, final double x, final double y, final String imageUrl) {
         this(type, null, SessionIdentifier.ANON, parent, name, title, description, x, y, imageUrl);
     }
 
@@ -74,17 +74,17 @@ public class CreatePoolRequest extends AbstractCreationRequest {
     }
 
     @Nonnull
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         return getStandardAffectedEntitiesInternalPlus(getParent());
     }
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(session(), getParent(), Permission.MODIFY_PERM));
+        return Arrays.asList(new AuthorizationRequest(session(), getParent(), Permission.P_MODIFY));
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CREATE_POOL;
+        return RequestType.R_CREATE_POOL;
     }
 }

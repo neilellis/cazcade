@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.api.FountainDataStoreFacade;
 import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.SimpleEntity;
@@ -39,7 +39,7 @@ public class CommentRestHandler extends AbstractRestHandler {
         message.$(Dictionary.TEXT_EXTENDED, text);
         message.$(Dictionary.IMAGE_URL, image);
         message.$(Dictionary.ICON_URL, image);
-        return dataStore.process(new AddCommentRequest(username, new LiquidURI(uri), message));
+        return dataStore.process(new AddCommentRequest(username, new LURI(uri), message));
     }
 
     @Nonnull
@@ -48,7 +48,7 @@ public class CommentRestHandler extends AbstractRestHandler {
         checkForSingleValueParams(parameters, "uri");
         final String uri = parameters.get("uri")[0];
 
-        return dataStore.process(new RetrieveCommentsRequest(username, new LiquidURI(uri), 20, false));
+        return dataStore.process(new RetrieveCommentsRequest(username, new LURI(uri), 20, false));
     }
 
     public void setDataStore(final FountainDataStoreFacade dataStore) {

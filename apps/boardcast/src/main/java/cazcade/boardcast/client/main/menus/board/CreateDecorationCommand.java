@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 public class CreateDecorationCommand extends CreateItemCommand {
     private final String urlForDecoration;
 
-    public CreateDecorationCommand(final LiquidURI pool, final Types type, final String urlForDecoration, final Size size, final String theme) {
+    public CreateDecorationCommand(final LURI pool, final Types type, final String urlForDecoration, final Size size, final String theme) {
         super(pool, type, size, theme);
         this.urlForDecoration = urlForDecoration;
     }

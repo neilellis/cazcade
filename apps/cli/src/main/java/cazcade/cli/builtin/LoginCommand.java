@@ -53,14 +53,14 @@ public class LoginCommand extends AbstractShortLivedCommand {
         final String username = args[0];
         final String password = args[1];
         final LiquidMessage response = shellSession.getDataStore()
-                                                   .process(new CreateSessionRequest(new LiquidURI(LiquidURIScheme.alias, "cazcade:"
+                                                   .process(new CreateSessionRequest(new LURI(LiquidURIScheme.alias, "cazcade:"
                                                                                                                           + username), new ClientApplicationIdentifier("Shell Client", "123", "UNKNOWN")));
         log.debug(LiquidXStreamFactory.getXstream().toXML(response));
         final LiquidUUID sessionId = response.response().id();
         if (response.response().is(Types.T_SESSION)) {
             final SessionIdentifier identity = new SessionIdentifier(username, sessionId);
             final LiquidMessage visitPoolResponse = shellSession.getDataStore()
-                                                                .process(new VisitPoolRequest(identity, new LiquidURI(
+                                                                .process(new VisitPoolRequest(identity, new LURI(
                                                                         "pool:///people/"
                                                                         + username)));
             final TransferEntity visitPoolEntity = visitPoolResponse.response();

@@ -49,7 +49,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     private FountainIndexServiceImpl indexDAO;
 
     @Override
-    public TransferEntity followResourceTX(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final RequestDetailLevel detail, final boolean internal) throws Exception {
+    public TransferEntity followResourceTX(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LURI uri, final RequestDetailLevel detail, final boolean internal) throws Exception {
         return fountainNeo.doInTransactionAndBeginBlock(new Callable<TransferEntity>() {
             @Nullable @Override
             public TransferEntity call() throws Exception {
@@ -79,7 +79,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Override
-    public TransferEntity getAliasAsProfileTx(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final boolean internal, final RequestDetailLevel detail) throws Exception {
+    public TransferEntity getAliasAsProfileTx(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LURI uri, final boolean internal, final RequestDetailLevel detail) throws Exception {
         return fountainNeo.doInTransactionAndBeginBlock(new Callable<TransferEntity>() {
             @Nullable @Override
             public TransferEntity call() throws Exception {
@@ -89,7 +89,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nullable @Override
-    public Collection<Entity> getRosterNoTX(@Nonnull final LiquidURI uri, final boolean internal, final SessionIdentifier identity, final RequestDetailLevel request) throws InterruptedException {
+    public Collection<Entity> getRosterNoTX(@Nonnull final LURI uri, final boolean internal, final SessionIdentifier identity, final RequestDetailLevel request) throws InterruptedException {
         fountainNeo.begin();
         try {
             final PersistedEntity persistedEntity = fountainNeo.find(uri);
@@ -116,7 +116,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
                         session.$(Dictionary.ACTIVE, false);
                     }
                 }
-                if (session.has$(Dictionary.ACTIVE) && session.$bool(Dictionary.ACTIVE)) {
+                if (session.has(Dictionary.ACTIVE) && session.$bool(Dictionary.ACTIVE)) {
                     final FountainRelationship relationship = session.relationship(OWNER, OUTGOING);
                     final PersistedEntity alias = relationship.other(session);
                     //If the alias has no profile image, take it from the profile pool!
@@ -142,7 +142,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nonnull @Override
-    public ChangeReport getUpdateSummaryForAlias(@Nonnull final LiquidURI aliasURI, final long since) throws Exception {
+    public ChangeReport getUpdateSummaryForAlias(@Nonnull final LURI aliasURI, final long since) throws Exception {
         final ChangeReport report = new ChangeReport();
         final PersistedEntity aliasPersistedEntity = fountainNeo.findOrFail(aliasURI);
         final Traverser traverse = aliasPersistedEntity.traverse(Traverser.Order.DEPTH_FIRST, StopEvaluator.DEPTH_ONE, new ReturnableEvaluator() {
@@ -163,7 +163,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
         for (final BoardIndexEntity ownedBoard : ownedBoards) {
             if (ownedBoard.getUpdated().getTime() > since) {
                 try {
-                    report.addChangedOwnedBoard(fountainNeo.findOrFail(new LiquidURI(ownedBoard.getUri()))
+                    report.addChangedOwnedBoard(fountainNeo.findOrFail(new LURI(ownedBoard.getUri()))
                                                            .toTransfer(RequestDetailLevel.NORMAL, true));
                 } catch (EntityNotFoundException enfe) {
                     log.error(enfe);
@@ -195,12 +195,12 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Override
-    public void recordChat(final SessionIdentifier sessionIdentifier, final LiquidURI uri, final Entity entity) {
+    public void recordChat(final SessionIdentifier sessionIdentifier, final LURI uri, final Entity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public TransferEntity unfollowResourceTX(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final RequestDetailLevel detail, final boolean internal) throws Exception {
+    public TransferEntity unfollowResourceTX(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LURI uri, final RequestDetailLevel detail, final boolean internal) throws Exception {
         return fountainNeo.doInTransactionAndBeginBlock(new Callable<TransferEntity>() {
             @Nullable @Override
             public TransferEntity call() throws Exception {
@@ -238,7 +238,7 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     @Nullable
-    TransferEntity getAliasAsProfile(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LiquidURI uri, final RequestDetailLevel detail, final boolean internal) throws InterruptedException {
+    TransferEntity getAliasAsProfile(@Nonnull final SessionIdentifier sessionIdentifier, @Nonnull final LURI uri, final RequestDetailLevel detail, final boolean internal) throws InterruptedException {
         final PersistedEntity currentAlias = fountainNeo.findOrFail(sessionIdentifier.alias());
         final PersistedEntity persistedEntity = fountainNeo.findOrFail(uri);
         final TransferEntity result = persistedEntity.toTransfer(detail, internal);
@@ -263,6 +263,6 @@ public class FountainSocialDAOImpl implements FountainSocialDAO {
     }
 
     private void deltaCount(@Nonnull final Attribute attribute, @Nonnull final PersistedEntity resourceToFollow, final int delta) {
-        resourceToFollow.$(attribute, (resourceToFollow.has$(attribute) ? resourceToFollow.$i(attribute) : 0) + delta);
+        resourceToFollow.$(attribute, (resourceToFollow.has(attribute) ? resourceToFollow.$i(attribute) : 0) + delta);
     }
 }

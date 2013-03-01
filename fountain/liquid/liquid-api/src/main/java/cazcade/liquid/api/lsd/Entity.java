@@ -4,13 +4,14 @@
 
 package cazcade.liquid.api.lsd;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.Permission;
 import cazcade.liquid.api.PermissionScope;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -22,7 +23,7 @@ import java.util.*;
  *
  * @author neilellis@cazcade.com
  */
-public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
+public interface Entity<NEW extends Entity<NEW, T>, T extends Entity<NEW, T>> extends Serializable {
     /**
      * Anonymous sub entities have no ID or TYPE, they are just a collection of attributes really.
      *
@@ -33,6 +34,8 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
     void addAnonymousSubEntity(@Nonnull Attribute stem, @Nonnull Entity entity);
 
     void children(@Nonnull Attribute stem, @Nonnull Collection<? extends NEW> entity);
+
+    void children( @Nonnull Collection<? extends NEW> entity);
 
     /**
      * You can only add one object at a given root. If you
@@ -69,7 +72,7 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
 
     @Nonnull List<String> $list(@Nonnull Attribute attribute);
 
-    @Nonnull LiquidURI $uri(@Nonnull Attribute attribute);
+    @Nonnull LURI $uri(@Nonnull Attribute attribute);
 
     boolean default$bool(@Nonnull Attribute attribute, boolean defaultValue);
 
@@ -83,7 +86,6 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
 
     @Nonnull Long $l(@Nonnull Attribute attribute) throws NumberFormatException;
 
-    @Nonnull Map<String, String> map();
 
     @Nonnull Date published();
 
@@ -98,17 +100,6 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
     String $raw(@Nonnull Attribute key);
 
     @Nullable String default$sub(@Nonnull Attribute attribute, @Nonnull Attribute subAttribute, String defaultValue);
-
-    /**
-     * Extracts a list of objects
-     *
-     * @param key
-     * @return
-     */
-    @Nonnull TransferEntityCollection children(@Nonnull Attribute key);
-
-    @Nonnull TransferEntityCollection children();
-
 
     /**
      * Returns a un-aliased sub object from all properties with the common parent path.
@@ -126,13 +117,13 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
      */
     @Nonnull TypeDef type();
 
-    @Nonnull LiquidURI uri();
+    @Nonnull LURI uri();
 
-    void uri(LiquidURI uri);
+    T uri(LURI uri);
 
     boolean hasURI();
 
-    @Nonnull LiquidURI getURIAttribute(@Nonnull Attribute attribute);
+    @Nonnull LURI getURIAttribute(@Nonnull Attribute attribute);
 
     /**
      * All LSD Objects have an id attribute which confirms to Java's {@link java.util.UUID} format, but for
@@ -150,7 +141,7 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
 
     @Nullable String getValue(@Nonnull String key);
 
-    boolean has$(@Nonnull Attribute key);
+    boolean has(@Nonnull Attribute key);
 
     boolean allowed(@Nonnull PermissionScope permissionScope, @Nonnull Permission permission);
 
@@ -200,7 +191,7 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
 
     T $(@Nonnull Attribute attribute, LiquidUUID uuid);
 
-    T $(@Nonnull Attribute attribute, LiquidURI uri);
+    T $(@Nonnull Attribute attribute, LURI uri);
 
     T $(@Nonnull Attribute attribute, double value);
 
@@ -245,6 +236,35 @@ public interface Entity<T extends Entity<T, NEW>, NEW extends Entity<T, NEW>> {
     NEW merge(Entity otherEntity, boolean destructive);
 
     String $sub(@Nonnull Attribute attribute, @Nonnull Attribute subAttribute);
+
+    @Nonnull Node asFormatIndependentTree();
+
+    @Nonnull Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
+
+
+
+    @Nonnull  NEW $();
+
+    /**
+     * @deprecated use toString() instead.
+     */
+    String dump();
+
+    /**
+     * Use this for JSPs i.e. JSTL EL
+     *
+     * @return
+     */
+    @Nonnull Map<String, String> getCamelCaseMap();
+
+    /**
+     * The canonical format.
+     *
+     * @return a map of name/value pairs.
+     */
+    @Nonnull Map<String, String> map();
+
+
 
     class EntityUpdatedComparator implements Comparator<Entity> {
         @Override

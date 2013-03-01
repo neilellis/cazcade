@@ -49,7 +49,7 @@ public class FountainNeoIntializer {
                 log.info("First Graph initialization completed successfully.");
             }
 
-            final LiquidURI boardsUri = new LiquidURI("pool:///boards");
+            final LURI boardsUri = new LURI("pool:///boards");
             if (fountainNeo.findByURI(boardsUri, false) == null) {
                 fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
                     @Nullable @Override
@@ -71,7 +71,7 @@ public class FountainNeoIntializer {
                         final PersistedEntity boardsPersistedEntity = fountainNeo.findByURI(boardsUri, false);
                         assert boardsPersistedEntity != null;
                         if (!PermissionSet.createPermissionSet(boardsPersistedEntity.$(Dictionary.PERMISSIONS))
-                                          .hasPermission(PermissionScope.WORLD_SCOPE, Permission.MODIFY_PERM)) {
+                                          .hasPermission(PermissionScope.WORLD_SCOPE, Permission.P_MODIFY)) {
                             fountainNeo.changePermissionNoTx(ADMIN_SESSION, boardsUri, PermissionChangeType.MAKE_PUBLIC, RequestDetailLevel.MINIMAL, true);
                         }
                         return null;
@@ -135,7 +135,7 @@ public class FountainNeoIntializer {
                                        .$(Dictionary.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM)
                                        .$(Dictionary.TYPE, Types.T_USER.getValue()), true);
         //        poolDAO.createPoolsForUserNoTx(FountainNeoImpl.SYSTEM);
-        //        poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:system"), FountainNeoImpl.SYSTEM, "Administrator", true);
+        //        poolDAO.createPoolsForAliasNoTx(new LURI("alias:cazcade:system"), FountainNeoImpl.SYSTEM, "Administrator", true);
     }
 
     private void createBoardcastUser() throws InterruptedException, UnsupportedEncodingException {
@@ -146,7 +146,7 @@ public class FountainNeoIntializer {
                                        .$(Dictionary.FULL_NAME, "Boardcast")
                                        .$(Dictionary.EMAIL_ADDRESS, "info@boardcast.it"), false);
         poolDAO.createPoolsForUserNoTx(BOARDCAST);
-        poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:boardcast"), "boardcast", "Boardcast", false);
+        poolDAO.createPoolsForAliasNoTx(new LURI("alias:cazcade:boardcast"), "boardcast", "Boardcast", false);
     }
 
     private void createAnonUser() throws InterruptedException, UnsupportedEncodingException {
@@ -156,7 +156,7 @@ public class FountainNeoIntializer {
                                        .$(Dictionary.NAME, CommonConstants.ANON)
                                        .$(Dictionary.FULL_NAME, "Anonymous"), false);
         poolDAO.createPoolsForUserNoTx(CommonConstants.ANON);
-        poolDAO.createPoolsForAliasNoTx(new LiquidURI(CommonConstants.ANONYMOUS_ALIAS), CommonConstants.ANON, "Anonymous", false);
+        poolDAO.createPoolsForAliasNoTx(new LURI(CommonConstants.ANONYMOUS_ALIAS), CommonConstants.ANON, "Anonymous", false);
     }
 
     private void createAdminUser() throws InterruptedException, UnsupportedEncodingException {
@@ -167,7 +167,7 @@ public class FountainNeoIntializer {
                                                       .$(Dictionary.FULL_NAME, "Admin")
                                                       .$(Dictionary.EMAIL_ADDRESS, CommonConstants.INFO_CAZCADE_COM), false);
         poolDAO.createPoolsForUserNoTx(CommonConstants.ADMIN);
-        poolDAO.createPoolsForAliasNoTx(new LiquidURI("alias:cazcade:admin"), CommonConstants.ADMIN, "Admin", false);
+        poolDAO.createPoolsForAliasNoTx(new LURI("alias:cazcade:admin"), CommonConstants.ADMIN, "Admin", false);
     }
 
     public void setFountainNeo(final FountainNeoImpl fountainNeo) {

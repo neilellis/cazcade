@@ -8,11 +8,11 @@ import cazcade.liquid.api.*;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.$;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
@@ -49,8 +49,8 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
 
     @Nonnull
-    private final Bus bus = BusFactory.get();
-    private LiquidURI poolURI;
+    private final BusService bus = Bus.get();
+    private LURI poolURI;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
@@ -76,7 +76,7 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         if (poolURI != null && poolURI.board().safe().equalsIgnoreCase(value)) {
             return;
         }
-        poolURI = new LiquidURI(BoardURL.from(value));
+        poolURI = new LURI(BoardURL.from(value));
         if (isAttached()) {
             $.async(new Runnable() {
                 @Override public void run() {
@@ -89,10 +89,10 @@ public class SnapshotBoard extends EntityBackedFormPanel {
 
     private void refresh() {
         if (updatePoolListener != 0) {
-            BusFactory.get().remove(updatePoolListener);
+            Bus.get().remove(updatePoolListener);
         }
 
-        updatePoolListener = BusFactory.get().listenForSuccess(poolURI, RequestType.UPDATE_POOL, new BusListener() {
+        updatePoolListener = Bus.get().listenForSuccess(poolURI, RequestType.R_UPDATE_POOL, new BusListener() {
             @Override
             public void handle(final LiquidMessage response) {
                 update((LiquidRequest) response);
@@ -100,26 +100,26 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         });
 
 
-        final boolean listed = poolURI.board().isListedByConvention();
+        final boolean listed = poolURI.board().listedConvention();
         //start listed boards as public readonly, default is public writeable
         contentArea.clear();
-        bus.send(new RetrievePoolRequest(poolURI, true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
+        bus.send(new RetrievePoolRequest(poolURI, true, false), new AbstractMessageCallback<RetrievePoolRequest>() {
             @Override
-            public void onFailure(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                if (response.response().type().canBe(T_RESOURCE_NOT_FOUND)) {
-                    if (UserUtil.anon()) {
+            public void onFailure(final RetrievePoolRequest original, @Nonnull final RetrievePoolRequest message) {
+                if (message.response().type().canBe(T_RESOURCE_NOT_FOUND)) {
+                    if (User.anon()) {
                         Window.alert("Please login first.");
                     } else {
                         Window.alert("You don't have permission");
                     }
                 } else {
-                    super.onFailure(message, response);
+                    super.onFailure(original, message);
                 }
             }
 
             @Override
-            public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final TransferEntity resp = response.response();
+            public void onSuccess(final RetrievePoolRequest original, @Nonnull final RetrievePoolRequest message) {
+                final TransferEntity resp = message.response();
                 if (resp.canBe(T_RESOURCE_NOT_FOUND)) {
                     Window.alert("Why not sign up to create new boards?");
                 } else if (resp.canBe(T_POOL)) {

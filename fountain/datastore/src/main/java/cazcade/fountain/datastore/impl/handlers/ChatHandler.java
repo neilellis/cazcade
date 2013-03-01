@@ -6,7 +6,7 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidURIScheme;
 import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.handler.ChatRequestHandler;
@@ -29,7 +29,7 @@ public class ChatHandler extends AbstractUpdateHandler<ChatRequest> implements C
         response.removeChild(Dictionary.AUTHOR_A);
         final String id = UUID.randomUUID().toString();
         response.id(id);
-        response.uri(new LiquidURI(LiquidURIScheme.chat, id));
+        response.uri(new LURI(LiquidURIScheme.chat, id));
         final PersistedEntity authorEntity = neo.findByURI(request.session().aliasURI(), true);
         assert authorEntity != null;
         response.child(Dictionary.AUTHOR_A, userDAO.getAliasFromNode(authorEntity, request.getInternal(), RequestDetailLevel.PERSON_MINIMAL), true);

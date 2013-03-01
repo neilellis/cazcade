@@ -7,17 +7,17 @@ package cazcade.boardcast.client.main.widgets;
 import cazcade.boardcast.client.main.menus.board.*;
 import cazcade.boardcast.client.main.widgets.board.ChangeBackgroundDialog;
 import cazcade.boardcast.client.main.widgets.board.PublicBoard;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.Permission;
 import cazcade.liquid.api.PermissionChangeType;
 import cazcade.liquid.api.PermissionScope;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.Types;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.$;
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.gwt.util.client.Config;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -38,7 +38,7 @@ public class BoardMenuBar extends MenuBar {
     }
 
     @Nullable
-    private LiquidURI   poolURI;
+    private LURI        poolURI;
     private MenuBar     accessMenuBar;
     private PublicBoard boardWidget;
 
@@ -64,7 +64,7 @@ public class BoardMenuBar extends MenuBar {
                     addItem(iconWithName("key", "Access"), accessMenuBar);
                     createAccessMenu(board);
                 }
-                if (!UserUtil.anon() && ClientApplicationConfiguration.alpha()) {
+                if (!User.anon() && Config.alpha()) {
                     createCollaborateMenu(board);
                 }
             }
@@ -80,7 +80,7 @@ public class BoardMenuBar extends MenuBar {
                                                + "</div>");
     }
 
-    private void createAddMenu(final LiquidURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull final Entity board, final MenuBar menubar) {
+    private void createAddMenu(final LURI poolURI, @Nullable final ChangeBackgroundDialog backgroundDialog, @Nonnull final Entity board, final MenuBar menubar) {
         if (board.$bool(Dictionary.EDITABLE) && backgroundDialog != null) {
             menubar.addItem(iconWithName("background", "Backdrop"), new Command() {
                 @Override
@@ -148,8 +148,8 @@ public class BoardMenuBar extends MenuBar {
 
         menubar.addItem(iconWithName("squiggle", "Marks"), createShapeMenuBar());
 
-        if (ClientApplicationConfiguration.alpha()) {
-            menubar.addItem(iconWithName("address", ""), new CreateAliasRefCommand(poolURI, Types.T_ALIAS_REF, UserUtil.currentAlias()
+        if (Config.alpha()) {
+            menubar.addItem(iconWithName("address", ""), new CreateAliasRefCommand(poolURI, Types.T_ALIAS_REF, User.currentAlias()
                                                                                                                        .uri()));
             //                                subMenu.addItem("Custom Object (ALPHA)", new CreateCustomObjectCommand(poolURI, Types.CUSTOM_OBJECT));
             menubar.addItem(iconWithName("list", ""), new CreateChecklistCommand(poolURI, Types.T_CHECKLIST_POOL));
@@ -206,8 +206,8 @@ public class BoardMenuBar extends MenuBar {
     }
 
     private void createAccessMenu(@Nonnull final Entity board) {
-        if (board.allowed(PermissionScope.WORLD_SCOPE, Permission.VIEW_PERM)) {
-            if (board.allowed(PermissionScope.WORLD_SCOPE, Permission.MODIFY_PERM)) {
+        if (board.allowed(PermissionScope.WORLD_SCOPE, Permission.P_VIEW)) {
+            if (board.allowed(PermissionScope.WORLD_SCOPE, Permission.P_MODIFY)) {
                 accessMenuBar.addItem("Readonly", new ChangePermissionCommand(PermissionChangeType.MAKE_PUBLIC_READONLY, poolURI));
             } else {
                 accessMenuBar.addItem("Editable", new ChangePermissionCommand(PermissionChangeType.MAKE_PUBLIC, poolURI));

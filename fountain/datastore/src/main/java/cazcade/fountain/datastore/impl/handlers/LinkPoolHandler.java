@@ -6,7 +6,7 @@ package cazcade.fountain.datastore.impl.handlers;
 
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.handler.LinkPoolObjectRequestHandler;
 import cazcade.liquid.api.request.LinkPoolObjectRequest;
@@ -31,7 +31,7 @@ public class LinkPoolHandler extends AbstractDataStoreHandler<LinkPoolObjectRequ
             if (request.isUnlink()) {
                 result = poolDAO.unlinkPool(targetPool);
             } else {
-                final LiquidURI alias = request.alias();
+                final LURI alias = request.alias();
                 final PersistedEntity newOwner = neo.findOrFail(alias);
                 if (!request.hasFrom()) {
                     result = poolDAO.linkPool(newOwner, targetPool, neo.find(to));

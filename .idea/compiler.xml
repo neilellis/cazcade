@@ -126,7 +126,6 @@
         <module name="io" />
         <module name="liquid-api" />
         <module name="liquid-impl" />
-        <module name="main" />
         <module name="messaging" />
         <module name="notification" />
         <module name="pool" />

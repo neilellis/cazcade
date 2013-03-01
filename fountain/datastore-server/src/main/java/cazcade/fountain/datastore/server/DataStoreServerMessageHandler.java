@@ -50,7 +50,7 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
             log.addContext(request);
             final LiquidUUID session = request.session().session();
             log.setSession(session == null ? null : session.toString(), request.session().name());
-            if (request.requestType() == RequestType.AUTHORIZATION_REQUEST) {
+            if (request.requestType() == RequestType.R_AUTHORIZATION_REQUEST) {
                 log.debug("Authorization request to {0} on {1}/{2}.", ((AuthorizationRequest) request).getActions(), ((AbstractRequest) request)
                                                                                                                              .hasTarget()
                                                                                                                      ? ((AbstractRequest) request)
@@ -60,7 +60,7 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
                                                                                                                                ? ((AbstractRequest) request)
                                                                                                                                        .uri()
                                                                                                                                : "null");
-            } else if (request.requestType() == RequestType.RETRIEVE_USER) {
+            } else if (request.requestType() == RequestType.R_RETRIEVE_USER) {
                 log.debug("Retrieve user request for {0}/{1}", ((AbstractRequest) request).hasTarget() ? ((AbstractRequest) request)
                         .getTarget() : "null", ((AbstractRequest) request).hasUri() ? ((AbstractRequest) request).uri() : "null");
             } else {
@@ -78,14 +78,14 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
             } catch (Exception e) {
                 return handleError(request, e);
             }
-            response.origin(LiquidMessageOrigin.SERVER);
+            response.origin(Origin.SERVER);
 
             log.addContext(response);
 
-            if (request.requestType() == RequestType.AUTHORIZATION_REQUEST) {
-                log.debug("Authorization request {0}", request.getState());
-            } else if (request.requestType() == RequestType.RETRIEVE_USER) {
-                log.debug("Retrieve user request {0}", request.getState());
+            if (request.requestType() == RequestType.R_AUTHORIZATION_REQUEST) {
+                log.debug("Authorization request {0}", request.state());
+            } else if (request.requestType() == RequestType.R_RETRIEVE_USER) {
+                log.debug("Retrieve user request {0}", request.state());
             } else {
                 log.debug("Async response: {0} ", response);
             }
@@ -111,7 +111,7 @@ public class DataStoreServerMessageHandler implements LiquidMessageHandler<Liqui
     @Nonnull
     private LiquidRequest handleError(@Nonnull final LiquidRequest request, @Nonnull final Exception e) {
         final LiquidRequest response = LiquidResponseHelper.forException(e, request);
-        response.origin(LiquidMessageOrigin.SERVER);
+        response.origin(Origin.SERVER);
         messageSender.notifySession(response);
         final LiquidRequest compensation = compensator.compensate(request);
         if (compensation != null) {

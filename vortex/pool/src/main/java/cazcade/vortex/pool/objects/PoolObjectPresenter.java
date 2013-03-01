@@ -12,9 +12,9 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public interface PoolObjectPresenter<T extends PoolObjectView> {
 
-    TransferEntity getEntity();
+    TransferEntity entity();
 
-    Widget getPoolObjectView();
+    Widget view();
 
     void select();
 

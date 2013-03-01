@@ -28,10 +28,10 @@ public abstract class AbstractDeletionRequest extends AbstractRequest {
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasTarget()) {
-            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.DELETE_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_DELETE));
         } else {
             if (hasUri()) {
-                return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.DELETE_PERM));
+                return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_DELETE));
             } else {
                 return Collections.emptyList();
             }

@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddCommentRequest extends AbstractUpdateRequest {
-    public AddCommentRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, @Nonnull final TransferEntity entity) {
+    public AddCommentRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LURI uri, @Nonnull final TransferEntity entity) {
         super();
         id(id);
         session(identity);
@@ -30,12 +30,12 @@ public class AddCommentRequest extends AbstractUpdateRequest {
         this(null, identity, target, null, entity);
     }
 
-    public AddCommentRequest(final SessionIdentifier identity, final LiquidURI uri, final TransferEntity entity) {
+    public AddCommentRequest(final SessionIdentifier identity, final LURI uri, final TransferEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
 
-    public AddCommentRequest(final LiquidURI uri, final String text) {
+    public AddCommentRequest(final LURI uri, final String text) {
         super();
         final SimpleEntity<? extends TransferEntity> requestEntity = SimpleEntity.create(Types.T_COMMENT);
         requestEntity.remove(Dictionary.PUBLISHED);
@@ -70,13 +70,13 @@ public class AddCommentRequest extends AbstractUpdateRequest {
             return Collections.EMPTY_LIST;
         } else {
             return hasTarget()
-                   ? Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM))
-                   : Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
+                   ? Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW))
+                   : Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_VIEW));
         }
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.ADD_COMMENT;
+        return RequestType.R_ADD_COMMENT;
     }
 }

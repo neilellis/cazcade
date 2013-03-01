@@ -9,8 +9,8 @@ import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.SendRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.IFrameElement;
@@ -118,17 +118,17 @@ public class DirectMessagePanel extends Composite {
                         textBox.setText("");
                         final TransferEntity messageEntity = SimpleEntity.create(Types.T_TEXT_MESSAGE);
                         messageEntity.$(Dictionary.TEXT_EXTENDED, text);
-                        BusFactory.get()
-                                  .send(new SendRequest(messageEntity, recipient), new AbstractResponseCallback<SendRequest>() {
+                        Bus.get()
+                                  .send(new SendRequest(messageEntity, recipient), new AbstractMessageCallback<SendRequest>() {
                                       @Override
-                                      public void onSuccess(final SendRequest message, final SendRequest response) {
+                                      public void onSuccess(final SendRequest original, final SendRequest message) {
                                           onFinish.run();
                                       }
 
                                       @Override
-                                      public void onFailure(final SendRequest message, @Nonnull final SendRequest response) {
+                                      public void onFailure(final SendRequest original, @Nonnull final SendRequest message) {
                                           textBox.setText(text);
-                                          super.onFailure(message, response);
+                                          super.onFailure(original, message);
                                       }
 
                                       @Override

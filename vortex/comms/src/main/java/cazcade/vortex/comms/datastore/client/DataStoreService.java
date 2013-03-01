@@ -5,7 +5,7 @@
 package cazcade.vortex.comms.datastore.client;
 
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.SerializedRequest;
@@ -38,7 +38,7 @@ public interface DataStoreService extends RemoteService {
 
     @Nullable SerializedRequest process(SerializedRequest request) throws Exception;
 
-    boolean checkBoardAvailability(LiquidURI board);
+    boolean checkBoardAvailability(LURI board);
 
     /**
      * Utility/Convenience class.

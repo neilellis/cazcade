@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateRichTextCommand extends CreateItemCommand {
-    public CreateRichTextCommand(final LiquidURI pool, final Types type, final Size size, final String theme) {
+    public CreateRichTextCommand(final LURI pool, final Types type, final Size size, final String theme) {
         super(pool, type, size, theme);
     }
 

@@ -5,15 +5,15 @@
 package cazcade.vortex.widgets.client.form.fields;
 
 import cazcade.liquid.api.CachingScope;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.lsd.Attribute;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -36,9 +36,9 @@ import java.util.List;
 public class VortexListBox extends AbstractVortexFormField {
 
     @Nonnull
-    public static final String OTHER_FIELD_VALUE = "_______OTHER_________";
+    public static final String     OTHER_FIELD_VALUE = "_______OTHER_________";
     @Nonnull
-    protected final     Bus    bus               = BusFactory.get();
+    protected final     BusService bus               = Bus.get();
 
     protected boolean useVisibleText;
     protected boolean otherOption;
@@ -145,14 +145,14 @@ public class VortexListBox extends AbstractVortexFormField {
     @Override
     public void bind(@Nonnull final Attribute attribute, final String prefix, final String initialValue) {
         boundAttribute = attribute;
-        final LiquidURI rootForOptions = new LiquidURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName()
+        final LURI rootForOptions = new LURI("pool:///sys/cat/" + prefix + "/" + attribute.getKeyName()
                                                                                                     .replace('.', '/'));
         final RetrievePoolRequest retrievePoolRequest = new RetrievePoolRequest(rootForOptions, RequestDetailLevel.TITLE_AND_NAME, true, false);
         retrievePoolRequest.setCachingScope(CachingScope.USER);
-        bus.send(retrievePoolRequest, new AbstractResponseCallback<RetrievePoolRequest>() {
+        bus.send(retrievePoolRequest, new AbstractMessageCallback<RetrievePoolRequest>() {
             @Override
-            public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                final List<TransferEntity> entities = response.response().children(Dictionary.CHILD_A);
+            public void onSuccess(final RetrievePoolRequest original, @Nonnull final RetrievePoolRequest message) {
+                final List<TransferEntity> entities = message.response().children(Dictionary.CHILD_A);
                 Collections.reverse(entities);
                 for (final TransferEntity entity : entities) {
                     listBox.addItem(entity.$(Dictionary.TITLE), entity.$(Dictionary.NAME));

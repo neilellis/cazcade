@@ -85,7 +85,7 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     @Nullable
     public final Boolean getRpc() {
-        if (entity.has$(Dictionary.REQUEST_EXPLICIT_RPC)) {
+        if (entity.has(Dictionary.REQUEST_EXPLICIT_RPC)) {
             return entity.$bool(Dictionary.REQUEST_EXPLICIT_RPC);
         } else {
             return null;
@@ -129,7 +129,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Override public boolean hasId() {
-        return entity.has$(Dictionary.ID);
+        return entity.has(Dictionary.ID);
     }
 
     @Nullable
@@ -145,13 +145,13 @@ public abstract class AbstractRequest implements LiquidRequest {
     @Nonnull
     public abstract LiquidMessage copy();
 
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         return getStandardAffectedEntitiesInternalPlus();
     }
 
     @Nonnull @Override
     public String cacheIdentifier() {
-        return id().toString() + ":" + getState() + ":" + origin();
+        return id().toString() + ":" + state() + ":" + origin();
     }
 
     @Override @Nonnull
@@ -161,7 +161,7 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     @Nonnull @Override
     public String deduplicationIdentifier() {
-        return id().toString() + ":" + getState() + ":" + origin();
+        return id().toString() + ":" + state() + ":" + origin();
     }
 
     @Nonnull
@@ -175,8 +175,8 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public final LiquidMessageOrigin origin() {
-        return LiquidMessageOrigin.valueOf(entity.default$(Dictionary.REQUEST_ORIGIN, LiquidMessageOrigin.UNASSIGNED.name()));
+    public final Origin origin() {
+        return Origin.valueOf(entity.default$(Dictionary.REQUEST_ORIGIN, Origin.UNASSIGNED.name()));
     }
 
     @Nonnull
@@ -203,8 +203,8 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public final LiquidMessageState getState() {
-        return LiquidMessageState.valueOf(entity.default$(Dictionary.REQUEST_STATE, LiquidMessageState.INITIAL.name()));
+    public final MessageState state() {
+        return MessageState.valueOf(entity.default$(Dictionary.REQUEST_STATE, MessageState.INITIAL.name()));
     }
 
     @Override
@@ -212,7 +212,7 @@ public abstract class AbstractRequest implements LiquidRequest {
         return false;
     }
 
-    public final void state(@Nonnull final LiquidMessageState state) {
+    public final void state(@Nonnull final MessageState state) {
         entity.$(Dictionary.REQUEST_STATE, state.name());
     }
 
@@ -231,7 +231,7 @@ public abstract class AbstractRequest implements LiquidRequest {
         entity.child(Dictionary.REQUEST_ENTITY, requestEntity, false);
     }
 
-    public final void origin(@Nonnull final LiquidMessageOrigin origin) {
+    public final void origin(@Nonnull final Origin origin) {
         entity.$(Dictionary.REQUEST_ORIGIN, origin.name());
     }
 
@@ -249,8 +249,8 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    protected final Set<LiquidURI> getStandardAffectedEntitiesInternalPlus(final LiquidURI... uris) {
-        final Set<LiquidURI> result = new HashSet<LiquidURI>();
+    protected final Set<LURI> getStandardAffectedEntitiesInternalPlus(final LURI... uris) {
+        final Set<LURI> result = new HashSet<LURI>();
         if (hasRequestEntity() && request().hasURI()) {
             final TransferEntity requestEntity = request();
             result.addAll(getAffectedEntitiesInternal(requestEntity.uri()));
@@ -269,9 +269,9 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    protected final Set<LiquidURI> getAffectedEntitiesInternal(@Nonnull final LiquidURI... uris) {
-        final Set<LiquidURI> result = new HashSet<LiquidURI>();
-        for (final LiquidURI uri : uris) {
+    protected final Set<LURI> getAffectedEntitiesInternal(@Nonnull final LURI... uris) {
+        final Set<LURI> result = new HashSet<LURI>();
+        for (final LURI uri : uris) {
             if (uri != null) {
                 result.addAll(uriSplitToParent(uri));
             }
@@ -280,7 +280,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    private List<LiquidURI> uriSplitToParent(@Nonnull final LiquidURI theURI) {
+    private List<LURI> uriSplitToParent(@Nonnull final LURI theURI) {
         if (theURI.hasFragment()) {
             return Arrays.asList(theURI, theURI.withoutFragment());
         } else {
@@ -289,33 +289,33 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public final LiquidURI uri() {
+    public final LURI uri() {
         return entity.getURIAttribute(Dictionary.REQUEST_URI);
     }
 
-    public final void setUri(@Nullable final LiquidURI uri) {
+    public final void setUri(@Nullable final LURI uri) {
         if (uri != null) {
             entity.$(Dictionary.REQUEST_URI, uri);
         }
     }
 
     public final boolean hasUri() {
-        return entity.has$(Dictionary.REQUEST_URI);
+        return entity.has(Dictionary.REQUEST_URI);
     }
 
     @Nonnull
-    public final LiquidURI alias() {
+    public final LURI alias() {
         return session().alias();
     }
 
-    public final void setAlias(@Nullable final LiquidURI alias) {
+    public final void setAlias(@Nullable final LURI alias) {
         if (alias != null) {
             entity.$(Dictionary.REQUEST_ALIAS, alias.asString());
         }
     }
 
     @Nonnull
-    public final Double getAngle() {
+    public final Double angle() {
         return entity.$d(Dictionary.VIEW_ROTATE_XY);
     }
 
@@ -324,22 +324,22 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public boolean hasAngle() {
-        return entity.has$(Dictionary.VIEW_ROTATE_XY);
+        return entity.has(Dictionary.VIEW_ROTATE_XY);
     }
 
     @Nonnull
-    public final LiquidURI getAuthor() {
+    public final LURI getAuthor() {
         return entity.getURIAttribute(Dictionary.REQUEST_AUTHOR);
     }
 
-    public final void setAuthor(@Nullable final LiquidURI author) {
+    public final void setAuthor(@Nullable final LURI author) {
         if (author != null) {
             entity.$(Dictionary.REQUEST_AUTHOR, author);
         }
     }
 
     public final boolean hasAuthor() {
-        return entity.has$(Dictionary.REQUEST_AUTHOR);
+        return entity.has(Dictionary.REQUEST_AUTHOR);
     }
 
     @Nonnull
@@ -361,7 +361,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public boolean hasChangePasswordSecurityHash() {
-        return entity.has$(Dictionary.SECURITY_CONFIRMATION_HASH);
+        return entity.has(Dictionary.SECURITY_CONFIRMATION_HASH);
     }
 
     @Nonnull
@@ -402,15 +402,15 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public final boolean hasFrom() {
-        return entity.has$(Dictionary.FROM);
+        return entity.has(Dictionary.FROM);
     }
 
     public final boolean hasTo() {
-        return entity.has$(Dictionary.TO);
+        return entity.has(Dictionary.TO);
     }
 
     @Nonnull
-    public final Integer getHeight() {
+    public final Integer height() {
         return entity.$i(Dictionary.VIEW_WIDTH);
     }
 
@@ -469,11 +469,11 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public final LiquidURI getParent() {
+    public final LURI getParent() {
         return entity.getURIAttribute(Dictionary.REQUEST_PARENT_URI);
     }
 
-    public final void setParent(@Nullable final LiquidURI parent) {
+    public final void setParent(@Nullable final LURI parent) {
         if (parent != null) {
             entity.$(Dictionary.REQUEST_PARENT_URI, parent);
         }
@@ -490,7 +490,7 @@ public abstract class AbstractRequest implements LiquidRequest {
 
     @Nullable
     public final PermissionChangeType permission() {
-        if (entity.has$(Dictionary.PERMISSION_CHANGE)) {
+        if (entity.has(Dictionary.PERMISSION_CHANGE)) {
             //noinspection ConstantConditions
             return PermissionChangeType.valueOf(entity.$(Dictionary.PERMISSION_CHANGE));
         } else {
@@ -505,8 +505,8 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public final LiquidURI getPoolURI() {
-        final LiquidURI uri = uri();
+    public final LURI getPoolURI() {
+        final LURI uri = uri();
         return uri.withoutFragment();
     }
 
@@ -522,22 +522,22 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public final boolean hasPoolUUID() {
-        return entity.has$(Dictionary.REQUEST_POOL_UUID);
+        return entity.has(Dictionary.REQUEST_POOL_UUID);
     }
 
     @Nonnull
-    public final LiquidURI getPreviousPool() {
+    public final LURI getPreviousPool() {
         return entity.getURIAttribute(Dictionary.REQUEST_PREVIOUS_POOL_URI);
     }
 
-    public final void setPreviousPool(@Nullable final LiquidURI previousPool) {
+    public final void setPreviousPool(@Nullable final LURI previousPool) {
         if (previousPool != null) {
             entity.$(Dictionary.REQUEST_PREVIOUS_POOL_URI, previousPool);
         }
     }
 
     public final boolean hasPreviousPool() {
-        return entity.has$(Dictionary.REQUEST_PREVIOUS_POOL_URI);
+        return entity.has(Dictionary.REQUEST_PREVIOUS_POOL_URI);
     }
 
     @Nonnull
@@ -625,7 +625,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public final Integer getWidth() {
+    public final Integer width() {
         return entity.$i(Dictionary.VIEW_WIDTH);
     }
 
@@ -634,15 +634,15 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public boolean hasWidth() {
-        return entity.has$(Dictionary.VIEW_WIDTH);
+        return entity.has(Dictionary.VIEW_WIDTH);
     }
 
     public boolean hasHeight() {
-        return entity.has$(Dictionary.VIEW_HEIGHT);
+        return entity.has(Dictionary.VIEW_HEIGHT);
     }
 
     @Nonnull
-    public final Double getX() {
+    public final Double x() {
         return entity.$d(Dictionary.VIEW_X);
     }
 
@@ -651,7 +651,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     @Nonnull
-    public final Double getY() {
+    public final Double y() {
         return entity.$d(Dictionary.VIEW_Y);
     }
 
@@ -669,11 +669,11 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public boolean hasPassword() {
-        return entity.has$(Dictionary.PLAIN_PASSWORD);
+        return entity.has(Dictionary.PLAIN_PASSWORD);
     }
 
     public boolean hasTarget() {
-        return entity.has$(Dictionary.REQUEST_UUID);
+        return entity.has(Dictionary.REQUEST_UUID);
     }
 
     public final boolean isClaim() {
@@ -758,7 +758,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public void setEntity(@Nonnull final TransferEntity<? extends TransferEntity> entity) {
-        if (!entity.has$(Dictionary.TYPE)) {
+        if (!entity.has(Dictionary.TYPE)) {
             throw new IllegalArgumentException("Entities must always have a type. Attempted to set an entity on a request of type "
                                                + getClass().getName()
                                                + ", the entity was: "
@@ -777,7 +777,7 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public boolean hasImageUrl() {
-        return entity.has$(Dictionary.IMAGE_URL);
+        return entity.has(Dictionary.IMAGE_URL);
     }
 
     public void setImageUrl(final String url) {
@@ -785,6 +785,6 @@ public abstract class AbstractRequest implements LiquidRequest {
     }
 
     public boolean hasDescription() {
-        return entity.has$(Dictionary.DESCRIPTION);
+        return entity.has(Dictionary.DESCRIPTION);
     }
 }

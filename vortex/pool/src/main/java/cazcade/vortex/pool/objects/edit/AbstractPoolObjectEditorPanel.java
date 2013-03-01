@@ -4,10 +4,10 @@
 
 package cazcade.vortex.pool.objects.edit;
 
-import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.Callback;
+import cazcade.vortex.bus.client.Request;
 import cazcade.vortex.common.client.events.*;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
@@ -17,21 +17,40 @@ import com.google.gwt.user.client.Window;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
+
 /**
  * @author neilellis@cazcade.com
  */
 public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPanel {
 
-    private boolean create;
+    protected void onSave() {
 
+    }
 
-    @Nonnull @Override
-    protected String getReferenceDataPrefix() {
-        return "object";
+    @Override public void save() {
+        super.save();
+        if (isValid()) {
+            onSave();
+            Request.updatePoolObject(getEntityDiff(), new Callback<UpdatePoolObjectRequest>() {
+                @Override public void handle(UpdatePoolObjectRequest message) throws Exception {
+                    $(message.response().$());
+                    fireEvent(new EditFinishEvent());
+                }
+            });
+        } else {
+            Window.alert("Not valid.");
+        }
+
     }
 
     @Override protected boolean isSaveOnExit() {
         return true;
+    }
+
+    @Nonnull @Override
+    protected String getReferenceDataPrefix() {
+        return "object";
     }
 
     @Nonnull @Override
@@ -40,52 +59,20 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
             @Override
             public void run() {
                 if (field.isValid() && field.isBound()) {
-                    getBus().send(new UpdatePoolObjectRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
-                        @Override
-                        public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                            $(response.response().$());
-                            if (autoCloseField(field)) {
-                                fireEvent(new EditFinishEvent());
+                    Request.updatePoolObject(field.getEntityDiff(), new Callback<UpdatePoolObjectRequest>() {
+                                @Override public void handle(UpdatePoolObjectRequest message) throws Exception {
+                                    $(message.response().$());
+                                    if (autoCloseField(field)) { fireEvent(new EditFinishEvent()); }
+                                }
+                            }, new Callback<UpdatePoolObjectRequest>() {
+                                @Override public void handle(UpdatePoolObjectRequest message) throws Exception {
+                                    field.setErrorMessage(message.response().$(DESCRIPTION));
+                                }
                             }
-                        }
-
-                        @Override
-                        public void onFailure(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                            field.setErrorMessage(response.response().$(Dictionary.DESCRIPTION));
-                        }
-                    });
-                } else {
-
+                                            );
                 }
             }
         };
-    }
-
-    protected void onSave() {
-
-    }
-
-
-    @Override public void save() {
-        super.save();
-        if (isValid()) {
-            onSave();
-            getBus().send(new UpdatePoolObjectRequest(getEntityDiff()), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
-                @Override
-                public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                    $(response.response().$());
-                    fireEvent(new EditFinishEvent());
-                }
-
-                @Override
-                public void onFailure(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                    Window.alert(response.response().$(Dictionary.DESCRIPTION));
-                }
-            });
-        } else {
-            Window.alert("Not valid.");
-        }
-
     }
 
     protected boolean autoCloseField(final Bindable field) {
@@ -96,18 +83,11 @@ public abstract class AbstractPoolObjectEditorPanel extends EntityBackedFormPane
         return addHandler(onFinishAction, EditFinishEvent.TYPE);
     }
 
-
     public abstract int getHeight();
 
     public abstract int getWidth();
 
     public abstract String getCaption();
-
-
-    public void setCreate(final boolean create) {
-        this.create = create;
-    }
-
 
     public TransferEntity getEntityForCreation() {
         return $();

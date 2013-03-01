@@ -53,7 +53,7 @@ public class CreateUserRequest extends AbstractCreationRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CREATE_USER;
+        return RequestType.R_CREATE_USER;
     }
 
     @Override

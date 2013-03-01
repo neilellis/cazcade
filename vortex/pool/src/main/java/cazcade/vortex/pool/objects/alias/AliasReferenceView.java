@@ -4,7 +4,7 @@
 
 package cazcade.vortex.pool.objects.alias;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.vortex.pool.objects.PoolObjectView;
 import cazcade.vortex.widgets.client.profile.AliasDetailPanel;
 import com.google.gwt.core.client.GWT;
@@ -32,7 +32,7 @@ public class AliasReferenceView extends PoolObjectView {
 
     private static final ImageObjectUiBinder ourUiBinder = GWT.create(ImageObjectUiBinder.class);
 
-    public void setAliasURI(@Nonnull final LiquidURI aliasURI) {
+    public void setAliasURI(@Nonnull final LURI aliasURI) {
         aliasDetailPanel.setAliasURI(aliasURI);
     }
 

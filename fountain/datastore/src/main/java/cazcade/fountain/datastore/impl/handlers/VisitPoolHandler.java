@@ -7,7 +7,7 @@ package cazcade.fountain.datastore.impl.handlers;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.liquid.api.ChildSortOrder;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.handler.VisitPoolRequestHandler;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -34,7 +34,7 @@ public class VisitPoolHandler extends AbstractDataStoreHandler<VisitPoolRequest>
             }
 
             if (pool == null && req.isOrCreate() && !req.session().anon()) {
-                final LiquidURI owner = defaultAndCheckOwner(req, req.alias());
+                final LURI owner = defaultAndCheckOwner(req, req.alias());
 
                 final String name = req.uri().lastPath();
                 assert name != null;

@@ -8,7 +8,7 @@ import cazcade.liquid.api.lsd.Attribute;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class VortexAddressPicker extends VortexCompoundFormField {
 
-    @Nonnull Bus bus = BusFactory.get();
+    @Nonnull BusService bus = Bus.get();
 
     interface VortexAddressPickerUiBinder extends UiBinder<HTMLPanel, VortexAddressPicker> {}
 

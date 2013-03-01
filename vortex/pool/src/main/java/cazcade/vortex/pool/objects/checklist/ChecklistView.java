@@ -51,7 +51,7 @@ public class ChecklistView extends PoolObjectView {
     }
 
     @Override
-    public void addView(final Widget widget) {
+    public void add(final Widget widget) {
         listPanel.add(widget);
     }
 

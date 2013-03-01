@@ -4,7 +4,7 @@
 
 package cazcade.vortex.widgets.client.stream;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.vortex.widgets.client.date.SelfUpdatingRelativeDate;
@@ -42,7 +42,7 @@ public class VortexPresenceNotificationPanel extends Composite implements Stream
     private static final VortexPresenceNotificationPanelUiBinder ourUiBinder = GWT.create(VortexPresenceNotificationPanelUiBinder.class);
 
 
-    public VortexPresenceNotificationPanel(@Nonnull final Entity streamEntry, @Nonnull final LiquidURI pool, final String id) {
+    public VortexPresenceNotificationPanel(@Nonnull final Entity streamEntry, @Nonnull final LURI pool, final String id) {
         super();
         this.id = id;
 

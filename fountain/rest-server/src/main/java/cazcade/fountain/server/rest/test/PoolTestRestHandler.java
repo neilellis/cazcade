@@ -47,7 +47,7 @@ public class PoolTestRestHandler implements RestHandler {
         final HashMap propMap = new HashMap(props);
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("liquid-spring-config.xml");
         log.debug("Get method called with url of. " + url);
-        return SimpleEntity.createFromProperties(propMap);
+        return SimpleEntity.fromProperties(propMap);
     }
 
     public EntityFactory getLsdFactory() {

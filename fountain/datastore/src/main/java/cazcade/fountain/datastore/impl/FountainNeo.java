@@ -36,7 +36,7 @@ public interface FountainNeo extends ServiceStateMachine {
     PersistedEntity changeNodePermissionNoTx(@Nonnull PersistedEntity entity, @Nonnull SessionIdentifier editor, PermissionChangeType change) throws Exception;
 
     @Nullable
-    TransferEntity changePermissionNoTx(@Nonnull SessionIdentifier editor, @Nonnull LiquidURI uri, PermissionChangeType change, RequestDetailLevel detail, boolean internal) throws Exception;
+    TransferEntity changePermissionNoTx(@Nonnull SessionIdentifier editor, @Nonnull LURI uri, PermissionChangeType change, RequestDetailLevel detail, boolean internal) throws Exception;
 
     @Nonnull
     PersistedEntity cloneNodeForNewVersion(@Nonnull SessionIdentifier editor, @Nonnull PersistedEntity entity, boolean fork) throws InterruptedException;
@@ -48,7 +48,7 @@ public interface FountainNeo extends ServiceStateMachine {
     void delete(@Nonnull PersistedEntity entity);
 
     @Nonnull
-    TransferEntity deleteEntityTx(@Nonnull LiquidURI uri, boolean children, boolean internal, RequestDetailLevel detail) throws InterruptedException;
+    TransferEntity deleteEntityTx(@Nonnull LURI uri, boolean children, boolean internal, RequestDetailLevel detail) throws InterruptedException;
 
     @Nonnull @Deprecated
     TransferEntity deleteEntityTx(@Nonnull LiquidUUID objectId, boolean children, boolean internal, RequestDetailLevel detail) throws InterruptedException;
@@ -74,21 +74,21 @@ public interface FountainNeo extends ServiceStateMachine {
      * @throws EntityNotFoundException if mustMatch is true and nothing matches the uri.
      */
     @Nullable
-    PersistedEntity findByURI(@Nonnull LiquidURI uri, boolean mustMatch) throws InterruptedException, EntityNotFoundException;
+    PersistedEntity findByURI(@Nonnull LURI uri, boolean mustMatch) throws InterruptedException, EntityNotFoundException;
 
     /**
      * Equivalent of find(uri, false)
      *
-     * @see FountainNeo#findByURI(LiquidURI, boolean)
+     * @see FountainNeo#findByURI(cazcade.liquid.api.LURI, boolean)
      */
-    @Nullable FountainEntity find(@Nonnull LiquidURI uri) throws InterruptedException;
+    @Nullable FountainEntity find(@Nonnull LURI uri) throws InterruptedException;
 
     /**
      * Equivalent of find(uri, false)
      *
-     * @see FountainNeo#findByURI(LiquidURI, boolean)
+     * @see FountainNeo#findByURI(cazcade.liquid.api.LURI, boolean)
      */
-    @Nonnull FountainEntity findOrFail(@Nonnull LiquidURI uri) throws InterruptedException;
+    @Nonnull FountainEntity findOrFail(@Nonnull LURI uri) throws InterruptedException;
 
     @Nonnull FountainEntity find(@Nonnull LiquidUUID id) throws InterruptedException;
 
@@ -126,7 +126,7 @@ public interface FountainNeo extends ServiceStateMachine {
     void unindex(@Nonnull PersistedEntity entity, @Nonnull Attribute key, String luceneIndex);
 
     @Nonnull
-    TransferEntity updateEntityByURITx(@Nonnull SessionIdentifier editor, @Nonnull LiquidURI uri, @Nonnull TransferEntity entity, boolean internal, RequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
+    TransferEntity updateEntityByURITx(@Nonnull SessionIdentifier editor, @Nonnull LURI uri, @Nonnull TransferEntity entity, boolean internal, RequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
 
     @Nonnull @Deprecated
     TransferEntity updateEntityByUUIDTx(@Nonnull SessionIdentifier editor, @Nonnull LiquidUUID id, @Nonnull TransferEntity entity, boolean internal, RequestDetailLevel detail, @Nullable Runnable onRenameAction) throws Exception;
@@ -140,5 +140,5 @@ public interface FountainNeo extends ServiceStateMachine {
 
     Transaction getCurrentTransaction();
 
-    PersistedEntity findForWrite(@Nonnull LiquidURI uri) throws InterruptedException;
+    PersistedEntity findForWrite(@Nonnull LURI uri) throws InterruptedException;
 }

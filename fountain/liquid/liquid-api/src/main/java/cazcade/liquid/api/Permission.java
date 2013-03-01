@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  * @author neilelliz@cazcade.com
  */
 public enum Permission {
-    VIEW_PERM('v'), MODIFY_PERM('m'), EDIT_PERM('e'), SYSTEM_PERM('s'), DELETE_PERM('d'), /*EXECUTE('x')*/;
+    P_VIEW('v'), P_MODIFY('m'), P_EDIT('e'), P_SYSTEM('s'), P_DELETE('d'), /*EXECUTE('x')*/;
 
 
     private final char shortForm;
@@ -19,17 +19,17 @@ public enum Permission {
     public static Permission fromChar(final char c) {
         switch (Character.toLowerCase(c)) {
             case 'v':
-                return VIEW_PERM;
+                return P_VIEW;
             case 'm':
-                return MODIFY_PERM;
+                return P_MODIFY;
             case 'e':
-                return EDIT_PERM;
+                return P_EDIT;
             //            case 'x':
             //                return EXECUTE;
             case 'd':
-                return DELETE_PERM;
+                return P_DELETE;
             case 's':
-                return SYSTEM_PERM;
+                return P_SYSTEM;
             default:
                 throw new IllegalArgumentException("Unrecognized liquid action " + c);
         }

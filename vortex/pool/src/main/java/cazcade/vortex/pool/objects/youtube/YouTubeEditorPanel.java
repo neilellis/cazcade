@@ -38,7 +38,7 @@ public class YouTubeEditorPanel extends AbstractPoolObjectEditorPanel {
     public YouTubeEditorPanel(@Nonnull final TransferEntity entity) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        if (entity.has$(Dictionary.EURI)) {
+        if (entity.has(Dictionary.EURI)) {
             urlTextBox.setValue(entity.$(Dictionary.EURI).split(":")[1]);
             showPreview();
         }

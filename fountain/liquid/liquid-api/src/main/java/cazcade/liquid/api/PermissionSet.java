@@ -61,7 +61,7 @@ public class PermissionSet {
         PermissionSet.addModifyPermissions(PermissionScope.FRIEND_SCOPE, sharedPermissions);
 
         writeOnlyPermissions = PermissionSet.getMinimalPermissionSet();
-        writeOnlyPermissions.addPermission(PermissionScope.VERIFIED_SCOPE, MODIFY_PERM);
+        writeOnlyPermissions.addPermission(PermissionScope.VERIFIED_SCOPE, P_MODIFY);
         privatePermissions = PermissionSet.getMinimalPermissionSet();
 
         privateSharedPermissions = PermissionSet.getMinimalPermissionSet();
@@ -70,12 +70,12 @@ public class PermissionSet {
     }
 
     public static void removeAllPermissions(@Nonnull final PermissionScope permissionScope, @Nonnull final PermissionSet set) {
-        set.removePermission(permissionScope, VIEW_PERM);
+        set.removePermission(permissionScope, P_VIEW);
         //        set.addPermission(permissionScope, Permission.EXECUTE);
-        set.removePermission(permissionScope, MODIFY_PERM);
-        set.removePermission(permissionScope, EDIT_PERM);
-        set.removePermission(permissionScope, DELETE_PERM);
-        set.removePermission(permissionScope, SYSTEM_PERM);
+        set.removePermission(permissionScope, P_MODIFY);
+        set.removePermission(permissionScope, P_EDIT);
+        set.removePermission(permissionScope, P_DELETE);
+        set.removePermission(permissionScope, P_SYSTEM);
     }
 
     public void removePermission(@Nonnull final PermissionScope scope, @Nonnull final Permission permission) {
@@ -85,12 +85,12 @@ public class PermissionSet {
     }
 
     public static void addAllPermissions(@Nonnull final PermissionScope permissionScope, @Nonnull final PermissionSet set) {
-        set.addPermission(permissionScope, VIEW_PERM);
+        set.addPermission(permissionScope, P_VIEW);
         //        set.addPermission(permissionScope, Permission.EXECUTE);
-        set.addPermission(permissionScope, MODIFY_PERM);
-        set.addPermission(permissionScope, EDIT_PERM);
-        set.addPermission(permissionScope, DELETE_PERM);
-        set.addPermission(permissionScope, SYSTEM_PERM);
+        set.addPermission(permissionScope, P_MODIFY);
+        set.addPermission(permissionScope, P_EDIT);
+        set.addPermission(permissionScope, P_DELETE);
+        set.addPermission(permissionScope, P_SYSTEM);
     }
 
     public void addPermission(@Nonnull final PermissionScope scope, @Nonnull final Permission permission) {
@@ -109,21 +109,21 @@ public class PermissionSet {
     }
 
     public static void addEditPermissions(@Nonnull final PermissionScope permissionScope, @Nonnull final PermissionSet set) {
-        set.addPermission(permissionScope, VIEW_PERM);
+        set.addPermission(permissionScope, P_VIEW);
         //        set.addPermission(permissionScope, Permission.EXECUTE);
-        set.addPermission(permissionScope, MODIFY_PERM);
-        set.addPermission(permissionScope, EDIT_PERM);
-        set.addPermission(permissionScope, DELETE_PERM);
+        set.addPermission(permissionScope, P_MODIFY);
+        set.addPermission(permissionScope, P_EDIT);
+        set.addPermission(permissionScope, P_DELETE);
     }
 
     public static void addModifyPermissions(@Nonnull final PermissionScope permissionScope, @Nonnull final PermissionSet set) {
-        set.addPermission(permissionScope, VIEW_PERM);
+        set.addPermission(permissionScope, P_VIEW);
         //        set.addPermission(permissionScope, Permission.EXECUTE);
-        set.addPermission(permissionScope, MODIFY_PERM);
+        set.addPermission(permissionScope, P_MODIFY);
     }
 
     public static void addReadPermissions(@Nonnull final PermissionScope permissionScope, @Nonnull final PermissionSet set) {
-        set.addPermission(permissionScope, VIEW_PERM);
+        set.addPermission(permissionScope, P_VIEW);
         //        set.addPermission(permissionScope, Permission.EXECUTE);
     }
 
@@ -173,15 +173,15 @@ public class PermissionSet {
 
     @Nonnull
     public PermissionSet removeDeletePermission() {
-        removePermission(PermissionScope.OWNER_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.EDITOR_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.UNKNOWN_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.ADULT_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.TEEN_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.MEMBER_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.FRIEND_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.WORLD_SCOPE, DELETE_PERM);
-        removePermission(PermissionScope.VERIFIED_SCOPE, DELETE_PERM);
+        removePermission(PermissionScope.OWNER_SCOPE, P_DELETE);
+        removePermission(PermissionScope.EDITOR_SCOPE, P_DELETE);
+        removePermission(PermissionScope.UNKNOWN_SCOPE, P_DELETE);
+        removePermission(PermissionScope.ADULT_SCOPE, P_DELETE);
+        removePermission(PermissionScope.TEEN_SCOPE, P_DELETE);
+        removePermission(PermissionScope.MEMBER_SCOPE, P_DELETE);
+        removePermission(PermissionScope.FRIEND_SCOPE, P_DELETE);
+        removePermission(PermissionScope.WORLD_SCOPE, P_DELETE);
+        removePermission(PermissionScope.VERIFIED_SCOPE, P_DELETE);
         return this;
     }
 
@@ -315,32 +315,32 @@ public class PermissionSet {
 
     @Nonnull
     public PermissionSet restoreDeletePermission() {
-        if (hasPermission(PermissionScope.OWNER_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.OWNER_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.OWNER_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.OWNER_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.ADULT_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.ADULT_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.ADULT_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.ADULT_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.TEEN_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.TEEN_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.TEEN_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.TEEN_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.MEMBER_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.MEMBER_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.MEMBER_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.MEMBER_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.FRIEND_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.FRIEND_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.FRIEND_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.FRIEND_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.WORLD_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.WORLD_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.WORLD_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.WORLD_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.EDITOR_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.EDITOR_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.EDITOR_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.EDITOR_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.UNKNOWN_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.UNKNOWN_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.UNKNOWN_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.UNKNOWN_SCOPE, P_DELETE);
         }
-        if (hasPermission(PermissionScope.VERIFIED_SCOPE, EDIT_PERM)) {
-            addPermission(PermissionScope.VERIFIED_SCOPE, DELETE_PERM);
+        if (hasPermission(PermissionScope.VERIFIED_SCOPE, P_EDIT)) {
+            addPermission(PermissionScope.VERIFIED_SCOPE, P_DELETE);
         }
         return this;
     }
@@ -354,23 +354,23 @@ public class PermissionSet {
         for (final PermissionScope permissionScope : PermissionScope.values()) {
             sb.append(Character.toLowerCase(permissionScope.asShortForm()));
             sb.append('=');
-            if (hasPermission(permissionScope, VIEW_PERM)) {
-                sb.append(VIEW_PERM.asShortForm());
+            if (hasPermission(permissionScope, P_VIEW)) {
+                sb.append(P_VIEW.asShortForm());
             }
-            if (hasPermission(permissionScope, MODIFY_PERM)) {
-                sb.append(MODIFY_PERM.asShortForm());
+            if (hasPermission(permissionScope, P_MODIFY)) {
+                sb.append(P_MODIFY.asShortForm());
             }
-            if (hasPermission(permissionScope, EDIT_PERM)) {
-                sb.append(EDIT_PERM.asShortForm());
+            if (hasPermission(permissionScope, P_EDIT)) {
+                sb.append(P_EDIT.asShortForm());
             }
             //            if (allowed(permissionScope, Permission.EXECUTE)) {
             //                sb.append(Permission.EXECUTE.asShortForm());
             //            }
-            if (hasPermission(permissionScope, DELETE_PERM)) {
-                sb.append(DELETE_PERM.asShortForm());
+            if (hasPermission(permissionScope, P_DELETE)) {
+                sb.append(P_DELETE.asShortForm());
             }
-            if (hasPermission(permissionScope, SYSTEM_PERM)) {
-                sb.append(SYSTEM_PERM.asShortForm());
+            if (hasPermission(permissionScope, P_SYSTEM)) {
+                sb.append(P_SYSTEM.asShortForm());
             }
             sb.append(',');
         }

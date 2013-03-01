@@ -4,8 +4,8 @@
 package cazcade.boardcast.servlet.twitter.auth.signin;
 
 import cazcade.common.Logger;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidURIScheme;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.*;
@@ -46,7 +46,7 @@ public class CallbackServlet extends AbstractTwitterServlet {
 
             final TransferEntity twitterAlias = buildAlias(authAccessToken, user, true);
 
-            final RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new SessionIdentifier("admin"), new LiquidURI(
+            final RetrieveAliasRequest retrieveAliasRequest = dataStore.process(new RetrieveAliasRequest(new SessionIdentifier("admin"), new LURI(
                     "alias:twitter:"
                     + user.getScreenName())));
 
@@ -73,7 +73,7 @@ public class CallbackServlet extends AbstractTwitterServlet {
             session.setAttribute(TWITTER_ALIAS_KEY, twitterAlias);
             final TransferEntity cazcadeAlias = buildAlias(authAccessToken, user, false);
             session.setAttribute(CAZCADE_ALIAS_KEY, cazcadeAlias);
-            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new SessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, user
+            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new SessionIdentifier("admin", null), new LURI(LiquidURIScheme.user, user
                     .getScreenName()), true));
             if (RequestUtil.positiveResponse(retrieveUserRequest)) {
                 response.sendRedirect(request.getContextPath()

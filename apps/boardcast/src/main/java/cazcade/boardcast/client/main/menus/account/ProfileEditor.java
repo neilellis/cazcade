@@ -9,8 +9,8 @@ import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdateAliasRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.common.client.events.EditFinishEvent;
 import cazcade.vortex.common.client.events.EditFinishHandler;
 import cazcade.vortex.gwt.util.client.ClientLog;
@@ -45,7 +45,7 @@ public class ProfileEditor extends Composite {
     public ProfileEditor(@Nonnull final TransferEntity alias) {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
-        final TransferEntity updateEntity = alias.asUpdateEntity();
+        final TransferEntity updateEntity = alias.asUpdate();
         imageUploader.setImageUrl(alias.$(Dictionary.IMAGE_URL));
         imageUploader.setOnFinishHandler(new EditFinishHandler() {
             @Override public void onEditFinish(EditFinishEvent event) {
@@ -65,10 +65,10 @@ public class ProfileEditor extends Composite {
         changeButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                BusFactory.get()
-                          .send(new UpdateAliasRequest(SessionIdentifier.ANON, updateEntity), new AbstractResponseCallback<UpdateAliasRequest>() {
+                Bus.get()
+                          .send(new UpdateAliasRequest(SessionIdentifier.ANON, updateEntity), new AbstractMessageCallback<UpdateAliasRequest>() {
                               @Override
-                              public void onSuccess(final UpdateAliasRequest message, final UpdateAliasRequest response) {
+                              public void onSuccess(final UpdateAliasRequest original, final UpdateAliasRequest message) {
                                   try {
                                       popup.hide();
                                   } catch (Exception e) {

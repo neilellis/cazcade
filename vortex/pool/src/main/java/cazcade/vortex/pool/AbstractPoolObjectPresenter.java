@@ -5,7 +5,7 @@
 package cazcade.vortex.pool;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
+import cazcade.liquid.api.MessageState;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -14,7 +14,7 @@ import cazcade.liquid.api.request.ResizePoolObjectRequest;
 import cazcade.liquid.api.request.RotateXYPoolObjectRequest;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.common.client.events.EditFinishEvent;
 import cazcade.vortex.common.client.events.EditFinishHandler;
@@ -56,9 +56,8 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
     private static final int         SNAP_BORDER_X = 20;
     private static final int         SNAP_BORDER_Y = 20;
-    protected static     Bus         bus           = BusFactory.get();
     protected final      BrowserUtil browserUtil   = GWT.create(BrowserUtil.class);
-    protected final VortexThreadSafeExecutor    threadSafeExecutor;
+    protected final VortexThreadSafeExecutor    executor;
     private final   T                           objectView;
     private final   PoolPresenter               pool;
     protected       TransferEntity              entity;
@@ -75,18 +74,18 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     private         double                      deltaX;
     private         double                      deltaY;
 
-    public AbstractPoolObjectPresenter(final PoolPresenter pool, final TransferEntity entity, final T objectView, final VortexThreadSafeExecutor threadSafeExecutor) {
+    public AbstractPoolObjectPresenter(final PoolPresenter pool, final TransferEntity entity, final T objectView, final VortexThreadSafeExecutor executor) {
         this.pool = pool;
         this.entity = entity;
         this.objectView = objectView;
         objectView.getElement().setId(entity.id().toString());
-        this.threadSafeExecutor = threadSafeExecutor;
+        this.executor = executor;
         update(entity, true);
     }
 
     private void positionToView(@Nonnull final PoolPresenter pool, @Nonnull final Entity view, @Nonnull final T widget, int count) {
-        widget.setLogicalWidth(view.has$(VIEW_WIDTH) ? view.$i(VIEW_WIDTH) : getDefaultWidth());
-        widget.setLogicalHeight(view.has$(VIEW_HEIGHT) ? view.$i(VIEW_HEIGHT) : getDefaultHeight());
+        widget.setLogicalWidth(view.has(VIEW_WIDTH) ? view.$i(VIEW_WIDTH) : getDefaultWidth());
+        widget.setLogicalHeight(view.has(VIEW_HEIGHT) ? view.$i(VIEW_HEIGHT) : getDefaultHeight());
 
         x = view.$d(VIEW_X);
         y = view.$d(VIEW_Y);
@@ -100,7 +99,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     private void setZIndexAccordingToPoolOrder(Entity view, T widget, int count) {
         widget.getElement()
               .getStyle()
-              .setZIndex(view.has$(VIEW_Z) ? view.$d(VIEW_Z).intValue() : widget.getDefaultZIndex() + count);
+              .setZIndex(view.has(VIEW_Z) ? view.$d(VIEW_Z).intValue() : widget.getDefaultZIndex() + count);
     }
 
     protected int getDefaultHeight() {
@@ -111,11 +110,11 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return 300;
     }
 
-    public TransferEntity getEntity() {
+    public TransferEntity entity() {
         return entity;
     }
 
-    public T getPoolObjectView() {
+    public T view() {
         return objectView;
     }
 
@@ -151,14 +150,14 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         objectView.addHoldDragHandler(this);
         objectView.addEndDragHandler(this);
 
-        if (viewEntity.has$(THEME)) { objectView.setStyleTheme(viewEntity.$(THEME)); }
-        if (viewEntity.has$(SIZE)) { objectView.setStyleSize(viewEntity.$(SIZE)); }
+        if (viewEntity.has(THEME)) { objectView.setStyleTheme(viewEntity.$(THEME)); }
+        if (viewEntity.has(SIZE)) { objectView.setStyleSize(viewEntity.$(SIZE)); }
 
         //This must be called after theme and size are set but before positionToView
         objectView.onAddToPool();
 
 
-        listenerId = bus.listen(entity.uri(), new PoolObjectPresenterBusAdapter());
+        listenerId = Bus.get().listen(entity.uri(), new PoolObjectPresenterBusAdapter());
 
 
         //This must be called last as all size changes will have been confirmed.
@@ -168,7 +167,7 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
 
     @Override
     public void onRemoveFromPool() {
-        bus.remove(listenerId);
+        Bus.get().remove(listenerId);
     }
 
     @Override
@@ -222,13 +221,13 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
     @Nullable
-    public LiquidMessage handle(@Nonnull final UpdatePoolObjectRequest request) {
-        final TransferEntity responseEntity = request.response();
-        if (responseEntity != null) {
-            update(responseEntity, true);
-        } else if (request.request() != null) {
+    public LiquidMessage handle(@Nonnull final UpdatePoolObjectRequest message) {
+        final TransferEntity response = message.response();
+        if (response != null) {
+            update(response, true);
+        } else if (message.request() != null) {
             //only a provisional change, so we don't change the underlying entity just it's view.
-            update(request.request(), false);
+            update(message.request(), false);
         }
         return null;
     }
@@ -246,22 +245,22 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         oldX = x;
         oldY = y;
         browserUtil.translateXY(objectView, 0, 0, 0);
-        pool.move(this, request.getX(), request.getY(), false);
+        pool.move(this, request.x(), request.y(), false);
         return null;
     }
 
     @Nullable
     public LiquidMessage handle(@Nonnull final ResizePoolObjectRequest request) {
-        browserUtil.resize(objectView, request.getWidth(), request.getHeight(), 100);
+        browserUtil.resize(objectView, request.width(), request.height(), 100);
         return null;
     }
 
     @Nullable
     public LiquidMessage handle(@Nonnull final RotateXYPoolObjectRequest request) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
-                browserUtil.rotate(objectView, request.getAngle(), 100);
+                browserUtil.rotate(objectView, request.angle(), 100);
             }
         });
         return null;
@@ -452,10 +451,10 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     }
 
     protected void updateAccessInformation() {
-        if (entity.has$(EDITABLE)) {
-            getPoolObjectView().setEditable(entity.$bool(EDITABLE));
+        if (entity.has(EDITABLE)) {
+            view().setEditable(entity.$bool(EDITABLE));
         }
-        modifiable = entity.has$(MODIFIABLE) && entity.$bool(MODIFIABLE);
+        modifiable = entity.has(MODIFIABLE) && entity.$bool(MODIFIABLE);
 
     }
 
@@ -463,8 +462,8 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
         return pool;
     }
 
-    public Bus getBus() {
-        return bus;
+    public BusService getBus() {
+        return Bus.get();
     }
 
     public BrowserUtil getBrowserUtil() {
@@ -474,8 +473,8 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
     private class PoolObjectPresenterBusAdapter implements BusListener {
         public void handle(@Nonnull final LiquidMessage message) {
             ClientLog.log("Received message with id of " + message.id());
-            final LiquidMessageState state = message.getState();
-            if (state == LiquidMessageState.SUCCESS && message instanceof LiquidRequest) {
+            final MessageState state = message.state();
+            if (state == MessageState.SUCCESS && message instanceof LiquidRequest) {
                 final LiquidRequest response = (LiquidRequest) message;
                 ClientLog.log("** Successful **  PoolObject message "
                               + response.requestType()
@@ -485,12 +484,12 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
                               + response.notificationLocations());
                 handleRequestInternal(response);
                 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid green");
-            } else if (state == LiquidMessageState.DEFERRED && message instanceof LiquidRequest) {
+            } else if (state == MessageState.DEFERRED && message instanceof LiquidRequest) {
                 ClientLog.log("Message with state " + state + " ignored.");
                 //                LiquidRequest request = (LiquidRequest) message;
                 //                handleRequestInternal(request);
                 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid orange");
-            } else if (state == LiquidMessageState.PROVISIONAL && message instanceof LiquidRequest) {
+            } else if (state == MessageState.PROVISIONAL && message instanceof LiquidRequest) {
                 final LiquidRequest request = (LiquidRequest) message;
                 handleRequestInternal(request);
                 ClientLog.log("** Provisional ** PoolObject message "
@@ -498,10 +497,10 @@ public abstract class AbstractPoolObjectPresenter<T extends PoolObjectView> impl
                               + " affecting "
                               + request.affectedEntities());
                 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid yellow");
-            } else if (state == LiquidMessageState.FAIL && message instanceof LiquidRequest) {
+            } else if (state == MessageState.FAIL && message instanceof LiquidRequest) {
                 ClientLog.log("Message FAILED.");
                 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid red");
-            } else if (state == LiquidMessageState.INITIAL) {
+            } else if (state == MessageState.INITIAL) {
                 ClientLog.log("Message with state " + state + " ignored.");
                 //                DOM.setStyleAttribute(widget.getElement(), "border", "1px solid white");
             } else {

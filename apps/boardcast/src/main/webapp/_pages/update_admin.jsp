@@ -4,7 +4,7 @@
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
 <%@ page import="cazcade.fountain.datastore.impl.email.EmailUtil" %>
 <%@ page import="cazcade.liquid.api.LiquidRequest" %>
-<%@ page import="cazcade.liquid.api.LiquidURI" %>
+<%@ page import="cazcade.liquid.api.LURI" %>
 <%@ page import="cazcade.liquid.api.SessionIdentifier" %>
 <%@ page import="cazcade.liquid.api.lsd.Dictionary" %>
 <%@ page import="cazcade.liquid.api.lsd.TransferEntity" %>
@@ -20,7 +20,7 @@
 
     final FountainDataStore dataStore = DataStoreFactory.getDataStore();
     final SessionIdentifier admin = new SessionIdentifier("admin", null);
-    final LiquidRequest retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LiquidURI(request.getParameter("user"))));
+    final LiquidRequest retrieveUserResponse = dataStore.process(new RetrieveUserRequest(admin, new LURI(request.getParameter("user"))));
     final TransferEntity user = retrieveUserResponse.response();
     if (retrieveUserResponse.response().error()) {
         response.sendRedirect("/_pages/failed.jsp?message=" + URLEncoder.encode(retrieveUserResponse.response()
@@ -28,7 +28,7 @@
     } else if (!EmailUtil.confirmEmailHash(user.$(Dictionary.EMAIL_ADDRESS), request.getParameter("hash"))) {
         response.sendRedirect("/_pages/failed.jsp?message=Incorrect+URL");
     } else {
-        final TransferEntity update = user.asUpdateEntity();
+        final TransferEntity update = user.asUpdate();
         update.$(Dictionary.EMAIL_UPDATE_FREQUENCY, request.getParameter("frequency"));
         dataStore.process(new UpdateUserRequest(admin, user.id(), update));
     }

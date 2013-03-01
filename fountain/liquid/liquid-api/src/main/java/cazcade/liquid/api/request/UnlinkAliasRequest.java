@@ -45,6 +45,6 @@ public class UnlinkAliasRequest extends AbstractDeletionRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.DELETE_ALIAS;
+        return RequestType.R_DELETE_ALIAS;
     }
 }

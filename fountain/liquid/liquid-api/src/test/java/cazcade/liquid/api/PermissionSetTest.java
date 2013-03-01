@@ -15,13 +15,13 @@ public class PermissionSetTest extends TestCase {
         final PermissionSet permissionSet = PermissionSet.createPermissionSet(permissionString);
         System.out.println(permissionString);
         assertEquals(permissionString, permissionSet.toString());
-        assertTrue("Default permission set should have owner admin.", permissionSet.hasPermission(PermissionScope.OWNER_SCOPE, Permission.SYSTEM_PERM));
-        assertTrue("Default permission set should have adult view.", permissionSet.hasPermission(PermissionScope.ADULT_SCOPE, Permission.VIEW_PERM));
+        assertTrue("Default permission set should have owner admin.", permissionSet.hasPermission(PermissionScope.OWNER_SCOPE, Permission.P_SYSTEM));
+        assertTrue("Default permission set should have adult view.", permissionSet.hasPermission(PermissionScope.ADULT_SCOPE, Permission.P_VIEW));
     }
 
     public void testCreateAndParse2() {
         final PermissionSet permissionSet = PermissionSet.createPermissionSet(PermissionSet.getWriteOnlyPermissionSet().toString());
         System.out.println(permissionSet.toString());
-        assertFalse("Write only permission set should not have world view.", permissionSet.hasPermission(PermissionScope.WORLD_SCOPE, Permission.VIEW_PERM));
+        assertFalse("Write only permission set should not have world view.", permissionSet.hasPermission(PermissionScope.WORLD_SCOPE, Permission.P_VIEW));
     }
 }

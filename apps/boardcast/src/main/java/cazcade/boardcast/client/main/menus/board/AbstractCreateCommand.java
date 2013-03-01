@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
 import com.google.gwt.user.client.Command;
@@ -18,19 +18,19 @@ public abstract class AbstractCreateCommand implements Command {
     }
 
     protected       Types                      type;
-    protected final LiquidURI                  pool;
+    protected final LURI                       pool;
     protected       AbstractCreateCommand.Size size;
     protected       String                     theme;
 
 
-    protected AbstractCreateCommand(final LiquidURI pool, final Types type, final Size size, final String theme) {
+    protected AbstractCreateCommand(final LURI pool, final Types type, final Size size, final String theme) {
         this.type = type;
         this.pool = pool;
         this.size = size;
         this.theme = theme;
     }
 
-    public AbstractCreateCommand(final LiquidURI pool, final Types type) {
+    public AbstractCreateCommand(final LURI pool, final Types type) {
         this.pool = pool;
         this.type = type;
     }

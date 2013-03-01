@@ -7,8 +7,8 @@ package cazcade.fountain.server.rest.alias;
 import cazcade.fountain.datastore.api.FountainDataStoreFacade;
 import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.EntityFactory;
@@ -51,7 +51,7 @@ public class AliasRestHandler extends AbstractRestHandler {
     public LiquidMessage get(@Nonnull final Map<String, String[]> parameters) throws URISyntaxException {
         if (parameters.get("uri") != null) {
             final String uri = parameters.get("uri")[0];
-            return dataStoreFacade.process(new RetrieveAliasRequest(RestContext.getContext().getCredentials(), new LiquidURI(uri)));
+            return dataStoreFacade.process(new RetrieveAliasRequest(RestContext.getContext().getCredentials(), new LURI(uri)));
         } else {
             return dataStoreFacade.process(new RetrieveAliasRequest(RestContext.getContext().getCredentials()));
         }

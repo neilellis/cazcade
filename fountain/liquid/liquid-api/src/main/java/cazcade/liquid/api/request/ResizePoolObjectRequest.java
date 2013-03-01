@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ResizePoolObjectRequest extends AbstractRequest {
-    public ResizePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Integer width, final Integer height) {
+    public ResizePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Integer width, final Integer height) {
         super();
         setWidth(width);
         setHeight(height);
@@ -24,12 +24,12 @@ public class ResizePoolObjectRequest extends AbstractRequest {
         setUri(objectURI);
     }
 
-    public ResizePoolObjectRequest(final SessionIdentifier identity, final LiquidUUID pool, final LiquidUUID object, final Integer width, final Integer height, final LiquidURI objectURI) {
+    public ResizePoolObjectRequest(final SessionIdentifier identity, final LiquidUUID pool, final LiquidUUID object, final Integer width, final Integer height, final LURI objectURI) {
         this(null, identity, objectURI, pool, object, width, height);
     }
 
 
-    public ResizePoolObjectRequest(final LiquidURI objectURI, final Integer width, final Integer height) {
+    public ResizePoolObjectRequest(final LURI objectURI, final Integer width, final Integer height) {
         this(null, SessionIdentifier.ANON, objectURI, null, null, width, height);
     }
 
@@ -49,9 +49,9 @@ public class ResizePoolObjectRequest extends AbstractRequest {
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (!hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.P_MODIFY));
         } else {
-            return Arrays.asList(new AuthorizationRequest(session(), uri().parent(), Permission.MODIFY_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), uri().parent(), Permission.P_MODIFY));
         }
     }
 
@@ -65,7 +65,7 @@ public class ResizePoolObjectRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.RESIZE_POOL_OBJECT;
+        return RequestType.R_RESIZE_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

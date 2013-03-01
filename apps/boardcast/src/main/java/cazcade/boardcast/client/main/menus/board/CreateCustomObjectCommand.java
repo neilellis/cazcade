@@ -4,7 +4,7 @@
 
 package cazcade.boardcast.client.main.menus.board;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateCustomObjectCommand extends CreateItemCommand {
-    public CreateCustomObjectCommand(final LiquidURI pool, final Types type) {
+    public CreateCustomObjectCommand(final LURI pool, final Types type) {
         super(pool, type);
     }
 

@@ -9,7 +9,8 @@ import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.common.client.CustomObjectEditor;
 import cazcade.vortex.common.client.events.EditStartEvent;
 import cazcade.vortex.common.client.events.EditStartHandler;
@@ -34,15 +35,15 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
 
     @Override
     public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
-                getPoolObjectView().setImageUrl(newEntity.$(Dictionary.IMAGE_URL));
+                view().setImageUrl(newEntity.$(Dictionary.IMAGE_URL));
                 final List<Entity> handlers = newEntity.children(Dictionary.EVENT_HANDLER);
                 for (final Entity handler : handlers) {
-                    registerHandlerWithView(getPoolObjectView(), handler);
+                    registerHandlerWithView(view(), handler);
                 }
-                getPoolObjectView().addHandler(new EditStartHandler() {
+                view().addHandler(new EditStartHandler() {
                     @Override
                     public void onEditStart(final EditStartEvent event) {
                         customObjectEditor.show(newEntity);
@@ -54,12 +55,13 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
                 customObjectEditor.setOnChangeAction(new CustomObjectEditor.ChangeAction() {
                     @Override
                     public void run(@Nonnull final TransferEntity updateEntity) {
-                        bus.send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {
-                            @Override
-                            public void onSuccess(final UpdatePoolObjectRequest message, @Nonnull final UpdatePoolObjectRequest response) {
-                                update(response.response().$(), true);
-                            }
-                        });
+                        Bus.get()
+                           .send(new UpdatePoolObjectRequest(updateEntity), new AbstractMessageCallback<UpdatePoolObjectRequest>() {
+                               @Override
+                               public void onSuccess(final UpdatePoolObjectRequest original, @Nonnull final UpdatePoolObjectRequest message) {
+                                   update(message.response().$(), true);
+                               }
+                           });
 
                     }
                 });
@@ -69,7 +71,7 @@ public class CustomObjectPresenter extends AbstractPoolObjectPresenter<CustomObj
 
     private void registerHandlerWithView(@Nonnull final CustomObjectView poolObjectView, @Nonnull final Entity handler) {
         if (handler.canBe(Types.T_ACTIVATE_EVENT_HANDLER)) {
-            if (entity.has$(Dictionary.NAVIGATION_URL)) {
+            if (entity.has(Dictionary.NAVIGATION_URL)) {
                 poolObjectView.setHref(handler.$(Dictionary.NAVIGATION_URL));
             }
         }

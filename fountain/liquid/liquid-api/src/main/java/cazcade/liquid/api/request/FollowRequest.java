@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class FollowRequest extends AbstractRequest {
-    public FollowRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI uri, final boolean follow) {
+    public FollowRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI uri, final boolean follow) {
         super();
         id(id);
         session(identity);
@@ -23,11 +23,11 @@ public class FollowRequest extends AbstractRequest {
         setUri(uri);
     }
 
-    public FollowRequest(final SessionIdentifier identity, final LiquidURI uri, final boolean follow) {
+    public FollowRequest(final SessionIdentifier identity, final LURI uri, final boolean follow) {
         this(null, identity, uri, follow);
     }
 
-    public FollowRequest(final LiquidURI uri, final boolean follow) {
+    public FollowRequest(final LURI uri, final boolean follow) {
         this(null, SessionIdentifier.ANON, uri, follow);
     }
 
@@ -49,7 +49,7 @@ public class FollowRequest extends AbstractRequest {
         return new FollowRequest(getEntity());
     }
 
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         if (!session().anon()) {
             return Arrays.asList(uri(), session().aliasURI());
         } else {
@@ -69,7 +69,7 @@ public class FollowRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.FOLLOW;
+        return RequestType.R_FOLLOW;
     }
 
     public boolean isMutationRequest() {

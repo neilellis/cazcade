@@ -65,7 +65,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
         try {
             final AuthorizationService authorizationService = (AuthorizationService) applicationContext.getBean("authorizationService");
             final AuthorizationStatus authorizationStatus = authorizationService.authorize(RestContext.getContext()
-                                                                                                      .getCredentials(), uuid, Permission.EDIT_PERM);
+                                                                                                      .getCredentials(), uuid, Permission.P_EDIT);
             if (!(authorizationStatus == AuthorizationStatus.ACCEPTED)) {
                 doAuthorizationError(resp);
                 return false;
@@ -111,7 +111,7 @@ public class LiquidNotificationServlet extends AbstractRestServlet {
                     log.debug("**** Pool visit, so now switching pools. ****");
                     //We have visited a pool so we now need to listen to events there.
                     final VisitPoolRequest request = (VisitPoolRequest) message;
-                    if (request.getState() == LiquidMessageState.SUCCESS) {
+                    if (request.state() == MessageState.SUCCESS) {
                         log.debug("Switching pools....");
                         queues.add(request.response().id().toString());
                         queues.add(request.response().uri().toString());

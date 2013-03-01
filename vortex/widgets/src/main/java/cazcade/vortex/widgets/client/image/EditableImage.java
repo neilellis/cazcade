@@ -5,7 +5,6 @@
 package cazcade.vortex.widgets.client.image;
 
 import cazcade.liquid.api.lsd.Attribute;
-import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.common.client.events.*;
@@ -28,6 +27,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+
+import static cazcade.liquid.api.lsd.Dictionary.*;
 
 /**
  * @author neilellis@cazcade.com
@@ -59,7 +60,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
     public void bind(@Nonnull final TransferEntity entity, final Attribute attribute, final String referenceDataPrefix) {
         this.entity = entity;
         this.attribute = attribute;
-        if (entity.has$(attribute)) {
+        if (entity.has(attribute)) {
             String url = entity.$(attribute);
             if (!url.equals(image.getUrl())) {
                 image.setUrl(url);
@@ -86,7 +87,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
 
     @Nonnull @Override
     public TransferEntity getEntityDiff() {
-        return (TransferEntity) entity.asUpdateEntity().$(attribute, image.getRawUrl());
+        return (TransferEntity) entity.asUpdate().$(attribute, image.getRawUrl());
     }
 
     @Override
@@ -124,7 +125,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
 
     @UiHandler("image")
     public void onClick(final ClickEvent e) {
-        if (entity.default$bool(Dictionary.EDITABLE, false) && editable) {
+        if (entity.default$bool(EDITABLE, false) && editable) {
             final ImageEditorDialogBox imageEditorDialogBox = new ImageEditorDialogBox();
             imageEditorDialogBox.addCloseHandler(new CloseHandler<PopupPanel>() {
                 @Override
@@ -166,7 +167,7 @@ public class EditableImage extends Composite implements Bindable, HasValueChange
 
     private void updateEditText() {
         editText.getStyle()
-                .setVisibility((this.editable && (entity == null || entity.default$bool(Dictionary.EDITABLE, true)))
+                .setVisibility((this.editable && (entity == null || entity.default$bool(EDITABLE, true)))
                                ? Style.Visibility.VISIBLE
                                : Style.Visibility.HIDDEN);
     }

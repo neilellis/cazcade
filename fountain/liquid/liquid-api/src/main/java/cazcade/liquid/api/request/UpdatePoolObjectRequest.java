@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
-    protected UpdatePoolObjectRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri, final TransferEntity entity) {
+    protected UpdatePoolObjectRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID pool, final LiquidUUID target, final LURI uri, final TransferEntity entity) {
         super();
         id(id);
         session(identity);
@@ -45,7 +45,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     }
 
     @Deprecated
-    public UpdatePoolObjectRequest(final SessionIdentifier identity, final LiquidURI objectURI, final TransferEntity newEntity) {
+    public UpdatePoolObjectRequest(final SessionIdentifier identity, final LURI objectURI, final TransferEntity newEntity) {
         super();
         session(identity);
         setUri(objectURI);
@@ -53,7 +53,7 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     }
 
     @Deprecated
-    public UpdatePoolObjectRequest(final LiquidURI poolURI, @Nonnull final TransferEntity request) {
+    public UpdatePoolObjectRequest(final LURI poolURI, @Nonnull final TransferEntity request) {
         super();
         setUri(request.uri());
         setRequestEntity(request);
@@ -90,11 +90,11 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
     public List<AuthorizationRequest> authorizationRequests() {
         final SessionIdentifier sessionIdentifier = session();
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolURI(), Permission.EDIT_PERM).or(new AuthorizationRequest(sessionIdentifier, uri(), Permission.EDIT_PERM)
-                    .and(new AuthorizationRequest(sessionIdentifier, getPoolURI(), Permission.MODIFY_PERM))));
+            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolURI(), Permission.P_EDIT).or(new AuthorizationRequest(sessionIdentifier, uri(), Permission.P_EDIT)
+                    .and(new AuthorizationRequest(sessionIdentifier, getPoolURI(), Permission.P_MODIFY))));
         } else {
-            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), Permission.EDIT_PERM).or(new AuthorizationRequest(sessionIdentifier, getTarget(), Permission.EDIT_PERM)
-                    .and(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), Permission.MODIFY_PERM))));
+            return Arrays.asList(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), Permission.P_EDIT).or(new AuthorizationRequest(sessionIdentifier, getTarget(), Permission.P_EDIT)
+                    .and(new AuthorizationRequest(sessionIdentifier, getPoolUUID(), Permission.P_MODIFY))));
         }
     }
 
@@ -108,6 +108,6 @@ public class UpdatePoolObjectRequest extends AbstractUpdateRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.UPDATE_POOL_OBJECT;
+        return RequestType.R_UPDATE_POOL_OBJECT;
     }
 }

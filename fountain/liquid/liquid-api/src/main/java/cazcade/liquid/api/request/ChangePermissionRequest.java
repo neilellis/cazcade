@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChangePermissionRequest extends AbstractRequest {
-    public ChangePermissionRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, @Nullable final PermissionChangeType change) {
+    public ChangePermissionRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI objectURI, @Nullable final PermissionChangeType change) {
         super();
         setPermission(change);
         id(id);
@@ -21,7 +21,7 @@ public class ChangePermissionRequest extends AbstractRequest {
         setUri(objectURI);
     }
 
-    public ChangePermissionRequest(final LiquidURI objectURI, final PermissionChangeType change) {
+    public ChangePermissionRequest(final LURI objectURI, final PermissionChangeType change) {
         this(null, SessionIdentifier.ANON, objectURI, change);
     }
 
@@ -40,7 +40,7 @@ public class ChangePermissionRequest extends AbstractRequest {
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.SYSTEM_PERM));
+        return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_SYSTEM));
     }
 
     public List<String> notificationLocations() {
@@ -49,7 +49,7 @@ public class ChangePermissionRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CHANGE_PERMISSION;
+        return RequestType.R_CHANGE_PERMISSION;
     }
 
     public boolean isMutationRequest() {

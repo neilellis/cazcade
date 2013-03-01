@@ -22,7 +22,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         setHistorical(historical);
     }
 
-    private RetrievePoolObjectRequest(final LiquidUUID id, final SessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final LiquidURI uri) {
+    private RetrievePoolObjectRequest(final LiquidUUID id, final SessionIdentifier authenticatedUser, final LiquidUUID pool, final LiquidUUID target, final LURI uri) {
         super();
         id(id);
         session(authenticatedUser);
@@ -31,7 +31,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         setUri(uri);
     }
 
-    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI uri, final boolean historical) {
+    public RetrievePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI uri, final boolean historical) {
         super();
         id(id);
         session(identity);
@@ -43,7 +43,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
         this(null, identity, pool, target, historical);
     }
 
-    public RetrievePoolObjectRequest(final SessionIdentifier identity, final LiquidURI uri, final boolean historical) {
+    public RetrievePoolObjectRequest(final SessionIdentifier identity, final LURI uri, final boolean historical) {
         this(null, identity, uri, historical);
     }
 
@@ -64,7 +64,7 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasPoolUUID()) {
-            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM), new AuthorizationRequest(session(), getPoolUUID(), Permission.VIEW_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW), new AuthorizationRequest(session(), getPoolUUID(), Permission.P_VIEW));
         } else {
             return Collections.EMPTY_LIST;
         }
@@ -72,6 +72,6 @@ public class RetrievePoolObjectRequest extends AbstractRetrievalRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_POOL_OBJECT;
+        return RequestType.R_RETRIEVE_POOL_OBJECT;
     }
 }

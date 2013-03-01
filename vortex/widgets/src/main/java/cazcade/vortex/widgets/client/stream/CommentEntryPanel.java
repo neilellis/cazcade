@@ -24,12 +24,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Date;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class CommentEntryPanel extends Composite implements StreamEntry {
 
-    TransferEntity entity;
+    TransferEntity<? extends TransferEntity> entity;
 
     public TransferEntity getEntity() {
         return entity;
@@ -76,17 +78,17 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     @Override protected void onAttach() {
         super.onAttach();
         final String locationText;
-        if (entity.has$(Dictionary.EURI)) {
-            locationText = entity.$(Dictionary.EURI);
-        } else if (entity.has$(Dictionary.SOURCE)) {
-            locationText = entity.$(Dictionary.SOURCE);
+        if (entity.has(EURI)) {
+            locationText = entity.$(EURI);
+        } else if (entity.has(SOURCE)) {
+            locationText = entity.$(SOURCE);
         } else {
             locationText = entity.uri().toString();
         }
         //        location.setText(locationText);
-        final TransferEntity author = (TransferEntity) entity.child(Dictionary.AUTHOR_A, false);
-        profileImage.bind(author, Dictionary.IMAGE_URL, "");
-        final String name = author.$(Dictionary.NAME);
+        final TransferEntity author = (TransferEntity) entity.child(AUTHOR_A, false);
+        profileImage.bind(author, IMAGE_URL, "");
+        final String name = author.$(NAME);
         profileName.setText("@" + name);
         profileName.addClickHandler(new ClickHandler() {
             @Override
@@ -94,7 +96,7 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
                 HistoryManager.get().navigate("~" + name);
             }
         });
-        authorFullname.setText(author.$(Dictionary.FULL_NAME));
+        authorFullname.setText(author.$(FULL_NAME));
         authorFullname.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
@@ -111,9 +113,9 @@ public class CommentEntryPanel extends Composite implements StreamEntry {
     OBJECT_UPDATE("Text.StatusUpdate.Object", "A pool object status update."),
     COMMENT_UPDATE("Text.StatusUpdate.Comment", "A comment based status update."),*/
 
-        text.setInnerHTML(FormatUtil.getInstance().formatRichText(entity.$(Dictionary.TEXT_BRIEF)));
+        text.setInnerHTML(FormatUtil.getInstance().formatRichText(entity.$(TEXT_BRIEF)));
         //todo - format date :-)
-        final String publishedDateStringInMillis = entity.$(Dictionary.PUBLISHED);
+        final String publishedDateStringInMillis = entity.$(PUBLISHED);
         if (publishedDateStringInMillis != null) {
             final Long publishedInMillis = Long.valueOf(publishedDateStringInMillis);
             dateTime.setDate(new Date(publishedInMillis));

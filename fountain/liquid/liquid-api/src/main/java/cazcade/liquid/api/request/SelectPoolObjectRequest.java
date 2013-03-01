@@ -40,7 +40,7 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.MODIFY_PERM));
+        return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_MODIFY));
     }
 
     @Nullable
@@ -50,6 +50,6 @@ public class SelectPoolObjectRequest extends AbstractUpdateRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.SELECT_POOL_OBJECT;
+        return RequestType.R_SELECT_POOL_OBJECT;
     }
 }

@@ -8,7 +8,7 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.builtin.support.CommandSupport;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import org.apache.commons.cli.Options;
@@ -52,7 +52,7 @@ public class RenamePoolCommand extends AbstractShortLivedCommand {
             from = args[0];
             to = args[1];
         }
-        final LiquidURI poolURI;
+        final LURI poolURI;
         poolURI = CommandSupport.resolvePoolOrObject(shellSession, from);
         return CommandSupport.alterPool(shellSession, poolURI, new CommandSupport.AlterEntityCallback() {
             @Nonnull @Override

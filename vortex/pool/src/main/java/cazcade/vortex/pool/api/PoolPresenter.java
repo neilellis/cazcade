@@ -33,7 +33,7 @@ public interface PoolPresenter {
     boolean isWithinYBounds(int i);
 
 
-    @Nonnull TransferEntity getEntity();
+    @Nonnull TransferEntity entity();
 
     void move(PoolObjectPresenter presenter, double x, double y, boolean onServer);
 

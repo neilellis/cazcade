@@ -100,7 +100,7 @@ public abstract class EntityBackedFormPanel extends EntityBackedPanel {
 
     @Nonnull
     public TransferEntity getEntityDiff() {
-        final TransferEntity newEntity = entity.asUpdateEntity();
+        final TransferEntity newEntity = entity.asUpdate();
         if (entity.hasURI()) {
             newEntity.$(Dictionary.URI, entity.uri().toString());
         }

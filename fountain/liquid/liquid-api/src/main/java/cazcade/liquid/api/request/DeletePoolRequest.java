@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DeletePoolRequest extends AbstractDeletionRequest {
-    public DeletePoolRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LiquidURI uri) {
+    public DeletePoolRequest(final LiquidUUID id, final SessionIdentifier identity, final LiquidUUID target, final LURI uri) {
         super();
         id(id);
         session(identity);
@@ -30,7 +30,7 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
         this(null, identity, target);
     }
 
-    public DeletePoolRequest(final SessionIdentifier identity, final LiquidURI poolURI) {
+    public DeletePoolRequest(final SessionIdentifier identity, final LURI poolURI) {
         super();
         session(identity);
         setUri(poolURI);
@@ -52,7 +52,7 @@ public class DeletePoolRequest extends AbstractDeletionRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.DELETE_POOL;
+        return RequestType.R_DELETE_POOL;
     }
 
     @Override

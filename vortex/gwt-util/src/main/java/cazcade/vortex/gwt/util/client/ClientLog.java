@@ -32,7 +32,7 @@ public class ClientLog {
     private static final VortexThreadSafeExecutor executor          = new VortexThreadSafeExecutor();
 
     static {
-        String debugType = ClientApplicationConfiguration.getDebugType();
+        String debugType = Config.getDebugType();
         if (debugType == null) {
             type = Type.NONE;
         } else {
@@ -203,7 +203,7 @@ public class ClientLog {
     }
 
     public static void assertTrue(final boolean b, final String message) {
-        if (!b && ClientApplicationConfiguration.isDebug()) {
+        if (!b && Config.debug()) {
             Window.alert("Assertion failed " + message);
         }
     }

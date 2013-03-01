@@ -53,7 +53,7 @@ public class SearchRequest extends AbstractRequest {
 
     @Override @Nonnull
     public RequestType requestType() {
-        return RequestType.SEARCH;
+        return RequestType.R_SEARCH;
     }
 
     @Override

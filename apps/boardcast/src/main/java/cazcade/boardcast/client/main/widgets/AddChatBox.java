@@ -5,8 +5,8 @@
 package cazcade.boardcast.client.main.widgets;
 
 import cazcade.boardcast.client.main.widgets.login.TwitterLoginBox;
-import cazcade.liquid.api.LiquidURI;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.liquid.api.LURI;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.widgets.client.stream.ChatBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.AnchorElement;
@@ -32,10 +32,10 @@ public class AddChatBox extends Composite {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
-    public void init(final LiquidURI poolURI) {
+    public void init(final LURI poolURI) {
         addChatBox.init(poolURI);
         loginLink.setHref("login?loginNextUrl=" + URL.encode(Window.Location.getHref()));
-        if (UserUtil.anon()) {
+        if (User.anon()) {
             loginPanel.setVisible(true);
             addChatBox.setVisible(false);
         } else {

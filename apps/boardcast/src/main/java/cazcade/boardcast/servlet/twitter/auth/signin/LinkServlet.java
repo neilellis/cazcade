@@ -6,7 +6,7 @@ package cazcade.boardcast.servlet.twitter.auth.signin;
 import cazcade.common.Logger;
 import cazcade.fountain.security.SecurityProvider;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
+import cazcade.liquid.api.MessageState;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.request.CreateAliasRequest;
@@ -53,7 +53,7 @@ public class LinkServlet extends AbstractTwitterServlet {
                                       + "&message=Login+failed.");
             } else {
                 final LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new SessionIdentifier(username), twitterAlias, true, true, true));
-                if (createAliasResponse.getState() == LiquidMessageState.SUCCESS) {
+                if (createAliasResponse.state() == MessageState.SUCCESS) {
                     final SessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse
                             .response()
                             .uri(), session, pubSub);

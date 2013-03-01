@@ -73,7 +73,7 @@ public class FountainUserUpdateService {
                                            ? alias.getLastEmailUpdateDate().getTime()
                                            : yesterday;
                 boolean send = yesterday >= lastEmailUpdateDate;
-                if (userEntity.has$(Dictionary.EMAIL_UPDATE_FREQUENCY)) {
+                if (userEntity.has(Dictionary.EMAIL_UPDATE_FREQUENCY)) {
                     final String frequency = userEntity.$(Dictionary.EMAIL_UPDATE_FREQUENCY);
                     if ("H".equals(frequency)) {
                         send = lastHour > lastEmailUpdateDate - HOUR_IN_MILLIS / 4;

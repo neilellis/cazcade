@@ -4,7 +4,7 @@
 
 package cazcade.liquid.api.lsd;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.Permission;
 import cazcade.liquid.api.PermissionScope;
@@ -106,18 +106,18 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         throw new UnsupportedOperationException("This operation is not valid for an entity collection");
     }
 
-    @Nonnull public TransferEntityCollection asUpdateEntity() {
-        return toAll(new EntityIterationCallback() {
-            public Object call(final TransferEntity entity) {
-                return ((TransferEntity) entity).asUpdateEntity();
+    @Nonnull public <U extends TransferEntity<U>>  TransferEntityCollection<U> asUpdateEntity() {
+        return toAll(new EntityIterationCallback<T,U>() {
+            public U call(final T entity) {
+                return (U) entity.asUpdate();
             }
         });
     }
 
     @Nonnull public TransferEntityCollection<T> $() {
         return toAll(new EntityIterationCallback() {
-            public Object call(TransferEntity entity) {
-                return ((TransferEntity) entity).$();
+            public Object call(Entity entity) {
+                return entity.$();
             }
         });
     }
@@ -125,8 +125,8 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
     public String dump() {
         final StringBuffer buffer = new StringBuffer();
         toAll(new EntityIterationCallback() {
-            @Override public Object call(TransferEntity entity) {
-                buffer.append(((TransferEntity) entity).dump());
+            @Override public Object call(Entity entity) {
+                buffer.append(entity.dump());
                 return entity;
             }
         });
@@ -142,7 +142,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    public void children(@Nonnull final Attribute stem, @Nonnull final Collection<? extends T> collection) {
+    public void children(@Nonnull final Attribute stem, @Nonnull final Collection<? extends TransferEntity<T>> collection) {
         toAll(new EntityIterationCallback<T, T>() {
             public T call(T entity) {
                 entity.children(stem, collection);
@@ -151,7 +151,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    public void child(@Nonnull final Attribute stem, @Nonnull final T child, final boolean requiresId) {
+    public void child(@Nonnull final Attribute stem, @Nonnull final TransferEntity child, final boolean requiresId) {
         toAll(new EntityIterationCallback<T, T>() {
             public T call(T entity) {
                 entity.child(stem, child, requiresId);
@@ -163,8 +163,8 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
     @Nonnull public String asFreeText() {
         final StringBuffer buffer = new StringBuffer();
         toAll(new EntityIterationCallback() {
-            @Override public Object call(TransferEntity entity) {
-                buffer.append(((TransferEntity) entity).asFreeText());
+            @Override public Object call(Entity entity) {
+                buffer.append(entity.asFreeText());
                 return entity;
             }
         });
@@ -175,8 +175,8 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
     @Nonnull public String asDebugText() {
         final StringBuffer buffer = new StringBuffer();
         toAll(new EntityIterationCallback() {
-            @Override public Object call(TransferEntity entity) {
-                buffer.append(((TransferEntity) entity).asDebugText());
+            @Override public Object call(Entity entity) {
+                buffer.append(entity.asDebugText());
                 return entity;
             }
         });
@@ -203,7 +203,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
     public TransferEntityCollection<T> $(@Nonnull final Entity other, @Nonnull final Attribute attribute) {
         return toAll(new EntityIterationCallback<T, T>() {
             public T call(T entity) {
-                return entity.$(other, attribute);
+                return (T) entity.$(other, attribute);
             }
         });
     }
@@ -232,9 +232,9 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    @Nonnull public ObjectCollection<LiquidURI> $uri(@Nonnull final Attribute attribute) {
-        return toObjectCollection(new EntityIterationCallback<T, LiquidURI>() {
-            @Override public LiquidURI call(T entity) {
+    @Nonnull public ObjectCollection<LURI> $uri(@Nonnull final Attribute attribute) {
+        return toObjectCollection(new EntityIterationCallback<T, LURI>() {
+            @Override public LURI call(T entity) {
                 return entity.$uri(attribute);
             }
         });
@@ -322,20 +322,20 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    @Nonnull public TransferEntityCollection<T> children(@Nonnull final Attribute key) {
-        final TransferEntityCollection<T> entities = new TransferEntityCollection<T>();
-        toAll(new EntityIterationCallback<T, T>() {
-            @Override public T call(T entity) {
+    @Nonnull  public <U extends TransferEntity<U>> TransferEntityCollection<U> children(@Nonnull final Attribute key) {
+        final TransferEntityCollection<U> entities = new TransferEntityCollection<U>();
+        toAll(new EntityIterationCallback<T, U>() {
+            @Override public U call(T entity) {
                 entities.add(entity.children(key));
-                return entity;
+                return (U) entity;
             }
         });
         return entities;
     }
 
-    private TransferEntityCollection<T> add(Iterable<? extends T> entities) {
-        for (T entity : entities) {
-            this.values.add(entity);
+    private  <U extends TransferEntity<U>>  TransferEntityCollection<T> add(TransferEntityCollection<U> entities) {
+        for (U entity : entities) {
+            this.values.add((T) entity);
         }
         return this;
     }
@@ -366,15 +366,15 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    @Nonnull public ObjectCollection<LiquidURI> uri() {
-        return toObjectCollection(new EntityIterationCallback<T, LiquidURI>() {
-            @Override public LiquidURI call(T entity) {
+    @Nonnull public ObjectCollection<LURI> uri() {
+        return toObjectCollection(new EntityIterationCallback<T, LURI>() {
+            @Override public LURI call(T entity) {
                 return entity.uri();
             }
         });
     }
 
-    public TransferEntityCollection<T> uri(final LiquidURI uri) {
+    public TransferEntityCollection<T> uri(final LURI uri) {
         return toAll(new EntityIterationCallback<T, T>() {
             @Override public T call(T entity) {
                 entity.uri(uri);
@@ -399,9 +399,9 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    @Nonnull public ObjectCollection<LiquidURI> $uuid(@Nonnull final Attribute attribute) {
-        return toObjectCollection(new EntityIterationCallback<T, LiquidURI>() {
-            @Override public LiquidURI call(T entity) {
+    @Nonnull public ObjectCollection<LURI> $uuid(@Nonnull final Attribute attribute) {
+        return toObjectCollection(new EntityIterationCallback<T, LURI>() {
+            @Override public LURI call(T entity) {
                 return entity.getURIAttribute(attribute);
             }
         });
@@ -424,12 +424,13 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    public boolean has$(@Nonnull final Attribute key) {
-        return isAll(new EntityIterationCallback<T, Boolean>() {
-            @Override public Boolean call(T entity) {
-                return entity.has$(key);
+    public TransferEntityCollection<T> has(@Nonnull final Attribute key) {
+        return filter(new CollectionPredicate<T>() {
+            @Override public boolean call(T entity) {
+                return entity.has(key);
             }
         });
+
     }
 
     public boolean allowed(@Nonnull final PermissionScope permissionScope, @Nonnull final Permission permission) {
@@ -581,7 +582,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    public TransferEntityCollection<T> $(@Nonnull final Attribute attribute, final LiquidURI uri) {
+    public TransferEntityCollection<T> $(@Nonnull final Attribute attribute, final LURI uri) {
         return toAll(new EntityIterationCallback<T, T>() {
             @Override public T call(T entity) {
                 return entity.$(attribute, uri);
@@ -677,7 +678,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    public <U extends TransferEntity<U>> TransferEntityCollection<U> merge(final T otherEntity, final boolean destructive) {
+    public  <U extends TransferEntity<U>> TransferEntityCollection<U> merge(final T otherEntity, final boolean destructive) {
         return toAll(new EntityIterationCallback<T, U>() {
             @Override public U call(T entity) {
                 return (U) entity.merge(otherEntity, destructive);
@@ -693,13 +694,19 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    public TransferEntityCollection<T> filter(CollectionPredicate<T> collectionPredicate) {
-        List<T> result = new ArrayList<T>();
-        for (T value : values) {
+    public TransferEntityCollection<T> filter(final CollectionPredicate<T> collectionPredicate) {
+        final List<T> result = new ArrayList<T>();
+        for (final T value : values) {
             if (collectionPredicate.call(value)) {
                 result.add(value);
             }
         }
+        return new TransferEntityCollection<T>(result);
+    }
+
+    public TransferEntityCollection<T> reverse() {
+        final ArrayList<T> result = new ArrayList<T>(values);
+        Collections.reverse(result);
         return new TransferEntityCollection<T>(result);
     }
 }

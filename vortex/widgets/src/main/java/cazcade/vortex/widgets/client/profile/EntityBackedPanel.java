@@ -8,7 +8,7 @@ import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.EntityAware;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -22,8 +22,6 @@ import javax.annotation.Nullable;
  * @author neilellis@cazcade.com
  */
 public abstract class EntityBackedPanel extends HistoryAwareComposite implements EntityAware<TransferEntity>, HasValueChangeHandlers<TransferEntity> {
-    @Nonnull
-    private final Bus bus = BusFactory.get();
     @Nullable
     protected TransferEntity entity;
 
@@ -56,11 +54,6 @@ public abstract class EntityBackedPanel extends HistoryAwareComposite implements
             throw new NullPointerException("Panel has not been initialized yet so the backing entity is null.");
         }
         return entity;
-    }
-
-    @Nonnull
-    public Bus getBus() {
-        return bus;
     }
 
 

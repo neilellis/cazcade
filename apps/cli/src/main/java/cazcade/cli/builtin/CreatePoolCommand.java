@@ -8,8 +8,8 @@ import cazcade.cli.ShellSession;
 import cazcade.cli.commands.AbstractShortLivedCommand;
 import cazcade.common.Logger;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.MessageState;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Attribute;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -63,12 +63,12 @@ public class CreatePoolCommand extends AbstractShortLivedCommand {
         }
 
         final String pool = args[0];
-        LiquidURI poolURI;
+        LURI poolURI;
         final LiquidMessage response = shellSession.getDataStore()
                                                    .process(new CreatePoolRequest(shellSession.getIdentity(), shellSession.getCurrentPool()
                                                                                                                           .uri(), pool, pool, pool, 0, 0));
         final TransferEntity responseEntity = response.response();
-        if (response.getState() != LiquidMessageState.SUCCESS) {
+        if (response.state() != MessageState.SUCCESS) {
             System.err.println(responseEntity.$(Dictionary.DESCRIPTION));
             return null;
         } else {
@@ -79,7 +79,7 @@ public class CreatePoolCommand extends AbstractShortLivedCommand {
                 final LiquidMessage response2 = shellSession.getDataStore()
                                                             .process(new UpdatePoolRequest(shellSession.getIdentity(), responseEntity
                                                                     .id(), responseEntity));
-                if (response2.getState() != LiquidMessageState.SUCCESS) {
+                if (response2.state() != MessageState.SUCCESS) {
                     System.err.println(response2.response().$(Dictionary.DESCRIPTION));
                     return null;
                 }

@@ -26,7 +26,6 @@
       <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid-api/liquid-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" filepath="$PROJECT_DIR$/fountain/liquid/liquid-impl/liquid-impl.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vortex/main/main.iml" filepath="$PROJECT_DIR$/vortex/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/messaging/messaging.iml" filepath="$PROJECT_DIR$/fountain/messaging/messaging.iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/notification/notification.iml" filepath="$PROJECT_DIR$/fountain/notification/notification.iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/plugins/plugins.iml" filepath="$PROJECT_DIR$/vortex/plugins/plugins.iml" />

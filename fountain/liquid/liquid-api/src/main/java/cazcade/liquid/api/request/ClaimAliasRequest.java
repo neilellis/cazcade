@@ -38,7 +38,7 @@ public class ClaimAliasRequest extends AbstractRequest {
         return new ClaimAliasRequest(getEntity());
     }
 
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         return Arrays.asList(session().aliasURI());
     }
 
@@ -54,7 +54,7 @@ public class ClaimAliasRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CLAIM_ALIAS;
+        return RequestType.R_CLAIM_ALIAS;
     }
 
     @Override

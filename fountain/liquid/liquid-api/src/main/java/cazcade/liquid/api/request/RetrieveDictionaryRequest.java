@@ -34,6 +34,6 @@ public class RetrieveDictionaryRequest extends AbstractRetrievalRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_DICTIONARY;
+        return RequestType.R_RETRIEVE_DICTIONARY;
     }
 }

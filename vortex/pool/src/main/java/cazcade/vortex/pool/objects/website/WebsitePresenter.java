@@ -22,10 +22,10 @@ import javax.annotation.Nonnull;
 public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
     public WebsitePresenter(final PoolPresenter pool, final TransferEntity entity, final WebsiteView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
-        getPoolObjectView().addHandler(new DoubleClickHandler() {
+        view().addHandler(new DoubleClickHandler() {
             @Override
             public void onDoubleClick(final DoubleClickEvent event) {
-                PoolObjectEditor.showForEdit(new WebsiteEditorPanel(getEntity()), null);
+                PoolObjectEditor.showForEdit(new WebsiteEditorPanel(entity()), null);
 
             }
         }, DoubleClickEvent.getType());
@@ -34,11 +34,11 @@ public class WebsitePresenter extends AbstractPoolObjectPresenter<WebsiteView> {
 
     @Override
     public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
-                if (newEntity.has$(Dictionary.SOURCE)) {
-                    getPoolObjectView().setUrl(newEntity.$(Dictionary.SOURCE));
+                if (newEntity.has(Dictionary.SOURCE)) {
+                    view().setUrl(newEntity.$(Dictionary.SOURCE));
                 } else {
                     ClientLog.warn("No source for " + newEntity.uri());
                 }

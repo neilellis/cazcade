@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MovePoolObjectRequest extends AbstractRequest {
-    public MovePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Double x, final Double y, final Double z) {
+    public MovePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI objectURI, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID object, final Double x, final Double y, final Double z) {
         super();
         id(id);
         session(identity);
@@ -26,13 +26,13 @@ public class MovePoolObjectRequest extends AbstractRequest {
     }
 
     @Deprecated
-    public MovePoolObjectRequest(final SessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID pool, final LiquidUUID object, final Double x, final Double y, final Double z) {
+    public MovePoolObjectRequest(final SessionIdentifier identity, final LURI objectURI, final LiquidUUID pool, final LiquidUUID object, final Double x, final Double y, final Double z) {
         super();
         throw new UnsupportedOperationException();
         //        this(null, identity, objectURI, pool, object, x, y, z);
     }
 
-    public MovePoolObjectRequest(final LiquidURI objectURI, final Double x, final Double y, final Double z) {
+    public MovePoolObjectRequest(final LURI objectURI, final Double x, final Double y, final Double z) {
         this(null, SessionIdentifier.ANON, objectURI, null, null, x, y, z);
     }
 
@@ -46,25 +46,25 @@ public class MovePoolObjectRequest extends AbstractRequest {
 
     @Nonnull @Override
     public LiquidMessage copy() {
-        final LiquidURI uri = uri();
+        final LURI uri = uri();
         return new MovePoolObjectRequest(getEntity());
     }
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasUri()) {
-            final LiquidURI uri = uri();
-            return Arrays.asList(new AuthorizationRequest(session(), uri.parent(), Permission.MODIFY_PERM));
+            final LURI uri = uri();
+            return Arrays.asList(new AuthorizationRequest(session(), uri.parent(), Permission.P_MODIFY));
         } else {
             final LiquidUUID poolUUID = getPoolUUID();
-            return Arrays.asList(new AuthorizationRequest(session(), poolUUID, Permission.MODIFY_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), poolUUID, Permission.P_MODIFY));
         }
     }
 
     @Override
     public List<String> notificationLocations() {
         if (hasUri()) {
-            final LiquidURI uri = uri();
+            final LURI uri = uri();
             return Arrays.asList(uri.withoutFragment().asReverseDNSString(), uri.asReverseDNSString());
         } else {
             final LiquidUUID poolUUID = getPoolUUID();
@@ -75,7 +75,7 @@ public class MovePoolObjectRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.MOVE_POOL_OBJECT;
+        return RequestType.R_MOVE_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

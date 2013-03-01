@@ -44,14 +44,14 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     @Autowired
     private FountainEmailService emailService;
 
-    public void addAuthorToNodeNoTX(@Nonnull final LiquidURI author, final boolean createAuthor, @Nonnull final PersistedEntity persistedEntity) throws InterruptedException {
+    public void addAuthorToNodeNoTX(@Nonnull final LURI author, final boolean createAuthor, @Nonnull final PersistedEntity persistedEntity) throws InterruptedException {
         final PersistedEntity authorPersistedEntityImpl = fountainNeo.find(author);
         if (authorPersistedEntityImpl == null) {
             if (createAuthor) {
                 throw new UnsupportedOperationException("Feature no longer supported.");
                 /*
                 SimpleEntity alias = SimpleEntity.createEmpty();
-                LiquidURI aliasSubURI = author.sub();
+                LURI aliasSubURI = author.sub();
                 alias.setValue(FountainNeo.PERMISSIONS, PermissionSet.getMinimalPermissionSet().toString());
                 alias.setType(Types.ALIAS);
                 alias.$(Attribute.NETWORK, aliasSubURI.schemeString());
@@ -66,7 +66,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     }
 
     @Override
-    public boolean confirmHash(@Nonnull final LiquidURI user, final String changePasswordSecurityHash) throws Exception {
+    public boolean confirmHash(@Nonnull final LURI user, final String changePasswordSecurityHash) throws Exception {
         return fountainNeo.doInTransactionAndBeginBlock(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
@@ -81,10 +81,10 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     public PersistedEntity createAlias(@Nonnull final PersistedEntity user, @Nonnull final TransferEntity aliasEntity, final boolean me, final boolean orupdate, final boolean claim, final boolean systemUser) throws InterruptedException {
         fountainNeo.begin();
         try {
-            final LiquidURI aliasURI;
+            final LURI aliasURI;
             final String name = aliasEntity.$(Dictionary.NAME).toLowerCase();
-            final String network = aliasEntity.has$(Dictionary.NETWORK) ? aliasEntity.$(Dictionary.NETWORK) : "cazcade";
-            aliasURI = new LiquidURI(LiquidURIScheme.alias, network + ':' + name);
+            final String network = aliasEntity.has(Dictionary.NETWORK) ? aliasEntity.$(Dictionary.NETWORK) : "cazcade";
+            aliasURI = new LURI(LiquidURIScheme.alias, network + ':' + name);
             final PersistedEntity existingPersistedEntityImpl = fountainNeo.find(aliasURI);
             if (existingPersistedEntityImpl != null && !orupdate) {
                 throw new DuplicateEntityException("Attempted to create an alias that exists already without first setting the 'orupdate' flag to 'true'.");
@@ -104,7 +104,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 alias.$(Dictionary.PERMISSIONS, PermissionSet.getMinimalPermissionSet().toString());
                 alias.setIDIfNotSetOnNode();
                 alias.$(Dictionary.URI, uriString);
-                final LiquidURI networkURI = new LiquidURI(LiquidURIScheme.network, network);
+                final LURI networkURI = new LURI(LiquidURIScheme.network, network);
                 PersistedEntity networkPersistedEntityImpl = fountainNeo.find(networkURI);
                 if (networkPersistedEntityImpl == null) {
                     networkPersistedEntityImpl = createSocialNetwork(networkURI);
@@ -136,7 +136,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     }
 
     @Nonnull @Override
-    public PersistedEntity createSession(@Nonnull final LiquidURI aliasUri, @Nonnull final ClientApplicationIdentifier cai) throws InterruptedException {
+    public PersistedEntity createSession(@Nonnull final LURI aliasUri, @Nonnull final ClientApplicationIdentifier cai) throws InterruptedException {
         fountainNeo.begin();
         try {
             final FountainEntity persistedEntity = fountainNeo.createNode();
@@ -155,13 +155,13 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             final PersistedEntity user;
             if ("cazcade".equals(aliasUri.sub().schemeString())) {
                 owner = fountainNeo.findOrFail(aliasUri);
-                user = fountainNeo.findOrFail(new LiquidURI(LiquidURIScheme.user, aliasUri.sub().sub()));
+                user = fountainNeo.findOrFail(new LURI(LiquidURIScheme.user, aliasUri.sub().sub()));
             } else {
                 final PersistedEntity otherNetworkAlias = fountainNeo.findOrFail(aliasUri);
                 final FountainRelationship userRelationship = otherNetworkAlias.relationship(FountainRelationships.ALIAS, OUTGOING);
                 assert userRelationship != null;
                 user = userRelationship.end();
-                owner = fountainNeo.find(new LiquidURI(LiquidURIScheme.alias, "cazcade:" + user.$(Dictionary.NAME)));
+                owner = fountainNeo.find(new LURI(LiquidURIScheme.alias, "cazcade:" + user.$(Dictionary.NAME)));
                 if (owner == null) {
                     throw new EntityNotFoundException("Could not owner for alias %s", aliasUri);
                 }
@@ -169,7 +169,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
 
 
             //noinspection PointlessBooleanExpression,ConstantConditions
-            if (user.has$(Dictionary.SECURITY_RESTRICTED) && USER_MUST_CONFIRM_EMAIL) {
+            if (user.has(Dictionary.SECURITY_RESTRICTED) && USER_MUST_CONFIRM_EMAIL) {
                 final String restricted = user.$(Dictionary.SECURITY_RESTRICTED);
                 if ("true".equals(restricted)) {
                     throw new UserRestrictedException("User account for alias %s is restricted.", aliasUri);
@@ -196,7 +196,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
                 }
             }
             persistedEntity.$(Dictionary.NAME, user.$(Dictionary.NAME))
-                           .$(Dictionary.URI, new LiquidURI(LiquidURIScheme.session, persistedEntity.$(Dictionary.ID)).toString())
+                           .$(Dictionary.URI, new LURI(LiquidURIScheme.session, persistedEntity.$(Dictionary.ID)).toString())
                            .timestamp()
                            .relate(owner, FountainRelationships.OWNER);
             owner.relate(persistedEntity, FountainRelationships.HAS_SESSION);
@@ -214,8 +214,8 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         try {
             final PersistedEntity userPersistedEntity;
             final String username = entity.$(Dictionary.NAME).toLowerCase();
-            final LiquidURI userURI = new LiquidURI(LiquidURIScheme.user, username);
-            final LiquidURI aliasURI = new LiquidURI(LiquidURIScheme.alias, "cazcade:" + username);
+            final LURI userURI = new LURI(LiquidURIScheme.user, username);
+            final LURI aliasURI = new LURI(LiquidURIScheme.alias, "cazcade:" + username);
             if (fountainNeo.find(userURI) != null) {
                 throw new DuplicateEntityException("Attempted to create a user (" + username + ") that already exists.");
             }
@@ -241,7 +241,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             public void process(@Nonnull final AliasEntity alias) throws Exception {
                 final String uri = alias.getUri();
                 if (uri.startsWith("alias:cazcade:")) {
-                    final PersistedEntity aliasPersistedEntity = fountainNeo.find(new LiquidURI(alias.getUri()));
+                    final PersistedEntity aliasPersistedEntity = fountainNeo.find(new LURI(alias.getUri()));
                     if (aliasPersistedEntity == null) {
                         log.warn("Skipping " + uri + " as alias node not found.");
                         return;
@@ -269,7 +269,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
     }
 
     @Override
-    public void sendPasswordChangeRequest(@Nonnull final LiquidURI userURI) throws Exception {
+    public void sendPasswordChangeRequest(@Nonnull final LURI userURI) throws Exception {
         fountainNeo.doInTransactionAndBeginBlock(new Callable<Object>() {
             @Nullable @Override
             public Object call() throws Exception {
@@ -322,7 +322,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
             final PersistedEntity user = fountainNeo.createNode()
                                                     .$(Dictionary.PERMISSIONS, PermissionSet.getMinimalPermissionSet().toString())
                                                     .timestamp()
-                                                    .$(Dictionary.URI, new LiquidURI(LiquidURIScheme.user, username).asString())
+                                                    .$(Dictionary.URI, new LURI(LiquidURIScheme.user, username).asString())
                                                     .mergeProperties(entity, false, false, null)
                                                     .setIDIfNotSetOnNode();
             fountainNeo.freeTextIndexNoTx(user);
@@ -331,7 +331,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
 
             //create the associated alias
 
-            if (fountainNeo.find(new LiquidURI(LiquidURIScheme.alias, new LiquidURI("cazcade:" + username))) != null) {
+            if (fountainNeo.find(new LURI(LiquidURIScheme.alias, new LURI("cazcade:" + username))) != null) {
                 throw new DuplicateEntityException("Attempted to create an alias for a user, but that alias already exists .");
             }
 
@@ -347,7 +347,7 @@ public class FountainUserDAOImpl implements FountainUserDAO {
         }
     }
 
-    @Nonnull PersistedEntity createSocialNetwork(@Nonnull final LiquidURI uri) throws InterruptedException {
+    @Nonnull PersistedEntity createSocialNetwork(@Nonnull final LURI uri) throws InterruptedException {
         final PersistedEntity entity = fountainNeo.createNode()
                                                   .$(Dictionary.PERMISSIONS, PermissionSet.getMinimalPermissionSet().toString())
                                                   .setIDIfNotSetOnNode()

@@ -4,14 +4,14 @@
 
 package cazcade.vortex.pool.objects.checklist;
 
-import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.liquid.api.lsd.CollectionCallback;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.TypeDef;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.liquid.api.request.UpdatePoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.Bus;
+import cazcade.vortex.bus.client.Callback;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.pool.AbstractContainerObjectPresenterImpl;
 import cazcade.vortex.pool.api.PoolPresenter;
@@ -19,6 +19,8 @@ import cazcade.vortex.pool.objects.checklist.entry.ChecklistEntryView;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+
+import static cazcade.liquid.api.lsd.Dictionary.*;
 
 /**
  * @author neilellis@cazcade.com
@@ -30,36 +32,25 @@ public class ChecklistPresenter extends AbstractContainerObjectPresenterImpl<Che
         view.setOnChangeAction(new Runnable() {
             @Override
             public void run() {
-                final TransferEntity minimalEntity = getEntity().asUpdateEntity();
-                BusFactory.get().send(new UpdatePoolRequest(minimalEntity), new AbstractResponseCallback<UpdatePoolRequest>() {
-                    @Override
-                    public void onSuccess(final UpdatePoolRequest message, final UpdatePoolRequest response) {
+                Bus.get().dispatch(new UpdatePoolRequest(entity().asUpdate()));
+            }
+        });
+
+        Bus.get().send(new RetrievePoolRequest(entity().uri(), true, false), new Callback<RetrievePoolRequest>() {
+            @Override
+            public void handle(@Nonnull final RetrievePoolRequest message) {
+                message.response().children().has(TEXT_EXTENDED).each(new CollectionCallback<TransferEntity>() {
+                    @Override public void call(TransferEntity entity) {
+                        view().add(new ChecklistEntryView(entity));
                     }
                 });
             }
         });
-
-        BusFactory.get()
-                  .send(new RetrievePoolRequest(getEntity().uri(), true, false), new AbstractResponseCallback<RetrievePoolRequest>() {
-                      @Override
-                      public void onSuccess(final RetrievePoolRequest message, @Nonnull final RetrievePoolRequest response) {
-                          final List<TransferEntity> children = response.response().children(Dictionary.CHILD_A);
-                          for (final TransferEntity child : children) {
-
-                              if (child.has$(Dictionary.TEXT_EXTENDED)) {
-                                  //                        final String text = child.$(Attribute.TEXT_EXTENDED);
-                                  //todo: checklistview should take the ent
-                                  getPoolObjectView().addView(new ChecklistEntryView(child));
-                                  //                        getWidget().addView(new Label(text.replaceAll("<[^>]*>", " ").replaceAll("\n", " ")));
-                              }
-                          }
-                      }
-                  });
     }
 
     @Override
     public void update(final TransferEntity newEntity, final boolean replaceEntity) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 ChecklistPresenter.super.update(newEntity, replaceEntity);

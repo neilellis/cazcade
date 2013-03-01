@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RotateXYPoolObjectRequest extends AbstractRequest {
-    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LiquidURI objectURI, final LiquidUUID poolId, final LiquidUUID object, final Double angle) {
+    public RotateXYPoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, final LURI objectURI, final LiquidUUID poolId, final LiquidUUID object, final Double angle) {
         super();
         id(id);
         session(identity);
@@ -23,7 +23,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
         setUri(objectURI);
     }
 
-    public RotateXYPoolObjectRequest(final SessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LiquidURI objectURI) {
+    public RotateXYPoolObjectRequest(final SessionIdentifier identity, final LiquidUUID poolId, final LiquidUUID object, final Double angle, final LURI objectURI) {
         this(null, identity, objectURI, poolId, object, angle);
     }
 
@@ -43,7 +43,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
 
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
-        return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
+        return Arrays.asList(new AuthorizationRequest(session(), getPoolUUID(), Permission.P_MODIFY));
     }
 
     public List<String> notificationLocations() {
@@ -52,7 +52,7 @@ public class RotateXYPoolObjectRequest extends AbstractRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.ROTATE_XY_POOL_OBJECT;
+        return RequestType.R_ROTATE_XY_POOL_OBJECT;
     }
 
     public boolean isMutationRequest() {

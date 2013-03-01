@@ -46,10 +46,10 @@ public class UserRestHandler extends AbstractRestHandler {
         checkForSingleValueParams(parameters, "name");
         final String username = parameters.get("name")[0];
         final LiquidMessage message = dataStoreFacade.process(new RetrieveUserRequest(RestContext.getContext()
-                                                                                                 .getCredentials(), new LiquidURI(LiquidURIScheme.user, username), false));
+                                                                                                 .getCredentials(), new LURI(LiquidURIScheme.user, username), false));
 
         return authorizationService.postAuthorize(RestContext.getContext()
-                                                             .getCredentials(), (AbstractRetrievalRequest) message, Permission.VIEW_PERM);
+                                                             .getCredentials(), (AbstractRetrievalRequest) message, Permission.P_VIEW);
     }
 
     @Nonnull

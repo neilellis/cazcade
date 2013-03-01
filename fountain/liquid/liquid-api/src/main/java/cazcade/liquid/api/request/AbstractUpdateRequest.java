@@ -27,11 +27,11 @@ public abstract class AbstractUpdateRequest extends AbstractRequest {
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.EDIT_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_EDIT));
         }
 
         if (hasTarget()) {
-            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.EDIT_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_EDIT));
         }
 
         return new ArrayList<AuthorizationRequest>();

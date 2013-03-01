@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.api.DataStoreException;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.handler.CreatePoolRequestHandler;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -33,7 +33,7 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
 
             if (!parentString.endsWith("/")) { parentString += "/"; }
 
-            final LiquidURI newLiquidURI = new LiquidURI(parentString + request.getName());
+            final LURI newLiquidURI = new LURI(parentString + request.getName());
             if (neo.find(newLiquidURI) != null) {
                 return LiquidResponseHelper.forDuplicateResource("Pool already exists.", request);
             }
@@ -42,11 +42,11 @@ public class CreatePoolHandler extends AbstractDataStoreHandler<CreatePoolReques
 
             if (parentPersistedEntity == null) {throw new DataStoreException("No such parent pool " + request.getParent());}
 
-            LiquidURI owner = request.alias();
+            LURI owner = request.alias();
             owner = defaultAndCheckOwner(request, owner);
 
             final PersistedEntity pool = poolDAO.createPoolNoTx(request.session(), owner, parentPersistedEntity, request.type(), request
-                    .getName(), request.getX(), request.getY(), request.getTitle(), request.listed());
+                    .getName(), request.x(), request.y(), request.getTitle(), request.listed());
 
             if (request.hasDescription()) { pool.$(Dictionary.DESCRIPTION, request.description()); }
             if (request.hasImageUrl()) { pool.$(Dictionary.IMAGE_URL, request.imageUrl()); }

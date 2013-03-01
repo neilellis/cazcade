@@ -8,9 +8,9 @@ import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.BoardQueryRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryAwareComposite;
 import cazcade.vortex.widgets.client.panels.scroll.InfiniteScrollPagerPanel;
@@ -69,16 +69,16 @@ public class BoardList extends HistoryAwareComposite {
 
             @Override protected void onRangeChanged(final HasData<Entity> display) {
                 //                Window.alert(queryType.toString());
-                BusFactory.get()
-                          .send(new BoardQueryRequest(queryType, UserUtil.currentAlias().uri(), display.getVisibleRange()
+                Bus.get()
+                          .send(new BoardQueryRequest(queryType, User.currentAlias().uri(), display.getVisibleRange()
                                                                                                        .getStart(), display.getVisibleRange()
-                                                                                                                           .getLength()), new AbstractResponseCallback<BoardQueryRequest>() {
-                              @Override public void onSuccess(BoardQueryRequest message, BoardQueryRequest response) {
-                                  super.onSuccess(message, response);
-                                  List<Entity> subEntities = response.response().children(Dictionary.CHILD_A);
+                                                                                                                           .getLength()), new AbstractMessageCallback<BoardQueryRequest>() {
+                              @Override public void onSuccess(BoardQueryRequest original, BoardQueryRequest message) {
+                                  super.onSuccess(original, message);
+                                  List<Entity> subEntities = message.response().children(Dictionary.CHILD_A);
                                   updateRowData(display.getVisibleRange().getStart(), subEntities);
-                                  if (subEntities.size() < message.getMax()) {
-                                      cellList.setRowCount(message.getStart() + subEntities.size());
+                                  if (subEntities.size() < original.getMax()) {
+                                      cellList.setRowCount(original.getStart() + subEntities.size());
                                   }
                               }
                           });

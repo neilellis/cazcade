@@ -5,14 +5,14 @@
 package cazcade.vortex.pool.objects.checklist.entry;
 
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidMessageState;
+import cazcade.liquid.api.MessageState;
 import cazcade.liquid.api.RequestType;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.UpdatePoolObjectRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusListener;
 import cazcade.vortex.widgets.client.misc.EditableLabel;
 import com.google.gwt.core.client.GWT;
@@ -52,10 +52,10 @@ public class ChecklistEntryView extends Composite {
         initWidget(ourUiBinder.createAndBindUi(this));
         label.setShowBrief(true);
         update(newEntity);
-        BusFactory.get().listenForResponses(newEntity.uri(), RequestType.UPDATE_POOL_OBJECT, new BusListener() {
+        Bus.get().listenForResponses(newEntity.uri(), RequestType.R_UPDATE_POOL_OBJECT, new BusListener() {
             @Override
             public void handle(@Nonnull final LiquidMessage message) {
-                if (message.getState() != LiquidMessageState.PROVISIONAL) {
+                if (message.state() != MessageState.PROVISIONAL) {
                     update(message.response().$());
                 }
             }
@@ -66,20 +66,20 @@ public class ChecklistEntryView extends Composite {
             public void onClick(final ClickEvent event) {
                 checked = !checked;
                 updateCheckStatus();
-                final TransferEntity updateEntity = entity.asUpdateEntity();
+                final TransferEntity updateEntity = entity.asUpdate();
                 updateEntity.$(Dictionary.CHECKED, checked);
-                BusFactory.get()
-                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {});
+                Bus.get()
+                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractMessageCallback<UpdatePoolObjectRequest>() {});
             }
         });
 
         label.setOnEditEndAction(new Runnable() {
             @Override
             public void run() {
-                final TransferEntity updateEntity = entity.asUpdateEntity();
+                final TransferEntity updateEntity = entity.asUpdate();
                 updateEntity.$(Dictionary.TEXT_EXTENDED, label.getText());
-                BusFactory.get()
-                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractResponseCallback<UpdatePoolObjectRequest>() {});
+                Bus.get()
+                          .send(new UpdatePoolObjectRequest(updateEntity), new AbstractMessageCallback<UpdatePoolObjectRequest>() {});
             }
         });
     }
@@ -93,10 +93,10 @@ public class ChecklistEntryView extends Composite {
     }
 
     private void update(@Nonnull final Entity entity) {
-        if (entity.has$(Dictionary.CHECKED)) {
+        if (entity.has(Dictionary.CHECKED)) {
             checked = entity.$bool(Dictionary.CHECKED);
         }
-        if (entity.has$(Dictionary.TEXT_EXTENDED)) {
+        if (entity.has(Dictionary.TEXT_EXTENDED)) {
             label.setText(entity.$(Dictionary.TEXT_EXTENDED));
         }
         final Entity authorEntity = entity.child(Dictionary.AUTHOR_A, true);

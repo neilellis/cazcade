@@ -10,7 +10,7 @@ import cazcade.fountain.datastore.api.DeletedEntityException;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.handler.AuthorizationRequestHandler;
@@ -48,7 +48,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
 
                 persistedEntity = neo.find(requestTarget);
             } else {
-                final LiquidURI uri = request.uri();
+                final LURI uri = request.uri();
                 if (!request.hasUri()) {
                     throw new AuthorizationException("Both target and URI were null");
                 }
@@ -59,7 +59,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
                     return LiquidResponseHelper.forServerSuccess(request, entity);
                 }
             }
-            if (persistedEntity.has$(Dictionary.PERMISSIONS)) {
+            if (persistedEntity.has(Dictionary.PERMISSIONS)) {
                 final boolean auth = isAuthorized(request, persistedEntity);
                 if (auth) {
                     entity.$(Dictionary.TYPE, Types.T_AUTHORIZATION_ACCEPTANCE.getValue());
@@ -91,7 +91,7 @@ public class AuthorizationHandler extends AbstractDataStoreHandler<Authorization
     private static boolean isAuthorized(@Nonnull final AuthorizationRequest request, @Nonnull final PersistedEntity persistedEntity) throws InterruptedException {
         boolean auth;
         final SessionIdentifier sessionIdentifier = request.session();
-        auth = persistedEntity.isAuthorized(sessionIdentifier, request.getActions());
+        auth = persistedEntity.allowed(sessionIdentifier, request.getActions());
         final List<AuthorizationRequest> and = request.getAnd();
         for (final AuthorizationRequest andRequest : and) {
             if (isAuthorized(andRequest, persistedEntity)) {

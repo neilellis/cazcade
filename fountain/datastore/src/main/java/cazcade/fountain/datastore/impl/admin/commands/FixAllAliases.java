@@ -10,7 +10,7 @@ import cazcade.fountain.datastore.impl.FountainRelationship;
 import cazcade.fountain.datastore.impl.FountainRelationships;
 import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.admin.AdminCommand;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import org.neo4j.graphdb.Direction;
 
@@ -25,7 +25,7 @@ public class FixAllAliases implements AdminCommand {
 
     @Override
     public void execute(final String[] args, @Nonnull final FountainNeo fountainNeo) throws InterruptedException {
-        final PersistedEntity peoplePool = fountainNeo.find(new LiquidURI("pool:///people"));
+        final PersistedEntity peoplePool = fountainNeo.find(new LURI("pool:///people"));
         assert peoplePool != null;
         final Iterable<FountainRelationship> children = peoplePool.relationships(FountainRelationships.CHILD, Direction.OUTGOING);
         for (final FountainRelationship child : children) {
@@ -52,7 +52,7 @@ public class FixAllAliases implements AdminCommand {
         }
         FountainRelationship rel = startPersistedEntity.relationship(relationshipType, Direction.OUTGOING);
         if (rel == null && otherNodeURI != null) {
-            final PersistedEntity otherNodeEntity = fountainNeo.findByURI(new LiquidURI(otherNodeURI), true);
+            final PersistedEntity otherNodeEntity = fountainNeo.findByURI(new LURI(otherNodeURI), true);
             assert otherNodeEntity != null;
             rel = startPersistedEntity.relate(otherNodeEntity, relationshipType);
             log.info("Created new relationship " +

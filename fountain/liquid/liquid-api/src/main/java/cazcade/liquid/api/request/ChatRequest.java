@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChatRequest extends AbstractUpdateRequest {
-    public ChatRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri, final TransferEntity entity) {
+    public ChatRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID target, @Nullable final LURI uri, final TransferEntity entity) {
         super();
         id(id);
         session(identity);
@@ -30,12 +30,12 @@ public class ChatRequest extends AbstractUpdateRequest {
         this(null, identity, target, null, entity);
     }
 
-    public ChatRequest(final SessionIdentifier identity, final LiquidURI uri, final TransferEntity entity) {
+    public ChatRequest(final SessionIdentifier identity, final LURI uri, final TransferEntity entity) {
         this(null, identity, null, uri, entity);
     }
 
 
-    public ChatRequest(final LiquidURI uri, final String value) {
+    public ChatRequest(final LURI uri, final String value) {
         super();
         final SimpleEntity<? extends TransferEntity> requestEntity = SimpleEntity.create(Types.T_CHAT);
         //Time clocks vary so we don't want this set.
@@ -72,13 +72,13 @@ public class ChatRequest extends AbstractUpdateRequest {
             return Collections.EMPTY_LIST;
         } else {
             return hasTarget()
-                   ? Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM))
-                   : Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
+                   ? Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW))
+                   : Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_VIEW));
         }
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CHAT;
+        return RequestType.R_CHAT;
     }
 }

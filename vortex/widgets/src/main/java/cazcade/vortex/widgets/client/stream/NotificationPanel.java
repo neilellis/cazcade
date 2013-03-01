@@ -11,9 +11,9 @@ import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.SendRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -40,7 +40,7 @@ public class NotificationPanel extends Composite {
     public static final  int                       STATUS_CHECK_FREQUENCY = 30000;
     private static final VortexStreamPanelUiBinder ourUiBinder            = GWT.create(VortexStreamPanelUiBinder.class);
     @Nonnull
-    private final        Bus                       bus                    = BusFactory.get();
+    private final        BusService                bus                    = Bus.get();
     private final        long                      lastUpdate             = System.currentTimeMillis() - UPDATE_LIEFTIME;
     @Nonnull
     private final        VortexThreadSafeExecutor  threadSafeExecutor     = new VortexThreadSafeExecutor();
@@ -50,8 +50,8 @@ public class NotificationPanel extends Composite {
     private final Sound           statusUpdateSound;
     @UiField      HorizontalPanel parentPanel;
     private int maxRows = 10;
-    private boolean   initialized;
-    private LiquidURI pool;
+    private boolean initialized;
+    private LURI    pool;
 
     public NotificationPanel() {
         super();
@@ -86,7 +86,7 @@ public class NotificationPanel extends Composite {
         WidgetUtil.removeAllChildren(parentPanel);
     }
 
-    public void init(final LiquidURI newPool) {
+    public void init(final LURI newPool) {
         pool = newPool;
         clear();
 
@@ -104,13 +104,11 @@ public class NotificationPanel extends Composite {
                                     && !response.$(Dictionary.TEXT_BRIEF).isEmpty()) {
                                     addToStream(new CommentEntryPanel(response));
                                 }
-                                if (message.getState() != LiquidMessageState.PROVISIONAL
-                                    && message.getState() != LiquidMessageState.INITIAL
-                                    && message.getState() != LiquidMessageState.FAIL
-                                    && ((LiquidRequest) message).requestType() == RequestType.VISIT_POOL
-                                    && !UserUtil.isAnonymousAliasURI(response.child(Dictionary.VISITOR_A, false)
-                                                                             .uri()
-                                                                             .toString())) {
+                                if (message.state() != MessageState.PROVISIONAL
+                                    && message.state() != MessageState.INITIAL
+                                    && message.state() != MessageState.FAIL
+                                    && ((LiquidRequest) message).requestType() == RequestType.R_VISIT_POOL
+                                    && !User.isAnonymousAliasURI(response.child(Dictionary.VISITOR_A, false).uri().toString())) {
                                     final VortexPresenceNotificationPanel content = new VortexPresenceNotificationPanel(response, pool, message
                                             .id()
                                             .toString());
@@ -125,8 +123,8 @@ public class NotificationPanel extends Composite {
                         }
                     });
 
-                    BusFactory.get()
-                              .listenForSuccess(UserUtil.currentAlias().uri(), RequestType.SEND, new BusListener<SendRequest>() {
+                    Bus.get()
+                              .listenForSuccess(User.currentAlias().uri(), RequestType.R_SEND, new BusListener<SendRequest>() {
                                   @Override
                                   public void handle(@Nonnull final SendRequest request) {
                                       final DirectMessageStreamEntryPanel content = new DirectMessageStreamEntryPanel(request.response());
@@ -137,7 +135,7 @@ public class NotificationPanel extends Composite {
                 }
             }.schedule(1000);
 
-            //            if (ClientApplicationConfiguration.isRetrieveUpdates()) {
+            //            if (Config.isRetrieveUpdates()) {
             //                new Timer() {
             //                    @Override
             //                    public void run() {

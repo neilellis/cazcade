@@ -33,8 +33,6 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
     private static final Logger log = Logger.getLogger(FountainEntity.class);
 
     private static final long serialVersionUID = -1697240636351951371L;
-
-
     private static final Cache nodeAuthCache;
     public static final String LOCKED_PROPERTY = "___locked___";
 
@@ -57,7 +55,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
 
     @Override
     public double calculateRadius() {
-        if (has$(Dictionary.VIEW_X) && has$(Dictionary.VIEW_Y)) {
+        if (has(Dictionary.VIEW_X) && has(Dictionary.VIEW_Y)) {
             final double x = Double.valueOf($(Dictionary.VIEW_X));
             final double y = Double.valueOf($(Dictionary.VIEW_Y));
             return Math.sqrt(x * x + y * y);
@@ -69,7 +67,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
     @Override @Nonnull
     public TransferEntity toTransfer(@Nonnull final RequestDetailLevel detail, final boolean internal) throws InterruptedException {
         final TransferEntity entity = createEmpty();
-        if (has$(Dictionary.TYPE)) {
+        if (has(Dictionary.TYPE)) {
             entity.$(Dictionary.TYPE, $(Dictionary.TYPE));
         } else {
             throw new DataStoreException("FountainEntity had no type");
@@ -96,10 +94,10 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
                 }
             }
         } else if (detail == RequestDetailLevel.TITLE_AND_NAME) {
-            if (has$(Dictionary.TITLE)) {
+            if (has(Dictionary.TITLE)) {
                 entity.$(this, Dictionary.TITLE);
             }
-            if (has$(Dictionary.NAME)) {
+            if (has(Dictionary.NAME)) {
                 entity.$(this, Dictionary.NAME);
             }
             entity.$(this, Dictionary.ID);
@@ -130,7 +128,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
     @Override
     public void copyValuesToEntity(@Nonnull final Entity entity, @Nonnull final Attribute... attributes) {
         for (final Attribute attribute : attributes) {
-            if (has$(attribute)) {
+            if (has(attribute)) {
                 entity.$(this, attribute);
             }
         }
@@ -262,7 +260,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
 
     @Override
     public boolean deleted() throws InterruptedException {
-        return has$(Dictionary.DELETED);
+        return has(Dictionary.DELETED);
     }
 
     @Override
@@ -293,7 +291,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
 
     @SuppressWarnings({"ReturnOfThis"}) @Override @Nonnull
     public PersistedEntity mergeProperties(@Nonnull final TransferEntity source, final boolean update, final boolean ignoreType, @Nullable final Runnable onRenameAction) throws InterruptedException {
-        if (has$(Dictionary.TYPE) && source.has$(Dictionary.TYPE) && !ignoreType) {
+        if (has(Dictionary.TYPE) && source.has(Dictionary.TYPE) && !ignoreType) {
             if (!is(source.type())) {
                 throw new CannotChangeTypeException("The entity type used to be %s the request was to change it to %s", type(), source
                         .type());
@@ -304,7 +302,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
             if (entry.getKey().equals(Dictionary.ID.getKeyName())) {
                 if (update) {
                 } else {
-                    if (has$(Dictionary.ID)) {
+                    if (has(Dictionary.ID)) {
                         final String currentId = id().toString();
                         if (!currentId.equals(entry.getValue())) {
                             throw new CannotChangeIdException("You cannot change the id of entity from %s to %s", currentId, entry.getValue());
@@ -314,7 +312,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
                         id(new LiquidUUID(entry.getValue()));
                     }
                 }
-            } else if (entry.getKey().equals(Dictionary.NAME.getKeyName()) && has$(Dictionary.NAME)) {
+            } else if (entry.getKey().equals(Dictionary.NAME.getKeyName()) && has(Dictionary.NAME)) {
                 //trigger a URL recalculation
                 if (!entry.getValue().equals($(Dictionary.NAME))) {
                     $(Dictionary.NAME, entry.getValue());
@@ -351,7 +349,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
 
     @Override
     public FountainEntity setIDIfNotSetOnNode() {
-        if (!has$(Dictionary.ID) || $(Dictionary.ID).isEmpty()) {
+        if (!has(Dictionary.ID) || $(Dictionary.ID).isEmpty()) {
             $(Dictionary.ID, UUIDFactory.randomUUID().toString().toLowerCase());
         }
         return this;
@@ -360,25 +358,25 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
     @Override
     public void setPermissionFlagsOnEntity(@Nonnull final SessionIdentifier session, @Nullable final PersistedEntity parent, @Nonnull final Entity entity) throws InterruptedException {
         if (parent == null) {
-            entity.$(Dictionary.MODIFIABLE, isAuthorized(session, Permission.MODIFY_PERM));
-            entity.$(Dictionary.EDITABLE, isAuthorized(session, Permission.EDIT_PERM));
-            entity.$(Dictionary.DELETABLE, isAuthorized(session, Permission.DELETE_PERM));
+            entity.$(Dictionary.MODIFIABLE, allowed(session, Permission.P_MODIFY));
+            entity.$(Dictionary.EDITABLE, allowed(session, Permission.P_EDIT));
+            entity.$(Dictionary.DELETABLE, allowed(session, Permission.P_DELETE));
         } else {
-            entity.$(Dictionary.MODIFIABLE, parent.isAuthorized(session, Permission.EDIT_PERM)
-                                            || parent.isAuthorized(session, Permission.MODIFY_PERM)
-                                               && isAuthorized(session, Permission.MODIFY_PERM));
-            entity.$(Dictionary.EDITABLE, parent.isAuthorized(session, Permission.EDIT_PERM)
-                                          || parent.isAuthorized(session, Permission.MODIFY_PERM)
-                                             && isAuthorized(session, Permission.EDIT_PERM));
-            entity.$(Dictionary.DELETABLE, parent.isAuthorized(session, Permission.EDIT_PERM)
-                                           || parent.isAuthorized(session, Permission.MODIFY_PERM)
-                                              && isAuthorized(session, Permission.DELETE_PERM));
+            entity.$(Dictionary.MODIFIABLE, parent.allowed(session, Permission.P_EDIT)
+                                            || parent.allowed(session, Permission.P_MODIFY)
+                                               && allowed(session, Permission.P_MODIFY));
+            entity.$(Dictionary.EDITABLE, parent.allowed(session, Permission.P_EDIT)
+                                          || parent.allowed(session, Permission.P_MODIFY)
+                                             && allowed(session, Permission.P_EDIT));
+            entity.$(Dictionary.DELETABLE, parent.allowed(session, Permission.P_EDIT)
+                                           || parent.allowed(session, Permission.P_MODIFY)
+                                              && allowed(session, Permission.P_DELETE));
         }
-        entity.$(Dictionary.ADMINISTERABLE, isAuthorized(session, Permission.SYSTEM_PERM));
+        entity.$(Dictionary.ADMINISTERABLE, allowed(session, Permission.P_SYSTEM));
     }
 
     @Override
-    public boolean isAuthorized(@Nonnull final SessionIdentifier identity, @Nonnull final Permission... permissions) throws InterruptedException {
+    public boolean allowed(@Nonnull final SessionIdentifier identity, @Nonnull final Permission... permissions) throws InterruptedException {
         final StringBuilder cacheKeyBuilder = new StringBuilder().append(getPersistenceId())
                                                                  .append(':')
                                                                  .append(identity.aliasURI())
@@ -481,13 +479,13 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
                     @Override
                     public boolean isStopNode(@Nonnull final TraversalPosition currentPos) {
                         final PersistedEntity entity = new FountainEntity(currentPos.currentNode());
-                        return entity.has$(Dictionary.URI) && entity.$(Dictionary.URI).equals(identity.userURL().asString());
+                        return entity.has(Dictionary.URI) && entity.$(Dictionary.URI).equals(identity.userURL().asString());
                     }
                 }, new ReturnableEvaluator() {
                     @Override
                     public boolean isReturnableNode(@Nonnull final TraversalPosition currentPos) {
                         final PersistedEntity entity = new FountainEntity(currentPos.currentNode());
-                        return entity.has$(Dictionary.URI) && entity.$(Dictionary.URI).equals(identity.userURL().asString());
+                        return entity.has(Dictionary.URI) && entity.$(Dictionary.URI).equals(identity.userURL().asString());
                     }
                 }, FountainRelationships.OWNER, Direction.OUTGOING, FountainRelationships.ALIAS, Direction.OUTGOING
                                             );
@@ -502,7 +500,7 @@ public final class FountainEntity extends SimpleEntity<PersistedEntity> implemen
 
     @Override
     public PersistedEntity publishTimestamp() {
-        if (!has$(Dictionary.PUBLISHED)) {
+        if (!has(Dictionary.PUBLISHED)) {
             $(Dictionary.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         }
         return this;

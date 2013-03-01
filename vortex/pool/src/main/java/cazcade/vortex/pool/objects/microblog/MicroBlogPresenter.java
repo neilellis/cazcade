@@ -23,9 +23,9 @@ public class MicroBlogPresenter extends AbstractPoolObjectPresenter<MicroBlogVie
     @Override
     public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
         super.update(newEntity, replaceEntity);
-        getPoolObjectView().setProfileImage(newEntity.$(Dictionary.ICON_URL));
-        getPoolObjectView().setMicroBlogShortText(newEntity.$(Dictionary.TEXT_BRIEF));
-        getPoolObjectView().setMicroBlogTitle(newEntity.$(Dictionary.TITLE));
+        view().setProfileImage(newEntity.$(Dictionary.ICON_URL));
+        view().setMicroBlogShortText(newEntity.$(Dictionary.TEXT_BRIEF));
+        view().setMicroBlogTitle(newEntity.$(Dictionary.TITLE));
     }
 
 }

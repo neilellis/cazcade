@@ -15,7 +15,6 @@
 
     <modules>
         <module>dnd</module>
-        <module>main</module>
         <module>widgets</module>
         <module>comms</module>
         <module>gwt-util</module>

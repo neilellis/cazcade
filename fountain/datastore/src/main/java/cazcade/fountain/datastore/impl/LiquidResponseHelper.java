@@ -7,8 +7,8 @@ package cazcade.fountain.datastore.impl;
 import cazcade.common.CommonConstants;
 import cazcade.common.Logger;
 import cazcade.fountain.datastore.api.EntityNotFoundException;
-import cazcade.liquid.api.LiquidMessageOrigin;
-import cazcade.liquid.api.LiquidMessageState;
+import cazcade.liquid.api.MessageState;
+import cazcade.liquid.api.Origin;
 import cazcade.liquid.api.LiquidRequest;
 import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.impl.UUIDFactory;
@@ -30,8 +30,8 @@ public class LiquidResponseHelper {
         } else {
             log.warn(e, "{0}", e.getMessage());
             final T message = (T) request.copy();
-            message.state(LiquidMessageState.FAIL);
-            message.origin(LiquidMessageOrigin.SERVER);
+            message.state(MessageState.FAIL);
+            message.origin(Origin.SERVER);
 
 
             message.response(SimpleEntity.createEmpty()
@@ -65,16 +65,16 @@ public class LiquidResponseHelper {
                                      .$(Dictionary.UPDATED, System.currentTimeMillis())
                                      .$(Dictionary.SOURCE, request.id().toString())
                                      .$(Dictionary.UPDATED, System.currentTimeMillis()));
-        message.state(LiquidMessageState.FAIL);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.FAIL);
+        message.origin(Origin.SERVER);
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forFailure(@Nonnull final T request, @Nonnull final LiquidRequest failure) {
         final T message = (T) request.copy();
-        message.state(LiquidMessageState.FAIL);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.FAIL);
+        message.origin(Origin.SERVER);
         message.response(SimpleEntity.createEmpty()
                                      .$(Dictionary.TYPE, failure.response().type().asString())
                                      .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
@@ -96,8 +96,8 @@ public class LiquidResponseHelper {
                                      .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()))
                                      .$(Dictionary.SOURCE, request.id().toString())
                                      .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis())));
-        message.state(LiquidMessageState.SUCCESS);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.SUCCESS);
+        message.origin(Origin.SERVER);
         return message;
     }
 
@@ -112,8 +112,8 @@ public class LiquidResponseHelper {
                                      .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis()))
                                      .$(Dictionary.SOURCE, request.id().toString())
                                      .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis())));
-        message.state(LiquidMessageState.FAIL);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.FAIL);
+        message.origin(Origin.SERVER);
         return message;
     }
 
@@ -121,16 +121,16 @@ public class LiquidResponseHelper {
     public static <T extends LiquidRequest> T forServerSuccess(@Nonnull final T request, final TransferEntity entity) {
         final T message = (T) request.copy();
         message.response(entity);
-        message.state(LiquidMessageState.SUCCESS);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.SUCCESS);
+        message.origin(Origin.SERVER);
         return message;
     }
 
     @Nonnull
     public static <T extends LiquidRequest> T forServerSuccess(@Nonnull final T request) {
         final T message = (T) request.copy();
-        message.state(LiquidMessageState.SUCCESS);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.SUCCESS);
+        message.origin(Origin.SERVER);
         return message;
     }
 
@@ -140,8 +140,8 @@ public class LiquidResponseHelper {
         message.response(SimpleEntity.create(Types.T_DATA_STORE_REFERENCE_RESULT)
                                      .$(Dictionary.ID, id)
                                      .$(Dictionary.UPDATED, timestamp));
-        message.state(LiquidMessageState.SUCCESS);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.SUCCESS);
+        message.origin(Origin.SERVER);
         return message;
     }
 
@@ -149,8 +149,8 @@ public class LiquidResponseHelper {
     public static <T extends LiquidRequest> T forServerSuccessWithReferenceOnly(@Nonnull final T request, @Nonnull final Entity entity) {
         final T message = (T) request.copy();
         message.response(SimpleEntity.create(Types.T_DATA_STORE_REFERENCE_RESULT).id(entity.id()).$(entity, Dictionary.UPDATED));
-        message.state(LiquidMessageState.SUCCESS);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.SUCCESS);
+        message.origin(Origin.SERVER);
         return message;
     }
 
@@ -162,8 +162,8 @@ public class LiquidResponseHelper {
                                      .$(Dictionary.ID, UUIDFactory.randomUUID().toString())
                                      .$(Dictionary.CORRELATION_ID, request.id().toString())
                                      .$(Dictionary.UPDATED, String.valueOf(System.currentTimeMillis())));
-        message.state(LiquidMessageState.DEFERRED);
-        message.origin(LiquidMessageOrigin.SERVER);
+        message.state(MessageState.DEFERRED);
+        message.origin(Origin.SERVER);
         return message;
     }
 }

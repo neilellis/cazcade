@@ -95,11 +95,11 @@ public class WebUtilRestHandler extends AbstractRestHandler {
         responseEntity.$(Attribute.PUBLISHED, String.valueOf(System.currentTimeMillis()));
         responseEntity.$(Attribute.UPDATED, String.valueOf(System.currentTimeMillis()));
         if (response.getImageSize() != null) {
-            if (response.getImageSize().getX() > 0) {
-                responseEntity.$(Attribute.IMAGE_WIDTH, String.valueOf(response.getImageSize().getX()));
+            if (response.getImageSize().x() > 0) {
+                responseEntity.$(Attribute.IMAGE_WIDTH, String.valueOf(response.getImageSize().x()));
             }
-            if (response.getImageSize().getY() > 0) {
-                responseEntity.$(Attribute.IMAGE_HEIGHT, String.valueOf(response.getImageSize().getY()));
+            if (response.getImageSize().y() > 0) {
+                responseEntity.$(Attribute.IMAGE_HEIGHT, String.valueOf(response.getImageSize().y()));
             }
         }
         return responseEntity;
@@ -283,8 +283,8 @@ public class WebUtilRestHandler extends AbstractRestHandler {
                     final List<MediaThumbnail> thumbnails = videoEntry.getMediaGroup().getThumbnails();
                     if (!thumbnails.isEmpty()) {
                         final String thumbUrl = thumbnails.get(0).getUrl();
-                        final int thumbWidth = thumbnails.get(0).getWidth();
-                        final int thumbHeight = thumbnails.get(0).getHeight();
+                        final int thumbWidth = thumbnails.get(0).width();
+                        final int thumbHeight = thumbnails.get(0).height();
 
                         entity.$notnull(Attribute.IMAGE_URL, thumbUrl);
                         entity.$notnull(Attribute.IMAGE_WIDTH, String.valueOf(thumbWidth));

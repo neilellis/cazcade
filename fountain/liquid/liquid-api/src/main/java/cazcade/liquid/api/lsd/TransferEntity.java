@@ -14,43 +14,13 @@ import java.util.Map;
  * @author Neil Ellis
  */
 
-public interface TransferEntity<T extends TransferEntity<T>> extends Serializable, Entity<T, TransferEntity<T>> {
+public interface TransferEntity<T extends TransferEntity<T> & Entity<TransferEntity<T>, T>> extends Entity<TransferEntity<T>, T> {
 
-    @Nonnull Node asFormatIndependentTree();
+    @Nonnull TransferEntityCollection<? extends TransferEntity> children(@Nonnull Attribute key);
 
+    @Nonnull TransferEntityCollection<? extends TransferEntity> children();
 
-    @Nonnull Map<String, String> asMapForPersistence(boolean ignoreType, boolean update);
+    @Nonnull  TransferEntity<T> $();
 
-
-    @Nonnull TransferEntity asUpdateEntity();
-
-
-    @Nonnull TransferEntity $();
-
-
-    /**
-     * @deprecated use toString() instead.
-     */
-    String dump();
-
-    /**
-     * Use this for JSPs i.e. JSTL EL
-     *
-     * @return
-     */
-    @Nonnull Map<String, String> getCamelCaseMap();
-
-
-    /**
-     * The canonical format.
-     *
-     * @return a map of name/value pairs.
-     */
-    @Nonnull Map<String, String> map();
-
-    @Nonnull TransferEntityCollection<T> children(@Nonnull Attribute key);
-
-    @Nonnull TransferEntityCollection<T> children();
-
-
+    @Nonnull  TransferEntity<T> asUpdate();
 }

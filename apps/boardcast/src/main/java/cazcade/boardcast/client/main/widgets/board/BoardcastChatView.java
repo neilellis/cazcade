@@ -7,19 +7,19 @@ package cazcade.boardcast.client.main.widgets.board;
 import cazcade.boardcast.client.main.widgets.AddChatBox;
 import cazcade.boardcast.client.main.widgets.BoardMenuBar;
 import cazcade.liquid.api.BoardURL;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.RequestType;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.VisitPoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.BusListener;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.*;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
@@ -65,12 +65,12 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     @UiField DivElement      boardLockedIcon;
     @UiField Label           returnFromChatButton;
     @Nonnull
-    private final Bus bus = BusFactory.get();
-    private LiquidURI poolURI;
-    private BoardURL  boardURL;
+    private final BusService bus = Bus.get();
+    private LURI     poolURI;
+    private BoardURL boardURL;
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
-    private LiquidURI      previousPoolURI;
+    private LURI           previousPoolURI;
     private TransferEntity poolEntity;
     private long           changePermissionListener;
     //    @UiField
@@ -97,10 +97,10 @@ public class BoardcastChatView extends EntityBackedFormPanel {
     private void refresh() {
         //        inbox.setFeatures(FormatUtil.getInstance());
         if (changePermissionListener != 0) {
-            BusFactory.get().remove(changePermissionListener);
+            Bus.get().remove(changePermissionListener);
         }
 
-        changePermissionListener = BusFactory.get().listenForSuccess(poolURI, RequestType.CHANGE_PERMISSION, new BusListener() {
+        changePermissionListener = Bus.get().listenForSuccess(poolURI, RequestType.R_CHANGE_PERMISSION, new BusListener() {
             @Override
             public void handle(final LiquidMessage message) {
                 refresh();
@@ -108,27 +108,27 @@ public class BoardcastChatView extends EntityBackedFormPanel {
         });
 
 
-        bus.send(new VisitPoolRequest(Types.T_BOARD, poolURI, previousPoolURI, !UserUtil.anon(), poolURI.board()
-                                                                                                        .isListedByConvention()), new AbstractResponseCallback<VisitPoolRequest>() {
+        bus.send(new VisitPoolRequest(Types.T_BOARD, poolURI, previousPoolURI, !User.anon(), poolURI.board()
+                                                                                                        .listedConvention()), new AbstractMessageCallback<VisitPoolRequest>() {
             @Override
-            public void onFailure(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
-                if (response.response().type().canBe(Types.T_RESOURCE_NOT_FOUND)) {
-                    if (UserUtil.anon()) {
+            public void onFailure(final VisitPoolRequest original, @Nonnull final VisitPoolRequest message) {
+                if (message.response().type().canBe(Types.T_RESOURCE_NOT_FOUND)) {
+                    if (User.anon()) {
                         Window.alert("Please login first.");
                     } else {
                         Window.alert("You don't have permission");
                     }
                 } else {
-                    super.onFailure(message, response);
+                    super.onFailure(original, message);
                 }
             }
 
             @Override
-            public void onSuccess(final VisitPoolRequest message, @Nonnull final VisitPoolRequest response) {
+            public void onSuccess(final VisitPoolRequest original, @Nonnull final VisitPoolRequest message) {
                 StartupUtil.showLiveVersion(getWidget().getElement().getParentElement());
 
                 ClientLog.log("Got response.");
-                poolEntity = response.response().$();
+                poolEntity = message.response().$();
                 $.async(new Runnable() {
                     @Override public void run() {
                         ClientLog.log(poolEntity.dump());
@@ -138,7 +138,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                 });
                 $.async(new Runnable() {
                     @Override public void run() {
-                        if (poolEntity.has$(Dictionary.IMAGE_URL)) {
+                        if (poolEntity.has(Dictionary.IMAGE_URL)) {
                             contentArea.setBackgroundImage(poolEntity.$(Dictionary.IMAGE_URL));
                         }
                         if (poolEntity.$bool(Dictionary.MODIFIABLE)) {

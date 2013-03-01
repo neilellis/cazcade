@@ -28,7 +28,7 @@ public class SimpleEntityFactory<T extends TransferEntity<T>> implements EntityF
         } else {
             lsdProperties.putAll(properties);
         }
-        SimpleEntity<? extends TransferEntity> result = SimpleEntity.createFromProperties(lsdProperties);
+        SimpleEntity<? extends TransferEntity> result = SimpleEntity.fromProperties(lsdProperties);
         return (T) result;
     }
 
@@ -49,7 +49,7 @@ public class SimpleEntityFactory<T extends TransferEntity<T>> implements EntityF
                 lsdProperties.put(key.substring(1), entry.getValue()[0]);
             }
         }
-        SimpleEntity<? extends TransferEntity> result = SimpleEntity.createFromProperties(lsdProperties);
+        SimpleEntity<? extends TransferEntity> result = SimpleEntity.fromProperties(lsdProperties);
         return (T) result;
     }
 }

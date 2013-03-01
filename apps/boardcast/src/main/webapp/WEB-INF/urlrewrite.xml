@@ -10,6 +10,12 @@
 
 <urlrewrite>
 
+
+    <rule>
+        <from>/_static/less/.*</from>
+        <set type="response-header" name="Cache-Control">max-age=0, must-revalidate</set>
+    </rule>
+
     <!--http://urlrewritefilter.googlecode.com/svn/trunk/src/doc/manual/3.2/guide.html-->
     <rule>
         <name>Canonical Hostnames</name>

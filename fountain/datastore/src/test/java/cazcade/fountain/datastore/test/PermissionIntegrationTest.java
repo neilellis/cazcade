@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.services.persistence.FountainPoolDAOImpl;
 import cazcade.fountain.datastore.impl.services.persistence.FountainUserDAOImpl;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.PermissionChangeType;
 import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.SessionIdentifier;
@@ -47,16 +47,16 @@ public class PermissionIntegrationTest {
     private String              userPublicPoolName;
     @Nullable
     private SessionIdentifier   session;
-    private LiquidURI           stickyURI;
-    private LiquidURI           publicPoolURI;
-    private LiquidURI           subPoolURI;
+    private LURI                stickyURI;
+    private LURI                publicPoolURI;
+    private LURI                subPoolURI;
     private String              sticky2Name;
-    private LiquidURI           sticky2URI;
+    private LURI                sticky2URI;
     private PersistedEntity     subPool;
     private String              userProfilePoolName;
-    private LiquidURI           sticky3URI;
+    private LURI                sticky3URI;
     private String              sticky3Name;
-    private LiquidURI           profilePoolURI;
+    private LURI                profilePoolURI;
     @Autowired
 
     private FountainPoolDAOImpl poolDAO;
@@ -82,15 +82,15 @@ public class PermissionIntegrationTest {
                 session = new SessionIdentifier(username, null);
                 userPublicPoolName = "pool:///people/" + username + "/public";
                 userProfilePoolName = "pool:///people/" + username + "/profile";
-                publicPoolURI = new LiquidURI(userPublicPoolName);
-                profilePoolURI = new LiquidURI(userProfilePoolName);
-                subPoolURI = new LiquidURI(userPublicPoolName + "/sub");
+                publicPoolURI = new LURI(userPublicPoolName);
+                profilePoolURI = new LURI(userProfilePoolName);
+                subPoolURI = new LURI(userPublicPoolName + "/sub");
                 stickyName = "sticky" + System.currentTimeMillis();
                 sticky2Name = "sticky2" + System.currentTimeMillis();
                 sticky3Name = "sticky3" + System.currentTimeMillis();
-                stickyURI = new LiquidURI(userPublicPoolName + "/sub#" + stickyName);
-                sticky2URI = new LiquidURI(userPublicPoolName + "/sub#" + sticky2Name);
-                sticky3URI = new LiquidURI(userProfilePoolName + "#" + sticky3Name);
+                stickyURI = new LURI(userPublicPoolName + "/sub#" + stickyName);
+                sticky2URI = new LURI(userPublicPoolName + "/sub#" + sticky2Name);
+                sticky3URI = new LURI(userProfilePoolName + "#" + sticky3Name);
                 final PersistedEntity publicPoolPersistedEntity = fountainNeo.findByURI(publicPoolURI, true);
                 final PersistedEntity profilePoolPersistedEntity = fountainNeo.findByURI(profilePoolURI, true);
                 assertNotNull(publicPoolPersistedEntity);
@@ -118,22 +118,22 @@ public class PermissionIntegrationTest {
                 fountainNeo.changePermissionNoTx(session, publicPoolURI, PermissionChangeType.MAKE_PUBLIC_READONLY, RequestDetailLevel.NORMAL, false);
                 final Entity publicPoolEntity = poolDAO.getPoolObjectTx(session, publicPoolURI, false, false, RequestDetailLevel.NORMAL);
                 assertTrue(publicPoolEntity.canBe(Types.T_POOL2D));
-                assertFalse(publicPoolEntity.allowed(WORLD_SCOPE, MODIFY_PERM));
-                assertFalse(publicPoolEntity.allowed(WORLD_SCOPE, EDIT_PERM));
+                assertFalse(publicPoolEntity.allowed(WORLD_SCOPE, P_MODIFY));
+                assertFalse(publicPoolEntity.allowed(WORLD_SCOPE, P_EDIT));
 
                 final Entity subPoolEntity = poolDAO.getPoolObjectTx(session, subPoolURI, false, false, RequestDetailLevel.NORMAL);
                 assertTrue(subPoolEntity.canBe(Types.T_POOL2D));
-                assertFalse(subPoolEntity.allowed(WORLD_SCOPE, MODIFY_PERM));
-                assertFalse(subPoolEntity.allowed(WORLD_SCOPE, EDIT_PERM));
+                assertFalse(subPoolEntity.allowed(WORLD_SCOPE, P_MODIFY));
+                assertFalse(subPoolEntity.allowed(WORLD_SCOPE, P_EDIT));
 
                 Entity stickyEntity = poolDAO.getPoolObjectTx(session, stickyURI, false, false, RequestDetailLevel.NORMAL);
                 assertTrue(stickyEntity.canBe(Types.T_STICKY));
-                assertTrue(stickyEntity.allowed(OWNER_SCOPE, MODIFY_PERM));
-                assertTrue(stickyEntity.allowed(OWNER_SCOPE, EDIT_PERM));
+                assertTrue(stickyEntity.allowed(OWNER_SCOPE, P_MODIFY));
+                assertTrue(stickyEntity.allowed(OWNER_SCOPE, P_EDIT));
 
-                assertTrue(stickyEntity.allowed(WORLD_SCOPE, VIEW_PERM));
-                assertFalse(stickyEntity.allowed(WORLD_SCOPE, MODIFY_PERM));
-                assertFalse(stickyEntity.allowed(WORLD_SCOPE, EDIT_PERM));
+                assertTrue(stickyEntity.allowed(WORLD_SCOPE, P_VIEW));
+                assertFalse(stickyEntity.allowed(WORLD_SCOPE, P_MODIFY));
+                assertFalse(stickyEntity.allowed(WORLD_SCOPE, P_EDIT));
 
                 final PersistedEntity newSubPool = fountainNeo.find(subPoolURI);
                 assertEquals("o=vmeds,f=v,m=vm,v=v,w=v,u=v,a=vmeds,t=vmeds,c=,e=", newSubPool.$(Dictionary.PERMISSIONS));
@@ -141,17 +141,17 @@ public class PermissionIntegrationTest {
 
                 final Entity sticky2Entity = poolDAO.getPoolObjectTx(session, sticky2URI, false, false, RequestDetailLevel.NORMAL);
                 assertTrue(sticky2Entity.canBe(Types.T_STICKY));
-                assertTrue(sticky2Entity.allowed(OWNER_SCOPE, MODIFY_PERM));
-                assertTrue(sticky2Entity.allowed(OWNER_SCOPE, EDIT_PERM));
+                assertTrue(sticky2Entity.allowed(OWNER_SCOPE, P_MODIFY));
+                assertTrue(sticky2Entity.allowed(OWNER_SCOPE, P_EDIT));
 
-                assertTrue(sticky2Entity.allowed(WORLD_SCOPE, VIEW_PERM));
-                assertFalse(sticky2Entity.allowed(WORLD_SCOPE, MODIFY_PERM));
-                assertFalse(sticky2Entity.allowed(WORLD_SCOPE, EDIT_PERM));
+                assertTrue(sticky2Entity.allowed(WORLD_SCOPE, P_VIEW));
+                assertFalse(sticky2Entity.allowed(WORLD_SCOPE, P_MODIFY));
+                assertFalse(sticky2Entity.allowed(WORLD_SCOPE, P_EDIT));
 
                 fountainNeo.changePermissionNoTx(session, publicPoolURI, PermissionChangeType.MAKE_PUBLIC, RequestDetailLevel.NORMAL, false);
                 stickyEntity = poolDAO.getPoolObjectTx(session, stickyURI, false, false, RequestDetailLevel.NORMAL);
-                assertTrue(stickyEntity.allowed(WORLD_SCOPE, MODIFY_PERM));
-                assertFalse(stickyEntity.allowed(WORLD_SCOPE, EDIT_PERM));
+                assertTrue(stickyEntity.allowed(WORLD_SCOPE, P_MODIFY));
+                assertFalse(stickyEntity.allowed(WORLD_SCOPE, P_EDIT));
                 return null;
             }
         });
@@ -160,16 +160,16 @@ public class PermissionIntegrationTest {
     @Test
     public void testProfilePoolStickyInitialPermissions() throws Exception {
         final Entity entity = poolDAO.getPoolObjectTx(session, sticky3URI, false, false, RequestDetailLevel.NORMAL);
-        assertTrue(entity.allowed(WORLD_SCOPE, VIEW_PERM));
-        assertFalse(entity.allowed(WORLD_SCOPE, MODIFY_PERM));
-        assertFalse(entity.allowed(WORLD_SCOPE, EDIT_PERM));
+        assertTrue(entity.allowed(WORLD_SCOPE, P_VIEW));
+        assertFalse(entity.allowed(WORLD_SCOPE, P_MODIFY));
+        assertFalse(entity.allowed(WORLD_SCOPE, P_EDIT));
     }
 
     @Test
     public void testPublicPoolStickyInitialPermissions() throws Exception {
         final Entity entity = poolDAO.getPoolObjectTx(session, stickyURI, false, false, RequestDetailLevel.NORMAL);
-        assertTrue(entity.allowed(WORLD_SCOPE, VIEW_PERM));
-        assertTrue(entity.allowed(WORLD_SCOPE, MODIFY_PERM));
-        assertFalse(entity.allowed(WORLD_SCOPE, EDIT_PERM));
+        assertTrue(entity.allowed(WORLD_SCOPE, P_VIEW));
+        assertTrue(entity.allowed(WORLD_SCOPE, P_MODIFY));
+        assertFalse(entity.allowed(WORLD_SCOPE, P_EDIT));
     }
 }

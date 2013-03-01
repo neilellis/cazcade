@@ -7,7 +7,7 @@ package cazcade.fountain.datastore.impl.handlers;
 import cazcade.fountain.datastore.api.AuthorizationException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.handler.ChangePasswordRequestHandler;
 import cazcade.liquid.api.lsd.Dictionary;
@@ -27,7 +27,7 @@ public class ChangePasswordHandler extends AbstractDataStoreHandler<ChangePasswo
     public ChangePasswordRequest handle(@Nonnull final ChangePasswordRequest request) throws Exception {
         final Transaction transaction = neo.beginTx();
         try {
-            final LiquidURI userURL = request.session().userURL();
+            final LURI userURL = request.session().userURL();
             final PersistedEntity persistedEntity = neo.find(userURL);
             if (persistedEntity == null) {
                 throw new AuthorizationException("No such user " + userURL);

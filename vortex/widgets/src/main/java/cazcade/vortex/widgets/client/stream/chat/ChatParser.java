@@ -9,8 +9,8 @@ import cazcade.liquid.api.lsd.SimpleEntity;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.SendRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
+import cazcade.vortex.bus.client.Bus;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -31,9 +31,9 @@ public class ChatParser {
             }
             final TransferEntity messageEntity = SimpleEntity.create(Types.T_TEXT_MESSAGE);
             messageEntity.$(Dictionary.TEXT_EXTENDED, remainder(text, 2));
-            BusFactory.get().send(new SendRequest(messageEntity, args[1]), new AbstractResponseCallback<SendRequest>() {
+            Bus.get().send(new SendRequest(messageEntity, args[1]), new AbstractMessageCallback<SendRequest>() {
                 @Override
-                public void onSuccess(final SendRequest message, final SendRequest response) {
+                public void onSuccess(final SendRequest original, final SendRequest message) {
                 }
             });
             return true;

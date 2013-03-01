@@ -267,6 +267,9 @@ input[type="file"].gwt-FileUpload {
 .editable-image {
   position: relative;
   background-color: white;
+  img {
+    display:block;
+  }
   .editable-image-text {
     pointer-events: none;
     content: "Click to edit";
@@ -274,7 +277,7 @@ input[type="file"].gwt-FileUpload {
     color: black;
     font-size: 10px;
     position: absolute;
-    bottom: 8px;
+    bottom: 0;
     left: 0;
     right: 0;
     opacity: 0.0;

@@ -156,14 +156,14 @@ public abstract class AbstractVortexFormField extends Composite implements Vorte
     @Override
     public void bind(@Nonnull final TransferEntity entity, @Nullable final Attribute attribute, final String prefix) {
         setEntity(entity);
-        if (entity.has$(Dictionary.EDITABLE)) {
+        if (entity.has(Dictionary.EDITABLE)) {
             setEditable(entity.$bool(Dictionary.EDITABLE));
         }
         if (attribute != null) {
             if (isMultiValue()) {
                 bind(attribute, prefix, entity.$list(attribute));
             } else {
-                bind(attribute, prefix, entity.has$(attribute) ? entity.$(attribute) : "");
+                bind(attribute, prefix, entity.has(attribute) ? entity.$(attribute) : "");
             }
         }
     }

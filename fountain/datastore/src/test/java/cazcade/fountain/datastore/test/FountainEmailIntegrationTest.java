@@ -7,7 +7,7 @@ package cazcade.fountain.datastore.test;
 import cazcade.fountain.datastore.impl.FountainNeo;
 import cazcade.fountain.datastore.impl.FountainUserDAO;
 import cazcade.fountain.datastore.impl.services.persistence.FountainEmailService;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.RequestDetailLevel;
 import cazcade.liquid.api.lsd.TransferEntity;
 import org.junit.Before;
@@ -44,8 +44,8 @@ public class FountainEmailIntegrationTest {
 
     @Test @Transactional
     public void test() throws Exception {
-        final TransferEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LiquidURI("alias:cazcade:admin"), true), true, RequestDetailLevel.COMPLETE);
-        final TransferEntity userFromNode = fountainNeo.findByURI(new LiquidURI("user:admin"), true)
+        final TransferEntity aliasFromNode = userDAO.getAliasFromNode(fountainNeo.findByURI(new LURI("alias:cazcade:admin"), true), true, RequestDetailLevel.COMPLETE);
+        final TransferEntity userFromNode = fountainNeo.findByURI(new LURI("user:admin"), true)
                                                        .toTransfer(RequestDetailLevel.COMPLETE, true);
         mailService.send(userFromNode, aliasFromNode, "test-email.html", "Welcome", "", false);
     }

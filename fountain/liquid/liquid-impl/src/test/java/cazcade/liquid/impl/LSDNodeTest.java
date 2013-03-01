@@ -27,7 +27,7 @@ public class LSDNodeTest extends TestCase {
         final Properties props = new Properties();
         props.load(getClass().getResourceAsStream("test.properties"));
         final Map<String, String> propMap = (HashMap<String, String>) new HashMap(props);
-        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.createFromProperties(propMap);
+        final SimpleEntity<? extends TransferEntity> entity = SimpleEntity.fromProperties(propMap);
         final Node node = entity.asFormatIndependentTree();
 
         final SimpleEntity<? extends TransferEntity> convertedEntity = SimpleEntity.createFromNode(node);

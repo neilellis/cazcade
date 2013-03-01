@@ -43,7 +43,7 @@ public class RegisterServlet extends AbstractTwitterServlet {
             }
             final String email = request.getParameter(EMAIL_PARAM);
 
-            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new SessionIdentifier("admin", null), new LiquidURI(LiquidURIScheme.user, username), true));
+            final RetrieveUserRequest retrieveUserRequest = dataStore.process(new RetrieveUserRequest(new SessionIdentifier("admin", null), new LURI(LiquidURIScheme.user, username), true));
 
             if (RequestUtil.positiveResponse(retrieveUserRequest)) {
                 response.sendRedirect(request.getContextPath()
@@ -55,14 +55,14 @@ public class RegisterServlet extends AbstractTwitterServlet {
                 //create user
                 final Entity userEntity = LoginUtil.register(session, dataStore, user.getName(), username, UUID.randomUUID()
                                                                                                                .toString(), email, false);
-                //                RetrieveAliasRequest retrieveAliasResponse = dataStore.process(new RetrieveAliasRequest(new SessionIdentifier("admin"), new LiquidURI("alias:twitter:" + user.getScreenName())));
-                //                if(RequestUtil.positiveResponse(retrieveAliasResponse)) {
+                //                RetrieveAliasRequest retrieveAliasResponse = dataStore.process(new RetrieveAliasRequest(new SessionIdentifier("admin"), new LURI("alias:twitter:" + user.getScreenName())));
+                //                if(Request.positiveResponse(retrieveAliasResponse)) {
                 //                    session.$(TWITTER_ALIAS_KEY, retrieveAliasResponse.response());
                 //                    LoginUtil.login(clientSessionManager, dataStore, retrieveAliasResponse.response().uri());
                 //                    response.sendRedirect(request.getContextPath() + "/_twitter/login.jsp");
                 //                } else {
                 final LiquidMessage createAliasResponse = dataStore.process(new CreateAliasRequest(new SessionIdentifier(username), twitterAlias, true, true, true));
-                if (createAliasResponse.getState() == LiquidMessageState.SUCCESS) {
+                if (createAliasResponse.state() == MessageState.SUCCESS) {
                     final SessionIdentifier sessionIdentifier = LoginUtil.login(clientSessionManager, dataStore, createAliasResponse
                             .response()
                             .uri(), session, pubSub);

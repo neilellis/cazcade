@@ -2,7 +2,7 @@ package cazcade.liquid.impl.xstream;
 
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
 import javax.annotation.Nonnull;
@@ -13,11 +13,11 @@ public class LiquidURIConverter extends AbstractSingleValueConverter {
 
 
     public boolean canConvert(final Class clazz) {
-        return LiquidURI.class.isAssignableFrom(clazz);
+        return LURI.class.isAssignableFrom(clazz);
     }
 
     @Nonnull
     public Object fromString(final String str) {
-        return new LiquidURI(str);
+        return new LURI(str);
     }
 }

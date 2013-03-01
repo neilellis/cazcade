@@ -9,7 +9,7 @@ import cazcade.fountain.datastore.impl.*;
 import cazcade.liquid.api.LiquidMessage;
 import cazcade.liquid.api.LiquidMessageHandler;
 import cazcade.liquid.api.LiquidRequest;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.lsd.Dictionary;
 import org.neo4j.graphdb.Direction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,8 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
     protected FountainSocialDAO socialDAO;
 
     @Nonnull
-    protected LiquidURI defaultAndCheckOwner(@Nonnull final LiquidRequest request, @Nullable LiquidURI owner) throws InterruptedException {
-        LiquidURI owner1 = owner;
+    protected LURI defaultAndCheckOwner(@Nonnull final LiquidRequest request, @Nullable LURI owner) throws InterruptedException {
+        LURI owner1 = owner;
         if (owner1 == null) {
             owner1 = request.session().alias();
         } else {
@@ -48,7 +48,7 @@ public abstract class AbstractDataStoreHandler<T extends LiquidMessage> implemen
                 throw new AuthorizationException("Could not locate owner relationship for alias %s", owner1);
             }
             final PersistedEntity ownerPersistedEntity = ownerRelationship.other(ownerAlias);
-            if (!ownerPersistedEntity.has$(Dictionary.URI)) {
+            if (!ownerPersistedEntity.has(Dictionary.URI)) {
                 throw new AuthorizationException("Could not locate owner URI for alias %s", owner1);
             }
             final String ownerURL = ownerPersistedEntity.$(Dictionary.URI);

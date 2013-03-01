@@ -33,7 +33,7 @@ public interface LiquidMessage extends Serializable {
      *
      * @return
      */
-    @Deprecated Collection<LiquidURI> affectedEntities();
+    @Deprecated Collection<LURI> affectedEntities();
 
     @Nonnull String cacheIdentifier();
 
@@ -45,7 +45,7 @@ public interface LiquidMessage extends Serializable {
 
     @Nonnull LiquidMessageType messageType();
 
-    LiquidMessageOrigin origin();
+    Origin origin();
 
     @Nonnull TransferEntity request();
 
@@ -56,7 +56,7 @@ public interface LiquidMessage extends Serializable {
      */
     @Nullable Entity getResponseOrRequestEntity();
 
-    LiquidMessageState getState();
+    MessageState state();
 
     boolean isCacheable();
 
@@ -64,12 +64,12 @@ public interface LiquidMessage extends Serializable {
 
     void id(LiquidUUID id);
 
-    void origin(LiquidMessageOrigin origin);
+    void origin(Origin origin);
 
 
     void response(TransferEntity entity);
 
-    void state(LiquidMessageState status);
+    void state(MessageState status);
 
     boolean hasResponse();
 

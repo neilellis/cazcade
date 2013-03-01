@@ -19,10 +19,10 @@ import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
-import cazcade.vortex.common.client.UserUtil;
+import cazcade.vortex.bus.client.BusService;
+import cazcade.vortex.common.client.User;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
 import cazcade.vortex.gwt.util.client.*;
@@ -69,13 +69,13 @@ public class Boardcast implements EntryPoint {
     public void onModuleLoad() {
         //        Window.alert(History.getToken());
         BoardcastClientBundle.INSTANCE.css().ensureInjected();
-        ClientApplicationConfiguration.init();
-        ClientLog.setDebugMode(ClientApplicationConfiguration.isDebug());
-        ClientLog.setDebugMode(ClientApplicationConfiguration.isDev());
+        Config.init();
+        ClientLog.setDebugMode(Config.debug());
+        ClientLog.setDebugMode(Config.dev());
 
 
         final RootPanel logPanel = RootPanel.get("log-panel");
-        if (ClientApplicationConfiguration.isDebug()) {
+        if (Config.debug()) {
             ClientLog.logWidget = logPanel.getElement();
             logPanel.setHeight("400px");
             logPanel.setVisible(true);
@@ -93,7 +93,7 @@ public class Boardcast implements EntryPoint {
             }
         });
 
-        if (!ClientApplicationConfiguration.isSnapshotMode()) {
+        if (!Config.isSnapshotMode()) {
             $.async(new Runnable() {
                 @Override public void run() {
                     VersionNumberChecker.start();
@@ -102,7 +102,7 @@ public class Boardcast implements EntryPoint {
         }
 
 
-        if (ClientApplicationConfiguration.isPreflight() && !ClientApplicationConfiguration.isSnapshotMode()) {
+        if (Config.isPreflight() && !Config.isSnapshotMode()) {
             PreflightCheck.check();
         }
 
@@ -141,7 +141,7 @@ public class Boardcast implements EntryPoint {
     }
 
     private void injectChildren() {
-        if (!ClientApplicationConfiguration.isDebug() && !ClientApplicationConfiguration.isSnapshotMode()) {
+        if (!Config.debug() && !Config.isSnapshotMode()) {
             Track.setGoogleId("UA-27340178-1");
         }
         tracker = Track.getInstance();
@@ -173,7 +173,7 @@ public class Boardcast implements EntryPoint {
             loginOrRegisterPanel = new BoardcastLoginOrRegisterPanel(registerRequest, new Runnable() {
                 @Override
                 public void run() {
-                    UserUtil.storeIdentity(loginOrRegisterPanel.getIdentity());
+                    User.storeIdentity(loginOrRegisterPanel.getIdentity());
                     Window.Location.assign("./" + Window.Location.getQueryString());
                 }
             }, new Runnable() {
@@ -244,13 +244,13 @@ public class Boardcast implements EntryPoint {
                         final boolean listed = createBoardDialog.isListed();
                         final String url = Window.Location.getParameter("url");
                         if (!listed || url != null) {
-                            BusFactory.get().retrieveUUID(new Bus.UUIDCallback() {
+                            Bus.get().retrieveUUID(new BusService.UUIDCallback() {
                                 @Override
                                 public void callback(@Nonnull final LiquidUUID uuid) {
                                     final String unlistedShortUrl = "-" +
                                                                     uuid.toString().toLowerCase() +
                                                                     "~" +
-                                                                    UserUtil.currentAlias().$(Dictionary.NAME);
+                                                                    User.currentAlias().$(Dictionary.NAME);
                                     HistoryManager.get().navigate(unlistedShortUrl);
                                 }
                             });
@@ -292,22 +292,22 @@ public class Boardcast implements EntryPoint {
     }
 
     private void loginUser(@Nonnull final SessionIdentifier identity, @Nonnull final Runnable onLogin) {
-        UserUtil.setIdentity(identity);
-        UserUtil.storeIdentity(identity);
+        User.setIdentity(identity);
+        User.storeIdentity(identity);
         final GWTDataStore dataStore = new GWTDataStore(identity, new Runnable() {
             @Override
             public void run() {
-                BusFactory.get().start();
-                BusFactory.get()
-                          .send(new RetrieveAliasRequest(identity.aliasURI()), new AbstractResponseCallback<RetrieveAliasRequest>() {
+                Bus.get().start();
+                Bus.get()
+                          .send(new RetrieveAliasRequest(identity.aliasURI()), new AbstractMessageCallback<RetrieveAliasRequest>() {
                               @Override
-                              public void onSuccess(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                                  final TransferEntity alias = response.response();
-                                  UserUtil.setCurrentAlias(alias);
+                              public void onSuccess(final RetrieveAliasRequest original, @Nonnull final RetrieveAliasRequest message) {
+                                  final TransferEntity alias = message.response();
+                                  User.setCurrentAlias(alias);
                                   final Map<String, String> propertyMap = new HashMap<String, String>();
                                   propertyMap.putAll(alias.map());
                                   propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
-                                  propertyMap.put("alpha.mode", ClientApplicationConfiguration.alpha() ? "true" : "false");
+                                  propertyMap.put("alpha.mode", Config.alpha() ? "true" : "false");
                                   final String name = alias.$(Dictionary.NAME);
                                   final String fn = alias.$(Dictionary.FULL_NAME);
                                   tracker.registerUser(name, fn, propertyMap);
@@ -326,15 +326,15 @@ public class Boardcast implements EntryPoint {
 
 
                               @Override
-                              public void onFailure(final RetrieveAliasRequest message, @Nonnull final RetrieveAliasRequest response) {
-                                  ClientLog.log(response.response().$(Dictionary.DESCRIPTION));
+                              public void onFailure(final RetrieveAliasRequest original, @Nonnull final RetrieveAliasRequest message) {
+                                  ClientLog.log(message.response().$(Dictionary.DESCRIPTION));
                               }
                           });
             }
         }, new Runnable() {
             @Override
             public void run() {
-                UserUtil.removeIdentity();
+                User.removeIdentity();
                 Window.Location.reload();
             }
         }
@@ -342,14 +342,14 @@ public class Boardcast implements EntryPoint {
     }
 
     private void checkUserLoggedIn(@Nonnull final Runnable loginAction) {
-        final SessionIdentifier identity = UserUtil.retrieveUser();
+        final SessionIdentifier identity = User.retrieveUser();
         if (identity == null ||
             identity.session() == null ||
             registerRequest ||
-            createRequest && UserUtil.anon()) {
+            createRequest && User.anon()) {
             DataStoreService.App
                             .getInstance()
-                            .loginQuick(!ClientApplicationConfiguration.isLoginRequired()
+                            .loginQuick(!Config.isLoginRequired()
                                         && !createRequest
                                         && !registerRequest, new AsyncCallback<SessionIdentifier>() {
                                 @Override

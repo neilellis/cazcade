@@ -4,8 +4,8 @@
 <%@ page import="cazcade.fountain.datastore.api.FountainDataStore" %>
 <%@ page import="cazcade.liquid.api.LiquidMessage" %>
 <%@ page import="static cazcade.common.CommonConstants.IDENTITY_ATTRIBUTE" %>
-<%@ page import="cazcade.liquid.api.LiquidMessageState" %>
-<%@ page import="cazcade.liquid.api.LiquidURI" %>
+<%@ page import="cazcade.liquid.api.MessageState" %>
+<%@ page import="cazcade.liquid.api.LURI" %>
 <%@ page import="cazcade.liquid.api.LiquidURIScheme" %>
 <%@ page import="cazcade.liquid.api.request.RetrieveUserRequest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -32,8 +32,8 @@
     <%
 
         final FountainDataStore dataStore = DataStoreFactory.getDataStore();
-        final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(new LiquidURI(LiquidURIScheme.user, "admin")));
-        if (retrieveUserResponse.getState() == LiquidMessageState.SUCCESS) {
+        final LiquidMessage retrieveUserResponse = dataStore.process(new RetrieveUserRequest(new LURI(LiquidURIScheme.user, "admin")));
+        if (retrieveUserResponse.state() == MessageState.SUCCESS) {
     %>
     RETRIEVE_USER: SUCCESS
     <%

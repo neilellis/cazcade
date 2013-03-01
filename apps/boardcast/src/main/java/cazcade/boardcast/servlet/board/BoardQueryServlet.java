@@ -5,7 +5,7 @@
 package cazcade.boardcast.servlet.board;
 
 import cazcade.common.Logger;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -57,12 +57,12 @@ public class BoardQueryServlet extends AbstractBoardListServlet {
             //            final String queryName = req.getServletPath().substring(1, req.getServletPath().indexOf('.'));
             final String queryName = req.getParameter("query");
             final BoardQueryRequest.QueryType type = queryLookup.get(queryName);
-            final LiquidURI alias = username == null ? null : new LiquidURI("alias:cazcade:" + username);
+            final LURI alias = username == null ? null : new LURI("alias:cazcade:" + username);
             final SessionIdentifier liquidSessionId = getLiquidSessionId(req.getSession(true));
             final BoardQueryRequest request = new BoardQueryRequest(liquidSessionId, type, alias, 0, 100);
             request.setMax(MAX);
             final BoardQueryRequest response = dataStore.process(request);
-            //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LiquidURI("pool:///people/boardcast/public"), ChildSortOrder.POPULARITY, false));
+            //            RetrievePoolRequest response = dataStore.process(new RetrievePoolRequest(getLiquidSessionId(), new LURI("pool:///people/boardcast/public"), ChildSortOrder.POPULARITY, false));
             final List<TransferEntity> boards = response.response().children(Dictionary.CHILD_A);
             req.setAttribute("boards", makeJSPFriendly(req, boards));
             req.setAttribute("title", titleLookup.get(queryName));

@@ -1,6 +1,6 @@
 package cazcade.boardcast.client.preflight;
 
-import cazcade.vortex.gwt.util.client.ClientApplicationConfiguration;
+import cazcade.vortex.gwt.util.client.Config;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 
@@ -13,7 +13,7 @@ public class PreflightCheck {
 
 
     public static void check() {
-        if (ClientApplicationConfiguration.isSnapshotMode()) {
+        if (Config.isSnapshotMode()) {
             //snapshot mode is under our control so no preflight check.
             return;
         }

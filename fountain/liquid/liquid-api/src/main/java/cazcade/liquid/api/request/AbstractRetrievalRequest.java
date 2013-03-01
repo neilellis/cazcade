@@ -29,10 +29,10 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
     @Nonnull @Override
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasTarget()) {
-            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.VIEW_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_VIEW));
         } else {
             if (hasUri()) {
-                return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.VIEW_PERM));
+                return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_VIEW));
             } else {
                 return Collections.emptyList();
             }
@@ -43,7 +43,7 @@ public abstract class AbstractRetrievalRequest extends AbstractRequest {
     public String cacheIdentifier() {
         return requestType().name() +
                ":" +
-               getState().name() +
+               state().name() +
                ":" +
                detail() +
                ":" +

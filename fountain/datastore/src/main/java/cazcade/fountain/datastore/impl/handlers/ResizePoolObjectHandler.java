@@ -29,10 +29,10 @@ public class ResizePoolObjectHandler extends AbstractDataStoreHandler<ResizePool
             assert relationship != null;
             final PersistedEntity viewPersistedEntity = relationship.other(persistedEntity);
             if (request.hasWidth()) {
-                viewPersistedEntity.$(Dictionary.VIEW_WIDTH, request.getWidth());
+                viewPersistedEntity.$(Dictionary.VIEW_WIDTH, request.width());
             }
             if (request.hasHeight()) {
-                viewPersistedEntity.$(Dictionary.VIEW_HEIGHT, request.getHeight());
+                viewPersistedEntity.$(Dictionary.VIEW_HEIGHT, request.height());
             }
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toTransfer(request.detail(), request.internal()));

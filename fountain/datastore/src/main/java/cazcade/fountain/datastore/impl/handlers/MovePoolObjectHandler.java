@@ -20,7 +20,7 @@ public class MovePoolObjectHandler extends AbstractDataStoreHandler<MovePoolObje
     public MovePoolObjectRequest handle(@Nonnull final MovePoolObjectRequest request) throws Exception {
         final Transaction transaction = neo.beginTx();
         try {
-            final PersistedEntity viewPersistedEntity = poolDAO.movePoolObjectNoTx(request.uri(), request.getX(), request.getY(), request
+            final PersistedEntity viewPersistedEntity = poolDAO.movePoolObjectNoTx(request.uri(), request.x(), request.y(), request
                     .getZ());
             transaction.success();
             return LiquidResponseHelper.forServerSuccess(request, viewPersistedEntity.toTransfer(request.detail(), request.internal()));

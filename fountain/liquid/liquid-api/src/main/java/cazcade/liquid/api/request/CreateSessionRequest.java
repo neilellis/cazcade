@@ -14,14 +14,14 @@ import java.util.Collection;
 
 
 public class CreateSessionRequest extends AbstractCreationRequest {
-    public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
+    public CreateSessionRequest(@Nullable final LiquidUUID id, @Nullable final LURI alias, @Nonnull final ClientApplicationIdentifier client) {
         super();
         id(id);
         setUri(alias);
         setClient(client);
     }
 
-    public CreateSessionRequest(final LiquidURI alias, @Nonnull final ClientApplicationIdentifier client) {
+    public CreateSessionRequest(final LURI alias, @Nonnull final ClientApplicationIdentifier client) {
         this(null, alias, client);
     }
 
@@ -42,13 +42,13 @@ public class CreateSessionRequest extends AbstractCreationRequest {
         return new CreateSessionRequest(getEntity());
     }
 
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         return Arrays.asList(uri());
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.CREATE_SESSION;
+        return RequestType.R_CREATE_SESSION;
     }
 
     @Override

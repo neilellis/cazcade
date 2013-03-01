@@ -8,7 +8,6 @@
     <source path="client"/>
 
     <inherits name='com.google.gwt.user.User'/>
-    <inherits name="com.google.gwt.inject.Inject"/>
     <inherits name="cazcade.liquid.LiquidAPI"/>
     <inherits name="cazcade.vortex.gwt.util.GWTUtil"/>
     <inherits name="cazcade.vortex.common.VortexCommon"/>

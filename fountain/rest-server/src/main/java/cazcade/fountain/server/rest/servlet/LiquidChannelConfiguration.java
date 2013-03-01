@@ -13,7 +13,7 @@ public class LiquidChannelConfiguration /* implements HAChannelConfiguration */ 
     //    private final Consumer consumer;
     //    private String queueName;
     //    private LiquidUUID poolUUID;
-    //    private LiquidURI poolURI;
+    //    private LURI poolURI;
     //    private static final Logger log = Logger.getLogger(LiquidChannelConfiguration.class);
     //
     //    public LiquidChannelConfiguration(String sessionExchange, String aliasExchange, Consumer consumer) {
@@ -45,7 +45,7 @@ public class LiquidChannelConfiguration /* implements HAChannelConfiguration */ 
     //
     //    //TODO determine behaviour when an error occurs in binding.
     //
-    //    private void bindPool(LiquidUUID poolUUID, LiquidURI poolURI, Channel channel) throws IOException {
+    //    private void bindPool(LiquidUUID poolUUID, LURI poolURI, Channel channel) throws IOException {
     //        if (poolUUID != null) {
     //            channel.exchangeDeclare(poolUUID.toString(), "fanout", false, true, null);
     //            channel.queueBind(queueName, poolUUID.toString(), poolUUID.toString());
@@ -65,7 +65,7 @@ public class LiquidChannelConfiguration /* implements HAChannelConfiguration */ 
     //     * @param channel     The channel involved in the binding.
     //     * @throws IOException if there is a problem in the bindings change.
     //     */
-    //    public void reconfigurePoolBindings(LiquidUUID newPoolUUID, LiquidURI newPoolURI, Channel channel) throws IOException {
+    //    public void reconfigurePoolBindings(LiquidUUID newPoolUUID, LURI newPoolURI, Channel channel) throws IOException {
     //        synchronized (this) {
     //            bindPool(newPoolUUID, newPoolURI, channel);
     //            unbindPool(poolUUID, poolURI, channel);
@@ -74,7 +74,7 @@ public class LiquidChannelConfiguration /* implements HAChannelConfiguration */ 
     //        }
     //    }
     //
-    //    private void unbindPool(LiquidUUID poolUUID, LiquidURI poolURI, Channel channel) {
+    //    private void unbindPool(LiquidUUID poolUUID, LURI poolURI, Channel channel) {
     //        try {
     //            if (poolUUID != null) {
     //                channel.queueUnbind(queueName, poolUUID.toString(), poolUUID.toString());

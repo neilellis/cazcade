@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeletePoolObjectRequest extends AbstractDeletionRequest {
-    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target, @Nullable final LiquidURI uri) {
+    public DeletePoolObjectRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nullable final LiquidUUID pool, @Nullable final LiquidUUID target, @Nullable final LURI uri) {
         super();
         id(id);
         session(identity);
@@ -26,7 +26,7 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
         this(null, identity, pool, target, null);
     }
 
-    public DeletePoolObjectRequest(final LiquidURI uri) {
+    public DeletePoolObjectRequest(final LURI uri) {
         this(null, SessionIdentifier.ANON, null, null, uri);
     }
 
@@ -46,10 +46,10 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
     @Nonnull
     public List<AuthorizationRequest> authorizationRequests() {
         if (hasUri()) {
-            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.DELETE_PERM).or(new AuthorizationRequest(session(), uri()
-                    .withoutFragment(), Permission.EDIT_PERM)), new AuthorizationRequest(session(), uri().withoutFragment(), Permission.MODIFY_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), uri(), Permission.P_DELETE).or(new AuthorizationRequest(session(), uri()
+                    .withoutFragment(), Permission.P_EDIT)), new AuthorizationRequest(session(), uri().withoutFragment(), Permission.P_MODIFY));
         } else {
-            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.DELETE_PERM).or(new AuthorizationRequest(session(), getPoolUUID(), Permission.EDIT_PERM)), new AuthorizationRequest(session(), getPoolUUID(), Permission.MODIFY_PERM));
+            return Arrays.asList(new AuthorizationRequest(session(), getTarget(), Permission.P_DELETE).or(new AuthorizationRequest(session(), getPoolUUID(), Permission.P_EDIT)), new AuthorizationRequest(session(), getPoolUUID(), Permission.P_MODIFY));
         }
     }
 
@@ -63,6 +63,6 @@ public class DeletePoolObjectRequest extends AbstractDeletionRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.DELETE_POOL_OBJECT;
+        return RequestType.R_DELETE_POOL_OBJECT;
     }
 }

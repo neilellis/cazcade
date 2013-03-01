@@ -3,6 +3,8 @@
 <module>
 
     <inherits name='com.google.gwt.user.User'/>
+    <inherits name="cazcade.liquid.LiquidAPI"/>
+    <inherits name="cazcade.vortex.gwt.util.GWTUtil"/>
 
 
 </module>

@@ -8,7 +8,7 @@ import cazcade.fountain.datastore.api.EntityNotFoundException;
 import cazcade.fountain.datastore.impl.LiquidResponseHelper;
 import cazcade.fountain.datastore.impl.PersistedEntity;
 import cazcade.fountain.datastore.impl.graph.LatestContentFinder;
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.handler.RetrieveUpdatesRequestHandler;
 import cazcade.liquid.api.lsd.*;
 import cazcade.liquid.api.request.RetrieveUpdatesRequest;
@@ -31,7 +31,7 @@ public class RetrieveUpdatesHandler extends AbstractDataStoreHandler<RetrieveUpd
             final TransferEntity entity = SimpleEntity.create(Types.T_ENTITY_LIST);
             entity.timestamp();
             entity.id(UUIDFactory.randomUUID());
-            final LiquidURI initialURI = request.session().alias();
+            final LURI initialURI = request.session().alias();
             final PersistedEntity startPersistedEntity = neo.find(initialURI);
             if (startPersistedEntity == null) {
                 throw new EntityNotFoundException("Could not find start point at " + initialURI);

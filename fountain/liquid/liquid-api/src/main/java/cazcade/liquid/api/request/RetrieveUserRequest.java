@@ -12,11 +12,11 @@ import javax.annotation.Nullable;
 
 public class RetrieveUserRequest extends AbstractRetrievalRequest {
 
-    public RetrieveUserRequest(@Nonnull final SessionIdentifier identity, final LiquidURI uri, final boolean internal) {
+    public RetrieveUserRequest(@Nonnull final SessionIdentifier identity, final LURI uri, final boolean internal) {
         this(null, identity, uri, internal);
     }
 
-    RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nonnull final LiquidURI uri, final boolean internal) {
+    RetrieveUserRequest(@Nullable final LiquidUUID id, @Nonnull final SessionIdentifier identity, @Nonnull final LURI uri, final boolean internal) {
         super();
         if (id != null) {
             id(id);
@@ -26,7 +26,7 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         setInternal(internal);
     }
 
-    public RetrieveUserRequest(final SessionIdentifier identity, final LiquidURI uri) {
+    public RetrieveUserRequest(final SessionIdentifier identity, final LURI uri) {
         this(null, identity, uri, false);
     }
 
@@ -47,7 +47,7 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
         this(null, SessionIdentifier.ANON, target);
     }
 
-    public RetrieveUserRequest(final LiquidURI uri) {
+    public RetrieveUserRequest(final LURI uri) {
         this(null, SessionIdentifier.ANON, uri, false);
     }
 
@@ -66,6 +66,6 @@ public class RetrieveUserRequest extends AbstractRetrievalRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.RETRIEVE_USER;
+        return RequestType.R_RETRIEVE_USER;
     }
 }

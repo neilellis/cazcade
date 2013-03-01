@@ -24,10 +24,10 @@ import javax.annotation.Nonnull;
 public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
     public YouTubePresenter(final PoolPresenter pool, final TransferEntity entity, final YouTubeView widget, final VortexThreadSafeExecutor threadSafeExecutor) {
         super(pool, entity, widget, threadSafeExecutor);
-        getPoolObjectView().addHandler(new DoubleClickHandler() {
+        view().addHandler(new DoubleClickHandler() {
             @Override
             public void onDoubleClick(final DoubleClickEvent event) {
-                PoolObjectEditor.showForEdit(new YouTubeEditorPanel(getEntity()), null);
+                PoolObjectEditor.showForEdit(new YouTubeEditorPanel(entity()), null);
 
             }
         }, DoubleClickEvent.getType());
@@ -36,34 +36,34 @@ public class YouTubePresenter extends AbstractPoolObjectPresenter<YouTubeView> {
 
     @Override
     public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
-                if (newEntity.has$(Dictionary.MEDIA_ID)) {
-                    getPoolObjectView().setVideoId(newEntity.$(Dictionary.MEDIA_ID));
+                if (newEntity.has(Dictionary.MEDIA_ID)) {
+                    view().setVideoId(newEntity.$(Dictionary.MEDIA_ID));
                 }
                 YouTubePresenter.super.update(newEntity, replaceEntity);
-                getPoolObjectView().resetMode();
+                view().resetMode();
             }
         });
     }
 
     @Override
     public void onHoldDrag(@Nonnull final HoldDragEvent dragEvent) {
-        getPoolObjectView().imageViewOn();
+        view().imageViewOn();
         super.onHoldDrag(dragEvent);
     }
 
     @Override
     public void onDrag(@Nonnull final DragEvent dragEvent) {
-        getPoolObjectView().imageViewOn();
+        view().imageViewOn();
         super.onDrag(dragEvent);
     }
 
     @Override
     public void onEndDrag(final EndDragEvent dragEvent) {
         super.onEndDrag(dragEvent);
-        getPoolObjectView().imageViewOff();
+        view().imageViewOff();
     }
 
 }

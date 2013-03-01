@@ -22,10 +22,10 @@ public class AliasReferencePresenter extends AbstractPoolObjectPresenter<AliasRe
 
     @Override
     public void update(@Nonnull final TransferEntity newEntity, final boolean replaceEntity) {
-        threadSafeExecutor.execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
-                getPoolObjectView().setAliasURI(newEntity.$uri(Dictionary.SOURCE));
+                view().setAliasURI(newEntity.$uri(Dictionary.SOURCE));
                 AliasReferencePresenter.super.update(newEntity, replaceEntity);
             }
         });

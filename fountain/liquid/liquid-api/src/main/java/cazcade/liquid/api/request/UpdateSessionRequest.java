@@ -55,6 +55,6 @@ public class UpdateSessionRequest extends AbstractUpdateRequest {
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.UPDATE_SESSION;
+        return RequestType.R_UPDATE_SESSION;
     }
 }

@@ -44,13 +44,13 @@ public class SendRequest extends AbstractRequest {
         return new SendRequest(getEntity());
     }
 
-    public Collection<LiquidURI> affectedEntities() {
+    public Collection<LURI> affectedEntities() {
         return Arrays.asList(getRecipientAlias());
     }
 
     @Nonnull
-    public LiquidURI getRecipientAlias() {
-        return new LiquidURI("alias:cazcade:" + getRecipient());
+    public LURI getRecipientAlias() {
+        return new LURI("alias:cazcade:" + getRecipient());
     }
 
     @Nonnull
@@ -59,18 +59,18 @@ public class SendRequest extends AbstractRequest {
     }
 
     @Nonnull
-    public LiquidURI getInboxURI() {
-        return new LiquidURI("pool:///people/" + getRecipient() + "/.inbox");
+    public LURI getInboxURI() {
+        return new LURI("pool:///people/" + getRecipient() + "/.inbox");
     }
 
     @Override
     public List<String> notificationLocations() {
-        return Arrays.asList(new LiquidURI("alias:cazcade:" + getRecipient()).asReverseDNSString());
+        return Arrays.asList(new LURI("alias:cazcade:" + getRecipient()).asReverseDNSString());
     }
 
     @Nonnull
     public RequestType requestType() {
-        return RequestType.SEND;
+        return RequestType.R_SEND;
     }
 
     public boolean isMutationRequest() {

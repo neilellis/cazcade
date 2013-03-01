@@ -19,7 +19,7 @@ public class SessionIdentifier implements Serializable {
     private LiquidUUID session;
 
     @Nonnull
-    private LiquidURI alias;
+    private LURI alias;
 
     @Nullable
     public static SessionIdentifier fromString(@Nullable final String s) {
@@ -43,18 +43,18 @@ public class SessionIdentifier implements Serializable {
     }
 
     public SessionIdentifier(@Nonnull final String name) {
-        alias = new LiquidURI(LiquidURIScheme.alias, "cazcade:" + name.toLowerCase());
+        alias = new LURI(LiquidURIScheme.alias, "cazcade:" + name.toLowerCase());
     }
 
-    public SessionIdentifier(@Nonnull final LiquidURI aliasURI) {
+    public SessionIdentifier(@Nonnull final LURI aliasURI) {
         //noinspection ConstantConditions
         if (aliasURI == null) {
-            throw new IllegalArgumentException("Cannot create and SessionIdentifier with a null LiquidURI");
+            throw new IllegalArgumentException("Cannot create and SessionIdentifier with a null LURI");
         }
         alias = aliasURI;
     }
 
-    protected SessionIdentifier() {
+    public SessionIdentifier() {
     }
 
 
@@ -79,13 +79,13 @@ public class SessionIdentifier implements Serializable {
     }
 
     @Nonnull
-    public LiquidURI aliasURI() {
+    public LURI aliasURI() {
         return alias;
     }
 
     @Nonnull
-    public LiquidURI userURL() {
-        return new LiquidURI(LiquidURIScheme.user, name());
+    public LURI userURL() {
+        return new LURI(LiquidURIScheme.user, name());
     }
 
     @Nonnull
@@ -150,7 +150,7 @@ public class SessionIdentifier implements Serializable {
     }
 
     @Nonnull
-    public LiquidURI alias() {
+    public LURI alias() {
         return alias;
     }
 

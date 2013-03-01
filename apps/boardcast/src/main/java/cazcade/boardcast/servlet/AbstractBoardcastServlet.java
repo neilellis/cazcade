@@ -10,8 +10,8 @@ import cazcade.fountain.messaging.FountainPubSub;
 import cazcade.fountain.messaging.session.ClientSessionManager;
 import cazcade.fountain.security.SecurityProvider;
 import cazcade.liquid.api.ClientApplicationIdentifier;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
@@ -85,7 +85,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
         for (final TransferEntity entity : entities) {
             final Map<String, String> map = entity.getCamelCaseMap();
             result.add(map);
-            final LiquidURI uri = entity.uri();
+            final LURI uri = entity.uri();
             final String uriString = uri.toString();
             if (uriString.startsWith("pool")) {
                 final String shortUrl = uri.board().safe();
@@ -131,7 +131,7 @@ public class AbstractBoardcastServlet extends HttpServlet {
     }
 
     @Nonnull
-    protected LiquidMessage createSession(final LiquidURI uri) throws Exception {
+    protected LiquidMessage createSession(final LURI uri) throws Exception {
         return dataStore.process(new CreateSessionRequest(uri, new ClientApplicationIdentifier("GWT Client", LoginUtil.APP_KEY, "UNKNOWN")));
     }
 

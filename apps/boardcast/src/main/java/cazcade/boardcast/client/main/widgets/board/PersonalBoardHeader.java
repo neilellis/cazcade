@@ -4,9 +4,9 @@
 
 package cazcade.boardcast.client.main.widgets.board;
 
-import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.request.UpdatePoolRequest;
-import cazcade.vortex.bus.client.AbstractResponseCallback;
+import cazcade.vortex.bus.client.Callback;
+import cazcade.vortex.bus.client.Request;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
@@ -17,25 +17,28 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 
 import javax.annotation.Nonnull;
 
+import static cazcade.liquid.api.lsd.Dictionary.*;
+
 /**
  * @author neilellis@cazcade.com
  */
 public class PersonalBoardHeader extends EntityBackedFormPanel {
-    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
+    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PersonalBoardHeader> {}
 
+    private static final PublicBoardHeaderUiBinder ourUiBinder = GWT.create(PublicBoardHeaderUiBinder.class);
     @UiField VortexEditableLabel title;
     @UiField VortexEditableLabel description;
     @UiField VortexEditableLabel text;
+
 
     public PersonalBoardHeader() {
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-        bind(title, Dictionary.TITLE);
-        bind(description, Dictionary.DESCRIPTION);
-        bind(text, Dictionary.TEXT_EXTENDED);
+        bind(title, TITLE);
+        bind(description, DESCRIPTION);
+        bind(text, TEXT_EXTENDED);
     }
-
 
     @Override protected boolean isSaveOnExit() {
         return false;
@@ -51,20 +54,17 @@ public class PersonalBoardHeader extends EntityBackedFormPanel {
         return new Runnable() {
             @Override
             public void run() {
-                getBus().send(new UpdatePoolRequest(field.getEntityDiff()), new AbstractResponseCallback<UpdatePoolRequest>() {
-                    @Override
-                    public void onSuccess(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        $(response.response().$());
-                    }
-
-                    @Override
-                    public void onFailure(final UpdatePoolRequest message, @Nonnull final UpdatePoolRequest response) {
-                        field.setErrorMessage(response.response().$(Dictionary.DESCRIPTION));
-                    }
-                });
+                Request.updatePool(field.getEntityDiff(), new Callback<UpdatePoolRequest>() {
+                            @Override public void handle(UpdatePoolRequest message) throws Exception {
+                                $(message.response().$());
+                            }
+                        }, new Callback<UpdatePoolRequest>() {
+                            @Override public void handle(UpdatePoolRequest message) throws Exception {
+                                field.setErrorMessage(message.response().$(DESCRIPTION));
+                            }
+                        }
+                );
             }
         };
     }
-
-    interface PublicBoardHeaderUiBinder extends UiBinder<HTMLPanel, PersonalBoardHeader> {}
 }

@@ -10,8 +10,8 @@ import cazcade.fountain.server.rest.AbstractRestHandler;
 import cazcade.fountain.server.rest.RestContext;
 import cazcade.fountain.server.rest.RestHandlerException;
 import cazcade.fountain.server.rest.message.CommentRestHandler;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.LiquidMessage;
-import cazcade.liquid.api.LiquidURI;
 import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.*;
@@ -79,7 +79,7 @@ public class PoolRestHandler extends AbstractRestHandler {
             return update(poolId, entity);
         } else {
             return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext()
-                                                                                  .getCredentials(), poolId, entity, new LiquidURI(author)));
+                                                                                  .getCredentials(), poolId, entity, new LURI(author)));
         }
     }
 
@@ -109,7 +109,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         final double x = Double.parseDouble(parameters.get("x")[0]);
         final double y = Double.parseDouble(parameters.get("y")[0]);
         final SessionIdentifier identity = RestContext.getContext().getCredentials();
-        return dataStoreFacade.process(new CreatePoolRequest(identity, new LiquidURI(parent), name, title, description, x, y));
+        return dataStoreFacade.process(new CreatePoolRequest(identity, new LURI(parent), name, title, description, x, y));
     }
 
     @Nonnull
@@ -117,7 +117,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         checkForSingleValueParams(parameters, "uri");
         final String uri = parameters.get("uri")[0];
         return dataStoreFacade.process(new CreatePoolObjectRequest(RestContext.getContext()
-                                                                              .getCredentials(), new LiquidURI(uri), entity));
+                                                                              .getCredentials(), new LURI(uri), entity));
     }
 
     @Nonnull
@@ -130,7 +130,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         checkForSingleValueParams(parameters, "uri");
         final String uri = parameters.get("uri")[0];
         final SessionIdentifier identity = RestContext.getContext().getCredentials();
-        return dataStoreFacade.process(new DeletePoolRequest(RestContext.getContext().getCredentials(), new LiquidURI(uri)));
+        return dataStoreFacade.process(new DeletePoolRequest(RestContext.getContext().getCredentials(), new LURI(uri)));
     }
 
     @Nonnull
@@ -164,7 +164,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         final boolean history = parameters.get("history") != null;
         final SessionIdentifier username = RestContext.getContext().getCredentials();
 
-        final LiquidURI liquidURI = new LiquidURI(url);
+        final LURI liquidURI = new LURI(url);
         final String fragment = liquidURI.getFragment();
         final LiquidMessage message;
         if (fragment != null && !fragment.isEmpty()) {
@@ -328,7 +328,7 @@ public class PoolRestHandler extends AbstractRestHandler {
 
     @Nonnull
     public LiquidMessage update(final TransferEntity lsdEntity, @Nonnull final Map<String, String[]> parameters) {
-        final LiquidURI uri = new LiquidURI(parameters.get("uri")[0]);
+        final LURI uri = new LURI(parameters.get("uri")[0]);
         if (uri.hasFragment()) {
             return dataStoreFacade.process(new UpdatePoolRequest(RestContext.getContext().getCredentials(), uri, lsdEntity));
         } else {
@@ -348,7 +348,7 @@ public class PoolRestHandler extends AbstractRestHandler {
         final SessionIdentifier username = RestContext.getContext().getCredentials();
         checkForSingleValueParams(parameters, "url");
         final String url = parameters.get("url")[0];
-        return dataStoreFacade.process(new VisitPoolRequest(username, new LiquidURI(url)));
+        return dataStoreFacade.process(new VisitPoolRequest(username, new LURI(url)));
     }
 
     public void setAuthorizationService(final AuthorizationService authorizationService) {

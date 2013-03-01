@@ -4,7 +4,7 @@
 
 package cazcade.vortex.pool.widgets;
 
-import cazcade.liquid.api.LiquidURI;
+import cazcade.liquid.api.LURI;
 import cazcade.liquid.api.Permission;
 import cazcade.liquid.api.PermissionScope;
 import cazcade.liquid.api.lsd.CollectionCallback;
@@ -12,9 +12,9 @@ import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.lsd.Type;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusFactory;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.Callback;
-import cazcade.vortex.bus.client.RequestUtil;
+import cazcade.vortex.bus.client.Request;
 import cazcade.vortex.common.client.FormatUtil;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.ClientLog;
@@ -52,7 +52,7 @@ public class PoolContentArea extends Composite {
     public static final  String                  DEFAULT_BACKGROUND_IMAGE = "/_static/_background/misc/corkboard.jpg";
     private static final PoolContentAreaUiBinder ourUiBinder              = GWT.create(PoolContentAreaUiBinder.class);
     @Nonnull
-    private final Bus                      bus;
+    private final BusService               bus;
     @Nullable
     private final VortexScrollPanel        scrollPanel;
     private final boolean                  pageFlow;
@@ -77,7 +77,7 @@ public class PoolContentArea extends Composite {
         if (!pageFlow) {
             setHeight("100%");
         }
-        bus = BusFactory.get();
+        bus = Bus.get();
     }
 
     @Override
@@ -85,9 +85,9 @@ public class PoolContentArea extends Composite {
         super.onLoad();
     }
 
-    public void init(final LiquidURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final Type type, final boolean listed) {
+    public void init(final LURI uri, final FormatUtil features, @Nullable final VortexThreadSafeExecutor threadSafeExecutor, @Nonnull final Type type, final boolean listed) {
         this.threadSafeExecutor = threadSafeExecutor;
-        RequestUtil.visit(type, uri, listed, new Callback<VisitPoolRequest>() {
+        Request.visit(type, uri, listed, new Callback<VisitPoolRequest>() {
             @Override public void handle(VisitPoolRequest message) throws Exception {
                 ClientLog.log("Got response.");
                 final TransferEntity poolEntity = message.response().$();
@@ -99,7 +99,7 @@ public class PoolContentArea extends Composite {
     }
 
     public void init(@Nonnull final TransferEntity poolEntity, final VortexThreadSafeExecutor threadSafeExecutor) {
-        setBackgroundImage(poolEntity.has$(BACKGROUND_URL) ? poolEntity.$(BACKGROUND_URL) : DEFAULT_BACKGROUND_IMAGE);
+        setBackgroundImage(poolEntity.has(BACKGROUND_URL) ? poolEntity.$(BACKGROUND_URL) : DEFAULT_BACKGROUND_IMAGE);
         //        backgroundImage.setWidth("100%");
         //        backgroundImage.setHeight("100%");
         //        container.add(backgroundImage);
@@ -110,21 +110,21 @@ public class PoolContentArea extends Composite {
         status.removeStyleName("danger");
         status.removeStyleName("warning");
         if (poolEntity.default$bool(EDITABLE, false)) {
-            if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.EDIT_PERM)) {
+            if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.P_EDIT)) {
                 if (listed) {
                     status.setText("All can edit");
                     status.addStyleName("danger");
                 } else {
                     status.setText("Invitees can edit");
                 }
-            } else if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.MODIFY_PERM)) {
+            } else if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.P_MODIFY)) {
                 if (listed) {
                     status.setText("Everyone can modify");
                     status.addStyleName("warning");
                 } else {
                     status.setText("Invitees can modify");
                 }
-            } else if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.VIEW_PERM)) {
+            } else if (poolEntity.allowed(PermissionScope.WORLD_SCOPE, Permission.P_VIEW)) {
                 if (listed) {
                     status.setText("Everyone can view");
                 } else {
