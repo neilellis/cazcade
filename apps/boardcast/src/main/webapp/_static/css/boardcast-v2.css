@@ -10168,7 +10168,6 @@ box-shadow: 0px 0px 2px #ccc;*/
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000346}}
 .menubar-icon {
   -webkit-filter: invert(1) drop-shadow(-1px -1px -1px #000000);
-  opacity: 0.8;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000351}}
 .menubar-icon-title {
