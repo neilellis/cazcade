@@ -7069,11 +7069,12 @@ body div {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\0000367}}
 .container {
   min-height: 100%;
-  width: 1024px;
+  width: 1044px;
   position: relative;
   z-index: 10;
+  background: url('/_static/_images/wood3.jpg');
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\0000375}}
 .container > footer p {
   text-align: center;
   /* center align it with the container */
@@ -7081,15 +7082,12 @@ body div {
   height: 100%;
 }
 /* The white background content wrapper */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\0000381}}
 .content {
-  margin: 0px -20px 0px 0px;
+  margin: 0px 0px 0px 0px;
   padding-top: 10px;
-  padding-right: 10px;
-  padding-left: 30px;
   padding-bottom: 10px;
-  background: url('/_static/_images/wood3.jpg');
-  background-color: #fefefe;
+  background: -webkit-gradient(linear, 0% -16.5%, 16.5% -100%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0.6)), color-stop(0.99, rgba(255, 255, 255, 0.2)), color-stop(0.5, rgba(255, 255, 255, 0))) no-repeat;
   /* negative indent the amount of the padding to maintain the grid system */
 
   /*-webkit-border-radius: 0 0 6px 6px;*/
@@ -7108,41 +7106,41 @@ body div {
   box-shadow: 2px 6px 4px rgba(12, 14, 15, 0.6);
 }
 /* Styles you shouldn't keep as they are for displaying this base example only */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003101}}
 .content .span10,
 .content .span4 {
   min-height: 500px;
 }
 /* Give a quick and non-cross-browser friendly divider */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003108}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003107}}
 .content .span4 {
   margin-left: 0;
   padding-left: 19px;
   /*border-left: 1px solid #eee;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003113}}
 .topbar {
   z-index: 900000;
   background-color: rgba(26, 26, 26, 0.6);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003114}}
 .topbar .btn {
   border: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003117}}
 .topbar .fill {
   background: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003122}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003121}}
 .topbar a {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003123}}
 .topbar a:hover {
   color: #79d52c !important;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003132}}
 h1,
 h2,
 h3,
@@ -7152,7 +7150,7 @@ h6 {
   line-height: 1.3em;
   margin: 0.5em 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003138}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003137}}
 .logo {
   width: 158px;
   height: 30px;
@@ -7163,19 +7161,19 @@ h6 {
   background: url('/_static/_images/boardcast-logo-small.png');
   font-family: Pacifico, Helvetica, sans-serif;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003148}}
 .logged-in-user-icon {
   display: inline;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003151}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003150}}
 .logged-in-user-icon div {
   display: inline;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003154}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003153}}
 .logged-in-user-icon .editable-image-text {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003157}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003156}}
 .logged-in-user-icon img {
   margin-top: 4px;
   border-radius: 2px;
@@ -7186,11 +7184,11 @@ h6 {
   padding-left: 1px;
   padding-right: 1px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003166}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003165}}
 .account {
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003170}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003169}}
 .boardcast-app {
   position: absolute;
   top: 0px;
@@ -7198,7 +7196,7 @@ h6 {
   right: 0px;
   bottom: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003174}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003173}}
 .boardcast-rhs-inner {
   position: absolute;
   top: 0px;
@@ -7206,7 +7204,7 @@ h6 {
   right: 0px;
   bottom: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003178}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003177}}
 .big-text {
   padding-top: 50px;
   font-family: Pacifico, Helvetica, sans-serif;
@@ -7215,21 +7213,21 @@ h6 {
   padding-left: 30px;
   padding-right: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003185}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003184}}
 .big-text small {
   color: #bfbfbf;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003190}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003189}}
 .big-text.bottom {
   padding-top: 80px;
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003195}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003194}}
 .larger {
   font-size: 1.2em;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003208}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003207}}
 .rib-holder {
   position: absolute;
   top: 0;
@@ -7237,20 +7235,20 @@ h6 {
   overflow: hidden;
   height: 15em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003216}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003215}}
 .right.rib-holder {
   right: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003220}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003219}}
 .left.rib-holder {
   left: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003224}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003223}}
 .rib,
 .rib:hover {
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003229}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003228}}
 .rib {
   letter-spacing: -0.1px;
   opacity: 0.95;
@@ -7269,21 +7267,21 @@ h6 {
   text-align: center;
   font-family: Pacifico, Arial, cursive, sans-serif;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003247}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003246}}
 .rib a {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003249}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003248}}
 .rib a:hover {
   font-weight: bolder;
   text-decoration: none;
   border-bottom: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003258}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003257}}
 .rib .text {
   padding: 0.1em 3em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003262}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003261}}
 .right .rib {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
@@ -7292,7 +7290,7 @@ h6 {
   transform: rotate(45deg);
   right: -1.6em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003267}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003266}}
 .left .rib {
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
@@ -7301,7 +7299,7 @@ h6 {
   transform: rotate(-45deg);
   left: 2.6em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003272}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003271}}
 .white.rib {
   color: #111;
   background-color: #F5F5F5;
@@ -7310,11 +7308,11 @@ h6 {
   -webkit-box-shadow: 0 0 13px #999;
   text-shadow: 0 0 .05em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003281}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003280}}
 .white.rib .text {
   border: 1px solid #cecece;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003285}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003284}}
 .orange.rib {
   background-color: #E57504;
   background-color: #ee7906;
@@ -7328,7 +7326,7 @@ h6 {
   background-image: linear-gradient(top, #dc7202, #ee7906);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dc7202', endColorstr='#ee7906', GradientType=0);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003290}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003289}}
 .blue.rib {
   background-color: #0000cc;
   background-color: #0000bb;
@@ -7342,7 +7340,7 @@ h6 {
   background-image: linear-gradient(top, #0000cc, #0000bb);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0000cc', endColorstr='#0000bb', GradientType=0);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003295}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003294}}
 .black.rib {
   background-color: #111;
   background-color: #222222;
@@ -8708,7 +8706,7 @@ table.GWTUpld td {
   color: grey;
 }
 /* Search */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003322}}
 .search-panel {
   /*width: 800px;*/
 
@@ -8719,25 +8717,25 @@ table.GWTUpld td {
   /*padding: 40px;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003329}}
 .search-panel-search-box {
   padding: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003335}}
 .search-panel-search-box-input {
   width: 400px;
   padding: 4px;
   font-size: 1.3em;
   border-radius: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003343}}
 .search-panel-result-list {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 /* End Search */
 /* Forms */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003353}}
 .form-field-error-message {
   font-size: 0.8em;
   font-style: italic;
@@ -9727,7 +9725,7 @@ div.checklist-entry-author {
   opacity: 0.8;
   -webkit-filter: blur(1px);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003374}}
 .pool-area {
   position: relative;
   background: none;
@@ -10116,21 +10114,21 @@ box-shadow: 0px 0px 2px #ccc;*/
   font-size: 0.9em;
   opacity: 0.6;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003387}}
 .editableLabel-buttons {
   margin-bottom: 12px;
   margin-left: 8px;
   margin-right: 8px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003393}}
 .editableLabel-confirm {
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003397}}
 .editableLabel-cancel {
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003402}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003401}}
 .editableLabel-textArea {
   border: none;
   width: 100%;
@@ -10168,36 +10166,41 @@ box-shadow: 0px 0px 2px #ccc;*/
   font-size: 1.2em;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000346}}
+.menubar-icon {
+  -webkit-filter: invert(1) drop-shadow(-1px -1px -1px #000000);
+  opacity: 0.8;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000351}}
 .menubar-icon-title {
   margin-top: -4px;
   text-align: center;
   font-size: 11px;
   line-height: 16px;
   border-top: 1px solid rgba(100, 100, 100, 0.2);
-  opacity: 0.8;
-  color: black;
+  color: #222;
+  font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000361}}
 .gwt-MenuBar {
   cursor: default;
   font-size: 14px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000366}}
 .gwt-MenuBar .gwt-MenuItem {
   cursor: default;
   font-size: 14px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000371}}
 .gwt-MenuBar .gwt-MenuItem-selected {
   background: #444;
   color: #eee;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000376}}
 .gwt-MenuBar-horizontal {
   background-image: url('/_static/_images/brushed-aluminium.jpg');
   border: 1px solid #444;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000381}}
 .gwt-MenuBar-horizontal .gwt-MenuItem {
   padding: 5px 10px;
   vertical-align: bottom;
@@ -10208,7 +10211,7 @@ box-shadow: 0px 0px 2px #ccc;*/
   /*background-color: red;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000390}}
 .gwt-MenuBar-horizontal .gwt-MenuItemSeparator {
   width: 1px;
   padding: 0px;
@@ -10217,13 +10220,13 @@ box-shadow: 0px 0px 2px #ccc;*/
   border-left: 1px solid #ccc;
   background: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\0000399}}
 .gwt-MenuBar-horizontal .gwt-MenuItemSeparator .menuSeparatorInner {
   width: 1px;
   height: 1px;
   background: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003105}}
 .gwt-MenuBar-vertical {
   margin-left: -4px;
   margin-top: 1px;
@@ -10239,12 +10242,12 @@ box-shadow: 0px 0px 2px #ccc;*/
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.7);
   z-index: 100000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003117}}
 .gwt-MenuBar-vertical table {
   border-collapse: collapse;
   opacity: 0.9;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003122}}
 .gwt-MenuBar-vertical .gwt-MenuItem {
   padding-top: 4px;
   padding-right: 1px;
@@ -10253,23 +10256,23 @@ box-shadow: 0px 0px 2px #ccc;*/
   max-width: 46px;
   font-size: 13px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003132}}
 .gwt-MenuBar-vertical tr:hover {
   background: #ddd;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003136}}
 .gwt-MenuBar-vertical tr {
   border-bottom: 1px solid #ddd;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003136}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003141}}
 .gwt-MenuBar-vertical tr:last-child {
   border-bottom: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003145}}
 .gwt-MenuBar-vertical .gwt-MenuItemSeparator {
   padding: 2px 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003144}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003149}}
 .gwt-MenuBar-vertical .gwt-MenuItemSeparator .menuSeparatorInner {
   height: 1px;
   padding: 0px;
@@ -10277,122 +10280,122 @@ box-shadow: 0px 0px 2px #ccc;*/
   border-top: 1px solid #ccc;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003152}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003157}}
 .gwt-MenuBar-vertical .subMenuIcon {
   padding-right: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003161}}
 .gwt-MenuBar-vertical .subMenuIcon-selected {
   background: #E3E8F3;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003160}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003165}}
 .gwt-MenuBarPopup {
   margin: 0px 0px 0px 0px;
   z-index: 100000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003166}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003171}}
 .gwt-MenuBarPopup .menuPopupTopCenter {
   /*background: url(_images/hborder.png) 0px -12px repeat-x;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003170}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003175}}
 .gwt-MenuBarPopup .menuPopupBottomCenter {
   /*background: url(_images/hborder.png) 0px -13px repeat-x;*/
 
   /*-background: url(_images/hborder_ie6.png) 0px -13px repeat-x;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003175}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003180}}
 .gwt-MenuBarPopup .menuPopupMiddleLeft {
   /*background: url(_images/vborder.png) -12px 0px repeat-y;*/
 
   /*-background: url(_images/vborder_ie6.png) -12px 0px repeat-y;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003185}}
 .gwt-MenuBarPopup .menuPopupMiddleRight {
   /*background: url(_images/vborder.png) -13px 0px repeat-y;*/
 
   /*-background: url(_images/vborder_ie6.png) -13px 0px repeat-y;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003185}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003190}}
 .gwt-MenuBarPopup .menuPopupTopLeftInner {
   width: 5px;
   height: 5px;
   zoom: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003191}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003196}}
 .gwt-MenuBarPopup .menuPopupTopRightInner {
   width: 8px;
   height: 5px;
   zoom: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003197}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003202}}
 .gwt-MenuBarPopup .menuPopupBottomLeftInner {
   width: 5px;
   height: 8px;
   zoom: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003203}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003208}}
 .gwt-MenuBarPopup .menuPopupBottomRightInner {
   width: 8px;
   height: 8px;
   zoom: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003209}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003214}}
 .gwt-MenuBarPopup .menuPopupTopLeft {
   /*background: url(_images/corner.png) no-repeat 0px -36px;*/
 
   /*-background: url(_images/corner_ie6.png) no-repeat 0px -36px;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003214}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003219}}
 .gwt-MenuBarPopup .menuPopupTopRight {
   /*background: url(_images/corner.png) no-repeat -5px -36px;*/
 
   /*-background: url(_images/corner_ie6.png) no-repeat -5px -36px;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003219}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003224}}
 .gwt-MenuBarPopup .menuPopupBottomLeft {
   /*background: url(_images/corner.png) no-repeat 0px -41px;*/
 
   /*-background: url(_images/corner_ie6.png) no-repeat 0px -41px;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003224}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003229}}
 .gwt-MenuBarPopup .menuPopupBottomRight {
   /*background: url(_images/corner.png) no-repeat -5px -41px;*/
 
   /*-background: url(_images/corner_ie6.png) no-repeat -5px -41px;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003232}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003237}}
 * html .gwt-MenuBarPopup .menuPopupTopLeftInner {
   width: 5px;
   height: 5px;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003238}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003243}}
 * html .gwt-MenuBarPopup .menuPopupTopRightInner {
   width: 8px;
   height: 5px;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003244}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003249}}
 * html .gwt-MenuBarPopup .menuPopupBottomLeftInner {
   width: 5px;
   height: 8px;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003250}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003255}}
 * html .gwt-MenuBarPopup .menuPopupBottomRightInner {
   width: 8px;
   height: 8px;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003256}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/menubar\.less}line{font-family:\00003261}}
 .boardcast-top-menuPopup .gwt-MenuBar {
   background-image: url('/_static/_images/background.png');
   border: #444 solid 1px;
@@ -10408,7 +10411,7 @@ box-shadow: 0px 0px 2px #ccc;*/
   float: right;
 }
 /* Address */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003413}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003412}}
 .address-panel-lhs {
   width: 100%;
   height: 100%;
@@ -10416,14 +10419,14 @@ box-shadow: 0px 0px 2px #ccc;*/
   padding: 20px;
   display: table;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003421}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003420}}
 .address-panel-row {
   width: 100%;
   min-height: 1.3em;
   height: 100%;
   display: table-row;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003428}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003427}}
 .address-panel-label {
   width: 50%;
   float: left;
@@ -10432,7 +10435,7 @@ box-shadow: 0px 0px 2px #ccc;*/
   font-size: 13px;
   display: table-cell;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003437}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003436}}
 .address-panel-entry {
   width: 50%;
   float: right;
@@ -10441,38 +10444,38 @@ box-shadow: 0px 0px 2px #ccc;*/
   padding-bottom: 4px;
   display: table-cell;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003446}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003445}}
 .address-panel-entry input.gwt-TextBox {
   width: 200px;
   padding: 2px;
   color: #1d2905;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003452}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003451}}
 .address-postal-code input.gwt-TextBox {
   width: 70px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003456}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003455}}
 .address-state input.gwt-TextBox {
   width: 100px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003460}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003459}}
 .address-city input.gwt-TextBox {
   width: 100px;
 }
 /* End Address */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003466}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003465}}
 .form-field-other-box {
   padding-top: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003470}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003469}}
 .invisible {
   opacity: 0.0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003474}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003473}}
 .front {
   z-index: 10000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003478}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003477}}
 .dragging {
   z-index: 900;
   transition-property: none;
@@ -10480,22 +10483,22 @@ box-shadow: 0px 0px 2px #ccc;*/
   -webkit-transition-property: none;
   -moz-transition-property: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003483}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003482}}
 .invisible-zero-height {
   opacity: 0;
   height: 0;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003489}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003488}}
 .link {
   display: inline;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003494}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003493}}
 .link:hover {
   font-weight: bolder;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003501}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003500}}
 .link-button a,
 .link-button {
   color: #eee;
@@ -10521,7 +10524,7 @@ box-shadow: 0px 0px 2px #ccc;*/
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.12, #1f1f1f), color-stop(0.54, #141414));
   background-image: -moz-linear-gradient(center bottom, #1f1f1f 12%, #141414 54%);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003526}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003525}}
 .link-button-primary {
   color: #ddd;
   background-color: #333;
@@ -10530,28 +10533,28 @@ box-shadow: 0px 0px 2px #ccc;*/
   background-image: -moz-linear-gradient(center bottom, #3c3c3c 12%, #282828 54%);
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003538}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003537}}
 .link-button:hover {
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.12, #282828), color-stop(0.54, #141414));
   background-image: -moz-linear-gradient(center bottom, #505050 12%, #3c3c3c 54%);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003544}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003543}}
 .link-button-primary:hover {
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.12, #505050), color-stop(0.54, #3c3c3c));
   background-image: -moz-linear-gradient(center bottom, #505050 12%, #3c3c3c 54%);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003550}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003549}}
 .emoticon {
   font-size: 1.3em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003554}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003553}}
 .emoticon-star {
   color: gold;
   font-size: 1.3em;
 }
 /* End general purpose */
 /* Log */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003562}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003561}}
 #log-panel {
   clear: both;
   width: 100%;
@@ -10565,7 +10568,7 @@ box-shadow: 0px 0px 2px #ccc;*/
 }
 /* End Log */
 /* boardcast Only */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003575}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003574}}
 .boardcast-demo-menu-panel {
   width: 800px;
   padding: 40px;
@@ -14379,8 +14382,8 @@ box-shadow: 0px 0px 2px #ccc;*/
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\0000314}}
 .page-header {
-  margin-left: -20px;
-  margin-top: 0px;
+  margin-left: 10px;
+  margin-top: 10px;
   margin-bottom: 10px;
   max-height: 999px;
   border: none;
@@ -14454,51 +14457,46 @@ box-shadow: 0px 0px 2px #ccc;*/
 .board-top-menu-row {
   margin-top: 4px;
   margin-bottom: 0px;
-  -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 0.8)), color-stop(0.8, rgba(255, 255, 255, 0.4)));
+  -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), color-stop(0.8, rgba(255, 255, 255, 0.7)));
   background-size: cover;
   padding: 0px;
   padding-bottom: 0px;
   height: 82px;
-  border-top: 1px solid #cccc;
-  border-bottom: 1px solid #bbb;
-  border-left: 1px solid #b8beb8;
-  border-right: 1px solid #b8beb8;
-  -webkit-box-shadow: 0px 1px 4px 2px rgba(12, 11, 10, 0.3);
-  -moz-box-shadow: 0px 1px 4px 2px rgba(12, 11, 10, 0.3);
-  box-shadow: 0px 1px 4px 2px rgba(12, 11, 10, 0.3);
   z-index: 1;
   position: relative;
   width: 1028px;
   top: -10px;
   color: #000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003126}}
 .main-content-panel.readonly .board-top-menu-row {
   opacity: 0;
   max-height: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003129}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003131}}
 .board-top-bar {
   height: 40px;
   position: relative;
-  margin-left: -20px;
-  margin-right: -20px;
   width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003138}}
 .board-content {
   width: 1024px;
   height: 100%;
   min-height: 636px;
   position: relative;
   overflow: visible;
-  left: -20px;
+  left: 0px;
   margin: 0px;
   border: 1px solid transparent;
-  margin-top: 0px;
+  margin-left: 10px;
   top: -12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003152}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003154}}
+.board-footer .container {
+  background: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003157}}
 .board-footer .content {
   background: url('/_static/_images/torn/board-bottom.png') no-repeat;
   min-height: 350px;
@@ -14511,11 +14509,11 @@ box-shadow: 0px 0px 2px #ccc;*/
   width: 940px;
   margin-left: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003164}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003170}}
 .chat .container {
   margin-right: 550px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003172}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003178}}
 .board-locked {
   position: absolute;
   top: 43px;
@@ -14525,27 +14523,29 @@ box-shadow: 0px 0px 2px #ccc;*/
   background-image: url('/_static/_images/board_locked_small.png');
   visibility: visible;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003182}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003188}}
 .modifiable-board .board-locked {
   visibility: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003186}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003192}}
 .page-bottom {
   background-image: url('/_static/_images/blackboard.jpg');
   color: white;
-  padding-left: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 20px;
   -webkit-box-shadow: 1px 1px 3px 2px rgba(20, 20, 30, 0.5) inset;
   -moz-box-shadow: 1px 1px 3px 2px rgba(20, 20, 30, 0.5) inset;
   box-shadow: 1px 1px 3px 2px rgba(20, 20, 30, 0.5) inset;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003192}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003201}}
 .page-bottom h1,
 .page-bottom h2,
 .page-bottom h3,
 .page-bottom h4 {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003197}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003206}}
 .board-link-row {
   position: absolute;
   bottom: 0px;
@@ -14553,7 +14553,7 @@ box-shadow: 0px 0px 2px #ccc;*/
   width: 500px;
   text-align: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003204}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003213}}
 .board-link-row .board-tag,
 .board-link-row .board-url {
   font-size: 14px;
@@ -14562,13 +14562,13 @@ box-shadow: 0px 0px 2px #ccc;*/
   margin-left: 1em;
   white-space: nowrap;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003210}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003219}}
 .board-link-row .board-tag:hover,
 .board-link-row .board-url:hover {
   color: #808080;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003215}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003224}}
 .board-link-row .board-tag div,
 .board-link-row .board-url div,
 .board-link-row .board-tag span,
@@ -14576,19 +14576,19 @@ box-shadow: 0px 0px 2px #ccc;*/
   display: inline;
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003222}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003231}}
 .board-buttons {
   position: absolute;
   right: 8px;
   bottom: 8px;
   width: 200px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003228}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003237}}
 .board-buttons .btn {
   margin-left: 8px;
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003234}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003243}}
 .tweet-button {
   margin-top: 0px;
   position: absolute;
@@ -14599,11 +14599,11 @@ box-shadow: 0px 0px 2px #ccc;*/
   height: 20px;
   opacity: 0.6;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003243}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003252}}
 .tweet-button:hover {
   opacity: 1.0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003249}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003258}}
 div.pool-area-content {
   background-color: white;
   -webkit-transition: height ease-in-out 1000ms;
@@ -14627,30 +14627,30 @@ div.pool-area-content {
   /*}*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003263}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003272}}
 body.boards-body {
   background-color: #333;
   background-image: url('/_static/_images/wallpapers/linen-gray.jpg');
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003267}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003276}}
 body.boards-body .inner-body {
   background-image: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003271}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003280}}
 body.boards-body .big-text {
   color: white;
   opacity: 0.2;
   font-size: 50px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003277}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003286}}
 body.boards-body a {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003279}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003288}}
 body.boards-body a:hover {
   color: #bbb;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003285}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003294}}
 .board-title {
   font-family: Pacifico, Arial, cursive, sans-serif;
   display: inline;
@@ -14662,7 +14662,7 @@ body.boards-body a:hover {
   margin-top: 20px;
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003297}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003306}}
 .board-description {
   clear: left;
   display: block;
@@ -14674,20 +14674,20 @@ body.boards-body a:hover {
   color: white;
   text-shadow: 0px 0px 2px 1px rgba(255, 255, 255, 0.3);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003319}}
 .board-share {
   position: absolute;
   top: 20px;
   right: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003325}}
 .board-share-surround {
   position: relative;
   height: 0px;
   display: none;
   opacity: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003332}}
 .board-share-this-holder {
   margin: 8px;
   width: 300px;
@@ -14696,19 +14696,19 @@ body.boards-body a:hover {
   display: none;
   opacity: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003341}}
 .board-text {
   width: 600px;
   font-size: 16px;
   color: #404040;
   margin-top: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003345}}
 .board-text .vortex-editable-label {
   width: 100%;
   padding: 8px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003355}}
 .board-author-info-box {
   /*padding-left:30px;*/
 
@@ -14717,7 +14717,7 @@ body.boards-body a:hover {
   height: 100%;
   min-height: 200px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003362}}
 .board-toolbar {
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -14735,7 +14735,7 @@ body.boards-body a:hover {
   padding-top: 6px;
   height: 50px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003375}}
 .board-toolbar .toolbar-icon {
   margin-top: 2px;
   min-height: 36px;
@@ -14745,18 +14745,18 @@ body.boards-body a:hover {
   float: left;
   margin-left: 8px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003385}}
 .board-toolbar .toolbar-icon:hover {
   opacity: 1.0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003389}}
 .board-toolbar .toolbar-icon-image {
   height: 24px;
   width: 24px;
   margin-left: 6px;
   margin-right: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003397}}
 .board-toolbar .toolbar-icon-label {
   height: 10px;
   font-size: 10px;
@@ -14765,7 +14765,7 @@ body.boards-body a:hover {
   text-align: center;
   padding-top: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003400}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003409}}
 .pool-area div.pool-visibility-ribbon {
   opacity: 0;
   -webkit-transform: rotate(-45deg);
@@ -14798,7 +14798,7 @@ body.boards-body a:hover {
   -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003405}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003414}}
 .pool-area div.pool-visibility-ribbon.warning {
   background-color: #ff4010;
   background-repeat: repeat-x;
@@ -14811,7 +14811,7 @@ body.boards-body a:hover {
   background-image: linear-gradient(top, #ff5020, #ff4010);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5020', endColorstr='#ff4010', GradientType=0);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003408}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003417}}
 .pool-area div.pool-visibility-ribbon.danger {
   background-color: #ff1010;
   background-repeat: repeat-x;
@@ -14825,12 +14825,12 @@ body.boards-body a:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2020', endColorstr='#ff1010', GradientType=0);
 }
 /* TODO: Replace this with opacity: 1.0 when we have re-instated the visibility warning  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003426}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003435}}
 .pool-area:hover div.pool-visibility-ribbon {
   opacity: 0;
   z-index: 1000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003431}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003440}}
 .pool-area-inset {
   position: absolute;
   width: 100%;
@@ -14838,7 +14838,7 @@ body.boards-body a:hover {
   background: none;
   opacity: 0.8;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003439}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003448}}
 .board-current-work-area {
   -webkit-box-shadow: inset 4px #2f3237;
   -moz-box-shadow: inset 4px #2f3237;
@@ -14850,7 +14850,7 @@ body.boards-body a:hover {
   right: 0px;
   left: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003452}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003461}}
 .profile-board-user-image .board-icon {
   position: relative;
   background: white;
@@ -14861,7 +14861,7 @@ body.boards-body a:hover {
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003455}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003464}}
 .profile-board-user-image .board-icon img {
   width: 118px;
   height: 192px;
@@ -14874,7 +14874,7 @@ body.boards-body a:hover {
   -moz-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003467}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003476}}
 .profile-board-header {
   overflow: hidden;
   background-image: url('/_static/_images/brass.jpg');
@@ -14891,24 +14891,24 @@ body.boards-body a:hover {
   padding-right: 20px;
   width: 1004px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003480}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003489}}
 .profile-board-header .profile-board-header-top {
   width: 990px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003483}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003492}}
 .profile-board-header .profile-board-header-top .profile-header-top-middle {
   position: relative;
   width: 100px;
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003488}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003497}}
 .profile-board-header .profile-board-header-top .profile-header-top-left {
   float: left;
   width: 640px;
   padding-left: 40px;
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003495}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003504}}
 .profile-board-header .profile-board-header-top .profile-header-top-right {
   float: right;
   width: 180px;
@@ -14916,27 +14916,27 @@ body.boards-body a:hover {
   padding-left: 20px;
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003505}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003514}}
 .profile-board-header .button-holder {
   position: absolute;
   right: 4px;
   bottom: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003509}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003518}}
 .profile-board-header .button-holder .btn {
   margin-left: 8px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003514}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003523}}
 .profile-board-header .profile-board-header-bottom {
   height: 197px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003518}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003527}}
 .profile-board-header .profile-board-username {
   display: inline;
   font-size: 22px;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003524}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003533}}
 .profile-board-header .profile-board-user-description {
   font-style: italic;
   font-size: 20px;
@@ -14944,17 +14944,17 @@ body.boards-body a:hover {
   margin-top: 16px;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003532}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003541}}
 .profile-board-header .profile-board-user-role {
   font-size: 18px;
   line-height: 20px;
   margin-left: 1em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003533}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003542}}
 .profile-board-header .profile-board-user-role div {
   display: inline;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003541}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003550}}
 .profile-board-header .profile-board-user-fullname {
   display: inline-block;
   font-weight: bold;
@@ -14962,17 +14962,17 @@ body.boards-body a:hover {
   line-height: 28px;
   min-width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003549}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003558}}
 .profile-board-header .profile-board-followers {
   font-size: 16px;
   line-height: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003554}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003563}}
 .profile-board-header .profile-board-following {
   font-size: 16px;
   line-height: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003560}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003569}}
 .profile-board-header .board-text .vortex-editable-label {
   margin-top: 5px;
   margin-left: 28px;
@@ -14980,7 +14980,7 @@ body.boards-body a:hover {
   height: 140px;
   margin-bottom: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003568}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003577}}
 .profile-board-header .profile-board-user-image {
   float: left;
   display: inline;
@@ -14989,11 +14989,11 @@ body.boards-body a:hover {
   box-shadow: 1px 1px 2px #ffe1c7;
   margin-right: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003573}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003582}}
 .profile-board-header .profile-board-user-image .editable-image {
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003575}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003584}}
 .profile-board-header .profile-board-user-image .editable-image:after {
   content: "";
   display: block;
@@ -15006,7 +15006,7 @@ body.boards-body a:hover {
   top: 0px;
   position: absolute;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003595}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003604}}
 .boards-list-container {
   /*float:right;*/
 
@@ -15026,14 +15026,14 @@ body.boards-body a:hover {
   height: 100%;
   position: static;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003608}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003617}}
 .boards-list {
   display: block;
   margin: 0 auto;
   height: 100%;
   display: table;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003616}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003625}}
 .boards-list-item {
   display: table-cell;
   margin: 0;
@@ -15046,7 +15046,7 @@ body.boards-body a:hover {
   /*#gradient > .vertical(#fcfcfd,#fff );*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003625}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003634}}
 .boards-list-item:hover {
   /*width:600px;*/
 
@@ -15057,7 +15057,7 @@ body.boards-body a:hover {
 
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003628}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003637}}
 .boards-list-item:hover .board-image-wrapper {
   margin-left: -75px;
   margin-top: -15%;
@@ -15065,16 +15065,16 @@ body.boards-body a:hover {
   max-height: 600px;
   min-height: 300px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003635}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003644}}
 .boards-list-item:hover .board-image-wrapper img {
   width: 450px;
   max-height: 600px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003645}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003654}}
 .boards-list-item:hover .boards-list-item-inner .boards-list-caption-area {
   opacity: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003651}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003660}}
 .boards-list-item .board-image-wrapper {
   background-color: #222;
   -webkit-transition: margin-top ease-in-out 300ms, margin-left ease-in-out 300ms, width ease-in-out 300ms, height ease-in-out 300ms, max-height ease-in-out 300ms;
@@ -15091,7 +15091,7 @@ body.boards-body a:hover {
   -moz-box-shadow: 4px 4px 18px 2px rgba(0, 0, 0, 0.5);
   box-shadow: 4px 4px 18px 2px rgba(0, 0, 0, 0.5);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003653}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003662}}
 .boards-list-item .board-image-wrapper img {
   -webkit-transition: width ease-in-out 300ms, height ease-in-out 300ms, max-height ease-in-out 300ms;
   -moz-transition: width ease-in-out 300ms, height ease-in-out 300ms, max-height ease-in-out 300ms;
@@ -15103,7 +15103,7 @@ body.boards-body a:hover {
   margin: 0;
   padding: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003673}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003682}}
 .boards-list-item .boards-list-item-inner {
   /*background-color:red;*/
 
@@ -15112,7 +15112,7 @@ body.boards-body a:hover {
   /*display: block;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003675}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003684}}
 .boards-list-item .boards-list-item-inner .boards-list-caption-area {
   opacity: 0.8;
   color: white;
@@ -15127,7 +15127,7 @@ body.boards-body a:hover {
   -webkit-transition: opacity ease-in-out 80ms;
   -moz-transition: opacity ease-in-out 80ms;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003692}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003701}}
 .boards-list-board-title {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
@@ -15135,24 +15135,24 @@ body.boards-body a:hover {
   /*font-weight: bold;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003701}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003710}}
 .boards-list-board-owner {
   font-size: 14px;
   color: white;
   opacity: 0.7;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003707}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003716}}
 .boards-list-board-description {
   font-size: 14px;
   color: white;
   padding-top: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003713}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003722}}
 .boards-list-board-comment-count {
   color: white;
   opacity: 0.6;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003718}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003727}}
 .notification-panel {
   transition: height ease-in-out 300ms;
   -o-transition: height ease-in-out 300ms;
@@ -15173,12 +15173,12 @@ body.boards-body a:hover {
   overflow: hidden;
   background-color: #000000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003732}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003741}}
 .notification-panel.show {
   height: 40px;
   max-height: 40px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003737}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003746}}
 .notification-panel .stream-status-update-panel,
 .notification-panel .comment-entry-panel {
   width: 400px;
@@ -15195,7 +15195,7 @@ body.boards-body a:hover {
   -webkit-transition: opacity ease-in-out 800ms;
   -moz-transition: opacity ease-in-out 800ms;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003738}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003747}}
 .notification-panel .stream-status-update-panel:hover,
 .notification-panel .comment-entry-panel:hover {
   opacity: 1.0;
@@ -15204,7 +15204,7 @@ body.boards-body a:hover {
   -webkit-transition: opacity ease-in-out 10ms;
   -moz-transition: opacity ease-in-out 10ms;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003742}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003751}}
 .notification-panel .stream-status-update-panel div,
 .notification-panel .comment-entry-panel div,
 .notification-panel .stream-status-update-panel p,
@@ -15216,38 +15216,38 @@ body.boards-body a:hover {
   padding: 0px;
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003750}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003759}}
 .notification-panel .stream-status-update-panel .comment-author-fullname-label,
 .notification-panel .comment-entry-panel .comment-author-fullname-label {
   opacity: 0.6;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003754}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003763}}
 .notification-panel .stream-status-update-panel .stream-entry-time,
 .notification-panel .comment-entry-panel .stream-entry-time {
   opacity: 0.3;
   font-size: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003759}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003768}}
 .notification-panel .stream-status-update-panel .stream-entry-message,
 .notification-panel .comment-entry-panel .stream-entry-message {
   opacity: 0.7;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003762}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003771}}
 .notification-panel .stream-status-update-panel .comment-author-username-label,
 .notification-panel .comment-entry-panel .comment-author-username-label {
   opacity: 0.4;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003764}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003773}}
 .notification-panel .stream-status-update-panel .comment-author-username-label:before,
 .notification-panel .comment-entry-panel .comment-author-username-label:before {
   content: "(";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003767}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003776}}
 .notification-panel .stream-status-update-panel .comment-author-username-label:after,
 .notification-panel .comment-entry-panel .comment-author-username-label:after {
   content: ")";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003782}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003791}}
 .notification-panel .stream-status-update-panel .user-profile-image,
 .notification-panel .comment-entry-panel .user-profile-image {
   width: 16px;
@@ -15257,7 +15257,7 @@ body.boards-body a:hover {
   float: left;
   border: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003789}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003798}}
 .notification-panel .stream-status-update-panel .user-profile-image img,
 .notification-panel .comment-entry-panel .user-profile-image img {
   border: none;
@@ -15268,7 +15268,7 @@ body.boards-body a:hover {
   padding: 0px;
   margin: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003804}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003813}}
 .board-rhs {
   width: 260px;
   display: block;
@@ -15279,14 +15279,14 @@ body.boards-body a:hover {
   /*margin-right:20px;*/
 
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003815}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003824}}
 .board-lhs {
   width: 660px;
   display: block;
   float: left;
   margin-left: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003825}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003834}}
 .boardcast-main {
   position: absolute;
   top: 40px;
@@ -15301,7 +15301,7 @@ body.boards-body a:hover {
 /*.rhs-minimized .boardcast-main {*/
 /*right: 50px;*/
 /*}*/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003839}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003848}}
 .boardcast-rhs {
   position: fixed;
   right: 0px;
@@ -15318,12 +15318,12 @@ body.boards-body a:hover {
   box-shadow: -4px 0 6px 2px rgba(30, 30, 30, 0.5);
   background-image: url('/_static/_images/wallpapers/linen-black.jpg');
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003850}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003859}}
 .boardcast-rhs .boardcast-rhs-inner {
   position: relative;
   height: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003857}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003866}}
 .board-right-shadow {
   height: 100%;
   background-image: url('/_static/_images/shadow-right-to-left-faint.png');
@@ -15336,7 +15336,7 @@ body.boards-body a:hover {
 /*.rhs-minimized .boardcast-rhs {*/
 /*right: -450px;*/
 /*}*/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003871}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003880}}
 .board-rhs-reveal-hide {
   position: absolute;
   width: 16px;
@@ -15359,45 +15359,45 @@ body.boards-body a:hover {
   z-index: 10000;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003875}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003884}}
 .board-rhs-reveal-hide img {
   width: 16px;
   height: 16px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003893}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003902}}
 .board-rhs-reveal-hide img {
   border: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003897}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003906}}
 .board-status-toolbar-panel {
   position: relative;
   height: 27px;
   background-image: url('/_static/_images/wallpapers/noise-black.jpg');
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003908}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003917}}
 .change-background-panel .vortex-image-uploader {
   margin-top: 8px;
   width: 300px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003912}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003921}}
 .change-background-panel .vortex-image-uploader-loader-area {
   position: absolute;
   left: 330px;
   top: 20px;
   right: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003919}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003928}}
 .change-background-panel .change-image-url-area {
   position: absolute;
   left: 330px;
   top: 80px;
   right: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003929}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003938}}
 .boardcast-chat {
   opacity: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003933}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003942}}
 .chat .boardcast-chat {
   opacity: 1;
   position: fixed;
@@ -15407,7 +15407,7 @@ body.boards-body a:hover {
   top: 0px;
   bottom: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003942}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003951}}
 .chat .boardcast-chat .stream-status-update-panel {
   position: relative;
   padding: 7px 15px;
@@ -15574,13 +15574,13 @@ body.boards-body a:hover {
   background-color: #ddf4fb;
   border-color: #c6edf9;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003948}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003957}}
 .return-from-chat-button {
   position: fixed;
   bottom: 10px;
   left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003954}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003963}}
 .board-footer {
   pading-top: 10px;
   width: 100%;
@@ -15589,7 +15589,7 @@ body.boards-body a:hover {
   position: relative;
   z-index: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003962}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003971}}
 .board-footer div,
 .board-footer p,
 .board-footer span,
@@ -15601,63 +15601,63 @@ body.boards-body a:hover {
 .board-footer h6 {
   color: #222;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003965}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003974}}
 .board-footer h1,
 .board-footer h2,
 .board-footer h3 {
   text-align: center;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003969}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003978}}
 .board-footer .footer-lhs {
   padding: 16px;
   max-width: 300px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003974}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003983}}
 .board-footer .footer-middle {
   padding: 16px;
   border-left: 1px solid rgba(0, 0, 0, 0.07);
   border-right: 1px solid rgba(0, 0, 0, 0.07);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003978}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003987}}
 .board-footer .footer-middle p {
   font-size: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003983}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003992}}
 .board-footer .footer-rhs {
   padding: 16px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003985}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003994}}
 .board-footer .footer-rhs p {
   font-size: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003990}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\00003999}}
 .board-footer .footer-lhs,
 .board-footer .footer-middle,
 .board-footer .footer-rhs {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031001}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031010}}
 .boardname-textbox {
   display: inline;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031003}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031012}}
 .boardname-textbox input {
   display: inline;
   margin-left: 0.5em;
   line-height: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031011}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031020}}
 #snapshot-panel {
   height: auto;
   min-height: 636px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031016}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031025}}
 .snapshot-panel {
   height: auto;
   min-height: 636px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031023}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031032}}
 .board-list .board-list-item {
   zoom: 1;
   width: 100%;
@@ -15674,28 +15674,28 @@ body.boards-body a:hover {
 .board-list .board-list-item:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031027}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031036}}
 .board-list .board-list-item .board-list-item-photo-area {
   clear: left;
   float: left;
   min-width: 200px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031028}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031037}}
 .board-list .board-list-item .board-list-item-photo-area .board-list-item-icon {
   display: block;
   margin: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031037}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031046}}
 .board-list .board-list-item .board-list-item-main-area {
   float: left;
   min-width: 600px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031042}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031051}}
 .board-list .board-list-item .board-list-item-metadata-area {
   float: left;
   min-width: 200px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031046}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/board\.less}line{font-family:\000031055}}
 .board-list .board-list-item .board-list-item-metadata-area .board-list-item-author {
   font-size: 18px;
 }
@@ -15767,7 +15767,7 @@ body.boards-body a:hover {
 
  */
 /* End boardcast Only */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003660}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003659}}
 #message-block {
   background-color: #ddd;
   width: 80%;
@@ -15784,13 +15784,13 @@ body.boards-body a:hover {
   box-shadow: 0 0 3px 3px #646464;
   -webkit-box-shadow: 0 0 3px 3px #646464;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003673}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003672}}
 #stylesheet-loaded {
   position: absolute;
   height: 1px;
   width: 42px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003679}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neilellis\/Development\/Cazcade\/cazcade\/apps\/boardcast\/src\/main\/webapp\/_static\/less\/boardcast-v2\.less}line{font-family:\00003678}}
 .glassed {
   -webkit-filter: blur(2px) grayscale(0.4) invert(0.1);
 }

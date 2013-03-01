@@ -66,9 +66,10 @@ body {
 
 .container {
   min-height: 100%;
-  width: 1024px;
+  width: 1044px;
   position: relative;
-  z-index: 10
+  z-index: 10;
+  background: @thickBorderColor;
 }
 
 .container > footer p {
@@ -78,13 +79,11 @@ body {
 
 /* The white background content wrapper */
 .content {
-  margin: 0px -20px 0px 0px;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-left: 30px;
+  margin: 0px 0px 0px 0px;
+  padding-top: 10px; //  padding-right: 10px;
+//  padding-left: 30px;
   padding-bottom: 10px;
-  background: @thickBorderColor;
-  background-color: #fefefe; //  background-image: @curvedGloss;
+  background: -webkit-gradient(linear, 0% -16.5%, 16.5% -100%, from(rgba(255, 255, 255, .0)), to(rgba(255, 255, 255, .6)), color-stop(.99, rgba(255, 255, 255, .2)), color-stop(.5, rgba(255, 255, 255, .0))) no-repeat; //  background-color: #fefefe; //  background-image: @curvedGloss;
 /* negative indent the amount of the padding to maintain the grid system */
 /*-webkit-border-radius: 0 0 6px 6px;*/
 /*-moz-border-radius: 0 0 6px 6px;*/

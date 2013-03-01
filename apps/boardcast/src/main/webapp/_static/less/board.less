@@ -12,8 +12,8 @@
 }
 
 .page-header {
-  margin-left: -20px;
-  margin-top: 0px;
+  margin-left: 10px;
+  margin-top: 10px;
   margin-bottom: 10px;
   max-height: 999px;
   border: none;
@@ -81,21 +81,23 @@
 //  background-color:#444;
 //  background-image: @curvedGloss;
 //  background: -webkit-gradient(linear, 0% -16.5%, 16.5% -100%, from(rgba(255,255,255,.0)), to(rgba(255,255,255,.6)), color-stop(.99,rgba(255,255,255,.2)),color-stop(.5,rgba(255,255,255,.0))) no-repeat;
-  -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, .8)), color-stop(.8, rgba(255, 255, 255, .4)));
+  -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 1)), color-stop(.8, rgba(255, 255, 255, .7)));
   background-size: cover;
   padding: 0px;
   padding-bottom: 0px;
-  height: 82px;
-  border-top: 1px solid #cccc;
-  border-bottom: 1px solid #bbb;
-  border-left: 1px solid #b8beb8;
-  border-right: 1px solid #b8beb8;
-  .box-shadow(0px 1px 4px 2px rgba(12,11,10,0.3));
+  height: 82px; //  border-top: 1px solid #cccc;
+//  border-bottom: 1px solid #bbb;
+//  border-left: 1px solid #b8beb8;
+//  border-right: 1px solid #b8beb8;
+//  .box-shadow(0px 1px 4px 2px rgba(12,11,10,0.3));
   z-index: 1;
   position: relative;
   width: 1028px;
   top: -10px;
-  color: #000; //
+  color: #000; //  *{
+//    opacity: 0.8;
+//  }
+//
 ///* These are the two ribbon "curls". The :before curl is placed to the left, :after to the right */
 //  &:before, &:after {
 //    border-color: #606060;
@@ -128,9 +130,8 @@
 
 .board-top-bar {
   height: 40px;
-  position: relative;
-  margin-left: -20px;
-  margin-right: -20px;
+  position: relative; //  margin-left: -20px;
+//  margin-right: -20px;
   width: 100%;
 }
 
@@ -141,24 +142,29 @@
   min-height: 636px;
   position: relative;
   overflow: visible;
-  left: -20px;
+  left: 0px;
 
   margin: 0px;
   border: 1px solid transparent;
-  margin-top: 0px;
+  margin-left: 10px;
   top: -12px;
 }
 
-.board-footer .content {
-  background: @footerBackground no-repeat;
-  min-height: 350px;
-  max-height: 350px;
-  margin-bottom: 100px;
-  .box-shadow(none);
-  max-width: 940px;
-  width: 940px;
-  margin-left: 30px;
+.board-footer {
+  .container {
+    background: none;
+  }
+  .content {
+    background: @footerBackground no-repeat;
+    min-height: 350px;
+    max-height: 350px;
+    margin-bottom: 100px;
+    .box-shadow(none);
+    max-width: 940px;
+    width: 940px;
+    margin-left: 30px;
 
+  }
 }
 
 .chat .container {
@@ -186,7 +192,10 @@
 .page-bottom { //  margin-right: -20px;
   background-image: @blackboard;
   color: white;
-  padding-left: 20px;
+  margin-left: 10px; //  margin-top:-20px;
+//  margin-bottom:-20px;
+  margin-right: 10px;
+  padding: 20px;
   .shallow-inset;
 
   h1, h2, h3, h4 {

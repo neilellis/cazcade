@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="row board-top-menu-row">
+                <div class="board-top-menu-row">
                     <widgets:BoardMenuBar styleName="boardcast-board-menu" autoOpen="true" ui:field="menuBar"
                                           focusOnHoverEnabled="true"/>
 
@@ -48,7 +48,7 @@
 
                 </div>
 
-                <div class="row page-bottom">
+                <div class="page-bottom">
                     <h2 class="board-comments-title">Comments</h2>
                     <widgets:AddCommentBox ui:field="addCommentBox"/>
                     <stream:CommentPanel ui:field="comments"/>
