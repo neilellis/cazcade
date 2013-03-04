@@ -49,7 +49,7 @@ public class PoolContentArea extends Composite {
     interface PoolContentAreaUiBinder extends UiBinder<HTMLPanel, PoolContentArea> {}
 
     public static final  int                     DEFAULT_WIDTH            = 1024;
-    public static final  String                  DEFAULT_BACKGROUND_IMAGE = "/_static/_background/misc/corkboard.jpg";
+    public static final  String                  DEFAULT_BACKGROUND_IMAGE = "/_static/_background/misc/corkboard.png";
     private static final PoolContentAreaUiBinder ourUiBinder              = GWT.create(PoolContentAreaUiBinder.class);
     @Nonnull
     private final BusService               bus;

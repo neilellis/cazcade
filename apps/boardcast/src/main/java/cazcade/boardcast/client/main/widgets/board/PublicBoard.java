@@ -57,7 +57,7 @@ import static com.google.gwt.http.client.URL.encode;
 public class PublicBoard extends EntityBackedFormPanel {
     interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {}
 
-    public static final  String                   CORKBOARD   = "/_static/_background/misc/corkboard.jpg";
+    public static final  String                   CORKBOARD   = "/_static/_background/misc/corkboard.png";
     private static final NewBoardUiBinder         ourUiBinder = GWT.create(NewBoardUiBinder.class);
     @Nonnull
     private final        BusService               bus         = Bus.get();

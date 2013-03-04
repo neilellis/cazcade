@@ -12,12 +12,10 @@
 }
 
 .page-header {
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
   max-height: 999px;
+  margin-top:0px;
   border: none;
-  margin-right: 0px;
   position: relative;
   min-height: 120px;
   color: @boardHeaderTextColor;
@@ -151,20 +149,7 @@
 }
 
 .board-footer {
-  .container {
-    background: none;
-  }
-  .content {
-    background: @footerBackground no-repeat;
-    min-height: 350px;
-    max-height: 350px;
-    margin-bottom: 100px;
-    .box-shadow(none);
-    max-width: 940px;
-    width: 940px;
-    margin-left: 30px;
 
-  }
 }
 
 .chat .container {
@@ -973,6 +958,20 @@ body.boards-body {
   }
   h1, h2, h3 {
     text-align: center;
+  }
+  .container {
+    background: none;
+  }
+  .content {
+    background: @footerBackground no-repeat;
+    min-height: 350px;
+    max-height: 350px;
+    margin-bottom: 100px;
+    .box-shadow(none);
+    max-width: 940px;
+    width: 940px;
+    margin-left: 45px;
+
   }
 
   .footer-lhs {

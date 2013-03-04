@@ -12,7 +12,7 @@
         <fields:ChangeImageUrlPanel ui:field="changeBackgroundPanel"/>
         <image:ImageSelection ui:field="imageSelector">
             <image:option>
-                <image:ImageOption url="/_static/_background/misc/corkboard.jpg"
+                <image:ImageOption url="/_static/_background/misc/corkboard.png"
                                    thumbnail="/_static/_background/thumb/misc/corkboard.jpg"/>
             </image:option>
             <image:option>
