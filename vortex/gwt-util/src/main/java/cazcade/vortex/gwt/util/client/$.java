@@ -15,14 +15,6 @@ import com.google.gwt.user.client.Timer;
  */
 public class $ implements Dictionary {
 
-    public static void async(Runnable runnable) {
-        GWTUtil.async(runnable);
-    }
-
-    public static void delayAsync(int delay, final Runnable runnable) {
-        GWTUtil.delayAsync(delay, runnable);
-    }
-
     public static void navigate(String location) {
         HistoryManager.get().navigate(location);
     }

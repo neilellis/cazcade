@@ -106,8 +106,8 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         throw new UnsupportedOperationException("This operation is not valid for an entity collection");
     }
 
-    @Nonnull public <U extends TransferEntity<U>>  TransferEntityCollection<U> asUpdateEntity() {
-        return toAll(new EntityIterationCallback<T,U>() {
+    @Nonnull public <U extends TransferEntity<U>> TransferEntityCollection<U> asUpdateEntity() {
+        return toAll(new EntityIterationCallback<T, U>() {
             public U call(final T entity) {
                 return (U) entity.asUpdate();
             }
@@ -322,7 +322,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    @Nonnull  public <U extends TransferEntity<U>> TransferEntityCollection<U> children(@Nonnull final Attribute key) {
+    @Nonnull public <U extends TransferEntity<U>> TransferEntityCollection<U> children(@Nonnull final Attribute key) {
         final TransferEntityCollection<U> entities = new TransferEntityCollection<U>();
         toAll(new EntityIterationCallback<T, U>() {
             @Override public U call(T entity) {
@@ -333,7 +333,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         return entities;
     }
 
-    private  <U extends TransferEntity<U>>  TransferEntityCollection<T> add(TransferEntityCollection<U> entities) {
+    private <U extends TransferEntity<U>> TransferEntityCollection<T> add(TransferEntityCollection<U> entities) {
         for (U entity : entities) {
             this.values.add((T) entity);
         }
@@ -678,7 +678,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         });
     }
 
-    public  <U extends TransferEntity<U>> TransferEntityCollection<U> merge(final T otherEntity, final boolean destructive) {
+    public <U extends TransferEntity<U>> TransferEntityCollection<U> merge(final T otherEntity, final boolean destructive) {
         return toAll(new EntityIterationCallback<T, U>() {
             @Override public U call(T entity) {
                 return (U) entity.merge(otherEntity, destructive);
@@ -708,5 +708,9 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         final ArrayList<T> result = new ArrayList<T>(values);
         Collections.reverse(result);
         return new TransferEntityCollection<T>(result);
+    }
+
+    public <U extends Entity> List<U> asList(Class<U> clazz) {
+        return new ArrayList<U>((List) values);
     }
 }

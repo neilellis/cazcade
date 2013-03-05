@@ -17,16 +17,20 @@ import cazcade.liquid.api.lsd.Types;
 import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.BusListener;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.common.client.User;
-import cazcade.vortex.gwt.util.client.*;
+import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.ClientPreferences;
+import cazcade.vortex.gwt.util.client.StartupUtil;
+import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import cazcade.vortex.widgets.client.stream.ChatStreamPanel;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
@@ -48,6 +52,8 @@ import javax.annotation.Nonnull;
  */
 @Deprecated
 public class BoardcastChatView extends EntityBackedFormPanel {
+
+
     @Nonnull
     public static final String RHS_MINIMIZED = "rhs-minimized";
 
@@ -109,7 +115,7 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
 
         bus.send(new VisitPoolRequest(Types.T_BOARD, poolURI, previousPoolURI, !User.anon(), poolURI.board()
-                                                                                                        .listedConvention()), new AbstractMessageCallback<VisitPoolRequest>() {
+                                                                                                    .listedConvention()), new AbstractMessageCallback<VisitPoolRequest>() {
             @Override
             public void onFailure(final VisitPoolRequest original, @Nonnull final VisitPoolRequest message) {
                 if (message.response().type().canBe(Types.T_RESOURCE_NOT_FOUND)) {
@@ -129,15 +135,25 @@ public class BoardcastChatView extends EntityBackedFormPanel {
 
                 ClientLog.log("Got response.");
                 poolEntity = message.response().$();
-                $.async(new Runnable() {
-                    @Override public void run() {
+
+                GWT.runAsync(new RunAsyncCallback() {
+                    @Override public void onFailure(Throwable reason) {
+                        ClientLog.log(reason);
+                    }
+
+                    @Override public void onSuccess() {
                         ClientLog.log(poolEntity.dump());
                         contentArea.clear();
                         contentArea.init(poolEntity, threadSafeExecutor);
                     }
                 });
-                $.async(new Runnable() {
-                    @Override public void run() {
+
+                GWT.runAsync(new RunAsyncCallback() {
+                    @Override public void onFailure(Throwable reason) {
+                        ClientLog.log(reason);
+                    }
+
+                    @Override public void onSuccess() {
                         if (poolEntity.has(Dictionary.IMAGE_URL)) {
                             contentArea.setBackgroundImage(poolEntity.$(Dictionary.IMAGE_URL));
                         }
@@ -151,8 +167,13 @@ public class BoardcastChatView extends EntityBackedFormPanel {
                         }
                     }
                 });
-                $.async(new Runnable() {
-                    @Override public void run() {
+
+                GWT.runAsync(new RunAsyncCallback() {
+                    @Override public void onFailure(Throwable reason) {
+                        ClientLog.log(reason);
+                    }
+
+                    @Override public void onSuccess() {
                         stream.init(poolURI);
                         addChatBox.init(poolURI);
                     }

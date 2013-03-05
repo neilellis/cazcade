@@ -13,30 +13,26 @@ import com.google.gwt.user.client.Timer;
  */
 public class GWTUtil {
 
-    public static void async(final Runnable runnable) {
-        GWT.runAsync(new RunAsyncCallback() {
-            @Override public void onFailure(Throwable reason) {
-                ClientLog.log(reason);
-            }
+    public static class AsyncTimer extends Timer {
+        private final Runnable runnable;
 
-            @Override public void onSuccess() {
-                try {
-                    runnable.run();
-                } catch (Exception e) {
-                    ClientLog.log(e);
+        public AsyncTimer(Runnable runnable) {this.runnable = runnable;}
+
+        @Override public void run() {
+            GWT.runAsync(new RunAsyncCallback() {
+
+                @Override public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
                 }
-            }
-        });
 
-
-    }
-
-    public static void delayAsync(int delay, final Runnable runnable) {
-        new Timer() {
-            @Override public void run() {
-                async(runnable);
-            }
-        }.schedule(delay);
-
+                @Override public void onSuccess() {
+                    try {
+                        runnable.run();
+                    } catch (Exception e) {
+                        ClientLog.log(e);
+                    }
+                }
+            });
+        }
     }
 }

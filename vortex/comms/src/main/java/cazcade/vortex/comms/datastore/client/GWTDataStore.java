@@ -12,9 +12,10 @@ import cazcade.liquid.api.request.VisitPoolRequest;
 import cazcade.vortex.bus.client.AbstractBusListener;
 import cazcade.vortex.bus.client.Bus;
 import cazcade.vortex.bus.client.BusService;
-import cazcade.vortex.gwt.util.client.$;
 import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -66,10 +67,25 @@ public class GWTDataStore {
             }
         }.scheduleRepeating(1000);
 
-        $.async(new Runnable() {
+        final Runnable runnable1 = new Runnable() {
             @Override public void run() {
                 setupListeners(newIdentity);
                 onStartup.run();
+            }
+        };
+        GWT.runAsync(new RunAsyncCallback() {
+            private final Runnable runnable = runnable1;
+
+            @Override public void onFailure(Throwable reason) {
+                ClientLog.log(reason);
+            }
+
+            @Override public void onSuccess() {
+                try {
+                    runnable.run();
+                } catch (Exception e) {
+                    ClientLog.log(e);
+                }
             }
         });
 
@@ -89,8 +105,7 @@ public class GWTDataStore {
                             final Entity responseEntity = request.response();
                             locations.add(responseEntity.uri().asReverseDNSString() + ".#");
                             locations.add(responseEntity.id().toString());
-                        } else if (request.state() == MessageState.PROVISIONAL
-                                   || request.state() == MessageState.INITIAL) {
+                        } else if (request.state() == MessageState.PROVISIONAL || request.state() == MessageState.INITIAL) {
                             if (request.hasUri()) {
                                 locations.add(request.uri().asReverseDNSString() + ".#");
                             }

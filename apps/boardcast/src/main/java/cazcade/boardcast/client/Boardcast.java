@@ -8,9 +8,9 @@ import cazcade.boardcast.client.main.version.VersionNumberChecker;
 import cazcade.boardcast.client.main.widgets.TopBar;
 import cazcade.boardcast.client.main.widgets.board.BoardcastChatView;
 import cazcade.boardcast.client.main.widgets.board.CreateBoardDialog;
-import cazcade.boardcast.client.main.widgets.board.PublicBoard;
+import cazcade.boardcast.client.main.widgets.board.PublicBoardProxy;
 import cazcade.boardcast.client.main.widgets.board.SnapshotBoard;
-import cazcade.boardcast.client.main.widgets.list.BoardList;
+import cazcade.boardcast.client.main.widgets.list.BoardListProxy;
 import cazcade.boardcast.client.main.widgets.login.BoardcastLoginOrRegisterPanel;
 import cazcade.boardcast.client.preflight.PreflightCheck;
 import cazcade.boardcast.client.resources.BoardcastClientBundle;
@@ -25,7 +25,10 @@ import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.common.client.User;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
-import cazcade.vortex.gwt.util.client.*;
+import cazcade.vortex.gwt.util.client.ClientLog;
+import cazcade.vortex.gwt.util.client.Config;
+import cazcade.vortex.gwt.util.client.GWTUtil;
+import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.AbstractLazyHistoryAwareFactory;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
@@ -33,6 +36,7 @@ import cazcade.vortex.gwt.util.client.history.HistoryManager;
 import cazcade.vortex.widgets.client.stream.ActivityStreamPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
@@ -56,8 +60,6 @@ public class Boardcast implements EntryPoint {
     public static final String PUBLIC_BOARD_PANEL_ID = "board-panel";
     @Nonnull
     public static final String SNAPSHOT_PANEL_ID     = "snapshot-panel";
-
-
     private BoardcastLoginOrRegisterPanel loginOrRegisterPanel;
     private HistoryManager                historyManager;
     private boolean                       registerRequest;
@@ -94,11 +96,22 @@ public class Boardcast implements EntryPoint {
         });
 
         if (!Config.isSnapshotMode()) {
-            $.async(new Runnable() {
-                @Override public void run() {
-                    VersionNumberChecker.start();
+            GWT.runAsync(new RunAsyncCallback() {
+
+                @Override public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
+                }
+
+                @Override public void onSuccess() {
+                    try {
+                        VersionNumberChecker.start();
+                    } catch (Exception e) {
+                        ClientLog.log(e);
+                    }
                 }
             });
+
+
         }
 
 
@@ -108,42 +121,37 @@ public class Boardcast implements EntryPoint {
 
 
         registerRequest = Window.Location.getPath().startsWith("/_login-register");
-        loginRequest = Window.Location.getPath().startsWith("/_login-login");
+        loginRequest = Window.Location.getPath().start sWith("/_login-login");
         createRequest = Window.Location.getPath().startsWith("/_create-");
         createUnlistedRequest = Window.Location.getPath().startsWith("/_create-unlisted");
 
-        $.async(new Runnable() {
-            @Override public void run() {
-                injectChildren();
+        GWT.runAsync(new RunAsyncCallback() {
+
+            @Override public void onFailure(Throwable reason) {
+                ClientLog.log(reason);
+            }
+
+            @Override public void onSuccess() {
+                try {
+                    injectChildren();
+                } catch (Exception e) {
+                    ClientLog.log(e);
+                }
             }
         });
+
 
         if (Window.Location.getParameter("justRegistered") != null) {
             RootPanel.get("page-title").getElement().setInnerText("Registered successfully");
         }
     }
 
-    private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
-        private final boolean embedded;
-
-        private SnapshotBoardFactory(final boolean embedded) {
-            super();
-
-            this.embedded = embedded;
-        }
-
-        @Nonnull @Override
-        protected HistoryAware getInstanceInternal() {
-            final SnapshotBoard board = new SnapshotBoard(embedded);
-            RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
-            return board;
-        }
-    }
-
     private void injectChildren() {
+
         if (!Config.debug() && !Config.isSnapshotMode()) {
             Track.setGoogleId("UA-27340178-1");
         }
+
         tracker = Track.getInstance();
         History.addValueChangeHandler(tracker);
 
@@ -206,27 +214,28 @@ public class Boardcast implements EntryPoint {
         historyManager.registerTopLevelComposite("default", new AbstractLazyHistoryAwareFactory() {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
-                final PublicBoard board = new PublicBoard();
-                RootPanel.get(PUBLIC_BOARD_PANEL_ID).add(board);
+                HistoryAware board = GWT.create(PublicBoardProxy.class);
+                //                RootPanel.get(PUBLIC_BOARD_PANEL_ID).add(board);
                 return board;
             }
         });
         historyManager.registerTopLevelComposite("chat", new AbstractLazyHistoryAwareFactory() {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
-                return new BoardcastChatView();
+
+                return GWT.create(ActivityStreamPanel.class);
             }
         });
         historyManager.registerTopLevelComposite("activity", new AbstractLazyHistoryAwareFactory() {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
-                return new ActivityStreamPanel();
+                return GWT.create(ActivityStreamPanel.class);
             }
         });
         historyManager.registerTopLevelComposite("list", new AbstractLazyHistoryAwareFactory() {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
-                return new BoardList();
+                return GWT.create(BoardListProxy.class);
             }
         });
     }
@@ -298,38 +307,49 @@ public class Boardcast implements EntryPoint {
             @Override
             public void run() {
                 Bus.get().start();
-                Bus.get()
-                          .send(new RetrieveAliasRequest(identity.aliasURI()), new AbstractMessageCallback<RetrieveAliasRequest>() {
-                              @Override
-                              public void onSuccess(final RetrieveAliasRequest original, @Nonnull final RetrieveAliasRequest message) {
-                                  final TransferEntity alias = message.response();
-                                  User.setCurrentAlias(alias);
-                                  final Map<String, String> propertyMap = new HashMap<String, String>();
-                                  propertyMap.putAll(alias.map());
-                                  propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
-                                  propertyMap.put("alpha.mode", Config.alpha() ? "true" : "false");
-                                  final String name = alias.$(Dictionary.NAME);
-                                  final String fn = alias.$(Dictionary.FULL_NAME);
-                                  tracker.registerUser(name, fn, propertyMap);
+                Bus.get().send(new RetrieveAliasRequest(identity.aliasURI()), new AbstractMessageCallback<RetrieveAliasRequest>() {
+                    @Override
+                    public void onSuccess(final RetrieveAliasRequest original, @Nonnull final RetrieveAliasRequest message) {
+                        final TransferEntity alias = message.response();
+                        User.setCurrentAlias(alias);
+                        final Map<String, String> propertyMap = new HashMap<String, String>();
+                        propertyMap.putAll(alias.map());
+                        propertyMap.put("app.version", VersionNumberChecker.getBuildNumber());
+                        propertyMap.put("alpha.mode", Config.alpha() ? "true" : "false");
+                        final String name = alias.$(Dictionary.NAME);
+                        final String fn = alias.$(Dictionary.FULL_NAME);
+                        tracker.registerUser(name, fn, propertyMap);
 
-                                  RootPanel.get().addStyleName("app-mode");
-                                  loginOrRegisterPanel.hide();
-                                  $.async(new Runnable() {
-                                      @Override public void run() {
-                                          RootPanel.get("topbar-menu-container").add(new TopBar());
-                                      }
-                                  });
-                                  GWTUtil.delayAsync(200, new Runnable() {
-                                      @Override public void run() { onLogin.run(); }
-                                  });
-                              }
+                        RootPanel.get().addStyleName("app-mode");
+                        loginOrRegisterPanel.hide();
+                        GWT.runAsync(new RunAsyncCallback() {
+
+                            @Override public void onFailure(Throwable reason) {
+                                ClientLog.log(reason);
+                            }
+
+                            @Override public void onSuccess() {
+                                try {
+                                    RootPanel.get("topbar-menu-container").add(new TopBar());
+                                } catch (Exception e) {
+                                    ClientLog.log(e);
+                                }
+                            }
+                        });
 
 
-                              @Override
-                              public void onFailure(final RetrieveAliasRequest original, @Nonnull final RetrieveAliasRequest message) {
-                                  ClientLog.log(message.response().$(Dictionary.DESCRIPTION));
-                              }
-                          });
+                        new GWTUtil.AsyncTimer(new Runnable() {
+                            @Override public void run() { onLogin.run(); }
+                        }).schedule(200);
+
+                    }
+
+
+                    @Override
+                    public void onFailure(final RetrieveAliasRequest original, @Nonnull final RetrieveAliasRequest message) {
+                        ClientLog.log(message.response().$(Dictionary.DESCRIPTION));
+                    }
+                });
             }
         }, new Runnable() {
             @Override
@@ -371,6 +391,23 @@ public class Boardcast implements EntryPoint {
                             });
         } else {
             loginUser(identity, loginAction);
+        }
+    }
+
+    private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
+        private final boolean embedded;
+
+        private SnapshotBoardFactory(final boolean embedded) {
+            super();
+
+            this.embedded = embedded;
+        }
+
+        @Nonnull @Override
+        protected HistoryAware getInstanceInternal() {
+            final SnapshotBoard board = new SnapshotBoard(embedded);
+            RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
+            return board;
         }
     }
 

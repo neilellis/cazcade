@@ -179,6 +179,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
+                <version>${gwt.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <configuration>
@@ -191,6 +192,7 @@
                             <!--<webappDirectory>${project.basedir}/src/main/webapp/</webappDirectory>-->
                             <!--<compileReport>true</compileReport>-->
                         </configuration>
+                        <phase>process-classes</phase>
                         <goals>
                             <goal>compile</goal>
 
@@ -239,6 +241,7 @@
 
 
     <profiles>
+
         <profile>
             <id>superdev</id>
             <build>
@@ -356,6 +359,31 @@
             <id>deploy</id>
             <build>
                 <plugins>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>gwt-maven-plugin</artifactId>
+                        <version>${gwt.maven.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <module>cazcade.boardcast.Boardcast</module>
+                                    <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+                                    <style>DETAILED</style>
+                                    <compileReport>true</compileReport>
+                                    <draftCompile>false</draftCompile>
+
+
+                                    <inplace>false</inplace>
+                                </configuration>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>

@@ -16,9 +16,11 @@ import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.lsd.Types;
 import cazcade.vortex.common.client.User;
 import cazcade.vortex.dnd.client.browser.BrowserUtil;
-import cazcade.vortex.gwt.util.client.$;
+import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.Config;
 import cazcade.vortex.gwt.util.client.analytics.Track;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -53,22 +55,32 @@ public class BoardMenuBar extends MenuBar {
         this.boardWidget = boardWidget;
         poolURI = board.uri();
         clearItems();
-        $.async(new Runnable() {
-            @Override public void run() {
-                if (modifierOptions) {
-                    createAddMenu(poolURI, backgroundDialog, board, BoardMenuBar.this);
-                }
-                addSeparator();
-                if (board.$bool(Dictionary.ADMINISTERABLE)) {
-                    accessMenuBar = new MenuBar(true);
-                    addItem(iconWithName("key", "Access"), accessMenuBar);
-                    createAccessMenu(board);
-                }
-                if (!User.anon() && Config.alpha()) {
-                    createCollaborateMenu(board);
+        GWT.runAsync(new RunAsyncCallback() {
+
+            @Override public void onFailure(Throwable reason) {
+                ClientLog.log(reason);
+            }
+
+            @Override public void onSuccess() {
+                try {
+                    if (modifierOptions) {
+                        createAddMenu(poolURI, backgroundDialog, board, BoardMenuBar.this);
+                    }
+                    addSeparator();
+                    if (board.$bool(Dictionary.ADMINISTERABLE)) {
+                        accessMenuBar = new MenuBar(true);
+                        addItem(iconWithName("key", "Access"), accessMenuBar);
+                        createAccessMenu(board);
+                    }
+                    if (!User.anon() && Config.alpha()) {
+                        createCollaborateMenu(board);
+                    }
+                } catch (Exception e) {
+                    ClientLog.log(e);
                 }
             }
         });
+
 
     }
 
@@ -150,7 +162,7 @@ public class BoardMenuBar extends MenuBar {
 
         if (Config.alpha()) {
             menubar.addItem(iconWithName("address", ""), new CreateAliasRefCommand(poolURI, Types.T_ALIAS_REF, User.currentAlias()
-                                                                                                                       .uri()));
+                                                                                                                   .uri()));
             //                                subMenu.addItem("Custom Object (ALPHA)", new CreateCustomObjectCommand(poolURI, Types.CUSTOM_OBJECT));
             menubar.addItem(iconWithName("list", ""), new CreateChecklistCommand(poolURI, Types.T_CHECKLIST_POOL));
         }

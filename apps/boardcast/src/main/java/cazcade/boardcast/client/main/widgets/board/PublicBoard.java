@@ -28,6 +28,7 @@ import cazcade.vortex.widgets.client.stream.ChatStreamPanel;
 import cazcade.vortex.widgets.client.stream.CommentPanel;
 import cazcade.vortex.widgets.client.stream.NotificationPanel;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.SpanElement;
@@ -55,9 +56,10 @@ import static com.google.gwt.http.client.URL.encode;
  * @author neilellis@cazcade.com
  */
 public class PublicBoard extends EntityBackedFormPanel {
+
     interface NewBoardUiBinder extends UiBinder<HTMLPanel, PublicBoard> {}
 
-    public static final  String                   CORKBOARD   = "/_static/_background/misc/corkboard.png";
+    public static final  String                   CORKBOARD   = "/_static/_background/misc/corkboard.jpg";
     private static final NewBoardUiBinder         ourUiBinder = GWT.create(NewBoardUiBinder.class);
     @Nonnull
     private final        BusService               bus         = Bus.get();
@@ -154,11 +156,21 @@ public class PublicBoard extends EntityBackedFormPanel {
         previousUri = uri;
         uri = new LURI(BoardURL.from(value));
         if (isAttached()) {
-            $.async(new Runnable() {
-                @Override public void run() {
-                    refresh();
+            GWT.runAsync(new RunAsyncCallback() {
+
+                @Override public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
+                }
+
+                @Override public void onSuccess() {
+                    try {
+                        refresh();
+                    } catch (Exception e) {
+                        ClientLog.log(e);
+                    }
                 }
             });
+
 
         }
     }
@@ -210,7 +222,7 @@ public class PublicBoard extends EntityBackedFormPanel {
 
                     }
                 }, !User.anon()
-                     );
+        );
 
     }
 
@@ -241,7 +253,7 @@ public class PublicBoard extends EntityBackedFormPanel {
                                 field.setErrorMessage(message.response().$(DESCRIPTION));
                             }
                         }
-                                  );
+                );
             }
         };
     }
@@ -332,29 +344,24 @@ public class PublicBoard extends EntityBackedFormPanel {
         //                                            + "&size=LARGE&width=150&height=200&delayAsync=60";
 
         if (previousUri == null || !previousUri.equals(uri)) {
-            $.async(new Runnable() {
-                @Override public void run() {
-                    content.init($(), executor);
-                    menuBar.init(PublicBoard.this, $(), $().$bool(MODIFIABLE), getChangeBackgroundDialog());
-                    if ($().$bool(MODIFIABLE)) {
-                        removeStyleName("readonly");
-                    }
-                    removeStyleName("loading");
-                    StartupUtil.showLiveVersion(getWidget().getElement());
-                }
-            });
+
+            content.init($(), executor);
+            menuBar.init(PublicBoard.this, $(), $().$bool(MODIFIABLE), getChangeBackgroundDialog());
+            if ($().$bool(MODIFIABLE)) {
+                removeStyleName("readonly");
+            }
+            removeStyleName("loading");
+            StartupUtil.showLiveVersion(getWidget().getElement());
 
 
-            $.async(new Runnable() {
-                @Override public void run() {
-                    comments.clear();
-                    comments.init(uri);
-                    if (Config.alpha()) {
-                        notificationPanel.init(uri);
-                    }
-                    addCommentBox.init(uri);
-                }
-            });
+            comments.clear();
+            comments.init(uri);
+            if (Config.alpha()) {
+                notificationPanel.init(uri);
+            }
+            addCommentBox.init(uri);
+
+
         }
 
     }
@@ -366,20 +373,20 @@ public class PublicBoard extends EntityBackedFormPanel {
         }
         return entity.$bool(LISTED)
                ? "It is a listed board which is " + (entity.allowed(WORLD_SCOPE, P_VIEW)
-                                                     ? "visible to all"
-                                                       + (entity.allowed(WORLD_SCOPE, P_EDIT)
-                                                          ? " and editable by all."
-                                                          : entity.allowed(WORLD_SCOPE, P_MODIFY)
-                                                            ? " and modifiable by all."
-                                                            : ". ")
+                                                     ? "visible to all" + (entity.allowed(WORLD_SCOPE, P_EDIT)
+                                                                           ? " and editable by all."
+                                                                           : entity.allowed(WORLD_SCOPE, P_MODIFY)
+                                                                             ? " and modifiable by all."
+                                                                             : ". ")
                                                      : "currently only visible to the creator.")
-               : "It is an unlisted board which is " + (entity.allowed(WORLD_SCOPE, P_VIEW) ?
-                                                        "visible to those who know the URL "
-                                                        + (entity.allowed(WORLD_SCOPE, P_EDIT)
-                                                           ? " and editable by them. "
-                                                           : entity.allowed(WORLD_SCOPE, P_EDIT)
-                                                             ? " and modifiable by them. "
-                                                             : ". ") : "visible only to the creator.");
+               : "It is an unlisted board which is " + (entity.allowed(WORLD_SCOPE, P_VIEW)
+                                                        ? "visible to those who know the URL "
+                                                          + (entity.allowed(WORLD_SCOPE, P_EDIT)
+                                                             ? " and editable by them. "
+                                                             : entity.allowed(WORLD_SCOPE, P_EDIT)
+                                                               ? " and modifiable by them. "
+                                                               : ". ")
+                                                        : "visible only to the creator.");
     }
 
     @Override
@@ -395,11 +402,8 @@ public class PublicBoard extends EntityBackedFormPanel {
 
         addCommentBox.sinkEvents(Event.MOUSEEVENTS);
         if (uri != null) {
-            $.async(new Runnable() {
-                @Override public void run() {
-                    refresh();
-                }
-            });
+
+            refresh();
 
         }
     }

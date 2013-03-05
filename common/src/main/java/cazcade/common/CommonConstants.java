@@ -40,5 +40,5 @@ public interface CommonConstants {
     String INFO_CAZCADE_COM = "info@cazcade.com";
     @Nonnull String ADMIN = "admin";
     @Nonnull String ANON  = "anon";
-    String CORKBOARD_URL = "/_static/_background/misc/corkboard.png";
+    String CORKBOARD_URL = "/_static/_background/misc/corkboard.jpg";
 }

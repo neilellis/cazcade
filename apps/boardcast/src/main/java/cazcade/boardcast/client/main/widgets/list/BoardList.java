@@ -6,6 +6,8 @@ package cazcade.boardcast.client.main.widgets.list;
 
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.Entity;
+import cazcade.liquid.api.lsd.TransferEntity;
+import cazcade.liquid.api.lsd.TransferEntityCollection;
 import cazcade.liquid.api.request.AbstractRequest;
 import cazcade.liquid.api.request.BoardQueryRequest;
 import cazcade.vortex.bus.client.AbstractMessageCallback;
@@ -27,7 +29,6 @@ import com.google.gwt.view.client.*;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,18 +71,19 @@ public class BoardList extends HistoryAwareComposite {
             @Override protected void onRangeChanged(final HasData<Entity> display) {
                 //                Window.alert(queryType.toString());
                 Bus.get()
-                          .send(new BoardQueryRequest(queryType, User.currentAlias().uri(), display.getVisibleRange()
-                                                                                                       .getStart(), display.getVisibleRange()
-                                                                                                                           .getLength()), new AbstractMessageCallback<BoardQueryRequest>() {
-                              @Override public void onSuccess(BoardQueryRequest original, BoardQueryRequest message) {
-                                  super.onSuccess(original, message);
-                                  List<Entity> subEntities = message.response().children(Dictionary.CHILD_A);
-                                  updateRowData(display.getVisibleRange().getStart(), subEntities);
-                                  if (subEntities.size() < original.getMax()) {
-                                      cellList.setRowCount(original.getStart() + subEntities.size());
-                                  }
-                              }
-                          });
+                   .send(new BoardQueryRequest(queryType, User.currentAlias().uri(), display.getVisibleRange()
+                                                                                            .getStart(), display.getVisibleRange()
+                                                                                                                .getLength()), new AbstractMessageCallback<BoardQueryRequest>() {
+                       @Override public void onSuccess(BoardQueryRequest original, BoardQueryRequest message) {
+                           super.onSuccess(original, message);
+                           TransferEntityCollection<? extends TransferEntity> subEntities = message.response()
+                                                                                                   .children(Dictionary.CHILD_A);
+                           updateRowData(display.getVisibleRange().getStart(), subEntities.asList(Entity.class));
+                           if (subEntities.size() < original.getMax()) {
+                               cellList.setRowCount(original.getStart() + subEntities.size());
+                           }
+                       }
+                   });
 
             }
         };

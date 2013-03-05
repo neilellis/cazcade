@@ -10,10 +10,10 @@ import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrievePoolRequest;
 import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.bus.client.BusListener;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.common.client.User;
-import cazcade.vortex.gwt.util.client.$;
+import cazcade.vortex.gwt.util.client.ClientLog;
 import cazcade.vortex.gwt.util.client.StartupUtil;
 import cazcade.vortex.gwt.util.client.VortexThreadSafeExecutor;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
@@ -21,6 +21,7 @@ import cazcade.vortex.pool.widgets.PoolContentArea;
 import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
@@ -78,11 +79,27 @@ public class SnapshotBoard extends EntityBackedFormPanel {
         }
         poolURI = new LURI(BoardURL.from(value));
         if (isAttached()) {
-            $.async(new Runnable() {
+            final Runnable runnable1 = new Runnable() {
                 @Override public void run() {
                     refresh();
                 }
+            };
+            GWT.runAsync(new RunAsyncCallback() {
+                private final Runnable runnable = runnable1;
+
+                @Override public void onFailure(Throwable reason) {
+                    ClientLog.log(reason);
+                }
+
+                @Override public void onSuccess() {
+                    try {
+                        runnable.run();
+                    } catch (Exception e) {
+                        ClientLog.log(e);
+                    }
+                }
             });
+
 
         }
     }

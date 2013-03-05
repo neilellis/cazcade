@@ -207,7 +207,7 @@
         <div style="position: relative; overflow: hidden; width: 100%; height: auto;">
             <div style="height: 100%; width: 1024px; transform: translate(0px, 0px);" class="pool-area">
                 <div class="pool-area-content"
-                     style="position: relative; overflow: hidden; height: 636px; width: 1024px; background-image: url(&quot;http://127.0.0.1:8888/_static/_background/misc/corkboard.png&quot;);">
+                     style="position: relative; overflow: hidden; height: 636px; width: 1024px; background-image: url(&quot;http://127.0.0.1:8888/_static/_background/misc/corkboard.jpg&quot;);">
                 </div>
                 <div aria-hidden="true" style="visibility: hidden; opacity: 0; display: none;"
                      class="pool-visibility-ribbon"></div>
