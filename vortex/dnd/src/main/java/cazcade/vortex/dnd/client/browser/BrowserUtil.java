@@ -120,10 +120,10 @@ public class BrowserUtil {
     public static boolean isInternalImage(@Nonnull final String url) {
         final String pathString;
         if (url.startsWith("/")) {
-            pathString = url;
+            return true;
         } else {
             final int pathStart = url.indexOf('/', url.indexOf(':') + 3);
-            pathString = url.substring(pathStart + 1);
+            pathString = url.substring(pathStart);
         }
         return pathString.startsWith("/_static/_images")
                || pathString.startsWith("/_static/_decorations")

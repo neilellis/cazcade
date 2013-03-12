@@ -5,6 +5,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cazcade</groupId>
@@ -21,7 +22,7 @@
         <neo4j.version>1.8.1</neo4j.version>
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
-
+        <my.build.directory>target</my.build.directory>
     </properties>
     <modules>
         <module>common</module>
@@ -609,6 +610,7 @@
 
     <build>
 
+        <directory>${my.build.directory}</directory>
 
         <resources>
             <resource>
@@ -679,7 +681,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.5</version>
                 <configuration>
                     <useFile>false</useFile>
                     <excludes>
@@ -705,24 +706,10 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.1</version>
                 <configuration>
                     <!-- change to beanstalk -->
                     <tagBase>https://dev.cazcade.internal/svn/cazcade/tags/releases</tagBase>
@@ -731,17 +718,17 @@
                 </configuration>
             </plugin>
             <!--<plugin>-->
-                <!--<groupId>com.jelastic</groupId>-->
-                <!--<artifactId>jelastic-maven-plugin</artifactId>-->
-                <!--<version>1.7-SNAPSHOT</version>-->
-                <!--<configuration>-->
-                    <!--<email>${jelastic.username}</email>-->
-                    <!--<password>${jelastic.password}</password>-->
-                    <!--<context>ROOT</context>-->
-                    <!--<environment>boardcast</environment>-->
-                    <!--<comment>${buildNumber}</comment>-->
-                    <!--<api_hoster>app.j.layershift.co.uk</api_hoster>-->
-                <!--</configuration>-->
+            <!--<groupId>com.jelastic</groupId>-->
+            <!--<artifactId>jelastic-maven-plugin</artifactId>-->
+            <!--<version>1.7-SNAPSHOT</version>-->
+            <!--<configuration>-->
+            <!--<email>${jelastic.username}</email>-->
+            <!--<password>${jelastic.password}</password>-->
+            <!--<context>ROOT</context>-->
+            <!--<environment>boardcast</environment>-->
+            <!--<comment>${buildNumber}</comment>-->
+            <!--<api_hoster>app.j.layershift.co.uk</api_hoster>-->
+            <!--</configuration>-->
             <!--</plugin>-->
             <!--<plugin>-->
             <!--<groupId>org.zeroturnaround</groupId>-->
@@ -777,7 +764,11 @@
 
 
     <repositories>
-
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+        </repository>
 
         <repository>
             <id>repository.springframework.maven.milestone</id>
@@ -834,6 +825,11 @@
 
     <pluginRepositories>
         <pluginRepository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+        </pluginRepository>
+        <pluginRepository>
             <id>sonatype-oss-public</id>
             <url>https://oss.sonatype.org/content/groups/public</url>
             <releases>
@@ -852,6 +848,49 @@
     </scm>
 
     <profiles>
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>quick</id>
+            <properties>
+                <my.build.directory>/Volumes/ramdisk/maven/${project.groupId}-${project.artifactId}/target</my.build.directory>
+            </properties>
+            <!--<build>-->
+            <!--<plugins>-->
+            <!--<plugin>-->
+            <!--<groupId>net.java.maven-incremental-build</groupId>-->
+            <!--<artifactId>incremental-build-plugin</artifactId>-->
+            <!--<version>1.6</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<goals>-->
+            <!--<goal>incremental-build</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--</plugin>-->
+            <!--</plugins>-->
+            <!--</build>-->
+        </profile>
+
         <profile>
             <id>no-tests</id>
             <properties>

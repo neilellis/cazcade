@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--
+  ~ Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>cazcade</artifactId>
         <groupId>cazcade</groupId>
@@ -10,11 +15,11 @@
     <artifactId>apps</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>io</module>
         <module>twitter-auth</module>
         <module>upload</module>
-        <module>cli</module>
         <module>boardcast</module>
+        <module>cli</module>
+        <module>io</module>
 
     </modules>
 

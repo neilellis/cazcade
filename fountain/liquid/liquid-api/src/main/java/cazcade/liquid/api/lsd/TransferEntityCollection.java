@@ -40,7 +40,7 @@ public class TransferEntityCollection<T extends TransferEntity<T>> extends Abstr
         return values.get(index);
     }
 
-    public TransferEntityCollection<T> each(CollectionCallback<T> callback) {
+    public TransferEntityCollection<T> each(CollectionCallback<? super T> callback) {
         for (final T value : values) {
             callback.call(value);
         }

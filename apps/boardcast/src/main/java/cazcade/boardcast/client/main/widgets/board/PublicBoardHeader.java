@@ -8,6 +8,7 @@ import cazcade.liquid.api.lsd.Entity;
 import cazcade.liquid.api.request.UpdatePoolRequest;
 import cazcade.vortex.bus.client.Callback;
 import cazcade.vortex.bus.client.Request;
+import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.widgets.client.form.fields.VortexEditableLabel;
 import cazcade.vortex.widgets.client.image.EditableImage;
@@ -15,6 +16,7 @@ import cazcade.vortex.widgets.client.profile.Bindable;
 import cazcade.vortex.widgets.client.profile.EntityBackedFormPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -24,8 +26,10 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import static cazcade.liquid.api.lsd.Dictionary.*;
+import static com.google.gwt.http.client.URL.encode;
 
 
 /**
@@ -41,6 +45,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
     @UiField VortexEditableLabel url;
     @UiField DivElement          contentArea;
     @UiField EditableImage       boardImage;
+    @UiField DivElement          header;
 
 
     public PublicBoardHeader() {
@@ -66,6 +71,21 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
         bind(boardImage, IMAGE_URL);
     }
 
+    public void setBackgroundImage(@Nullable final String imageUrl) {
+        if (imageUrl != null) {
+            //                        Window.alert("setting background " + imageUrl);
+            if (BrowserUtil.isInternalImage(imageUrl)) {
+                header.getStyle()
+                      .setProperty("backgroundImage", "url('" + BrowserUtil.convertRelativeUrlToAbsolute(imageUrl) + "')");
+            } else {
+                header.getStyle().setProperty("backgroundImage", "url('./_website-snapshot?url=" +
+                                                                 encode(imageUrl) +
+                                                                 "&size=LARGE&width=1024&height=2048')");
+            }
+            header.getStyle().setWidth(1024, Style.Unit.PX);
+        }
+    }
+
     @Override protected boolean isSaveOnExit() {
         return false;
     }
@@ -89,7 +109,7 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
                                 field.setErrorMessage(message.response().$(DESCRIPTION));
                             }
                         }
-                                  );
+                );
 
             }
         };
@@ -111,6 +131,9 @@ public class PublicBoardHeader extends EntityBackedFormPanel {
 
         tag.setValue("#" + shortUrl);
         url.setValue("http://boardca.st/" + shortUrl);
+        //        if(entity.has(BACKGROUND_URL)) {
+        //            setBackgroundImage(entity.$(BACKGROUND_URL));
+        //        }
         WidgetUtil.showGracefully(contentArea, false);
     }
 

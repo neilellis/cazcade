@@ -4,6 +4,10 @@
 
 package cazcade.boardcast.client.main.widgets.board;
 
+import cazcade.liquid.api.LiquidUUID;
+import cazcade.liquid.api.lsd.Dictionary;
+import cazcade.vortex.bus.client.Bus;
+import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.common.client.User;
 import cazcade.vortex.gwt.util.client.WidgetUtil;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
@@ -22,6 +26,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
@@ -31,16 +36,16 @@ import javax.annotation.Nonnull;
  * @author neilellis@cazcade.com
  */
 public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware {
-    private static final NewBoardDialogUiBinder ourUiBinder = GWT.create(NewBoardDialogUiBinder.class);
+    interface NewBoardDialogUiBinder extends UiBinder<HTMLPanel, CreateBoardDialog> {}
 
+    private static final NewBoardDialogUiBinder ourUiBinder = GWT.create(NewBoardDialogUiBinder.class);
     @UiField HashtagTextBox tagBox;
     @UiField DivElement     shortnameArea;
     @UiField CheckBox       listedCheckBox;
-
-    private Runnable       onComplete;
-    private HistoryManager historyManager;
-    private String         historyToken;
-    private boolean        unlistedToken;
+    private  Runnable       onComplete;
+    private  HistoryManager historyManager;
+    private  String         historyToken;
+    private  boolean        unlistedToken;
 
     public CreateBoardDialog() {
         super();
@@ -71,9 +76,28 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
             }
         });
 
-        tagBox.setValue(User.getCurrentAliasName()
-                        + "-"
-                        + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36));
+        tagBox.setValue(User.getCurrentAliasName() + "-" + Integer.toString(WidgetUtil.secondsFromBeginningOfBoardcastEpoch(), 36));
+
+        onComplete = new Runnable() {
+            @Override public void run() {
+                hide();
+                final String url = Window.Location.getParameter("url");
+                if (!isListed() || url != null) {
+                    Bus.get().retrieveUUID(new BusService.UUIDCallback() {
+                        @Override
+                        public void callback(@Nonnull final LiquidUUID uuid) {
+                            final String unlistedShortUrl = "-" +
+                                                            uuid.toString().toLowerCase() +
+                                                            "~" +
+                                                            User.currentAlias().$(Dictionary.NAME);
+                            HistoryManager.get().navigate(unlistedShortUrl);
+                        }
+                    });
+                } else {
+                    HistoryManager.get().navigate(getBoard());
+                }
+            }
+        };
     }
 
     @Override public void show() {
@@ -93,23 +117,23 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
         return false;
     }
 
-    @Override public void beforeInactive() {
-
-    }
-
-    @Override public void onActive() {
-
-    }
-
     @UiHandler("cancel")
     public void cancelClick(final ClickEvent e) {
         hide();
         History.back();
     }
 
+    @Override public void beforeInactive() {
+
+    }
+
     @UiHandler("done")
     public void createClick(final ClickEvent e) {
         onComplete.run();
+    }
+
+    @Override public void onActive() {
+
     }
 
     public String getBoard() {
@@ -120,8 +144,7 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
     public boolean isListed() {
         if (unlistedToken) {
             return false;
-        }
-        else {
+        } else {
             return listedCheckBox.getValue();
         }
     }
@@ -132,12 +155,16 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
         if ("unlisted".equals(token)) {
             unlistedToken = true;
             onComplete.run();
-        }
-        else {
+        } else {
             unlistedToken = false;
             showDown();
         }
     }
+
+    public void setOnComplete(final Runnable onComplete) {
+        this.onComplete = onComplete;
+    }
+
 
     @Override
     public HistoryManager getHistoryManager() {
@@ -159,9 +186,5 @@ public class CreateBoardDialog extends VortexDialogPanel implements HistoryAware
         this.historyToken = historyToken;
     }
 
-    public void setOnComplete(final Runnable onComplete) {
-        this.onComplete = onComplete;
-    }
 
-    interface NewBoardDialogUiBinder extends UiBinder<HTMLPanel, CreateBoardDialog> {}
 }

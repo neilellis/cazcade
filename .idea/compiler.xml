@@ -108,7 +108,6 @@
         <module name="boardcast" />
         <module name="bus" />
         <module name="cazcade.apps.cli" />
-        <module name="cli (Cazcade)" />
         <module name="common (1) (cazcade)" />
         <module name="common (2) (fountain)" />
         <module name="common (3) (cazcade.vortex)" />

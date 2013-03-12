@@ -32,6 +32,7 @@ public class ClientLog {
     private static final VortexThreadSafeExecutor executor          = new VortexThreadSafeExecutor();
 
     static {
+        debugMode = Config.debug();
         String debugType = Config.getDebugType();
         if (debugType == null) {
             type = Type.NONE;
@@ -72,6 +73,7 @@ public class ClientLog {
     public static void log(final Type type, @Nullable final String message, @Nullable final Throwable exception) {
         if (type == ClientLog.type || exception != null) {
             logInternal(message, exception);
+        } else {
         }
 
     }
@@ -143,6 +145,7 @@ public class ClientLog {
 
     private static void doLog(@Nullable final String message, @Nullable final Throwable exception) {
         if (isDebugMode()) {
+            Window.setStatus(message);
             final StringBuffer localBuffer = new StringBuffer();
             if (exception != null) {
                 localBuffer.append("*****************************\n");
@@ -234,6 +237,6 @@ public class ClientLog {
     }
 
     private static native void consoleLog(String message) /*-{
-        console.log(message);
+        $wnd.console.log(message);
     }-*/;
 }

@@ -7,7 +7,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:image="urn:import:cazcade.vortex.widgets.client.image">
     <g:HTMLPanel>
-        <div class="page-header">
+        <div class="page-header" ui:field="header">
             <div class="page-header-inner">
 
                 <div ui:field="contentArea" class="board-page-header-content">

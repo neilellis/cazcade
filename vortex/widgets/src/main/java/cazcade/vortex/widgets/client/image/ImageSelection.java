@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.image;
 
 import com.google.gwt.core.client.GWT;
@@ -27,15 +31,11 @@ public class ImageSelection extends Composite {
         }
     }
 
-    interface ImageSelectionUiBinder extends UiBinder<HTMLPanel, ImageSelection> {
-    }
+    interface ImageSelectionUiBinder extends UiBinder<HTMLPanel, ImageSelection> {}
 
     private static final ImageSelectionUiBinder ourUiBinder = GWT.create(ImageSelectionUiBinder.class);
 
-    @UiField
-    HTMLPanel panel;
-    @UiField
-    HTMLPanel grid;
+    @UiField HTMLPanel grid;
 
     public ImageSelection() {
         super();

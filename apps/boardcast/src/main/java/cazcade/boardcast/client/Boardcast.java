@@ -5,23 +5,22 @@
 package cazcade.boardcast.client;
 
 import cazcade.boardcast.client.main.version.VersionNumberChecker;
+import cazcade.boardcast.client.main.widgets.BoardcastChatViewProxy;
 import cazcade.boardcast.client.main.widgets.TopBar;
 import cazcade.boardcast.client.main.widgets.board.BoardcastChatView;
-import cazcade.boardcast.client.main.widgets.board.CreateBoardDialog;
+import cazcade.boardcast.client.main.widgets.board.CreateBoardDialogProxy;
 import cazcade.boardcast.client.main.widgets.board.PublicBoardProxy;
-import cazcade.boardcast.client.main.widgets.board.SnapshotBoard;
+import cazcade.boardcast.client.main.widgets.board.SnapshotBoardProxy;
 import cazcade.boardcast.client.main.widgets.list.BoardListProxy;
 import cazcade.boardcast.client.main.widgets.login.BoardcastLoginOrRegisterPanel;
 import cazcade.boardcast.client.preflight.PreflightCheck;
 import cazcade.boardcast.client.resources.BoardcastClientBundle;
-import cazcade.liquid.api.LiquidUUID;
 import cazcade.liquid.api.SessionIdentifier;
 import cazcade.liquid.api.lsd.Dictionary;
 import cazcade.liquid.api.lsd.TransferEntity;
 import cazcade.liquid.api.request.RetrieveAliasRequest;
 import cazcade.vortex.bus.client.AbstractMessageCallback;
 import cazcade.vortex.bus.client.Bus;
-import cazcade.vortex.bus.client.BusService;
 import cazcade.vortex.common.client.User;
 import cazcade.vortex.comms.datastore.client.DataStoreService;
 import cazcade.vortex.comms.datastore.client.GWTDataStore;
@@ -33,7 +32,7 @@ import cazcade.vortex.gwt.util.client.analytics.Track;
 import cazcade.vortex.gwt.util.client.history.AbstractLazyHistoryAwareFactory;
 import cazcade.vortex.gwt.util.client.history.HistoryAware;
 import cazcade.vortex.gwt.util.client.history.HistoryManager;
-import cazcade.vortex.widgets.client.stream.ActivityStreamPanel;
+import cazcade.vortex.widgets.client.stream.ActivityStreamPanelProxy;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
@@ -73,7 +72,7 @@ public class Boardcast implements EntryPoint {
         BoardcastClientBundle.INSTANCE.css().ensureInjected();
         Config.init();
         ClientLog.setDebugMode(Config.debug());
-        ClientLog.setDebugMode(Config.dev());
+        ClientLog.setDevMode(Config.dev());
 
 
         final RootPanel logPanel = RootPanel.get("log-panel");
@@ -121,7 +120,7 @@ public class Boardcast implements EntryPoint {
 
 
         registerRequest = Window.Location.getPath().startsWith("/_login-register");
-        loginRequest = Window.Location.getPath().start sWith("/_login-login");
+        loginRequest = Window.Location.getPath().startsWith("/_login-login");
         createRequest = Window.Location.getPath().startsWith("/_create-");
         createUnlistedRequest = Window.Location.getPath().startsWith("/_create-unlisted");
 
@@ -223,13 +222,13 @@ public class Boardcast implements EntryPoint {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
 
-                return GWT.create(ActivityStreamPanel.class);
+                return GWT.create(BoardcastChatViewProxy.class);
             }
         });
         historyManager.registerTopLevelComposite("activity", new AbstractLazyHistoryAwareFactory() {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
-                return GWT.create(ActivityStreamPanel.class);
+                return GWT.create(ActivityStreamPanelProxy.class);
             }
         });
         historyManager.registerTopLevelComposite("list", new AbstractLazyHistoryAwareFactory() {
@@ -244,39 +243,25 @@ public class Boardcast implements EntryPoint {
         historyManager.registerTopLevelComposite("create", new AbstractLazyHistoryAwareFactory() {
             @Nonnull @Override
             protected HistoryAware getInstanceInternal() {
-                final CreateBoardDialog createBoardDialog = new CreateBoardDialog();
-                createBoardDialog.setOnComplete(new Runnable() {
-                    @Override
-                    public void run() {
-                        createBoardDialog.hide();
-                        final String board = createBoardDialog.getBoard();
-                        final boolean listed = createBoardDialog.isListed();
-                        final String url = Window.Location.getParameter("url");
-                        if (!listed || url != null) {
-                            Bus.get().retrieveUUID(new BusService.UUIDCallback() {
-                                @Override
-                                public void callback(@Nonnull final LiquidUUID uuid) {
-                                    final String unlistedShortUrl = "-" +
-                                                                    uuid.toString().toLowerCase() +
-                                                                    "~" +
-                                                                    User.currentAlias().$(Dictionary.NAME);
-                                    HistoryManager.get().navigate(unlistedShortUrl);
-                                }
-                            });
-                        } else {
-                            HistoryManager.get().navigate(board);
-                        }
-                    }
-                });
-                return createBoardDialog;
+                return GWT.create(CreateBoardDialogProxy.class);
             }
         });
     }
 
     private void addSnapshotBoard() {
         historyManager = new HistoryManager(SNAPSHOT_PANEL_ID);
-        historyManager.registerTopLevelComposite("snapshot", new SnapshotBoardFactory(false));
-        historyManager.registerTopLevelComposite("embed", new SnapshotBoardFactory(true));
+        historyManager.registerTopLevelComposite("snapshot", new AbstractLazyHistoryAwareFactory() {
+            @Nonnull @Override
+            protected HistoryAware getInstanceInternal() {
+                return GWT.create(SnapshotBoardProxy.class);
+            }
+        });
+        historyManager.registerTopLevelComposite("embed", new AbstractLazyHistoryAwareFactory() {
+            @Nonnull @Override
+            protected HistoryAware getInstanceInternal() {
+                return GWT.create(SnapshotBoardProxy.class);
+            }
+        });
     }
 
     private void createLoginPanel(@Nonnull final Runnable loginAction) {
@@ -391,23 +376,6 @@ public class Boardcast implements EntryPoint {
                             });
         } else {
             loginUser(identity, loginAction);
-        }
-    }
-
-    private static class SnapshotBoardFactory extends AbstractLazyHistoryAwareFactory {
-        private final boolean embedded;
-
-        private SnapshotBoardFactory(final boolean embedded) {
-            super();
-
-            this.embedded = embedded;
-        }
-
-        @Nonnull @Override
-        protected HistoryAware getInstanceInternal() {
-            final SnapshotBoard board = new SnapshotBoard(embedded);
-            RootPanel.get(SNAPSHOT_PANEL_ID).add(board);
-            return board;
         }
     }
 

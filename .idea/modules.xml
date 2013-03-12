@@ -7,7 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/cazcade.iml" filepath="$PROJECT_DIR$/cazcade.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/cazcade.apps.iml" filepath="$PROJECT_DIR$/apps/cazcade.apps.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/cli/cazcade.apps.cli.iml" filepath="$PROJECT_DIR$/apps/cli/cazcade.apps.cli.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" filepath="$PROJECT_DIR$/apps/cli/cli (Cazcade).iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/cli/cazcade.apps.cli.iml" filepath="$PROJECT_DIR$/apps/cli/cazcade.apps.cli.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common (1) (cazcade).iml" filepath="$PROJECT_DIR$/common/common (1) (cazcade).iml" />
       <module fileurl="file://$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" filepath="$PROJECT_DIR$/fountain/common/common (2) (fountain).iml" />
       <module fileurl="file://$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" filepath="$PROJECT_DIR$/vortex/common/common (3) (cazcade.vortex).iml" />

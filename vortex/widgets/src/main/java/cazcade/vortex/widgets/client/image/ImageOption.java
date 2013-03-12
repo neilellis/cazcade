@@ -1,6 +1,9 @@
+/*
+ * Copyright (c) 2009-2013 Cazcade Limited  - All Rights Reserved
+ */
+
 package cazcade.vortex.widgets.client.image;
 
-import cazcade.vortex.dnd.client.browser.BrowserUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -16,7 +19,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class ImageOption extends Composite {
 
     private ImageSelection imageSelection;
-    private String url;
+    private String         url;
 
     public void setThumbnail(final String thumbnail) {
         image.setUrl(thumbnail);
@@ -27,7 +30,7 @@ public class ImageOption extends Composite {
     }
 
     public String getUrl() {
-        return BrowserUtil.convertRelativeUrlToAbsolute(url);
+        return url;
     }
 
     public void setUrl(final String url) {
@@ -35,19 +38,17 @@ public class ImageOption extends Composite {
     }
 
 
-    interface ImageOptionUiBinder extends UiBinder<HTMLPanel, ImageOption> {
-    }
+    interface ImageOptionUiBinder extends UiBinder<HTMLPanel, ImageOption> {}
 
     private static final ImageOptionUiBinder ourUiBinder = GWT.create(ImageOptionUiBinder.class);
 
-    @UiField
-    CachedImage image;
+    @UiField CachedImage image;
 
     public ImageOption() {
         super();
         final HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
         initWidget(rootElement);
-//        image.sinkEvents(Event.MOUSEEVENTS);
+        //        image.sinkEvents(Event.MOUSEEVENTS);
     }
 
     @UiHandler("image")

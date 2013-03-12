@@ -67,11 +67,12 @@ public class CachedImage extends Image {
     }
 
     @Override
-    protected void onAttach() {
-        super.onAttach();
+    protected void onLoad() {
+        super.onLoad();
         if (getUrl() == null || getUrl().isEmpty()) {
             super.setUrl(placeholderImage());
         }
+        updateImageUrl();
     }
 
     @Nonnull
@@ -103,7 +104,9 @@ public class CachedImage extends Image {
         //        }
         final String oldUrl = this.url;
         this.url = url;
-        updateImageUrl();
+        if (isAttached()) {
+            updateImageUrl();
+        }
         if (isAttached() && (oldUrl == null || !oldUrl.equals(url))) {
             if (onChangeAction != null) { onChangeAction.run(); }
         }
@@ -221,7 +224,6 @@ public class CachedImage extends Image {
             spinner.stop();
         }
     }
-
 
     public int getWidthWithDefault() {
         if (getOffsetWidth() > 0 && getOffsetWidth() > requestedWidth) {

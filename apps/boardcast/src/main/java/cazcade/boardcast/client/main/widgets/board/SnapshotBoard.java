@@ -55,13 +55,13 @@ public class SnapshotBoard extends EntityBackedFormPanel {
     @Nonnull
     private final VortexThreadSafeExecutor threadSafeExecutor = new VortexThreadSafeExecutor();
 
-    public SnapshotBoard(final boolean embedded) {
+    public SnapshotBoard() {
         super();
         initWidget(ourUiBinder.createAndBindUi(this));
         WidgetUtil.hide(getWidget(), false);
-        if (embedded) {
-            addStyleName("embedded-board");
-        }
+        //        if (embedded) {
+        //            addStyleName("embedded-board");
+        //        }
     }
 
     @Override

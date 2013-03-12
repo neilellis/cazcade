@@ -16,6 +16,10 @@
   font-family: Pacifico, Arial, cursive, sans-serif;
 }
 
+.stencil-font {
+  font-family: 'Allerta Stencil', Arial, cursive, sans-serif;
+}
+
 .marker-font {
   font-family: 'Permanent Marker', "Comic Sans MS", "Arial Black", Gadget, cursive;
 }
@@ -24,11 +28,25 @@
   font-family: 'Annie Use Your Telescope', "Comic Sans MS", "Arial Black", Gadget, cursive;
 }
 
+//Hide while web font is loading
+.wf-loading {
+  .handwriting-font, .marker-font, .clear-handwriting-font {
+    visibility: none;
+  }
+}
+
 .border-radius(@radius: 5px) {
   border-radius: @radius;
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
   -o-border-radius: @radius;
+}
+
+.text-shadow(@shadow) {
+  text-shadow: @shadow;
+  -webkit-text-shadow: @shadow;
+  -moz-text-shadow: @shadow;
+  -o-text-shadow: @shadow;
 }
 
 .border-radius4(@tl, @tr, @br, @bl) {

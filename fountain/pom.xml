@@ -27,13 +27,14 @@
         <module>notification</module>
         <module>datastore-client</module>
         <module>datastore-server</module>
-        <module>rest-server</module>
         <module>security</module>
         <module>dist</module>
         <module>social</module>
-        <module>test</module>
         <module>messaging</module>
+        <module>rest-server</module>
+        <module>test</module>
     </modules>
+
 
     <dependencies>
         <dependency>

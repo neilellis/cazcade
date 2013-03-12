@@ -26,6 +26,7 @@ import cazcade.vortex.pool.objects.PoolObjectPresenter;
 import cazcade.vortex.pool.objects.PoolObjectPresenterFactory;
 import cazcade.vortex.widgets.client.panels.scroll.VortexScrollPanel;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
@@ -99,6 +100,18 @@ public class PoolContentArea extends Composite {
     }
 
     public void init(@Nonnull final TransferEntity poolEntity, final VortexThreadSafeExecutor threadSafeExecutor) {
+        GWT.runAsync(new RunAsyncCallback() {
+            @Override public void onFailure(Throwable throwable) {
+                ClientLog.log(throwable);
+            }
+
+            @Override public void onSuccess() {
+                initInternal(poolEntity, threadSafeExecutor);
+            }
+        });
+    }
+
+    private void initInternal(TransferEntity poolEntity, final VortexThreadSafeExecutor threadSafeExecutor) {
         setBackgroundImage(poolEntity.has(BACKGROUND_URL) ? poolEntity.$(BACKGROUND_URL) : DEFAULT_BACKGROUND_IMAGE);
         //        backgroundImage.setWidth("100%");
         //        backgroundImage.setHeight("100%");
@@ -173,7 +186,7 @@ public class PoolContentArea extends Composite {
 
     public void setBackgroundImage(@Nullable final String imageUrl) {
         if (container != null && imageUrl != null) {
-            //            Window.alert("setting background "+imageUrl);
+            //                        Window.alert("setting background " + imageUrl);
             if (BrowserUtil.isInternalImage(imageUrl)) {
                 container.getElement()
                          .getStyle()

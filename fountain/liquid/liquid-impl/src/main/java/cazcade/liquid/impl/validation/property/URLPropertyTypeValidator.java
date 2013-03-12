@@ -14,7 +14,9 @@ import javax.annotation.Nonnull;
  */
 public class URLPropertyTypeValidator implements PropertyTypeValidator {
     public boolean validate(@Nonnull final PropertyFormatValidator propertyFormatValidator, final String nextValidationString, @Nonnull final String value) {
-        return value.toLowerCase().matches("^((http[s]?|ftp|mailto):)(.*)$")
-               && propertyFormatValidator.isValidFormat(nextValidationString, value);
+        return value.startsWith("/")
+               || value.startsWith("./")
+               || value.toLowerCase().matches("^((http[s]?|ftp|mailto):)(.*)$")
+                  && propertyFormatValidator.isValidFormat(nextValidationString, value);
     }
 }

@@ -15,10 +15,22 @@
     <inherits name="com.google.gwt.modernizr.Gwtmodernizr"/>
     <inherits name="com.google.gwt.resources.Resources"/>
 
+    <!--These are the browsers we support-->
+    <set-property name="user.agent" value="safari,gecko1_8"/>
+    <!--<set-property name="user.agent" value="safari,gecko1_8,ie9"/>-->
+
+    <!--We don't support this just yet, will do again soon-->
+    <set-property name="mobile.user.agent" value="none"/>
+
+    <!--No I18n yet-->
+    <extend-property name='locale' values='en'/>
+    <set-property name='locale' value='en'/>
 
     <servlet path="/ScriptService" class="cazcade.boardcast.server.ScriptServiceImpl"/>
     <servlet path="/BuildVersionService" class="cazcade.boardcast.server.BuildVersionServiceImpl"/>
+
     <set-configuration-property name="CssResource.mergeEnabled" value="false"/>
+    <set-property name="compiler.useSourceMaps" value="true"/>
 
     <entry-point class='cazcade.boardcast.client.Boardcast'/>
 
